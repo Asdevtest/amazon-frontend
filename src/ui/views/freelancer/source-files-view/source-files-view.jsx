@@ -1,21 +1,21 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { SourceFilesViewModel } from './source-files-view.model'
-import { styles } from './source-files-view.style.js'
+import { useStyles } from './source-files-view.style.js'
 
-export const SourceFilesViewRaw = ({ classes: classNames, history, location }) => {
+export const SourceFilesView = observer(({ history, location }) => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new SourceFilesViewModel({ history, location }))
 
   useEffect(() => {
@@ -24,17 +24,17 @@ export const SourceFilesViewRaw = ({ classes: classNames, history, location }) =
 
   return (
     <>
-      <div className={classNames.tablePanelWrapper}>
+      <div className={styles.searchContainer}>
         <SearchInput
           placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}`}
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           onChange={viewModel.onChangeNameSearchValue}
         />
       </div>
 
-      <div className={classNames.dataGridWrapper}>
-        <MemoDataGrid
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
@@ -81,6 +81,4 @@ export const SourceFilesViewRaw = ({ classes: classNames, history, location }) =
       />
     </>
   )
-}
-
-export const SourceFilesView = withStyles(observer(SourceFilesViewRaw), styles)
+})

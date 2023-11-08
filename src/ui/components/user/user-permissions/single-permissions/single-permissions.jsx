@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -60,7 +60,7 @@ export const SinglePermissions = observer(() => {
         </Button>
       </div>
       <div className={classNames.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={sortModel}

@@ -137,14 +137,14 @@ export class ClientFreelanceNotificationsViewModel {
     this.setDataGridState()
   }
 
-  onClickReply(requestId, chatId) {
+  onClickReply(requestId) {
     if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
       this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${requestId}`, {
-        chatId,
+        requestId,
       })
     } else {
       this.history.push(`/client/freelance/vacant-requests/custom-search-request?request-id=${requestId}`, {
-        chatId,
+        requestId,
       })
     }
     // const win = window.open(

@@ -10,7 +10,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
-  ShortBoxDimensions,
+  ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -180,7 +180,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     ),
 
     renderCell: params => (
-      <ShortBoxDimensions
+      <ShortBoxDimensionsCell
         isShipping
         box={params.row.originalData}
         volumeWeightCoefficient={params.row.volumeWeightCoefficient}

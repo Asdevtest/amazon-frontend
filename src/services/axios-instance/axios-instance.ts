@@ -20,12 +20,12 @@ export const getAxiosInstance = () => {
       const originalConfig = error.config
       if ((error.response.status === 403 || error.response.status === 401) && !originalConfig._retry) {
         originalConfig._retry = true
-        const userModel = SettingsModel.loadValue('UserModel')
+        const userModel = await SettingsModel.loadValue('UserModel')
         const { refreshToken } = userModel
         const tokenResponse = await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
         const accessToken = tokenResponse?.data?.accessToken
-        restApiService.setAccessToken(accessToken)
-        SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+        await restApiService.setAccessToken(accessToken)
+        await SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
         const data = await axiosInstance({
           ...originalConfig,
           headers: {

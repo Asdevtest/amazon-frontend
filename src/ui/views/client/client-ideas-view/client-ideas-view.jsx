@@ -24,20 +24,20 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
 import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
-import { useClientIdeasViewStyles } from '@views/client/client-ideas-view/client-ideas-view.styles'
+import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.styles'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-export const ClientIdeasView = observer(props => {
-  const [viewModel] = useState(() => new ClientIdeasViewModel({ history: props.history }))
-  const { classes: styles } = useClientIdeasViewStyles()
+export const ClientIdeasView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ClientIdeasViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -73,7 +73,7 @@ export const ClientIdeasView = observer(props => {
       </div>
 
       <div className={styles.datagridWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
@@ -111,7 +111,7 @@ export const ClientIdeasView = observer(props => {
       </div>
 
       <Modal
-        dialogContextClassName={styles.modalDialogContext}
+        dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >

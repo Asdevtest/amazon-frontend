@@ -22,8 +22,8 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -159,7 +159,7 @@ export const ClientInStockBoxesViewRaw = props => {
         </div>
 
         <div className={classNames.tasksWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
@@ -209,7 +209,7 @@ export const ClientInStockBoxesViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             onCellDoubleClick={params =>

@@ -26,7 +26,7 @@ export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
   return (
     <Modal
       missClickModalOn
-      dialogContextClassName={classNames.modalDialogContextClassName}
+      dialogClassName={classNames.modaldialogClassName}
       openModal={openModal}
       setOpenModal={setOpenModal}
     >

@@ -19,7 +19,7 @@ import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -116,7 +116,7 @@ export const BuyerMyOrdersViewRaw = props => {
         </div>
 
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
@@ -165,7 +165,7 @@ export const BuyerMyOrdersViewRaw = props => {
           viewModel.setUpdateSupplierData(false)
           viewModel.onTriggerOpenModal('showOrderModal')
         }}
-        dialogContextClassName={classNames.dialogContextClassName}
+        dialogClassName={classNames.dialogClassName}
       >
         <EditOrderModal
           platformSettings={viewModel.platformSettings}

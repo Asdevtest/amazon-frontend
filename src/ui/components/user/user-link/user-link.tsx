@@ -29,7 +29,7 @@ interface UserLinkProps {
   readOnlyRating?: boolean
 }
 
-export const UserLink: FC<UserLinkProps> = observer(
+export const UserLink: FC<UserLinkProps> = React.memo(
   ({
     name,
     userId,

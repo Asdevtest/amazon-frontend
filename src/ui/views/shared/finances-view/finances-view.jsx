@@ -5,7 +5,7 @@ import { withStyles } from 'tss-react/mui'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -27,7 +27,7 @@ export const FinancesViewRaw = props => {
   return (
     <React.Fragment>
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           getRowClassName={getRowClassName}

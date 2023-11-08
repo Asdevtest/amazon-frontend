@@ -112,4 +112,20 @@ export const useClassNames = makeStyles()(theme => ({
   small: {
     height: '30px',
   },
+
+  transparent: {
+    padding: 0,
+    color: theme.palette.text.general,
+    background: 'transparent',
+
+    '&:hover': {
+      color: theme.palette.text.general,
+      background: 'transparent',
+    },
+
+    '&: disabled': {
+      color: theme.palette.text.general,
+      background: 'transparent',
+    },
+  },
 }))

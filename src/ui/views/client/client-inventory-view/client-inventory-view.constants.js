@@ -67,3 +67,9 @@ export const filtersFields = [
 ]
 
 export const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
+
+export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+
+export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
+
+export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']

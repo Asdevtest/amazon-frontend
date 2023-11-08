@@ -104,7 +104,6 @@ class ChatModelStatic {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
           messages: [],
-          lastMessage: chat.messages[chat.messages.length - 1],
           pagination: {
             limit: 20,
             offset: 0,

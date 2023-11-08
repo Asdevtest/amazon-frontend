@@ -22,6 +22,10 @@
   src: local('Manrope'), url('./fonts/Manrope-Bold.ttf') format('ttf');
 }
 
+:root {
+  color-scheme: dark light;
+}
+
 /* Reset and base styles  */
 * {
   padding: 0px;
@@ -145,9 +149,4 @@ button::-moz-focus-inner {
 
 label {
   cursor: pointer;
-}
-
-/* zoomModal styles, until unnecessary modals are removed */
-.ReactModalPortal > div {
-  z-index: 2000 !important;
 }

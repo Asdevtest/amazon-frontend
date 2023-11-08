@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-import { ShortUserType } from '@typings/master-user'
+import { IShortUser } from '@typings/master-user'
 
 export class SendMessageRequestParamsContract {
   @IsNotEmpty()
@@ -23,7 +23,7 @@ export class SendMessageRequestParamsContract {
   public replyMessageId?: string | null
 
   @IsOptional()
-  public user?: Omit<ShortUserType, 'rating'>
+  public user?: Omit<IShortUser, 'rating'>
 
   @IsOptional()
   @IsString()

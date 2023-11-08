@@ -11,7 +11,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -43,7 +43,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         </div>
 
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
@@ -84,7 +84,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         missClickModalOn
         openModal={viewModel.showOrderModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-        dialogContextClassName={classNames.dialogContextClassName}
+        dialogClassName={classNames.dialogClassName}
       >
         <EditOrderModal
           isPendingOrder

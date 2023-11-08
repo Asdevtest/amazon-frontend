@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,20 +9,20 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-sent-batches-view.style'
+import { useStyles } from './warehouse-sent-batches-view.style'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 
-export const WarehouseSentBatchesViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const WarehouseSentBatchesView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -32,31 +31,13 @@ export const WarehouseSentBatchesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        {/* <div className={classNames.btnsWrapper}>
-                <Button
-                  disableElevation
-                  disabled
-                  color="primary"
-                  variant="contained"
-                  onClick={() => onTriggerOpenModal('showConfirmModal')}
-                >
-                  {'Сancel sending'}
-                </Button>
-              </div> */}
-
-        <div className={classNames.headerWrapper}>
-          {viewModel.isArchive ? (
-            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
-              {t(TranslationKey['Actual batches'])}
-            </Button>
-          ) : (
-            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
-              {t(TranslationKey['Open archive'])}
-            </Button>
-          )}
+        <div className={styles.headerWrapper}>
+          <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+            {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
+          </Button>
 
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
             onSubmit={viewModel.onSearchSubmit}
@@ -65,8 +46,8 @@ export const WarehouseSentBatchesViewRaw = props => {
           <div />
         </div>
 
-        <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+        <div className={styles.datagridWrapper}>
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
@@ -156,6 +137,4 @@ export const WarehouseSentBatchesViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const WarehouseSentBatchesView = withStyles(observer(WarehouseSentBatchesViewRaw), styles)
+})

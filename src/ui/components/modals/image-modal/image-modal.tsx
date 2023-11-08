@@ -71,15 +71,13 @@ export const ImageModal: FC<Props> = memo(props => {
 
   return (
     <Modal
-      missClickModalOn
       openModal={isOpenModal}
       setOpenModal={() => {
         handleOpenModal()
         handleCurrentImageIndex(photoIndex)
         updateImagesForLoad()
       }}
-      isWarning={false}
-      dialogContextClassName={styles.modalContainer}
+      dialogClassName={styles.modalContainer}
     >
       <div className={styles.wrapper}>
         {showPreviews && (

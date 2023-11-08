@@ -46,7 +46,7 @@ export const FreelanceRequestDetailsModal = props => {
       fullWidth
       maxWidth={1229}
       openModal={isOpenModal}
-      dialogContextClassName={styles.wrapper}
+      dialogClassName={styles.wrapper}
       setOpenModal={handleOpenModal}
     >
       <div className={styles.header}>

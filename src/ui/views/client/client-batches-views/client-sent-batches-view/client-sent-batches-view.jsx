@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,8 +9,8 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { ArchiveIcon } from '@components/shared/svg-icons'
@@ -19,13 +18,13 @@ import { ArchiveIcon } from '@components/shared/svg-icons'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-sent-batches-view.style'
+import { useStyles } from './client-sent-batches-view.style'
 
 import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 
-export const ClientSentBatchesViewRaw = props => {
-  const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history: props.history }))
-  const { classes: className } = props
+export const ClientSentBatchesView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -34,58 +33,42 @@ export const ClientSentBatchesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={className.btnsWrapper}>
-          <Button
-            // tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-            variant="outlined"
-            className={className.openArchiveBtn}
-            onClick={viewModel.onTriggerArchive}
-          >
-            {viewModel.isArchive ? t(TranslationKey['Back to actual batches']) : t(TranslationKey['Open archive'])}
+        <div className={styles.btnsWrapper}>
+          <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+            {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
           </Button>
 
           <SearchInput
             key={'client_batches_awaiting-batch_search_input'}
-            inputClasses={className.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
             onSubmit={viewModel.onSearchSubmit}
           />
 
-          <div className={className.simpleBtnsWrapper}>
-            <Button
-              // tooltipInfoContent={t(
-              //   TranslationKey['Delete the selected product (the product is moved to the archive)'],
-              // )}
-              disabled={!viewModel.selectedBatches.length}
-              variant="outlined"
-              className={className.archiveAddBtn}
-              sx={{
-                '&.Mui-disabled': {
-                  background: 'none',
-                },
-              }}
-              onClick={viewModel.onClickTriggerArchOrResetProducts}
-            >
-              {viewModel.isArchive ? (
-                t(TranslationKey['Relocate from archive'])
-              ) : (
-                <>
-                  {t(TranslationKey['Move to archive'])}
-                  {<ArchiveIcon />}
-                </>
-              )}
-            </Button>
-          </div>
+          <Button
+            disabled={!viewModel.selectedBatches.length}
+            variant="outlined"
+            className={styles.archiveAddBtn}
+            onClick={viewModel.onClickTriggerArchOrResetProducts}
+          >
+            {viewModel.isArchive ? (
+              t(TranslationKey['Relocate from archive'])
+            ) : (
+              <>
+                {t(TranslationKey['Move to archive'])}
+                {<ArchiveIcon />}
+              </>
+            )}
+          </Button>
         </div>
 
-        <div className={className.boxesFiltersWrapper}>
+        <div className={styles.boxesFiltersWrapper}>
           <CustomSwitcher
             switchMode={'medium'}
             condition={viewModel.currentStorekeeperId}
             switcherSettings={[
               ...viewModel.storekeepersData
-                .slice()
                 .filter(storekeeper => storekeeper.boxesCount !== 0)
                 .sort((a, b) => a.name?.localeCompare(b.name))
                 .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
@@ -95,8 +78,8 @@ export const ClientSentBatchesViewRaw = props => {
           />
         </div>
 
-        <div className={className.datagridWrapper}>
-          <MemoDataGrid
+        <div className={styles.datagridWrapper}>
+          <CustomDataGrid
             useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
@@ -187,6 +170,4 @@ export const ClientSentBatchesViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const ClientSentBatchesView = withStyles(observer(ClientSentBatchesViewRaw), styles)
+})

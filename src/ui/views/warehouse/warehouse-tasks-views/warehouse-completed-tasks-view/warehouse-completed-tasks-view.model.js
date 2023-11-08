@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -13,13 +12,11 @@ import { UserModel } from '@models/user-model'
 import { warehouseCompletedTasksViewColumns } from '@components/table/table-columns/warehouse/completed-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 
 export class WarehouseCompletedViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   completedTasks = []
   completedTasksBase = []
@@ -31,8 +28,6 @@ export class WarehouseCompletedViewModel {
   curTaskType = null
   curTaskPriority = null
 
-  rowCount = 0
-
   volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
@@ -41,6 +36,7 @@ export class WarehouseCompletedViewModel {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
@@ -51,24 +47,18 @@ export class WarehouseCompletedViewModel {
   showTaskInfoModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.completedTasks,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
@@ -97,47 +87,38 @@ export class WarehouseCompletedViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
   onClickOperationTypeBtn(type) {
-    runInAction(() => {
-      this.curTaskType = type
-    })
+    this.curTaskType = type
+
     this.getCompletedTasksPagMy()
   }
 
   onClickTaskPriorityBtn(type) {
-    runInAction(() => {
-      this.curTaskPriority = type
-    })
+    this.curTaskPriority = type
+
     this.getCompletedTasksPagMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getCompletedTasksPagMy()
@@ -148,15 +129,11 @@ export class WarehouseCompletedViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedTasks = model
-    })
+    this.selectedTasks = model
   }
 
   onClickReportBtn() {
@@ -236,9 +213,8 @@ export class WarehouseCompletedViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getCompletedTasksPagMy()
   }
 
@@ -261,8 +237,6 @@ export class WarehouseCompletedViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

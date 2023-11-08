@@ -23,7 +23,6 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
     <div className={styles.wrapper}>
       {formFields?.items.map((item, index) => {
         const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
-        const orderNumber = `${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`
         const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier
           ? item.isBarCodeAlreadyAttachedByTheSupplier
           : item.isBarCodeAttachedByTheStorekeeper
@@ -66,8 +65,8 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
                   inputClasses={styles.input}
                   containerClasses={styles.field}
                   labelClasses={cx(styles.text, styles.label)}
-                  label={t(TranslationKey['Order number/Item'])}
-                  value={orderNumber}
+                  label={t(TranslationKey['Order number'])}
+                  value={item.order?.id}
                 />
 
                 <Button className={styles.button} onClick={() => onClickHsCode(item.product._id, true)}>

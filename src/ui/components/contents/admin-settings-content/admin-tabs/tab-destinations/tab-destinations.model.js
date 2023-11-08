@@ -47,10 +47,9 @@ export class AdminSettingsDestinationsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      this.getDestinations()
-
       this.getDataGridState()
+
+      await this.getDestinations()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -176,7 +175,7 @@ export class AdminSettingsDestinationsModel {
 
       this.onClickToggleAddOrEditModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -192,7 +191,7 @@ export class AdminSettingsDestinationsModel {
 
       this.onClickToggleAddOrEditModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -208,7 +207,7 @@ export class AdminSettingsDestinationsModel {
 
       this.onClickToggleConfirmModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

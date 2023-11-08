@@ -7,8 +7,8 @@ import Checkbox from '@mui/material/Checkbox'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -77,21 +77,19 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     return (
       <div className={classNames.root}>
-        <div className={classNames.boxesFiltersWrapper}>
-          <CustomSwitcher
-            switchMode={'small'}
-            condition={curStorekeeper}
-            switcherSettings={storekeepers
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b?.name))
-              .map(value => ({
-                label: () => value?.name,
-                value: value?._id,
-              }))}
-            customCondition={value => value === curStorekeeper?._id}
-            changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
-          />
-        </div>
+        <CustomSwitcher
+          switchMode={'small'}
+          condition={curStorekeeper}
+          switcherSettings={storekeepers
+            .slice()
+            .sort((a, b) => a.name?.localeCompare(b?.name))
+            .map(value => ({
+              label: () => value?.name,
+              value: value?._id,
+            }))}
+          customCondition={value => value === curStorekeeper?._id}
+          changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
+        />
 
         <div className={classNames.searchWrapper}>
           <SearchInput
@@ -112,21 +110,20 @@ export const SelectStorekeeperAndTariffForm = observer(
           )}
         </div>
 
-        <div className={classNames.tabsWrapper}>
-          <CustomSwitcher
-            switchMode={'medium'}
-            condition={tabIndex}
-            switcherSettings={tariffTypesLabels.map((label, index) => ({
-              label: () => t(label),
-              value: index,
-            }))}
-            changeConditionHandler={setTabIndex}
-          />
-        </div>
+        <CustomSwitcher
+          fullWidth
+          switchMode={'medium'}
+          condition={tabIndex}
+          switcherSettings={tariffTypesLabels.map((label, index) => ({
+            label: () => t(label),
+            value: index,
+          }))}
+          changeConditionHandler={setTabIndex}
+        />
 
-        <TabPanel value={tabIndex} index={0}>
+        <TabPanel value={tabIndex} index={0} className={classNames.tabPanel}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
@@ -180,9 +177,9 @@ export const SelectStorekeeperAndTariffForm = observer(
             </div>
           )}
         </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
+        <TabPanel value={tabIndex} index={1} className={classNames.tabPanel}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
+            <CustomDataGrid
               rows={
                 curStorekeeper?.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))

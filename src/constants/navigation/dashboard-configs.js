@@ -311,7 +311,8 @@ export const getClientDashboardCardConfig = () => ({
         icon: '/assets/icons/party.svg',
         subIcon: '/assets/icons/check.svg',
         color: '#C69109',
-        route: '/client/warehouse/boxes-ready-to-batch',
+        route: '/client/warehouse/in-stock',
+        dataGridFilter: 'REQUESTED_SEND_TO_BATCH',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,

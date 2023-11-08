@@ -66,7 +66,7 @@ export const subUsersColumns = handlers => [
       <CommentUsersCell
         id={params.row._id}
         comment={params?.row?.note?.comment}
-        handler={handlers.onClickSaveComment}
+        handler={reason => handlers.onClickSaveComment(params.row._id, reason)}
       />
     ),
     filterable: false,

@@ -1,12 +1,9 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-
-  btnsWrapper: {
-    display: 'flex',
   },
 
   searchInput: {
@@ -27,4 +24,4 @@ export const styles = theme => ({
     padding: '0 30px',
     color: theme.palette.primary.main,
   },
-})
+}))

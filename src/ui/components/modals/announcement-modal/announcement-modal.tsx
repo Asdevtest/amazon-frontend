@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IService, ShortUserType } from '@typings/master-user'
+import { IService, IShortUser } from '@typings/master-user'
 
 import { useStyles } from './announcement-modal.styles'
 
@@ -23,7 +23,7 @@ interface AnnouncementModalProps {
   order?: boolean
   select?: boolean
   onClickButton?: (service: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: ShortUserType) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
 }
 
 export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
@@ -41,7 +41,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogContextClassName={styles.modalWrapper}>
+    <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogClassName={styles.modalWrapper}>
       <div className={styles.header}>
         <p className={styles.mainTitle}>{service.title}</p>
 
@@ -68,24 +68,19 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
       </div>
 
       <div className={styles.main}>
-        <div className={styles.files}>
+        <div className={styles.descriptionContainer}>
           <p className={textMediumBold}>{t(TranslationKey.Files)}</p>
 
-          <div className={styles.flexColumnContainer}>
-            <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
-            <PhotoAndFilesSlider withoutFiles isHideCounter files={files} customGap={0} customSlideHeight={210} />
-          </div>
+          <div>
+            <div className={styles.flexColumnContainer}>
+              <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
+              <PhotoAndFilesSlider withoutFiles showPreviews files={files} customSlideHeight={210} />
+            </div>
 
-          <div className={styles.flexColumnContainer}>
-            <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
-            <PhotoAndFilesSlider
-              alignLeft
-              withoutPhotos
-              isHideCounter
-              files={files}
-              customGap={0}
-              customSlideHeight={85}
-            />
+            <div className={styles.flexColumnContainer}>
+              <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
+              <PhotoAndFilesSlider alignLeft withoutPhotos files={files} customSlideHeight={67} />
+            </div>
           </div>
         </div>
 

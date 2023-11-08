@@ -1,11 +1,11 @@
 /* eslint-disable import/no-unresolved */
-import { DestinationVariationApproximateCalculationsType } from '../../typings/destination'
+import { IDestinationVariationApproximateCalculations } from '../../typings/destination'
 
 export const getGroupDataByDestinationId = (
-  destinationVariations: Array<DestinationVariationApproximateCalculationsType>,
-): Record<string, Array<DestinationVariationApproximateCalculationsType>> => {
+  destinationVariations: Array<IDestinationVariationApproximateCalculations>,
+): Record<string, Array<IDestinationVariationApproximateCalculations>> => {
   return destinationVariations.reduce(
-    (groups: Record<string, Array<DestinationVariationApproximateCalculationsType>>, obj) => {
+    (groups: Record<string, Array<IDestinationVariationApproximateCalculations>>, obj) => {
       const destinationId = obj?.destination?._id
 
       if (!destinationId) {
