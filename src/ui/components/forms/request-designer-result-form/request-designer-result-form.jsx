@@ -33,6 +33,7 @@ const reorder = (list, startIndex, endIndex) => {
 const Slot = ({
   slot,
   index,
+  setCurImageIndex,
   imagesData,
   setImagesData,
   setShowImageModal,
@@ -79,7 +80,7 @@ const Slot = ({
   const opacity = isDragging ? 0.4 : 1
 
   return (
-    <div key={slot._id} ref={drop}>
+    <div ref={drop}>
       <div style={{ opacity }} className={classNames.imageObjWrapper}>
         <Tooltip
           arrow
@@ -139,6 +140,8 @@ const Slot = ({
                   alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
                   variant="square"
                   onClick={() => {
+                    setCurImageIndex(index)
+
                     if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
                       setShowImageModal(!showImageModal)
                     } else {
@@ -168,6 +171,8 @@ const Slot = ({
               // }}
               onChange={onUploadFile(slot._id)}
               onClick={e => {
+                setCurImageIndex(index)
+
                 if (slot.image) {
                   e.preventDefault()
 
@@ -322,8 +327,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         }),
       }))
 
-      // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
-
       const restNewSlots = readyFilesArr
         .slice(1)
         .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
@@ -435,9 +438,10 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <div className={classNames.bodySubWrapper}>
             {imagesData.map((slot, index) => (
               <Slot
-                key={slot?._id}
+                key={slot._id}
                 slot={slot}
                 index={index}
+                setCurImageIndex={setCurImageIndex}
                 imagesData={imagesData}
                 setImagesData={setImagesData}
                 setShowImageModal={setShowImageModal}
@@ -490,16 +494,18 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages.map(el => el.fileLink)}
-        photosTitles={filteredImages.map(el => el.title)}
-        photosComments={filteredImages.map(el => el.comment)}
-        currentImageIndex={curImageIndex}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-      />
+      {showImageModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={filteredImages.map(el => el.url)}
+          photosTitles={filteredImages.map(el => el.title)}
+          photosComments={filteredImages.map(el => el.comment)}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
+        />
+      )}
     </div>
   )
 }
