@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
-import { Input, InputAdornment } from '@mui/material'
+import { InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Input } from '@components/shared/input'
 import { SaveIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -13,7 +14,7 @@ import { t } from '@utils/translations'
 import { useDataGridCellStyles } from './change-input-comment-cell.style'
 
 interface ChangeInputCommentCellProps {
-  onClickSubmit: (value: string) => void
+  onClickSubmit: (id: string, comment?: string) => void
   onChangeText?: (fieldName: string) => (value: string) => void
   text: string
   disabled?: boolean
@@ -76,14 +77,14 @@ export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.mem
             </InputAdornment>
           )
         }
-        onChange={e => {
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value)
           setIsEdited(true)
           if (onChangeText) {
             onChangeText(fieldName || 'comments')(e.target.value)
           }
         }}
-        onKeyDown={event => {
+        onKeyDown={(event: KeyboardEvent) => {
           event.stopPropagation()
         }}
       />

@@ -125,6 +125,8 @@ export class SubUsersViewModel {
   }
 
   async onClickSaveComment(id, comment) {
+    console.log('id', id)
+    console.log('comment', comment)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await UserModel.patchSubNote(id, comment)
