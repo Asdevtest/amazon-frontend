@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,15 +24,18 @@ export const SupplierPaymentForm = ({
   const [files, setFiles] = useState(uploadedFiles || [])
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
+    <div className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
 
-      <UploadFilesInput
-        fullWidth
-        images={files}
-        setImages={setFiles}
-        maxNumber={50 - editPaymentDetailsPhotos?.length}
-      />
+      <div className={classNames.uploadWrapper}>
+        <UploadFilesInput
+          fullWidth
+          images={files}
+          setImages={setFiles}
+          maxNumber={50 - editPaymentDetailsPhotos?.length}
+        />
+      </div>
+
       <PhotoAndFilesSlider
         smallSlider
         showPreviews
@@ -42,7 +45,7 @@ export const SupplierPaymentForm = ({
         onChangeImagesForLoad={setEditPaymentDetailsPhotos}
       />
 
-      <Box className={classNames.saveBox}>
+      <div className={classNames.saveBox}>
         <Button
           success
           className={classNames.actionButton}
@@ -60,7 +63,7 @@ export const SupplierPaymentForm = ({
         >
           {t(TranslationKey.Close)}
         </Button>
-      </Box>
-    </Container>
+      </div>
+    </div>
   )
 }

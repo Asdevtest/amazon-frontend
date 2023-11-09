@@ -6,10 +6,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 30,
+    padding: 15,
 
     [theme.breakpoints.down(768)]: {
       width: 'auto',
       minHeight: '100%',
+      padding: 0,
       justifyContent: 'space-between',
       gap: 20,
     },
@@ -43,6 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
   selectContainer: {
     margin: '0 !important',
     flex: '1 1 auto',
+    marginRight: '15px !important',
   },
 
   button: {

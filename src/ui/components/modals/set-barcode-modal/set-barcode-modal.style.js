@@ -7,11 +7,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalTitle: {
     color: theme.palette.text.general,
-
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '30px',
+  },
+
+  imageFileInputWrapper: {
+    marginRight: 15,
   },
 
   input: {

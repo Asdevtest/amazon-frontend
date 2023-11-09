@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     position: 'relative',
     maxHeight: '85vh',
+    padding: 10,
   },
 
   boxesWrapper: {
@@ -18,10 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
     gap: '36px',
     marginTop: '40px',
-    justifySelf: 'flex-end',
+    marginRight: 10,
 
     position: 'sticky',
     bottom: 0,

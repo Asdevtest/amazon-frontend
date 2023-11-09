@@ -23,13 +23,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
   btnsWrapper: {
-    flex: 1,
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    flexDirection: 'row',
-    display: 'flex',
-  },
-  btnClose: {
-    marginLeft: '10px',
+    gap: 20,
+    marginRight: 15,
   },
 }))
