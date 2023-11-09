@@ -14,9 +14,10 @@ export const getAxiosInstance = () => {
 
   axiosInstance.interceptors.request.use(async config => {
     const userModel = SettingsModel.loadValue('UserModel')
-    const { accessToken } = userModel
 
-    if (config.headers && accessToken) config.headers.Authorization = `Bearer ${accessToken}`
+    if (config.headers && userModel && userModel.accessToken) {
+      config.headers.Authorization = `Bearer ${userModel.accessToken}`
+    }
 
     return config
   })
