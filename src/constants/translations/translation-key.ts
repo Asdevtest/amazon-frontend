@@ -2146,5 +2146,6 @@ export enum TranslationKey {
   'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.' = 'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.',
   'This rate may have an irrelevant value as the rate may have been changed after shipment.' = 'This rate may have an irrelevant value as the rate may have been changed after shipment.',
   'pc' = 'pc',
+  'There are unresolved proposals for this request in your queue.' = 'There are unresolved proposals for this request in your queue.',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
