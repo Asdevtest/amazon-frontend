@@ -51,7 +51,7 @@ export const Modal: FC<ModalProps> = memo(props => {
         className={cx(styles.dialogWrapper, dialogClassName, openModal && styles.openModal)}
         onClick={handleModalClick}
       >
-        <div className={cx(styles.contentWrapper, contentWrapperClassName)} onClick={e => e.preventDefault()}>
+        <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
           <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
 
           <div className={cx(styles.content, contentClassName)}>{children}</div>
