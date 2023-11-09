@@ -45,7 +45,6 @@ export const useClassNames = makeStyles()(theme => ({
   selectContainer: {
     margin: '0 !important',
     flex: '1 1 auto',
-    marginRight: '15px !important',
   },
 
   button: {
