@@ -29,9 +29,13 @@ export const CreateOrEditProposalContent = memo(props => {
   const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
   const { classes: classNames } = useClassNames()
 
-  const [images, setImages] = useState(
-    proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
-  )
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (proposalToEdit?.linksToMediaFiles?.length) {
+      setImages(proposalToEdit?.linksToMediaFiles)
+    }
+  }, [proposalToEdit?.linksToMediaFiles])
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
@@ -296,15 +300,7 @@ export const CreateOrEditProposalContent = memo(props => {
                 </Typography>
               </div>
 
-              <UploadFilesInput
-                minimized
-                withoutTitle
-                requestWidth
-                images={images}
-                setImages={setImages}
-                maxNumber={50}
-              />
-              {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
+              <UploadFilesInput minimized withoutTitle fullWidth images={images} setImages={setImages} maxNumber={50} />
             </div>
           </div>
         </div>
