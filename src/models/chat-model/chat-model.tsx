@@ -63,10 +63,10 @@ class ChatModelStatic {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  public init() {
-    if (UserModel.accessToken) {
+  public init(accessToken?: string) {
+    if (accessToken || UserModel.accessToken) {
       this.websocketChatService = new WebsocketChatService({
-        token: UserModel.accessToken,
+        token: accessToken ? accessToken : UserModel.accessToken || '',
         handlers: {
           onConnect: this.onConnect,
           onConnectionError: this.onConnectionError,
@@ -158,7 +158,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       return
     }
-
     this.websocketChatService.disconnect()
   }
 

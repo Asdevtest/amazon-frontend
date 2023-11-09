@@ -500,10 +500,8 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.getDataGridState()
-
       await this.getShops()
       await this.getProductsMy()
-
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
