@@ -18,7 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchSelectCustomSearchInput: {
-    padding: '0 5px',
     height: 30,
     marginBottom: 20,
   },

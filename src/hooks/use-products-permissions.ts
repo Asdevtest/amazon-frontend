@@ -3,30 +3,15 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-// export const useProductsPermissions = (callback: any, options?: any) => {
-//   const [config, setConfig] = useState({})
-//   const [permissionsData, setPermissionsData] = useState([])
-//   const [requestStatus, setRequestStatus] = useState(loadingStatuses.success)
+import { dataGridFiltersConverter } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
 
-//   useEffect(() => {
-//     if (options) setConfig(options)
-//   }, [options])
-
-//   const getPermissionsData = async () => {
-//     setRequestStatus(loadingStatuses.isLoading)
-
-//     const result = await callback(config)
-//     await setPermissionsData(result)
-
-//     setRequestStatus(loadingStatuses.success)
-//   }
-
-//   return {
-//     requestStatus,
-//     permissionsData,
-//     getPermissionsData,
-//   }
-// }
+interface ICallback {
+  (options: IOptions): any
+}
+interface IOptions {
+  [x: string]: any
+}
 
 interface IPermissionsData {
   _id: string
@@ -38,28 +23,35 @@ interface IPermissionsData {
   images: string[]
 }
 
+/*
+ * Опции для функции можно задать двумя способами:
+ * 1. Конструктор класса
+ * 2. Аргументов функции getPermissionsData
+ * По задумке, если опции статичны (не меняются), то нужно использовать первый способ
+ * Если опции меняются, то можно использовать второй
+ * Способы взаимоисключающие, если используется один, не должен использоваться другой
+ */
+
 export class UseProductsPermissions {
-  callback: (options: any) => any
+  callback: ICallback
   options = {
     offset: 0,
     limit: 15,
     sortField: 'asin',
     sortType: 'ASC',
-    // filters - при использовании поиска передавать значения [skusByClient][$contains]= + [asin][$contains]=
+    filters: '',
   }
 
-  isCanLoadMore = true
-
-  requestStatus = loadingStatuses.success
   permissionsData: IPermissionsData[] = []
-  constructor(callback: any, options?: any) {
+
+  isCanLoadMore = true
+  requestStatus = loadingStatuses.success
+
+  constructor(callback: ICallback, options?: IOptions) {
     makeAutoObservable(this)
 
     this.callback = callback
-    this.options = {
-      ...this.options,
-      ...options,
-    }
+    this.setOptions(options)
   }
 
   get currentPermissionsData() {
@@ -69,11 +61,13 @@ export class UseProductsPermissions {
     return this.requestStatus
   }
 
-  async getPermissionsData() {
+  async getPermissionsData(options?: IOptions) {
     if (!this.callback) return
 
     try {
       this.requestStatus = loadingStatuses.isLoading
+
+      this.setOptions(options)
 
       const result = await this.callback(this.options)
 
@@ -110,10 +104,31 @@ export class UseProductsPermissions {
     }
   }
 
-  setOptions(options: any) {
-    this.options = {
-      ...this.options,
-      ...options,
+  async onClickSubmitSearch(searchValue: string) {
+    if (!this.callback || this.requestStatus !== loadingStatuses.success) return
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      this.isCanLoadMore = true
+      this.setOptions({
+        offset: 0,
+        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skusByClient', 'asin'])),
+      })
+
+      await this.getPermissionsData()
+
+      this.requestStatus = loadingStatuses.success
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
+
+  setOptions(options?: IOptions) {
+    if (options) {
+      this.options = {
+        ...this.options,
+        ...options,
+      }
     }
   }
 }

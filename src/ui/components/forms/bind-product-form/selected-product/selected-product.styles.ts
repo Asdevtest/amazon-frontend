@@ -11,6 +11,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     color: theme.palette.text.second,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 
   asin: {

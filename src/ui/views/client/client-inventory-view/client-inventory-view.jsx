@@ -5,6 +5,8 @@ import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -38,6 +40,8 @@ import { ArchiveIcon } from '@components/shared/svg-icons'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
+
 import { useStyles } from './client-inventory-view.style'
 
 import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
@@ -46,6 +50,12 @@ import { ClientInventoryViewModel } from './client-inventory-view.model'
 export const ClientInventoryView = observer(({ history, location }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+  const [useProductsPermissions] = useState(
+    () =>
+      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
+        isChild: false,
+      }),
+  )
 
   useEffect(() => {
     viewModel.loadData()
@@ -283,8 +293,10 @@ export const ClientInventoryView = observer(({ history, location }) => {
       >
         <ProductLaunchForm
           selectedProductToLaunch={viewModel.selectedProductToLaunch}
-          productsToLaunch={viewModel.productsToLaunch}
-          onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
+          productsToLaunch={useProductsPermissions.currentPermissionsData}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.onClickNextButton}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />

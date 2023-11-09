@@ -49,6 +49,8 @@ export const CreateOrEditRequestView = observer(props => {
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
           getMasterUsersData={viewModel.getMasterUsersData}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickExistingRequest={viewModel.onClickExistingRequest}
           onCreateSubmit={viewModel.onSubmitCreateRequest}
           onEditSubmit={viewModel.onSubmitEditRequest}
