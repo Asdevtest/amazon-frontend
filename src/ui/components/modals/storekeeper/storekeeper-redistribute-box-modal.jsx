@@ -192,7 +192,7 @@ export const StorekeeperRedistributeBox = observer(
       )
 
     return (
-      <div>
+      <div className={classNames.wrapper}>
         <div className={classNames.modalTitleWrapper}>
           <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
           <img src="/assets/img/split.png" />

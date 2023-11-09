@@ -25,7 +25,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class StockReportModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   sellerBoardDailyData = []
   selectedRowId = undefined
@@ -88,18 +87,15 @@ export class StockReportModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -160,10 +156,11 @@ export class StockReportModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await Promise.all([this.getShops(), this.getStockGoods()])
-
       this.getDataGridState()
+
+      this.getShops()
+      this.getStockGoods()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -175,8 +172,10 @@ export class StockReportModel {
     try {
       const result = await UserModel.getPlatformSettings()
 
-      this.yuanToDollarRate = result.yuanToDollarRate
-      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -195,30 +194,38 @@ export class StockReportModel {
 
   async onSubmitMoveToInventoryGoods() {
     try {
-      this.showCircularProgressModal = true
       const productsToCreate = []
 
-      this.sellerBoardDailyData.forEach(
-        cur =>
-          this.selectedRows.includes(cur.id) &&
-          productsToCreate.push({ shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title }),
-      )
+      runInAction(() => {
+        this.showCircularProgressModal = true
 
-      this.selectedRows = []
+        this.sellerBoardDailyData.forEach(
+          cur =>
+            this.selectedRows.includes(cur.id) &&
+            productsToCreate.push({ shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title }),
+        )
+
+        this.selectedRows = []
+      })
 
       await SellerBoardModel.createAndLinkSkuProducts({ payload: productsToCreate })
 
-      this.showCircularProgressModal = false
+      runInAction(() => {
+        this.showCircularProgressModal = false
 
-      this.infoModalText = t(TranslationKey['The products will appear in the inventory soon'])
+        this.infoModalText = t(TranslationKey['The products will appear in the inventory soon'])
+      })
+
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
-      this.error = error
 
-      this.showCircularProgressModal = false
+      runInAction(() => {
+        this.showCircularProgressModal = false
 
-      this.infoModalText = t(TranslationKey['Will not be moved to inventory'])
+        this.infoModalText = t(TranslationKey['Will not be moved to inventory'])
+      })
+
       this.onTriggerOpenModal('showInfoModal')
     }
   }
@@ -226,12 +233,12 @@ export class StockReportModel {
   async getShops() {
     try {
       const result = await ShopModel.getMyShops()
+
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -246,9 +253,10 @@ export class StockReportModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
 
-      this.sellerBoardDailyData = []
+      runInAction(() => {
+        this.sellerBoardDailyData = []
+      })
     }
   }
 
@@ -260,15 +268,8 @@ export class StockReportModel {
     this[modal] = !this[modal]
   }
 
-  async onClickBindStockGoodsToInventoryBtn() {
-    try {
-      this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
+  onClickBindStockGoodsToInventoryBtn() {
+    this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
   }
 
   async getProductsMy(filters, isRecCall) {
@@ -288,10 +289,9 @@ export class StockReportModel {
       if (isRecCall) {
         this.getProductsMy()
       } else {
-        this.inventoryProducts = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
+        runInAction(() => {
+          this.inventoryProducts = []
+        })
       }
     }
   }
@@ -309,44 +309,47 @@ export class StockReportModel {
       await SellerBoardModel.bindStockProductsBySku({ productId: result.guid, skus: data.skusByClient })
 
       if (result) {
-        this.selectedRowId = result.guid
+        runInAction(() => {
+          this.selectedRowId = result.guid
+        })
 
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
 
-      this.successModalText = t(TranslationKey['Moved to inventory'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['Moved to inventory'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
 
       this.onTriggerOpenModal('showAddProductSellerboardModal')
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
     try {
-      this.clientComment = clientComment
-
       const result = await ClientModel.calculatePriceToSeekSupplier(this.selectedRowId)
 
-      this.priceForSeekSupplier = result.priceForClient
+      runInAction(() => {
+        this.clientComment = clientComment
 
-      // this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
-      //   result.priceForClient,
-      //   2,
-      // )}.\n Подать заявку?`
+        this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        message: `Стоимость услуги поиска поставщика составит $${toFixed(result.priceForClient, 2)}.\n Подать заявку?`,
-        onSubmit: () => {
-          this.onSubmitSeekSupplier()
-        },
+        this.confirmModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey.Attention),
+          message: `Стоимость услуги поиска поставщика составит $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n Подать заявку?`,
+          onSubmit: () => {
+            this.onSubmitSeekSupplier()
+          },
 
-        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
+          onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+        }
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -362,7 +365,9 @@ export class StockReportModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.successModalText = t(TranslationKey['Row deleted'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['Row deleted'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
@@ -397,7 +402,9 @@ export class StockReportModel {
 
       this.onTriggerOpenModal('showSelectionSupplierModal')
 
-      this.successModalText = t(TranslationKey['Moved to inventory'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['Moved to inventory'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
@@ -430,13 +437,14 @@ export class StockReportModel {
         })
       }
 
-      this.successModalText = t(TranslationKey['Supplier added'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['Supplier added'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -445,10 +453,14 @@ export class StockReportModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
 
-      this.successModalText = t(TranslationKey['The product is bound'])
+      runInAction(() => {
+        this.successModalText = t(TranslationKey['The product is bound'])
+      })
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      this.infoModalText = t(TranslationKey["You can't bind"])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey["You can't bind"])
+      })
       this.onTriggerOpenModal('showInfoModal')
       console.log(error)
     }

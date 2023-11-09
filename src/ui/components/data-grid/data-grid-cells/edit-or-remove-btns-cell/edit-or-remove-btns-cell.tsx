@@ -23,7 +23,7 @@ interface EditOrRemoveBtnsCellProps {
 }
 
 export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles, cx } = useDataGridCellStyles()
   const { row, handlers, isSubUsersTable, disableActionBtn, tooltipFirstButton, tooltipSecondButton, isFirstRow } =
     props
 
@@ -34,7 +34,7 @@ export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = React.memo(pr
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
-        className={`${styles.rowCancelBtn}, ${styles.addPermissionBtn}`}
+        className={cx(styles.rowCancelBtn, styles.addPermissionBtn)}
         onClick={() => handlers.onClickEditBtn(row)}
       >
         {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
@@ -45,9 +45,7 @@ export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = React.memo(pr
         tooltipInfoContent={isFirstRow ? tooltipSecondButton : ''}
         disabled={disableActionBtn}
         className={styles.rowCancelBtn}
-        onClick={() => {
-          handlers.onClickRemoveBtn(row)
-        }}
+        onClick={() => handlers.onClickRemoveBtn(row)}
       >
         {t(TranslationKey.Remove)}
       </Button>

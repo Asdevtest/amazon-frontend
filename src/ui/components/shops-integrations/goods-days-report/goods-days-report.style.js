@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   button: {
     marginBottom: 5,
     color: theme.palette.text.general,
@@ -12,18 +14,18 @@ export const styles = theme => ({
   },
 
   shopsFiltersWrapper: {
-    marginBottom: '10px',
-    display: 'flex',
+    marginTop: 20,
   },
 
   dataGridWrapper: {
-    height: '72vh',
+    marginTop: 20,
+    height: '70vh',
     width: '100%',
   },
 
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginBottom: 10,
+    marginTop: 20,
   },
-})
+}))

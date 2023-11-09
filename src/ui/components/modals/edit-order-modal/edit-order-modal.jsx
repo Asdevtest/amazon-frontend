@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, Checkbox, InputAdornment, MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
 
 import {
   OrderStatus,
@@ -500,7 +500,7 @@ export const EditOrderModal = observer(
     const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
 
     return (
-      <Box className={classNames.modalWrapper}>
+      <div className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
           <div>
             <div className={classNames.idItemWrapper}>
@@ -706,7 +706,7 @@ export const EditOrderModal = observer(
           </div>
         </div>
 
-        <Paper elevation={0} className={classNames.paper}>
+        <div className={classNames.paper}>
           <SelectFields
             orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
@@ -878,9 +878,9 @@ export const EditOrderModal = observer(
             suppliers={orderFields.product.suppliers}
             setSelectedSupplier={setSelectedSupplier}
           />
-        </Paper>
+        </div>
 
-        <Box mt={2} className={classNames.buttonsBox}>
+        <div className={classNames.buttonsBox}>
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
@@ -904,7 +904,7 @@ export const EditOrderModal = observer(
           >
             {t(TranslationKey.Cancel)}
           </Button>
-        </Box>
+        </div>
 
         <div className={classNames.addBoxButtonAndCommentsWrapper}>
           {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
@@ -1181,7 +1181,7 @@ export const EditOrderModal = observer(
             }}
           />
         </Modal>
-      </Box>
+      </div>
     )
   },
 )
