@@ -2,7 +2,7 @@ import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
+import { Checkbox, Divider, Grid, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -50,29 +50,21 @@ export const AddOrEditSupplierModalContent = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = value => {
-      setSizeSetting(value)
+    const handleChange = newAlignment => {
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (value === unitsOfChangeOptions.US) {
         setTmpSupplier({
           ...tmpSupplier,
           boxProperties: {
             ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / inchesCoefficient, 2),
+            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / multiplier, 2),
+            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / multiplier, 2),
+            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / multiplier, 2),
           },
         })
-      } else {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: {
-            ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2),
-          },
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
@@ -401,7 +393,7 @@ export const AddOrEditSupplierModalContent = observer(
         !boxPropertiesIsFullAndMainsValues)
 
     return (
-      <Container disableGutters className={classNames.modalContainer}>
+      <div className={classNames.modalContainer}>
         {onlyRead ? (
           <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
         ) : (
@@ -934,7 +926,7 @@ export const AddOrEditSupplierModalContent = observer(
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>
-      </Container>
+      </div>
     )
   },
 )

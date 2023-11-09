@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -35,8 +35,9 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = observer(pr
       <p className={classNames.title}>{t(TranslationKey['Link requests'])}</p>
 
       <div className={classNames.tableWrapper}>
-        <MemoDataGrid
+        <CustomDataGrid
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           rows={requests}
           columns={bindIdeaToRequestColumns()}

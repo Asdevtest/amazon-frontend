@@ -6,7 +6,7 @@ import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { LanguageKey } from '@constants/translations/language-key'
 
 import { setI18nConfig } from '@utils/translations'
@@ -80,7 +80,6 @@ class SettingsModelStatic {
 
   loadValue(key) {
     const value = localStorage.getItem(key)
-
     return value !== null ? JSON.parse(value) : null
   }
 
@@ -232,6 +231,11 @@ class SettingsModelStatic {
     runInAction(() => {
       this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
+  }
+
+  setAuthorizationData(accessToken, refreshToken) {
+    const userModel = this.loadValue('UserModel')
+    this.saveValue('UserModel', { ...userModel, accessToken, refreshToken })
   }
 }
 

@@ -13,7 +13,7 @@ import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
@@ -68,7 +68,7 @@ export const UserProfileViewRaw = props => {
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
-            <MemoDataGrid
+            <CustomDataGrid
               useResizeContainer
               localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}

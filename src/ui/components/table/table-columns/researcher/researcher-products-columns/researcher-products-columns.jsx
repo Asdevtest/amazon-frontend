@@ -24,7 +24,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextCell text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => {
-      return <AsinCell text={params.value} product={params.row.originalData} />
+      return <AsinCell asin={params.value} />
     },
     width: 180,
   },

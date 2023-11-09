@@ -27,10 +27,6 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: 0,
   },
 
-  inputAccent: {
-    outline: '2px solid #F5CF00',
-  },
-
   containerAccent: {
     outline: '2px solid #F5CF00',
     borderRadius: 4,
@@ -69,77 +65,15 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  box: {
-    width: 527,
-    backgroundColor: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '4px',
-    padding: '20px 17px',
-  },
-
-  orderWrapper: {
-    width: '100%',
-    flexGrow: 1,
-  },
-
-  order: {
-    display: 'flex',
-    alignItems: 'start',
-    justifyContent: 'space-between',
-    marginBottom: '30px',
-    width: '100%',
-
-    flexGrow: 1,
-  },
-  orderInput: {
-    width: '79px',
-  },
-
-  img: {
-    width: '66px',
-    height: '66px',
-
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
   sectionTitle: {
     color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
   },
 
-  deleteBtn: {
-    color: theme.palette.text.second,
-  },
-
-  title: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    width: '299px',
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-    height: 45,
-    whiteSpace: 'normal',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    color: theme.palette.text.general,
-  },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    marginRight: theme.spacing(1),
-  },
-
   input: {
     fontSize: '14px',
     textAlign: 'center',
-  },
-
-  itemWrapper: {
-    display: 'flex',
-    alignItems: 'center',
   },
 
   sharedItemSubWrapper: {
@@ -148,13 +82,6 @@ export const useClassNames = makeStyles()(theme => ({
     gridTemplateColumns: 'repeat(2, 231px)',
     columnGap: '25px',
     rowGap: '30px',
-  },
-
-  itemSubWrapper: {
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 231px)',
-    columnGap: '25px',
   },
 
   barcodeChip: {
@@ -193,17 +120,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
 
-  storekeeperTrafficBtn: {
-    color: theme.palette.text.general,
-  },
-
   fieldInput: {
     height: '40px',
-  },
-
-  superBox: {
-    color: theme.palette.primary.negativeMain,
-    fontSize: 20,
   },
 
   currentBoxTitle: {
@@ -222,14 +140,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
   },
 
-  asinWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
-
-  icon: {
-    padding: 4,
-  },
   button: {
     height: '40px',
     padding: '0 25px',
@@ -239,46 +149,10 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
-  bottomBlockWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  incomingBtnWrapper: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-  tablePanelSortWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '27px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-  tablePanelViewText: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    fontWeight: 400,
-    color: theme.palette.primary.main,
-  },
-
-  marginBox: {
-    '&:not(:last-child)': {
-      marginBottom: '20px',
-    },
-  },
   label: {
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
-  },
-  asinTitle: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-  },
-  asinValue: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
   },
 
   storekeeperBtnDefault: {

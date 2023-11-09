@@ -1,4 +1,4 @@
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -52,7 +52,7 @@ export const colorByRequestStatus = status => {
   } else if ([RequestStatus.EXPIRED].includes(status)) {
     return '#C4C4C4'
   } else {
-    return 'black'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
   }
 }
 
@@ -96,7 +96,7 @@ export const colorByStatus = status => {
   } else if ([RequestStatus.EXPIRED].includes(status)) {
     return '#C4C4C4'
   } else {
-    return 'black'
+    return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
   }
 }
 

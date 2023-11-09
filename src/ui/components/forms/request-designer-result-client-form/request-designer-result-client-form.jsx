@@ -28,17 +28,19 @@ import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload
 
 import { useClassNames } from './request-designer-result-client-form.style'
 
-const Slot = ({
-  item,
-  onChangeImageFileds,
-  onClickCommentBtn,
-  noShowActions,
-  showImageModal,
-  setShowImageModal,
-  index,
-  imagesForDownload,
-  onClickAddDownload,
-}) => {
+const Slot = props => {
+  const {
+    item,
+    onChangeImageFileds,
+    onClickCommentBtn,
+    noShowActions,
+    showImageModal,
+    setShowImageModal,
+    index,
+    setCurImageIndex,
+    imagesForDownload,
+    onClickAddDownload,
+  } = props
   const { classes: classNames } = useClassNames()
 
   const menuAnchor = useRef()
@@ -48,7 +50,7 @@ const Slot = ({
   }
 
   return (
-    <div key={item._id} className={classNames.imageObjWrapper}>
+    <div className={classNames.imageObjWrapper}>
       <div className={classNames.imageObjSubWrapper}>
         <Checkbox
           color="primary"
@@ -65,7 +67,6 @@ const Slot = ({
       <div
         className={cx(
           classNames.imageWrapper,
-
           { [classNames.isHaveImage]: !!item.image },
           { [classNames.mainImageWrapper]: index === 0 },
         )}
@@ -95,6 +96,8 @@ const Slot = ({
               alt={''}
               variant="square"
               onClick={() => {
+                setCurImageIndex(index)
+
                 if (checkIsImageLink(item.image?.file?.name || item.image)) {
                   setShowImageModal(!showImageModal)
                 } else {
@@ -108,12 +111,7 @@ const Slot = ({
 
       <div ref={menuAnchor}>
         {!item.isEditCommentOpen && !noShowActions && (
-          <Button
-            className={cx(classNames.commentBtn)}
-            onClick={() => {
-              onClickCommentBtn(item._id)
-            }}
-          >
+          <Button className={classNames.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
             {t(TranslationKey.Comment)}
             <img
               src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
@@ -127,7 +125,6 @@ const Slot = ({
             mouseEvent="onMouseDown"
             onClickAway={() => {
               handleClose()
-
               onClickCommentBtn(item._id)
             }}
           >
@@ -175,16 +172,17 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultClientForm = ({
-  onClickProposalResultAccept,
-  onPressSubmitDesignerResultToCorrect,
-  request,
-  setOpenModal,
-  proposal,
-  userInfo,
-  curResultMedia,
-  onlyRead,
-}) => {
+export const RequestDesignerResultClientForm = props => {
+  const {
+    onClickProposalResultAccept,
+    onPressSubmitDesignerResultToCorrect,
+    request,
+    setOpenModal,
+    proposal,
+    userInfo,
+    curResultMedia,
+    onlyRead,
+  } = props
   const { classes: classNames } = useClassNames()
 
   const isNotClient =
@@ -297,11 +295,10 @@ export const RequestDesignerResultClientForm = ({
   return (
     <div className={classNames.modalMainWrapper}>
       <div className={classNames.headerWrapper}>
-        <div className={classNames.titleWrapper}>
-          <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
+        <Typography className={classNames.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+          request?.request?.humanFriendlyId
+        }`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel)}>{`ID ${request?.request?.humanFriendlyId}`}</Typography>
-        </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
             labelClasses={classNames.fieldLabel}
@@ -363,6 +360,7 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
+            setCurImageIndex={setCurImageIndex}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
@@ -376,9 +374,9 @@ export const RequestDesignerResultClientForm = ({
           <>
             <Field
               multiline
-              className={cx(classNames.heightFieldAuto)}
+              className={classNames.heightFieldAuto}
               labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.containerField}
+              containerClasses={classNames.field}
               inputProps={{ maxLength: 1000 }}
               minRows={4}
               maxRows={4}
@@ -391,7 +389,7 @@ export const RequestDesignerResultClientForm = ({
             <Field
               labelClasses={classNames.fieldLabel}
               label={t(TranslationKey['Time for rework'])}
-              containerClasses={classNames.containerField}
+              containerClasses={classNames.field}
               inputComponent={
                 <SetDuration
                   duration={formFields.execution_time}
@@ -410,7 +408,7 @@ export const RequestDesignerResultClientForm = ({
 
           <Button
             disabled={!imagesForDownload.length}
-            className={cx(classNames.imagesModalBtn)}
+            className={classNames.imagesModalBtn}
             onClick={onClickAllDownload}
           >
             <DownloadOutlinedIcon />
@@ -418,7 +416,7 @@ export const RequestDesignerResultClientForm = ({
 
           <Button
             disabled={!imagesForDownload.length}
-            className={cx(classNames.imagesModalBtn)}
+            className={classNames.imagesModalBtn}
             onClick={onClickDownloadArchive}
           >
             <DownloadArchiveIcon />
@@ -429,7 +427,7 @@ export const RequestDesignerResultClientForm = ({
           <>
             <Button
               // disabled={disableSubmit}
-              className={cx(classNames.button)}
+              className={classNames.button}
               onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
@@ -443,7 +441,7 @@ export const RequestDesignerResultClientForm = ({
             <Button
               success
               // disabled={disableSubmit}
-              className={cx(classNames.button)}
+              className={classNames.button}
               onClick={() => {
                 onClickProposalResultAccept(proposal.proposal._id)
                 setOpenModal()
@@ -459,16 +457,18 @@ export const RequestDesignerResultClientForm = ({
         </Button>
       </div>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={filteredImages.map(el => el.fileLink)}
-        photosTitles={filteredImages.map(el => el.title)}
-        photosComments={filteredImages.map(el => el.comment)}
-        currentImageIndex={curImageIndex}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-      />
+      {showImageModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={filteredImages.map(el => el.url)}
+          photosTitles={filteredImages.map(el => el.title)}
+          photosComments={filteredImages.map(el => el.comment)}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
+        />
+      )}
     </div>
   )
 }

@@ -7,6 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 801,
     width: 1692,
     gap: 20,
+    padding: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -16,26 +17,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterWrapper: {
-    height: '52px',
     display: 'flex',
     alignItems: 'center',
-    marginRight: 400,
-
-    position: 'absolute',
-    zIndex: 999,
-
-    top: 0,
-    right: 0,
-
-    borderTop: 'none !important',
-    [theme.breakpoints.down(768)]: {
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
-        display: 'none',
-      },
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
-        marginLeft: '2px',
-      },
-    },
   },
 
   boxCounterText: {

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
@@ -13,7 +12,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { SetDuration } from '@components/shared/set-duration'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
@@ -26,20 +25,17 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-proposal-content.style'
 
-export const CreateOrEditProposalContent = ({
-  onCreateSubmit,
-  onEditSubmit,
-  request,
-  showProgress,
-  progressValue,
-  proposalToEdit,
-  onClickBackBtn,
-}) => {
+export const CreateOrEditProposalContent = memo(props => {
+  const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
   const { classes: classNames } = useClassNames()
 
-  const [images, setImages] = useState(
-    proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
-  )
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (proposalToEdit?.linksToMediaFiles?.length) {
+      setImages(proposalToEdit?.linksToMediaFiles)
+    }
+  }, [proposalToEdit?.linksToMediaFiles])
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
@@ -304,15 +300,7 @@ export const CreateOrEditProposalContent = ({
                 </Typography>
               </div>
 
-              <UploadFilesInput
-                minimized
-                withoutTitle
-                requestWidth
-                images={images}
-                setImages={setImages}
-                maxNumber={50}
-              />
-              {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
+              <UploadFilesInput minimized withoutTitle fullWidth images={images} setImages={setImages} maxNumber={50} />
             </div>
           </div>
         </div>
@@ -345,4 +333,4 @@ export const CreateOrEditProposalContent = ({
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )
-}
+})

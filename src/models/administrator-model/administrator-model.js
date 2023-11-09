@@ -56,7 +56,7 @@ class AdministratorModelStatic {
 
   getTasksPag = async data => {
     const response = await restApiService.administratorApi.apiV1AdminsTasksPagGet(data)
-    return response
+    return response.data
   }
 
   getSettings = async () => {
@@ -152,12 +152,12 @@ class AdministratorModelStatic {
 
   getProductsPag = async data => {
     const response = await restApiService.administratorApi.apiV1AdminsProductsPagGet(data)
-    return response
+    return response.data
   }
 
   getOrdersPag = async data => {
     const response = await restApiService.administratorApi.apiV1AdminsOrdersPagGet(data)
-    return response
+    return response.data
   }
 }
 

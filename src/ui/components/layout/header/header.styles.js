@@ -198,6 +198,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   languageSelector: {
+    width: '18px',
+    height: '18px',
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

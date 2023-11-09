@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,20 +12,20 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './stock-report.style'
+import { useStyles } from './stock-report.style'
 
 import { StockReportModel } from './stock-report.model'
 
-export const StockReportRaw = props => {
-  const [viewModel] = useState(() => new StockReportModel({ history: props.history, curShop: props.curShop }))
-  const { classes: className } = props
+export const StockReport = observer(({ history, curShop }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new StockReportModel({ history, curShop }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -39,7 +38,7 @@ export const StockReportRaw = props => {
 
   return (
     <React.Fragment>
-      <div className={className.shopsFiltersWrapper}>
+      <div className={styles.shopsFiltersWrapper}>
         <WithSearchSelect
           selectedItemName={
             (!viewModel.currentShop?._id && t(TranslationKey['All shops'])) ||
@@ -48,27 +47,24 @@ export const StockReportRaw = props => {
           data={viewModel.shopsData.filter(shop => viewModel.currentShop?.id !== shop._id)}
           searchFields={['name']}
           firstItems={
-            <>
-              {viewModel.currentShop?._id && (
-                <Button
-                  disabled={!viewModel.currentShop?._id}
-                  // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
-                  className={className.button}
-                  variant="text"
-                  color="primary"
-                  onClick={viewModel.onClickShopBtn}
-                >
-                  {t(TranslationKey['All shops'])}
-                </Button>
-              )}
-            </>
+            viewModel.currentShop?._id && (
+              <Button
+                disabled={!viewModel.currentShop?._id}
+                className={styles.button}
+                variant="text"
+                color="primary"
+                onClick={viewModel.onClickShopBtn}
+              >
+                {t(TranslationKey['All shops'])}
+              </Button>
+            )
           }
           onClickSelect={shop => viewModel.onClickShopBtn(shop)}
         />
       </div>
 
-      <div className={className.btnsWrapper}>
-        <div className={className.btnsSubWrapper}>
+      <div className={styles.btnsWrapper}>
+        <div className={styles.btnsSubWrapper}>
           <Button
             tooltipInfoContent={t(
               TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
@@ -85,7 +81,6 @@ export const StockReportRaw = props => {
               TranslationKey['Adds integration from the report to the selected item from the inventory'],
             )}
             disabled={viewModel.selectedRows.length === 0}
-            className={className.rightButton}
             variant="contained"
             onClick={viewModel.onClickBindStockGoodsToInventoryBtn}
           >
@@ -103,10 +98,11 @@ export const StockReportRaw = props => {
         </Button>
       </div>
 
-      <div className={className.dataGridWrapper}>
-        <MemoDataGrid
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
           useResizeContainer
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedRows}
@@ -134,22 +130,10 @@ export const StockReportRaw = props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
-
-      {/* <Modal
-          openModal={showAddProductSellerboardModal}
-          setOpenModal={() => onTriggerOpenModal('showAddProductSellerboardModal')}
-        >
-          <AddProductSellerboardForm
-            goodsToSelect={getCurrentData().filter(item => selectedRows.includes(item.id))}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onSubmit={onSubmitCreateAndBindProduct}
-          />
-        </Modal> */}
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
 
@@ -226,6 +210,4 @@ export const StockReportRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const StockReport = withStyles(observer(StockReportRaw), styles)
+})

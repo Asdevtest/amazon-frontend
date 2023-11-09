@@ -127,7 +127,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={imagesForLoad ?? product?.images}
+                      files={imagesForLoad || product?.images}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -141,7 +141,7 @@ export const TopCard = observer(
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
-                          images={imagesForLoad}
+                          images={imagesForLoad || product?.images}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
                         />
@@ -235,7 +235,7 @@ export const TopCard = observer(
                             checkIsBuyer(curUserRole)) ||
                           selectedSupplier.name !== 'access denied' ? (
                             <>
-                              {checkIsAdmin(curUserRole) ||
+                              {/* {checkIsAdmin(curUserRole) ||
                               checkIsSupervisor(curUserRole) ||
                               (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={classNames.supplierButtonWrapper}>
@@ -250,7 +250,7 @@ export const TopCard = observer(
                                     {t(TranslationKey['Open the parameters supplier'])}
                                   </Typography>
                                 </div>
-                              ) : null}
+                              ) : null} */}
                               {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={classNames.supplierButtonWrapper}>
                                   <Button

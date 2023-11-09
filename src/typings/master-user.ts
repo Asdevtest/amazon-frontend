@@ -1,13 +1,14 @@
 import { IUploadFile } from './upload-file'
 
-export interface ShortUserType {
+export interface IShortUser {
   _id: string
   name: string
   rating: number
+  lastSeen: string
 }
 
 export interface IService {
-  createdBy: ShortUserType
+  createdBy: IShortUser
   createdAt: string
   linksToMediaFiles: Array<string | IUploadFile>
   requests: Array<Requests>
@@ -19,7 +20,7 @@ export interface IService {
 }
 
 export interface Requests {
-  createdBy: ShortUserType
+  createdBy: IShortUser
   humanFriendlyId: number
   price: number
   status: string

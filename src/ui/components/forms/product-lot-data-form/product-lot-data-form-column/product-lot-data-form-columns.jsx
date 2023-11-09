@@ -1,7 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  BoxesAndQuantity,
+  BoxesAndQuantityCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormalActionBtnCell,
@@ -48,7 +48,7 @@ export const productLotDataFormColumns = handlers => [
       <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
     ),
 
-    renderCell: params => <BoxesAndQuantity boxesData={params.row.boxes} />,
+    renderCell: params => <BoxesAndQuantityCell boxesData={params.row.boxes} />,
     width: 175,
   },
 

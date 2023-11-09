@@ -18,7 +18,6 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class AdminFeedbackViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   selectedFeedback = undefined
 
@@ -28,6 +27,7 @@ export class AdminFeedbackViewModel {
   isWarning = false
   feedbackList = []
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -48,16 +48,13 @@ export class AdminFeedbackViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   setDataGridState() {
@@ -85,45 +82,35 @@ export class AdminFeedbackViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onChangePaginationModel(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+  onColumnVisibilityModel(model) {
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
+
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBatches = model
-    })
+    this.selectedBatches = model
   }
 
   getCurrentData() {
@@ -138,11 +125,13 @@ export class AdminFeedbackViewModel {
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       this.getDataGridState()
-      await this.getFeedbackList()
+      this.getFeedbackList()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -155,22 +144,16 @@ export class AdminFeedbackViewModel {
       const result = await AdministratorModel.getFeedback()
 
       runInAction(() => {
-        runInAction(() => {
-          this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
-        })
+        this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
+        this.rowCount = this.feedbackList.length
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickOpenFeedbackBtn(feedback) {
-    runInAction(() => {
-      this.selectedFeedback = feedback
-    })
+    this.selectedFeedback = feedback
 
     this.onTriggerOpenModal('showReplyFeedbackModal')
   }
@@ -190,8 +173,6 @@ export class AdminFeedbackViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

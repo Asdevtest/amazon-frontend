@@ -27,7 +27,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 50,
+    width: 70,
     headerAlign: 'center',
     align: 'center',
   },
@@ -37,14 +37,14 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 105,
+    width: 100,
   },
 
   {
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 220,
+    width: 240,
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
@@ -56,7 +56,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 137,
+    width: 140,
     renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
   },
 
@@ -64,7 +64,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    width: 128,
+    width: 180,
     renderCell: params => <AsinCell asin={params.value} />,
   },
 
@@ -72,7 +72,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'sourceFile',
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    width: 239,
+    width: 250,
     renderCell: params => (
       <CopyAndEditLinkCell
         link={params.value}
@@ -101,7 +101,6 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
     width: 150,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
@@ -112,7 +111,6 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
         isSave={params?.row?.originalData?._id === getEditField()?._id}
       />
     ),
-
     filterable: false,
     sortable: false,
   },

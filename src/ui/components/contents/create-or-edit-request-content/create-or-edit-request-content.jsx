@@ -90,7 +90,7 @@ export const CreateOrEditRequestContent = observer(
     const [showScrollDown, setShowScrollDown] = useState(false)
     const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
-    const [announcementsData, setAnnouncementsData] = useState(announcements)
+    const [announcementsData, setAnnouncementsData] = useState([])
 
     const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
     const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
@@ -167,7 +167,9 @@ export const CreateOrEditRequestContent = observer(
     }, [])
 
     useEffect(() => {
-      setAnnouncementsData(announcements)
+      if (announcements?.length) {
+        setAnnouncementsData(announcements)
+      }
     }, [announcements])
 
     useEffect(() => {
@@ -473,7 +475,7 @@ export const CreateOrEditRequestContent = observer(
                           darkIcon
                           chosenItemNoHover
                           CustomButton={componentProps => <SelectProductButton {...componentProps} />}
-                          data={permissionsData}
+                          data={permissionsData || []}
                           width={'100%'}
                           searchOnlyFields={['asin', 'skusByClient']}
                           customSubMainWrapper={classNames.customSubMainWrapperAsin}
@@ -520,12 +522,6 @@ export const CreateOrEditRequestContent = observer(
                         </Select>
                       }
                     />
-
-                    {/* <span
-                  className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
-                >{`${formFields.request.title.length} ${t(TranslationKey.of)} 80 ${t(
-                  TranslationKey.characters,
-                )}`}</span> */}
                   </div>
 
                   {`${formFields?.request?.typeTask}` ===
@@ -1289,7 +1285,7 @@ export const CreateOrEditRequestContent = observer(
         <Modal
           openModal={showCheckRequestByTypeExists}
           setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-          dialogContextClassName={classNames.dialogContextClassName}
+          dialogClassName={classNames.dialogClassName}
         >
           <CheckRequestByTypeExists
             requestsData={requestIds}

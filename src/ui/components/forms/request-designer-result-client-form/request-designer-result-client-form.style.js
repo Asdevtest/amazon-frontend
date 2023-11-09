@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -29,11 +28,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
-  titleWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
-
   simpleSpan: {
     fontWeight: '600 !important',
     fontSize: 14,
@@ -43,12 +37,16 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 30,
-    gap: 30,
+    marginTop: 20,
+    gap: 20,
   },
 
   containerField: {
-    width: 'min-content !important',
+    width: '160px !important',
+    marginBottom: '0 !important',
+  },
+
+  field: {
     marginBottom: '0 !important',
   },
 
@@ -57,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   button: {
-    padding: '0 25px',
+    padding: '0 15px',
     whiteSpace: 'nowrap',
   },
 
@@ -68,24 +66,19 @@ export const useClassNames = makeStyles()(theme => ({
   downloadsWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: 30,
+    gap: 20,
   },
 
   downloadsCheckWrapper: {
+    width: 145,
     display: 'flex',
     alignItems: 'center',
-
-    gap: 10,
     transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   commentBtn: {
     width: 161,
-
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',
@@ -106,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
-    marginTop: 30,
+    marginTop: 20,
     overflowY: 'auto',
     overflowX: 'hidden',
   },
@@ -134,7 +127,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   headerRightSubWrapper: {
     display: 'flex',
-    gap: 50,
+    gap: 30,
   },
 
   viewLinkWrapper: {

@@ -1,12 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     height: 550,
-    width: 375,
+    width: '100%',
     padding: '35px 20px',
-    marginBottom: 40,
-    marginLeft: 5,
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
     borderRadius: 7,

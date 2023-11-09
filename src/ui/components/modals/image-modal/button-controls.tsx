@@ -14,7 +14,7 @@ import { checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useImageModalStyles } from './image-modal.styles'
+import { useStyles } from './image-modal.styles'
 
 interface Props {
   image: string | IUploadFile
@@ -42,7 +42,8 @@ export const ButtonControls: FC<Props> = observer(
     onClickDownloadPhoto,
     onOpenImageZoomModal,
   }) => {
-    const { classes: classNames, cx } = useImageModalStyles()
+    const { classes: classNames, cx } = useStyles()
+
     const isVideoType = checkIsVideoLink(typeof image === 'string' ? image : image?.file?.name)
 
     return (

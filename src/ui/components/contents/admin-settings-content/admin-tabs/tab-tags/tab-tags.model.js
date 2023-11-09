@@ -49,10 +49,9 @@ export class AdminSettingsTagsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
       await this.getTags()
-
-      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -199,7 +198,7 @@ export class AdminSettingsTagsModel {
 
       this.onClickToggleAddOrEditModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -215,7 +214,7 @@ export class AdminSettingsTagsModel {
 
       this.onClickToggleAddOrEditModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -231,7 +230,7 @@ export class AdminSettingsTagsModel {
 
       this.onClickToggleConfirmModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -247,7 +246,7 @@ export class AdminSettingsTagsModel {
 
       this.onClickToggleConfirmModal()
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

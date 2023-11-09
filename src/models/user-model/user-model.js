@@ -8,7 +8,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
+const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken']
 
 const stateModelName = 'UserModel'
 
@@ -25,14 +25,8 @@ class UserModelStatic {
     makePersistable(this, { name: stateModelName, properties: persistProperties }).then(persistStore => {
       runInAction(() => {
         this.isHydrated = persistStore.isHydrated
-        if (this.accessToken) {
-          restApiService.setAccessToken(this.accessToken)
-
-          // this.getUserInfo()
-        }
       })
     })
-    restApiService.setAccessToken(this.accessToken)
   }
 
   isAuthenticated() {
@@ -45,32 +39,30 @@ class UserModelStatic {
     this.userInfo = undefined
     this.userId = undefined
     this.masterUserId = undefined
-    restApiService.removeAccessToken()
+    SettingsModel.setAuthorizationData(undefined, undefined)
 
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
   }
 
   async signIn(email, password) {
-    await restApiService.userApi
-      .apiV1UsersSignInPost({
-        body: {
-          email,
-          password,
-        },
-      })
-      .then(responseData => {
-        const response = responseData.data
-        const accessToken = response.accessToken
-        const refreshToken = response.refreshToken
-        runInAction(() => {
-          this.accessToken = accessToken
-          this.refreshToken = refreshToken
-        })
-        restApiService.setAccessToken(accessToken)
+    const result = await restApiService.userApi.apiV1UsersSignInPost({
+      body: {
+        email,
+        password,
+      },
+    })
 
-        return accessToken
-      })
+    const response = result.data
+    const accessToken = response.accessToken
+    const refreshToken = response.refreshToken
+
+    runInAction(() => {
+      this.accessToken = accessToken
+      this.refreshToken = refreshToken
+    })
+
+    SettingsModel.setAuthorizationData(accessToken, refreshToken)
   }
 
   async signUp({ name, email, password }) {
@@ -178,7 +170,6 @@ class UserModelStatic {
 
   async getMySubUsers() {
     const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
-    console.log('getMySubUsers', response)
     return response.data
   }
 
@@ -213,8 +204,8 @@ class UserModelStatic {
     return response.data
   }
 
-  async getMasterUsers(role, id, specs) {
-    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, id, specs })
+  async getMasterUsers(role, guid, specs) {
+    const response = await restApiService.userApi.apiV1UsersMastersGet({ role, guid, specs })
     return response.data
   }
 

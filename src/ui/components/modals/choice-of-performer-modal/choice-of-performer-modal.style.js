@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
     width: 1700,
     height: 770,
+    padding: 20,
   },
   cardsWrapper: {
     display: 'flex',

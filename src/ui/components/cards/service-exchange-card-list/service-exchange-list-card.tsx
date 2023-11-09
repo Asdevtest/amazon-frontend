@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import { IService } from '@typings/master-user'
 
 import { useClassNames } from './service-exchange-list-card.style'
 
-interface Props {
+interface ServiceExchangeCardListProps {
   service: IService
   choose: boolean
   order: boolean
@@ -22,8 +22,9 @@ interface Props {
   onClickButton: (data: IService) => void
 }
 
-export const ServiceExchangeCardList: FC<Props> = ({ service, choose, order, pathname, onClickButton }) => {
+export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(props => {
   const { classes: classNames } = useClassNames()
+  const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
     service.type === 0
@@ -107,14 +108,16 @@ export const ServiceExchangeCardList: FC<Props> = ({ service, choose, order, pat
         </div>
       </div>
 
-      <AnnouncementModal
-        isOpenModal={isOpenModal}
-        service={service}
-        choose={choose}
-        order={order}
-        onOpenModal={handleToggleModal}
-        onClickButton={() => onClickButton(service)}
-      />
+      {isOpenModal && (
+        <AnnouncementModal
+          isOpenModal={isOpenModal}
+          service={service}
+          choose={choose}
+          order={order}
+          onOpenModal={handleToggleModal}
+          onClickButton={() => onClickButton(service)}
+        />
+      )}
     </>
   )
-}
+})

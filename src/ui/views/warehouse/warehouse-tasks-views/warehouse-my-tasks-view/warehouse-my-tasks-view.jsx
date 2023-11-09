@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
@@ -11,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
@@ -22,31 +21,25 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-my-tasks-view.style'
+import { useStyles } from './warehouse-my-tasks-view.style'
 
 import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 
-export const WarehouseMyTasksViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new WarehouseMyTasksViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+export const WarehouseMyTasksView = observer(({ history, location }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const getRowClassName = params =>
-    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
             handleActivePriority={viewModel.onClickTaskPriorityBtn}
@@ -59,7 +52,6 @@ export const WarehouseMyTasksViewRaw = props => {
               viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
                 .operationType !== TaskOperationType.RECEIVE
             }
-            className={classNames.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
@@ -67,7 +59,7 @@ export const WarehouseMyTasksViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <BuyerTypeTaskSelect
             curTaskType={viewModel.curTaskType}
             onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
@@ -75,14 +67,15 @@ export const WarehouseMyTasksViewRaw = props => {
 
           <SearchInput
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
@@ -92,7 +85,7 @@ export const WarehouseMyTasksViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            getRowHeight={() => 147}
+            getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -111,7 +104,7 @@ export const WarehouseMyTasksViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
           />
@@ -131,7 +124,7 @@ export const WarehouseMyTasksViewRaw = props => {
 
       <Modal
         missClickModalOn
-        dialogContextClassName={classNames.resolveTaskModalContent}
+        dialogClassName={styles.resolveTaskModalContent}
         openModal={viewModel.showEditTaskModal}
         setOpenModal={viewModel.onTriggerEditTaskModal}
       >
@@ -177,6 +170,4 @@ export const WarehouseMyTasksViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const WarehouseMyTasksView = withStyles(observer(WarehouseMyTasksViewRaw), styles)
+})

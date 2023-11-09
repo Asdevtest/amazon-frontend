@@ -12,8 +12,6 @@ import { UserModel } from '@models/user-model'
 export class MyServicesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   showAcceptMessage = null
   acceptMessage = null
@@ -21,6 +19,7 @@ export class MyServicesViewModel {
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
+    error: false,
   }
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
@@ -43,19 +42,19 @@ export class MyServicesViewModel {
   showImageModal = false
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     if (location.state) {
       this.alertShieldSettings = {
         showAlertShield: location?.state?.showAcceptMessage,
         alertShieldMessage: location?.state?.acceptMessage,
+        error: location?.state?.error,
       }
 
       const state = { ...history.location.state }
       delete state.acceptMessage
       delete state.showAcceptMessage
+      delete state.error
       history.replace({ ...history.location, state })
     }
 
@@ -63,18 +62,12 @@ export class MyServicesViewModel {
 
     reaction(
       () => this.announcements,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.nameSearchValue,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     runInAction(() => {
@@ -89,6 +82,7 @@ export class MyServicesViewModel {
             this.alertShieldSettings = {
               showAlertShield: false,
               alertShieldMessage: '',
+              error: false,
             }
           }, 1000)
         }, 3000)
@@ -124,7 +118,6 @@ export class MyServicesViewModel {
         this.announcements = result
       })
     } catch (error) {
-      this.error = error
       console.log(error)
     }
   }
@@ -153,9 +146,8 @@ export class MyServicesViewModel {
   }
 
   onChangeViewMode(value) {
-    runInAction(() => {
-      this.viewMode = value
-    })
+    this.viewMode = value
+
     this.setTableModeState()
   }
 
@@ -170,14 +162,10 @@ export class MyServicesViewModel {
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   onSearchSubmit(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 }

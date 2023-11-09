@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 import {
@@ -15,32 +14,14 @@ import { SettingsModel } from '@models/settings-model'
 
 import { adminOrdersViewColumns } from '@components/table/table-columns/admin/orders-columns'
 
-import { adminOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const filtersFields = [
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'id',
-  'status',
-  'amount',
-  'client',
-  'storekeeper',
-  'buyer',
-  'partialPaymentAmountRmb',
-  'totalPrice',
-  'weight',
-  'createdAt',
-  'updatedAt',
-]
+import { filtersFields } from './admin-orders-views.constants'
 
 export class AdminOrdersAllViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
 
@@ -77,9 +58,8 @@ export class AdminOrdersAllViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -92,26 +72,21 @@ export class AdminOrdersAllViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getOrdersByStatus()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getOrdersByStatus()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -152,24 +127,20 @@ export class AdminOrdersAllViewModel {
 
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
-    runInAction(() => {
-      this.activeSubCategory = value
-    })
+
+    this.activeSubCategory = value
+
     this.getOrdersByStatus()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getOrdersByStatus() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
+
       this.getDataGridState()
 
       const result = await AdministratorModel.getOrdersPag({
@@ -192,23 +163,19 @@ export class AdminOrdersAllViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+
       runInAction(() => {
-        this.error = error
         this.currentOrdersData = []
       })
     }
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getOrdersByStatus()
@@ -231,32 +198,27 @@ export class AdminOrdersAllViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
     this.getOrdersByStatus()
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getOrdersByStatus()
     this.getDataGridState()
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onLeaveColumnField() {
@@ -272,37 +234,32 @@ export class AdminOrdersAllViewModel {
         getTableByColumn(column, 'orders'),
         column,
 
-        `admins/orders/pag?filters=${this.getFilters(column)}&status=${adminOrdersStatusesByCategory[
-          this.activeSubCategory
-        ].join()}`,
+        `admins/orders/pag?filters=${filters}&status=${adminOrdersStatusesByCategory[this.activeSubCategory].join()}`,
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 }

@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import React from 'react'
+import { memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,8 +6,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
-
-import { useClassNames } from './shops-integrations.style'
 
 import { GoodsDaysReport } from './goods-days-report'
 import { ShopsView } from './shops-view'
@@ -20,15 +17,12 @@ const tabsValues = {
   GOODS_DAYS_REPORT: 'GOODS_DAYS_REPORT',
 }
 
-export const ShopsIntegrations = observer(({ openModal }) => {
-  const { classes: classNames } = useClassNames()
-
-  const [tabIndex, setTabIndex] = React.useState(tabsValues.SHOPS)
-
-  const [curShop, setCurShop] = React.useState('')
+export const ShopsIntegrations = memo(({ openModal }) => {
+  const [tabIndex, setTabIndex] = useState(tabsValues.SHOPS)
+  const [curShop, setCurShop] = useState('')
 
   return (
-    <div className={classNames.shopWrapper}>
+    <>
       <CustomSwitcher
         fullWidth
         switchMode={'big'}
@@ -56,6 +50,6 @@ export const ShopsIntegrations = observer(({ openModal }) => {
       <TabPanel value={tabIndex} index={tabsValues.GOODS_DAYS_REPORT}>
         <GoodsDaysReport curShop={curShop} />
       </TabPanel>
-    </div>
+    </>
   )
 })

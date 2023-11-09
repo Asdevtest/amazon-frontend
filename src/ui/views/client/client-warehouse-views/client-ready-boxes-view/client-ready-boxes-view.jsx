@@ -11,7 +11,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -138,8 +138,9 @@ export const ClientReadyBoxesViewRaw = props => {
           <div />
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowSelectionModel={viewModel.selectedBoxes}

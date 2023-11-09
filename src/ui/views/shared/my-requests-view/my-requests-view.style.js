@@ -1,45 +1,12 @@
-import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
-const ani = keyframes`
-0% {
-    transform: translateY(-150%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1
-  }
-`
-
-export const styles = theme => ({
-  field: {
-    marginTop: theme.spacing(2.5),
-  },
-
-  placeRequestBtnWrapper: {
-    width: '100%',
+export const useStyles = makeStyles()(theme => ({
+  header: {
     display: 'flex',
-    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: '20px',
-    paddingRight: '5px',
-  },
-
-  datagridWrapper: {
-    height: '72vh',
-    width: '100%',
-  },
-
-  acceptMessageWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: '50%',
-    padding: '10px',
-    marginTop: '63px',
-    zIndex: 999,
-    opacity: 0,
-    transform: 'translateY(-150%)',
-    animation: `${ani} 1s forwards`,
+    marginBottom: 20,
+    paddingRight: 10,
   },
 
   searchInput: {
@@ -48,49 +15,15 @@ export const styles = theme => ({
     width: '400px',
   },
 
-  acceptMessage: {
-    color: '#00B746',
+  datagridWrapper: {
+    height: '73vh',
+    width: '100%',
+    marginTop: 20,
   },
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
     zIndex: 100,
-  },
-
-  switchButtonWrapper: {
-    display: 'flex',
-    width: '100%',
-    marginBottom: 20,
-  },
-
-  btnWrapperStyle: {
-    width: 'calc(100% / 2)',
-  },
-
-  switchButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    color: theme.palette.text.second,
-    width: '100%',
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-  },
-
-  selectedSwitchButton: {
-    color: theme.palette.primary.main,
-  },
-
-  switchButtonBorder: {
-    '&:after': {
-      position: 'absolute',
-      bottom: 0,
-      content: '" "',
-      display: 'block',
-      height: 1,
-      width: '100%',
-      background: theme.palette.primary.main,
-    },
   },
 
   deadlineBorder: {
@@ -131,4 +64,4 @@ export const styles = theme => ({
       background: theme.palette.other.rejected,
     },
   },
-})
+}))

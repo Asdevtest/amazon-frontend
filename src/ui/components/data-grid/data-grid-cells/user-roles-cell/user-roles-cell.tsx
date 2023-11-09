@@ -1,0 +1,29 @@
+import React, { FC } from 'react'
+
+import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+
+import { IUser } from '@typings/user'
+
+import { useDataGridCellStyles } from './user-roles-cell.style'
+
+interface UserRolesCellProps {
+  user: IUser
+}
+
+export const UserRolesCell: FC<UserRolesCellProps> = React.memo(({ user }) => {
+  const { classes: styles } = useDataGridCellStyles()
+
+  return (
+    <div className={styles.userRolesWrapper}>
+      <p className={styles.userRole}>{UserRolePrettyMap[user.role]}</p>
+
+      {user.allowedRoles
+        .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
+        .map((role, index) => (
+          <p key={index} className={styles.userRole}>
+            {UserRolePrettyMap[role]}
+          </p>
+        ))}
+    </div>
+  )
+})

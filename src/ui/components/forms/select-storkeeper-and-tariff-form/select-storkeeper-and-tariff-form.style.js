@@ -2,8 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
     width: '80vw',
-    height: '665px',
+    height: '80vh',
+    overflow: 'auto',
   },
   indicator: {
     backgroundColor: '#1da1f2',
@@ -11,7 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   boxesFiltersWrapper: {
     display: 'flex',
-    marginBottom: 10,
   },
   btnWrapperStyle: {
     width: 'fit-content',
@@ -49,7 +52,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    height: '50vh',
+    display: 'flex',
+    flex: 1,
+    overflow: 'auto',
   },
 
   attentionRow: {
@@ -59,19 +64,24 @@ export const useClassNames = makeStyles()(theme => ({
   clearBtnWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    margin: '15px 0 0',
+    height: 'fit-content',
   },
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
   },
-  tabsWrapper: {
-    padding: '10px 0',
-  },
 
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  tabPanel: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1',
+    gap: '10px',
+    overflow: 'auto',
   },
 }))

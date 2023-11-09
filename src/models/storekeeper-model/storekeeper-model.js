@@ -129,7 +129,7 @@ class StorekeeperModelStatic {
   }
 
   updateTaskPriority = async (guid, priority, reason) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPriorityGuidPatchWithHttpInfo({
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPriorityGuidPatch({
       guid,
       body: {
         priority,

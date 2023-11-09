@@ -37,10 +37,6 @@ interface Props {
 export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
 
-  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>

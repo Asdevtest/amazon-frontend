@@ -258,7 +258,7 @@ export const OrderProductModal = ({
     submitIsClicked
 
   return (
-    <div>
+    <div className={classNames.wrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>

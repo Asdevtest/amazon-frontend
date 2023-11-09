@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
@@ -15,6 +16,8 @@ import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useClassNames } from './delivery-parameters.style'
 
@@ -32,16 +35,58 @@ export const DeliveryParameters = ({
   const { classes: classNames } = useClassNames()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId })
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    formFields.destinationId,
+    formFields.storekeeperId,
+    formFields.logicsTariffId,
+    formFields.variationTariffId,
+  )
 
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  const onSubmitSelectStorekeeperAndTariff = (
+    storekeeperId,
+    tariffId,
+    variationTariffId,
+    destinationId,
+    isSelectedDestinationNotValid,
+  ) => {
+    if (isSelectedDestinationNotValid) {
+      setConfirmModalSettings({
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Wish to change a destination?']),
+
+        onClickConfirm: () => {
+          setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+        },
+
+        onClickCancelBtn: () => {
+          setFormFields({
+            ...formFields,
+            storekeeperId,
+            logicsTariffId: tariffId,
+            variationTariffId,
+            destinationId: null,
+          })
+
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+        },
+      })
+
+      setShowConfirmModal(true)
+    } else {
+      setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+    }
   }
-
-  const tariffName = storekeepers
-    ?.find(el => el?._id === formFields?.storekeeperId)
-    ?.tariffLogistics?.find(el => el?._id === formFields?.logicsTariffId)?.name
 
   const minDate = dayjs().add(2, 'day')
 
@@ -103,8 +148,8 @@ export const DeliveryParameters = ({
             })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {formFields?.storekeeperId
-              ? `${formFields?.storekeeperId ? `${tariffName ? tariffName : ''}` : 'none'}`
+            {formFields.storekeeperId && (tariffName || tariffRate)
+              ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
               : t(TranslationKey.Select)}
           </Button>
         }
@@ -148,54 +193,6 @@ export const DeliveryParameters = ({
         <Typography className={classNames.fieldLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
       </div>
 
-      {/* <div className={classNames.destinationWrapper}>
-        <OrderParameter
-          tooltipText={t(TranslationKey["Amazon's final warehouse in the United States"])}
-          label={t(TranslationKey.Destination)}
-          value={order.destination?.name || t(TranslationKey['Not chosen'])}
-        />
-        <OrderParameter label={'Zip Code'} value={order.destination?.zipCode} />
-        <OrderParameter label={t(TranslationKey.Country)} value={order.destination?.country} />
-        <OrderParameter label={t(TranslationKey.City)} value={order.destination?.city} />
-        <OrderParameter label={t(TranslationKey.State)} value={order.destination?.state} />
-        <OrderParameter label={t(TranslationKey.Address)} value={order.destination?.address} />
-      </div> */}
-
-      {/* <div className={classNames.storekeeperWrapper}>
-        <Field
-          oneLine
-          label={t(TranslationKey['Int warehouse'])}
-          tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
-          inputComponent={
-            <div className={classNames.intWarehouseWrapper}>
-              <UserLinkCell blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />
-            </div>
-          }
-        />
-
-        <OrderParameter
-          tooltipText={t(TranslationKey['Rate selected for delivery to the final Amazon warehouse in the USA'])}
-          label={t(TranslationKey.Tariff)}
-          value={getFullTariffTextForBoxOrOrder(order)}
-        />
-
-        <OrderParameter
-          label={t(TranslationKey['CLS (batch closing date)'])}
-          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
-        />
-
-        <OrderParameter
-          label={t(TranslationKey['ETD (date of shipment)'])}
-          value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}
-        />
-        <OrderParameter
-          label={t(TranslationKey['ETA (arrival date)'])}
-          value={order.logicsTariff?.eta && formatDateWithoutTime(order.logicsTariff?.eta)}
-        />
-      </div> */}
-
       <div className={classNames.buyerWrapper}>
         <Field
           oneLine
@@ -218,10 +215,26 @@ export const DeliveryParameters = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox
+          RemoveDestinationRestriction
           storekeepers={storekeepers?.filter(el => el?._id === formFields?.storekeeper?._id)}
           curStorekeeperId={formFields.storekeeperId}
+          currentDestinationId={formFields?.destinationId}
           curTariffId={formFields.logicsTariffId}
+          currentVariationTariffId={formFields?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
+        />
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
         />
       </Modal>
     </div>

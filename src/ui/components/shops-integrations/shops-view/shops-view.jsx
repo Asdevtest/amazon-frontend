@@ -1,9 +1,7 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
-import { Box, Checkbox, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,18 +10,19 @@ import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './shops-view.style'
+import { useStyles } from './shops-view.style'
 
 import { ShopsViewModel } from './shops-view.model'
 
-export const ShopsViewRaw = props => {
+export const ShopsView = observer(props => {
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(
     () =>
       new ShopsViewModel({
@@ -34,7 +33,6 @@ export const ShopsViewRaw = props => {
         openModal: props.openModal,
       }),
   )
-  const { classes: className } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -42,7 +40,7 @@ export const ShopsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <Box className={className.buttonBox}>
+      <div className={styles.buttonBox}>
         <Button
           tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
           onClick={viewModel.onClickAddBtn}
@@ -57,20 +55,18 @@ export const ShopsViewRaw = props => {
           {t(TranslationKey.Update)}
         </Button>
 
-        <div className={className.shopsSelect}>
+        <div className={styles.shopsSelect}>
           <WithSearchSelect
             checkbox
             notCloseOneClick
             firstItems={
-              <Button className={className.filterBtn} variant="text" onClick={viewModel.handleSelectAllShops}>
-                <div className={cx(className.fieldNamesWrapper, className.fieldNamesWrapperWithCheckbox)}>
-                  <>
-                    <Checkbox
-                      checked={viewModel.selectedShopFilters.length === viewModel.shopsData.length}
-                      color="primary"
-                    />
-                    <Typography className={className.fieldName}>{t(TranslationKey['All shops'])}</Typography>
-                  </>
+              <Button className={styles.filterBtn} variant="text" onClick={viewModel.handleSelectAllShops}>
+                <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
+                  <Checkbox
+                    checked={viewModel.selectedShopFilters.length === viewModel.shopsData.length}
+                    color="primary"
+                  />
+                  <Typography className={styles.fieldName}>{t(TranslationKey['All shops'])}</Typography>
                 </div>
               </Button>
             }
@@ -81,12 +77,13 @@ export const ShopsViewRaw = props => {
             onClickSelect={viewModel.onSelectShopFilter}
           />
         </div>
-      </Box>
+      </div>
 
-      <div className={className.datagridWrapper}>
-        <MemoDataGrid
+      <div className={styles.tabledWrapper}>
+        <CustomDataGrid
           useResizeContainer
           checkboxSelection
+          disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -114,7 +111,7 @@ export const ShopsViewRaw = props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -154,6 +151,4 @@ export const ShopsViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const ShopsView = withStyles(observer(ShopsViewRaw), styles)
+})

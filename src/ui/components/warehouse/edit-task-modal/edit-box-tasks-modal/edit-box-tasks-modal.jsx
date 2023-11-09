@@ -57,17 +57,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
-          value={
-            //   toFixed(
-            //   (sizeSetting === unitsOfChangeOptions.US
-            //     ? (box.heightCmWarehouse / inchesCoefficient) *
-            //       (box.widthCmWarehouse / inchesCoefficient) *
-            //       (box.lengthCmWarehouse / inchesCoefficient)
-            //     : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-            //   2,
-            // )
-            toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)
-          }
+          value={toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -122,7 +112,6 @@ export const EditBoxTasksModal = ({
   box,
   operationType,
   setNewBoxes,
-
   newBoxes,
   volumeWeightCoefficient,
   storekeeperWarehouseSubmit,
@@ -178,11 +167,6 @@ export const EditBoxTasksModal = ({
           (sizeSetting === unitsOfChangeOptions.US
             ? toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2)
             : parseFloat(editingBox?.weighGrossKgWarehouse)) || 0,
-
-        // volumeWeightKgWarehouse:
-        //   (sizeSetting === unitsOfChangeOptions.US
-        //     ? Math.round(editingBox?.volumeWeightKgWarehouse * poundsWeightCoefficient * 100) / 100
-        //     : parseFloat(editingBox?.volumeWeightKgWarehouse)) || 0,
       }
 
       storekeeperWarehouseSubmit(box._id, lastStepEditBox)

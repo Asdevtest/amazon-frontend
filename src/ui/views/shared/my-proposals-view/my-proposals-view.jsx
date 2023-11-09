@@ -9,7 +9,7 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
@@ -57,7 +57,7 @@ export const MyProposalsViewRaw = props => {
         </div>
 
         <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}

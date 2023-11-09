@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: '603px',
   },
 
-  modalDialogContextClassName: {
+  modaldialogClassName: {
     padding: '40px 32px 40px 50px !important',
   },
 }))

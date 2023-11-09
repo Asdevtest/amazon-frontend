@@ -1,16 +1,15 @@
 import { cx } from '@emotion/css'
 import { transformAndValidate } from 'class-transformer-validator'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import AddIcon from '@mui/icons-material/Add'
-import { Divider, IconButton, Paper, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
+import { Divider, IconButton, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesWarehouseReceiveBoxModalContract } from '@models/boxes-model/boxes-model.contracts'
 
-// import {Field} from '@components/field/field'
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -27,7 +26,6 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { getShortenStringIfLongerThanCount, shortAsin, toFixed, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-// import {CommentsLine} from './comments-line'
 import { useClassNames } from './receive-box-modal.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
@@ -723,9 +721,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         )}
       </div>
 
-      {/* <CommentsLine /> */}
-
-      <Paper className={classNames.boxesWrapper}>
+      <div className={classNames.boxesWrapper}>
         {!receiveNotFromBuyer && <CurrentBox />}
         {!receiveNotFromBuyer && <Divider flexItem className={classNames.divider} orientation="vertical" />}
         <NewBoxes
@@ -736,7 +732,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           onRemoveBox={onRemoveBox}
           onAddImages={onAddImages}
         />
-      </Paper>
+      </div>
       <div className={classNames.addButtonWrapperMobile}>
         <Button
           className={classNames.addButtonMobile}

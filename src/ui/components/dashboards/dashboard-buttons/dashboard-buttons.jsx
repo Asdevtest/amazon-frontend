@@ -31,9 +31,7 @@ export const DashboardButtons = ({ user, routes }) => {
       {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
         <div
           className={classNames.buttonWrapper}
-          onClick={() => {
-            history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
-          }}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
         >
           <div className={classNames.iconWrapper}>
             <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
