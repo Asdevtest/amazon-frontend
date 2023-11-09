@@ -22,22 +22,15 @@ export const UsersViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
+        <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickSubUsers}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['My users'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-          </div>
+        <div className={classNames.btnsWrapper}>
+          <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickSubUsers}>
+            <div className={classNames.btnTextWrapper}>
+              <Typography className={classNames.btnText}>{t(TranslationKey['My users'])}</Typography>
+              <ArrowRightAltIcon color="primary" />
+            </div>
+          </Button>
         </div>
       </div>
     </React.Fragment>

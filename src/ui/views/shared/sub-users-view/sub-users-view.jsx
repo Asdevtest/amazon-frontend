@@ -92,6 +92,7 @@ export const SubUsersViewRaw = props => {
           />
         </div>
       </div>
+
       <Modal
         openModal={viewModel.showAddSubUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
@@ -130,6 +131,7 @@ export const SubUsersViewRaw = props => {
           viewModel.onTriggerOpenModal('showWarningModal')
         }}
       />
+
       <ConfirmationModal
         isWarning
         openModal={viewModel.showConfirmModal}

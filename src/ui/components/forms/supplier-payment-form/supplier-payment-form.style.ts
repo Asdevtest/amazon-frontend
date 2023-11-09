@@ -13,19 +13,19 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
   },
 
-  input: {
-    width: '400px',
+  uploadInput: {
+    margin: '0 15px 0 5px',
   },
 
   saveBox: {
     marginTop: '20px',
     display: 'flex',
-    gap: '10px',
+    gap: '20px',
     justifyContent: 'space-between',
   },
 
   actionButton: {
-    width: '179px',
+    width: '190px',
     height: '40px',
   },
 

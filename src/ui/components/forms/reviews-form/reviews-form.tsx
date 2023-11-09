@@ -1,6 +1,4 @@
-import { observer } from 'mobx-react'
-
-import { Typography } from '@mui/material'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,42 +12,34 @@ import { t } from '@utils/translations'
 import { FeedbackType } from '@typings/feedback'
 import { IShortUser } from '@typings/master-user'
 
-import { useReviewsFormStyles } from './reviews-form.styles'
+import { useStyles } from './reviews-form.styles'
 
 interface ReviewsFormProps {
-  onClickCloseButton: () => void
   reviews: FeedbackType[]
+  onClickCloseButton: VoidFunction
   user?: IShortUser
 }
 
-export const ReviewsForm = observer((props: ReviewsFormProps) => {
-  const { onClickCloseButton, reviews, user } = props
-  const { classes: classNames } = useReviewsFormStyles()
+export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, reviews, user }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.modalHeader}>
-        <Typography className={classNames.userReviewTitle}>{`${t(TranslationKey['User reviews'])}:`}</Typography>
-        <div>
-          <UserLink customClassNames={classNames.userLink} name={user?.name} userId={user?._id} />
+    <div className={styles.root}>
+      <div className={styles.modalHeader}>
+        <p className={styles.userReviewTitle}>{`${t(TranslationKey['User reviews'])}:`}</p>
+        <div className={styles.modalHeader}>
+          <UserLink customClassNames={styles.userLink} name={user?.name} userId={user?._id} />
           {user && <ShortRating rating={user.rating} size={'medium'} />}
         </div>
       </div>
-      <div className={classNames.reviewsWrapper}>
-        <div className={classNames.reviewsList}>
-          {reviews?.map((review, index) => (
-            <ReviewCard key={index} review={review} />
-          ))}
-        </div>
+      <div className={styles.reviewsList}>
+        {reviews?.map((review, index) => (
+          <ReviewCard key={index} review={review} />
+        ))}
       </div>
 
-      <div className={classNames.footerWrapper}>
-        <Button
-          color="primary"
-          variant="outlined"
-          className={classNames.closeButton}
-          onClick={() => onClickCloseButton()}
-        >
+      <div className={styles.footerWrapper}>
+        <Button color="primary" variant="outlined" className={styles.closeButton} onClick={onClickCloseButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -69,33 +69,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
               onSubmit={viewModel.onSearchSubmit}
             />
 
-            {!viewModel.isArchive ? (
-              <div className={styles.btnsWrapper}>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-                  variant="outlined"
-                  className={styles.openArchiveBtn}
-                  onClick={viewModel.onTriggerArchive}
-                >
-                  {t(TranslationKey['Open archive'])}
-                </Button>
-
-                <Button
-                  success
-                  tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                  className={styles.actionButtonWithPlus}
-                  onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
-                >
-                  <img src="/assets/icons/white-plus.svg" className={styles.icon} />
-                  {t(TranslationKey['Add product'])}
-                </Button>
-              </div>
-            ) : (
-              <div />
-            )}
-          </div>
-
-          <div className={styles.buttons}>
             {!viewModel.isArchive && (
               <div className={styles.btnsWrapper}>
                 <Button
@@ -147,6 +120,31 @@ export const ClientInventoryView = observer(({ history, location }) => {
                   onClick={viewModel.onClickProductLotDataBtn}
                 >
                   {t(TranslationKey['Product batches data'])}
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.buttons}>
+            {!viewModel.isArchive && (
+              <div className={styles.btnsWrapper}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+                  variant="outlined"
+                  className={styles.openArchiveBtn}
+                  onClick={viewModel.onTriggerArchive}
+                >
+                  {t(TranslationKey['Open archive'])}
+                </Button>
+
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                  className={styles.actionButtonWithPlus}
+                  onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
+                >
+                  <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+                  {t(TranslationKey['Add product'])}
                 </Button>
               </div>
             )}

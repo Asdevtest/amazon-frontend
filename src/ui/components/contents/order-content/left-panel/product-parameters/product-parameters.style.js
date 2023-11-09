@@ -18,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '14px',
-    borderRadius: '4px',
+    borderRadius: '7px',
     height: '36px',
   },
   barcodeChipHover: {
