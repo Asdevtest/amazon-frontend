@@ -85,7 +85,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   statusText: {
-    color: 'black',
+    color: theme.palette.text.general,
     fontSize: 18,
     lineHeight: '25px',
 

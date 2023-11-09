@@ -35,7 +35,7 @@ export const MultilineRequestStatusCell: FC<MultilineRequestStatusCellProps> = R
       } else if ([RequestStatus.EXPIRED].includes(status)) {
         return '#C4C4C4'
       } else {
-        return 'black'
+        return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
       }
     }
 

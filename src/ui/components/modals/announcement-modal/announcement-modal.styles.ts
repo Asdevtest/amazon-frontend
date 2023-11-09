@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   modalWrapper: {
     width: '100%',
     height: '100%',
-    padding: 40,
+    padding: 10,
   },
 
   header: {

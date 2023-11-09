@@ -6,8 +6,9 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   },
 
   wrapper: {
+    width: 1230,
+    padding: 30,
     height: '100%',
-    maxHeight: '884px',
     overflowY: 'hidden',
   },
 
@@ -101,7 +102,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   },
 
   filesList: {
-    paddingBottom: '20px',
     width: 'fit-content',
   },
 

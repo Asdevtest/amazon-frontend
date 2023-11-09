@@ -11,7 +11,6 @@ import { FreelanceRequestDetailsModal } from '@components/modals/freelance-reque
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -85,52 +84,49 @@ export const MyRequestsView = observer(({ history, location }) => {
         />
 
         <div className={styles.datagridWrapper}>
-          {viewModel.requestStatus === loadingStatuses.success ? (
-            <CustomDataGrid
-              propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
-              localeText={getLocalizationByLanguageTag()}
-              getCellClassName={getCellClassName}
-              getRowClassName={getRowClassName}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
-              paginationModel={viewModel.paginationModel}
-              rowCount={viewModel.rowCount}
-              sortModel={viewModel.sortModel}
-              rows={viewModel.currentData}
-              pageSizeOptions={[15, 25, 50, 100]}
-              rowHeight={130}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
-                },
-                columnMenu: viewModel.columnMenuSettings,
+          <CustomDataGrid
+            propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
+            localeText={getLocalizationByLanguageTag()}
+            getCellClassName={getCellClassName}
+            getRowClassName={getRowClassName}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            rows={viewModel.currentData}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rowHeight={130}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
 
-                toolbar: {
-                  resetFiltersBtnSettings: {
-                    onClickResetFilters: viewModel.onClickResetFilters,
-                    isSomeFilterOn: viewModel.isSomeFilterOn,
-                  },
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
                 },
-              }}
-              density={viewModel.densityModel}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
-              onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
-              onColumnHeaderLeave={viewModel.onLeaveColumnField}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModel}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-              onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
-            />
-          ) : (
-            <CircularProgressWithLabel />
-          )}
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
+            onColumnHeaderLeave={viewModel.onLeaveColumnField}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModel}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+          />
+          )
         </div>
       </div>
 

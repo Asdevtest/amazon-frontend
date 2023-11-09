@@ -42,6 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: '270px',
+    width: '300px',
   },
 }))

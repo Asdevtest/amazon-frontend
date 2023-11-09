@@ -1,20 +1,15 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   buttonBox: {
-    textAlign: 'left',
-    marginRight: '0',
-    marginTop: 10,
+    marginTop: 20,
     display: 'flex',
+    alignItems: 'center',
     gap: 30,
   },
 
   shopsSelect: {
     marginLeft: 'auto',
-  },
-
-  datagridWrapper: {
-    marginTop: '20px',
-    height: '74vh',
-    width: '100%',
   },
 
   filterBtn: {
@@ -23,6 +18,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     height: 'auto !important',
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -30,7 +26,6 @@ export const styles = theme => ({
 
   fieldNamesWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
     height: 'max-content',
     justifyContent: 'space-between',
@@ -50,4 +45,10 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     color: theme.palette.text.general,
   },
-})
+
+  tabledWrapper: {
+    marginTop: 20,
+    height: '74vh',
+    width: '100%',
+  },
+}))

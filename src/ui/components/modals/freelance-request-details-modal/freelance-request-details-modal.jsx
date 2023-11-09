@@ -42,117 +42,114 @@ export const FreelanceRequestDetailsModal = props => {
   const requestDocuments = request?.media.map(el => el.fileLink)
 
   return (
-    <Modal
-      fullWidth
-      maxWidth={1229}
-      openModal={isOpenModal}
-      dialogClassName={styles.wrapper}
-      setOpenModal={handleOpenModal}
-    >
-      <div className={styles.header}>
-        <div className={styles.headerDetails}>
-          <Typography>
-            {t(TranslationKey.ID)}: {request?.humanFriendlyId}
-          </Typography>
-          <Typography className={styles.title}>
-            <span>{getShortenStringIfLongerThanCount(request?.title, 55)}</span>
-          </Typography>
+    <Modal openModal={isOpenModal} setOpenModal={handleOpenModal}>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <div className={styles.headerDetails}>
+            <Typography>
+              {t(TranslationKey.ID)}: {request?.humanFriendlyId}
+            </Typography>
+            <Typography className={styles.title}>
+              <span>{getShortenStringIfLongerThanCount(request?.title, 55)}</span>
+            </Typography>
+          </div>
+          <div className={styles.headerDetails}>
+            <Typography className={styles.headerText}>
+              {t(TranslationKey['Request type'])}:{' '}
+              <span>{freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}</span>
+            </Typography>
+            <Typography className={styles.headerText}>
+              {t(TranslationKey['Request creator'])}:
+              <UserLink
+                blackText
+                withAvatar
+                readOnlyRating
+                name={request?.createdBy?.name}
+                userId={request?.createdBy?._id}
+                rating={request?.createdBy?.rating}
+                ratingSize={'small'}
+                customRatingClass={{ opacity: 1 }}
+              />
+            </Typography>
+          </div>
         </div>
-        <div className={styles.headerDetails}>
-          <Typography className={styles.headerText}>
-            {t(TranslationKey['Request type'])}:{' '}
-            <span>{freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}</span>
-          </Typography>
-          <Typography className={styles.headerText}>
-            {t(TranslationKey['Request creator'])}:
-            <UserLink
-              blackText
-              withAvatar
-              readOnlyRating
-              name={request?.createdBy?.name}
-              userId={request?.createdBy?._id}
-              rating={request?.createdBy?.rating}
-              ratingSize={'small'}
-              customRatingClass={{ opacity: 1 }}
+
+        <div className={styles.content}>
+          <div className={styles.productInfo}>
+            <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
+            <PhotoAndFilesSlider
+              withoutFiles
+              isHideCounter
+              showPreviews
+              customSlideHeight={215}
+              files={request?.product?.images}
             />
-          </Typography>
-        </div>
-      </div>
-
-      <div className={styles.content}>
-        <div className={styles.productInfo}>
-          <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
-          <PhotoAndFilesSlider
-            withoutFiles
-            isHideCounter
-            showPreviews
-            customSlideHeight={215}
-            files={request?.product?.images}
-          />
-          <div className={styles.category}>
-            {request?.product.asin && (
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
-            )}
-            {request?.product.amazonTitle && (
-              <Typography>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</Typography>
-            )}
-          </div>
-
-          <div className={styles.category}>
-            <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
-            <div className={styles.filesItem}>
-              <Typography>{t(TranslationKey.Photos)}</Typography>
-              <PhotoAndFilesSlider
-                withoutFiles
-                showPreviews
-                files={requestPhotos}
-                photosTitles={requestTitles}
-                photosComments={requestComments}
-              />
-            </div>
-            <div className={cx(styles.filesList)}>
-              <Typography>{t(TranslationKey.Files)}</Typography>
-              <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.requestInfo}>
-          <div className={styles.category}>
-            <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
-            <RequestTermsList request={request} />
-          </div>
-
-          {details?.conditions && (
             <div className={styles.category}>
-              <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
-              <CustomTextEditor
-                readOnly
-                editorMaxHeight={styles.editorWrapper}
-                conditions={details?.conditions}
-                changeConditions={undefined}
-              />
+              {request?.product.asin && (
+                <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
+              )}
+              {request?.product.amazonTitle && (
+                <Typography>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</Typography>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-      {/* <div className={styles.suggestDeal}> */}
-      {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
 
-      {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
-      {/* </div> */}
-      <FreelanceRequestDetailsModalControls
-        isRequestOwner={isRequestOwner}
-        request={request}
-        onClickSuggest={onClickSuggest}
-        onClickOpenNewTab={onClickOpenNewTab}
-        onClickPublishBtn={onClickPublishBtn}
-        onClickEditBtn={onClickEditBtn}
-        onClickCancelBtn={onClickCancelBtn}
-        onToggleUploadedToListing={onToggleUploadedToListing}
-        onRecoverRequest={onRecoverRequest}
-        onClickAbortBtn={onClickAbortBtn}
-      />
+            <div className={styles.category}>
+              <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
+              <div className={styles.filesItem}>
+                <Typography>{t(TranslationKey.Photos)}</Typography>
+                <PhotoAndFilesSlider
+                  withoutFiles
+                  showPreviews
+                  customSlideHeight={75}
+                  files={requestPhotos}
+                  photosTitles={requestTitles}
+                  photosComments={requestComments}
+                />
+              </div>
+              <div className={cx(styles.filesList)}>
+                <Typography>{t(TranslationKey.Files)}</Typography>
+                <PhotoAndFilesSlider withoutPhotos customSlideHeight={75} files={requestDocuments} />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.requestInfo}>
+            <div className={styles.category}>
+              <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+              <RequestTermsList request={request} />
+            </div>
+
+            {details?.conditions && (
+              <div className={styles.category}>
+                <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
+                <CustomTextEditor
+                  readOnly
+                  editorMaxHeight={styles.editorWrapper}
+                  conditions={details?.conditions}
+                  changeConditions={undefined}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        {/* <div className={styles.suggestDeal}> */}
+        {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
+
+        {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
+        {/* </div> */}
+        <FreelanceRequestDetailsModalControls
+          isRequestOwner={isRequestOwner}
+          request={request}
+          onClickSuggest={onClickSuggest}
+          onClickOpenNewTab={onClickOpenNewTab}
+          onClickPublishBtn={onClickPublishBtn}
+          onClickEditBtn={onClickEditBtn}
+          onClickCancelBtn={onClickCancelBtn}
+          onToggleUploadedToListing={onToggleUploadedToListing}
+          onRecoverRequest={onRecoverRequest}
+          onClickAbortBtn={onClickAbortBtn}
+        />
+      </div>
     </Modal>
   )
 }

@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '485px',
     minHeight: '168px',
+    padding: 20,
   },
 
   modalTitle: {

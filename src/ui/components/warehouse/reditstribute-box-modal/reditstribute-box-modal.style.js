@@ -1,6 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  wrapper: {
+    padding: 20,
+  },
   boxesWrapper: {
     display: 'flex',
     gap: '40px',

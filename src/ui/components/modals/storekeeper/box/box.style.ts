@@ -18,22 +18,20 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
-    marginBottom: '30px',
+    gap: 20,
   },
 
   img: {
-    width: '60px',
-    height: '60px',
+    width: 60,
+    height: 60,
     objectFit: 'contain',
     objectPosition: 'center',
-    marginRight: 20,
   },
 
   title: {
     fontSize: '14px',
     fontWeight: 400,
-    lineHeight: '21px',
-    marginRight: '10px',
+    lineHeight: '19px',
     width: '299px',
     color: theme.palette.text.general,
   },

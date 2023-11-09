@@ -18,13 +18,12 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
-    marginBottom: '30px',
+    gap: 20,
   },
 
   img: {
-    width: '66px',
-    height: '66px',
-
+    width: 60,
+    height: 60,
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -32,17 +31,18 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '14px',
     fontWeight: 400,
-    lineHeight: '21px',
-    marginRight: '10px',
+    lineHeight: '19px',
     width: '299px',
     color: theme.palette.text.general,
   },
 
   orderInput: {
     width: '79px',
+    margin: 0,
   },
 
   label: {
+    marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,

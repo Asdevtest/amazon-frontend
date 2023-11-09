@@ -177,7 +177,7 @@ export const RedistributeBox = observer(
       selectedBox?.status !== BoxStatus.IN_STOCK
 
     return (
-      <div>
+      <div className={classNames.wrapper}>
         <div className={classNames.modalTitleWrapper}>
           <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
           <img src="/assets/img/split.png" />
