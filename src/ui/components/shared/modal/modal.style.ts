@@ -4,6 +4,8 @@ export const useStyles = makeStyles()(theme => ({
   dialogWrapper: {
     width: '100% !important',
     height: '100% !important',
+    maxHeight: '100% !important', // because of external styles
+    maxWidth: '100% !important', // because of external styles
     position: 'fixed',
     top: 0,
     left: 0,

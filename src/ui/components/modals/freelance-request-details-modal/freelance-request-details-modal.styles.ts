@@ -8,6 +8,8 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   wrapper: {
     width: 1230,
     padding: 30,
+    height: '100%',
+    overflowY: 'hidden',
   },
 
   header: {

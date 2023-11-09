@@ -16,6 +16,7 @@ import { UserModel } from '@models/user-model'
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -125,17 +126,7 @@ export class MyRequestsViewModel {
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   constructor({ history, location }) {
@@ -426,136 +417,25 @@ export class MyRequestsViewModel {
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings?.humanFriendlyId?.currentFilterData?.join(',')
-    const updatedAtFilter =
-      exclusion !== 'updatedAt' && this.columnMenuSettings?.updatedAt?.currentFilterData?.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings?.status?.currentFilterData?.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings?.title?.currentFilterData?.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings?.typeTask?.currentFilterData?.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings?.asin?.currentFilterData?.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings?.price?.currentFilterData?.join(',')
-    const timeoutAtFilter =
-      exclusion !== 'timeoutAt' && this.columnMenuSettings?.timeoutAt?.currentFilterData?.join(',')
-    const subUsersFilter =
-      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-    const subFilter =
-      exclusion !== 'sub' && this.columnMenuSettings?.sub?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings?.skusByClient?.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings?.amazonTitle?.currentFilterData?.map(el => `"${el}"`).join(',')
-
-    const createdByFilter =
-      exclusion !== 'createdBy' &&
-      this.columnMenuSettings?.createdBy?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings?.priority?.currentFilterData?.join(',')
-
-    const createdAtFilter =
-      exclusion !== 'createdAt' && this.columnMenuSettings?.createdAt?.currentFilterData?.join(',')
-
-    const announcementCreatedByFilter =
-      exclusion !== 'announcementCreatedBy' &&
-      this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const taskComplexityFilter =
-      exclusion !== 'taskComplexity' && this.columnMenuSettings?.taskComplexity?.currentFilterData?.join(',')
-    const shopIdsFilter =
-      exclusion !== 'shopIds' && this.columnMenuSettings?.shopIds?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { title: { $contains: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-      ...(titleFilter && {
-        title: { $eq: titleFilter },
-      }),
-      ...(typeTaskFilter && {
-        typeTask: { $eq: typeTaskFilter },
-      }),
-      ...(priceFilter && {
-        price: { $eq: priceFilter },
-      }),
-      ...(timeoutAtFilter && {
-        timeoutAt: { $eq: timeoutAtFilter },
-      }),
-      ...(createdByFilter && {
-        createdBy: { $eq: createdByFilter },
-      }),
-      ...(subUsersFilter && {
-        subUsers: { $eq: subUsersFilter },
-      }),
-      ...(subFilter && {
-        sub: { $eq: subFilter },
-      }),
-      ...(priorityFilter && {
-        priority: { $eq: priorityFilter },
-      }),
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-
-      ...(announcementCreatedByFilter && {
-        announcementCreatedBy: { $eq: announcementCreatedByFilter },
-      }),
-
-      ...(taskComplexityFilter && {
-        taskComplexity: { $eq: taskComplexityFilter },
-      }),
-
-      ...(shopIdsFilter && {
-        shopIds: { $eq: shopIdsFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'title',
+        'humanFriendlyId',
+        'asin',
+      ]),
+    )
   }
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
         `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
-      if (column === 'status') {
-        if (this.columnMenuSettings[column]) {
+      if (this.columnMenuSettings[column]) {
+        if (column === 'status') {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
             [column]: {
@@ -565,20 +445,14 @@ export class MyRequestsViewModel {
                 : data.filter(el => !allowStatuses.includes(el)),
             },
           }
-        }
-      } else {
-        if (this.columnMenuSettings[column]) {
+        } else {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
             [column]: { ...this.columnMenuSettings[column], filterData: data },
           }
         }
       }
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-
       console.log(error)
     }
   }

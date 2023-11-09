@@ -43,7 +43,7 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        setOpenModal={viewModel.onClickOkInfoModal}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Ok)}
         onClickBtn={viewModel.onClickOkInfoModal}

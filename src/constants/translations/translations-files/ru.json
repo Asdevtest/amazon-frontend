@@ -2142,5 +2142,6 @@
   "Pending orders already exist": "Уже существуют отложенные заказы",
   "Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.": "Данные успешно сохранены, однако некоторые из введенных ссылок могут быть недействительными и не были загружены.",
   "This rate may have an irrelevant value as the rate may have been changed after shipment.": "Данный рейт может иметь неактуальное значение, поскольку тариф мог быть изменён после отправки.",
-  "pc": "шт"
+  "pc": "шт",
+  "There are unresolved proposals for this request in your queue.": "В вашей очереди есть нерешенные предложения по этой заявке."
 }
