@@ -126,7 +126,6 @@ export const MyRequestsView = observer(({ history, location }) => {
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
           />
-          )
         </div>
       </div>
 
