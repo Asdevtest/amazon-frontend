@@ -374,9 +374,9 @@ export const RequestDesignerResultClientForm = props => {
           <>
             <Field
               multiline
-              className={cx(classNames.heightFieldAuto)}
+              className={classNames.heightFieldAuto}
               labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.containerField}
+              containerClasses={classNames.field}
               inputProps={{ maxLength: 1000 }}
               minRows={4}
               maxRows={4}
@@ -389,7 +389,7 @@ export const RequestDesignerResultClientForm = props => {
             <Field
               labelClasses={classNames.fieldLabel}
               label={t(TranslationKey['Time for rework'])}
-              containerClasses={classNames.containerField}
+              containerClasses={classNames.field}
               inputComponent={
                 <SetDuration
                   duration={formFields.execution_time}

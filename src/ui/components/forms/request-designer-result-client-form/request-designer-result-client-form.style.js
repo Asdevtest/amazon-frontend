@@ -37,12 +37,16 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
     gap: 20,
   },
 
   containerField: {
-    width: '140px !important',
+    width: '160px !important',
+    marginBottom: '0 !important',
+  },
+
+  field: {
     marginBottom: '0 !important',
   },
 
@@ -66,14 +70,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   downloadsCheckWrapper: {
+    width: 145,
     display: 'flex',
     alignItems: 'center',
     transition: '.3s ease',
     cursor: 'pointer',
-
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   commentBtn: {
@@ -98,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
-    marginTop: 30,
+    marginTop: 20,
     overflowY: 'auto',
     overflowX: 'hidden',
   },
