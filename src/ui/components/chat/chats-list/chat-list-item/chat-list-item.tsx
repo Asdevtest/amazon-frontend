@@ -64,7 +64,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
           ? user.role === mapUserRoleEnumToKey[UserRole.FREELANCER as keyof typeof mapUserRoleEnumToKey] &&
             !user.masterUser
           : user.role === mapUserRoleEnumToKey[UserRole.CLIENT as keyof typeof mapUserRoleEnumToKey] && !user.masterUser
-      console.log(user)
+
       const result =
         !isOwnerUser &&
         !isRequestAndProposalSub &&
