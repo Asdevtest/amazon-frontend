@@ -1,6 +1,5 @@
 import { ClassNamesArg, cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Avatar, Link, Tooltip, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -29,7 +28,7 @@ interface UserLinkProps {
   readOnlyRating?: boolean
 }
 
-export const UserLink: FC<UserLinkProps> = React.memo(
+export const UserLink: FC<UserLinkProps> = memo(
   ({
     name,
     userId,
