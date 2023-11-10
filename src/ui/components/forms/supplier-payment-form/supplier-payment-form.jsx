@@ -34,14 +34,16 @@ export const SupplierPaymentForm = ({
         />
       </div>
 
-      <PhotoAndFilesSlider
-        smallSlider
-        showPreviews
-        isEditable
-        withoutMakeMainImage
-        files={editPaymentDetailsPhotos}
-        onChangeImagesForLoad={setEditPaymentDetailsPhotos}
-      />
+      {editPaymentDetailsPhotos.length ? (
+        <PhotoAndFilesSlider
+          smallSlider
+          showPreviews
+          isEditable
+          withoutMakeMainImage
+          files={editPaymentDetailsPhotos}
+          onChangeImagesForLoad={setEditPaymentDetailsPhotos}
+        />
+      ) : null}
 
       <diiv className={classNames.saveBox}>
         <Button
