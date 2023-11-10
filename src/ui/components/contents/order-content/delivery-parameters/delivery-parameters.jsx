@@ -1,8 +1,7 @@
-import { cx } from '@emotion/css'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +18,7 @@ import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
-import { useClassNames } from './delivery-parameters.style'
+import { useStyles } from './delivery-parameters.style'
 
 export const DeliveryParameters = ({
   isCanChange,
@@ -32,7 +31,7 @@ export const DeliveryParameters = ({
   setFormFields,
   onChangeField,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -91,15 +90,15 @@ export const DeliveryParameters = ({
   const minDate = dayjs().add(2, 'day')
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       {order.status < 20 && (
         <Field
           oneLine
           label={t(TranslationKey.Deadline)}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
+          containerClasses={styles.parameterTableCellWrapper}
+          labelClasses={styles.fieldLabel}
           inputComponent={
-            <div className={classNames.deadlineWrapper}>
+            <div className={styles.deadlineWrapper}>
               <NewDatePicker
                 disablePast
                 disabled={!isCanChange}
@@ -113,7 +112,7 @@ export const DeliveryParameters = ({
       )}
 
       <Field
-        labelClasses={classNames.fieldLabel}
+        labelClasses={styles.fieldLabel}
         label={t(TranslationKey.Destination)}
         tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
         inputComponent={
@@ -134,18 +133,13 @@ export const DeliveryParameters = ({
       />
 
       <Field
-        labelClasses={classNames.fieldLabel}
+        labelClasses={styles.fieldLabel}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
         error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
             disableElevation
             disabled={!isCanChange}
-            color="primary"
-            variant={formFields.storekeeperId && 'text'}
-            className={cx(classNames.chosenTariff, {
-              [classNames.notChosenTariff]: !formFields?.storekeeperId,
-            })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {formFields.storekeeperId && (tariffName || tariffRate)
@@ -156,54 +150,52 @@ export const DeliveryParameters = ({
       />
 
       <div
-        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
+        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
           isCanChange && onChangeField('priority')({ target: { value: formFields.priority === '30' ? '40' : '30' } })
         }
       >
         <Checkbox
           disabled={!isCanChange}
-          className={classNames.checkbox}
+          className={styles.checkbox}
           checked={formFields.priority === '40'}
           color="primary"
         />
-        <Typography className={classNames.fieldLabel}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
-        <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
+        <p>{t(TranslationKey['Mark an order as urgent'])}</p>
+        <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
       </div>
       <div
-        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
+        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
           isCanChange && onChangeField('expressChinaDelivery')({ target: { value: !formFields.expressChinaDelivery } })
         }
       >
         <Checkbox
           disabled={!isCanChange}
-          className={classNames.checkbox}
+          className={styles.checkbox}
           checked={formFields.expressChinaDelivery}
           color="primary"
         />
-        <Typography className={classNames.fieldLabel}>
-          {t(TranslationKey['Order express delivery in China'])}
-        </Typography>
-        <img className={classNames.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+        <p>{t(TranslationKey['Order express delivery in China'])}</p>
+        <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
       </div>
 
-      <div className={classNames.researchWrapper}>
-        <Checkbox disabled className={classNames.checkbox} checked={formFields.needsResearch} color="primary" />
-        <Typography className={classNames.fieldLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+      <div className={styles.researchWrapper}>
+        <Checkbox disabled className={styles.checkbox} checked={formFields.needsResearch} color="primary" />
+        <p>{t(TranslationKey['Re-search supplier'])}</p>
       </div>
 
-      <div className={classNames.buyerWrapper}>
+      <div className={styles.buyerWrapper}>
         <Field
           oneLine
           label={t(TranslationKey.Buyer)}
           tooltipInfoContent={t(
             TranslationKey['Buyer with whom the order is being processed / Buyer assigned to the order'],
           )}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
+          containerClasses={styles.parameterTableCellWrapper}
+          labelClasses={styles.fieldLabel}
           inputComponent={
-            <div className={classNames.intWarehouseWrapper}>
+            <div className={styles.intWarehouseWrapper}>
               <UserLinkCell blackText name={order.buyer?.name} userId={order.buyer?._id} />
             </div>
           }
@@ -224,19 +216,19 @@ export const DeliveryParameters = ({
           currentVariationTariffId={formFields?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
       </Modal>
+
+      <ConfirmationModal
+        isWarning={confirmModalSettings?.isWarning}
+        openModal={showConfirmModal}
+        setOpenModal={() => setShowConfirmModal(false)}
+        title={t(TranslationKey.Attention)}
+        message={confirmModalSettings?.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+      />
     </div>
   )
 }
