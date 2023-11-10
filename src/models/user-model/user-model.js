@@ -65,6 +65,10 @@ class UserModelStatic {
     SettingsModel.setAuthorizationData(accessToken, refreshToken)
   }
 
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken
+  }
+
   async signUp({ name, email, password }) {
     const response = await restApiService.userApi.apiV1UsersPost({
       body: {

@@ -5,6 +5,7 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
@@ -76,6 +77,7 @@ export const getAxiosInstance = () => {
               originalConfig.headers.Authorization = 'Bearer ' + accessToken
 
               SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+              UserModel.setAccessToken(accessToken)
 
               ChatModel.disconnect()
               ChatModel.init(accessToken)
