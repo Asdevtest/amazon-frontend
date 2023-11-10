@@ -489,10 +489,12 @@ export const MergeBoxesModal = ({
         )}
       </div>
       <div className={cx(styles.modalFooter, { [styles.modalAlternateFooter]: !isDifferentStorekeepers })}>
-        {isDifferentStorekeepers && (
+        {isDifferentStorekeepers ? (
           <Typography className={styles.attentionDifStorekeepers}>
             {t(TranslationKey['Intermediate warehouses must match!'])}
           </Typography>
+        ) : (
+          <div />
         )}
         <div className={styles.buttonsWrapper}>
           <Button

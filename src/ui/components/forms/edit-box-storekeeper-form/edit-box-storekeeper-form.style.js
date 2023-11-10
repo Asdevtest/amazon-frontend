@@ -4,7 +4,8 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    padding: 10,
+    position: 'relative',
+    paddingRight: 10,
   },
   form: {
     borderRadius: '5px',
@@ -44,11 +45,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: '20px',
-    marginRight: 10,
-    gap: 40,
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
 
   button: {

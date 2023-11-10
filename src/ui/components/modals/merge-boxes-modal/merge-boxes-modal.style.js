@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: 10,
+    position: 'relative',
+    paddingRight: 10,
   },
   heightFieldAuto: {
     height: '86px',
@@ -35,8 +36,7 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    gap: '10px',
-    marginRight: 10,
+    gap: '20px',
   },
 
   box: {
@@ -177,9 +177,15 @@ export const useStyles = makeStyles()(theme => ({
   },
   modalFooter: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '40px',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
   modalAlternateFooter: {
     display: 'flex',

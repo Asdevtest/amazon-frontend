@@ -3,7 +3,8 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
-    padding: 20,
+    position: 'relative',
+    paddingRight: 10,
     [theme.breakpoints.down(1282)]: {
       // height: 'calc(100vh - 145px)',
       minHeight: 500,
@@ -107,10 +108,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
-    justifyContent: 'end',
-    marginTop: '30px',
-    gap: '20px',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
 
     [theme.breakpoints.down(1282)]: {
       marginTop: 10,

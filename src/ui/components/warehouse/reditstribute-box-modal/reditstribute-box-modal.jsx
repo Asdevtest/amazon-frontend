@@ -221,7 +221,7 @@ export const RedistributeBox = observer(
             onRemoveBox={onRemoveBox}
           />
 
-          <>
+          <div>
             <PriorityForm
               setCurrentPriority={setPriority}
               setComment={setPriorityReason}
@@ -241,7 +241,7 @@ export const RedistributeBox = observer(
               value={comment}
               onChange={e => setComment(e.target.value)}
             />
-          </>
+          </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
