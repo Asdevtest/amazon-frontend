@@ -19,20 +19,17 @@ import { t } from '@utils/translations'
 interface SubUsersFreelancerColumnsProps {
   onClickRemoveBtn: (row: GridRowParams) => void
   onClickEditBtn: (row: GridRowParams) => void
-  onClickSaveComment: (id: string, comment: string) => void
+  onClickSaveComment: (id: string, comment?: string) => void
 }
 
 export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsProps) => [
   {
     field: 'name',
     headerName: t(TranslationKey.User),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-
     width: 350,
     renderCell: (params: GridRowParams) => {
       const user = params.row
-      // @ts-ignore
       return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
     },
   },
@@ -40,25 +37,20 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   {
     field: 'roles',
     headerName: t(TranslationKey.Roles),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
-
     width: 215,
-    // @ts-ignore
     renderCell: (params: GridRowParams) => <UserRolesCell user={params.row} />,
   },
 
   {
     field: 'typeTask',
     headerName: t(TranslationKey['Request type']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-
     renderCell: (params: GridRowParams) => {
       const stringForRender = params.row.allowedSpec
         .map((spec: number) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[spec]))
         .join('\n')
-      // @ts-ignore
+
       return <MultilineTextCell leftAlign text={stringForRender} />
     },
     type: 'number',
@@ -69,13 +61,10 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
     width: 340,
     renderCell: (params: GridRowParams) => (
       <EditOrRemoveBtnsCell
-        // @ts-ignore
         isSubUsersTable
         tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
         tooltipSecondButton={t(
@@ -94,17 +83,12 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   {
     field: 'note',
     headerName: t(TranslationKey.Comment),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
     width: 335,
     renderCell: (params: GridRowParams) => (
       <CommentUsersCell
-        // @ts-ignore
-        id={params.row._id}
         comment={params?.row?.note?.comment}
-        // @ts-ignore
-        handler={handlers.onClickSaveComment}
+        handler={comment => handlers.onClickSaveComment(params?.row?._id, comment)}
       />
     ),
     filterable: false,
@@ -114,9 +98,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    // @ts-ignore
     renderCell: (params: GridRowParams) => <NormDateCell value={params.row.originalData.updatedAt} />,
     width: 100,
   },

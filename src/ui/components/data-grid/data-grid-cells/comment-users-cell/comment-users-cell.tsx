@@ -5,7 +5,7 @@ import { useDataGridCellStyles } from './comment-users-cell.style'
 import { ChangeInputCommentCell } from '../data-grid-cells'
 
 interface CommentUsersCellProps {
-  handler: () => void
+  handler: (id: string, comment?: string) => void
   comment: string
   maxLength?: number
 }

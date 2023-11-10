@@ -35,6 +35,7 @@ const updateOrderKeys = [
   'orderSupplierId',
   'totalPrice',
   'priceBatchDeliveryInYuan',
+  'deliveryCostToTheWarehouse',
 ]
 
 export class BuyerMyOrdersViewModel {

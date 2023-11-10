@@ -67,7 +67,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => RenderFieldValueCell(params.value),
+    renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 120,
   },
 

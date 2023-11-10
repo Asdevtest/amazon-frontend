@@ -655,7 +655,7 @@ export class ClientOrdersViewModel {
   async onClickReorder(item) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const res = await OrderModel.checkPendingOrderByProductGuid(item?._id)
+      const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
 
       if (res?.length) {
         runInAction(() => {
@@ -680,7 +680,6 @@ export class ClientOrdersViewModel {
   }
 
   async onClickContinueBtn(item) {
-    console.log('item', item)
     try {
       const [storekeepers, destinations, result, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
