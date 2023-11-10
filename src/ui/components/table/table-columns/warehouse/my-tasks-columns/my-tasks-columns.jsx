@@ -21,15 +21,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: window.innerWidth < 1282 ? 115 : 190,
-
-    // renderCell: params => (
-    //   <WarehouseMyTasksBtnsCell
-    //     handlers={handlers}
-    //     row={params.row.originalData}
-    //     isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-    //   />
-    // ),
+    width: window.innerWidth < 1282 ? 115 : 165,
 
     renderCell: params => (
       <WarehouseMyTasksBtnsCell
