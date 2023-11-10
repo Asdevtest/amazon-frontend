@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
@@ -282,9 +281,10 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer'].includes(column) && hint === 'orders') {
       return 'orders'
+    } else if (hint === 'ideas') {
+      return 'ideas'
     }
     return 'products'
-    // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
