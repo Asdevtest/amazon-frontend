@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './warehouse-my-tasks-btns-cell.style'
+import { useStyles } from './warehouse-my-tasks-btns-cell.style'
 
 interface WarehouseMyTasksBtnsCellProps {
   operationType: string
@@ -20,8 +20,8 @@ interface WarehouseMyTasksBtnsCellProps {
   isFirstRow?: boolean
 }
 
-export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(props => {
+  const { classes: styles } = useStyles()
   const { handlers, isFirstRow, operationType, rowId, boxId } = props
 
   return (
@@ -29,7 +29,7 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = React
       <Button
         success
         tooltipInfoContent={isFirstRow ? t(TranslationKey['Open a window to perform a task']) : ''}
-        className={styles.warehouseMyTasksSuccessBtn}
+        className={styles.button}
         onClick={() => handlers.onClickResolveBtn(rowId)}
       >
         {t(TranslationKey.Resolve)}
@@ -41,10 +41,8 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = React
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
-          className={cx(styles.rowCancelBtn, styles.warehouseMyTasksCancelBtn)}
-          onClick={() => {
-            handlers.onClickCancelTask(boxId, rowId, operationType)
-          }}
+          className={styles.button}
+          onClick={() => handlers.onClickCancelTask(boxId, rowId, operationType)}
         >
           {t(TranslationKey.Cancel)}
         </Button>
