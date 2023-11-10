@@ -22,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  button: { width: '121px', height: '40px' },
+  button: { width: '120px', height: '40px' },
 
   closeButton: {
     color: theme.palette.text.general,
@@ -46,6 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   btnsWrapper: {
+    marginRight: 15,
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'space-between',

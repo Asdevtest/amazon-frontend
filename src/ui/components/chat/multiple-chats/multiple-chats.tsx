@@ -44,6 +44,7 @@ export interface CurrentOpponent {
   rate: number
   _id: string
 }
+
 interface Props {
   isFreelanceOwner: boolean
   searchFilter: string

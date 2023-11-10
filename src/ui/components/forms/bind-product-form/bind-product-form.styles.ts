@@ -39,7 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchSelectCustomSubMainWrapper: {
     padding: '10px 0 !important',
-    width: '255px !important',
   },
 
   searchSelectCustomItemsWrapper: {
@@ -47,7 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchSelectCustomSearchInput: {
-    padding: '0 5px',
     height: 30,
     marginBottom: 20,
   },

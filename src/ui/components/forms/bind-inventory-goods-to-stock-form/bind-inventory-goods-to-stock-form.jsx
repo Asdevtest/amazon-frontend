@@ -61,13 +61,6 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
   }
 
   const onSelectionModel = model => {
-    // const curChosenGoodsIds = chosenGoods.map(el => el.id)
-
-    // const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
-
-    // const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
-    // setChosenGoods([...chosenGoods, ...newSelectedItems])
-
     setSelectedGoods(model)
   }
 
@@ -168,6 +161,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           <CustomDataGrid
             checkboxSelection
             rows={toJS(stockData)}
+            rowCount={stockData?.length}
             columns={sourceColumns()}
             rowHeight={60}
             rowSelectionModel={selectedGoods}

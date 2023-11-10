@@ -10,7 +10,7 @@ import { getDaysHoursMinutesForMinuter } from '@utils/date-time'
 import { clearEverythingExceptNumbers } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './set-duration.style'
+import { useClassNames } from './set-duration.style'
 
 interface SetDurationProps {
   duration: number
@@ -28,7 +28,7 @@ interface FormFields {
 
 export const SetDuration: FC<SetDurationProps> = observer(props => {
   const { title, titleStyle, duration, setTotalTimeInMinute } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles } = useClassNames()
 
   const [formFields, setFormFields] = useState<FormFields>({
     days: '',

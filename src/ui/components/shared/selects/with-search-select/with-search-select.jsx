@@ -8,7 +8,6 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
@@ -38,7 +37,7 @@ export const WithSearchSelect = memo(
     currentShops,
     searchOnlyFields,
     asinSelect,
-    selectedAsins,
+    selectedData,
     masterUserSelect,
     fieldNameStyles,
     buttonStyles,
@@ -55,14 +54,30 @@ export const WithSearchSelect = memo(
     getRowValue,
     onClickSubmitBtn,
     isWithoutItemsTooltip,
+    onScrollItemList,
+    onClickSubmitSearch,
   }) => {
     const { classes: styles, cx } = useStyles()
 
     const [nameSearchValue, setNameSearchValue] = useState('')
-
     const [dataToRender, setDataToRender] = useState(data)
-
     const [anchorEl, setAnchorEl] = useState(null)
+
+    const open = Boolean(anchorEl)
+
+    const dataToRenderSortedByFavourites = favourites
+      ? dataToRender
+          ?.slice()
+          ?.sort(
+            (a, b) =>
+              favourites?.findIndex(favouriteItem =>
+                isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => b[searchField]) : b),
+              ) -
+              favourites?.findIndex(favouriteItem =>
+                isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => a[searchField]) : a),
+              ),
+          )
+      : dataToRender
 
     const handleClick = event => {
       if (anchorEl) {
@@ -76,12 +91,10 @@ export const WithSearchSelect = memo(
       setAnchorEl(null)
     }
 
-    const open = Boolean(anchorEl)
-
     useEffect(() => {
       if (nameSearchValue) {
         setDataToRender(
-          data.slice().filter(el => {
+          data?.filter(el => {
             if (isFlat) {
               return (getRowValue ? getRowValue(el) : el).toLowerCase().includes(nameSearchValue?.toLowerCase())
             }
@@ -107,20 +120,6 @@ export const WithSearchSelect = memo(
         setDataToRender(data)
       }
     }, [nameSearchValue, data])
-
-    const dataToRenderSortedByFavourites = favourites
-      ? dataToRender
-          ?.slice()
-          ?.sort(
-            (a, b) =>
-              favourites?.findIndex(favouriteItem =>
-                isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => b[searchField]) : b),
-              ) -
-              favourites?.findIndex(favouriteItem =>
-                isEqual(favouriteItem, !isFlat ? searchFields.map(searchField => a[searchField]) : a),
-              ),
-          )
-      : dataToRender
 
     return (
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
@@ -171,15 +170,30 @@ export const WithSearchSelect = memo(
                 className={cx(styles.subMainWrapper, customSubMainWrapper)}
                 style={widthPopover && { width: widthPopover || width }}
               >
-                {!withoutSearch ? (
+                {!withoutSearch && (
                   <SearchInput
                     inputClasses={cx(styles.searchInput, customSearchInput)}
                     value={nameSearchValue}
                     placeholder={placeholder ? placeholder : t(TranslationKey.Search)}
-                    onChange={e => setNameSearchValue(e.target.value)}
+                    onSubmit={onClickSubmitSearch ? onClickSubmitSearch : undefined}
+                    onChange={onClickSubmitSearch ? undefined : e => setNameSearchValue(e.target.value)}
                   />
-                ) : null}
-                <div className={cx(styles.itemsWrapper, customItemsWrapper)}>
+                )}
+                <div
+                  className={cx(styles.itemsWrapper, customItemsWrapper)}
+                  onScroll={e => {
+                    if (onScrollItemList) {
+                      const element = e.target
+                      const scrollTop = element?.scrollTop
+                      const containerHeight = element?.clientHeight
+                      const contentHeight = element?.scrollHeight
+
+                      if (contentHeight - (scrollTop + containerHeight) < 200) {
+                        onScrollItemList()
+                      }
+                    }
+                  }}
+                >
                   {onClickNotChosen && (
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
@@ -204,6 +218,8 @@ export const WithSearchSelect = memo(
                       <CustomButton
                         key={index}
                         data={el}
+                        checkbox={checkbox}
+                        checkboxChecked={selectedData?.some(item => item?._id === el?._id)}
                         onClickCustomButton={() => {
                           onClickSelect(el)
                           if (!notCloseOneClick) {
@@ -267,16 +283,6 @@ export const WithSearchSelect = memo(
                                 </Typography>
                               </Tooltip>
                             </>
-                          )}
-
-                          {asinSelect && (
-                            <SelectProductAsinCellWithourTitle
-                              preventDefault
-                              product={el}
-                              withCheckbox={checkbox}
-                              checkboxChecked={selectedAsins?.some(asin => asin?._id === el?._id)}
-                              onClickCheckbox={() => onClickSelect(el)}
-                            />
                           )}
 
                           {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}

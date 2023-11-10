@@ -6,6 +6,7 @@ import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
 import { UserModel } from '@models/user-model'
 
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
@@ -35,9 +36,15 @@ import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.sty
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
+
 export const ClientIdeasView = observer(({ history }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientIdeasViewModel({ history }))
+
+  const [useProductsPermissions] = useState(
+    () => new UseProductsPermissions(ClientModel.getProductPermissionsData, { isParent: true, isChild: false }),
+  )
 
   useEffect(() => {
     viewModel.loadData()
@@ -116,8 +123,10 @@ export const ClientIdeasView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
         <ProductLaunchForm
-          productsToLaunch={viewModel.productsToLaunch}
-          onClickVariationRadioButton={viewModel.onClickVariationRadioButton}
+          productsToLaunch={useProductsPermissions.currentPermissionsData}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.onClickNextButton}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />

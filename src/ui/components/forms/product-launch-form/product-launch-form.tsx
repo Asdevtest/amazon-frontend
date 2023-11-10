@@ -29,6 +29,8 @@ interface ProductLaunchFormProps {
   onClickNextButton: (product: any) => void
   onClickVariationRadioButton: () => void
   onClickCancelButton: () => void
+  onClickSubmitSearch: (searchValue: string) => void
+  loadMorePermissionsDataHadler: () => void
 }
 
 const radioBottonsSettings = [
@@ -50,6 +52,8 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
     onClickNextButton,
     onClickVariationRadioButton,
     onClickCancelButton,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
   } = props
 
   const [selectedProduct, setSelectedProduct] = useState<IProductsLaunch | undefined>(undefined)
@@ -100,7 +104,6 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         disabled={!selectedRadioValue}
         data={productsToLaunch}
         width={255}
-        searchOnlyFields={['asin', 'skusByClient']}
         customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
         customSearchInput={classNames.searchSelectCustomSearchInput}
         customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
@@ -109,6 +112,8 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
           (selectedProduct?.asin === '' && t(TranslationKey.Missing)) ||
           t(TranslationKey['Parent product'])
         }
+        onScrollItemList={loadMorePermissionsDataHadler}
+        onClickSubmitSearch={onClickSubmitSearch}
         onClickSelect={(el: IProductsLaunch) => setSelectedProduct(el)}
       />
 

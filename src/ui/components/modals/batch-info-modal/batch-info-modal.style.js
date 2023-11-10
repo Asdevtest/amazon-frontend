@@ -178,10 +178,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    height: 590,
-    overflowY: 'auto',
+    height: 600,
     width: '100%',
-    position: 'relative',
   },
 
   virtualScroller: {

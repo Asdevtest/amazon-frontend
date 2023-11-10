@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
-    width: '400px',
+    width: '420px',
   },
 
   modalTitle: {

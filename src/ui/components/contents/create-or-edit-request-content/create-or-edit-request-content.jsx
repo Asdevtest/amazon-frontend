@@ -74,6 +74,8 @@ export const CreateOrEditRequestContent = observer(
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
     onClickExistingRequest,
     onClickChoosePerformer,
     onClickThumbnail,
@@ -477,7 +479,6 @@ export const CreateOrEditRequestContent = observer(
                           CustomButton={componentProps => <SelectProductButton {...componentProps} />}
                           data={permissionsData || []}
                           width={'100%'}
-                          searchOnlyFields={['asin', 'skusByClient']}
                           customSubMainWrapper={classNames.customSubMainWrapperAsin}
                           customSearchInput={classNames.customSearchInput}
                           selectedItemName={
@@ -485,6 +486,8 @@ export const CreateOrEditRequestContent = observer(
                             (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
                             t(TranslationKey['Select ASIN'])
                           }
+                          onScrollItemList={loadMorePermissionsDataHadler}
+                          onClickSubmitSearch={onClickSubmitSearch}
                           onClickSelect={el => {
                             onChangeField('request')('asin')(el.asin)
                             onChangeField('request')('productId')(el._id)

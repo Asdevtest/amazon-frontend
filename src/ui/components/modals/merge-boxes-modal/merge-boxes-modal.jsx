@@ -265,7 +265,7 @@ export const MergeBoxesModal = ({
   }
 
   return (
-    <div>
+    <div className={styles.root}>
       <div className={styles.modalTitleWrapper}>
         <Typography className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
         <img src="/assets/img/merge.png" />

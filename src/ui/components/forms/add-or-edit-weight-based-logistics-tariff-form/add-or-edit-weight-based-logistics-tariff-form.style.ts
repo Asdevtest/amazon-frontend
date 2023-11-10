@@ -2,19 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 624,
-
     display: 'flex',
     flexDirection: 'column',
-
     gap: 30,
+    padding: 10,
   },
 
   modalTitle: {
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-
     color: theme.palette.text.general,
   },
 
@@ -219,6 +216,7 @@ export const useClassNames = makeStyles()(theme => ({
   optionsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
     marginTop: 20,
   },
 

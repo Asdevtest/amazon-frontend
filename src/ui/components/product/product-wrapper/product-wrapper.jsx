@@ -82,6 +82,8 @@ export const ProductWrapper = observer(
     onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -164,6 +166,8 @@ export const ProductWrapper = observer(
                 productsToBind={productsToBind}
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
+                loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
+                onClickSubmitSearch={onClickSubmitSearch}
                 onClickNextButton={onClickNextButton}
                 onTriggerOpenModal={onTriggerOpenModal}
                 onClickGetProductsToBind={onClickGetProductsToBind}

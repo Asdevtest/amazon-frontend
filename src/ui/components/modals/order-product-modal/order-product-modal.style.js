@@ -1,9 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  wrapper: {
-    padding: 20,
-  },
+  wrapper: {},
 
   modalTitle: {
     color: theme.palette.text.general,
@@ -271,6 +269,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 50,
     marginTop: 30,
+    marginRight: 15,
   },
   buyNowBtn: {
     color: '#fff',
