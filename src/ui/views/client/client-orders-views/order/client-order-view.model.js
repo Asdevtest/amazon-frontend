@@ -296,6 +296,7 @@ export class ClientOrderViewModel {
           'destinationId',
           'storekeeperId',
           'logicsTariffId',
+          // 'variationTariffId'
         ])
 
         await Promise.all([
@@ -370,10 +371,10 @@ export class ClientOrderViewModel {
           'priority',
           'expressChinaDelivery',
           'clientComment',
-
           'destinationId',
           'storekeeperId',
           'logicsTariffId',
+          // 'variationTariffId'
         ],
       )
 

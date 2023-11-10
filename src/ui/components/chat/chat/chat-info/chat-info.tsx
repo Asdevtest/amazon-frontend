@@ -78,7 +78,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
   const [files, setFiles] = useState<ChatFileType[]>()
   const [isFilesLoading, setIsFilesLoading] = useState(true)
 
-  useEffect(() => {
+  const getChatMediaFiles = () => {
     ChatsModel.getChatMedia(chat._id)
       // @ts-ignore
       .then((res: ChatAttachmentsType) => {
@@ -108,7 +108,17 @@ export const ChatInfo = (props: ChatInfoProps) => {
         setImages(imagesList)
       })
       .finally(() => setIsFilesLoading(false))
+  }
+
+  useEffect(() => {
+    getChatMediaFiles()
   }, [])
+
+  useEffect(() => {
+    if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length) {
+      getChatMediaFiles()
+    }
+  }, [chat.lastMessage?.images, chat.lastMessage?.files])
 
   return (
     <div className={styles.wrapper}>

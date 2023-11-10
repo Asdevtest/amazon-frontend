@@ -127,6 +127,7 @@ export const MultipleChats = observer(
         })
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
+
       const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
       const isMuteCurrentChat = mutedChats.includes(findChatByChatId ? findChatByChatId?._id : '')
       const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
