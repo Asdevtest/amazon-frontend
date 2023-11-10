@@ -278,7 +278,7 @@ export class ClientInventoryViewModel {
     this.getProductsMy()
   }
 
-  onChangeColumnVisibilityModel(model) {
+  onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
 
     this.setDataGridState()

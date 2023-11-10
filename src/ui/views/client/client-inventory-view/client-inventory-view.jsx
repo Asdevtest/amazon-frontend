@@ -252,7 +252,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onChangeColumnVisibilityModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onCellClick={(params, event) => {

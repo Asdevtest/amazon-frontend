@@ -40,7 +40,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
   const onClickItem = field => {
     onColumnVisibilityModelChange({
       ...columnVisibilityModel,
-      [field]: !columnVisibilityModel?.[field],
+      [field]: columnVisibilityModel?.[field] !== false ? false : true,
     })
   }
 
