@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -46,7 +45,7 @@ const getTab = tabKey => {
   }
 }
 
-export const ProductWrapper = observer(
+export const ProductWrapper = memo(
   ({
     showTab,
     user,
@@ -141,7 +140,7 @@ export const ProductWrapper = observer(
               }}
             />
 
-            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.MAIN_INFO}>
+            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
                 languageTag={SettingsModel.languageTag}
                 platformSettings={platformSettings}
@@ -190,7 +189,7 @@ export const ProductWrapper = observer(
               )}
             </TabPanel>
 
-            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.ORDERS}>
+            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
               <Orders
                 modal={modal}
                 productId={product._id}
@@ -198,7 +197,7 @@ export const ProductWrapper = observer(
               />
             </TabPanel>
 
-            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
+            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
               <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
@@ -206,11 +205,11 @@ export const ProductWrapper = observer(
         <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
       </TabPanel> */}
 
-            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
+            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
               <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
-            <TabPanel ismodalproductcard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
 
