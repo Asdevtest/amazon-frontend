@@ -73,6 +73,8 @@ export const TopCard = observer(
     onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
   }) => {
     const { classes: classNames, cx } = useClassNames()
 
@@ -402,6 +404,8 @@ export const TopCard = observer(
             <BindProductForm
               sourceProduct={product}
               productsToBind={productsToBind}
+              loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
+              onClickSubmitSearch={onClickSubmitSearch}
               onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
               onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}

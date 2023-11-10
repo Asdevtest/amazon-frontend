@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -11,6 +13,10 @@ import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
+
+import { ProductVariation } from '@typings/product'
+
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { ClientProductViewModel } from './client-product-view.model'
 
@@ -27,6 +33,8 @@ export const ClientProductView = observer(props => {
         productId,
       }),
   )
+
+  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
     viewModel.loadData()
@@ -52,15 +60,29 @@ export const ClientProductView = observer(props => {
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             showBindProductModal={viewModel.showBindProductModal}
-            productsToBind={viewModel.productsToBind}
+            productsToBind={useProductsPermissions.currentPermissionsData}
             actionStatus={viewModel.actionStatus}
             productBase={viewModel.productBase}
             selectedSupplier={viewModel.selectedSupplier}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
             handleProductActionButtons={viewModel.handleProductActionButtons}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
             onClickNextButton={viewModel.bindUnbindProducts}
-            onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
+            onClickGetProductsToBind={option =>
+              useProductsPermissions.getPermissionsData(
+                option === ProductVariation.PARENT
+                  ? { isChild: false, offset: 0, filters: '' }
+                  : {
+                      isChild: false,
+                      isParent: false,
+                      shopId: viewModel.product?.shopIds?.[0],
+                      offset: 0,
+                      filters: '',
+                    },
+              )
+            }
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickSupplier={viewModel.onChangeSelectedSupplier}
             onChangeField={viewModel.onChangeProductFields}

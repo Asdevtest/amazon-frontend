@@ -4,7 +4,6 @@ import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { ClientModel } from '@models/client-model'
 import { RequestModel } from '@models/request-model'
 import { UserModel } from '@models/user-model'
 
@@ -99,11 +98,11 @@ export class CreateOrEditRequestViewModel {
 
   async getProductPermissionsData() {
     try {
-      await ClientModel.getProductPermissionsData().then(result => {
-        runInAction(() => {
-          this.permissionsData = result.rows
-        })
-      })
+      // await ClientModel.getProductPermissionsData().then(result => {
+      //   runInAction(() => {
+      //     this.permissionsData = result.rows
+      //   })
+      // })
     } catch (error) {
       runInAction(() => {
         this.error = error
