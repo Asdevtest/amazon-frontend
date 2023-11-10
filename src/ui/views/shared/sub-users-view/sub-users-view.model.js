@@ -205,12 +205,10 @@ export class SubUsersViewModel {
 
       this.getDataGridState()
 
-      await Promise.all([
-        this.getUsers(),
-        this.getGroupPermissions(),
-        this.getSinglePermissions(),
-        UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops(),
-      ])
+      this.getUsers()
+      this.getGroupPermissions()
+      this.getSinglePermissions()
+      UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -73,9 +73,9 @@ class SettingsModelStatic {
           setI18nConfig()
         }
       },
-
-      this.setIntervalCheckAppVersion(),
     )
+
+    this.setIntervalCheckAppVersion()
   }
 
   loadValue(key) {

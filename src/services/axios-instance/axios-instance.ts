@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
 import { BACKEND_API_URL } from '@constants/keys/env'
@@ -8,18 +9,35 @@ import { SettingsModel } from '@models/settings-model'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 export const getAxiosInstance = () => {
+  let isRefreshing = false
+  let failedQueue: any = []
+
+  const processQueue = (error: any, token: string | null = null) => {
+    failedQueue.forEach((prom: any) => {
+      if (error) {
+        prom.reject(error)
+      } else {
+        prom.resolve(token)
+      }
+    })
+
+    failedQueue = []
+  }
+
   const axiosInstance = axios.create({
     baseURL: BACKEND_API_URL,
   })
 
-  axiosInstance.interceptors.request.use(async config => {
-    const userModel = SettingsModel.loadValue('UserModel')
-
-    if (config.headers && userModel && userModel.accessToken) {
-      config.headers.Authorization = `Bearer ${userModel.accessToken}`
+  axiosInstance.interceptors.request.use(async (config: any) => {
+    if (config?._retry) {
+      return config
+    } else {
+      const userModel = SettingsModel.loadValue('UserModel')
+      if (config.headers && userModel && userModel.accessToken) {
+        config.headers.Authorization = `Bearer ${userModel.accessToken}`
+      }
+      return config
     }
-
-    return config
   })
 
   axiosInstance.interceptors.response.use(
@@ -30,21 +48,54 @@ export const getAxiosInstance = () => {
     async error => {
       const originalConfig = error.config
       if ((error.response.status === 403 || error.response.status === 401) && !originalConfig._retry) {
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject })
+          })
+            .then(token => {
+              originalConfig.headers.Authorization = 'Bearer ' + token
+              return axiosInstance(originalConfig)
+            })
+            .catch(err => {
+              return Promise.reject(err)
+            })
+        }
+
         originalConfig._retry = true
+        isRefreshing = true
 
-        const userModel = SettingsModel.loadValue('UserModel')
-        const { refreshToken } = userModel
+        const userModel = await SettingsModel.loadValue('UserModel')
+        const refreshToken = userModel.refreshToken
 
-        const tokenResponse = await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
+        return new Promise((resolve, reject) => {
+          restApiService.userApi
+            .apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
+            .then(({ data }) => {
+              const accessToken = data?.accessToken
 
-        const accessToken = tokenResponse?.data?.accessToken
+              originalConfig.headers.Authorization = 'Bearer ' + accessToken
 
-        SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+              SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
 
-        ChatModel.disconnect()
-        ChatModel.init(accessToken)
+              ChatModel.disconnect()
+              ChatModel.init(accessToken)
 
-        return axiosInstance.request(originalConfig)
+              processQueue(null, accessToken)
+              resolve(axiosInstance(originalConfig))
+            })
+            .catch(err => {
+              processQueue(err, null)
+              reject(err)
+            })
+            .finally(() => {
+              isRefreshing = false
+            })
+        })
+
+        // return axiosInstance({
+        //   ...originalConfig,
+        //   headers: { Authorization: `Bearer ${accessToken}` },
+        // })
       } else {
         return Promise.reject(error)
       }

@@ -41,7 +41,6 @@ export const PrivateRoutes = observer(() => {
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
-      ChatModel.getSimpleChats()
       ChatModel.getUnreadMessagesCount()
     }
   }, [])
