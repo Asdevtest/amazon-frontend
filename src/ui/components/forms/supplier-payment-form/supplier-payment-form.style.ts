@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
-    width: '420px',
+    width: 440,
+    padding: 10,
   },
 
   modalTitle: {
@@ -14,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   uploadInput: {
-    margin: '0 15px 0 5px',
+    marginRight: 10,
   },
 
   saveBox: {
