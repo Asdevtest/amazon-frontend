@@ -1,6 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  root: {
+    padding: 10,
+  },
   heightFieldAuto: {
     height: '86px',
     padding: 0,
@@ -30,7 +33,11 @@ export const useStyles = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
-  buttonsWrapper: { display: 'flex', gap: '10px' },
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '10px',
+    marginRight: 10,
+  },
 
   box: {
     minWidth: '300px',

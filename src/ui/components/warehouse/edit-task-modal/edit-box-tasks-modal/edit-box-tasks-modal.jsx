@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -229,7 +229,7 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.weighGrossKgWarehouse)
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
+    <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
@@ -285,6 +285,6 @@ export const EditBoxTasksModal = ({
           {t(TranslationKey.Close)}
         </Button>
       </div>
-    </Container>
+    </div>
   )
 }
