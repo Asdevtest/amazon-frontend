@@ -5,10 +5,8 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: 600,
     display: 'flex',
     flexDirection: 'column',
-
     position: 'relative',
-    maxHeight: '85vh',
-    padding: 10,
+    paddingRight: 10,
   },
 
   boxesWrapper: {
@@ -18,15 +16,15 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
   },
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
-    justifyContent: 'end',
-    gap: '36px',
-    marginTop: '40px',
-    justifySelf: 'flex-end',
+    justifyContent: 'flex-end',
+    gap: 20,
 
     position: 'sticky',
     bottom: 0,
-    marginRight: 10,
+    right: 0,
+    marginRight: 5,
   },
 
   leftToRedistributeWrapper: {

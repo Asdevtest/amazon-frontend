@@ -2,17 +2,23 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
-    padding: 20,
+    position: 'relative',
+    paddingRight: 10,
   },
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
   },
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
-    justifyContent: 'end',
-    gap: '36px',
-    marginTop: '40px',
+    justifyContent: 'flex-end',
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
 
   modalTitleWrapper: {
