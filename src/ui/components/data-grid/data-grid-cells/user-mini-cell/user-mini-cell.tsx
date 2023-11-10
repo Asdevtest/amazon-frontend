@@ -1,26 +1,23 @@
-import React, { FC } from 'react'
-
-import { Avatar } from '@mui/material'
+import { FC, memo } from 'react'
 
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
-import { useDataGridCellStyles } from './user-mini-cell.style'
+import { useStyles } from './user-mini-cell.style'
 
 interface UserMiniCellProps {
   userId: string
   userName: string
 }
 
-export const UserMiniCell: FC<UserMiniCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
-  const { userName, userId } = props
+export const UserMiniCell: FC<UserMiniCellProps> = memo(({ userName, userId }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.userMainWrapper}>
-      <Avatar src={getUserAvatarSrc(userId)} className={styles.userCellAvatar} />
-      <UserLink name={userName} userId={userId} />
+    <div className={styles.wrapper}>
+      <img src={getUserAvatarSrc(userId)} className={styles.avatar} alt={`avatar-${userId}`} />
+      <UserLink name={userName} userId={userId} customClassNames={styles.userName} />
     </div>
   )
 })

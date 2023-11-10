@@ -44,7 +44,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 240,
+    width: 180,
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
@@ -56,7 +56,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 140,
+    width: 180,
     renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
   },
 
