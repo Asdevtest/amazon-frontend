@@ -15,7 +15,6 @@ import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
 export class AdminUsersViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
 
@@ -50,32 +49,26 @@ export class AdminUsersViewModel {
   showEditUserModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -104,9 +97,7 @@ export class AdminUsersViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
@@ -126,9 +117,7 @@ export class AdminUsersViewModel {
   async getUsers() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
+
       const result = await AdministratorModel.getUsers()
 
       const usersData = adminUsersDataConverter(result?.data)
@@ -142,9 +131,6 @@ export class AdminUsersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
     }
   }
 
@@ -175,9 +161,6 @@ export class AdminUsersViewModel {
   async submitEditUserForm(data, sourceData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
@@ -207,9 +190,6 @@ export class AdminUsersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
     }
   }
 
@@ -227,9 +207,6 @@ export class AdminUsersViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
     }
   }
 
@@ -246,9 +223,7 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   async onClickEditUser(row) {
@@ -257,9 +232,6 @@ export class AdminUsersViewModel {
 
       runInAction(() => {
         this.editUserFormFields = result
-      })
-
-      runInAction(() => {
         this.showEditUserModal = !this.showEditUserModal
       })
     } catch (error) {
@@ -281,22 +253,16 @@ export class AdminUsersViewModel {
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -25,9 +23,9 @@ export const SupplierPaymentForm = ({
 
   return (
     <div className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
+      <p className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
 
-      <div className={classNames.uploadWrapper}>
+      <div className={classNames.uploadInput}>
         <UploadFilesInput
           fullWidth
           images={files}
@@ -45,7 +43,7 @@ export const SupplierPaymentForm = ({
         onChangeImagesForLoad={setEditPaymentDetailsPhotos}
       />
 
-      <div className={classNames.saveBox}>
+      <diiv className={classNames.saveBox}>
         <Button
           success
           className={classNames.actionButton}
@@ -63,7 +61,7 @@ export const SupplierPaymentForm = ({
         >
           {t(TranslationKey.Close)}
         </Button>
-      </div>
+      </diiv>
     </div>
   )
 }

@@ -46,7 +46,9 @@ export const SetShippingLabelModal = ({ onClickSaveShippingLabel, onCloseModal, 
         />
       )}
 
-      <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
+      <div className={classNames.uploadInput}>
+        <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
+      </div>
 
       <div className={classNames.saveBox}>
         <Button

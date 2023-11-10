@@ -13,6 +13,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  uploadInput: {
+    margin: '0 15px 0 5px',
+  },
+
   linkWrapper: {
     display: 'flex',
     alignItems: 'center',

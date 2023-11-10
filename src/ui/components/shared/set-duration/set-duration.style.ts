@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',

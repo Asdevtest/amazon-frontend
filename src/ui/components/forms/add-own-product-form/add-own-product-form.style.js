@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
   input: {
     height: '32px',
     borderRadius: '7px',
-    width: 'calc(100% - 110px)',
+    width: 'calc(100% - 120px)',
   },
 
   defaultBtn: {
@@ -81,6 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
       opacity: '0.8',
     },
   },
+
   fieldLabel: {
     fontSize: '14px',
     lineHeight: '19px',

@@ -34,14 +34,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInputClient: {
-    width: '420px',
+    width: '450px',
   },
 
   searchInputFreelancer: {
-    width: '350px',
+    width: '400px',
   },
 
   searchInput: {
-    width: '300px',
+    width: '350px',
   },
 }))
