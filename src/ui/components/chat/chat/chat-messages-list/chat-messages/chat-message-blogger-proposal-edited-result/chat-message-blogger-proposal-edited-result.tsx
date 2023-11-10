@@ -114,7 +114,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                             rel="noreferrer"
                             className={classNames.infoItemText}
                           >
-                            {el}
+                            {el.slice(0, 80)}
                           </a>
 
                           <CopyValue text={el} />
