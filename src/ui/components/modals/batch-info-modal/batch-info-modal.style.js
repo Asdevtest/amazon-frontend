@@ -4,10 +4,8 @@ export const useClassNames = makeStyles()(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    height: 801,
-    width: 1692,
     gap: 20,
-    padding: 20,
+    padding: 10,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -178,7 +176,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    height: 600,
+    height: 400,
     width: '100%',
   },
 
@@ -212,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   filesAndButtonWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   shippinCostContainer: {

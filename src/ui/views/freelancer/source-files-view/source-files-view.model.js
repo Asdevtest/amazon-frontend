@@ -65,18 +65,12 @@ export class SourceFilesViewModel {
 
     reaction(
       () => this.sourceFiles,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 

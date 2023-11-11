@@ -12,7 +12,7 @@ import {
   NormDateCell,
   OrdersIdsItemsCell,
   PricePerUnitCell,
-  UserLinkCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
@@ -33,7 +33,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
     renderCell: params => <ManyItemsPriceCell withoutSku withQuantity params={params.row} />,
-    width: 300,
+    width: 280,
   },
 
   {
@@ -52,7 +52,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
+    width: 140,
     sortable: false,
   },
 
@@ -61,8 +61,8 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.row.client.name} userId={params.row.client._id} />,
-    width: 120,
+    renderCell: params => <UserMiniCell userName={params.row.client.name} userId={params.row.client._id} />,
+    width: 180,
   },
 
   {
@@ -171,7 +171,7 @@ export const batchInfoModalColumn = (
       />
     ),
     type: 'number',
-    width: 170,
+    width: 160,
   },
 
   {

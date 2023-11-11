@@ -346,15 +346,6 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>
-                {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-              </Typography>
-              <Typography className={classNames.boxCounterCount}>
-                {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
-              </Typography>
-            </div>
-
             <CustomDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
