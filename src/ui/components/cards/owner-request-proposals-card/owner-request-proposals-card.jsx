@@ -150,14 +150,13 @@ export const OwnerRequestProposalsCard = ({
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
+                danger
                 tooltipInfoContent={t(
                   TranslationKey[
                     'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                   ],
                 )}
                 variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.cancelBtn)}
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}

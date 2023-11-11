@@ -186,7 +186,6 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, handle
           {isRejectButton && (
             <Button
               danger
-              className={cx(classNames.actionButton /* , classNames.editButton */)}
               onClick={() =>
                 handlers.onClickProposalRegect(
                   chatRequestAndRequestProposal.requestProposal?.proposal
