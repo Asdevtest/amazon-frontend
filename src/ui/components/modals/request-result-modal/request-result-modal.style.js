@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 540,
+    padding: 10,
   },
   modalTitle: {
     fontSize: 18,
@@ -94,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   dragAndDropWrapper: {
     marginBottom: 20,
+    marginRight: 10,
   },
 
   buttonsWrapper: {
