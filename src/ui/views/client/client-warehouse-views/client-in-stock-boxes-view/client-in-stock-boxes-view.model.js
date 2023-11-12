@@ -21,66 +21,17 @@ import { UserModel } from '@models/user-model'
 import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
 import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
-const updateBoxWhiteList = [
-  'amount',
-  'weighGrossKg',
-  'volumeWeightKg',
-  'shippingLabel',
-  'warehouse',
-  'deliveryMethod',
-  'lengthCmSupplier',
-  'widthCmSupplier',
-  'heightCmSupplier',
-  'weighGrossKgSupplier',
-  'lengthCmWarehouse',
-  'widthCmWarehouse',
-  'heightCmWarehouse',
-  'weighGrossKgWarehouse',
-  'isBarCodeAttachedByTheStorekeeper',
-  'isShippingLabelAttachedByStorekeeper',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'items',
-  'images',
-  'destinationId',
-  'storekeeperId',
-  'logicsTariffId',
-  'fbaShipment',
-  'referenceId',
-  'trackNumberFile',
-  'trackNumberText',
-  'fbaNumber',
-  'prepId',
-  'variationTariffId',
-]
-
-const filtersFields = [
-  'shopIds',
-  'humanFriendlyId',
-  'id',
-  'item',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'destination',
-  'logicsTariff',
-  'createdAt',
-  'updatedAt',
-  'amount',
-  'prepId',
-  'status',
-  'storekeeper',
-  'sub',
-]
+import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 
 export class ClientInStockBoxesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   selectedBox = undefined
 
@@ -103,10 +54,8 @@ export class ClientInStockBoxesViewModel {
   storekeepersData = []
   destinations = []
   clientDestinations = []
-  // isFormed = null
 
   curDestinationId = undefined
-  // curShops = []
 
   currentData = []
 
@@ -116,8 +65,6 @@ export class ClientInStockBoxesViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    // onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
-    // onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
       this.getBoxesMy()
@@ -128,23 +75,11 @@ export class ClientInStockBoxesViewModel {
 
     isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
-
-  // productSearchGuid = null
 
   volumeWeightCoefficient = undefined
 
@@ -491,9 +426,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -652,9 +584,6 @@ export class ClientInStockBoxesViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -953,9 +882,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1198,9 +1124,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1211,10 +1134,6 @@ export class ClientInStockBoxesViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1263,9 +1182,6 @@ export class ClientInStockBoxesViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1409,9 +1325,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       if (!isMultipleEdit) {
         this.loadData()
@@ -1494,9 +1407,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1530,9 +1440,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
 
@@ -1559,9 +1466,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1583,13 +1487,8 @@ export class ClientInStockBoxesViewModel {
           newPriority: null,
         }
       })
-
-      // this.onTriggerOpenModal('showEditPriorityData')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1615,9 +1514,6 @@ export class ClientInStockBoxesViewModel {
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1628,9 +1524,6 @@ export class ClientInStockBoxesViewModel {
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1642,9 +1535,6 @@ export class ClientInStockBoxesViewModel {
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1655,9 +1545,6 @@ export class ClientInStockBoxesViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1723,9 +1610,6 @@ export class ClientInStockBoxesViewModel {
       this.setFilterRequestStatus(loadingStatuses.failed)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1737,112 +1621,22 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'ashumanFriendlyIdin' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
-    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
-
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
-    const logicsTariffFilter =
-      exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
-    const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
-    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(el => el._id).join(',')
-
-    const storekeeperIdFilter =
-      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.map(el => el._id).join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
-        { id: { $eq: this.nameSearchValue } },
-        { item: { $eq: this.nameSearchValue } },
-        { productId: { $eq: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-        { prepId: { $contains: this.nameSearchValue } },
-        // { sub: { $contains: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(idFilter && {
-        id: { $eq: idFilter },
-      }),
-
-      ...(itemFilter && {
-        item: { $eq: itemFilter },
-      }),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(destinationFilter && {
-        destinationId: { $eq: destinationFilter },
-      }),
-      ...(logicsTariffFilter && {
-        logicsTariffId: { $eq: logicsTariffFilter },
-      }),
-
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
-      ...(amountFilter && {
-        amount: { $eq: amountFilter },
-      }),
-
-      ...(prepIdFilter && {
-        prepId: { $eq: prepIdFilter },
-      }),
-
-      ...(storekeeperIdFilter && {
-        storekeeperId: { $eq: storekeeperIdFilter },
-      }),
-
-      ...(subFilter && {
-        sub: { $eq: subFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'amazonTitle',
+        'skusByClient',
+        'id',
+        'item',
+        'productId',
+        'humanFriendlyId',
+        'prepId',
+      ]),
+    )
   }
 
   async getBoxesMy() {
@@ -1880,9 +1674,6 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       runInAction(() => {
         this.boxesMy = []
@@ -1901,9 +1692,6 @@ export class ClientInStockBoxesViewModel {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

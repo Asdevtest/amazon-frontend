@@ -29,7 +29,16 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
   },
 
   manyItemsOrderTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
     fontWeight: 500,
+    maxHeight: 19,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
   },
 
   needPay: {

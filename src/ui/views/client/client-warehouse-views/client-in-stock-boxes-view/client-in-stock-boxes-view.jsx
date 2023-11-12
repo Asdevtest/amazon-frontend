@@ -178,7 +178,7 @@ export const ClientInStockBoxesViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData || []}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
@@ -210,8 +210,6 @@ export const ClientInStockBoxesViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}
-            // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-            // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             onCellDoubleClick={params =>
               !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
             }
