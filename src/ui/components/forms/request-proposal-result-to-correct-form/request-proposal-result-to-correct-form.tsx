@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-
-import { Typography } from '@mui/material'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -74,9 +72,10 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   return (
     <div className={classNames.root}>
       <div className={classNames.modalHeader}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Send in for rework'])}</Typography>
-        <Typography className={classNames.countTimes}>{t(TranslationKey['No more than 5 times'])}</Typography>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Send in for rework'])}</p>
+        <p className={classNames.label}>{t(TranslationKey['No more than 5 times'])}</p>
       </div>
+
       <div className={classNames.reasonWrapper}>
         <Field
           multiline
@@ -90,13 +89,13 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
           onChange={onChangeField('reason')}
         />
       </div>
+
       <div className={classNames.totalTime}>
-        <Typography className={classNames.time}>{t(TranslationKey['Time for rework']) + '*'}</Typography>
+        <p className={classNames.time}>{t(TranslationKey['Time for rework']) + '*'}</p>
         <div className={classNames.inputsWrapper}>
           <div className={classNames.inputWrapper}>
             <Field
               oneLine
-              // type="number"
               placeholder={'00'}
               value={hour}
               containerClasses={classNames.inputField}
@@ -106,12 +105,12 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
               }
             />
 
-            <Typography className={classNames.inputLabel}>{t(TranslationKey.hour)}</Typography>
+            <p className={classNames.inputLabel}>{t(TranslationKey.hour)}</p>
           </div>
+
           <div className={classNames.inputWrapper}>
             <Field
               oneLine
-              // type="number"
               placeholder={'00'}
               value={minute}
               containerClasses={classNames.inputField}
@@ -121,12 +120,12 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
               }
             />
 
-            <Typography className={classNames.inputLabel}>{t(TranslationKey.minute)}</Typography>
+            <p className={classNames.inputLabel}>{t(TranslationKey.minute)}</p>
           </div>
         </div>
       </div>
-      <div>
-        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+      <div className={classNames.uploadFilesInput}>
+        <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
       </div>
 
       <div className={classNames.btnWrapper}>
