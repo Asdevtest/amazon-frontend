@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
-import { Container, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,17 +12,18 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './set-barcode-modal.style'
+import { useStyles } from './set-barcode-modal.style'
 
-export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, item, title, maxNumber }) => {
-  const { classes: classNames } = useClassNames()
-
-  const barCode = item?.barCode || ''
+export const SetBarcodeModal = memo(props => {
+  const { onClickSaveBarcode, onCloseModal, tmpCode, item, title, maxNumber } = props
+  const { classes: classNames } = useStyles()
 
   const [files, setFiles] = useState(tmpCode?.length ? [...tmpCode] : [])
 
+  const barCode = item?.barCode || ''
+
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
+    <div className={classNames.modalWrapper}>
       <p className={classNames.modalTitle}>{title ? title : t(TranslationKey['Add barcode'])}</p>
 
       {barCode && (
@@ -30,10 +31,10 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
           label={t(TranslationKey.BarCode)}
           inputComponent={
             <div className={classNames.barCodeWrapper}>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+              <Link target="_blank" rel="noreferrer" href={checkAndMakeAbsoluteUrl(barCode)}>
                 <p className={classNames.link}>{t(TranslationKey.View)}</p>
               </Link>
-              <CopyValue text={barCode} />
+              <CopyValue text={item?.barCode || ''} />
             </div>
           }
         />
@@ -56,6 +57,6 @@ export const SetBarcodeModal = ({ onClickSaveBarcode, onCloseModal, tmpCode, ite
           {t(TranslationKey.Close)}
         </Button>
       </div>
-    </Container>
+    </div>
   )
-}
+})

@@ -1,8 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalWrapper: {
     width: '100%',
+    padding: 10,
   },
 
   modalTitle: {
@@ -14,22 +15,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageFileInputWrapper: {
-    marginRight: 15,
+    marginRight: 10,
   },
 
-  input: {
-    width: '400px',
-  },
   saveBox: {
     display: 'flex',
     gap: 20,
     justifyContent: 'space-between',
     marginTop: '30px',
   },
+
   saveBtn: {
     width: '123px',
     height: '40px',
   },
+
   closeBtn: {
     width: '123px',
     height: '40px',
@@ -41,6 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
+
   barCodeWrapper: {
     display: 'flex',
     gap: 15,
