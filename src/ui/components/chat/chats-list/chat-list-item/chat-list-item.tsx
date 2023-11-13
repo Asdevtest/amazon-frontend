@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import he from 'he'
 import { observer } from 'mobx-react'
@@ -6,18 +7,19 @@ import { FC, useContext } from 'react'
 import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 import { UserModel } from '@models/user-model'
 
-import { UserInfoSchema } from '@services/rest-api-service/codegen'
+import { InlineResponse20083 } from '@services/rest-api-service/codegen'
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-icons'
 
+import { checkIsClient } from '@utils/checks'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -32,9 +34,10 @@ interface Props {
   onClick: (chat: ChatContract) => void
   typingUsers?: OnTypingMessageResponse[]
   isMutedChat?: boolean
+  typeOfChat?: string
 }
 
-export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat }) => {
+export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -45,48 +48,41 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const { messages, users, lastMessage } = chat
 
-  // const lastMessage = messages[messages.length - 1] || {}
+  // @ts-ignore
+  const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
 
   const isGroupChat = chat.type === chatsType.GROUP
 
   const isCurrentUser = lastMessage?.user?._id === userId
 
-  const oponentUser = users.filter(
-    (user: ChatUserContract) => {
-      const isOwnerUser = user._id === userId
-      const isRequestAndProposalSub = user._id === chatRequestAndRequestProposal.request?.request?.sub?._id
-      const isRequestAndProposalCreator = user._id === chatRequestAndRequestProposal.request?.request?.createdBy?._id
-      const isCurrentProposalSub = user._id === currentProposal?.proposal?.sub?._id
-      const isCurrentProposalCreator = user._id === currentProposal?.proposal?.createdBy?._id
-      const isOwnerUserSub = userId === chatRequestAndRequestProposal.request?.request?.sub?._id
-      const isMasterUser =
-        UserRoleCodeMap[(UserModel.userInfo as unknown as UserInfoSchema)!.role!] === UserRole.FREELANCER
-          ? user.role === mapUserRoleEnumToKey[UserRole.FREELANCER as keyof typeof mapUserRoleEnumToKey] &&
-            !user.masterUser
-          : user.role === mapUserRoleEnumToKey[UserRole.CLIENT as keyof typeof mapUserRoleEnumToKey] && !user.masterUser
+  const usersList = users.filter((user: ChatUserContract) => {
+    const isOwnerUser = user._id === userId
+    const isRequestAndProposalSub = user._id === chatRequestAndRequestProposal.request?.request?.sub?._id
+    const isRequestAndProposalCreator = user._id === chatRequestAndRequestProposal.request?.request?.createdBy?._id
+    const isCurrentProposalSub = user._id === currentProposal?.proposal?.sub?._id
+    const isCurrentProposalCreator = user._id === currentProposal?.proposal?.createdBy?._id
+    const isOwnerUserSub = userId === chatRequestAndRequestProposal.request?.request?.sub?._id
 
-      const result =
-        !isOwnerUser &&
-        !isRequestAndProposalSub &&
-        !isCurrentProposalSub &&
-        (isOwnerUserSub ? !isRequestAndProposalCreator : !isCurrentProposalCreator)
+    const result =
+      !isOwnerUser &&
+      !isRequestAndProposalSub &&
+      !isCurrentProposalSub &&
+      (isOwnerUserSub ? !isRequestAndProposalCreator : !isCurrentProposalCreator)
 
-      return result
-      // return (
-      //   user._id !== userId &&
-      //   user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-      //   user._id !== currentProposal?.proposal?.sub?._id &&
-      //   (userId === chatRequestAndRequestProposal.request?.request?.sub?._id
-      //     ? user._id !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
-      //     : user._id !== currentProposal?.proposal?.createdBy?._id)
-      // )
-    },
-    // user._id !== userId &&
-    // ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-    //   userId !== currentProposal?.proposal?.createdBy?._id) ||
-    //   (user._id !== currentProposal?.proposal?.sub?._id &&
-    //     userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
-  )?.[0]
+    return result
+  })
+
+  const oponentUser =
+    typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat'
+      ? usersList.find(
+          (user: ChatUserContract) =>
+            (checkIsClient(currentUserRole)
+              ? UserRoleCodeMap[Number(user.role)] === UserRole.FREELANCER
+              : UserRoleCodeMap[Number(user.role)] === UserRole.CLIENT) && !user.masterUser,
+        )
+      : usersList?.[0]
+
+  console.log('usersList', usersList)
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
 
