@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,7 +20,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { styles } from './servant-requests-detail-custom-view.style'
+import { useStyles } from './servant-requests-detail-custom-view.style'
 
 import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
 
@@ -32,39 +31,40 @@ const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.CORRECTED,
 ]
 
-export const RequestDetailCustomViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new RequestDetailCustomViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+export const RequestDetailCustomView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new RequestDetailCustomViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
 
-    return () => {
-      viewModel.resetChats()
-    }
+    viewModel.resetChats()
   }, [])
 
   const findRequestProposalForCurChat =
     viewModel.chatSelectedId &&
     viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
+  const isResultButton =
+    ((findRequestProposalForCurChat?.proposal?.sub &&
+      findRequestProposalForCurChat?.proposal?.sub?._id === viewModel.userInfo?._id) ||
+      (!findRequestProposalForCurChat?.proposal?.sub &&
+        findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
+    (findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
+      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY)
+  const isRefine = viewModel.requestProposals?.[0].proposal.status === RequestProposalStatus.TO_CORRECT
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.backBtnWrapper}>
-          <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
+        <div className={styles.backBtnWrapper}>
+          <Button variant="contained" color="primary" className={styles.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
           </Button>
         </div>
 
         {viewModel.request && viewModel.requestProposals ? (
-          <div className={classNames.requestInfoWrapper}>
+          <div className={styles.requestInfoWrapper}>
             <ServantGeneralRequestInfo
               requestProposals={viewModel.requestProposals}
               request={viewModel.request}
@@ -74,12 +74,12 @@ export const RequestDetailCustomViewRaw = props => {
         ) : null}
 
         {viewModel.request ? (
-          <div className={classNames.detailsWrapper}>
+          <div className={styles.detailsWrapper}>
             <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
           </div>
         ) : null}
         {viewModel.chatIsConnected && viewModel.chats?.length ? (
-          <div className={classNames.chatWrapper}>
+          <div className={styles.chatWrapper}>
             <ChatRequestAndRequestProposalContext.Provider
               value={{
                 request: viewModel.request,
@@ -102,7 +102,7 @@ export const RequestDetailCustomViewRaw = props => {
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}
                 renderAdditionalButtons={() => (
-                  <div className={classNames.additionalButtonsWrapper}>
+                  <div className={styles.additionalButtonsWrapper}>
                     {findRequestProposalForCurChat &&
                     requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
                       <Button danger onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}>
@@ -111,20 +111,11 @@ export const RequestDetailCustomViewRaw = props => {
                     ) : (
                       <div />
                     )}
-                    {((findRequestProposalForCurChat?.proposal?.sub &&
-                      findRequestProposalForCurChat?.proposal?.sub?._id === viewModel.userInfo?._id) ||
-                      (!findRequestProposalForCurChat?.proposal?.sub &&
-                        findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
-                    (findRequestProposalForCurChat?.proposal?.status ===
-                      RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
-                      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) ? (
-                      // ||
-                      // findRequestProposalForCurChat.proposal.status ===
-                      //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
-                      // eslint-disable-next-line react/jsx-indent
-                      <Button onClick={() => viewModel.onClickResultBtn()}>
-                        {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
+                    {isResultButton ? (
+                      <Button
+                        onClick={() => (isRefine ? viewModel.onClickReworkProposal() : viewModel.onClickResultBtn())}
+                      >
+                        {isRefine ? t(TranslationKey.Refine) : t(TranslationKey.Result)}
                       </Button>
                     ) : null}
                   </div>
@@ -204,6 +195,4 @@ export const RequestDetailCustomViewRaw = props => {
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
-}
-
-export const RequestDetailCustomView = withStyles(observer(RequestDetailCustomViewRaw), styles)
+})
