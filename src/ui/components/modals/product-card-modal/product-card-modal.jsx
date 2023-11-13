@@ -8,6 +8,8 @@ import { productStatusButtonsConfigs } from '@constants/product/product-status-b
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
@@ -22,6 +24,10 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ProductVariation } from '@typings/product'
+
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useClassNames } from './product-card-modal.style'
 
@@ -58,6 +64,7 @@ export const ProductCardModal = observer(props => {
   }
 
   const [viewModel] = useState(setCurrentModel())
+  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   const [currentTab, setCurrentTab] = useState('MAIN_INFO')
 
@@ -129,7 +136,9 @@ export const ProductCardModal = observer(props => {
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
             showBindProductModal={viewModel.showBindProductModal}
-            productsToBind={viewModel.productsToBind}
+            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+            productsToBind={useProductsPermissions.currentPermissionsData}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickSupplier={viewModel?.onChangeSelectedSupplier}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
@@ -137,8 +146,20 @@ export const ProductCardModal = observer(props => {
             onClickSetProductStatusBtn={viewModel?.onClickSetProductStatusBtn}
             onClickHsCode={viewModel?.onClickHsCode}
             onClickNextButton={viewModel.bindUnbindProducts}
-            onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
-            onTriggerOpenModal={viewModel.onTriggerOpenModal}
+            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
+            onClickGetProductsToBind={option =>
+              useProductsPermissions.getPermissionsData(
+                option === ProductVariation.PARENT
+                  ? { isChild: false, offset: 0, filters: '' }
+                  : {
+                      isChild: false,
+                      isParent: false,
+                      shopId: viewModel.product?.shopIds?.[0],
+                      offset: 0,
+                      filters: '',
+                    },
+              )
+            }
           />
         )}
         {viewModel?.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}

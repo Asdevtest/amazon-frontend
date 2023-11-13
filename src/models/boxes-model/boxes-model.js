@@ -96,7 +96,8 @@ class BoxesModelStatic {
   }
 
   getBoxesForCurClientLightPag = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesPagClientsLightGet(filterNullValues(data))
+    // const response = await restApiService.boxesApi.apiV1BoxesPagClientsLightGet(filterNullValues(data))
+    const response = await restApiService.boxesApi.apiV1BoxesPagClientsLightGet(data)
     return response.data
   }
 

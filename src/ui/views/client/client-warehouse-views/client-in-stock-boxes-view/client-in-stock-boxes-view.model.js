@@ -73,7 +73,7 @@ export class ClientInStockBoxesViewModel {
 
     filterRequestStatus: undefined,
 
-    isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
+    isFormedData: { isFormed: undefined, onChangeIsFormed: value => this.onChangeIsFormed(value) },
 
     ...dataGridFiltersInitializer(filtersFields),
   }
