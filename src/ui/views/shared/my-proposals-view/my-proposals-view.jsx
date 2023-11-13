@@ -92,7 +92,6 @@ export const MyProposalsViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row?.originalData?.request?._id)}
           />
         </div>
       </div>

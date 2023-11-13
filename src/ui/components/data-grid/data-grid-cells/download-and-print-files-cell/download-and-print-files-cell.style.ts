@@ -18,6 +18,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
+      color: '#FFFFFF',
     },
   },
 

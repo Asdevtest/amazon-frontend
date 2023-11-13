@@ -122,7 +122,13 @@ export const DeliveryParameters = ({
             selectedItemName={
               destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)}
+            data={
+              formFields?.variationTariffId
+                ? destinations.filter(
+                    el => el?._id === (formFields?.destinationId || formFields?.variationTariff?.destinationId),
+                  )
+                : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)
+            }
             searchFields={['name']}
             favourites={destinationsFavourites}
             onClickSetDestinationFavourite={setDestinationsFavouritesItem}

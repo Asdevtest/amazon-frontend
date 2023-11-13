@@ -123,28 +123,10 @@ export const RequestDetailCustomViewRaw = props => {
                       // findRequestProposalForCurChat.proposal.status ===
                       //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                       // eslint-disable-next-line react/jsx-indent
-                      <Button
-                        // disabled={
-                        //   !params.files.length &&
-                        //   !params.message &&
-                        //   `${request?.request?.typeTask}` !==
-                        //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
-                        // }
-                        onClick={() => {
-                          // onClickSendAsResult(params)
-                          // resetAllInputs()
-
-                          viewModel.onClickResultBtn()
-                        }}
-                      >
+                      <Button onClick={() => viewModel.onClickResultBtn()}>
                         {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
                       </Button>
                     ) : null}
-
-                    {/* {findRequestProposalForCurChat?.proposal.status ===
-                        RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
-                          <Button onClick={viewModel.onClickReadyToVerify}>Отправить на проверку</Button>
-                        ) : undefined} */}
                   </div>
                 )}
                 updateData={viewModel.loadData}

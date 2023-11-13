@@ -55,7 +55,7 @@ const filtersFields = [
   'amount',
   'warehouse',
   'client',
-  'batchId',
+  'batchHumanFriendlyId',
   'dimansions',
   'action',
   'prepId',
@@ -250,14 +250,6 @@ export class WarehouseMyWarehouseViewModel {
     this.setDataGridState()
     this.getBoxesMy()
   }
-
-  // onSelectionModel(model) {
-  //   const boxes = this.boxesMy.filter(box => model.includes(box.id))
-  //   const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
-  //   runInAction(() => {
-  //     this.selectedBoxes = res
-  //   })
-  // }
 
   onSelectionModel(model) {
     runInAction(() => {
@@ -1326,12 +1318,9 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      // this.setFilterRequestStatus(loadingStatuses.isLoading)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
-
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )
 
@@ -1341,10 +1330,7 @@ export class WarehouseMyWarehouseViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      // this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
-      // this.setFilterRequestStatus(loadingStatuses.failed)
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1387,8 +1373,9 @@ export class WarehouseMyWarehouseViewModel {
       exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
     const logicsTariffFilter =
       exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-    const batchIdFilter =
-      exclusion !== 'batchId' && this.columnMenuSettings.batchId.currentFilterData.map(el => el._id).join(',')
+    const batchHumanFriendlyIdFilter =
+      exclusion !== 'batchHumanFriendlyId' &&
+      this.columnMenuSettings.batchHumanFriendlyId.currentFilterData.map(el => el._id).join(',')
 
     // const orderIdsItemsFilter = exclusion !== 'orderIdsItemsFilter' && this.columnMenuSettings.orderIdsItems.currentFilterData.join(',')
 
@@ -1445,8 +1432,8 @@ export class WarehouseMyWarehouseViewModel {
       ...(logicsTariffFilter && {
         logicsTariffId: { $eq: logicsTariffFilter },
       }),
-      ...(batchIdFilter && {
-        batchId: { $eq: batchIdFilter },
+      ...(batchHumanFriendlyIdFilter && {
+        batchHumanFriendlyId: { $eq: batchHumanFriendlyIdFilter },
       }),
 
       // ...(orderIdsItemsFilter && {

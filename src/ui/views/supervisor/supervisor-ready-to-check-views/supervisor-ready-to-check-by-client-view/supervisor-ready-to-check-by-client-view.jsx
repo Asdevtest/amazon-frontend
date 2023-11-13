@@ -43,6 +43,8 @@ export const SupervisorReadyToCheckByClientViewRaw = props => {
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

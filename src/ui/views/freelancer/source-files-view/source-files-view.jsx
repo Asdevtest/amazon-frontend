@@ -38,6 +38,8 @@ export const SourceFilesView = observer(({ history, location }) => {
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
+          sortingMode="client"
+          paginationMode="client"
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

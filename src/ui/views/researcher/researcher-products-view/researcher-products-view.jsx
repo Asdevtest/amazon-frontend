@@ -50,6 +50,8 @@ export const ResearcherProductsViewRaw = props => {
         <div className={classNames.tableWrapper}>
           <CustomDataGrid
             useResizeContainer
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}

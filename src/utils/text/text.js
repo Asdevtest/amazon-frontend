@@ -205,9 +205,14 @@ export const getTableByColumn = (column, hint) => {
       'arrivalDate',
       'deliveryTotalPrice',
       'partialPaymentAmountRmb',
+      'batchHumanFriendlyId',
     ].includes(column)
   ) {
     if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+      return 'batches'
+    }
+
+    if (column === 'batchHumanFriendlyId' && hint === 'boxes') {
       return 'batches'
     }
 

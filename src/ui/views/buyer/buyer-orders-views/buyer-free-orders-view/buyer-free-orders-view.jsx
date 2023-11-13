@@ -43,6 +43,8 @@ export const BuyerFreeOrdersViewRaw = props => {
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}

@@ -60,6 +60,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
             {el?.fileUrl && (
               <Box display="flex" gap="8px" alignItems="center">
                 <Button
+                  variant="contained"
                   className={styles.dapBtn}
                   onClick={e => {
                     e.stopPropagation()

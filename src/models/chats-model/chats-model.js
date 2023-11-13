@@ -18,7 +18,7 @@ class ChatsModelStatic {
 
   getChatMedia = async guid => {
     const response = await restApiService.chatsApi.apiV1ChatsMediaGuidGet({ guid })
-    return response
+    return response.data
   }
 }
 

@@ -43,6 +43,8 @@ export const SupervisorReadyToCheckViewRaw = props => {
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             paginationModel={viewModel.paginationModel}
             slotProps={{
               baseTooltip: {
