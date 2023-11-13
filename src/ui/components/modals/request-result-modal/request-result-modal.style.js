@@ -94,7 +94,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   dragAndDropWrapper: {
     marginBottom: 20,
-    marginRight: 10,
   },
 
   buttonsWrapper: {

@@ -173,15 +173,13 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
             onChange={onChangeField('amazonTitle')}
           />
 
-          <div className={classNames.imageFileInputWrapper}>
-            <UploadFilesInput
-              fullWidth
-              images={images}
-              setImages={setImages}
-              maxNumber={50}
-              acceptType={['jpg', 'gif', 'png', 'jpeg']}
-            />
-          </div>
+          <UploadFilesInput
+            fullWidth
+            images={images}
+            setImages={setImages}
+            maxNumber={50}
+            acceptType={['jpg', 'gif', 'png', 'jpeg']}
+          />
         </div>
       )}
 

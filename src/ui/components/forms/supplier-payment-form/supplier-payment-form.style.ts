@@ -14,10 +14,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
   },
 
-  uploadInput: {
-    marginRight: 10,
-  },
-
   saveBox: {
     marginTop: '20px',
     display: 'flex',

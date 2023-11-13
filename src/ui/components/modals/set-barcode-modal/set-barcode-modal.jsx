@@ -40,9 +40,7 @@ export const SetBarcodeModal = memo(props => {
         />
       )}
 
-      <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
-      </div>
+      <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
 
       <div className={classNames.saveBox}>
         <Button

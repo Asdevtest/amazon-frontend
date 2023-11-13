@@ -25,14 +25,12 @@ export const SupplierPaymentForm = ({
     <div className={classNames.modalWrapper}>
       <p className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
 
-      <div className={classNames.uploadInput}>
-        <UploadFilesInput
-          fullWidth
-          images={files}
-          setImages={setFiles}
-          maxNumber={50 - editPaymentDetailsPhotos?.length}
-        />
-      </div>
+      <UploadFilesInput
+        fullWidth
+        images={files}
+        setImages={setFiles}
+        maxNumber={50 - editPaymentDetailsPhotos?.length}
+      />
 
       {editPaymentDetailsPhotos.length ? (
         <PhotoAndFilesSlider
