@@ -13,6 +13,8 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     maxWidth: '200px !important',
     minWidth: '200px !important',
     lineHeight: 1,
+    borderRadius: 7,
+
     span: {
       maxWidth: '92px',
       overflow: 'hidden',
