@@ -132,18 +132,12 @@ export class SuppliersAndIdeasModel {
 
     reaction(
       () => this.ideasData,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -152,11 +146,11 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       if (!this.isCreateModal) {
-        await UserModel.getPlatformSettings().then(platformSettings =>
-          runInAction(() => {
-            this.platformSettings = platformSettings
-          }),
-        )
+        const response = await UserModel.getPlatformSettings()
+
+        runInAction(() => {
+          this.platformSettings = response
+        })
 
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
@@ -205,10 +199,10 @@ export class SuppliersAndIdeasModel {
 
   async getIdea(ideaId) {
     try {
-      await IdeaModel.getIdeaById(ideaId).then(idea => {
-        runInAction(() => {
-          this.curIdea = idea
-        })
+      const response = await IdeaModel.getIdeaById(ideaId)
+
+      runInAction(() => {
+        this.curIdea = response
       })
     } catch (error) {
       console.log('error', error)
@@ -322,9 +316,7 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
 
-        // if (this.isModalView) {
         await this.getIdea(createdIdeaId)
-        // }
 
         this.loadData()
       }
@@ -335,7 +327,6 @@ export class SuppliersAndIdeasModel {
       } else {
         this.inCreate = false
         this.inEdit = false
-        // this.curIdea = undefined
       }
     } catch (error) {
       console.log(error)
@@ -390,7 +381,6 @@ export class SuppliersAndIdeasModel {
         })
       }
 
-      // await this.onClickAcceptButton(data)
       this.loadData()
 
       this.successModalSettings = {
@@ -766,8 +756,6 @@ export class SuppliersAndIdeasModel {
       }
       await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
 
-      // await SupplierModel.removeSupplier(this.selectedSupplier._id)
-
       runInAction(() => {
         this.curIdea = undefined
         this.selectedSupplier = undefined
@@ -833,31 +821,27 @@ export class SuppliersAndIdeasModel {
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.error = undefined
       })
@@ -904,9 +888,9 @@ export class SuppliersAndIdeasModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -937,12 +921,6 @@ export class SuppliersAndIdeasModel {
       })
       this.onTriggerOpenModal('showInfoModal')
     }
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
   }
 
   onClickRequestId(id) {

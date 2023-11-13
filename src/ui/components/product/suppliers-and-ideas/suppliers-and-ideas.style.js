@@ -4,14 +4,10 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
-    height: '100%',
-    width: '100%',
+    gap: 10,
   },
 
   btnsWrapper: {
-    marginTop: 10,
-    padding: '0 50px',
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -20,13 +16,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '40vh',
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   emptyTableText: {
-    marginTop: '30px',
     color: theme.palette.text.second,
   },
 }))
