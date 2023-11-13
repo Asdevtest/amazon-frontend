@@ -82,8 +82,6 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
         )
       : usersList?.[0]
 
-  console.log('usersList', usersList)
-
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
 
   const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
