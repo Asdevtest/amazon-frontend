@@ -127,7 +127,7 @@ class SettingsModelStatic {
     })
 
     if (compareVersions(response.data.version, appVersion) > 0) {
-      // console.log('!!!*** versions do not match')
+      console.log('!!!*** versions do not match')
 
       // Очистка локального хранилища
       localStorage.clear()
@@ -146,6 +146,8 @@ class SettingsModelStatic {
 
       window.location.reload()
     }
+
+    console.log('!!!*** versions do match')
   }
 
   resetLocalStorageAndCach() {

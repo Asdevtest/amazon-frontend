@@ -29,7 +29,7 @@ export const getAxiosInstance = () => {
     baseURL: BACKEND_API_URL,
   })
 
-  axiosInstance.interceptors.request.use(async (config: any) => {
+  axiosInstance.interceptors.request.use((config: any) => {
     if (config?._retry) {
       return config
     } else {
