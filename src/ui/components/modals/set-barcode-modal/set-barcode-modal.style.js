@@ -14,10 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '30px',
   },
 
-  imageFileInputWrapper: {
-    marginRight: 10,
-  },
-
   saveBox: {
     display: 'flex',
     gap: 20,

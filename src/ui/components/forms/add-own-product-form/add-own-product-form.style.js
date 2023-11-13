@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 700,
-    padding: '0 10px',
+    padding: 10,
   },
 
   title: {
@@ -80,10 +80,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-  },
-
-  imageFileInputWrapper: {
-    padding: '0 10px',
   },
 
   btnsWrapper: {

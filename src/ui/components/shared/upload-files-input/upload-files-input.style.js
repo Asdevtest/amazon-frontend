@@ -6,22 +6,24 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
-    paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
-
-    [theme.breakpoints.down(768)]: {
-      paddingBottom: 0,
-    },
+    gap: 10,
   },
+
+  oneLineMainWrapper: {
+    flexDirection: 'row',
+  },
+
+  errorText: {
+    color: 'red',
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
   mainSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
-    // maxWidth: 'max-content'
-
-    [theme.breakpoints.down(768)]: {
-      maxWidth: '100%',
-    },
+    gap: 10,
   },
 
   controlsWrapper: {
@@ -31,13 +33,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  oneLineMainWrapper: {
-    flexDirection: 'row',
-  },
-
   dragAndDropBtn: {
     fontSize: 16,
     lineHeight: '21px',
+    margin: '0 auto',
     minWidth: '250px',
     width: '100%',
     height: '100px',
@@ -52,7 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
 
     '&:hover': {
-      transform: 'scale(1.02)',
+      transform: 'scale(1.01)',
     },
 
     [theme.breakpoints.down(1024)]: {
@@ -92,7 +91,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionBtnsWrapper: {
-    marginTop: '10px',
     minWidth: '250px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -143,8 +141,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageListWrapper: {
-    margin: '0 auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
     maxHeight: 154,
+    gap: 10,
     overflowY: 'auto',
 
     [theme.breakpoints.down(1024)]: {
@@ -221,12 +222,10 @@ export const useClassNames = makeStyles()(theme => ({
   imageLinkListItem: {
     overflow: 'hidden',
     borderRadius: '7px',
-    padding: '3px',
     display: 'flex',
     alignItems: 'center',
     gap: 5,
     justifyContent: 'space-between',
-    margin: '0',
   },
 
   actionIconsWrapper: {
@@ -246,13 +245,13 @@ export const useClassNames = makeStyles()(theme => ({
   amazonLinkWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    gap: 10,
   },
 
   loadImageInput: {
     height: '40px',
     borderRadius: '7px',
-    width: 'calc(100% - 182px)',
+    width: 'calc(100% - 192px)',
 
     border: `1px solid #424250`,
   },
@@ -266,15 +265,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   loadBtn: {
-    marginLeft: '10px',
     width: '172px',
     color: '#fff',
-  },
-
-  errorText: {
-    color: 'red',
-    fontWeight: 'bold',
-    fontSize: '18px',
   },
 
   linkTypo: {
