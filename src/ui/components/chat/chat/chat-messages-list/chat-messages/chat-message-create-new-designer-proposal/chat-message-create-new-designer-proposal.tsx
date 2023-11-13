@@ -144,7 +144,6 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           {isRejectButton && (
             <Button
               danger
-              className={classNames.actionButton}
               onClick={() =>
                 handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
               }
