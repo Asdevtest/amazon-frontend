@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 
 import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
@@ -7,16 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { UserModel } from '@models/user-model'
 
-import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -37,15 +32,18 @@ interface Props {
   isShowChatInfo?: boolean
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isShowChatInfo, isLastMessage }) => {
-  const { classes: classNames } = useClassNames()
+export const ChatMessageProposalStatusChanged: FC<Props> = ({
+  message,
+  isShowChatInfo /* , isLastMessage, handlers */,
+}) => {
+  const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-  const isShowButton = isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
-  const isShowFooter = isShowButton || !!message.data.timeLimitInMinutes
+  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  // const isShowButton = isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
+  // const isShowFooter = isShowButton || !!message.data.timeLimitInMinutes
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -81,30 +79,23 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers,
               />
             )}
 
-            {isShowFooter ? (
-              <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
-                {message.data.timeLimitInMinutes ? (
-                  <div className={classNames.labelValueBlockWrapper}>
-                    <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
+            <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
+              <div className={classNames.labelValueBlockWrapper}>
+                <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
 
-                    <LabelValuePairBlock
-                      label={undefined}
-                      value={minsToTime(message.data.timeLimitInMinutes)}
-                      bgColor="green"
-                    />
-                  </div>
-                ) : null}
-
-                {isShowButton && handlers.onClickReworkProposal && (
-                  <Button
-                    className={cx(classNames.actionButton /* , classNames.editBtn */)}
-                    onClick={handlers.onClickReworkProposal}
-                  >
-                    {t(TranslationKey.Refine)}
-                  </Button>
-                )}
+                <LabelValuePairBlock
+                  label={undefined}
+                  value={minsToTime(message.data.timeLimitInMinutes)}
+                  bgColor="green"
+                />
               </div>
-            ) : null}
+
+              {/* {handlers.onClickReworkProposal && (
+                <Button className={classNames.actionButton} onClick={handlers.onClickReworkProposal}>
+                  {t(TranslationKey.Refine)}
+                </Button>
+              )} */}
+            </div>
           </div>
         )
       case RequestProposalStatus.CORRECTED:

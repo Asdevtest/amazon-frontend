@@ -16,7 +16,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class RequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   requestId = undefined
   request = undefined
@@ -58,56 +57,48 @@ export class RequestDetailCustomViewModel {
   }
 
   get userInfo() {
-    return UserModel.userInfo || {}
+    return UserModel.userInfo
   }
 
   get typingUsers() {
-    return ChatModel.typingUsers || []
+    return ChatModel.typingUsers
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.requestId = url.searchParams.get('request-id')
-    })
+    this.requestId = url.searchParams.get('request-id')
 
     reaction(
       () => this.chatSelectedId,
       () => {
-        runInAction(() => {
-          this.mesSearchValue = ''
-          ChatModel.onChangeChatSelectedId(this.chatSelectedId)
-        })
+        this.mesSearchValue = ''
+        ChatModel.onChangeChatSelectedId(this.chatSelectedId)
       },
     )
 
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      if (location?.state?.chatId) {
-        this.chatSelectedId = location.state.chatId
-      }
-    })
+    if (history.location?.state?.chatId) {
+      this.chatSelectedId = history.location.state.chatId
+    }
 
     reaction(
       () => this.mesSearchValue,
       () => {
-        runInAction(() => {
-          if (this.mesSearchValue && this.chatSelectedId) {
-            const mesAr = this.chats
-              .find(el => el._id === this.chatSelectedId)
-              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+        if (this.mesSearchValue && this.chatSelectedId) {
+          const mesAr = this.chats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
 
-            this.messagesFound = mesAr
+          this.messagesFound = mesAr
 
-            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-          } else {
-            this.curFoundedMessage = undefined
+          setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+        } else {
+          this.curFoundedMessage = undefined
 
-            this.messagesFound = []
-          }
-        })
+          this.messagesFound = []
+        }
       },
     )
 
@@ -115,18 +106,16 @@ export class RequestDetailCustomViewModel {
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
-        runInAction(() => {
-          this.chatIsConnected = ChatModel.isConnected
-        })
+
+        this.chatIsConnected = ChatModel.isConnected
       } else {
         reaction(
           () => ChatModel.isConnected,
           isConnected => {
             if (isConnected) {
               ChatModel.getChats(this.requestId, 'REQUEST')
-              runInAction(() => {
-                this.chatIsConnected = isConnected
-              })
+
+              this.chatIsConnected = isConnected
             }
           },
         )
@@ -161,28 +150,23 @@ export class RequestDetailCustomViewModel {
   }
 
   onChangeCurFoundedMessage(index) {
-    runInAction(() => {
-      this.curFoundedMessage = this.messagesFound[index]
-    })
+    this.curFoundedMessage = this.messagesFound[index]
   }
 
   onChangeMesSearchValue(e) {
-    runInAction(() => {
-      this.mesSearchValue = e.target.value
-    })
+    this.mesSearchValue = e.target.value
   }
 
   onCloseMesSearchValue() {
-    runInAction(() => {
-      this.mesSearchValue = ''
-    })
+    this.mesSearchValue = ''
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.all([this.getCustomRequestById(), this.getRequestProposals()])
+      this.getCustomRequestById()
+      this.getRequestProposals()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -192,19 +176,15 @@ export class RequestDetailCustomViewModel {
   }
 
   onClickChat(chat) {
-    runInAction(() => {
-      if (this.chatSelectedId === chat._id) {
-        this.chatSelectedId = undefined
-      } else {
-        this.chatSelectedId = chat._id
-      }
-    })
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
   }
 
   onClickOpenRequest(media) {
-    runInAction(() => {
-      this.curResultMedia = media
-    })
+    this.curResultMedia = media
 
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
   }
@@ -236,9 +216,6 @@ export class RequestDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -257,9 +234,6 @@ export class RequestDetailCustomViewModel {
       })
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -348,7 +322,6 @@ export class RequestDetailCustomViewModel {
       })
 
       this.getRequestProposals()
-      this.showProgress = false
 
       runInAction(() => {
         this.showProgress = false
@@ -357,8 +330,6 @@ export class RequestDetailCustomViewModel {
       console.log(error)
       runInAction(() => {
         this.showProgress = false
-
-        this.error = error
       })
     }
   }
@@ -375,9 +346,6 @@ export class RequestDetailCustomViewModel {
       await this.getRequestProposals()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -395,16 +363,11 @@ export class RequestDetailCustomViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onClickBackBtn() {
@@ -412,9 +375,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   onSubmitOfferDeal() {
