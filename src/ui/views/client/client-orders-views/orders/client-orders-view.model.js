@@ -93,7 +93,7 @@ export class ClientOrdersViewModel {
   }
 
   rowHandlers = {
-    onClickReorder: item => this.onClickReorder(item),
+    onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
   }
 
   rowCount = 0
@@ -652,18 +652,25 @@ export class ClientOrdersViewModel {
     }
   }
 
-  async onClickReorder(item) {
+  async onClickReorder(item, isPending) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      if (isPending) {
+        await this.onClickContinueBtn(item)
+        return
+      }
+
       const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
 
-      if (res?.length) {
+      const resultWithoutCurrentOrder = res?.filter(order => order?._id !== item?._id)
+
+      if (resultWithoutCurrentOrder?.length) {
         runInAction(() => {
           this.existingProducts = [
             {
-              _id: item?.product._id,
+              _id: item?._id,
               asin: item?.product?.asin,
-              orders: res,
+              orders: resultWithoutCurrentOrder,
             },
           ]
         })

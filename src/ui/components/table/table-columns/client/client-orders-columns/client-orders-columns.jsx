@@ -107,7 +107,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData)
+              rowHandlers.onClickReorder(params.row.originalData, false)
             }}
           />
         ) : (
@@ -115,7 +115,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
             bTnText={t(TranslationKey['To order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData)
+              rowHandlers.onClickReorder(params.row.originalData, true)
             }}
           />
         )}
