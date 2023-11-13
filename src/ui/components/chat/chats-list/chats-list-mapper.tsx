@@ -15,6 +15,7 @@ export const chatListMapper = (
   chatSelectedId: string | undefined,
   onClickChat: (chat: ChatContract) => void,
   mutedChats?: string[],
+  typeOfChat?: string,
 ) => {
   const { classes: classNames } = useClassNames()
 
@@ -30,6 +31,7 @@ export const chatListMapper = (
             userId={userId}
             chat={chat}
             isMutedChat={mutedChats?.includes(chat._id)}
+            typeOfChat={typeOfChat}
             onClick={onClickChat}
           />
         </div>
