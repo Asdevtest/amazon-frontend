@@ -46,7 +46,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
     requestProposal => requestProposal?.proposal?.chatId === chat?._id,
   )
 
-  const { messages, users, lastMessage } = chat
+  const { users, lastMessage, unread } = chat
+
+  console.log('chat', chat)
 
   // @ts-ignore
   const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
@@ -83,8 +85,6 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       : usersList?.[0]
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
-
-  const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
 
   const message = lastMessage?.text
     ? (() => {
@@ -158,7 +158,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
                 <p className={classNames.nickName}>{oponentUser?.name}</p>
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                    [classNames.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {t(TranslationKey.Writes) + '...'}
@@ -173,7 +173,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                    [classNames.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
@@ -184,8 +184,8 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             <div className={classNames.badgeWrapper}>
               {isMutedChat && <SoundOffIcon className={classNames.soundOffIcon} />}
 
-              {unReadMessages.length > 0 ? (
-                <span className={classNames.badge}>{unReadMessages.length}</span>
+              {Number(unread) > 0 ? (
+                <span className={classNames.badge}>{Number(unread)}</span>
               ) : isCurrentUser ? (
                 readingTick
               ) : null}

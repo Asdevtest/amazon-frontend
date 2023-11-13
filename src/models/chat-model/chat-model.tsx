@@ -349,11 +349,9 @@ class ChatModelStatic {
       newMessage,
     )
 
-    if (
-      message.user?._id !== this.userId &&
-      message.type === ChatMessageType.USER &&
-      !this.mutedChats.includes(message.chatId)
-    ) {
+    const isCurrentUser = message.user?._id === this.userId
+
+    if (!isCurrentUser && message.type === ChatMessageType.USER && !this.mutedChats.includes(message.chatId)) {
       SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
 
       noticeSound.play()
@@ -372,6 +370,7 @@ class ChatModelStatic {
     runInAction(() => {
       this[chatType][index] = {
         ...this[chatType][index],
+        unread: isCurrentUser ? this[chatType]?.[index]?.unread : `${Number(this[chatType]?.[index]?.unread) + 1}`,
         messages: [...this[chatType][index].messages.filter(mes => mes._id !== message._id), message],
         lastMessage: message,
       }
@@ -402,6 +401,8 @@ class ChatModelStatic {
 
   private onReadMessage(response: OnReadMessageResponse) {
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
+
+    console.log('this.chats[findChatIndexById]', this.chats[findChatIndexById])
 
     if (findChatIndexById !== -1) {
       runInAction(() => {
