@@ -6,6 +6,7 @@ import { operationTypes } from '@constants/keys/operation-types'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BoxSplit } from '@components/shared/box-split'
 import { Button } from '@components/shared/buttons/button'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
@@ -195,7 +196,7 @@ export const StorekeeperRedistributeBox = observer(
       <div className={classNames.wrapper}>
         <div className={classNames.modalTitleWrapper}>
           <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
-          <img src="/assets/img/split.png" />
+          <BoxSplit />
         </div>
 
         <div className={classNames.boxesWrapper}>
