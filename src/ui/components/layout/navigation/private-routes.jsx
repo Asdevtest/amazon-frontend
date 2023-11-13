@@ -12,6 +12,7 @@ import { UserModel } from '@models/user-model'
 import { Layout } from '@components/layout'
 
 import { isHaveMasterUser } from '@utils/checks'
+import { resetAccessTokenByTime } from '@utils/reset'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
@@ -42,6 +43,7 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getUnreadMessagesCount()
+      resetAccessTokenByTime(UserModel.accessToken, UserModel.refreshToken)
     }
   }, [])
 

@@ -33,14 +33,14 @@ class UserModelStatic {
     return !!this.accessToken
   }
 
-  signOut() {
+  async signOut() {
+    await restApiService.userApi.apiV1UsersLogoutPost({})
     this.accessToken = undefined
     this.refreshToken = undefined
     this.userInfo = undefined
     this.userId = undefined
     this.masterUserId = undefined
-    SettingsModel.setAuthorizationData(undefined, undefined)
-
+    SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
   }
@@ -225,6 +225,11 @@ class UserModelStatic {
 
   async changeSubUserSpec(guid, body) {
     const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost({ guid, body })
+    return response.data
+  }
+
+  async getAccessToken(refreshToken) {
+    const response = await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
     return response.data
   }
 }

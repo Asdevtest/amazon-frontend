@@ -9,6 +9,8 @@ import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { errorMessageList } from './error-message-list'
+
 export const getAxiosInstance = () => {
   let isRefreshing = false
   let failedQueue: any = []
@@ -29,7 +31,7 @@ export const getAxiosInstance = () => {
     baseURL: BACKEND_API_URL,
   })
 
-  axiosInstance.interceptors.request.use(async (config: any) => {
+  axiosInstance.interceptors.request.use((config: any) => {
     if (config?._retry) {
       return config
     } else {
@@ -48,7 +50,12 @@ export const getAxiosInstance = () => {
 
     async error => {
       const originalConfig = error.config
-      if ((error.response.status === 403 || error.response.status === 401) && !originalConfig._retry) {
+      if (
+        ((error.response.status === 403 && errorMessageList.includes(error.response.data.message)) ||
+          error.response.status === 401) &&
+        !originalConfig._retry
+      ) {
+        console.log('error.response', error.response)
         if (isRefreshing) {
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject })
