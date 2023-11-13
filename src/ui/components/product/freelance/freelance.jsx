@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -17,12 +16,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './freelance.style'
+import { useStyles } from './freelance.style'
 
 import { FreelanceModel } from './freelance.model'
 
 export const Freelance = observer(({ productId, modal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const freelanceModel = useRef(new FreelanceModel({ history, productId }))
 
@@ -58,28 +57,27 @@ export const Freelance = observer(({ productId, modal }) => {
   } = freelanceModel.current
 
   return (
-    <div>
-      <div className={classNames.tablePanelWrapper}>
-        <div className={classNames.taskTypeWrapper}>
-          <CustomSwitcher
-            switchMode="medium"
-            condition={Number(selectedTaskType)}
-            switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
-              value: Number(taskType),
-              label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
-            }))}
-            changeConditionHandler={onClickTaskType}
-          />
-        </div>
+    <>
+      <div className={styles.header}>
+        <CustomSwitcher
+          switchMode="medium"
+          condition={Number(selectedTaskType)}
+          switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
+            value: Number(taskType),
+            label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
+          }))}
+          changeConditionHandler={onClickTaskType}
+        />
 
         <SearchInput
           placeholder={t(TranslationKey['Search by Title, ID'])}
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           value={nameSearchValue}
           onSubmit={onSearchSubmit}
         />
       </div>
-      <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
+
+      <div className={cx(styles.tableWrapper, { [styles.modalWrapper]: modal })}>
         <CustomDataGrid
           localeText={getLocalizationByLanguageTag()}
           propsToRerender={{ onHover }}
@@ -138,9 +136,8 @@ export const Freelance = observer(({ productId, modal }) => {
           request={{ request: curRequest }}
           proposal={curProposal}
           setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
-          // onClickSendAsResult={onClickSendAsResult}
         />
       </Modal>
-    </div>
+    </>
   )
 })
