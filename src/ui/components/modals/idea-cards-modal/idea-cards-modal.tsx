@@ -24,12 +24,7 @@ export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
   const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
 
   return (
-    <Modal
-      missClickModalOn
-      dialogClassName={classNames.modaldialogClassName}
-      openModal={openModal}
-      setOpenModal={setOpenModal}
-    >
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.root}>
         <SuppliersAndIdeas
           isModalView

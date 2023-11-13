@@ -12,12 +12,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
 
-  modalRoot: {
-    padding: '0 !important',
-    display: 'flex',
-    gap: '40px',
-  },
-
   cardWrapper: {
     width: '100%',
     height: '370px',
