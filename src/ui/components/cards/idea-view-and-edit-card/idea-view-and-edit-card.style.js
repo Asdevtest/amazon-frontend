@@ -229,6 +229,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    gap: 30,
   },
 
   shortInput: {
