@@ -35,7 +35,7 @@ import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
 
     const { search } = useLocation()
     const queries = new URLSearchParams(search)
@@ -137,11 +137,10 @@ export const SuppliersAndIdeas = observer(
     }, [selectedIdeaId, ideasData])
 
     return (
-      <div className={classNames.mainWrapper}>
+      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperModal]: isModalView })}>
         {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
           !inCreate &&
-          !inEdit &&
-          !isModalView && (
+          !inEdit && (
             <div className={classNames.btnsWrapper}>
               <Button
                 success
@@ -176,21 +175,22 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
-        {isModalView && curIdea && (
-          <>
-            {requestStatus === loadingStatuses.isLoading ? (
-              <CircularProgressWithLabel />
-            ) : (
+        {requestStatus === loadingStatuses.isLoading ? (
+          <CircularProgressWithLabel />
+        ) : currentData?.length ? (
+          currentData.map(idea => (
+            <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
               <IdeaViewAndEditCard
-                isModalView
-                languageTag={languageTag}
-                platformSettings={platformSettings}
+                isModalView={isModalView}
                 curUser={curUser}
                 curIdea={curIdea}
                 inEdit={inEdit}
-                idea={curIdea}
+                platformSettings={platformSettings}
+                idea={idea}
+                languageTag={languageTag}
                 currentProduct={currentProduct}
                 selectedSupplier={selectedSupplier}
+                selectedIdea={selectedIdeaId}
                 onCreateProduct={onClickCreateProduct}
                 onClickSaveBtn={onClickSaveBtn}
                 onClickCancelBtn={onClickCancelBtn}
@@ -204,64 +204,24 @@ export const SuppliersAndIdeas = observer(
                 onSetCurIdea={onSetCurIdea}
                 onEditIdea={onEditIdea}
                 onClickSupplierBtns={onClickSupplierButtons}
+                onClickOpenProduct={onClickOpenProduct}
                 onClickSupplier={onChangeSelectedSupplier}
                 onClickSaveIcon={onClickSaveIcon}
-                onClickOpenNewTab={onClickOpenNewTab}
-                onClickOpenProduct={onClickOpenProduct}
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
+                onClickOpenNewTab={onClickOpenNewTab}
               />
-            )}
-          </>
-        )}
-
-        {!isModalView &&
-          (requestStatus === loadingStatuses.isLoading ? (
-            <CircularProgressWithLabel />
-          ) : currentData?.length ? (
-            currentData.map(idea => (
-              <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
-                <IdeaViewAndEditCard
-                  curUser={curUser}
-                  curIdea={curIdea}
-                  inEdit={inEdit}
-                  platformSettings={platformSettings}
-                  idea={idea}
-                  languageTag={languageTag}
-                  currentProduct={currentProduct}
-                  selectedSupplier={selectedSupplier}
-                  selectedIdea={selectedIdeaId}
-                  onCreateProduct={onClickCreateProduct}
-                  onClickSaveBtn={onClickSaveBtn}
-                  onClickCancelBtn={onClickCancelBtn}
-                  onClickCreateRequestButton={onClickCreateRequestButton}
-                  onClickLinkRequestButton={onClickLinkRequestButton}
-                  onClickAcceptButton={onClickAcceptButton}
-                  onClickCloseIdea={onClickCloseIdea}
-                  onClickRejectButton={onClickRejectButton}
-                  onClickReoperButton={onClickReoperButton}
-                  onClickResultButton={onClickResultButton}
-                  onSetCurIdea={onSetCurIdea}
-                  onEditIdea={onEditIdea}
-                  onClickSupplierBtns={onClickSupplierButtons}
-                  onClickOpenProduct={onClickOpenProduct}
-                  onClickSupplier={onChangeSelectedSupplier}
-                  onClickSaveIcon={onClickSaveIcon}
-                  onClickToOrder={onClickToOrder}
-                  onClickRequestId={onClickRequestId}
-                  onClickUnbindButton={onClickUnbindButton}
-                />
-              </div>
-            ))
-          ) : (
-            <div className={classNames.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
-                {t(TranslationKey['No ideas yet'])}
-              </Typography>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className={classNames.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <Typography variant="h5" className={classNames.emptyTableText}>
+              {t(TranslationKey['No ideas yet'])}
+            </Typography>
+          </div>
+        )}
 
         {showAddOrEditSupplierModal && (
           <Modal

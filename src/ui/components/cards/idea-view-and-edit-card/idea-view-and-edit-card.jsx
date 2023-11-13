@@ -334,7 +334,7 @@ export const IdeaViewAndEditCard = observer(
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
-      <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
+      <div className={classNames.root}>
         <div className={classNames.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
@@ -372,9 +372,10 @@ export const IdeaViewAndEditCard = observer(
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
                   <PhotoAndFilesSlider
-                    bigSlider
                     showPreviews
                     withoutFiles
+                    bigSlider={!isModalView}
+                    mediumSlider={isModalView}
                     isEditable={inEdit}
                     files={images}
                     onChangeImagesForLoad={setImages}
