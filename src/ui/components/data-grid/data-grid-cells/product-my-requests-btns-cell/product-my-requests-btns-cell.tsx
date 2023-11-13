@@ -10,21 +10,20 @@ import { t } from '@utils/translations'
 import { useDataGridCellStyles } from './product-my-requests-btns-cell.style'
 
 interface ProductMyRequestsBtnsCellProps {
-  rowId: string
-  row: any
+  data: any
   handlers: {
-    onClickOpenRequest: (rowId: string) => void
-    onClickOpenResult: (rowId: string) => void
+    onClickOpenRequest: (requestId: string) => void
+    onClickOpenResult: (data: any) => void
   }
 }
 
-export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = React.memo(({ rowId, row, handlers }) => {
+export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = React.memo(({ data, handlers }) => {
   const { classes: styles } = useDataGridCellStyles()
 
   const disableOpenResultBtn =
-    !row.countProposalsByStatuses.acceptedProposals &&
-    !row.countProposalsByStatuses.atWorkProposals &&
-    !row.countProposalsByStatuses.verifyingProposals
+    !data.countProposalsByStatuses.acceptedProposals &&
+    !data.countProposalsByStatuses.atWorkProposals &&
+    !data.countProposalsByStatuses.verifyingProposals
 
   return (
     <div className={styles.productMyRequestsBtnsWrapper}>
@@ -32,7 +31,7 @@ export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = Rea
         variant="contained"
         color="primary"
         className={styles.productMyRequestsBtn}
-        onClick={() => handlers.onClickOpenRequest(rowId)}
+        onClick={() => handlers.onClickOpenRequest(data._id)}
       >
         {t(TranslationKey['Open a request'])}
       </Button>
@@ -40,7 +39,7 @@ export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = Rea
         success
         disabled={disableOpenResultBtn}
         className={styles.productMyRequestsBtn}
-        onClick={() => handlers.onClickOpenResult(rowId)}
+        onClick={() => handlers.onClickOpenResult(data)}
       >
         {t(TranslationKey['Open result'])}
       </Button>

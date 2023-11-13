@@ -19,27 +19,15 @@ import { UserModel } from '@models/user-model'
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const filtersFields = [
-  'humanFriendlyId',
-  'updatedAt',
-  'status',
-  'title',
-  'typeTask',
-  'price',
-  'timeoutAt',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'createdBy',
-  'subUsers',
-]
+import { filtersFields } from './freelance.constants'
 
 export class FreelanceModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
+
   rowCount = 0
   drawerOpen = false
   showRequestForm = false
@@ -87,24 +75,14 @@ export class FreelanceModel {
       if (withoutUpdate) {
         this.getCurrentData()
       } else {
-        this.getCustomRequests()
         this.getDataGridState()
+        this.getCustomRequests()
       }
     },
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   handlers = {
@@ -127,38 +105,30 @@ export class FreelanceModel {
 
     this.productId = productId
     makeAutoObservable(this, undefined, { autoBind: true })
-    runInAction(() => {
-      if (this.showAcceptMessage) {
-        setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
-        }, 3000)
-      }
-    })
+
+    if (this.showAcceptMessage) {
+      setTimeout(() => {
+        this.acceptMessage = ''
+        this.showAcceptMessage = false
+      }, 3000)
+    }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
+    this.drawerOpen = value
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getCustomRequests()
   }
 
@@ -177,9 +147,10 @@ export class FreelanceModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
       await this.getCustomRequests()
-      this.getDataGridState()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -188,9 +159,8 @@ export class FreelanceModel {
   }
 
   onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
+    this.selectedTaskType = taskType
+
     this.getCustomRequests()
   }
 
@@ -212,92 +182,24 @@ export class FreelanceModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-        // .sort(
-        //   sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        // )
+
         this.rowCount = result.count
       })
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.searchRequests = []
       })
     }
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
-    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
-    const subUsersFilter =
-      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
-
-    const filter = objectToUrlQs({
-      or: [{ title: { $contains: this.nameSearchValue } }, { humanFriendlyId: { $eq: this.nameSearchValue } }].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-      ...(titleFilter && {
-        title: { $eq: titleFilter },
-      }),
-      ...(typeTaskFilter && {
-        typeTask: { $eq: typeTaskFilter },
-      }),
-      ...(priceFilter && {
-        price: { $eq: priceFilter },
-      }),
-      ...(timeoutAtFilter && {
-        timeoutAt: { $eq: timeoutAtFilter },
-      }),
-      ...(createdByFilter && {
-        createdBy: { $eq: createdByFilter },
-      }),
-      ...(subUsersFilter && {
-        subUsers: { $eq: subUsersFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'title',
+        'humanFriendlyId',
+      ]),
+    )
   }
 
   async onClickFilterBtn(column) {
@@ -311,10 +213,12 @@ export class FreelanceModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setRequestStatus(loadingStatuses.success)
@@ -322,30 +226,11 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.failed)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+    this.columnMenuSettings = { ...dataGridFiltersInitializer(filtersFields) }
 
     this.getCustomRequests()
   }
@@ -375,32 +260,26 @@ export class FreelanceModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onLeaveColumnField() {
     this.onHover = null
   }
-  onClickOpenRequest(itemId) {
-    // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
-    //   request: toJS(item),
-    // })
 
+  onClickOpenRequest(itemId) {
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
@@ -413,7 +292,7 @@ export class FreelanceModel {
 
   async onClickOpenResult(item) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item)
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
 
       const proposal = result.find(el => el.proposal.status)
 
@@ -445,34 +324,22 @@ export class FreelanceModel {
   }
 
   onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    this.drawerOpen = !this.drawerOpen
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
-    this.requestStatus = loadingStatuses.isLoading
-    this.getCustomRequests().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    this.getCustomRequests()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-      // this.paginationModel = { ...model, page: 0 }
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getCustomRequests()
