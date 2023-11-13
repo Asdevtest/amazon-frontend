@@ -16,7 +16,7 @@ type FilterList = {
 const onlyDigitsRegex = /^\d+$/
 
 const searchOperatorByColumn = {
-  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId'],
+  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'item', 'productId'],
 }
 
 const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId']
