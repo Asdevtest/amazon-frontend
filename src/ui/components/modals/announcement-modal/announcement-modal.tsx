@@ -41,72 +41,74 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal} dialogClassName={styles.modalWrapper}>
-      <div className={styles.header}>
-        <p className={styles.mainTitle}>{service.title}</p>
+    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+      <div className={styles.modalWrapper}>
+        <div className={styles.header}>
+          <p className={styles.mainTitle}>{service.title}</p>
 
-        <div className={styles.flexRowContainer}>
-          <p className={styles.text}>{t(TranslationKey['Service type'])}</p>
-          <p className={textBold}>{serviceType}</p>
-        </div>
+          <div className={styles.flexRowContainer}>
+            <p className={styles.text}>{t(TranslationKey['Service type'])}</p>
+            <p className={textBold}>{serviceType}</p>
+          </div>
 
-        <div className={styles.flexRowContainer}>
-          <p className={styles.text}>{t(TranslationKey.Performer)}</p>
+          <div className={styles.flexRowContainer}>
+            <p className={styles.text}>{t(TranslationKey.Performer)}</p>
 
-          <UserLink
-            blackText
-            withAvatar
-            ratingSize="small"
-            name={service.createdBy.name}
-            userId={service.createdBy._id}
-            rating={service.createdBy.rating}
-            customAvatarStyles={{ width: 30, height: 30 }}
-            customStyles={{ fontSize: 14, lineHeight: '17px' }}
-            customRatingClass={{ fontSize: 13, opacity: 1 }}
-          />
-        </div>
-      </div>
-
-      <div className={styles.main}>
-        <div className={styles.descriptionContainer}>
-          <p className={textMediumBold}>{t(TranslationKey.Files)}</p>
-
-          <div>
-            <div className={styles.flexColumnContainer}>
-              <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
-              <PhotoAndFilesSlider withoutFiles showPreviews files={files} customSlideHeight={210} />
-            </div>
-
-            <div className={styles.flexColumnContainer}>
-              <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
-              <PhotoAndFilesSlider alignLeft withoutPhotos files={files} customSlideHeight={67} />
-            </div>
+            <UserLink
+              blackText
+              withAvatar
+              ratingSize="small"
+              name={service.createdBy.name}
+              userId={service.createdBy._id}
+              rating={service.createdBy.rating}
+              customAvatarStyles={{ width: 30, height: 30 }}
+              customStyles={{ fontSize: 14, lineHeight: '17px' }}
+              customRatingClass={{ fontSize: 13, opacity: 1 }}
+            />
           </div>
         </div>
 
-        <div className={styles.content}>
+        <div className={styles.main}>
           <div className={styles.descriptionContainer}>
-            <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
-            <div className={styles.description}>
-              <CustomTextEditor readOnly conditions={service.description} />
+            <p className={textMediumBold}>{t(TranslationKey.Files)}</p>
+
+            <div>
+              <div className={styles.flexColumnContainer}>
+                <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
+                <PhotoAndFilesSlider withoutFiles showPreviews files={files} customSlideHeight={210} />
+              </div>
+
+              <div className={styles.flexColumnContainer}>
+                <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
+                <PhotoAndFilesSlider alignLeft withoutPhotos files={files} customSlideHeight={67} />
+              </div>
             </div>
           </div>
 
-          {onClickButton && (choose || order) ? (
-            <div className={styles.buttonWrapper}>
-              <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
-                {t(translationButtonKey)}
-              </Button>
+          <div className={styles.content}>
+            <div className={styles.descriptionContainer}>
+              <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
+              <div className={styles.description}>
+                <CustomTextEditor readOnly conditions={service.description} />
+              </div>
             </div>
-          ) : null}
 
-          {onClickSelectButton && select ? (
-            <div className={styles.buttonWrapper}>
-              <Button success={select} className={styles.button} onClick={() => onClickSelectButton()}>
-                {t(TranslationKey.Select)}
-              </Button>
-            </div>
-          ) : null}
+            {onClickButton && (choose || order) ? (
+              <div className={styles.buttonWrapper}>
+                <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
+                  {t(translationButtonKey)}
+                </Button>
+              </div>
+            ) : null}
+
+            {onClickSelectButton && select ? (
+              <div className={styles.buttonWrapper}>
+                <Button success={select} className={styles.button} onClick={() => onClickSelectButton()}>
+                  {t(TranslationKey.Select)}
+                </Button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </Modal>

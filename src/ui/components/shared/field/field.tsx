@@ -29,6 +29,9 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   inputProps?: {
     maxLength?: number
   }
+  multiline?: boolean
+  minRows?: number
+  maxRows?: number
 }
 
 export const Field: FC<Props> = observer(
