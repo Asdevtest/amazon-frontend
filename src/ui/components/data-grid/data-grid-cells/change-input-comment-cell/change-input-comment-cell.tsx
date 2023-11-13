@@ -11,7 +11,7 @@ import { SaveIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './change-input-comment-cell.style'
+import { useStyles } from './change-input-comment-cell.style'
 
 interface ChangeInputCommentCellProps {
   onClickSubmit: (id: string, comment?: string) => void
@@ -22,11 +22,22 @@ interface ChangeInputCommentCellProps {
   fieldName?: string
   placeholder?: string
   disableMultiline?: boolean
+  rowsCount?: number
 }
 
 export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
-  const { onClickSubmit, onChangeText, text, disabled, maxLength, fieldName, placeholder, disableMultiline } = props
+  const { classes: styles } = useStyles()
+  const {
+    onClickSubmit,
+    onChangeText,
+    text,
+    disabled,
+    maxLength,
+    fieldName,
+    placeholder,
+    disableMultiline,
+    rowsCount = 2,
+  } = props
 
   const [value, setValue] = useState('')
   const [isEdited, setIsEdited] = useState(false)
@@ -41,6 +52,7 @@ export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.mem
       <Input
         multiline={!disableMultiline}
         autoFocus={false}
+        rows={rowsCount}
         inputProps={{ maxLength: maxLength ? maxLength : 256 }}
         placeholder={placeholder ?? t(TranslationKey.Comment)}
         disabled={disabled}
@@ -84,9 +96,7 @@ export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.mem
             onChangeText(fieldName || 'comments')(e.target.value)
           }
         }}
-        onKeyDown={(event: KeyboardEvent) => {
-          event.stopPropagation()
-        }}
+        onKeyDown={(event: KeyboardEvent) => event.stopPropagation()}
       />
     </div>
   )

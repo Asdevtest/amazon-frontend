@@ -73,13 +73,18 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     width: 250,
-    renderCell: params => (
-      <CopyAndEditLinkCell
-        link={params.value}
-        isEdit={params?.row?.originalData?._id === getEditField()?._id}
-        onChangeText={rowHandlers.onChangeText}
-      />
-    ),
+    renderCell: params =>
+      params?.row?.originalData?._id === getEditField()?._id ? (
+        <ChangeInputCommentCell
+          rowsCount={1}
+          fieldName="sourceFile"
+          text={params.row.originalData.sourceFile}
+          onChangeText={rowHandlers.onChangeText}
+          onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
+        />
+      ) : (
+        <CopyAndEditLinkCell link={params.row.originalData.sourceFile} />
+      ),
   },
 
   {
