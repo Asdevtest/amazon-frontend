@@ -9,6 +9,7 @@ import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/t
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { BoxSplit } from '@components/shared/box-split'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
@@ -180,7 +181,7 @@ export const RedistributeBox = observer(
       <div className={classNames.wrapper}>
         <div className={classNames.modalTitleWrapper}>
           <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
-          <img src="/assets/img/split.png" />
+          <BoxSplit />
         </div>
 
         <div className={classNames.boxesWrapper}>
