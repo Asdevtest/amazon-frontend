@@ -272,12 +272,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   requestMoreInformation: {
     display: 'flex',
-    gap: 40,
+    justifyContent: 'space-between',
+    gap: 20,
   },
 
   moreInformationSection: {
     height: '100%',
-    width: 'fit-content',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
