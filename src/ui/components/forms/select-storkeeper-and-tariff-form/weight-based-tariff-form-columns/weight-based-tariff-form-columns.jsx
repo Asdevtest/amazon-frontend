@@ -45,7 +45,7 @@ export const WeightBasedTariffFormColumns = (
     renderCell: params => (
       <DestinationVariationsSpanningCell
         showCheckbox={showCheckbox}
-        destinationVariations={params.row.originalData.destinationVariations}
+        destinationVariations={params.row.destinationVariations}
         activeDestinationId={currentDestinationId}
         activeDedestinationVariationt={variationTariffId}
         selectVariationTariff={setVariationTariff}
@@ -121,12 +121,10 @@ export const WeightBasedTariffFormColumns = (
         disabled={
           showCheckbox &&
           ((currentDestinationId &&
-            params.row.originalData?.destinationVariations.every(
-              item => item?.destination?._id !== currentDestinationId,
-            ) &&
+            params.row?.destinationVariations.every(item => item?.destination?._id !== currentDestinationId) &&
             !isRemovedDestinationRestriction) ||
             !variationTariffId ||
-            params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
+            params.row?.destinationVariations.every(item => item?._id !== variationTariffId))
         }
         bTnText={t(TranslationKey['Select Tariff'])}
         onClickOkBtn={() => onClickSelectTariff(params.row._id)}

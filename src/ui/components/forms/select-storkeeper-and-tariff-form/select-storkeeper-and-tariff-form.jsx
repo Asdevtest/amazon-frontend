@@ -1,6 +1,5 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
@@ -12,7 +11,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
@@ -40,23 +38,12 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     const [tabIndex, setTabIndex] = useState(0)
     const [nameSearchValue, setNameSearchValue] = useState('')
-    const [curStorekeeper, setCurStorekeeper] = useState(
-      curStorekeeperId
-        ? storekeepers.find(el => el._id === curStorekeeperId)
-        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
-    )
+    const [curStorekeeper, setCurStorekeeper] = useState(undefined)
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
     const [destinationId, setDestinationId] = useState(currentDestinationId)
     const [isRemovedDestinationRestriction, setIsRemovedDestinationRestriction] = useState(false)
     const [isSelectedDestinationNotValid, setIsSelectedDestinationNotValid] = useState(false)
-
-    const filterByNameSearch = data => {
-      if (nameSearchValue) {
-        return toJS(data).filter(el => el.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
-      } else {
-        return toJS(data)
-      }
-    }
+    const [currentData, setCurrentData] = useState([])
 
     const setVariationTariff = (variationId, destinationId, isNotValidDestination) => {
       if (variationTariffId === variationId) {
@@ -74,6 +61,68 @@ export const SelectStorekeeperAndTariffForm = observer(
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
+
+    const getCurStorekeeperData = () =>
+      curStorekeeperId
+        ? storekeepers.find(el => el._id === curStorekeeperId)
+        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0]
+
+    const getCurrentData = () => {
+      if (nameSearchValue) {
+        if (tabIndex === 0) {
+          return curStorekeeper?.tariffLogistics.filter(
+            tariff =>
+              tariff?.name?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              tariff.destinationVariations.some(variation =>
+                variation.destination.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              ),
+          )
+        } else {
+          return curStorekeeper?.tariffWarehouses.filter(tariff =>
+            tariff?.name?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
+        }
+      }
+    }
+
+    const getCurrentDataForTabs = value => {
+      if (value === 0) {
+        return (curStorekeeper?.tariffLogistics || [])
+          .filter(item => item?.tariffType === 20)
+          .sort((a, b) => {
+            const aHasMatch = a?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+            const bHasMatch = b?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+
+            if (aHasMatch && !bHasMatch) {
+              return -1
+            } else if (!aHasMatch && bHasMatch) {
+              return 1
+            } else {
+              return 0
+            }
+          })
+      } else {
+        return curStorekeeper?.tariffWarehouses || []
+      }
+    }
+
+    useEffect(() => {
+      if (curStorekeeper) {
+        setCurrentData(getCurrentDataForTabs(tabIndex))
+      }
+    }, [curStorekeeper])
+
+    useEffect(() => {
+      setCurStorekeeper(getCurStorekeeperData())
+    }, [curStorekeeperId])
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        setCurrentData(getCurrentData())
+      } else {
+        setCurrentData(getCurrentDataForTabs(tabIndex))
+      }
+    }, [nameSearchValue])
 
     return (
       <div className={classNames.root}>
@@ -118,33 +167,19 @@ export const SelectStorekeeperAndTariffForm = observer(
             label: () => t(label),
             value: index,
           }))}
-          changeConditionHandler={setTabIndex}
+          changeConditionHandler={value => {
+            setCurrentData(getCurrentDataForTabs(value))
+            setTabIndex(value)
+          }}
         />
 
         <TabPanel value={tabIndex} index={0} className={classNames.tabPanel}>
           <div className={classNames.tableWrapper}>
             <CustomDataGrid
               getRowClassName={getRowClassName}
-              rows={
-                curStorekeeper?.tariffLogistics?.length
-                  ? filterByNameSearch(
-                      addIdDataConverter(curStorekeeper.tariffLogistics)
-                        .filter(item => item.tariffType === 20)
-                        .sort((a, b) => {
-                          const aHasMatch = a?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
-                          const bHasMatch = b?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
-
-                          if (aHasMatch && !bHasMatch) {
-                            return -1
-                          } else if (!aHasMatch && bHasMatch) {
-                            return 1
-                          } else {
-                            return 0
-                          }
-                        }),
-                    )
-                  : []
-              }
+              rows={currentData || []}
+              sortingMode="client"
+              paginationMode="client"
               columns={
                 total
                   ? TotalStorkeeperAndWeightBasedTariffFormColumns()
@@ -157,6 +192,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                       isRemovedDestinationRestriction,
                     )
               }
+              getRowId={row => row?._id}
               getRowHeight={() => 'auto'}
             />
           </div>
@@ -180,11 +216,10 @@ export const SelectStorekeeperAndTariffForm = observer(
         <TabPanel value={tabIndex} index={1} className={classNames.tabPanel}>
           <div className={classNames.tableWrapper}>
             <CustomDataGrid
-              rows={
-                curStorekeeper?.tariffWarehouses?.length
-                  ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))
-                  : []
-              }
+              rows={currentData || []}
+              getRowId={row => row?._id}
+              sortingMode="client"
+              paginationMode="client"
               columns={warehouseTariffsColumns()}
               rowHeight={100}
             />
