@@ -19,12 +19,12 @@ import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './general-notifications-view.styles'
+import { useStyles } from './general-notifications-view.styles'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
 export const GeneralNotificationsView = observer(({ history }: { history: History }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(
     () =>
       new GeneralNotificationsViewModel({
@@ -65,8 +65,8 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
 
   return (
     viewModel.languageTag && (
-      <div className={classNames.root}>
-        <div className={classNames.actionPanelWrapper}>
+      <div className={styles.root}>
+        <div className={styles.actionPanelWrapper}>
           {!isCurrentUserFreelancer ? (
             <CustomSwitcher
               switchMode={'medium'}
@@ -79,18 +79,18 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
           )}
 
           <SearchInput
-            inputClasses={cx(classNames.searchInput, {
-              [classNames.searchInputClient]: isCurrentUserClient,
-              [classNames.searchInputFreelancer]: isCurrentUserFreelancer,
+            inputClasses={cx(styles.searchInput, {
+              [styles.searchInputClient]: isCurrentUserClient,
+              [styles.searchInputFreelancer]: isCurrentUserFreelancer,
             })}
             value={viewModel.searchValue}
             placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
             onSubmit={viewModel.onSearchSubmit}
           />
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              className={cx(classNames.button, classNames.archiveButton)}
+              className={cx(styles.button, styles.archiveButton)}
               variant="outlined"
               onClick={() => viewModel.toggleVariationHandler('isArchive')}
             >
@@ -100,7 +100,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             {!viewModel.isArchive && (
               <Button
                 disabled={!viewModel.selectedRowIds.length}
-                className={classNames.button}
+                className={styles.button}
                 color="primary"
                 onClick={() => viewModel.onClickReadButton()}
               >
@@ -110,7 +110,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
           </div>
         </div>
 
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -129,12 +129,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slotProps={{
-              // columnMenu: viewModel.columnMenuSettings,
               toolbar: {
-                // resetFiltersBtnSettings: {
-                //   onClickResetFilters: viewModel.onClickResetFilters,
-                //   isSomeFilterOn: viewModel.isSomeFilterOn,
-                // },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -146,7 +141,6 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>

@@ -53,7 +53,6 @@ export class GeneralNotificationsViewModel {
 
   // * dataGrid data
 
-  currentData = []
   notificationsData = []
   columnsModel = GeneralNotificationsColumns(this.rowHandlers)
 
@@ -76,6 +75,10 @@ export class GeneralNotificationsViewModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.notificationsData
+  }
+
   constructor({ history }: { history: History }) {
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -84,18 +87,8 @@ export class GeneralNotificationsViewModel {
     })
 
     reaction(
-      () => this.notificationsData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
       () => this.isArchive,
       () => this.getUserNotifications(),
-    )
-
-    reaction(
-      () => this.searchValue,
-      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -146,28 +139,6 @@ export class GeneralNotificationsViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log('error', error)
     }
-  }
-
-  getCurrentData() {
-    /* if (this.searchValue) {
-      const searchValue = String(this.searchValue).toLowerCase()
-
-      return this.notificationsData.filter((notification: any) => {
-        const product = notification?.product
-
-        return (
-          String(product?.asin)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.skusByClient?.[0])?.toLowerCase()?.includes(searchValue) ||
-          String(product?.humanFriendlyId)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.title)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.amazonTitle)?.toLowerCase()?.includes(searchValue)
-        )
-      })
-    } else {
-      return this.notificationsData
-    } */
-
-    return this.notificationsData
   }
 
   setDataGridState() {
@@ -251,7 +222,7 @@ export class GeneralNotificationsViewModel {
           .open(
             `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
               isVacOrders ? 'free-orders' : 'all-orders'
-            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?.id : notification?.needConfirmOrders?.[0]?.id}`,
+            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?._id : notification?.needConfirmOrders?.[0]?._id}`,
           )
           ?.focus()
       }
