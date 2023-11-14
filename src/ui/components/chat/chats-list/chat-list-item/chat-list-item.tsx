@@ -48,8 +48,6 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const { users, lastMessage, unread } = chat
 
-  console.log('chat', chat)
-
   // @ts-ignore
   const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
 
