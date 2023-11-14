@@ -27,7 +27,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './suppliers-and-ideas.style'
+import { useStyles } from './suppliers-and-ideas.style'
 
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
@@ -35,7 +35,7 @@ import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const { search } = useLocation()
     const queries = new URLSearchParams(search)
@@ -137,11 +137,11 @@ export const SuppliersAndIdeas = observer(
     }, [selectedIdeaId, ideasData])
 
     return (
-      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperModal]: isModalView })}>
+      <div className={cx(styles.mainWrapper, { [styles.mainWrapperModal]: isModalView })}>
         {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
           !inCreate &&
           !inEdit && (
-            <div className={classNames.btnsWrapper}>
+            <div className={styles.btnsWrapper}>
               <Button
                 success
                 disabled={!!product.parentProductId}
@@ -215,9 +215,9 @@ export const SuppliersAndIdeas = observer(
             </div>
           ))
         ) : (
-          <div className={classNames.emptyTableWrapper}>
+          <div className={styles.emptyTableWrapper}>
             <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
+            <Typography variant="h5" className={styles.emptyTableText}>
               {t(TranslationKey['No ideas yet'])}
             </Typography>
           </div>
