@@ -175,6 +175,46 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
+        {isModalView && curIdea && (
+          <>
+            {requestStatus === loadingStatuses.isLoading ? (
+              <CircularProgressWithLabel />
+            ) : (
+              <IdeaViewAndEditCard
+                isModalView
+                languageTag={languageTag}
+                platformSettings={platformSettings}
+                curUser={curUser}
+                curIdea={curIdea}
+                inEdit={inEdit}
+                idea={curIdea}
+                currentProduct={currentProduct}
+                selectedSupplier={selectedSupplier}
+                onCreateProduct={onClickCreateProduct}
+                onClickSaveBtn={onClickSaveBtn}
+                onClickCancelBtn={onClickCancelBtn}
+                onClickCreateRequestButton={onClickCreateRequestButton}
+                onClickLinkRequestButton={onClickLinkRequestButton}
+                onClickAcceptButton={onClickAcceptButton}
+                onClickCloseIdea={onClickCloseIdea}
+                onClickRejectButton={onClickRejectButton}
+                onClickReoperButton={onClickReoperButton}
+                onClickResultButton={onClickResultButton}
+                onSetCurIdea={onSetCurIdea}
+                onEditIdea={onEditIdea}
+                onClickSupplierBtns={onClickSupplierButtons}
+                onClickSupplier={onChangeSelectedSupplier}
+                onClickSaveIcon={onClickSaveIcon}
+                onClickOpenNewTab={onClickOpenNewTab}
+                onClickOpenProduct={onClickOpenProduct}
+                onClickToOrder={onClickToOrder}
+                onClickRequestId={onClickRequestId}
+                onClickUnbindButton={onClickUnbindButton}
+              />
+            )}
+          </>
+        )}
+
         {requestStatus === loadingStatuses.isLoading ? (
           <CircularProgressWithLabel />
         ) : currentData?.length ? (
@@ -210,7 +250,6 @@ export const SuppliersAndIdeas = observer(
                 onClickToOrder={onClickToOrder}
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
-                onClickOpenNewTab={onClickOpenNewTab}
               />
             </div>
           ))
