@@ -56,8 +56,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tooltip: {
-    width: '17px',
-    height: '17px',
+    width: '18px !important',
+    height: '18px !important',
     color: 'red',
     transition: '.3s ease-in-out',
     '&:hover': {

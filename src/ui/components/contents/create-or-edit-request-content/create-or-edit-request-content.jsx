@@ -581,7 +581,6 @@ export const CreateOrEditRequestContent = observer(
                       images={images}
                       setImages={setImages}
                       maxNumber={50}
-                      // oneLineMaxHeight
                       maxHeight={160}
                       addFilesButtonTitle={t(TranslationKey['Add file'])}
                     />

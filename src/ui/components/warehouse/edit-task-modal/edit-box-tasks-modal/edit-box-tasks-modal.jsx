@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -231,18 +231,16 @@ export const EditBoxTasksModal = ({
   return (
     <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</p>
 
-        <div className={classNames.customSwitcherWrapper}>
-          <CustomSwitcher
-            condition={sizeSetting}
-            switcherSettings={[
-              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-            ]}
-            changeConditionHandler={condition => handleChange(condition)}
-          />
-        </div>
+        <CustomSwitcher
+          condition={sizeSetting}
+          switcherSettings={[
+            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+          ]}
+          changeConditionHandler={condition => handleChange(condition)}
+        />
       </div>
 
       <AttributesEditBlock
@@ -254,18 +252,15 @@ export const EditBoxTasksModal = ({
         sizeSetting={sizeSetting}
       />
 
-      <Box className={classNames.boxCode}>
-        <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput
-            withoutLinks
-            fullWidth
-            dragAndDropBtnHeight={67}
-            images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
-            setImages={setImagesOfBox}
-            maxNumber={50}
-          />
-        </div>
-      </Box>
+      <UploadFilesInput
+        withoutLinks
+        fullWidth
+        dragAndDropBtnHeight={67}
+        images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
+        setImages={setImagesOfBox}
+        maxNumber={50}
+      />
+
       <div className={classNames.photoWrapper}>
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
@@ -277,11 +272,11 @@ export const EditBoxTasksModal = ({
       </div>
 
       <div className={classNames.buttonsWrapper}>
-        <Button success disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
+        <Button success disabled={disabledSubmit} className={classNames.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelButton} onClick={() => setEditModal()}>
+        <Button variant="text" className={classNames.button} onClick={() => setEditModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>
