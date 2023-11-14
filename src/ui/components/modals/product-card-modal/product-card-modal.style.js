@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 1640,
     height: 730,
     overflowY: 'auto',
+    padding: '0 10px',
   },
 
   clippedRoot: {

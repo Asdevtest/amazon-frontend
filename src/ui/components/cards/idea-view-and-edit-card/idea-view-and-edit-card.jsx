@@ -796,9 +796,10 @@ export const IdeaViewAndEditCard = observer(
               </div>
             ) : (
               <OpenInNewTab
-                onClickOpenNewTab={() =>
+                onClickOpenNewTab={() => {
+                  console.log('1')
                   onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }
+                }}
               />
             )}
 

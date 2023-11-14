@@ -35,7 +35,7 @@ import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const { search } = useLocation()
     const queries = new URLSearchParams(search)
@@ -137,10 +137,11 @@ export const SuppliersAndIdeas = observer(
     }, [selectedIdeaId, ideasData])
 
     return (
-      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperModal]: isModalView })}>
+      <div className={classNames.mainWrapper}>
         {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
           !inCreate &&
-          !inEdit && (
+          !inEdit &&
+          !isModalView && (
             <div className={classNames.btnsWrapper}>
               <Button
                 success
@@ -175,11 +176,11 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
-        {isModalView && curIdea && (
+        {isModalView && (
           <>
             {requestStatus === loadingStatuses.isLoading ? (
               <CircularProgressWithLabel />
-            ) : (
+            ) : curIdea ? (
               <IdeaViewAndEditCard
                 isModalView
                 languageTag={languageTag}
@@ -211,55 +212,65 @@ export const SuppliersAndIdeas = observer(
                 onClickRequestId={onClickRequestId}
                 onClickUnbindButton={onClickUnbindButton}
               />
+            ) : (
+              <div className={classNames.emptyTableWrapper}>
+                <img src="/assets/icons/empty-table.svg" />
+                <Typography variant="h5" className={classNames.emptyTableText}>
+                  {t(TranslationKey['No ideas yet'])}
+                </Typography>
+              </div>
             )}
           </>
         )}
 
-        {requestStatus === loadingStatuses.isLoading ? (
-          <CircularProgressWithLabel />
-        ) : currentData?.length ? (
-          currentData.map(idea => (
-            <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
-              <IdeaViewAndEditCard
-                isModalView={isModalView}
-                curUser={curUser}
-                curIdea={curIdea}
-                inEdit={inEdit}
-                platformSettings={platformSettings}
-                idea={idea}
-                languageTag={languageTag}
-                currentProduct={currentProduct}
-                selectedSupplier={selectedSupplier}
-                selectedIdea={selectedIdeaId}
-                onCreateProduct={onClickCreateProduct}
-                onClickSaveBtn={onClickSaveBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickCreateRequestButton={onClickCreateRequestButton}
-                onClickLinkRequestButton={onClickLinkRequestButton}
-                onClickAcceptButton={onClickAcceptButton}
-                onClickCloseIdea={onClickCloseIdea}
-                onClickRejectButton={onClickRejectButton}
-                onClickReoperButton={onClickReoperButton}
-                onClickResultButton={onClickResultButton}
-                onSetCurIdea={onSetCurIdea}
-                onEditIdea={onEditIdea}
-                onClickSupplierBtns={onClickSupplierButtons}
-                onClickOpenProduct={onClickOpenProduct}
-                onClickSupplier={onChangeSelectedSupplier}
-                onClickSaveIcon={onClickSaveIcon}
-                onClickToOrder={onClickToOrder}
-                onClickRequestId={onClickRequestId}
-                onClickUnbindButton={onClickUnbindButton}
-              />
-            </div>
-          ))
-        ) : (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey['No ideas yet'])}
-            </Typography>
-          </div>
+        {!isModalView && (
+          <>
+            {requestStatus === loadingStatuses.isLoading ? (
+              <CircularProgressWithLabel />
+            ) : currentData?.length ? (
+              currentData.map(idea => (
+                <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
+                  <IdeaViewAndEditCard
+                    curUser={curUser}
+                    curIdea={curIdea}
+                    inEdit={inEdit}
+                    platformSettings={platformSettings}
+                    idea={idea}
+                    languageTag={languageTag}
+                    currentProduct={currentProduct}
+                    selectedSupplier={selectedSupplier}
+                    selectedIdea={selectedIdeaId}
+                    onCreateProduct={onClickCreateProduct}
+                    onClickSaveBtn={onClickSaveBtn}
+                    onClickCancelBtn={onClickCancelBtn}
+                    onClickCreateRequestButton={onClickCreateRequestButton}
+                    onClickLinkRequestButton={onClickLinkRequestButton}
+                    onClickAcceptButton={onClickAcceptButton}
+                    onClickCloseIdea={onClickCloseIdea}
+                    onClickRejectButton={onClickRejectButton}
+                    onClickReoperButton={onClickReoperButton}
+                    onClickResultButton={onClickResultButton}
+                    onSetCurIdea={onSetCurIdea}
+                    onEditIdea={onEditIdea}
+                    onClickSupplierBtns={onClickSupplierButtons}
+                    onClickOpenProduct={onClickOpenProduct}
+                    onClickSupplier={onChangeSelectedSupplier}
+                    onClickSaveIcon={onClickSaveIcon}
+                    onClickToOrder={onClickToOrder}
+                    onClickRequestId={onClickRequestId}
+                    onClickUnbindButton={onClickUnbindButton}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className={classNames.emptyTableWrapper}>
+                <img src="/assets/icons/empty-table.svg" />
+                <Typography variant="h5" className={classNames.emptyTableText}>
+                  {t(TranslationKey['No ideas yet'])}
+                </Typography>
+              </div>
+            )}
+          </>
         )}
 
         {showAddOrEditSupplierModal && (
