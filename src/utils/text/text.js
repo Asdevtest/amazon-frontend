@@ -286,6 +286,11 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer'].includes(column) && hint === 'orders') {
       return 'orders'
+    } else if (
+      ['parentProductSkusByClient', 'parentProductAmazonTitle', 'parentProductAsin'].includes(column) &&
+      hint === 'ideas'
+    ) {
+      return 'products'
     } else if (hint === 'ideas') {
       return 'ideas'
     }
