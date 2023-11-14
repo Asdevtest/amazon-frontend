@@ -55,7 +55,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
           }),
       )
     }
-  }, [])
+  }, [payments])
 
   const handleChildStateChange = (index: number, newState: Payments) => {
     const newChildStates = [...childStates]
