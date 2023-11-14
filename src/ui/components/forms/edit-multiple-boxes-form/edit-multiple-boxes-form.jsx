@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Chip, Typography } from '@mui/material'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -16,13 +15,14 @@ import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkee
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
-import { toFixed, trimBarcode } from '@utils/text'
+import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -324,7 +324,7 @@ export const EditMultipleBoxesForm = observer(
       <div className={classNames.root}>
         <div className={classNames.modalTitleWrapper}>
           <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
-          <img src="/assets/img/edit.png" />
+          <BoxEdit />
         </div>
 
         <div className={classNames.boxesWrapper}>

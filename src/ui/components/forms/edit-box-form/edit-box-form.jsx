@@ -15,6 +15,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
@@ -241,8 +242,8 @@ export const EditBoxForm = observer(
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
-          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>{' '}
-          <img src={'/assets/img/edit.png'} />
+          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <BoxEdit />
         </div>
 
         <div className={styles.form}>
