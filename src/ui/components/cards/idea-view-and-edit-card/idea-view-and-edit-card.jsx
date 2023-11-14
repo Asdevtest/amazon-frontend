@@ -374,8 +374,7 @@ export const IdeaViewAndEditCard = observer(
                   <PhotoAndFilesSlider
                     showPreviews
                     withoutFiles
-                    bigSlider={!isModalView}
-                    mediumSlider={isModalView}
+                    bigSlider
                     isEditable={inEdit}
                     files={images}
                     onChangeImagesForLoad={setImages}
@@ -796,10 +795,9 @@ export const IdeaViewAndEditCard = observer(
               </div>
             ) : (
               <OpenInNewTab
-                onClickOpenNewTab={() => {
-                  console.log('1')
+                onClickOpenNewTab={() =>
                   onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }}
+                }
               />
             )}
 
