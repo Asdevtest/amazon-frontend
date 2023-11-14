@@ -52,7 +52,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
     (findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
       findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
       findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY)
-  const isRefine = viewModel.requestProposals?.[0].proposal.status === RequestProposalStatus.TO_CORRECT
+  const isRefine = viewModel.requestProposals?.[0]?.proposal?.status === RequestProposalStatus.TO_CORRECT
 
   return (
     <React.Fragment>
