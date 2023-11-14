@@ -15,6 +15,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -268,7 +269,7 @@ export const MergeBoxesModal = ({
     <div className={styles.root}>
       <div className={styles.modalTitleWrapper}>
         <Typography className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
-        <img src="/assets/img/merge.png" />
+        <BoxMerge />
       </div>
       <div className={styles.mainWrapper}>
         <div>
@@ -280,8 +281,6 @@ export const MergeBoxesModal = ({
                 index={boxIndex}
                 box={box}
                 destinations={destinations}
-                // showFullCard={showFullCard}
-                // setShowFullCard={setShowFullCard}
                 onRemoveBox={onRemoveBoxFromSelected}
               />
             ))}
@@ -290,7 +289,7 @@ export const MergeBoxesModal = ({
 
         <div>
           <Typography className={styles.boxTitle}>{t(TranslationKey['Final box data'])}</Typography>
-          {/* <Typography>{t(TranslationKey['Please note the change in stock and method of delivery!!!'])}</Typography> */}
+
           <div className={styles.finalBoxWrapper}>
             {finalBoxData &&
               finalBoxData.map((order, orderIndex) => (

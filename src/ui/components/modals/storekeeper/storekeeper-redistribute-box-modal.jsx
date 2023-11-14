@@ -6,7 +6,7 @@ import { operationTypes } from '@constants/keys/operation-types'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxSplit } from '@components/shared/box-split'
+import { BoxSplit } from '@components/shared/boxes/box-split'
 import { Button } from '@components/shared/buttons/button'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
