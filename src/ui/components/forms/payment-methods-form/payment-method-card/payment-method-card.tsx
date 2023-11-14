@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
@@ -13,33 +12,21 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { Payment, Payments } from '@typings/payments'
 import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './payment-method-card.style'
 
 type FieldName = 'paymentDetails' | 'paymentImages' | 'paymentMethod' | 'isCheckedPayment' | 'photosForLoad'
 
-interface PaymentMethod {
-  _id: string
-  title: string
-  iconImage: string
-}
-
-interface Payments {
-  paymentDetails: string
-  paymentImages: Array<string | IUploadFile>
-  paymentMethod: PaymentMethod
-  photosForLoad: Array<string | IUploadFile>
-}
-
 interface PaymentMethodCardProps {
-  payment: Payments | PaymentMethod
+  payment: Payments | Payment
   readOnly?: boolean
   onStateChange?: (newPaymentsFieldsState: Payments) => void
 }
 
 export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment, readOnly, onStateChange }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const initialState = {
     paymentDetails: 'paymentDetails' in payment ? payment?.paymentDetails : '',

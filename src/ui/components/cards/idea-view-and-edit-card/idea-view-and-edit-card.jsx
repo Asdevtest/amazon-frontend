@@ -377,8 +377,7 @@ export const IdeaViewAndEditCard = observer(
                   <PhotoAndFilesSlider
                     showPreviews
                     withoutFiles
-                    bigSlider={!isModalView}
-                    mediumSlider={isModalView}
+                    bigSlider
                     isEditable={inEdit}
                     files={images}
                     onChangeImagesForLoad={setImages}

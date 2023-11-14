@@ -289,13 +289,17 @@ class ChatModelStatic {
       const findChatIndexById = this.chats.findIndex((chat: ChatContract) =>
         chat.messages.some(el => el._id === messageId),
       )
+
       if (findChatIndexById !== -1) {
         runInAction(() => {
-          this.chats[findChatIndexById].messages = [
-            ...this.chats[findChatIndexById].messages.map(mes =>
-              mes._id !== messageId ? mes : { ...mes, isRead: true },
-            ),
-          ]
+          this.chats[findChatIndexById] = {
+            ...this.chats[findChatIndexById],
+            messages: [
+              ...this.chats[findChatIndexById].messages.map(mes =>
+                mes._id !== messageId ? mes : { ...mes, isRead: true },
+              ),
+            ],
+          }
         })
       }
 
@@ -305,11 +309,15 @@ class ChatModelStatic {
 
       if (findSimpleChatIndexById !== -1) {
         runInAction(() => {
-          this.simpleChats[findSimpleChatIndexById].messages = [
-            ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
-              mes._id !== messageId ? mes : { ...mes, isRead: true },
-            ),
-          ]
+          this.simpleChats[findSimpleChatIndexById] = {
+            ...this.simpleChats[findSimpleChatIndexById],
+            messages: [
+              ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
+                mes._id !== messageId ? mes : { ...mes, isRead: true },
+              ),
+            ],
+            unread: '0',
+          }
         })
       }
     }
@@ -349,11 +357,9 @@ class ChatModelStatic {
       newMessage,
     )
 
-    if (
-      message.user?._id !== this.userId &&
-      message.type === ChatMessageType.USER &&
-      !this.mutedChats.includes(message.chatId)
-    ) {
+    const isCurrentUser = message.user?._id === this.userId
+
+    if (!isCurrentUser && message.type === ChatMessageType.USER && !this.mutedChats.includes(message.chatId)) {
       SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
 
       noticeSound.play()
@@ -372,6 +378,10 @@ class ChatModelStatic {
     runInAction(() => {
       this[chatType][index] = {
         ...this[chatType][index],
+        unread:
+          isCurrentUser || this[chatType][index]._id === this.chatSelectedId
+            ? this[chatType]?.[index]?.unread
+            : `${Number(this[chatType]?.[index]?.unread) + 1}`,
         messages: [...this[chatType][index].messages.filter(mes => mes._id !== message._id), message],
         lastMessage: message,
       }

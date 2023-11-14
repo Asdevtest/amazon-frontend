@@ -5,10 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-  },
-
-  mainWrapperModal: {
-    padding: '0 10px',
+    minHeight: '40vh',
   },
 
   btnsWrapper: {

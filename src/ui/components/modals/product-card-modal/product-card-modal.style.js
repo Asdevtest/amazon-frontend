@@ -1,12 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
+  modalWrapper: {
+    background: theme.palette.background.second,
+  },
+
   root: {
     display: 'flex',
     flexDirection: 'column',
     width: 1640,
     height: 730,
     overflowY: 'auto',
+    padding: '0 10px',
   },
 
   clippedRoot: {
