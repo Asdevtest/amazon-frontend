@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   btnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -61,4 +63,4 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-})
+}))

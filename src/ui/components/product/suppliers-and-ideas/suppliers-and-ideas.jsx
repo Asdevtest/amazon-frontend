@@ -27,7 +27,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './suppliers-and-ideas.style'
+import { useStyles } from './suppliers-and-ideas.style'
 
 import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
@@ -35,7 +35,7 @@ import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(
   ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const { search } = useLocation()
     const queries = new URLSearchParams(search)
@@ -137,12 +137,12 @@ export const SuppliersAndIdeas = observer(
     }, [selectedIdeaId, ideasData])
 
     return (
-      <div className={classNames.mainWrapper}>
+      <div className={styles.mainWrapper}>
         {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
           !inCreate &&
           !inEdit &&
           !isModalView && (
-            <div className={classNames.btnsWrapper}>
+            <div className={styles.btnsWrapper}>
               <Button
                 success
                 disabled={!!product.parentProductId}
@@ -213,9 +213,9 @@ export const SuppliersAndIdeas = observer(
                 onClickUnbindButton={onClickUnbindButton}
               />
             ) : (
-              <div className={classNames.emptyTableWrapper}>
+              <div className={styles.emptyTableWrapper}>
                 <img src="/assets/icons/empty-table.svg" />
-                <Typography variant="h5" className={classNames.emptyTableText}>
+                <Typography variant="h5" className={styles.emptyTableText}>
                   {t(TranslationKey['No ideas yet'])}
                 </Typography>
               </div>
@@ -263,9 +263,9 @@ export const SuppliersAndIdeas = observer(
                 </div>
               ))
             ) : (
-              <div className={classNames.emptyTableWrapper}>
+              <div className={styles.emptyTableWrapper}>
                 <img src="/assets/icons/empty-table.svg" />
-                <Typography variant="h5" className={classNames.emptyTableText}>
+                <Typography variant="h5" className={styles.emptyTableText}>
                   {t(TranslationKey['No ideas yet'])}
                 </Typography>
               </div>

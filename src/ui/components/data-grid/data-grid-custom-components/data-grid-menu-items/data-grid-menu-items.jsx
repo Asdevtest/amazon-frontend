@@ -1219,6 +1219,7 @@ export const NormalFieldMenuItem = React.memo(
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
                           <MultilineTextCell
                             leftAlign
+                            oneLines={columnKey === columnnsKeys.shared.STRING}
                             text={value}
                             color={colorByStatus(el)}
                             customTextClass={classNames.statusText}

@@ -57,6 +57,7 @@ export class UseProductsPermissions {
   get currentPermissionsData() {
     return this.permissionsData
   }
+
   get currentRequestStatus() {
     return this.requestStatus
   }
