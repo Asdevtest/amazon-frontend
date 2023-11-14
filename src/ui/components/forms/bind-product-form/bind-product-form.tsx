@@ -113,7 +113,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           disabled={!selectedRadioValue}
           data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           selectedData={selectedProducts}
-          width={280}
+          width={300}
           customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
           customSearchInput={classNames.searchSelectCustomSearchInput}
           customItemsWrapper={classNames.searchSelectCustomItemsWrapper}

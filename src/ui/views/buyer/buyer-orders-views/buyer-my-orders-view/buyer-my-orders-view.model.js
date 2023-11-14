@@ -907,6 +907,7 @@ export class BuyerMyOrdersViewModel {
 
   async onClickOrder(orderId) {
     try {
+      console.log('orderId', orderId)
       const orderData = await BuyerModel.getOrderById(orderId)
 
       await Promise.all([this.onClickHsCode(orderData.product._id), this.getSuppliersPaymentMethods()])
