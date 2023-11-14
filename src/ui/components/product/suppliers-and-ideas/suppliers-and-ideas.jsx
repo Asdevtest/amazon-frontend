@@ -176,7 +176,7 @@ export const SuppliersAndIdeas = observer(
           />
         )}
 
-        {isModalView && (
+        {isModalView && !isCreate && (
           <>
             {requestStatus === loadingStatuses.isLoading ? (
               <CircularProgressWithLabel />
@@ -223,7 +223,7 @@ export const SuppliersAndIdeas = observer(
           </>
         )}
 
-        {!isModalView && (
+        {!isModalView && !isCreate && (
           <>
             {requestStatus === loadingStatuses.isLoading ? (
               <CircularProgressWithLabel />

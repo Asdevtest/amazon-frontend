@@ -7,6 +7,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
 
   wrapper: {
     width: 1230,
+    padding: 10,
     overflowY: 'hidden',
   },
 
@@ -113,6 +114,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
+    marginRight: 5,
   },
 
   listingCheckbox: {
