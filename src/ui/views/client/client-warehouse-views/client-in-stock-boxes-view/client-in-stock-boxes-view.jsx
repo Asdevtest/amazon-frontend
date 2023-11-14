@@ -1,7 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -32,20 +31,20 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-in-stock-boxes-view.style'
+import { useStyles } from './client-in-stock-boxes-view.style'
 
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
-export const ClientInStockBoxesViewRaw = props => {
+export const ClientInStockBoxesView = observer(props => {
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
   const disableSelectionCells = ['prepId']
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
-    classNames.isDraftRow
+    styles.isDraftRow
 
   useEffect(() => {
     viewModel.loadData()
@@ -109,8 +108,8 @@ export const ClientInStockBoxesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.topHeaderBtnsWrapper}>
+          <div className={styles.boxesFiltersWrapper}>
             <CustomSwitcher
               switchMode={'medium'}
               condition={viewModel.currentStorekeeperId}
@@ -127,14 +126,14 @@ export const ClientInStockBoxesViewRaw = props => {
 
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
             startText={viewModel.nameSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.boxesFiltersWrapper}>
           <CustomSwitcher
             switchMode={'medium'}
             condition={viewModel.curDestinationId}
@@ -151,14 +150,14 @@ export const ClientInStockBoxesViewRaw = props => {
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
-          <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
+        <div className={styles.btnsWrapper}>
+          <div className={styles.leftBtnsWrapper}>{renderButtons()}</div>
           <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper}>
+        <div className={styles.tasksWrapper}>
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
@@ -471,6 +470,4 @@ export const ClientInStockBoxesViewRaw = props => {
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
-}
-
-export const ClientInStockBoxesView = withStyles(observer(ClientInStockBoxesViewRaw), styles)
+})

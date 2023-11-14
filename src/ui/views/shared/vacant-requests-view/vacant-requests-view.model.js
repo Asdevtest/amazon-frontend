@@ -382,7 +382,6 @@ export class VacantRequestsViewModel {
   }
 
   onClickViewMore(id) {
-    console.log('1')
     const win = window.open(
       `/${UserRoleCodeMapForRoutes[this.user?.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
@@ -464,7 +463,6 @@ export class VacantRequestsViewModel {
   }
 
   onClickSuggest() {
-    console.log('2')
     this.history.push(
       `/${
         UserRoleCodeMapForRoutes[this.user?.role]
@@ -475,7 +473,6 @@ export class VacantRequestsViewModel {
   }
 
   onClickOpenInNewTab(id) {
-    console.log('3')
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.user?.role]

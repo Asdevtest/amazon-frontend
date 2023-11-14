@@ -29,7 +29,7 @@ import { ProductVariation } from '@typings/product'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { useClassNames } from './product-card-modal.style'
+import { useStyles } from './product-card-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
 import { EditHSCodeModal } from '../edit-hs-code-modal'
@@ -37,9 +37,8 @@ import { SuccessInfoModal } from '../success-info-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
-  const { classes: classNames } = useClassNames()
-
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
+  const { classes: styles } = useStyles()
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
@@ -107,10 +106,13 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
   return (
-    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
-      <div
-        className={cx(classNames.root, { [classNames.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}
-      >
+    <Modal
+      missClickModalOn
+      openModal={openModal}
+      setOpenModal={setOpenModal}
+      contentWrapperClassName={styles.modalWrapper}
+    >
+      <div className={cx(styles.root, { [styles.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}>
         {viewModel?.product && (
           <ProductWrapper
             modal
@@ -165,7 +167,7 @@ export const ProductCardModal = observer(props => {
         {viewModel?.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}
       </div>
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
-        <div className={classNames.footerWrapper}>
+        <div className={styles.footerWrapper}>
           <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(viewModel.productId)} />
 
           {showActionBtns && (
@@ -178,11 +180,11 @@ export const ProductCardModal = observer(props => {
           )}
 
           {showActionBtns ? (
-            <div className={classNames.buttonsWrapper}>
+            <div className={styles.buttonsWrapper}>
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
               (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
                 <Button
-                  className={classNames.buttonDelete}
+                  className={styles.buttonDelete}
                   variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
@@ -194,7 +196,7 @@ export const ProductCardModal = observer(props => {
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
                 <Button
-                  className={cx(classNames.buttonNormal, classNames.buttonAccept)}
+                  className={cx(styles.buttonNormal, styles.buttonAccept)}
                   color="primary"
                   variant="contained"
                   onClick={() => {
@@ -210,7 +212,7 @@ export const ProductCardModal = observer(props => {
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) && (
                 <Button
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-                  className={classNames.buttonNormal}
+                  className={styles.buttonNormal}
                   variant="contained"
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
@@ -224,8 +226,8 @@ export const ProductCardModal = observer(props => {
               )}
 
               <Button
-                className={cx(classNames.buttonClose, {
-                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
+                className={cx(styles.buttonClose, {
+                  [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
                 })}
                 variant="contained"
                 onClick={() => viewModel?.handleProductActionButtons('closeModal')}
@@ -237,7 +239,7 @@ export const ProductCardModal = observer(props => {
 
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
-                  className={classNames.restoreBtn}
+                  className={styles.restoreBtn}
                   color="primary"
                   variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
@@ -248,8 +250,8 @@ export const ProductCardModal = observer(props => {
             </div>
           ) : (
             <Button
-              className={cx(classNames.buttonClose, {
-                [classNames.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
+              className={cx(styles.buttonClose, {
+                [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
               })}
               variant="contained"
               onClick={() => viewModel?.handleProductActionButtons('closeModal')}

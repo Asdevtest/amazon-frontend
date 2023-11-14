@@ -4,7 +4,7 @@ import { IDestinationVariationApproximateCalculations } from '../../typings/dest
 export const getGroupDataByDestinationId = (
   destinationVariations: Array<IDestinationVariationApproximateCalculations>,
 ): Record<string, Array<IDestinationVariationApproximateCalculations>> => {
-  return destinationVariations.reduce(
+  return destinationVariations?.reduce(
     (groups: Record<string, Array<IDestinationVariationApproximateCalculations>>, obj) => {
       const destinationId = obj?.destination?._id
 

@@ -103,7 +103,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         CustomButton={(componentProps: any) => <SelectProductButton {...componentProps} />}
         disabled={!selectedRadioValue}
         data={productsToLaunch}
-        width={255}
+        width={300}
         customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
         customSearchInput={classNames.searchSelectCustomSearchInput}
         customItemsWrapper={classNames.searchSelectCustomItemsWrapper}

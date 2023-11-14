@@ -1,17 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import {
-  getConversion,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,6 +12,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -339,8 +333,8 @@ export const EditBoxStorekeeperForm = observer(
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
-          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>{' '}
-          <img src={'/assets/img/edit.png'} />
+          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <BoxEdit />
         </div>
 
         <div className={styles.form}>

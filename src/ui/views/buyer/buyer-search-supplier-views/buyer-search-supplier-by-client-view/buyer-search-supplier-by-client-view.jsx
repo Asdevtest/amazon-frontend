@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,13 +11,13 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-search-supplier-by-client-view.style'
+import { useStyles } from './buyer-search-supplier-by-client-view.style'
 
 import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 
-export const BuyerSearchSupplierByClientViewRaw = props => {
+export const BuyerSearchSupplierByClientView = observer(props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
@@ -27,7 +26,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -38,11 +37,13 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             columnVisibilityModel={viewModel.columnVisibilityModel}
             slotProps={{
               baseTooltip: {
@@ -81,6 +82,4 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const BuyerSearchSupplierByClientView = withStyles(observer(BuyerSearchSupplierByClientViewRaw), styles)
+})

@@ -89,6 +89,7 @@ export const IdeaViewAndEditCard = observer(
     const [showFullCard, setShowFullCard] = useState(false)
 
     const [formFields, setFormFields] = useState({})
+
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
       curIdea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
@@ -374,8 +375,7 @@ export const IdeaViewAndEditCard = observer(
                   <PhotoAndFilesSlider
                     showPreviews
                     withoutFiles
-                    bigSlider={!isModalView}
-                    mediumSlider={isModalView}
+                    bigSlider
                     isEditable={inEdit}
                     files={images}
                     onChangeImagesForLoad={setImages}

@@ -20,6 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputClass: {
+    padding: '9px',
     [theme.breakpoints.down(768)]: {
       '&::placeholder': {
         fontSize: 14,

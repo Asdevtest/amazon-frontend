@@ -63,10 +63,7 @@ export const MessagesView = observer(props => {
       }
     })
     .sort((a, b) => {
-      return compareDesc(
-        parseISO(a.messages[a.messages.length - 1]?.createdAt || a?.createdAt),
-        parseISO(b.messages[b.messages.length - 1]?.createdAt || b?.createdAt),
-      )
+      return compareDesc(parseISO(a.lastMessage?.createdAt), parseISO(b.lastMessage?.createdAt))
     })
 
   const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)
