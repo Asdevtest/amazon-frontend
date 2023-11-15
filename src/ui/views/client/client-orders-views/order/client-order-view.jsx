@@ -25,6 +25,10 @@ export const ClientOrderView = observer(({ history }) => {
   useEffect(() => {
     viewModel.loadData()
     SettingsModel.changeLastCrumbAdditionalText('')
+
+    return () => {
+      SettingsModel.changeLastCrumbAdditionalText('')
+    }
   }, [])
 
   return (

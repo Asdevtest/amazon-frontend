@@ -296,7 +296,7 @@ export class ClientOrderViewModel {
           'destinationId',
           'storekeeperId',
           'logicsTariffId',
-          // 'variationTariffId'
+          'variationTariffId',
         ])
 
         await Promise.all([
@@ -374,7 +374,7 @@ export class ClientOrderViewModel {
           'destinationId',
           'storekeeperId',
           'logicsTariffId',
-          // 'variationTariffId'
+          'variationTariffId',
         ],
       )
 
