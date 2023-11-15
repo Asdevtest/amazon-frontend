@@ -30,6 +30,8 @@ import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 
+const additionalButtonDisplayStatuses = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
+
 export const OwnerRequestDetailCustomView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
@@ -58,8 +60,6 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
   const findRequestProposalForCurChat =
     viewModel.chatSelectedId &&
     viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
-
-  console.log(findRequestProposalForCurChat)
 
   return (
     <React.Fragment>
@@ -151,7 +151,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                       onClickOpenRequest: viewModel.onClickOpenRequest,
                     }}
                     renderAdditionalButtons={() =>
-                      findRequestProposalForCurChat?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
+                      additionalButtonDisplayStatuses.includes(findRequestProposalForCurChat?.proposal?.status) && (
                         <div className={styles.additionalButtonsWrapper}>
                           <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
                             {t(TranslationKey['Send in for rework'])}
