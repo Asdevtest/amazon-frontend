@@ -173,12 +173,19 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickOpenNewTab(productId, ideaId) {
-    const win = window.open(
-      `${window.location.origin}/buyer/my-products/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
-      '_blank',
-    )
-
-    win.focus()
+    const userRole = UserRoleCodeMap[this.curUser?.role]
+    window
+      .open(
+        `${
+          checkIsClient(userRole)
+            ? '/client/inventory'
+            : checkIsBuyer(userRole)
+            ? '/buyer/my-products'
+            : UserRoleCodeMap[this.curUser?.role]
+        }/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
+        '_blank',
+      )
+      .focus()
   }
 
   async getIdeas() {
