@@ -335,7 +335,7 @@ export const IdeaViewAndEditCard = observer(
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
-      <div className={classNames.root}>
+      <div className={cx(classNames.root, isModalView && classNames.rootModal)}>
         <div className={classNames.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}

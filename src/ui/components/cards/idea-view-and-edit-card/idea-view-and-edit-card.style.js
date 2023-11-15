@@ -12,6 +12,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
 
+  rootModal: {
+    padding: 0,
+  },
+
   cardWrapper: {
     width: '100%',
     height: '370px',

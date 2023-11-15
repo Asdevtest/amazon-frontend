@@ -118,7 +118,7 @@ export const FreelanceRequestDetailsModalControls = props => {
               )}
           </>
         )}
-        {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button> : <div />}
+        {onClickSuggest && <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>}
       </div>
     </div>
   )
