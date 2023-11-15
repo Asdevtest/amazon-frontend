@@ -428,7 +428,7 @@ export const useClassNames = makeStyles()(theme => ({
   sourcesProductWraper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
   },
 
   requestsWrapper: {
