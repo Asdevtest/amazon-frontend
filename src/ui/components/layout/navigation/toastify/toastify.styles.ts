@@ -1,26 +1,31 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useToastStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   toast: {
-    width: 'fit-content',
+    padding: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
 
     '.Toastify__toast': {
+      position: 'relative',
+      margin: 0,
       borderRadius: 20,
-      backgroundColor: theme.palette.background.general,
-      padding: '15px 20px',
-      display: 'flex',
-      boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.4)',
+      boxShadow: theme.palette.boxShadow.paper,
+      background: theme.palette.background.general,
+      gap: 20,
+      cursor: 'pointer',
     },
 
-    '.Toastify__toast-theme--dark': {
-      backgroundColor: `${theme.palette.background.general} !important`,
+    '.Toastify__toast-body': {
+      padding: 0,
     },
   },
 
   closeIcon: {
     color: '#C4C4C4',
-    cursor: 'pointer',
     transition: '.3s ease',
+
     '&:hover': {
       transform: 'scale(1.1)',
     },
