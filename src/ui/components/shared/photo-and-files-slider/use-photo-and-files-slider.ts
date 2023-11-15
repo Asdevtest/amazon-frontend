@@ -50,7 +50,7 @@ export const usePhotoAndFilesSlider = (
 
       if (!isImage && !isDocument) {
         if (typeof el === 'string') {
-          result.push(getAmazonImageUrl(el))
+          result.push(getAmazonImageUrl(el, true))
         } else {
           result.push(el)
         }
