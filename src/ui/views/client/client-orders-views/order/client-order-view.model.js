@@ -281,23 +281,29 @@ export class ClientOrderViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
-        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
-          'amount',
-          'orderSupplierId',
-          'images',
-          'totalPrice',
-          'item',
-          'needsResearch',
-          'deadline',
-          'priority',
-          'expressChinaDelivery',
-          'clientComment',
+        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+          orderObject,
+          [
+            'amount',
+            'orderSupplierId',
+            'images',
+            'totalPrice',
+            'item',
+            'needsResearch',
+            'deadline',
+            'priority',
+            'expressChinaDelivery',
+            'clientComment',
 
-          'destinationId',
-          'storekeeperId',
-          'logicsTariffId',
-          'variationTariffId',
-        ])
+            'destinationId',
+            'storekeeperId',
+            'logicsTariffId',
+            'variationTariffId',
+          ],
+          undefined,
+          undefined,
+          true,
+        )
 
         await Promise.all([
           OrderModel.changeOrderData(orderObject._id, dataToRequest),
@@ -376,6 +382,9 @@ export class ClientOrderViewModel {
           'logicsTariffId',
           'variationTariffId',
         ],
+        undefined,
+        undefined,
+        true,
       )
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
