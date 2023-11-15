@@ -1,13 +1,10 @@
 import { FC, useContext } from 'react'
 
-import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataBloggerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { UserModel } from '@models/user-model'
 
-import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -33,13 +30,13 @@ interface Props {
   isShowChatInfo?: boolean
 }
 
-export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
+export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo /* handlers */ }) => {
   const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  /* const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
   const proposalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
   const isShowButtons =
     curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
@@ -47,8 +44,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
     (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
       proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
       proposalStatus === RequestProposalStatus.CORRECTED) &&
-    curUserId /* &&
-    message.data.needApproveBy?.includes(curUserId)  */
+    curUserId */
   const files = chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)
   const links = message.data.proposal.details.publicationLinks
 
@@ -133,7 +129,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
         </div>
       </div>
 
-      {isShowButtons ? (
+      {/* {isShowButtons ? (
         <div className={cx(classNames.btnsWrapper, { [classNames.btnsWrapperShowChatInfo]: isShowChatInfo })}>
           {proposalStatus !== RequestProposalStatus.TO_CORRECT && (
             <Button
@@ -153,7 +149,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
             {t(TranslationKey.Receive)}
           </Button>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   )
 }
