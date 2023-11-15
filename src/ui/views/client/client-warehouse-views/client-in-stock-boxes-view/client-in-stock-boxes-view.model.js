@@ -57,8 +57,6 @@ export class ClientInStockBoxesViewModel {
 
   curDestinationId = undefined
 
-  currentData = []
-
   boxesIdsToTask = []
   shopsData = []
 
@@ -182,6 +180,10 @@ export class ClientInStockBoxesViewModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    return this.boxesMy
+  }
+
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
@@ -191,7 +193,7 @@ export class ClientInStockBoxesViewModel {
       return false
     }
 
-    return this.currentData
+    return this.boxesMy
       .filter(el => this.selectedBoxes.includes(el._id))
       .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
@@ -201,7 +203,7 @@ export class ClientInStockBoxesViewModel {
       return false
     }
 
-    return this.currentData
+    return this.boxesMy
       .filter(el => this.selectedBoxes.includes(el._id))
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
@@ -218,11 +220,6 @@ export class ClientInStockBoxesViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.boxesMy,
-      () => (this.currentData = this.getCurrentData()),
-    )
 
     reaction(
       () => this.currentStorekeeperId,
@@ -319,10 +316,6 @@ export class ClientInStockBoxesViewModel {
     const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
 
     this.selectedRows = selectedRows
-  }
-
-  getCurrentData() {
-    return toJS(this.boxesMy)
   }
 
   getCurrentTaskData() {
@@ -1129,14 +1122,34 @@ export class ClientInStockBoxesViewModel {
   async editDestination(id, boxData) {
     try {
       await BoxesModel.editBoxAtClient(id, boxData)
-
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async editTariff(id, boxData, isSelectedDestinationNotValid) {
+  async patchBoxHandler(id, boxData, acceptAction, spliteAction, notShowConfirmModal) {
+    this.setRequestStatus(loadingStatuses.isLoading)
+
+    spliteAction &&
+      (await BoxesModel.editBoxAtClient(id, {
+        destinationId: null,
+      }))
+
+    await BoxesModel.editBoxAtClient(id, {
+      logicsTariffId: boxData.logicsTariffId,
+      variationTariffId: boxData.variationTariffId,
+      ...(acceptAction && { destinationId: boxData.destinationId }),
+    })
+
+    !notShowConfirmModal && this.onTriggerOpenModal('showConfirmModal')
+    await this.getBoxesMy()
+    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    this.setRequestStatus(loadingStatuses.success)
+  }
+
+  async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
     try {
       if (isSelectedDestinationNotValid) {
         runInAction(() => {
@@ -1144,40 +1157,24 @@ export class ClientInStockBoxesViewModel {
             isWarning: true,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: async () => {
-              await BoxesModel.editBoxAtClient(id, {
-                logicsTariffId: boxData.logicsTariffId,
-                variationTariffId: boxData.variationTariffId,
-                destinationId: boxData.destinationId,
-              })
-              this.onTriggerOpenModal('showConfirmModal')
-              await this.getBoxesMy()
-              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
-            },
-            onClickCancelBtn: async () => {
-              await BoxesModel.editBoxAtClient(id, {
-                destinationId: null,
-              })
-              await BoxesModel.editBoxAtClient(id, {
-                logicsTariffId: boxData.logicsTariffId,
-                variationTariffId: boxData.variationTariffId,
-              })
-              this.onTriggerOpenModal('showConfirmModal')
-              await this.getBoxesMy()
-              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
-            },
+            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
+            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, true, false),
           }
         })
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        await BoxesModel.editBoxAtClient(id, {
-          logicsTariffId: boxData.logicsTariffId,
-          variationTariffId: boxData.variationTariffId,
-        })
-
-        await this.getBoxesMy()
-
-        this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+        if (!isSetCurrentDestination) {
+          this.confirmModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey.Attention),
+            confirmMessage: t(TranslationKey['Wish to change a destination?']),
+            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
+            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
+          }
+          this.onTriggerOpenModal('showConfirmModal')
+        } else {
+          this.patchBoxHandler(id, boxData, false, false, true)
+        }
       }
     } catch (error) {
       console.log(error)

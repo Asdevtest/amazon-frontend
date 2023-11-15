@@ -146,6 +146,11 @@ export class MessagesViewModel {
         })
       },
     )
+
+    reaction(
+      () => ChatModel.isConnected,
+      () => this.loadData(),
+    )
   }
 
   onToggleMuteCurrentChat() {
@@ -165,6 +170,7 @@ export class MessagesViewModel {
   async loadData() {
     try {
       await ChatModel.getSimpleChats()
+      await ChatModel.getUnreadMessagesCount()
     } catch (error) {
       console.log(error)
     }

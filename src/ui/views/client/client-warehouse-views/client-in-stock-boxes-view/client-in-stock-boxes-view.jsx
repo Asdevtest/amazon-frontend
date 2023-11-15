@@ -401,7 +401,14 @@ export const ClientInStockBoxesView = observer(props => {
           total={!viewModel.changeItem}
           currentDestinationId={viewModel.changeItem?.destination?._id}
           currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(storekeeperId, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid) =>
+          onSubmit={(
+            storekeeperId,
+            tariffId,
+            variationTariffId,
+            destinationId,
+            isSelectedDestinationNotValid,
+            isSetCurrentDestination,
+          ) =>
             viewModel.editTariff(
               viewModel.changeItem?._id,
               {
@@ -411,6 +418,7 @@ export const ClientInStockBoxesView = observer(props => {
                 destinationId,
               },
               isSelectedDestinationNotValid,
+              isSetCurrentDestination,
             )
           }
         />

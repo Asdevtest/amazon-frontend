@@ -103,6 +103,8 @@ export const StockReport = observer(({ history, curShop }) => {
           useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedRows}

@@ -58,7 +58,14 @@ export const SelectStorekeeperAndTariffForm = observer(
     }
 
     const onClickSelectTariff = tariffId =>
-      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
+      onSubmit(
+        curStorekeeper._id,
+        tariffId,
+        variationTariffId,
+        destinationId,
+        isSelectedDestinationNotValid,
+        Boolean(currentDestinationId),
+      )
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 

@@ -84,6 +84,8 @@ export const ShopsView = observer(props => {
           useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
