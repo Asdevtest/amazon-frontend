@@ -37,8 +37,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   shareLinkIcon: {
     color: theme.palette.primary.main,
-    width: '21px !important',
-    height: '21px !important',
+    width: '20px !important',
+    height: '20px !important',
     cursor: 'pointer',
   },
 
