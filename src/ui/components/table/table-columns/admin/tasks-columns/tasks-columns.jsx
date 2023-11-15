@@ -53,7 +53,7 @@ export const adminTasksViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey.Details)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
       />
     ),
     filterable: false,

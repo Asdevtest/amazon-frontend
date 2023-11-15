@@ -168,10 +168,8 @@ export class AdminWarehouseTasksViewModel {
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.curOpenedTask = task
       })
-
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)
