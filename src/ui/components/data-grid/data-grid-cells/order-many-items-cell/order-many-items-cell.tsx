@@ -43,9 +43,9 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
           <div>
             <p className={styles.manyItemsOrderTitle}>{item.product.amazonTitle}</p>
 
-            <AsinOrSkuLink withAttributeTitle={'asin'} asin={item.product.asin} />
+            <AsinOrSkuLink withAttributeTitle="asin" asin={item.product.asin} />
 
-            {!withoutSku && <AsinOrSkuLink withAttributeTitle={'sku'} sku={item.product.skusByClient?.[0]} />}
+            {!withoutSku && <AsinOrSkuLink withAttributeTitle="sku" sku={item.product.skusByClient?.[0]} />}
 
             {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
               item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
@@ -67,7 +67,10 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
   )
 
   return (
-    <Tooltip title={renderProductInfo()} classes={{ popper: styles.manyItemsMainWrapperTooltip }}>
+    <Tooltip
+      title={renderProductInfo()}
+      classes={{ popper: styles.manyItemsMainWrapperTooltip, tooltip: styles.tooltip }}
+    >
       <div className={styles.manyItemsMainWrapper}>
         <div className={styles.manyItemsImagesWrapper}>
           {box.items.map((product: any, productIndex: number) => (

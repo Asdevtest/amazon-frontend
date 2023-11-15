@@ -5,6 +5,14 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
+    background: theme.palette.background.general,
+  },
+
+  tooltip: {
+    margin: '0 !important',
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    border: `1px solid ${theme.palette.background.second}`,
   },
 
   order: {
@@ -60,8 +68,10 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
   },
 
   manyItemsMainWrapperTooltip: {
+    paddingTop: 10,
     maxHeight: 260,
     overflow: 'auto',
+    background: theme.palette.background.general,
   },
 
   manyItemsImagesWrapper: {
