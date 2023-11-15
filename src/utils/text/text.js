@@ -287,7 +287,14 @@ export const getTableByColumn = (column, hint) => {
     if (['buyer'].includes(column) && hint === 'orders') {
       return 'orders'
     } else if (
-      ['parentProductSkusByClient', 'parentProductAmazonTitle', 'parentProductAsin'].includes(column) &&
+      [
+        'parentProductSkusByClient',
+        'parentProductAmazonTitle',
+        'parentProductAsin',
+        'childProductAmazonTitle',
+        'childProductSkusByClient',
+        'childProductAsin',
+      ].includes(column) &&
       hint === 'ideas'
     ) {
       return 'products'
