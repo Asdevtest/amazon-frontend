@@ -318,10 +318,6 @@ export class ClientInStockBoxesViewModel {
     this.selectedRows = selectedRows
   }
 
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
-  }
-
   onClickStorekeeperBtn(currentStorekeeperId) {
     this.selectedBoxes = []
 
@@ -1164,13 +1160,15 @@ export class ClientInStockBoxesViewModel {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         if (!isSetCurrentDestination) {
-          this.confirmModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey.Attention),
-            confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
-            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
-          }
+          runInAction(() => {
+            this.confirmModalSettings = {
+              isWarning: true,
+              title: t(TranslationKey.Attention),
+              confirmMessage: t(TranslationKey['Wish to change a destination?']),
+              onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
+              onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
+            }
+          })
           this.onTriggerOpenModal('showConfirmModal')
         } else {
           this.patchBoxHandler(id, boxData, false, false, true)

@@ -48,3 +48,5 @@ export const filtersFields = [
   'storekeeper',
   'sub',
 ]
+
+export const disableSelectionCells = ['prepId']

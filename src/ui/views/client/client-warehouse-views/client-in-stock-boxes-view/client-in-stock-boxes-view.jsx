@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
@@ -33,22 +32,23 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
+import { disableSelectionCells } from './client-in-stock-boxes-view.constants'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
-export const ClientInStockBoxesView = observer(props => {
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
+export const ClientInStockBoxesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const disableSelectionCells = ['prepId']
+
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
+
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     styles.isDraftRow
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const renderButtons = () => {
     const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -65,9 +65,7 @@ export const ClientInStockBoxesView = observer(props => {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={
-            viewModel.selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || viewModel.isHaveRequestSendToBatch
-          }
+          disabled={viewModel.selectedBoxes.length <= 1 || viewModel.isHaveRequestSendToBatch}
           onClick={viewModel.onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
@@ -157,7 +155,7 @@ export const ClientInStockBoxesView = observer(props => {
           </Button>
         </div>
 
-        <div className={styles.tasksWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
@@ -168,7 +166,6 @@ export const ClientInStockBoxesView = observer(props => {
               params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
               params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
             }
-            columnHeaderHeight={65}
             getRowClassName={getRowClassName}
             rowSelectionModel={viewModel.selectedBoxes}
             rowCount={viewModel.rowCount}
@@ -305,9 +302,9 @@ export const ClientInStockBoxesView = observer(props => {
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={
             (viewModel.selectedBoxes.length &&
-              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
-                box => box.originalData,
-              )) ||
+              viewModel.boxesMy
+                .filter(box => viewModel.selectedBoxes.includes(box._id))
+                ?.map(box => box.originalData)) ||
             []
           }
           requestStatus={viewModel.requestStatus}
