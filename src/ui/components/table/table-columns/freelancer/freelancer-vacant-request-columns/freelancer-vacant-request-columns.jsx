@@ -43,7 +43,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     ),
 
     filterable: false,
-    sortable: false,
+    // sortable: false,
 
     // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
