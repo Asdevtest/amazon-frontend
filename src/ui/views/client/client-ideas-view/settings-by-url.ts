@@ -20,10 +20,10 @@ export const settingsByUrl = {
       withOrder: false,
       withRequests: true,
     },
+    permissionOptions: { isChild: false },
     columnsModel: clientNewIdeasColumns,
     defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
-    permissionOptions: { isChild: false },
   },
   '/client/ideas/on-checking': {
     statuses: ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING],
