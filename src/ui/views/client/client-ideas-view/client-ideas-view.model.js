@@ -213,7 +213,6 @@ export class ClientIdeasViewModel {
   constructor({ history }) {
     this.history = history
     this.currentSettings = settingsByUrl[history.location.pathname]
-    console.log('this.currentSettings', this.currentSettings)
     this.handleUpdateColumnModel()
 
     this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
