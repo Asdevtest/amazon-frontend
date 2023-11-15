@@ -1,34 +1,26 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '30px 40px',
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    borderRadius: 7,
   },
+
   userWrapper: {
     maxHeight: 400,
-
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-
     marginBottom: 25,
-  },
-  userInfoAndMoreInfoWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-
-    gap: 20,
   },
 
   userInfoAndFooterWrapper: {
     height: '100%',
     width: 1115,
-
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-
     gap: 20,
   },
 
@@ -58,8 +50,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-
+    cursor: 'pointer',
     color: theme.palette.primary.main,
+    padding: 0,
+    height: 'auto !important',
   },
 
   announcementText: {
@@ -88,24 +82,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
-  userCarouselWrapper: {
-    width: 391,
-    height: 180,
-  },
-  carouselImage: {
-    height: '150px !important',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
   footerWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   statusWrapper: {
     display: 'flex',
@@ -131,20 +111,19 @@ export const useClassNames = makeStyles()(theme => ({
 
     overflowY: 'auto',
   },
-  mainWrapper: {
-    width: 391,
-  },
-  imgBox: {
-    objectFit: 'contain',
-    width: 391,
-    height: 152,
+
+  showFullDescription: {
+    maxHeight: 'none',
   },
 
-  photoWrapper: {
-    width: 391,
-    height: 150,
+  photosWrapper: {
+    width: 410,
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  detailsButton: {
+    color: theme.palette.primary.main,
   },
 }))

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react'
 
 import { Tabs, Typography } from '@mui/material'
@@ -16,7 +19,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { imagesRegex, imagesWithPreviewRegex } from '@utils/text'
+import { imagesWithPreviewRegex } from '@utils/text'
 import { t } from '@utils/translations'
 
 interface ChatAttachmentItemTypes {
@@ -75,8 +78,9 @@ export const ChatInfo = (props: ChatInfoProps) => {
   const [files, setFiles] = useState<ChatFileType[]>()
   const [isFilesLoading, setIsFilesLoading] = useState(true)
 
-  useEffect(() => {
+  const getChatMediaFiles = () => {
     ChatsModel.getChatMedia(chat._id)
+      // @ts-ignore
       .then((res: ChatAttachmentsType) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
           file.images?.forEach(el => {
@@ -104,7 +108,17 @@ export const ChatInfo = (props: ChatInfoProps) => {
         setImages(imagesList)
       })
       .finally(() => setIsFilesLoading(false))
+  }
+
+  useEffect(() => {
+    getChatMediaFiles()
   }, [])
+
+  useEffect(() => {
+    if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length) {
+      getChatMediaFiles()
+    }
+  }, [chat.lastMessage?.images, chat.lastMessage?.files])
 
   return (
     <div className={styles.wrapper}>

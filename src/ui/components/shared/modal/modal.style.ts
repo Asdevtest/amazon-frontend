@@ -1,65 +1,71 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  dialogPadding: {
-    padding: '30px',
-    height: '100%',
-    width: '100%',
-
-    [theme.breakpoints.down(768)]: {
-      padding: 20,
-    },
+export const useStyles = makeStyles()(theme => ({
+  dialogWrapper: {
+    width: '100% !important',
+    height: '100% !important',
+    maxHeight: '100% !important', // because of external styles
+    maxWidth: '100% !important', // because of external styles
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'rgba(0, 0, 0, 0.6)',
+    opacity: 0,
+    transition: 'opacity 0.3s',
   },
 
-  warningDialogPadding: {
-    padding: '30px',
-    '&:first-of-type': {
-      padding: '0',
-    },
-
-    [theme.breakpoints.down(768)]: {
-      padding: 20,
-    },
+  openModal: {
+    opacity: 1,
   },
 
-  warningPaper: {
-    borderRadius: '10px',
-  },
-
-  dialogContent: {
+  contentWrapper: {
     position: 'relative',
-    overflow: 'visible',
-    borderRadius: '7px',
+    padding: 30,
+    background: theme.palette.background.general,
+    borderRadius: 20,
 
     [theme.breakpoints.down(768)]: {
-      margin: 0,
-      maxWidth: '100%',
+      padding: 20,
       height: '100%',
       width: '100%',
       borderRadius: 0,
     },
   },
 
+  content: {
+    maxWidth: '90vw',
+    maxHeight: '85vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    // padding: 20, // need to add padding to the transmitted content, and not to the modal content className
+
+    [theme.breakpoints.down(768)]: {
+      maxWidth: '100%',
+      maxHeight: '100%',
+    },
+  },
+
   closeIcon: {
-    color: 'rgba(255,255,255, .9)',
     position: 'absolute',
-    top: '-30px',
-    right: '-30px',
+    top: -25,
+    right: -25,
+    color: 'rgba(255,255,255, .9)',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
+
     '&:hover': {
-      transform: 'scale(1.2)',
+      transform: 'scale(1.1)',
     },
 
     [theme.breakpoints.down(768)]: {
       zIndex: 30,
+      top: 10,
+      right: 10,
       color: theme.palette.primary.main,
-      top: '10px',
-      right: '10px',
     },
-  },
-
-  noPadding: {
-    padding: 0,
   },
 }))

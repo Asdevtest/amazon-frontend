@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
@@ -9,6 +8,7 @@ import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -205,9 +205,14 @@ export const getTableByColumn = (column, hint) => {
       'arrivalDate',
       'deliveryTotalPrice',
       'partialPaymentAmountRmb',
+      'batchHumanFriendlyId',
     ].includes(column)
   ) {
     if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+      return 'batches'
+    }
+
+    if (column === 'batchHumanFriendlyId' && hint === 'boxes') {
       return 'batches'
     }
 
@@ -269,14 +274,35 @@ export const getTableByColumn = (column, hint) => {
       'buyer',
       'childProductShopIds',
       'parentProductShopIds',
+      'supervisor',
+      'margin',
+      'checkedBy',
+      'checkednotes',
+      'currentSupplier',
+      'weight',
+      'createdAt',
+      'updatedAt',
     ].includes(column)
   ) {
-    // if (hint === 'requests') {
-    //   return 'requests'
-    // } else {
+    if (['buyer'].includes(column) && hint === 'orders') {
+      return 'orders'
+    } else if (
+      [
+        'parentProductSkusByClient',
+        'parentProductAmazonTitle',
+        'parentProductAsin',
+        'childProductAmazonTitle',
+        'childProductSkusByClient',
+        'childProductAsin',
+      ].includes(column) &&
+      hint === 'ideas'
+    ) {
+      return 'products'
+    } else if (hint === 'ideas') {
+      return 'ideas'
+    }
     return 'products'
-    // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
@@ -345,18 +371,30 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
     case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
+
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
+
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
+    case columnnsKeys.admin.STRATEGY_STATUS:
+      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+
+    case columnnsKeys.shared.TASK_COMPLEXITY:
+      return difficultyLevelTranslate(difficultyLevelByCode[status])
+
     default:
       return status
   }

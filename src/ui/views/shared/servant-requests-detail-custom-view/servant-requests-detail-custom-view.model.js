@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -16,7 +16,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class RequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   requestId = undefined
   request = undefined
@@ -58,59 +57,48 @@ export class RequestDetailCustomViewModel {
   }
 
   get userInfo() {
-    return UserModel.userInfo || {}
+    return UserModel.userInfo
   }
 
   get typingUsers() {
-    return ChatModel.typingUsers || []
+    return ChatModel.typingUsers
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.requestId = url.searchParams.get('request-id')
-    })
+    this.requestId = url.searchParams.get('request-id')
 
     reaction(
       () => this.chatSelectedId,
       () => {
-        runInAction(() => {
-          this.mesSearchValue = ''
-        })
+        this.mesSearchValue = ''
+        ChatModel.onChangeChatSelectedId(this.chatSelectedId)
       },
     )
 
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      // if (location.state) {
-      //   this.requestId = location.state.requestId
-      // }
-
-      if (location?.state?.chatId) {
-        this.chatSelectedId = location.state.chatId
-      }
-    })
+    if (history.location?.state?.chatId) {
+      this.chatSelectedId = history.location.state.chatId
+    }
 
     reaction(
       () => this.mesSearchValue,
       () => {
-        runInAction(() => {
-          if (this.mesSearchValue && this.chatSelectedId) {
-            const mesAr = this.chats
-              .find(el => el._id === this.chatSelectedId)
-              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+        if (this.mesSearchValue && this.chatSelectedId) {
+          const mesAr = this.chats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
 
-            this.messagesFound = mesAr
+          this.messagesFound = mesAr
 
-            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-          } else {
-            this.curFoundedMessage = undefined
+          setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+        } else {
+          this.curFoundedMessage = undefined
 
-            this.messagesFound = []
-          }
-        })
+          this.messagesFound = []
+        }
       },
     )
 
@@ -118,18 +106,16 @@ export class RequestDetailCustomViewModel {
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
-        runInAction(() => {
-          this.chatIsConnected = ChatModel.isConnected
-        })
+
+        this.chatIsConnected = ChatModel.isConnected
       } else {
         reaction(
           () => ChatModel.isConnected,
           isConnected => {
             if (isConnected) {
               ChatModel.getChats(this.requestId, 'REQUEST')
-              runInAction(() => {
-                this.chatIsConnected = isConnected
-              })
+
+              this.chatIsConnected = isConnected
             }
           },
         )
@@ -140,7 +126,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.chats)
   }
 
   onToggleMuteAllChats() {
@@ -164,28 +150,23 @@ export class RequestDetailCustomViewModel {
   }
 
   onChangeCurFoundedMessage(index) {
-    runInAction(() => {
-      this.curFoundedMessage = this.messagesFound[index]
-    })
+    this.curFoundedMessage = this.messagesFound[index]
   }
 
   onChangeMesSearchValue(e) {
-    runInAction(() => {
-      this.mesSearchValue = e.target.value
-    })
+    this.mesSearchValue = e.target.value
   }
 
   onCloseMesSearchValue() {
-    runInAction(() => {
-      this.mesSearchValue = ''
-    })
+    this.mesSearchValue = ''
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.all([this.getCustomRequestById(), this.getRequestProposals()])
+      this.getCustomRequestById()
+      this.getRequestProposals()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -195,19 +176,15 @@ export class RequestDetailCustomViewModel {
   }
 
   onClickChat(chat) {
-    runInAction(() => {
-      if (this.chatSelectedId === chat._id) {
-        this.chatSelectedId = undefined
-      } else {
-        this.chatSelectedId = chat._id
-      }
-    })
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
   }
 
   onClickOpenRequest(media) {
-    runInAction(() => {
-      this.curResultMedia = media
-    })
+    this.curResultMedia = media
 
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
   }
@@ -239,9 +216,6 @@ export class RequestDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -260,9 +234,6 @@ export class RequestDetailCustomViewModel {
       })
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -291,35 +262,12 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      // console.log('files', files)
-
       if (files.length) {
         await onSubmitPostImages.call(this, {
           images: typeof files[0] === 'object' && 'image' in files[0] ? files.map(el => el.image) : files,
           type: 'loadedFiles',
         })
       }
-
-      // await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-      //   result: message,
-      //   media: this.loadedFiles.map((el, i) => ({
-      //     fileLink: el,
-      //     commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-      //     _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
-      //       ? files[i]?._id
-      //       : null,
-      //   })),
-      //   ...(amazonOrderId && {amazonOrderId}),
-      //   ...(publicationLinks && {publicationLinks}),
-      //   ...(sourceLink && {
-      //     sourceFiles: [
-      //       {
-      //         sourceFile: sourceLink,
-      //         comments: '',
-      //       },
-      //     ],
-      //   }),
-      // })
 
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
@@ -374,7 +322,6 @@ export class RequestDetailCustomViewModel {
       })
 
       this.getRequestProposals()
-      this.showProgress = false
 
       runInAction(() => {
         this.showProgress = false
@@ -383,8 +330,6 @@ export class RequestDetailCustomViewModel {
       console.log(error)
       runInAction(() => {
         this.showProgress = false
-
-        this.error = error
       })
     }
   }
@@ -401,9 +346,6 @@ export class RequestDetailCustomViewModel {
       await this.getRequestProposals()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -421,16 +363,11 @@ export class RequestDetailCustomViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onClickBackBtn() {
@@ -438,49 +375,18 @@ export class RequestDetailCustomViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   onSubmitOfferDeal() {
     this.history.push(
       `/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/vacant-requests/custom-search-request/create-proposal`,
-      { request: toJS(this.request) },
+      }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${this.request.request._id}`,
     )
   }
 
   resetChats() {
     ChatModel.resetChats()
   }
-
-  // async onSubmitRequestProposalForm(formFields) {
-  //   try {
-  //     const result = this.requestProposal
-  //       ? await RequestProposalModel.updateRequestProposalCustom(this.requestProposal.proposal._id, formFields)
-  //       : await RequestProposalModel.createRequestProposalCustom(this.request.request._id, formFields)
-
-  //     this.getCustomRequestProposalsByRequestId(result?.guid || this.requestProposal.proposal._id)
-
-  //     this.warningInfoModalSettings = {
-  //       isWarning: false,
-  //       title: '',
-  //     }
-
-  //     this.onTriggerOpenModal('showWarningModal')
-  //     // this.history.goBack()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-
-  //     this.warningInfoModalSettings = {
-  //       isWarning: true,
-  //       title: '',
-  //     }
-
-  //     this.onTriggerOpenModal('showWarningModal')
-  //   }
-  // }
 }

@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
-import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
+import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,7 +12,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { SetDuration } from '@components/shared/set-duration'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
@@ -26,35 +25,30 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-proposal-content.style'
 
-export const CreateOrEditProposalContent = ({
-  onCreateSubmit,
-  onEditSubmit,
-  request,
-  showProgress,
-  progressValue,
-  proposalToEdit,
-  onClickBackBtn,
-}) => {
+export const CreateOrEditProposalContent = memo(props => {
+  const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
   const { classes: classNames } = useClassNames()
 
-  const [images, setImages] = useState(
-    proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
-  )
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (proposalToEdit?.linksToMediaFiles?.length) {
+      setImages(proposalToEdit?.linksToMediaFiles)
+    }
+  }, [proposalToEdit?.linksToMediaFiles])
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
-  const sourceFormFields = {
-    price: proposalToEdit?.price || request?.request.price,
+  const getSourceFormFields = () => ({
+    price: proposalToEdit?.price || request?.request?.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
     title: proposalToEdit?.title || '',
-  }
+  })
 
-  const [formFields, setFormFields] = useState(sourceFormFields)
-
-  const [checked, setChecked] = useState(false)
+  const [formFields, setFormFields] = useState(getSourceFormFields())
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
@@ -82,13 +76,17 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
+  useEffect(() => {
+    setFormFields(getSourceFormFields())
+  }, [proposalToEdit, request])
+
   const disableSubmit =
     !formFields.title ||
     !formFields.execution_time ||
     !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    (JSON.stringify(sourceFormFields) === JSON.stringify(formFields) && !images.length)
+    (JSON.stringify(getSourceFormFields()) === JSON.stringify(formFields) && !images.length)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -142,11 +140,11 @@ export const CreateOrEditProposalContent = ({
             <div>
               <UserLink
                 blackText
-                name={request?.request?.createdBy?.name || request.createdBy?.name}
+                name={request?.request?.createdBy?.name || request?.createdBy?.name}
                 userId={request?.request?.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Rating readOnly value={request?.request.createdBy?.rating || request.createdBy?.rating} />
+                <Rating readOnly value={request?.request?.createdBy?.rating || request?.createdBy?.rating || 0} />
               </div>
             </div>
           </div>
@@ -158,18 +156,18 @@ export const CreateOrEditProposalContent = ({
           <div className={classNames.infoBlockWrapper}>
             <div className={classNames.infoCellWrapper}>
               <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
-              <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
+              <Typography className={classNames.requestTitle}>{request?.request?.title}</Typography>
             </div>
 
             <div className={classNames.infoCellWrapper}>
               <Typography className={cx(classNames.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
-              <Typography className={classNames.requestTitle}>{request.request.humanFriendlyId}</Typography>
+              <Typography className={classNames.requestTitle}>{request?.request?.humanFriendlyId}</Typography>
             </div>
 
             <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
               <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
               <Typography className={classNames.requestTitle}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
               </Typography>
             </div>
           </div>
@@ -188,16 +186,17 @@ export const CreateOrEditProposalContent = ({
             </>
           )}
 
-          <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
-            request?.request.maxAmountOfProposals || request.maxAmountOfProposals
-          } ${t(TranslationKey['suggestions left'])}`}</Typography>
+          {/* <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${*/}
+          {/*  request?.request?.maxAmountOfProposals || request?.maxAmountOfProposals*/}
+          {/* } ${t(TranslationKey['suggestions left'])}`}</Typography>*/}
+          <Typography className={classNames.subTitle} />
 
           <div className={classNames.requestTitleAndInfo}>
             <div className={cx(classNames.blockInfoWrapper)}>
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
                 <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
-                  {toFixed(request?.request.price, 2) + '$'}
+                  {toFixed(request?.request?.price, 2) + '$'}
                 </Typography>
               </div>
 
@@ -233,7 +232,7 @@ export const CreateOrEditProposalContent = ({
                   {t(TranslationKey['Performance time'])}
                 </Typography>
                 <Typography className={cx(classNames.blockInfoCellText)}>
-                  {formatNormDateTime(request?.request.timeoutAt)}
+                  {formatNormDateTime(request?.request?.timeoutAt)}
                 </Typography>
               </div>
 
@@ -249,10 +248,10 @@ export const CreateOrEditProposalContent = ({
           </div>
         </div>
 
-        {request.details.linksToMediaFiles?.length > 0 ? (
+        {request?.details?.linksToMediaFiles?.length > 0 ? (
           <Field
             label={t(TranslationKey.Files)}
-            inputComponent={<PhotoAndFilesCarousel small files={request.details.linksToMediaFiles} width="400px" />}
+            inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />}
           />
         ) : null}
       </div>
@@ -301,15 +300,7 @@ export const CreateOrEditProposalContent = ({
                 </Typography>
               </div>
 
-              <UploadFilesInput
-                minimized
-                withoutTitle
-                requestWidth
-                images={images}
-                setImages={setImages}
-                maxNumber={50}
-              />
-              {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
+              <UploadFilesInput minimized withoutTitle fullWidth images={images} setImages={setImages} maxNumber={50} />
             </div>
           </div>
         </div>
@@ -342,4 +333,4 @@ export const CreateOrEditProposalContent = ({
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )
-}
+})

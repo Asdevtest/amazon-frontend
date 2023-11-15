@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AnnouncementModal } from '@components/modals/announcement-modal/announcement-modal'
+import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { UserLink } from '@components/user/user-link'
@@ -13,12 +13,13 @@ import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IMasterUser, IService, linksToMediaFilesInterface } from '@typings/master-user'
+import { IService, IShortUser } from '@typings/master-user'
+import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './announcement-card.styles'
 
 interface onClickThumbnailArguments {
-  images: Array<string | linksToMediaFilesInterface>
+  images: Array<string | IUploadFile>
   imgIndex: number
 }
 
@@ -27,7 +28,7 @@ interface AnnouncementCardProps {
   selectedCard?: IService
   onClickThumbnail: (images: onClickThumbnailArguments) => void
   onClickSelectCard: (value: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IMasterUser) => void
+  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {

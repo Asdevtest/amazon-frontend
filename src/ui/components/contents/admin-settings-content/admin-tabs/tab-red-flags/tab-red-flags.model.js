@@ -78,7 +78,7 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -104,7 +104,7 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -126,7 +126,7 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.loadData()
+      await this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

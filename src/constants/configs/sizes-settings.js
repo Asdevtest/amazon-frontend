@@ -27,3 +27,6 @@ export const getConversion = (unitsOptions, coefficient, divider = 1) =>
 
 export const getWeightSizesType = sizeSetting =>
   sizeSetting === unitsOfChangeOptions.US ? t(TranslationKey.lb) : t(TranslationKey.kg)
+
+export const getDimensionsSizesType = sizeSetting =>
+  sizeSetting === unitsOfChangeOptions.EU ? t(TranslationKey.cm) : t(TranslationKey.inches)

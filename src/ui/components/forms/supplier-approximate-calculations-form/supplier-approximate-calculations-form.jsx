@@ -1,16 +1,15 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { Tabs, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import {
@@ -33,7 +32,7 @@ export const SupplierApproximateCalculationsForm = observer(
   ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient, destinationData }) => {
     const { classes: classNames } = useClassNames()
 
-    const [tabIndex, setTabIndex] = React.useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)
+    const [tabIndex, setTabIndex] = useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
@@ -44,46 +43,43 @@ export const SupplierApproximateCalculationsForm = observer(
         <Typography className={classNames.title}>{t(TranslationKey['Approximate calculation'])}</Typography>
 
         <div className={classNames.boxesFiltersWrapper}>
-          {storekeepers
-            .slice()
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map(storekeeper => (
-              <Button
-                key={storekeeper._id}
-                disabled={curStorekeeper?._id === storekeeper._id}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
-                })}
-                variant="text"
-                onClick={() => setCurStorekeeper(storekeeper)}
-              >
-                {storekeeper.name}
-              </Button>
-            ))}
+          <CustomSwitcher
+            fullWidth
+            switchMode={'small'}
+            condition={curStorekeeper?._id}
+            switcherSettings={[...storekeepers]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(storekeeper => ({
+                label: () => storekeeper.name || '',
+                value: storekeeper._id,
+              }))}
+            changeConditionHandler={value => {
+              setCurStorekeeper(storekeepers.find(storekeeper => storekeeper._id === value))
+            }}
+          />
         </div>
 
         {SettingsModel.languageTag && (
-          <Tabs
-            variant={'fullWidth'}
-            classes={{
-              root: classNames.tabsRoot,
-              indicator: classNames.indicator,
-            }}
-            value={tabIndex}
-            onChange={(e, index) => setTabIndex(index)}
-          >
-            <ITab
-              label={t(TranslationKey['Weight-based logistics tariffs'])}
-              value={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}
-            />
-            <ITab label={t(TranslationKey['Logistics tariffs'])} value={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF} />
-          </Tabs>
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={tabIndex}
+            switcherSettings={[
+              {
+                label: () => t(TranslationKey['Weight-based logistics tariffs']) || '',
+                value: tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF,
+              },
+              {
+                label: () => t(TranslationKey['Logistics tariffs']) || '',
+                value: tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF,
+              },
+            ]}
+            changeConditionHandler={value => setTabIndex(value)}
+          />
         )}
 
         <TabPanel value={tabIndex} index={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
+            <CustomDataGrid
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierWeightBasedApproximateCalculationsDataConverter(
@@ -102,8 +98,7 @@ export const SupplierApproximateCalculationsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
+            <CustomDataGrid
               rows={
                 curStorekeeper.tariffLogistics?.length
                   ? supplierApproximateCalculationsDataConverter(

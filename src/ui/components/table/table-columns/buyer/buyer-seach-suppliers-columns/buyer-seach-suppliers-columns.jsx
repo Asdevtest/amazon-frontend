@@ -1,9 +1,6 @@
-import { useCallback } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -47,7 +44,7 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     headerName: t(TranslationKey['Comments from the supervisor']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell fourLines text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
     width: 400,
   },
 

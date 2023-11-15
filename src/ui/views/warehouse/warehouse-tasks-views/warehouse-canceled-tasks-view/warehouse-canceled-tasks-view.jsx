@@ -1,17 +1,14 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
@@ -21,13 +18,13 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-canceled-tasks-view.style'
+import { useStyles } from './warehouse-canceled-tasks-view.style'
 
 import { WarehouseCanceledTasksViewModel } from './warehouse-canceled-tasks-view.model'
 
-export const WarehouseCanceledTasksViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseCanceledTasksViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const WarehouseCanceledTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseCanceledTasksViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -36,7 +33,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <TaskPrioritySelector
             currentPriority={viewModel.curTaskPriority}
             handleActivePriority={viewModel.onClickTaskPriorityBtn}
@@ -50,7 +47,6 @@ export const WarehouseCanceledTasksViewRaw = props => {
               viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
                 .operationType !== TaskOperationType.RECEIVE
             }
-            className={classNames.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
@@ -58,7 +54,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <BuyerTypeTaskSelect
             curTaskType={viewModel.curTaskType}
             onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
@@ -66,29 +62,18 @@ export const WarehouseCanceledTasksViewRaw = props => {
 
           <SearchInput
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            pagination
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
             checkboxSelection
             useResizeContainer
-            disableVirtualization
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -97,11 +82,6 @@ export const WarehouseCanceledTasksViewRaw = props => {
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 'auto'}
-            // rowHeight={200}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -120,7 +100,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>
@@ -139,6 +119,4 @@ export const WarehouseCanceledTasksViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const WarehouseCanceledTasksView = withStyles(observer(WarehouseCanceledTasksViewRaw), styles)
+})

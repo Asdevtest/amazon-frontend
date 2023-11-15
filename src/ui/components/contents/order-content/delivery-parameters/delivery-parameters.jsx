@@ -1,13 +1,13 @@
-import { cx } from '@emotion/css'
 import dayjs from 'dayjs'
 import { useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
@@ -16,7 +16,9 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './delivery-parameters.style'
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+
+import { useStyles } from './delivery-parameters.style'
 
 export const DeliveryParameters = ({
   isCanChange,
@@ -29,32 +31,74 @@ export const DeliveryParameters = ({
   setFormFields,
   onChangeField,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId })
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    formFields.destinationId,
+    formFields.storekeeperId,
+    formFields.logicsTariffId,
+    formFields.variationTariffId,
+  )
 
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  const onSubmitSelectStorekeeperAndTariff = (
+    storekeeperId,
+    tariffId,
+    variationTariffId,
+    destinationId,
+    isSelectedDestinationNotValid,
+  ) => {
+    if (isSelectedDestinationNotValid) {
+      setConfirmModalSettings({
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Wish to change a destination?']),
+
+        onClickConfirm: () => {
+          setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+        },
+
+        onClickCancelBtn: () => {
+          setFormFields({
+            ...formFields,
+            storekeeperId,
+            logicsTariffId: tariffId,
+            variationTariffId,
+            destinationId: null,
+          })
+
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+        },
+      })
+
+      setShowConfirmModal(true)
+    } else {
+      setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+    }
   }
-
-  const tariffName = storekeepers
-    ?.find(el => el?._id === formFields?.storekeeperId)
-    ?.tariffLogistics?.find(el => el?._id === formFields?.logicsTariffId)?.name
 
   const minDate = dayjs().add(2, 'day')
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       {order.status < 20 && (
         <Field
           oneLine
           label={t(TranslationKey.Deadline)}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
+          containerClasses={styles.parameterTableCellWrapper}
+          labelClasses={styles.fieldLabel}
           inputComponent={
-            <div className={classNames.deadlineWrapper}>
+            <div className={styles.deadlineWrapper}>
               <NewDatePicker
                 disablePast
                 disabled={!isCanChange}
@@ -68,8 +112,7 @@ export const DeliveryParameters = ({
       )}
 
       <Field
-        labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         label={t(TranslationKey.Destination)}
         tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
         inputComponent={
@@ -79,7 +122,13 @@ export const DeliveryParameters = ({
             selectedItemName={
               destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)}
+            data={
+              formFields?.variationTariffId
+                ? destinations.filter(
+                    el => el?._id === (formFields?.destinationId || formFields?.variationTariff?.destinationId),
+                  )
+                : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)
+            }
             searchFields={['name']}
             favourites={destinationsFavourites}
             onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -90,125 +139,69 @@ export const DeliveryParameters = ({
       />
 
       <Field
-        labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
         error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
             disableElevation
             disabled={!isCanChange}
-            color="primary"
-            variant={formFields.storekeeperId && 'text'}
-            className={cx(classNames.chosenTariff, {
-              [classNames.notChosenTariff]: !formFields?.storekeeperId,
-            })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {formFields?.storekeeperId
-              ? `${formFields?.storekeeperId ? `${tariffName ? tariffName : ''}` : 'none'}`
+            {formFields.storekeeperId && (tariffName || tariffRate)
+              ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
               : t(TranslationKey.Select)}
           </Button>
         }
       />
 
       <div
-        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
+        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
           isCanChange && onChangeField('priority')({ target: { value: formFields.priority === '30' ? '40' : '30' } })
         }
       >
         <Checkbox
           disabled={!isCanChange}
-          className={classNames.checkbox}
+          className={styles.checkbox}
           checked={formFields.priority === '40'}
           color="primary"
         />
-        <Typography className={classNames.fieldLabel}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
-        <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
+        <p>{t(TranslationKey['Mark an order as urgent'])}</p>
+        <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
       </div>
       <div
-        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
+        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
           isCanChange && onChangeField('expressChinaDelivery')({ target: { value: !formFields.expressChinaDelivery } })
         }
       >
         <Checkbox
           disabled={!isCanChange}
-          className={classNames.checkbox}
+          className={styles.checkbox}
           checked={formFields.expressChinaDelivery}
           color="primary"
         />
-        <Typography className={classNames.fieldLabel}>
-          {t(TranslationKey['Order express delivery in China'])}
-        </Typography>
-        <img className={classNames.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+        <p>{t(TranslationKey['Order express delivery in China'])}</p>
+        <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
       </div>
 
-      <div className={classNames.researchWrapper}>
-        <Checkbox disabled className={classNames.checkbox} checked={formFields.needsResearch} color="primary" />
-        <Typography className={classNames.fieldLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+      <div className={styles.researchWrapper}>
+        <Checkbox disabled className={styles.checkbox} checked={formFields.needsResearch} color="primary" />
+        <p>{t(TranslationKey['Re-search supplier'])}</p>
       </div>
 
-      {/* <div className={classNames.destinationWrapper}>
-        <OrderParameter
-          tooltipText={t(TranslationKey["Amazon's final warehouse in the United States"])}
-          label={t(TranslationKey.Destination)}
-          value={order.destination?.name || t(TranslationKey['Not chosen'])}
-        />
-        <OrderParameter label={'Zip Code'} value={order.destination?.zipCode} />
-        <OrderParameter label={t(TranslationKey.Country)} value={order.destination?.country} />
-        <OrderParameter label={t(TranslationKey.City)} value={order.destination?.city} />
-        <OrderParameter label={t(TranslationKey.State)} value={order.destination?.state} />
-        <OrderParameter label={t(TranslationKey.Address)} value={order.destination?.address} />
-      </div> */}
-
-      {/* <div className={classNames.storekeeperWrapper}>
-        <Field
-          oneLine
-          label={t(TranslationKey['Int warehouse'])}
-          tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
-          inputComponent={
-            <div className={classNames.intWarehouseWrapper}>
-              <UserLinkCell blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />
-            </div>
-          }
-        />
-
-        <OrderParameter
-          tooltipText={t(TranslationKey['Rate selected for delivery to the final Amazon warehouse in the USA'])}
-          label={t(TranslationKey.Tariff)}
-          value={getFullTariffTextForBoxOrOrder(order)}
-        />
-
-        <OrderParameter
-          label={t(TranslationKey['CLS (batch closing date)'])}
-          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
-        />
-
-        <OrderParameter
-          label={t(TranslationKey['ETD (date of shipment)'])}
-          value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}
-        />
-        <OrderParameter
-          label={t(TranslationKey['ETA (arrival date)'])}
-          value={order.logicsTariff?.eta && formatDateWithoutTime(order.logicsTariff?.eta)}
-        />
-      </div> */}
-
-      <div className={classNames.buyerWrapper}>
+      <div className={styles.buyerWrapper}>
         <Field
           oneLine
           label={t(TranslationKey.Buyer)}
           tooltipInfoContent={t(
             TranslationKey['Buyer with whom the order is being processed / Buyer assigned to the order'],
           )}
-          containerClasses={classNames.parameterTableCellWrapper}
-          labelClasses={classNames.fieldLabel}
+          containerClasses={styles.parameterTableCellWrapper}
+          labelClasses={styles.fieldLabel}
           inputComponent={
-            <div className={classNames.intWarehouseWrapper}>
+            <div className={styles.intWarehouseWrapper}>
               <UserLinkCell blackText name={order.buyer?.name} userId={order.buyer?._id} />
             </div>
           }
@@ -220,12 +213,28 @@ export const DeliveryParameters = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox
+          RemoveDestinationRestriction
           storekeepers={storekeepers?.filter(el => el?._id === formFields?.storekeeper?._id)}
           curStorekeeperId={formFields.storekeeperId}
+          currentDestinationId={formFields?.destinationId}
           curTariffId={formFields.logicsTariffId}
+          currentVariationTariffId={formFields?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
+
+      <ConfirmationModal
+        isWarning={confirmModalSettings?.isWarning}
+        openModal={showConfirmModal}
+        setOpenModal={() => setShowConfirmModal(false)}
+        title={t(TranslationKey.Attention)}
+        message={confirmModalSettings?.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+      />
     </div>
   )
 }

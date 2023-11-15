@@ -1,57 +1,36 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  shopsFiltersWrapper: {
+    marginTop: 20,
+  },
+
   button: {
     marginBottom: 5,
     color: theme.palette.text.general,
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
   },
 
-  rightButton: {
-    marginBottom: 5,
-    marginLeft: 10,
-  },
-
-  shopsFiltersWrapper: {
-    marginBottom: '10px',
-    display: 'flex',
-  },
-
   btnsWrapper: {
-    marginBottom: '10px',
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'space-between',
   },
 
   btnsSubWrapper: {
     display: 'flex',
+    gap: 20,
   },
 
-  dataGridWrapper: {
-    height: '72vh',
-    overflow: 'auto',
+  tableWrapper: {
+    marginTop: 20,
+    height: '70vh',
+    width: '100%',
   },
-
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
-})
+}))

@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -10,13 +9,12 @@ import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-// import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
@@ -47,8 +45,10 @@ export const UserProfileViewRaw = props => {
           tabHistory={viewModel.tabHistory}
           setTabHistory={viewModel.onChangeTabHistory}
           setTabReview={viewModel.onChangeTabReview}
+          reviews={viewModel.reviews}
           onClickChangeAvatar={viewModel.onClickChangeAvatar}
           onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
+          onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
 
         {/* <ActiveOrders
@@ -68,16 +68,8 @@ export const UserProfileViewRaw = props => {
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
-            <MemoDataGrid
-              pagination
+            <CustomDataGrid
               useResizeContainer
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
@@ -86,10 +78,6 @@ export const UserProfileViewRaw = props => {
               pageSizeOptions={[15, 25, 50, 100]}
               rows={viewModel.getCurrentData()}
               rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -155,6 +143,19 @@ export const UserProfileViewRaw = props => {
           viewModel.onTriggerOpenModal('showInfoModal')
         }}
       />
+
+      {viewModel.showConfirmWorkResultFormModal && (
+        <RequestProposalAcceptOrRejectResultForm
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      )}
     </>
   )
 }

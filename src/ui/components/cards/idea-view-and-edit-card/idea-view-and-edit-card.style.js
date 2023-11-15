@@ -12,10 +12,8 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
 
-  modalRoot: {
-    padding: '0 !important',
-    display: 'flex',
-    gap: '40px',
+  rootModal: {
+    padding: 0,
   },
 
   cardWrapper: {
@@ -229,6 +227,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    gap: 30,
   },
 
   shortInput: {
@@ -261,6 +260,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   sizesInput: {
     width: '100px',
+  },
+
+  approximateCalculationInput: {
+    width: '165px',
   },
 
   addOrEditBtnsWrapper: {
@@ -306,8 +309,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   criterionsField: {
-    height: '245px',
+    height: 240,
+    fontSize: 16,
+    lineHeight: '23px',
     width: '100%',
+    padding: 0,
   },
 
   supplierSearchTitle: {
@@ -422,7 +428,7 @@ export const useClassNames = makeStyles()(theme => ({
   sourcesProductWraper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
   },
 
   requestsWrapper: {
@@ -514,5 +520,22 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     width: 'fit-content',
+  },
+
+  approximateCalculationFieldsWrapper: {
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'flex-end',
+  },
+
+  approximateCalculationWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginTop: '35px',
+  },
+
+  approximateCalculationButton: {
+    width: '100%',
   },
 }))

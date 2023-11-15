@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox, Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,13 +16,11 @@ import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constan
 import { TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -36,13 +31,14 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-warehouse-tasks-view.style'
+import { useStyles } from './client-warehouse-tasks-view.style'
 
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 
-export const ClientWarehouseTasksViewRaw = props => {
-  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const ClientWarehouseTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history }))
+
   const [isDisabledDownload, setIsDisabledDownload] = useState(true)
 
   useEffect(() => {
@@ -64,18 +60,17 @@ export const ClientWarehouseTasksViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <SearchInput
-            // disabled
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.controls}>
-          <div className={classNames.filters}>
+        <div className={styles.controls}>
+          <div className={styles.filters}>
             <WithSearchSelect
               notCloseOneClick
               isFlat
@@ -86,7 +81,7 @@ export const ClientWarehouseTasksViewRaw = props => {
               currentShops={viewModel.activeFilters.priority}
               firstItems={
                 <Button
-                  className={classNames.filterBtn}
+                  className={styles.filterBtn}
                   variant="text"
                   onClick={() => {
                     viewModel.selectFilterForField(
@@ -97,7 +92,7 @@ export const ClientWarehouseTasksViewRaw = props => {
                     )
                   }}
                 >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
                     <>
                       <Checkbox
                         checked={
@@ -105,7 +100,7 @@ export const ClientWarehouseTasksViewRaw = props => {
                         }
                         color="primary"
                       />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All priorities'])}</Typography>
+                      <Typography className={styles.fieldName}>{t(TranslationKey['All priorities'])}</Typography>
                     </>
                   </div>
                 </Button>
@@ -124,7 +119,7 @@ export const ClientWarehouseTasksViewRaw = props => {
               currentShops={viewModel.activeFilters.status}
               firstItems={
                 <Button
-                  className={classNames.filterBtn}
+                  className={styles.filterBtn}
                   variant="text"
                   onClick={() => {
                     viewModel.selectFilterForField(
@@ -135,13 +130,13 @@ export const ClientWarehouseTasksViewRaw = props => {
                     )
                   }}
                 >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
                     <>
                       <Checkbox
                         checked={Object.keys(mapTaskStatusKeyToEnum).length === viewModel.activeFilters.status.length}
                         color="primary"
                       />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
+                      <Typography className={styles.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
                     </>
                   </div>
                 </Button>
@@ -159,7 +154,7 @@ export const ClientWarehouseTasksViewRaw = props => {
               currentShops={viewModel.activeFilters.storekeeper}
               firstItems={
                 <Button
-                  className={classNames.filterBtn}
+                  className={styles.filterBtn}
                   variant="text"
                   onClick={() => {
                     viewModel.selectFilterForField(
@@ -170,13 +165,13 @@ export const ClientWarehouseTasksViewRaw = props => {
                     )
                   }}
                 >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
                     <>
                       <Checkbox
                         checked={viewModel.storekeepersData.length === viewModel.activeFilters.storekeeper.length}
                         color="primary"
                       />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All warehouses'])}</Typography>
+                      <Typography className={styles.fieldName}>{t(TranslationKey['All warehouses'])}</Typography>
                     </>
                   </div>
                 </Button>
@@ -195,7 +190,7 @@ export const ClientWarehouseTasksViewRaw = props => {
               currentShops={viewModel.activeFilters.type}
               firstItems={
                 <Button
-                  className={classNames.filterBtn}
+                  className={styles.filterBtn}
                   variant="text"
                   onClick={() => {
                     viewModel.selectFilterForField(
@@ -206,7 +201,7 @@ export const ClientWarehouseTasksViewRaw = props => {
                     )
                   }}
                 >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
                     <>
                       <Checkbox
                         checked={
@@ -214,7 +209,7 @@ export const ClientWarehouseTasksViewRaw = props => {
                         }
                         color="primary"
                       />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
+                      <Typography className={styles.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
                     </>
                   </div>
                 </Button>
@@ -225,43 +220,25 @@ export const ClientWarehouseTasksViewRaw = props => {
           </div>
 
           <Button
-            // key={viewModel.selectedBoxes?.length}
             disabled={isDisabledDownload}
-            className={classNames.pickupOrdersButton}
+            className={styles.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
-            <DownloadIcon
-              className={cx(classNames.downloadIcon, { [classNames.disabledDownloadIcon]: isDisabledDownload })}
-            />
+            <DownloadIcon className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisabledDownload })} />
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper}>
-          <MemoDataGrid
-            // disableVirtualization
-            // key={SettingsModel.languageTag}
+        <div className={styles.tasksWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            pagination
-            // propsToRerender={{ onHover: viewModel.onHover }}
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             pageSizeOptions={[15, 25, 50, 100]}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            sortingMode="server"
             rows={viewModel.getCurrentTaskData()}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -278,14 +255,13 @@ export const ClientWarehouseTasksViewRaw = props => {
             }}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             columns={viewModel.columnsModel}
-            paginationMode="server"
             rowCount={viewModel.rowsCount}
             onRowHover={viewModel.onHover}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
           />
         </div>
       </div>
@@ -353,6 +329,4 @@ export const ClientWarehouseTasksViewRaw = props => {
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
-}
-
-export const ClientWarehouseTasksView = withStyles(observer(ClientWarehouseTasksViewRaw), styles)
+})

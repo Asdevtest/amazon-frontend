@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -16,21 +14,12 @@ import { t } from '@utils/translations'
 
 export const adminTasksViewColumns = handlers => [
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    width: 110,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-  },
-
-  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
+    renderCell: params => <TaskTypeCell operationType={params.value} />,
   },
 
   {
@@ -39,7 +28,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 330,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    renderCell: params => <TaskDescriptionCell task={params.row} />,
     filterable: false,
     sortable: false,
   },
@@ -51,9 +40,7 @@ export const adminTasksViewColumns = handlers => [
 
     width: 180,
     align: 'center',
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value?._id} />,
   },
 
   {
@@ -66,7 +53,7 @@ export const adminTasksViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey.Details)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
       />
     ),
     filterable: false,
@@ -80,5 +67,14 @@ export const adminTasksViewColumns = handlers => [
     width: 130,
     align: 'center',
     renderCell: params => <TaskStatusCell status={params.value} />,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    width: 110,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
   },
 ]

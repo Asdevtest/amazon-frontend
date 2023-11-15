@@ -26,7 +26,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-content.style'
+import { useStyles } from './order-content.style'
 
 import { DeliveryParameters } from './delivery-parameters'
 import { ExtraOrderInfo } from './extra-order-info'
@@ -53,8 +53,9 @@ export const OrderContent = ({
   onChangeSelectedSupplier,
   onTriggerAddOrEditSupplierModal,
   onClickHsCode,
+  setCurrentOpenedBox,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
@@ -67,9 +68,12 @@ export const OrderContent = ({
 
   const [formFields, setFormFields] = useState({
     ...order,
+
     destinationId: order?.destination?._id || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
+    variationTariffId: order?.variationTariff?._id || null,
+
     deadline: order?.deadline || null,
     tmpBarCode: [],
   })
@@ -107,7 +111,7 @@ export const OrderContent = ({
     <TableRow>
       {headCells.map((item, index) => (
         <TableCell key={index}>
-          <div className={classNames[item.className]}>{item.label}</div>
+          <div className={styles[item.className]}>{item.label}</div>
         </TableCell>
       ))}
     </TableRow>
@@ -133,49 +137,49 @@ export const OrderContent = ({
   return (
     <Paper>
       <Container disableGutters maxWidth={false}>
-        <div className={classNames.orderContainer}>
+        <div className={styles.orderContainer}>
           <OrderStatusText
             isClient={isClient}
             status={OrderStatusByCode[updatedOrder.status]}
-            className={classNames.containerTitle}
+            className={styles.containerTitle}
           />
 
-          <div className={classNames.infosWrapper}>
-            <div className={classNames.orderItemWrapper}>
-              <Typography className={classNames.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
-              <Typography className={classNames.orderText}>{`№ ${updatedOrder.id}`}</Typography>
+          <div className={styles.infosWrapper}>
+            <div className={styles.orderItemWrapper}>
+              <Typography className={styles.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
+              <Typography className={styles.orderText}>{`№ ${updatedOrder.id}`}</Typography>
             </div>
 
-            <div className={classNames.orderItemWrapper}>
+            <div className={styles.orderItemWrapper}>
               <Field
                 oneLine
                 tooltipInfoContent={t(TranslationKey['Total order amount'])}
                 label={t(TranslationKey['Order amount'])}
-                labelClasses={classNames.orderTitle}
-                containerClasses={classNames.field}
+                labelClasses={styles.orderTitle}
+                containerClasses={styles.field}
                 inputComponent={
-                  <Typography className={classNames.orderText}>
+                  <Typography className={styles.orderText}>
                     {toFixedWithDollarSign(formFields.totalPrice, 2)}
                   </Typography>
                 }
               />
             </div>
 
-            <div className={classNames.orderItemWrapper}>
-              <Typography className={classNames.orderTitle}>{'item'}</Typography>
-              <Typography className={classNames.orderText}>{updatedOrder.item || '-'}</Typography>
+            <div className={styles.orderItemWrapper}>
+              <Typography className={styles.orderTitle}>{'item'}</Typography>
+              <Typography className={styles.orderText}>{updatedOrder.item || '-'}</Typography>
             </div>
 
-            <div className={classNames.orderItemWrapper}>
-              <Typography className={classNames.orderTitle}>{t(TranslationKey.Created)}</Typography>
-              <Typography className={classNames.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            <div className={styles.orderItemWrapper}>
+              <Typography className={styles.orderTitle}>{t(TranslationKey.Created)}</Typography>
+              <Typography className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
             </div>
           </div>
         </div>
 
         <Divider orientation={'horizontal'} />
 
-        <div className={classNames.panelsWrapper}>
+        <div className={styles.panelsWrapper}>
           <LeftPanel
             isCanChange={isOrderEditable}
             order={updatedOrder}
@@ -192,7 +196,7 @@ export const OrderContent = ({
             }}
           />
 
-          <Divider orientation={'vertical'} className={classNames.divider} />
+          <Divider orientation={'vertical'} className={styles.divider} />
 
           <DeliveryParameters
             isCanChange={isOrderEditable}
@@ -206,7 +210,7 @@ export const OrderContent = ({
             onChangeField={onChangeField}
           />
 
-          <Divider orientation={'vertical'} className={classNames.divider} />
+          <Divider orientation={'vertical'} className={styles.divider} />
 
           <ExtraOrderInfo
             order={updatedOrder}
@@ -216,7 +220,7 @@ export const OrderContent = ({
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
             onClickCancelOrder && (
               <Button
@@ -225,23 +229,23 @@ export const OrderContent = ({
                   updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                   t(TranslationKey['Cancel order, refund of frozen funds'])
                 }
-                className={cx(classNames.button, classNames.cancelBtn)}
+                className={cx(styles.button, styles.cancelBtn)}
                 onClick={onClickCancelOrder}
               >
                 {t(TranslationKey['Cancel order'])}
               </Button>
             )}
           {isClient && isOrderEditable ? (
-            <div className={classNames.btnsSubWrapper}>
+            <div className={styles.btnsSubWrapper}>
               {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-                <Button success className={classNames.button} onClick={onClickReorder}>
+                <Button success className={styles.button} onClick={onClickReorder}>
                   {t(TranslationKey['To order'])}
                 </Button>
               )}
 
               <Button
                 disabled={disabledSaveSubmit}
-                className={classNames.button}
+                className={styles.button}
                 onClick={() => {
                   onSubmitSaveOrder(
                     {
@@ -261,19 +265,19 @@ export const OrderContent = ({
           ) : null}
         </div>
 
-        <div className={classNames.suppliersWrapper}>
-          <Typography className={classNames.supplierTitle}>{t(TranslationKey['List of suppliers'])}</Typography>
+        <div className={styles.suppliersWrapper}>
+          <Typography className={styles.supplierTitle}>{t(TranslationKey['List of suppliers'])}</Typography>
 
-          <div className={classNames.supplierButtonWrapper}>
+          <div className={styles.supplierButtonWrapper}>
             <Button
               disabled={!selectedSupplier}
               tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-              className={classNames.iconBtn}
+              className={styles.iconBtn}
               onClick={onTriggerAddOrEditSupplierModal}
             >
               <VisibilityOutlinedIcon />
             </Button>
-            <Typography className={classNames.supplierButtonText}>
+            <Typography className={styles.supplierButtonText}>
               {t(TranslationKey['Open the parameters supplier'])}
             </Typography>
           </div>
@@ -288,11 +292,11 @@ export const OrderContent = ({
           />
         </div>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <Text
             tooltipInfoContent={t(TranslationKey['All boxes received/received by the prep center on order'])}
-            className={classNames.tableText}
-            containerClasses={classNames.container}
+            className={styles.tableText}
+            containerClasses={styles.container}
           >
             {t(TranslationKey['Boxes to order'])}
           </Text>
@@ -306,11 +310,12 @@ export const OrderContent = ({
               mainProductId={updatedOrder.product._id}
               volumeWeightCoefficient={volumeWeightCoefficient}
               userInfo={userInfo}
+              setCurrentOpenedBox={setCurrentOpenedBox}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
           ) : (
-            <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
+            <Typography className={styles.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
           )}
         </div>
 

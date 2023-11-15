@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
-    width: '586px',
-    minHeight: '168px',
+    width: 600,
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -74,5 +74,9 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'space-between',
       gap: '30px',
     },
+  },
+
+  uploadFilesInput: {
+    paddingRight: 10,
   },
 }))

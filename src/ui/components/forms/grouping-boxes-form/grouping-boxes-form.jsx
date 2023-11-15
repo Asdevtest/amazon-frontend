@@ -1,379 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Link, Radio, Typography } from '@mui/material'
-
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Field } from '@components/shared/field'
-import { Input } from '@components/shared/input'
 import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './grouping-boxes-form.style'
 
-const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
-  const { classes: classNames } = useClassNames()
-
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
-  const weightSizesType = getWeightSizesType(sizeSetting)
-
-  return (
-    <div className={classNames.demensionsWrapper}>
-      <Typography className={classNames.standartText}>
-        {t(TranslationKey.Length) + ': '}
-
-        {toFixed(orderBox.lengthCmWarehouse / lengthConversion, 2)}
-      </Typography>
-      <Typography className={classNames.standartText}>
-        {t(TranslationKey.Width) + ': '}
-        {toFixed(orderBox.widthCmWarehouse / lengthConversion, 2)}
-      </Typography>
-      <Typography className={classNames.standartText}>
-        {t(TranslationKey.Height) + ': '}
-        {toFixed(orderBox.heightCmWarehouse / lengthConversion, 2)}
-      </Typography>
-
-      <Typography className={classNames.standartText}>
-        {t(TranslationKey.Weight) + ': '}
-        {toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2) || 0}
-        {' ' + weightSizesType}
-      </Typography>
-
-      <Typography className={classNames.standartText}>
-        {t(TranslationKey['Volume weight']) + ': '}
-        {toFixed(orderBox.volumeWeightKgWarehouse / weightConversion, 2) || 0}
-        {' ' + weightSizesType}
-      </Typography>
-
-      <Typography
-        className={cx(classNames.standartText, {
-          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion,
-        })}
-      >
-        {t(TranslationKey['Final weight']) + ': '}
-        {toFixed(orderBox.weightFinalAccountingKgWarehouse / weightConversion, 2) || 0}
-        {' ' + weightSizesType}
-      </Typography>
-
-      {orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion ? (
-        <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
-          totalWeightConversion,
-          2,
-        )} ${weightSizesType}!`}</span>
-      ) : null}
-    </div>
-  )
-}
-
-const Box = ({
-  isNewBox,
-  isActiveOneBox,
-  destinations,
-  box,
-  onChangeField,
-  onRemoveBox,
-  index,
-  basicBox,
-  onClickBasicBoxRadio,
-}) => {
-  const { classes: classNames } = useClassNames()
-
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
-
-  useEffect(() => {
-    if (isActiveOneBox) {
-      onClickBasicBoxRadio(box)
-    }
-  }, [isActiveOneBox])
-
-  return (
-    <div className={classNames.box}>
-      {!isNewBox && (
-        <div className={classNames.headerWrapper}>
-          {/* <Typography className={classNames.boxNum}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography> */}
-
-          <div className={classNames.radioWrapper}>
-            {(basicBox?._id === box._id || !basicBox) && (
-              <Radio checked={box._id === basicBox?._id || isActiveOneBox} onClick={() => onClickBasicBoxRadio(box)} />
-            )}
-
-            <Typography className={classNames.standartText}>{t(TranslationKey['Basic box'])}</Typography>
-          </div>
-        </div>
-      )}
-
-      <div className={classNames.orderWrapper}>
-        <div className={classNames.boxHeaderWrapper}>
-          <div className={classNames.iconWrapperAndboxNum}>
-            {box.amount > 1 ? (
-              <div className={classNames.iconWrapper}>
-                <img src="/assets/icons/mini-box.svg" />
-                <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
-              </div>
-            ) : (
-              <div className={cx(classNames.iconWrapper, classNames.standartIconWrapper)}>
-                <img src="/assets/icons/mini-box.svg" />
-                <Typography className={cx(classNames.iconText, classNames.standartText)}>{'Box'}</Typography>
-              </div>
-            )}
-
-            <Typography className={classNames.boxNum}>{`№ ${box.humanFriendlyId || '-'}`}</Typography>
-          </div>
-
-          <Field
-            oneLine
-            disabled={!isNewBox}
-            label={t(TranslationKey['Boxes in group']) + ':'}
-            inputProps={{ maxLength: 5 }}
-            // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-            containerClasses={classNames.amountField}
-            className={classNames.orderInput}
-            labelClasses={[classNames.label, classNames.amountLabel]}
-            value={box.amount}
-            onChange={e => onChangeField(e, 'amount', index)}
-          />
-        </div>
-
-        {box.items.map((order, orderIndex) => (
-          <div key={`box_${box._id}_${orderIndex}`} /* className={classNames.orderWrapper}*/>
-            <div key={orderIndex} className={classNames.order}>
-              <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
-              <div>
-                <div className={classNames.asinWrapper}>
-                  <Typography className={classNames.asinTitle}>{`${t(TranslationKey.Order)} / item`}</Typography>
-                  <Typography className={classNames.asinValue}>{`${order.order.id} / ${
-                    Number(order.order.item) ? order.order.item : '-'
-                  }`}</Typography>
-                </div>
-
-                <div className={classNames.asinWrapper}>
-                  <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                  <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
-
-                  {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
-                </div>
-
-                <div className={classNames.asinWrapper}>
-                  <Typography className={classNames.asinTitle}>{t(TranslationKey.SKU)}</Typography>
-                  <Typography className={classNames.asinValue}>
-                    {order.product.skusByClient?.length ? order.product.skusByClient[0] : '-'}
-                  </Typography>
-
-                  {order.product.skusByClient?.length ? <CopyValue text={order.product.skusByClient[0]} /> : null}
-                </div>
-
-                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-
-                <Field
-                  oneLine
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey.BarCode)}
-                  inputComponent={
-                    <div className={classNames.barCodeWrapper}>
-                      {order.barCode ? (
-                        <div className={classNames.barCode}>
-                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.barCode)}>
-                            <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                          </Link>
-
-                          <CopyValue text={order.barCode} />
-                        </div>
-                      ) : (
-                        <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
-                      )}
-                    </div>
-                  }
-                />
-              </div>
-
-              <div>
-                {/* <Field
-                  disabled={!isNewBox}
-                  label={t(TranslationKey['Boxes in group'])}
-                  containerClasses={classNames.field}
-                  className={classNames.orderInput}
-                  labelClasses={classNames.label}
-                  value={box.amount}
-                  onChange={e => onChangeField(e, 'amount', index)}
-                /> */}
-
-                <Field
-                  disabled
-                  containerClasses={classNames.field}
-                  label={t(TranslationKey.Quantity)}
-                  className={classNames.orderInput}
-                  labelClasses={[classNames.label, classNames.quantityLabel]}
-                  value={order.amount}
-                  tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                />
-
-                <Field
-                  disabled
-                  containerClasses={classNames.field}
-                  label={t(TranslationKey['Quantity in group'])}
-                  className={classNames.orderInput}
-                  labelClasses={[classNames.label, classNames.quantityLabel]}
-                  value={order.amount * box.amount}
-                  // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-        {showFullCard ? (
-          <div className={classNames.itemSubWrapper}>
-            <div>
-              <div className={classNames.sizesTitleWrapper}>
-                <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
-
-                <div>
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    switcherSettings={[
-                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                    ]}
-                    changeConditionHandler={condition => setSizeSetting(condition)}
-                  />
-                </div>
-              </div>
-
-              <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
-            </div>
-            <div>
-              <Field
-                containerClasses={classNames.field}
-                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
-                label={t(TranslationKey.Destination)}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Typography className={classNames.standartText}>
-                    {destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])}
-                  </Typography>
-                }
-              />
-
-              <Field
-                containerClasses={classNames.field}
-                tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-                label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Typography className={classNames.standartText}>{`${
-                    box.storekeeper?.name
-                  } / ${getFullTariffTextForBoxOrOrder(box)}`}</Typography>
-                }
-              />
-
-              <Field
-                inputProps={{ maxLength: 255 }}
-                tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                containerClasses={classNames.field}
-                labelClasses={classNames.label}
-                className={classNames.fieldInput}
-                label={t(TranslationKey['FBA Shipment'])}
-                value={box.fbaShipment}
-                inputComponent={
-                  <Typography className={classNames.standartText}>
-                    {box.fbaShipment || t(TranslationKey.Missing)}
-                  </Typography>
-                }
-              />
-
-              <Field
-                label={t(TranslationKey['Shipping label']) + ':'}
-                tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <>
-                    {box.shippingLabel ? (
-                      <div className={classNames.barCode}>
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                          <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-
-                        <CopyValue text={box.shippingLabel} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
-                    )}
-                  </>
-                }
-              />
-
-              {!isNewBox && (
-                <Field
-                  inputProps={{ maxLength: 255 }}
-                  containerClasses={classNames.field}
-                  labelClasses={classNames.label}
-                  className={classNames.fieldInput}
-                  label={'Prep ID'}
-                  value={box.fbaShipment}
-                  inputComponent={
-                    <div className={classNames.prepIdWrapper}>
-                      <Typography className={classNames.standartText}>
-                        {box.prepId || t(TranslationKey.Missing)}
-                      </Typography>
-                      {box.prepId && <CopyValue text={box.prepId} />}
-                    </div>
-                  }
-                />
-              )}
-            </div>
-          </div>
-        ) : null}
-
-        <div className={classNames.bottomBlockWrapper}>
-          <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
-            <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-          </IconButton>
-          {isNewBox && (
-            <div className={classNames.prepId}>
-              <Typography>Prep ID</Typography>
-              <Input value={box.prepId || ''} onChange={e => onChangeField(e, 'prepId', index)} />
-            </div>
-          )}
-          <div className={classNames.incomingBtnWrapper}>
-            <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-              <Typography className={classNames.tablePanelViewText}>
-                {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
-
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { Box } from './box/box'
 
 export const GroupingBoxesForm = observer(
   ({ destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes }) => {
@@ -511,7 +154,6 @@ export const GroupingBoxesForm = observer(
       !basicBox ||
       (basicBox && leftToRedistribute !== 0) ||
       JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort()) ||
-      // Новое условие для блокировки кнопки
       newBoxes.some(box => box.amount === 0) ||
       selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
@@ -519,22 +161,18 @@ export const GroupingBoxesForm = observer(
       <div className={classNames.root}>
         <div className={classNames.modalTitleWrapper}>
           <div className={classNames.modalTitleSubWrapper}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Group boxes'])}</Typography>
+            <p className={classNames.modalTitle}>{t(TranslationKey['Group boxes'])}</p>
 
             <div className={classNames.iconWrapper}>
               <img src="/assets/icons/mini-box.svg" />
-              <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
+              <p className={classNames.iconText}>{'SuperBox'}</p>
             </div>
           </div>
 
           <div className={classNames.leftToRedistributeWrapper}>
-            <Typography className={classNames.leftToRedistribute}>
-              {t(TranslationKey['Left to redistribute']) + ':'}
-            </Typography>
+            <p className={classNames.leftToRedistribute}>{t(TranslationKey['Left to redistribute']) + ':'}</p>
 
-            <Typography className={classNames.leftToRedistributeCount}>
-              {basicBox ? leftToRedistribute : '-'}
-            </Typography>
+            <p className={classNames.leftToRedistributeCount}>{basicBox ? leftToRedistribute : '-'}</p>
 
             <img src="/assets/icons/mini-box.svg" />
           </div>
@@ -561,37 +199,29 @@ export const GroupingBoxesForm = observer(
           </div>
 
           <div className={classNames.newBoxes}>
-            {
-              /* newBoxes.length && */ basicBox ? (
-                <div className={classNames.newBoxesWrapper}>
-                  {newBoxes.map((box, boxIndex) => (
-                    <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
-                      <Box
-                        isNewBox
-                        destinations={destinations}
-                        index={boxIndex}
-                        box={box}
-                        onChangeField={onChangeField}
-                        onRemoveBox={onRemoveNewBox}
-                      />
-                    </div>
-                  ))}
-                  <BigPlusIcon className={classNames.bigPlus} onClick={onClickAddBox} />
-                </div>
-              ) : (
-                <Typography className={classNames.needChooseMainBox}>
-                  {t(TranslationKey['Select the basic box'])}
-                </Typography>
-              )
-            }
+            {basicBox ? (
+              <div className={classNames.newBoxesWrapper}>
+                {newBoxes.map((box, boxIndex) => (
+                  <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
+                    <Box
+                      isNewBox
+                      destinations={destinations}
+                      index={boxIndex}
+                      box={box}
+                      onChangeField={onChangeField}
+                      onRemoveBox={onRemoveNewBox}
+                    />
+                  </div>
+                ))}
+                <BigPlusIcon className={classNames.bigPlus} onClick={onClickAddBox} />
+              </div>
+            ) : (
+              <p className={classNames.needChooseMainBox}>{t(TranslationKey['Select the basic box'])}</p>
+            )}
           </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          {/* <Button disabled={!basicBox} className={classNames.button} onClick={onClickAddBox}>
-            {t(TranslationKey['Add a box'])}
-          </Button> */}
-
           <Button disabled={disabledSubmitBtn} className={classNames.button} onClick={onClickSubmit}>
             {t(TranslationKey.Grouping)}
           </Button>

@@ -14,7 +14,7 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -208,8 +208,8 @@ const Box = observer(
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
-                      : t(TranslationKey['Sizes from storekeeper:'])
-                    : t(TranslationKey['Sizes from storekeeper:'])}
+                      : `${t(TranslationKey['Sizes from storekeeper'])}:`
+                    : `${t(TranslationKey['Sizes from storekeeper'])}:`}
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
@@ -539,7 +539,7 @@ const Box = observer(
                       label={t(TranslationKey['Track number'])}
                       labelClasses={classNames.label}
                       inputComponent={
-                        <Tooltip title={box.trackNumberText}>
+                        <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                           <Typography className={classNames.trackNum}>
                             {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                               t(TranslationKey['Not available'])}
@@ -620,7 +620,7 @@ const Box = observer(
                     label={t(TranslationKey['Track number'])}
                     labelClasses={classNames.label}
                     inputComponent={
-                      <Tooltip title={box.trackNumberText}>
+                      <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                         <Typography className={classNames.trackNum}>
                           {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                             t(TranslationKey['Not available'])}
@@ -693,7 +693,7 @@ const Box = observer(
                       !box.lengthCmWarehouse ||
                       !box.heightCmWarehouse
                     }
-                    className={classNames.applyAllBtn}
+                    className={classNames.editBtn}
                     onClick={() => {
                       onClickApplyAllBtn(box)
                     }}

@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { Container, Link, Typography } from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,11 +12,6 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {Button} from '@components/buttons/button'
-// import {Field} from '@components/field'
-// import {checkIsPositiveNum} from '@utils/checks'
-// import {t} from '@utils/translations'
 import { useClassNames } from './add-suppliers-modal.style'
 
 import Template from './template.xlsx'
@@ -27,7 +22,7 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
   const [images, setImages] = useState('')
 
   return (
-    <Container disableGutters className={classNames.root}>
+    <div className={classNames.root}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Adding a list of suppliers'])}</Typography>
       <div className={classNames.linkWrapper}>
         <Typography>{t(TranslationKey['For easier completion'])}</Typography>
@@ -55,6 +50,6 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={`${t(TranslationKey['Loading data'])}...`} />
       )}
-    </Container>
+    </div>
   )
 }

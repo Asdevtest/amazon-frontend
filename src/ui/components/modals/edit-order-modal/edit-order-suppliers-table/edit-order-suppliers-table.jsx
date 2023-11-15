@@ -144,7 +144,7 @@ export const EditOrderSuppliersTable = observer(
                     <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                   </TableCell>
                   <TableCell>
-                    <PhotoAndFilesSlider smallSlider small files={supplier.images} />
+                    <PhotoAndFilesSlider smallSlider showPreviews files={supplier.images} />
                   </TableCell>
                   <TableCell className={classNames.alignCenter}>
                     <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />

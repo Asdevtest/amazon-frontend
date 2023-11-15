@@ -1,24 +1,16 @@
-export interface IMasterUser {
+import { IUploadFile } from './upload-file'
+
+export interface IShortUser {
   _id: string
   name: string
   rating: number
-}
-
-export interface CreatedBy {
-  name: string
-  _id: string
-  rating: number
-}
-
-export interface linksToMediaFilesInterface {
-  file: File
-  data_url: string
+  lastSeen: string
 }
 
 export interface IService {
-  createdBy: CreatedBy
+  createdBy: IShortUser
   createdAt: string
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
+  linksToMediaFiles: Array<string | IUploadFile>
   requests: Array<Requests>
   type: number
   description: string
@@ -28,7 +20,7 @@ export interface IService {
 }
 
 export interface Requests {
-  createdBy: CreatedBy
+  createdBy: IShortUser
   humanFriendlyId: number
   price: number
   status: string

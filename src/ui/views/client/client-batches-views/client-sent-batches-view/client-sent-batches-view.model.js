@@ -23,30 +23,11 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const filtersFields = [
-  'asin',
-  'amazonTitle',
-  'title',
-  'destination',
-  'humanFriendlyId',
-  'storekeeper',
-  'logicsTariff',
-  'finalWeight',
-  'deliveryTotalPrice',
-  'totalPrice',
-  'etd',
-  'eta',
-  'cls',
-  'updatedAt',
-  'amount',
-  'trackingNumber',
-  'arrivalDate',
-]
+import { filtersFields } from './client-sent-batches-view.constants'
 
 export class ClientSentBatchesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
   batches = []
@@ -121,33 +102,22 @@ export class ClientSentBatchesViewModel {
   }
 
   constructor({ history }) {
-    // console.log('history', history)
-    // console.log('location', location)
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     if (history.location.state) {
-      runInAction(() => {
-        this.isArchive = history.location.state.isArchive
-      })
+      this.isArchive = history.location.state.isArchive
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.batches,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
   onTriggerArchive() {
-    runInAction(() => {
-      this.selectedBatches = []
-    })
+    this.selectedBatches = []
 
     this.isArchive
       ? this.history.push('/client/batches/sent-batches', { isArchive: !this.isArchive })
@@ -155,18 +125,14 @@ export class ClientSentBatchesViewModel {
   }
 
   onClickTriggerArchOrResetProducts() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: this.isArchive ? false : true,
-        confirmTitle: this.isArchive
-          ? t(TranslationKey['Return to actual batches'])
-          : t(TranslationKey['Move a batch']),
-        confirmMessage: this.isArchive
-          ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
-          : t(TranslationKey['After confirmation, the batch will be moved to the archive. Move?']),
-        onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: this.isArchive ? false : true,
+      confirmTitle: this.isArchive ? t(TranslationKey['Return to actual batches']) : t(TranslationKey['Move a batch']),
+      confirmMessage: this.isArchive
+        ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
+        : t(TranslationKey['After confirmation, the batch will be moved to the archive. Move?']),
+      onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -210,56 +176,43 @@ export class ClientSentBatchesViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-    this.setDataGridState()
+    this.filterModel = model
 
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBatches = model
-    })
+    this.selectedBatches = model
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   async onClickSaveHsCode(hsCode) {
@@ -310,11 +263,8 @@ export class ClientSentBatchesViewModel {
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
-    runInAction(() => {
-      this.selectedBatches = []
-
-      this.currentStorekeeperId = currentStorekeeperId
-    })
+    this.selectedBatches = []
+    this.currentStorekeeperId = currentStorekeeperId
 
     this.getBatchesPagMy()
   }
@@ -322,9 +272,11 @@ export class ClientSentBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getStorekeepers()
+
       this.getDataGridState()
-      await this.getBatchesPagMy()
+      this.getStorekeepers()
+      this.getBatchesPagMy()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -334,7 +286,9 @@ export class ClientSentBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
@@ -372,18 +326,17 @@ export class ClientSentBatchesViewModel {
     try {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-        options: {
-          limit: this.paginationModel.pageSize,
-          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          archive: this.isArchive,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        archive: this.isArchive,
 
-          filters: this.getFilter(),
-          storekeeperId: this.currentStorekeeperId,
-        },
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilter(),
+        storekeeperId: this.currentStorekeeperId,
       })
 
       const res = await UserModel.getPlatformSettings()
@@ -404,9 +357,7 @@ export class ClientSentBatchesViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getBatchesPagMy()
   }
@@ -418,9 +369,6 @@ export class ClientSentBatchesViewModel {
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -429,9 +377,6 @@ export class ClientSentBatchesViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -444,9 +389,7 @@ export class ClientSentBatchesViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   changeViewModeHandler(value) {
@@ -475,50 +418,43 @@ export class ClientSentBatchesViewModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getBatchesPagMy()
     this.getDataGridState()

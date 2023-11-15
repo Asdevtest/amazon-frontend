@@ -5,8 +5,7 @@ import ImageUploading from 'react-images-uploading-alex76457-version'
 import AddIcon from '@material-ui/icons/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { Avatar, Box, Grid, InputAdornment, Typography } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
+import { Avatar, InputAdornment, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,12 +17,9 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './upload-files-input.style'
+import { useStyles } from './upload-files-input.style'
 
-const regExpUriChecking =
-  /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i
-
-const maxSizeInBytes = 15728640 * 3
+import { maxSizeInBytes, regExpUriChecking } from './upload-files-input.constants'
 
 export const UploadFilesInput = observer(props => {
   const {
@@ -40,7 +36,6 @@ export const UploadFilesInput = observer(props => {
     dragAndDropBtnHeight = undefined,
     withComment = false,
     maxHeight = undefined,
-    oneLineMaxHeight = false,
     сontainerStyles = '',
     filesLength = undefined,
     imageListWrapperStyles = undefined,
@@ -51,7 +46,7 @@ export const UploadFilesInput = observer(props => {
     withoutDragAndDropTitle = false,
   } = props
 
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [linkInput, setLinkInput] = useState('')
 
@@ -123,19 +118,10 @@ export const UploadFilesInput = observer(props => {
   }
 
   const renderImageInfo = (img, imgName) => (
-    <div className={classNames.tooltipWrapper}>
-      <Avatar
-        variant="square"
-        alt={imgName}
-        src={img ? img : '/assets/icons/file.png'}
-        className={classNames.tooltipImg}
-      />
+    <div className={styles.tooltipWrapper}>
+      <Avatar variant="square" alt={imgName} src={img ? img : '/assets/icons/file.png'} className={styles.tooltipImg} />
 
-      {typeof img === 'string' ? (
-        <Typography className={classNames.linkTypo}>{imgName}</Typography>
-      ) : (
-        <Typography className={classNames.tooltipText}>{imgName}</Typography>
-      )}
+      <p className={styles.tooltipText}>{imgName}</p>
     </div>
   )
 
@@ -153,231 +139,174 @@ export const UploadFilesInput = observer(props => {
 
   return (
     SettingsModel.languageTag && (
-      <div>
-        <ImageUploading
-          multiple
-          acceptType={acceptType}
-          value={withComment ? images?.map(el => el?.file) : images}
-          maxNumber={maxNumber}
-          dataURLKey="data_url"
-          maxFileSize={maxSizeInBytes}
-          onChange={onChange}
-        >
-          {({
-            imageList,
-            onImageUpload,
-            onImageRemoveAll,
-            onImageUpdate,
-            onImageRemove,
-            isDragging,
-            dragProps,
-            errors,
-          }) => (
-            <div className={cx(classNames.mainWrapper, { [classNames.oneLineMainWrapper]: oneLine })}>
-              {errors?.maxNumber && (
-                <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
-              )}
+      <ImageUploading
+        multiple
+        acceptType={acceptType}
+        value={withComment ? images?.map(el => el?.file) : images}
+        maxNumber={maxNumber}
+        dataURLKey="data_url"
+        maxFileSize={maxSizeInBytes}
+        onChange={onChange}
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps,
+          errors,
+        }) => (
+          <div className={cx(styles.mainWrapper, { [styles.oneLineMainWrapper]: oneLine })}>
+            {errors?.maxNumber && <p className={styles.errorText}>{t(TranslationKey['You cannot load more!'])}</p>}
 
-              <Box className={classNames.mainSubWrapper} sx={{ maxWidth: fullWidth ? 'unset' : 'max-content' }}>
-                <div className={cx({ [classNames.controlsWrapper]: minimized && !withoutLinks })}>
-                  {!withoutLinks && (
-                    <Field
-                      tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
-                      label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
-                      labelClasses={classNames.label}
-                      error={linkInputError && t(TranslationKey['Invalid link!'])}
-                      containerClasses={cx(сontainerStyles)}
-                      inputComponent={
-                        <div className={classNames.amazonLinkWrapper}>
-                          <Input
-                            disabled={disabled}
-                            placeholder={t(TranslationKey.Link)}
-                            classes={{
-                              root: cx(classNames.loadImageInput, { [classNames.loadImageInputSmall]: requestWidth }),
-                              input: classNames.inputColor,
-                            }}
-                            value={linkInput}
-                            onChange={e => onChangeLinkInput(e.target.value)}
-                            onPaste={onPasteFiles}
-                          />
+            <div className={cx(styles.mainSubWrapper, { [styles.fullWidth]: fullWidth })}>
+              <div className={cx({ [styles.controlsWrapper]: minimized && !withoutLinks })}>
+                {!withoutLinks && (
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
+                    label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
+                    labelClasses={styles.label}
+                    error={linkInputError && t(TranslationKey['Invalid link!'])}
+                    containerClasses={сontainerStyles}
+                    inputComponent={
+                      <div className={styles.amazonLinkWrapper}>
+                        <Input
+                          disabled={disabled}
+                          placeholder={t(TranslationKey.Link)}
+                          classes={{
+                            root: cx(styles.loadImageInput, { [styles.loadImageInputSmall]: requestWidth }),
+                            input: styles.inputColor,
+                          }}
+                          value={linkInput}
+                          onChange={e => onChangeLinkInput(e.target.value)}
+                          onPaste={onPasteFiles}
+                        />
 
-                          <Button
-                            disableElevation
-                            tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
-                            disabled={linkInput === '' || images?.length >= maxNumber}
-                            className={classNames.loadBtn}
-                            onClick={() => onClickLoadBtn()}
-                          >
-                            {t(TranslationKey.Load)}
-                          </Button>
-                        </div>
-                      }
-                    />
-                  )}
-
-                  {!minimized && !withoutLinks && !withoutDragAndDropTitle && (
-                    <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography>
-                  )}
-
-                  <button
-                    disabled={disabled}
-                    className={cx(classNames.dragAndDropBtn, {
-                      [classNames.dragingOnDropBtn]: isDragging,
-                      [classNames.minimizedDragAndDropBtn]: minimized,
-                      [classNames.oneLineDADBtn]: minimized && !withoutLinks,
-                    })}
-                    style={dragAndDropBtnHeight && { height: dragAndDropBtnHeight }}
-                    onClick={onImageUpload}
-                    {...dragProps}
-                  >
-                    {minimized && (
-                      <>
-                        {addFilesButtonTitle || t(TranslationKey['Add photo'])}
-                        <AddIcon className={classNames.icon} />
-                      </>
-                    )}
-                    {!minimized && t(TranslationKey['Click or Drop here'])}
-                    <input className={classNames.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
-                  </button>
-                </div>
-
-                {!isNotShowActionsBtns && (
-                  <div className={classNames.actionBtnsWrapper}>
-                    <Button
-                      disabled={images?.length === 0}
-                      className={classNames.buttonSecondary}
-                      onClick={() => setShowImages(!showImages)}
-                    >
-                      {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-                    </Button>
-                    <Typography className={classNames.imagesCount}>
-                      {
-                        <span className={classNames.imagesCountSpan}>{`${images?.length ?? 0}/${
-                          maxNumber - ((filesLength && filesLength) ?? 0)
-                        }`}</span>
-                      }
-                      {` ${t(TranslationKey.files)}`}
-                    </Typography>
-                    <Button
-                      disabled={images?.length === 0}
-                      className={classNames.buttonSecondary}
-                      onClick={onImageRemoveAll}
-                    >
-                      {t(TranslationKey['Remove all'])}
-                    </Button>
-                  </div>
+                        <Button
+                          disableElevation
+                          tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
+                          disabled={linkInput === '' || images?.length >= maxNumber}
+                          className={styles.loadBtn}
+                          onClick={() => onClickLoadBtn()}
+                        >
+                          {t(TranslationKey.Load)}
+                        </Button>
+                      </div>
+                    }
+                  />
                 )}
-              </Box>
 
-              {showImages && (
-                <Grid
-                  container
-                  className={cx(classNames.imageListWrapper, imageListWrapperStyles, {
-                    [classNames.oneLineMaxHeight]: oneLineMaxHeight,
+                {!minimized && !withoutLinks && !withoutDragAndDropTitle && (
+                  <p className={styles.attachFiles}>{t(TranslationKey['Attach files'])}</p>
+                )}
+
+                <button
+                  disabled={disabled}
+                  className={cx(styles.dragAndDropBtn, {
+                    [styles.dragingOnDropBtn]: isDragging,
+                    [styles.minimizedDragAndDropBtn]: minimized,
+                    [styles.oneLineDADBtn]: minimized && !withoutLinks,
                   })}
-                  style={maxHeight && { maxHeight }}
-                  justifyContent="flex-start"
-                  spacing={2}
+                  style={dragAndDropBtnHeight && { height: dragAndDropBtnHeight }}
+                  onClick={onImageUpload}
+                  {...dragProps}
                 >
-                  {imageList.map((image, index) =>
-                    typeof image === 'string' ? (
-                      <Grid key={index} item>
-                        <div className={classNames.imageLinkListItem}>
-                          <Tooltip title={renderImageInfo(image, image)} classes={{ popper: classNames.imgTooltip }}>
-                            <Avatar className={classNames.image} src={image} alt={image} variant="square" />
-                          </Tooltip>
-
-                          {withComment && (
-                            <Input
-                              multiline
-                              inputProps={{ maxLength: 64 }}
-                              startAdornment={
-                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
-                                  <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
-                                </InputAdornment>
-                              }
-                              placeholder={'Title'}
-                              maxRows={3}
-                              variant="filled"
-                              className={classNames.imageObjInput}
-                              classes={{ input: classNames.subImageObjInput }}
-                              value={images[index]?.comment}
-                              onChange={onChangeComment(index)}
-                            />
-                          )}
-
-                          <div className={classNames.actionIconsWrapper}>
-                            <AutorenewIcon
-                              className={classNames.actionIcon}
-                              fontSize="small"
-                              onClick={() => onImageUpdate(index)}
-                            />
-
-                            <HighlightOffIcon
-                              className={classNames.actionIcon}
-                              fontSize="small"
-                              onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
-                            />
-                          </div>
-                        </div>
-                      </Grid>
-                    ) : (
-                      <Grid key={index} item>
-                        <div className={classNames.imageLinkListItem /* imageListItem */}>
-                          <Tooltip
-                            title={renderImageInfo(image?.data_url, image?.file.name)}
-                            classes={{ popper: classNames.imgTooltip }}
-                          >
-                            <Avatar
-                              className={classNames.image}
-                              src={image?.file.type.includes('image') ? image?.data_url : '/assets/icons/file.png'}
-                              alt={image?.file.name}
-                              variant="square"
-                            />
-                          </Tooltip>
-
-                          {withComment && (
-                            <Input
-                              multiline
-                              inputProps={{ maxLength: 64 }}
-                              startAdornment={
-                                <InputAdornment position="start" className={classNames.inputIndexWrapper}>
-                                  <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
-                                </InputAdornment>
-                              }
-                              placeholder={'Title'}
-                              maxRows={3}
-                              variant="filled"
-                              className={classNames.imageObjInput}
-                              classes={{ input: classNames.subImageObjInput }}
-                              value={images[index]?.comment}
-                              onChange={onChangeComment(index)}
-                            />
-                          )}
-
-                          <div className={classNames.actionIconsWrapper}>
-                            <AutorenewIcon
-                              className={classNames.actionIcon}
-                              fontSize="small"
-                              onClick={() => onImageUpdate(index)}
-                            />
-                            <HighlightOffIcon
-                              className={classNames.actionIcon}
-                              // onClick={() => onImageRemove(index)}
-                              fontSize="small"
-                              onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
-                            />
-                          </div>
-                        </div>
-                      </Grid>
-                    ),
+                  {minimized && (
+                    <>
+                      {addFilesButtonTitle || t(TranslationKey['Add photo'])}
+                      <AddIcon />
+                    </>
                   )}
-                </Grid>
+                  {!minimized && t(TranslationKey['Click or Drop here'])}
+                  <input className={styles.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
+                </button>
+              </div>
+
+              {!isNotShowActionsBtns && (
+                <div className={styles.actionBtnsWrapper}>
+                  <Button
+                    disabled={images?.length === 0}
+                    className={styles.buttonSecondary}
+                    onClick={() => setShowImages(!showImages)}
+                  >
+                    {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
+                  </Button>
+                  <p className={styles.imagesCount}>
+                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${
+                      maxNumber - ((filesLength && filesLength) || 0)
+                    }`}</span>
+
+                    {t(TranslationKey.files)}
+                  </p>
+                  <Button disabled={images?.length === 0} className={styles.buttonSecondary} onClick={onImageRemoveAll}>
+                    {t(TranslationKey['Remove all'])}
+                  </Button>
+                </div>
               )}
             </div>
-          )}
-        </ImageUploading>
-      </div>
+
+            {showImages && (
+              <div
+                className={cx(styles.imageListWrapper, imageListWrapperStyles, {
+                  [styles.fullWidth]: fullWidth,
+                })}
+                style={maxHeight && { maxHeight }}
+              >
+                {imageList.map((image, index) => {
+                  const currentImage = typeof image === 'string' ? image : image?.data_url
+                  const currentName = typeof image === 'string' ? image : image?.file.name
+
+                  return (
+                    <div key={index} className={styles.imageLinkListItem}>
+                      <Tooltip
+                        title={renderImageInfo(currentImage, currentName)}
+                        classes={{ popper: styles.imgTooltip }}
+                      >
+                        <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
+                      </Tooltip>
+
+                      {withComment && (
+                        <Input
+                          multiline
+                          inputProps={{ maxLength: 64 }}
+                          startAdornment={
+                            <InputAdornment position="start" className={styles.inputIndexWrapper}>
+                              <p className={styles.inputIndex}>{index + 1 + '.'}</p>
+                            </InputAdornment>
+                          }
+                          placeholder={'Title'}
+                          maxRows={3}
+                          variant="filled"
+                          className={styles.imageObjInput}
+                          classes={{ input: styles.subImageObjInput }}
+                          value={images[index]?.comment}
+                          onChange={onChangeComment(index)}
+                        />
+                      )}
+
+                      <div className={styles.actionIconsWrapper}>
+                        <AutorenewIcon
+                          className={styles.actionIcon}
+                          fontSize="small"
+                          onClick={() => onImageUpdate(index)}
+                        />
+
+                        <HighlightOffIcon
+                          className={styles.actionIcon}
+                          fontSize="small"
+                          onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </ImageUploading>
     )
   )
 })

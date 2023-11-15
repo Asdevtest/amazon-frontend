@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-/* eslint-disable no-unused-vars */
-import { ClassNamesArg, cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,14 +14,14 @@ interface AsinOrSkuLinkProps {
   sku?: string
   withAttributeTitle?: 'asin' | 'sku'
   withCopyValue?: boolean
-  textStyles?: ClassNamesArg
-  missingValueTextStyles?: ClassNamesArg
-  attributeTitleTextStyles?: ClassNamesArg
+  textStyles?: string
+  missingValueTextStyles?: string
+  attributeTitleTextStyles?: string
 }
 
-export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
+export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = React.memo(
   ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, attributeTitleTextStyles, missingValueTextStyles }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
 
     return (
       <div className={classNames.root}>
@@ -47,9 +42,9 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = observer(
             <p className={cx(classNames.valueText, classNames.asinValueText, textStyles)}>{shortAsin(asin)}</p>
           </a>
         ) : sku ? (
-          <p className={cx(classNames.valueText, classNames.skuValueText, textStyles)}>{shortSku(sku)}</p>
+          <p className={cx(classNames.valueText, textStyles)}>{shortSku(sku)}</p>
         ) : (
-          <p className={cx(classNames.missingValueText, missingValueTextStyles)}>{t(TranslationKey.Missing)}</p>
+          <p className={cx(classNames.valueText, missingValueTextStyles)}>{t(TranslationKey.Missing)}</p>
         )}
         {(asin || sku) && withCopyValue && <CopyValue text={asin || sku} />}
       </div>

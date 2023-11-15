@@ -9,8 +9,6 @@ export const roundHalf = num => {
   const dif = roundedNum - Math.trunc(num)
 
   // const haveDoteInEnd = (num + '').slice(-1) === '.'
-  // console.log('num', num)
-  // console.log('haveDoteInEnd', haveDoteInEnd)
 
   // if (dif >= 0.25 && dif < 0.75) {
   //   return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5
@@ -86,17 +84,6 @@ export const getTariffRateForBoxOrOrder = box => {
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>
-  // Math.max(
-  //   parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
-  //   parseFloat(
-  //     isShipping
-  //       ? box.deliveryMass * box.amount
-  //       : box.weighGrossKgWarehouse
-  //       ? box.weighGrossKgWarehouse
-  //       : box.weighGrossKgSupplier,
-  //   ) || 0,
-  // )
-
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
     parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,

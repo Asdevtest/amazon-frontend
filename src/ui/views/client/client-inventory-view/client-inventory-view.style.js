@@ -1,15 +1,47 @@
-export const styles = theme => ({
-  addProductBtnsWrapper: {
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  buttons: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+  },
+
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    width: '330px',
+    height: 36,
   },
 
   btnsWrapper: {
+    marginRight: 10,
     display: 'flex',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
 
-    '& > :not(:first-of-type)': {
-      marginLeft: '30px',
-    },
+  openArchiveBtn: {
+    width: 230,
+    color: theme.palette.primary.main,
+  },
+
+  actionButtonWithPlus: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    minWidth: '180px !important',
+  },
+
+  icon: {
+    width: 16,
+    height: 16,
   },
 
   archiveAddBtn: {
@@ -35,83 +67,10 @@ export const styles = theme => ({
     },
   },
 
-  row: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
-  },
-
-  openArchiveBtn: {
-    width: 230,
-    color: theme.palette.primary.main,
-  },
-
-  button: {
-    marginBottom: 5,
-
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    color: theme.palette.primary.main,
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, .2)',
-    },
-  },
-
-  shopsFiltersWrapper: {
-    display: 'flex',
-    gap: 30,
-    marginBottom: 20,
-  },
-
-  icon: {
-    width: 16,
-    height: 16,
-  },
-
-  simpleBtnsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '20px',
-    paddingRight: '5px',
-  },
-
-  btnWrapperStyle: {
-    height: 40,
-  },
-
-  topHeaderBtnsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  rightAddingBtn: {
-    width: 282,
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'relative',
-    paddingRight: '40px',
-  },
-
-  flexCenterBtn: {
-    justifyContent: 'center',
-  },
-
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '330px',
-    height: 36,
-  },
-
   datagridWrapper: {
     marginTop: '20px',
     height: '75vh',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+    width: '100%',
   },
 
   clickableCell: {
@@ -122,20 +81,6 @@ export const styles = theme => ({
       boxShadow: 'inset 0 0 10px rgba(247, 179, 7, .8)',
       transform: 'scale(0.98)',
     },
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
   },
 
   ideaRowGreen: {
@@ -166,20 +111,7 @@ export const styles = theme => ({
     },
   },
 
-  actionButtonWithPlus: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '9px',
-    minWidth: '180px !important',
-  },
-
-  headerWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
   modalDialogContext: {
     padding: 0,
   },
-})
+}))

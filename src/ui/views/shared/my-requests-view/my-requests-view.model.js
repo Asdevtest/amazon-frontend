@@ -5,49 +5,31 @@ import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS, RequestStatus.EXPIRED]
-
-// const filtersFields = ['status', 'typeTask']
-
-const filtersFields = [
-  'humanFriendlyId',
-  'updatedAt',
-  'status',
-  'title',
-  'typeTask',
-  'price',
-  'timeoutAt',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'createdBy',
-  'sub',
-  'subUsers',
-  'priority',
-  'createdAt',
-  'announcementCreatedBy',
-]
+import { allowStatuses, filtersFields } from './my-requests-view.constants'
 
 export class MyRequestsViewModel {
   history = undefined
   requestStatus = undefined
-  loadTableStatus = undefined
-  error = undefined
 
   showRequestForm = false
   showConfirmModal = false
   showRequestDetailModal = false
+  showConfirmWithCommentModal = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -70,6 +52,16 @@ export class MyRequestsViewModel {
   searchRequests = []
   openModal = null
 
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    smallMessage: '',
+    onSubmit: () => {
+      this.showConfirmModal = false
+      this.showConfirmWithCommentModal = false
+    },
+  }
+
   onListingFiltersData = {
     onListing: true,
     notOnListing: true,
@@ -83,11 +75,11 @@ export class MyRequestsViewModel {
   }
 
   get userInfo() {
-    return UserModel.userInfo || {}
+    return UserModel.userInfo
   }
 
   get languageTag() {
-    return SettingsModel.languageTag || {}
+    return SettingsModel.languageTag
   }
 
   get isSomeFilterOn() {
@@ -134,64 +126,48 @@ export class MyRequestsViewModel {
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      if (location?.state) {
-        this.alertShieldSettings = {
-          showAlertShield: location?.state?.showAcceptMessage,
-          alertShieldMessage: location?.state?.acceptMessage,
-          error: location?.state?.error,
-        }
-
-        const state = { ...history?.location?.state }
-        delete state?.acceptMessage
-        delete state?.showAcceptMessage
-        history.replace({ ...history?.location, state })
+    if (location?.state) {
+      this.alertShieldSettings = {
+        showAlertShield: location?.state?.showAcceptMessage,
+        alertShieldMessage: location?.state?.acceptMessage,
+        error: location?.state?.error,
       }
 
-      this.setDefaultStatuses()
-    })
+      const state = { ...history?.location?.state }
+      delete state?.acceptMessage
+      delete state?.showAcceptMessage
+      history.replace({ ...history?.location, state })
+    }
+
+    this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
-    runInAction(() => {
-      if (this.alertShieldSettings.showAlertShield) {
+    if (this.alertShieldSettings.showAlertShield) {
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
+
         setTimeout(() => {
           this.alertShieldSettings = {
-            ...this.alertShieldSettings,
             showAlertShield: false,
+            alertShieldMessage: '',
           }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
-      }
-    })
+        }, 1000)
+      }, 3000)
+    }
 
     reaction(
       () => this.isRequestsAtWork,
-      () => {
-        this.setDefaultStatuses()
-      },
+      () => this.setDefaultStatuses(),
     )
 
     reaction(
@@ -201,45 +177,32 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.searchRequests,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
-  get user() {
-    return UserModel.userInfo
-  }
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onChangePaginationModel(model) {
+    this.paginationModel = model
 
     this.getCustomRequests()
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
-    runInAction(() => {
-      this.isRequestsAtWork = value
-      this.loadTableStatus = loadingStatuses.loading
-    })
+    this.isRequestsAtWork = value
   }
 
   setDataGridState() {
@@ -267,73 +230,18 @@ export class MyRequestsViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
-    const clientSortColumn = sortModel.find(column => column.field === 'waitedProposals')
-
-    if (clientSortColumn) {
-      const isAscending = clientSortColumn?.sort === 'asc'
-
-      const sortedData = [...this.currentData]?.sort((a, b) => {
-        const valueA = a?.waitedProposals
-        const valueB = b?.waitedProposals
-
-        return isAscending ? valueA - valueB : valueB - valueA
-      })
-
-      runInAction(() => {
-        this.currentData = sortedData
-      })
-
-      this.setDataGridState()
-    } else {
-      this.requestStatus = loadingStatuses.isLoading
-
-      this.getCustomRequests().then(() => {
-        this.requestStatus = loadingStatuses.success
-      })
-    }
+    this.setDataGridState()
+    this.getCustomRequests()
   }
 
   getCurrentData() {
-    // if (this.nameSearchValue) {
     return toJS(this.searchRequests)
-    //     .filter(
-    //       el =>
-    //         el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-    //         el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-    //         el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-    //     )
-    //     .filter(el =>
-    //       this.columnMenuSettings?.status?.currentFilterData?.length
-    //         ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-    //         : el,
-    //     )
-    //     .filter(el =>
-    //       this.columnMenuSettings?.typeTask?.currentFilterData?.length
-    //         ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-    //         : el,
-    //     )
-    // } else {
-    //   return toJS(this.searchRequests).filter(el =>
-    //     this.columnMenuSettings?.status?.currentFilterData?.length
-    //       ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-    //       : el,
-    //   )
-    // .filter(el =>
-    //   this.columnMenuSettings?.typeTask?.currentFilterData?.length
-    //     ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-    //     : el,
-    // )
-    // }
   }
 
   onHoverColumnField(field) {
@@ -345,35 +253,31 @@ export class MyRequestsViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.setDefaultStatuses()
 
@@ -395,13 +299,26 @@ export class MyRequestsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
+      await this.getShops()
       await this.getCustomRequests()
 
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const response = await ShopModel.getMyShopNames()
+
+      runInAction(() => {
+        this.shopsData = response
+      })
+    } catch (error) {
       console.log(error)
     }
   }
@@ -410,15 +327,11 @@ export class MyRequestsViewModel {
     this.history.push(`/client/freelance/my-requests/create-request`)
   }
 
-  onClickEditBtn(row) {
-    runInAction(() => {
-      this.requestFormSettings = {
-        request: row,
-        isEdit: true,
-        onSubmit: (data, requestId) => this.onSubmitEditCustomSearchRequest(data, requestId),
-      }
-    })
-    this.onTriggerOpenModal('showRequestForm')
+  onClickEditBtn() {
+    this.history.push(
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
+      { requestId: this.currentRequestDetails.request._id },
+    )
   }
 
   async onSubmitEditCustomSearchRequest(data, requestId) {
@@ -429,9 +342,6 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -443,62 +353,35 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async editCustomSearchRequest(data, requestId) {
     try {
-      await RequestModel.updateCustomRequest(requestId, data)
+      await RequestModel.editRequest(requestId, data)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getCustomRequests()
   }
 
   async createCustomSearchRequest(data) {
     try {
-      await RequestModel.createCustomSearchRequest(data)
+      await RequestModel.createRequest(data)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.researchIdToRemove = row.request._id
-    })
+    this.researchIdToRemove = row.request._id
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async removeCustomSearchRequest() {
-    try {
-      await RequestModel.removeCustomRequests(this.researchIdToRemove)
-
-      this.onTriggerOpenModal('showConfirmModal')
-
-      this.getCustomRequests()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
   }
 
   async getCustomRequests() {
@@ -510,153 +393,49 @@ export class MyRequestsViewModel {
           ? ''
           : `;uploadedToListing[$eq]=${listingFilters?.onListing}`
 
-      const result = await RequestModel.getRequests(RequestSubType.MY, {
+      const result = await RequestModel.getRequests({
+        kind: RequestSubType.MY,
         filters: this.getFilter() + additionalFilters,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField:
-          this.sortModel?.length && this.sortModel[0]?.field !== 'waitedProposals'
-            ? this.sortModel[0]?.field
-            : 'updatedAt',
+        sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result.rows)
+        this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
 
         this.rowCount = result.count
       })
       this.setRequestStatus(loadingStatuses.success)
-      this.loadTableStatus = loadingStatuses.success
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings?.humanFriendlyId?.currentFilterData?.join(',')
-    const updatedAtFilter =
-      exclusion !== 'updatedAt' && this.columnMenuSettings?.updatedAt?.currentFilterData?.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings?.status?.currentFilterData?.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings?.title?.currentFilterData?.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings?.typeTask?.currentFilterData?.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings?.asin?.currentFilterData?.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings?.price?.currentFilterData?.join(',')
-    const timeoutAtFilter =
-      exclusion !== 'timeoutAt' && this.columnMenuSettings?.timeoutAt?.currentFilterData?.join(',')
-    const subUsersFilter =
-      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-    const subFilter =
-      exclusion !== 'sub' && this.columnMenuSettings?.sub?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings?.skusByClient?.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings?.amazonTitle?.currentFilterData?.map(el => `"${el}"`).join(',')
-
-    const createdByFilter =
-      exclusion !== 'createdBy' &&
-      this.columnMenuSettings?.createdBy?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings?.priority?.currentFilterData?.join(',')
-
-    const createdAtFilter =
-      exclusion !== 'createdAt' && this.columnMenuSettings?.createdAt?.currentFilterData?.join(',')
-
-    const announcementCreatedByFilter =
-      exclusion !== 'announcementCreatedBy' &&
-      this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { title: { $contains: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-      ...(titleFilter && {
-        title: { $eq: titleFilter },
-      }),
-      ...(typeTaskFilter && {
-        typeTask: { $eq: typeTaskFilter },
-      }),
-      ...(priceFilter && {
-        price: { $eq: priceFilter },
-      }),
-      ...(timeoutAtFilter && {
-        timeoutAt: { $eq: timeoutAtFilter },
-      }),
-      ...(createdByFilter && {
-        createdBy: { $eq: createdByFilter },
-      }),
-      ...(subUsersFilter && {
-        subUsers: { $eq: subUsersFilter },
-      }),
-      ...(subFilter && {
-        sub: { $eq: subFilter },
-      }),
-      ...(priorityFilter && {
-        priority: { $eq: priorityFilter },
-      }),
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-
-      ...(announcementCreatedByFilter && {
-        announcementCreatedBy: { $eq: announcementCreatedByFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'title',
+        'humanFriendlyId',
+        'asin',
+      ]),
+    )
   }
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
         `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
-      if (column === 'status') {
-        if (this.columnMenuSettings[column]) {
+      if (this.columnMenuSettings[column]) {
+        if (column === 'status') {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
             [column]: {
@@ -666,24 +445,15 @@ export class MyRequestsViewModel {
                 : data.filter(el => !allowStatuses.includes(el)),
             },
           }
-        }
-      } else {
-        if (this.columnMenuSettings[column]) {
+        } else {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
             [column]: { ...this.columnMenuSettings[column], filterData: data },
           }
         }
       }
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -698,13 +468,20 @@ export class MyRequestsViewModel {
 
       await this.loadData()
 
+      runInAction(() => {
+        this.currentRequestDetails = {
+          ...this.currentRequestDetails,
+          request: {
+            ...this.currentRequestDetails.request,
+            uploadedToListing: !uploadedToListingState,
+          },
+        }
+      })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -716,9 +493,8 @@ export class MyRequestsViewModel {
     } else {
       newSelectedRequests.push(index)
     }
-    runInAction(() => {
-      this.selectedRequests = newSelectedRequests
-    })
+
+    this.selectedRequests = newSelectedRequests
   }
 
   onClickTableRow(item) {
@@ -733,29 +509,23 @@ export class MyRequestsViewModel {
   }
 
   onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.curPage = e
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   handleListingFilters(onListing, notOnListing) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        onListingFiltersData: {
-          ...this.columnMenuSettings.onListingFiltersData,
-          onListing,
-          notOnListing,
-        },
-      }
-      this.getCustomRequests()
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      onListingFiltersData: {
+        ...this.columnMenuSettings.onListingFiltersData,
+        onListing,
+        notOnListing,
+      },
+    }
+    this.getCustomRequests()
   }
 
   async getRequestDetail(id) {
@@ -774,6 +544,10 @@ export class MyRequestsViewModel {
   }
 
   handleOpenRequestDetailModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
     this.getRequestDetail(id).then(() => {
       this.onTriggerOpenModal('showRequestDetailModal')
     })
@@ -782,11 +556,101 @@ export class MyRequestsViewModel {
   onClickOpenInNewTab(id) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
 
     win.focus()
+  }
+
+  // * Request handlers
+
+  async onDeleteRequest() {
+    try {
+      await RequestModel.deleteRequest(this.currentRequestDetails.request._id)
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickCancelBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Delete request?']),
+      onSubmit: () => this.onDeleteRequest(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async toPublishRequest(totalCost) {
+    try {
+      await RequestModel.toPublishRequest(this.currentRequestDetails.request._id, { totalCost })
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickPublishBtn() {
+    try {
+      const result = await RequestModel.calculateRequestCost(this.currentRequestDetails.request._id)
+
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: `${t(TranslationKey['The exact cost of the request will be:'])} ${toFixed(
+            result.totalCost,
+            2,
+          )} $. ${t(TranslationKey['Confirm the publication?'])}`,
+          onSubmit: () => {
+            this.toPublishRequest(result.totalCost)
+            this.confirmModalSettings.message = ''
+          },
+        }
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    await RequestModel.updateDeadline(this.currentRequestDetails.request._id, timeoutAt, maxAmountOfProposals)
+
+    await this.loadData()
+
+    this.onTriggerOpenModal('showRequestDetailModal')
+
+    this.setRequestStatus(loadingStatuses.success)
+  }
+
+  onClickAbortBtn() {
+    this.onTriggerOpenModal('showConfirmWithCommentModal')
+  }
+
+  async onSubmitAbortRequest(comment) {
+    try {
+      await RequestModel.abortRequest(this.currentRequestDetails.request._id, { reason: comment })
+
+      this.onTriggerOpenModal('showConfirmWithCommentModal')
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
@@ -6,13 +7,7 @@ import { ProductModel } from '@models/product-model'
 
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
 
-interface Flag {
-  _id: string
-  iconImage: string
-  productCount: number
-  title: string
-  value: number
-}
+import { Flag } from '@typings/flag'
 
 interface RedFlagsProps {
   isEditMode?: boolean
@@ -29,6 +24,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
 
   useEffect(() => {
     if (isEditMode) {
+      // @ts-ignore
       ProductModel.getProductRedFlags().then(value => setFlags(value))
     }
   }, [])

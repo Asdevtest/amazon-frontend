@@ -49,10 +49,12 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({
   const proposalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
   const isShowButtons =
     chatRequestAndRequestProposal &&
+    !!proposalStatus &&
     (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
       proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
       proposalStatus !== RequestProposalStatus.TO_CORRECT) &&
     proposalStatus !== RequestProposalStatus.ACCEPTED_BY_CLIENT &&
+    proposalStatus !== RequestProposalStatus.CANCELED_BY_EXECUTOR &&
     curUserId &&
     isLastResultMessage &&
     message.data.needApproveBy?.includes(curUserId)

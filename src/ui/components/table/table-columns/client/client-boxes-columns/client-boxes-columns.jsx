@@ -13,7 +13,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
-  ShortBoxDimensions,
+  ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -142,7 +142,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    width: 400,
+    width: 300,
     renderCell: params => {
       return params.row.originalData ? (
         params.row.originalData?.items.length > 1 ? (
@@ -375,7 +375,7 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => {
       return params.row.originalData ? (
-        <ShortBoxDimensions
+        <ShortBoxDimensionsCell
           box={params.row.originalData}
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
           unitsOption={getUnitsOption()}

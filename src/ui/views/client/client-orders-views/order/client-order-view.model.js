@@ -28,6 +28,9 @@ export class ClientOrderViewModel {
   orderId = undefined
   orderBoxes = []
 
+  curBox = undefined
+  showBoxViewModal = false
+
   platformSettings = undefined
   storekeepers = []
   destinations = []
@@ -70,41 +73,23 @@ export class ClientOrderViewModel {
   }
 
   constructor({ history }) {
+    this.history = history
+
     const url = new URL(window.location.href)
+    this.orderId = url.searchParams.get('orderId')
 
-    runInAction(() => {
-      this.history = history
-      this.orderId = url.searchParams.get('orderId')
-    })
     makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  async updateOrderId(orderId) {
-    runInAction(() => {
-      this.orderId = orderId
-    })
-
-    try {
-      await Promise.all([this.getOrderById(), this.getBoxesOfOrder(this.orderId)])
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const [destinations, storekeepers] = await Promise.all([
-        ClientModel.getDestinations(),
-        StorekeeperModel.getStorekeepers(),
-        this.getVolumeWeightCoefficient(),
-      ])
-
-      runInAction(() => {
-        this.destinations = destinations
-        this.storekeepers = storekeepers
-      })
+      await this.getStorekeepers()
+      await this.getDestinations()
+      this.getVolumeWeightCoefficient()
+      await this.getOrderById()
+      this.getBoxesOfOrder(this.orderId)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -113,14 +98,36 @@ export class ClientOrderViewModel {
     }
   }
 
+  async getDestinations() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+      runInAction(() => {
+        this.destinations = destinations
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+      runInAction(() => {
+        this.storekeepers = storekeepers
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
   onChangeSelectedSupplier(supplier) {
-    runInAction(() => {
-      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-        this.selectedSupplier = undefined
-      } else {
-        this.selectedSupplier = supplier
-      }
-    })
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   async onTriggerAddOrEditSupplierModal() {
@@ -139,18 +146,6 @@ export class ClientOrderViewModel {
       }
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
       })
     } catch (error) {
       console.log(error)
@@ -181,14 +176,26 @@ export class ClientOrderViewModel {
     }
   }
 
+  async setCurrentOpenedBox(id) {
+    try {
+      const box = await BoxesModel.getBoxById(id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
   onDoubleClickBarcode = item => {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
 
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
@@ -237,23 +244,17 @@ export class ClientOrderViewModel {
     })
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -280,22 +281,29 @@ export class ClientOrderViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
-        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
-          'amount',
-          'orderSupplierId',
-          'images',
-          'totalPrice',
-          'item',
-          'needsResearch',
-          'deadline',
-          'priority',
-          'expressChinaDelivery',
-          'clientComment',
+        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+          orderObject,
+          [
+            'amount',
+            'orderSupplierId',
+            'images',
+            'totalPrice',
+            'item',
+            'needsResearch',
+            'deadline',
+            'priority',
+            'expressChinaDelivery',
+            'clientComment',
 
-          'destinationId',
-          'storekeeperId',
-          'logicsTariffId',
-        ])
+            'destinationId',
+            'storekeeperId',
+            'logicsTariffId',
+            'variationTariffId',
+          ],
+          undefined,
+          undefined,
+          true,
+        )
 
         await Promise.all([
           OrderModel.changeOrderData(orderObject._id, dataToRequest),
@@ -332,7 +340,6 @@ export class ClientOrderViewModel {
 
         this.order = result
       })
-      // SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
     } catch (error) {
       console.log(error)
     }
@@ -370,11 +377,14 @@ export class ClientOrderViewModel {
           'priority',
           'expressChinaDelivery',
           'clientComment',
-
           'destinationId',
           'storekeeperId',
           'logicsTariffId',
+          'variationTariffId',
         ],
+        undefined,
+        undefined,
+        true,
       )
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
@@ -387,6 +397,8 @@ export class ClientOrderViewModel {
           title: t(TranslationKey['Data saved successfully']),
         }
       })
+
+      await this.getOrderById()
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -456,14 +468,12 @@ export class ClientOrderViewModel {
   }
 
   onClickCancelOrder() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        confirmTitle: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-        onClickConfirm: () => this.onSubmitCancelOrder(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => this.onSubmitCancelOrder(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -481,14 +491,10 @@ export class ClientOrderViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

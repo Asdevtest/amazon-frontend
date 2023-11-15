@@ -2,16 +2,13 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -37,22 +34,15 @@ export const AdminDestinationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.placeAddBtnWrapper}>
-          <Button success onClick={() => viewModel.onClickAddBtn()}>
-            {t(TranslationKey['Add a destination'])}
-          </Button>
-        </div>
+      <div className={classNames.placeAddBtnWrapper}>
+        <Button success onClick={() => viewModel.onClickAddBtn()}>
+          {t(TranslationKey['Add a destination'])}
+        </Button>
+      </div>
 
-        <MemoDataGrid
-          pagination
+      <div className={classNames.tableWrapper}>
+        <CustomDataGrid
           useResizeContainer
-          classes={{
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -61,10 +51,6 @@ export const AdminDestinationsViewRaw = props => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={120}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
@@ -73,31 +59,31 @@ export const AdminDestinationsViewRaw = props => {
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-
-        <Modal
-          openModal={viewModel.showAddOrEditDestinationModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
-        >
-          <AddOrEditDestinationForm
-            destinationToEdit={viewModel.destinationToEdit}
-            onCloseModal={() => viewModel.onClickCancelBtn()}
-            onCreateSubmit={viewModel.onSubmitCreateDestination}
-            onEditSubmit={viewModel.onSubmitEditDestination}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
       </div>
+
+      <Modal
+        openModal={viewModel.showAddOrEditDestinationModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
+      >
+        <AddOrEditDestinationForm
+          destinationToEdit={viewModel.destinationToEdit}
+          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCreateSubmit={viewModel.onSubmitCreateDestination}
+          onEditSubmit={viewModel.onSubmitEditDestination}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
     </React.Fragment>
   )
 }

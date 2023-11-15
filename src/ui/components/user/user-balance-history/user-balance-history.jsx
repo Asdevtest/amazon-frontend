@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 

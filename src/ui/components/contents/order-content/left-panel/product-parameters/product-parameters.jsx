@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { useState } from 'react'
 
 import { Chip, Link, Typography } from '@mui/material'
@@ -31,7 +30,7 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
@@ -64,7 +63,6 @@ export const ProductParameters = ({
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
-      {/* // было */}
       {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
       <OrderParameter
         label={t(TranslationKey['Purchase price'])}
@@ -142,7 +140,7 @@ export const ProductParameters = ({
                   deletable: classNames.barcodeChipHover,
                   deleteIcon: classNames.barcodeChipIcon,
                 }}
-                className={clsx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
+                className={cx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
                 size="small"
                 label={
                   formFields.tmpBarCode.length

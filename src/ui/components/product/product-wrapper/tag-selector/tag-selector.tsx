@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -62,6 +64,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       handleSaveTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
+        // @ts-ignore
         newValue = [...selectedTags, { title: selectValue?.title, _id: res._id } as Tag]
         setSelectedTags(newValue)
         handleSaveTags(newValue)
@@ -100,6 +103,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             renderOption={(_, option) => (
               <li {..._}>
                 <div className={styles.option}>
+                  {/* @ts-ignore */}
                   <MultilineTextCell oneLines leftAlign maxLength={32} text={`${prefix} ${option.title}`} />
                 </div>
               </li>
@@ -123,6 +127,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       <div className={styles.tagList}>
         {selectedTags.map(el => (
           <div key={el._id} className={styles.tagListItem}>
+            {/*  @ts-ignore */}
             <MultilineTextCell oneLines leftAlign maxLength={32} text={prefix + el.title} />
             {isEditMode && (
               <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>

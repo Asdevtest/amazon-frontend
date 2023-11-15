@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useMemo } from 'react'
-
+import { BatchStatus } from '@constants/statuses/batch-status'
 import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,10 +12,11 @@ import {
   NormDateCell,
   OrdersIdsItemsCell,
   PricePerUnitCell,
-  UserLinkCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
 
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchInfoModalColumn = (
@@ -26,6 +25,7 @@ export const batchInfoModalColumn = (
   isActualGreaterTheVolume,
   actualShippingCost,
   finalWeight,
+  status,
 ) => [
   {
     field: 'boxes',
@@ -33,7 +33,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
     renderCell: params => <ManyItemsPriceCell withoutSku withQuantity params={params.row} />,
-    width: 300,
+    width: 280,
   },
 
   {
@@ -52,7 +52,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
+    width: 140,
     sortable: false,
   },
 
@@ -61,8 +61,8 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.row.client.name} userId={params.row.client._id} />,
-    width: 120,
+    renderCell: params => <UserMiniCell userName={params.row.client.name} userId={params.row.client._id} />,
+    width: 180,
   },
 
   {
@@ -70,7 +70,27 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => {
+      const isTooltip = status === BatchStatus.HAS_DISPATCHED && params.row.lastRateTariff === 0
+
+      return (
+        <Button
+          disabled
+          transparent
+          tooltipAttentionContent={
+            isTooltip
+              ? t(
+                  TranslationKey[
+                    'This rate may have an irrelevant value as the rate may have been changed after shipment.'
+                  ],
+                )
+              : ''
+          }
+        >
+          <MultilineTextCell threeLines maxLength={80} text={getNewTariffTextForBoxOrOrder(params.row)} />
+        </Button>
+      )
+    },
     width: 200,
   },
 
@@ -151,7 +171,7 @@ export const batchInfoModalColumn = (
       />
     ),
     type: 'number',
-    width: 170,
+    width: 160,
   },
 
   {

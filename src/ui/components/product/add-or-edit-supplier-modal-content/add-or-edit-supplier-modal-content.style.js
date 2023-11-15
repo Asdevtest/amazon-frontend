@@ -14,13 +14,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalContainer: {
-    width: '800px',
+    width: '840px',
+    padding: 20,
   },
   titleDivider: {
-    margin: '32px -24px',
+    margin: '30px 0',
   },
   fieldsDivider: {
-    margin: '32px -24px 20px',
+    margin: '20px 0 20px',
   },
   buttonsWrapperClient: {
     display: 'flex',

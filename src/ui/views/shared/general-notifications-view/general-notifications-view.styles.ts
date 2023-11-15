@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -24,22 +24,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   datagridWrapper: {
     height: 'calc(100vh - 190px)',
+    width: '100%',
   },
 
   actionPanelWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 
   searchInputClient: {
-    width: '420px',
+    width: '450px',
   },
 
   searchInputFreelancer: {
-    width: '350px',
+    width: '400px',
   },
 
   searchInput: {
-    width: '270px',
+    width: '350px',
   },
 }))

@@ -11,9 +11,9 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChatModel } from '@models/chat-model'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
@@ -101,8 +101,10 @@ export const Chat: FC<Props> = observer(
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
 
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
+    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
+    const messagesLoadingStatus = useRef(false)
+    const [currentScrollFromBottom, setCurrentScrollFromBottom] = useState(0)
 
-    const [startMessagesCount, setStartMessagesCount] = useState(0)
     const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
     const [showFiles, setShowFiles] = useState(false)
@@ -120,26 +122,59 @@ export const Chat: FC<Props> = observer(
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
 
+    const handleScrollToBottomButtonVisibility = (e: Event) => {
+      const target = e.target as HTMLDivElement
+      if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
+        setIsShowScrollToBottomBtn(true)
+      } else {
+        setIsShowScrollToBottomBtn(false)
+      }
+    }
+
+    const handleLoadMoreMessages = (e: Event) => {
+      const target = e.target as HTMLDivElement
+
+      if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
+        messagesLoadingStatus.current = true
+        ChatModel.getChatMessages?.(chat?._id).finally(() => {
+          const scrollOffset = target.scrollHeight - (target.scrollTop + target.clientHeight)
+
+          setCurrentScrollFromBottom(scrollOffset)
+          messagesLoadingStatus.current = false
+        })
+      }
+    }
+
     useEffect(() => {
-      const handleScrollToBottomButtonVisibility = (e: Event) => {
-        const target = e.target as HTMLDivElement
-        if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
-          setIsShowScrollToBottomBtn(true)
-        } else {
-          setIsShowScrollToBottomBtn(false)
+      if (currentScrollFromBottom !== 0) {
+        const container = messagesWrapperRef.current
+
+        if (!container) {
+          return
         }
+
+        const scrollHeight = container.scrollHeight - container.clientHeight - currentScrollFromBottom
+
+        container?.scrollTo(0, scrollHeight)
+      }
+    }, [currentScrollFromBottom])
+
+    useEffect(() => {
+      const handleScroll = (e: Event) => {
+        handleLoadMoreMessages(e)
+        handleScrollToBottomButtonVisibility(e)
       }
 
       if (messagesWrapperRef.current) {
-        messagesWrapperRef.current?.addEventListener('scroll', handleScrollToBottomButtonVisibility)
+        messagesWrapperRef.current.onscroll = handleScroll
       }
 
       return () => {
         if (messagesWrapperRef.current) {
-          messagesWrapperRef.current?.removeEventListener('scroll', handleScrollToBottomButtonVisibility)
+          messagesWrapperRef.current.onscroll = null
         }
       }
-    }, [])
+    }, [chat?._id])
 
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
       message: '',
@@ -173,26 +208,32 @@ export const Chat: FC<Props> = observer(
         updateData()
       }
 
-      if (startMessagesCount > 0 && messagesWrapperRef.current) {
+      if (messages?.length > 0 && messagesWrapperRef.current) {
         const currentScrollPosition = toFixed(
           messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
         )
         const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
 
-        if (scrolledFromBottom > messagesWrapperRef.current.clientHeight) {
-          setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
+        if (
+          scrolledFromBottom > messagesWrapperRef.current.clientHeight &&
+          messages.at(-1)?._id !== lastReadedMessage?._id
+        ) {
+          const lastReadedMessageIndex = messages.findIndex(el => el._id === lastReadedMessage?._id)
+          setUnreadMessages(
+            messages.slice(lastReadedMessageIndex + 1, messages.length).filter(el => el.user?._id !== userId),
+          )
         } else {
-          setStartMessagesCount(messages.length)
           setUnreadMessages([])
+          setLastReadedMessage(messages[messages.length - 1])
         }
       }
     }, [messages?.length])
 
     useEffect(() => {
+      ChatModel.getChatMessages?.(chat?._id)
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setIsShowChatInfo(false)
-      setStartMessagesCount(messages.length)
 
       return () => {
         setMessageToReply(null)
@@ -230,7 +271,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
+      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
         onSubmitMessageInternal()
         event.preventDefault()
       }
@@ -259,8 +300,11 @@ export const Chat: FC<Props> = observer(
     }
 
     const onClickScrollToBottom = () => {
-      setMessageToScroll({ ...messages.at(-1)! })
-      setStartMessagesCount(messages.length)
+      if (unreadMessages?.length) {
+        setMessageToScroll({ ...unreadMessages[0] })
+      } else {
+        setMessageToScroll({ ...messages.at(-1)! })
+      }
       setUnreadMessages([])
     }
 
@@ -338,37 +382,39 @@ export const Chat: FC<Props> = observer(
         {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
         <div className={classNames.bottomPartWrapper}>
-          {isShowEmojis ? (
-            <ClickAwayListener
-              mouseEvent="onMouseDown"
-              onClickAway={event => {
-                if ((event.target as HTMLElement).id !== 'emoji-icon') {
-                  setIsShowEmojis(false)
-                }
-              }}
-            >
-              <div className={classNames.emojisWrapper}>
-                <Picker
-                  theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
-                  data={data}
-                  locale={SettingsModel.languageTag}
-                  onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
-                />
-              </div>
-            </ClickAwayListener>
-          ) : null}
+          <div key={SettingsModel.languageTag}>
+            {isShowEmojis && (
+              <ClickAwayListener
+                mouseEvent="onMouseDown"
+                onClickAway={event => {
+                  if ((event.target as HTMLElement).id !== 'emoji-icon') {
+                    setIsShowEmojis(false)
+                  }
+                }}
+              >
+                <div className={classNames.emojisWrapper}>
+                  <Picker
+                    data={data}
+                    perLine={isTabletResolution ? 7 : 9}
+                    theme={SettingsModel.uiTheme}
+                    locale={SettingsModel.languageTag}
+                    onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
+                  />
+                </div>
+              </ClickAwayListener>
+            )}
+          </div>
 
           <div className={classNames.inputWrapper}>
             <TextField
               multiline
-              autoFocus
+              autoFocus={!isTabletResolution}
               inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
               id="outlined-multiline-flexible"
               size="small"
               className={cx(classNames.input, { [classNames.inputFilled]: !!message || !!focused })}
-              classes={{ root: classNames.input }}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
@@ -395,8 +441,8 @@ export const Chat: FC<Props> = observer(
                 ),
               }}
               value={message}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              onFocus={!isTabletResolution ? onFocus : undefined}
+              onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}
@@ -410,7 +456,15 @@ export const Chat: FC<Props> = observer(
             </Button>
           </div>
 
-          {renderAdditionalButtons ? renderAdditionalButtons({ message, files }, resetAllInputs) : undefined}
+          {renderAdditionalButtons
+            ? renderAdditionalButtons(
+                {
+                  message,
+                  files,
+                },
+                resetAllInputs,
+              )
+            : undefined}
         </div>
       </>
     )

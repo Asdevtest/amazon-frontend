@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   orderContainer: {
     padding: '30px 50px 20px',
     display: 'flex',
@@ -42,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
   panelsWrapper: {
     display: 'flex',
     justifyContent: 'space-beetwen',
-    gap: 45,
+    gap: 30,
     padding: '30px 50px',
   },
 

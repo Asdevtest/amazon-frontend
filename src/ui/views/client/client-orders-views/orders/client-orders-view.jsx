@@ -3,20 +3,16 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -43,7 +39,7 @@ export const ClientOrdersViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <>
         <div className={classNames.topHeaderBtnsWrapper}>
           {viewModel.isPendingOrdering ? (
             <div className={classNames.topHeaderBtnsSubWrapper}>
@@ -78,21 +74,11 @@ export const ClientOrdersViewRaw = props => {
           <div className={cx({ [classNames.invis]: viewModel.isPendingOrdering })} />
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
+          <CustomDataGrid
             useResizeContainer
+            disableRowSelectionOnClick
             checkboxSelection={viewModel.isPendingOrdering}
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -100,13 +86,7 @@ export const ClientOrdersViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            // rowHeight={100}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -137,62 +117,69 @@ export const ClientOrdersViewRaw = props => {
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </div>
+      </>
 
-      <Modal
-        openModal={viewModel.showSetBarcodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
-      >
-        <SetBarcodeModal
-          item={viewModel.selectedProduct}
-          onClickSaveBarcode={viewModel.onClickSaveBarcode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+      {viewModel.showSetBarcodeModal && (
+        <Modal
+          openModal={viewModel.showSetBarcodeModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+        >
+          <SetBarcodeModal
+            item={viewModel.selectedProduct}
+            onClickSaveBarcode={viewModel.onClickSaveBarcode}
+            onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showOrderModal && (
+        <Modal
+          missClickModalOn
+          openModal={viewModel.showOrderModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+        >
+          <OrderProductModal
+            isPendingOrdering={viewModel.isPendingOrdering}
+            reorderOrdersData={viewModel.reorderOrdersData}
+            platformSettings={viewModel.platformSettings}
+            destinations={viewModel.destinations}
+            storekeepers={viewModel.storekeepers}
+            destinationsFavourites={viewModel.destinationsFavourites}
+            setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
+            onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+            onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showCheckPendingOrderFormModal && (
+        <Modal
+          openModal={viewModel.showCheckPendingOrderFormModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+        >
+          <CheckPendingOrderForm
+            existingProducts={viewModel.existingProducts}
+            onClickPandingOrder={viewModel.onClickPandingOrder}
+            onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
+            onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showConfirmModal && (
+        <ConfirmationModal
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      </Modal>
-
-      <Modal
-        missClickModalOn
-        openModal={viewModel.showOrderModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-      >
-        <OrderProductModal
-          isPendingOrdering={viewModel.isPendingOrdering}
-          reorderOrdersData={viewModel.reorderOrdersData}
-          platformSettings={viewModel.platformSettings}
-          destinations={viewModel.destinations}
-          storekeepers={viewModel.storekeepers}
-          destinationsFavourites={viewModel.destinationsFavourites}
-          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          onTriggerOpenModal={viewModel.onTriggerOpenModal}
-          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
-          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showCheckPendingOrderFormModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-      >
-        <CheckPendingOrderForm
-          existingOrders={viewModel.existingOrders}
-          checkPendingData={viewModel.checkPendingData}
-          onClickPandingOrder={viewModel.onClickPandingOrder}
-          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.isOrder)}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-        />
-      </Modal>
-
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      )}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

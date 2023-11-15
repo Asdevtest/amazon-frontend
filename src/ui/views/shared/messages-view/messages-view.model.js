@@ -146,10 +146,15 @@ export class MessagesViewModel {
         })
       },
     )
+
+    reaction(
+      () => ChatModel.isConnected,
+      () => this.loadData(),
+    )
   }
 
   onToggleMuteCurrentChat() {
-    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId)
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.simpleChats)
   }
 
   onToggleMuteAllChats() {
@@ -165,6 +170,7 @@ export class MessagesViewModel {
   async loadData() {
     try {
       await ChatModel.getSimpleChats()
+      await ChatModel.getUnreadMessagesCount()
     } catch (error) {
       console.log(error)
     }
@@ -300,12 +306,8 @@ export class MessagesViewModel {
   onClickChat(chat) {
     runInAction(() => {
       if (this.chatSelectedId === chat._id) {
-        // this.chatSelectedId = undefined
-
         ChatModel.onChangeChatSelectedId(undefined)
       } else {
-        // this.chatSelectedId = chat._id
-
         ChatModel.onChangeChatSelectedId(chat._id)
       }
     })

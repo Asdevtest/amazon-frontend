@@ -1,18 +1,18 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import {
-  ClosedIdeaActions,
+  ClosedIdeaActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
-  TimeFromSeconds,
+  TimeFromSecondsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -47,7 +47,10 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell
+        twoLines
+        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
+      />
     ),
     width: 100,
     sortable: false,
@@ -109,7 +112,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.New),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -119,7 +122,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['On checking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -129,7 +132,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Supplier search']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
-    renderCell: params => <TimeFromSeconds seconds={params.value} />,
+    renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
     width: 110,
     columnKey: columnnsKeys.shared.DATE_DETAILS,
   },
@@ -145,7 +148,10 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     ),
 
     renderCell: params => (
-      <TimeFromSeconds color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'} seconds={params.value} />
+      <TimeFromSecondsCell
+        color={SettingsModel.uiTheme === UiTheme.dark ? '#DD2121' : '#FF1616'}
+        seconds={params.value}
+      />
     ),
 
     width: 105,
@@ -167,7 +173,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => <ClosedIdeaActions row={params.row} rowHandlers={rowHandlers} />,
+    renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
     width: 280,
     filterable: false,
     sortable: false,

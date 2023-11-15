@@ -1,0 +1,17 @@
+export const filtersFields = [
+  'humanFriendlyId',
+  'updatedAt',
+  'status',
+  'title',
+  'typeTask',
+  'price',
+  'timeoutAt',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'createdBy',
+  'subUsers',
+  'priceAmazon',
+  'withoutConfirmation',
+  'taskComplexity',
+]

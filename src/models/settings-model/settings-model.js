@@ -6,7 +6,7 @@ import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { LanguageKey } from '@constants/translations/language-key'
 
 import { setI18nConfig } from '@utils/translations'
@@ -19,8 +19,9 @@ const persistProperties = [
   'chatMessageState',
   'uiTheme',
   'destinationsFavourites',
-  'mutedChats',
   'isMuteChats',
+  'mutedChats',
+  'originMutedChats',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -39,7 +40,7 @@ class SettingsModelStatic {
 
   isMuteChats = false
   mutedChats = []
-  numberAllChats = null
+  originMutedChats = []
 
   lastCrumbAdditionalText = ''
 
@@ -72,14 +73,13 @@ class SettingsModelStatic {
           setI18nConfig()
         }
       },
-
-      this.setIntervalCheckAppVersion(),
     )
+
+    this.setIntervalCheckAppVersion()
   }
 
   loadValue(key) {
     const value = localStorage.getItem(key)
-
     return value !== null ? JSON.parse(value) : null
   }
 
@@ -87,31 +87,33 @@ class SettingsModelStatic {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  onToggleMuteCurrentChat(chatId) {
-    this.setMutedChat(chatId)
+  onToggleMuteCurrentChat(chatId, chats) {
+    this.setMutedChat(chatId, chats)
   }
 
-  onToggleMuteAllChats(allChats) {
-    this.setMutedChats(allChats)
+  onToggleMuteAllChats(chats) {
+    this.setMutedChats(chats)
     this.isMuteChats = !this.isMuteChats
   }
 
-  setMutedChat(chatId) {
+  setMutedChat(chatId, chats) {
     if (this.mutedChats.includes(chatId)) {
-      this.mutedChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+      const filteredChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+      this.originMutedChats = filteredChats
+      this.mutedChats = filteredChats
     } else {
+      this.originMutedChats.push(chatId)
       this.mutedChats.push(chatId)
     }
 
-    this.isMuteChats = this.numberAllChats === this.mutedChats.length ? true : false
+    this.isMuteChats = chats.length === this.mutedChats.length
   }
 
-  setMutedChats(allChats) {
+  setMutedChats(chats) {
     if (this.isMuteChats) {
-      this.mutedChats.length = 0
+      this.mutedChats = this.originMutedChats
     } else {
-      this.numberAllChats = allChats.length
-      this.mutedChats = [...allChats.map(chat => chat._id)]
+      this.mutedChats = chats.map(chat => chat._id)
     }
   }
 
@@ -125,7 +127,7 @@ class SettingsModelStatic {
     })
 
     if (compareVersions(response.data.version, appVersion) > 0) {
-      // console.log('!!!*** versions do not match')
+      console.log('!!!*** versions do not match')
 
       // Очистка локального хранилища
       localStorage.clear()
@@ -144,6 +146,8 @@ class SettingsModelStatic {
 
       window.location.reload()
     }
+
+    console.log('!!!*** versions do match')
   }
 
   resetLocalStorageAndCach() {
@@ -229,6 +233,11 @@ class SettingsModelStatic {
     runInAction(() => {
       this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
+  }
+
+  setAuthorizationData(accessToken, refreshToken) {
+    const userModel = this.loadValue('UserModel')
+    this.saveValue('UserModel', { ...userModel, accessToken, refreshToken })
   }
 }
 

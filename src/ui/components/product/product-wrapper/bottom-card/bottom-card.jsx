@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import { Grid, Paper, Typography } from '@mui/material'
 
@@ -252,7 +251,7 @@ export const BottomCard = observer(
                 }}
                 sx={{
                   '& .MuiInputBase-input.Mui-disabled': {
-                    WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
+                    WebkitTextFillColor: `${colorByProductStatus(ProductStatusByCode[product.status])} !important`,
                   },
                 }}
                 error={formFieldsValidationErrors.status}

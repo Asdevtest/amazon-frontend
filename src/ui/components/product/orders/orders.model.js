@@ -360,9 +360,12 @@ export class OrdersModel {
   }
 
   onClickTableRow(order) {
-    this.history.push(
-      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
-    )
+    window
+      .open(
+        `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+        '_blank',
+      )
+      .focus()
   }
 
   onTriggerOpenModal(modal) {

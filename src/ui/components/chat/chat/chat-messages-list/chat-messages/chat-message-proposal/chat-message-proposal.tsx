@@ -89,12 +89,8 @@ export const ChatMessageProposal: FC<Props> = ({ message, handlers, isShowChatIn
                 <Button
                   variant="contained"
                   color="primary"
-                  className={cx(classNames.actionButton, classNames.cancelBtn)}
                   onClick={() =>
-                    handlers.onClickProposalRegect(
-                      chatRequestAndRequestProposal.requestProposal?.proposal
-                        ._id /* handlers.onClickProposalRegect(message.data._id */,
-                    )
+                    handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
                   }
                 >
                   {t(TranslationKey.Reject)}

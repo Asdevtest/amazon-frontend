@@ -1,11 +1,8 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box, Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
@@ -13,11 +10,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
@@ -26,13 +21,13 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { styles } from './vacant-requests-view.style'
+import { useStyles } from './vacant-requests-view.style'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
-export const VacantRequestsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+export const VacantRequestsView = observer(({ history, location }) => {
+  const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(() => new VacantRequestsViewModel({ history, location }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -40,18 +35,17 @@ export const VacantRequestsViewRaw = props => {
 
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
-      return [classNames.deadlineBorder, classNames.redBorder]
+      return [styles.deadlineBorder, styles.redBorder]
     } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
-      return [classNames.deadlineBorder, classNames.yellowBorder]
+      return [styles.deadlineBorder, styles.yellowBorder]
     }
   }
-
-  const pageSizeOptions = [15, 25, 50, 100]
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.tablePanelWrapper}>
+        <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
             selectedTaskType={viewModel.selectedTaskType}
             onClickTaskType={viewModel.onClickTaskType}
@@ -59,23 +53,23 @@ export const VacantRequestsViewRaw = props => {
 
           <SearchInput
             placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
 
-          <div className={classNames.tablePanelSubWrapper}>
+          <div className={styles.tablePanelSubWrapper}>
             {viewModel.viewMode !== tableViewMode.TABLE && (
               <>
                 <CustomPageSwitcher
                   rowCount={viewModel.rowCount}
                   paginationModel={viewModel.paginationModel}
-                  pageSizeOptions={pageSizeOptions}
+                  pageSizeOptions={viewModel.pageSizeOptions}
                   onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
                 />
 
-                <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['By date'])}</Typography>
+                <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+                  <p className={styles.tablePanelViewText}>{t(TranslationKey['By date'])}</p>
 
                   {viewModel.sortMode === tableSortMode.DESK ? (
                     <ArrowDropDownIcon color="primary" />
@@ -95,19 +89,7 @@ export const VacantRequestsViewRaw = props => {
         </div>
 
         {viewModel.viewMode !== tableViewMode.TABLE ? (
-          <Box
-            container="true"
-            classes={{ root: classNames.dashboardCardWrapper }}
-            display="grid"
-            gridTemplateColumns={
-              viewModel.viewMode === tableViewMode.LIST
-                ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                : viewModel.viewMode === tableViewMode.BLOCKS
-                ? 'repeat(auto-fill, minmax(297px, 1fr))'
-                : 'repeat(auto-fill, 100%'
-            }
-            gap={'35px'}
-          >
+          <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
             {viewModel.currentData?.map((item, index) =>
               viewModel.viewMode === tableViewMode.LIST ? (
                 <VacantRequestListCard
@@ -127,36 +109,20 @@ export const VacantRequestsViewRaw = props => {
                 />
               ),
             )}
-          </Box>
+          </div>
         ) : viewModel.viewMode === tableViewMode.TABLE ? (
-          <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              pagination
+          <div className={styles.dataGridWrapper}>
+            <CustomDataGrid
               useResizeContainer
               localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sortingMode="server"
-              paginationMode="server"
               rowCount={viewModel.rowCount}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={pageSizeOptions}
+              pageSizeOptions={viewModel.pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -188,11 +154,9 @@ export const VacantRequestsViewRaw = props => {
         ) : (
           !viewModel.currentData?.length &&
           loadingStatuses.success && (
-            <div className={classNames.emptyTableWrapper}>
+            <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
-                {t(TranslationKey['No vacant applications yet'])}
-              </Typography>
+              <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>
             </div>
           )
         )}
@@ -208,6 +172,4 @@ export const VacantRequestsViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const VacantRequestsView = withStyles(observer(VacantRequestsViewRaw), styles)
+})

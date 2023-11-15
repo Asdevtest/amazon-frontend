@@ -25,7 +25,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class WarehouseMyTasksViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   tasksMy = []
   currentBox = undefined
@@ -40,8 +39,6 @@ export class WarehouseMyTasksViewModel {
 
   curTaskType = null
   curTaskPriority = null
-
-  rowCount = 0
 
   showProgress = false
   progressValue = 0
@@ -67,6 +64,7 @@ export class WarehouseMyTasksViewModel {
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
@@ -77,9 +75,7 @@ export class WarehouseMyTasksViewModel {
   tmpDataForCancelTask = {}
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     if (location.state?.task) {
       this.onClickResolveBtn(location.state?.task)
@@ -93,9 +89,8 @@ export class WarehouseMyTasksViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
   }
 
@@ -123,49 +118,39 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getTasksMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getTasksMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedTasks = model
-    })
+    this.selectedTasks = model
   }
 
   onClickReportBtn() {
@@ -186,23 +171,19 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickOperationTypeBtn(type) {
-    runInAction(() => {
-      this.curTaskType = type
-    })
+    this.curTaskType = type
+
     this.getTasksMy()
   }
 
   onClickTaskPriorityBtn(type) {
-    runInAction(() => {
-      this.curTaskPriority = type
-    })
+    this.curTaskPriority = type
+
     this.getTasksMy()
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
@@ -215,30 +196,22 @@ export class WarehouseMyTasksViewModel {
   }
 
   onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.curPage = e
 
     this.getTasksMy()
   }
 
   onTriggerEditTaskModal() {
-    runInAction(() => {
-      this.showEditTaskModal = !this.showEditTaskModal
-    })
+    this.showEditTaskModal = !this.showEditTaskModal
   }
 
   onSelectTask(task) {
-    runInAction(() => {
-      this.selectedTask = task
-    })
+    this.selectedTask = task
   }
 
   onTriggerShowEditBoxModal(box) {
-    runInAction(() => {
-      this.currentBox = box
-      this.showEditBoxModal = !this.showEditBoxModal
-    })
+    this.currentBox = box
+    this.showEditBoxModal = !this.showEditBoxModal
   }
 
   async getTasksMy() {
@@ -262,12 +235,6 @@ export class WarehouseMyTasksViewModel {
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
             !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
         ),
-        // ...(this.curTaskType && {
-        //   operationType: {$eq: this.curTaskType},
-        // }),
-        // ...(this.curTaskPriority && {
-        //   priority: {$eq: this.curTaskPriority},
-        // }),
       })
 
       const result = await StorekeeperModel.getLightTasksWithPag({
@@ -284,8 +251,6 @@ export class WarehouseMyTasksViewModel {
       runInAction(() => {
         this.rowCount = result.count
 
-        // this.tasksMyBase = result.rows
-
         this.tasksMy = warehouseTasksDataConverter(
           result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({
             ...el,
@@ -298,7 +263,6 @@ export class WarehouseMyTasksViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.tasksMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
@@ -323,9 +287,7 @@ export class WarehouseMyTasksViewModel {
 
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -348,11 +310,6 @@ export class WarehouseMyTasksViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
-            // 'fitsInitialDimensions',
-            // 'deliveryLength',
-            // 'deliveryHeight',
-            // 'deliveryWidth',
-            // 'deliveryMass',
           ],
           false,
           (key, value) => {
@@ -369,9 +326,7 @@ export class WarehouseMyTasksViewModel {
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -379,9 +334,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -390,9 +343,6 @@ export class WarehouseMyTasksViewModel {
       await StorekeeperModel.resolveTask(taskId, { additionalBoxes: newBoxes })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -504,13 +454,6 @@ export class WarehouseMyTasksViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-
-      if (error[0]) {
-        this.onTriggerOpenModal('showNoDimensionsErrorModal')
-      }
     }
   }
 
@@ -523,17 +466,12 @@ export class WarehouseMyTasksViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   startEditTaskPriority(taskId, newPriority) {
-    runInAction(() => {
-      this.editPriorityData = { taskId, newPriority }
-      this.showEditPriorityData = true
-    })
+    this.editPriorityData = { taskId, newPriority }
+    this.showEditPriorityData = true
   }
 
   async updateTaskPriority(taskId, priority, reason) {
@@ -541,30 +479,28 @@ export class WarehouseMyTasksViewModel {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
+
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async updateTaskComment(taskId, priority, reason) {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+
+      UserModel.getUserInfo()
+
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickCancelTask(boxId, taskId, taskType) {
-    runInAction(() => {
-      this.tmpDataForCancelTask = { boxId, taskId, taskType }
-    })
+    this.tmpDataForCancelTask = { boxId, taskId, taskType }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -591,9 +527,6 @@ export class WarehouseMyTasksViewModel {
       this.onTriggerOpenModal('showCancelTaskModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -604,9 +537,6 @@ export class WarehouseMyTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -617,9 +547,6 @@ export class WarehouseMyTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -630,16 +557,11 @@ export class WarehouseMyTasksViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   async onClickResolveBtn(itemId) {

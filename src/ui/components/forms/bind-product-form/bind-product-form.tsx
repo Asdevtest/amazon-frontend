@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
@@ -7,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
@@ -22,12 +25,22 @@ interface BindProductFormProps {
   onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: Array<IProductVariation>) => void
   onClickCancelButton: () => void
+  loadMorePermissionsDataHadler: () => void
+  onClickSubmitSearch: (searchValue: string) => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { sourceProduct, productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
+  const {
+    sourceProduct,
+    productsToBind,
+    onClickGetProductsToBind,
+    onClickNextButton,
+    onClickCancelButton,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
+  } = props
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProductVariation>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
@@ -88,22 +101,25 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       <div className={classNames.selectWrapper}>
         {/* @ts-ignore */}
         <WithSearchSelect
+          // @ts-ignore
           asinSelect
           grayBorder
           blackSelectedItem
           darkIcon
           chosenItemNoHover
+          CustomButton={(componentProps: any) => <SelectProductButton {...componentProps} />}
           notCloseOneClick={selectedRadioValue === ProductVariation.CHILD}
-          selectedAsins={selectedProducts}
           checkbox={selectedRadioValue === ProductVariation.CHILD}
           disabled={!selectedRadioValue}
           data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
-          width={255}
-          searchOnlyFields={['asin', 'skusByClient']}
+          selectedData={selectedProducts}
+          width={300}
           customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
           customSearchInput={classNames.searchSelectCustomSearchInput}
           customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
           selectedItemName={t(TranslationKey['Select products'])}
+          onScrollItemList={loadMorePermissionsDataHadler}
+          onClickSubmitSearch={onClickSubmitSearch}
           onClickSelect={(product: IProductVariation) => {
             if (selectedRadioValue === ProductVariation.PARENT) {
               setSelectedProducts([product])

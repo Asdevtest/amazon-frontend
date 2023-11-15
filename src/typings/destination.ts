@@ -1,4 +1,7 @@
-export interface DestinationType {
+import { LogisticTariffInterface } from './logistics-tariff'
+import { IShortUser } from './master-user'
+
+export interface IDestination {
   _id: string
   name: string
   country: string
@@ -6,10 +9,7 @@ export interface DestinationType {
   state: string
   city: string
   address: string
-  storekeeper: {
-    _id: string
-    name: string
-  }
+  storekeeper: IShortUser
   isActive: boolean
   createdById: string
   lastModifiedById: string
@@ -18,9 +18,10 @@ export interface DestinationType {
   updatedAt: string
 }
 
-export interface RequestProposalType {}
+export interface IRequestProposal {}
 
-export interface DestinationVariationType {
+export interface IDestinationVariation {
+  _id: string
   destination: {
     name: string
     _id: string
@@ -31,8 +32,16 @@ export interface DestinationVariationType {
   pricePerKgUsd: number
 }
 
-export interface DestinationVariationApproximateCalculationsType extends DestinationVariationType {
+export interface IDestinationVariationApproximateCalculations extends IDestinationVariation {
   _id: string
   roi: number
   costDeliveryToUsa: number
+}
+
+export interface IDestinationStorekeeper {
+  _id: string
+  name: string
+  tariffLogistics: LogisticTariffInterface[]
+  tariffWarehouses: []
+  boxesCount: 0
 }

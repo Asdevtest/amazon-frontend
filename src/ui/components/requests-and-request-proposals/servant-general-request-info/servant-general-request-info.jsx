@@ -21,7 +21,6 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
   const { classes: classNames, cx } = useClassNames()
 
   const buttonDisabled =
-    (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
     requestProposals.some(
       el =>
         el.proposal?.status === RequestProposalStatus?.CREATED ||
@@ -34,7 +33,19 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_CORRECTED ||
         el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_ACCEPTED ||
         el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_REJECTED,
-    )
+    ) ||
+    (!!request?.request?.sub &&
+      requestProposals?.some(el => el.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CLIENT)) ||
+    (requestProposals?.some(el =>
+      [
+        RequestProposalStatus.CREATED,
+        RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
+        RequestProposalStatus.TO_CORRECT,
+        RequestProposalStatus.CORRECTED,
+        RequestProposalStatus.READY_TO_VERIFY,
+      ].includes(el.proposal?.status),
+    ) &&
+      request?.request?.restrictMoreThanOneProposalFromOneAssignee)
 
   const getMainInfos = () => (
     <div className={classNames.mainInfosWrapper}>

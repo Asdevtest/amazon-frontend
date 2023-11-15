@@ -64,7 +64,7 @@ export const feedBackDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const myRequestsDataConverter = data =>
+export const myRequestsDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -84,6 +84,8 @@ export const myRequestsDataConverter = data =>
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
     uploadedToListing: item?.uploadedToListing,
+    taskComplexity: item?.taskComplexity,
+    shopIds: shopsData?.find(el => el._id === item?.product?.shopIds?.[0])?.name || '',
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -311,7 +313,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     stockUSA: item.stockUSA,
 
     ideasOnCheck: item.ideasOnCheck,
-    ideasVerified: item.ideasVerified,
+    ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
 
     shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
@@ -941,7 +943,7 @@ export const supplierApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox || 0
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
@@ -958,7 +960,10 @@ export const supplierApproximateCalculationsDataConverter = (
         ) *
           fInalWeightOfUnit
 
-      const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
+      const roi =
+        (((product.amazon || product?.approximatePrice) - calcTotalFbaForProduct(product) - costDeliveryToUsa) /
+          costDeliveryToUsa) *
+        100
 
       return {
         originalData: item,
@@ -978,7 +983,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
   supplier,
   volumeWeightCoefficient,
 ) => {
-  const fInalWeightOfUnit =
+  const finalWeightOfUnit =
     Math.max(
       roundSafely(
         (supplier.boxProperties?.boxLengthCm *
@@ -987,7 +992,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF)
@@ -996,11 +1001,14 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         (+supplier?.price * (+supplier?.amount || 0) + +supplier?.batchDeliveryCostInDollar) / +supplier?.amount
 
       const destinationVariations = tariffLogistic?.destinationVariations?.map(destinationVariation => {
-        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * fInalWeightOfUnit
+        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * finalWeightOfUnit
 
         return {
           ...destinationVariation,
-          roi: ((product?.amazon - calcTotalFbaForProduct(product) - deliveryToUsa) / deliveryToUsa) * 100,
+          roi:
+            (((product?.amazon || product?.approximatePrice || 0) - calcTotalFbaForProduct(product) - deliveryToUsa) /
+              deliveryToUsa) *
+            100,
           costDeliveryToUsa: deliveryToUsa,
         }
       })
@@ -1059,4 +1067,20 @@ export const notificationDataConverter = data =>
           },
 
     type: item?.type,
+  }))
+
+export const myProposalsDataConverter = data =>
+  data.map((item, index) => ({
+    _id: item.request._id,
+    title: item.request.title,
+    product: item.request.product,
+    priority: item.request.priority,
+    typeTask: item.request.typeTask,
+    timeoutAt: item.request.timeoutAt,
+    taskComplexity: item.request.taskComplexity,
+    status: item.status,
+    humanFriendlyId: item.request.humanFriendlyId,
+
+    originalData: item,
+    id: item._id ? item._id : index,
   }))

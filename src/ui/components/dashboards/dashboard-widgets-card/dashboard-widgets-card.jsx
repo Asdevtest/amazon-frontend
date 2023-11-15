@@ -49,13 +49,13 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
                 ))}
               </div>
             </div>
-            <DashboardSingleCardWithButton
+            {/* <DashboardSingleCardWithButton
               config={config.stores}
               valuesData={valuesData}
               buttonText={t(TranslationKey['Add shop'])}
               configSubTitle={t(TranslationKey['Store data'])}
               onClickViewMore={onClickViewMore}
-            />
+            /> */}
           </div>
 
           <DashboardSingleCardWithButton

@@ -18,12 +18,14 @@ import {
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { MultilineTextCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -738,6 +740,7 @@ export const ObJectFieldMenuItem = React.memo(
       field,
       filterRequestStatus,
       addNullObj,
+      nullObjName,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -768,7 +771,7 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          [...filterData, ...[addNullObj && { name: t(TranslationKey['Without stores']), _id: 'null' }]]
+          [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
             .filter(el => el)
             .sort(
               (a, b) =>
@@ -811,7 +814,7 @@ export const ObJectFieldMenuItem = React.memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender.length > 0 ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -819,8 +822,8 @@ export const ObJectFieldMenuItem = React.memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => {
-                        const value = obj.title || obj.name || t(TranslationKey.Empty)
-                        const valueChecked = choosenItems.some(item => item._id === obj._id)
+                        const value = obj?.title || obj?.name || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (
                           obj && (
@@ -1212,14 +1215,16 @@ export const NormalFieldMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item === el)
 
                       return (
-                        !!el && (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                            <div title={value} className={classNames.shopName}>
-                              {value}
-                            </div>
-                          </div>
-                        )
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                          <MultilineTextCell
+                            leftAlign
+                            oneLines={columnKey === columnnsKeys.shared.STRING}
+                            text={value}
+                            color={colorByStatus(el)}
+                            customTextClass={classNames.statusText}
+                          />
+                        </div>
                       )
                     })}
                   </>
@@ -1456,9 +1461,9 @@ export const ProductMenuItem = React.memo(
     }
 
     const [currentOption, setCurrentOption] = useState(
-      data.amazonTitle.currentFilterData.length
+      data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skusByClient.currentFilterData.length
+        : !withoutSku && data.skusByClient?.currentFilterData?.length
         ? 'skusByClient'
         : 'asin',
     )
@@ -2302,6 +2307,8 @@ export const NumberFieldMenuItem = React.memo(
           'ideasClosed',
           'ideasFinished',
           'fbaamount',
+          'id',
+          'reworkCounter',
         ]
         return whiteList.includes(field)
       }, [field])
@@ -2625,13 +2632,14 @@ export const RedFlagsCellMenuItem = React.memo(
 
     return (
       <ObJectFieldMenuItem
+        addNullObj
         data={data}
         field={field}
         filterRequestStatus={filterRequestStatus}
         columnKey={columnnsKeys}
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
-            <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />
+            {obj.iconImage && <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />}
             <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>

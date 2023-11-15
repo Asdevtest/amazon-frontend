@@ -9,56 +9,65 @@ import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns/client-freelance-notifications-columns'
+import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  error = undefined
-  loadingStatus = undefined
-
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
 
   notifications = []
 
+  rowCount = 0
+  sortModel = []
+  filterModel = { items: [] }
+  densityModel = 'compact'
+  columnVisibilityModel = {}
+  paginationModel = { page: 0, pageSize: 15 }
   rowHandlers = {
     onClickReplyBtn: (requestId, chatId) => this.onClickReply(requestId, chatId),
   }
-
   columnsModel = clientFreelanceNotificationsColumns(this.rowHandlers)
-  columnVisibilityModel = {}
 
-  paginationModel = { page: 0, pageSize: 15 }
+  get currentData() {
+    return this.notifications
+  }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-      this.getDataGridState()
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.loadingStatus = loadingStatuses.isLoading
-      const response = await restApiService.userApi.apiV1UsersInfoGet()
+      this.getDataGridState()
+
+      this.getNotifications()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getNotifications() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+
       runInAction(() => {
-        this.notifications = response.freelanceNotices.map(el => {
+        this.rowCount = response?.data?.freelanceNotices?.length
+        this.notifications = response.data.freelanceNotices.map(el => {
           return {
             ...el.request,
+            chatId: el.chatId,
             unreadMessages: el.unreadMessages,
           }
         })
       })
-      this.loadingStatus = loadingStatuses.success
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      runInAction(() => {
-        this.loadingStatus = loadingStatuses.failed
-        this.error = error
-      })
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -76,60 +85,43 @@ export class ClientFreelanceNotificationsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.notifications)
+    this.selectedRowIds = model
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -143,11 +135,5 @@ export class ClientFreelanceNotificationsViewModel {
         chatId,
       })
     }
-    // const win = window.open(
-    //   `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=ideas`,
-    //   '_blank',
-    // )
-    //
-    // win?.focus()
   }
 }

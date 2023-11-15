@@ -73,6 +73,8 @@ export const TopCard = observer(
     onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
   }) => {
     const { classes: classNames, cx } = useClassNames()
 
@@ -127,7 +129,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={product.images}
+                      files={imagesForLoad || product?.images}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -141,7 +143,7 @@ export const TopCard = observer(
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
-                          images={imagesForLoad}
+                          images={imagesForLoad || product?.images}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
                         />
@@ -235,7 +237,7 @@ export const TopCard = observer(
                             checkIsBuyer(curUserRole)) ||
                           selectedSupplier.name !== 'access denied' ? (
                             <>
-                              {checkIsAdmin(curUserRole) ||
+                              {/* {checkIsAdmin(curUserRole) ||
                               checkIsSupervisor(curUserRole) ||
                               (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={classNames.supplierButtonWrapper}>
@@ -250,7 +252,7 @@ export const TopCard = observer(
                                     {t(TranslationKey['Open the parameters supplier'])}
                                   </Typography>
                                 </div>
-                              ) : null}
+                              ) : null} */}
                               {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={classNames.supplierButtonWrapper}>
                                   <Button
@@ -309,7 +311,9 @@ export const TopCard = observer(
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={classNames.iconBtn}
+                                className={cx(classNames.iconBtn, {
+                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                                })}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
                                     ? onClickSupplierBtns('acceptRevoke')
@@ -400,6 +404,8 @@ export const TopCard = observer(
             <BindProductForm
               sourceProduct={product}
               productsToBind={productsToBind}
+              loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
+              onClickSubmitSearch={onClickSubmitSearch}
               onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
               onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}

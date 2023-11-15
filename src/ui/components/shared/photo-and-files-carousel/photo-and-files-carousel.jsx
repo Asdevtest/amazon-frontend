@@ -27,6 +27,8 @@ import { CustomSlider } from '../custom-slider'
 
 export const PhotoAndFilesCarousel = props => {
   const { classes: classNames } = useClassNames()
+  const [imageEditOpen, setImageEditOpen] = useState(false)
+
   const {
     files,
     width,
@@ -36,6 +38,7 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     withoutFiles,
     imagesTitles = [],
+    isImagesFullWidth = false,
     isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
@@ -44,8 +47,6 @@ export const PhotoAndFilesCarousel = props => {
     customAvatarStyles,
     customImgStyles,
   } = props
-
-  const [imageEditOpen, setImageEditOpen] = useState(false)
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -91,7 +92,7 @@ export const PhotoAndFilesCarousel = props => {
       onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
       setBigImagesOptions(() => ({
         ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
+        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0].data_url : el)),
       }))
     }
   }
@@ -113,7 +114,7 @@ export const PhotoAndFilesCarousel = props => {
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
-      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
+      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image.data_url : el)),
     }))
   }
 

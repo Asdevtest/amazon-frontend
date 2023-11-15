@@ -1,0 +1,43 @@
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    backgroundColor: `${theme.palette.background.general} !important`,
+
+    'div:first-of-type': {
+      'img:nth-of-type(2)': {
+        minWidth: '60%',
+      },
+    },
+
+    'div:last-child': {
+      backgroundColor: 'transparent',
+
+      ul: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 5,
+
+        li: {
+          button: {
+            height: 40,
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            borderRadius: '50%',
+
+            '&:hover': {
+              opacity: 1,
+              transform: 'scale(1.05)',
+            },
+          },
+        },
+
+        /* 'li:nth-of-type(1)': {
+          display: 'none',
+        },
+        'li:nth-of-type(2)': {
+          display: 'none',
+        }, */
+      },
+    },
+  },
+}))

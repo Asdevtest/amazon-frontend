@@ -311,7 +311,8 @@ export const getClientDashboardCardConfig = () => ({
         icon: '/assets/icons/party.svg',
         subIcon: '/assets/icons/check.svg',
         color: '#C69109',
-        route: '/client/warehouse/boxes-ready-to-batch',
+        route: '/client/warehouse/in-stock',
+        dataGridFilter: 'REQUESTED_SEND_TO_BATCH',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,
@@ -973,7 +974,7 @@ export const getSupervisorDashboardCardConfig = () => [
 
       {
         dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: t(TranslationKey['In the work of a Bayer']),
+        title: t(TranslationKey['In the work of a Buyer']),
 
         route: '/supervisor/products',
         dataGridFilter: {

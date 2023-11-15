@@ -125,6 +125,7 @@ export const ChatMessagesList: FC<Props> = observer(
     return (
       <div
         ref={messagesWrapperRef}
+        key={chatId}
         className={cx(classNames.messagesWrapper, { [classNames.messagesWrapperNone]: isShowChatInfo })}
       >
         {SettingsModel.languageTag &&
@@ -144,7 +145,8 @@ export const ChatMessagesList: FC<Props> = observer(
 
               const unReadMessage = !messageItem.isRead
 
-              const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+              const showName =
+                (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
               const isReply = messageItem?.replyMessageId
 

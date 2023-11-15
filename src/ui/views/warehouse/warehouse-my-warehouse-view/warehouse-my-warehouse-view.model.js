@@ -55,7 +55,7 @@ const filtersFields = [
   'amount',
   'warehouse',
   'client',
-  'batchId',
+  'batchHumanFriendlyId',
   'dimansions',
   'action',
   'prepId',
@@ -250,14 +250,6 @@ export class WarehouseMyWarehouseViewModel {
     this.setDataGridState()
     this.getBoxesMy()
   }
-
-  // onSelectionModel(model) {
-  //   const boxes = this.boxesMy.filter(box => model.includes(box.id))
-  //   const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
-  //   runInAction(() => {
-  //     this.selectedBoxes = res
-  //   })
-  // }
 
   onSelectionModel(model) {
     runInAction(() => {
@@ -668,8 +660,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async setHsCode(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
@@ -684,18 +678,12 @@ export class WarehouseMyWarehouseViewModel {
   async onEditBox() {
     try {
       const destinations = await ClientModel.getDestinations()
-
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.destinations = destinations
-
-        this.storekeepersData = storekeepersData
-      })
-
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.destinations = destinations
+        this.storekeepersData = storekeepersData
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1066,9 +1054,12 @@ export class WarehouseMyWarehouseViewModel {
 
   async setDimensions(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
+
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)
@@ -1181,12 +1172,11 @@ export class WarehouseMyWarehouseViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1328,14 +1318,9 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      // this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
-
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )
 
@@ -1345,10 +1330,7 @@ export class WarehouseMyWarehouseViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      // this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
-      // this.setFilterRequestStatus(loadingStatuses.failed)
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1391,8 +1373,9 @@ export class WarehouseMyWarehouseViewModel {
       exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
     const logicsTariffFilter =
       exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-    const batchIdFilter =
-      exclusion !== 'batchId' && this.columnMenuSettings.batchId.currentFilterData.map(el => el._id).join(',')
+    const batchHumanFriendlyIdFilter =
+      exclusion !== 'batchHumanFriendlyId' &&
+      this.columnMenuSettings.batchHumanFriendlyId.currentFilterData.map(el => el._id).join(',')
 
     // const orderIdsItemsFilter = exclusion !== 'orderIdsItemsFilter' && this.columnMenuSettings.orderIdsItems.currentFilterData.join(',')
 
@@ -1449,8 +1432,8 @@ export class WarehouseMyWarehouseViewModel {
       ...(logicsTariffFilter && {
         logicsTariffId: { $eq: logicsTariffFilter },
       }),
-      ...(batchIdFilter && {
-        batchId: { $eq: batchIdFilter },
+      ...(batchHumanFriendlyIdFilter && {
+        batchHumanFriendlyId: { $eq: batchHumanFriendlyIdFilter },
       }),
 
       // ...(orderIdsItemsFilter && {

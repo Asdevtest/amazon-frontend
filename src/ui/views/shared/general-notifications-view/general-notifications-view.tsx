@@ -1,32 +1,30 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { ChangeEvent, useEffect, useState } from 'react'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { NotificationTypes } from '@constants/notifications/notification-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsClient, checkIsFreelancer } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './general-notifications-view.styles'
+import { useStyles } from './general-notifications-view.styles'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
 export const GeneralNotificationsView = observer(({ history }: { history: History }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(
     () =>
       new GeneralNotificationsViewModel({
@@ -40,6 +38,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
 
   const currentUserRole = viewModel?.currentUser?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
+  const isCurrentUserBuyer = checkIsBuyer(UserRoleCodeMap[currentUserRole])
   const isCurrentUserFreelancer = checkIsFreelancer(UserRoleCodeMap[currentUserRole])
 
   const searchPlaceholderText = isCurrentUserClient
@@ -47,26 +46,51 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
     : isCurrentUserFreelancer
     ? `, ${t(TranslationKey['Request ID'])}`
     : ''
+  const currentSwitcherSettings: ISwitcherSettings[] = isCurrentUserClient
+    ? [
+        { label: () => t(TranslationKey.Box), value: NotificationTypes.box },
+        { label: () => t(TranslationKey.Idea), value: NotificationTypes.idea },
+        { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
+        { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
+        { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
+        { label: () => t(TranslationKey.All), value: undefined },
+      ]
+    : isCurrentUserBuyer
+    ? [
+        { label: () => t(TranslationKey.Idea), value: NotificationTypes.idea },
+        { label: () => t(TranslationKey.Order), value: NotificationTypes.order },
+        { label: () => t(TranslationKey.All), value: undefined },
+      ]
+    : [{ label: () => t(TranslationKey.All), value: undefined }]
 
   return (
     viewModel.languageTag && (
-      <div className={classNames.root}>
-        <div className={classNames.actionPanelWrapper}>
-          <div />
+      <div className={styles.root}>
+        <div className={styles.actionPanelWrapper}>
+          {!isCurrentUserFreelancer ? (
+            <CustomSwitcher
+              switchMode={'medium'}
+              condition={viewModel.curNotificationType}
+              switcherSettings={currentSwitcherSettings}
+              changeConditionHandler={viewModel.onClickToChangeNotificationType}
+            />
+          ) : (
+            <div />
+          )}
 
           <SearchInput
-            inputClasses={cx(classNames.searchInput, {
-              [classNames.searchInputClient]: isCurrentUserClient,
-              [classNames.searchInputFreelancer]: isCurrentUserFreelancer,
+            inputClasses={cx(styles.searchInput, {
+              [styles.searchInputClient]: isCurrentUserClient,
+              [styles.searchInputFreelancer]: isCurrentUserFreelancer,
             })}
             value={viewModel.searchValue}
-            placeholder={`${t(TranslationKey['Search by SKU, ASIN, Title']) + searchPlaceholderText}`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => viewModel.onChangeSearchValue(e.target.value)}
+            placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
+            onSubmit={viewModel.onSearchSubmit}
           />
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              className={cx(classNames.button, classNames.archiveButton)}
+              className={cx(styles.button, styles.archiveButton)}
               variant="outlined"
               onClick={() => viewModel.toggleVariationHandler('isArchive')}
             >
@@ -76,7 +100,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             {!viewModel.isArchive && (
               <Button
                 disabled={!viewModel.selectedRowIds.length}
-                className={classNames.button}
+                className={styles.button}
                 color="primary"
                 onClick={() => viewModel.onClickReadButton()}
               >
@@ -86,15 +110,13 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
           </div>
         </div>
 
-        <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
+        <div className={styles.datagridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            pagination
             useResizeContainer
+            disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedRowIds}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -106,18 +128,8 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             getRowHeight={() => 'auto'}
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
-              // columnMenu: viewModel.columnMenuSettings,
               toolbar: {
-                // resetFiltersBtnSettings: {
-                //   onClickResetFilters: viewModel.onClickResetFilters,
-                //   isSomeFilterOn: viewModel.isSomeFilterOn,
-                // },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -129,7 +141,6 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>

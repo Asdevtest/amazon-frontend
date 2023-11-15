@@ -1,8 +1,6 @@
 /* eslint-disable import/no-unresolved */
-
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
@@ -12,10 +10,10 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomImageGalleryList } from '@components/requests-and-request-proposals/custom-image-gallery-list'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { FilesCarousel } from '@components/shared/files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
+import { checkIsImageLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-request-details.style'
@@ -31,14 +29,15 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
     setShowDetails(!showDetails)
   }
 
+  const requestMedia = request?.request?.media?.filter(el => checkIsImageLink(el.fileLink))
+  const requestPhotos = requestMedia?.map(el => el.fileLink)
+  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
+  const requestComments = requestMedia?.map(el => el.commentByClient)
+  const requestDocuments = request?.request?.media.map(el => el.fileLink)
+
   return (
     <div className={classNames.root}>
-      <Accordion
-        classes={{ root: classNames.accordion }}
-        // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
-        expanded={showDetails}
-        onChange={onClickToShowDetails}
-      >
+      <Accordion classes={{ root: classNames.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
         </AccordionSummary>
@@ -50,14 +49,20 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
 
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList files={request?.request?.media} />
+                <PhotoAndFilesSlider
+                  withoutFiles
+                  showPreviews
+                  files={requestPhotos}
+                  photosTitles={requestTitles}
+                  photosComments={requestComments}
+                />
               </div>
 
               <div>
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <FilesCarousel files={request?.request?.media?.map(el => el.fileLink)} />
+                <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
               </div>
             </div>
 

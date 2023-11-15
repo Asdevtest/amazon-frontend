@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
-import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
+import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createProductByClient, patchSuppliers } from '@constants/white-list'
@@ -20,16 +20,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import {
-  clientAddAsinIdeasColumns,
-  clientAllIdeasColumns,
-  clientClosedIdeasColumns,
-  clientCreateCardIdeasColumns,
-  clientNewIdeasColumns,
-  clientOnCheckingIdeasColumns,
-  clientRealizedIdeasColumns,
-  clientSearchSuppliersIdeasColumns,
-} from '@components/table/table-columns/client/client-ideas-columns'
+import { clientNewIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
@@ -42,91 +33,7 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { intervalFields } from './client-ideas-view.constants'
-
-// * Объект с доп. фильтра в зависимости от текущего роута
-
-const settingsByUrl = {
-  '/client/ideas/new': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.NEW],
-    queries: {
-      withOrder: false,
-      withRequests: true,
-    },
-    columnsModel: clientNewIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
-  },
-  '/client/ideas/on-checking': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING],
-    queries: {
-      withOrder: false,
-      withRequests: true,
-    },
-    columnsModel: clientOnCheckingIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_ON_CHECKING_IDEAS,
-  },
-  '/client/ideas/search-suppliers': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS],
-    queries: {
-      withOrder: false,
-      withRequests: false,
-    },
-    columnsModel: clientSearchSuppliersIdeasColumns,
-    defaultSortingModel: 'status',
-    dataGridKey: DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS,
-  },
-  '/client/ideas/create-card': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD],
-    queries: {
-      withOrder: false,
-      withRequests: false,
-    },
-    columnsModel: clientCreateCardIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_CREATE_CARD_IDEAS,
-  },
-  '/client/ideas/add-asin': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN],
-    queries: {
-      withOrder: false,
-      withRequests: true,
-    },
-    columnsModel: clientAddAsinIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_ADD_ASIN_IDEAS,
-  },
-  '/client/ideas/realized': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.REALIZED],
-    queries: {
-      withOrder: true,
-      withRequests: true,
-    },
-    columnsModel: clientRealizedIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_REALIZED_IDEAS,
-  },
-  '/client/ideas/closed': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.CLOSED],
-    queries: {
-      withOrder: false,
-      withRequests: false,
-    },
-    columnsModel: clientClosedIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_CLOSED_IDEAS,
-  },
-  '/client/ideas/all': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ALL],
-    queries: {
-      withOrder: true,
-      withRequests: true,
-    },
-    columnsModel: clientAllIdeasColumns,
-    defaultSortingModel: 'updatedAt',
-    dataGridKey: DataGridTablesKeys.CLIENT_ALL_IDEAS,
-  },
-}
+import { settingsByUrl } from './settings-by-url'
 
 // * Список полей для фильтраций
 
@@ -304,11 +211,9 @@ export class ClientIdeasViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-      this.currentSettings = settingsByUrl[history.location.pathname]
-      this.handleUpdateColumnModel()
-    })
+    this.history = history
+    this.currentSettings = settingsByUrl[history.location.pathname]
+    this.handleUpdateColumnModel()
 
     this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
 
@@ -316,15 +221,11 @@ export class ClientIdeasViewModel {
 
     reaction(
       () => this.ideaList,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => (this.currentData = this.getCurrentData()),
     )
     reaction(
       () => this.shopList,
-      () => {
-        this.handleUpdateColumnModel()
-      },
+      () => this.handleUpdateColumnModel(),
     )
     reaction(
       () => this.languageTag,
@@ -373,34 +274,28 @@ export class ClientIdeasViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getIdeaList()
@@ -413,6 +308,13 @@ export class ClientIdeasViewModel {
 
   getFilters(exclusion) {
     const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
+
+    const commentsFilter =
+      exclusion !== 'comments' && this.columnMenuSettings.comments?.currentFilterData.map(item => `"${item}"`).join(',')
+
+    const buyerCommentFilter =
+      exclusion !== 'buyerComment' &&
+      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
 
     return objectToUrlQs(
       dataGridFiltersConverter(
@@ -435,30 +337,33 @@ export class ClientIdeasViewModel {
               $eq: this.currentSettings.statuses.join(','),
             },
           }),
+          ...(commentsFilter && {
+            comments: { $eq: commentsFilter },
+          }),
+
+          ...(buyerCommentFilter && {
+            buyerComment: { $eq: buyerCommentFilter },
+          }),
         },
       ),
     )
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getIdeaList()
     this.getDataGridState()
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onLeaveColumnField() {
@@ -493,15 +398,13 @@ export class ClientIdeasViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   // * Data getters
@@ -536,7 +439,10 @@ export class ClientIdeasViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.error = error
+
+      runInAction(() => {
+        this.error = error
+      })
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -559,7 +465,9 @@ export class ClientIdeasViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
 
       this.setRequestStatus(loadingStatuses.failed)
     }
@@ -592,8 +500,8 @@ export class ClientIdeasViewModel {
 
   async onClickVariationRadioButton() {
     try {
-      const result = await ClientModel.getProductPermissionsData({ ideaParent: true, isChild: false })
-      this.productsToLaunch = result
+      const result = await ClientModel.getProductPermissionsData({ isParent: true, isChild: false })
+      this.productsToLaunch = result.rows
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -657,7 +565,7 @@ export class ClientIdeasViewModel {
       await method(id)
 
       if (addSupliersToParentProductData) {
-        ProductModel.addSuppliersToProduct(
+        await ProductModel.addSuppliersToProduct(
           addSupliersToParentProductData?.parentProduct?._id,
           addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
         )
@@ -665,12 +573,14 @@ export class ClientIdeasViewModel {
 
       await this.getIdeaList()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -805,10 +715,9 @@ export class ClientIdeasViewModel {
   }
 
   showBarcodeOrHscode(barcode /* , hscode */) {
-    runInAction(() => {
-      // this.currentHscode = hscode
-      this.currentBarcode = barcode
-    })
+    // this.currentHscode = hscode
+    this.currentBarcode = barcode
+
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
@@ -839,9 +748,7 @@ export class ClientIdeasViewModel {
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
   }
 
   onClickProductModal() {
@@ -876,9 +783,7 @@ export class ClientIdeasViewModel {
   // * Modal handlers
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async onClickBindButton(requests) {
@@ -1056,7 +961,8 @@ export class ClientIdeasViewModel {
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
       const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
 
-      const result = await RequestModel.getRequestsByProductLight(currentProductId, {
+      const result = await RequestModel.getRequestsByProductLight({
+        guid: currentProductId,
         status: 'DRAFT, PUBLISHED',
         excludeIdeaId: idea._id,
       })
@@ -1221,18 +1127,16 @@ export class ClientIdeasViewModel {
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -1322,21 +1226,15 @@ export class ClientIdeasViewModel {
   }
 
   clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
+    this.readyImages = []
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.actionStatus = actionStatus
   }
 
   setDestinationsFavouritesItem(item) {

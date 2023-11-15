@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
-import { DestinationType, DestinationVariationType } from '../../../../typings/destination'
+import { IDestination, IDestinationVariation } from '../../../../typings/destination'
 import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
 
 interface FormFields {
@@ -40,12 +40,12 @@ interface FormFields {
   minWeightInKg: number
   archive: boolean
   yuanToDollarRate: number
-  destinationVariations: Array<DestinationVariationType>
+  destinationVariations: Array<IDestinationVariation>
 }
 
 interface DestinationVariationsContentProps {
-  destinationVariations: Array<DestinationVariationType>
-  destinationData: Array<DestinationType>
+  destinationVariations: Array<IDestinationVariation>
+  destinationData: Array<IDestination>
   currentCurrency: string
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -58,7 +58,7 @@ interface AddOrEditWeightBasedLogisticsTariffFormProps {
   tariffToEdit: LogisticTariffInterface
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<LogisticTariffInterface>
-  destinationData: Array<DestinationType>
+  destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
   onCreateSubmit: (formFields: FormFields) => void
@@ -125,7 +125,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.etd ||
       !formFields.eta ||
       formFields.destinationVariations.some(
-        (variant: DestinationVariationType) =>
+        (variant: IDestinationVariation) =>
           !variant.destination._id ||
           !variant.pricePerKgRmb ||
           !variant.pricePerKgUsd ||
@@ -141,7 +141,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const onSetDataFromTariff = (tariff: LogisticTariffInterface) => {
       setSelectedLogisticTariff(tariff)
-
+      // @ts-ignore
       setFormFields(prevState => ({
         ...prevState,
         name: tariff.name,
@@ -159,7 +159,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const [currentCurrency, setCurrentCurrency] = useState(currencyTypes.DOLLAR)
 
-    const onChangeField = (fieldName: string) => (value: string | number | Array<DestinationVariationType>) => {
+    const onChangeField = (fieldName: string) => (value: string | number | Array<IDestinationVariation>) => {
       const newFormFields = { ...formFields }
       if (fieldName === 'yuanToDollarRate') {
         newFormFields[fieldName] = Number(value)
@@ -249,7 +249,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       }
     }
 
-    const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationType>) => {
+    const calcWeightRangeValid = (destinationVariations: Array<IDestinationVariation>) => {
       const currectArray = destinationVariations.map(variant => ({
         destinationId: variant.destination._id,
         minWeight: variant.minWeight,
@@ -276,7 +276,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           // @ts-ignore
           const group = groupedByDestinationId[destinationId]
           const sortedRanges = group.sort(
-            (a: DestinationVariationType, b: DestinationVariationType) => a.minWeight - b.minWeight,
+            (a: IDestinationVariation, b: IDestinationVariation) => a.minWeight - b.minWeight,
           )
 
           for (let i = 0; i < sortedRanges.length - 1; i++) {
@@ -304,6 +304,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               // @ts-ignore
               placeholder={t(TranslationKey['Service name'])}
               value={formFields.name}
+              // @ts-ignore
               inputProps={{ maxLength: 50 }}
               inputClasses={classNames.fieldInput}
               labelClasses={classNames.fieldLabel}
@@ -349,6 +350,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
+                  // @ts-ignore
                   grayBorder
                   blackSelectedItem
                   darkIcon
@@ -548,7 +550,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
 
     return (
       <>
-        {destinationVariations?.map((variant: DestinationVariationType, variantIndex: number) => (
+        {destinationVariations?.map((variant: IDestinationVariation, variantIndex: number) => (
           <div key={variantIndex} className={classNames.optionsWrapper}>
             <Field
               label={t(TranslationKey.Destination)}
@@ -558,6 +560,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
+                  // @ts-ignore
                   grayBorder
                   blackSelectedItem
                   darkIcon
@@ -578,7 +581,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                       : t(TranslationKey.Select)
                   }
                   onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                  onClickSelect={(el: DestinationType) => {
+                  onClickSelect={(el: IDestination) => {
                     onChangeDestinationVariations('destinationId')(variantIndex)(el._id)
                   }}
                 />

@@ -1,14 +1,12 @@
-import React from 'react'
-
 import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
+  RenderFieldValueCell,
   SmallRowImageCell,
   TrashCell,
-  renderFieldValueCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -69,7 +67,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 120,
   },
 

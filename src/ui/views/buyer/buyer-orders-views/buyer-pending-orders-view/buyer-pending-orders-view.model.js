@@ -27,7 +27,16 @@ import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const updateOrderKeys = ['amount', 'orderSupplierId', 'images', 'totalPrice', 'item', 'buyerComment', 'priceInYuan']
+const updateOrderKeys = [
+  'amount',
+  'buyerComment',
+  'images',
+  'item',
+  'orderSupplierId',
+  'totalPrice',
+  'priceBatchDeliveryInYuan',
+  'deliveryCostToTheWarehouse',
+]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -359,16 +368,6 @@ export class BuyerMyOrdersViewModel {
   async onSubmitSaveOrder({ order, orderFields, photosToLoad, hsCode }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      // this.readyImages = []
-      // if (photosToLoad.length) {
-      //   await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
-      // }
-
-      // const orderFieldsToSave = {
-      //   ...orderFields,
-      //   images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
-      // }
 
       this.clearReadyImages()
 

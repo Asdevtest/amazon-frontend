@@ -1,41 +1,34 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     maxWidth: 1685,
-    padding: '0 10px',
-
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
   },
-  modalTitle: {
+
+  title: {
     fontSize: 18,
-    lineHeight: '140%',
-
+    lineHeight: '25px',
     color: theme.palette.text.general,
-
-    marginBottom: 20,
   },
-  buttonsWrapper: {
-    display: 'flex',
-    justifyContent: 'end',
 
-    gap: 30,
-
-    marginTop: 30,
-  },
   modalCardsWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
     gap: 25,
-
-    width: '100%',
-
-    minHeight: 368,
     maxHeight: 570,
-    overflow: 'auto',
+    overflowY: 'auto',
   },
+
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 30,
+  },
+
   actionButton: {
     padding: '0 25px',
   },

@@ -2,14 +2,14 @@ import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -61,13 +61,6 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
   }
 
   const onSelectionModel = model => {
-    // const curChosenGoodsIds = chosenGoods.map(el => el.id)
-
-    // const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
-
-    // const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
-    // setChosenGoods([...chosenGoods, ...newSelectedItems])
-
     setSelectedGoods(model)
   }
 
@@ -165,15 +158,10 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         </div>
 
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            hideFooter
+          <CustomDataGrid
             checkboxSelection
-            // sx={{
-            //   border: 0,
-            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.general,
-            // }}
             rows={toJS(stockData)}
+            rowCount={stockData?.length}
             columns={sourceColumns()}
             rowHeight={60}
             rowSelectionModel={selectedGoods}
@@ -197,17 +185,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            hideFooter
-            // sx={{
-            //   border: 0,
-            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.general,
-            // }}
-            rows={chosenGoods || []}
-            columns={chosenGoodsColumns({ onClickTrash })}
-            rowHeight={60}
-          />
+          <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
         </div>
 
         <div className={classNames.btnsWrapper}>

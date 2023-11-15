@@ -2,10 +2,10 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaRequests,
+  IdeaRequestsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OnCheckingIdeaActions,
+  OnCheckingIdeaActionsCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
@@ -43,7 +43,10 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell
+        twoLines
+        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
+      />
     ),
     width: 100,
     sortable: false,
@@ -89,7 +92,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <OnCheckingIdeaActions
+      <OnCheckingIdeaActionsCell
         onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(params.row._id)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
@@ -115,7 +118,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
 
     renderCell: params => (
-      <IdeaRequests
+      <IdeaRequestsCell
         row={params.row}
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
         onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}

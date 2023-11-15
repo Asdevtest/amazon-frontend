@@ -1,17 +1,6 @@
-import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
-const ani = keyframes`
-0% {
-    transform: translateY(-150%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1
-  }
-`
-
-export const styles = theme => ({
+export const useStyles = makeStyles()(theme => ({
   button: {
     marginRight: '10px',
   },
@@ -88,19 +77,10 @@ export const styles = theme => ({
     marginTop: '10px',
   },
 
-  acceptMessageWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: '50%',
-    padding: '10px',
-    marginTop: '63px',
-    zIndex: 999,
-    opacity: 0,
-    transform: 'translateY(-150%)',
-    animation: `${ani} 1s forwards`,
+  additionalButtonsWrapper: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 20,
   },
-
-  acceptMessage: {
-    color: '#00B746',
-  },
-})
+}))

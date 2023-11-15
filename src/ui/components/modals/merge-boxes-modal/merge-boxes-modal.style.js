@@ -1,6 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    position: 'relative',
+    paddingRight: 10,
+  },
   heightFieldAuto: {
     height: '86px',
     padding: 0,
@@ -30,7 +34,10 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
-  buttonsWrapper: { display: 'flex', gap: '10px' },
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '20px',
+  },
 
   box: {
     minWidth: '300px',
@@ -170,9 +177,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
   modalFooter: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '40px',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
   modalAlternateFooter: {
     display: 'flex',

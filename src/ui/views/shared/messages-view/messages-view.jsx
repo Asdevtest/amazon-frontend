@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,7 @@ import { useClassNames } from './messages-view.style'
 import { MessagesViewModel } from './messages-view.model'
 
 export const MessagesView = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
 
@@ -64,10 +63,7 @@ export const MessagesView = observer(props => {
       }
     })
     .sort((a, b) => {
-      return compareDesc(
-        parseISO(a.messages[a.messages.length - 1]?.createdAt || a?.createdAt),
-        parseISO(b.messages[b.messages.length - 1]?.createdAt || b?.createdAt),
-      )
+      return compareDesc(parseISO(a.lastMessage?.createdAt), parseISO(b.lastMessage?.createdAt))
     })
 
   const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)

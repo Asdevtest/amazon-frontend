@@ -18,20 +18,4 @@ export const useClassNames = makeStyles()(() => ({
     gap: 20,
     marginBottom: 10,
   },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    height: '52px',
-  },
 }))

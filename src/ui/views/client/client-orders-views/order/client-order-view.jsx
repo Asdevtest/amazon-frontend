@@ -1,90 +1,61 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
+import { BoxViewForm } from '@components/forms/box-view-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { styles } from './client-order-view.style'
-
 import { ClientOrderViewModel } from './client-order-view.model'
 
-export const ClientOrderViewRaw = props => {
-  const { search } = useLocation()
-  const [viewModel] = useState(
-    () =>
-      new ClientOrderViewModel({
-        history: props.history,
-      }),
-  )
-  const { classes: classNames } = props
+export const ClientOrderView = observer(({ history }) => {
+  const [viewModel] = useState(() => new ClientOrderViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
+    SettingsModel.changeLastCrumbAdditionalText('')
 
     return () => {
       SettingsModel.changeLastCrumbAdditionalText('')
     }
   }, [])
 
-  useEffect(() => {
-    const queries = new URLSearchParams(search)
-    const orderId = queries.get('orderId')
-
-    if (orderId) {
-      viewModel.updateOrderId(orderId)
-    }
-  }, [search])
-
-  const goBack = () => {
-    viewModel.history.goBack()
-  }
-
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.backButtonWrapper}>
-          <Button className={classNames.backButton} onClick={goBack}>
-            {t(TranslationKey.Back)}
-          </Button>
-        </div>
-        {viewModel.order ? (
-          <OrderContent
-            isClient
-            storekeepers={viewModel.storekeepers}
-            destinations={viewModel.destinations}
-            userInfo={viewModel.userInfo}
-            volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-            platformSettings={viewModel.platformSettings}
-            order={viewModel.order}
-            boxes={viewModel.orderBoxes}
-            selectedSupplier={viewModel.selectedSupplier}
-            destinationsFavourites={viewModel.destinationsFavourites}
-            setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-            onClickCancelOrder={viewModel.onClickCancelOrder}
-            onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-            onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
-            onClickReorder={viewModel.onClickReorder}
-            onChangeSelectedSupplier={viewModel.onChangeSelectedSupplier}
-            onTriggerAddOrEditSupplierModal={viewModel.onTriggerAddOrEditSupplierModal}
-            onClickHsCode={viewModel.onClickHsCode}
-          />
-        ) : null}
-      </div>
+      {viewModel.order ? (
+        <OrderContent
+          isClient
+          storekeepers={viewModel.storekeepers}
+          destinations={viewModel.destinations}
+          userInfo={viewModel.userInfo}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          platformSettings={viewModel.platformSettings}
+          order={viewModel.order}
+          boxes={viewModel.orderBoxes}
+          selectedSupplier={viewModel.selectedSupplier}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onChangeSelectedSupplier={viewModel.onChangeSelectedSupplier}
+          onTriggerAddOrEditSupplierModal={viewModel.onTriggerAddOrEditSupplierModal}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -94,7 +65,6 @@ export const ClientOrderViewRaw = props => {
         <OrderProductModal
           isPendingOrdering
           reorderOrdersData={[viewModel.order]}
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -163,8 +133,20 @@ export const ClientOrderViewRaw = props => {
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
+
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          userInfo={viewModel.userInfo}
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      </Modal>
     </React.Fragment>
   )
-}
-
-export const ClientOrderView = withStyles(observer(ClientOrderViewRaw), styles)
+})

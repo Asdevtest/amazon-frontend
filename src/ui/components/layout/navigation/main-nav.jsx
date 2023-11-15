@@ -2,11 +2,13 @@ import { observer } from 'mobx-react'
 import { Suspense, useEffect, useMemo, useRef } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
+import { GlobalStyles } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 
-import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
-import { UiTheme } from '@constants/theme/themes'
+import { changeSystemTheme } from '@constants/theme/change-system-theme'
+import { darkTheme, globalStyles, lightTheme } from '@constants/theme/mui-theme'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -28,6 +30,7 @@ export const MainNav = observer(() => {
 
   useEffect(() => {
     uiThemeModeRef.current = SettingsModel.uiTheme
+    changeSystemTheme(uiThemeModeRef.current)
   }, [SettingsModel.uiTheme])
 
   const theme = useMemo(
@@ -38,6 +41,7 @@ export const MainNav = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <ToastifyProvder theme={SettingsModel.uiTheme} />
+      <GlobalStyles styles={globalStyles} />
       <CssBaseline />
       <Router>
         <Suspense fallback={<CircularProgressWithLabel />}>

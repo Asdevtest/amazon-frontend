@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-import { IMasterUser } from '@typings/master-user'
+import { IShortUser } from '@typings/master-user'
 
 export class SendMessageRequestParamsContract {
   @IsNotEmpty()
@@ -24,7 +23,7 @@ export class SendMessageRequestParamsContract {
   public replyMessageId?: string | null
 
   @IsOptional()
-  public user?: Omit<IMasterUser, 'rating'>
+  public user?: Omit<IShortUser, 'rating'>
 
   @IsOptional()
   @IsString()

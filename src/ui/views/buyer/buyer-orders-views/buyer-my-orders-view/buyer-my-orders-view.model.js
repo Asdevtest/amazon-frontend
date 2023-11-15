@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
@@ -134,6 +133,9 @@ export class BuyerMyOrdersViewModel {
   showEditHSCodeModal = false
 
   showSuccessModalText = ''
+
+  curBox = undefined
+  showBoxViewModal = false
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
@@ -566,13 +568,19 @@ export class BuyerMyOrdersViewModel {
     if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
-        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
-      )
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       this.orderStatusDataBase.some(
         status =>
@@ -581,12 +589,16 @@ export class BuyerMyOrdersViewModel {
       ) &&
       this.orderStatusDataBase.length === 2
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(
         [
           Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
           Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
         ].join(','),
       )
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     }
   }
 
@@ -618,7 +630,11 @@ export class BuyerMyOrdersViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    const response = await SupplierModel.getSuppliersPaymentMethods()
+
+    runInAction(() => {
+      this.paymentMethods = response
+    })
   }
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
@@ -933,13 +949,27 @@ export class BuyerMyOrdersViewModel {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
         buyerComment: this.dataToCancelOrder.buyerComment,
       })
-      await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async setCurrentOpenedBox(id) {
+    try {
+      const box = await BoxesModel.getBoxById(id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -1182,7 +1212,7 @@ export class BuyerMyOrdersViewModel {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
         this.onTriggerOpenModal('showOrderModal')
-        UserModel.getUserInfo()
+        UserModel.getUsersInfoCounters()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
 

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Avatar, Paper, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
 import { getBuyerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
-// import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -29,7 +28,7 @@ export const BuyerDashboardViewRaw = props => {
   }, [])
 
   const buyerButtonsRoutes = {
-    notifications: 'notifications/ideas-notifications',
+    notifications: 'notifications/general-notifications-view',
     messages: 'messages',
   }
 
@@ -38,7 +37,7 @@ export const BuyerDashboardViewRaw = props => {
       <div>
         <Paper className={classNames.userInfoWrapper}>
           <div className={classNames.userInfoLeftWrapper}>
-            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
             <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
           </div>

@@ -89,6 +89,7 @@ export const useClassNames = makeStyles()(theme => ({
   slideWrapper: {
     display: 'flex',
     flex: '1 0 100%',
+    padding: '0 0.5px', // fix micro line of neighboring slide when mod is withAllFiles
   },
 
   slide: {
@@ -175,5 +176,29 @@ export const useClassNames = makeStyles()(theme => ({
   bigText: {
     fontSize: '18px !important',
     lineHeight: '25px !important',
+  },
+
+  preloaderContainer: {
+    width: '100%',
+    position: 'relative',
+    cursor: 'pointer',
+  },
+
+  preloader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'rgb(0, 0, 0, 0.5)',
+  },
+
+  preloaderIcon: {
+    width: '36px !important',
+    height: '36px !important',
+    color: '#fff',
   },
 }))

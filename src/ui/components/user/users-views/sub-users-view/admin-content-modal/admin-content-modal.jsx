@@ -171,7 +171,7 @@ export const AdminContentModal = observer(
                 <div className={classNames.ratingSubWrapper}>
                   <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
-                  <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
+                  <Rating readOnly value={editUserFormFields.masterUserInfo?.rating} />
                 </div>
               </div>
             }
@@ -190,7 +190,7 @@ export const AdminContentModal = observer(
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
-                      <Rating disabled value={subUser.rating} />
+                      <Rating readOnly value={subUser.rating} />
                     </div>
                   </div>
                 ))}

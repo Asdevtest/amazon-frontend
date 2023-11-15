@@ -8,11 +8,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalMessage: {
+    fontSize: '14px',
+    lineHeight: '19px',
     textAlign: 'center',
     color: theme.palette.text.general,
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     width: '100%',
     display: 'flex',
     gap: '30px',
@@ -21,12 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   allowedRoleContainer: {
     margin: 0,
-  },
-
-  titleWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   title: {
@@ -73,6 +70,13 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  selectText: {
+    maxWidth: 280,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+
   selectedShopsWrapper: {
     width: '100%',
     display: 'flex',
@@ -97,8 +101,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   selectedShopText: {
     maxWidth: '200px',
-    textOverflow: 'ellipsis',
+    fontSize: '14px',
+    lineHeight: '19px',
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   removeShopButton: {

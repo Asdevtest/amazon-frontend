@@ -170,9 +170,12 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['To correct'])
     case MyRequestStatus.OFFER_CONDITIONS_REJECTED:
       return t(TranslationKey['Proposal conditions rejected'])
-
     case MyRequestStatus.OFFER_CONDITIONS_CORRECTED:
       return t(TranslationKey['Proposal conditions corrected'])
+    case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
+      return t(TranslationKey['Proposal conditions accepted'])
+    case RequestProposalStatus.CREATED:
+      return t(TranslationKey.Created)
   }
 }
 
@@ -184,4 +187,20 @@ export const statusesValidToShowResoult = [
   RequestProposalStatus.ACCEPTED_BY_CLIENT,
   RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
   RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+]
+
+export const noDisabledEditBtnStatuses = [
+  RequestProposalStatus.CREATED,
+  RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+  RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+]
+
+export const disabledCancelBtnStatuses = [
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+  RequestProposalStatus.CANCELED_BY_EXECUTOR,
+  RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+  RequestProposalStatus.EXPIRED,
 ]

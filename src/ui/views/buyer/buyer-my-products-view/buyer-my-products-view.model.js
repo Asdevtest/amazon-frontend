@@ -331,8 +331,6 @@ export class BuyerMyProductsViewModel {
 
       // const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -554,11 +552,11 @@ export class BuyerMyProductsViewModel {
       }),
 
       ...(tagsFilter && {
-        tags: { $eq: tagsFilter },
+        tags: { $any: tagsFilter },
       }),
 
       ...(redFlagsFilter && {
-        redFlags: { $eq: redFlagsFilter },
+        redFlags: { $any: redFlagsFilter },
       }),
 
       ...(bsrFilter && {

@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
 
 import {
   Link,
@@ -17,7 +16,6 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
-import { UserModel } from '@models/user-model'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -170,7 +168,7 @@ export const TableSupplier = observer(
                       }}
                     >
                       <div className={classNames.filesWrapper}>
-                        <PhotoAndFilesSlider smallSlider files={supplier.images} />
+                        <PhotoAndFilesSlider smallSlider showPreviews files={supplier.images} />
                       </div>
                     </TableCell>
 
