@@ -57,7 +57,9 @@ export class ClientInStockBoxesViewModel {
 
   curDestinationId = undefined
 
-  currentData = []
+  get currentData() {
+    return this.boxesMy
+  }
 
   boxesIdsToTask = []
   shopsData = []
@@ -220,11 +222,6 @@ export class ClientInStockBoxesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.boxesMy,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
       () => this.currentStorekeeperId,
       () => this.getClientDestinations(),
     )
@@ -319,14 +316,6 @@ export class ClientInStockBoxesViewModel {
     const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
 
     this.selectedRows = selectedRows
-  }
-
-  getCurrentData() {
-    return toJS(this.boxesMy)
-  }
-
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
