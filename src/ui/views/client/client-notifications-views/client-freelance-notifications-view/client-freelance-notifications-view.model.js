@@ -23,11 +23,10 @@ export class ClientFreelanceNotificationsViewModel {
   densityModel = 'compact'
   columnVisibilityModel = {}
   paginationModel = { page: 0, pageSize: 15 }
-  columnsModel = clientFreelanceNotificationsColumns(this.rowHandlers)
-
   rowHandlers = {
     onClickReplyBtn: (requestId, chatId) => this.onClickReply(requestId, chatId),
   }
+  columnsModel = clientFreelanceNotificationsColumns(this.rowHandlers)
 
   get currentData() {
     return this.notifications
