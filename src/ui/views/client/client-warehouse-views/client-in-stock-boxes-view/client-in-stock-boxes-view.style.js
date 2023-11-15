@@ -31,9 +31,9 @@ export const useStyles = makeStyles()(theme => ({
     opacity: '.5',
   },
 
-  tasksWrapper: {
+  tableWrapper: {
     marginTop: 20,
-    height: '65vh',
+    height: '66vh',
   },
 
   boxesFiltersWrapper: {

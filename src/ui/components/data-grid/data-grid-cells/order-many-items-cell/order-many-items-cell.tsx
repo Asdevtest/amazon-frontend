@@ -67,28 +67,26 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
   )
 
   return (
-    <div className={styles.manyItemsMainWrapper}>
-      <Tooltip title={renderProductInfo()} classes={{ popper: styles.manyItemsMainWrapperTooltip }}>
-        <>
-          <div className={styles.manyItemsImagesWrapper}>
-            {box.items.map((product: any, productIndex: number) => (
-              <div key={productIndex} className={styles.manyItemsImgWrapper}>
-                <img
-                  alt=""
-                  className={styles.ordersImg}
-                  src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-                />
-                <p className={styles.imgNum}>{`x ${product.amount}`}</p>
-              </div>
-            ))}
-          </div>
-          {error && <span className={styles.orderCellError}>{error}</span>}
-        </>
-      </Tooltip>
+    <Tooltip title={renderProductInfo()} classes={{ popper: styles.manyItemsMainWrapperTooltip }}>
+      <div className={styles.manyItemsMainWrapper}>
+        <div className={styles.manyItemsImagesWrapper}>
+          {box.items.map((product: any, productIndex: number) => (
+            <div key={productIndex} className={styles.manyItemsImgWrapper}>
+              <img
+                alt=""
+                className={styles.ordersImg}
+                src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+              />
+              <p className={styles.imgNum}>{`x ${product.amount}`}</p>
+            </div>
+          ))}
+        </div>
+        {error && <span className={styles.orderCellError}>{error}</span>}
 
-      {isEqualsItems ? (
-        <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
-      ) : null}
-    </div>
+        {isEqualsItems ? (
+          <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
+        ) : null}
+      </div>
+    </Tooltip>
   )
 })
