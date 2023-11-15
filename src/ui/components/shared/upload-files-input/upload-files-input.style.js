@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 import { tooltipClasses } from '@mui/material/Tooltip'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -21,34 +21,70 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainSubWrapper: {
+    width: 'max-content',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
   },
 
+  fullWidth: {
+    width: '100%',
+  },
+
   controlsWrapper: {
     display: 'flex',
-    gap: 20,
-    justifyContent: 'space-between',
     alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  label: {
+    marginBottom: 5,
+  },
+
+  amazonLinkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  loadImageInput: {
+    height: '40px',
+    borderRadius: '7px',
+    width: 'calc(100% - 192px)',
+    border: `1px solid #424250`,
+  },
+
+  loadImageInputSmall: {
+    width: '46%',
+  },
+
+  inputColor: {
+    color: `${theme.palette.text.general} !important`,
+  },
+
+  loadBtn: {
+    width: '172px',
+    color: '#fff',
+  },
+
+  attachFiles: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+    marginBottom: 5,
   },
 
   dragAndDropBtn: {
-    fontSize: 16,
-    lineHeight: '21px',
-    margin: '0 auto',
-    minWidth: '250px',
+    position: 'relative',
     width: '100%',
     height: '100px',
+    color: theme.palette.text.general,
+    background: theme.palette.background.second,
     border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
+    borderRadius: '7px',
     transition: '0.3s ease',
     cursor: 'pointer',
-    borderRadius: '7px',
-
-    color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.second,
-
-    position: 'relative',
 
     '&:hover': {
       transform: 'scale(1.01)',
@@ -59,19 +95,24 @@ export const useClassNames = makeStyles()(theme => ({
       lineHeight: '19px',
       height: 80,
     },
+
+    [theme.breakpoints.down(768)]: {
+      height: 68,
+    },
+  },
+
+  dragingOnDropBtn: {
+    color: 'rgba(0,123, 255, 1)',
+    background: 'rgba(0,255, 0, .3)',
   },
 
   minimizedDragAndDropBtn: {
     maxWidth: '185px',
-    // minWidth: "185px",
-    width: '100%',
+    height: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7,
     gap: 20,
-    minWidth: 'unset',
-    height: 40,
     color: theme.palette.primary.main,
   },
 
@@ -91,25 +132,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionBtnsWrapper: {
-    minWidth: '250px',
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
 
     [theme.breakpoints.down(1024)]: {
       gap: 5,
     },
-  },
-
-  imagesCount: {
-    fontSize: '12px',
-    textAlign: 'center',
-    color: theme.palette.text.second,
-  },
-
-  imagesCountSpan: {
-    fontSize: '16px',
-    fontWeight: '600',
-    color: theme.palette.primary.main,
   },
 
   buttonSecondary: {
@@ -135,25 +164,42 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  dragingOnDropBtn: {
-    color: 'rgba(0,123, 255, 1)',
-    background: 'rgba(0,255, 0, .3)',
+  imagesCount: {
+    fontSize: '12px',
+    lineHeight: '16px',
+    textAlign: 'center',
+    color: theme.palette.text.second,
   },
 
+  imagesCountSpan: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: theme.palette.primary.main,
+    marginRight: 5,
+  },
+
+  //
+
   imageListWrapper: {
+    width: 380,
+    maxHeight: 120,
+    overflowY: 'auto',
+    padding: '0 10px',
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    maxHeight: 154,
     gap: 10,
-    overflowY: 'auto',
+  },
 
-    [theme.breakpoints.down(1024)]: {
-      gap: 10,
+  imageLinkListItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
 
-      '& > div': {
-        padding: '0 !important',
-      },
+  imgTooltip: {
+    [`& .${tooltipClasses.tooltip}`]: {
+      maxWidth: 450,
     },
   },
 
@@ -165,132 +211,16 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
   },
 
-  tooltipImg: {
-    width: '300px',
-    height: '200px',
-    objectFit: 'contain',
-    objectPosition: 'center',
+  inputIndexWrapper: {
+    marginRight: 0,
   },
 
-  tooltipText: {
-    maxWidth: '300px',
+  inputIndex: {
+    fontWeight: 600,
+    marginLeft: 5,
+    height: 55,
   },
 
-  imgTooltip: {
-    [`& .${tooltipClasses.tooltip}`]: {
-      maxWidth: 450,
-    },
-  },
-
-  tooltipWrapper: {
-    padding: '0',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-
-  fileName: {
-    maxWidth: '80px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    fontSize: '9px',
-
-    color: theme.palette.text.second,
-  },
-
-  linkName: {
-    maxWidth: '160px',
-    height: '80px',
-    overflow: 'auto',
-    fontSize: '10px',
-
-    color: theme.palette.text.second,
-  },
-
-  imageListItem: {
-    overflow: 'hidden',
-    border: ' 1px solid rgba(0,123, 255, .7)',
-    borderRadius: '7px',
-    background: theme.palette.background.second,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '3px',
-    marginBottom: 10,
-  },
-
-  imageLinkListItem: {
-    overflow: 'hidden',
-    borderRadius: '7px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    justifyContent: 'space-between',
-  },
-
-  actionIconsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    flexDirection: 'column',
-    gap: 10,
-  },
-  actionIcon: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
-  },
-
-  amazonLinkWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
-
-  loadImageInput: {
-    height: '40px',
-    borderRadius: '7px',
-    width: 'calc(100% - 192px)',
-
-    border: `1px solid #424250`,
-  },
-
-  loadImageInputSmall: {
-    width: '46%',
-  },
-
-  inputColor: {
-    color: `${theme.palette.text.general} !important`,
-  },
-
-  loadBtn: {
-    width: '172px',
-    color: '#fff',
-  },
-
-  linkTypo: {
-    height: '100px',
-    color: 'white',
-    width: '300px',
-    overflowX: 'auto',
-  },
-
-  '@media (max-width: 768px)': {
-    dragAndDropBtn: {
-      height: '68px',
-    },
-  },
-
-  attachFiles: {
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-
-    color: theme.palette.text.second,
-
-    marginBottom: 5,
-  },
   imageObjInput: {
     width: 133,
     height: 55,
@@ -305,17 +235,37 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto !important',
   },
 
-  inputIndexWrapper: {
-    marginRight: 0,
+  actionIconsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    gap: 10,
   },
 
-  inputIndex: {
-    fontWeight: 600,
-    marginLeft: 5,
-    height: 55,
+  actionIcon: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
 
-  label: {
-    margin: '0 !important',
+  tooltipWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  tooltipImg: {
+    width: '300px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  tooltipText: {
+    maxWidth: '300px',
+    fontSize: 16,
+    lineHeight: '19px',
   },
 }))
