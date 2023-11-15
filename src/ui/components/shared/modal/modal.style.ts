@@ -40,6 +40,7 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: '90vw',
     maxHeight: '85vh',
     overflowY: 'auto',
+    overflowX: 'hidden',
     // padding: 20, // need to add padding to the transmitted content, and not to the modal content className
 
     [theme.breakpoints.down(768)]: {

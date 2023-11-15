@@ -1,2 +1,2 @@
-export { DestinationVariationsSpanningCell } from './destination-variations-spanning-cell/destination-variations-spanning-cell'
-export { WeightBasedApproximateCalculationsSpanningCell } from './weight-based-approximate-calculations-spanning-cell/weight-based-approximate-calculations-spanning-cell'
+export { DestinationVariationsSpanningCell } from './destination-variations-spanning-cell'
+export { WeightBasedApproximateCalculationsSpanningCell } from './weight-based-approximate-calculations-spanning-cell'
