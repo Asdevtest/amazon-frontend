@@ -102,16 +102,6 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
-  /* {
-    field: 'minWeightInKg',
-    headerName: t(TranslationKey['Min. weight, kg']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-
-    type: 'number',
-    width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-  }, */
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),

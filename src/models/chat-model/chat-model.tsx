@@ -105,7 +105,7 @@ class ChatModelStatic {
           ...chat,
           messages: [],
           pagination: {
-            limit: 20,
+            limit: 50,
             offset: 0,
           },
           isAllMessagesLoaded: false,
