@@ -57,7 +57,7 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = React
       {handlers?.onTriggerArchive && (
         <Button
           success={isArchive}
-          tooltipInfoContent={tooltipArchiveButton && t(TranslationKey['Move to archive'])}
+          tooltipInfoContent={(isFirstRow && tooltipArchiveButton && t(TranslationKey['Move to archive'])) || undefined}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
           onClick={() => !!handlers && handlers?.onTriggerArchive(row)}
