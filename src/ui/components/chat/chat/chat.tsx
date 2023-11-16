@@ -264,7 +264,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
       onClickScrollToBottom()
@@ -312,7 +312,7 @@ export const Chat: FC<Props> = observer(
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
     }, [toScrollMesId])
 
-    const disabledSubmit = !message.replace(/\n/g, '') && !files.length
+    const disabledSubmit = !message.trim() && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
