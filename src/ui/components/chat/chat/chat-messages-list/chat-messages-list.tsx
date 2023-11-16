@@ -122,6 +122,8 @@ export const ChatMessagesList: FC<Props> = observer(
       checkIsChatMessageDataProposalResultEditedContract(el),
     )
 
+    console.log('messages', messages)
+
     return (
       <div
         ref={messagesWrapperRef}
@@ -149,6 +151,10 @@ export const ChatMessagesList: FC<Props> = observer(
                 (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
               const isReply = messageItem?.replyMessageId
+
+              // if (typeof messageItem?.replyMessageId === 'string') {
+              //   ChatModel.getChatMessage({ text: messageItem.text, chatId })
+              // }
 
               const repleyMessage = messages.find(
                 el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
