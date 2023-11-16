@@ -105,9 +105,12 @@ class UserModelStatic {
 
   async getUserInfo() {
     try {
-      const responseData = await restApiService.userApi.apiV1UsersInfoGet(undefined, {
-        headers: { 'Cache-Control': 'no-cache' },
-      })
+      const responseData = await restApiService.userApi.apiV1UsersInfoGet(
+        { noCache: true },
+        {
+          headers: { 'Cache-Control': 'no-cache' },
+        },
+      )
       const response = responseData.data
 
       runInAction(() => {
