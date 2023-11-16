@@ -116,7 +116,7 @@ class ChatModelStatic {
     }
   }
 
-  public async getChatMessages(chatId: string): Promise<void> {
+  public async getChatMessages(chatId: string, messageId?: string): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
@@ -137,7 +137,8 @@ class ChatModelStatic {
 
       const { offset, limit } = this[chatType][index].pagination
 
-      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit)
+      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit, messageId)
+
       runInAction(() => {
         this[chatType][index] = {
           ...this[chatType][index],
@@ -246,14 +247,44 @@ class ChatModelStatic {
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
-  public async getChatMessage(/* data: any */) {
+  public async getChatMessage(chatId: string, messageId?: string): Promise<void> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    // console.log('data', data)
-    // const result = await this.websocketChatService.getChatMessage(data)
-    // console.log('result', result)
+    const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
+    const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
+
+    if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+      return
+    }
+
+    const index = Math.max(findChatIndexById, findSimpleChatIndexById)
+    const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+
+    const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+
+    const chatMessageOffset = chatMessage.offset
+
+    if (this[chatType][index].pagination.offset > chatMessageOffset) {
+      return
+    }
+
+    const { limit } = this[chatType][index].pagination
+
+    const chatMessages = await this.websocketChatService.getChatMessages(chatId, 0, chatMessageOffset + 10)
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: [...chatMessages.rows],
+        pagination: {
+          ...this[chatType][index].pagination,
+          offset: chatMessageOffset + 10,
+        },
+        isAllMessagesLoaded: chatMessages.rows.length < limit,
+      }
+    })
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
@@ -358,7 +389,6 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    console.log('newMessage', newMessage)
     if (newMessage.type === ChatMessageType.SYSTEM) {
       this.getSimpleChats()
     }
