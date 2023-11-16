@@ -195,13 +195,12 @@ const Slot = ({
           <Input
             multiline
             inputProps={{ maxLength: 128 }}
-            maxRows={3}
+            maxRows={2}
             variant="filled"
             className={classNames.imageObjInput}
+            classes={{ input: classNames.inputComment }}
             value={slot.comment}
-            onChange={e => {
-              onChangeImageFileds('comment', slot._id)(e)
-            }}
+            onChange={e => onChangeImageFileds('comment', slot._id)(e)}
           />
         </div>
 
@@ -423,6 +422,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
             multiline
             className={cx(classNames.heightFieldAuto)}
             labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.comment}
             inputProps={{ maxLength: 1000 }}
             minRows={4}
             maxRows={4}
@@ -455,10 +455,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
             ))}
           </div>
         </DndProvider>
-
-        {/* <div className={classNames.bigPlusWrapper}>
-          <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
-        </div> */}
       </div>
 
       <div className={classNames.footerWrapper}>
