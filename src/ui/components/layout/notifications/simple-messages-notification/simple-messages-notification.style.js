@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: 3,
   },
 
   message: {
@@ -31,6 +31,11 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+  },
+
+  files: {
+    display: 'flex',
+    gap: 5,
   },
 
   date: {

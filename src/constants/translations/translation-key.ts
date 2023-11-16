@@ -2147,5 +2147,6 @@ export enum TranslationKey {
   'This rate may have an irrelevant value as the rate may have been changed after shipment.' = 'This rate may have an irrelevant value as the rate may have been changed after shipment.',
   'pc' = 'pc',
   'There are unresolved proposals for this request in your queue.' = 'There are unresolved proposals for this request in your queue.',
+  'Images' = 'Images',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
