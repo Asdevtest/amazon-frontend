@@ -122,7 +122,23 @@ export const ChatMessagesList: FC<Props> = observer(
       checkIsChatMessageDataProposalResultEditedContract(el),
     )
 
-    console.log('messages', messages)
+    const getReplyedMessages = async () => {
+      if (messages?.length) {
+        const messagesWithReply = messages
+          ?.filter((messageItem: ChatMessageContract) => messageItem?.text !== ChatMessageType.PROPOSAL_EDITED)
+          ?.filter((messageItem: ChatMessageContract) => messageItem.replyMessageId)
+
+        for (const messageWithReply of messagesWithReply) {
+          if (chatId) {
+            await ChatModel.getChatMessage(chatId, String(messageWithReply.replyMessageId))
+          }
+        }
+      }
+    }
+
+    useEffect(() => {
+      getReplyedMessages()
+    }, [messages?.length])
 
     return (
       <div
@@ -151,10 +167,6 @@ export const ChatMessagesList: FC<Props> = observer(
                 (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
               const isReply = messageItem?.replyMessageId
-
-              // if (typeof messageItem?.replyMessageId === 'string') {
-              //   ChatModel.getChatMessage({ text: messageItem.text, chatId })
-              // }
 
               const repleyMessage = messages.find(
                 el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
