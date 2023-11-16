@@ -12,7 +12,6 @@ import { ChatMessageControlsOverlay } from '@components/chat/chat/chat-messages-
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
-import { checkIsChatMessageDataProposalResultEditedContract } from '@utils/ts-checks'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -20,20 +19,12 @@ import { useClassNames } from './chat-messages-list.style'
 
 import { ChatMessageByType } from './chat-message-by-type'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
-import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
-import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'
-import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
-
-export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
-  ChatMessageRequestProposalResultEditedHandlers &
-  ChatMessageRequestProposalStatusChangedHandlers &
-  ChatMessageRequestProposalDesignerResultEditedHandlers
 
 interface Props {
   isGroupChat: boolean
   userId: string
   messages?: ChatMessageContract[]
-  handlers?: ChatMessageUniversalHandlers
+  handlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   chatId?: string
@@ -118,10 +109,6 @@ export const ChatMessagesList: FC<Props> = observer(
       setMessageToReply(messageItem)
     }
 
-    const requestProposalResultEditedMessages = messages?.filter(el =>
-      checkIsChatMessageDataProposalResultEditedContract(el),
-    )
-
     const getReplyedMessages = async () => {
       if (messages?.length) {
         const messagesWithReply = messages
@@ -155,7 +142,7 @@ export const ChatMessagesList: FC<Props> = observer(
               const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
 
               const isLastMessage = index === messages.length - 1
-              const isLastResultMessage = requestProposalResultEditedMessages?.at(-1)?._id === messageItem._id
+
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
@@ -242,7 +229,6 @@ export const ChatMessagesList: FC<Props> = observer(
                                 messageItem={repleyMessage}
                                 isShowChatInfo={isShowChatInfo}
                                 unReadMessage={false}
-                                isLastMessage={false}
                               />
                             </div>
                           )}
@@ -252,8 +238,6 @@ export const ChatMessagesList: FC<Props> = observer(
                             isShowChatInfo={isShowChatInfo}
                             unReadMessage={unReadMessage}
                             showName={showName}
-                            isLastMessage={isLastMessage}
-                            isLastResultMessage={isLastResultMessage}
                             handlers={handlers}
                             messagesFoundIds={messagesFoundIds}
                             searchPhrase={searchPhrase}

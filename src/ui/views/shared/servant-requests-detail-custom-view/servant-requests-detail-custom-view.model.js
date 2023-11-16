@@ -103,6 +103,7 @@ export class RequestDetailCustomViewModel {
     )
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
