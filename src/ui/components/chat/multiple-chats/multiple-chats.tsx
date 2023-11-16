@@ -22,7 +22,7 @@ import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-res
 import { useClassNames } from './multiple-chats.styles'
 
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
-import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatsList } from '../chats-list'
 import { SearchResult } from '../search-result'
 
@@ -55,7 +55,7 @@ interface Props {
   mesSearchValue: string
   currentOpponent?: CurrentOpponent
   chatSelectedId?: string
-  chatMessageHandlers?: ChatMessageUniversalHandlers
+  chatMessageHandlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   typingUsers?: OnTypingMessageResponse[]
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string

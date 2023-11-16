@@ -1,16 +1,12 @@
-import { cx } from '@emotion/css'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 
 import { Divider } from '@mui/material'
 
-import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataCreateNewDesignerProposalContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { UserModel } from '@models/user-model'
 
-import { Button } from '@components/shared/buttons/button'
 // import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
@@ -18,43 +14,20 @@ import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
-
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat-message-create-new-designer-proposal.style'
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 
-export interface ChatMessageProposalHandlers {
-  onClickProposalAccept: (proposalId: string, price: number) => void
-  onClickProposalRegect: (proposalId: string | undefined) => void
-}
-
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreateNewDesignerProposalContract>
-  handlers: ChatMessageProposalHandlers
   isShowChatInfo?: boolean
 }
 
-export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
-  const { classes: classNames } = useClassNames()
+export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo }) => {
+  const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
-
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-  const requestStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
-  const isShowButtons =
-    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-    (requestStatus === RequestProposalStatus.CREATED ||
-      requestStatus === // этого условия не было
-        RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-      requestStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED)
-  const isRejectButton =
-    requestStatus !== RequestProposalStatus.TO_CORRECT &&
-    requestStatus !== // этого условия не было
-      RequestProposalStatus.OFFER_CONDITIONS_REJECTED
 
   return (
     <div className={classNames.root}>
@@ -138,30 +111,6 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           />
         </div>
       </div>
-
-      {isShowButtons ? (
-        <div className={classNames.btnsWrapper}>
-          {isRejectButton && (
-            <Button
-              danger
-              onClick={() =>
-                handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
-              }
-            >
-              {t(TranslationKey.Reject)}
-            </Button>
-          )}
-          {requestStatus !== RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
-            <Button
-              success
-              className={cx(classNames.actionButton /* , classNames.successBtn */)}
-              onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
-            >
-              {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.proposal.price, 2)}`}
-            </Button>
-          )}
-        </div>
-      ) : null}
     </div>
   )
 }
