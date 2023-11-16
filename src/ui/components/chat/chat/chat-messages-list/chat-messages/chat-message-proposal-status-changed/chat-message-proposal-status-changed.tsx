@@ -19,31 +19,14 @@ import { useClassNames } from './chat-message-proposal-status-changed.style'
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 
-export interface ChatMessageRequestProposalStatusChangedHandlers {
-  onClickProposalResultToCorrect: (proposalId: string) => void
-  onClickProposalResultAccept: (proposalId: string) => void
-  onClickReworkProposal: () => void
-}
-
 interface Props {
-  isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalStatusChangedContract>
-  handlers: ChatMessageRequestProposalStatusChangedHandlers
   isShowChatInfo?: boolean
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({
-  message,
-  isShowChatInfo /* , isLastMessage, handlers */,
-}) => {
+export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
-
-  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-  // const isShowButton = isLastMessage && curUserId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
-  // const isShowFooter = isShowButton || !!message.data.timeLimitInMinutes
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -89,12 +72,6 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({
                   bgColor="green"
                 />
               </div>
-
-              {/* {handlers.onClickReworkProposal && (
-                <Button className={classNames.actionButton} onClick={handlers.onClickReworkProposal}>
-                  {t(TranslationKey.Refine)}
-                </Button>
-              )} */}
             </div>
           </div>
         )

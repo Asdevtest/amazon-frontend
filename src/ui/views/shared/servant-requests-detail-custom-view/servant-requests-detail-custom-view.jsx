@@ -98,7 +98,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 curFoundedMessage={viewModel.curFoundedMessage}
                 chatSelectedId={viewModel.chatSelectedId}
                 chatMessageHandlers={{
-                  onClickReworkProposal: viewModel.onClickReworkProposal,
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}
                 renderAdditionalButtons={() => (
