@@ -51,13 +51,13 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = (
         {hasFiles || hasImages ? (
           <div className={styles.files}>
             {hasFiles ? (
-              <p className={styles.date}>{`*${noticeItem?.files?.length} ${t(TranslationKey.Files)}*`}</p>
+              <p className={styles.date}>{`${noticeItem?.files?.length} ${t(TranslationKey.Files)}`}</p>
             ) : null}
 
             {hasFiles && hasImages ? <p className={styles.date}>/</p> : null}
 
             {hasImages ? (
-              <p className={styles.date}>{`*${noticeItem?.images?.length} ${t(TranslationKey.Images)}*`}</p>
+              <p className={styles.date}>{`${noticeItem?.images?.length} ${t(TranslationKey.Images)}`}</p>
             ) : null}
           </div>
         ) : null}
