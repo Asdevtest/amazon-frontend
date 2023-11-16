@@ -105,7 +105,7 @@ class ChatModelStatic {
           ...chat,
           messages: [],
           pagination: {
-            limit: 50,
+            limit: 20,
             offset: 0,
           },
           isAllMessagesLoaded: false,
@@ -246,6 +246,16 @@ class ChatModelStatic {
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
+  public async getChatMessage(/* data: any */) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    // console.log('data', data)
+    // const result = await this.websocketChatService.getChatMessage(data)
+    // console.log('result', result)
+  }
+
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
@@ -348,6 +358,7 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
+    console.log('newMessage', newMessage)
     if (newMessage.type === ChatMessageType.SYSTEM) {
       this.getSimpleChats()
     }

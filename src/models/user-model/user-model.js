@@ -34,6 +34,7 @@ class UserModelStatic {
   }
 
   async signOut() {
+    await restApiService.userApi.apiV1UsersLogoutPost()
     this.accessToken = undefined
     this.refreshToken = undefined
     this.userInfo = undefined
@@ -42,7 +43,6 @@ class UserModelStatic {
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
-    await restApiService.userApi.apiV1UsersLogoutPost()
   }
 
   async signIn(email, password) {

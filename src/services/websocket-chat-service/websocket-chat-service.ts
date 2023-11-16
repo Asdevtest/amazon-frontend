@@ -195,4 +195,20 @@ export class WebsocketChatService {
       })
     })
   }
+
+  public async getChatMessage(params: any): Promise<ChatMessage> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_CHAT_MESSAGE,
+        params,
+        (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
+          if (!sendMessageResponse.success || !sendMessageResponse.data) {
+            reject(sendMessageResponse.error)
+          } else {
+            resolve(sendMessageResponse.data)
+          }
+        },
+      )
+    })
+  }
 }
