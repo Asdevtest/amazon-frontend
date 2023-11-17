@@ -1,11 +1,8 @@
-import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
-import Zoom from '@mui/material/Zoom'
+import { Checkbox, Link, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,164 +12,20 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
-import { Input } from '@components/shared/input'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
-import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { useClassNames } from './request-designer-result-client-form.style'
+import { useStyles } from './request-designer-result-client-form.style'
 
-const Slot = props => {
-  const {
-    item,
-    onChangeImageFileds,
-    onClickCommentBtn,
-    noShowActions,
-    showImageModal,
-    setShowImageModal,
-    index,
-    setCurImageIndex,
-    imagesForDownload,
-    onClickAddDownload,
-  } = props
-  const { classes: classNames } = useClassNames()
+import { Slot } from './slot/slot'
 
-  const menuAnchor = useRef()
-
-  const handleClose = () => {
-    onClickCommentBtn(item._id)
-  }
-
-  return (
-    <div className={classNames.imageObjWrapper}>
-      <div className={classNames.imageObjSubWrapper}>
-        <Checkbox
-          color="primary"
-          checked={imagesForDownload.some(el => el._id === item._id)}
-          onClick={() => onClickAddDownload(item)}
-        />
-
-        <Typography className={classNames.imageObjIndex}>{index + 1}</Typography>
-
-        <Typography className={classNames.imageObjTitle}>
-          {getShortenStringIfLongerThanCount(item.comment, 20)}
-        </Typography>
-      </div>
-      <div
-        className={cx(
-          classNames.imageWrapper,
-          { [classNames.isHaveImage]: !!item.image },
-          { [classNames.mainImageWrapper]: index === 0 },
-        )}
-      >
-        {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-
-        <div className={classNames.imageListItem}>
-          <Tooltip
-            arrow
-            title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.fullName}
-            placement="right-end"
-            TransitionComponent={Zoom}
-            TransitionProps={{ timeout: 300 }}
-          >
-            <Avatar
-              className={classNames.image}
-              classes={{ img: classNames.image }}
-              src={
-                typeof item.image === 'string'
-                  ? checkIsImageLink(item.image)
-                    ? item.image
-                    : '/assets/icons/file.png'
-                  : item.image?.file.type.includes('image')
-                  ? item.image?.data_url
-                  : '/assets/icons/file.png'
-              }
-              alt={''}
-              variant="square"
-              onClick={() => {
-                setCurImageIndex(index)
-
-                if (checkIsImageLink(item.image?.file?.name || item.image)) {
-                  setShowImageModal(!showImageModal)
-                } else {
-                  window.open(item.image?.data_url || item.image, '__blank')
-                }
-              }}
-            />
-          </Tooltip>
-        </div>
-      </div>
-
-      <div ref={menuAnchor}>
-        {!item.isEditCommentOpen && !noShowActions && (
-          <Button className={classNames.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
-            {t(TranslationKey.Comment)}
-            <img
-              src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
-              className={classNames.commentIcon}
-            />
-          </Button>
-        )}
-
-        {item.isEditCommentOpen && !noShowActions && (
-          <ClickAwayListener
-            mouseEvent="onMouseDown"
-            onClickAway={() => {
-              handleClose()
-              onClickCommentBtn(item._id)
-            }}
-          >
-            <div className={cx(classNames.commentBtnWrapper)}>
-              <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-                <Typography>{t(TranslationKey.Comment)}</Typography>
-
-                <ArrowDropUpIcon />
-              </div>
-
-              {Boolean(menuAnchor) && (
-                <Menu
-                  open
-                  anchorEl={menuAnchor.current}
-                  autoFocus={false}
-                  classes={{ list: classNames.list }}
-                  onClose={handleClose}
-                >
-                  <Input
-                    autoFocus
-                    multiline
-                    type="text"
-                    inputProps={{ maxLength: 500 }}
-                    minRows={5}
-                    maxRows={10}
-                    variant="filled"
-                    className={classNames.imageObjInput}
-                    classes={{ input: classNames.subImageObjInput }}
-                    value={item.commentByClient}
-                    onChange={onChangeImageFileds('commentByClient', item._id)}
-                  />
-                </Menu>
-              )}
-            </div>
-          </ClickAwayListener>
-        )}
-      </div>
-
-      {/* <div className={classNames.imageObjSubWrapper}>
-      <Typography className={cx(classNames.clientComment )}>
-        {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
-      </Typography>
-    </div> */}
-    </div>
-  )
-}
-
-export const RequestDesignerResultClientForm = props => {
+export const RequestDesignerResultClientForm = memo(props => {
   const {
     onClickProposalResultAccept,
     onPressSubmitDesignerResultToCorrect,
@@ -183,7 +36,7 @@ export const RequestDesignerResultClientForm = props => {
     curResultMedia,
     onlyRead,
   } = props
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const isNotClient =
     userInfo._id !== request?.request?.createdBy?._id && userInfo.masterUser?._id !== request?.request?.createdBy?._id
@@ -293,65 +146,61 @@ export const RequestDesignerResultClientForm = props => {
   }
 
   return (
-    <div className={classNames.modalMainWrapper}>
-      <div className={classNames.headerWrapper}>
-        <Typography className={classNames.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+    <div className={styles.modalMainWrapper}>
+      <div className={styles.headerWrapper}>
+        <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
           request?.request?.humanFriendlyId
         }`}</Typography>
 
-        <div className={classNames.headerRightSubWrapper}>
+        <div className={styles.headerRightSubWrapper}>
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Source Files'])}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             inputComponent={
               proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
-                <div className={classNames.viewLinkWrapper}>
+                <div className={styles.viewLinkWrapper}>
                   <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
                     {t(TranslationKey.View)}
                   </Link>
                   <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
                 </div>
               ) : (
-                <div className={classNames.shippingLabelWrapper}>
-                  <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
+                <div className={styles.shippingLabelWrapper}>
+                  <Typography className={styles.miss}>{t(TranslationKey['Not available'])}</Typography>
                 </div>
               )
             }
           />
 
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Time to check'])}
-            containerClasses={classNames.containerField}
-            inputComponent={<Typography className={classNames.simpleSpan}>{minsToTime(1440)}</Typography>}
+            containerClasses={styles.containerField}
+            inputComponent={<Typography className={styles.simpleSpan}>{minsToTime(1440)}</Typography>}
           />
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Number of illustrations'])}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             inputComponent={
-              <Typography className={classNames.simpleSpan}>
+              <Typography className={styles.simpleSpan}>
                 {(curResultMedia ?? proposal.proposal.media).length}
               </Typography>
             }
           />
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={'ASIN'}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             inputComponent={
-              <AsinOrSkuLink
-                withCopyValue
-                asin={proposal?.request?.asin || request?.request?.asin}
-                textStyles={classNames.simpleSpan}
-              />
+              <AsinOrSkuLink withCopyValue asin={request?.request?.product?.asin} textStyles={styles.simpleSpan} />
             }
           />
         </div>
       </div>
 
-      <div className={classNames.bodyWrapper}>
+      <div className={styles.bodyWrapper}>
         {imagesData.map((item, index) => (
           <Slot
             key={item._id}
@@ -369,14 +218,14 @@ export const RequestDesignerResultClientForm = props => {
         ))}
       </div>
 
-      <div className={classNames.footerWrapper}>
+      <div className={styles.footerWrapper}>
         {!noShowActions && (
           <>
             <Field
               multiline
-              className={classNames.heightFieldAuto}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.field}
+              className={styles.heightFieldAuto}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.field}
               inputProps={{ maxLength: 1000 }}
               minRows={4}
               maxRows={4}
@@ -387,9 +236,9 @@ export const RequestDesignerResultClientForm = props => {
             />
 
             <Field
-              labelClasses={classNames.fieldLabel}
+              labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Time for rework'])}
-              containerClasses={classNames.field}
+              containerClasses={styles.field}
               inputComponent={
                 <SetDuration
                   duration={formFields.execution_time}
@@ -400,23 +249,19 @@ export const RequestDesignerResultClientForm = props => {
           </>
         )}
 
-        <div className={classNames.downloadsWrapper}>
-          <div className={classNames.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
+        <div className={styles.downloadsWrapper}>
+          <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
             <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
             <Typography>{t(TranslationKey['Select all'])}</Typography>
           </div>
 
-          <Button
-            disabled={!imagesForDownload.length}
-            className={classNames.imagesModalBtn}
-            onClick={onClickAllDownload}
-          >
+          <Button disabled={!imagesForDownload.length} className={styles.imagesModalBtn} onClick={onClickAllDownload}>
             <DownloadOutlinedIcon />
           </Button>
 
           <Button
             disabled={!imagesForDownload.length}
-            className={classNames.imagesModalBtn}
+            className={styles.imagesModalBtn}
             onClick={onClickDownloadArchive}
           >
             <DownloadArchiveIcon />
@@ -427,7 +272,7 @@ export const RequestDesignerResultClientForm = props => {
           <>
             <Button
               // disabled={disableSubmit}
-              className={classNames.button}
+              className={styles.button}
               onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
@@ -441,7 +286,7 @@ export const RequestDesignerResultClientForm = props => {
             <Button
               success
               // disabled={disableSubmit}
-              className={classNames.button}
+              className={styles.button}
               onClick={() => {
                 onClickProposalResultAccept(proposal.proposal._id)
                 setOpenModal()
@@ -452,7 +297,7 @@ export const RequestDesignerResultClientForm = props => {
           </>
         )}
 
-        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
@@ -471,4 +316,4 @@ export const RequestDesignerResultClientForm = props => {
       )}
     </div>
   )
-}
+})
