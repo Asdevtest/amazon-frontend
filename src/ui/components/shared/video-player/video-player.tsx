@@ -24,7 +24,6 @@ interface Props {
  */
 export const VideoPlayer: FC<Props> = observer(({ videoSource, controls, isPlaying, height, setIsPlaying }) => {
   const { classes: styles } = useClassNames()
-  console.log(height)
 
   return (
     <div className={styles.wrapper}>
