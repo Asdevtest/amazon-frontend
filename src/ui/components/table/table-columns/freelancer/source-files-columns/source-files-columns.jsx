@@ -13,7 +13,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const sourceFilesColumns = (rowHandlers, getEditField) => [
+export const sourceFilesColumns = (rowHandlers, editField) => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -74,7 +74,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     width: 250,
     renderCell: params =>
-      params?.row?.originalData?._id === getEditField()?._id ? (
+      params?.row?.originalData?._id === editField?._id ? (
         <ChangeInputCommentCell
           rowsCount={1}
           fieldName="sourceFile"
@@ -113,7 +113,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
         handlers={rowHandlers}
         row={params.row}
-        isSave={params?.row?.originalData?._id === getEditField()?._id}
+        isSave={params?.row?.originalData?._id === editField?._id}
       />
     ),
     filterable: false,
