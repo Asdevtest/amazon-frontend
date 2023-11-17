@@ -455,7 +455,6 @@ export class OwnerRequestDetailCustomViewModel {
   async getReviews(guid) {
     try {
       const result = await FeedbackModel.getFeedback(guid)
-
       runInAction(() => {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
@@ -466,11 +465,9 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onClickReview(user) {
     await this.getReviews(user._id)
-
     runInAction(() => {
       this.currentReviewModalUser = user
     })
-
     this.onTriggerOpenModal('showReviewModal')
   }
 

@@ -7,6 +7,8 @@ import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { restApiService } from '@services/rest-api-service/rest-api-service'
+
 export class HeaderModel {
   history = undefined
   requestStatus = undefined
@@ -75,6 +77,7 @@ export class HeaderModel {
   async changeUserInfo(data) {
     try {
       await UserModel.changeUserInfo(data)
+      await this.forceUpdateToken()
       await UserModel.getUserInfo()
 
       this.history.push(`/${UserRoleCodeMapForRoutes[data.role]}/dashboard`, {
@@ -83,6 +86,21 @@ export class HeaderModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async forceUpdateToken() {
+    const userModel = await SettingsModel.loadValue('UserModel')
+    const refreshToken = userModel.refreshToken
+
+    await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(({ data }) => {
+      const accessToken = data?.accessToken
+
+      SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+      UserModel.setAccessToken(accessToken)
+
+      ChatModel.disconnect()
+      ChatModel.init(accessToken)
+    })
   }
 
   changeUiTheme(theme) {
