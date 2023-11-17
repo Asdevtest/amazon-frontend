@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -65,6 +66,20 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = React
           <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
         </Button>
       )}
+
+      {isArchive || isArchive === undefined ? (
+        <Button
+          danger
+          // tooltipInfoContent={isFirstRow && tooltipSecondButton}
+          disabled={disableActionBtn}
+          className={styles.removeOrEditBtn}
+          onClick={() => {
+            !!handlers && handlers.onClickRemoveBtn(row)
+          }}
+        >
+          <DeleteOutlineOutlinedIcon />
+        </Button>
+      ) : null}
     </div>
   )
 })

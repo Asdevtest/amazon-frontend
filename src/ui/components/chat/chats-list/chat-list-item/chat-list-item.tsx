@@ -74,7 +74,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const getUserByChatType = () => {
     if (typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat') {
-      const userByChatType = usersList.find((user: ChatUserContract) => {
+      const userByChatType = users.find((user: ChatUserContract) => {
         const userRole = UserRoleCodeMap[Number(user.role)]
         return (
           (checkIsClient(currentUserRole) ? userRole === UserRole.FREELANCER : userRole === UserRole.CLIENT) &&
