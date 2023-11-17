@@ -37,7 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'sticky',
     top: 0,
     left: 0,
-    zIndex: 99,
+    zIndex: 50,
     backgroundColor: theme.palette.background.second,
   },
 

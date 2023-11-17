@@ -142,14 +142,14 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 5,
     right: 5,
-    zIndex: 100,
+    zIndex: 50,
   },
 
   moreImagesWrapper: {
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 100,
+    zIndex: 50,
     width: '100%',
     height: '100%',
     display: 'flex',

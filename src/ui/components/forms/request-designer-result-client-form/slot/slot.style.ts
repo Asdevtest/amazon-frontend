@@ -58,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 99,
+    zIndex: 50,
   },
 
   imageListItem: {

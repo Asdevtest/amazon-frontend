@@ -62,7 +62,7 @@ export const useStyles = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      zIndex: 30,
+      zIndex: 50,
       top: 10,
       right: 10,
       color: theme.palette.primary.main,

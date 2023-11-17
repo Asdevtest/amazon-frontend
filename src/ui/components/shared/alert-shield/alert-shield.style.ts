@@ -34,7 +34,7 @@ export const useClassNames = makeStyles()(() => ({
     left: '50vw',
     padding: '10px',
     marginTop: '63px',
-    zIndex: 999,
+    zIndex: 50,
     opacity: 0,
   },
 

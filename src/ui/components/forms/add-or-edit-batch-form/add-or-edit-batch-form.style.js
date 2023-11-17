@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 4,
     right: 390,
-    zIndex: 100,
+    zIndex: 50,
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
