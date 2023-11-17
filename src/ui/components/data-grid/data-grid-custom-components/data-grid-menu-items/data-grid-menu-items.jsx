@@ -1221,7 +1221,7 @@ export const NormalFieldMenuItem = React.memo(
                             leftAlign
                             oneLines={columnKey === columnnsKeys.shared.STRING}
                             text={value}
-                            color={colorByStatus(el)}
+                            // color={colorByStatus(el)}
                             customTextClass={classNames.statusText}
                           />
                         </div>
