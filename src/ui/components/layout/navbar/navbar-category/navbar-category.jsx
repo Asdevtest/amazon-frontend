@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
 
@@ -16,18 +16,7 @@ import { styles } from './navbar-category.style'
 
 const NavBarCategoryRaw = observer(
   ({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
-    const [subRoutes] = useState(() =>
-      category.subtitles
-        ?.map(subCategory =>
-          subCategory.checkHideSubBlock
-            ? subCategory.checkHideSubBlock(userInfo)
-              ? subCategory.subRoute
-              : null
-            : subCategory.subRoute,
-        )
-        .filter(el => el !== null),
-    )
-
+    const [subRoutes, setSubRoutes] = useState([])
     const isRedBadge = category.route?.includes('/buyer/free-orders')
 
     const getHighPriorityValue = route => {
@@ -52,7 +41,23 @@ const NavBarCategoryRaw = observer(
       }
     }
 
+    const getSubRoutes = () => {
+      return category.subtitles
+        ?.map(subCategory =>
+          subCategory.checkHideSubBlock
+            ? subCategory.checkHideSubBlock(userInfo)
+              ? subCategory.subRoute
+              : null
+            : subCategory.subRoute,
+        )
+        .filter(el => el !== null)
+    }
+
     const highPriorityValue = getHighPriorityValue(category.route)
+
+    useEffect(() => {
+      setSubRoutes(getSubRoutes())
+    }, [category])
 
     return (
       <Button
