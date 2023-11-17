@@ -300,6 +300,8 @@ export class WarehouseSentBatchesViewModel {
   }
 
   async onClickSaveTrackingNumber(id, trackingNumber) {
+    console.log('id', id)
+    console.log('trackingNumber', trackingNumber)
     await BatchesModel.changeBatch(id, { trackingNumber })
     this.loadData()
   }
