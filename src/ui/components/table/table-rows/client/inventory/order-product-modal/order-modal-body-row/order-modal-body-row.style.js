@@ -121,9 +121,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content',
+    width: 'max-content',
     margin: 0,
   },
+
+  batchWeight: {
+    width: 190,
+  },
+
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.general,
