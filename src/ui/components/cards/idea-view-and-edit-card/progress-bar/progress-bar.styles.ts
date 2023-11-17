@@ -37,7 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'translateX(100%)',
       top: 0,
       right: 0,
-      borderWidth: '20px 0 20px 10px',
+      borderWidth: '20px 0 20px 7px',
       borderStyle: 'solid',
       borderColor: `transparent ${theme.palette.primary.main}`,
       zIndex: 3,
