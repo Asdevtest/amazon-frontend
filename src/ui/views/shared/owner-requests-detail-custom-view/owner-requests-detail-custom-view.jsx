@@ -32,7 +32,7 @@ import { useStyles } from './owner-requests-detail-custom-view.style'
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
 
 const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
-const statusesOrderAndRejectButtons = [RequestProposalStatus.CREATED]
+const statusesOrderAndRejectButtons = [RequestProposalStatus.CREATED, RequestProposalStatus.OFFER_CONDITIONS_CORRECTED]
 
 export const OwnerRequestDetailCustomView = observer(({ history }) => {
   const { classes: styles } = useStyles()
