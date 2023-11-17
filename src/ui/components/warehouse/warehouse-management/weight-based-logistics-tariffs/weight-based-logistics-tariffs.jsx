@@ -154,6 +154,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
       </Modal>
 
       <Modal
+        missClickModalOn
         openModal={showAddOrEditLogisticTariffModal}
         setOpenModal={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
       >
