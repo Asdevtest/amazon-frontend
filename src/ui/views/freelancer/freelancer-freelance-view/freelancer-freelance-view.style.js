@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
@@ -7,25 +9,27 @@ export const styles = theme => ({
   },
 
   btnsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
     width: 'min-content',
   },
 
   button: {
-    marginBottom: 20,
     width: '100%',
-    height: 40,
-  },
-
-  btnText: {
-    marginRight: 10,
-    color: theme.palette.text.general,
-  },
-
-  btnTextWrapper: {
+    height: '40px',
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
     justifyContent: 'space-between',
-    width: '100%',
     whiteSpace: 'nowrap',
+
+    p: {
+      color: theme.palette.text.general,
+    },
   },
-})
+
+  primary: {
+    color: theme.palette.primary.main,
+  },
+}))
