@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useRef, useState } from 'react'
 
-import InboxIcon from '@mui/icons-material/Inbox'
-import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OwnerRequestProposalsCard } from '@components/cards/owner-request-proposals-card'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
@@ -21,6 +19,7 @@ import { CustomSearchRequestDetails } from '@components/requests-and-request-pro
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
+import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -95,35 +94,15 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           </div>
         ) : null}
 
-        {viewModel.requestProposals?.length ? (
-          <div className={styles.proposalsWrapper}>
-            <Typography className={styles.proposalsTitle}>{t(TranslationKey['Proposals for the request'])}</Typography>
-            {viewModel.requestProposals.map(item => (
-              <div key={item?.proposal?._id} className={styles.proposalAndChatWrapper}>
-                <Paper>
-                  <OwnerRequestProposalsCard
-                    item={item}
-                    request={viewModel.request}
-                    userInfo={viewModel.userInfo}
-                    onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
-                    onClickOrderProposal={viewModel.onClickOrderProposal}
-                    onClickRejectProposal={viewModel.onClickRejectProposal}
-                    onClickReview={viewModel.onClickReview}
-                  />
-                </Paper>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className={styles.emptyProposalsIconWrapper}>
-            <div className={styles.emptyProposalsIcon}>
-              <InboxIcon style={{ color: '#C4C4C4', fontSize: '76px' }} />
-            </div>
-            <Typography className={styles.emptyProposalsDescription}>
-              {t(TranslationKey['No new proposals at the moment'])}
-            </Typography>
-          </div>
-        )}
+        <RequestProposalsCardList
+          requestProposals={viewModel.requestProposals}
+          request={viewModel.request}
+          userInfo={viewModel.userInfo}
+          onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
+          onClickOrderProposal={viewModel.onClickOrderProposal}
+          onClickRejectProposal={viewModel.onClickRejectProposal}
+          onClickReview={viewModel.onClickReview}
+        />
 
         <Accordion expanded={viewModel.showChat}>
           <AccordionSummary style={{ display: 'none' }} />
