@@ -12,5 +12,9 @@ export const useClassNames = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    video: {
+      maxHeight: '400px !important',
+    },
   },
 }))
