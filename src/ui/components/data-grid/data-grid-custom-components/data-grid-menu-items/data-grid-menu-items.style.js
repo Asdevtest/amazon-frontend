@@ -65,6 +65,7 @@ export const styles = theme => ({
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 400,
+    color: theme.palette.text.general,
   },
 
   noOptionText: {
