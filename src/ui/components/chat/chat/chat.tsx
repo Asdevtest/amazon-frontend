@@ -104,7 +104,6 @@ export const Chat: FC<Props> = observer(
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
     const messagesLoadingStatus = useRef(false)
-    const [currentScrollFromBottom, setCurrentScrollFromBottom] = useState(0)
 
     const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
@@ -138,27 +137,10 @@ export const Chat: FC<Props> = observer(
       if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
         ChatModel.getChatMessages?.(chat?._id).finally(() => {
-          const scrollOffset = target.scrollHeight - (target.scrollTop + target.clientHeight)
-
-          setCurrentScrollFromBottom(scrollOffset)
           messagesLoadingStatus.current = false
         })
       }
     }
-
-    useEffect(() => {
-      if (currentScrollFromBottom !== 0) {
-        const container = messagesWrapperRef.current
-
-        if (!container) {
-          return
-        }
-
-        const scrollHeight = container.scrollHeight - container.clientHeight - currentScrollFromBottom
-
-        container?.scrollTo(0, scrollHeight)
-      }
-    }, [currentScrollFromBottom])
 
     useEffect(() => {
       const handleScroll = (e: Event) => {
