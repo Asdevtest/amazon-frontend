@@ -44,7 +44,9 @@ export const ClientIdeasView = observer(({ history }) => {
 
   const [useProductsPermissions] = useState(
     () =>
-      new UseProductsPermissions(ClientModel.getProductPermissionsData, viewModel.currentSettings?.permissionOptions),
+      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
+        isChild: false,
+      }),
   )
 
   useEffect(() => {

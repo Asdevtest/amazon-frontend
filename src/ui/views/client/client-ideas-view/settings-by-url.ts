@@ -20,7 +20,6 @@ export const settingsByUrl = {
       withOrder: false,
       withRequests: true,
     },
-    permissionOptions: { isChild: false },
     columnsModel: clientNewIdeasColumns,
     defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
@@ -94,6 +93,5 @@ export const settingsByUrl = {
     columnsModel: clientAllIdeasColumns,
     defaultSortingModel: 'updatedAt',
     dataGridKey: DataGridTablesKeys.CLIENT_ALL_IDEAS,
-    permissionOptions: { isParent: true, isChild: false },
   },
 }
