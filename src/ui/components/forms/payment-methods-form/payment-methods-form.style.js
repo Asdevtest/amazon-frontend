@@ -27,6 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 30,
+    marginRight: 10,
   },
 
   actionButton: {

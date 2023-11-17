@@ -1138,7 +1138,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
         >
           <PaymentMethodsForm
-            payments={(!!orderPayments.length && orderPayments) || paymentMethods}
+            payments={orderPayments}
             onClickSaveButton={setOrderPayments}
             onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
