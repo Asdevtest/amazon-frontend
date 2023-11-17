@@ -101,6 +101,7 @@ export const ProductWrapper = memo(
         {SettingsModel.languageTag && (
           <div className={classNames.mainWrapper}>
             <CustomSwitcher
+              fullWidth
               switchMode="medium"
               condition={tabIndex}
               switcherSettings={[

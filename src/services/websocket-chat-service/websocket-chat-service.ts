@@ -108,11 +108,16 @@ export class WebsocketChatService {
     })
   }
 
-  public async getChatMessages(chatId?: string | null, offset?: number, limit?: number): Promise<ChatMessagesType> {
+  public async getChatMessages(
+    chatId?: string | null,
+    offset?: number,
+    limit?: number,
+    messageId?: string,
+  ): Promise<ChatMessagesType> {
     return new Promise((resolve, reject) => {
       this.socket.emit(
         EentToEmit.GET_CHAT_MESSAGES,
-        { chatId, offset, limit },
+        { chatId, offset, limit, messageId },
         (getChatsResponse: WebsocketChatResponse<ChatMessagesType>) => {
           if (!getChatsResponse.success || !getChatsResponse.data) {
             reject(getChatsResponse.error)
@@ -193,6 +198,22 @@ export class WebsocketChatService {
           resolve(null)
         }
       })
+    })
+  }
+
+  public async getChatMessage(params: any): Promise<ChatMessage> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_CHAT_MESSAGE,
+        params,
+        (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
+          if (!sendMessageResponse.success || !sendMessageResponse.data) {
+            reject(sendMessageResponse.error)
+          } else {
+            resolve(sendMessageResponse.data)
+          }
+        },
+      )
     })
   }
 }

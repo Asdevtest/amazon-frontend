@@ -109,33 +109,6 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
         >
           {t(TranslationKey['Open result'])}
         </Button>
-
-        {/* {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-        chatRequestAndRequestProposal &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
-        curUserId  ? (
-          <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
-              <Button
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={cx(classNames.actionButton, classNames.editButton)}
-                onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
-              >
-                {t(TranslationKey['Send in for rework'])}
-              </Button>
-            )}
-            <Button
-              success
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-              className={cx(classNames.actionButton, classNames.successBtn)}
-              onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
-            >
-              {t(TranslationKey.Receive)}
-            </Button>
-          </div>
-        ) : undefined} */}
       </div>
     </div>
   )

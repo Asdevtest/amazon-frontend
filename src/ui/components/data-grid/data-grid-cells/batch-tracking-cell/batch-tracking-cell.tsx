@@ -12,7 +12,7 @@ import { ChangeInputCommentCell, DatePickerCell } from '../data-grid-cells'
 
 interface BatchTrackingCellProps {
   rowHandlers: {
-    onClickSaveTrackingNumber: () => void
+    onClickSaveTrackingNumber: (id: string, value: string) => void
     onClickSaveArrivalDate: (value: string) => void
   }
   id: string
@@ -39,7 +39,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = React.memo(
               maxLength={64}
               placeholder={t(TranslationKey['Enter track number'])}
               text={trackingNumber}
-              onClickSubmit={rowHandlers?.onClickSaveTrackingNumber}
+              onClickSubmit={value => rowHandlers?.onClickSaveTrackingNumber(id, value)}
             />
           }
         />

@@ -33,7 +33,8 @@ import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatCurrentReplyMessage } from './chat-current-reply-message'
 import { ChatFilesInput } from './chat-files-input'
-import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
+import { ChatMessagesList } from './chat-messages-list'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -59,7 +60,7 @@ interface Props {
   messages: ChatMessageContract[]
   userId: string
   currentOpponent?: CurrentOpponent
-  chatMessageHandlers?: ChatMessageUniversalHandlers
+  chatMessageHandlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   isFreelanceOwner?: boolean
@@ -264,7 +265,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
       onClickScrollToBottom()
@@ -312,7 +313,7 @@ export const Chat: FC<Props> = observer(
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
     }, [toScrollMesId])
 
-    const disabledSubmit = !message.replace(/\n/g, '') && !files.length
+    const disabledSubmit = !message.trim() && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 

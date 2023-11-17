@@ -48,15 +48,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     width: '280px',
-    maxHeight: '152px',
+    whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    overflowY: 'auto',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down(768)]: {
       width: '100%',
     },
   },

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
@@ -28,22 +28,11 @@ import {
   ChatMessageRequestProposalDesignerResultEditedHandlers,
 } from '../chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatMessagePatchInfoGroupChat } from '../chat-messages/chat-message-patch-info-group-chat'
-import { ChatMessageProposal, ChatMessageProposalHandlers } from '../chat-messages/chat-message-proposal'
-import {
-  ChatMessageProposalStatusChanged,
-  ChatMessageRequestProposalStatusChangedHandlers,
-} from '../chat-messages/chat-message-proposal-status-changed'
+import { ChatMessageProposal } from '../chat-messages/chat-message-proposal'
+import { ChatMessageProposalStatusChanged } from '../chat-messages/chat-message-proposal-status-changed'
 import { ChatMessageRemoveUsersFromGroupChat } from '../chat-messages/chat-message-remove-users-from-group-chat'
 import { ChatMessageRequest } from '../chat-messages/chat-message-request'
-import {
-  ChatMessageRequestProposalResultEdited,
-  ChatMessageRequestProposalResultEditedHandlers,
-} from '../chat-messages/chat-message-request-proposal-result-edited'
-
-export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
-  ChatMessageRequestProposalResultEditedHandlers &
-  ChatMessageRequestProposalStatusChangedHandlers &
-  ChatMessageRequestProposalDesignerResultEditedHandlers
+import { ChatMessageRequestProposalResultEdited } from '../chat-messages/chat-message-request-proposal-result-edited'
 
 interface Props {
   isIncomming: boolean
@@ -51,9 +40,7 @@ interface Props {
   isShowChatInfo?: boolean
   unReadMessage: boolean
   showName: boolean
-  isLastMessage: boolean
-  isLastResultMessage?: boolean
-  handlers?: ChatMessageUniversalHandlers
+  handlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   messagesFoundIds?: string[]
   searchPhrase?: string
 }
@@ -65,8 +52,6 @@ export const ChatMessageByType: FC<Props> = observer(
     isShowChatInfo,
     unReadMessage,
     showName,
-    isLastMessage,
-    isLastResultMessage,
     handlers,
     messagesFoundIds = [],
     searchPhrase,
@@ -74,75 +59,18 @@ export const ChatMessageByType: FC<Props> = observer(
     const renderMessageByType = () => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
         return <ChatMessageRequest message={messageItem} isShowChatInfo={isShowChatInfo} />
-      } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
-        return (
-          <ChatMessageProposal
-            message={messageItem}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
-        return (
-          <ChatMessageProposalStatusChanged
-            isLastMessage={isLastMessage}
-            message={messageItem}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-              onClickReworkProposal: handlers.onClickReworkProposal,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
-        return (
-          <ChatMessageRequestProposalResultEdited
-            message={messageItem}
-            isLastResultMessage={isLastResultMessage}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
-        return (
-          <ChatMessageCreateNewBloggerProposal
-            message={messageItem}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageCreateNewDesignerProposalContract(messageItem)) {
-        return (
-          <ChatMessageCreateNewDesignerProposal
-            message={messageItem}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageBloggerProposalResultEditedContract(messageItem)) {
-        return (
-          <ChatMessageBloggerProposalEditedResult
-            message={messageItem}
-            isShowChatInfo={isShowChatInfo}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-            }}
-          />
-        )
+      } else if (checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
+        return <ChatMessageProposal message={messageItem} isShowChatInfo={isShowChatInfo} />
+      } else if (checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
+        return <ChatMessageProposalStatusChanged message={messageItem} isShowChatInfo={isShowChatInfo} />
+      } else if (checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
+        return <ChatMessageRequestProposalResultEdited message={messageItem} isShowChatInfo={isShowChatInfo} />
+      } else if (checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
+        return <ChatMessageCreateNewBloggerProposal message={messageItem} isShowChatInfo={isShowChatInfo} />
+      } else if (checkIsChatMessageCreateNewDesignerProposalContract(messageItem)) {
+        return <ChatMessageCreateNewDesignerProposal message={messageItem} isShowChatInfo={isShowChatInfo} />
+      } else if (checkIsChatMessageBloggerProposalResultEditedContract(messageItem)) {
+        return <ChatMessageBloggerProposalEditedResult message={messageItem} isShowChatInfo={isShowChatInfo} />
       } else if (handlers && checkIsChatMessageDesignerProposalResultEditedContract(messageItem)) {
         return (
           <ChatMessageDesignerProposalEditedResult

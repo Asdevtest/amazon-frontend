@@ -75,6 +75,7 @@ export class HeaderModel {
   async changeUserInfo(data) {
     try {
       await UserModel.changeUserInfo(data)
+      await UserModel.getUserInfo()
 
       this.history.push(`/${UserRoleCodeMapForRoutes[data.role]}/dashboard`, {
         targetRoute: `/${UserRoleCodeMapForRoutes[data.role]}/dashboard`,

@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
@@ -18,31 +17,31 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-pending-orders-view.style'
+import { useStyles } from './buyer-pending-orders-view.style'
 
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
-export const BuyerPendingOrdersViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+export const BuyerPendingOrdersView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
-    viewModel.getDataGridState()
   }, [])
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -73,7 +72,7 @@ export const BuyerPendingOrdersViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
@@ -84,7 +83,6 @@ export const BuyerPendingOrdersViewRaw = props => {
         missClickModalOn
         openModal={viewModel.showOrderModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-        dialogClassName={classNames.dialogClassName}
       >
         <EditOrderModal
           isPendingOrder
@@ -192,6 +190,4 @@ export const BuyerPendingOrdersViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const BuyerPendingOrdersView = withStyles(observer(BuyerPendingOrdersViewRaw), styles)
+})
