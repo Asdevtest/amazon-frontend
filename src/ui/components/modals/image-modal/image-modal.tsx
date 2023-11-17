@@ -99,7 +99,7 @@ export const ImageModal: FC<Props> = memo(props => {
                 >
                   {isVideoType ? (
                     <div className={styles.preloaderContainer}>
-                      <VideoPlayer videoSource={currentPhoto} />
+                      <VideoPlayer videoSource={currentPhoto} height="74px" />
                       <div className={styles.preloader}>
                         <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
                       </div>
