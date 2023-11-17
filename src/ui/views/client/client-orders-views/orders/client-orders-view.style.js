@@ -56,7 +56,7 @@ export const styles = theme => ({
     left: '50%',
     padding: '10px',
     marginTop: '63px',
-    zIndex: 999,
+    zIndex: 50,
     opacity: 0,
     transform: 'translateY(-150%)',
     animation: `${ani} 1s forwards`,

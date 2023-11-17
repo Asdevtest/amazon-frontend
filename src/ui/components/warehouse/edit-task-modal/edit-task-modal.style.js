@@ -251,7 +251,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     color: theme.palette.text.general,
 
-    zIndex: 999,
+    zIndex: 50,
 
     [theme.breakpoints.down(768)]: {
       width: '121px',

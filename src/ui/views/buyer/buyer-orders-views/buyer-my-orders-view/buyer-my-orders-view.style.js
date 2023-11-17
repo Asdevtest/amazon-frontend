@@ -55,6 +55,6 @@ export const styles = theme => ({
   },
 
   loadingCircle: {
-    zIndex: 10000,
+    zIndex: 50,
   },
 })
