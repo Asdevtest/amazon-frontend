@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './custom-react-select.style'
+import { useStyles } from './custom-react-select.styles'
 
 interface CustomReactSelect extends PropsWithChildren {
   hideDropdownIndicator?: boolean
