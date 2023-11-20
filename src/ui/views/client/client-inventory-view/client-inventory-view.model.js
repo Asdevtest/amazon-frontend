@@ -926,11 +926,11 @@ export class ClientInventoryViewModel {
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
+      const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+      const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+
       const purchaseQuantityAboveZero =
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? false
-          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+        isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter ? true : false
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: this.getFilter(), // this.nameSearchValue ? filter : null,
