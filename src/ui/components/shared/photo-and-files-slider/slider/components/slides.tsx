@@ -78,7 +78,7 @@ export const Slides: FC<Props> = observer(
                       />
                     ) : (
                       <div className={classNames.preloaderContainer} onClick={onPhotosModalToggle}>
-                        <VideoPlayer videoSource={currentSlide} />
+                        <VideoPlayer videoSource={currentSlide} height="300px" />
                         <div className={classNames.preloader}>
                           <PlayCircleFilledWhiteOutlinedIcon className={classNames.preloaderIcon} />
                         </div>

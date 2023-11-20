@@ -33,7 +33,8 @@ import { CurrentOpponent, IFile } from '../multiple-chats'
 
 import { ChatCurrentReplyMessage } from './chat-current-reply-message'
 import { ChatFilesInput } from './chat-files-input'
-import { ChatMessageUniversalHandlers, ChatMessagesList } from './chat-messages-list'
+import { ChatMessagesList } from './chat-messages-list'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -59,7 +60,7 @@ interface Props {
   messages: ChatMessageContract[]
   userId: string
   currentOpponent?: CurrentOpponent
-  chatMessageHandlers?: ChatMessageUniversalHandlers
+  chatMessageHandlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   isFreelanceOwner?: boolean
@@ -103,7 +104,6 @@ export const Chat: FC<Props> = observer(
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
     const messagesLoadingStatus = useRef(false)
-    const [currentScrollFromBottom, setCurrentScrollFromBottom] = useState(0)
 
     const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
@@ -137,27 +137,10 @@ export const Chat: FC<Props> = observer(
       if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
         ChatModel.getChatMessages?.(chat?._id).finally(() => {
-          const scrollOffset = target.scrollHeight - (target.scrollTop + target.clientHeight)
-
-          setCurrentScrollFromBottom(scrollOffset)
           messagesLoadingStatus.current = false
         })
       }
     }
-
-    useEffect(() => {
-      if (currentScrollFromBottom !== 0) {
-        const container = messagesWrapperRef.current
-
-        if (!container) {
-          return
-        }
-
-        const scrollHeight = container.scrollHeight - container.clientHeight - currentScrollFromBottom
-
-        container?.scrollTo(0, scrollHeight)
-      }
-    }, [currentScrollFromBottom])
 
     useEffect(() => {
       const handleScroll = (e: Event) => {
@@ -264,7 +247,7 @@ export const Chat: FC<Props> = observer(
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
       onClickScrollToBottom()
@@ -312,7 +295,7 @@ export const Chat: FC<Props> = observer(
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
     }, [toScrollMesId])
 
-    const disabledSubmit = !message.replace(/\n/g, '') && !files.length
+    const disabledSubmit = !message.trim() && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 

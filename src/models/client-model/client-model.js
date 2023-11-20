@@ -105,7 +105,7 @@ class ClientModelStatic {
 
   boxConfirmPriceChange = async guid => {
     const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({
-      body: [{ guid }],
+      body: [{ boxId: guid }],
     })
     return response.data
   }

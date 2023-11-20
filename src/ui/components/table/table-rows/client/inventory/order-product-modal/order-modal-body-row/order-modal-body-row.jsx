@@ -499,7 +499,7 @@ export const OrderModalBodyRow = ({
       </TableRow>
 
       <TableRow key={item._id + `+`}>
-        <TableCell colSpan={11}>
+        <TableCell colSpan={12}>
           <div className={classNames.sumsWrapper}>
             <Button
               tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
@@ -541,7 +541,7 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
+              containerClasses={cx(classNames.containerField, classNames.batchWeight)}
               labelClasses={classNames.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={

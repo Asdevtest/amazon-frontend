@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
-    zIndex: 100,
+    zIndex: 50,
   },
 
   deadlineBorder: {

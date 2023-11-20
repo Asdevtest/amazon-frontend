@@ -37,6 +37,9 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = (
       })()
     : ''
 
+  const hasFiles = !!noticeItem?.files?.length
+  const hasImages = !!noticeItem?.images?.length
+
   return (
     <div className={styles.mainWrapper} onClick={() => onClickMessage(noticeItem)}>
       <img src={getUserAvatarSrc(noticeItem?.user?._id)} className={styles.avatar} />
@@ -45,8 +48,18 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = (
 
         {message ? <p className={styles.message}>{message}</p> : null}
 
-        {noticeItem?.files?.length ? (
-          <p className={styles.date}>{`*${noticeItem?.files?.length} ${t(TranslationKey.Files)}*`}</p>
+        {hasFiles || hasImages ? (
+          <div className={styles.files}>
+            {hasFiles ? (
+              <p className={styles.date}>{`${noticeItem?.files?.length} ${t(TranslationKey.Files)}`}</p>
+            ) : null}
+
+            {hasFiles && hasImages ? <p className={styles.date}>/</p> : null}
+
+            {hasImages ? (
+              <p className={styles.date}>{`${noticeItem?.images?.length} ${t(TranslationKey.Images)}`}</p>
+            ) : null}
+          </div>
         ) : null}
       </div>
 

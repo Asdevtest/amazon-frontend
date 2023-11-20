@@ -72,15 +72,23 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
     return result
   })
 
-  const oponentUser =
-    typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat'
-      ? usersList.find(
-          (user: ChatUserContract) =>
-            (checkIsClient(currentUserRole)
-              ? UserRoleCodeMap[Number(user.role)] === UserRole.FREELANCER
-              : UserRoleCodeMap[Number(user.role)] === UserRole.CLIENT) && !user.masterUser,
+  const getUserByChatType = () => {
+    if (typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat') {
+      const userByChatType = users.find((user: ChatUserContract) => {
+        const userRole = UserRoleCodeMap[Number(user.role)]
+        return (
+          (checkIsClient(currentUserRole) ? userRole === UserRole.FREELANCER : userRole === UserRole.CLIENT) &&
+          !user.masterUser
         )
-      : usersList?.[0]
+      })
+
+      return userByChatType || usersList?.[0]
+    } else {
+      return usersList?.[0]
+    }
+  }
+
+  const oponentUser = getUserByChatType()
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
 

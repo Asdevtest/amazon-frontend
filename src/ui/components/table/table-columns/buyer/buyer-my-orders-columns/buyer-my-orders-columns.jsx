@@ -14,6 +14,7 @@ import {
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
   UserLinkCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -186,9 +187,12 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
+      <UserMiniCell
+        userName={params.row.originalData.product.client?.name}
+        userId={params.row.originalData.product.client?._id}
+      />
     ),
-    width: 120,
+    width: 180,
     sortable: false,
   },
 

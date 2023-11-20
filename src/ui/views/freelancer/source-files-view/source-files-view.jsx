@@ -14,13 +14,15 @@ import { t } from '@utils/translations'
 import { SourceFilesViewModel } from './source-files-view.model'
 import { useStyles } from './source-files-view.style.js'
 
-export const SourceFilesView = observer(({ history, location }) => {
+export const SourceFilesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SourceFilesViewModel({ history, location }))
+  const [viewModel] = useState(() => new SourceFilesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
+  // console.log(viewModel.editField)
 
   return (
     <>

@@ -1,7 +1,6 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalModel } from '@models/request-proposal'
@@ -17,9 +16,17 @@ export class SourceFilesViewModel {
 
   nameSearchValue = ''
 
-  sortMode = tableSortMode.DESK
-
-  currentData = []
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.sourceFiles.filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.sourceFiles
+    }
+  }
 
   sourceFiles = []
 
@@ -45,11 +52,10 @@ export class SourceFilesViewModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = sourceFilesColumns(this.rowHandlers, () => this.editField)
+  columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-  openModal = null
 
   confirmModalSettings = {
     isWarning: false,
@@ -64,13 +70,8 @@ export class SourceFilesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.sourceFiles,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
+      () => this.editField,
+      () => (this.columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)), // to update this.editField for sourceFilesColumns
     )
   }
 
@@ -86,18 +87,6 @@ export class SourceFilesViewModel {
     this.columnVisibilityModel = model
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.sourceFiles).filter(
-        el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.sourceFiles)
-    }
-  }
-
   onSelectionModel(model) {
     this.rowSelectionModel = model
   }
@@ -106,7 +95,7 @@ export class SourceFilesViewModel {
     this.sortModel = sortModel
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -121,14 +110,6 @@ export class SourceFilesViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
   }
 
   onClickEditBtn(row) {

@@ -2,12 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
-    width: 1500,
+    width: 1300,
   },
 
   headerWrapper: {
+    marginBottom: 20,
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   headerLabel: {
@@ -18,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainTitleMargin: {
-    marginBottom: 35,
+    marginBottom: 20,
   },
 
   labelMargin: {
@@ -26,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   textMargin: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   headerSubText: {
@@ -85,12 +87,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
     gap: 30,
   },
 
   containerField: {
-    width: 'min-content !important',
+    width: 'max-content',
     marginBottom: '0 !important',
   },
 
@@ -112,8 +114,7 @@ export const useClassNames = makeStyles()(theme => ({
   bodySubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 24,
-    paddingRight: 15,
+    gap: 25,
   },
 
   imageObjWrapper: {
@@ -143,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    gap: 30,
+    gap: 20,
     width: '100%',
   },
 
@@ -158,7 +159,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 99,
+    zIndex: 50,
   },
 
   mainImageWrapper: {
@@ -171,7 +172,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 700,
     fontSize: 20,
     color: theme.palette.text.second,
-    marginRight: 10,
     alignSelf: 'flex-start',
   },
 
@@ -179,10 +179,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 10,
   },
 
   clientComment: {
-    fontSize: 18,
+    fontSize: 16,
+    lineHeight: '22px',
     color: '#DF0C0C',
     wordBreak: 'break-word',
     whiteSpace: 'pre-wrap',
@@ -194,26 +196,31 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageObjInput: {
-    width: 133,
-    height: 'auto',
+    width: 140,
+    height: 46,
+  },
+
+  inputComment: {
+    padding: 8,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   bigPlusWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    justifySelf: 'flex-start',
-    marginLeft: 100,
+    padding: 10,
+    width: 80,
+    height: 80,
   },
 
   bigPlus: {
+    width: '60px !important',
+    height: '60px !important',
     color: theme.palette.primary.main,
-    margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
-    transform: 'scale(2.8)',
+
     '&:hover': {
-      transform: 'scale(3)',
+      transform: 'scale(1.05)',
     },
   },
 
@@ -293,7 +300,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
-    zIndex: 99,
+    zIndex: 50,
 
     cursor: 'pointer',
     transition: '.3s ease',
@@ -305,5 +312,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   removeIcon: {
     color: '#fff',
+  },
+
+  comment: {
+    margin: '0 !important',
   },
 }))

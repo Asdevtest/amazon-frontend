@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
@@ -69,21 +72,34 @@ export const NavbarDrawerContent: FC<Props> = observer(
     showConfirmModal,
   }) => {
     const { classes: classNames } = useClassNames()
-    const [filteredCategories] = useState(() =>
+    const [filteredCategories, setFilteredCategories] = useState<any>([])
+    const [filteredBottomCategories, setFilteredBottomCategories] = useState<any>([])
+
+    const getFilteredCategories = () =>
       curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(
         el => !el.route?.includes('/messages'),
-      ),
-    )
-    const [filteredBottomCategories] = useState(() =>
+      )
+
+    const getFilteredBottomCategories = () =>
       curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(el =>
         el.route?.includes('/messages'),
-      ),
-    )
+      )
+
+    useEffect(() => {
+      setFilteredCategories(getFilteredCategories())
+      setFilteredBottomCategories(getFilteredBottomCategories())
+    }, [])
+
+    useEffect(() => {
+      if (!userInfo.role) return
+      setFilteredCategories(getFilteredCategories())
+      setFilteredBottomCategories(getFilteredBottomCategories())
+    }, [userInfo.role])
 
     return (
       <div className={classNames.mainSubWrapper}>
         <List className={classNames.categoriesWrapper}>
-          {filteredCategories.map((category, index) =>
+          {filteredCategories.map((category: any, index: number) =>
             category.checkHideBlock(userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory
@@ -114,7 +130,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
         </List>
 
         <div className={classNames.bottomCategories}>
-          {filteredBottomCategories.map((category, index) =>
+          {filteredBottomCategories.map((category: any, index: number) =>
             category.checkHideBlock(userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory

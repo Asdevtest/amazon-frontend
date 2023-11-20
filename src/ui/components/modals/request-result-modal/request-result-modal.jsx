@@ -150,7 +150,7 @@ export const RequestResultModal = ({
           inputProps={{ maxLength: 255 }}
           minRows={4}
           maxRows={4}
-          label={t(TranslationKey.Comments)}
+          label={`${t(TranslationKey.Comments)}*`}
           value={formFields.result}
           onChange={onChangeField('result')}
         />
