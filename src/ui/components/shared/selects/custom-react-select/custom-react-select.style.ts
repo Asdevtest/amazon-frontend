@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   control: {
     background: theme.palette.background.general,
     width: '100%',
@@ -55,4 +57,4 @@ export const styles = theme => ({
   hideIndicatorSeparator: {
     display: 'none',
   },
-})
+}))
