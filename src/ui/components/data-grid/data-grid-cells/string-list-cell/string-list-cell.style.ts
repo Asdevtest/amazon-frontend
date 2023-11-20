@@ -6,15 +6,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    flexGrow: 1,
-  },
-
-  adaptText: {
-    fontSize: 14,
-    fontWeight: 400,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    width: '100%',
   },
 
   stringListMenuWrapper: {
