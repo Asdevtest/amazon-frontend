@@ -1,28 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
-import { BoxStatus } from '@constants/statuses/box-status'
-
-import { useDataGridCellStyles } from './formed-cell.style'
+import { useStyles } from './formed-cell.style'
 
 import { CheckboxCell, MultilineTextCell } from '../data-grid-cells'
 
+interface ISub {
+  name: string
+  id: string
+}
+
 interface FormedCellProps {
-  sub: any
-  params: any
+  sub: ISub
+  disable: boolean
+  isChecked: boolean
   onChangeIsFormedInBox: () => void
 }
 
-export const FormedCell: FC<FormedCellProps> = React.memo(({ sub, onChangeIsFormedInBox, params }) => {
-  const { classes: styles } = useDataGridCellStyles()
+export const FormedCell: FC<FormedCellProps> = memo(({ sub, disable, isChecked, onChangeIsFormedInBox }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.formedCell}>
-      <CheckboxCell
-        disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-        checked={params.value}
-        onClick={onChangeIsFormedInBox}
-      />
+    <div className={styles.wrapper}>
+      <CheckboxCell disabled={disable} checked={isChecked} onClick={onChangeIsFormedInBox} />
       {sub?.name && <MultilineTextCell text={sub.name} />}
     </div>
   )
