@@ -193,7 +193,7 @@ export const MessagesView = observer(props => {
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
                     value={viewModel.mesSearchValue}
-                    onChange={viewModel.onChangeMesSearchValue}
+                    onChange={e => viewModel.onChangeMesSearchValue(e, findChatByChatId._id)}
                   />
 
                   {viewModel.messagesFound.length ? (

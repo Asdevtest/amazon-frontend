@@ -14,6 +14,7 @@ import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
   ChatMessageType,
+  FindChatMessageRequestParams,
   OnReadMessageResponse,
   OnTypingMessageResponse,
   RemoveUsersFromGroupChatParams,
@@ -520,6 +521,16 @@ class ChatModelStatic {
 
   public resetChats() {
     this.chats = []
+  }
+
+  public async FindChatMessage(requestParams: FindChatMessageRequestParams) {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const messages = await this.websocketChatService.FindChatMessage(requestParams)
+      return messages
+    } catch (error) {
+      console.warn(error)
+    }
   }
 }
 

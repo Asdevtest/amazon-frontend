@@ -319,10 +319,12 @@ export class MessagesViewModel {
     })
   }
 
-  onChangeMesSearchValue(e) {
+  async onChangeMesSearchValue(e, chatId) {
     runInAction(() => {
       this.mesSearchValue = e.target.value
     })
+
+    // await ChatModel.FindChatMessage({ chatId, text: e.target.value })
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
