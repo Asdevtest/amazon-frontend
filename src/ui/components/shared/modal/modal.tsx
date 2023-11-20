@@ -37,19 +37,28 @@ export const Modal: FC<ModalProps> = memo(props => {
   }
 
   const { classes: styles, cx } = useStyles()
-  const [showMissclickModal, setShowMissclickModal] = useState(false)
 
-  const handleModalClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false)
+  const [showMissClickModal, setShowMissClickModal] = useState(false)
+  const [mousedownTarget, setMousedownTarget] = useState<EventTarget | null>(null)
+
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    setMousedownTarget(e.target)
+  }
+
+  const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
+    if (mousedownTarget === e.target && e.target === e.currentTarget) {
+      missClickModalOn ? setShowMissClickModal(!showMissClickModal) : setOpenModal(false)
     }
+
+    setMousedownTarget(null)
   }
 
   return (
     <ModalPortal>
       <div
-        className={cx(styles.dialogWrapper, dialogClassName, openModal && styles.openModal)}
-        onClick={handleModalClick}
+        className={cx(styles.dialogWrapper, { [styles.openModal]: openModal }, dialogClassName)}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
       >
         <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
           <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
@@ -59,14 +68,14 @@ export const Modal: FC<ModalProps> = memo(props => {
       </div>
 
       <ConfirmationModal
-        openModal={showMissclickModal}
-        setOpenModal={() => setShowMissclickModal(!showMissclickModal)}
+        openModal={showMissClickModal}
+        setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
         title={t(TranslationKey.Attention)}
         message={t(TranslationKey['Window will be closed'])}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={() => setOpenModal(false)}
-        onClickCancelBtn={() => setShowMissclickModal(!showMissclickModal)}
+        onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
       />
     </ModalPortal>
   )
