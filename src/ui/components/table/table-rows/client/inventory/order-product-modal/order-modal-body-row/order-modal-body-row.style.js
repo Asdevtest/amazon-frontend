@@ -121,12 +121,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'max-content',
-    margin: 0,
+    width: 'max-content !important',
+    margin: '0 !important',
   },
 
   batchWeight: {
-    width: 190,
+    width: '190px !important',
   },
 
   labelField: {
@@ -175,5 +175,9 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 'auto',
     color: theme.palette.text.general,
     fontSize: '12px',
+  },
+
+  calculationButton: {
+    minWidth: '225px !important',
   },
 }))

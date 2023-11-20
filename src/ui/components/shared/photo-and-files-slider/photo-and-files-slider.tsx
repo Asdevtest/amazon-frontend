@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -65,7 +64,7 @@ interface Props {
  * @param {Function} onChangeImagesForLoad - method to change the array of transferred files from outside the component.
  * @returns {HTMLElement} return custom slider for photos and documents.
  */
-export const PhotoAndFilesSlider: FC<Props> = observer(
+export const PhotoAndFilesSlider: FC<Props> = memo(
   ({
     files,
     column = false,

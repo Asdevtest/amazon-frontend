@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { Dispatch, FC, SetStateAction } from 'react'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 
@@ -29,7 +28,7 @@ interface Props {
   onPhotosModalToggle?: VoidFunction
 }
 
-export const Slider: FC<Props> = observer(
+export const Slider: FC<Props> = memo(
   ({
     slides,
     currentIndex,
