@@ -929,8 +929,7 @@ export class ClientInventoryViewModel {
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
 
-      const purchaseQuantityAboveZero =
-        isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter ? true : false
+      const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: this.getFilter(), // this.nameSearchValue ? filter : null,
