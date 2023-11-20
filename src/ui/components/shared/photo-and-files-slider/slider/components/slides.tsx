@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
 
@@ -26,7 +25,7 @@ interface Props {
   onPhotosModalToggle?: VoidFunction
 }
 
-export const Slides: FC<Props> = observer(
+export const Slides: FC<Props> = memo(
   ({
     slides,
     currentIndex,
@@ -64,6 +63,7 @@ export const Slides: FC<Props> = observer(
           {slides.map((slide, index) => {
             const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
             const currentSlide = typeof slide === 'string' ? slide : slide?.data_url
+            const isActiveSlide = currentIndex === index
 
             return (
               <div key={index} className={classNames.slideWrapper}>
@@ -73,12 +73,12 @@ export const Slides: FC<Props> = observer(
                       <VideoPlayer
                         videoSource={currentSlide}
                         controls={controls}
-                        isPlaying={isPlaying}
+                        isPlaying={isPlaying && isActiveSlide}
                         setIsPlaying={setIsPlaying}
                       />
                     ) : (
                       <div className={classNames.preloaderContainer} onClick={onPhotosModalToggle}>
-                        <VideoPlayer videoSource={currentSlide} height="300px" />
+                        <VideoPlayer videoSource={currentSlide} />
                         <div className={classNames.preloader}>
                           <PlayCircleFilledWhiteOutlinedIcon className={classNames.preloaderIcon} />
                         </div>

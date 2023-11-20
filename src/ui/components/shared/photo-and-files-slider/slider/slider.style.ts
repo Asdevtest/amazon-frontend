@@ -179,6 +179,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   preloaderContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     position: 'relative',
     cursor: 'pointer',

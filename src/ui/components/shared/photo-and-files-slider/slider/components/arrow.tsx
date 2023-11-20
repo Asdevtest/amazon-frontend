@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
@@ -17,33 +16,31 @@ interface Props {
   bigSlider?: boolean
 }
 
-export const Arrow: FC<Props> = observer(
-  ({ direction, isDisableArrow, onClick, smallSlider, mediumSlider, bigSlider }) => {
-    const { classes: classNames, cx } = useClassNames()
+export const Arrow: FC<Props> = memo(({ direction, isDisableArrow, onClick, smallSlider, mediumSlider, bigSlider }) => {
+  const { classes: classNames, cx } = useClassNames()
 
-    const isLeftArrow = direction === Arrows.LEFT
-    const ArrowIcon = isLeftArrow ? ArrowLeftIcon : ArrowRightIcon
+  const isLeftArrow = direction === Arrows.LEFT
+  const ArrowIcon = isLeftArrow ? ArrowLeftIcon : ArrowRightIcon
 
-    return (
-      <button
-        disabled={isDisableArrow}
+  return (
+    <button
+      disabled={isDisableArrow}
+      className={cx(classNames.arrowIcon, {
+        [classNames.arrowIconDisable]: isDisableArrow,
+        [classNames.smallArrow]: smallSlider,
+        [classNames.mediumArrow]: mediumSlider,
+        [classNames.bigArrow]: bigSlider,
+      })}
+      onClick={() => onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)}
+    >
+      <ArrowIcon
         className={cx(classNames.arrowIcon, {
           [classNames.arrowIconDisable]: isDisableArrow,
           [classNames.smallArrow]: smallSlider,
           [classNames.mediumArrow]: mediumSlider,
           [classNames.bigArrow]: bigSlider,
         })}
-        onClick={() => onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)}
-      >
-        <ArrowIcon
-          className={cx(classNames.arrowIcon, {
-            [classNames.arrowIconDisable]: isDisableArrow,
-            [classNames.smallArrow]: smallSlider,
-            [classNames.mediumArrow]: mediumSlider,
-            [classNames.bigArrow]: bigSlider,
-          })}
-        />
-      </button>
-    )
-  },
-)
+      />
+    </button>
+  )
+})
