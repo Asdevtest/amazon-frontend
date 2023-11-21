@@ -1,3 +1,8 @@
+import {
+  amazonImageUrlBigPostfix,
+  amazonImageUrlMiddlePostfix,
+  amazonImageUrlSmallPostfix,
+} from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
@@ -118,7 +123,8 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('xlsx') ||
   link?.endsWith('xls') ||
   link?.endsWith('txt') ||
-  (link?.includes('.com') && !link?.includes('placeimg.com'))
+  (link?.includes('.com') && !link?.includes('placeimg.com')) ||
+  link?.includes('.pdf')
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 
@@ -166,3 +172,15 @@ export const checkIsImageUrlValid = async selectedImageUrl =>
   })
 
 export const checkIsValidProposalStatusToShowResoult = status => statusesValidToShowResoult.includes(status)
+
+export const checkIsHasHttp = str => {
+  const reg = /^https?:\/\//
+  return reg.test(str)
+}
+
+export const checkIsGif = str => str.endsWith('.gif')
+
+export const checkIsImageInludesPostfixes = str =>
+  [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64'].some(item =>
+    str.includes(item),
+  )

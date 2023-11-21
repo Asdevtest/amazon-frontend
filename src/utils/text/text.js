@@ -51,6 +51,8 @@ export const clearSpecialCharacters = value =>
 
 export const clearEverythingExceptNumbers = value => (typeof value === 'string' ? value.replace(/\D/gi, '') : value)
 
+export const removeText = (originalText, valueToRemove) => originalText.replaceAll(valueToRemove, '')
+
 export const shortenDocumentString = value => {
   if (typeof value === 'string') {
     const strAfterPdf = value.slice(0, 4)

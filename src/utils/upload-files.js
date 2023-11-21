@@ -34,7 +34,7 @@ export const onPostImage = async imageData => {
   try {
     const fileName = await OtherModel.postImage(formData)
 
-    return BACKEND_API_URL + '/uploads/' + fileName
+    return '/uploads/' + fileName
   } catch (error) {
     this.error = error
   }
@@ -44,7 +44,7 @@ export const uploadFileByUrl = async image => {
   try {
     const result = await OtherModel.uploadFileByUrl(image)
 
-    return BACKEND_API_URL + '/uploads/' + result.fileName
+    return '/uploads/' + result.fileName
   } catch (error) {
     console.log(error?.response?.data?.message)
     throw new Error(Errors.INVALID_IMAGE)
