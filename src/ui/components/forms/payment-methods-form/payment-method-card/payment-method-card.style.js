@@ -3,10 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 378,
+    width: 400,
     minHeight: 368,
 
-    margin: '0 10px 0 5px',
+    margin: '0 10px 0 0',
   },
 
   paymentMethodTitleWrapper: {

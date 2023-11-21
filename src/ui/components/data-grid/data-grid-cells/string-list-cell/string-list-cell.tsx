@@ -6,10 +6,10 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { SearchInput } from '@components/shared/search-input'
+import { TextWithCopy } from '@components/shared/text-with-copy'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -25,8 +25,8 @@ interface StringListCellProps {
 }
 
 export const StringListCell: FC<StringListCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
-  const { sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell } = props
+  const { classes: styles } = useDataGridCellStyles()
+  const { sourceString, withCopy, maxItemsDisplay, maxLettersInItem } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
   const handleClick = (event: any) => {
@@ -50,16 +50,12 @@ export const StringListCell: FC<StringListCellProps> = React.memo(props => {
   }, [nameSearchValue])
 
   return (
-    <div className={cx(styles.flexDirectionColumn, styles.adaptText)}>
-      <div onClick={onClickCell && onClickCell}>
-        {!!items?.length &&
-          items
-            ?.slice(0, maxItemsDisplay)
-            ?.filter(el => el)
-            ?.map((item, i) => (
-              <AsinOrSkuLink key={i} withCopyValue asin={getShortenStringIfLongerThanCount(item, maxLettersInItem)} />
-            ))}
-      </div>
+    <div className={styles.flexDirectionColumn}>
+      {!!items?.length &&
+        items
+          ?.slice(0, maxItemsDisplay)
+          ?.filter(el => el)
+          ?.map((item, i) => <TextWithCopy key={i} text={getShortenStringIfLongerThanCount(item, maxLettersInItem)} />)}
 
       {items?.length > maxItemsDisplay && (
         <Button variant="text" onClick={handleClick}>
