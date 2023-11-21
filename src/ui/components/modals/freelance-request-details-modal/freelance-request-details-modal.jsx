@@ -1,12 +1,8 @@
-import { cx } from '@emotion/css'
-
 import { Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { FreelanceRequestDetailsModalControls } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal-controls'
-import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
@@ -17,6 +13,10 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsImageLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { useStyles } from './freelance-request-details-modal.styles'
+
+import { FreelanceRequestDetailsModalControls } from './freelance-request-details-modal-controls'
 
 export const FreelanceRequestDetailsModal = props => {
   const {
@@ -34,7 +34,7 @@ export const FreelanceRequestDetailsModal = props => {
     onRecoverRequest,
     onClickAbortBtn,
   } = props
-  const { classes: styles } = useFreelanceRequestDetailsModalStyles()
+  const { classes: styles, cx } = useStyles()
   const requestMedia = request?.media?.filter(el => checkIsImageLink(el.fileLink))
   const requestPhotos = requestMedia?.map(el => el.fileLink)
   const requestTitles = requestMedia?.map(el => el.commentByPerformer)
@@ -49,17 +49,20 @@ export const FreelanceRequestDetailsModal = props => {
             <Typography>
               {t(TranslationKey.ID)}: {request?.humanFriendlyId}
             </Typography>
-            <Typography className={styles.title}>
+            <Typography className={styles.textBold}>
               <span>{getShortenStringIfLongerThanCount(request?.title, 55)}</span>
             </Typography>
           </div>
           <div className={styles.headerDetails}>
-            <Typography className={styles.headerText}>
-              {t(TranslationKey['Request type'])}:{' '}
-              <span>{freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}</span>
-            </Typography>
-            <Typography className={styles.headerText}>
-              {t(TranslationKey['Request creator'])}:
+            <div className={styles.flexContainer}>
+              <Typography className={styles.headerText}>{t(TranslationKey['Request type'])}</Typography>
+              <Typography className={cx(styles.headerText, styles.textBold)}>
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}
+              </Typography>
+            </div>
+
+            <div className={styles.flexContainer}>
+              <Typography className={styles.headerText}>{t(TranslationKey['Request creator'])}:</Typography>
               <UserLink
                 blackText
                 withAvatar
@@ -70,7 +73,7 @@ export const FreelanceRequestDetailsModal = props => {
                 ratingSize={'small'}
                 customRatingClass={{ opacity: 1 }}
               />
-            </Typography>
+            </div>
           </div>
         </div>
 
@@ -106,7 +109,7 @@ export const FreelanceRequestDetailsModal = props => {
                   photosComments={requestComments}
                 />
               </div>
-              <div className={cx(styles.filesList)}>
+              <div className={styles.filesList}>
                 <Typography>{t(TranslationKey.Files)}</Typography>
                 <PhotoAndFilesSlider withoutPhotos customSlideHeight={75} files={requestDocuments} />
               </div>
