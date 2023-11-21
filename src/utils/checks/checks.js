@@ -123,7 +123,8 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('xlsx') ||
   link?.endsWith('xls') ||
   link?.endsWith('txt') ||
-  (link?.includes('.com') && !link?.includes('placeimg.com'))
+  (link?.includes('.com') && !link?.includes('placeimg.com')) ||
+  link?.includes('.pdf')
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 

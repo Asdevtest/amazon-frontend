@@ -6,7 +6,13 @@ import {
 } from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-import { checkIsGif, checkIsHasHttp, checkIsImageInludesPostfixes } from '@utils/checks'
+import {
+  checkIsDocumentLink,
+  checkIsGif,
+  checkIsHasHttp,
+  checkIsImageInludesPostfixes,
+  checkIsVideoLink,
+} from '@utils/checks'
 import { removeText } from '@utils/text'
 
 export const getAmazonImageUrl = (str, isBig) => {
@@ -18,10 +24,12 @@ export const getAmazonImageUrl = (str, isBig) => {
     return str
   } else if (str.includes('/uploads/')) {
     return `${BACKEND_API_URL}${str}${
-      !checkIsGif(str) && !checkIsImageInludesPostfixes(str) ? amazonImageUrlPostfix : ''
+      !checkIsGif(str) && !checkIsImageInludesPostfixes(str) && !checkIsVideoLink(str) && !checkIsDocumentLink(str)
+        ? amazonImageUrlPostfix
+        : ''
     }`
   } else {
-    if (checkIsImageInludesPostfixes(str)) {
+    if (checkIsImageInludesPostfixes(str) || checkIsVideoLink(str) || checkIsDocumentLink(str)) {
       return amazonImageUrlPrefix + str
     } else {
       return `${amazonImageUrlPrefix}${removeText(str, '.jpg')}${
