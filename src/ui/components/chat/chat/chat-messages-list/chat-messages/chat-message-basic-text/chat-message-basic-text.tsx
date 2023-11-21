@@ -94,6 +94,11 @@ export const ChatMessageBasicText: FC<Props> = observer(
       setAnotherFiles(message.files.filter(url => !imagesRegex.test(url)))
     }, [message])
 
+    // console.log('isIncomming', isIncomming)
+    // console.log('isFound', isFound)
+
+    console.log('findChunks', findChunks)
+
     return (
       <div
         className={cx(

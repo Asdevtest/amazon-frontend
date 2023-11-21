@@ -167,7 +167,6 @@ export const ChatMessagesList: FC<Props> = observer(
                 <div
                   ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : undefined}
                   key={`chatMessage_${messageItem._id}`}
-                  // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
                   className={cx(classNames.message, {
                     [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
                   })}

@@ -293,6 +293,8 @@ export const Chat: FC<Props> = observer(
 
     useEffect(() => {
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
+
+      console.log('messageToScroll', messageToScroll)
     }, [toScrollMesId])
 
     const disabledSubmit = !message.trim() && !files.length

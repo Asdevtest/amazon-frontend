@@ -117,35 +117,26 @@ export class MessagesViewModel {
       },
     )
 
-    reaction(
-      () => this.chatSelectedId,
-      () => {
-        runInAction(() => {
-          this.mesSearchValue = ''
-        })
-      },
-    )
+    // reaction(
+    //   () => this.mesSearchValue,
+    //   () => {
+    //     runInAction(() => {
+    //       if (this.mesSearchValue && this.chatSelectedId) {
+    //         const mesAr = this.simpleChats
+    //           .find(el => el._id === this.chatSelectedId)
+    //           .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
 
-    reaction(
-      () => this.mesSearchValue,
-      () => {
-        runInAction(() => {
-          if (this.mesSearchValue && this.chatSelectedId) {
-            const mesAr = this.simpleChats
-              .find(el => el._id === this.chatSelectedId)
-              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+    //         this.messagesFound = mesAr
 
-            this.messagesFound = mesAr
+    //         setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+    //       } else {
+    //         this.curFoundedMessage = undefined
 
-            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-          } else {
-            this.curFoundedMessage = undefined
-
-            this.messagesFound = []
-          }
-        })
-      },
-    )
+    //         this.messagesFound = []
+    //       }
+    //     })
+    //   },
+    // )
 
     reaction(
       () => ChatModel.isConnected,
@@ -323,8 +314,17 @@ export class MessagesViewModel {
     runInAction(() => {
       this.mesSearchValue = e.target.value
     })
+    if (!e.target.value) {
+      return
+    }
+    const res = await ChatModel.FindChatMessage({ chatId, text: e.target.value })
+    runInAction(() => {
+      this.messagesFound = res
+    })
+    this.onChangeCurFoundedMessage(res.length - 1)
 
-    // await ChatModel.FindChatMessage({ chatId, text: e.target.value })
+    console.log('res', res)
+    console.log('chatId', chatId)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
