@@ -7,7 +7,7 @@ import { useDataGridCellStyles } from './checkbox-cell.style'
 interface CheckboxCellProps {
   checked: boolean
   disabled: boolean
-  onClick: () => void
+  onClick: VoidFunction
 }
 
 export const CheckboxCell: FC<CheckboxCellProps> = React.memo(({ checked, disabled, onClick }) => {
