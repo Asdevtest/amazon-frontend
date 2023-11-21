@@ -504,6 +504,7 @@ export const OrderModalBodyRow = ({
             <Button
               tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
               disabled={!boxPropertiesIsFull}
+              className={classNames.calculationButton}
               onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
             >
               {t(TranslationKey['View an oriented calculation'])}

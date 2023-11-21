@@ -79,4 +79,9 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 15,
     marginBottom: 30,
   },
+
+  textEditor: {
+    maxHeight: '350px !important',
+    maxWidth: 1150,
+  },
 }))

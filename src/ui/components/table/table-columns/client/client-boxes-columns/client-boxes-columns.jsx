@@ -190,17 +190,14 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => {
-      return params.row.originalData ? (
-        <FormedCell
-          sub={params.row.originalData?.sub}
-          params={params}
-          onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
-        />
-      ) : (
-        ''
-      )
-    },
+    renderCell: params => (
+      <FormedCell
+        sub={params.row.originalData?.sub}
+        isChecked={!!params.value}
+        disable={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+        onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
+      />
+    ),
     width: 130,
     sortable: false,
     filterable: false,

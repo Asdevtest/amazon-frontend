@@ -69,7 +69,12 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
             <div className={classNames.conditionsFieldWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
 
-              <CustomTextEditor readOnly conditions={request?.details?.conditions} changeConditions={undefined} />
+              <CustomTextEditor
+                readOnly
+                conditions={request?.details?.conditions}
+                changeConditions={undefined}
+                editorMaxHeight={classNames.textEditor}
+              />
             </div>
           </div>
         </AccordionDetails>

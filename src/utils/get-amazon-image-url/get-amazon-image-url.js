@@ -22,7 +22,8 @@ export const getAmazonImageUrl = (str, big) => {
     } else if (
       str.includes(amazonImageUrlBigPostfix) ||
       str.includes(amazonImageUrlSmallPostfix) ||
-      str.includes('_AC_SL1500_')
+      str.includes('_AC_SL1500_') ||
+      str.includes('._SL120_.jpg')
     ) {
       return str
     } else {

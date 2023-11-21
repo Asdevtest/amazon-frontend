@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { Dispatch, FC, SetStateAction } from 'react'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 import Lightbox from 'react-18-image-lightbox'
 import 'react-18-image-lightbox/style.css'
 
@@ -19,7 +18,7 @@ interface Props {
   setCurrentImageIndex: (index: number) => void
 }
 
-export const ZoomModal: FC<Props> = observer(
+export const ZoomModal: FC<Props> = memo(
   ({ images, currentImageIndex, isOpenModal, setIsOpenModal, setCurrentImageIndex }) => {
     const { classes: styles } = useStyles()
 
