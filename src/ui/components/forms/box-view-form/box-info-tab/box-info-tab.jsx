@@ -22,6 +22,7 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -43,6 +44,8 @@ export const BoxInfoTab = observer(
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [trackNumbers, setTrackNumbers] = useState(formFields?.trackNumberFile)
+
+    const shippingLabelLink = getAmazonImageUrl(formFields?.shippingLabel)
 
     useEffect(() => {
       if (formFields?.tmpTrackNumberFile && formFields?.trackNumberFile) {
@@ -127,8 +130,8 @@ export const BoxInfoTab = observer(
                   {formFields?.shippingLabel ? (
                     <LinkWithCopy
                       title={t(TranslationKey.View)}
-                      url={checkAndMakeAbsoluteUrl(formFields?.shippingLabel)}
-                      valueToCopy={formFields?.shippingLabel}
+                      url={checkAndMakeAbsoluteUrl(shippingLabelLink)}
+                      valueToCopy={shippingLabelLink}
                     />
                   ) : (
                     <p className={styles.text}>{t(TranslationKey['Not available'])}</p>

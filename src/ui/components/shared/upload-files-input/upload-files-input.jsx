@@ -15,6 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useStyles } from './upload-files-input.style'
@@ -255,7 +256,8 @@ export const UploadFilesInput = observer(props => {
                 style={maxHeight && { maxHeight }}
               >
                 {imageList.map((image, index) => {
-                  const currentImage = typeof image === 'string' ? image : image?.data_url
+                  const currentImage = typeof image === 'string' ? getAmazonImageUrl(image) : image?.data_url
+
                   const currentName = typeof image === 'string' ? image : image?.file.name
 
                   return (

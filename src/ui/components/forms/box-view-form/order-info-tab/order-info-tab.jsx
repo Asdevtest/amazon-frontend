@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react'
+import React from 'react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,17 +11,19 @@ import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { FireIcon } from '@components/shared/svg-icons'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-info-tab.style'
+import { useStyles } from './order-info-tab.style'
 
-export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
-  const { classes: styles, cx } = useClassNames()
+export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.wrapper}>
       {formFields?.items.map((item, index) => {
+        const barCodeLink = getAmazonImageUrl(item.barCode)
         const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
         const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier
           ? item.isBarCodeAlreadyAttachedByTheSupplier
@@ -86,8 +88,8 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
                   {item.barCode ? (
                     <LinkWithCopy
                       title={t(TranslationKey.View)}
-                      url={checkAndMakeAbsoluteUrl(item.barCode)}
-                      valueToCopy={item.barCode}
+                      url={checkAndMakeAbsoluteUrl(barCodeLink)}
+                      valueToCopy={barCodeLink}
                     />
                   ) : (
                     <p className={styles.text}>{t(TranslationKey['Not available'])}</p>
