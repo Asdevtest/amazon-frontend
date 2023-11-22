@@ -12,6 +12,7 @@ import { Field } from '@components/shared/field'
 
 import { checkIsImageLink } from '@utils/checks'
 import { formatDateOnlyTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -36,6 +37,7 @@ interface Props {
 
 export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
+  const files = message.data.proposal.media.slice(0, 4).map(el => el.fileLink)
 
   return (
     <div className={classNames.root}>
@@ -50,31 +52,21 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
           <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
 
           <div className={cx(classNames.imagesWrapper, { [classNames.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
-            {message.data.proposal.media
-              ?.slice(0, 4)
-              .map(el => el.fileLink)
-              .map((item, index) => (
-                <div
-                  key={index}
-                  className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}
-                  // onClick={() => {
-                  //   setCurImageId(item._id)
-                  //   setShowImageModal(!showImageModal)
-                  // }}
-                >
-                  {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+            {files.map((item, index) => (
+              <div key={index} className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
+                {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
-                  {index === 3 && message.data.proposal.media.length > 4 && (
-                    <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
-                  )}
+                {index === 3 && message.data.proposal.media.length > 4 && (
+                  <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
+                )}
 
-                  <img
-                    src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
-                    alt={`Image ${index}`}
-                    className={classNames.image}
-                  />
-                </div>
-              ))}
+                <img
+                  src={checkIsImageLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
+                  alt={`Image ${index}`}
+                  className={classNames.image}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
