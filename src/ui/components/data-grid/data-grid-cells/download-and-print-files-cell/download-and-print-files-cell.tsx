@@ -94,13 +94,15 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
         <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
-      <ImageModal
-        isOpenModal={isOpenModal}
-        handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
-        imageList={[selectedImage?.fileUrl]}
-        currentImageIndex={0}
-        handleCurrentImageIndex={() => null}
-      />
+      {isOpenModal && (
+        <ImageModal
+          isOpenModal={isOpenModal}
+          handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
+          imageList={[selectedImage?.fileUrl]}
+          currentImageIndex={0}
+          handleCurrentImageIndex={() => null}
+        />
+      )}
     </>
   )
 })

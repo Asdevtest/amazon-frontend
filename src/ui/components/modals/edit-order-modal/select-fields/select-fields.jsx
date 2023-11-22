@@ -747,14 +747,16 @@ export const SelectFields = ({
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-        imageList={bigImagesOptions.images}
-        currentImageIndex={bigImagesOptions.imgIndex}
-        handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-      />
+      {showImageModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={showImageModal}
+          handleOpenModal={() => setShowImageModal(!showImageModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        />
+      )}
     </Grid>
   )
 }

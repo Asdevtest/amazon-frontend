@@ -207,14 +207,16 @@ export const ChatInfo = (props: ChatInfoProps) => {
         {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
       </TabPanel>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={isImageModalOpen}
-        handleOpenModal={() => setIsImageModalOpen(prevState => !prevState)}
-        imageList={images?.map(el => el.file.replace('.preview.webp', '')) || []}
-        currentImageIndex={currentImageIndex}
-        handleCurrentImageIndex={index => setCurrentImageIndex(index)}
-      />
+      {isImageModalOpen && (
+        <ImageModal
+          showPreviews
+          isOpenModal={isImageModalOpen}
+          handleOpenModal={() => setIsImageModalOpen(prevState => !prevState)}
+          imageList={images?.map(el => el.file.replace('.preview.webp', '')) || []}
+          currentImageIndex={currentImageIndex}
+          handleCurrentImageIndex={index => setCurrentImageIndex(index)}
+        />
+      )}
     </div>
   )
 }
