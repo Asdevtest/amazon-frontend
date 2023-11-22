@@ -43,17 +43,14 @@ export const usePhotoAndFilesSlider = (
       const currentFile = typeof el === 'string' ? el : el?.file?.name
       const isImage = checkIsImageLink(currentFile)
       const isDocument = checkIsDocumentLink(currentFile)
+      const currentPushPhoto = typeof el === 'string' ? getAmazonImageUrl(el, true) : el
 
       if (isImage) {
-        result.push(getAmazonImageUrl(el, true))
+        result.push(currentPushPhoto)
       }
 
       if (!isImage && !isDocument) {
-        if (typeof el === 'string') {
-          result.push(getAmazonImageUrl(el, true))
-        } else {
-          result.push(el)
-        }
+        result.push(currentPushPhoto)
       }
 
       return result

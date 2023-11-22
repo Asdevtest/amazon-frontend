@@ -70,7 +70,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
         !!selectedFlags.length &&
         selectedFlags.map(flag => (
           <Box key={flag._id} className={styles.flagIcon}>
-            <img src={flag.iconImage} alt={flag.title} />
+            <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
           </Box>
         ))}
     </>
