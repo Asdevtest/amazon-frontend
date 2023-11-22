@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 interface Props {
   chat: ChatContract
   userId: string
-  onClickEditGroupChatInfo: VoidFunction
+  onClickEditGroupChatInfo: () => void
   isGroupChat?: boolean
   currentOpponent?: CurrentOpponent
 }

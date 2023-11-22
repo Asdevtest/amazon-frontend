@@ -23,7 +23,7 @@ interface Props {
   inputClasses?: ClassNamesArg
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
-  onKeyDown?: VoidFunction
+  onKeyDown?: () => void
 }
 
 export const SearchInput: FC<Props> = ({

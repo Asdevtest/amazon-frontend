@@ -6,7 +6,7 @@ import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-res
 
 interface Props extends PropsWithChildren {
   open: boolean
-  onClose: VoidFunction
+  onClose: () => void
 }
 
 export const DialogModal: FC<Props> = ({ open, onClose, children }) => {

@@ -24,9 +24,9 @@ interface Props {
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => void
   onClickMakeMainImageObj: (image: string | IUploadFile, imageIndex: number) => void
   onClickDownloadPhoto: (image: string | IUploadFile) => void
-  onOpenImageZoomModal: VoidFunction
+  onOpenImageZoomModal: () => void
   isEditable?: boolean
-  onImageEditToggle?: VoidFunction
+  onImageEditToggle?: () => void
 }
 
 export const ButtonControls: FC<Props> = observer(

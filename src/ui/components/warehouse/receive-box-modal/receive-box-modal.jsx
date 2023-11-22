@@ -559,6 +559,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
     }
   }
+
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
       <div className={classNames.order}>
@@ -569,6 +570,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           </Typography>
         </Tooltip>
       </div>
+
       <div className={classNames.currentBoxFooter}>
         <div className={classNames.qtyWrapper}>
           <Typography className={classNames.qtyTitle}>{t(TranslationKey.Quantity)}</Typography>
@@ -591,115 +593,57 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         </div>
       </div>
 
-      {window.innerWidth >= 1282 && (
-        <div className={classNames.currentBoxesWrapper}>
-          <CustomSlider alignButtons="end">
-            {boxesBefore.map((box, index) => (
-              <div key={index} className={classNames.demensionsWrapper}>
-                <Typography className={classNames.categoryTitle}>
-                  {t(TranslationKey['Sizes from buyer']) + ':'}
-                </Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
-                  box.lengthCmSupplier,
-                  2,
-                )} ${t(TranslationKey.cm)}`}</Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
-                  box.widthCmSupplier,
-                  2,
-                )} ${t(TranslationKey.cm)}`}</Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
-                  box.heightCmSupplier,
-                  2,
-                )} ${t(TranslationKey.cm)}`}</Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-                  box.weighGrossKgSupplier,
-                  2,
-                )} `}</Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
+      <div className={classNames.currentBoxesWrapper}>
+        <CustomSlider alignButtons="end">
+          {boxesBefore.map((box, index) => (
+            <div key={index} className={classNames.demensionsWrapper}>
+              <Typography className={classNames.categoryTitle}>
+                {t(TranslationKey['Sizes from buyer']) + ':'}
+              </Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
+                box.lengthCmSupplier,
+                2,
+              )} ${t(TranslationKey.cm)}`}</Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
+                box.widthCmSupplier,
+                2,
+              )} ${t(TranslationKey.cm)}`}</Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
+                box.heightCmSupplier,
+                2,
+              )} ${t(TranslationKey.cm)}`}</Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+                box.weighGrossKgSupplier,
+                2,
+              )} `}</Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
+                ((parseFloat(box.lengthCmSupplier) || 0) *
+                  (parseFloat(box.heightCmSupplier) || 0) *
+                  (parseFloat(box.widthCmSupplier) || 0)) /
+                  volumeWeightCoefficient,
+                2,
+              )} `}</Typography>
+              <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(
+                box.weighGrossKgSupplier >
                   ((parseFloat(box.lengthCmSupplier) || 0) *
                     (parseFloat(box.heightCmSupplier) || 0) *
                     (parseFloat(box.widthCmSupplier) || 0)) /
-                    volumeWeightCoefficient,
-                  2,
-                )} `}</Typography>
-                <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(
-                  box.weighGrossKgSupplier >
-                    ((parseFloat(box.lengthCmSupplier) || 0) *
-                      (parseFloat(box.heightCmSupplier) || 0) *
-                      (parseFloat(box.widthCmSupplier) || 0)) /
-                      volumeWeightCoefficient
-                    ? box.weighGrossKgSupplier
-                    : ((parseFloat(box.lengthCmSupplier) || 0) *
-                        (parseFloat(box.heightCmSupplier) || 0) *
-                        (parseFloat(box.widthCmSupplier) || 0)) /
-                        volumeWeightCoefficient,
-                  2,
-                )}`}</Typography>
-              </div>
-            ))}
-          </CustomSlider>
-        </div>
-      )}
-
-      {window.innerWidth < 1282 && (
-        <div className={classNames.currentBoxesWrapper}>
-          <CustomSlider alignButtons="end">
-            {boxesBefore.map((box, index) => (
-              <div key={index} className={classNames.demensionsWrapper}>
-                <Typography className={classNames.categoryTitle}>
-                  {t(TranslationKey['Sizes from buyer']) + ':'}
-                </Typography>
-                <div className={classNames.adaptCatigoryWrapper}>
-                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
-                    box.lengthCmSupplier,
-                    2,
-                  )} ${t(TranslationKey.cm)}`}</Typography>
-                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
-                    box.widthCmSupplier,
-                    2,
-                  )} ${t(TranslationKey.cm)}`}</Typography>
-                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
-                    box.heightCmSupplier,
-                    2,
-                  )} ${t(TranslationKey.cm)}`}</Typography>
-                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-                    box.weighGrossKgSupplier,
-                    2,
-                  )} `}</Typography>
-                  <Typography className={classNames.footerTitle}>{`${t(
-                    TranslationKey['Volume weight'],
-                  )}: ${toFixedWithKg(
-                    ((parseFloat(box.lengthCmSupplier) || 0) *
+                    volumeWeightCoefficient
+                  ? box.weighGrossKgSupplier
+                  : ((parseFloat(box.lengthCmSupplier) || 0) *
                       (parseFloat(box.heightCmSupplier) || 0) *
                       (parseFloat(box.widthCmSupplier) || 0)) /
                       volumeWeightCoefficient,
-                    2,
-                  )} `}</Typography>
-                  <Typography className={classNames.footerTitle}>{`${t(
-                    TranslationKey['Final weight'],
-                  )}: ${toFixedWithKg(
-                    box.weighGrossKgSupplier >
-                      ((parseFloat(box.lengthCmSupplier) || 0) *
-                        (parseFloat(box.heightCmSupplier) || 0) *
-                        (parseFloat(box.widthCmSupplier) || 0)) /
-                        volumeWeightCoefficient
-                      ? box.weighGrossKgSupplier
-                      : ((parseFloat(box.lengthCmSupplier) || 0) *
-                          (parseFloat(box.heightCmSupplier) || 0) *
-                          (parseFloat(box.widthCmSupplier) || 0)) /
-                          volumeWeightCoefficient,
-                    2,
-                  )}`}</Typography>
-                </div>
-              </div>
-            ))}
-          </CustomSlider>
-        </div>
-      )}
+                2,
+              )}`}</Typography>
+            </div>
+          ))}
+        </CustomSlider>
+      </div>
     </div>
   )
 
-  const disableSubmit = newBoxes.some(box => /* box.items[0].amount < 1 ||*/ box.amount === '')
+  const disableSubmit = newBoxes.some(box => box.amount === '')
 
   return (
     <div className={classNames.root}>
@@ -733,6 +677,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           onAddImages={onAddImages}
         />
       </div>
+
       <div className={classNames.addButtonWrapperMobile}>
         <Button
           className={classNames.addButtonMobile}
@@ -766,6 +711,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
+
       <WarningInfoModal
         openModal={showNoDimensionsErrorModal}
         setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
