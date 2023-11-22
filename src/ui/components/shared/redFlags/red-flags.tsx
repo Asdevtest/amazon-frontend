@@ -7,6 +7,8 @@ import { ProductModel } from '@models/product-model'
 
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 import { Flag } from '@typings/flag'
 
 interface RedFlagsProps {
@@ -52,7 +54,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
               label={
                 <Box display="flex" gap="15px">
                   <Box className={styles.flagIcon}>
-                    <img src={flag.iconImage} alt={flag.title} />
+                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
                   </Box>
                   {flag.title}
                 </Box>

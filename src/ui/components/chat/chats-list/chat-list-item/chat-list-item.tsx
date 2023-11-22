@@ -21,6 +21,7 @@ import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-ico
 
 import { checkIsClient } from '@utils/checks'
 import { formatDateWithoutTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -140,7 +141,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <Avatar
         src={
           isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-            ? chat.info?.image
+            ? getAmazonImageUrl(chat.info?.image)
             : getUserAvatarSrc(oponentUser?._id)
         }
         className={classNames.avatar}

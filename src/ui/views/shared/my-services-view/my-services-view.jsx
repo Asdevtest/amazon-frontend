@@ -82,13 +82,15 @@ export const MyServicesView = observer(({ history, location }) => {
         </div>
       )}
 
-      <ImageModal
-        showPreviews
-        isOpenModal={viewModel.showImageModal}
-        imageList={viewModel.service?.linksToMediaFiles}
-        openModal={viewModel.showImageModal}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-      />
+      {viewModel.showImageModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={viewModel.showImageModal}
+          imageList={viewModel.service?.linksToMediaFiles}
+          openModal={viewModel.showImageModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        />
+      )}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

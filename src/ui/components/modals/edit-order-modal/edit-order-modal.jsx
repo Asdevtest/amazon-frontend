@@ -1088,13 +1088,15 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <ImageModal
-          currentImageIndex={bigImagesOptions.imgIndex}
-          imageList={bigImagesOptions.images}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          isOpenModal={showPhotosModal}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            currentImageIndex={bigImagesOptions.imgIndex}
+            imageList={bigImagesOptions.images}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            isOpenModal={showPhotosModal}
+            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        )}
 
         <Modal
           openModal={showCheckQuantityModal}

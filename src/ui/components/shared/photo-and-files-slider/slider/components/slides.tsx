@@ -22,7 +22,7 @@ interface Props {
   controls?: boolean
   isPlaying?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
-  onPhotosModalToggle?: VoidFunction
+  onPhotosModalToggle?: () => void
 }
 
 export const Slides: FC<Props> = memo(

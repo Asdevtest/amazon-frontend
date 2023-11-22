@@ -36,7 +36,7 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
             <div key={index} className={styles.photosWrapper}>
               <p className={cx(styles.bigText, styles.blueColor)}>{index + 1}</p>
 
-              <PhotoAndFilesSlider withoutFiles customSlideHeight={80} files={item.product.images} />
+              <PhotoAndFilesSlider withoutFiles showPreviews customSlideHeight={80} files={item.product.images} />
             </div>
 
             <div className={styles.descriptionWrapper}>
