@@ -198,7 +198,7 @@ export const clientBoxesViewColumns = (
         onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
       />
     ),
-    width: 130,
+    width: 120,
     sortable: false,
     filterable: false,
 

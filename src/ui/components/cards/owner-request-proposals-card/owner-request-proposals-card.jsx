@@ -82,7 +82,7 @@ export const OwnerRequestProposalsCard = ({
                       <Typography className={classNames.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
                         {t(TranslationKey.Reviews)}
                       </Typography>
-                      {/* <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} /> */}
+
                       <Rating readOnly className={classNames.userRating} value={item.proposal.createdBy?.rating} />
                     </div>
                   </div>
@@ -180,10 +180,10 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
+                success
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.successBtn)}
+                className={classNames.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
