@@ -45,7 +45,7 @@ export const usePhotoAndFilesSlider = (
       const isDocument = checkIsDocumentLink(currentFile)
 
       if (isImage) {
-        result.push(el)
+        result.push(getAmazonImageUrl(el, true))
       }
 
       if (!isImage && !isDocument) {
