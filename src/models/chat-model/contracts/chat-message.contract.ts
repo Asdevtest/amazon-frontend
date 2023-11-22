@@ -79,4 +79,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
 
   @IsOptional()
   public replyMessageId?: boolean | null
+
+  @IsOptional()
+  public offset?: number
 }

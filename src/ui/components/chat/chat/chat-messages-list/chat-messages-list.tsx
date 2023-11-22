@@ -54,6 +54,7 @@ export const ChatMessagesList: FC<Props> = observer(
   }) => {
     const { classes: classNames, cx } = useClassNames()
     const { isMobileResolution } = useCreateBreakpointResolutions()
+
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
@@ -64,29 +65,43 @@ export const ChatMessagesList: FC<Props> = observer(
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
+    // const scrollToMessage = () => {
+    //   if (messageToScrollRef.current) {
+    //     messageToScrollRef.current.scrollIntoView({
+    //       behavior: 'smooth',
+    //     })
+    //   }
+    // }
+
     const scrollToMessage = () => {
-      if (messageToScrollRef.current) {
-        messageToScrollRef.current.scrollIntoView({
+      if (messageToScrollRef.current && messagesWrapperRef.current) {
+        const messageContainerHeight = messagesWrapperRef.current.clientHeight
+        const messageTop = messageToScrollRef.current.offsetTop
+        const messageHeight = messageToScrollRef.current.offsetHeight
+        const messageCenter = messageTop + messageHeight / 2
+        const scrollToPosition = messageCenter - messageContainerHeight / 2
+
+        messagesWrapperRef.current.scrollTo({
+          top: scrollToPosition,
           behavior: 'smooth',
         })
       }
     }
 
-    useEffect(() => {
-      if (messagesWrapperRef.current) {
-        const currentScrollPosition = toFixed(
-          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
-        )
-        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
+    const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
+      setChoosenMessageState({ message: messageItem, isIncomming })
+      setMessageToReply(messageItem)
+    }
 
-        if (
-          scrolledFromBottom < messagesWrapperRef.current.clientHeight ||
-          messagesWrapperRef.current?.scrollTop < 20
-        ) {
-          chatBottomRef.current?.scrollIntoView({})
+    const getReplyedMessages = async () => {
+      if (messages?.length) {
+        for (const message of messages) {
+          if (chatId && message.replyMessageId) {
+            await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
+          }
         }
       }
-    }, [messages?.length])
+    }
 
     useEffect(() => {
       chatBottomRef.current?.scrollIntoView({})
@@ -104,33 +119,29 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }, [messages])
 
-    const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
-      setChoosenMessageState({ message: messageItem, isIncomming })
-      setMessageToReply(messageItem)
-    }
-
-    const getReplyedMessages = async () => {
-      if (messages?.length) {
-        const messagesWithReply = messages
-          ?.filter((messageItem: ChatMessageContract) => messageItem?.text !== ChatMessageType.PROPOSAL_EDITED)
-          ?.filter((messageItem: ChatMessageContract) => messageItem.replyMessageId)
-
-        for (const messageWithReply of messagesWithReply) {
-          if (chatId) {
-            await ChatModel.getChatMessage(chatId, String(messageWithReply.replyMessageId))
-          }
-        }
-      }
-    }
-
     useEffect(() => {
       getReplyedMessages()
+    }, [messages?.length])
+
+    useEffect(() => {
+      if (messagesWrapperRef.current) {
+        const currentScrollPosition = toFixed(
+          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
+        )
+        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
+
+        if (
+          scrolledFromBottom < messagesWrapperRef.current.clientHeight ||
+          messagesWrapperRef.current?.scrollTop < 20
+        ) {
+          chatBottomRef.current?.scrollIntoView({})
+        }
+      }
     }, [messages?.length])
 
     return (
       <div
         ref={messagesWrapperRef}
-        key={chatId}
         className={cx(classNames.messagesWrapper, { [classNames.messagesWrapperNone]: isShowChatInfo })}
       >
         {SettingsModel.languageTag &&

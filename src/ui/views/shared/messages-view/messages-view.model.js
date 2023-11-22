@@ -36,8 +36,10 @@ export class MessagesViewModel {
   readyImages = []
 
   usersData = []
+
   messagesFound = []
   curFoundedMessage = undefined
+  curFoundedMessageIndex = undefined
 
   showProgress = false
 
@@ -152,9 +154,13 @@ export class MessagesViewModel {
     SettingsModel.onToggleMuteAllChats(this.simpleChats)
   }
 
-  onChangeCurFoundedMessage(index) {
+  async onChangeCurFoundedMessage(index) {
+    const curFoundedMessage = this.messagesFound[index]
+    await ChatModel.getChatMessage(this.chatSelectedId, undefined, curFoundedMessage)
+
     runInAction(() => {
-      this.curFoundedMessage = this.messagesFound[index]
+      this.curFoundedMessage = curFoundedMessage
+      this.curFoundedMessageIndex = index
     })
   }
 
@@ -322,9 +328,6 @@ export class MessagesViewModel {
       this.messagesFound = res
     })
     this.onChangeCurFoundedMessage(res.length - 1)
-
-    console.log('res', res)
-    console.log('chatId', chatId)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {

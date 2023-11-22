@@ -53,6 +53,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  highLightMessage: {
+    backgroundColor: 'red',
+  },
+
   messageWrapper: {
     width: '100%',
     display: 'flex',
