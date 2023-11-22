@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,19 +19,8 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { ClientProductViewModel } from './client-product-view.model'
 
-export const ClientProductView = observer(props => {
-  const { search } = useLocation()
-
-  const queries = new URLSearchParams(search)
-  const productId = queries.get('product-id')
-
-  const [viewModel] = useState(
-    () =>
-      new ClientProductViewModel({
-        history: props.history,
-        productId,
-      }),
-  )
+export const ClientProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new ClientProductViewModel({ history }))
 
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
@@ -42,55 +30,53 @@ export const ClientProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <div>
-        {viewModel.product ? (
-          <ProductWrapper
-            showTab={viewModel.showTab}
-            platformSettings={viewModel.platformSettings}
-            user={viewModel.userInfo}
-            userRole={viewModel.userInfo.role}
-            imagesForLoad={viewModel.imagesForLoad}
-            showProgress={viewModel.showProgress}
-            progressValue={viewModel.progressValue}
-            product={viewModel.getCurrentData()}
-            productVariations={viewModel.productVariations}
-            navigateToProduct={viewModel.navigateToProduct}
-            unbindProductHandler={viewModel.unbindProductHandler}
-            shops={viewModel.shopsData}
-            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-            showBindProductModal={viewModel.showBindProductModal}
-            productsToBind={useProductsPermissions.currentPermissionsData}
-            actionStatus={viewModel.actionStatus}
-            productBase={viewModel.productBase}
-            selectedSupplier={viewModel.selectedSupplier}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-            onClickNextButton={viewModel.bindUnbindProducts}
-            onClickGetProductsToBind={option =>
-              useProductsPermissions.getPermissionsData(
-                option === ProductVariation.PARENT
-                  ? { isChild: false, offset: 0, filters: '' }
-                  : {
-                      isChild: false,
-                      isParent: false,
-                      shopId: viewModel.product?.shopIds?.[0],
-                      offset: 0,
-                      filters: '',
-                    },
-              )
-            }
-            onTriggerOpenModal={viewModel.onTriggerOpenModal}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onChangeField={viewModel.onChangeProductFields}
-            onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
-            onClickParseProductData={viewModel.onClickParseProductData}
-          />
-        ) : undefined}
-      </div>
+      {viewModel.product ? (
+        <ProductWrapper
+          showTab={viewModel.showTab}
+          platformSettings={viewModel.platformSettings}
+          user={viewModel.userInfo}
+          userRole={viewModel.userInfo.role}
+          imagesForLoad={viewModel.imagesForLoad}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          product={viewModel.currentData}
+          productVariations={viewModel.productVariations}
+          navigateToProduct={viewModel.navigateToProduct}
+          unbindProductHandler={viewModel.unbindProductHandler}
+          shops={viewModel.shopsData}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          showBindProductModal={viewModel.showBindProductModal}
+          productsToBind={useProductsPermissions.currentPermissionsData}
+          actionStatus={viewModel.requestStatus}
+          productBase={viewModel.productBase}
+          selectedSupplier={viewModel.selectedSupplier}
+          handleSupplierButtons={viewModel.onClickSupplierButtons}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
+          formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
+          onClickNextButton={viewModel.bindUnbindProducts}
+          onClickGetProductsToBind={option =>
+            useProductsPermissions.getPermissionsData(
+              option === ProductVariation.PARENT
+                ? { isChild: false, offset: 0, filters: '' }
+                : {
+                    isChild: false,
+                    isParent: false,
+                    shopId: viewModel.product?.shopIds?.[0],
+                    offset: 0,
+                    filters: '',
+                  },
+            )
+          }
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onClickSupplier={viewModel.onChangeSelectedSupplier}
+          onChangeField={viewModel.onChangeProductFields}
+          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
+          onClickParseProductData={viewModel.onClickParseProductData}
+        />
+      ) : undefined}
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
