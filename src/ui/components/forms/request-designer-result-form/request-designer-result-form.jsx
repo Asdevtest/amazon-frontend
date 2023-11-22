@@ -17,6 +17,7 @@ import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -131,7 +132,7 @@ const Slot = ({
                   src={
                     typeof slot.image === 'string'
                       ? checkIsImageLink(slot.image)
-                        ? slot.image
+                        ? getAmazonImageUrl(slot.image)
                         : '/assets/icons/file.png'
                       : slot.image?.file.type.includes('image')
                       ? slot.image?.data_url
@@ -145,7 +146,7 @@ const Slot = ({
                     if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
                       setShowImageModal(!showImageModal)
                     } else {
-                      window.open(slot.image?.data_url || slot.image, '__blank')
+                      window.open(slot.image?.data_url || getAmazonImageUrl(slot.image), '__blank')
                     }
                   }}
                 />

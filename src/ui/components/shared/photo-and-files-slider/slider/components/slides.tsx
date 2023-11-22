@@ -6,6 +6,7 @@ import { FileIcon } from '@components/shared//file-icon/file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
 
 import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
@@ -94,12 +95,16 @@ export const Slides: FC<Props> = memo(
                   )
                 ) : (
                   <div className={classNames.documentWrapper}>
-                    <a href={typeof slide === 'string' ? slide : '/'} target="_blank" rel="noreferrer">
+                    <a
+                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <FileIcon fileExtension={elementExtension} className={classNames.slide} />
                     </a>
 
                     <a
-                      href={typeof slide === 'string' ? slide : '/'}
+                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
                       target="_blank"
                       rel="noreferrer"
                       className={cx(classNames.linkDocument, classNames.text, {

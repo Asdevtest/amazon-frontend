@@ -257,7 +257,6 @@ export const UploadFilesInput = observer(props => {
               >
                 {imageList.map((image, index) => {
                   const currentImage = typeof image === 'string' ? getAmazonImageUrl(image) : image?.data_url
-
                   const currentName = typeof image === 'string' ? image : image?.file.name
 
                   return (
