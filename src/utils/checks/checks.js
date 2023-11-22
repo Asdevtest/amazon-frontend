@@ -125,8 +125,6 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('txt') ||
   (link?.includes('.com') && !link?.includes('placeimg.com')) ||
   link?.includes('.pdf')
-//   &&
-// (link?.includes('http:/') || link?.includes('https:/'))
 
 export const validateEmail = email =>
   String(email)
@@ -181,6 +179,6 @@ export const checkIsHasHttp = str => {
 export const checkIsGif = str => str.endsWith('.gif')
 
 export const checkIsImageInludesPostfixes = str =>
-  [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64'].some(item =>
-    str.includes(item),
+  [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64', 'placeimg.com'].some(
+    item => str.includes(item),
   )

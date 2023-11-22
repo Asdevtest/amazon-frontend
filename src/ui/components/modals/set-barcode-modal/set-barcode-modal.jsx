@@ -9,6 +9,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -31,7 +32,7 @@ export const SetBarcodeModal = memo(props => {
           label={t(TranslationKey.BarCode)}
           inputComponent={
             <div className={classNames.barCodeWrapper}>
-              <Link target="_blank" rel="noreferrer" href={checkAndMakeAbsoluteUrl(barCode)}>
+              <Link target="_blank" rel="noreferrer" href={checkAndMakeAbsoluteUrl(getAmazonImageUrl(barCode))}>
                 <p className={classNames.link}>{t(TranslationKey.View)}</p>
               </Link>
               <CopyValue text={item?.barCode || ''} />

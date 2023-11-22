@@ -2,7 +2,6 @@ import JSZip from 'jszip'
 import { runInAction } from 'mobx'
 
 import { Errors } from '@constants/errors'
-import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { OtherModel } from '@models/other-model'
 
@@ -88,7 +87,7 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
     for (let i = 0; i < images.length; i++) {
       const image = images[i]
 
-      if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
+      if (typeof image === 'string' && image.includes('/uploads/')) {
         this[type].push(image)
       } else if (typeof image === 'string') {
         const res = await uploadFileByUrl(image)
