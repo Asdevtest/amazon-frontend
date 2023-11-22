@@ -267,10 +267,11 @@ class ChatModelStatic {
     }
 
     const { limit, offset } = this[chatType][index].pagination
+
     const chatMessages = await this.websocketChatService.getChatMessages(
       chatId,
       offset,
-      chatMessageOffset - offset + limit / 2,
+      chatMessageOffset - offset + limit,
     )
 
     runInAction(() => {
@@ -279,7 +280,7 @@ class ChatModelStatic {
         messages: [...chatMessages.rows, ...this[chatType][index].messages],
         pagination: {
           ...this[chatType][index].pagination,
-          offset: chatMessageOffset + limit / 2,
+          offset: chatMessageOffset + limit,
         },
       }
     })

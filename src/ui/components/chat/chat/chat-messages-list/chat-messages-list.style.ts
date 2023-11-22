@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   messagesWrapper: {
     width: '100%',
     height: '100%',
@@ -53,8 +53,9 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  highLightMessage: {
-    backgroundColor: 'red',
+  highlightMessage: {
+    background: theme.palette.background.activeChat,
+    borderRadius: '8px',
   },
 
   messageWrapper: {

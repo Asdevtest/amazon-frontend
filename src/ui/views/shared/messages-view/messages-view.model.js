@@ -321,6 +321,11 @@ export class MessagesViewModel {
       this.mesSearchValue = e.target.value
     })
     if (!e.target.value) {
+      runInAction(() => {
+        this.messagesFound = []
+        this.curFoundedMessage = undefined
+        this.curFoundedMessageIndex = undefined
+      })
       return
     }
     const res = await ChatModel.FindChatMessage({ chatId, text: e.target.value })
