@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
@@ -276,7 +277,11 @@ export const EditBoxTasksModal = ({
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.button} onClick={() => setEditModal()}>
+        <Button
+          variant="text"
+          className={cx(classNames.button, classNames.cancelButton)}
+          onClick={() => setEditModal()}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>

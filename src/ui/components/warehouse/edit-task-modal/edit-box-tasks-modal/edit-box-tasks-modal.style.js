@@ -86,6 +86,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
     flexDirection: 'column',

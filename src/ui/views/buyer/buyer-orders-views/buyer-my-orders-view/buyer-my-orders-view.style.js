@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   dialogClassName: {
     width: '1200px',
   },
@@ -57,4 +59,4 @@ export const styles = theme => ({
   loadingCircle: {
     zIndex: 50,
   },
-})
+}))

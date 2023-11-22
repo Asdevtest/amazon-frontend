@@ -1,0 +1,56 @@
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+
+export const updateOrderKeys = [
+  'deliveryMethod',
+  'warehouse',
+  'barCode',
+  'trackingNumberChina',
+  'amountPaymentPerConsignmentAtDollars',
+  'deliveryCostToTheWarehouse',
+  'buyerComment',
+  'images',
+  'yuanToDollarRate',
+  'paymentDetails',
+  'amount',
+  'orderSupplierId',
+  'item',
+  'priceInYuan',
+  'priceBatchDeliveryInYuan',
+  'partialPaymentAmountRmb',
+  'partiallyPaid',
+  'partialPayment',
+]
+
+export const filtersFields = [
+  'id',
+  'item',
+  'priority',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'paymentDetailsAttached',
+  'status',
+  'amount',
+  'totalPrice',
+  'paymentMethod',
+  'priceInYuan',
+  'storekeeper',
+  'productionTerm',
+  'deadline',
+  'paymentDateToSupplier',
+  'needsResearch',
+  'client',
+  'destination',
+  'clientComment',
+  'buyerComment',
+  'createdAt',
+  'updatedAt',
+  'partiallyPaid',
+  'partialPaymentAmountRmb',
+]
+
+export const attentionStatuses = [
+  OrderStatusByKey[OrderStatus.AT_PROCESS],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+]
