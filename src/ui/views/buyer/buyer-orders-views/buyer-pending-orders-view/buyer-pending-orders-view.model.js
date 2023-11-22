@@ -121,7 +121,7 @@ export class BuyerMyOrdersViewModel {
       history.replace({ ...history.location, state })
     }
 
-    if (location?.state?.dataGridFilter) {
+    if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
 
