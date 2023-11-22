@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useTagSelectorStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   search: {
     position: 'relative',
     '.MuiAutocomplete-input': {
@@ -23,10 +23,6 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     },
   },
 
-  option: {
-    maxWidth: 280,
-  },
-
   addBtn: {
     cursor: 'pointer',
     position: 'absolute',
@@ -34,11 +30,8 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     margin: 'auto',
     top: '0',
     bottom: '0',
-    border: 'none',
-    padding: 'unset',
-    width: '18px',
-    height: '18px',
-    fontSize: '14px',
+    width: '16px',
+    height: '16px',
     color: '#FFF',
     backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
@@ -51,37 +44,46 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
       opacity: '.65',
     },
   },
+
   tagList: {
-    marginTop: '10px',
+    marginTop: 10,
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '10px',
+    gap: 10,
   },
+
   tagListItem: {
     maxWidth: 295,
-    backgroundColor: theme.palette.background.chatMyMessage,
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    padding: '0 15px',
+    padding: '5px 5px 5px 10px',
     display: 'flex',
-    gap: '10px',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    background: theme.palette.background.chatMyMessage,
+    borderRadius: 5,
   },
 
   removeTeg: {
     cursor: 'pointer',
-    height: '100%',
-    width: 20,
-    marginRight: -10,
-    background: 'none',
-    border: 'none',
-    padding: 'unset',
+    height: 16,
+    width: 16,
+  },
 
-    div: {
-      color: theme.palette.text.second,
-      fontSize: '12px',
-      height: '12px',
-    },
+  tagWrapper: {
+    display: 'flex',
+  },
+
+  textTag: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+  },
+
+  widthLimitation: {
+    wordBreak: 'break-word',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
   },
 }))
