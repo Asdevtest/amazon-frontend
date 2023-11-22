@@ -76,13 +76,17 @@ export const ServiceExchangeView = observer(({ history }) => {
         </div>
       )}
 
-      <ImageModal
-        imageList={viewModel.bigImagesOptions.images}
-        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
-        isOpenModal={viewModel.showImageModal}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        handleCurrentImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
-      />
+      {viewModel.showImageModal && (
+        <ImageModal
+          imageList={viewModel.bigImagesOptions.images}
+          currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+          isOpenModal={viewModel.showImageModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          handleCurrentImageIndex={imgIndex =>
+            viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })
+          }
+        />
+      )}
     </React.Fragment>
   )
 })

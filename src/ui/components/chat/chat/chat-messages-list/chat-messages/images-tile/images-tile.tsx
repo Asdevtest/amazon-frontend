@@ -6,6 +6,8 @@ import { Box } from '@mui/material'
 import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 interface ImagesTileProps {
   images: string[]
 }
@@ -28,7 +30,13 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
       >
         {images.slice(0, 6).map((el, index) => (
           <Box key={index} onClick={() => handlePreview(index)}>
-            <img className={styles.image} src={el} srcSet={el} alt={index.toString()} loading="lazy" />
+            <img
+              className={styles.image}
+              src={getAmazonImageUrl(el)}
+              srcSet={getAmazonImageUrl(el)}
+              alt={index.toString()}
+              loading="lazy"
+            />
           </Box>
         ))}
 
@@ -39,14 +47,16 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
         )}
       </Box>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={isShowImagePreview}
-        handleOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
-        imageList={images}
-        currentImageIndex={selectedImage}
-        handleCurrentImageIndex={setSelectedImage}
-      />
+      {isShowImagePreview && (
+        <ImageModal
+          showPreviews
+          isOpenModal={isShowImagePreview}
+          handleOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
+          imageList={images}
+          currentImageIndex={selectedImage}
+          handleCurrentImageIndex={setSelectedImage}
+        />
+      )}
     </>
   )
 }

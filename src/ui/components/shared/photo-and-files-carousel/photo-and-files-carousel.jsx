@@ -281,18 +281,20 @@ export const PhotoAndFilesCarousel = props => {
         />
       </Modal>
 
-      <ImageModal
-        showPreviews
-        isOpenModal={showPhotosModal}
-        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        imageList={bigImagesOptions.images.map((el, i) => ({
-          url: el,
-          comment: filteredImagesTitles[i],
-        }))}
-        currentImageIndex={bigImagesOptions.imgIndex}
-        handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        controls={isEditable ? bigImagesModalControls : undefined}
-      />
+      {showPhotosModal && (
+        <ImageModal
+          showPreviews
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images.map((el, i) => ({
+            url: el,
+            comment: filteredImagesTitles[i],
+          }))}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          controls={isEditable ? bigImagesModalControls : undefined}
+        />
+      )}
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>
