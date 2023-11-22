@@ -31,8 +31,6 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
   const titleIsChanged = message.data.prevData?.title !== message.data.updatedData?.title
   const imageIsChanged = message.data.prevData?.image !== message.data.updatedData?.image
 
-  console.log(message.data.prevData, message.data.updatedData)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.root}>

@@ -46,7 +46,6 @@ export const ImageModal: FC<Props> = memo(props => {
     handleCurrentImageIndex,
     onChangeImagesForLoad,
   } = props
-  console.log(imageList)
 
   const { classes: styles, cx } = useStyles()
   const {

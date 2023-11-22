@@ -22,7 +22,7 @@ export const getAmazonImageUrl = (str, isBig) => {
   }
 
   if (checkIsHasHttp(str)) {
-    return checkIsVideoLink(str) ? str : str + amazonImageUrlPostfix
+    return checkIsImageLink(str) ? str : str + amazonImageUrlPostfix
   } else if (str.includes('/uploads/')) {
     return `${BACKEND_API_URL}${str}${
       !checkIsGif(str) &&

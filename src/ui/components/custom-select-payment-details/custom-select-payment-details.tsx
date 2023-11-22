@@ -114,8 +114,6 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
     }
   }
 
-  console.log(currentPaymentMethods, paymentMethods)
-
   return (
     <div className={classNames.root}>
       <Field
