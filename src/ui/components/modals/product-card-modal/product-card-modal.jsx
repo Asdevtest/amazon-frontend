@@ -199,9 +199,7 @@ export const ProductCardModal = observer(props => {
                   className={cx(styles.buttonNormal, styles.buttonAccept)}
                   color="primary"
                   variant="contained"
-                  onClick={() => {
-                    viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)
-                  }}
+                  onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
                     ? t(TranslationKey.Save)
