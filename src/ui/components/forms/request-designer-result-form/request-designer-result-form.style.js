@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
-    width: 1300,
+    width: 1150,
+    padding: 10,
   },
 
   headerWrapper: {
@@ -101,8 +102,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bodyWrapper: {
-    minHeight: 300,
-    maxHeight: 400,
+    minHeight: 225,
+    maxHeight: 350,
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
@@ -207,14 +208,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlusWrapper: {
-    padding: 10,
-    width: 80,
-    height: 80,
+    width: 56,
+    height: 56,
   },
 
   bigPlus: {
-    width: '60px !important',
-    height: '60px !important',
+    width: '56px !important',
+    height: '56px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
     transition: '.3s ease',
@@ -316,5 +316,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   comment: {
     margin: '0 !important',
+  },
+
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    gap: 30,
   },
 }))

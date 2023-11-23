@@ -116,6 +116,7 @@ export const ProductCardModal = observer(props => {
         {viewModel?.product && (
           <ProductWrapper
             modal
+            openModal={openModal}
             platformSettings={viewModel?.platformSettings}
             showTab={viewModel?.showTab}
             user={viewModel?.userInfo}
@@ -123,7 +124,7 @@ export const ProductCardModal = observer(props => {
             imagesForLoad={viewModel?.imagesForLoad}
             showProgress={viewModel?.showProgress}
             progressValue={viewModel?.progressValue}
-            product={viewModel?.getCurrentData()}
+            product={viewModel?.currentData}
             shops={viewModel?.shopsData}
             productBase={viewModel?.productBase}
             selectedSupplier={viewModel?.selectedSupplier}

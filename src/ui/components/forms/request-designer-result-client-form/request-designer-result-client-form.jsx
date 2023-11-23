@@ -225,10 +225,10 @@ export const RequestDesignerResultClientForm = memo(props => {
               multiline
               className={styles.heightFieldAuto}
               labelClasses={styles.fieldLabel}
-              containerClasses={styles.field}
+              containerClasses={styles.fieldRemarks}
               inputProps={{ maxLength: 1000 }}
-              minRows={4}
-              maxRows={4}
+              minRows={3}
+              maxRows={3}
               placeholder={t(TranslationKey['Enter remarks'])}
               label={t(TranslationKey.Remarks)}
               value={comment}

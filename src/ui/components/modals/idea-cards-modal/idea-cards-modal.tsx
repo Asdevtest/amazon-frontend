@@ -28,6 +28,7 @@ export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
       <div className={classNames.root}>
         <SuppliersAndIdeas
           isModalView
+          openModal
           isCreate={isCreate}
           currentIdeaId={currentIdeaId}
           closeModalHandler={setOpenModal}

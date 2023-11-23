@@ -13,6 +13,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
   },
 
+  btnsWrapperEnd: {
+    justifyContent: 'flex-start',
+  },
+
   emptyTableWrapper: {
     width: '100%',
     height: '40vh',

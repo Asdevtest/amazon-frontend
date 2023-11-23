@@ -34,8 +34,8 @@ import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-con
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
 export const SuppliersAndIdeas = observer(
-  ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) => {
-    const { classes: styles } = useStyles()
+  ({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData, openModal }) => {
+    const { classes: styles, cx } = useStyles()
 
     const { search } = useLocation()
     const queries = new URLSearchParams(search)
@@ -142,7 +142,7 @@ export const SuppliersAndIdeas = observer(
           !inCreate &&
           !inEdit &&
           !isModalView && (
-            <div className={styles.btnsWrapper}>
+            <div className={cx(styles.btnsWrapper, { [styles.btnsWrapperEnd]: openModal })}>
               <Button
                 success
                 disabled={!!product.parentProductId}
