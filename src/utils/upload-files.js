@@ -5,6 +5,7 @@ import { Errors } from '@constants/errors'
 
 import { OtherModel } from '@models/other-model'
 
+import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
 
 export const dataURLtoFile = (dataurl, filename) => {
@@ -90,7 +91,7 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
       if (typeof image === 'string' && image.includes('/uploads/')) {
         this[type].push(image)
       } else if (typeof image === 'string') {
-        const res = await uploadFileByUrl(image)
+        const res = await uploadFileByUrl(getAmazonImageUrl(image, true))
 
         this[type].push(res)
       } else {
