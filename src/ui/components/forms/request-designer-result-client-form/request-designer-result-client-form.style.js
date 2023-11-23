@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   modalMainWrapper: {
-    width: 1500,
+    width: 1130,
   },
 
   headerWrapper: {
@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 20,
-    gap: 20,
+    gap: 10,
   },
 
   containerField: {
@@ -48,6 +48,12 @@ export const useStyles = makeStyles()(theme => ({
 
   field: {
     marginBottom: '0 !important',
+    width: 'max-content',
+  },
+
+  fieldRemarks: {
+    marginBottom: '0 !important',
+    width: '100%',
   },
 
   linkInput: {
@@ -66,23 +72,24 @@ export const useStyles = makeStyles()(theme => ({
   downloadsWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: 20,
+    gap: 10,
   },
 
   downloadsCheckWrapper: {
-    width: 145,
     display: 'flex',
     alignItems: 'center',
     transition: '.3s ease',
     cursor: 'pointer',
+
+    p: { width: 'max-content' },
   },
 
   bodyWrapper: {
-    minHeight: 300,
-    maxHeight: 400,
+    minHeight: 225,
+    maxHeight: 480,
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 27,
+    gap: 30,
     marginTop: 20,
     overflowY: 'auto',
     overflowX: 'hidden',
@@ -105,7 +112,7 @@ export const useStyles = makeStyles()(theme => ({
 
   heightFieldAuto: {
     height: 'auto',
-    width: 520,
+    width: '100%',
 
     padding: 0,
   },

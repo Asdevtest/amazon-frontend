@@ -4,6 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
+    marginBottom: 5,
   },
 
   inputsWrapper: {
@@ -26,13 +27,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   input: {
     display: 'flex',
-    width: 50,
+    width: 40,
     border: 'none',
     margin: '0 !important',
     padding: '0 !important',
 
     '& > input': {
       textAlign: 'center',
+      padding: 0,
     },
 
     '&:after': {
