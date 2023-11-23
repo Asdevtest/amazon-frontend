@@ -123,7 +123,7 @@ export const ProductCardModal = observer(props => {
             imagesForLoad={viewModel?.imagesForLoad}
             showProgress={viewModel?.showProgress}
             progressValue={viewModel?.progressValue}
-            product={viewModel?.getCurrentData()}
+            product={viewModel?.getCurrentData ? viewModel?.getCurrentData() : viewModel?.currentData}
             shops={viewModel?.shopsData}
             productBase={viewModel?.productBase}
             selectedSupplier={viewModel?.selectedSupplier}
