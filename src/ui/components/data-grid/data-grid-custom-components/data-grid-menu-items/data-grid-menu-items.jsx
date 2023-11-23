@@ -35,6 +35,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -2639,7 +2640,9 @@ export const RedFlagsCellMenuItem = React.memo(
         columnKey={columnnsKeys}
         rowContent={obj => (
           <div className={classNames.redFlagsCell}>
-            {obj.iconImage && <img src={obj.iconImage} alt={obj.title} className={classNames.redFlagIcon} />}
+            {obj.iconImage && (
+              <img src={getAmazonImageUrl(obj.iconImage)} alt={obj.title} className={classNames.redFlagIcon} />
+            )}
             <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>

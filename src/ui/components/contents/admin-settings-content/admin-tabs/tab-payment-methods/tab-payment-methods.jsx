@@ -19,6 +19,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './tab-payment-methods.style'
@@ -101,7 +102,11 @@ export const TabPaymentMethods = observer(() => {
               viewModel.paymentMethods.map(method => (
                 <div key={method._id} className={classNames.paymentMethodWrapper}>
                   <div className={classNames.iconContainer}>
-                    <img src={method.iconImage} alt={method.title} className={classNames.iconImage} />
+                    <img
+                      src={getAmazonImageUrl(method.iconImage)}
+                      alt={method.title}
+                      className={classNames.iconImage}
+                    />
                     <Typography className={classNames.paymentMethod}>{method.title}</Typography>
                   </div>
 
