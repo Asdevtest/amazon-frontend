@@ -19,6 +19,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './tab-red-flags.style'
@@ -101,7 +102,7 @@ export const TabRedFlags = observer(() => {
               viewModel.redFlags.map(flag => (
                 <div key={flag._id} className={classNames.redFlagWrapper}>
                   <div className={classNames.iconContainer}>
-                    <img src={flag.iconImage} alt={flag.title} className={classNames.iconImage} />
+                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} className={classNames.iconImage} />
                     <Typography className={classNames.redFlag}>{flag.title}</Typography>
                   </div>
 
