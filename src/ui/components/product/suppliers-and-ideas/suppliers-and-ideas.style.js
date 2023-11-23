@@ -10,10 +10,6 @@ export const useStyles = makeStyles()(theme => ({
 
   btnsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
-  },
-
-  btnsWrapperEnd: {
     justifyContent: 'flex-start',
   },
 
