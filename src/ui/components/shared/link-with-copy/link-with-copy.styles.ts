@@ -1,22 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useLinkWithCopyStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   normalizeLink: {
-    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
+
     fontSize: '14px',
     lineHeight: '19px',
-
+    color: theme.palette.primary.main,
     '&:hover': {
       opacity: '.7',
     },
   },
 
-  linkSpan: {
-    color: theme.palette.primary.main,
-    fontSize: '14px',
-    lineHeight: '19px',
+  mediumSizeLinkText: {
+    fontSize: '16px',
   },
 
   wrapper: {

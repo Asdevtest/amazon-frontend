@@ -7,6 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Text } from '@components/shared/text'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useDataGridCellStyles } from './download-and-copy-btns-cell.style'
@@ -19,6 +20,8 @@ interface DownloadAndCopyBtnsCellProps {
 export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(({ value, isFirstRow }) => {
   const { classes: styles, cx } = useDataGridCellStyles()
 
+  const validLink = getAmazonImageUrl(value)
+
   return (
     <>
       {value ? (
@@ -29,7 +32,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
                 download
                 target={'_blank'}
                 rel={'noreferrer'}
-                href={value}
+                href={validLink}
                 className={styles.downloadLink}
                 onClick={(e: any) => e.stopPropagation()}
               >
@@ -42,7 +45,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
             tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
             className={styles.copyImgButton}
           >
-            <CopyValue text={value} />
+            <CopyValue text={validLink} />
           </Button>
         </div>
       ) : (

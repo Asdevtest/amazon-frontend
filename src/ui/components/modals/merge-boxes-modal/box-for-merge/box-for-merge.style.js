@@ -112,4 +112,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
+
+  labelWrapperStyles: {
+    gap: 19,
+  },
 }))
