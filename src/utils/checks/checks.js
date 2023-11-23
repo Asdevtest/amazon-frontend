@@ -114,6 +114,7 @@ export const checkIsImageLink = link =>
   link?.endsWith('rotated-image') ||
   link?.endsWith('jfif') ||
   link?.includes('placeimg.com') ||
+  link?.includes('.webp') ||
   checkIsVideoLink(link)
 
 export const checkIsDocumentLink = link =>
