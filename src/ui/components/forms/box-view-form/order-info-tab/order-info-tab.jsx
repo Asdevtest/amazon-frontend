@@ -7,12 +7,11 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { FireIcon } from '@components/shared/svg-icons'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './order-info-tab.style'
@@ -23,7 +22,6 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
   return (
     <div className={styles.wrapper}>
       {formFields?.items.map((item, index) => {
-        const barCodeLink = getAmazonImageUrl(item.barCode)
         const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
         const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier
           ? item.isBarCodeAlreadyAttachedByTheSupplier
@@ -84,7 +82,7 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
 
               <div className={styles.barcodeWrapper}>
                 <div className={styles.barcode}>
-                  <p className={styles.text}>{t(TranslationKey.BarCode)}</p>
+                  {/* <p className={styles.text}>{t(TranslationKey.BarCode)}</p>
                   {item.barCode ? (
                     <LinkWithCopy
                       title={t(TranslationKey.View)}
@@ -93,7 +91,14 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                     />
                   ) : (
                     <p className={styles.text}>{t(TranslationKey['Not available'])}</p>
-                  )}
+                  )} */}
+
+                  <LabelWithCopy
+                    labelTitle={t(TranslationKey.BarCode)}
+                    labelValue={item.barCode}
+                    lableLinkTitle={t(TranslationKey.View)}
+                    // direction="column"
+                  />
                 </div>
 
                 <div className={styles.barcode}>

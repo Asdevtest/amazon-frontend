@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 
-import { Checkbox, Link, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,10 +8,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-item-card.style'
@@ -92,24 +92,12 @@ export const BoxItemCard = ({
                   [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
                 })}
               >
-                <Text
-                  tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Product barcode'])}
-                  className={classNames.subTitle}
-                >
-                  {t(TranslationKey.BarCode) + ':'}
-                </Text>
-
-                {item.barCode ? (
-                  <div className={classNames.barCode}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-
-                    <CopyValue text={item.barCode} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
-                )}
+                <LabelWithCopy
+                  labelTitleColor={'gray'}
+                  labelTitle={t(TranslationKey.BarCode)}
+                  labelValue={item.barCode}
+                  lableLinkTitle={t(TranslationKey.View)}
+                />
               </div>
 
               <div className={classNames.countSubWrapper}>
@@ -268,23 +256,12 @@ export const BoxItemCard = ({
             [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
           })}
         >
-          <Text
-            tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Product barcode'])}
-            className={classNames.subTitle}
-          >
-            {t(TranslationKey.BarCode) + ':'}
-          </Text>
-
-          {item.barCode ? (
-            <div className={classNames.barCode}>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-              </Link>
-              <CopyValue text={item.barCode} />
-            </div>
-          ) : (
-            <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
-          )}
+          <LabelWithCopy
+            labelTitleColor={'gray'}
+            labelTitle={t(TranslationKey.BarCode)}
+            labelValue={item.barCode}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
         </div>
         <div>
           <div className={classNames.chipWrapper}>

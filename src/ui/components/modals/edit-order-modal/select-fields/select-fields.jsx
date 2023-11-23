@@ -15,6 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -436,41 +437,17 @@ export const SelectFields = ({
         </Box>
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
-          {/* <Field */}
-          {/*   disabled // ={disableSubmit} */}
-          {/*   tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])} */}
-          {/*   value={orderFields.trackingNumberChina} */}
-          {/*   label={t(TranslationKey['Track number'])} */}
-          {/*   labelClasses={classNames.label} */}
-          {/*   inputClasses={classNames.input} */}
-          {/*   inputProps={{ maxLength: 50 }} */}
-          {/*   // onChange={setOrderField('trackingNumberChina')} */}
-          {/* /> */}
-
           <Box display="flex" width="100%">
             <Box className={classNames.trackAndHsCodeAndComments}>
               <div className={classNames.trackAndHsCodeAndCommentsSumWrapper}>
                 <div className={classNames.barCodeWrapper}>
                   <div className={classNames.barCodeLinkWrapper}>
-                    <Field
-                      label={t(TranslationKey.BarCode)}
-                      labelClasses={classNames.label}
-                      inputComponent={
-                        orderFields.product.barCode ? (
-                          <div className={classNames.barCode}>
-                            <Link
-                              target="_blank"
-                              rel="noopener"
-                              href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                            >
-                              <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                            </Link>
-                            <CopyValue text={orderFields.product.barCode} />
-                          </div>
-                        ) : (
-                          <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                        )
-                      }
+                    <LabelWithCopy
+                      direction="column"
+                      labelTitleColor="gray"
+                      labelTitle={t(TranslationKey.BarCode)}
+                      labelValue={orderFields.product.barCode}
+                      lableLinkTitle={t(TranslationKey.View)}
                     />
                   </div>
 
@@ -487,15 +464,6 @@ export const SelectFields = ({
                   </div>
                 </div>
               </div>
-              {/* <div className={classNames.researchWrapper}>
-                <Checkbox
-                  disabled
-                  className={classNames.checkbox}
-                  checked={orderFields.needsResearch}
-                  color="primary"
-                />
-                <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
-              </div> */}
             </Box>
           </Box>
           <div className={classNames.supplierPaymentButtonWrapper}>

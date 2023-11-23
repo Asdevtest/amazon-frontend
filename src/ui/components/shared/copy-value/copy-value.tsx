@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, memo, useState } from 'react'
 
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
@@ -10,7 +10,7 @@ interface CopyValueProps {
   disabled?: boolean
 }
 
-export const CopyValue: FC<CopyValueProps> = React.memo(({ text, disabled }) => {
+export const CopyValue: FC<CopyValueProps> = memo(({ text, disabled }) => {
   const { classes: styles, cx } = useStyles()
 
   const [copied, setCopied] = useState(false)
