@@ -116,7 +116,6 @@ export const ProductCardModal = observer(props => {
         {viewModel?.product && (
           <ProductWrapper
             modal
-            openModal={openModal}
             platformSettings={viewModel?.platformSettings}
             showTab={viewModel?.showTab}
             user={viewModel?.userInfo}

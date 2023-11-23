@@ -83,7 +83,6 @@ export const ProductWrapper = memo(
     onClickNextButton,
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
-    openModal,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -212,7 +211,7 @@ export const ProductWrapper = memo(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-              <SuppliersAndIdeas productId={product._id} product={product} openModal={openModal} />
+              <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
