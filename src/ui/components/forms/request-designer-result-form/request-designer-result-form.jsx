@@ -417,25 +417,23 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       <div className={classNames.bodyWrapper}>
         <DndProvider backend={HTML5Backend}>
-          <div className={classNames.bodySubWrapper}>
-            {imagesData.map((slot, index) => (
-              <Slot
-                key={slot._id}
-                slot={slot}
-                index={index}
-                setCurImageIndex={setCurImageIndex}
-                imagesData={imagesData}
-                setImagesData={setImagesData}
-                setShowImageModal={setShowImageModal}
-                showImageModal={showImageModal}
-                isRework={isRework}
-                onPasteFiles={onPasteFiles}
-                onUploadFile={onUploadFile}
-                onClickRemoveItem={onClickRemoveItem}
-                onChangeImageFileds={onChangeImageFileds}
-              />
-            ))}
-          </div>
+          {imagesData.map((slot, index) => (
+            <Slot
+              key={slot._id}
+              slot={slot}
+              index={index}
+              setCurImageIndex={setCurImageIndex}
+              imagesData={imagesData}
+              setImagesData={setImagesData}
+              setShowImageModal={setShowImageModal}
+              showImageModal={showImageModal}
+              isRework={isRework}
+              onPasteFiles={onPasteFiles}
+              onUploadFile={onUploadFile}
+              onClickRemoveItem={onClickRemoveItem}
+              onChangeImageFileds={onChangeImageFileds}
+            />
+          ))}
         </DndProvider>
       </div>
 
@@ -444,7 +442,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
         </div>
 
-        <div className={classNames.footerWrapper}>
+        <div className={classNames.flexContainer}>
           <Field
             labelClasses={classNames.fieldLabel}
             inputClasses={classNames.linkInput}
