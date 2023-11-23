@@ -54,7 +54,6 @@ export const useClassNames = makeStyles()(theme => ({
   fieldsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 20,
   },
 
   shippingLabelWrapper: {
