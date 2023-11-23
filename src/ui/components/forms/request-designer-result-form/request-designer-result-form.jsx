@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
 
@@ -132,7 +132,7 @@ const Slot = ({
                   src={
                     typeof slot.image === 'string'
                       ? checkIsImageLink(slot.image)
-                        ? getAmazonImageUrl(slot.image)
+                        ? getAmazonImageUrl(slot.image, false)
                         : '/assets/icons/file.png'
                       : slot.image?.file.type.includes('image')
                       ? slot.image?.data_url
@@ -239,25 +239,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
-
-  const [filteredImages, setFilteredImages] = useState([])
-
-  useEffect(() => {
-    setFilteredImages(
-      imagesData
-        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
-        .map(el => {
-          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
-
-          return {
-            url,
-            title: el.comment,
-            comment: el.commentByClient,
-            _id: el._id,
-          }
-        }),
-    )
-  }, [imagesData])
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
@@ -496,9 +477,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={filteredImages.map(el => el.url)}
-          photosTitles={filteredImages.map(el => el.title)}
-          photosComments={filteredImages.map(el => el.comment)}
+          imageList={imagesData.map(el => el.image)}
+          photosTitles={imagesData.map(el => el.comment)}
+          photosComments={imagesData.map(el => el.commentByClient)}
           currentImageIndex={curImageIndex}
           handleCurrentImageIndex={index => setCurImageIndex(index)}
         />
