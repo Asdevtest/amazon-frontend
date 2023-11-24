@@ -189,15 +189,14 @@ export const MessagesView = observer(history => {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
-                    value={viewModel.mesSearchValue}
-                    onChange={e => viewModel.onChangeMesSearchValue(e, findChatByChatId._id)}
+                    onSubmit={value => viewModel.onChangeMesSearchValue(value, findChatByChatId._id)}
                   />
 
                   {viewModel.messagesFound.length ? (
                     <SearchResult
                       curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
                       messagesFound={viewModel.messagesFound}
-                      onClose={() => viewModel.onChangeMesSearchValue({ target: { value: '' } })}
+                      onClose={() => viewModel.onChangeMesSearchValue('')}
                       onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
                     />
                   ) : viewModel.mesSearchValue ? (

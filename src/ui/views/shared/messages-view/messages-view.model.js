@@ -298,11 +298,11 @@ export class MessagesViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async onChangeMesSearchValue(e, chatId) {
+  async onChangeMesSearchValue(value, chatId) {
     runInAction(() => {
-      this.mesSearchValue = e.target.value
+      this.mesSearchValue = value
     })
-    if (!e.target.value) {
+    if (!value) {
       runInAction(() => {
         this.messagesFound = []
         this.curFoundedMessage = undefined
@@ -310,11 +310,11 @@ export class MessagesViewModel {
       })
       return
     }
-    const res = await ChatModel.FindChatMessage({ chatId, text: e.target.value })
+    const res = await ChatModel.FindChatMessage({ chatId, text: value })
     runInAction(() => {
       this.messagesFound = res
     })
-    this.onChangeCurFoundedMessage(res.length - 1)
+    this.onChangeCurFoundedMessage(res?.length - 1)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
