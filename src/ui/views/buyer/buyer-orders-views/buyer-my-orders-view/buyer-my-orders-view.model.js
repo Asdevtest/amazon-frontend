@@ -23,7 +23,6 @@ import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buy
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -657,7 +656,9 @@ export class BuyerMyOrdersViewModel {
       })
 
       this.clearImagesForLoad()
-      this.updateImagesForLoad(orderData.images)
+      runInAction(() => {
+        this.this.imagesForLoad = orderData.images
+      })
       this.getBoxesOfOrder(orderId)
 
       this.getPlatformSettings()
@@ -666,16 +667,6 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
-    }
-
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
-
-    this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
   }
 
   onChangeImagesForLoad(value) {

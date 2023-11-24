@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
@@ -18,7 +18,6 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -29,126 +28,20 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
-const fieldsOfProductAllowedToForceUpdate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-
-  'niche',
-  'asins',
-  'avgRevenue',
-  'avgBSR',
-  'totalRevenue',
-  'coefficient',
-  'avgPrice',
-  'avgReviews',
-  // 'totalFba'
-
-  'currentSupplierId',
-]
-
-const fieldsOfProductAllowedToUpdate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'status',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-  'currentSupplierId',
-
-  'niche',
-  'asins',
-  'avgRevenue',
-  'avgBSR',
-  'totalRevenue',
-  'coefficient',
-  'avgPrice',
-  'avgReviews',
-  'redFlags',
-  'tags',
-  // 'totalFba'
-]
-
-const formFieldsDefault = {
-  amazon: '',
-  bsr: '',
-  createdAt: '',
-  createdBy: {},
-  delivery: '',
-  dirdecision: '',
-  express: false,
-  fba: false,
-  fbafee: '',
-  icomment: '',
-  asin: '',
-  images: [],
-  lamazon: '',
-  material: '',
-  reffee: '',
-  status: '',
-  suppliers: [],
-  updatedAt: '',
-  _id: '',
-  fbaamount: '',
-}
-
-const fieldsNotFilledText = () => t(TranslationKey['Fields not filled in'])
-
-const warningModalTitleVariants = () => ({
-  NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
-  CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
-})
-
-const confirmMessageByProductStatus = () => ({
-  5: t(TranslationKey['Send to the Supervisor for review']) + '?',
-  10: t(TranslationKey['Send to check with the supplier']) + '?',
-})
-
-const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'
+import {
+  confirmMessageByProductStatus,
+  confirmMessageWithoutStatus,
+  fieldsNotFilledText,
+  fieldsOfProductAllowedToForceUpdate,
+  fieldsOfProductAllowedToUpdate,
+  formFieldsDefault,
+  warningModalTitleVariants,
+} from './researcher-product-view.constant'
 
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
+
   alertFailedText = undefined
 
   productId = undefined
@@ -186,7 +79,7 @@ export class ResearcherProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = { ...formFieldsDefault }
+  formFields = formFieldsDefault
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -198,59 +91,42 @@ export class ResearcherProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  get currentData() {
+    return this.product
+  }
 
-      if (location.state) {
-        this.startParse = location.state.startParse
-      }
+  constructor({ history }) {
+    this.history = history
 
-      this.productId = history.location.search.slice(1)
-    })
+    if (history.location.state) {
+      this.startParse = history.location.state.startParse
+    }
+
+    this.productId = history.location.search.slice(1)
+
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.product = this.product ? { ...this.product } : undefined
-        }),
-    )
   }
 
   async loadData() {
     try {
       await this.getProductById()
 
-      await UserModel.getPlatformSettings().then(platformSettings =>
-        runInAction(() => {
-          this.platformSettings = platformSettings
-        }),
-      )
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
 
       if (this.startParse) {
-        // this.onClickParseProductData(ProductDataParser.AMAZON, this.product)
-
-        // this.onClickParseProductData(ProductDataParser.SELLCENTRAL, this.product)
         this.onClickParseProductData(this.product)
-        this.startParse = false
+
+        runInAction(() => {
+          this.startParse = false
+        })
       }
     } catch (error) {
       console.log(error)
     }
-  }
-
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
-    }
-
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
-
-    runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
-    })
   }
 
   async getProductById() {
@@ -259,12 +135,8 @@ export class ResearcherProductViewModel {
 
       runInAction(() => {
         this.product = result
-
         this.productBase = result
-
-        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
-
-        this.updateImagesForLoad(result.images)
+        this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
       })
@@ -274,13 +146,11 @@ export class ResearcherProductViewModel {
   }
 
   onChangeSelectedSupplier(supplier) {
-    runInAction(() => {
-      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-        this.selectedSupplier = undefined
-      } else {
-        this.selectedSupplier = supplier
-      }
-    })
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   onChangeProductFields = fieldName =>
@@ -339,12 +209,6 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       }
     })
-
-  onChangeActiveChip(e, value) {
-    runInAction(() => {
-      this.activeChip = value
-    })
-  }
 
   async onClickSupplierButtons(actionType) {
     switch (actionType) {
@@ -406,32 +270,29 @@ export class ResearcherProductViewModel {
 
   async onRemoveSupplier() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
 
-      runInAction(() => {
-        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
+      if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
+        runInAction(() => {
           this.product.currentSupplierId = null
-        }
-      })
+        })
+      }
+
       this.onSaveForceProductData()
 
-      this.product.suppliers
       runInAction(() => {
+        this.product.suppliers
         this.selectedSupplier = undefined
       })
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      this.setActionStatus(loadingStatuses.success)
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-      })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -460,15 +321,13 @@ export class ResearcherProductViewModel {
   }
 
   onClickSetProductStatusBtn(statusKey) {
-    runInAction(() => {
-      if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
-        this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
+    if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
+      this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
 
-        this.onTriggerOpenModal('showWarningModal')
-      } else {
-        this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
-      }
-    })
+      this.onTriggerOpenModal('showWarningModal')
+    } else {
+      this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
+    }
   }
 
   async openConfirmModalWithTextByStatus(withoutStatus) {
@@ -542,7 +401,7 @@ export class ResearcherProductViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -552,18 +411,14 @@ export class ResearcherProductViewModel {
           })
         })
       } else {
-        console.warn('error ', error)
-        runInAction(() => {
-          this.alertFailedText = undefined
-          this.error = error
-        })
+        console.warn(error)
       }
     }
   }
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       this.clearReadyImages()
 
@@ -608,22 +463,17 @@ export class ResearcherProductViewModel {
       }
 
       this.onSaveForceProductData()
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-      })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async onClickParseProductData(product) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -654,7 +504,7 @@ export class ResearcherProductViewModel {
               }
             })
 
-            this.updateImagesForLoad(amazonResult.images)
+            this.imagesForLoad = amazonResult.images
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -694,15 +544,10 @@ export class ResearcherProductViewModel {
 
       this.warningModalTitle = t(TranslationKey['Success parse'])
       this.onTriggerOpenModal('showWarningModal')
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      this.setRequestStatus(loadingStatuses.failed)
 
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
@@ -710,14 +555,16 @@ export class ResearcherProductViewModel {
   }
 
   onChangeImagesForLoad(value) {
-    runInAction(() => {
-      this.imagesForLoad = value
-    })
+    this.imagesForLoad = value
   }
 
   async onSaveProductData(editingСontinues) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      runInAction(() => {
+        this.uploadedImages = []
+      })
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
@@ -729,18 +576,16 @@ export class ResearcherProductViewModel {
         getObjectFilteredByKeyArrayBlackList(
           {
             ...this.curUpdateProductData,
-            images: this.uploadedImages.length
-              ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
-              : this.curUpdateProductData.images,
+            images: this.uploadedImages,
           },
           ['suppliers'],
         ),
       )
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
 
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
       console.log('error', error)
     }
   }
@@ -788,18 +633,13 @@ export class ResearcherProductViewModel {
 
   async onDeleteProduct() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
       await ResearcherModel.removeProduct(this.product._id)
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
       this.history.goBack()
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-      })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -826,26 +666,14 @@ export class ResearcherProductViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
+    this.readyImages = []
   }
 }
