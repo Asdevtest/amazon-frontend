@@ -11,9 +11,9 @@ import {
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 // import { calcMaxDeliveryForProduct } from '@utils/calculation'
 import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
@@ -153,18 +153,11 @@ export const ProductParameters = ({
                 onDelete={!formFields.product.barCode ? undefined : () => onDeleteBarcode()}
               />
             ) : (
-              <div>
-                {order.product.barCode ? (
-                  <div className={classNames.barCodeWrapper}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
-                      <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-                    <CopyValue text={order.product.barCode} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
-                )}
-              </div>
+              <LabelWithCopy
+                lableLinkTitleSize="medium"
+                labelValue={order.product.barCode}
+                lableLinkTitle={t(TranslationKey.View)}
+              />
             )}
           </>
         }
