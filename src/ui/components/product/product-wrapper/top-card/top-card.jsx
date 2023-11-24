@@ -129,7 +129,7 @@ export const TopCard = observer(
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={imagesForLoad?.length ? imagesForLoad : product?.images}
+                      files={imagesForLoad}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -143,7 +143,7 @@ export const TopCard = observer(
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
-                          images={imagesForLoad?.length ? imagesForLoad : product?.images}
+                          images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
                         />

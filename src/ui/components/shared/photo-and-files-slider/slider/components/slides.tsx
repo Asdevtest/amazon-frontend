@@ -63,7 +63,7 @@ export const Slides: FC<Props> = memo(
         >
           {slides.map((slide, index) => {
             const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
-            const currentSlide = typeof slide === 'string' ? slide : slide?.data_url
+            const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
             const isActiveSlide = currentIndex === index
 
             return (

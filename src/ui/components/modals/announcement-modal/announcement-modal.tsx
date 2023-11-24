@@ -18,7 +18,7 @@ import { useStyles } from './announcement-modal.styles'
 interface AnnouncementModalProps {
   isOpenModal: boolean
   service: IService
-  onOpenModal: VoidFunction
+  onOpenModal: () => void
   choose?: boolean
   order?: boolean
   select?: boolean

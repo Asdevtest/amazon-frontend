@@ -16,7 +16,7 @@ import { useStyles } from './reviews-form.styles'
 
 interface ReviewsFormProps {
   reviews: FeedbackType[]
-  onClickCloseButton: VoidFunction
+  onClickCloseButton: () => void
   user?: IShortUser
 }
 

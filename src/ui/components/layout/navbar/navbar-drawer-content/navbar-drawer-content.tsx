@@ -35,7 +35,7 @@ import { getCategoryBadge } from './navbar-drawer-content.helper'
 
 interface Props {
   shortNavbar: boolean
-  onToggleModal: VoidFunction
+  onToggleModal: () => void
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: NavbarConfigTypes.RootObject

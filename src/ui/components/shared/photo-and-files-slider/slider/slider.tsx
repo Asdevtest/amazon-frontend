@@ -25,7 +25,7 @@ interface Props {
   controls?: boolean
   isPlaying?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
-  onPhotosModalToggle?: VoidFunction
+  onPhotosModalToggle?: () => void
 }
 
 export const Slider: FC<Props> = memo(

@@ -5,6 +5,7 @@ import 'react-18-image-lightbox/style.css'
 import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
 
 import { checkIsVideoLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
@@ -34,7 +35,7 @@ export const ZoomModal: FC<Props> = memo(
 
     return isOpenModal ? (
       <Lightbox
-        mainSrc={currentImages?.[currentImageIndex]}
+        mainSrc={getAmazonImageUrl(currentImages?.[currentImageIndex], true)}
         nextSrc={!isDisableArrowRight ? currentImages?.[nextImageIndex] : undefined}
         prevSrc={!isDisableArrowLeft ? currentImages?.[prevImageIndex] : undefined}
         wrapperClassName={styles.wrapper}

@@ -6,7 +6,7 @@ import { useClassNames } from './chat-sound-notification.styles'
 
 interface Props {
   isMuteChat: boolean
-  onToggleMuteChat?: VoidFunction
+  onToggleMuteChat?: () => void
 }
 
 export const ChatSoundNotification: FC<Props> = props => {
