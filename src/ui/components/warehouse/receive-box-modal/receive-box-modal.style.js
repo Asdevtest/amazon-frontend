@@ -118,12 +118,8 @@ export const useClassNames = makeStyles()(theme => ({
   img: {
     width: '70px',
     height: '70px',
-    marginRight: '20px',
     objectFit: 'contain',
     objectPosition: 'center',
-    [theme.breakpoints.down(768)]: {
-      marginRight: '10px',
-    },
   },
   sectionTitle: {
     color: theme.palette.text.second,
@@ -161,7 +157,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    width: '218px',
+    width: 260,
     color: theme.palette.text.general,
 
     [theme.breakpoints.down(1282)]: {
@@ -176,9 +172,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '30px',
     [theme.breakpoints.down(768)]: {
       border: '1px solid rgba(143, 152, 165, 1)',
-      borderRadius: '4px',
       maxWidth: '45px',
-      height: '30px',
     },
   },
 
@@ -293,14 +287,6 @@ export const useClassNames = makeStyles()(theme => ({
       width: 'fit-content',
       minWidth: 'unset',
     },
-  },
-
-  adaptCatigoryWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: 77,
-    flexWrap: 'wrap',
-    width: 310,
   },
 
   categoryTitle: {
