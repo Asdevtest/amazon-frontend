@@ -4,12 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     backgroundColor: `${theme.palette.background.general} !important`,
 
-    'div:first-of-type': {
-      'img:nth-of-type(2)': {
-        minWidth: '60%',
-      },
-    },
-
     'div:last-child': {
       backgroundColor: 'transparent',
 
@@ -30,13 +24,6 @@ export const useStyles = makeStyles()(theme => ({
             },
           },
         },
-
-        /* 'li:nth-of-type(1)': {
-          display: 'none',
-        },
-        'li:nth-of-type(2)': {
-          display: 'none',
-        }, */
       },
     },
   },

@@ -25,7 +25,7 @@ export const ZoomModal: FC<Props> = memo(
 
     const currentImages =
       images
-        .map(image => (typeof image === 'string' ? image : image?.data_url))
+        .map(image => (typeof image === 'string' ? getAmazonImageUrl(image, true) : image?.data_url))
         .filter(item => !checkIsVideoLink(item)) || []
     const nextImageIndex = (currentImageIndex + 1) % currentImages?.length
     const prevImageIndex = (currentImageIndex + currentImages?.length - 1) % currentImages?.length
@@ -35,7 +35,7 @@ export const ZoomModal: FC<Props> = memo(
 
     return isOpenModal ? (
       <Lightbox
-        mainSrc={getAmazonImageUrl(currentImages?.[currentImageIndex], true)}
+        mainSrc={currentImages?.[currentImageIndex]}
         nextSrc={!isDisableArrowRight ? currentImages?.[nextImageIndex] : undefined}
         prevSrc={!isDisableArrowLeft ? currentImages?.[prevImageIndex] : undefined}
         wrapperClassName={styles.wrapper}
