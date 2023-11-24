@@ -1,22 +1,18 @@
 import { FC, memo } from 'react'
 
-import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
-
 import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ZoomModal } from '@components/modals/zoom-modal'
 import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
-import { VideoPlayer } from '@components/shared/video-player'
 
-import { checkIsVideoLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './image-modal.styles'
 
-import { ButtonControls } from './button-controls'
+import { ButtonControls, ShowPreviews } from './components'
 
 interface Props {
   isOpenModal: boolean
@@ -80,42 +76,14 @@ export const ImageModal: FC<Props> = memo(props => {
       dialogClassName={styles.modalContainer}
     >
       <div className={styles.wrapper}>
-        {showPreviews && (
-          <div className={styles.imagesList}>
-            {photos?.map((photo, index) => {
-              const currentPhoto = typeof photo === 'string' ? photo : photo?.data_url
-              const isVideoType = checkIsVideoLink(typeof photo === 'string' ? photo : photo?.file?.name)
-
-              return (
-                <div
-                  key={index}
-                  className={cx(styles.imagesListItem, {
-                    [styles.imagesListItemActive]: index === photoIndex,
-                  })}
-                  onClick={() => {
-                    setPhotoIndex(index)
-                    setIsPlaying(false)
-                  }}
-                >
-                  {isVideoType ? (
-                    <div className={styles.preloaderContainer}>
-                      <VideoPlayer videoSource={currentPhoto} height="74px" />
-                      <div className={styles.preloader}>
-                        <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
-                      </div>
-                    </div>
-                  ) : (
-                    <img src={currentPhoto} alt={`Photo ${photoIndex}`} />
-                  )}
-
-                  {photosTitles?.[index] && (
-                    <p className={cx(styles.imagesListItemTitle, styles.shortText)}>{photosTitles?.[index]}</p>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        )}
+        <ShowPreviews
+          photos={photos}
+          photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
+          setIsPlaying={setIsPlaying}
+          showPreviews={showPreviews}
+          photosTitles={photosTitles}
+        />
 
         <div className={styles.body}>
           {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
@@ -137,20 +105,18 @@ export const ImageModal: FC<Props> = memo(props => {
             </p>
           )}
 
-          <div className={styles.controls}>
-            <ButtonControls
-              isEditable={isEditable}
-              image={photos?.[photoIndex]}
-              imageIndex={photoIndex}
-              withoutMakeMainImage={withoutMakeMainImage}
-              onClickMakeMainImageObj={onClickMakeMainImageObj}
-              onImageEditToggle={onOpenImageEditModal}
-              onUploadFile={onUploadFile}
-              onClickRemoveImageObj={onClickRemoveImageObj}
-              onClickDownloadPhoto={onClickDownloadPhoto}
-              onOpenImageZoomModal={onOpenImageZoomModal}
-            />
-          </div>
+          <ButtonControls
+            isEditable={isEditable}
+            image={photos?.[photoIndex]}
+            imageIndex={photoIndex}
+            withoutMakeMainImage={withoutMakeMainImage}
+            onClickMakeMainImageObj={onClickMakeMainImageObj}
+            onImageEditToggle={onOpenImageEditModal}
+            onUploadFile={onUploadFile}
+            onClickRemoveImageObj={onClickRemoveImageObj}
+            onClickDownloadPhoto={onClickDownloadPhoto}
+            onOpenImageZoomModal={onOpenImageZoomModal}
+          />
         </div>
       </div>
 

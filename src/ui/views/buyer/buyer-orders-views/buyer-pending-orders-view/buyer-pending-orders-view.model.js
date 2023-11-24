@@ -20,7 +20,6 @@ import { buyerMyOrdersViewColumns } from '@components/table/table-columns/buyer/
 import { calcOrderTotalPrice, calcOrderTotalPriceInYuann } from '@utils/calculation'
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -290,7 +289,11 @@ export class BuyerMyOrdersViewModel {
       })
 
       this.clearImagesForLoad()
-      this.updateImagesForLoad(orderData.images)
+
+      runInAction(() => {
+        this.imagesForLoad = orderData.images
+      })
+
       this.getBoxesOfOrder(orderId)
 
       const result = await UserModel.getPlatformSettings()
@@ -305,16 +308,6 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
-    }
-
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
-
-    this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
   }
 
   onChangeImagesForLoad(value) {

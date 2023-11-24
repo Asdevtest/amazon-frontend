@@ -47,7 +47,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
-            files={files}
+            files={files || []}
           />
 
           <div className={classNames.infosSubWrapper}>

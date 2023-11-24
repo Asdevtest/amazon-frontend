@@ -544,11 +544,10 @@ export class ClientProductViewModel {
             }
           }, 1000)
         }, 3000)
-      })
 
-      runInAction(() => {
         this.isValidLink = true
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -679,7 +678,7 @@ export class ClientProductViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-        await this.getProductById(this.productId)
+        await this.getProductById()
       }
 
       await this.onSaveForceProductData()

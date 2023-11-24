@@ -140,7 +140,7 @@ export const downloadFile = async (file, fileName) => {
 }
 
 export const downloadFileByLink = async (str, fileName) => {
-  fetch(str)
+  fetch(getAmazonImageUrl(str, true))
     .then(resp => resp.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob)
