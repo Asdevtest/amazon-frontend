@@ -16,7 +16,7 @@ interface PaymentMethodsFormProps {
   payments: Array<Payments | Payment>
   readOnly?: boolean
   onClickSaveButton?: (childStates: Array<Payments | Payment>) => void
-  onClickCancelButton?: VoidFunction
+  onClickCancelButton?: () => void
 }
 
 export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {

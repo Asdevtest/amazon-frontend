@@ -18,7 +18,7 @@ interface Props {
   isOpenModal: boolean
   imageList: Array<string | IUploadFile>
   currentImageIndex: number
-  handleOpenModal: VoidFunction
+  handleOpenModal: () => void
   handleCurrentImageIndex: (index: number) => void
   photosTitles?: string[]
   photosComments?: string[]

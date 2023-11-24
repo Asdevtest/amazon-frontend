@@ -16,7 +16,7 @@ import { useStyles } from './restore-request-modal.styles'
 interface RestoreRequestModalProps {
   currentDate: string
   currentRequestsCount: number
-  handleCloseModal: VoidFunction
+  handleCloseModal: () => void
   handleSubmit: (timeoutAt?: string, maxAmountOfProposals?: string | number) => void
 }
 
