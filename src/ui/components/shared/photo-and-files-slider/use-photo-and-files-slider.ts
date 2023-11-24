@@ -29,7 +29,7 @@ export const usePhotoAndFilesSlider = (
     if (photos?.length - 1 < photoIndex && photos?.length > 0) {
       setPhotoIndex(photos?.length - 1)
     }
-  }, [photos.length])
+  }, [photos?.length])
 
   useEffect(() => {
     if (startPhotoIndex !== undefined) {
@@ -38,7 +38,7 @@ export const usePhotoAndFilesSlider = (
   }, [startPhotoIndex])
 
   useEffect(() => {
-    const photoFiltering = files.filter(el => {
+    const photoFiltering = files?.filter(el => {
       const currentFile = typeof el === 'string' ? el : el?.file?.name
 
       return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'

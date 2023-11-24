@@ -61,7 +61,7 @@ export const Slides: FC<Props> = memo(
             transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {slides.map((slide, index) => {
+          {slides?.map((slide, index) => {
             const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
             const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
             const isActiveSlide = currentIndex === index
