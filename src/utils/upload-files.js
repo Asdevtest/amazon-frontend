@@ -59,13 +59,21 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
     for (let i = 0; i < item[nameOfField].length; i++) {
       const file = item[nameOfField][i]
 
-      if (typeof file === 'string') {
-        const res = await uploadFileByUrl(file)
-
-        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
+      if (typeof file === 'string' && file.includes('/uploads/')) {
+        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, file] }
+      } else if (typeof file === 'string') {
+        try {
+          const res = await uploadFileByUrl(
+            checkIsImageInludesPostfixes(file) || checkIsImageLink(file) || checkIsHasHttp(file)
+              ? file
+              : getAmazonImageUrl(file, true),
+          )
+          dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
+        } catch (error) {
+          dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, file] }
+        }
       } else {
         const res = await onPostImage(file)
-
         dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
       }
     }

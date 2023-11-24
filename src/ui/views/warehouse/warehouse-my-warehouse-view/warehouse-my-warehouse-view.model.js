@@ -384,7 +384,11 @@ export class WarehouseMyWarehouseViewModel {
             })
           }
 
-          newBox.shippingLabel = findUploadedShippingLabel ? findUploadedShippingLabel.link : this.uploadedFiles[0]
+          newBox.shippingLabel = findUploadedShippingLabel
+            ? findUploadedShippingLabel.link
+            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
+
+          console.log('newBox.shippingLabel', newBox.shippingLabel)
         }
 
         const dataToBarCodeChange = newBox.items
@@ -462,58 +466,58 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
-    try {
-      runInAction(() => {
-        this.selectedBoxes = []
-        this.uploadedFiles = []
-        this.uploadedTrackNumber = []
-        this.uploadedImages = []
+    runInAction(() => {
+      this.selectedBoxes = []
+      this.uploadedFiles = []
+      this.uploadedTrackNumber = []
+      this.uploadedImages = []
+    })
+
+    if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
+      await onSubmitPostImages.call(this, {
+        images: boxData.tmpShippingLabel,
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
       })
+    }
 
-      if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
-        await onSubmitPostImages.call(this, {
-          images: boxData.tmpShippingLabel,
-          type: 'uploadedFiles',
-          withoutShowProgress: true,
-        })
-      }
+    if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
+      await onSubmitPostImages.call(this, {
+        images: boxData.tmpTrackNumberFile,
+        type: 'uploadedTrackNumber',
+        withoutShowProgress: true,
+      })
+    }
 
-      if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {
-          images: boxData.tmpTrackNumberFile,
-          type: 'uploadedTrackNumber',
-          withoutShowProgress: true,
-        })
-      }
+    if (imagesOfBox?.length) {
+      await onSubmitPostImages.call(this, {
+        images: imagesOfBox,
+        type: 'uploadedImages',
+        withoutShowProgress: true,
+      })
+    }
 
-      if (imagesOfBox?.length) {
-        await onSubmitPostImages.call(this, {
-          images: imagesOfBox,
-          type: 'uploadedImages',
-          withoutShowProgress: true,
-        })
-      }
+    let dataToBarCodeChange = boxData.items
+      .map(el =>
+        el.tmpBarCode?.length
+          ? {
+              changeBarCodInInventory: el.changeBarCodInInventory,
+              productId: el.product?._id,
+              tmpBarCode: el.tmpBarCode,
+              newData: [],
+            }
+          : null,
+      )
+      .filter(el => el !== null)
 
-      let dataToBarCodeChange = boxData.items
-        .map(el =>
-          el.tmpBarCode?.length
-            ? {
-                changeBarCodInInventory: el.changeBarCodInInventory,
-                productId: el.product?._id,
-                tmpBarCode: el.tmpBarCode,
-                newData: [],
-              }
-            : null,
-        )
-        .filter(el => el !== null)
+    if (!isMultipleEdit && dataToBarCodeChange?.length) {
+      dataToBarCodeChange = await onSubmitPostFilesInData({
+        dataWithFiles: dataToBarCodeChange,
+        nameOfField: 'tmpBarCode',
+      })
+    }
 
-      if (!isMultipleEdit && dataToBarCodeChange?.length) {
-        dataToBarCodeChange = await onSubmitPostFilesInData({
-          dataWithFiles: dataToBarCodeChange,
-          nameOfField: 'tmpBarCode',
-        })
-      }
-
+    try {
       const getNewItems = () => {
         const newItems = boxData.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
@@ -543,7 +547,9 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
           items: isMultipleEdit ? boxData.items : getNewItems(),
-          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles[0]
+            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0],
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
@@ -778,7 +784,9 @@ export class WarehouseMyWarehouseViewModel {
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              shippingLabel: this.uploadedFiles.length
+                ? this.uploadedFiles[0]
+                : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
@@ -878,7 +886,9 @@ export class WarehouseMyWarehouseViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxBody,
-          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel,
+          shippingLabel: this.uploadedFiles.length
+            ? this.uploadedFiles[0]
+            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
           images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
         },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
