@@ -123,7 +123,7 @@ export const ProductCardModal = observer(props => {
             imagesForLoad={viewModel?.imagesForLoad}
             showProgress={viewModel?.showProgress}
             progressValue={viewModel?.progressValue}
-            product={viewModel?.getCurrentData()}
+            product={viewModel?.currentData}
             shops={viewModel?.shopsData}
             productBase={viewModel?.productBase}
             selectedSupplier={viewModel?.selectedSupplier}
@@ -199,9 +199,7 @@ export const ProductCardModal = observer(props => {
                   className={cx(styles.buttonNormal, styles.buttonAccept)}
                   color="primary"
                   variant="contained"
-                  onClick={() => {
-                    viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)
-                  }}
+                  onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
                     ? t(TranslationKey.Save)

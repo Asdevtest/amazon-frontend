@@ -2,7 +2,6 @@ import { plainToInstance } from 'class-transformer'
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { BACKEND_API_URL } from '@constants/keys/env'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { noticeSound } from '@constants/sounds.js'
 
@@ -212,7 +211,7 @@ class ChatModelStatic {
 
     try {
       const fileName: string = await OtherModel.postImage(formData)
-      const fileUrl = BACKEND_API_URL + '/uploads/' + fileName
+      const fileUrl = '/uploads/' + fileName
 
       if (fileData.type.startsWith('image')) {
         this.loadedImages.push(fileUrl)

@@ -3,7 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   modalWrapper: {
     width: '100%',
-    padding: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '30px',
   },
 
   modalTitle: {
@@ -11,14 +13,12 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
-    marginBottom: '30px',
   },
 
   saveBox: {
     display: 'flex',
     gap: 20,
     justifyContent: 'space-between',
-    marginTop: '30px',
   },
 
   saveBtn: {

@@ -92,7 +92,7 @@ export const Slot: FC<SlotInterface> = memo(props => {
               src={
                 typeof item.image === 'string'
                   ? checkIsImageLink(item.image)
-                    ? getAmazonImageUrl(item.image)
+                    ? getAmazonImageUrl(item.image, false)
                     : '/assets/icons/file.png'
                   : item.image?.file.type.includes('image')
                   ? item.image?.data_url

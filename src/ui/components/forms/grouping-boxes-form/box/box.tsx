@@ -6,7 +6,7 @@ import React, { FC, useEffect, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Link, Radio } from '@mui/material'
+import { IconButton, Radio } from '@mui/material'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,9 +16,10 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './box.style'
@@ -123,25 +124,11 @@ export const Box: FC<BoxProps> = React.memo(props => {
 
                 <p className={styles.title}>{order.product.amazonTitle}</p>
 
-                <Field
-                  oneLine
-                  labelClasses={styles.label}
-                  label={t(TranslationKey.BarCode)}
-                  inputComponent={
-                    <div className={styles.barCodeWrapper}>
-                      {order.barCode ? (
-                        <div className={styles.barCode}>
-                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.barCode)}>
-                            <p className={styles.barCodeField}>{t(TranslationKey.View)}</p>
-                          </Link>
-
-                          <CopyValue text={order.barCode} />
-                        </div>
-                      ) : (
-                        <p className={styles.miss}>{t(TranslationKey['Not available'])}</p>
-                      )}
-                    </div>
-                  }
+                <LabelWithCopy
+                  labelTitleColor="gray"
+                  labelTitle={t(TranslationKey.BarCode)}
+                  labelValue={order.barCode}
+                  lableLinkTitle={t(TranslationKey.View)}
                 />
               </div>
 
@@ -230,25 +217,12 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 inputComponent={<p className={styles.standartText}>{box.fbaShipment || t(TranslationKey.Missing)}</p>}
               />
 
-              <Field
-                label={t(TranslationKey['Shipping label']) + ':'}
-                tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                labelClasses={styles.label}
-                inputComponent={
-                  <>
-                    {box.shippingLabel ? (
-                      <div className={styles.barCode}>
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                          <p className={styles.barCodeField}>{t(TranslationKey.View)}</p>
-                        </Link>
-
-                        <CopyValue text={box.shippingLabel} />
-                      </div>
-                    ) : (
-                      <p className={styles.miss}>{t(TranslationKey['Not available'])}</p>
-                    )}
-                  </>
-                }
+              <LabelWithCopy
+                direction="column"
+                labelTitleColor="gray"
+                labelTitle={t(TranslationKey['Shipping label'])}
+                labelValue={box.shippingLabel}
+                lableLinkTitle={t(TranslationKey.View)}
               />
 
               {!isNewBox && (

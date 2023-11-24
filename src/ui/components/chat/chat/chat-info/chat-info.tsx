@@ -19,7 +19,8 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { imagesWithPreviewRegex } from '@utils/text'
+import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 interface ChatAttachmentItemTypes {
@@ -58,8 +59,6 @@ const tab = {
   files: 'files',
 }
 
-const videoRegexp = /\.(mp4|avi|mov)$/
-
 export const ChatInfo = (props: ChatInfoProps) => {
   const {
     chat,
@@ -84,15 +83,11 @@ export const ChatInfo = (props: ChatInfoProps) => {
       .then((res: ChatAttachmentsType) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
           file.images?.forEach(el => {
-            const isVideo = videoRegexp.test(el)
-
-            if (!imagesWithPreviewRegex.test(el)) {
+            if (!checkIsImageLink(el)) {
               res.allFiles.push({ files: [el], _id: file._id })
               return
-            }
-
-            if (!isVideo) {
-              acc.push({ file: el, _id: file._id, isVideo })
+            } else {
+              acc.push({ file: el, _id: file._id })
             }
           })
 
@@ -175,18 +170,22 @@ export const ChatInfo = (props: ChatInfoProps) => {
       <TabPanel value={currentTab} className={styles.tabPanel} index={tab.media}>
         {!!images?.length && (
           <div className={styles.imageList}>
-            {images?.map((el, index) => (
-              <img
-                key={index}
-                src={el.file}
-                alt={el._id}
-                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
-                onClick={() => {
-                  setCurrentImageIndex(index)
-                  setIsImageModalOpen(true)
-                }}
-              />
-            ))}
+            {images?.map((el, index) => {
+              const validLink = getAmazonImageUrl(el.file)
+
+              return (
+                <img
+                  key={index}
+                  src={validLink}
+                  alt={el._id}
+                  onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+                  onClick={() => {
+                    setCurrentImageIndex(index)
+                    setIsImageModalOpen(true)
+                  }}
+                />
+              )
+            })}
           </div>
         )}
 

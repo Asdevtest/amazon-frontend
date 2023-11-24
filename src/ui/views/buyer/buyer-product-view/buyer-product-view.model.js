@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,76 +19,17 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
-const fieldsOfProductAllowedToUpdate = [
-  'reffee',
-  'fbalink',
-  'fbafee',
-  'fbaamount',
-  'delivery',
-  'status',
-  'profit',
-  'margin',
-  'buyersComment',
-  'additionalProp1',
-  'currentSupplierId',
-  'tags',
-]
-
-const fieldsOfProductAllowedToForceUpdate = [
-  'reffee',
-  'fbalink',
-  'fbafee',
-  'fbaamount',
-  'delivery',
-  'profit',
-  'margin',
-  'buyersComment',
-  'additionalProp1',
-  'currentSupplierId',
-  'tags',
-]
-
-const formFieldsDefault = {
-  checkednotes: '',
-  amazon: 0,
-  bsr: 0,
-  createdAt: '',
-  createdBy: {},
-  delivery: 0,
-  dirdecision: 0,
-  express: false,
-  fba: false,
-  fbafee: 0,
-  icomment: '',
-  id: '',
-  images: [],
-  lamazon: '',
-  material: '',
-  reffee: 15,
-  status: 0,
-  updatedAt: '',
-  _id: '',
-  buyersComment: '',
-}
-
-const confirmMessageByProductStatus = () => ({
-  60: t(TranslationKey["The supplier's price is not acceptable?"]),
-  50: t(TranslationKey['Supplier not found']) + '?',
-  40: t(TranslationKey['Supplier found']) + '?',
-  240: t(TranslationKey['Supplier found']) + '?',
-  260: t(TranslationKey["The supplier's price is not acceptable?"]),
-  250: t(TranslationKey['Supplier not found']) + '?',
-})
-
-const warningModalTitleVariants = () => ({
-  NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
-  CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
-})
+import {
+  confirmMessageByProductStatus,
+  fieldsOfProductAllowedToForceUpdate,
+  fieldsOfProductAllowedToUpdate,
+  formFieldsDefault,
+  warningModalTitleVariants,
+} from './buyer-product-view.constants'
 
 export class BuyerProductViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
 
   productId = undefined
 
@@ -137,7 +78,7 @@ export class BuyerProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = { ...formFieldsDefault }
+  formFields = formFieldsDefault
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -149,30 +90,22 @@ export class BuyerProductViewModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.product
+  }
+
   constructor({ history, setOpenModal }) {
+    this.history = history
+
     const url = new URL(window.location.href)
+    this.productId = url.searchParams.get('product-id')
+    this.showTab = url.searchParams.get('show-tab')
 
     if (setOpenModal) {
       this.setOpenModal = setOpenModal
     }
 
-    runInAction(() => {
-      this.history = history
-
-      this.productId = url.searchParams.get('product-id')
-
-      this.showTab = url.searchParams.get('show-tab')
-    })
-
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.product = this.product ? { ...this.product } : undefined
-        }),
-    )
 
     reaction(
       () => this.productId,
@@ -184,11 +117,12 @@ export class BuyerProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
-      await UserModel.getPlatformSettings().then(platformSettings =>
-        runInAction(() => {
-          this.platformSettings = platformSettings
-        }),
-      )
+
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
     } catch (error) {
       console.log(error)
     }
@@ -206,7 +140,7 @@ export class BuyerProductViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -214,6 +148,7 @@ export class BuyerProductViewModel {
   async getProductById() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
@@ -239,15 +174,13 @@ export class BuyerProductViewModel {
     }
   }
 
-  getCurrentData() {
-    return toJS(this.product)
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
-      this.storekeepersData = result
+      runInAction(() => {
+        this.storekeepersData = result
+      })
     } catch (error) {
       console.log(error)
     }
@@ -273,16 +206,21 @@ export class BuyerProductViewModel {
     }
   }
 
-  onChangeProduct(e, value) {
-    this.product = value
-  }
-
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSupplierButtons(actionType) {
     this.getSuppliersPaymentMethods()
+
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -293,7 +231,9 @@ export class BuyerProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'view':
-        this.supplierModalReadOnly = true
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
 
         this.onTriggerAddOrEditSupplierModal()
         break
@@ -305,19 +245,24 @@ export class BuyerProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-        this.product = { ...this.product, currentSupplier: this.selectedSupplier }
+        runInAction(() => {
+          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
+          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
 
-        this.selectedSupplier = undefined
+          this.selectedSupplier = undefined
+        })
+
         updateProductAutoCalculatedFields.call(this)
 
         this.onSaveForceProductData()
         break
       case 'acceptRevoke':
-        this.product = { ...this.product, currentSupplierId: null }
-        this.product = { ...this.product, currentSupplier: undefined }
+        runInAction(() => {
+          this.product = { ...this.product, currentSupplierId: null }
+          this.product = { ...this.product, currentSupplier: undefined }
 
-        this.selectedSupplier = undefined
+          this.selectedSupplier = undefined
+        })
         updateProductAutoCalculatedFields.call(this)
         this.onSaveForceProductData()
         break
@@ -335,7 +280,7 @@ export class BuyerProductViewModel {
   }
   async onRemoveSupplier() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
 
@@ -346,17 +291,16 @@ export class BuyerProductViewModel {
       })
       this.onSaveForceProductData()
 
-      this.product.suppliers
-      this.selectedSupplier = undefined
+      runInAction(() => {
+        this.product.suppliers
+        this.selectedSupplier = undefined
+      })
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -379,18 +323,20 @@ export class BuyerProductViewModel {
 
   async openConfirmModalWithTextByStatus(updateDataHandler) {
     try {
-      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        this.product,
-        fieldsOfProductAllowedToUpdate,
-        false,
-        (key, value) => {
-          if (key === 'buyersComment' && isUndefined(value)) {
-            return ''
-          } else {
-            return value
-          }
-        },
-      )
+      runInAction(() => {
+        this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+          this.product,
+          fieldsOfProductAllowedToUpdate,
+          false,
+          (key, value) => {
+            if (key === 'buyersComment' && isUndefined(value)) {
+              return ''
+            } else {
+              return value
+            }
+          },
+        )
+      })
 
       if (
         this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
@@ -431,7 +377,7 @@ export class BuyerProductViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.failed)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -440,18 +386,23 @@ export class BuyerProductViewModel {
           })
         })
       } else {
-        console.warn('error ', error)
-        runInAction(() => {
-          this.error = error
-        })
+        console.error(error)
       }
     }
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveHsCode(hsCode) {
@@ -466,52 +417,43 @@ export class BuyerProductViewModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-
-    // this.onSaveForceProductData()
-
-    // this.loadData()
   }
 
   async onSaveProductData(updateDataHandler) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
       this.showSuccesAlert()
       updateDataHandler && (await updateDataHandler())
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
-  async showSuccesAlert() {
-    runInAction(() => {
+  showSuccesAlert() {
+    this.alertShieldSettings = {
+      showAlertShield: true,
+      alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+    }
+
+    setTimeout(() => {
       this.alertShieldSettings = {
-        showAlertShield: true,
-        alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+        ...this.alertShieldSettings,
+        showAlertShield: false,
       }
 
       setTimeout(() => {
         this.alertShieldSettings = {
-          ...this.alertShieldSettings,
           showAlertShield: false,
+          alertShieldMessage: '',
         }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            showAlertShield: false,
-            alertShieldMessage: '',
-          }
-        }, 1000)
-      }, 3000)
-    })
+      }, 1000)
+    }, 3000)
   }
 
   async onSaveForceProductData() {
@@ -535,7 +477,7 @@ export class BuyerProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -573,7 +515,9 @@ export class BuyerProductViewModel {
         const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
         if (supplier._id === this.product.currentSupplierId) {
-          this.product.currentSupplier = supplier
+          runInAction(() => {
+            this.product.currentSupplier = supplier
+          })
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
@@ -594,9 +538,6 @@ export class BuyerProductViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
     }
   }
 
@@ -607,17 +548,23 @@ export class BuyerProductViewModel {
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
 
         await this.getStorekeepers()
 
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        runInAction(() => {
+          this.yuanToDollarRate = result.yuanToDollarRate
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
       }
 
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
     } catch (error) {
       console.log(error)
     }
@@ -627,32 +574,8 @@ export class BuyerProductViewModel {
     this.requestStatus = requestStatus
   }
 
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
-  }
-
   clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
-  }
-
-  clearProduct() {
-    runInAction(() => {
-      this.product = undefined
-    })
-  }
-
-  async updateProductId(productId) {
-    runInAction(() => {
-      this.productId = productId
-    })
-
-    try {
-      await this.getProductById()
-    } catch (error) {
-      console.log(error)
-    }
+    this.readyImages = []
   }
 
   async navigateToProduct(id) {
