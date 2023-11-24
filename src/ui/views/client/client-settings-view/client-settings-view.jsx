@@ -1,19 +1,12 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { UserSettingsForm } from '@components/forms/user-settings-form'
 
-import { styles } from './client-settings-view.style'
-
-export const ClientSettingsViewRaw = () => (
-  // const [viewModel] = useState(() => new ClientSettingsViewModel({ history: props.history }));
-
+export const ClientSettingsView = observer(() => (
   <React.Fragment>
     <div>
       <UserSettingsForm />
     </div>
   </React.Fragment>
-)
-
-export const ClientSettingsView = withStyles(observer(ClientSettingsViewRaw), styles)
+))

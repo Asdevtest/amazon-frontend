@@ -35,7 +35,7 @@ export const LabelWithCopy: FC<LabelWithCopyProps> = memo(
   }) => {
     const { classes: styles, cx } = useStyles()
 
-    const validLink = getAmazonImageUrl(labelValue)
+    const validLink = getAmazonImageUrl(labelValue, true)
 
     return (
       <div

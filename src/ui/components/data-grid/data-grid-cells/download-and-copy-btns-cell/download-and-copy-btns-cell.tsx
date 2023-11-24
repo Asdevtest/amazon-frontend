@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ interface DownloadAndCopyBtnsCellProps {
 export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(({ value, isFirstRow }) => {
   const { classes: styles, cx } = useDataGridCellStyles()
 
-  const validLink = getAmazonImageUrl(value)
+  const validLink = getAmazonImageUrl(value, true)
 
   return (
     <>
@@ -34,7 +34,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
                 rel={'noreferrer'}
                 href={validLink}
                 className={styles.downloadLink}
-                onClick={(e: any) => e.stopPropagation()}
+                onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
               >
                 {t(TranslationKey.View)}
               </a>

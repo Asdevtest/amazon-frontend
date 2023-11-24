@@ -1,4 +1,5 @@
 import { keyframes } from '@emotion/react'
+import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
 0% {
@@ -11,7 +12,7 @@ const ani = keyframes`
   }
 `
 
-export const styles = theme => ({
+export const useStyles = makeStyles()(theme => ({
   button: {
     padding: '0 25px',
   },
@@ -61,4 +62,4 @@ export const styles = theme => ({
     transform: 'translateY(-150%)',
     animation: `${ani} 1s forwards`,
   },
-})
+}))
