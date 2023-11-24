@@ -11,6 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
+import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -35,7 +36,9 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
 
   const handleImagePreview = (el: any) => {
     if (!imageTypes.includes(el.fileType)) {
-      window.open(el.fileUrl, '_blank')
+      const fileUrl = el.fileUrl
+
+      window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
       return
     }
     setSelectedImage(el)
@@ -44,7 +47,9 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
 
   const printFile = (el: any) => {
     if (!imageTypes.includes(el.fileType)) {
-      window.open(el.fileUrl, '_blank')
+      const fileUrl = el.fileUrl
+
+      window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
       return
     }
     flushSync(() => setSelectedImage(el))

@@ -5,6 +5,7 @@ import { Errors } from '@constants/errors'
 
 import { OtherModel } from '@models/other-model'
 
+import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsImageLink } from './checks'
 import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
 
@@ -25,11 +26,15 @@ export const onPostImage = async imageData => {
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {
-    type: imageData.file?.type,
+    type: imageData.file?.type || '',
     lastModified: imageData.file?.lastModified,
   })
 
+  console.log('fileWithoutSpaces', fileWithoutSpaces)
+
   formData.append('filename', fileWithoutSpaces)
+
+  console.log('formData', formData)
 
   try {
     const fileName = await OtherModel.postImage(formData)
@@ -91,15 +96,17 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
       if (typeof image === 'string' && image.includes('/uploads/')) {
         this[type].push(image)
       } else if (typeof image === 'string') {
-        const res = await uploadFileByUrl(getAmazonImageUrl(image, true))
+        const res = await uploadFileByUrl(
+          checkIsImageInludesPostfixes(image) || checkIsImageLink(image) || checkIsHasHttp(image)
+            ? image
+            : getAmazonImageUrl(image, true),
+        )
 
         this[type].push(res)
       } else {
         const res = await onPostImage(image)
-
         this[type].push(res)
       }
-
       runInAction(() => {
         this.progressValue = this.progressValue + loadingStep
       })

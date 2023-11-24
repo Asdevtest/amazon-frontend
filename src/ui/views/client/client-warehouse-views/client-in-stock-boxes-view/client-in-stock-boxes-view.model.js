@@ -497,7 +497,9 @@ export class ClientInStockBoxesViewModel {
     }
 
     if (this.selectedBox.shippingLabel === null) {
-      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, { shippingLabel: this.uploadedFiles[0] })
+      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {
+        shippingLabel: this.uploadedFiles?.[0] || tmpShippingLabel?.[0],
+      })
 
       this.checkAndOpenFbaShipmentEdit()
 
@@ -813,7 +815,9 @@ export class ClientInStockBoxesViewModel {
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              shippingLabel: this.uploadedFiles.length
+                ? this.uploadedFiles[0]
+                : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
               variationTariffId: updatedBoxes[i].variationTariffId,
@@ -832,6 +836,7 @@ export class ClientInStockBoxesViewModel {
 
           resBoxes.push(boxToPush)
         }
+        console.log('resBoxes', resBoxes)
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
@@ -1031,7 +1036,9 @@ export class ClientInStockBoxesViewModel {
             })
           }
 
-          newBox.shippingLabel = findUploadedShippingLabel ? findUploadedShippingLabel.link : this.uploadedFiles[0]
+          newBox.shippingLabel = findUploadedShippingLabel
+            ? findUploadedShippingLabel.link
+            : newBox.tmpShippingLabel?.[0] || this.uploadedFiles?.[0]
         }
 
         const dataToBarCodeChange = newBox.items
@@ -1208,7 +1215,9 @@ export class ClientInStockBoxesViewModel {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
           variationTariffId: boxData.variationTariffId,
-          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles[0]
+            : boxData.tmpShippingLabel?.[0] || boxData.shippingLabel,
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -1282,7 +1291,9 @@ export class ClientInStockBoxesViewModel {
             items: isMultipleEdit
               ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
               : getNewItems(),
-            shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+            shippingLabel: this.uploadedFiles?.length
+              ? this.uploadedFiles[0]
+              : boxData.tmpShippingLabel?.[0] || boxData.shippingLabel,
           },
           updateBoxWhiteList,
         )
@@ -1350,7 +1361,12 @@ export class ClientInStockBoxesViewModel {
       }
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        { ...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel },
+        {
+          ...boxBody,
+          shippingLabel: this.uploadedFiles.length
+            ? this.uploadedFiles[0]
+            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
+        },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
         undefined,
         undefined,
