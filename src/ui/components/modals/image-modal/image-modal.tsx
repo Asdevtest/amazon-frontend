@@ -12,8 +12,7 @@ import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './image-modal.styles'
 
-import { ButtonControls } from './components/button-controls'
-import { ShowPreviews } from './components/show-previews'
+import { ButtonControls, ShowPreviews } from './components'
 
 interface Props {
   isOpenModal: boolean
