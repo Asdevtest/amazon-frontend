@@ -68,8 +68,8 @@ export const Slides: FC<Props> = memo(
 
             return (
               <div key={index} className={classNames.slideWrapper}>
-                {isImageType(slide) ? (
-                  isVideoType(slide) ? (
+                {isImageType(currentSlide) ? (
+                  isVideoType(currentSlide) ? (
                     controls ? (
                       <VideoPlayer
                         videoSource={currentSlide}

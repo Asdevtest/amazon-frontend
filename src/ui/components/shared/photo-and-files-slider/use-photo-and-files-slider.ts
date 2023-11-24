@@ -6,7 +6,7 @@ import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 import { IUploadFile } from '@typings/upload-file'
 
 export const usePhotoAndFilesSlider = (
-  files: Array<string | IUploadFile> | undefined | null,
+  files: Array<string | IUploadFile>,
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
   startPhotoIndex?: number,
 ) => {
@@ -38,21 +38,11 @@ export const usePhotoAndFilesSlider = (
   }, [startPhotoIndex])
 
   useEffect(() => {
-    const photoFiltering = (files || []).reduce((result: Array<string | IUploadFile>, el) => {
+    const photoFiltering = files.filter(el => {
       const currentFile = typeof el === 'string' ? el : el?.file?.name
-      const isImage = checkIsImageLink(currentFile)
-      const isDocument = checkIsDocumentLink(currentFile)
 
-      if (isImage) {
-        result.push(el)
-      }
-
-      if (!isImage && !isDocument) {
-        result.push(el)
-      }
-
-      return result
-    }, [])
+      return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
+    })
 
     setPhotos(photoFiltering)
   }, [files])
