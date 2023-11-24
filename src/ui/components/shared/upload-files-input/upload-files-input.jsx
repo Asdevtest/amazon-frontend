@@ -5,6 +5,7 @@ import ImageUploading from 'react-images-uploading-alex76457-version'
 import AddIcon from '@material-ui/icons/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
 import { Avatar, InputAdornment, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,10 +16,13 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
+import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useStyles } from './upload-files-input.style'
+
+import { VideoPlayer } from '../video-player'
 
 import { maxSizeInBytes, regExpUriChecking } from './upload-files-input.constants'
 
@@ -120,7 +124,21 @@ export const UploadFilesInput = observer(props => {
 
   const renderImageInfo = (img, imgName) => (
     <div className={styles.tooltipWrapper}>
-      <Avatar variant="square" alt={imgName} src={img ? img : '/assets/icons/file.png'} className={styles.tooltipImg} />
+      {isVideoType(img) ? (
+        <div className={cx(styles.preloaderContainer, styles.preloaderContainerTooltip)}>
+          <VideoPlayer videoSource={img} height="200px" />
+          <div className={styles.preloader}>
+            <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
+          </div>
+        </div>
+      ) : (
+        <Avatar
+          variant="square"
+          alt={imgName}
+          src={img ? img : '/assets/icons/file.png'}
+          className={styles.tooltipImg}
+        />
+      )}
 
       <p className={styles.tooltipText}>{imgName}</p>
     </div>
@@ -137,6 +155,8 @@ export const UploadFilesInput = observer(props => {
   }
 
   const [showImages, setShowImages] = useState(true)
+
+  const isVideoType = slide => checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
 
   return (
     SettingsModel.languageTag && (
@@ -265,7 +285,16 @@ export const UploadFilesInput = observer(props => {
                         title={renderImageInfo(currentImage, currentName)}
                         classes={{ popper: styles.imgTooltip }}
                       >
-                        <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
+                        {isVideoType(currentImage) ? (
+                          <div className={styles.preloaderContainer}>
+                            <VideoPlayer videoSource={currentImage} height="55px" />
+                            <div className={styles.preloader}>
+                              <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
+                            </div>
+                          </div>
+                        ) : (
+                          <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
+                        )}
                       </Tooltip>
 
                       {withComment && (

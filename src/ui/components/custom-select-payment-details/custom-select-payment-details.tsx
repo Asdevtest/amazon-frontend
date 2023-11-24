@@ -85,11 +85,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
         <div className={cx(classNames.paymentMethods, { [classNames.generalText]: generalText })}>
           {valuesToRender?.map((valueToRender, index) => (
             <div key={valueToRender.title} className={classNames.paymentMethod}>
-              <img
-                src={getAmazonImageUrl(valueToRender.iconImage)}
-                alt={valueToRender.title}
-                className={classNames.paymentMethodIcon}
-              />
+              <img src={valueToRender.iconImage} alt={valueToRender.title} className={classNames.paymentMethodIcon} />
               <p className={classNames.paymentMethodTitle}>{valueToRender.title}</p>
               {index !== valuesToRender.length - 1 && '/'}
             </div>
@@ -173,7 +169,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                   <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <img
-                      src={getAmazonImageUrl(paymentMethod.iconImage)}
+                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
                       alt={paymentMethod.title}
                       className={classNames.paymentMethodIcon}
                     />
@@ -191,7 +187,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
                     <img
-                      src={getAmazonImageUrl(paymentMethod.iconImage)}
+                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
                       alt={paymentMethod.title}
                       className={classNames.paymentMethodIcon}
                     />
