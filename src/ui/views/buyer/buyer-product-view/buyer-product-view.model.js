@@ -63,6 +63,8 @@ export class BuyerProductViewModel {
   setOpenModal = undefined
   productVariations = undefined
 
+  imagesForLoad = []
+
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
@@ -155,6 +157,8 @@ export class BuyerProductViewModel {
         this.product = this.product ? { ...result, status: this.product.status } : result
 
         this.productBase = result
+
+        this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
       })
