@@ -25,7 +25,9 @@ export const getAmazonImageUrl = (str, isBig) => {
     return checkIsImageLink(str) ? str : str + amazonImageUrlPostfix
   } else if (str.includes('/uploads/')) {
     return `${BACKEND_API_URL}${str}${
-      !checkIsGif(str) && !checkIsImageInludesPostfixes(str) && !checkIsVideoLink(str) && !checkIsDocumentLink(str)
+      !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
+      !checkIsVideoLink(str) &&
+      !checkIsDocumentLink(str)
         ? checkIsImageLink(str) && !isBig
           ? amazonImageUrlPostfix
           : ''
