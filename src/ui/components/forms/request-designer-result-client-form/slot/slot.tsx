@@ -15,6 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Input } from '@components/shared/input'
 
 import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -91,7 +92,7 @@ export const Slot: FC<SlotInterface> = memo(props => {
               src={
                 typeof item.image === 'string'
                   ? checkIsImageLink(item.image)
-                    ? item.image
+                    ? getAmazonImageUrl(item.image, false)
                     : '/assets/icons/file.png'
                   : item.image?.file.type.includes('image')
                   ? item.image?.data_url
@@ -105,7 +106,7 @@ export const Slot: FC<SlotInterface> = memo(props => {
                 if (checkIsImageLink(item.image?.file?.name || item.image)) {
                   setShowImageModal(!showImageModal)
                 } else {
-                  window.open(item.image?.data_url || item.image, '__blank')
+                  window.open(item.image?.data_url || getAmazonImageUrl(item.image), '__blank')
                 }
               }}
             />

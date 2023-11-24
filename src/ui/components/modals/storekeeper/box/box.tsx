@@ -6,7 +6,7 @@ import React, { FC, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { Chip, IconButton, Link } from '@mui/material'
+import { Chip, IconButton } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,8 +18,8 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
@@ -263,28 +263,14 @@ export const Box: FC<BoxProps> = React.memo(props => {
               />
 
               {!isNewBox ? (
-                <Field
-                  disabled={!isNewBox}
-                  inputProps={{ maxLength: 255 }}
-                  containerClasses={styles.field}
-                  labelClasses={styles.label}
-                  className={styles.fieldInput}
-                  label={t(TranslationKey['Shipping label'])}
-                  value={box.shippingLabel}
-                  inputComponent={
-                    box.shippingLabel ? (
-                      <div className={styles.shippingLabelWrapper}>
-                        <Link href={box.shippingLabel} target="_blank">
-                          {t(TranslationKey.View)}
-                        </Link>
-                        <CopyValue text={box.shippingLabel} />
-                      </div>
-                    ) : (
-                      <div className={styles.shippingLabelWrapper}>
-                        <p className={styles.miss}>{t(TranslationKey['Not available'])}</p>
-                      </div>
-                    )
-                  }
+                <LabelWithCopy
+                  direction="column"
+                  labelTitleColor="gray"
+                  lableLinkTitleSize="medium"
+                  labelTitle={t(TranslationKey['Shipping label'])}
+                  labelValue={box.shippingLabel}
+                  lableLinkTitle={t(TranslationKey.View)}
+                  labelWrapperStyles={styles.labelWrapperStyles}
                 />
               ) : null}
 

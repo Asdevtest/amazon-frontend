@@ -1,12 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalWrapper: {
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '30px',
   },
 
   modalTitle: {
-    marginBottom: 30,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '25px',
@@ -34,7 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   saveBox: {
-    marginTop: 20,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

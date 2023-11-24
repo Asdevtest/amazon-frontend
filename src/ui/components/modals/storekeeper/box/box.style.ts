@@ -187,4 +187,8 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     padding: 8,
   },
+
+  labelWrapperStyles: {
+    gap: '19px',
+  },
 }))

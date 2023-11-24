@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Checkbox, Link, Typography } from '@mui/material'
@@ -15,7 +15,6 @@ import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -66,24 +65,6 @@ export const RequestDesignerResultClientForm = memo(props => {
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
-  const [filteredImages, setFilteredImages] = useState([])
-
-  useEffect(() => {
-    setFilteredImages(
-      imagesData
-        .filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
-        .map(el => {
-          const url = typeof el?.image === 'string' ? el?.image : el?.image?.data_url
-
-          return {
-            url,
-            title: el.comment,
-            comment: el.commentByClient,
-            _id: el._id,
-          }
-        }),
-    )
-  }, [imagesData])
 
   const onChangeImageFileds = (field, imageId) => event => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
@@ -225,10 +206,10 @@ export const RequestDesignerResultClientForm = memo(props => {
               multiline
               className={styles.heightFieldAuto}
               labelClasses={styles.fieldLabel}
-              containerClasses={styles.field}
+              containerClasses={styles.fieldRemarks}
               inputProps={{ maxLength: 1000 }}
-              minRows={4}
-              maxRows={4}
+              minRows={3}
+              maxRows={3}
               placeholder={t(TranslationKey['Enter remarks'])}
               label={t(TranslationKey.Remarks)}
               value={comment}
@@ -307,9 +288,9 @@ export const RequestDesignerResultClientForm = memo(props => {
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={filteredImages.map(el => el.url)}
-          photosTitles={filteredImages.map(el => el.title)}
-          photosComments={filteredImages.map(el => el.comment)}
+          imageList={imagesData.map(el => el.image)}
+          photosTitles={imagesData.map(el => el.comment)}
+          photosComments={imagesData.map(el => el.commentByClient)}
           currentImageIndex={curImageIndex}
           handleCurrentImageIndex={index => setCurImageIndex(index)}
         />

@@ -435,13 +435,15 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          <ImageModal
-            isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={currentBatch.attachedDocuments}
-            currentImageIndex={curImageIndex}
-            handleCurrentImageIndex={index => setCurImageIndex(index)}
-          />
+          {showPhotosModal && (
+            <ImageModal
+              isOpenModal={showPhotosModal}
+              handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+              imageList={currentBatch.attachedDocuments}
+              currentImageIndex={curImageIndex}
+              handleCurrentImageIndex={index => setCurImageIndex(index)}
+            />
+          )}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

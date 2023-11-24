@@ -34,7 +34,7 @@ class UserModelStatic {
   }
 
   async signOut() {
-    await restApiService.userApi.apiV1UsersLogoutPost()
+    await restApiService.userApi.apiV1UsersLogoutPost({ body: {} })
     this.accessToken = undefined
     this.refreshToken = undefined
     this.userInfo = undefined

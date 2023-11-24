@@ -28,14 +28,15 @@ import { t } from '@utils/translations'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './messages-view.style'
+import { useStyles } from './messages-view.style'
 
 import { MessagesViewModel } from './messages-view.model'
 
-export const MessagesView = observer(props => {
-  const { classes: classNames, cx } = useClassNames()
+export const MessagesView = observer(history => {
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
-  const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
+
+  const [viewModel] = useState(() => new MessagesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -74,27 +75,27 @@ export const MessagesView = observer(props => {
 
   return (
     viewModel.languageTag && (
-      <div className={classNames.wrapper}>
+      <div className={styles.wrapper}>
         <div
-          className={cx(classNames.leftSide, {
-            [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+          className={cx(styles.leftSide, {
+            [styles.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
           })}
         >
-          <div className={classNames.searchWrapper}>
+          <div className={styles.searchWrapper}>
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={viewModel.nameSearchValue}
               placeholder={t(TranslationKey['Search companion'])}
               onChange={viewModel.onChangeNameSearchValue}
             />
 
             {isMobileResolution && (
-              <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper}>
+              <div className={styles.rightSideHeader}>
+                <div className={styles.noticesWrapper}>
                   <p
-                    className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
-                      [classNames.mobileResolution]: isMobileResolution,
+                    className={cx(styles.noticesTextActive, {
+                      [styles.noticesTextNotActive]: viewModel.isMuteChats,
+                      [styles.mobileResolution]: isMobileResolution,
                     })}
                     onClick={viewModel.onToggleMuteAllChats}
                   >
@@ -110,7 +111,7 @@ export const MessagesView = observer(props => {
                 </div>
 
                 <Button
-                  className={classNames.newDialogBtn}
+                  className={styles.newDialogBtn}
                   disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
                   onClick={viewModel.onClickAddNewChatByEmail}
                 >
@@ -130,33 +131,31 @@ export const MessagesView = observer(props => {
           />
         </div>
 
-        <div className={cx(classNames.rightSide, { [classNames.mobileResolution]: !isChatSelectedAndFound })}>
-          <div className={classNames.header}>
+        <div className={cx(styles.rightSide, { [styles.mobileResolution]: !isChatSelectedAndFound })}>
+          <div className={styles.header}>
             {isChatSelectedAndFound && (
-              <div className={classNames.leftSideHeader}>
-                <div className={classNames.infoContainer}>
-                  <div className={classNames.arrowBackIconWrapper}>
-                    <ArrowBackIcon className={classNames.arrowBackIcon} onClick={viewModel.onClickBackButton} />
-                    {viewModel.unreadMessages > 0 && (
-                      <span className={classNames.badge}>{viewModel.unreadMessages}</span>
-                    )}
+              <div className={styles.leftSideHeader}>
+                <div className={styles.infoContainer}>
+                  <div className={styles.arrowBackIconWrapper}>
+                    <ArrowBackIcon className={styles.arrowBackIcon} onClick={viewModel.onClickBackButton} />
+                    {viewModel.unreadMessages > 0 && <span className={styles.badge}>{viewModel.unreadMessages}</span>}
                   </div>
 
                   {currentChat?.type === chatsType.DEFAULT ? (
                     <>
-                      <div className={classNames.rersonalWrapper}>
+                      <div className={styles.rersonalWrapper}>
                         <Link
                           target="_blank"
                           href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
                           underline="none"
                         >
-                          <div className={classNames.opponentWrapper}>
+                          <div className={styles.opponentWrapper}>
                             <Avatar
                               src={getUserAvatarSrc(currentOpponent?._id)}
-                              className={classNames.avatar}
+                              className={styles.avatar}
                               alt="avatar"
                             />
-                            <p className={classNames.opponentName}>{currentOpponent?.name}</p>
+                            <p className={styles.opponentName}>{currentOpponent?.name}</p>
                           </div>
                         </Link>
                       </div>
@@ -168,11 +167,11 @@ export const MessagesView = observer(props => {
                     </>
                   ) : (
                     <>
-                      <div className={classNames.opponentWrapper}>
-                        <Avatar src={currentChat?.info.image} className={classNames.avatar} />
+                      <div className={styles.opponentWrapper}>
+                        <Avatar src={currentChat?.info.image} className={styles.avatar} />
                         <div>
-                          <p className={classNames.opponentName}>{currentChat?.info.title}</p>
-                          <p className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
+                          <p className={styles.opponentName}>{currentChat?.info.title}</p>
+                          <p className={styles.usersCount}>{`${currentChat?.users.length} ${t(
                             TranslationKey.Members,
                           ).toLocaleLowerCase()}`}</p>
                         </div>
@@ -186,10 +185,10 @@ export const MessagesView = observer(props => {
                   )}
                 </div>
 
-                <div className={classNames.searchMessageContainer}>
+                <div className={styles.searchMessageContainer}>
                   <SearchInput
-                    inputClasses={cx(classNames.searchInput, {
-                      [classNames.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
+                    inputClasses={cx(styles.searchInput, {
+                      [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
                     value={viewModel.mesSearchValue}
@@ -204,18 +203,18 @@ export const MessagesView = observer(props => {
                       onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
                     />
                   ) : viewModel.mesSearchValue ? (
-                    <p className={classNames.searchResult}>{t(TranslationKey['Not found'])}</p>
+                    <p className={styles.searchResult}>{t(TranslationKey['Not found'])}</p>
                   ) : null}
                 </div>
               </div>
             )}
 
             {!isMobileResolution && !isChatSelectedAndFound && (
-              <div className={classNames.rightSideHeader}>
-                <div className={classNames.noticesWrapper}>
+              <div className={styles.rightSideHeader}>
+                <div className={styles.noticesWrapper}>
                   <p
-                    className={cx(classNames.noticesTextActive, {
-                      [classNames.noticesTextNotActive]: viewModel.isMuteChats,
+                    className={cx(styles.noticesTextActive, {
+                      [styles.noticesTextNotActive]: viewModel.isMuteChats,
                     })}
                     onClick={viewModel.onToggleMuteAllChats}
                   >
@@ -231,7 +230,7 @@ export const MessagesView = observer(props => {
                 </div>
 
                 <Button
-                  className={classNames.newDialogBtn}
+                  className={styles.newDialogBtn}
                   disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
                   onClick={viewModel.onClickAddNewChatByEmail}
                 >
@@ -260,10 +259,10 @@ export const MessagesView = observer(props => {
               onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
             />
           ) : !isMobileResolution ? (
-            <div className={classNames.noSelectedChatWrapper}>
-              <NoSelectedChat className={classNames.noSelectedChatIcon} />
-              <p className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
-              <p className={classNames.noChatSubTitle}>
+            <div className={styles.noSelectedChatWrapper}>
+              <NoSelectedChat className={styles.noSelectedChatIcon} />
+              <p className={styles.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
+              <p className={styles.noChatSubTitle}>
                 {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
               </p>
             </div>
@@ -311,9 +310,7 @@ export const MessagesView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
           title={viewModel.warningInfoModalSettings.title}
           btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            viewModel.onTriggerOpenModal('showWarningInfoModal')
-          }}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       </div>
     )

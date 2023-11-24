@@ -2,12 +2,13 @@ import { useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Link, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -105,28 +106,15 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               label={t(TranslationKey['FBA Shipment'])}
               value={box.fbaShipment}
             />
-            <Field
-              disabled
-              inputProps={{ maxLength: 255 }}
-              containerClasses={classNames.field}
-              labelClasses={classNames.label}
-              className={classNames.fieldInput}
-              label={t(TranslationKey['Shipping label'])}
-              value={box.shippingLabel}
-              inputComponent={
-                box.shippingLabel ? (
-                  <div className={classNames.shippingLabelWrapper}>
-                    <Link href={box.shippingLabel} target="_blank">
-                      {t(TranslationKey.View)}
-                    </Link>
-                    <CopyValue text={box.shippingLabel} />
-                  </div>
-                ) : (
-                  <div className={classNames.shippingLabelWrapper}>
-                    <Typography className={classNames.notAvailable}>{t(TranslationKey['Not available'])}</Typography>
-                  </div>
-                )
-              }
+
+            <LabelWithCopy
+              direction="column"
+              labelTitleColor="gray"
+              lableLinkTitleSize="medium"
+              labelTitle={t(TranslationKey['Shipping label'])}
+              labelValue={box.shippingLabel}
+              lableLinkTitle={t(TranslationKey.View)}
+              labelWrapperStyles={classNames.labelWrapperStyles}
             />
           </div>
         ) : null}

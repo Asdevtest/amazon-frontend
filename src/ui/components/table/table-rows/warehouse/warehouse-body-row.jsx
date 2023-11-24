@@ -185,13 +185,15 @@ const WarehouseBodyRowRaw = ({
         </React.Fragment>
       ))}
 
-      <ImageModal
-        isOpenModal={showPhotosModal}
-        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        imageList={curImages}
-        handleCurrentImageIndex={index => setCurImageIndex(index)}
-        currentImageIndex={curImageIndex}
-      />
+      {showPhotosModal && (
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={curImages}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
+          currentImageIndex={curImageIndex}
+        />
+      )}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react'
+import React from 'react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,17 +7,17 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { FireIcon } from '@components/shared/svg-icons'
 
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-info-tab.style'
+import { useStyles } from './order-info-tab.style'
 
-export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
-  const { classes: styles, cx } = useClassNames()
+export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.wrapper}>
@@ -36,7 +36,7 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
             <div key={index} className={styles.photosWrapper}>
               <p className={cx(styles.bigText, styles.blueColor)}>{index + 1}</p>
 
-              <PhotoAndFilesSlider withoutFiles customSlideHeight={80} files={item.product.images} />
+              <PhotoAndFilesSlider withoutFiles showPreviews customSlideHeight={80} files={item.product.images} />
             </div>
 
             <div className={styles.descriptionWrapper}>
@@ -82,16 +82,23 @@ export const OrderInfoTab = observer(({ formFields, onClickHsCode }) => {
 
               <div className={styles.barcodeWrapper}>
                 <div className={styles.barcode}>
-                  <p className={styles.text}>{t(TranslationKey.BarCode)}</p>
+                  {/* <p className={styles.text}>{t(TranslationKey.BarCode)}</p>
                   {item.barCode ? (
                     <LinkWithCopy
                       title={t(TranslationKey.View)}
-                      url={checkAndMakeAbsoluteUrl(item.barCode)}
-                      valueToCopy={item.barCode}
+                      url={checkAndMakeAbsoluteUrl(barCodeLink)}
+                      valueToCopy={barCodeLink}
                     />
                   ) : (
                     <p className={styles.text}>{t(TranslationKey['Not available'])}</p>
-                  )}
+                  )} */}
+
+                  <LabelWithCopy
+                    labelTitle={t(TranslationKey.BarCode)}
+                    labelValue={item.barCode}
+                    lableLinkTitle={t(TranslationKey.View)}
+                    // direction="column"
+                  />
                 </div>
 
                 <div className={styles.barcode}>
