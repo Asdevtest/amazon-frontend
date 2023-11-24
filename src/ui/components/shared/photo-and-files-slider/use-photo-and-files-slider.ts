@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { IUploadFile } from '@typings/upload-file'
@@ -43,14 +42,13 @@ export const usePhotoAndFilesSlider = (
       const currentFile = typeof el === 'string' ? el : el?.file?.name
       const isImage = checkIsImageLink(currentFile)
       const isDocument = checkIsDocumentLink(currentFile)
-      const currentPushPhoto = typeof el === 'string' ? getAmazonImageUrl(el, true) : el
 
       if (isImage) {
-        result.push(currentPushPhoto)
+        result.push(el)
       }
 
       if (!isImage && !isDocument) {
-        result.push(currentPushPhoto)
+        result.push(el)
       }
 
       return result
