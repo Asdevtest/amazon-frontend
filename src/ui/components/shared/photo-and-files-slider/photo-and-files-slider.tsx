@@ -17,7 +17,7 @@ import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 import { usePhotoAndFilesSlider } from './use-photo-and-files-slider'
 
 interface Props {
-  files: Array<string | IUploadFile> | undefined | null
+  files: Array<string | IUploadFile>
   column?: boolean
   withoutPhotos?: boolean
   withoutFiles?: boolean
