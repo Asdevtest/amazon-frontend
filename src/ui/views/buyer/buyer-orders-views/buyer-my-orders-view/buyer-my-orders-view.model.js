@@ -657,7 +657,7 @@ export class BuyerMyOrdersViewModel {
 
       this.clearImagesForLoad()
       runInAction(() => {
-        this.this.imagesForLoad = orderData.images
+        this.imagesForLoad = orderData.images
       })
       this.getBoxesOfOrder(orderId)
 
