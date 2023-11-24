@@ -2,6 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -35,7 +36,7 @@ export const LabelWithCopy: FC<LabelWithCopyProps> = memo(
   }) => {
     const { classes: styles, cx } = useStyles()
 
-    const validLink = getAmazonImageUrl(labelValue, true)
+    const validLink = checkIsHasHttp(labelValue) ? labelValue : getAmazonImageUrl(labelValue, true)
 
     return (
       <div
