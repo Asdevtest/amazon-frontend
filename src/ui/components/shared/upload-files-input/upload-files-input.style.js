@@ -268,4 +268,37 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '19px',
   },
+
+  preloaderContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 55,
+    position: 'relative',
+    cursor: 'pointer',
+    borderRadius: 7,
+  },
+
+  preloaderContainerTooltip: {
+    width: 300,
+  },
+
+  preloader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'rgb(0, 0, 0, 0.5)',
+    borderRadius: 7,
+  },
+
+  preloaderIcon: {
+    width: '18px !important',
+    height: '18px !important',
+    color: '#fff',
+  },
 }))

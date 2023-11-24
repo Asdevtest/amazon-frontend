@@ -118,9 +118,9 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
         <img
           src={
             'paymentMethod' in payment && payment?.paymentMethod?.iconImage
-              ? getAmazonImageUrl(payment?.paymentMethod?.iconImage)
+              ? getAmazonImageUrl(payment?.paymentMethod?.iconImage, false)
               : 'iconImage' in payment
-              ? getAmazonImageUrl(payment.iconImage)
+              ? getAmazonImageUrl(payment.iconImage, false)
               : ''
           }
           alt={

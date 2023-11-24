@@ -23,7 +23,7 @@ export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = React.memo(props 
       {paymentMethods.map(({ paymentMethod }) => (
         <div key={paymentMethod.title} className={styles.paymentMethod}>
           <img
-            src={getAmazonImageUrl(paymentMethod.iconImage)}
+            src={getAmazonImageUrl(paymentMethod.iconImage, false)}
             alt={paymentMethod.title}
             className={styles.paymentMethodIcon}
           />
