@@ -30,11 +30,7 @@ export const onPostImage = async imageData => {
     lastModified: imageData.file?.lastModified,
   })
 
-  console.log('fileWithoutSpaces', fileWithoutSpaces)
-
   formData.append('filename', fileWithoutSpaces)
-
-  console.log('formData', formData)
 
   try {
     const fileName = await OtherModel.postImage(formData)

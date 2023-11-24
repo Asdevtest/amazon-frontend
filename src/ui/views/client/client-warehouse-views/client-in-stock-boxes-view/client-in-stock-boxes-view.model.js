@@ -836,7 +836,6 @@ export class ClientInStockBoxesViewModel {
 
           resBoxes.push(boxToPush)
         }
-        console.log('resBoxes', resBoxes)
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
