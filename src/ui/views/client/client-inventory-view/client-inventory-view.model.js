@@ -1003,7 +1003,9 @@ export class ClientInventoryViewModel {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, {
+      barCode: this.uploadedFiles?.[0] || tmpBarCode?.[0],
+    })
 
     const noProductBaseUpdate = true
     this.getProductsMy(noProductBaseUpdate)
