@@ -1,14 +1,11 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 export class ClientMyOrdersViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 

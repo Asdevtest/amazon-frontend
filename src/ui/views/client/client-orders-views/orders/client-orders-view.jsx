@@ -22,19 +22,16 @@ import { useStyles } from './client-orders-view.style'
 
 import { ClientOrdersViewModel } from './client-orders-view.model'
 
-export const ClientOrdersView = observer(props => {
+export const ClientOrdersView = observer(history => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(
-    () =>
-      new ClientOrdersViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+
+  const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
+  console.log(viewModel.requestStatus)
 
   return (
     <React.Fragment>
@@ -110,7 +107,7 @@ export const ClientOrdersView = observer(props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
