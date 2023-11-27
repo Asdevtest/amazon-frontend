@@ -17,7 +17,7 @@ export const usePhotoAndFilesSlider = (
   const onOpenImageEditModal = () => setOpenImageEditModal(!openImageEditModal)
   const onOpenImageZoomModal = () => setOpenImageZoomModal(!openImageZoomModal)
 
-  const documents = (files || []).filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
+  const documents = files?.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
@@ -96,7 +96,7 @@ export const usePhotoAndFilesSlider = (
   }
 
   const onClickDownloadPhoto = (photo: string | IUploadFile) =>
-    typeof photo === 'string' ? downloadFileByLink(photo) : downloadFile(photo.file)
+    typeof photo === 'string' ? downloadFileByLink(photo) : downloadFile(photo?.file)
 
   return {
     openImageModal,

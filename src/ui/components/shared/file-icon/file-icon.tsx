@@ -1,29 +1,28 @@
-import { cx } from '@emotion/css'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { DefaultFileTypeIcon, DocFileTypeIcon, PdfFileTypeIcon, XlsxFileTypeIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './file-icon.style'
+import { useStyles } from './file-icon.style'
 
-interface Props {
+interface FileIconProps {
   fileExtension: string
   className?: string
 }
 
-export const FileIcon: FC<Props> = ({ fileExtension, className }) => {
-  const { classes: classNames } = useClassNames()
+export const FileIcon: FC<FileIconProps> = memo(({ fileExtension, className }) => {
+  const { classes: styles, cx } = useStyles()
 
   switch (fileExtension) {
     case 'doc':
     case 'docx':
-      return <DocFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
+      return <DocFileTypeIcon className={cx(styles.fileTypeIcon, className)} />
     case 'pdf':
     case 'com':
-      return <PdfFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
+      return <PdfFileTypeIcon className={cx(styles.fileTypeIcon, className)} />
     case 'xlsx':
     case 'xls':
-      return <XlsxFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
+      return <XlsxFileTypeIcon className={cx(styles.fileTypeIcon, className)} />
     default:
-      return <DefaultFileTypeIcon className={cx(classNames.fileTypeIcon, className)} />
+      return <DefaultFileTypeIcon className={cx(styles.fileTypeIcon, className)} />
   }
-}
+})
