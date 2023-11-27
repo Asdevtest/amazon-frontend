@@ -220,7 +220,7 @@ export class BuyerMyOrdersViewModel {
         'amazonTitle',
         'asin',
         'id',
-        'aitem',
+        'item',
         'skusByClient',
       ]),
     )
