@@ -1598,9 +1598,16 @@ export class ClientInStockBoxesViewModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
+      const currentColumn =
+        column === 'logicsTariffId' ? 'logicsTariff' : column === 'destinationId' ? 'destination' : column
+
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'boxes'),
-        column,
+        // Костылики, если ты это видишь, то Паша обещал решить эту проблему после релиза 27.11.2023
+        // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
+        // Удалить currentColumn и поставить на его место аргумент функции, column
+        // Костыли зло ┗( T﹏T )┛
+        getTableByColumn(currentColumn, 'boxes'),
+        currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''

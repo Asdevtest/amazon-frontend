@@ -32,7 +32,7 @@ export const getAmazonImageUrl = (str, isBig) => {
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
       !checkIsVideoLink(str) &&
       !checkIsDocumentLink(str)
-        ? checkIsImageLink(str) && !isBig
+        ? checkIsImageLink(str) && !isBig && !str.includes('.preview.webp')
           ? amazonImageUrlPostfix
           : ''
         : ''
