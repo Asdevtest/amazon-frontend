@@ -135,7 +135,7 @@ export class SourceFilesViewModel {
 
   onClickRemoveBtn(row) {
     this.confirmModalSettings = {
-      isWarning: true,
+      isWarning: false,
       title: t(TranslationKey.Attention),
       message: t(TranslationKey['Do you want to delete the source file?']),
       onClickSuccess: () => this.removeSourceData(row),
