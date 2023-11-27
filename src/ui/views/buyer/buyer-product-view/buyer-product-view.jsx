@@ -30,6 +30,7 @@ export const BuyerProductView = observer(({ history }) => {
           showTab={viewModel.showTab}
           user={viewModel.userInfo}
           userRole={viewModel.userInfo.role}
+          imagesForLoad={viewModel.imagesForLoad}
           product={viewModel.currentData}
           productBase={viewModel.productBase}
           productVariations={viewModel.productVariations}

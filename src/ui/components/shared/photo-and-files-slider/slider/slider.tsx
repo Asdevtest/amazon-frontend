@@ -65,7 +65,7 @@ export const Slider: FC<Props> = memo(
       setCurrentIndex(updateIndex)
     }
 
-    const currentSlideTitle = `${currentIndex + 1}/${slides?.length}`
+    const quantitySlides = `${currentIndex + 1}/${slides?.length}`
     const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
     const isDisableArrowRight = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === slides?.length - 1
     const isDisableArrowLeft = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
@@ -123,13 +123,13 @@ export const Slider: FC<Props> = memo(
 
             {!isHideCounter && (
               <div
-                className={cx(classNames.currentSlideTitle, {
+                className={cx(classNames.quantitySlides, {
                   [classNames.smallText]: smallSlider,
                   [classNames.mediumText]: mediumSlider,
                   [classNames.bigText]: bigSlider,
                 })}
               >
-                {currentSlideTitle}
+                {quantitySlides}
               </div>
             )}
           </div>
