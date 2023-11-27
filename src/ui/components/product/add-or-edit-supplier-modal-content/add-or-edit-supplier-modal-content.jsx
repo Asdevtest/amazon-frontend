@@ -906,13 +906,15 @@ export const AddOrEditSupplierModalContent = observer(
           <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
         )}
 
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={tmpSupplier.images}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={tmpSupplier.images}
+            currentImageIndex={curImageIndex}
+            handleCurrentImageIndex={index => setCurImageIndex(index)}
+          />
+        )}
 
         <Modal
           openModal={showSupplierApproximateCalculationsModal}

@@ -6,6 +6,7 @@ import { FileIcon } from '@components/shared//file-icon/file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
 
 import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
@@ -22,7 +23,7 @@ interface Props {
   controls?: boolean
   isPlaying?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
-  onPhotosModalToggle?: VoidFunction
+  onPhotosModalToggle?: () => void
 }
 
 export const Slides: FC<Props> = memo(
@@ -60,15 +61,15 @@ export const Slides: FC<Props> = memo(
             transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {slides.map((slide, index) => {
+          {slides?.map((slide, index) => {
             const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
-            const currentSlide = typeof slide === 'string' ? slide : slide?.data_url
+            const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
             const isActiveSlide = currentIndex === index
 
             return (
               <div key={index} className={classNames.slideWrapper}>
-                {isImageType(slide) ? (
-                  isVideoType(slide) ? (
+                {isImageType(currentSlide) ? (
+                  isVideoType(currentSlide) ? (
                     controls ? (
                       <VideoPlayer
                         videoSource={currentSlide}
@@ -94,12 +95,16 @@ export const Slides: FC<Props> = memo(
                   )
                 ) : (
                   <div className={classNames.documentWrapper}>
-                    <a href={typeof slide === 'string' ? slide : '/'} target="_blank" rel="noreferrer">
+                    <a
+                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <FileIcon fileExtension={elementExtension} className={classNames.slide} />
                     </a>
 
                     <a
-                      href={typeof slide === 'string' ? slide : '/'}
+                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
                       target="_blank"
                       rel="noreferrer"
                       className={cx(classNames.linkDocument, classNames.text, {

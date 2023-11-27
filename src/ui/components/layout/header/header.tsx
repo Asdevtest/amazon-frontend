@@ -38,7 +38,7 @@ import { HeaderModel } from './header.model'
 
 interface Props {
   title: string
-  onToggleModal: VoidFunction
+  onToggleModal: () => void
 }
 
 export const Header: FC<Props> = observer(({ title, onToggleModal }) => {

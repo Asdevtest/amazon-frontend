@@ -14,9 +14,9 @@ import { checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from './image-modal.styles'
+import { useStyles } from '../image-modal.styles'
 
-interface Props {
+interface ButtonControlsProps {
   image: string | IUploadFile
   imageIndex: number
   withoutMakeMainImage?: boolean
@@ -24,12 +24,12 @@ interface Props {
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => void
   onClickMakeMainImageObj: (image: string | IUploadFile, imageIndex: number) => void
   onClickDownloadPhoto: (image: string | IUploadFile) => void
-  onOpenImageZoomModal: VoidFunction
+  onOpenImageZoomModal: () => void
   isEditable?: boolean
-  onImageEditToggle?: VoidFunction
+  onImageEditToggle?: () => void
 }
 
-export const ButtonControls: FC<Props> = observer(
+export const ButtonControls: FC<ButtonControlsProps> = observer(
   ({
     image,
     imageIndex,
@@ -42,12 +42,12 @@ export const ButtonControls: FC<Props> = observer(
     onClickDownloadPhoto,
     onOpenImageZoomModal,
   }) => {
-    const { classes: classNames, cx } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const isVideoType = checkIsVideoLink(typeof image === 'string' ? image : image?.file?.name)
 
     return (
-      <>
+      <div className={styles.controls}>
         <Button onClick={() => onClickDownloadPhoto(image)}>
           <DownloadOutlinedIcon />
         </Button>
@@ -61,13 +61,13 @@ export const ButtonControls: FC<Props> = observer(
         {isEditable && !withoutMakeMainImage && (
           <>
             {imageIndex === 0 ? (
-              <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+              <div className={cx(styles.imagesModalBtn, styles.activeMainIcon)}>
                 <StarOutlinedIcon />
               </div>
             ) : (
               <Button
                 disabled={imageIndex === 0}
-                className={classNames.imagesModalBtn}
+                className={styles.imagesModalBtn}
                 onClick={() => onClickMakeMainImageObj(image, imageIndex)}
               >
                 <StarOutlinedIcon />
@@ -78,7 +78,7 @@ export const ButtonControls: FC<Props> = observer(
 
         {isEditable && !isVideoType && (
           <Button
-            className={classNames.imagesModalBtn}
+            className={styles.imagesModalBtn}
             onClick={() => (onImageEditToggle ? onImageEditToggle() : undefined)}
           >
             <ModeOutlinedIcon />
@@ -86,12 +86,12 @@ export const ButtonControls: FC<Props> = observer(
         )}
 
         {isEditable && (
-          <Button className={classNames.imagesModalBtn}>
+          <Button className={styles.imagesModalBtn}>
             <AutorenewIcon />
 
             <input
               type="file"
-              className={classNames.pasteInput}
+              className={styles.pasteInput}
               defaultValue={''}
               onChange={event => onUploadFile(event, imageIndex)}
             />
@@ -99,11 +99,11 @@ export const ButtonControls: FC<Props> = observer(
         )}
 
         {isEditable && (
-          <Button danger className={classNames.imagesModalBtn} onClick={() => onClickRemoveImageObj(imageIndex)}>
+          <Button danger className={styles.imagesModalBtn} onClick={() => onClickRemoveImageObj(imageIndex)}>
             <DeleteOutlineOutlinedIcon />
           </Button>
         )}
-      </>
+      </div>
     )
   },
 )

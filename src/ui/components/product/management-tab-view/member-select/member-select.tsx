@@ -17,7 +17,7 @@ interface Props {
   value: string
   options: MemberOptionType[]
   onChange: (event: SelectChangeEvent<string>) => void
-  onSave: VoidFunction
+  onSave: () => void
   title?: string
   disabled?: boolean
   isDisabled?: boolean

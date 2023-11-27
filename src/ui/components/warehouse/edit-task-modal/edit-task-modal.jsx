@@ -1,6 +1,4 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
@@ -12,6 +10,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
+import { BoxEdit } from '@components/shared/boxes/box-edit'
+import { BoxMerge } from '@components/shared/boxes/box-merge'
+import { BoxSplit } from '@components/shared/boxes/box-split'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
@@ -22,12 +23,14 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-task-modal.style'
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
+import { useStyles } from './edit-task-modal.style'
 
 import { BeforeAfterBlock } from '../before-after-block'
 import { ReceiveBoxModal } from '../receive-box-modal'
 
-export const EditTaskModal = observer(
+export const EditTaskModal = memo(
   ({
     volumeWeightCoefficient,
     requestStatus,
@@ -42,20 +45,12 @@ export const EditTaskModal = observer(
     onTriggerShowEditBoxModal,
     readOnly,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
+    const { isMobileResolution, isPcSmallResolution } = useCreateBreakpointResolutions()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
-
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
-    const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
-
-    useEffect(() => {
-      const resizeScreen = () => {
-        setCurrentScreenWidth(window.innerWidth)
-      }
-      window.addEventListener('resize', resizeScreen)
-    }, [window.innerWidth])
 
     const renderModalTitle = status => {
       switch (status) {
@@ -83,14 +78,14 @@ export const EditTaskModal = observer(
       }
     }
 
-    const renderTypeTaskImages = type => {
+    const renderTypeTaskBoxes = type => {
       switch (type) {
         case TaskOperationType.EDIT:
-          return '/assets/img/edit.png'
+          return <BoxEdit />
         case TaskOperationType.SPLIT:
-          return '/assets/img/split.png'
+          return <BoxSplit />
         case TaskOperationType.MERGE:
-          return '/assets/img/merge.png'
+          return <BoxMerge />
       }
     }
 
@@ -113,6 +108,16 @@ export const EditTaskModal = observer(
       ),
     ])
 
+    const [isFilledNewBoxesDimensions, setIsFilledNewBoxesDimensions] = useState(false)
+
+    useEffect(() => {
+      setIsFilledNewBoxesDimensions(
+        newBoxes.every(
+          box => box.widthCmWarehouse || box.weighGrossKgWarehouse || box.lengthCmWarehouse || box.heightCmWarehouse,
+        ),
+      )
+    }, [newBoxes])
+
     const onClickApplyAllBtn = box => {
       const arr = newBoxes.map(el => ({
         ...el,
@@ -133,47 +138,47 @@ export const EditTaskModal = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.modalHeader}>
-          <Typography className={classNames.modalTitle}>{renderModalTitle(task.status)}</Typography>
+      <div className={styles.root}>
+        <div className={styles.modalHeader}>
+          <Typography className={styles.modalTitle}>{renderModalTitle(task.status)}</Typography>
 
-          <div className={classNames.modalSubHeader}>
-            <div className={classNames.typeTaskWrapper}>
+          <div className={styles.modalSubHeader}>
+            <div className={styles.typeTaskWrapper}>
               {task.operationType === TaskOperationType.RECEIVE ? (
-                <div className={classNames.boxSvgContainer}>
-                  <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-                  <BoxArrow className={classNames.boxArrowSvg} />
+                <div className={styles.boxSvgContainer}>
+                  <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
+                  <BoxArrow className={styles.boxArrowSvg} />
                 </div>
               ) : (
-                <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+                renderTypeTaskBoxes(task.operationType)
               )}
 
-              <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+              <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
+              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
             )}
           </div>
         </div>
-        <div className={classNames.form}>
-          <Typography paragraph className={classNames.subTitle}>
+        <div className={styles.form}>
+          <Typography paragraph className={styles.subTitle}>
             {t(TranslationKey['Receipt data'])}
           </Typography>
 
-          <div className={classNames.commentsAndFilesWrapper}>
-            <div className={classNames.commentsWrapper}>
+          <div className={styles.commentsAndFilesWrapper}>
+            <div className={styles.commentsWrapper}>
               <div>
                 <Field
                   multiline
                   disabled
-                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 1282 ? 2 : 4}
-                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
+                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
                   placeholder={t(TranslationKey['Client comment on the task'])}
                   value={task.clientComment || ''}
@@ -181,9 +186,9 @@ export const EditTaskModal = observer(
                 <Field
                   multiline
                   disabled
-                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 1282 ? 2 : 4}
-                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
+                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
                   placeholder={t(TranslationKey['Buyer comments to the task'])}
                   value={task.buyerComment || ''}
@@ -191,10 +196,10 @@ export const EditTaskModal = observer(
               </div>
               <Field
                 multiline
-                className={cx(classNames.heightFieldAuto, classNames.storekeeperCommentField)}
+                className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
                 disabled={readOnly}
-                minRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
-                maxRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
+                minRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
+                maxRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
                 inputProps={{ maxLength: 2000 }}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
@@ -203,7 +208,7 @@ export const EditTaskModal = observer(
               />
             </div>
             {!readOnly ? (
-              <div className={classNames.imageFileInputWrapper}>
+              <div className={styles.imageFileInputWrapper}>
                 <UploadFilesInput
                   fullWidth
                   dragAndDropBtnHeight={74}
@@ -213,13 +218,13 @@ export const EditTaskModal = observer(
                 />
               </div>
             ) : (
-              <div className={classNames.imageAndFileInputWrapper}>
+              <div className={styles.imageAndFileInputWrapper}>
                 <PhotoAndFilesSlider customSlideHeight={140} files={task.images} />
               </div>
             )}
           </div>
 
-          <Divider orientation="horizontal" className={classNames.horizontalDivider} />
+          <Divider orientation="horizontal" className={styles.horizontalDivider} />
 
           <BeforeAfterBlock
             readOnly={readOnly}
@@ -236,12 +241,12 @@ export const EditTaskModal = observer(
             onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
-        <div className={classNames.buttonsMainWrapper}>
+        <div className={styles.buttonsMainWrapper}>
           {!readOnly ? (
-            <div className={classNames.buttonsWrapperMobile}>
+            <div className={styles.buttonsWrapperMobile}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
-                  className={classNames.buttonMobile}
+                  className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                   onClick={() => {
                     setReceiveBoxModal(!receiveBoxModal)
@@ -254,11 +259,11 @@ export const EditTaskModal = observer(
           ) : null}
 
           {!readOnly ? (
-            <div className={classNames.buttonsWrapper}>
+            <div className={styles.buttonsWrapper}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-                <div className={classNames.hideButton}>
+                <div className={styles.hideButton}>
                   <Button
-                    className={classNames.button}
+                    className={styles.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                     onClick={() => {
                       setReceiveBoxModal(!receiveBoxModal)
@@ -269,11 +274,13 @@ export const EditTaskModal = observer(
                 </div>
               )}
 
-              <div className={classNames.buttons}>
+              <div className={styles.buttons}>
                 <Button
                   success
-                  className={classNames.successBtn}
-                  disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
+                  className={styles.successBtn}
+                  disabled={
+                    newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading || !isFilledNewBoxesDimensions
+                  }
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
                     onClickSolveTask({
@@ -287,14 +294,14 @@ export const EditTaskModal = observer(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button variant="text" className={classNames.cancelButton} onClick={onClickOpenCloseModal}>
+                <Button variant="text" className={styles.cancelButton} onClick={onClickOpenCloseModal}>
                   {t(TranslationKey.Cancel)}
                 </Button>
               </div>
             </div>
           ) : (
-            <div className={classNames.buttonWrapper}>
-              <Button className={classNames.closeButton} color="primary" onClick={onClickOpenCloseModal}>
+            <div className={styles.buttonWrapper}>
+              <Button className={styles.closeButton} color="primary" onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

@@ -122,14 +122,14 @@ export const TopCard = observer(
                 </p>
               </div>
               <div className={classNames.card}>
-                {product.images && product.images.length ? (
+                {product.images.length ? (
                   <div className={classNames.carouselWrapper}>
                     <PhotoAndFilesSlider
                       showPreviews
                       withoutFiles
                       bigSlider
                       isEditable={clientToEdit}
-                      files={imagesForLoad || product?.images}
+                      files={imagesForLoad}
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
@@ -143,7 +143,7 @@ export const TopCard = observer(
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
-                          images={imagesForLoad || product?.images}
+                          images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
                         />

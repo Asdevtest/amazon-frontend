@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
-  title: {
-    fontWeight: 600,
-  },
-
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 1230,
     padding: 10,
@@ -19,7 +15,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     gap: '20px',
     position: 'sticky',
     top: 0,
-    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -38,19 +33,20 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     },
   },
 
+  flexContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   headerText: {
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.text.second,
+  },
 
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-
-    span: {
-      // color: theme.palette.text.general,
-      fontWeight: 600,
-    },
+  textBold: {
+    fontWeight: 600,
   },
 
   content: {
@@ -138,7 +134,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     color: '#001029',
     '&:hover': {
       opacity: '0.8',
-      background: '#F3AF00',
     },
   },
 }))

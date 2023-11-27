@@ -705,13 +705,15 @@ export const EditBoxForm = observer(
           </Button>
         </div>
 
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={bigImagesOptions.images}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={bigImagesOptions.images}
+            currentImageIndex={bigImagesOptions.imgIndex}
+            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        )}
 
         <Modal
           openModal={showSetShippingLabelModal}

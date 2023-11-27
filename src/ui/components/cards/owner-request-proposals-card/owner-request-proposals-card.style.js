@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    boxShadow: theme.palette.boxShadow.paper,
     padding: '30px 40px',
   },
 
@@ -61,14 +61,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#F44336',
-    },
-  },
-
-  successBtn: {
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
     },
   },
 
@@ -197,7 +189,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   standartText: {

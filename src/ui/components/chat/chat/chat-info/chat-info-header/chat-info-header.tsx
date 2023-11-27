@@ -9,13 +9,14 @@ import { useChatInfoHeaderStyles } from '@components/chat/chat/chat-info/chat-in
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { Pencil } from '@components/shared/svg-icons'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 interface Props {
   chat: ChatContract
   userId: string
-  onClickEditGroupChatInfo: VoidFunction
+  onClickEditGroupChatInfo: () => void
   isGroupChat?: boolean
   currentOpponent?: CurrentOpponent
 }
@@ -27,7 +28,7 @@ export const ChatInfoHeader: FC<Props> = observer(props => {
   const chatAvatar =
     !isGroupChat && currentOpponent
       ? getUserAvatarSrc(currentOpponent?._id)
-      : chat?.info?.image || '/assets/img/no-photo.jpg'
+      : getAmazonImageUrl(chat?.info?.image) || '/assets/img/no-photo.jpg'
 
   return (
     <div className={styles.chatHeader}>

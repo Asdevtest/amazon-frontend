@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
@@ -6,13 +5,14 @@ import { Checkbox, Typography } from '@mui/material'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useFreelanceRequestDetailsModalStyles } from '@components/modals/freelance-request-details-modal/freelance-request-details-modal.styles'
-import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
+import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
 import { t } from '@utils/translations'
+
+import { useStyles } from './freelance-request-details-modal.styles'
 
 export const FreelanceRequestDetailsModalControls = props => {
   const {
@@ -27,7 +27,7 @@ export const FreelanceRequestDetailsModalControls = props => {
     onRecoverRequest,
     onClickAbortBtn,
   } = props
-  const { classes: styles } = useFreelanceRequestDetailsModalStyles()
+  const { classes: styles, cx } = useStyles()
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
   return (

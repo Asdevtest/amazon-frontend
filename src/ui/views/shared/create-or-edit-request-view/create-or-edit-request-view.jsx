@@ -59,19 +59,21 @@ export const CreateOrEditRequestView = observer(props => {
         />
       </div>
 
-      <ImageModal
-        showPreviews
-        imageList={viewModel.bigImagesOptions.images}
-        handleCurrentImageIndex={index =>
-          viewModel.setBigImagesOptions({
-            ...viewModel.bigImagesOptions,
-            imgIndex: index,
-          })
-        }
-        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
-        isOpenModal={viewModel.showImageModal}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-      />
+      {viewModel.showImageModal && (
+        <ImageModal
+          showPreviews
+          imageList={viewModel.bigImagesOptions.images}
+          handleCurrentImageIndex={index =>
+            viewModel.setBigImagesOptions({
+              ...viewModel.bigImagesOptions,
+              imgIndex: index,
+            })
+          }
+          currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+          isOpenModal={viewModel.showImageModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        />
+      )}
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}

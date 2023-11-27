@@ -10,6 +10,7 @@ import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { Payment, Payments } from '@typings/payments'
@@ -117,9 +118,9 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
         <img
           src={
             'paymentMethod' in payment && payment?.paymentMethod?.iconImage
-              ? payment?.paymentMethod?.iconImage
+              ? getAmazonImageUrl(payment?.paymentMethod?.iconImage, false)
               : 'iconImage' in payment
-              ? payment.iconImage
+              ? getAmazonImageUrl(payment.iconImage, false)
               : ''
           }
           alt={

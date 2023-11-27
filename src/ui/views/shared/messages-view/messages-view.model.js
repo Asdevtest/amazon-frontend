@@ -14,8 +14,6 @@ import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 export class MessagesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   showConfirmModal = false
   showAddNewChatByEmailModal = false
@@ -73,33 +71,25 @@ export class MessagesViewModel {
     return ChatModel.unreadMessages
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state?.anotherUserId || location.state?.chatId) {
-        ChatModel.onChangeChatSelectedId(
-          location.state?.chatId ||
-            this.simpleChats
-              .filter(el => el.type === chatsType.DEFAULT)
-              .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id,
-        )
+    if (history.location.state?.anotherUserId || history.location.state?.chatId) {
+      ChatModel.onChangeChatSelectedId(
+        history.location.state?.chatId ||
+          this.simpleChats
+            .filter(el => el.type === chatsType.DEFAULT)
+            .find(el => el.users.map(e => e._id).includes(history.location.state.anotherUserId))?._id,
+      )
 
-        // this.chatSelectedId =
-        //   location.state?.chatId ||
-        //   this.simpleChats
-        //     .filter(el => el.type === chatsType.DEFAULT)
-        //     .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
+      if (!this.chatSelectedId) {
+        this.showProgress = true
 
-        if (!this.chatSelectedId) {
-          this.showProgress = true
-
-          setTimeout(() => {
-            this.showProgress = false
-          }, 5000)
-        }
+        setTimeout(() => {
+          this.showProgress = false
+        }, 5000)
       }
-    })
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -107,43 +97,35 @@ export class MessagesViewModel {
       () => this.simpleChats,
       () => {
         if (
-          location.state?.anotherUserId &&
-          this.simpleChats.some(el => el.users.map(e => e._id).includes(location.state?.anotherUserId))
+          history.location.state?.anotherUserId &&
+          this.simpleChats.some(el => el.users.map(e => e._id).includes(history.location.state?.anotherUserId))
         ) {
-          runInAction(() => {
-            this.showProgress = false
-          })
+          this.showProgress = false
         }
       },
     )
 
     reaction(
       () => this.chatSelectedId,
-      () => {
-        runInAction(() => {
-          this.mesSearchValue = ''
-        })
-      },
+      () => (this.mesSearchValue = ''),
     )
 
     reaction(
       () => this.mesSearchValue,
       () => {
-        runInAction(() => {
-          if (this.mesSearchValue && this.chatSelectedId) {
-            const mesAr = this.simpleChats
-              .find(el => el._id === this.chatSelectedId)
-              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+        if (this.mesSearchValue && this.chatSelectedId) {
+          const mesAr = this.simpleChats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
 
-            this.messagesFound = mesAr
+          this.messagesFound = mesAr
 
-            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-          } else {
-            this.curFoundedMessage = undefined
+          setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+        } else {
+          this.curFoundedMessage = undefined
 
-            this.messagesFound = []
-          }
-        })
+          this.messagesFound = []
+        }
       },
     )
 
@@ -162,9 +144,7 @@ export class MessagesViewModel {
   }
 
   onChangeCurFoundedMessage(index) {
-    runInAction(() => {
-      this.curFoundedMessage = this.messagesFound[index]
-    })
+    this.curFoundedMessage = this.messagesFound[index]
   }
 
   async loadData() {
@@ -198,9 +178,7 @@ export class MessagesViewModel {
         this.simpleChats.find(el => el._id === this.chatSelectedId)?.users.map(el => el._id) || []
 
       runInAction(() => {
-        this.usersData = res
-          .filter(el => el._id !== this.user._id)
-          .filter(el => !currentUsersIdsInCurrentChat.includes(el._id))
+        this.usersData = res.filter(el => !currentUsersIdsInCurrentChat.includes(el._id) && el._id !== this.user._id)
       })
 
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
@@ -304,25 +282,19 @@ export class MessagesViewModel {
   }
 
   onClickChat(chat) {
-    runInAction(() => {
-      if (this.chatSelectedId === chat._id) {
-        ChatModel.onChangeChatSelectedId(undefined)
-      } else {
-        ChatModel.onChangeChatSelectedId(chat._id)
-      }
-    })
+    if (this.chatSelectedId === chat._id) {
+      ChatModel.onChangeChatSelectedId(undefined)
+    } else {
+      ChatModel.onChangeChatSelectedId(chat._id)
+    }
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onChangeMesSearchValue(e) {
-    runInAction(() => {
-      this.mesSearchValue = e.target.value
-    })
+    this.mesSearchValue = e.target.value
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
@@ -343,35 +315,17 @@ export class MessagesViewModel {
     }
   }
 
-  // onChangeChatSelectedId(value) {
-  //   runInAction(() => {
-  //     this.chatSelectedId = value
-  //   })
-  // }
-
   onClickBackButton() {
-    runInAction(() => {
-      // this.chatSelectedId = undefined
+    // this.chatSelectedId = undefined
 
-      ChatModel.onChangeChatSelectedId(undefined)
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    ChatModel.onChangeChatSelectedId(undefined)
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 }

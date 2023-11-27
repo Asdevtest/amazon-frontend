@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Text } from '@components/shared/text'
 
+import { checkIsHasHttp } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useDataGridCellStyles } from './download-and-copy-btns-cell.style'
@@ -19,6 +21,8 @@ interface DownloadAndCopyBtnsCellProps {
 export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(({ value, isFirstRow }) => {
   const { classes: styles, cx } = useDataGridCellStyles()
 
+  const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
+
   return (
     <>
       {value ? (
@@ -29,9 +33,9 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
                 download
                 target={'_blank'}
                 rel={'noreferrer'}
-                href={value}
+                href={validLink}
                 className={styles.downloadLink}
-                onClick={(e: any) => e.stopPropagation()}
+                onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
               >
                 {t(TranslationKey.View)}
               </a>
@@ -42,7 +46,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
             tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
             className={styles.copyImgButton}
           >
-            <CopyValue text={value} />
+            <CopyValue text={validLink} />
           </Button>
         </div>
       ) : (

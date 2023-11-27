@@ -71,7 +71,7 @@ export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
-            files={message?.data.details?.linksToMediaFiles}
+            files={message?.data.details?.linksToMediaFiles || []}
           />
         </div>
       </div>

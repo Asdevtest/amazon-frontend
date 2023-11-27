@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
@@ -28,4 +30,4 @@ export const styles = theme => ({
     width: '100%',
     whiteSpace: 'nowrap',
   },
-})
+}))

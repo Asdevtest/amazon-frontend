@@ -5,6 +5,7 @@ import 'react-18-image-lightbox/style.css'
 import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
 
 import { checkIsVideoLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
@@ -24,7 +25,7 @@ export const ZoomModal: FC<Props> = memo(
 
     const currentImages =
       images
-        .map(image => (typeof image === 'string' ? image : image?.data_url))
+        .map(image => (typeof image === 'string' ? getAmazonImageUrl(image, true) : image?.data_url))
         .filter(item => !checkIsVideoLink(item)) || []
     const nextImageIndex = (currentImageIndex + 1) % currentImages?.length
     const prevImageIndex = (currentImageIndex + currentImages?.length - 1) % currentImages?.length

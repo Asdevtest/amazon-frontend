@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-select-payment-details.style'
@@ -63,7 +64,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
   const [isEmpty, setIsEmpty] = useState(true)
 
   const initValue = currentPaymentMethods.map(item => ({
-    iconImage: item?.iconImage,
+    iconImage: getAmazonImageUrl(item?.iconImage),
     title: item?.title,
     _id: item?._id,
   }))
@@ -168,7 +169,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                   <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <img
-                      src={paymentMethod.iconImage}
+                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
                       alt={paymentMethod.title}
                       className={classNames.paymentMethodIcon}
                     />
@@ -186,7 +187,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
                     <img
-                      src={paymentMethod.iconImage}
+                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
                       alt={paymentMethod.title}
                       className={classNames.paymentMethodIcon}
                     />

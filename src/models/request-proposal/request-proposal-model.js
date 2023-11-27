@@ -1,5 +1,3 @@
-import { BACKEND_API_URL } from '@constants/keys/env'
-
 import { OtherModel } from '@models/other-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
@@ -19,7 +17,7 @@ class RequestProposalModelStatic {
 
     try {
       const fileName = await OtherModel.postImage(formData)
-      return BACKEND_API_URL + '/uploads/' + fileName
+      return '/uploads/' + fileName
     } catch (error) {
       console.log('error', error)
     }

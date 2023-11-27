@@ -13,13 +13,8 @@ import { t } from '@utils/translations'
 
 import { SupervisorProductViewModel } from './supervisor-product-view.model'
 
-export const SupervisorProductView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new SupervisorProductViewModel({
-        history: props.history,
-      }),
-  )
+export const SupervisorProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new SupervisorProductViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -27,30 +22,28 @@ export const SupervisorProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <div>
-        {viewModel.product ? (
-          <ProductWrapper
-            imagesForLoad={viewModel.imagesForLoad}
-            platformSettings={viewModel.platformSettings}
-            user={viewModel.userInfo}
-            userRole={viewModel.userInfo.role}
-            product={viewModel.getCurrentData()}
-            productBase={viewModel.productBase}
-            productVariations={viewModel.productVariations}
-            navigateToProduct={viewModel.navigateToProduct}
-            selectedSupplier={viewModel.selectedSupplier}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            actionStatus={viewModel.actionStatus}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onChangeField={viewModel.onChangeProductFields}
-            onClickParseProductData={viewModel.onClickParseProductData}
-            onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
-          />
-        ) : undefined}
-      </div>
+      {viewModel.product ? (
+        <ProductWrapper
+          imagesForLoad={viewModel.imagesForLoad}
+          platformSettings={viewModel.platformSettings}
+          user={viewModel.userInfo}
+          userRole={viewModel.userInfo.role}
+          product={viewModel.currentData}
+          productBase={viewModel.productBase}
+          productVariations={viewModel.productVariations}
+          navigateToProduct={viewModel.navigateToProduct}
+          selectedSupplier={viewModel.selectedSupplier}
+          formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+          handleSupplierButtons={viewModel.onClickSupplierButtons}
+          actionStatus={viewModel.requestStatus}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
+          onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
+          onClickSupplier={viewModel.onChangeSelectedSupplier}
+          onChangeField={viewModel.onChangeProductFields}
+          onClickParseProductData={viewModel.onClickParseProductData}
+          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
@@ -79,19 +72,6 @@ export const SupervisorProductView = observer(props => {
           viewModel.onTriggerOpenModal('showWarningModal')
         }}
       />
-      {/* <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.onSaveProductData()
-          viewModel.onTriggerOpenModal('showConfirmModal')
-        }}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      /> */}
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}
