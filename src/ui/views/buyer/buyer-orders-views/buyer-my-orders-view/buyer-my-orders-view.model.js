@@ -436,7 +436,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
-          isWarning: true,
+          isWarning: false,
           confirmMessage: t(
             TranslationKey[
               'The price per unit in the order is different from the supplier price, do you want to continue?'

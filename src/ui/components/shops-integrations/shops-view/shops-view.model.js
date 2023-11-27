@@ -256,7 +256,7 @@ export class ShopsViewModel {
 
   onSubmitShopForm(data, shopId) {
     this.confirmModalSettings = {
-      isWarning: true,
+      isWarning: false,
       title: t(TranslationKey.Attention),
       message: t(TranslationKey['Are you sure?']),
       onSubmit: () => {
@@ -317,7 +317,7 @@ export class ShopsViewModel {
   onClickRemoveBtn(row) {
     this.selectedShop = row
     this.confirmModalSettings = {
-      isWarning: true,
+      isWarning: false,
       title: t(TranslationKey.Attention),
       message: t(TranslationKey['Are you sure you want to delete the store?']),
       onSubmit: () => this.onSubmitRemoveShop(),

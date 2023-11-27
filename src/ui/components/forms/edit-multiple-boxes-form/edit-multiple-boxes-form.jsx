@@ -115,7 +115,7 @@ export const EditMultipleBoxesForm = observer(
     ) => {
       if (isSelectedDestinationNotValid) {
         setConfirmModalSettings({
-          isWarning: true,
+          isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to change a destination?']),
 

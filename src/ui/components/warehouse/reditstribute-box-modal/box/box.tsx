@@ -103,7 +103,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
 

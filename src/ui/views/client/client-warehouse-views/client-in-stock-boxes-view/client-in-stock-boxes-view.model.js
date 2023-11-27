@@ -1156,7 +1156,7 @@ export class ClientInStockBoxesViewModel {
       if (isSelectedDestinationNotValid) {
         runInAction(() => {
           this.confirmModalSettings = {
-            isWarning: true,
+            isWarning: false,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
             onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
@@ -1168,7 +1168,7 @@ export class ClientInStockBoxesViewModel {
         if (!isSetCurrentDestination) {
           runInAction(() => {
             this.confirmModalSettings = {
-              isWarning: true,
+              isWarning: false,
               title: t(TranslationKey.Attention),
               confirmMessage: t(TranslationKey['Wish to change a destination?']),
               onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),

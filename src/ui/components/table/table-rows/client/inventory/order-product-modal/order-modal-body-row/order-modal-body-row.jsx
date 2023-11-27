@@ -131,7 +131,7 @@ export const OrderModalBodyRow = ({
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
         onClickConfirm: () => {
@@ -191,7 +191,7 @@ export const OrderModalBodyRow = ({
         setShowSelectionStorekeeperAndTariffModal(false)
       } else {
         setConfirmModalSettings({
-          isWarning: true,
+          isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to set a destination?']),
           onClickConfirm: () => {
