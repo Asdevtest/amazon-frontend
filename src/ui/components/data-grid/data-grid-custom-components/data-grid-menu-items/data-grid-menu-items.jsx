@@ -98,13 +98,13 @@ export const IsFormedMenuItem = React.memo(
                 <div className={classNames.shop}>
                   <Checkbox
                     color="primary"
-                    checked={isFormedData.isFormed || isFormedData.isFormed === null}
+                    checked={isFormedData.isFormed || isFormedData.isFormed === undefined}
                     onClick={() =>
                       isFormedData.onChangeIsFormed(
-                        isFormedData.isFormed !== null
+                        isFormedData.isFormed !== undefined
                           ? isFormedData.isFormed
                             ? !isFormedData.isFormed
-                            : null
+                            : undefined
                           : false,
                       )
                     }
@@ -116,13 +116,13 @@ export const IsFormedMenuItem = React.memo(
                 <div className={classNames.shop}>
                   <Checkbox
                     color="primary"
-                    checked={!isFormedData.isFormed || isFormedData.isFormed === null}
+                    checked={!isFormedData.isFormed || isFormedData.isFormed === undefined}
                     onClick={() =>
                       isFormedData.onChangeIsFormed(
-                        isFormedData.isFormed !== null
+                        isFormedData.isFormed !== undefined
                           ? !isFormedData.isFormed
                             ? !isFormedData.isFormed
-                            : null
+                            : undefined
                           : true,
                       )
                     }
