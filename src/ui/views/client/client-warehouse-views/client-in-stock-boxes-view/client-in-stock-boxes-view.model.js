@@ -1663,8 +1663,6 @@ export class ClientInStockBoxesViewModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
-      console.log('tthis.getFilter()', this.getFilter())
-
       const result = await BoxesModel.getBoxesForCurClientLightPag({
         status: curStatus,
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
