@@ -150,7 +150,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#E0E0E0',
   },
 
-  currentSlideTitle: {
+  quantitySlides: {
     fontSize: 14,
     lineHeight: '19px',
     textAlign: 'center',
