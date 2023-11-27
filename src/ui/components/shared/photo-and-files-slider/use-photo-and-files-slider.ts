@@ -17,7 +17,7 @@ export const usePhotoAndFilesSlider = (
   const onOpenImageEditModal = () => setOpenImageEditModal(!openImageEditModal)
   const onOpenImageZoomModal = () => setOpenImageZoomModal(!openImageZoomModal)
 
-  const documents = files.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
+  const documents = files?.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
   const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
@@ -38,7 +38,7 @@ export const usePhotoAndFilesSlider = (
   }, [startPhotoIndex])
 
   useEffect(() => {
-    const photoFiltering = files.filter(el => {
+    const photoFiltering = files?.filter(el => {
       const currentFile = typeof el === 'string' ? el : el?.file?.name
 
       return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
