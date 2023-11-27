@@ -30,13 +30,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
       >
         {images.slice(0, 6).map((el, index) => (
           <Box key={index} onClick={() => handlePreview(index)}>
-            <img
-              className={styles.image}
-              src={getAmazonImageUrl(el)}
-              srcSet={getAmazonImageUrl(el)}
-              alt={index.toString()}
-              loading="lazy"
-            />
+            <img className={styles.image} src={getAmazonImageUrl(el, true)} alt={index.toString()} loading="lazy" />
           </Box>
         ))}
 

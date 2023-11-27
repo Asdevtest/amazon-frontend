@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,13 +12,14 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-free-orders-view.style'
+import { useStyles } from './buyer-free-orders-view.style'
 
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
-export const BuyerFreeOrdersViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const BuyerFreeOrdersView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -28,7 +28,7 @@ export const BuyerFreeOrdersViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -38,7 +38,8 @@ export const BuyerFreeOrdersViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.dataGridWrapper}>
+
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -51,7 +52,7 @@ export const BuyerFreeOrdersViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
@@ -70,7 +71,7 @@ export const BuyerFreeOrdersViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
@@ -94,12 +95,8 @@ export const BuyerFreeOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
     </React.Fragment>
   )
-}
-
-export const BuyerFreeOrdersView = withStyles(observer(BuyerFreeOrdersViewRaw), styles)
+})

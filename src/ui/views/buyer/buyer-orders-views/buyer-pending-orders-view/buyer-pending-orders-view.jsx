@@ -128,9 +128,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['The fields must be filled in to create the box!'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
       />
 
       <WarningInfoModal
@@ -138,9 +136,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
         title={t(TranslationKey['Creating new boxes. Be careful!'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningNewBoxesModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
       />
 
       <WarningInfoModal
@@ -149,9 +145,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
 
       <WarningInfoModal
@@ -163,9 +157,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           ],
         )}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
       />
 
       <SuccessInfoModal
@@ -173,9 +165,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.showSuccessModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <Modal

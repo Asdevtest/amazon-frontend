@@ -245,9 +245,17 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSaveOrderItem(orderId, orderItem) {
@@ -274,7 +282,9 @@ export class BuyerMyOrdersViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.curBoxesOfOrder = []
+      runInAction(() => {
+        this.curBoxesOfOrder = []
+      })
     }
   }
 
