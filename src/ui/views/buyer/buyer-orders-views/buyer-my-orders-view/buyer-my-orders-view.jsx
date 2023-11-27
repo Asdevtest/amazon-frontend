@@ -32,6 +32,7 @@ import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
+
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
   useEffect(() => {
