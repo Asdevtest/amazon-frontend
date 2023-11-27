@@ -26,7 +26,7 @@ export const getAmazonImageUrl = (str, isBig) => {
       ? !isBig && !str.includes('.preview.webp')
         ? str + amazonImageUrlPostfix
         : str
-      : str + amazonImageUrlPostfix
+      : str /* + amazonImageUrlPostfix */ // removed for google disk link or files
   } else if (str.includes('/uploads/')) {
     return `${BACKEND_API_URL}${str}${
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
