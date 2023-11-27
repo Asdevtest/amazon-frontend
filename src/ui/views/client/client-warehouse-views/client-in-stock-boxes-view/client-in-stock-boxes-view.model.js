@@ -1037,7 +1037,7 @@ export class ClientInStockBoxesViewModel {
 
           newBox.shippingLabel = findUploadedShippingLabel
             ? findUploadedShippingLabel.link
-            : newBox.tmpShippingLabel?.[0] || this.uploadedFiles?.[0]
+            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
         }
 
         const dataToBarCodeChange = newBox.items
@@ -1292,7 +1292,7 @@ export class ClientInStockBoxesViewModel {
               : getNewItems(),
             shippingLabel: this.uploadedFiles?.length
               ? this.uploadedFiles[0]
-              : boxData.tmpShippingLabel?.[0] || boxData.shippingLabel,
+              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
           },
           updateBoxWhiteList,
         )
