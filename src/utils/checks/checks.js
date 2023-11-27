@@ -113,6 +113,7 @@ export const checkIsImageLink = link =>
   link?.endsWith('jpeg') ||
   link?.endsWith('rotated-image') ||
   link?.endsWith('jfif') ||
+  link?.endsWith('bmp') ||
   link?.includes('placeimg.com') ||
   checkIsVideoLink(link)
 
@@ -124,7 +125,9 @@ export const checkIsDocumentLink = link =>
   link?.endsWith('xls') ||
   link?.endsWith('txt') ||
   (link?.includes('.com') && !link?.includes('placeimg.com')) ||
-  link?.includes('.pdf')
+  link?.includes('.pdf') ||
+  link?.includes('drive.google.com') ||
+  link?.includes('docs.google.com')
 
 export const validateEmail = email =>
   String(email)
