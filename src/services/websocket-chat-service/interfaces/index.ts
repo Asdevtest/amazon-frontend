@@ -83,6 +83,11 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
   data: T
 }
 
+export interface FindChatMessageRequestParams {
+  text: string
+  chatId: string
+}
+
 export enum ChatMessageType {
   'CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION',
   'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION',

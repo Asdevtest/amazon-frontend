@@ -15,7 +15,7 @@ import { toFixed } from '@utils/text'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-messages-list.style'
+import { useStyles } from './chat-messages-list.style'
 
 import { ChatMessageByType } from './chat-message-by-type'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
@@ -52,8 +52,9 @@ export const ChatMessagesList: FC<Props> = observer(
     chatId,
     isFreelanceOwner,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const { isMobileResolution } = useCreateBreakpointResolutions()
+
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
@@ -64,29 +65,48 @@ export const ChatMessagesList: FC<Props> = observer(
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
-    const scrollToMessage = () => {
-      if (messageToScrollRef.current) {
-        messageToScrollRef.current.scrollIntoView({
-          behavior: 'smooth',
-        })
+    const highlightMessageHandler = (message: HTMLDivElement) => {
+      if (message) {
+        message.classList.add(styles.highlightMessage)
+
+        setTimeout(() => {
+          message?.classList.remove(styles.highlightMessage)
+        }, 500)
       }
     }
 
-    useEffect(() => {
-      if (messagesWrapperRef.current) {
-        const currentScrollPosition = toFixed(
-          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
-        )
-        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
+    const scrollToMessage = () => {
+      if (messageToScrollRef.current && messagesWrapperRef.current) {
+        const messageContainerHeight = messagesWrapperRef.current.clientHeight
+        const messageTop = messageToScrollRef.current.offsetTop
+        const messageHeight = messageToScrollRef.current.offsetHeight
+        const messageCenter = messageTop + messageHeight / 2
+        const scrollToPosition = messageCenter - messageContainerHeight / 2
 
-        if (
-          scrolledFromBottom < messagesWrapperRef.current.clientHeight ||
-          messagesWrapperRef.current?.scrollTop < 20
-        ) {
-          chatBottomRef.current?.scrollIntoView({})
+        messagesWrapperRef.current.scrollTo({
+          top: scrollToPosition,
+          behavior: 'smooth',
+        })
+
+        highlightMessageHandler(messageToScrollRef.current)
+        setMessageToScroll(null)
+      }
+    }
+
+    const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
+      setChoosenMessageState({ message: messageItem, isIncomming })
+      setMessageToReply(messageItem)
+    }
+
+    const getReplyedMessages = async () => {
+      if (messages?.length) {
+        for (const message of messages) {
+          if (chatId && message.replyMessageId) {
+            await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
+          }
         }
       }
-    }, [messages?.length])
+    }
 
     useEffect(() => {
       chatBottomRef.current?.scrollIntoView({})
@@ -104,34 +124,30 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }, [messages])
 
-    const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
-      setChoosenMessageState({ message: messageItem, isIncomming })
-      setMessageToReply(messageItem)
-    }
-
-    const getReplyedMessages = async () => {
-      if (messages?.length) {
-        const messagesWithReply = messages
-          ?.filter((messageItem: ChatMessageContract) => messageItem?.text !== ChatMessageType.PROPOSAL_EDITED)
-          ?.filter((messageItem: ChatMessageContract) => messageItem.replyMessageId)
-
-        for (const messageWithReply of messagesWithReply) {
-          if (chatId) {
-            await ChatModel.getChatMessage(chatId, String(messageWithReply.replyMessageId))
-          }
-        }
-      }
-    }
-
     useEffect(() => {
       getReplyedMessages()
+    }, [messages?.length])
+
+    useEffect(() => {
+      if (messagesWrapperRef.current) {
+        const currentScrollPosition = toFixed(
+          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
+        )
+        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
+
+        if (
+          scrolledFromBottom < messagesWrapperRef.current.clientHeight ||
+          messagesWrapperRef.current?.scrollTop < 20
+        ) {
+          chatBottomRef.current?.scrollIntoView({})
+        }
+      }
     }, [messages?.length])
 
     return (
       <div
         ref={messagesWrapperRef}
-        key={chatId}
-        className={cx(classNames.messagesWrapper, { [classNames.messagesWrapperNone]: isShowChatInfo })}
+        className={cx(styles.messagesWrapper, { [styles.messagesWrapperNone]: isShowChatInfo })}
       >
         {SettingsModel.languageTag &&
           messages
@@ -167,24 +183,23 @@ export const ChatMessagesList: FC<Props> = observer(
                 <div
                   ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : undefined}
                   key={`chatMessage_${messageItem._id}`}
-                  // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
-                  className={cx(classNames.message, {
-                    [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
+                  className={cx(styles.message, {
+                    [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
                   })}
                 >
                   {index === 0 ||
                   formatDateWithoutTime(messages[index - 1].createdAt) !==
                     formatDateWithoutTime(messageItem.createdAt) ? (
-                    <div className={classNames.timeTextWrapper}>
-                      <p className={classNames.timeText}>{formatDateWithoutTime(messageItem.createdAt)}</p>
+                    <div className={styles.timeTextWrapper}>
+                      <p className={styles.timeText}>{formatDateWithoutTime(messageItem.createdAt)}</p>
                     </div>
                   ) : null}
 
-                  <div className={classNames.messageContent}>
+                  <div className={styles.messageContent}>
                     <div
-                      className={cx(classNames.messageWrapper, {
-                        [classNames.messageWrapperIsIncomming]: isIncomming,
-                        [classNames.messageWrapperisNotPersonal]: isNotPersonal,
+                      className={cx(styles.messageWrapper, {
+                        [styles.messageWrapperIsIncomming]: isIncomming,
+                        [styles.messageWrapperisNotPersonal]: isNotPersonal,
                       })}
                     >
                       {!isMobileResolution && !isNextMessageSameAuthor && !isNotPersonal ? (
@@ -198,8 +213,8 @@ export const ChatMessagesList: FC<Props> = observer(
                         >
                           <Avatar
                             src={getUserAvatarSrc(messageItem.user?._id)}
-                            className={cx(classNames.messageAvatarWrapper, {
-                              [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
+                            className={cx(styles.messageAvatarWrapper, {
+                              [styles.messageAvatarWrapperIsIncomming]: isIncomming,
                             })}
                           />
                         </Link>
@@ -207,22 +222,23 @@ export const ChatMessagesList: FC<Props> = observer(
 
                       <div
                         className={cx({
-                          [classNames.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
-                          [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
-                          [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
+                          [styles.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
+                          [styles.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
+                          [styles.messageInnerIsNextMessageSameAuthorIsInclomming]:
                             isNextMessageSameAuthor && isIncomming,
                         })}
                       >
-                        <div className={classNames.messageInnerContentWrapper}>
+                        <div className={styles.messageInnerContentWrapper}>
                           {isReply && repleyMessage && (
                             <div
-                              className={classNames.repleyWrapper}
+                              className={styles.repleyWrapper}
                               onClick={e => {
                                 e.stopPropagation()
+                                console.log('e', e)
                                 setMessageToScroll(repleyMessage)
                               }}
                             >
-                              <div className={classNames.repleyDivider} />
+                              <div className={styles.repleyDivider} />
                               <ChatMessageByType
                                 showName
                                 isIncomming={isIncomming}

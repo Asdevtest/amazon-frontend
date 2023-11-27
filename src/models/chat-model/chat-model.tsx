@@ -13,6 +13,7 @@ import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
   ChatMessageType,
+  FindChatMessageRequestParams,
   OnReadMessageResponse,
   OnTypingMessageResponse,
   RemoveUsersFromGroupChatParams,
@@ -246,44 +247,61 @@ class ChatModelStatic {
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
-  public async getChatMessage(chatId: string, messageId?: string): Promise<void> {
+  public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
-
     if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
       return
     }
-
     const index = Math.max(findChatIndexById, findSimpleChatIndexById)
     const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
 
-    const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+    const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
 
-    const chatMessageOffset = chatMessage.offset
-
-    if (this[chatType][index].pagination.offset > chatMessageOffset) {
+    if (this[chatType][index].pagination.offset >= chatMessageOffset) {
       return
     }
 
-    const { limit } = this[chatType][index].pagination
+    const { limit, offset } = this[chatType][index].pagination
 
-    const chatMessages = await this.websocketChatService.getChatMessages(chatId, 0, chatMessageOffset + 10)
+    const chatMessages = await this.websocketChatService.getChatMessages(
+      chatId,
+      offset,
+      chatMessageOffset - offset + limit,
+    )
 
     runInAction(() => {
       this[chatType][index] = {
         ...this[chatType][index],
-        messages: [...chatMessages.rows],
+        messages: [...chatMessages.rows, ...this[chatType][index].messages],
         pagination: {
           ...this[chatType][index].pagination,
-          offset: chatMessageOffset + 10,
+          offset: chatMessageOffset + limit,
         },
-        isAllMessagesLoaded: chatMessages.rows.length < limit,
       }
     })
+  }
+
+  private async getMessageOffset(
+    chatId: string,
+    messageId?: string,
+    messageData?: ChatMessageContract,
+  ): Promise<number> {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    if (messageData?.offset) {
+      return messageData.offset
+    } else {
+      const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+      const chatMessageOffset = chatMessage.offset
+
+      return chatMessageOffset
+    }
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
@@ -519,6 +537,16 @@ class ChatModelStatic {
 
   public resetChats() {
     this.chats = []
+  }
+
+  public async FindChatMessage(requestParams: FindChatMessageRequestParams) {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const messages = await this.websocketChatService.FindChatMessage(requestParams)
+      return messages
+    } catch (error) {
+      console.warn(error)
+    }
   }
 }
 

@@ -10,6 +10,7 @@ import {
   AddUsersToGroupChatParams,
   Chat,
   ChatMessage,
+  FindChatMessageRequestParams,
   RemoveUsersFromGroupChatParams,
   SendMessageRequestParams,
   TypingMessageRequestParams,
@@ -201,11 +202,11 @@ export class WebsocketChatService {
     })
   }
 
-  public async getChatMessage(params: any): Promise<ChatMessage> {
+  public async FindChatMessage(requestParams: FindChatMessageRequestParams): Promise<ChatMessage> {
     return new Promise((resolve, reject) => {
       this.socket.emit(
-        EentToEmit.GET_CHAT_MESSAGE,
-        params,
+        EentToEmit.FIND_CHAT_MESSAGE,
+        requestParams,
         (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
           if (!sendMessageResponse.success || !sendMessageResponse.data) {
             reject(sendMessageResponse.error)

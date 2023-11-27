@@ -64,11 +64,14 @@ const findChunks = ({ searchWords, textToHighlight }: FindChunksProps) => {
   })
 
   searchWords.forEach((sw: string) => {
-    const swLow = sw.toLowerCase()
+    if (!sw) {
+      return
+    }
+    const swLow = sw?.toLowerCase()
     singleTextWordsWithPos.forEach((s: SingleTextWordsWithPos) => {
-      if (s.word.includes(swLow)) {
-        const start = s.index
-        const end = s.index + s.word.length
+      if (s?.word?.includes(swLow)) {
+        const start = s?.index
+        const end = s?.index + s?.word?.length
         chunks.push({
           start,
           end,
