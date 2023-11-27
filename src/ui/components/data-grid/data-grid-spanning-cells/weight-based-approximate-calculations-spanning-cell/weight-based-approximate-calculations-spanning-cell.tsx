@@ -36,8 +36,6 @@ export const WeightBasedApproximateCalculationsSpanningCell: FC<WeightBasedAppro
 
     const groupedData = getGroupDataByDestinationId(destinationVariations?.length ? destinationVariations : [])
 
-    console.log('destinationVariations', destinationVariations)
-
     const arrayOfArrays = Object?.values(groupedData)
 
     return (
