@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { IService } from '@typings/master-user'
 
-import { useClassNames } from './service-exchange-list-card.style'
+import { useStyles } from './service-exchange-list-card.style'
 
 interface ServiceExchangeCardListProps {
   service: IService
@@ -23,7 +23,7 @@ interface ServiceExchangeCardListProps {
 }
 
 export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
@@ -45,66 +45,64 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   }
 
   return (
-    <>
-      <div className={classNames.cardWrapper}>
-        <PhotoAndFilesSlider
-          withoutFiles
-          showPreviews
-          files={service.linksToMediaFiles}
-          mainClasses={!service.linksToMediaFiles.length ? classNames.photosWrapper : ''}
-        />
+    <div className={styles.cardWrapper}>
+      <PhotoAndFilesSlider
+        withoutFiles
+        showPreviews
+        files={service.linksToMediaFiles}
+        mainClasses={!service.linksToMediaFiles.length ? styles.photosWrapper : ''}
+      />
 
-        <div className={classNames.titleAndDescriptionWrapper}>
-          <p className={classNames.cardTitle}>{service.title}</p>
+      <div className={styles.titleAndDescriptionWrapper}>
+        <p className={styles.cardTitle}>{service.title}</p>
 
-          <p className={classNames.cardDescription}>{service.description}</p>
+        <p className={styles.cardDescription}>{service.description}</p>
 
-          <button className={classNames.detailedDescription} onClick={handleToggleModal}>
-            {t(TranslationKey.Details)}
-          </button>
-        </div>
+        <button className={styles.detailedDescription} onClick={handleToggleModal}>
+          {t(TranslationKey.Details)}
+        </button>
+      </div>
 
-        <div className={classNames.detailsAndButtonWrapper}>
-          {isNotMyServices ? (
-            <div className={classNames.detailsWrapper}>
-              <div className={classNames.detailsSubWrapper}>
-                <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-                <p className={classNames.detailDescription}>{detailDescription}</p>
-              </div>
-
-              <div className={classNames.detailsSubWrapper}>
-                <p className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
-                <UserLink
-                  blackText
-                  withAvatar
-                  ratingSize="small"
-                  name={service.createdBy.name}
-                  userId={service.createdBy._id}
-                  rating={service.createdBy.rating}
-                  customAvatarStyles={{ width: 30, height: 30 }}
-                  customStyles={{ fontSize: 14, lineHeight: '17px' }}
-                  customRatingClass={{ fontSize: 13, opacity: 1 }}
-                />
-              </div>
+      <div className={styles.detailsAndButtonWrapper}>
+        {isNotMyServices ? (
+          <div className={styles.detailsWrapper}>
+            <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={styles.detailDescription}>{detailDescription}</p>
             </div>
-          ) : (
-            <div className={classNames.detailsWrapperAll}>
-              <div className={classNames.detailsSubWrapperAll}>
-                <p className={classNames.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
-                <p className={classNames.detailDescription}>{service.requests.length}</p>
-              </div>
-              <div className={classNames.detailsSubWrapperAll}>
-                <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-                <p className={classNames.detailDescription}>{detailDescription}</p>
-              </div>
-            </div>
-          )}
 
-          <div className={classNames.buttonWrapper}>
-            <Button success={choose || order} className={classNames.openBtn} onClick={() => onClickButton(service)}>
-              {buttonContent}
-            </Button>
+            <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
+              <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+              <UserLink
+                blackText
+                withAvatar
+                ratingSize="small"
+                name={service.createdBy.name}
+                userId={service.createdBy._id}
+                rating={service.createdBy.rating}
+                customAvatarStyles={{ width: 30, height: 30 }}
+                customStyles={{ fontSize: 14, lineHeight: '17px' }}
+                customRatingClass={{ fontSize: 13, opacity: 1 }}
+              />
+            </div>
           </div>
+        ) : (
+          <div className={styles.detailsWrapperAll}>
+            <div className={styles.detailsSubWrapperAll}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
+              <p className={styles.detailDescription}>{service.requests.length}</p>
+            </div>
+            <div className={styles.detailsSubWrapperAll}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={styles.detailDescription}>{detailDescription}</p>
+            </div>
+          </div>
+        )}
+
+        <div className={styles.buttonWrapper}>
+          <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
+            {buttonContent}
+          </Button>
         </div>
       </div>
 
@@ -118,6 +116,6 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
           onClickButton={() => onClickButton(service)}
         />
       )}
-    </>
+    </div>
   )
 })

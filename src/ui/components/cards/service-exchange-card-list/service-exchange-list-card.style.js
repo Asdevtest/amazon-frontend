@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     height: 165,
     width: '100%',
@@ -73,7 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   detailsWrapper: {
     display: 'flex',
-    gap: 30,
+    gap: 20,
   },
 
   detailsSubWrapper: {
@@ -101,5 +101,13 @@ export const useClassNames = makeStyles()(theme => ({
   detailsSubWrapperAll: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  serviceTypeWrapper: {
+    width: '81px',
+  },
+
+  performerWrapper: {
+    width: '140px',
   },
 }))
