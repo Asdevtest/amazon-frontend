@@ -14,9 +14,10 @@ import { useStyles } from './client-my-orders-view.style'
 
 import { ClientMyOrdersViewModel } from './client-my-orders-view.model'
 
-export const ClientMyOrdersView = observer(props => {
-  const [viewModel] = useState(() => new ClientMyOrdersViewModel({ history: props.history }))
+export const ClientMyOrdersView = observer(({ history }) => {
   const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new ClientMyOrdersViewModel({ history }))
 
   return (
     <div>
