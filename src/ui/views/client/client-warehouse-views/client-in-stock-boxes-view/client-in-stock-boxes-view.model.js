@@ -1216,7 +1216,7 @@ export class ClientInStockBoxesViewModel {
           variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData.tmpShippingLabel?.[0] || boxData.shippingLabel,
+            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
