@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { plainToInstance } from 'class-transformer'
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
@@ -455,11 +456,15 @@ class ChatModelStatic {
 
     if (findChatIndexById !== -1) {
       runInAction(() => {
-        this.chats[findChatIndexById].messages = [
-          ...this.chats[findChatIndexById].messages.map(mes =>
+        this.chats[findChatIndexById] = {
+          messages: this.chats[findChatIndexById].messages.map(mes =>
             response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
-        ]
+          // @ts-ignore
+          lastMessage: response.messagesId.includes(this.simpleChats[findChatIndexById]?.lastMessage?._id)
+            ? { ...this.simpleChats[findChatIndexById]?.lastMessage, isRead: true }
+            : this.simpleChats[findChatIndexById]?.lastMessage,
+        }
       })
     }
 
@@ -467,11 +472,16 @@ class ChatModelStatic {
 
     if (findSimpleChatIndexById !== -1) {
       runInAction(() => {
-        this.simpleChats[findSimpleChatIndexById].messages = [
-          ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
+        this.simpleChats[findSimpleChatIndexById] = {
+          ...this.simpleChats[findSimpleChatIndexById],
+          messages: this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
             response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
-        ]
+          // @ts-ignore
+          lastMessage: response.messagesId.includes(this.simpleChats[findSimpleChatIndexById]?.lastMessage?._id)
+            ? { ...this.simpleChats?.[findSimpleChatIndexById]?.lastMessage, isRead: true }
+            : this.simpleChats?.[findSimpleChatIndexById]?.lastMessage,
+        }
       })
     }
 

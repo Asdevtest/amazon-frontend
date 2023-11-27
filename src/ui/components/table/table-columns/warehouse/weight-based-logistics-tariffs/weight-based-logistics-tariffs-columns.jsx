@@ -87,7 +87,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 323,
+    width: 320,
     filterable: false,
     sortable: false,
   },
@@ -98,7 +98,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 120,
+    width: 110,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
