@@ -106,13 +106,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
+    maxWidth: 700,
     fontSize: '14px',
     lineHeight: '19px',
-  },
-
-  clientComment: {
-    maxWidth: '60%',
-    color: '#DF0C0C',
+    wordBreak: 'break-all',
   },
 
   controls: {

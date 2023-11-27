@@ -14,7 +14,7 @@ import { useStyles } from './image-modal.styles'
 
 import { ButtonControls, ShowPreviews } from './components'
 
-interface Props {
+interface ImageModalProps {
   isOpenModal: boolean
   imageList: Array<string | IUploadFile>
   currentImageIndex: number
@@ -28,7 +28,7 @@ interface Props {
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
 }
 
-export const ImageModal: FC<Props> = memo(props => {
+export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
     imageList,
     currentImageIndex,
@@ -43,7 +43,7 @@ export const ImageModal: FC<Props> = memo(props => {
     onChangeImagesForLoad,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const {
     openImageEditModal,
     onOpenImageEditModal,
@@ -100,7 +100,10 @@ export const ImageModal: FC<Props> = memo(props => {
           />
 
           {photosComments?.[photoIndex] && (
-            <p className={cx(styles.title, styles.clientComment)}>
+            <p
+              title={photosComments?.[photoIndex].length > 200 ? photosComments?.[photoIndex] : ''}
+              className={styles.title}
+            >
               {getShortenStringIfLongerThanCount(photosComments?.[photoIndex], 200)}
             </p>
           )}
