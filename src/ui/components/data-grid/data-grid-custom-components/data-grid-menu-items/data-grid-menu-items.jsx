@@ -98,13 +98,13 @@ export const IsFormedMenuItem = React.memo(
                 <div className={classNames.shop}>
                   <Checkbox
                     color="primary"
-                    checked={isFormedData.isFormed || isFormedData.isFormed === null}
+                    checked={isFormedData.isFormed || isFormedData.isFormed === undefined}
                     onClick={() =>
                       isFormedData.onChangeIsFormed(
-                        isFormedData.isFormed !== null
+                        isFormedData.isFormed !== undefined
                           ? isFormedData.isFormed
                             ? !isFormedData.isFormed
-                            : null
+                            : undefined
                           : false,
                       )
                     }
@@ -116,13 +116,13 @@ export const IsFormedMenuItem = React.memo(
                 <div className={classNames.shop}>
                   <Checkbox
                     color="primary"
-                    checked={!isFormedData.isFormed || isFormedData.isFormed === null}
+                    checked={!isFormedData.isFormed || isFormedData.isFormed === undefined}
                     onClick={() =>
                       isFormedData.onChangeIsFormed(
-                        isFormedData.isFormed !== null
+                        isFormedData.isFormed !== undefined
                           ? !isFormedData.isFormed
                             ? !isFormedData.isFormed
-                            : null
+                            : undefined
                           : true,
                       )
                     }
@@ -1800,7 +1800,7 @@ export const DestinationMenuItem = React.memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+      data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
     )
     const { filterData, currentFilterData } = data[currentOption]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
@@ -1866,14 +1866,14 @@ export const DestinationMenuItem = React.memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={classNames.radioOption}
-                value="destination"
+                value="destinationId"
                 control={<Radio className={classNames.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={classNames.radioOption}
-                value="logicsTariff"
+                value="logicsTariffId"
                 control={<Radio className={classNames.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
