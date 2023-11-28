@@ -5,12 +5,11 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { CustomSlider } from '@components/shared/custom-slider'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsImageLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
@@ -34,7 +33,7 @@ interface AnnouncementCardProps {
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { announcementData, selectedCard, onClickThumbnail, onClickSelectCard, onClickSelectButton } = props
+  const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
 
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
     checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
@@ -81,25 +80,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           </button>
         </div>
 
-        <div className={classNames.cardCarouselWrapper}>
-          <CustomSlider>
-            {imagesForRender.map((imageHash, index) => (
-              <img
-                key={index}
-                alt=""
-                className={classNames.carouselImage}
-                src={getAmazonImageUrl(imageHash, true)}
-                onClick={e => {
-                  e.stopPropagation()
-                  onClickThumbnail({
-                    images: imagesForRender,
-                    imgIndex: index,
-                  })
-                }}
-              />
-            ))}
-          </CustomSlider>
-        </div>
+        <PhotoAndFilesSlider showPreviews isHideCounter withoutFiles mediumSlider files={imagesForRender} />
 
         <div className={classNames.detailsWrapper}>
           <div className={classNames.detailsSubWrapper}>
