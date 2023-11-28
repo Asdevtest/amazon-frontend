@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,19 +16,14 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './my-proposals-view.style'
+import { useStyles } from './my-proposals-view.style'
 
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
-export const MyProposalsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new MyProposalsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+export const MyProposalsView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new MyProposalsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -37,15 +31,15 @@ export const MyProposalsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div className={classNames.root}>
-        <div className={classNames.tablePanelWrapper}>
+      <div className={styles.root}>
+        <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
             selectedTaskType={viewModel.selectedTaskType}
             onClickTaskType={viewModel.onClickTaskType}
           />
 
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(
               TranslationKey.ID,
             )}`}
@@ -56,7 +50,7 @@ export const MyProposalsViewRaw = props => {
           <div />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -91,7 +85,7 @@ export const MyProposalsViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
           />
         </div>
       </div>
@@ -145,6 +139,4 @@ export const MyProposalsViewRaw = props => {
       )}
     </React.Fragment>
   )
-}
-
-export const MyProposalsView = withStyles(observer(MyProposalsViewRaw), styles)
+})
