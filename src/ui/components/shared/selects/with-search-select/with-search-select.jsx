@@ -18,6 +18,7 @@ import { useStyles } from './with-search-select.style'
 
 export const WithSearchSelect = memo(
   ({
+    isCloseAfterClickSubmit,
     data,
     onClickSelect,
     selectedItemName,
@@ -317,6 +318,7 @@ export const WithSearchSelect = memo(
                       onClick={() => {
                         if (onClickSubmitBtn) {
                           onClickSubmitBtn()
+                          isCloseAfterClickSubmit && handleClose()
                         } else {
                           handleClose()
                         }
