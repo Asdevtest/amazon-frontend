@@ -198,8 +198,8 @@ export const EditTaskModal = memo(
                 multiline
                 className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
                 disabled={readOnly}
-                minRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
-                maxRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
+                minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
+                maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 inputProps={{ maxLength: 2000 }}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
