@@ -119,11 +119,15 @@ export const RequestDesignerResultClientForm = memo(props => {
     setFormFields(newFormFields)
   }
 
-  const onClickDownloadArchive = () => {
-    downloadArchive(
+  const [archiveButtonInactiveBeforeDownloading, setArchiveButtonInactiveBeforeDownloading] = useState(false)
+
+  const onClickDownloadArchive = async () => {
+    setArchiveButtonInactiveBeforeDownloading(true) // turn off the button until the files start downloading
+    await downloadArchive(
       imagesForDownload,
       `${reversedFormatDateWithoutTime(new Date(), true)}_${request?.request?.title?.replaceAll(' ', '_')}`,
     )
+    setArchiveButtonInactiveBeforeDownloading(false)
   }
 
   return (
@@ -241,7 +245,7 @@ export const RequestDesignerResultClientForm = memo(props => {
           </Button>
 
           <Button
-            disabled={!imagesForDownload.length}
+            disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
             className={styles.imagesModalBtn}
             onClick={onClickDownloadArchive}
           >
