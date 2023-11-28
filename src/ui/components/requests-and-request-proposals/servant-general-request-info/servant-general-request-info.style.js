@@ -181,10 +181,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
   },
 
-  sliderWrapper: {
-    width: '100% !important',
-  },
-
   fieldLabel: {
     fontSize: 12,
     lineHeight: '16px',
