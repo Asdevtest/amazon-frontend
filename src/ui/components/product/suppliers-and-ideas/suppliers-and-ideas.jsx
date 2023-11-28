@@ -136,24 +136,28 @@ export const SuppliersAndIdeas = observer(props => {
     }
   }, [selectedIdeaId, ideasData])
 
+  const showAddProductIdeaButton =
+    (checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+    !inCreate &&
+    !inEdit &&
+    !isModalView &&
+    currentProduct.status >= 200
+
   return (
     <div className={styles.mainWrapper}>
-      {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
-        !inCreate &&
-        !inEdit &&
-        !isModalView && (
-          <div className={styles.btnsWrapper}>
-            <Button
-              success
-              disabled={!!product.parentProductId}
-              tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
-              variant="contained"
-              onClick={onCreateIdea}
-            >
-              {t(TranslationKey['Add a product idea'])}
-            </Button>
-          </div>
-        )}
+      {showAddProductIdeaButton && (
+        <div className={styles.btnsWrapper}>
+          <Button
+            success
+            disabled={!!product.parentProductId}
+            tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
+            variant="contained"
+            onClick={onCreateIdea}
+          >
+            {t(TranslationKey['Add a product idea'])}
+          </Button>
+        </div>
+      )}
 
       {inCreate && (
         <IdeaViewAndEditCard
