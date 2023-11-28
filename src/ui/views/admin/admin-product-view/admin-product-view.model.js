@@ -39,6 +39,7 @@ export class AdminProductViewModel {
 
   // inInventory = undefined
 
+  imagesForLoad = []
   productId = undefined
   product = undefined
   curUpdateProductData = {}
@@ -132,6 +133,7 @@ export class AdminProductViewModel {
 
       runInAction(() => {
         this.product = result
+        this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
       })
