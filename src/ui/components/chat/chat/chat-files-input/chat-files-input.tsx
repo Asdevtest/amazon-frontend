@@ -1,22 +1,23 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { ImageType } from 'react-images-uploading-alex76457-version'
 
-import { IFile } from '@components/chat/multiple-chats'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { IUploadFile } from '@typings/upload-file'
 
 import { useClassNames } from './chat-files-input.style'
 
-interface Props {
+interface ChatFilesInputProps {
   files: ImageType[]
-  setFiles: (e: IFile[]) => void
+  setFiles: (e: IUploadFile[]) => void
 }
 
-export const ChatFilesInput: FC<Props> = ({ files, setFiles }) => {
-  const { classes: classNames } = useClassNames()
+export const ChatFilesInput: FC<ChatFilesInputProps> = memo(({ files, setFiles }) => {
+  const { classes: styles } = useClassNames()
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} acceptType={['']} />
     </div>
   )
-}
+})
