@@ -42,11 +42,6 @@ export const Slides: FC<Props> = memo(
   }) => {
     const { classes: classNames, cx } = useClassNames()
 
-    const isImageType = (slide: string | IUploadFile): boolean =>
-      checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name)
-    const isVideoType = (slide: string | IUploadFile): boolean =>
-      checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
-
     return (
       <div className={cx(classNames.slidesWrapper)}>
         <div
@@ -68,8 +63,8 @@ export const Slides: FC<Props> = memo(
 
             return (
               <div key={index} className={classNames.slideWrapper}>
-                {isImageType(currentSlide) ? (
-                  isVideoType(currentSlide) ? (
+                {checkIsImageLink(currentSlide) ? (
+                  checkIsVideoLink(currentSlide) ? (
                     controls ? (
                       <VideoPlayer
                         videoSource={currentSlide}
