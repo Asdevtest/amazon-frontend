@@ -50,7 +50,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     width: 80,
     renderCell: (params: GridCellParams) => (
       <PriorityAndChinaDeliverCell
-        // @ts-ignore
         isRequest
         priority={Number(params.value)}
         onClickOpenInNewTab={() => handlers.onClickOpenButton(params.row?.originalData?.request?._id)}
@@ -64,13 +63,11 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
 
   {
     field: 'taskComplexity',
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
     headerName: t(TranslationKey['Difficulty level']),
 
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell
-        // @ts-ignore
         text={difficultyLevelTranslate(difficultyLevelByCode[params.value as number])}
         customTextStyles={{
           color: colorByDifficultyLevel(difficultyLevelByCode[params.value as number]),
@@ -85,7 +82,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
@@ -96,12 +92,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        // @ts-ignore
-        text={t(TranslationKey.Product)}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: (params: GridCellParams) => (
       // @ts-ignore
       <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
@@ -115,7 +106,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => (
       <MultilineTextHeaderCell
-        // @ts-ignore
         text={t(TranslationKey.ID)}
         // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
@@ -132,12 +122,10 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'requestCreatedBy',
     headerName: t(TranslationKey['Created by']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     width: 130,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
-        // @ts-ignore
         userName={params?.row?.originalData?.request?.createdBy?.name}
         userId={params?.row?.originalData?.request?.createdBy?._id}
       />
@@ -148,11 +136,8 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'typeTask',
     headerName: t(TranslationKey['Request type']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-
     renderCell: (params: GridCellParams) => (
-      // @ts-ignore
       <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])} />
     ),
     type: 'number',
@@ -165,7 +150,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <ShortDateCell value={params.value} />,
@@ -176,10 +160,8 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: (params: GridCellParams) => (
-      // @ts-ignore
       <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
     width: 161,
@@ -189,9 +171,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'reworkCounter',
     headerName: t(TranslationKey['Number of rework']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
-    // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -200,12 +180,10 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'createdBy',
     headerName: t(TranslationKey.Performer),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 122,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
-        // @ts-ignore
         userName={params?.row?.originalData?.sub?.name || params?.row?.originalData?.createdBy?.name}
         userId={params?.row?.originalData?.sub?._id || params?.row?.originalData?.createdBy?._id}
       />
@@ -216,24 +194,18 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    // @ts-ignore
     renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
     width: 85,
-    // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
   },
 
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
     renderCell: (params: GridCellParams) => (
       <FreelancerMyProposalsActionsCell
-        // @ts-ignore
         status={params.row.originalData.status}
         onClickDeleteButton={() =>
           handlers.onClickDeleteButton(params.row.originalData?._id, params.row.originalData?.status)

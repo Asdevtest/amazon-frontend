@@ -1,0 +1,126 @@
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
+
+import { useStyles } from './freelance-tab-view.style'
+
+import { FreelanceModel } from './freelance-tab-view.model'
+
+export const Freelance = observer(({ productId, modal }) => {
+  const { classes: styles, cx } = useStyles()
+  const history = useHistory()
+  const [viewModel] = useState(() => new FreelanceModel({ history, productId }))
+
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  return (
+    <>
+      <div className={styles.header}>
+        <CustomSwitcher
+          switchMode="medium"
+          condition={Number(viewModel.selectedTaskType)}
+          switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
+            value: Number(taskType),
+            label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
+          }))}
+          changeConditionHandler={viewModel.onClickTaskType}
+        />
+
+        <SearchInput
+          placeholder={t(TranslationKey['Search by Title, ID'])}
+          inputClasses={styles.searchInput}
+          value={viewModel.nameSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <div className={cx(styles.tableWrapper, { [styles.modalWrapper]: modal })}>
+        <CustomDataGrid
+          localeText={getLocalizationByLanguageTag()}
+          propsToRerender={{ onHover: viewModel.onHover }}
+          rowCount={viewModel.rowCount}
+          pageSizeOptions={[15, 25, 50, 100]}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.getCurrentData()}
+          rowHeight={100}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+        />
+      </div>
+
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={{ request: viewModel.curRequest }}
+          proposal={viewModel.curProposal}
+          curResultMedia={viewModel.curProposal?.proposal.media}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showRequestStandartResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+      >
+        <RequestStandartResultForm
+          request={{ request: viewModel.curRequest }}
+          proposal={viewModel.curProposal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+        />
+      </Modal>
+
+      {viewModel.showRequestResultModal && (
+        <RequestResultModal
+          request={viewModel.curRequest}
+          proposal={viewModel.curProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
+      )}
+    </>
+  )
+})

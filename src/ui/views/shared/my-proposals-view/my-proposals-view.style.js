@@ -1,4 +1,6 @@
-export const styles = () => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -15,7 +17,8 @@ export const styles = () => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
   searchInput: {
     width: 350,
   },
-})
+}))
