@@ -72,6 +72,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         <div className={styles.controls}>
           <div className={styles.filters}>
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
@@ -110,6 +111,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
@@ -146,6 +148,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               checkbox
               notCloseOneClick
               selectedItemName={t(TranslationKey['All warehouses'])}
@@ -181,6 +184,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
