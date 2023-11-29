@@ -84,9 +84,9 @@ export class NavbarModel {
     }
   }
 
-  submitResetLocalStorageAndCach() {
+  async submitResetLocalStorageAndCach() {
+    await UserModel.signOut()
     localStorage.clear()
-
     // Очистка кэша
     if (window.caches && window.caches.delete) {
       caches.keys().then(names => {
@@ -98,7 +98,6 @@ export class NavbarModel {
       // Для старых версий Edge используем следующий способ очистки кэша
       window.location.reload(true)
     }
-
     window.location.reload()
   }
 
