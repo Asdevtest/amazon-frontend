@@ -28,8 +28,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   description: {
+    height: 38,
     fontSize: '14px',
     fontWeight: 400,
+    lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -58,19 +60,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-  },
-
-  cardCarouselWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: '172px',
-  },
-
-  carouselImage: {
-    width: '277px',
-    height: '138px',
-    objectFit: 'contain',
   },
 
   detailTitle: {
