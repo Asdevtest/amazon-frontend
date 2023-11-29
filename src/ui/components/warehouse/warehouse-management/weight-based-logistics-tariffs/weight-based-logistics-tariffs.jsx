@@ -116,7 +116,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         sortModel={sortModel}
         filterModel={filterModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
         getRowHeight={() => 'auto'}
         slotProps={{

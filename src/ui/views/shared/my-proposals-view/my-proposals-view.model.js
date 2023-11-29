@@ -36,7 +36,6 @@ export class MyProposalsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   filterModel = { items: [] }
   selectedRowIds = []
-  pageSizeOptions = [15, 25, 50, 100]
 
   // * Table settings
 

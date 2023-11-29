@@ -95,7 +95,6 @@ export const MyRequestsView = observer(({ history, location }) => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             rows={viewModel.currentData}
-            pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={130}
             slotProps={{
               baseTooltip: {

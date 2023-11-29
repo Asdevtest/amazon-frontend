@@ -59,7 +59,6 @@ export const MyProposalsView = observer(({ history }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={viewModel.pageSizeOptions}
             rows={viewModel.currentData}
             rowHeight={87}
             slotProps={{

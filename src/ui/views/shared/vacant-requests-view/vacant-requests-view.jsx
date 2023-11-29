@@ -120,7 +120,6 @@ export const VacantRequestsView = observer(({ history, location }) => {
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={viewModel.pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
               slotProps={{

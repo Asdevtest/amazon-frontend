@@ -35,7 +35,6 @@ export const AdminWarehouseTasksView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           rowCount={viewModel.rowsCount}
           getRowId={row => row._id}
@@ -44,9 +43,7 @@ export const AdminWarehouseTasksView = observer(({ history }) => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,

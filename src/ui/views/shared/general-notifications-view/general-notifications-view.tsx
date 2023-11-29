@@ -1,6 +1,6 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
@@ -23,20 +23,20 @@ import { useStyles } from './general-notifications-view.styles'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
-export const GeneralNotificationsView = observer(({ history }: { history: History }) => {
+interface GeneralNotificationsViewProps {
+  history: History
+}
+
+export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(
-    () =>
-      new GeneralNotificationsViewModel({
-        history,
-      }),
-  )
+
+  const [viewModel] = useState(() => new GeneralNotificationsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const currentUserRole = viewModel?.currentUser?.role || -1
+  const currentUserRole = viewModel?.userInfo?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
   const isCurrentUserBuyer = checkIsBuyer(UserRoleCodeMap[currentUserRole])
   const isCurrentUserFreelancer = checkIsFreelancer(UserRoleCodeMap[currentUserRole])
@@ -122,13 +122,15 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -139,7 +141,7 @@ export const GeneralNotificationsView = observer(({ history }: { history: Histor
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />

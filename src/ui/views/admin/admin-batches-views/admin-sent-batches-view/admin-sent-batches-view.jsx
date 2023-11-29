@@ -42,7 +42,6 @@ export const AdminSentBatchesViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
