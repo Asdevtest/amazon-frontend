@@ -147,14 +147,14 @@ export const RequestDetailCustomView = observer(({ history }) => {
       <Modal
         missClickModalOn
         openModal={viewModel.showRequestDesignerResultClientModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        setOpenModal={viewModel.onClickCloseDesignerResultClientModal}
       >
         <RequestDesignerResultClientForm
           userInfo={viewModel.userInfo}
           request={viewModel.request}
           proposal={findRequestProposalForCurChat}
           curResultMedia={viewModel.curResultMedia}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          setOpenModal={viewModel.onClickCloseDesignerResultClientModal}
           // onClickSendAsResult={viewModel.onClickSendAsResult}
         />
       </Modal>
