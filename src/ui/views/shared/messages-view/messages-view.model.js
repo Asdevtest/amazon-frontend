@@ -107,27 +107,6 @@ export class MessagesViewModel {
       },
     )
 
-    // reaction(
-    //   () => this.mesSearchValue,
-    //   () => {
-    //     runInAction(() => {
-    //       if (this.mesSearchValue && this.chatSelectedId) {
-    //         const mesAr = this.simpleChats
-    //           .find(el => el._id === this.chatSelectedId)
-    //           .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
-
-    //         this.messagesFound = mesAr
-
-    //         setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-    //       } else {
-    //         this.curFoundedMessage = undefined
-
-    //         this.messagesFound = []
-    //       }
-    //     })
-    //   },
-    // )
-
     reaction(
       () => ChatModel.isConnected,
       () => this.loadData(),

@@ -185,16 +185,21 @@ class ChatModelStatic {
     }
   }
 
-  public async getUnreadMessagesCount(): Promise<void> {
+  public async getUnreadMessagesCount(messagesNumber?: number): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
     try {
-      const count = await this.websocketChatService.getUnreadMessagesCount()
-
-      runInAction(() => {
-        this.unreadMessagesCount = count
-      })
+      if (messagesNumber) {
+        runInAction(() => {
+          this.unreadMessagesCount = Number(this.unreadMessagesCount) + messagesNumber
+        })
+      } else {
+        const count = await this.websocketChatService.getUnreadMessagesCount()
+        runInAction(() => {
+          this.unreadMessagesCount = count
+        })
+      }
     } catch (error) {
       console.warn(error)
     }
@@ -382,7 +387,7 @@ class ChatModelStatic {
     }
 
     await this.websocketChatService.readMessage(messageIds)
-    await this.getUnreadMessagesCount()
+    await this.getUnreadMessagesCount(-messageIds.length)
   }
 
   private onConnectionError(error: Error) {
@@ -460,7 +465,7 @@ class ChatModelStatic {
       })
     }
 
-    this.getUnreadMessagesCount()
+    this.getUnreadMessagesCount(!isCurrentUser ? 1 : 0)
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
@@ -502,8 +507,6 @@ class ChatModelStatic {
         }
       })
     }
-
-    this.getUnreadMessagesCount()
   }
 
   private removeTypingUser(chatId: string, userId: string) {
