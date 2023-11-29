@@ -1,19 +1,11 @@
-export const styles = theme => ({
-  editBtn: {
-    padding: '0 54px',
-  },
+import { makeStyles } from 'tss-react/mui'
 
+export const useStyles = makeStyles()(theme => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-  },
-
-  leftBtnsWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: '10px',
   },
 
   button: {
@@ -34,4 +26,4 @@ export const styles = theme => ({
     height: '82vh',
     width: '100%',
   },
-})
+}))
