@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -48,7 +48,6 @@ const filtersFields = [
 
 export class MyProposalsViewModel {
   // * Pagination & Sort
-
   rowCount = 0
   sortModel = []
   densityModel = 'compact'
@@ -91,8 +90,6 @@ export class MyProposalsViewModel {
   error = undefined
   actionStatus = undefined
 
-  currentData = []
-
   currentProposal = null
   currentRequest = null
 
@@ -132,27 +129,18 @@ export class MyProposalsViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
+  get currentData() {
+    return this.requests
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.requests,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
   }
 
   onChangeViewMode(value) {
-    runInAction(() => {
-      this.viewMode = value
-    })
+    this.viewMode = value
   }
 
   onSelectProposalFilter(item) {
@@ -178,22 +166,16 @@ export class MyProposalsViewModel {
     this.requests = this.getFilteredRequests()
   }
 
-  getCurrentData() {
-    return toJS(this.requests)
-  }
-
   onClickDeleteBtn(proposalId, proposalStatus) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        confirmTitle: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Are you sure you want to cancel the proposal?']),
-        onClickConfirm: () => {
-          this.cancelProposalHandler(proposalId, proposalStatus)
-          this.onTriggerOpenModal('showConfirmModal')
-        },
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the proposal?']),
+      onClickConfirm: () => {
+        this.cancelProposalHandler(proposalId, proposalStatus)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -230,32 +212,26 @@ export class MyProposalsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.FREELANCER_MY_PROPOSALS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onTriggerSortMode() {
-    runInAction(() => {
-      if (this.sortMode === tableSortMode.DESK) {
-        this.sortMode = tableSortMode.ASC
-      } else {
-        this.sortMode = tableSortMode.DESK
-      }
-    })
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+    } else {
+      this.sortMode = tableSortMode.DESK
+    }
 
     this.setDataGridState()
   }
 
   onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
+    this.selectedTaskType = taskType
 
     const isAllTasks = taskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
@@ -285,11 +261,8 @@ export class MyProposalsViewModel {
 
   getUserInfo() {
     const result = UserModel.userInfo
-
-    runInAction(() => {
-      this.userInfo = result
-      this.userRole = UserRoleCodeMap[result.role]
-    })
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
   }
 
   async loadData() {
@@ -432,87 +405,66 @@ export class MyProposalsViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeFullFieldMenuItem(value, field, notResetTask) {
     if (!notResetTask) {
-      runInAction(() => {
-        this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-      })
+      this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
     }
 
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.actionStatus = actionStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.getRequestsProposalsPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-      this.currentData = this.getCurrentData()
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.setDataGridState()
     this.getRequestsProposalsPagMy()
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+    this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
+
     this.getRequestsProposalsPagMy()
   }
 
@@ -521,11 +473,9 @@ export class MyProposalsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 }
