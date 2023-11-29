@@ -1173,7 +1173,7 @@ export class ClientInStockBoxesViewModel {
             this.confirmModalSettings = {
               isWarning: false,
               title: t(TranslationKey.Attention),
-              confirmMessage: t(TranslationKey['Wish to change a destination?']),
+              confirmMessage: t(TranslationKey['Wish to set a destination?']),
               onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
               onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
             }

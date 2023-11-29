@@ -36,6 +36,9 @@ export const DeliveryParameters = ({
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
+  const [currentDestanationId, setCurrentDestanationId] = useState(formFields.destinationId)
+
+  const minDate = dayjs().add(2, 'day')
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
@@ -46,48 +49,64 @@ export const DeliveryParameters = ({
     formFields.variationTariffId,
   )
 
+  const patchDestinationParamsHandler = (
+    storekeeperId,
+    tariffId,
+    variationTariffId,
+    destinationId,
+    isCancel,
+    notCloseConfirmModal,
+  ) => {
+    setFormFields({
+      ...formFields,
+      storekeeperId,
+      logicsTariffId: tariffId,
+      variationTariffId,
+      destinationId: isCancel ? null : destinationId,
+    })
+
+    setCurrentDestanationId(destinationId)
+    !notCloseConfirmModal && setShowConfirmModal(false)
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  }
+
   const onSubmitSelectStorekeeperAndTariff = (
     storekeeperId,
     tariffId,
     variationTariffId,
     destinationId,
     isSelectedDestinationNotValid,
+    isSetCurrentDestination,
   ) => {
+    const onClickConfirmButton = () =>
+      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, false, false)
+    const onClickCancelButton = () =>
+      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, false)
+
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
         isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-        onClickConfirm: () => {
-          setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-
-        onClickCancelBtn: () => {
-          setFormFields({
-            ...formFields,
-            storekeeperId,
-            logicsTariffId: tariffId,
-            variationTariffId,
-            destinationId: null,
-          })
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
+        onClickConfirm: () => onClickConfirmButton(),
+        onClickCancelBtn: () => onClickCancelButton(),
       })
-
       setShowConfirmModal(true)
     } else {
-      setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      if (!isSetCurrentDestination) {
+        setConfirmModalSettings({
+          isWarning: false,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to set a destination?']),
+          onClickConfirm: () => onClickConfirmButton(),
+          onClickCancelBtn: () => onClickCancelButton(),
+        })
+        setShowConfirmModal(true)
+      } else {
+        patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, true)
+      }
     }
   }
-
-  const minDate = dayjs().add(2, 'day')
 
   return (
     <div className={styles.root}>
@@ -124,9 +143,7 @@ export const DeliveryParameters = ({
             }
             data={
               formFields?.variationTariffId
-                ? destinations.filter(
-                    el => el?._id === (formFields?.destinationId || formFields?.variationTariff?.destinationId),
-                  )
+                ? destinations.filter(el => el?._id === currentDestanationId)
                 : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)
             }
             searchFields={['name']}
