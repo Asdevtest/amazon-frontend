@@ -910,9 +910,9 @@ export const AddOrEditSupplierModalContent = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={tmpSupplier.images}
-            currentImageIndex={curImageIndex}
-            handleCurrentImageIndex={index => setCurImageIndex(index)}
+            files={tmpSupplier.images}
+            currentFileIndex={curImageIndex}
+            handleCurrentFileIndex={index => setCurImageIndex(index)}
           />
         )}
 

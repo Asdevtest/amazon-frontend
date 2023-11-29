@@ -4,6 +4,14 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     backgroundColor: `${theme.palette.background.general} !important`,
 
+    'div .ril__imageNext': {
+      display: 'none',
+    },
+
+    'div .ril__imagePrev': {
+      display: 'none',
+    },
+
     'div:last-child': {
       backgroundColor: 'transparent',
 
@@ -25,6 +33,18 @@ export const useStyles = makeStyles()(theme => ({
           },
         },
       },
+    },
+  },
+
+  videoPlayerCustomWrapper: {
+    position: 'relative',
+    zIndex: 5,
+    maxWidth: 1200,
+  },
+
+  videoPlayerCustom: {
+    video: {
+      maxHeight: '700px !important',
     },
   },
 }))

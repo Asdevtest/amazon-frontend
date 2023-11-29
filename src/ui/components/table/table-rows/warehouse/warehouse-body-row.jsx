@@ -189,9 +189,9 @@ const WarehouseBodyRowRaw = ({
         <ImageModal
           isOpenModal={showPhotosModal}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={curImages}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
-          currentImageIndex={curImageIndex}
+          files={curImages}
+          handleCurrentFileIndex={index => setCurImageIndex(index)}
+          currentFileIndex={curImageIndex}
         />
       )}
     </>
