@@ -173,12 +173,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           <div className={classNames.proposalsWrapper}>
             <Divider orientation={'vertical'} />
 
-            <ProposalsSlider
-              isComment
-              proposals={requestProposals}
-              title={t(TranslationKey.Proposal)}
-              classNamesWrapper={classNames.sliderWrapper}
-            />
+            <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
           </div>
         ) : null}
       </div>

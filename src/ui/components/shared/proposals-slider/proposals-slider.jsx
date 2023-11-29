@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useEffect, useState } from 'react'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
@@ -18,7 +17,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './proposals-slider.style'
+import { useStyles } from './proposals-slider.style'
 
 export const ProposalsSlider = ({
   item,
@@ -30,14 +29,15 @@ export const ProposalsSlider = ({
   onClickDeleteBtn,
   onClickOpenBtn,
   onClickResultBtn,
-  classNamesWrapper,
+  stylesWrapper,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProposals, setSelectedProposals] = useState([])
   const [currentProposal, setCurrentProposal] = useState(selectedProposals?.[0])
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [currentTitle, setCurrentTitle] = useState(`${currentIndex + 1} / ${proposals.length}`)
 
   useEffect(() => {
     if (proposals) {
@@ -69,74 +69,73 @@ export const ProposalsSlider = ({
 
   useEffect(() => {
     const transitionDuration = 300
-    let transitionTimeout
 
     if (isTransitioning) {
-      transitionTimeout = setTimeout(() => {
+      setTimeout(() => {
         setIsTransitioning(false)
         setCurrentProposal(selectedProposals?.[currentIndex])
+        setCurrentTitle(`${currentIndex + 1} / ${proposals.length}`)
       }, transitionDuration)
-    }
-
-    return () => {
-      clearTimeout(transitionTimeout)
     }
   }, [isTransitioning])
 
   const isDisableArrow = selectedProposals?.length <= 1
+  const isDisableArrowLeft = currentIndex === 0
+  const isDisableArrowRight = currentIndex === proposals.length - 1
 
   return (
-    <div className={cx(classNames.wrapper, classNamesWrapper)}>
-      <div className={cx(classNames.mainWrapper, isTransitioning ? classNames.transitioning : classNames.active)}>
-        <div className={classNames.header}>
-          <div className={classNames.arrowsWrapper}>
-            <button disabled={isDisableArrow}>
+    <div className={cx(styles.wrapper, stylesWrapper)}>
+      <div className={cx(styles.mainWrapper, isTransitioning ? styles.transitioning : styles.active)}>
+        <div className={styles.header}>
+          <div className={styles.arrowsWrapper}>
+            <button disabled={isDisableArrow || isDisableArrowLeft} onClick={handlePrev}>
               <ArrowLeftIcon
-                className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
-                onClick={handlePrev}
+                className={cx(styles.arrowIcon, {
+                  [styles.arrowIconDisable]: isDisableArrow || isDisableArrowLeft,
+                })}
               />
             </button>
 
-            <p className={classNames.proposalTitle}>{`${title} ${currentIndex + 1}`}</p>
+            <p className={styles.proposalTitle}>{`${title} ${currentIndex + 1}`}</p>
 
-            <button disabled={isDisableArrow}>
+            <button disabled={isDisableArrow || isDisableArrowRight} onClick={handleNext}>
               <ArrowRightIcon
-                className={cx(classNames.arrowIcon, { [classNames.arrowIconDisable]: isDisableArrow })}
-                onClick={handleNext}
+                className={cx(styles.arrowIcon, {
+                  [styles.arrowIconDisable]: isDisableArrow || isDisableArrowRight,
+                })}
               />
             </button>
           </div>
+          <p className={cx(styles.title, styles.blueTitle)}>{currentTitle}</p>
         </div>
 
-        <div className={classNames.performerWrapper}>
-          <p className={classNames.title}>{t(TranslationKey.Performer)}</p>
+        <div className={styles.performerWrapper}>
+          <p className={styles.title}>{t(TranslationKey.Performer)}</p>
           <UserLink
             name={currentProposal?.sub?.name || currentProposal?.createdBy?.name}
             userId={currentProposal?.sub?._id || currentProposal?.createdBy?._id}
-            customClassNames={classNames.customPerformerLink}
+            customstyles={styles.customPerformerLink}
           />
         </div>
 
-        {currentProposal?.comment && isComment ? (
-          <p className={classNames.comment}>{currentProposal?.comment}</p>
-        ) : null}
+        {currentProposal?.comment && isComment ? <p className={styles.comment}>{currentProposal?.comment}</p> : null}
 
-        <div className={classNames.actionsWrapper}>
-          <div className={classNames.statusWrapper}>
+        <div className={styles.actionsWrapper}>
+          <div className={styles.statusWrapper}>
             <div
-              className={classNames.circle}
+              className={styles.circle}
               style={{ background: RequestProposalStatusColor(currentProposal?.status) }}
             />
-            <p className={classNames.title}>{RequestProposalStatusTranslate(currentProposal?.status)}</p>
+            <p className={styles.title}>{RequestProposalStatusTranslate(currentProposal?.status)}</p>
           </div>
 
-          <div className={classNames.buttons}>
+          <div className={styles.buttons}>
             {onClickDeleteBtn ? (
               <Button
                 danger
                 tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
-                className={classNames.button}
+                className={styles.button}
                 onClick={() => onClickDeleteBtn(currentProposal)}
               >
                 {t(TranslationKey.Cancel)}
@@ -146,7 +145,7 @@ export const ProposalsSlider = ({
             {onClickResultBtn ? (
               <Button
                 disabled={!showResultStatuses.includes(currentProposal?.status)}
-                className={classNames.button}
+                className={styles.button}
                 onClick={() => onClickResultBtn(item, currentProposal?._id)}
               >
                 {t(TranslationKey.Result)}
@@ -157,7 +156,7 @@ export const ProposalsSlider = ({
               <Button
                 tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
                 disabled={!noDisabledEditBtnStatuses.includes(currentProposal?.status)}
-                className={classNames.button}
+                className={styles.button}
                 onClick={() => onClickEditBtn(item, currentProposal)}
               >
                 {t(TranslationKey.Edit)}
@@ -167,7 +166,7 @@ export const ProposalsSlider = ({
             {onClickOpenBtn ? (
               <Button
                 tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
-                className={classNames.button}
+                className={styles.button}
                 onClick={() => onClickOpenBtn(item)}
               >
                 {t(TranslationKey['Open a request'])}
