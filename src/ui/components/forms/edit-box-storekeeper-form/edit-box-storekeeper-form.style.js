@@ -209,6 +209,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   productWrapper: {
+    width: '100%',
     padding: '10px 20px 0',
     display: 'flex',
     justifyContent: 'space-between',
