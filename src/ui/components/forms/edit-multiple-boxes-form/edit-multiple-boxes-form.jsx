@@ -381,7 +381,6 @@ export const EditMultipleBoxesForm = observer(
                   labelClasses={classNames.label}
                   inputComponent={
                     <Button
-                      variant={sharedFields.logicsTariffId && 'text'}
                       className={cx({
                         [classNames.storekeeperBtn]: !sharedFields.logicsTariffId,
                         [classNames.storekeeperBtnDefault]: sharedFields.logicsTariffId,

@@ -218,7 +218,6 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     {isNewBox ? (
                       <Button
                         disabled={!isNewBox}
-                        variant={box.logicsTariffId && 'text'}
                         className={cx(
                           styles.storekeeperBtnDefault,
                           { [styles.storekeeperBtn]: !box.logicsTariffId },
