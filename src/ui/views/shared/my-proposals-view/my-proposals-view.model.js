@@ -29,7 +29,6 @@ import { filtersFields } from './my-proposals-view.constants'
 
 export class MyProposalsViewModel {
   // * Pagination & Sort
-
   rowCount = 0
   sortModel = []
   densityModel = 'compact'
@@ -69,10 +68,6 @@ export class MyProposalsViewModel {
   history = undefined
   requestStatus = undefined
 
-  get currentData() {
-    return this.requests
-  }
-
   currentProposal = null
   currentRequest = null
 
@@ -107,6 +102,10 @@ export class MyProposalsViewModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get currentData() {
+    return this.requests
   }
 
   constructor({ history }) {

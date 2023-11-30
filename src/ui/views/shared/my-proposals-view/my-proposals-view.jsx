@@ -30,7 +30,7 @@ export const MyProposalsView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.root}>
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
@@ -136,6 +136,6 @@ export const MyProposalsView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })
