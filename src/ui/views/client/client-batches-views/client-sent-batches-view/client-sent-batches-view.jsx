@@ -90,15 +90,14 @@ export const ClientSentBatchesView = observer(({ history }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 'auto'}
             slotProps={{
-              columnMenu: viewModel.columnMenuSettings,
-
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,

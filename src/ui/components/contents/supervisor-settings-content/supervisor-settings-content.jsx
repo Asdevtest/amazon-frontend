@@ -113,7 +113,6 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -172,7 +171,6 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -231,7 +229,6 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -290,7 +287,6 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}

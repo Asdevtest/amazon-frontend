@@ -238,7 +238,6 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
-            pageSizeOptions={[15, 25, 50, 100]}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.getCurrentTaskData()}

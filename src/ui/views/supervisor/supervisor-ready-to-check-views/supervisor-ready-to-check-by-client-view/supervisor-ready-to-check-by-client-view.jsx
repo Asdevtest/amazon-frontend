@@ -59,7 +59,6 @@ export const SupervisorReadyToCheckByClientViewRaw = props => {
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             localeText={getLocalizationByLanguageTag()}
-            pageSizeOptions={[15, 25, 50, 100]}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.getCurrentData()}
             rowHeight={100}

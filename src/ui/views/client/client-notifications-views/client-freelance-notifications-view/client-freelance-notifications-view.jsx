@@ -33,7 +33,6 @@ export const ClientFreelanceNotificationsView = observer(({ history }) => {
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={viewModel.currentData}
         rowHeight={120}
         rowCount={viewModel.rowCount}

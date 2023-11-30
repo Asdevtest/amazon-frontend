@@ -56,7 +56,6 @@ export const Freelance = observer(({ productId, modal }) => {
           localeText={getLocalizationByLanguageTag()}
           propsToRerender={{ onHover: viewModel.onHover }}
           rowCount={viewModel.rowCount}
-          pageSizeOptions={[15, 25, 50, 100]}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.getCurrentData()}
           rowHeight={100}
