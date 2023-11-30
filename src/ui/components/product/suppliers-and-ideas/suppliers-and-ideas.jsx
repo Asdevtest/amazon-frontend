@@ -349,7 +349,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {showRequestBloggerResultModal && (
         <RequestResultModal
-          request={{ request: currentRequest }}
+          request={currentRequest}
           proposal={currentProposal}
           openModal={showRequestBloggerResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}

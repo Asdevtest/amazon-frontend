@@ -256,7 +256,7 @@ export const ClientIdeasView = observer(({ history }) => {
 
       {viewModel.showRequestBloggerResultModal && (
         <RequestResultModal
-          request={{ request: viewModel.currentRequest }}
+          request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
