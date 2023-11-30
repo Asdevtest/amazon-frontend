@@ -1212,8 +1212,6 @@ export class ClientInStockBoxesViewModel {
         //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
-        console.log('boxData', boxData)
-
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
