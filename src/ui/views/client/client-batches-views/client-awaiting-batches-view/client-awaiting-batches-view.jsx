@@ -99,7 +99,6 @@ export const ClientAwaitingBatchesViewRaw = props => {
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
-            propsToRerender={{ productViewMode: viewModel.productViewMode }}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             rowSelectionModel={viewModel.selectedBatches}

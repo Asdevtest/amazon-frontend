@@ -85,7 +85,6 @@ export const MyRequestsView = observer(({ history, location }) => {
 
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
-            propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}

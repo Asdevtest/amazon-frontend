@@ -14,25 +14,25 @@ import { checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from '../image-modal.styles'
+import { useStyles } from '../image-modal.style'
 
 interface ButtonControlsProps {
-  image: string | IUploadFile
-  imageIndex: number
+  mediaFile: string | IUploadFile
+  mediaFileIndex: number
   withoutMakeMainImage?: boolean
-  onClickRemoveImageObj: (imageIndex: number) => void
-  onUploadFile: (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => void
-  onClickMakeMainImageObj: (image: string | IUploadFile, imageIndex: number) => void
-  onClickDownloadPhoto: (image: string | IUploadFile) => void
-  onOpenImageZoomModal: () => void
   isEditable?: boolean
+  onClickRemoveImageObj: (mediaFileIndex: number) => void
+  onUploadFile: (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => void
+  onClickMakeMainImageObj: (mediaFile: string | IUploadFile, mediaFileIndex: number) => void
+  onClickDownloadPhoto: (mediaFile: string | IUploadFile) => void
+  onOpenImageZoomModal: () => void
   onImageEditToggle?: () => void
 }
 
 export const ButtonControls: FC<ButtonControlsProps> = observer(
   ({
-    image,
-    imageIndex,
+    mediaFile,
+    mediaFileIndex,
     withoutMakeMainImage,
     isEditable,
     onImageEditToggle,
@@ -44,31 +44,29 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
   }) => {
     const { classes: styles, cx } = useStyles()
 
-    const isVideoType = checkIsVideoLink(typeof image === 'string' ? image : image?.file?.name)
+    const isVideoType = checkIsVideoLink(typeof mediaFile === 'string' ? mediaFile : mediaFile?.file?.name)
 
     return (
       <div className={styles.controls}>
-        <Button onClick={() => onClickDownloadPhoto(image)}>
+        <Button onClick={() => onClickDownloadPhoto(mediaFile)}>
           <DownloadOutlinedIcon />
         </Button>
 
-        {!isVideoType && (
-          <Button onClick={onOpenImageZoomModal}>
-            <ZoomOutMapOutlinedIcon />
-          </Button>
-        )}
+        <Button onClick={onOpenImageZoomModal}>
+          <ZoomOutMapOutlinedIcon />
+        </Button>
 
         {isEditable && !withoutMakeMainImage && (
           <>
-            {imageIndex === 0 ? (
+            {mediaFileIndex === 0 ? (
               <div className={cx(styles.imagesModalBtn, styles.activeMainIcon)}>
                 <StarOutlinedIcon />
               </div>
             ) : (
               <Button
-                disabled={imageIndex === 0}
+                disabled={mediaFileIndex === 0}
                 className={styles.imagesModalBtn}
-                onClick={() => onClickMakeMainImageObj(image, imageIndex)}
+                onClick={() => onClickMakeMainImageObj(mediaFile, mediaFileIndex)}
               >
                 <StarOutlinedIcon />
               </Button>
@@ -93,13 +91,13 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
               type="file"
               className={styles.pasteInput}
               defaultValue={''}
-              onChange={event => onUploadFile(event, imageIndex)}
+              onChange={event => onUploadFile(event, mediaFileIndex)}
             />
           </Button>
         )}
 
         {isEditable && (
-          <Button danger className={styles.imagesModalBtn} onClick={() => onClickRemoveImageObj(imageIndex)}>
+          <Button danger className={styles.imagesModalBtn} onClick={() => onClickRemoveImageObj(mediaFileIndex)}>
             <DeleteOutlineOutlinedIcon />
           </Button>
         )}

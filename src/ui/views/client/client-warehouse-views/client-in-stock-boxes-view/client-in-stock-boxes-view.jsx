@@ -159,7 +159,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
-            propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&

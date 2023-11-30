@@ -10,16 +10,16 @@ import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from './image-modal.styles'
+import { useStyles } from './image-modal.style'
 
 import { ButtonControls, ShowPreviews } from './components'
 
 interface ImageModalProps {
+  files: Array<string | IUploadFile>
+  currentFileIndex: number
+  handleCurrentFileIndex: (index: number) => void
   isOpenModal: boolean
-  imageList: Array<string | IUploadFile>
-  currentImageIndex: number
   handleOpenModal: () => void
-  handleCurrentImageIndex: (index: number) => void
   photosTitles?: string[]
   photosComments?: string[]
   showPreviews?: boolean
@@ -30,16 +30,16 @@ interface ImageModalProps {
 
 export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
-    imageList,
-    currentImageIndex,
+    files,
+    currentFileIndex,
+    handleCurrentFileIndex,
+    isOpenModal,
+    handleOpenModal,
     photosTitles,
     photosComments,
-    isOpenModal,
     showPreviews,
     isEditable,
     withoutMakeMainImage,
-    handleOpenModal,
-    handleCurrentImageIndex,
     onChangeImagesForLoad,
   } = props
 
@@ -50,9 +50,9 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     openImageZoomModal,
     onOpenImageZoomModal,
 
-    photos,
-    photoIndex,
-    setPhotoIndex,
+    mediaFiles,
+    mediaFileIndex,
+    setMediaFileIndex,
 
     isPlaying,
     setIsPlaying,
@@ -63,55 +63,55 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     onClickEditImageSubmit,
     onClickDownloadPhoto,
     updateImagesForLoad,
-  } = usePhotoAndFilesSlider(imageList, onChangeImagesForLoad, currentImageIndex)
+  } = usePhotoAndFilesSlider(files, onChangeImagesForLoad, currentFileIndex)
 
   return (
     <Modal
       openModal={isOpenModal}
       setOpenModal={() => {
         handleOpenModal()
-        handleCurrentImageIndex(photoIndex)
+        handleCurrentFileIndex(mediaFileIndex)
         updateImagesForLoad()
       }}
       dialogClassName={styles.modalContainer}
     >
       <div className={styles.wrapper}>
         <ShowPreviews
-          photos={photos}
-          photoIndex={photoIndex}
-          setPhotoIndex={setPhotoIndex}
+          mediaFiles={mediaFiles}
+          mediaFileIndex={mediaFileIndex}
+          setMediaFileIndex={setMediaFileIndex}
           setIsPlaying={setIsPlaying}
           showPreviews={showPreviews}
           photosTitles={photosTitles}
         />
 
         <div className={styles.body}>
-          {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
+          {photosTitles?.[mediaFileIndex] && <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p>}
 
           <Slider
             controls
             isHideCounter
             customSlideHeight={500}
-            slides={photos}
-            currentIndex={photoIndex}
-            setCurrentIndex={setPhotoIndex}
+            slides={mediaFiles}
+            currentIndex={mediaFileIndex}
+            setCurrentIndex={setMediaFileIndex}
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
           />
 
-          {photosComments?.[photoIndex] && (
+          {photosComments?.[mediaFileIndex] && (
             <p
-              title={photosComments?.[photoIndex].length > 200 ? photosComments?.[photoIndex] : ''}
+              title={photosComments?.[mediaFileIndex].length > 200 ? photosComments?.[mediaFileIndex] : ''}
               className={styles.title}
             >
-              {getShortenStringIfLongerThanCount(photosComments?.[photoIndex], 200)}
+              {getShortenStringIfLongerThanCount(photosComments?.[mediaFileIndex], 200)}
             </p>
           )}
 
           <ButtonControls
             isEditable={isEditable}
-            image={photos?.[photoIndex]}
-            imageIndex={photoIndex}
+            mediaFile={mediaFiles?.[mediaFileIndex]}
+            mediaFileIndex={mediaFileIndex}
             withoutMakeMainImage={withoutMakeMainImage}
             onClickMakeMainImageObj={onClickMakeMainImageObj}
             onImageEditToggle={onOpenImageEditModal}
@@ -123,17 +123,19 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         </div>
       </div>
 
-      <ZoomModal
-        images={photos}
-        currentImageIndex={photoIndex}
-        isOpenModal={openImageZoomModal}
-        setIsOpenModal={onOpenImageZoomModal}
-        setCurrentImageIndex={setPhotoIndex}
-      />
+      {openImageZoomModal && (
+        <ZoomModal
+          mediaFiles={mediaFiles}
+          currentMediaFileIndex={mediaFileIndex}
+          isOpenModal={openImageZoomModal}
+          setIsOpenModal={onOpenImageZoomModal}
+          setCurrentMediaFileIndex={setMediaFileIndex}
+        />
+      )}
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm
-          item={photos?.[photoIndex]}
+          item={mediaFiles?.[mediaFileIndex]}
           setOpenModal={onOpenImageEditModal}
           onSave={onClickEditImageSubmit}
         />

@@ -213,7 +213,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
-            propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}

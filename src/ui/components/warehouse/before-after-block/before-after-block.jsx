@@ -691,9 +691,9 @@ const Box = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={bigImagesOptions.images}
-            currentImageIndex={bigImagesOptions.imgIndex}
-            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
       </div>
