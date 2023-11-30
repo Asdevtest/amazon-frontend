@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
@@ -11,6 +6,8 @@ import { appVersion } from '@constants/app-version'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { UserInfoSchema } from '@services/rest-api-service/codegen'
 
@@ -29,11 +26,11 @@ import { t } from '@utils/translations'
 import { NavbarConfigTypes } from '@typings/navbar-config'
 import { IUser } from '@typings/user'
 
-import { useClassNames } from './navbar-drawer-content.styles'
+import { useStyles } from './navbar-drawer-content.styles'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
-interface Props {
+interface NavbarDrawerContentProps {
   shortNavbar: boolean
   onToggleModal: () => void
   confirmModalSettings: NavbarModel['confirmModalSettings']
@@ -41,7 +38,7 @@ interface Props {
   curNavbar: NavbarConfigTypes.RootObject
   userInfo: UserInfoSchema
   activeCategory: string
-  viewModel: NavbarModel
+  unreadMessages: ChatMessageContract[]
   onClickVersion: NavbarModel['onClickVersion']
   onTriggerOpenModal: (arg: string) => void
   activeSubCategory: string
@@ -53,7 +50,7 @@ interface Props {
 
 const alwaysShowSubCategoryKeys = [navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS]
 
-export const NavbarDrawerContent: FC<Props> = observer(
+export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(
   ({
     shortNavbar,
     onToggleModal,
@@ -62,7 +59,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
     curNavbar,
     userInfo,
     activeCategory,
-    viewModel,
+    unreadMessages,
     onTriggerOpenModal,
     onClickVersion,
     activeSubCategory,
@@ -71,9 +68,9 @@ export const NavbarDrawerContent: FC<Props> = observer(
     showWarningModal,
     showConfirmModal,
   }) => {
-    const { classes: classNames } = useClassNames()
-    const [filteredCategories, setFilteredCategories] = useState<any>([])
-    const [filteredBottomCategories, setFilteredBottomCategories] = useState<any>([])
+    const { classes: styles, cx } = useStyles()
+    const [filteredCategories, setFilteredCategories] = useState<NavbarConfigTypes.Route[]>([])
+    const [filteredBottomCategories, setFilteredBottomCategories] = useState<NavbarConfigTypes.Route[]>([])
 
     const getFilteredCategories = () =>
       curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(
@@ -97,9 +94,9 @@ export const NavbarDrawerContent: FC<Props> = observer(
     }, [userInfo.role])
 
     return (
-      <div className={classNames.mainSubWrapper}>
-        <List className={classNames.categoriesWrapper}>
-          {filteredCategories.map((category: any, index: number) =>
+      <div className={styles.mainSubWrapper}>
+        <List className={styles.categoriesWrapper}>
+          {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
             category.checkHideBlock(userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory
@@ -121,7 +118,6 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     category={category}
                     index={category.key}
                     userInfo={userInfo}
-                    currentViewModel={viewModel}
                   />
                 )}
               </React.Fragment>
@@ -129,8 +125,8 @@ export const NavbarDrawerContent: FC<Props> = observer(
           )}
         </List>
 
-        <div className={classNames.bottomCategories}>
-          {filteredBottomCategories.map((category: any, index: number) =>
+        <div className={styles.bottomCategories}>
+          {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
             category.checkHideBlock(userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory
@@ -139,7 +135,7 @@ export const NavbarDrawerContent: FC<Props> = observer(
                   isSelected={category.key === activeCategory}
                   userInfo={userInfo}
                   category={category}
-                  badge={category.route?.includes('/messages') && viewModel.unreadMessages}
+                  badge={category.route?.includes('/messages') && unreadMessages}
                   onToggleModal={onToggleModal}
                 />
               </React.Fragment>
@@ -148,18 +144,16 @@ export const NavbarDrawerContent: FC<Props> = observer(
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap]) ? (
             <div
-              className={cx(classNames.feedBackButton, { [classNames.shortFeedBackButton]: shortNavbar })}
+              className={cx(styles.feedBackButton, { [styles.shortFeedBackButton]: shortNavbar })}
               onClick={() => onTriggerOpenModal('showFeedbackModal')}
             >
-              {!shortNavbar && (
-                <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-              )}
-              <Feedback className={classNames.feedbackIcon} />
+              {!shortNavbar && <Typography className={styles.feedBackText}>{t(TranslationKey.Feedback)}</Typography>}
+              <Feedback className={styles.feedbackIcon} />
             </div>
           ) : null}
 
           <Typography
-            className={cx(classNames.appVersion, { [classNames.smallAppVersion]: shortNavbar })}
+            className={cx(styles.appVersion, { [styles.smallAppVersion]: shortNavbar })}
             onClick={onClickVersion}
           >
             {appVersion}

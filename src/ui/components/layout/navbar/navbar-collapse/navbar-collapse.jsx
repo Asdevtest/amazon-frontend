@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +14,7 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { useClassNames } from './navbar-collapse.style'
+import { useStyles } from './navbar-collapse.style'
 
 import { NavbarSubCategory } from '../navbar-sub-category'
 
@@ -25,11 +24,10 @@ export const NavbarCollapse = ({
   category,
   index,
   userInfo,
-  currentViewModel,
   shortNavbar,
   showHighPriorityNotification,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -48,146 +46,118 @@ export const NavbarCollapse = ({
   const renderNotificationBySubRoute = subRoute => {
     switch (subRoute) {
       case '/warehouse/tasks/vacant-tasks':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.tasksNewAll || 0}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.tasksNewAll || 0}</div>}</ListItemIcon>
 
       case '/warehouse/tasks/my-tasks':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.tasksAtProcessAll || 0}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.tasksAtProcessAll || 0}</div>}</ListItemIcon>
 
       case '/client/notifications/ideas-notifications':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.updatesOnIdeas || 0}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.updatesOnIdeas || 0}</div>}</ListItemIcon>
 
       case '/buyer/notifications/ideas-notifications':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.updatesOnIdeas || 0}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.updatesOnIdeas || 0}</div>}</ListItemIcon>
 
       case '/client/notifications/orders-notifications':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.needConfirmPriceChange?.orders || 0}</div>}
+            {<div className={styles.badge}>{userInfo?.needConfirmPriceChange?.orders || 0}</div>}
           </ListItemIcon>
         )
 
       case '/client/notifications/boxes-notifications':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.needConfirmPriceChange?.boxes || 0}</div>}
+            {<div className={styles.badge}>{userInfo?.needConfirmPriceChange?.boxes || 0}</div>}
           </ListItemIcon>
         )
 
       case '/client/notifications/tariffs-notifications':
         return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.needUpdateTariff?.boxes || 0}</div>}
-          </ListItemIcon>
+          <ListItemIcon>{<div className={styles.badge}>{userInfo?.needUpdateTariff?.boxes || 0}</div>}</ListItemIcon>
         )
 
       case '/client/notifications/freelance-notifications':
         return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.freelanceNotices?.length || 0}</div>}
-          </ListItemIcon>
+          <ListItemIcon>{<div className={styles.badge}>{userInfo?.freelanceNotices?.length || 0}</div>}</ListItemIcon>
         )
 
       case '/freelancer/notifications/freelance-notifications':
         return (
-          <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel?.userInfo?.freelanceNotices?.length || 0}</div>}
-          </ListItemIcon>
+          <ListItemIcon>{<div className={styles.badge}>{userInfo?.freelanceNotices?.length || 0}</div>}</ListItemIcon>
         )
 
       // case '/shared/general-notifications-view':
       //   return (
       //     <ListItemIcon>
-      //       {<div className={classNames.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
+      //       {<div className={styles.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
       //     </ListItemIcon>
       //   )
 
       case '/client/my-orders/pending-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.pendingOrders || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.pendingOrders || 0}</div>}</ListItemIcon>
 
       case '/client/my-orders/orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.orders || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.orders || 0}</div>}</ListItemIcon>
 
       case '/buyer/not-paid-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.notPaid || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.notPaid || 0}</div>}</ListItemIcon>
 
       case '/buyer/need-track-number-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.needTrackNumber || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.needTrackNumber || 0}</div>}</ListItemIcon>
 
       case '/buyer/inbound-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.inbound || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.inbound || 0}</div>}</ListItemIcon>
 
       case '/buyer/confirmation-required-orders':
-        return (
-          <ListItemIcon>{<div className={classNames.badge}>{userInfo?.confirmationRequired || 0}</div>}</ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.confirmationRequired || 0}</div>}</ListItemIcon>
 
       case '/buyer/closed-and-canceled-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.closedAndCanceled || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.closedAndCanceled || 0}</div>}</ListItemIcon>
 
       case '/buyer/ready-for-payment-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.readyForPayment || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.readyForPayment || 0}</div>}</ListItemIcon>
 
       case '/buyer/partially-paid-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.partiallyPaid || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.partiallyPaid || 0}</div>}</ListItemIcon>
 
       case '/buyer/all-orders':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.allOrders || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.allOrders || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/new':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.new || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.new || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/on-checking':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.onCheck || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.onCheck || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/search-suppliers':
-        return (
-          <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.supplierSearch || 0}</div>}</ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.supplierSearch || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/create-card':
         return (
-          <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.productCreating || 0}</div>}</ListItemIcon>
+          <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.productCreating || 0}</div>}</ListItemIcon>
         )
 
       case '/client/ideas/add-asin':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.addingAsin || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.addingAsin || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/realized':
-        return <ListItemIcon>{<div className={classNames.badge}>{userInfo?.ideas?.finished || 0}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.finished || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/closed':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{userInfo?.ideas?.rejectedOrClosed || 0 || 0}</div>}
+            {<div className={styles.badge}>{userInfo?.ideas?.rejectedOrClosed || 0 || 0}</div>}
           </ListItemIcon>
         )
 
       case `/${UserRoleCodeMapForRoutes[userInfo?.role]}/notifications/general-notifications-view`:
-        return (
-          <ListItemIcon>{<div className={classNames.badge}>{userInfo?.notificationCounter || 0}</div>}</ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.notificationCounter || 0}</div>}</ListItemIcon>
 
       case '/client/ideas/all':
         return (
           <ListItemIcon>
             {
-              <div className={classNames.badge}>
+              <div className={styles.badge}>
                 {userInfo?.ideas?.new +
                   userInfo?.ideas?.onCheck +
                   userInfo?.ideas?.supplierSearch +
@@ -203,14 +173,28 @@ export const NavbarCollapse = ({
       case '/freelancer/freelance/vacant-requests':
         return (
           <ListItemIcon>
-            <div className={classNames.badge}>{userInfo?.vacantRequests}</div>
+            <div className={styles.badge}>{userInfo?.vacantRequests}</div>
           </ListItemIcon>
         )
 
       case '/freelancer/freelance/my-proposals':
         return (
           <ListItemIcon>
-            <div className={classNames.badge}>{getSumPropertiesObject(userInfo?.myProposals)}</div>
+            <div className={styles.badge}>{getSumPropertiesObject(userInfo?.myProposals)}</div>
+          </ListItemIcon>
+        )
+
+      case '/supervisor/ready-to-check':
+        return (
+          <ListItemIcon>
+            <div className={styles.badge}>{userInfo?.vacFromResearcher}</div>
+          </ListItemIcon>
+        )
+
+      case '/supervisor/ready-to-check-by-client':
+        return (
+          <ListItemIcon>
+            <div className={styles.badge}>{userInfo?.vacFromClient}</div>
           </ListItemIcon>
         )
 
@@ -234,7 +218,7 @@ export const NavbarCollapse = ({
     switch (route) {
       case '/client/my-orders/pending-orders':
         return (
-          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
+          <div className={cx(styles.bigBadge, styles.redBadge)}>
             {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
           </div>
         )
@@ -249,7 +233,7 @@ export const NavbarCollapse = ({
       <Button
         key={subIndex}
         tooltipPosition="center"
-        className={cx(classNames.menuItem, { [classNames.selected]: subIndex === activeSubCategory })}
+        className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
         tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
         tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
       >
@@ -257,15 +241,15 @@ export const NavbarCollapse = ({
           button
           disableGutters
           component={Link}
-          className={classNames.subCategory}
+          className={styles.subCategory}
           selected={subIndex === activeSubCategory}
           to={subCategory.subRoute}
           onClick={() => onClickCategory(subIndex)}
         >
-          <div className={classNames.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
+          <div className={styles.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
           <ListItemText
             disableTypography
-            className={cx(classNames.listItemText, { [classNames.selected]: subIndex === activeSubCategory })}
+            className={cx(styles.listItemText, { [styles.selected]: subIndex === activeSubCategory })}
             primary={subCategory?.subtitle()}
           />
           {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
@@ -291,22 +275,19 @@ export const NavbarCollapse = ({
         <>
           {category.subtitles?.length ? (
             <div
-              className={classNames.userInfoWrapper}
+              className={styles.userInfoWrapper}
               aria-controls="simple-menu"
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <Typography className={cx(classNames.collapseText, { [classNames.selected]: index === activeCategory })}>
+              <Typography className={cx(styles.collapseText, { [styles.selected]: index === activeCategory })}>
                 {'...'}
               </Typography>
 
               {menuAnchor ? (
-                <ArrowDropUpIcon className={cx({ [classNames.selected]: index === activeCategory })} fontSize="small" />
+                <ArrowDropUpIcon className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
               ) : (
-                <ArrowDropDownIcon
-                  className={cx({ [classNames.selected]: index === activeCategory })}
-                  fontSize="small"
-                />
+                <ArrowDropDownIcon className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
               )}
             </div>
           ) : null}
@@ -320,7 +301,7 @@ export const NavbarCollapse = ({
           anchorEl={menuAnchor}
           autoFocus={false}
           open={Boolean(menuAnchor)}
-          classes={{ paper: classNames.menu, list: classNames.list }}
+          classes={{ paper: styles.menu, list: styles.list }}
           onClose={handleClose}
         >
           <List disablePadding>
