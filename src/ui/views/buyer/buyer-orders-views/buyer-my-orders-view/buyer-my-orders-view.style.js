@@ -32,30 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  totalPriceWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: 320,
-    gap: 5,
-  },
-
-  totalPriceText: {
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-    whiteSpace: 'nowrap',
-    color: theme.palette.text.second,
-  },
-
-  totalPrice: {
-    color: theme.palette.primary.main,
-  },
-
-  totalPriceTextWrapper: {
-    display: 'flex',
-  },
-
   loadingCircle: {
     zIndex: 50,
   },
