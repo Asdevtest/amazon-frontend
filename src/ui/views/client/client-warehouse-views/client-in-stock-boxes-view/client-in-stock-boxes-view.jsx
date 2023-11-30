@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
+import { ActionButtons } from './action-buttons/action-buttons'
 import { disableSelectionCells } from './client-in-stock-boxes-view.constants'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
@@ -49,59 +50,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     styles.isDraftRow
-
-  const renderButtons = () => {
-    const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
-
-    return (
-      <React.Fragment>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          disabled={!viewModel.selectedBoxes.length || disable}
-          onClick={viewModel.onClickRequestToSendBatch}
-        >
-          {t(TranslationKey['Send batch'])}
-        </Button>
-
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={viewModel.selectedBoxes.length <= 1 || viewModel.isHaveRequestSendToBatch}
-          onClick={viewModel.onClickMergeBtn}
-        >
-          {t(TranslationKey.Merge)}
-        </Button>
-
-        <Button
-          disabled={viewModel.selectedBoxes.length !== 1 || viewModel.isHaveRequestSendToBatch}
-          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
-          onClick={viewModel.onClickSplitBtn}
-        >
-          {t(TranslationKey.Redistribute)}
-        </Button>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!viewModel.selectedBoxes.length || viewModel.isHaveRequestSendToBatch}
-          onClick={viewModel.onClickEditBtn}
-        >
-          {t(TranslationKey.Edit)}
-        </Button>
-
-        <Button
-          disabled={!viewModel.selectedBoxes.length || viewModel.isHaveRequestSendToBatch}
-          onClick={viewModel.onClickGroupingBtn}
-        >
-          {t(TranslationKey.Grouping)}
-        </Button>
-
-        <Button
-          disabled={!viewModel.selectedBoxes.length || !viewModel.isChoosenOnlySendToBatchBoxes}
-          onClick={viewModel.onClickReturnBoxesToStockBtn}
-        >
-          {t(TranslationKey['Return to stock'])}
-        </Button>
-      </React.Fragment>
-    )
-  }
 
   return (
     <React.Fragment>
@@ -149,7 +97,20 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         </div>
 
         <div className={styles.btnsWrapper}>
-          <div className={styles.leftBtnsWrapper}>{renderButtons()}</div>
+          <div className={styles.leftBtnsWrapper}>
+            <ActionButtons
+              selectedRows={viewModel.selectedRows}
+              selectedBoxes={viewModel.selectedBoxes}
+              isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
+              isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
+              onClickRequestToSendBatch={viewModel.onClickRequestToSendBatch}
+              onClickMergeBtn={viewModel.onClickMergeBtn}
+              onClickSplitBtn={viewModel.onClickSplitBtn}
+              onClickEditBtn={viewModel.onClickEditBtn}
+              onClickGroupingBtn={viewModel.onClickGroupingBtn}
+              onClickReturnBoxesToStockBtn={viewModel.onClickReturnBoxesToStockBtn}
+            />
+          </div>
           <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>

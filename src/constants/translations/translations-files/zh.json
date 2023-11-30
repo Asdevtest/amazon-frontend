@@ -1164,7 +1164,7 @@
   "When re-sticking will create a task for the prep center": "重新贴时为准备中心创建任务",
   "Add or replace the shiping label": "添加或替换运输标签",
   "The dimensions of the box specified by the prep center": "为准备中心指定的箱子尺寸",
-  "Add a product barcode to the box. A task will be created for the prep center": "添加产品条形码至箱子.为准备中心将创建任务",
+  "Add a product barcode to the box": "添加产品条形码至箱子",
   "A task will be created for the prep center": "为准备中心将创建任务",
   "The supplier has glued the barcode before shipment": "发货前供货方贴上条形码",
   "The new barcode will be updated at the product in the inventory": "新产品条形码以上仓库的产品更新",

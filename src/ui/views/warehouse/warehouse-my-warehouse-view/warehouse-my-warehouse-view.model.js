@@ -521,7 +521,7 @@ export class WarehouseMyWarehouseViewModel {
           items: isMultipleEdit ? boxData.items : getNewItems(),
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0],
+            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,

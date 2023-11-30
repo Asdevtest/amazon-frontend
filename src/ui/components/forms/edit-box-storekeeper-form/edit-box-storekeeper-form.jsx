@@ -127,7 +127,7 @@ export const EditBoxStorekeeperForm = memo(
       variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
-      shippingLabel: formItem?.shippingLabel,
+      shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
       images: formItem?.images || [],
@@ -401,16 +401,8 @@ export const EditBoxStorekeeperForm = memo(
                           <>
                             <Field
                               containerClasses={styles.field}
-                              tooltipAttentionContent={
-                                !item.barCode && t(TranslationKey['A task will be created for the prep center'])
-                              }
                               tooltipInfoContent={
-                                !item.barCode &&
-                                t(
-                                  TranslationKey[
-                                    'Add a product barcode to the box. A task will be created for the prep center'
-                                  ],
-                                )
+                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
                               }
                               labelClasses={styles.standartLabel}
                               label={t(TranslationKey.BarCode)}
@@ -593,9 +585,6 @@ export const EditBoxStorekeeperForm = memo(
                       labelClasses={styles.standartLabel}
                       containerClasses={styles.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                      tooltipAttentionContent={t(
-                        TranslationKey['When re-sticking will create a task for the prep center'],
-                      )}
                       label={t(TranslationKey['Shipping label'])}
                       inputComponent={
                         <ChangeChipCell

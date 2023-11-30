@@ -150,7 +150,7 @@ export const EditBoxForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
         item.product._id === productId
-          ? { ...item, barCode: '', tmpBarCode: [], changeBarCodInInventory: false }
+          ? { ...item, barCode: '', tmpBarCode: [''], changeBarCodInInventory: false }
           : item,
       )
       setBoxFields(newFormFields)
@@ -311,12 +311,7 @@ export const EditBoxForm = memo(
                                 !item.barCode && t(TranslationKey['A task will be created for the prep center'])
                               }
                               tooltipInfoContent={
-                                !item.barCode &&
-                                t(
-                                  TranslationKey[
-                                    'Add a product barcode to the box. A task will be created for the prep center'
-                                  ],
-                                )
+                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
                               }
                               labelClasses={styles.standartLabel}
                               label={t(TranslationKey.BarCode)}

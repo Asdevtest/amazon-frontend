@@ -1212,6 +1212,8 @@ export class ClientInStockBoxesViewModel {
         //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
+        console.log('boxData', boxData)
+
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
@@ -1219,7 +1221,8 @@ export class ClientInStockBoxesViewModel {
           variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -1244,7 +1247,7 @@ export class ClientInStockBoxesViewModel {
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
                   productId: el.product?._id,
-                  tmpBarCode: el.tmpBarCode,
+                  tmpBarCode: el.tmpBarCode || '',
                   newData: [],
                 }
               : null,
@@ -1272,7 +1275,9 @@ export class ClientInStockBoxesViewModel {
               orderId: el.order._id,
               productId: el.product._id,
 
-              barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+              barCode: prodInDataToUpdateBarCode?.newData?.length
+                ? prodInDataToUpdateBarCode?.newData[0]
+                : el.barCode || '',
               isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
                 ? false
                 : el.isBarCodeAlreadyAttachedByTheSupplier,
@@ -1295,7 +1300,7 @@ export class ClientInStockBoxesViewModel {
               : getNewItems(),
             shippingLabel: this.uploadedFiles?.length
               ? this.uploadedFiles[0]
-              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           },
           updateBoxWhiteList,
         )

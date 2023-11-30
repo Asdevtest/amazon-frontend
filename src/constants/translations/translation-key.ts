@@ -1166,7 +1166,7 @@ export enum TranslationKey {
   'When re-sticking will create a task for the prep center' = 'When re-sticking will create a task for the prep center',
   'Add or replace the shipping label' = 'Add or replace the shipping label',
   'The dimensions of the box specified by the prep center' = 'The dimensions of the box specified by the prep center',
-  'Add a product barcode to the box. A task will be created for the prep center' = 'Add a product barcode to the box. A task will be created for the prep center',
+  'Add a product barcode to the box' = 'Add a product barcode to the box',
   'A task will be created for the prep center' = 'A task will be created for the prep center',
   'The supplier has glued the barcode before shipment' = 'The supplier has glued the barcode before shipment',
   'The new barcode will be updated at the product in the inventory' = 'The new barcode will be updated at the product in the inventory',
