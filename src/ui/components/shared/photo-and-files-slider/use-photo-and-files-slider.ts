@@ -8,7 +8,7 @@ import { IUploadFile } from '@typings/upload-file'
 export const usePhotoAndFilesSlider = (
   files: Array<string | IUploadFile>,
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
-  startPhotoIndex?: number,
+  startMediaFileIndex?: number,
 ) => {
   const [openImageModal, setOpenImageModal] = useState(false)
   const [openImageEditModal, setOpenImageEditModal] = useState(false)
@@ -20,54 +20,54 @@ export const usePhotoAndFilesSlider = (
   const documents = files?.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
-  const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
-  const [photoIndex, setPhotoIndex] = useState(startPhotoIndex ?? 0)
+  const [mediaFiles, setMediaFiles] = useState<Array<string | IUploadFile>>([])
+  const [mediaFileIndex, setMediaFileIndex] = useState(startMediaFileIndex ?? 0)
 
   const [isPlaying, setIsPlaying] = useState(false) // for video player
 
   useEffect(() => {
-    if (photos?.length - 1 < photoIndex && photos?.length > 0) {
-      setPhotoIndex(photos?.length - 1)
+    if (mediaFiles?.length - 1 < mediaFileIndex && mediaFiles?.length > 0) {
+      setMediaFileIndex(mediaFiles?.length - 1)
     }
-  }, [photos?.length])
+  }, [mediaFiles?.length])
 
   useEffect(() => {
-    if (startPhotoIndex !== undefined) {
-      setPhotoIndex(startPhotoIndex)
+    if (startMediaFileIndex !== undefined) {
+      setMediaFileIndex(startMediaFileIndex)
     }
-  }, [startPhotoIndex])
+  }, [startMediaFileIndex])
 
   useEffect(() => {
-    const photoFiltering = files?.filter(el => {
-      const currentFile = typeof el === 'string' ? el : el?.file?.name
+    const filteringMediaFiles = files?.filter(file => {
+      const currentFile = typeof file === 'string' ? file : file?.file?.name
 
       return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
     })
 
-    setPhotos(photoFiltering)
+    setMediaFiles(filteringMediaFiles)
   }, [files])
 
   const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad([...documents, ...photos])
+      onChangeImagesForLoad([...documents, ...mediaFiles])
     }
   }
 
-  const onClickEditImageSubmit = (image: string) => {
-    const editingPhotos = photos.map((slide, index) => (index === photoIndex ? image : slide))
-    setPhotos(editingPhotos)
+  const onClickEditImageSubmit = (file: string) => {
+    const editingMediaFiles = mediaFiles.map((slide, index) => (index === mediaFileIndex ? file : slide))
+    setMediaFiles(editingMediaFiles)
   }
 
-  const onClickRemoveImageObj = (imageIndex: number) => {
-    const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
-    setPhotos(filteringPhotos)
+  const onClickRemoveImageObj = (fileIndex: number) => {
+    const filteringMediaFiles = mediaFiles.filter((_, index) => index !== fileIndex)
+    setMediaFiles(filteringMediaFiles)
 
-    if (!filteringPhotos?.length) {
+    if (!filteringMediaFiles?.length) {
       onOpenImageModal()
     }
   }
 
-  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => {
+  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, fileIndex: number) => {
     if (!event?.target?.files || event?.target?.files?.length === 0) {
       return
     }
@@ -82,21 +82,22 @@ export const usePhotoAndFilesSlider = (
         lastModified: el?.lastModified,
       }),
     }))
-    const editingPhotos = photos.map((photo, index) => (index === imageIndex ? readyFilesArr[0] : photo))
 
-    setPhotos(editingPhotos)
+    const editingMediaFiles = mediaFiles.map((mediaFile, index) => (index === fileIndex ? readyFilesArr[0] : mediaFile))
+
+    setMediaFiles(editingMediaFiles)
   }
 
-  const onClickMakeMainImageObj = (image: string | IUploadFile, imageIndex: number) => {
-    const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
-    const editingPhotos = [image, ...filteringPhotos]
+  const onClickMakeMainImageObj = (file: string | IUploadFile, fileIndex: number) => {
+    const filteringMediaFiles = mediaFiles.filter((_, index) => index !== fileIndex)
+    const editingMediaFiles = [file, ...filteringMediaFiles]
 
-    setPhotos(editingPhotos)
-    setPhotoIndex(0)
+    setMediaFiles(editingMediaFiles)
+    setMediaFileIndex(0)
   }
 
-  const onClickDownloadPhoto = (photo: string | IUploadFile) =>
-    typeof photo === 'string' ? downloadFileByLink(photo) : downloadFile(photo?.file)
+  const onClickDownloadPhoto = (file: string | IUploadFile) =>
+    typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {
     openImageModal,
@@ -106,9 +107,9 @@ export const usePhotoAndFilesSlider = (
     openImageZoomModal,
     onOpenImageZoomModal,
 
-    photos,
-    photoIndex,
-    setPhotoIndex,
+    mediaFiles,
+    mediaFileIndex,
+    setMediaFileIndex,
 
     documents,
     documentIndex,

@@ -290,11 +290,11 @@ export const RequestDesignerResultClientForm = memo(props => {
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={imagesData.map(el => el.image)}
+          files={imagesData.map(el => el.image)}
           photosTitles={imagesData.map(el => el.comment)}
           photosComments={imagesData.map(el => el.commentByClient)}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
+          currentFileIndex={curImageIndex}
+          handleCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </div>

@@ -46,9 +46,9 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
           showPreviews
           isOpenModal={isShowImagePreview}
           handleOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
-          imageList={images}
-          currentImageIndex={selectedImage}
-          handleCurrentImageIndex={setSelectedImage}
+          files={images}
+          currentFileIndex={selectedImage}
+          handleCurrentFileIndex={setSelectedImage}
         />
       )}
     </>
