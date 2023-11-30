@@ -14,10 +14,11 @@ import { useDataGridCellStyles } from './open-in-new-tab-cell.style'
 interface OpenInNewTabCellProps {
   onClickOpenInNewTab: () => void
   href?: string
+  isFullSize?: boolean
 }
 
-export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = React.memo(({ onClickOpenInNewTab, href }) => {
-  const { classes: styles } = useDataGridCellStyles()
+export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = React.memo(({ onClickOpenInNewTab, href, isFullSize }) => {
+  const { classes: styles, cx } = useDataGridCellStyles()
 
   return (
     <Tooltip
@@ -27,7 +28,7 @@ export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = React.memo(({ onClick
       classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
     >
       <div
-        className={styles.iconWrapper}
+        className={cx(styles.iconWrapper, { [styles.fullSizeIconWrapper]: isFullSize })}
         onClick={event => {
           event.stopPropagation()
           if (!href) {

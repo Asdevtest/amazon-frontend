@@ -12,7 +12,14 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
   iconWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 5,
+  },
+
+  fullSizeIconWrapper: {
+    height: '100%',
+    width: '100%',
+    padding: '0 7px',
   },
 
   shareLinkIcon: {
