@@ -65,7 +65,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}

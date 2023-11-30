@@ -22,7 +22,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
-                pageSizeOptions={[15, 25, 50, 100]}
+                
                 rows={getCurrentData()}
                 rowHeight={100}
                 density={densityModel}

@@ -67,7 +67,6 @@ export const WarehouseMyWarehouseView = observer(props => {
           checkboxSelection
           disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
-          propsToRerender={{ unitsOption: viewModel.unitsOption }}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
@@ -80,25 +79,16 @@ export const WarehouseMyWarehouseView = observer(props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: viewModel.columnMenuSettings,
-
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
           }}
           density={viewModel.densityModel}

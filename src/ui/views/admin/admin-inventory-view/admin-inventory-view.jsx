@@ -48,13 +48,11 @@ export const AdminInventoryViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rowHeight={100}
-            pageSizeOptions={[15, 25, 50, 100]}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
-
               columnMenu: viewModel.columnMenuSettings,
 
               toolbar: {

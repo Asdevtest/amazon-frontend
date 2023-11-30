@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { NotificationType } from '@constants/keys/notifications'
 
@@ -16,7 +16,7 @@ interface NotificationMessageCellProps {
   navigateToHandler: any
 }
 
-export const NotificationMessageCell: FC<NotificationMessageCellProps> = React.memo(
+export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
   ({ notificationType, notification, navigateToHandler }) => (
     <>
       {notificationType === NotificationType.Order && (

@@ -8,7 +8,7 @@ import React, { FC, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { Chip, IconButton, Typography } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UiTheme } from '@constants/theme/mui-theme.type'
@@ -16,6 +16,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
@@ -89,7 +90,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   }
 
   const onDeleteShippingLabel = () => {
-    onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
+    onChangeField({ shippingLabel: '', tmpShippingLabel: [] }, 'part', box._id)
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
@@ -153,9 +154,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 <div>
                   <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
 
-                  <Typography className={styles.title}>
-                    {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
-                  </Typography>
+                  <p className={styles.title}>{getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}</p>
                 </div>
 
                 <Field
@@ -170,9 +169,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 />
               </div>
               {isMasterBox ? (
-                <Typography className={styles.subTitle}>{`${t(TranslationKey['Units in a box'])} ${
-                  box.items[0].amount
-                }`}</Typography>
+                <p className={styles.subTitle}>{`${t(TranslationKey['Units in a box'])} ${box.items[0].amount}`}</p>
               ) : undefined}
             </div>
           ))}
@@ -238,9 +235,9 @@ export const Box: FC<BoxProps> = React.memo(props => {
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
-                      <Typography className={styles.storekeeperDisableBtn}>{`${
+                      <p className={styles.storekeeperDisableBtn}>{`${
                         box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
-                      }`}</Typography>
+                      }`}</p>
                     )}
                   </div>
                 }
@@ -286,26 +283,18 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                     labelClasses={styles.label}
                     inputComponent={
-                      <Chip
-                        classes={{
-                          root: styles.barcodeChip,
-                          clickable: styles.barcodeChipHover,
-                          deletable: styles.barcodeChipHover,
-                          deleteIcon: styles.barcodeChipIcon,
-                          label: styles.barcodeChiplabel,
-                        }}
-                        // @ts-ignore
-                        className={cx({ [styles.barcodeChipExists]: box.shippingLabel })}
-                        size="small"
-                        label={
-                          box.tmpShippingLabel?.length
-                            ? t(TranslationKey['File added'])
-                            : box.shippingLabel
-                            ? box.shippingLabel
-                            : t(TranslationKey['Set Shipping Label'])
+                      <ChangeChipCell
+                        isChipOutTable
+                        text={
+                          !box.shippingLabel && !box?.tmpShippingLabel?.length
+                            ? t(TranslationKey['Set Shipping Label'])
+                            : ''
                         }
-                        onClick={() => onClickShippingLabel()}
-                        onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                        value={
+                          box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel
+                        }
+                        onClickChip={onClickShippingLabel}
+                        onDeleteChip={onDeleteShippingLabel}
                       />
                     }
                   />
@@ -316,9 +305,9 @@ export const Box: FC<BoxProps> = React.memo(props => {
 
           {!isNewBox && (
             <div className={styles.currentBoxFooter}>
-              <Typography className={styles.footerTitle}>{`${t(
+              <p className={styles.footerTitle}>{`${t(
                 TranslationKey['Left to redistribute'],
-              )}: ${totalProductsAmount}`}</Typography>
+              )}: ${totalProductsAmount}`}</p>
             </div>
           )}
 
@@ -329,9 +318,9 @@ export const Box: FC<BoxProps> = React.memo(props => {
               </IconButton>
               <div className={styles.incomingBtnWrapper}>
                 <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-                  <Typography className={styles.tablePanelViewText}>
+                  <p className={styles.tablePanelViewText}>
                     {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-                  </Typography>
+                  </p>
 
                   {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
                 </div>

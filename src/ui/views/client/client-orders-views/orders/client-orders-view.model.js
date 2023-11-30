@@ -701,16 +701,14 @@ export class ClientOrdersViewModel {
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -724,12 +722,6 @@ export class ClientOrdersViewModel {
     )
 
     win.focus()
-
-    /* this.history.push(
-      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
-        order.originalData._id
-      }&order-human-friendly-id=${order.originalData.id}`,
-    ) */
   }
 
   onTriggerOpenModal(modalState) {

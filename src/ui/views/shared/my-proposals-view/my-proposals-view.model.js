@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import {
   freelanceRequestType,
@@ -36,7 +36,6 @@ export class MyProposalsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   filterModel = { items: [] }
   selectedRowIds = []
-  pageSizeOptions = [15, 25, 50, 100]
 
   // * Table settings
 
@@ -104,10 +103,6 @@ export class MyProposalsViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get userRole() {
-    return UserRoleCodeMap[UserModel.userInfo.role]
   }
 
   get isSomeFilterOn() {
@@ -224,7 +219,7 @@ export class MyProposalsViewModel {
   onClickEditBtn(requestId, proposalId) {
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-proposals/edit-proposal?proposalId=${proposalId}&requestId=${requestId}`,
     )
   }
@@ -232,7 +227,7 @@ export class MyProposalsViewModel {
   onClickOpenBtn(requestId) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
       '_blank',
     )

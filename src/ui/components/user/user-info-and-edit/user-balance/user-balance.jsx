@@ -79,7 +79,6 @@ export const UserBalance = observer(({ userId }) => {
           filterModel={filterModel}
           columnVisibilityModel={model.current.columnVisibilityModel}
           paginationModel={model.current.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={75}
           slotProps={{
