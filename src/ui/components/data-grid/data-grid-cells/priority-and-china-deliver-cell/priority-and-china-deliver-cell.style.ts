@@ -5,6 +5,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    height: '100%',
   },
 
   clockIcon: {

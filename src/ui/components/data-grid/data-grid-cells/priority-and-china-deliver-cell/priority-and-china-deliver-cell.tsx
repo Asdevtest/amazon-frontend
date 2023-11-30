@@ -23,15 +23,15 @@ export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> =
   const { classes: styles } = useDataGridCellStyles()
   const { priority, chinaDelivery, status, isRequest, onClickOpenInNewTab } = props
 
-  // @ts-ignore
-  const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+  const isPendingOrder =
+    Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey])
   const isUrgent =
     Number(priority) === orderPriority.urgentPriority ||
     (isRequest && Number(priority) === requestPriority.urgentPriority)
 
   return (
     <div className={styles.priorityAndChinaDeliveryWrapper}>
-      {onClickOpenInNewTab && <OpenInNewTabCell onClickOpenInNewTab={onClickOpenInNewTab} />}
+      {onClickOpenInNewTab && <OpenInNewTabCell isFullSize onClickOpenInNewTab={onClickOpenInNewTab} />}
 
       {isPendingOrder ? <ClockIcon className={styles.clockIcon} /> : null}
 
