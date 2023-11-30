@@ -31,8 +31,6 @@ export const ClientOrdersView = observer(history => {
     viewModel.loadData()
   }, [])
 
-  console.log(viewModel.requestStatus)
-
   return (
     <React.Fragment>
       <div className={styles.topHeaderBtnsWrapper}>
