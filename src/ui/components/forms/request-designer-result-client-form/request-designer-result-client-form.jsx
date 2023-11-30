@@ -56,7 +56,9 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const sourceImagesData = (proposal.proposal.media ?? curResultMedia).map(el => ({
+  const mediaToShow = curResultMedia.length ? curResultMedia : proposal.proposal.media
+
+  const sourceImagesData = mediaToShow.map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
@@ -168,11 +170,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Number of illustrations'])}
             containerClasses={styles.containerField}
-            inputComponent={
-              <Typography className={styles.simpleSpan}>
-                {(curResultMedia ?? proposal.proposal.media).length}
-              </Typography>
-            }
+            inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
           />
           <Field
             labelClasses={styles.fieldLabel}
