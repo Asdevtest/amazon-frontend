@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -18,7 +20,7 @@ import { useStyles } from './freelance-request-details-modal.styles'
 
 import { FreelanceRequestDetailsModalControls } from './freelance-request-details-modal-controls'
 
-export const FreelanceRequestDetailsModal = props => {
+export const FreelanceRequestDetailsModal = memo(props => {
   const {
     request,
     details,
@@ -135,11 +137,7 @@ export const FreelanceRequestDetailsModal = props => {
             )}
           </div>
         </div>
-        {/* <div className={styles.suggestDeal}> */}
-        {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
 
-        {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
-        {/* </div> */}
         <FreelanceRequestDetailsModalControls
           isRequestOwner={isRequestOwner}
           request={request}
@@ -155,4 +153,4 @@ export const FreelanceRequestDetailsModal = props => {
       </div>
     </Modal>
   )
-}
+})
