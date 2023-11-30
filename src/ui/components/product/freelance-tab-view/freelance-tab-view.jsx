@@ -54,7 +54,6 @@ export const Freelance = observer(({ productId, modal }) => {
       <div className={cx(styles.tableWrapper, { [styles.modalWrapper]: modal })}>
         <CustomDataGrid
           localeText={getLocalizationByLanguageTag()}
-          propsToRerender={{ onHover: viewModel.onHover }}
           rowCount={viewModel.rowCount}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.getCurrentData()}
