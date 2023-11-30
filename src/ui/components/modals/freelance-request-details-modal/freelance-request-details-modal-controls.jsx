@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
 
@@ -14,7 +14,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './freelance-request-details-modal.styles'
 
-export const FreelanceRequestDetailsModalControls = props => {
+export const FreelanceRequestDetailsModalControls = memo(props => {
   const {
     request,
     onClickSuggest,
@@ -118,8 +118,9 @@ export const FreelanceRequestDetailsModalControls = props => {
               )}
           </>
         )}
+
         {onClickSuggest && <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>}
       </div>
     </div>
   )
-}
+})

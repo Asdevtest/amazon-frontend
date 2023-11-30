@@ -80,6 +80,7 @@ export class MyProposalsViewModel {
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
+  showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
@@ -446,6 +447,16 @@ export class MyProposalsViewModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
       filterRequestStatus: requestStatus,
+    }
+  }
+
+  onOpenRequestDetailModal(id) {
+    try {
+      this.getRequestById(id)
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 }

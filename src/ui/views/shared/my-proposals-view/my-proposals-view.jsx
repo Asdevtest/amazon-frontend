@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -85,6 +86,7 @@ export const MyProposalsView = observer(({ history }) => {
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}
+            onRowClick={e => viewModel.onOpenRequestDetailModal(e.row._id)}
           />
         </div>
       </div>
@@ -134,6 +136,16 @@ export const MyProposalsView = observer(({ history }) => {
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
+      )}
+
+      {viewModel.showRequestDetailModal && (
+        <FreelanceRequestDetailsModal
+          isOpenModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequest?.request}
+          details={viewModel.currentRequest?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickOpenNewTab={viewModel.onClickOpenBtn}
         />
       )}
     </>

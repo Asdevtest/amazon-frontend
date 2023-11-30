@@ -56,7 +56,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const mediaToShow = curResultMedia.length ? curResultMedia : proposal.proposal.media
+  const mediaToShow = curResultMedia?.length ? curResultMedia : proposal.proposal.media
 
   const sourceImagesData = mediaToShow.map(el => ({
     image: el.fileLink,
