@@ -1164,7 +1164,7 @@
   "When re-sticking will create a task for the prep center": "При повторной поклейке будет создана задача преп-центру",
   "Add or replace the shipping label": "Добавить или заменить транспортировочную этикетку",
   "The dimensions of the box specified by the prep center": "Размеры коробки, указанные преп-центром",
-  "Add a product barcode to the box. A task will be created for the prep center": "Добавить штрихкод товара к коробке. Будет создана задача преп-центру",
+  "Add a product barcode to the box": "Добавить штрихкод товара к коробке",
   "A task will be created for the prep center": "Будет создана задача преп-центру",
   "The supplier has glued the barcode before shipment": "Поставщик проклеил штрихкод перед отправкой",
   "The new barcode will be updated at the product in the inventory": "Новый штрихкод будет обновлен у продукта в инвентаре",
