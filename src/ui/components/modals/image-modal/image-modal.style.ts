@@ -112,6 +112,10 @@ export const useStyles = makeStyles()(theme => ({
     wordBreak: 'break-all',
   },
 
+  titleError: {
+    color: theme.palette.text.red,
+  },
+
   controls: {
     width: '100%',
     display: 'flex',
