@@ -144,6 +144,8 @@ export class AdminWarehouseTasksViewModel {
       runInAction(() => {
         this.tasksData = result.rows
         this.rowsCount = result.count
+
+        console.log(this.tasksData)
       })
 
       this.setRequestStatus(loadingStatuses.success)

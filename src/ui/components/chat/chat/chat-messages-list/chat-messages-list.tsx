@@ -71,7 +71,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
         setTimeout(() => {
           message?.classList.remove(styles.highlightMessage)
-        }, 500)
+        }, 1000)
       }
     }
 
