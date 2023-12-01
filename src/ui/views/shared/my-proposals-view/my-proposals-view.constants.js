@@ -1,0 +1,18 @@
+export const filtersFields = [
+  'status',
+  'createdBy',
+  'sub',
+  'updatedAt',
+  'humanFriendlyId',
+  'priority',
+  'title',
+  'maxAmountOfProposals',
+  'timeoutAt',
+  'requestCreatedBy',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'taskComplexity',
+  'typeTask',
+  'reworkCounter',
+]

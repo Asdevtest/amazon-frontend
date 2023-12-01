@@ -115,7 +115,7 @@ export const EditMultipleBoxesForm = observer(
     ) => {
       if (isSelectedDestinationNotValid) {
         setConfirmModalSettings({
-          isWarning: true,
+          isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -381,7 +381,6 @@ export const EditMultipleBoxesForm = observer(
                   labelClasses={classNames.label}
                   inputComponent={
                     <Button
-                      variant={sharedFields.logicsTariffId && 'text'}
                       className={cx({
                         [classNames.storekeeperBtn]: !sharedFields.logicsTariffId,
                         [classNames.storekeeperBtnDefault]: sharedFields.logicsTariffId,

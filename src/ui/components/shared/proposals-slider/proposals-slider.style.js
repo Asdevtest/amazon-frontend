@@ -1,8 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: '50%',
+    width: '100%',
   },
 
   mainWrapper: {
@@ -26,6 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
   header: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 20,
   },
 
@@ -62,6 +63,10 @@ export const useClassNames = makeStyles()(theme => ({
   title: {
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  blueTitle: {
+    color: theme.palette.primary.main,
   },
 
   comment: {

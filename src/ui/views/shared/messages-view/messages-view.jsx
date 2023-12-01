@@ -48,8 +48,6 @@ export const MessagesView = observer(history => {
 
   const currentChat = viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)
 
-  const curFoundedMessageIndex = viewModel.messagesFound?.findIndex(el => viewModel.curFoundedMessage?._id === el._id)
-
   const filteredChats = viewModel.simpleChats
     .filter(el => {
       const oponentUser = el.users.filter(user => user._id !== viewModel.user._id)?.[0]
@@ -191,15 +189,14 @@ export const MessagesView = observer(history => {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
-                    value={viewModel.mesSearchValue}
-                    onChange={viewModel.onChangeMesSearchValue}
+                    onSubmit={value => viewModel.onChangeMesSearchValue(value, findChatByChatId._id)}
                   />
 
                   {viewModel.messagesFound.length ? (
                     <SearchResult
-                      curFoundedMessageIndex={curFoundedMessageIndex}
+                      curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
                       messagesFound={viewModel.messagesFound}
-                      onClose={() => viewModel.onChangeMesSearchValue({ target: { value: '' } })}
+                      onClose={() => viewModel.onChangeMesSearchValue('')}
                       onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
                     />
                   ) : viewModel.mesSearchValue ? (

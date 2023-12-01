@@ -62,68 +62,68 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
 export const checkIsVideoLink = link =>
-  link?.endsWith('.3g2') ||
-  link?.endsWith('.3gp') ||
-  link?.endsWith('.3gp2') ||
-  link?.endsWith('.3gpp') ||
-  link?.endsWith('.3gpp2') ||
-  link?.endsWith('.asf') ||
-  link?.endsWith('.asx') ||
-  link?.endsWith('.avi') ||
-  link?.endsWith('.bin') ||
-  link?.endsWith('.dat') ||
-  link?.endsWith('.drv') ||
-  link?.endsWith('.f4v') ||
-  link?.endsWith('.flv') ||
-  link?.endsWith('.gtp') ||
-  link?.endsWith('.h264') ||
-  link?.endsWith('.m4v') ||
-  link?.endsWith('.mkv') ||
-  link?.endsWith('.mod') ||
-  link?.endsWith('.moov') ||
-  link?.endsWith('.mov') ||
-  link?.endsWith('.mp4') ||
-  link?.endsWith('.mpeg') ||
-  link?.endsWith('.mpg') ||
-  link?.endsWith('.mts') ||
-  link?.endsWith('.rm') ||
-  link?.endsWith('.rmvb') ||
-  link?.endsWith('.spl') ||
-  link?.endsWith('.srt') ||
-  link?.endsWith('.stl') ||
-  link?.endsWith('.swf') ||
-  link?.endsWith('.ts') ||
-  link?.endsWith('.vcd') ||
-  link?.endsWith('.vid') ||
-  link?.endsWith('.vob') ||
-  link?.endsWith('.webm') ||
-  link?.endsWith('.wm') ||
-  link?.endsWith('.wmv') ||
-  link?.endsWith('.yuv')
+  link?.includes('.3g2') ||
+  link?.includes('.3gp') ||
+  link?.includes('.3gp2') ||
+  link?.includes('.3gpp') ||
+  link?.includes('.3gpp2') ||
+  link?.includes('.asf') ||
+  link?.includes('.asx') ||
+  link?.includes('.avi') ||
+  link?.includes('.bin') ||
+  link?.includes('.dat') ||
+  link?.includes('.drv') ||
+  link?.includes('.f4v') ||
+  link?.includes('.flv') ||
+  link?.includes('.gtp') ||
+  link?.includes('.h264') ||
+  link?.includes('.m4v') ||
+  link?.includes('.mkv') ||
+  link?.includes('.mod') ||
+  link?.includes('.moov') ||
+  link?.includes('.mov') ||
+  link?.includes('.mp4') ||
+  link?.includes('.mpeg') ||
+  link?.includes('.mpg') ||
+  link?.includes('.mts') ||
+  link?.includes('.rm') ||
+  link?.includes('.rmvb') ||
+  link?.includes('.spl') ||
+  link?.includes('.srt') ||
+  link?.includes('.stl') ||
+  link?.includes('.swf') ||
+  link?.includes('.ts') ||
+  link?.includes('.vcd') ||
+  link?.includes('.vid') ||
+  link?.includes('.vob') ||
+  link?.includes('.webm') ||
+  link?.includes('.wm') ||
+  link?.includes('.wmv') ||
+  link?.includes('.yuv')
 
 export const checkIsImageLink = link =>
-  link?.endsWith('png') ||
-  link?.endsWith('PNG') ||
-  link?.endsWith('jpg') ||
-  link?.endsWith('ico') ||
-  link?.endsWith('gif') ||
-  link?.endsWith('svg') ||
-  link?.endsWith('webp') ||
-  link?.endsWith('avif') ||
-  link?.endsWith('jpeg') ||
-  link?.endsWith('rotated-image') ||
-  link?.endsWith('jfif') ||
-  link?.endsWith('bmp') ||
+  link?.includes('png') ||
+  link?.includes('PNG') ||
+  link?.includes('jpg') ||
+  link?.includes('ico') ||
+  link?.includes('gif') ||
+  link?.includes('svg') ||
+  link?.includes('webp') ||
+  link?.includes('avif') ||
+  link?.includes('jpeg') ||
+  link?.includes('rotated-image') ||
+  link?.includes('jfif') ||
+  link?.includes('bmp') ||
   link?.includes('placeimg.com') ||
   checkIsVideoLink(link)
 
 export const checkIsDocumentLink = link =>
-  link?.endsWith('doc') ||
-  link?.endsWith('docx') ||
-  link?.endsWith('pdf') ||
-  link?.endsWith('xlsx') ||
-  link?.endsWith('xls') ||
-  link?.endsWith('txt') ||
+  link?.includes('doc') ||
+  link?.includes('docx') ||
+  link?.includes('pdf') ||
+  link?.includes('xlsx') ||
+  link?.includes('xls') ||
+  link?.includes('txt') ||
   (link?.includes('.com') && !link?.includes('placeimg.com')) ||
   link?.includes('.pdf') ||
   link?.includes('drive.google.com') ||

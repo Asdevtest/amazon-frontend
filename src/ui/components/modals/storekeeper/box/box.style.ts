@@ -65,7 +65,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperBtnDefault: {
-    color: theme.palette.text.general,
+    color: '#ffff',
   },
 
   storekeeperBtn: {

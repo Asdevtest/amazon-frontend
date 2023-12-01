@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, MouseEvent, memo } from 'react'
 
 import CloseIcon from '@mui/icons-material/Close'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -20,9 +20,14 @@ interface FreelancerMyProposalsActionsCellProps {
   onClickResultButton: () => void
 }
 
-export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCellProps> = React.memo(props => {
+export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>, callback: () => void) => {
+    e.stopPropagation()
+    callback()
+  }
 
   return (
     <div className={styles.proposalsActions}>
@@ -30,7 +35,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
         danger
         disabled={disabledCancelBtnStatuses.includes(status)}
         className={styles.freelancerMyProposalsButton}
-        onClick={onClickDeleteButton}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickDeleteButton)}
       >
         <CloseIcon />
       </Button>
@@ -38,12 +43,16 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
       <Button
         className={styles.freelancerMyProposalsButton}
         disabled={!noDisabledEditBtnStatuses.includes(status)}
-        onClick={onClickEditButton}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickEditButton)}
       >
         <EditOutlinedIcon />
       </Button>
 
-      <Button success disabled={!showResultStatuses.includes(status)} onClick={onClickResultButton}>
+      <Button
+        success
+        disabled={!showResultStatuses.includes(status)}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickResultButton)}
+      >
         {t(TranslationKey.Result)}
       </Button>
     </div>

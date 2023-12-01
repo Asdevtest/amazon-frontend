@@ -15,6 +15,10 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
+  barcodeChipOutTable: {
+    height: '40px',
+  },
+
   barcodeChipHover: {
     '&:hover, &:focus': {
       backgroundColor: theme.palette.primary.main,

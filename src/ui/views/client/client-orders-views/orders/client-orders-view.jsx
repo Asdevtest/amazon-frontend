@@ -22,15 +22,10 @@ import { useStyles } from './client-orders-view.style'
 
 import { ClientOrdersViewModel } from './client-orders-view.model'
 
-export const ClientOrdersView = observer(props => {
+export const ClientOrdersView = observer(history => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(
-    () =>
-      new ClientOrdersViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+
+  const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -82,7 +77,6 @@ export const ClientOrdersView = observer(props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
@@ -110,7 +104,7 @@ export const ClientOrdersView = observer(props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />

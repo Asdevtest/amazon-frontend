@@ -213,7 +213,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
-            propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}
@@ -222,7 +221,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             columnHeaderHeight={65}
             getRowHeight={() => 'auto'}

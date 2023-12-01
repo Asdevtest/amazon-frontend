@@ -1068,16 +1068,19 @@ export class ClientInStockBoxesViewModel {
 
               uploadedBarcodes.push({
                 strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0],
+                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
               })
             }
 
-            dataToBarCodeChange[j].newData = findUploadedBarcode ? [findUploadedBarcode.link] : [this.uploadedFiles[0]]
+            dataToBarCodeChange[j].newData = findUploadedBarcode
+              ? [findUploadedBarcode.link]
+              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
           }
         }
 
         newBox.items = newBox.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+
           return {
             ...getObjectFilteredByKeyArrayBlackList(el, [
               'order',
@@ -1156,7 +1159,7 @@ export class ClientInStockBoxesViewModel {
       if (isSelectedDestinationNotValid) {
         runInAction(() => {
           this.confirmModalSettings = {
-            isWarning: true,
+            isWarning: false,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
             onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
@@ -1168,9 +1171,9 @@ export class ClientInStockBoxesViewModel {
         if (!isSetCurrentDestination) {
           runInAction(() => {
             this.confirmModalSettings = {
-              isWarning: true,
+              isWarning: false,
               title: t(TranslationKey.Attention),
-              confirmMessage: t(TranslationKey['Wish to change a destination?']),
+              confirmMessage: t(TranslationKey['Wish to set a destination?']),
               onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
               onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
             }
@@ -1216,7 +1219,8 @@ export class ClientInStockBoxesViewModel {
           variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -1241,7 +1245,7 @@ export class ClientInStockBoxesViewModel {
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
                   productId: el.product?._id,
-                  tmpBarCode: el.tmpBarCode,
+                  tmpBarCode: el.tmpBarCode || '',
                   newData: [],
                 }
               : null,
@@ -1269,7 +1273,9 @@ export class ClientInStockBoxesViewModel {
               orderId: el.order._id,
               productId: el.product._id,
 
-              barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+              barCode: prodInDataToUpdateBarCode?.newData?.length
+                ? prodInDataToUpdateBarCode?.newData[0]
+                : el.barCode || '',
               isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
                 ? false
                 : el.isBarCodeAlreadyAttachedByTheSupplier,
@@ -1292,7 +1298,7 @@ export class ClientInStockBoxesViewModel {
               : getNewItems(),
             shippingLabel: this.uploadedFiles?.length
               ? this.uploadedFiles[0]
-              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           },
           updateBoxWhiteList,
         )

@@ -138,7 +138,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperTrafficBtn: {
-    color: theme.palette.text.general,
+    color: '#ffff',
   },
 
   fieldInput: {

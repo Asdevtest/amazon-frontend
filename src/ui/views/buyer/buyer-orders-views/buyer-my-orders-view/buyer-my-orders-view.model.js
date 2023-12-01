@@ -436,7 +436,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
-          isWarning: true,
+          isWarning: false,
           confirmMessage: t(
             TranslationKey[
               'The price per unit in the order is different from the supplier price, do you want to continue?'
@@ -1041,10 +1041,16 @@ export class BuyerMyOrdersViewModel {
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:
-          order.priority === '40'
+          order.priority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC]
             ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
             : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
+
+      runInAction(() => {
+        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {

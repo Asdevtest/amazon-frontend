@@ -1,13 +1,13 @@
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Chip, Divider, Typography } from '@mui/material'
+import { Checkbox, Divider, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -37,7 +37,7 @@ import { useStyles } from './edit-box-storekeeper-form.style'
 
 import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
-export const EditBoxStorekeeperForm = observer(
+export const EditBoxStorekeeperForm = memo(
   ({
     formItem,
     onSubmit,
@@ -127,7 +127,7 @@ export const EditBoxStorekeeperForm = observer(
       variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
-      shippingLabel: formItem?.shippingLabel,
+      shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
       images: formItem?.images || [],
@@ -189,7 +189,7 @@ export const EditBoxStorekeeperForm = observer(
     const onDeleteBarcode = productId => {
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? { ...item, barCode: '' } : item,
+        item.product._id === productId ? { ...item, barCode: '', tmpBarCode: [] } : item,
       )
       setBoxFields(newFormFields)
     }
@@ -238,7 +238,7 @@ export const EditBoxStorekeeperForm = observer(
     ) => {
       if (isSelectedDestinationNotValid) {
         setConfirmModalSettings({
-          isWarning: true,
+          isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -401,43 +401,20 @@ export const EditBoxStorekeeperForm = observer(
                           <>
                             <Field
                               containerClasses={styles.field}
-                              tooltipAttentionContent={
-                                !item.barCode && t(TranslationKey['A task will be created for the prep center'])
-                              }
                               tooltipInfoContent={
-                                !item.barCode &&
-                                t(
-                                  TranslationKey[
-                                    'Add a product barcode to the box. A task will be created for the prep center'
-                                  ],
-                                )
+                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
                               }
                               labelClasses={styles.standartLabel}
                               label={t(TranslationKey.BarCode)}
                               inputComponent={
-                                <div>
-                                  <Chip
-                                    classes={{
-                                      root: styles.barcodeChip,
-                                      clickable: styles.barcodeChipHover,
-                                      deletable: styles.barcodeChipHover,
-                                      deleteIcon: styles.barcodeChipIcon,
-                                      label: styles.barcodeChiplabel,
-                                    }}
-                                    className={cx({ [styles.barcodeChipExists]: item.barCode })}
-                                    size="small"
-                                    label={
-                                      item.tmpBarCode.length
-                                        ? t(TranslationKey['File added'])
-                                        : item.barCode
-                                        ? item.barCode
-                                        : t(TranslationKey['Set Barcode'])
-                                    }
-                                    onClick={() => onClickBarcode(item)}
-                                    onDoubleClick={() => onDoubleClickBarcode(item)}
-                                    onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
-                                  />
-                                </div>
+                                <ChangeChipCell
+                                  isChipOutTable
+                                  text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                  value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                  onClickChip={() => onClickBarcode(item)}
+                                  onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                  onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                                />
                               }
                             />
 
@@ -608,33 +585,23 @@ export const EditBoxStorekeeperForm = observer(
                       labelClasses={styles.standartLabel}
                       containerClasses={styles.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                      tooltipAttentionContent={t(
-                        TranslationKey['When re-sticking will create a task for the prep center'],
-                      )}
                       label={t(TranslationKey['Shipping label'])}
                       inputComponent={
-                        <div>
-                          <Chip
-                            classes={{
-                              root: styles.barcodeChip,
-                              clickable: styles.barcodeChipHover,
-                              deletable: styles.barcodeChipHover,
-                              deleteIcon: styles.barcodeChipIcon,
-                              label: styles.barcodeChiplabel,
-                            }}
-                            className={cx({ [styles.barcodeChipExists]: boxFields.shippingLabel })}
-                            size="small"
-                            label={
-                              boxFields.tmpShippingLabel.length
-                                ? t(TranslationKey['File added'])
-                                : boxFields.shippingLabel
-                                ? boxFields.shippingLabel
-                                : t(TranslationKey['Set Shipping Label'])
-                            }
-                            onClick={() => onClickShippingLabel()}
-                            onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                          />
-                        </div>
+                        <ChangeChipCell
+                          isChipOutTable
+                          text={
+                            !boxFields.shippingLabel &&
+                            !boxFields.tmpShippingLabel.length &&
+                            t(TranslationKey['Set Shipping Label'])
+                          }
+                          value={
+                            boxFields?.tmpShippingLabel?.[0]?.file?.name ||
+                            boxFields?.tmpShippingLabel?.[0] ||
+                            boxFields.shippingLabel
+                          }
+                          onClickChip={onClickShippingLabel}
+                          onDeleteChip={onDeleteShippingLabel}
+                        />
                       }
                     />
                   </div>
@@ -856,9 +823,9 @@ export const EditBoxStorekeeperForm = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={bigImagesOptions.images}
-            currentImageIndex={bigImagesOptions.imgIndex}
-            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 

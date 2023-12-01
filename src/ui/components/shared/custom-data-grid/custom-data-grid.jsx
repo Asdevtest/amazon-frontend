@@ -15,6 +15,7 @@ export const CustomDataGrid = ({ ...restProps }) => {
       disableVirtualization
       sortingMode="server"
       paginationMode="server"
+      pageSizeOptions={[15, 25, 50, 100]}
       slots={{
         toolbar: DataGridCustomToolbar,
         columnMenuIcon: FilterAltOutlinedIcon,

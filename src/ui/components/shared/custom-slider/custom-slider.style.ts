@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
   window: {
     overflow: 'hidden',
     height: '100%',
+    width: '100%',
   },
 
   allPages: {

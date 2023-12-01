@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { plainToInstance } from 'class-transformer'
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
@@ -13,6 +14,7 @@ import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
   ChatMessageType,
+  FindChatMessageRequestParams,
   OnReadMessageResponse,
   OnTypingMessageResponse,
   RemoveUsersFromGroupChatParams,
@@ -183,16 +185,21 @@ class ChatModelStatic {
     }
   }
 
-  public async getUnreadMessagesCount(): Promise<void> {
+  public async getUnreadMessagesCount(messagesNumber?: number): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
     try {
-      const count = await this.websocketChatService.getUnreadMessagesCount()
-
-      runInAction(() => {
-        this.unreadMessagesCount = count
-      })
+      if (messagesNumber) {
+        runInAction(() => {
+          this.unreadMessagesCount = Number(this.unreadMessagesCount) + messagesNumber
+        })
+      } else {
+        const count = await this.websocketChatService.getUnreadMessagesCount()
+        runInAction(() => {
+          this.unreadMessagesCount = count
+        })
+      }
     } catch (error) {
       console.warn(error)
     }
@@ -246,44 +253,61 @@ class ChatModelStatic {
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
-  public async getChatMessage(chatId: string, messageId?: string): Promise<void> {
+  public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
-
     if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
       return
     }
-
     const index = Math.max(findChatIndexById, findSimpleChatIndexById)
     const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
 
-    const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+    const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
 
-    const chatMessageOffset = chatMessage.offset
-
-    if (this[chatType][index].pagination.offset > chatMessageOffset) {
+    if (this[chatType][index].pagination.offset >= chatMessageOffset) {
       return
     }
 
-    const { limit } = this[chatType][index].pagination
+    const { limit, offset } = this[chatType][index].pagination
 
-    const chatMessages = await this.websocketChatService.getChatMessages(chatId, 0, chatMessageOffset + 10)
+    const chatMessages = await this.websocketChatService.getChatMessages(
+      chatId,
+      offset,
+      chatMessageOffset - offset + limit,
+    )
 
     runInAction(() => {
       this[chatType][index] = {
         ...this[chatType][index],
-        messages: [...chatMessages.rows],
+        messages: [...chatMessages.rows, ...this[chatType][index].messages],
         pagination: {
           ...this[chatType][index].pagination,
-          offset: chatMessageOffset + 10,
+          offset: chatMessageOffset + limit,
         },
-        isAllMessagesLoaded: chatMessages.rows.length < limit,
       }
     })
+  }
+
+  private async getMessageOffset(
+    chatId: string,
+    messageId?: string,
+    messageData?: ChatMessageContract,
+  ): Promise<number> {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    if (messageData?.offset) {
+      return messageData.offset
+    } else {
+      const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+      const chatMessageOffset = chatMessage.offset
+
+      return chatMessageOffset
+    }
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
@@ -363,7 +387,7 @@ class ChatModelStatic {
     }
 
     await this.websocketChatService.readMessage(messageIds)
-    await this.getUnreadMessagesCount()
+    await this.getUnreadMessagesCount(-messageIds.length)
   }
 
   private onConnectionError(error: Error) {
@@ -441,7 +465,7 @@ class ChatModelStatic {
       })
     }
 
-    this.getUnreadMessagesCount()
+    this.getUnreadMessagesCount(!isCurrentUser ? 1 : 0)
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
@@ -455,11 +479,15 @@ class ChatModelStatic {
 
     if (findChatIndexById !== -1) {
       runInAction(() => {
-        this.chats[findChatIndexById].messages = [
-          ...this.chats[findChatIndexById].messages.map(mes =>
+        this.chats[findChatIndexById] = {
+          messages: this.chats[findChatIndexById].messages.map(mes =>
             response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
-        ]
+          // @ts-ignore
+          lastMessage: response.messagesId.includes(this.simpleChats[findChatIndexById]?.lastMessage?._id)
+            ? { ...this.simpleChats[findChatIndexById]?.lastMessage, isRead: true }
+            : this.simpleChats[findChatIndexById]?.lastMessage,
+        }
       })
     }
 
@@ -467,15 +495,18 @@ class ChatModelStatic {
 
     if (findSimpleChatIndexById !== -1) {
       runInAction(() => {
-        this.simpleChats[findSimpleChatIndexById].messages = [
-          ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
+        this.simpleChats[findSimpleChatIndexById] = {
+          ...this.simpleChats[findSimpleChatIndexById],
+          messages: this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
             response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
-        ]
+          // @ts-ignore
+          lastMessage: response.messagesId.includes(this.simpleChats[findSimpleChatIndexById]?.lastMessage?._id)
+            ? { ...this.simpleChats?.[findSimpleChatIndexById]?.lastMessage, isRead: true }
+            : this.simpleChats?.[findSimpleChatIndexById]?.lastMessage,
+        }
       })
     }
-
-    this.getUnreadMessagesCount()
   }
 
   private removeTypingUser(chatId: string, userId: string) {
@@ -519,6 +550,16 @@ class ChatModelStatic {
 
   public resetChats() {
     this.chats = []
+  }
+
+  public async FindChatMessage(requestParams: FindChatMessageRequestParams) {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const messages = await this.websocketChatService.FindChatMessage(requestParams)
+      return messages
+    } catch (error) {
+      console.warn(error)
+    }
   }
 }
 

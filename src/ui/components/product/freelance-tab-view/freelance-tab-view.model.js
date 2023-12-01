@@ -22,7 +22,7 @@ import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-import { filtersFields } from './freelance.constants'
+import { filtersFields } from './freelance-tab-view.constants'
 
 export class FreelanceModel {
   history = undefined
@@ -42,6 +42,7 @@ export class FreelanceModel {
 
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
+  showRequestResultModal = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -249,14 +250,12 @@ export class FreelanceModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.PRODUCT_FREELANCE]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onColumnVisibilityModelChange(model) {
@@ -310,6 +309,10 @@ export class FreelanceModel {
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break
 
+        case freelanceRequestType.BLOGGER:
+          this.onTriggerOpenModal('showRequestResultModal')
+          break
+
         case freelanceRequestType.SEO:
           this.onTriggerOpenModal('showRequestStandartResultModal')
           break
@@ -338,7 +341,7 @@ export class FreelanceModel {
     this.getCustomRequests()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

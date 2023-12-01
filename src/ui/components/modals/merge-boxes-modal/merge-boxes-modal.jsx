@@ -165,7 +165,7 @@ export const MergeBoxesModal = ({
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -362,7 +362,6 @@ export const MergeBoxesModal = ({
                 inputComponent={
                   <Button
                     disabled={isDifferentStorekeepers}
-                    variant={boxBody.logicsTariffId && 'text'}
                     className={cx(styles.storekeeperBtnDefault, {
                       [styles.storekeeperBtn]: !boxBody.logicsTariffId,
                       [styles.storekeeperBtnDark]: SettingsModel.uiTheme === UiTheme.dark,

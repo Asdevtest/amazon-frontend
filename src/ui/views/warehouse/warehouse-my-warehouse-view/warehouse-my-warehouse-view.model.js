@@ -69,9 +69,7 @@ const filtersFields = [
 ]
 
 export class WarehouseMyWarehouseViewModel {
-  history = undefined
   requestStatus = undefined
-  error = undefined
 
   volumeWeightCoefficient = undefined
   nameSearchValue = ''
@@ -93,8 +91,6 @@ export class WarehouseMyWarehouseViewModel {
 
   curOpenedTask = {}
   toCancelData = {}
-
-  currentData = []
 
   hsCodeData = {}
 
@@ -157,20 +153,16 @@ export class WarehouseMyWarehouseViewModel {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get currentData() {
+    return this.boxesMy
+  }
 
-    reaction(
-      () => this.boxesMy,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  constructor() {
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   setDestinationsFavouritesItem(item) {
@@ -182,34 +174,25 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
     this.setDataGridState()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+    this.paginationModel = model
     this.setDataGridState()
     this.getBoxesMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
     this.setDataGridState()
     this.getBoxesMy()
   }
 
   onTriggerShowEditBoxModalR(box) {
-    runInAction(() => {
-      this.curBox = box
-      this.showEditBoxModalR = !this.showEditBoxModalR
-    })
+    this.curBox = box
+    this.showEditBoxModalR = !this.showEditBoxModalR
   }
 
   setDataGridState() {
@@ -226,35 +209,27 @@ export class WarehouseMyWarehouseViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getBoxesMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBoxes = model
-    })
+    this.selectedBoxes = model
   }
 
   getCurrentData() {
@@ -262,9 +237,8 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getBoxesMy()
   }
 
@@ -309,14 +283,13 @@ export class WarehouseMyWarehouseViewModel {
         prepId: data.prepId,
       })
 
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-
       this.getBoxesMy()
 
       this.onTriggerOpenModal('showBoxViewModal')
 
-      this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+      runInAction(() => {
+        this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+      })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
     } catch (error) {
@@ -344,8 +317,10 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
+    const hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    runInAction(() => {
+      this.hsCodeData = hsCodeData
+    })
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
@@ -387,8 +362,6 @@ export class WarehouseMyWarehouseViewModel {
           newBox.shippingLabel = findUploadedShippingLabel
             ? findUploadedShippingLabel.link
             : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
-
-          console.log('newBox.shippingLabel', newBox.shippingLabel)
         }
 
         const dataToBarCodeChange = newBox.items
@@ -419,11 +392,13 @@ export class WarehouseMyWarehouseViewModel {
 
               uploadedBarcodes.push({
                 strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0],
+                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
               })
             }
 
-            dataToBarCodeChange[j].newData = findUploadedBarcode ? [findUploadedBarcode.link] : [this.uploadedFiles[0]]
+            dataToBarCodeChange[j].newData = findUploadedBarcode
+              ? [findUploadedBarcode.link]
+              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
           }
         }
 
@@ -459,9 +434,6 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -549,7 +521,7 @@ export class WarehouseMyWarehouseViewModel {
           items: isMultipleEdit ? boxData.items : getNewItems(),
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0],
+            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
@@ -573,9 +545,6 @@ export class WarehouseMyWarehouseViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       if (error.message === Errors.INVALID_IMAGE) {
         runInAction(() => {
@@ -615,7 +584,6 @@ export class WarehouseMyWarehouseViewModel {
 
       runInAction(() => {
         this.destinations = destinations
-
         this.storekeepersData = storekeepersData
       })
 
@@ -640,7 +608,6 @@ export class WarehouseMyWarehouseViewModel {
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
     } catch (error) {
@@ -658,16 +625,12 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async setHsCode(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-
       runInAction(() => {
         this.curBox = box
       })
@@ -675,9 +638,6 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -704,9 +664,6 @@ export class WarehouseMyWarehouseViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -841,23 +798,16 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async splitBoxes(id, data) {
     try {
       const result = await BoxesModel.splitBoxes(id, data)
-
       await this.getBoxesMy()
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -928,29 +878,20 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async mergeBoxes(ids, boxBody) {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
-
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onRemoveBoxFromSelected(boxId) {
-    runInAction(() => {
-      this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
-    })
+    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
 
     if (this.selectedBoxes.length < 2) {
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -976,9 +917,7 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onModalRedistributeBoxAddNewBox(value) {
-    runInAction(() => {
-      this.modalRedistributeBoxAddNewBox = value
-    })
+    this.modalRedistributeBoxAddNewBox = value
   }
 
   async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
@@ -1011,11 +950,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
       this.onTriggerOpenModal('showGroupingBoxesModal')
-
       runInAction(() => {
         this.warningInfoModalSettings = {
           isWarning: true,
@@ -1065,17 +1000,12 @@ export class WarehouseMyWarehouseViewModel {
   async setDimensions(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-
       runInAction(() => {
         this.curBox = box
       })
-
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1083,7 +1013,6 @@ export class WarehouseMyWarehouseViewModel {
     try {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'uploadedFiles' })
-
         data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
 
@@ -1104,14 +1033,10 @@ export class WarehouseMyWarehouseViewModel {
       }
 
       await BoxesModel.editBoxByStorekeeper(id, updateBoxData)
-
       this.onTriggerShowEditBoxModal()
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1141,23 +1066,16 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async onSubmitAddOrEditHsCode(data) {
     try {
       await ProductModel.editProductsHsCods(data)
-
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1168,15 +1086,10 @@ export class WarehouseMyWarehouseViewModel {
       }
 
       await BatchesModel.addBoxToBatch(selectedBatch.id, [box._id])
-
       this.loadData()
-
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1193,9 +1106,6 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1208,31 +1118,22 @@ export class WarehouseMyWarehouseViewModel {
 
       runInAction(() => {
         this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
-
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.sourceBoxForBatch = box
       })
 
       this.onTriggerOpenModal('showAddBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onTriggerShowEditBoxModal() {
-    runInAction(() => {
-      this.showEditBoxModal = !this.showEditBoxModal
-    })
+    this.showEditBoxModal = !this.showEditBoxModal
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async getBoxesMy() {
@@ -1253,21 +1154,15 @@ export class WarehouseMyWarehouseViewModel {
 
       runInAction(() => {
         this.rowCount = boxes.count
-
         this.baseBoxesMy = boxes.rows
-
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-
       runInAction(() => {
-        this.error = error
         this.boxesMy = []
-
         this.baseBoxesMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
@@ -1275,23 +1170,21 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getBoxesMy()
     this.getDataGridState()
@@ -1335,35 +1228,30 @@ export class WarehouseMyWarehouseViewModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeUnitsOption(option) {
-    runInAction(() => {
-      this.unitsOption = option
-    })
+    this.unitsOption = option
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   getFilter(exclusion) {
@@ -1445,16 +1333,8 @@ export class WarehouseMyWarehouseViewModel {
       ...(batchHumanFriendlyIdFilter && {
         batchHumanFriendlyId: { $eq: batchHumanFriendlyIdFilter },
       }),
-
-      // ...(orderIdsItemsFilter && {
-      //   prepId: {$eq: orderIdsItemsFilter},
-      // }),
     })
 
     return filter
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 }

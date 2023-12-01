@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchResult: {
-    width: 140,
+    width: '150px',
     color: theme.palette.text.second,
   },
 

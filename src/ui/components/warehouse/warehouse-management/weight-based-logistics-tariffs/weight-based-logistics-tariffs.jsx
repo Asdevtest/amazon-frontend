@@ -111,12 +111,10 @@ export const WeightBasedLogisticsTariffs = observer(() => {
 
       <CustomDataGrid
         useResizeContainer
-        propsToRerender={{ isArchive }}
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
         getRowHeight={() => 'auto'}
         slotProps={{

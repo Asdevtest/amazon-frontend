@@ -152,7 +152,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -380,7 +380,6 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Button
-                    variant={box.logicsTariffId && 'text'}
                     className={cx({
                       [styles.storekeeperBtn]: !box.logicsTariffId,
                       [styles.storekeeperTrafficBtn]: box.logicsTariffId,

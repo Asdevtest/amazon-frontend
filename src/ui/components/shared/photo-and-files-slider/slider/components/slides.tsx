@@ -10,9 +10,9 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from '../slider.style'
+import { useStyles } from '../slider.style'
 
-interface Props {
+interface SlidesProps {
   slides: Array<string | IUploadFile>
   currentIndex: number
   smallSlider?: boolean
@@ -26,8 +26,8 @@ interface Props {
   onPhotosModalToggle?: () => void
 }
 
-export const Slides: FC<Props> = memo(
-  ({
+export const Slides: FC<SlidesProps> = memo(props => {
+  const {
     slides,
     currentIndex,
     smallSlider,
@@ -39,89 +39,80 @@ export const Slides: FC<Props> = memo(
     isPlaying,
     setIsPlaying,
     onPhotosModalToggle,
-  }) => {
-    const { classes: classNames, cx } = useClassNames()
+  } = props
+  const { classes: styles, cx } = useStyles()
 
-    const isImageType = (slide: string | IUploadFile): boolean =>
-      checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name)
-    const isVideoType = (slide: string | IUploadFile): boolean =>
-      checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
+  return (
+    <div className={cx(styles.slidesWrapper)}>
+      <div
+        className={cx(styles.slides, {
+          [styles.slideSmall]: smallSlider,
+          [styles.slideMedium]: mediumSlider,
+          [styles.slideBig]: bigSlider,
+        })}
+        style={{
+          width: customSlideWidth,
+          height: customSlideHeight,
+          transform: `translateX(-${currentIndex * 100}%)`,
+        }}
+      >
+        {slides?.map((slide, index) => {
+          const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
+          const slideToCheck = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.file.name
+          const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
+          const isActiveSlide = currentIndex === index
 
-    return (
-      <div className={cx(classNames.slidesWrapper)}>
-        <div
-          className={cx(classNames.slides, {
-            [classNames.slideSmall]: smallSlider,
-            [classNames.slideMedium]: mediumSlider,
-            [classNames.slideBig]: bigSlider,
-          })}
-          style={{
-            width: customSlideWidth,
-            height: customSlideHeight,
-            transform: `translateX(-${currentIndex * 100}%)`,
-          }}
-        >
-          {slides?.map((slide, index) => {
-            const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
-            const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
-            const isActiveSlide = currentIndex === index
-
-            return (
-              <div key={index} className={classNames.slideWrapper}>
-                {isImageType(currentSlide) ? (
-                  isVideoType(currentSlide) ? (
-                    controls ? (
-                      <VideoPlayer
-                        videoSource={currentSlide}
-                        controls={controls}
-                        isPlaying={isPlaying && isActiveSlide}
-                        setIsPlaying={setIsPlaying}
-                      />
-                    ) : (
-                      <div className={classNames.preloaderContainer} onClick={onPhotosModalToggle}>
-                        <VideoPlayer videoSource={currentSlide} />
-                        <div className={classNames.preloader}>
-                          <PlayCircleFilledWhiteOutlinedIcon className={classNames.preloaderIcon} />
-                        </div>
-                      </div>
-                    )
-                  ) : (
-                    <img
-                      src={currentSlide}
-                      alt={`Slide ${currentIndex}`}
-                      className={classNames.slide}
-                      onClick={onPhotosModalToggle}
+          return (
+            <div key={index} className={styles.slideWrapper}>
+              {checkIsImageLink(slideToCheck) ? (
+                checkIsVideoLink(slideToCheck) ? (
+                  controls ? (
+                    <VideoPlayer
+                      videoSource={currentSlide}
+                      controls={controls}
+                      isPlaying={isPlaying && isActiveSlide}
+                      setIsPlaying={setIsPlaying}
                     />
+                  ) : (
+                    <div className={styles.preloaderContainer} onClick={onPhotosModalToggle}>
+                      <VideoPlayer videoSource={currentSlide} />
+                      <div className={styles.preloader}>
+                        <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
+                      </div>
+                    </div>
                   )
                 ) : (
-                  <div className={classNames.documentWrapper}>
-                    <a
-                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FileIcon fileExtension={elementExtension} className={classNames.slide} />
-                    </a>
+                  <img
+                    src={currentSlide}
+                    alt={`Slide ${currentIndex}`}
+                    className={styles.slide}
+                    onClick={onPhotosModalToggle}
+                  />
+                )
+              ) : (
+                <div className={styles.documentWrapper}>
+                  <a href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'} target="_blank" rel="noreferrer">
+                    <FileIcon fileExtension={elementExtension} className={styles.slide} />
+                  </a>
 
-                    <a
-                      href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={cx(classNames.linkDocument, classNames.text, {
-                        [classNames.smallText]: smallSlider,
-                        [classNames.mediumText]: mediumSlider,
-                        [classNames.bigText]: bigSlider,
-                      })}
-                    >
-                      {typeof slide === 'string' ? slide : slide?.file?.name}
-                    </a>
-                  </div>
-                )}
-              </div>
-            )
-          })}
-        </div>
+                  <a
+                    href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cx(styles.linkDocument, styles.text, {
+                      [styles.smallText]: smallSlider,
+                      [styles.mediumText]: mediumSlider,
+                      [styles.bigText]: bigSlider,
+                    })}
+                  >
+                    {typeof slide === 'string' ? slide : slide?.file?.name}
+                  </a>
+                </div>
+              )}
+            </div>
+          )
+        })}
       </div>
-    )
-  },
-)
+    </div>
+  )
+})

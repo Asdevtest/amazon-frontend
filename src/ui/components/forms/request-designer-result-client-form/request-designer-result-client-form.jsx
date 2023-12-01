@@ -56,7 +56,9 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const sourceImagesData = (proposal.proposal.media ?? curResultMedia).map(el => ({
+  const mediaToShow = curResultMedia?.length ? curResultMedia : proposal.proposal.media
+
+  const sourceImagesData = mediaToShow.map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
@@ -119,11 +121,15 @@ export const RequestDesignerResultClientForm = memo(props => {
     setFormFields(newFormFields)
   }
 
-  const onClickDownloadArchive = () => {
-    downloadArchive(
+  const [archiveButtonInactiveBeforeDownloading, setArchiveButtonInactiveBeforeDownloading] = useState(false)
+
+  const onClickDownloadArchive = async () => {
+    setArchiveButtonInactiveBeforeDownloading(true) // turn off the button until the files start downloading
+    await downloadArchive(
       imagesForDownload,
       `${reversedFormatDateWithoutTime(new Date(), true)}_${request?.request?.title?.replaceAll(' ', '_')}`,
     )
+    setArchiveButtonInactiveBeforeDownloading(false)
   }
 
   return (
@@ -164,11 +170,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Number of illustrations'])}
             containerClasses={styles.containerField}
-            inputComponent={
-              <Typography className={styles.simpleSpan}>
-                {(curResultMedia ?? proposal.proposal.media).length}
-              </Typography>
-            }
+            inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
           />
           <Field
             labelClasses={styles.fieldLabel}
@@ -241,7 +243,7 @@ export const RequestDesignerResultClientForm = memo(props => {
           </Button>
 
           <Button
-            disabled={!imagesForDownload.length}
+            disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
             className={styles.imagesModalBtn}
             onClick={onClickDownloadArchive}
           >
@@ -288,11 +290,11 @@ export const RequestDesignerResultClientForm = memo(props => {
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={imagesData.map(el => el.image)}
+          files={imagesData.map(el => el.image)}
           photosTitles={imagesData.map(el => el.comment)}
           photosComments={imagesData.map(el => el.commentByClient)}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
+          currentFileIndex={curImageIndex}
+          handleCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </div>

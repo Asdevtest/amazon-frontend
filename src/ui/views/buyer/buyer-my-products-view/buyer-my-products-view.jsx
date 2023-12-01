@@ -74,7 +74,6 @@ export const BuyerMyProductsViewRaw = props => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             rowHeight={160}
             density={viewModel.densityModel}
@@ -84,7 +83,6 @@ export const BuyerMyProductsViewRaw = props => {
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
-
               columnMenu: viewModel.columnMenuSettings,
               toolbar: {
                 resetFiltersBtnSettings: {

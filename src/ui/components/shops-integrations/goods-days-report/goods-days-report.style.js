@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
 
   dataGridWrapper: {
     marginTop: 20,
-    height: '70vh',
+    height: 'calc(100vh - 300px)',
     width: '100%',
   },
 

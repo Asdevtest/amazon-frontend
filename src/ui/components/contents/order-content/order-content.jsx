@@ -69,7 +69,7 @@ export const OrderContent = ({
   const [formFields, setFormFields] = useState({
     ...order,
 
-    destinationId: order?.destination?._id || null,
+    destinationId: order?.destination?._id || order?.variationTariff?.destinationId || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
     variationTariffId: order?.variationTariff?._id || null,

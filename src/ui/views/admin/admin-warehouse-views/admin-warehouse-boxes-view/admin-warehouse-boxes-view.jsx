@@ -43,7 +43,6 @@ export const AdminWarehouseBoxesViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}

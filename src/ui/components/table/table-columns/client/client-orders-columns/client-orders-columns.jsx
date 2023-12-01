@@ -86,6 +86,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
     renderCell: params => (
       <MultilineTextCell
+        maxLength={50}
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
