@@ -12,7 +12,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './order-many-items-cell.style'
+import { useStyles } from './order-many-items-cell.style'
 
 import { OrderCell } from '../data-grid-cells'
 
@@ -24,7 +24,7 @@ interface OrderManyItemsCellProps {
 }
 
 export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { box, error, withoutSku, imageSize } = props
 
   const isEqualsItems = box.items.every((el: any) => el?.product?._id === box?.items?.[0]?.product?._id)

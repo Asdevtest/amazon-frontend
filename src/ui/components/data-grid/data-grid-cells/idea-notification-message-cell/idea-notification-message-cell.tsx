@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './idea-notification-message-cell.style'
+import { useStyles } from './idea-notification-message-cell.style'
 
 interface IdeaNotificationMessageCellProps {
   notification: any
@@ -16,7 +16,7 @@ interface IdeaNotificationMessageCellProps {
 
 export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> = React.memo(
   ({ navigateToHandler, notification }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     const getIdeaMessageTextToRender = () => {
       switch (notification.type) {

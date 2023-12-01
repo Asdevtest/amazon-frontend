@@ -10,7 +10,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './product-info-abbreviated.style'
+import { useStyles } from './product-info-abbreviated.style'
 
 interface ProductInfoAbbreviatedProps {
   box: any
@@ -18,7 +18,7 @@ interface ProductInfoAbbreviatedProps {
 }
 
 export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.memo(({ box, boxesLength }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div

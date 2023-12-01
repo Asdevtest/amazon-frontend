@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './on-checking-idea-actions.style'
+import { useStyles } from './on-checking-idea-actions.style'
 
 interface OnCheckingIdeaActionsProps {
   isAcceptDisabled?: boolean
@@ -16,7 +16,7 @@ interface OnCheckingIdeaActionsProps {
 
 export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = React.memo(
   ({ onClickAccept, onClickReject, isAcceptDisabled }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.ideaActions}>

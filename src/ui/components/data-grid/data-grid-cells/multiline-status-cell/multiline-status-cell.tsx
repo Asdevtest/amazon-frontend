@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './multiline-status-cell.style'
+import { useStyles } from './multiline-status-cell.style'
 
 interface MultilineStatusCellProps {
   status: string
@@ -8,7 +8,7 @@ interface MultilineStatusCellProps {
 }
 
 export const MultilineStatusCell: FC<MultilineStatusCellProps> = React.memo(({ status, leftAlign }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.multilineTextWrapper}>

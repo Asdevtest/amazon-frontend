@@ -7,14 +7,14 @@ import { VideoPlayer } from '@components/shared/video-player'
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useDataGridCellStyles } from './small-row-image-cell.style'
+import { useStyles } from './small-row-image-cell.style'
 
 interface SmallRowImageCellProps {
   image: string
 }
 
 export const SmallRowImageCell: FC<SmallRowImageCellProps> = React.memo(({ image }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const checkIsVideo = checkIsVideoLink(image)
   return (

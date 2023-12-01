@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './idea-product-cell.style'
+import { useStyles } from './idea-product-cell.style'
 
 import { ProductAsinCell } from '../data-grid-cells'
 
@@ -17,7 +17,7 @@ interface IdeaProductCellProps {
 }
 
 export const IdeaProductCell: FC<IdeaProductCellProps> = React.memo(({ onClickCreateCard, rowData }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.ideaWrapper}>

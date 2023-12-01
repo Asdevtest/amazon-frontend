@@ -6,14 +6,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './box-notification-message-cell.style'
+import { useStyles } from './box-notification-message-cell.style'
 
 interface BoxNotificationMessageCellProps {
   notification: any
 }
 
 export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = React.memo(({ notification }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const history = useHistory()
 
   const goToBox = (boxId: string) => {

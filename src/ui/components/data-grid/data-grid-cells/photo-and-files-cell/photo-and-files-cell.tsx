@@ -4,14 +4,14 @@ import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carous
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useDataGridCellStyles } from './photo-and-files-cell.style'
+import { useStyles } from './photo-and-files-cell.style'
 
 interface PhotoAndFilesCellProps {
   files: IUploadFile[]
 }
 
 export const PhotoAndFilesCell: FC<PhotoAndFilesCellProps> = React.memo(({ files }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.photoWrapper}>

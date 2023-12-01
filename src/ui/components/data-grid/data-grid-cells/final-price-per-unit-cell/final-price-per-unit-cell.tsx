@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { getTariffRateForBoxOrOrder } from '@utils/calculation'
 import { toFixedWithDollarSign } from '@utils/text'
 
-import { useDataGridCellStyles } from './final-price-per-unit-cell.style'
+import { useStyles } from './final-price-per-unit-cell.style'
 
 interface FinalPricePerUnitCellProps {
   box: any
@@ -12,7 +12,7 @@ interface FinalPricePerUnitCellProps {
 }
 
 export const FinalPricePerUnitCell: FC<FinalPricePerUnitCellProps> = React.memo(({ box, boxFinalWeight }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.pricesWrapper}>

@@ -15,14 +15,14 @@ import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './download-and-print-files-cell.style'
+import { useStyles } from './download-and-print-files-cell.style'
 
 interface DownloadAndPrintFilesCellProps {
   files: any
 }
 
 export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = React.memo(({ files }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const imageRef = useRef(null)
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)

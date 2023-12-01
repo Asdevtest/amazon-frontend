@@ -2,14 +2,14 @@ import React, { FC } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
-import { useDataGridCellStyles } from './multiple-asin-cell.style'
+import { useStyles } from './multiple-asin-cell.style'
 
 interface MultipleAsinCellProps {
   asinList: string[]
 }
 
 export const MultipleAsinCell: FC<MultipleAsinCellProps> = React.memo(({ asinList }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.multipleAsinWrapper}>

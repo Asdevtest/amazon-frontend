@@ -11,7 +11,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './freelancer-my-proposals-actions-cell.style'
+import { useStyles } from './freelancer-my-proposals-actions-cell.style'
 
 interface FreelancerMyProposalsActionsCellProps {
   status: string
@@ -21,7 +21,7 @@ interface FreelancerMyProposalsActionsCellProps {
 }
 
 export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
 
   return (

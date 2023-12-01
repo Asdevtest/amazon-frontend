@@ -10,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './copy-and-edit-link-cell.style'
+import { useStyles } from './copy-and-edit-link-cell.style'
 
 interface CopyAndEditLinkCellProps {
   link: string
@@ -19,7 +19,7 @@ interface CopyAndEditLinkCellProps {
 }
 
 export const CopyAndEditLinkCell: FC<CopyAndEditLinkCellProps> = React.memo(({ link, isEdit, onChangeText }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const [value, setValue] = useState(link)
 

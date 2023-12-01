@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   buttonsWrapper: {
     display: 'flex',
     gap: '20px',

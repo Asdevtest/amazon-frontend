@@ -6,7 +6,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { SaveIcon } from '@components/shared/svg-icons'
 
-import { useDataGridCellStyles } from './date-picker-cell.style'
+import { useStyles } from './date-picker-cell.style'
 
 interface DatePickerCellProps {
   id: string
@@ -16,7 +16,7 @@ interface DatePickerCellProps {
 }
 
 export const DatePickerCell: FC<DatePickerCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { id, arrivalDate, onClickSaveArrivalDate, disabled } = props
 
   const [value, setValue] = useState(arrivalDate || '')

@@ -5,7 +5,7 @@ import { Link } from '@mui/material'
 
 import { UserLink } from '@components/user/user-link'
 
-import { useDataGridCellStyles } from './in-stock-cell.style'
+import { useStyles } from './in-stock-cell.style'
 
 interface InStockCellProps {
   boxAmounts: any[]
@@ -14,7 +14,7 @@ interface InStockCellProps {
 }
 
 export const InStockCell: FC<InStockCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { boxAmounts, boxId, onClickInStock } = props
 
   return (
