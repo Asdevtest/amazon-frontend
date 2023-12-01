@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,13 +10,14 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-orders-notifications-view.style'
+import { useStyles } from './client-orders-notifications-view.style'
 
 import { ClientOrdersNotificationsViewModel } from './client-orders-notifications-view.model'
 
-export const ClientOrdersNotificationsViewRaw = props => {
-  const [viewModel] = useState(() => new ClientOrdersNotificationsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const ClientOrdersNotificationsView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new ClientOrdersNotificationsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -25,7 +25,7 @@ export const ClientOrdersNotificationsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -33,7 +33,8 @@ export const ClientOrdersNotificationsViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rowCount={viewModel.rowCount}
+          rows={viewModel.currentData}
           rowHeight={140}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
@@ -52,7 +53,7 @@ export const ClientOrdersNotificationsViewRaw = props => {
           }}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
@@ -66,13 +67,9 @@ export const ClientOrdersNotificationsViewRaw = props => {
         message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.confirmModalSettings.onClickOkBtn()
-        }}
+        onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
     </React.Fragment>
   )
-}
-
-export const ClientOrdersNotificationsView = withStyles(observer(ClientOrdersNotificationsViewRaw), styles)
+})
