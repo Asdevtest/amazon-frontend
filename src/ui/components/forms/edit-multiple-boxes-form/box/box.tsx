@@ -380,7 +380,6 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Button
-                    variant={box.logicsTariffId && 'text'}
                     className={cx({
                       [styles.storekeeperBtn]: !box.logicsTariffId,
                       [styles.storekeeperTrafficBtn]: box.logicsTariffId,
