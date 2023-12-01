@@ -3,14 +3,14 @@ import React, { FC } from 'react'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
-import { useDataGridCellStyles } from './price-per-unit-cell.style'
+import { useStyles } from './price-per-unit-cell.style'
 
 interface PricePerUnitCellProps {
   item: any
 }
 
 export const PricePerUnitCell: FC<PricePerUnitCellProps> = React.memo(({ item }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.pricesWrapper}>

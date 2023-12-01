@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 
-import { useDataGridCellStyles } from './order-id-and-amount-count-cell.style'
+import { useStyles } from './order-id-and-amount-count-cell.style'
 
 interface OrderIdAndAmountCountCellProps {
   orderId: string
@@ -12,7 +12,7 @@ interface OrderIdAndAmountCountCellProps {
 
 export const OrderIdAndAmountCountCell: FC<OrderIdAndAmountCountCellProps> = React.memo(
   ({ orderId, amount, onClickOrderId }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.orderIdAndAmountCount}>

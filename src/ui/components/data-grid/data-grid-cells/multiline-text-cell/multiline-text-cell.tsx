@@ -8,7 +8,7 @@ import { MAX_LENGTH_TITLE } from '@constants/text'
 import { checkIsString } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 
-import { useDataGridCellStyles } from './multiline-text-cell.style'
+import { useStyles } from './multiline-text-cell.style'
 
 interface MultilineTextCellProps {
   text?: string
@@ -29,7 +29,7 @@ interface MultilineTextCellProps {
 }
 
 export const MultilineTextCell: FC<MultilineTextCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const {
     text = '',
     noText,

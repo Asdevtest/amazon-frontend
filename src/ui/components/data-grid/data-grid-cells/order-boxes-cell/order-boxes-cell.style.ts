@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   orderBoxesWrapper: {
     display: 'flex',
     alignItems: 'center',

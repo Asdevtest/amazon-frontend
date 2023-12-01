@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { toFixedWithKg } from '@utils/text'
 
-import { useDataGridCellStyles } from './to-fixed-with-kg-sign-cell.style'
+import { useStyles } from './to-fixed-with-kg-sign-cell.style'
 
 interface ToFixedWithKgSignCellProps {
   value: number
@@ -10,7 +10,7 @@ interface ToFixedWithKgSignCellProps {
 }
 
 export const ToFixedWithKgSignCell: FC<ToFixedWithKgSignCellProps> = React.memo(({ value, fix }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.multilineTextWrapper}>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Tooltip } from '@mui/material'
@@ -9,7 +9,7 @@ import { ShareLinkIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './open-in-new-tab-cell.style'
+import { useStyles } from './open-in-new-tab-cell.style'
 
 interface OpenInNewTabCellProps {
   onClickOpenInNewTab: () => void
@@ -17,16 +17,13 @@ interface OpenInNewTabCellProps {
   isFullSize?: boolean
 }
 
-export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = React.memo(({ onClickOpenInNewTab, href, isFullSize }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = memo(({ onClickOpenInNewTab, href, isFullSize }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const [isShowTooltip, setIsShowTooltip] = useState(false)
 
   return (
-    <Tooltip
-      arrow
-      title={t(TranslationKey['Open in a new tab'])}
-      placement="top"
-      classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
-    >
+    <NavLink style={{ ...(isFullSize && { height: '100%' }) }} to={href || ''} target="_blank">
       <div
         className={cx(styles.iconWrapper, { [styles.fullSizeIconWrapper]: isFullSize })}
         onClick={event => {
@@ -35,15 +32,22 @@ export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = React.memo(({ onClick
             onClickOpenInNewTab()
           }
         }}
+        onMouseEnter={() => setIsShowTooltip(true)}
+        onMouseLeave={() => setIsShowTooltip(false)}
       >
-        {href ? (
-          <NavLink to={href || ''} target="_blank">
+        <Tooltip
+          arrow
+          open={isShowTooltip}
+          title={t(TranslationKey['Open in a new tab'])}
+          placement="top"
+          classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
+        >
+          <div>
+            {/* Баг в mui. Если не обернуть в div, тултип не отображается. */}
             <ShareLinkIcon className={styles.shareLinkIcon} />
-          </NavLink>
-        ) : (
-          <ShareLinkIcon className={styles.shareLinkIcon} />
-        )}
+          </div>
+        </Tooltip>
       </div>
-    </Tooltip>
+    </NavLink>
   )
 })

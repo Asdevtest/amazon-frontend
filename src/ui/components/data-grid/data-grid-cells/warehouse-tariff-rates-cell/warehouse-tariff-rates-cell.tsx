@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { roundHalf } from '@utils/calculation'
 import { toFixed } from '@utils/text'
 
-import { useDataGridCellStyles } from './warehouse-tariff-rates-cell.style'
+import { useStyles } from './warehouse-tariff-rates-cell.style'
 
 interface WarehouseTariffRatesCellProps {
   conditionsByRegion: any
@@ -13,7 +13,7 @@ interface WarehouseTariffRatesCellProps {
 
 export const WarehouseTariffRatesCell: FC<WarehouseTariffRatesCellProps> = React.memo(
   ({ conditionsByRegion, inYuans }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.tariffRatesWrapper}>

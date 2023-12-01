@@ -8,7 +8,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './warehouse-boxes-btns-cell.style'
+import { useStyles } from './warehouse-boxes-btns-cell.style'
 
 interface WarehouseBoxesBtnsCellProps {
   row: any
@@ -18,7 +18,7 @@ interface WarehouseBoxesBtnsCellProps {
 }
 
 export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = React.memo(({ row, handlers }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.warehouseBoxesBtnsWrapper}>

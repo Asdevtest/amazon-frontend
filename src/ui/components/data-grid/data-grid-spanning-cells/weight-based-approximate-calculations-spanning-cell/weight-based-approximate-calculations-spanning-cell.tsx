@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 
 import { IDestinationVariationApproximateCalculations } from '@typings/destination'
 
-import { useDataGridCellStyles } from './weight-based-approximate-calculations-spanning-cell.style'
+import { useStyles } from './weight-based-approximate-calculations-spanning-cell.style'
 
 interface WeightBasedApproximateCalculationsSpanningCellProps {
   destinationVariations: IDestinationVariationApproximateCalculations[]
@@ -22,7 +22,7 @@ interface WeightBasedApproximateCalculationsSpanningCellProps {
 
 export const WeightBasedApproximateCalculationsSpanningCell: FC<WeightBasedApproximateCalculationsSpanningCellProps> =
   React.memo(props => {
-    const { classes: styles, cx } = useDataGridCellStyles()
+    const { classes: styles, cx } = useStyles()
 
     const {
       destinationVariations,

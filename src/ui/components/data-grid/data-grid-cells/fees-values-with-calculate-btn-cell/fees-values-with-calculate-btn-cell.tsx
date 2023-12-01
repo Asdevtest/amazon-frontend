@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './fees-values-with-calculate-btn-cell.style'
+import { useStyles } from './fees-values-with-calculate-btn-cell.style'
 
 interface FeesValuesWithCalculateBtnCellProps {
   noCalculate: boolean
@@ -18,7 +18,7 @@ interface FeesValuesWithCalculateBtnCellProps {
 }
 
 export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { noCalculate, onClickCalculate, productId, fbafee, reffee } = props
 
   return (

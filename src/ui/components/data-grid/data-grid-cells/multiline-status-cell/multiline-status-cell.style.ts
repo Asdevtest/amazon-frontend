@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   multilineTextWrapper: {
     width: '100%',
     padding: '5px 0',

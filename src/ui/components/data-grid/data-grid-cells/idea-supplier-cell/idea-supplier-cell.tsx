@@ -8,7 +8,7 @@ import { PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './idea-supplier-cell.style'
+import { useStyles } from './idea-supplier-cell.style'
 
 interface IdeaSupplierCellProps {
   suppliers: any
@@ -16,7 +16,7 @@ interface IdeaSupplierCellProps {
 }
 
 export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = React.memo(({ onClickAddSupplier, suppliers }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.ideaSupplier}>

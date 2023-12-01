@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
-import { useDataGridCellStyles } from './normal-action-btn-cell.style'
+import { useStyles } from './normal-action-btn-cell.style'
 
 interface NormalActionBtnCellProps {
   bTnText: string
@@ -13,7 +13,7 @@ interface NormalActionBtnCellProps {
 }
 
 export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow } = props
 
   return (

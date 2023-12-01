@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useDataGridCellStyles } from './payment-methods-cell.style'
+import { useStyles } from './payment-methods-cell.style'
 
 interface PaymentMethodsCellProps {
   paymentMethods: {
@@ -15,7 +15,7 @@ interface PaymentMethodsCellProps {
 }
 
 export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { paymentMethods, onClickCell } = props
 
   return (

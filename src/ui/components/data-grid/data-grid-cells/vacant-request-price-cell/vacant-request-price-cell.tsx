@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { toFixed } from '@utils/text'
 
-import { useDataGridCellStyles } from './vacant-request-price-cell.style'
+import { useStyles } from './vacant-request-price-cell.style'
 
 interface VacantRequestPriceCellProps {
   price: number
@@ -13,7 +13,7 @@ interface VacantRequestPriceCellProps {
 
 export const VacantRequestPriceCell: FC<VacantRequestPriceCellProps> = React.memo(
   ({ price, cashBackInPercent, AlignLeft }) => {
-    const { classes: styles, cx } = useDataGridCellStyles()
+    const { classes: styles, cx } = useStyles()
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
     const includeStyles = Boolean(discountedPrice && cashBackInPercent)
 

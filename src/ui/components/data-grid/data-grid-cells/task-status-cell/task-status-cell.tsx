@@ -2,14 +2,14 @@ import React, { FC } from 'react'
 
 import { TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 
-import { useDataGridCellStyles } from './task-status-cell.style'
+import { useStyles } from './task-status-cell.style'
 
 interface TaskStatusCellProps {
   status: string
 }
 
 export const TaskStatusCell: FC<TaskStatusCellProps> = React.memo(({ status }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const colorByStatus = () => {
     if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {

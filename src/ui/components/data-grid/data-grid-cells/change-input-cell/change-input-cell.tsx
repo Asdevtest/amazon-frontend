@@ -12,7 +12,7 @@ import { SaveIcon } from '@components/shared/svg-icons'
 
 import { checkIsMoreNCharactersAfterDot, checkIsNumberWithDot, checkIsPositiveNum } from '@utils/checks'
 
-import { useDataGridCellStyles } from './change-input-cell.style'
+import { useStyles } from './change-input-cell.style'
 
 interface ChangeInputCellProps {
   rowId: string
@@ -25,7 +25,7 @@ interface ChangeInputCellProps {
 }
 
 export const ChangeInputCell: FC<ChangeInputCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue } = props
 
   const sourceValue = text !== null ? text : ''

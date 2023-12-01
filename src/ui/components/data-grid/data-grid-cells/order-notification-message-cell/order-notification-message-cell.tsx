@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './order-notification-message-cell.style'
+import { useStyles } from './order-notification-message-cell.style'
 
 interface OrderNotificationMessageCellProps {
   notification: any
@@ -16,7 +16,7 @@ interface OrderNotificationMessageCellProps {
 
 export const OrderNotificationMessageCell: FC<OrderNotificationMessageCellProps> = React.memo(
   ({ navigateToHandler, notification }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     const onClickOrderId = () => {
       navigateToHandler(notification, NotificationType.Order)
