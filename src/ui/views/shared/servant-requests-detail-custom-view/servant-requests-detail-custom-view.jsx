@@ -50,8 +50,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       (!findRequestProposalForCurChat?.proposal?.sub &&
         findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
     (findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
-      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY)
+      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT)
   const isRefine = viewModel.requestProposals?.[0]?.proposal?.status === RequestProposalStatus.TO_CORRECT
 
   return (
