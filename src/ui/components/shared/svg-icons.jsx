@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-import React from 'react'
-
 import { SvgIcon } from '@mui/material'
 
 export const DashboardIcon = props => (

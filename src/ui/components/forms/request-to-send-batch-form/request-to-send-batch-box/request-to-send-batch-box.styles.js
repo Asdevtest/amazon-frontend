@@ -165,7 +165,7 @@ export const useClassNames = makeStyles()(theme => ({
   downloadLink: {
     color: theme.palette.primary.main,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -179,7 +179,7 @@ export const useClassNames = makeStyles()(theme => ({
   row: {
     outline: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       boxShadow: 'inset 0 0 30px rgba(7, 179, 247, .8)',

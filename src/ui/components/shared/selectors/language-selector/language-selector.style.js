@@ -33,7 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
 
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       opacity: '.8',
     },

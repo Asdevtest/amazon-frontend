@@ -167,7 +167,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '27px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   tablePanelViewText: {

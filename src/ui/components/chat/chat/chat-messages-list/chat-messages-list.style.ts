@@ -107,7 +107,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   messageAvatarWrapperIsIncomming: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
 
     '&:hover': {

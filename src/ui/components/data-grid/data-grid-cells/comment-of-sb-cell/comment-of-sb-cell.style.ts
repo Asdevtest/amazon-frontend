@@ -21,7 +21,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
     resize: 'none',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
   },
 
   commentOfSbSubWrapper: {

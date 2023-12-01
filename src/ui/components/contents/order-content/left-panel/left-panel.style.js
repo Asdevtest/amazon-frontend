@@ -40,7 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
     padding: '10px 15px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   collapsedWrapper: {
     textAlign: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     marginTop: '79px',
   },
 

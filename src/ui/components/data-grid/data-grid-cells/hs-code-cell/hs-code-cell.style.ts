@@ -8,7 +8,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     borderRadius: '7px',
     height: '30px',
     width: '100%',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   barcodeChipHover: {
