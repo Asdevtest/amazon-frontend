@@ -213,7 +213,10 @@ export const Chat: FC<Props> = observer(
     }, [messages?.length])
 
     useEffect(() => {
-      ChatModel.getChatMessages?.(chat?._id)
+      if (!messages.length) {
+        ChatModel.getChatMessages?.(chat?._id)
+      }
+
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setIsShowChatInfo(false)
