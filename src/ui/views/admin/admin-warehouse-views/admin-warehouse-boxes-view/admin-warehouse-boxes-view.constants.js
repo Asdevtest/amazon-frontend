@@ -1,0 +1,17 @@
+export const filtersFields = [
+  'storekeeper',
+  'updatedAt',
+  'createdAt',
+  'client',
+  'humanFriendlyId',
+  'storekeeper',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'amount',
+  'warehouses',
+  'totalPrice',
+  'finalWeight',
+  'weight',
+  'trackNumber',
+]

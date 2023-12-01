@@ -8,8 +8,8 @@ class BoxesModelStatic {
     return response.data
   }
 
-  getBoxes = async () => {
-    const response = await restApiService.boxesApi.apiV1BoxesGet()
+  getBoxes = async params => {
+    const response = await restApiService.boxesApi.apiV1BoxesGet(params)
     return response.data
   }
 
