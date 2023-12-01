@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,13 +11,14 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './supervisor-ready-to-check-for-idea.style'
+import { useStyles } from './supervisor-ready-to-check-for-idea.style'
 
 import { SupervisorReadyToCheckForIdeaViewModel } from './supervisor-ready-to-check-for-idea.model'
 
-export const SupervisorReadyToCheckForIdeaViewRaw = props => {
-  const [viewModel] = useState(() => new SupervisorReadyToCheckForIdeaViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const SupervisorReadyToCheckForIdeaView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new SupervisorReadyToCheckForIdeaViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -27,7 +27,7 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -38,7 +38,8 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -57,7 +58,7 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             localeText={getLocalizationByLanguageTag()}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
@@ -72,12 +73,8 @@ export const SupervisorReadyToCheckForIdeaViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={t(TranslationKey['Taken to Work'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
     </React.Fragment>
   )
-}
-
-export const SupervisorReadyToCheckForIdeaView = withStyles(observer(SupervisorReadyToCheckForIdeaViewRaw), styles)
+})

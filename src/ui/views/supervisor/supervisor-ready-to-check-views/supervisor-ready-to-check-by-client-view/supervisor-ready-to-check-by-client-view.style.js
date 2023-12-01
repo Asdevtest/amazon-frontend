@@ -1,4 +1,6 @@
-export const styles = () => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   btnsWrapper: {
     marginBottom: 20,
     display: 'flex',
@@ -8,4 +10,4 @@ export const styles = () => ({
     height: '81vh',
     width: '100%',
   },
-})
+}))

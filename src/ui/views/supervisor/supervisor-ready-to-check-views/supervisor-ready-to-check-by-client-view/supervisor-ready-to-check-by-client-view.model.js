@@ -14,11 +14,14 @@ import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
 
   showInfoModal = false
 
   selectedRowIds = []
+
+  get currentData() {
+    return this.productsReadyToCheck
+  }
 
   productsReadyToCheck = []
 
@@ -35,10 +38,8 @@ export class SupervisorReadyToCheckByClientViewModel {
   paginationModel = { page: 0, pageSize: 15 }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-      this.getDataGridState()
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -56,53 +57,38 @@ export class SupervisorReadyToCheckByClientViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
 
     this.setDataGridState()
   }
 
-  getCurrentData() {
-    return toJS(this.productsReadyToCheck)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   async loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-      })
+      this.getDataGridState()
+
       await this.getProductsReadyToCheck()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
       console.log(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const isCreatedByClient = true
 
       const result = await SupervisorModel.getProductsVacant(isCreatedByClient)
@@ -112,17 +98,15 @@ export class SupervisorReadyToCheckByClientViewModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
 
       runInAction(() => {
         this.productsReadyToCheck = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -137,15 +121,12 @@ export class SupervisorReadyToCheckByClientViewModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
+
       this.onTriggerOpenModal('showInfoModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -161,44 +142,25 @@ export class SupervisorReadyToCheckByClientViewModel {
       }
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
