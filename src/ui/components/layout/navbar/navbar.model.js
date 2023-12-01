@@ -84,7 +84,8 @@ export class NavbarModel {
     }
   }
 
-  submitResetLocalStorageAndCach() {
+  async submitResetLocalStorageAndCach() {
+    await UserModel.signOut()
     localStorage.clear()
 
     // Очистка кэша
