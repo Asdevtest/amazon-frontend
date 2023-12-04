@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 1150,
     padding: 10,
@@ -269,7 +269,7 @@ export const useClassNames = makeStyles()(theme => ({
     top: 0,
     left: 0,
     opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   image: {

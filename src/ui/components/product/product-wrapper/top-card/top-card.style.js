@@ -70,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '300px',
     objectFit: 'contain',
     transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -155,7 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
     top: 0,
     left: 0,
     opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   mainCard: {

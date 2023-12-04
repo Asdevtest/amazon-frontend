@@ -158,7 +158,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkOnEdit: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     color: theme.palette.primary.main,
   },
 

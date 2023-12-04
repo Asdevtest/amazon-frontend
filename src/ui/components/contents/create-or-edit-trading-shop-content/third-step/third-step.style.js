@@ -78,7 +78,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',

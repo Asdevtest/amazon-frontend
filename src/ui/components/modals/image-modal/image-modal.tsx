@@ -25,6 +25,7 @@ interface ImageModalProps {
   showPreviews?: boolean
   isEditable?: boolean
   withoutMakeMainImage?: boolean
+  isRequestResult?: boolean
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
 }
 
@@ -40,10 +41,11 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     showPreviews,
     isEditable,
     withoutMakeMainImage,
+    isRequestResult = false,
     onChangeImagesForLoad,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const {
     openImageEditModal,
     onOpenImageEditModal,
@@ -102,7 +104,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
           {photosComments?.[mediaFileIndex] && (
             <p
               title={photosComments?.[mediaFileIndex].length > 200 ? photosComments?.[mediaFileIndex] : ''}
-              className={styles.title}
+              className={cx(styles.title, { [styles.titleError]: isRequestResult })}
             >
               {getShortenStringIfLongerThanCount(photosComments?.[mediaFileIndex], 200)}
             </p>

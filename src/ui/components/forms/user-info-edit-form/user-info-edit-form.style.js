@@ -74,7 +74,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: 10,
     top: 35,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     color: theme.palette.text.second,
 
     [theme.breakpoints.down(768)]: {
