@@ -48,7 +48,10 @@ interface NavbarDrawerContentProps {
   showConfirmModal: boolean
 }
 
-const alwaysShowSubCategoryKeys = [navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS]
+export const alwaysShowSubCategoryKeys = [
+  navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+  navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+]
 
 export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(
   ({
