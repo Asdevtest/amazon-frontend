@@ -173,6 +173,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
     cursor: 'pointer',
     transition: '.3s ease',
+    borderRadius: '50%',
 
     '&:hover': {
       transform: 'scale(1.01)',

@@ -236,22 +236,6 @@ export const TopCard = memo(
                             checkIsBuyer(curUserRole)) ||
                           selectedSupplier.name !== 'access denied' ? (
                             <>
-                              {/* {checkIsAdmin(curUserRole) ||
-                              checkIsSupervisor(curUserRole) ||
-                              (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
-                                <div className={classNames.supplierButtonWrapper}>
-                                  <Button
-                                    tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                                    className={classNames.iconBtn}
-                                    onClick={() => onClickSupplierBtns('view')}
-                                  >
-                                    <VisibilityOutlinedIcon />
-                                  </Button>
-                                  <Typography className={classNames.supplierButtonText}>
-                                    {t(TranslationKey['Open the parameters supplier'])}
-                                  </Typography>
-                                </div>
-                              ) : null} */}
                               {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={classNames.supplierButtonWrapper}>
                                   <Button
