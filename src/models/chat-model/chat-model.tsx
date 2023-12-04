@@ -190,7 +190,7 @@ class ChatModelStatic {
       return
     }
     try {
-      if (messagesNumber) {
+      if (messagesNumber || messagesNumber === 0) {
         runInAction(() => {
           this.unreadMessagesCount = Number(this.unreadMessagesCount) + messagesNumber
         })

@@ -75,10 +75,11 @@ export const MyRequestsView = observer(({ history, location }) => {
         <CustomSwitcher
           fullWidth
           switchMode={'big'}
-          condition={viewModel.isRequestsAtWork}
+          condition={viewModel.switcherCondition}
           switcherSettings={[
-            { label: () => t(TranslationKey['Requests in progress']), value: true },
-            { label: () => t(TranslationKey['Completed requests']), value: false },
+            { label: () => t(TranslationKey['Requests in progress']), value: 'inProgress' },
+            { label: () => t(TranslationKey['Ready to check']), value: 'readyToCheck' },
+            { label: () => t(TranslationKey['Completed requests']), value: 'completed' },
           ]}
           changeConditionHandler={viewModel.onClickChangeCatigory}
         />

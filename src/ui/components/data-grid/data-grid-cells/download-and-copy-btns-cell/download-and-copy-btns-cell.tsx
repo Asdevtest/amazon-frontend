@@ -11,7 +11,7 @@ import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './download-and-copy-btns-cell.style'
+import { useStyles } from './download-and-copy-btns-cell.style'
 
 interface DownloadAndCopyBtnsCellProps {
   value: string
@@ -19,7 +19,7 @@ interface DownloadAndCopyBtnsCellProps {
 }
 
 export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(({ value, isFirstRow }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
 

@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 
-import { useDataGridCellStyles } from './request-status-cell.style'
+import { useStyles } from './request-status-cell.style'
 
 interface RequestStatusCellProps {
   status: string
@@ -12,7 +12,7 @@ interface RequestStatusCellProps {
 }
 
 export const RequestStatusCell: FC<RequestStatusCellProps> = React.memo(({ status, isChat, styles }) => {
-  const { classes: style, cx } = useDataGridCellStyles()
+  const { classes: style, cx } = useStyles()
 
   return (
     <div className={style.statusWrapper}>

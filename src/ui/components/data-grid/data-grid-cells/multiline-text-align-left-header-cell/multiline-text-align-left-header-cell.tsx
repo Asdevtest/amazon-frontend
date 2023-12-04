@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './multiline-text-align-left-header-cell.style'
+import { useStyles } from './multiline-text-align-left-header-cell.style'
 
 interface MultilineTextAlignLeftHeaderCellProps {
   text: string
 }
 
 export const MultilineTextAlignLeftHeaderCell: FC<MultilineTextAlignLeftHeaderCellProps> = React.memo(({ text }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.multilineTextAlignLeftHeaderWrapper}>

@@ -7,7 +7,7 @@ import { CopyValue } from '@components/shared/copy-value'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './shops-report-btns-cell.style'
+import { useStyles } from './shops-report-btns-cell.style'
 
 interface ShopsReportBtnsCellProps {
   value: string
@@ -15,7 +15,7 @@ interface ShopsReportBtnsCellProps {
 }
 
 export const ShopsReportBtnsCell: FC<ShopsReportBtnsCellProps> = React.memo(({ value, onClickSeeMore }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.shopsReportBtnsWrapper}>

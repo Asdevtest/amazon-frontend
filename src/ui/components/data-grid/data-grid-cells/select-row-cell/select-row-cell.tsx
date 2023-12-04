@@ -8,7 +8,7 @@ import { ParentProductIcon, VariationProductIcon } from '@components/shared/svg-
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './select-row-cell.style'
+import { useStyles } from './select-row-cell.style'
 
 import { OpenInNewTabCell } from '../data-grid-cells'
 
@@ -21,7 +21,7 @@ interface SelectRowCellProps {
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { checkboxComponent, showVariationButton, isParentProduct, onClickShareIcon, onClickVariationButton } = props
 
   return (

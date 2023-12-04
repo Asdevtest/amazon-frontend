@@ -10,7 +10,7 @@ import { t } from '@utils/translations'
 
 import { IDestinationVariationApproximateCalculations } from '@typings/destination'
 
-import { useDataGridCellStyles } from './destination-variations-spanning-cell.style'
+import { useStyles } from './destination-variations-spanning-cell.style'
 
 interface DestinationVariationsSpanningCellProps {
   showCheckbox: boolean
@@ -23,7 +23,7 @@ interface DestinationVariationsSpanningCellProps {
 }
 
 export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanningCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   const {
     showCheckbox,

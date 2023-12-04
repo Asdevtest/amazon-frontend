@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   shopsReportBtnsWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -13,7 +13,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     fontSize: 14,
     color: theme.palette.primary.main,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },

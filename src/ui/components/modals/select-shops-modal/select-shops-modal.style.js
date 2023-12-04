@@ -108,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   removeShopButton: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   shopsFieldAddButton: {
@@ -117,7 +117,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deleteIcon: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   fieldLabel: {
     fontSize: '14px',

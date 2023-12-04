@@ -14,7 +14,7 @@ import { TextWithCopy } from '@components/shared/text-with-copy'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './string-list-cell.style'
+import { useStyles } from './string-list-cell.style'
 
 interface StringListCellProps {
   sourceString: string | string[]
@@ -25,7 +25,7 @@ interface StringListCellProps {
 }
 
 export const StringListCell: FC<StringListCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { sourceString, withCopy, maxItemsDisplay, maxLettersInItem } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)

@@ -1222,6 +1222,7 @@ export const NormalFieldMenuItem = React.memo(
                             leftAlign
                             oneLines={columnKey === columnnsKeys.shared.STRING}
                             text={value}
+                            maxLength={value?.length}
                             // color={colorByStatus(el)}
                             customTextClass={classNames.statusText}
                           />

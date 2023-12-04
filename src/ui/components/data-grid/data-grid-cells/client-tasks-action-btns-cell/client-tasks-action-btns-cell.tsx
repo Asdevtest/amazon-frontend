@@ -11,7 +11,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './client-tasks-action-btns-cell.style'
+import { useStyles } from './client-tasks-action-btns-cell.style'
 
 interface ClientTasksActionBtnsCellProps {
   row: any
@@ -22,7 +22,7 @@ interface ClientTasksActionBtnsCellProps {
 }
 
 export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = React.memo(({ row, handlers }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const checkIfTaskCouldBeCanceled = (status: string) => {
     // @ts-ignore

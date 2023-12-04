@@ -9,7 +9,7 @@ import { tableProductViewMode } from '@constants/keys/table-product-view'
 
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
-import { useDataGridCellStyles } from './batch-boxes-cell.style'
+import { useStyles } from './batch-boxes-cell.style'
 
 import { ProductInfoAbbreviated, ProductInfoExtended } from '../data-grid-cells'
 
@@ -19,7 +19,7 @@ interface BatchBoxesCellProps {
 }
 
 export const BatchBoxesCell: FC<BatchBoxesCellProps> = React.memo(({ boxes, productViewMode }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED
 

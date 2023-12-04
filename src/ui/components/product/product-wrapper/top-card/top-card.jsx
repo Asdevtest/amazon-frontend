@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import React from 'react'
+import React, { memo } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -39,7 +38,7 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-export const TopCard = observer(
+export const TopCard = memo(
   ({
     user,
     imagesForLoad,
@@ -336,42 +335,38 @@ export const TopCard = observer(
                 ) : (
                   <div className={classNames.supplierActionsWrapper}>
                     <div className={classNames.supplierContainer}>
-                      {/* {selectedSupplier && selectedSupplier.name !== 'access denied' ? ( */}
-                      <>
-                        {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
-                          <div className={classNames.supplierButtonWrapper}>
-                            <Button
-                              disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
-                              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                              className={classNames.iconBtn}
-                              onClick={() => onClickSupplierBtns('view')}
-                            >
-                              <VisibilityOutlinedIcon />
-                            </Button>
-                            <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Open the parameters supplier'])}
-                            </Typography>
-                          </div>
-                        ) : null}
-                        {(user?._id === selectedSupplier?.createdBy?._id ||
-                          user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
-                        checkIsBuyer(curUserRole) ? (
-                          <div className={classNames.supplierButtonWrapper}>
-                            <Button
-                              disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
-                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                              className={classNames.iconBtn}
-                              onClick={() => onClickSupplierBtns('edit')}
-                            >
-                              <EditOutlinedIcon />
-                            </Button>
-                            <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Edit a supplier'])}
-                            </Typography>
-                          </div>
-                        ) : null}
-                      </>
-                      {/* ) : undefined} */}
+                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
+                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('view')}
+                          >
+                            <VisibilityOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Open the parameters supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
+                      {(user?._id === selectedSupplier?.createdBy?._id ||
+                        user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
+                      checkIsBuyer(curUserRole) ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                            tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('edit')}
+                          >
+                            <EditOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Edit a supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 )}
@@ -412,10 +407,6 @@ export const TopCard = observer(
             />
           </Modal>
         )}
-
-        {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
-          <CustomImageGallery images={bigImagesOptions.images} imgIndex={bigImagesOptions.imgIndex} />
-        </Modal> */}
       </React.Fragment>
     )
   },

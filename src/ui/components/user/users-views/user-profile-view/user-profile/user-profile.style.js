@@ -114,7 +114,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   avatarWrapper: {
     position: 'relative',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover > :not(:last-child)': {
       transition: '0.6s ease-out',
       opacity: '0.2',

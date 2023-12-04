@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subTitle: {
     flex: '1',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '14px',

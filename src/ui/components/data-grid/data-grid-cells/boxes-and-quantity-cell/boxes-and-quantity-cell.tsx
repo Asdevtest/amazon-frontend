@@ -3,14 +3,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './boxes-and-quantity-cell.style'
+import { useStyles } from './boxes-and-quantity-cell.style'
 
 interface BoxesAndQuantityCellProps {
   boxesData: any
 }
 
 export const BoxesAndQuantityCell: FC<BoxesAndQuantityCellProps> = React.memo(({ boxesData }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   if (Array.isArray(boxesData)) {
     const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
     const filteredBoxes = [...new Set(mergedBoxes)]

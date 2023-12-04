@@ -142,7 +142,7 @@ export const DeliveryParameters = ({
               destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              formFields?.variationTariffId
+              formFields?.variationTariffId && currentDestanationId
                 ? destinations.filter(el => el?._id === currentDestanationId)
                 : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)
             }

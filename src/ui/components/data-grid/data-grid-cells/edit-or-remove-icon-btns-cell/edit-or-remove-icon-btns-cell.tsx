@@ -10,7 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './edit-or-remove-icon-btns-cell.style'
+import { useStyles } from './edit-or-remove-icon-btns-cell.style'
 
 interface EditOrRemoveIconBtnsCellProps {
   row: any
@@ -29,7 +29,7 @@ interface EditOrRemoveIconBtnsCellProps {
 }
 
 export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const {
     row,
     handlers,

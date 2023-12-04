@@ -7,7 +7,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { checkIsString } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 
-import { useDataGridCellStyles } from './multiline-text-align-left-cell.style'
+import { useStyles } from './multiline-text-align-left-cell.style'
 
 interface MultilineTextAlignLeftCellProps {
   text: string
@@ -18,7 +18,7 @@ interface MultilineTextAlignLeftCellProps {
 }
 
 export const MultilineTextAlignLeftCell: FC<MultilineTextAlignLeftCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { text, withTooltip, isAsin, pointer, fourLines } = props
 
   return withTooltip ? (

@@ -10,7 +10,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './product-info-extended.style'
+import { useStyles } from './product-info-extended.style'
 
 interface ProductInfoExtendedProps {
   box: any
@@ -18,7 +18,7 @@ interface ProductInfoExtendedProps {
 }
 
 export const ProductInfoExtended: FC<ProductInfoExtendedProps> = React.memo(({ box, boxesLength }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.batchProductsWrapper}>

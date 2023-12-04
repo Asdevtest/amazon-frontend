@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   selectRowCellWrapper: {
     width: '100%',
     display: 'flex',

@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -45,8 +45,6 @@ export class MyRequestsViewModel {
   nameSearchValue = ''
   onHover = null
 
-  currentData = []
-
   rowCount = 0
 
   searchRequests = []
@@ -89,6 +87,8 @@ export class MyRequestsViewModel {
   sortModel = []
 
   isRequestsAtWork = true
+  onlyWaitedProposals = null
+  switcherCondition = 'inProgress' // @params inProgress readyToCheck completed
 
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -114,9 +114,7 @@ export class MyRequestsViewModel {
     onClickAccept: withoutUpdate => {
       this.onLeaveColumnField()
 
-      if (withoutUpdate) {
-        this.getCurrentData()
-      } else {
+      if (!withoutUpdate) {
         this.getCustomRequests()
         this.getDataGridState()
       }
@@ -149,6 +147,10 @@ export class MyRequestsViewModel {
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
+    if (this.isRequestsAtWork) {
+      this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+    }
+
     if (this.alertShieldSettings.showAlertShield) {
       setTimeout(() => {
         this.alertShieldSettings = {
@@ -164,45 +166,43 @@ export class MyRequestsViewModel {
         }, 1000)
       }, 3000)
     }
+  }
 
-    reaction(
-      () => this.isRequestsAtWork,
-      () => this.setDefaultStatuses(),
-    )
-
-    reaction(
-      () => this.isRequestsAtWork,
-      () => this.getCustomRequests(),
-    )
-
-    reaction(
-      () => this.searchRequests,
-      () => (this.currentData = this.getCurrentData()),
-    )
+  get currentData() {
+    return this.searchRequests
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onChangePaginationModel(model) {
     this.paginationModel = model
-
     this.getCustomRequests()
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
-    this.isRequestsAtWork = value
+    this.switcherCondition = value
+    if (value === 'inProgress') {
+      this.isRequestsAtWork = true
+      this.onlyWaitedProposals = null
+    } else if (value === 'readyToCheck') {
+      this.isRequestsAtWork = true
+      this.onlyWaitedProposals = true
+    } else if (value === 'completed') {
+      this.isRequestsAtWork = false
+      this.onlyWaitedProposals = null
+    }
+    this.setDefaultStatuses()
+    this.getCustomRequests()
   }
 
   setDataGridState() {
@@ -212,21 +212,18 @@ export class MyRequestsViewModel {
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -238,10 +235,6 @@ export class MyRequestsViewModel {
 
     this.setDataGridState()
     this.getCustomRequests()
-  }
-
-  getCurrentData() {
-    return toJS(this.searchRequests)
   }
 
   onHoverColumnField(field) {
@@ -400,13 +393,14 @@ export class MyRequestsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
+        onlyWaitedProposals: this.onlyWaitedProposals,
+
         sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
-
         this.rowCount = result.count
       })
       this.setRequestStatus(loadingStatuses.success)

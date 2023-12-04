@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './client-notifications-btns-cell.style'
+import { useStyles } from './client-notifications-btns-cell.style'
 
 interface ClientNotificationsBtnsCellProps {
   row: any
@@ -20,7 +20,7 @@ interface ClientNotificationsBtnsCellProps {
 
 export const ClientNotificationsBtnsCell: FC<ClientNotificationsBtnsCellProps> = React.memo(
   ({ row, handlers, disabled }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.notificationBtnsWrapper}>

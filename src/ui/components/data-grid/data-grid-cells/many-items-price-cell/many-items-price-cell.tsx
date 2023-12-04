@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './many-items-price-cell.style'
+import { useStyles } from './many-items-price-cell.style'
 
 import { OrderCell } from '../data-grid-cells'
 
@@ -12,7 +12,7 @@ interface ManyItemsPriceCellProps {
 }
 
 export const ManyItemsPriceCell: FC<ManyItemsPriceCellProps> = React.memo(({ params, withoutSku, withQuantity }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const cell = params?.items?.map((el: any, itemIndex: number) => (
     <OrderCell

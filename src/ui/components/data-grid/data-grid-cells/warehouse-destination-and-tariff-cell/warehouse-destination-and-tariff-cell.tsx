@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { IDestination } from '@typings/destination'
 
-import { useDataGridCellStyles } from './warehouse-destination-and-tariff-cell.style'
+import { useStyles } from './warehouse-destination-and-tariff-cell.style'
 
 interface WarehouseDestinationAndTariffCellProps {
   boxesMy: any
@@ -30,7 +30,7 @@ interface WarehouseDestinationAndTariffCellProps {
 }
 
 export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariffCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const {
     boxesMy,
     destinations,

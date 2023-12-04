@@ -9,7 +9,7 @@ export const styles = theme => ({
     paddingRight: '16px',
 
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     '&$selected': {
       borderLeft: `5px solid ${theme.palette.primary.main}`,

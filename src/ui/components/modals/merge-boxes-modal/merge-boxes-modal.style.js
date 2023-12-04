@@ -230,7 +230,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   asinTextWrapper: {
     display: 'flex',

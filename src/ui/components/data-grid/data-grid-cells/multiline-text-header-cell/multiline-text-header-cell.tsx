@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Tooltip } from '@mui/material'
 
-import { useDataGridCellStyles } from './multiline-text-header-cell.style'
+import { useStyles } from './multiline-text-header-cell.style'
 
 interface MultilineTextHeaderCellProps {
   text?: string
@@ -19,7 +19,7 @@ interface MultilineTextHeaderCellProps {
 }
 
 export const MultilineTextHeaderCell: FC<MultilineTextHeaderCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const {
     text = '',
     withIcon,

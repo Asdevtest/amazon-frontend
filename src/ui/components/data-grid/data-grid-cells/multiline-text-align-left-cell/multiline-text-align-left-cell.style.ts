@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   multilineTextAlignLeftWrapper: {
     width: '100%',
     height: '100%',
@@ -24,7 +24,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
     resize: 'none',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
   },
 
   cursorPointer: {

@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginBottom: '20px',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       opacity: '.8',
     },

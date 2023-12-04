@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './scrolling-cell.style'
+import { useStyles } from './scrolling-cell.style'
 
 interface ScrollingCellProps {
   value: string
@@ -8,7 +8,7 @@ interface ScrollingCellProps {
 }
 
 export const ScrollingCell: FC<ScrollingCellProps> = React.memo(({ value, fontSize }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   return (
     <p style={{ fontSize }} className={styles.scrollingValue}>
       {value || '-'}

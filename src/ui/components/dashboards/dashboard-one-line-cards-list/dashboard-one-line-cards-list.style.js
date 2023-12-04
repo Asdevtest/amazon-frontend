@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '20px',
     borderRadius: '8px',
     height: '111px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',

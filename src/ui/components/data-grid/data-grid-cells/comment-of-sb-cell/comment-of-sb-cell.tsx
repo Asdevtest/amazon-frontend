@@ -9,14 +9,14 @@ import { checkIsString } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './comment-of-sb-cell.style'
+import { useStyles } from './comment-of-sb-cell.style'
 
 interface CommentOfSbCellProps {
   productsInWarehouse: any
 }
 
 export const CommentOfSbCell: FC<CommentOfSbCellProps> = React.memo(({ productsInWarehouse }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.commentOfSbWrapper}>

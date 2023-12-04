@@ -7,14 +7,14 @@ import { BoxArrow, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/s
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useDataGridCellStyles } from './task-description-cell.style'
+import { useStyles } from './task-description-cell.style'
 
 interface TaskDescriptionCellProps {
   task: any
 }
 
 export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = React.memo(({ task }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const renderProductImages = (product: any, key: any, box?: any) => (
     <div key={key && key} className={styles.imgWrapper}>
       <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={styles.taskDescriptionImg} />

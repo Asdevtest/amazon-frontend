@@ -49,7 +49,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     marginBottom: 15,
     borderBottom: '1px solid rgba(0,0,0, .2)',
     '&:hover': {
@@ -111,7 +111,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '10px',
     marginBottom: '4px',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -136,7 +136,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '10px',
     margin: '0 0 4px 10px',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -148,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
       width: '30px',
       height: '30px',
       transition: '0.3s ease',
-      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+      cursor: 'pointer',
       '&:hover': {
         transform: 'scale(1.01)',
       },
@@ -187,7 +187,7 @@ export const useClassNames = makeStyles()(theme => ({
   tab: {
     color: theme.palette.primary.main,
     textTransform: 'inherit',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   selectedTab: {

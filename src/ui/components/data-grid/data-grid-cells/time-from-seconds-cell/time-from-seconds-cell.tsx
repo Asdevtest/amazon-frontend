@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { secondsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './time-from-seconds-cell.style'
+import { useStyles } from './time-from-seconds-cell.style'
 
 import { MultilineTextCell } from '../data-grid-cells'
 
@@ -16,7 +16,7 @@ interface TimeFromSecondsCellProps {
 }
 
 export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = React.memo(({ seconds, color }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const time = secondsToTime(seconds)
 

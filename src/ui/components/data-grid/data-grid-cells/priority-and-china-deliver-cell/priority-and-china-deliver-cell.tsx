@@ -7,7 +7,7 @@ import { requestPriority } from '@constants/requests/request-priority'
 
 import { ClockIcon, FireIcon, TruckIcon } from '@components/shared/svg-icons'
 
-import { useDataGridCellStyles } from './priority-and-china-deliver-cell.style'
+import { useStyles } from './priority-and-china-deliver-cell.style'
 
 import { OpenInNewTabCell } from '../data-grid-cells'
 
@@ -20,7 +20,7 @@ interface PriorityAndChinaDeliverCellProps {
 }
 
 export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { priority, chinaDelivery, status, isRequest, onClickOpenInNewTab } = props
 
   const isPendingOrder =

@@ -6,7 +6,7 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './batch-tracking-cell.style'
+import { useStyles } from './batch-tracking-cell.style'
 
 import { ChangeInputCommentCell, DatePickerCell } from '../data-grid-cells'
 
@@ -24,7 +24,7 @@ interface BatchTrackingCellProps {
 
 export const BatchTrackingCell: FC<BatchTrackingCellProps> = React.memo(
   ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.batchTrackingWrapper}>

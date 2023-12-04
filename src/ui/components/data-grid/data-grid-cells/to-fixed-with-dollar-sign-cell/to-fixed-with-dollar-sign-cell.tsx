@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
-import { useDataGridCellStyles } from './to-fixed-with-dollar-sign-cell.style'
+import { useStyles } from './to-fixed-with-dollar-sign-cell.style'
 
 interface ToFixedWithDollarSignCellProps {
   value: number
@@ -11,7 +11,7 @@ interface ToFixedWithDollarSignCellProps {
 }
 
 export const ToFixedWithDollarSignCell: FC<ToFixedWithDollarSignCellProps> = React.memo(({ value, fix, leftAlign }) => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.multilineTextWrapper}>

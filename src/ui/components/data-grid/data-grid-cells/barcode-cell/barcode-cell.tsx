@@ -9,7 +9,7 @@ import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/product'
 
-import { useDataGridCellStyles } from './barcode-cell.style'
+import { useStyles } from './barcode-cell.style'
 
 interface BarcodeCellProps {
   product: IProduct
@@ -22,7 +22,7 @@ interface BarcodeCellProps {
 }
 
 export const BarcodeCell: FC<BarcodeCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { product, handlers, disabled } = props
 
   return (

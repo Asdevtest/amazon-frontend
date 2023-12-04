@@ -8,7 +8,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IProduct } from '@typings/product'
 
-import { useDataGridCellStyles } from './select-product-asin-cell-withour-title.style'
+import { useStyles } from './select-product-asin-cell-withour-title.style'
 
 interface SelectProductAsinCellWithourTitleProps {
   product: IProduct
@@ -19,7 +19,7 @@ interface SelectProductAsinCellWithourTitleProps {
 }
 
 export const SelectProductAsinCellWithourTitle: FC<SelectProductAsinCellWithourTitleProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { product, checkboxDisabled, checkboxChecked, withCheckbox, onClickCheckbox } = props
 
   return (

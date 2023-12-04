@@ -4,14 +4,14 @@ import { UserLink } from '@components/user/user-link'
 
 import { IUser } from '@typings/user'
 
-import { useDataGridCellStyles } from './many-user-link-cell.style'
+import { useStyles } from './many-user-link-cell.style'
 
 interface ManyUserLinkCellProps {
   usersData: IUser[]
 }
 
 export const ManyUserLinkCell: FC<ManyUserLinkCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { usersData } = props
 
   return (

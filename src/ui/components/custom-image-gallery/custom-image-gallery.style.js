@@ -96,7 +96,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cursorPointer: {
-    cursor: 'pointer !important',
+    cursor: 'pointer',
   },
 
   editIcon: {

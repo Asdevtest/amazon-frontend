@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   dapTitle: {
     color: theme.palette.text.second,
     fontSize: '12px',

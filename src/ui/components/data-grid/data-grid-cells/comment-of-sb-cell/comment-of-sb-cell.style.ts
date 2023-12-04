@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useDataGridCellStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   commentOfSbWrapper: {
     padding: '5px 0',
     height: '100%',
@@ -21,7 +21,7 @@ export const useDataGridCellStyles = makeStyles()(theme => ({
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
     resize: 'none',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
   },
 
   commentOfSbSubWrapper: {
