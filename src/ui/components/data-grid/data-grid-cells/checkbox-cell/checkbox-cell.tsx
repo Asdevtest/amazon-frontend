@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Checkbox } from '@mui/material'
 
-import { useDataGridCellStyles } from './checkbox-cell.style'
+import { useStyles } from './checkbox-cell.style'
 
 interface CheckboxCellProps {
   checked: boolean
@@ -11,7 +11,7 @@ interface CheckboxCellProps {
 }
 
 export const CheckboxCell: FC<CheckboxCellProps> = React.memo(({ checked, disabled, onClick }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.checkboxWrapper}>

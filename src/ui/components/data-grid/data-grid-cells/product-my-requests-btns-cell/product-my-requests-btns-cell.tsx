@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './product-my-requests-btns-cell.style'
+import { useStyles } from './product-my-requests-btns-cell.style'
 
 interface ProductMyRequestsBtnsCellProps {
   data: any
@@ -18,7 +18,7 @@ interface ProductMyRequestsBtnsCellProps {
 }
 
 export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = React.memo(({ data, handlers }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const disableOpenResultBtn =
     !data.countProposalsByStatuses.acceptedProposals &&

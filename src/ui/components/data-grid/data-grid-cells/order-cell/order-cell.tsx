@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/product'
 
-import { useDataGridCellStyles } from './order-cell.style'
+import { useStyles } from './order-cell.style'
 
 interface OrderCellProps {
   product: IProduct
@@ -26,7 +26,7 @@ interface OrderCellProps {
 }
 
 export const OrderCell: FC<OrderCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize } = props
 
   return (

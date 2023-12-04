@@ -5,14 +5,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './task-type-cell.style'
+import { useStyles } from './task-type-cell.style'
 
 interface TaskTypeCellProps {
   operationType: string
 }
 
 export const TaskTypeCell: FC<TaskTypeCellProps> = React.memo(({ operationType }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const renderTaskDescription = (type: string) => {
     switch (type) {
       case TaskOperationType.MERGE:

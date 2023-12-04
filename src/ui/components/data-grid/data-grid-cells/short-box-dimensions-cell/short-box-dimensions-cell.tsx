@@ -13,7 +13,7 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculatio
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './short-box-dimensions-cell.style'
+import { useStyles } from './short-box-dimensions-cell.style'
 
 interface ShortBoxDimensionsCellProps {
   box: any
@@ -23,7 +23,7 @@ interface ShortBoxDimensionsCellProps {
 
 export const ShortBoxDimensionsCell: FC<ShortBoxDimensionsCellProps> = React.memo(
   ({ box, volumeWeightCoefficient, unitsOption }) => {
-    const { classes: styles, cx } = useDataGridCellStyles()
+    const { classes: styles, cx } = useStyles()
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
 
     const lengthConversion = getConversion(unitsOption, inchesCoefficient)

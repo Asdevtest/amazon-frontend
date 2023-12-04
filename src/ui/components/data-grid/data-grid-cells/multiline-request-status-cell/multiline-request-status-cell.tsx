@@ -6,7 +6,7 @@ import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { useDataGridCellStyles } from './multiline-request-status-cell.style'
+import { useStyles } from './multiline-request-status-cell.style'
 
 interface MultilineRequestStatusCellProps {
   status: string
@@ -15,7 +15,7 @@ interface MultilineRequestStatusCellProps {
 
 export const MultilineRequestStatusCell: FC<MultilineRequestStatusCellProps> = React.memo(
   ({ status, fontSize = '14px' }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {

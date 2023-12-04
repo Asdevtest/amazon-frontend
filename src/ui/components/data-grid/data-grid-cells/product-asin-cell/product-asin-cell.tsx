@@ -4,7 +4,7 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useDataGridCellStyles } from './product-asin-cell.style'
+import { useStyles } from './product-asin-cell.style'
 
 interface ProductAsinCellProps {
   amazonTitle: string
@@ -16,7 +16,7 @@ interface ProductAsinCellProps {
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { image, amazonTitle, asin, skusByClient, withoutImage = undefined, withoutSku } = props
 
   return (

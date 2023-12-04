@@ -5,7 +5,7 @@ import { Chip } from '@mui/material'
 
 import { trimBarcode } from '@utils/text'
 
-import { useDataGridCellStyles } from './change-chip-cell.style'
+import { useStyles } from './change-chip-cell.style'
 
 interface ChangeChipCellProps {
   row?: any
@@ -20,7 +20,7 @@ interface ChangeChipCellProps {
 }
 
 export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label, isChipOutTable } = props
 
   return (

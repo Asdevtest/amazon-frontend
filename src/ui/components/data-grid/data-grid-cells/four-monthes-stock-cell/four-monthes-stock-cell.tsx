@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './four-monthes-stock-cell.style'
+import { useStyles } from './four-monthes-stock-cell.style'
 
 import { ChangeInputCell } from '../data-grid-cells'
 
@@ -18,7 +18,7 @@ interface FourMonthesStockCellProps {
 
 export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = React.memo(
   ({ onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     return (
       <div className={styles.fourMonthesStockWrapper}>

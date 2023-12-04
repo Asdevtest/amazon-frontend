@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './warehouse-tariff-dates-cell.style'
+import { useStyles } from './warehouse-tariff-dates-cell.style'
 
 interface WarehouseTariffDatesCellProps {
   cls?: string
@@ -14,7 +14,7 @@ interface WarehouseTariffDatesCellProps {
 }
 
 export const WarehouseTariffDatesCell: FC<WarehouseTariffDatesCellProps> = React.memo(({ cls, etd, eta }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div>

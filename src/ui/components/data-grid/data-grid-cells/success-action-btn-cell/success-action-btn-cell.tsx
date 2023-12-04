@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
-import { useDataGridCellStyles } from './success-action-btn-cell.style'
+import { useStyles } from './success-action-btn-cell.style'
 
 interface SuccessActionBtnCellProps {
   onClickOkBtn: () => void
@@ -12,7 +12,7 @@ interface SuccessActionBtnCellProps {
 }
 
 export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { onClickOkBtn, bTnText, tooltipText, isFirstRow } = props
 
   return (

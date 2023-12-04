@@ -5,14 +5,14 @@ import { Tooltip } from '@mui/material'
 
 import { MAX_LENGTH_TITLE } from '@constants/text'
 
-import { useDataGridCellStyles } from './tags-cell.style'
+import { useStyles } from './tags-cell.style'
 
 interface TagsCellProps {
   tags: string[]
 }
 
 export const TagsCell: FC<TagsCellProps> = React.memo(({ tags }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.tags}>

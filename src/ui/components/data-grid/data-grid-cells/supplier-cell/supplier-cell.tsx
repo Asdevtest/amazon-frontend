@@ -4,7 +4,7 @@ import { Link } from '@mui/material'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 
-import { useDataGridCellStyles } from './supplier-cell.style'
+import { useStyles } from './supplier-cell.style'
 
 interface SupplierCellProps {
   supplierName?: string
@@ -12,7 +12,7 @@ interface SupplierCellProps {
 }
 
 export const SupplierCell: FC<SupplierCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { supplierName, supplierLink } = props
 
   return (

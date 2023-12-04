@@ -7,7 +7,7 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 
-import { useDataGridCellStyles } from './user-cell.style'
+import { useStyles } from './user-cell.style'
 
 interface UserCellProps {
   userId: string
@@ -17,7 +17,7 @@ interface UserCellProps {
 }
 
 export const UserCell: FC<UserCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { userId, name, email, rating } = props
 
   return (

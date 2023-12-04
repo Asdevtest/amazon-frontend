@@ -13,7 +13,7 @@ import { UserModel } from '@models/user-model'
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './request-notification-message-cell.style'
+import { useStyles } from './request-notification-message-cell.style'
 
 interface RequestNotificationMessageCellProps {
   notification: any
@@ -21,7 +21,7 @@ interface RequestNotificationMessageCellProps {
 
 export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellProps> = React.memo(
   ({ notification }) => {
-    const { classes: styles } = useDataGridCellStyles()
+    const { classes: styles } = useStyles()
 
     const isStatusChanged = !!notification?.status
     const isDeadlineExpires = !!notification?.timeoutAt

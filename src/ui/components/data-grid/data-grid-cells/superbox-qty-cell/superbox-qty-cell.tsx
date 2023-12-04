@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './superbox-qty-cell.style'
+import { useStyles } from './superbox-qty-cell.style'
 
 interface SuperboxQtyCellProps {
   qty: number
@@ -8,7 +8,7 @@ interface SuperboxQtyCellProps {
 }
 
 export const SuperboxQtyCell: FC<SuperboxQtyCellProps> = React.memo(({ qty, superbox }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.superBoxQtyWrapper}>

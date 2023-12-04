@@ -8,7 +8,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './closed-idea-actions-cell.style'
+import { useStyles } from './closed-idea-actions-cell.style'
 
 interface ClosedIdeaActionsCellProps {
   row: any
@@ -19,7 +19,7 @@ interface ClosedIdeaActionsCellProps {
 }
 
 export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = React.memo(({ rowHandlers, row }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.buttonsWrapper}>

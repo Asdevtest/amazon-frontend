@@ -10,7 +10,7 @@ import { PlusIcon } from '@components/shared/svg-icons'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './idea-requests.style'
+import { useStyles } from './idea-requests.style'
 
 interface IdeaRequestsProps {
   row: any
@@ -34,7 +34,7 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = React.memo(props => {
     withoutControls,
     row,
   } = props
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   const [requests, setRequests] = useState<any>([])
 

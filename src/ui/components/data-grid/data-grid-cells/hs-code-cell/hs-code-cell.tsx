@@ -9,7 +9,7 @@ import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/product'
 
-import { useDataGridCellStyles } from './hs-code-cell.style'
+import { useStyles } from './hs-code-cell.style'
 
 interface IHsCodeCellProps {
   product: IProduct
@@ -21,7 +21,7 @@ interface IHsCodeCellProps {
 }
 
 export const HsCodeCell: FC<IHsCodeCellProps> = React.memo(props => {
-  const { classes: styles, cx } = useDataGridCellStyles()
+  const { classes: styles, cx } = useStyles()
   const { product, handlers } = props
 
   return (

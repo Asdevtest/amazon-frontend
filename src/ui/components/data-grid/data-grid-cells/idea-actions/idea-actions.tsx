@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useDataGridCellStyles } from './idea-actions.style'
+import { useStyles } from './idea-actions.style'
 
 interface IdeaActionsProps {
   onClickReject: () => void
@@ -14,7 +14,7 @@ interface IdeaActionsProps {
 }
 
 export const IdeaActionsCell: FC<IdeaActionsProps> = React.memo(({ onClickReject, onClickToCheck }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.ideaActions}>

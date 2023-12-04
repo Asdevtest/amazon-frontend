@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 
-import { useDataGridCellStyles } from './order-boxes-cell.style'
+import { useStyles } from './order-boxes-cell.style'
 
 import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '../data-grid-cells'
 
@@ -16,7 +16,7 @@ interface OrderBoxesCellProps {
 }
 
 export const OrderBoxesCell: FC<OrderBoxesCellProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const { superbox, superboxQty, qty, box, product, withoutSku, withQuantity } = props
 
   return superbox ? (

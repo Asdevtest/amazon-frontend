@@ -4,14 +4,14 @@ import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/ke
 
 import { IUser } from '@typings/user'
 
-import { useDataGridCellStyles } from './user-roles-cell.style'
+import { useStyles } from './user-roles-cell.style'
 
 interface UserRolesCellProps {
   user: IUser
 }
 
 export const UserRolesCell: FC<UserRolesCellProps> = React.memo(({ user }) => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.userRolesWrapper}>

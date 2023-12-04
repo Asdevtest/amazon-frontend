@@ -5,7 +5,7 @@ import { getBatchParameters } from '@constants/statuses/batch-weight-calculation
 
 import { toFixedWithDollarSign } from '@utils/text'
 
-import { useDataGridCellStyles } from './actual-cost-with-delivery-per-unit.style'
+import { useStyles } from './actual-cost-with-delivery-per-unit.style'
 
 interface ActualCostWithDeliveryPerUnitProps {
   actualShippingCost: number
@@ -17,7 +17,7 @@ interface ActualCostWithDeliveryPerUnitProps {
 }
 
 export const ActualCostWithDeliveryPerUnit: FC<ActualCostWithDeliveryPerUnitProps> = React.memo(props => {
-  const { classes: styles } = useDataGridCellStyles()
+  const { classes: styles } = useStyles()
   const {
     actualShippingCost,
     rowMemo,
