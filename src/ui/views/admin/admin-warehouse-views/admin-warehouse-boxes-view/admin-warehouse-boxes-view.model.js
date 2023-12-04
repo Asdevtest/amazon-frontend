@@ -74,12 +74,14 @@ export class AdminWarehouseBoxesViewModel {
     this.sortModel = sortModel
 
     this.setDataGridState()
+    this.getBoxes()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
+    this.getBoxes()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -223,6 +225,7 @@ export class AdminWarehouseBoxesViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,

@@ -56,9 +56,13 @@ export const adminBoxesViewColumns = () => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     renderCell: params => (
-      <UserMiniCell userName={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+      <UserMiniCell
+        userName={params.row.originalData.items[0].product.client?.name}
+        userId={params.row.originalData.items[0].product.client?._id}
+      />
     ),
     width: 180,
+    sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -68,11 +72,12 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
     renderCell: params => <UserMiniCell userName={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 180,
+    sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 300,
@@ -86,6 +91,7 @@ export const adminBoxesViewColumns = () => [
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />
       ),
+    sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
@@ -93,18 +99,19 @@ export const adminBoxesViewColumns = () => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.amount} />,
     width: 100,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'warehouses',
+    field: 'destination',
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.destination?.name} />,
     width: 200,
-    columnKey: columnnsKeys.shared.STRING,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -113,6 +120,8 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
+    sortable: false,
+    filterable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -123,25 +132,30 @@ export const adminBoxesViewColumns = () => [
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 120,
+    sortable: false,
+    filterable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'weight',
+    field: 'weighGrossKgWarehouse',
     headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.weighGrossKgWarehouse} fix={2} />,
     type: 'number',
     width: 130,
+    // sortable: false,
+    filterable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'trackNumber',
+    field: 'trackNumberText',
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.trackNumberText} />,
     width: 150,
+    sortable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]
