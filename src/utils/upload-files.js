@@ -19,7 +19,7 @@ export const dataURLtoFile = (dataurl, filename) => {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n)
   }
-  return new File([u8arr], filename, { type: mime })
+  return new File([u8arr], `${filename}.${mime}`, { type: mime })
 }
 
 export const onPostImage = async imageData => {
