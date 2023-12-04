@@ -1,6 +1,4 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
@@ -31,7 +29,7 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './fields-and-suppliers.style'
+import { useStyles } from './fields-and-suppliers.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -41,7 +39,7 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-export const FieldsAndSuppliers = observer(
+export const FieldsAndSuppliers = memo(
   ({
     user,
     showActionBtns,
@@ -58,7 +56,7 @@ export const FieldsAndSuppliers = observer(
     onClickHsCode,
     onClickParseProductData,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [edit, setEdit] = useState(true)
 
@@ -86,25 +84,25 @@ export const FieldsAndSuppliers = observer(
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <>
-              <div className={classNames.linkAndButtonWrapper}>
-                <div className={classNames.copyLink}>
+              <div className={styles.linkAndButtonWrapper}>
+                <div className={styles.copyLink}>
                   {edit && product.lamazon ? (
                     <Link
                       target="_blank"
                       rel="noopener"
                       href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                      className={cx(classNames.inputLink, { [classNames.linkDecoration]: !edit || !product.lamazon })}
+                      className={cx(styles.inputLink, { [styles.linkDecoration]: !edit || !product.lamazon })}
                     >
-                      <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
+                      <Typography className={styles.lamazonText}>{product.lamazon}</Typography>
                     </Link>
                   ) : (
                     <Input
                       disabled={edit}
                       classes={{
                         input: cx(
-                          classNames.inputLink,
-                          { [classNames.inputDisabled]: edit },
-                          { [classNames.linkOnEdit]: edit && product.lamazon },
+                          styles.inputLink,
+                          { [styles.inputDisabled]: edit },
+                          { [styles.linkOnEdit]: edit && product.lamazon },
                         ),
                       }}
                       placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
@@ -119,7 +117,7 @@ export const FieldsAndSuppliers = observer(
                 {!checkIsBuyer(curUserRole) ? (
                   <Button
                     tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
-                    className={classNames.buttonParseAmazon}
+                    className={styles.buttonParseAmazon}
                     disabled={curUserRole === UserRole.ADMIN}
                     onClick={() => {
                       // onClickParseProductData(ProductDataParser.AMAZON, product)
@@ -133,7 +131,7 @@ export const FieldsAndSuppliers = observer(
                 ) : null}
               </div>
 
-              <div className={classNames.editButtonWrapper}>
+              <div className={styles.editButtonWrapper}>
                 {checkIsClient(curUserRole) &&
                   product.isCreatedByClient &&
                   !product.archive &&
@@ -161,14 +159,14 @@ export const FieldsAndSuppliers = observer(
           }
         />
 
-        <Box className={classNames.productFieldBox}>
+        <Box className={styles.productFieldBox}>
           <div>
             <Field
               tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
               error={formFieldsValidationErrors.asin}
               label={t(TranslationKey.ASIN)}
               inputComponent={
-                <div className={classNames.subInputWrapper}>
+                <div className={styles.subInputWrapper}>
                   <Input
                     disabled={
                       !(
@@ -181,8 +179,8 @@ export const FieldsAndSuppliers = observer(
                     }
                     value={product.asin}
                     inputProps={{ maxLength: 254 }}
-                    className={cx(classNames.inputAsin, {
-                      [classNames.inputDisabled]: !(
+                    className={cx(styles.inputAsin, {
+                      [styles.inputDisabled]: !(
                         checkIsClient(curUserRole) &&
                         product.isCreatedByClient &&
                         clientToEditStatuses.includes(productBase.status) &&
@@ -206,12 +204,12 @@ export const FieldsAndSuppliers = observer(
                       product.isCreatedByClient &&
                       !product.archive &&
                       clientToEditStatuses.includes(productBase.status) && (
-                        <div className={classNames.subInputWrapper}>
+                        <div className={styles.subInputWrapper}>
                           <Input
                             placeholder={t(TranslationKey.SKU)}
                             inputProps={{ maxLength: 50 }}
                             value={product.skusByClient}
-                            className={classNames.inputAsin}
+                            className={styles.inputAsin}
                             onChange={e =>
                               onChangeField('skusByClient')({
                                 target: { value: e.target.value ? [e.target.value] : [] },
@@ -226,10 +224,10 @@ export const FieldsAndSuppliers = observer(
               />
             )}
 
-            <div className={classNames.productCheckboxBoxesWrapper}>
-              <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
-              <div className={classNames.productCheckboxBoxWrapper}>
-                <Box className={classNames.productCheckboxBox}>
+            <div className={styles.productCheckboxBoxesWrapper}>
+              <Typography className={styles.label}>{t(TranslationKey['Delivery Method'])}</Typography>
+              <div className={styles.productCheckboxBoxWrapper}>
+                <Box className={styles.productCheckboxBox}>
                   <Radio
                     disabled={
                       !(
@@ -242,14 +240,14 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    classes={{ root: classNames.radioRoot }}
+                    classes={{ root: styles.radioRoot }}
                     checked={product.fba}
                     onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
-                  <Typography className={classNames.radioLabel}>{t(TranslationKey.FBA)}</Typography>
+                  <Typography className={styles.radioLabel}>{t(TranslationKey.FBA)}</Typography>
                 </Box>
 
-                <Box className={classNames.productCheckboxBox}>
+                <Box className={styles.productCheckboxBox}>
                   <Radio
                     disabled={
                       !(
@@ -262,16 +260,16 @@ export const FieldsAndSuppliers = observer(
                           !product.archive)
                       )
                     }
-                    classes={{ root: classNames.radioRoot }}
+                    classes={{ root: styles.radioRoot }}
                     checked={!product.fba}
                     onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
-                  <Typography className={classNames.radioLabel}>{'FBM'}</Typography>
+                  <Typography className={styles.radioLabel}>{'FBM'}</Typography>
                 </Box>
               </div>
             </div>
 
-            <Box mt={3} className={classNames.strategyWrapper}>
+            <Box mt={3} className={styles.strategyWrapper}>
               <div>
                 <Field
                   tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
@@ -290,14 +288,14 @@ export const FieldsAndSuppliers = observer(
                         )
                       }
                       value={product.strategyStatus}
-                      className={classNames.nativeSelect}
+                      className={styles.nativeSelect}
                       onChange={onChangeField('strategyStatus')}
                     >
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
                         <MenuItem
                           key={statusIndex}
                           value={statusCode}
-                          className={classNames.strategyOption}
+                          className={styles.strategyOption}
                           disabled={
                             checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                           }
@@ -314,8 +312,8 @@ export const FieldsAndSuppliers = observer(
 
           {(showActionBtns || !!product?.tags?.length) && (
             <Box maxWidth={300}>
-              <div className={classNames.subUsersTitleWrapper}>
-                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
+              <div className={styles.subUsersTitleWrapper}>
+                <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
               </div>
               <TagSelector
                 isEditMode={showActionBtns}
@@ -330,10 +328,10 @@ export const FieldsAndSuppliers = observer(
 
           {(isEditRedFlags || !!product?.redFlags?.length) && (
             <div>
-              <div className={classNames.subUsersTitleWrapper}>
-                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
+              <div className={styles.subUsersTitleWrapper}>
+                <Typography className={styles.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
               </div>
-              <div className={cx(classNames.redFlags, { [classNames.redFlagsView]: !isEditRedFlags })}>
+              <div className={cx(styles.redFlags, { [styles.redFlagsView]: !isEditRedFlags })}>
                 <RedFlags
                   isEditMode={isEditRedFlags}
                   activeFlags={product.redFlags}
@@ -343,17 +341,17 @@ export const FieldsAndSuppliers = observer(
             </div>
           )}
 
-          <div className={classNames.strategyAndSubUsersWrapper}>
+          <div className={styles.strategyAndSubUsersWrapper}>
             {Number(product.strategyStatus) ===
               mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
               <div>
-                <div className={classNames.rightBlockWrapper}>
-                  <div className={classNames.fieldsWrapper}>
+                <div className={styles.rightBlockWrapper}>
+                  <div className={styles.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{ maxLength: 255 }}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.inputField}
+                      containerClasses={styles.field}
+                      inputClasses={styles.inputField}
                       label={t(TranslationKey.Niche)}
                       value={product.niche}
                       onChange={onChangeField('niche')}
@@ -361,27 +359,27 @@ export const FieldsAndSuppliers = observer(
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{ maxLength: 255 }}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.inputField}
+                      containerClasses={styles.field}
+                      inputClasses={styles.inputField}
                       label={'Asins'}
                       value={product.asins}
                       onChange={onChangeField('asins')}
                     />
 
-                    <div className={classNames.fieldsSubWrapper}>
+                    <div className={styles.fieldsSubWrapper}>
                       <Field
                         disabled={disabledPrivateLabelFields}
                         inputProps={{ maxLength: 10 }}
-                        containerClasses={classNames.shortInput}
-                        inputClasses={classNames.shortInputClass}
+                        containerClasses={styles.shortInput}
+                        inputClasses={styles.shortInputClass}
                         label={t(TranslationKey['Average revenue'])}
                         value={product.avgRevenue}
                         onChange={onChangeField('avgRevenue')}
                       />
                       <Field
                         disabled={disabledPrivateLabelFields}
-                        containerClasses={classNames.shortInput}
-                        inputClasses={classNames.shortInputClass}
+                        containerClasses={styles.shortInput}
+                        inputClasses={styles.shortInputClass}
                         inputProps={{ maxLength: 10 }}
                         label={t(TranslationKey['Average BSR'])}
                         value={product.avgBSR}
@@ -390,13 +388,13 @@ export const FieldsAndSuppliers = observer(
                     </div>
                   </div>
 
-                  <div className={classNames.fieldsWrapper}>
+                  <div className={styles.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey['Total Revenue'])}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.inputField}
+                      containerClasses={styles.field}
+                      inputClasses={styles.inputField}
                       value={product.totalRevenue}
                       onChange={onChangeField('totalRevenue')}
                     />
@@ -404,26 +402,26 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey.Coefficient)}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.inputField}
+                      containerClasses={styles.field}
+                      inputClasses={styles.inputField}
                       value={product.coefficient}
                       onChange={onChangeField('coefficient')}
                     />
 
-                    <div className={classNames.fieldsSubWrapper}>
+                    <div className={styles.fieldsSubWrapper}>
                       <Field
                         disabled={disabledPrivateLabelFields}
                         inputProps={{ maxLength: 10 }}
-                        containerClasses={classNames.shortInput}
-                        inputClasses={classNames.shortInputClass}
+                        containerClasses={styles.shortInput}
+                        inputClasses={styles.shortInputClass}
                         label={t(TranslationKey['Average Price'])}
                         value={product.avgPrice}
                         onChange={onChangeField('avgPrice')}
                       />
                       <Field
                         disabled={disabledPrivateLabelFields}
-                        containerClasses={classNames.shortInput}
-                        inputClasses={classNames.shortInputClass}
+                        containerClasses={styles.shortInput}
+                        inputClasses={styles.shortInputClass}
                         inputProps={{ maxLength: 10 }}
                         label={t(TranslationKey['Average Review'])}
                         value={product.avgReviews}
@@ -434,17 +432,17 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) && product.subUsers?.length ? (
-              <div className={classNames.subUsersWrapper}>
-                <div className={classNames.subUsersTitleWrapper}>
-                  <Typography className={classNames.subUsersTitle}>
+            {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && product.subUsers?.length ? (
+              <div className={styles.subUsersWrapper}>
+                <div className={styles.subUsersTitleWrapper}>
+                  <Typography className={styles.subUsersTitle}>
                     {t(TranslationKey['Users with access to the product']) + ':'}
                   </Typography>
                 </div>
-                <div className={classNames.subUsersBodyWrapper}>
-                  <div className={classNames.subUsersBody}>
+                <div className={styles.subUsersBodyWrapper}>
+                  <div className={styles.subUsersBody}>
                     {product?.subUsers?.map((subUser, index) => (
-                      <div key={index} className={classNames.subUserBodyWrapper}>
+                      <div key={index} className={styles.subUserBodyWrapper}>
                         <UserLinkCell
                           withAvatar
                           name={subUser?.name}
@@ -461,27 +459,27 @@ export const FieldsAndSuppliers = observer(
           </div>
 
           {product?.parentProductId || !!productVariations?.childProducts?.length ? (
-            <div className={classNames.interconnectedProductsWrapper}>
+            <div className={styles.interconnectedProductsWrapper}>
               <div
-                className={cx(classNames.interconnectedProductsHeader, {
-                  [classNames.interconnectedProductsHeaderPadding]:
+                className={cx(styles.interconnectedProductsHeader, {
+                  [styles.interconnectedProductsHeaderPadding]:
                     (product?.parentProductId && productVariations?.childProducts?.length >= 4) ||
                     (!product?.parentProductId && productVariations?.childProducts?.length >= 5),
                 })}
               >
-                <p className={classNames.subUsersTitle}>
+                <p className={styles.subUsersTitle}>
                   {product?.parentProductId
                     ? t(TranslationKey['Interconnected products'])
                     : t(TranslationKey.Variations)}
                 </p>
 
                 {checkIsClient(curUserRole) && !product?.parentProductId && (
-                  <Button className={classNames.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-                    <AddIcon className={classNames.plusIcon} />
+                  <Button className={styles.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                    <AddIcon className={styles.plusIcon} />
                   </Button>
                 )}
               </div>
-              <div className={classNames.interconnectedProductsBodyWrapper}>
+              <div className={styles.interconnectedProductsBodyWrapper}>
                 {product?.parentProductId && (
                   <InterconnectedProducts
                     isParent
@@ -515,8 +513,8 @@ export const FieldsAndSuppliers = observer(
               </div>
             </div>
           ) : checkIsClient(curUserRole) ? (
-            <Button className={classNames.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-              <PlusIcon className={classNames.plusIcon} />
+            <Button className={styles.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+              <PlusIcon className={styles.plusIcon} />
               {t(TranslationKey['Add product linkage'])}
             </Button>
           ) : null}
@@ -526,20 +524,21 @@ export const FieldsAndSuppliers = observer(
           <Field
             tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
             label={t(TranslationKey['HS code'])}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
+            containerClasses={styles.hsFieldContainer}
             inputComponent={
-              <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(product._id)}>
+              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(product._id)}>
                 {t(TranslationKey['HS code'])}
               </Button>
             }
           />
         ) : null}
         {checkIsClient(curUserRole) ? (
-          <div className={classNames.shopsWrapper}>
+          <div className={styles.shopsWrapper}>
             <Field
               label={t(TranslationKey.Shop)}
-              labelClasses={classNames.spanLabelSmall}
-              containerClasses={classNames.allowedRoleContainer}
+              labelClasses={styles.spanLabelSmall}
+              containerClasses={styles.allowedRoleContainer}
               inputComponent={
                 <WithSearchSelect
                   grayBorder
@@ -557,8 +556,8 @@ export const FieldsAndSuppliers = observer(
                         !product.archive)
                     )
                   }
-                  customSubMainWrapper={classNames.customSubMainWrapper}
-                  customSearchInput={classNames.customSearchInput}
+                  customSubMainWrapper={styles.customSubMainWrapper}
+                  customSearchInput={styles.customSearchInput}
                   data={[...shops]?.sort((a, b) => a?.name?.localeCompare(b?.name))}
                   searchFields={['name']}
                   selectedItemName={
