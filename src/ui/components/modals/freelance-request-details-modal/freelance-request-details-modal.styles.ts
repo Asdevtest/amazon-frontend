@@ -136,4 +136,9 @@ export const useStyles = makeStyles()(theme => ({
       opacity: '0.8',
     },
   },
+
+  publishBtn: {
+    width: '100%',
+    height: 40,
+  },
 }))

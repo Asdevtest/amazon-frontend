@@ -24,9 +24,10 @@ import { useStyles } from './my-requests-view.style'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
 
-export const MyRequestsView = observer(({ history, location }) => {
+export const MyRequestsView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new MyRequestsViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new MyRequestsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -123,7 +124,7 @@ export const MyRequestsView = observer(({ history, location }) => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
           />
         </div>
       </div>
@@ -174,6 +175,7 @@ export const MyRequestsView = observer(({ history, location }) => {
 
       <FreelanceRequestDetailsModal
         isRequestOwner
+        isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
@@ -185,6 +187,7 @@ export const MyRequestsView = observer(({ history, location }) => {
         onRecoverRequest={viewModel.onRecoverRequest}
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
+        onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
       />
     </React.Fragment>
   )
