@@ -2,7 +2,7 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Avatar, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -23,6 +23,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { ArrowBackIcon, NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
 import { checkIsResearcher, isNotUndefined } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -148,11 +149,7 @@ export const MessagesView = observer(history => {
                           underline="none"
                         >
                           <div className={styles.opponentWrapper}>
-                            <Avatar
-                              src={getUserAvatarSrc(currentOpponent?._id)}
-                              className={styles.avatar}
-                              alt="avatar"
-                            />
+                            <img src={getUserAvatarSrc(currentOpponent?._id)} className={styles.avatar} alt="avatar" />
                             <p className={styles.opponentName}>{currentOpponent?.name}</p>
                           </div>
                         </Link>
@@ -166,7 +163,7 @@ export const MessagesView = observer(history => {
                   ) : (
                     <>
                       <div className={styles.opponentWrapper}>
-                        <Avatar src={currentChat?.info.image} className={styles.avatar} />
+                        <img src={getAmazonImageUrl(currentChat?.info?.image)} className={styles.avatar} />
                         <div>
                           <p className={styles.opponentName}>{currentChat?.info.title}</p>
                           <p className={styles.usersCount}>{`${currentChat?.users.length} ${t(

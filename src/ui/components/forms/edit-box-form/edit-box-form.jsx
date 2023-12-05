@@ -318,7 +318,7 @@ export const EditBoxForm = memo(
                               inputComponent={
                                 <ChangeChipCell
                                   isChipOutTable
-                                  text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                  text={!item.barCode && !item?.tmpBarCode?.[0] && t(TranslationKey['Set Barcode'])}
                                   value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
                                   onClickChip={() => onClickBarcode(item)}
                                   onDoubleClickChip={() => onDoubleClickBarcode(item)}
