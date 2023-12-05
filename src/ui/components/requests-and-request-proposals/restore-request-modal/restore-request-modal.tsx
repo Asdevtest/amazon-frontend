@@ -14,14 +14,13 @@ import { t } from '@utils/translations'
 import { useStyles } from './restore-request-modal.styles'
 
 interface RestoreRequestModalProps {
-  currentDate: string
   currentRequestsCount: number
   handleCloseModal: () => void
   handleSubmit: (timeoutAt?: string, maxAmountOfProposals?: string | number) => void
 }
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
-  const { currentDate, currentRequestsCount = 1, handleCloseModal, handleSubmit } = props
+  const { currentRequestsCount = 1, handleCloseModal, handleSubmit } = props
   const { classes: styles } = useStyles()
 
   const [date, setDate] = useState<string>()
@@ -33,9 +32,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['When do you want results?'])}
-        inputComponent={
-          <NewDatePicker disablePast minDate={currentDate} value={date} onChange={(e: string) => setDate(e)} />
-        }
+        inputComponent={<NewDatePicker value={date} onChange={(e: string) => setDate(e)} />}
       />
       <Field
         labelClasses={styles.label}

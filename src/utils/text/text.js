@@ -242,13 +242,13 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'asin',
-      'skusByClient',
+      'skuByClient',
       'amazonTitle',
-      'parentProductSkusByClient',
+      'parentProductSkuByClient',
       'parentProductAmazonTitle',
       'parentProductAsin',
       'childProductAmazonTitle',
-      'childProductSkusByClient',
+      'childProductSkuByClient',
       'childProductAsin',
       'shopIds',
       'strategyStatus',
@@ -284,6 +284,7 @@ export const getTableByColumn = (column, hint) => {
       'weight',
       'createdAt',
       'updatedAt',
+      'trackNumberText',
     ].includes(column)
   ) {
     if (['buyer'].includes(column) && hint === 'orders') {
@@ -292,11 +293,11 @@ export const getTableByColumn = (column, hint) => {
       return 'products'
     } else if (
       [
-        'parentProductSkusByClient',
+        'parentProductSkuByClient',
         'parentProductAmazonTitle',
         'parentProductAsin',
         'childProductAmazonTitle',
-        'childProductSkusByClient',
+        'childProductSkuByClient',
         'childProductAsin',
       ].includes(column) &&
       hint === 'ideas'
@@ -304,6 +305,8 @@ export const getTableByColumn = (column, hint) => {
       return 'products'
     } else if (hint === 'ideas') {
       return 'ideas'
+    } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
+      return 'boxes'
     }
     return 'products'
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {

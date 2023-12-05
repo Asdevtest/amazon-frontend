@@ -20,7 +20,7 @@ import { SettingsModel } from '@models/settings-model'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
-import { NewSupplier } from '@components/shared/svg-icons'
+import { NewSupplier, OrderedIcon } from '@components/shared/svg-icons'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
@@ -45,6 +45,8 @@ const tableHeaders = [
 export const TableSupplier = observer(
   ({ isClient, product, productBaseData, selectedSupplier, onClickSupplier, platformSettings }) => {
     const { classes: classNames } = useClassNames()
+
+    console.log('productBaseData', productBaseData)
 
     const renderHeader = () => (
       <TableHead className={classNames.tableHead}>
@@ -83,19 +85,22 @@ export const TableSupplier = observer(
                   >
                     <TableCell align="center" className={classNames.nameCell}>
                       <div className={classNames.statsWrapper}>
-                        {isClient ? (
-                          new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
-                            <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
-                          ) : null
-                        ) : null}
-                        {supplier?.multiplicity && supplier?.boxProperties?.amountInBox ? (
+                        {isClient && new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
+                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
+                        )}
+
+                        {productBaseData?.orderSupplier?._id === supplier?._id && (
+                          <OrderedIcon fontSize={'large'} classes={{ root: classNames.primary }} />
+                        )}
+
+                        {supplier?.multiplicity && supplier?.boxProperties?.amountInBox && (
                           <div className={classNames.multiplicityWrapper}>
                             <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
                             <Typography className={classNames.amountInBoxText}>
                               {supplier?.boxProperties?.amountInBox}
                             </Typography>
                           </div>
-                        ) : null}
+                        )}
                       </div>
 
                       <Typography className={classNames.mainText}>{supplier.name}</Typography>

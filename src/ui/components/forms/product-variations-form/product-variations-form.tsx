@@ -18,7 +18,7 @@ interface ProductVariationsFormProps {
 
     _id: string
     asin: string
-    skusByClient: string[]
+    skuByClient: string
     images: string[]
     shopIds: string[]
     amazonTitle: string
@@ -48,7 +48,7 @@ export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(pr
             variationProduct={{
               _id: product?._id,
               asin: product?.asin,
-              skusByClient: product?.skusByClient,
+              skuByClient: product?.skuByClient,
               images: product?.images,
               shopIds: product?.shopIds,
               amazonTitle: product?.amazonTitle,

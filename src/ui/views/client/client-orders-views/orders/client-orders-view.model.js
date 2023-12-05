@@ -179,7 +179,7 @@ export class ClientOrdersViewModel {
         'amazonTitle',
         'id',
         'asin',
-        'skusByClient',
+        'skuByClient',
         'item',
       ]),
     )

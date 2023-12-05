@@ -30,7 +30,7 @@ const statuses = [
 
 const filtersFields = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amazon',
@@ -254,7 +254,7 @@ export class AdminInventoryViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
-        'skusByClient',
+        'skuByClient',
         'amazonTitle',
       ]),
     )

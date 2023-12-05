@@ -1,0 +1,17 @@
+export enum ProposalStatusEnum {
+  Created = 'CREATED',
+  OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
+  ReadyToVerify = 'READY_TO_VERIFY',
+  OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
+  OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
+  VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+  ToCorrect = 'TO_CORRECT',
+  Corrected = 'CORRECTED',
+  CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
+  CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
+  CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
+  AcceptedByClient = 'ACCEPTED_BY_CLIENT',
+  AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
+  Expired = 'EXPIRED',
+  CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED',
+}

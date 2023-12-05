@@ -16,7 +16,7 @@ export const filtersFields = [
   'price',
   'timeoutAt',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'createdBy',
   'sub',

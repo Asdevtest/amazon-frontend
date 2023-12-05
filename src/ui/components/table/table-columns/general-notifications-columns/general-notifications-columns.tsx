@@ -35,9 +35,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
     renderCell: (params: GridCellParams) => (
       <ProductAsinCell
         withoutSku={!!userInfo?.role && UserRoleCodeMap[userInfo.role] === UserRole.FREELANCER}
-        skusByClient={
-          params.row.product?.skusByClient?.slice()[0] || params.row.parentProduct?.skusByClient?.slice()[0]
-        }
+        skuByClient={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
         image={params.row.product?.images?.slice()[0]}
         amazonTitle={params.row.product?.amazonTitle}
         asin={params.row.product?.asin}

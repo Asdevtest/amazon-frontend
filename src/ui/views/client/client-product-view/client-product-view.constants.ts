@@ -49,8 +49,7 @@ export const fieldsOfProductAllowedToUpdate = [
   'currentSupplierId',
   'asin',
   'clientComment',
-  'skusByClient',
-
+  'skuByClient',
   'niche',
   'asins',
   'avgRevenue',

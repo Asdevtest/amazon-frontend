@@ -120,7 +120,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 </div>
 
                 <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-                <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skusByClient[0]} />
+                <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
 
                 <p className={styles.title}>{order.product.amazonTitle}</p>
 

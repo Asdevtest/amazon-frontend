@@ -88,7 +88,7 @@ const WarehouseBodyRowRaw = ({
                 image={order?.product?.images?.[0]}
                 amazonTitle={order?.product?.amazonTitle}
                 asin={order?.product?.asin}
-                skusByClient={order?.product?.skusByClient?.[0]}
+                skuByClient={order?.product?.skuByClient}
               />
             </TableCell>
 

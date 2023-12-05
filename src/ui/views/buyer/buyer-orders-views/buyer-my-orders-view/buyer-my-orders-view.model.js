@@ -221,7 +221,7 @@ export class BuyerMyOrdersViewModel {
         'asin',
         'id',
         'item',
-        'skusByClient',
+        'skuByClient',
       ]),
     )
   }

@@ -45,7 +45,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props 
 
             <AsinOrSkuLink withAttributeTitle="asin" asin={item.product.asin} />
 
-            {!withoutSku && <AsinOrSkuLink withAttributeTitle="sku" sku={item.product.skusByClient?.[0]} />}
+            {!withoutSku && <AsinOrSkuLink withAttributeTitle="sku" sku={item.product.skuByClient} />}
 
             {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
               item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&

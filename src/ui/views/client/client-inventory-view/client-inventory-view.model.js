@@ -760,9 +760,9 @@ export class ClientInventoryViewModel {
 
   getFilter(exclusion) {
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+    const skuByClientFilter =
+      exclusion !== 'skuByClient' &&
+      this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
         .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
@@ -816,14 +816,14 @@ export class ClientInventoryViewModel {
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
       ],
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
       }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
+      ...(skuByClientFilter && {
+        skuByClient: { $eq: skuByClientFilter },
       }),
       ...(amazonTitleFilter && {
         amazonTitle: { $eq: amazonTitleFilter },

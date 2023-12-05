@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -22,7 +22,9 @@ export class AdminWarehouseTasksViewModel {
 
   tasksData = []
   curOpenedTask = {}
-  currentData = []
+  get currentData() {
+    return this.tasksData
+  }
 
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
@@ -43,24 +45,14 @@ export class AdminWarehouseTasksViewModel {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.tasksData,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       this.getDataGridState()
 
-      await this.getTasks()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getTasks()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -93,19 +85,16 @@ export class AdminWarehouseTasksViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TASKS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel)
-        this.rowsPerPage = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-
-        this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel)
+      this.rowsPerPage = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -121,10 +110,6 @@ export class AdminWarehouseTasksViewModel {
 
   onSelectionModel(model) {
     this.rowSelectionModel = model
-  }
-
-  getCurrentData() {
-    return toJS(this.tasksData)
   }
 
   async getTasks() {
@@ -151,28 +136,30 @@ export class AdminWarehouseTasksViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
 
-      if (error.body.message === 'По данному запросу ничего не найдено.') {
-        runInAction(() => {
-          this.tasksVacant = []
-        })
-      }
+      runInAction(() => {
+        this.tasksVacant = []
+      })
     }
   }
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, result] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      const task = await StorekeeperModel.getTaskById(item._id)
+      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.curOpenedTask = task
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
+
+      this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
+      this.setFilterRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -186,7 +173,7 @@ export class AdminWarehouseTasksViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, '', exclusion, filtersFields, [
         'asin',
-        'skusByClient',
+        'skuByClient',
         'amazonTitle',
       ]),
     )
@@ -236,10 +223,12 @@ export class AdminWarehouseTasksViewModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setFilterRequestStatus(loadingStatuses.success)

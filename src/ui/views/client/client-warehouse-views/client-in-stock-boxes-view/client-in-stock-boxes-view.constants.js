@@ -36,7 +36,7 @@ export const filtersFields = [
   'id',
   'item',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'destinationId',
   'logicsTariffId',

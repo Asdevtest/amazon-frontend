@@ -208,15 +208,15 @@ export const FieldsAndSuppliers = memo(
                           <Input
                             placeholder={t(TranslationKey.SKU)}
                             inputProps={{ maxLength: 50 }}
-                            value={product.skusByClient}
+                            value={product.skuByClient}
                             className={styles.inputAsin}
                             onChange={e =>
-                              onChangeField('skusByClient')({
-                                target: { value: e.target.value ? [e.target.value] : [] },
+                              onChangeField('skuByClient')({
+                                target: { value: e.target.value ? e.target.value : '' },
                               })
                             }
                           />
-                          {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+                          {product.skuByClient ? <CopyValue text={product.skuByClient} /> : null}
                         </div>
                       )}
                   </div>
@@ -487,7 +487,7 @@ export const FieldsAndSuppliers = memo(
                     variationProduct={{
                       _id: productVariations?._id,
                       asin: productVariations?.asin,
-                      skusByClient: productVariations?.skusByClient,
+                      skuByClient: productVariations?.skuByClient,
                       images: productVariations?.images,
                       shopIds: productVariations?.shopIds,
                       amazonTitle: productVariations?.amazonTitle,
