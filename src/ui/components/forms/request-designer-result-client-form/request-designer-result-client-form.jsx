@@ -132,9 +132,6 @@ export const RequestDesignerResultClientForm = memo(props => {
     setArchiveButtonInactiveBeforeDownloading(false)
   }
 
-  console.log('request', request)
-  console.log('proposal', proposal)
-
   return (
     <div className={styles.modalMainWrapper}>
       <div className={styles.headerWrapper}>

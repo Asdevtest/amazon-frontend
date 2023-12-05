@@ -83,7 +83,7 @@ export const TableSupplier = observer(
                   >
                     <TableCell align="center" className={classNames.nameCell}>
                       <div className={classNames.statsWrapper}>
-                        {new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
+                        {isClient && new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
                           <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
                         )}
 
