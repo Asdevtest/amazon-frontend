@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
@@ -36,7 +35,7 @@ export const AccessToProductForm = React.memo(
   observer(({ shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData }) => {
     const { classes: styles } = useStyles()
 
-    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 100 })
     const [curProdutsData, setCurProdutsData] = useState(sourceData)
     const [searchInputValue, setSearchInputValue] = useState('')
     const [selectedAccess, setSelectedAccess] = useState(accessProductSettings.NEED_SELECT)
@@ -66,10 +65,12 @@ export const AccessToProductForm = React.memo(
     }
 
     const getCurrentData = () =>
-      sourceData.slice(
-        paginationModel.page * paginationModel.pageSize,
-        paginationModel.page * paginationModel.pageSize + paginationModel.pageSize,
-      )
+      sourceData
+        ?.slice(
+          paginationModel.page * paginationModel.pageSize,
+          paginationModel.page * paginationModel.pageSize + paginationModel.pageSize,
+        )
+        ?.sort((a, b) => chosenGoods?.includes(b?._id) - chosenGoods?.includes(a?._id))
 
     useEffect(() => {
       if (searchInputValue) {
@@ -81,7 +82,7 @@ export const AccessToProductForm = React.memo(
         )
         setCurProdutsData(filter)
       } else {
-        setCurProdutsData(sourceData)
+        setCurProdutsData(getCurrentData())
       }
     }, [searchInputValue])
 
@@ -130,9 +131,12 @@ export const AccessToProductForm = React.memo(
       if (!sourceData?.length) {
         return
       }
-
       setCurProdutsData(getCurrentData())
     }, [paginationModel])
+
+    useEffect(() => {
+      setCurProdutsData(getCurrentData())
+    }, [sourceData])
 
     return (
       shops && (
@@ -216,8 +220,9 @@ export const AccessToProductForm = React.memo(
                     disableRowSelectionOnClick
                     disableColumnMenu
                     rowCount={sourceData?.length}
+                    paginationModel={paginationModel}
                     isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
-                    rows={curProdutsData?.sort((a, b) => chosenGoods?.includes(b?._id) - chosenGoods?.includes(a?._id))}
+                    rows={curProdutsData}
                     columns={sourceColumns()}
                     rowHeight={65}
                     rowSelectionModel={selectionModel}
