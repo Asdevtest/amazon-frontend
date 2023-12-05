@@ -284,6 +284,7 @@ export const getTableByColumn = (column, hint) => {
       'weight',
       'createdAt',
       'updatedAt',
+      'trackNumberText',
     ].includes(column)
   ) {
     if (['buyer'].includes(column) && hint === 'orders') {
@@ -304,6 +305,8 @@ export const getTableByColumn = (column, hint) => {
       return 'products'
     } else if (hint === 'ideas') {
       return 'ideas'
+    } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
+      return 'boxes'
     }
     return 'products'
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {

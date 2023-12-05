@@ -1,28 +1,33 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BoxesModel } from '@models/boxes-model'
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { adminBoxesViewColumns } from '@components/table/table-columns/admin/boxes-columns'
 
 import { adminBoxesDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+import { filtersFields } from './admin-warehouse-boxes-view.constants'
 
 export class AdminWarehouseBoxesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
 
-  boxesData = []
   boxes = []
 
-  currentData = []
+  get currentData() {
+    return this.boxes
+  }
 
   curBox = undefined
 
@@ -32,90 +37,63 @@ export class AdminWarehouseBoxesViewModel {
 
   selectedBoxes = []
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = adminBoxesViewColumns()
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
+  columnsModel = adminBoxesViewColumns()
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.getBoxes()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+    this.history = history
 
-    reaction(
-      () => this.boxes,
-      () =>
-        runInAction(() => {
-          this.currentData = toJS(this.boxes)
-        }),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
-    if (this.nameSearchValue) {
-      runInAction(() => {
-        this.boxes = this.boxesData.filter(box =>
-          box.originalData.items.some(
-            item =>
-              item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-              item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-        )
-      })
-    } else {
-      runInAction(() => {
-        this.boxes = this.boxesData
-      })
-    }
-  }
-
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
-    this.setDataGridState()
+    this.getBoxes()
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
+    this.getBoxes()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
+    this.getBoxes()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
     const boxes = this.boxesMy.filter(box => model.includes(box.id))
-    const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
 
-    runInAction(() => {
-      this.selectedBoxes = res
-    })
+    this.selectedBoxes = boxes.reduce((ac, el) => ac.concat(el._id), [])
   }
 
   setDataGridState() {
@@ -132,53 +110,60 @@ export class AdminWarehouseBoxesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BOXES]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
-  async loadData() {
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
+  }
+
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
-      await this.getBoxes()
-      this.setRequestStatus(loadingStatuses.success)
+      this.getBoxes()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxes()
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const { rows, count } = await BoxesModel.getBoxes({
+        filters: this.getFilters(),
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
 
       runInAction(() => {
-        this.boxesData = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
-        this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxes = adminBoxesDataConverter(rows).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.rowCount = count || 0
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
@@ -188,17 +173,88 @@ export class AdminWarehouseBoxesViewModel {
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
-  onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+  // * Filtration
+
+  getFilters(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'amazonTitle',
+        'skusByClient',
+        'humanFriendlyId',
+      ]),
+    )
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+
+    this.setDataGridState()
+    this.getBoxes()
+  }
+
+  onClickResetFilters() {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
+
+    this.getBoxes()
+    this.getDataGridState()
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'boxes'),
+        column,
+        `boxes?filters=${this.getFilters(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 }

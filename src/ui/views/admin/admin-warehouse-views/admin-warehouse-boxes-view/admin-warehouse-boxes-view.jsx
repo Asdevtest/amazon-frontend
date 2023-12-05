@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,13 +12,14 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-warehouse-boxes-view.style'
+import { useStyles } from './admin-warehouse-boxes-view.style'
 
 import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
 
-export const AdminWarehouseBoxesViewRaw = props => {
-  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const AdminWarehouseBoxesView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -27,15 +27,15 @@ export const AdminWarehouseBoxesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div className={classNames.topHeaderBtnsWrapper}>
+      <div className={styles.topHeaderBtnsWrapper}>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -43,16 +43,20 @@ export const AdminWarehouseBoxesViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          rowCount={viewModel.rowCount}
           rows={viewModel.currentData}
           density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          rowHeight={130}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -60,9 +64,11 @@ export const AdminWarehouseBoxesViewRaw = props => {
               },
             },
           }}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
         />
@@ -80,6 +86,4 @@ export const AdminWarehouseBoxesViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const AdminWarehouseBoxesView = withStyles(observer(AdminWarehouseBoxesViewRaw), styles)
+})

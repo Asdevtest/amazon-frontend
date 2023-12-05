@@ -17,6 +17,7 @@ import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model
 
 export const AdminWarehouseTasksView = observer(({ history }) => {
   const { classes: styles } = useStyles()
+
   const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history }))
 
   useEffect(() => {
