@@ -138,9 +138,9 @@ export const Chat: FC<Props> = observer(
 
       if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
-        // ChatModel.getChatMessages?.(chat?._id).finally(() => {
-        //   messagesLoadingStatus.current = false
-        // })
+        ChatModel.getChatMessages?.(chat?._id).finally(() => {
+          messagesLoadingStatus.current = false
+        })
       }
     }
 
