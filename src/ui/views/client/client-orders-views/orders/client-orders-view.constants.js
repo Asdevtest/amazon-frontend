@@ -1,7 +1,7 @@
 export const filtersFields = [
   'id',
   'item',
-  'shopIds',
+  'shopId',
   'priority',
   'asin',
   'skuByClient',

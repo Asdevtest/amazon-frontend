@@ -250,7 +250,7 @@ export const getTableByColumn = (column, hint) => {
       'childProductAmazonTitle',
       'childProductSkuByClient',
       'childProductAsin',
-      'shopIds',
+      'shopId',
       'strategyStatus',
       'amountInOrders',
       'stockUSA',
@@ -274,8 +274,8 @@ export const getTableByColumn = (column, hint) => {
       'fbaamount',
       'client',
       'buyer',
-      'childProductShopIds',
-      'parentProductShopIds',
+      'childProductShopId',
+      'parentProductShopId',
       'supervisor',
       'margin',
       'checkedBy',
@@ -289,7 +289,7 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer'].includes(column) && hint === 'orders') {
       return 'orders'
-    } else if (['childProductShopIds', 'parentProductShopIds'].includes(column) && hint === 'ideas') {
+    } else if (['childProductShopId', 'parentProductShopId'].includes(column) && hint === 'ideas') {
       return 'products'
     } else if (
       [

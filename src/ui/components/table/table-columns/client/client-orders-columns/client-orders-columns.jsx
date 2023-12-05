@@ -36,7 +36,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell

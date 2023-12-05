@@ -85,7 +85,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -98,7 +98,6 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
-    filterable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },

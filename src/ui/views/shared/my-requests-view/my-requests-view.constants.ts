@@ -25,5 +25,5 @@ export const filtersFields = [
   'createdAt',
   'announcementCreatedBy',
   'taskComplexity',
-  'shopIds',
+  'shopId',
 ]

@@ -64,7 +64,6 @@ export class ClientInventoryViewModel {
   storekeepers = []
   destinations = []
   shopsData = []
-  currentShops = []
   ideaId = ''
   isArchive = false
   batchesData = []
@@ -687,13 +686,9 @@ export class ClientInventoryViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = shops
-        ? shops
-        : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
-        ? curShops
-        : null
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter =
+        this.columnMenuSettings.shopId.currentFilterData.length > 0 && column !== 'shopId' ? curShops : null
 
       const purchaseQuantityAboveZero =
         this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
@@ -706,15 +701,17 @@ export class ClientInventoryViewModel {
         column,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
+          shopFilter ? `;&[shopId][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
       this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -922,9 +919,7 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
 
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
@@ -932,9 +927,9 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
+        filters: this.getFilter(),
 
-        shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+        shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
 

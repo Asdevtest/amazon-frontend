@@ -61,7 +61,7 @@ export interface IProduct {
   researcherRate: number
   reservedSum: number
   sentToFbaSum: number
-  shopIds: Record<string, string>[]
+  shopId: string
   skuByClient: string
   status: number
   stockUSA: number
@@ -157,7 +157,7 @@ export interface IProductVariation {
   amazonTitle: string
   asin: string
   images: Array<string>
-  shopIds: Array<string>
+  shopId: string
   skuByClient: string
   _id: string
 }

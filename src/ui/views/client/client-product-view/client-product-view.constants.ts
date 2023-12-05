@@ -58,7 +58,6 @@ export const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
-  'shopIds',
   'redFlags',
   'tags',
   // 'totalFba'
