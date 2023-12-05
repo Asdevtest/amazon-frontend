@@ -5,7 +5,7 @@ export const filtersFields = [
   'client',
   'storekeeper',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'amount',
   'destination',

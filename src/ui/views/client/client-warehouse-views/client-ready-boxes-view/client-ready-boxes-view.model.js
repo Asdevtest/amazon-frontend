@@ -183,7 +183,7 @@ export class ClientReadyBoxesViewModel {
             item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ) ||
           el.originalData.items.some(item =>
-            item.product?.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            item.product?.skuByClient?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ) ||
           el.originalData.items.some(item =>
             item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),

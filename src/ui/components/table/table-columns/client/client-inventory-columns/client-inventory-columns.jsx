@@ -62,7 +62,7 @@ export const clientInventoryColumns = (
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
           getColumnMenuSettings()?.asin?.currentFilterData?.length ||
-          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skuByClient?.currentFilterData?.length ||
           getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
         }
       />
@@ -76,7 +76,7 @@ export const clientInventoryColumns = (
           image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

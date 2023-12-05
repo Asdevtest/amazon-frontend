@@ -26,7 +26,7 @@ export const filtersFields = [
   'item',
   'priority',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'paymentDetailsAttached',
   'status',

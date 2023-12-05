@@ -4,7 +4,7 @@ export const filtersFields = [
   'shopIds',
   'priority',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'status',
   'amount',

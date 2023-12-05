@@ -67,7 +67,22 @@ export class AdminWarehouseBoxesViewModel {
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
-    this.getBoxes()
+    if (this.nameSearchValue) {
+      runInAction(() => {
+        this.boxes = this.boxesData.filter(box =>
+          box.originalData.items.some(
+            item =>
+              item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              item.product.skuByClient?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
+        )
+      })
+    } else {
+      runInAction(() => {
+        this.boxes = this.boxesData
+      })
+    }
   }
 
   onChangeSortingModel(sortModel) {
@@ -188,7 +203,7 @@ export class AdminWarehouseBoxesViewModel {
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
         'amazonTitle',
-        'skusByClient',
+        'skuByClient',
         'humanFriendlyId',
       ]),
     )
@@ -200,7 +215,6 @@ export class AdminWarehouseBoxesViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getBoxes()
   }

@@ -20,7 +20,7 @@ interface IProductsLaunch {
   asin: string
   images: Array<string>
   shopIds: Array<string>
-  skusByClient: Array<string>
+  skuByClient: string
 }
 
 interface ProductLaunchFormProps {

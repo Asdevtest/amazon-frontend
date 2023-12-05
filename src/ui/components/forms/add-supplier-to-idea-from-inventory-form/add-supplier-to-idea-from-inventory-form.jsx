@@ -42,7 +42,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       length: '',
 
       asin: '',
-      skusByClient: [],
+      skuByClient: '',
       amazonTitle: '',
       images: [],
       lamazon: '',
@@ -130,14 +130,6 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       }
       onSubmit(curIdeaId, forCreateIdea, forCreateRequest)
     }
-
-    const disableSubmitBtn =
-      (formFields.asin === '' &&
-        !formFields.skusByClient.length &&
-        formFields.amazonTitle === '' &&
-        formFields.lamazon === '') ||
-      // (!isNoAsin && formFields.asin === '') ||
-      submitIsClicked
 
     return (
       <div className={classNames.root}>

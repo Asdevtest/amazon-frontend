@@ -19,7 +19,7 @@ interface InterconnectedProductsProps {
   variationProduct: {
     _id: string
     asin: string
-    skusByClient: Array<string>
+    skuByClient: string
     images: Array<string>
     shopIds: Array<string>
     amazonTitle: string
@@ -32,7 +32,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
   const { classes: classNames } = useClassNames()
 
   const { variationProduct, isParent, showRemoveButton, productId, unbindProductHandler, navigateToProduct } = props
-  const { asin, skusByClient, images, _id } = variationProduct
+  const { asin, skuByClient, images, _id } = variationProduct
 
   return (
     <div className={classNames.root}>
@@ -44,7 +44,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       )}
 
       <div className={classNames.sourceProductWrapper}>
-        <SourceProduct img={getAmazonImageUrl(images?.[0])} asin={asin || ''} sku={skusByClient?.[0] || ''} />
+        <SourceProduct img={getAmazonImageUrl(images?.[0])} asin={asin || ''} sku={skuByClient} />
       </div>
 
       <div className={classNames.buttonsWrapper}>

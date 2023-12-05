@@ -127,7 +127,7 @@ export const ProductLotDataForm = observer(
               <div className={classNames.attribute}>
                 <Typography className={classNames.attributeTitle}>{t(TranslationKey.SKU)}</Typography>
                 <Typography className={classNames.sku}>
-                  {product[0]?.skusByClient[0] ? product[0]?.skusByClient[0] : t(TranslationKey['Not found'])}
+                  {product[0]?.skuByClient ? product[0]?.skuByClient : t(TranslationKey['Not found'])}
                 </Typography>
               </div>
             </div>

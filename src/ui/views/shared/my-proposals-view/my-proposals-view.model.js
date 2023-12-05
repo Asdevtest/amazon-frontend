@@ -352,7 +352,7 @@ export class MyProposalsViewModel {
       ].includes(column)
     ) {
       return 'requests'
-    } else if (['asin', 'skusByClient', 'amazonTitle'].includes(column)) {
+    } else if (['asin', 'skuByClient', 'amazonTitle'].includes(column)) {
       return 'products'
     }
   }

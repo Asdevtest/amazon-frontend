@@ -296,7 +296,7 @@ export const OrderModalBodyRow = ({
           <AsinOrSkuLink
             withCopyValue
             withAttributeTitle={'sku'}
-            sku={item?.skusByClient?.[0]}
+            sku={item?.skuByClient}
             attributeTitleTextStyles={classNames.standartText}
           />
 

@@ -242,13 +242,13 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'asin',
-      'skusByClient',
+      'skuByClient',
       'amazonTitle',
-      'parentProductSkusByClient',
+      'parentProductSkuByClient',
       'parentProductAmazonTitle',
       'parentProductAsin',
       'childProductAmazonTitle',
-      'childProductSkusByClient',
+      'childProductSkuByClient',
       'childProductAsin',
       'shopIds',
       'strategyStatus',
@@ -293,11 +293,11 @@ export const getTableByColumn = (column, hint) => {
       return 'products'
     } else if (
       [
-        'parentProductSkusByClient',
+        'parentProductSkuByClient',
         'parentProductAmazonTitle',
         'parentProductAsin',
         'childProductAmazonTitle',
-        'childProductSkusByClient',
+        'childProductSkuByClient',
         'childProductAsin',
       ].includes(column) &&
       hint === 'ideas'
