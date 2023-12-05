@@ -134,6 +134,7 @@ export const useStyles = makeStyles()(theme => ({
     color: '#001029',
     '&:hover': {
       opacity: '0.8',
+      background: '#F3AF00',
     },
   },
 }))
