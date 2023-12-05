@@ -137,4 +137,9 @@ export const useStyles = makeStyles()(theme => ({
       background: '#F3AF00',
     },
   },
+
+  publishBtn: {
+    width: '100%',
+    height: 40,
+  },
 }))
