@@ -45,9 +45,9 @@ const filtersFields = [
   'childProductSkuByClient',
   'childProductAsin',
   'title',
-  // 'shopIds',
-  'childProductShopIds',
-  'parentProductShopIds',
+  // 'shopId',
+  'childProductShopId',
+  'parentProductShopId',
   'comments',
   'createdAt',
   'dateStatusOnCheck',
@@ -373,18 +373,20 @@ export class ClientIdeasViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'ideas'),
         column,
-
         `ideas/pag/my?filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setFilterRequestStatus(loadingStatuses.success)

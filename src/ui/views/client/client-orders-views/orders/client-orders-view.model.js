@@ -137,8 +137,8 @@ export class ClientOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
@@ -146,11 +146,9 @@ export class ClientOrdersViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'orders'),
         column,
-        `clients/pag/orders?filters=${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}${
-          orderStatus ? ';&' + 'status=' + orderStatus : ''
-        }`,
+        `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
+          isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
+        }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`,
       )
 
       if (this.columnMenuSettings[column]) {

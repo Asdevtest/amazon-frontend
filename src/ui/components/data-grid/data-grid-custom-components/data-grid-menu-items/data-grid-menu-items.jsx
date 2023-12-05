@@ -904,14 +904,15 @@ export const IdeaShopsFieldMenuItem = React.memo(
           setChoosenItems([...choosenItems, obj])
         }
       }
+
       // НУжно переделать
       useEffect(() => {
         setFilterData(getData('filterData'))
-      }, [data?.childProductShopIds?.filterData?.length, data?.parentProductShopIds?.filterData?.length])
+      }, [data?.childProductShopId?.filterData?.length, data?.parentProductShopId?.filterData?.length])
       // НУжно переделать
       useEffect(() => {
         setCurrentFilterData(getData('currentFilterData'))
-      }, [data?.childProductShopIds?.currentFilterData?.length, data?.parentProductShopIds?.currentFilterData?.length])
+      }, [data?.childProductShopId?.currentFilterData?.length, data?.parentProductShopId?.currentFilterData?.length])
 
       useEffect(() => {
         setChoosenItems(currentFilterData)
@@ -1012,17 +1013,17 @@ export const IdeaShopsFieldMenuItem = React.memo(
 
                 // НУжно переделать
                 const parentShops = choosenItems.filter(item =>
-                  data?.parentProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.parentProductShopId?.filterData?.some(obj => obj?._id === item?._id),
                 )
                 const childShops = choosenItems.filter(item =>
-                  data?.childProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.childProductShopId?.filterData?.some(obj => obj?._id === item?._id),
                 )
 
                 if (parentShops?.length) {
-                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopIds')
+                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopId')
                 }
                 if (childShops?.length) {
-                  onChangeFullFieldMenuItem(childShops, 'childProductShopIds')
+                  onChangeFullFieldMenuItem(childShops, 'childProductShopId')
                 }
 
                 onClickAccept()

@@ -99,15 +99,12 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShopIds', 'childProductShopIds'],
+    field: ['parentProductShopId', 'childProductShopId'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell
-        twoLines
-        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
-      />
+      <MultilineTextCell twoLines text={shops?.find(el => params?.row?.parentProduct?.shopId === el?._id)?.name} />
     ),
     width: 100,
     sortable: false,
