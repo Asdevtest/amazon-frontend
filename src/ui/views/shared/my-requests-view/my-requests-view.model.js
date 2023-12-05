@@ -30,6 +30,7 @@ export class MyRequestsViewModel {
   showConfirmModal = false
   showRequestDetailModal = false
   showConfirmWithCommentModal = false
+  isAcceptedProposals = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -127,20 +128,20 @@ export class MyRequestsViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     this.history = history
 
-    if (location?.state) {
+    if (history.location?.state) {
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
-        error: location?.state?.error,
+        showAlertShield: history.location?.state?.showAcceptMessage,
+        alertShieldMessage: history.location?.state?.acceptMessage,
+        error: history.location?.state?.error,
       }
 
-      const state = { ...history?.location?.state }
+      const state = { ...history.location?.state }
       delete state?.acceptMessage
       delete state?.showAcceptMessage
-      history.replace({ ...history?.location, state })
+      history.replace({ ...history.location, state })
     }
 
     this.setDefaultStatuses()
@@ -259,17 +260,7 @@ export class MyRequestsViewModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
 
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
+      ...dataGridFiltersInitializer(filtersFields),
     }
 
     this.setDefaultStatuses()
@@ -291,15 +282,11 @@ export class MyRequestsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
       await this.getShops()
       await this.getCustomRequests()
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -537,12 +524,16 @@ export class MyRequestsViewModel {
     }
   }
 
-  handleOpenRequestDetailModal(id) {
+  handleOpenRequestDetailModal(e) {
     if (window.getSelection().toString()) {
       return
     }
 
-    this.getRequestDetail(id).then(() => {
+    if (e.row.originalData.countProposalsByStatuses.acceptedProposals > 0) {
+      this.isAcceptedProposals = true
+    }
+
+    this.getRequestDetail(e.row._id).then(() => {
       this.onTriggerOpenModal('showRequestDetailModal')
     })
   }
@@ -646,5 +637,31 @@ export class MyRequestsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onMarkAsCompletedRequest(requestId) {
+    console.log(requestId)
+    try {
+      await RequestModel.manualCompletedRequest(requestId)
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickMarkAsCompletedBtn(requestId) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Mark as completed'])}?`,
+      onSubmit: () => {
+        this.onMarkAsCompletedRequest(requestId)
+        this.isAcceptedProposals = false
+        this.onTriggerOpenModal('showRequestDetailModal')
+        this.loadData()
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }

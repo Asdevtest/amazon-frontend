@@ -250,6 +250,7 @@ class ChatModelStatic {
     await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
 
     const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
+
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
@@ -480,6 +481,7 @@ class ChatModelStatic {
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById] = {
+          ...this.chats[findChatIndexById],
           messages: this.chats[findChatIndexById].messages.map(mes =>
             response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),

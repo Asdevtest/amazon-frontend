@@ -177,7 +177,11 @@ export const RequestDesignerResultClientForm = memo(props => {
             label={'ASIN'}
             containerClasses={styles.containerField}
             inputComponent={
-              <AsinOrSkuLink withCopyValue asin={request?.request?.product?.asin} textStyles={styles.simpleSpan} />
+              <AsinOrSkuLink
+                withCopyValue
+                asin={request?.request?.product?.asin || proposal?.request?.asin}
+                textStyles={styles.simpleSpan}
+              />
             }
           />
         </div>

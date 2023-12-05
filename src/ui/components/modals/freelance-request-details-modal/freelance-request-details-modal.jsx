@@ -24,6 +24,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
   const {
     request,
     details,
+    isAcceptedProposals,
     isOpenModal,
     handleOpenModal,
     onClickSuggest,
@@ -35,6 +36,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     isRequestOwner,
     onRecoverRequest,
     onClickAbortBtn,
+    onClickMarkAsCompletedBtn,
   } = props
   const { classes: styles, cx } = useStyles()
   const requestMedia = request?.media?.filter(el => checkIsImageLink(el.fileLink))
@@ -140,6 +142,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
         <FreelanceRequestDetailsModalControls
           isRequestOwner={isRequestOwner}
+          isAcceptedProposals={isAcceptedProposals}
           request={request}
           onClickSuggest={onClickSuggest}
           onClickOpenNewTab={onClickOpenNewTab}
@@ -149,6 +152,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
           onToggleUploadedToListing={onToggleUploadedToListing}
           onRecoverRequest={onRecoverRequest}
           onClickAbortBtn={onClickAbortBtn}
+          onClickMarkAsCompletedBtn={onClickMarkAsCompletedBtn}
         />
       </div>
     </Modal>
