@@ -46,6 +46,8 @@ export const TableSupplier = observer(
   ({ isClient, product, productBaseData, selectedSupplier, onClickSupplier, platformSettings }) => {
     const { classes: classNames } = useClassNames()
 
+    console.log('productBaseData', productBaseData)
+
     const renderHeader = () => (
       <TableHead className={classNames.tableHead}>
         <TableRow>
@@ -87,7 +89,9 @@ export const TableSupplier = observer(
                           <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
                         )}
 
-                        {<OrderedIcon fontSize={'large'} classes={{ root: classNames.primary }} />}
+                        {productBaseData?.orderSupplier?._id === supplier?._id && (
+                          <OrderedIcon fontSize={'large'} classes={{ root: classNames.primary }} />
+                        )}
 
                         {supplier?.multiplicity && supplier?.boxProperties?.amountInBox && (
                           <div className={classNames.multiplicityWrapper}>
