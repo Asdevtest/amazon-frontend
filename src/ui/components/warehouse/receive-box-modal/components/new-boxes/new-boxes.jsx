@@ -14,22 +14,21 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from '../receive-box-modal.style'
+import { useStyles } from './new-boxes.style'
 
-import { WAREHOUSE_RECEIVE_HEAD_CELLS } from '../receive-box-modal.constant'
-
-import { TableBodyBoxRow } from './table-row'
+import { WAREHOUSE_RECEIVE_HEAD_CELLS } from '../../receive-box-modal.constant'
+import { TableBodyBoxRow } from '../table-row/table-row'
 
 export const NewBoxes = memo(
   ({ newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
-    const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(classNames)} />
+    const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(styles)} />
 
     return (
-      <div className={classNames.newBoxes}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
-        <div className={classNames.tableWrapper}>
+      <div className={styles.newBoxes}>
+        <Typography className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
+        <div className={styles.tableWrapper}>
           <Table
             rowsOnly
             data={newBoxes}
@@ -40,31 +39,32 @@ export const NewBoxes = memo(
         </div>
 
         {newBoxes.map((item, index) => (
-          <div key={index} className={classNames.tableWrapperMobile}>
-            <div className={classNames.boxesTitleWrapper}>
-              <Typography className={classNames.boxesTitle}>{t(TranslationKey.Box)}</Typography>
+          <div key={index} className={styles.tableWrapperMobile}>
+            <div className={styles.boxesTitleWrapper}>
+              <Typography className={styles.boxesTitle}>{t(TranslationKey.Box)}</Typography>
               <IconButton onClick={() => onRemoveBox(item._id)}>
-                <DeleteIcon className={classNames.deleteBtn} />
+                <DeleteIcon className={styles.deleteBtn} />
               </IconButton>
             </div>
+
             <div>
               {item.items.map((el, i) => (
-                <div key={i} className={classNames.descriptionWrapper}>
-                  <img className={classNames.img} src={getAmazonImageUrl(el.product.images[0])} />
+                <div key={i} className={styles.descriptionWrapper}>
+                  <img className={styles.img} src={getAmazonImageUrl(el.product.images[0])} />
                   <div>
-                    <Typography className={classNames.title}>
+                    <Typography className={styles.title}>
                       {getShortenStringIfLongerThanCount(el.product.amazonTitle, 50)}
                     </Typography>
 
-                    <div className={classNames.unitsWrapper}>
-                      <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
+                    <div className={styles.unitsWrapper}>
+                      <Typography className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
 
                       <Input
                         classes={{
-                          root: cx(classNames.inputWrapper, {
-                            [classNames.error]: !el.amount || el.amount === 0,
+                          root: cx(styles.inputWrapper, {
+                            [styles.error]: !el.amount || el.amount === 0,
                           }),
-                          input: classNames.input,
+                          input: styles.input,
                         }}
                         inputProps={{ maxLength: 6 }}
                         value={el.amount}
@@ -76,14 +76,14 @@ export const NewBoxes = memo(
               ))}
             </div>
 
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</Typography>
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</Typography>
               <Input
                 classes={{
-                  root: cx(classNames.inputWrapper, {
-                    [classNames.error]: !item.amount || item.amount === '0',
+                  root: cx(styles.inputWrapper, {
+                    [styles.error]: !item.amount || item.amount === '0',
                   }),
-                  input: classNames.input,
+                  input: styles.input,
                 }}
                 inputProps={{ maxLength: 6 }}
                 value={item.amount}
@@ -91,53 +91,54 @@ export const NewBoxes = memo(
               />
             </div>
 
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
               <Input
                 disabled
-                classes={{ root: classNames.inputWrapper, input: classNames.input }}
+                classes={{ root: styles.inputWrapper, input: styles.input }}
                 value={item.items[0].amount * item.amount}
               />
             </div>
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Sizes)}</Typography>
-              <div className={classNames.sizeWrapper}>
-                <Typography className={classNames.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
+
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey.Sizes)}</Typography>
+              <div className={styles.sizeWrapper}>
+                <Typography className={styles.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
 
                 <Input
                   classes={{
-                    root: cx(classNames.inputWrapper, {
-                      [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
                     }),
-                    input: classNames.input,
+                    input: styles.input,
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={item.lengthCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
                 />
               </div>
-              <div className={classNames.sizeWrapper}>
-                <Typography className={classNames.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
+              <div className={styles.sizeWrapper}>
+                <Typography className={styles.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
                 <Input
                   classes={{
-                    root: cx(classNames.inputWrapper, {
-                      [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
                     }),
-                    input: classNames.input,
+                    input: styles.input,
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={item.widthCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
                 />
               </div>
-              <div className={classNames.sizeWrapper}>
-                <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
+              <div className={styles.sizeWrapper}>
+                <Typography className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
                   classes={{
-                    root: cx(classNames.inputWrapper, {
-                      [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
                     }),
-                    input: classNames.input,
+                    input: styles.input,
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={item.heightCmWarehouse}
@@ -145,38 +146,41 @@ export const NewBoxes = memo(
                 />
               </div>
             </div>
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
+
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
               <Input
                 classes={{
-                  root: cx(classNames.inputWrapper, {
-                    [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
+                  root: cx(styles.inputWrapper, {
+                    [styles.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
                   }),
-                  input: classNames.input,
+                  input: styles.input,
                 }}
                 inputProps={{ maxLength: 6 }}
                 value={item.weighGrossKgWarehouse}
                 onChange={e => onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
               />
             </div>
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</Typography>
+
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</Typography>
               <Input
                 disabled
-                classes={{ root: classNames.inputWrapper, input: classNames.input }}
+                classes={{ root: styles.inputWrapper, input: styles.input }}
                 value={toFixed(item.volumeWeightKgWarehouse, 3)}
               />
             </div>
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</Typography>
+
+            <div className={styles.tableRow}>
+              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</Typography>
               <Input
                 disabled
-                classes={{ root: classNames.inputWrapper, input: classNames.input }}
+                classes={{ root: styles.inputWrapper, input: styles.input }}
                 value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
               />
             </div>
 
-            <div className={classNames.footerBtnsWrapper}>
+            <div className={styles.footerBtnsWrapper}>
               <Button onClick={() => addDouble(item._id)}>
                 <img src="/assets/icons/plus.svg" />
               </Button>

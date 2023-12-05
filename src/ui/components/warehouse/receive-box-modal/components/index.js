@@ -1,2 +1,2 @@
-export { NewBoxes } from './new-boxes'
-export { CurrentBox } from './current-box'
+export { NewBoxes } from './new-boxes/new-boxes'
+export { CurrentBox } from './current-box/current-box'
