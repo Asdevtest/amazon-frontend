@@ -530,6 +530,10 @@ export const darkTheme = createTheme({
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+
+          '&.Mui-focused': {
+            border: '1px solid #4CA1DE',
+          },
         },
         input: {
           '&.Mui-disabled': {

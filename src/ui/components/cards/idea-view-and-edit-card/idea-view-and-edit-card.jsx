@@ -176,7 +176,7 @@ export const IdeaViewAndEditCard = observer(
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
       if (
-        ['price', 'width', 'height', 'length'].includes(fieldName) &&
+        ['price', 'width', 'height', 'length', 'fbaFee', 'approximatePrice'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
       ) {
         return
