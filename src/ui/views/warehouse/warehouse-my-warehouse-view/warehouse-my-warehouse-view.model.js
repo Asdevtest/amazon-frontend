@@ -62,7 +62,7 @@ const filtersFields = [
   'id',
   'item',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'destination',
   'logicsTariff',
@@ -1262,8 +1262,8 @@ export class WarehouseMyWarehouseViewModel {
     const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
     const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const skuByClientFilter =
+      exclusion !== 'skuByClient' && this.columnMenuSettings.skuByClient.currentFilterData.join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
       this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
@@ -1281,7 +1281,7 @@ export class WarehouseMyWarehouseViewModel {
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
         { item: { $eq: this.nameSearchValue } },
         { id: { $eq: this.nameSearchValue } },
         { humanFriendlyId: { $eq: this.nameSearchValue } },
@@ -1317,8 +1317,8 @@ export class WarehouseMyWarehouseViewModel {
       ...(asinFilter && {
         asin: { $eq: asinFilter },
       }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
+      ...(skuByClientFilter && {
+        skuByClient: { $eq: skuByClientFilter },
       }),
       ...(amazonTitleFilter && {
         amazonTitle: { $eq: amazonTitleFilter },

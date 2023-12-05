@@ -186,7 +186,7 @@ export class AdminWarehouseTasksViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, '', exclusion, filtersFields, [
         'asin',
-        'skusByClient',
+        'skuByClient',
         'amazonTitle',
       ]),
     )

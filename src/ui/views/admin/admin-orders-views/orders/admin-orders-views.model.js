@@ -187,7 +187,7 @@ export class AdminOrdersAllViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
-        'skusByClient',
+        'skuByClient',
         'amazonTitle',
       ]),
     )

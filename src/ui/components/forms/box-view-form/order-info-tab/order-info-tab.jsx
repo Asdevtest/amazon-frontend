@@ -45,7 +45,7 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
               </p>
 
               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item.product.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.skusByClient?.[0]} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.skuByClient} />
             </div>
 
             <div className={styles.parametersWrapper}>

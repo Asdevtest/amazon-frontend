@@ -1465,8 +1465,8 @@ export const ProductMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skusByClient?.currentFilterData?.length
-        ? 'skusByClient'
+        : !withoutSku && data.skuByClient?.currentFilterData?.length
+        ? 'skuByClient'
         : 'asin',
     )
     // const { filterData } = data[currentOption]
@@ -1547,7 +1547,7 @@ export const ProductMenuItem = React.memo(
                 <FormControlLabel
                   title={t(TranslationKey.SKU)}
                   className={classNames.radioOption}
-                  value="skusByClient"
+                  value="skuByClient"
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.SKU)}
                 />

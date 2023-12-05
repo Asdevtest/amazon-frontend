@@ -1651,7 +1651,7 @@ export class ClientInStockBoxesViewModel {
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
         'amazonTitle',
-        'skusByClient',
+        'skuByClient',
         'id',
         'item',
         'productId',

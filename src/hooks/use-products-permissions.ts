@@ -18,7 +18,7 @@ interface IPermissionsData {
   asin: string
   shopIds: string[]
   amazonTitle: string
-  skusByClient: string[]
+  skuByClient: string[]
   buyerId: string
   images: string[]
 }
@@ -113,7 +113,7 @@ export class UseProductsPermissions {
       this.isCanLoadMore = true
       this.setOptions({
         offset: 0,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skusByClient', 'asin'])),
+        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skuByClient', 'asin'])),
       })
 
       await this.getPermissionsData()

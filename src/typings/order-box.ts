@@ -61,7 +61,7 @@ export interface IOrderBoxItem {
 export interface IOrderBoxItemProduct {
   _id: string
   asin: string
-  skusByClient: string[]
+  skuByClient: string
   images: string[]
   shopIds: string[]
   amazonTitle: string

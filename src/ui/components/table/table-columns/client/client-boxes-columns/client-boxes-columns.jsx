@@ -136,7 +136,7 @@ export const clientBoxesViewColumns = (
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
           getColumnMenuSettings()?.asin?.currentFilterData?.length ||
-          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skuByClient?.currentFilterData?.length ||
           getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
         }
       />

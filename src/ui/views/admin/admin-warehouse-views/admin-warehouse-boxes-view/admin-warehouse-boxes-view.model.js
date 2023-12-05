@@ -67,7 +67,7 @@ export class AdminWarehouseBoxesViewModel {
             item =>
               item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
               item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-              item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+              item.product.skuByClient?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ),
         )
       })

@@ -38,11 +38,11 @@ import { settingsByUrl } from './settings-by-url'
 // * Список полей для фильтраций
 
 const filtersFields = [
-  'parentProductSkusByClient',
+  'parentProductSkuByClient',
   'parentProductAmazonTitle',
   'parentProductAsin',
   'childProductAmazonTitle',
-  'childProductSkusByClient',
+  'childProductSkuByClient',
   'childProductAsin',
   'title',
   // 'shopIds',
@@ -69,7 +69,7 @@ const filtersFields = [
   'updatedAt',
   'amazonTitle',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'status',
 ]
 
@@ -323,11 +323,11 @@ export class ClientIdeasViewModel {
         exclusion,
         filtersFields,
         [
-          'parentProductSkusByClient',
+          'parentProductSkuByClient',
           'parentProductAmazonTitle',
           'parentProductAsin',
           'childProductAmazonTitle',
-          'childProductSkusByClient',
+          'childProductSkuByClient',
           'childProductAsin',
           'title',
         ],

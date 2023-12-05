@@ -37,7 +37,7 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = React.memo(({ onClickCr
           withoutImage
           amazonTitle={rowData.childProduct?.amazonTitle}
           asin={rowData.childProduct?.asin}
-          skusByClient={rowData.childProduct?.skusByClient?.[0]}
+          skuByClient={rowData.childProduct?.skuByClient}
         />
       )}
     </div>

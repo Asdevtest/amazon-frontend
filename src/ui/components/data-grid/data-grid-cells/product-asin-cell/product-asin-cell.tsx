@@ -9,7 +9,7 @@ import { useStyles } from './product-asin-cell.style'
 interface ProductAsinCellProps {
   amazonTitle: string
   asin: string
-  skusByClient?: string
+  skuByClient?: string
   withoutImage?: boolean
   withoutSku?: boolean
   image?: string
@@ -17,7 +17,7 @@ interface ProductAsinCellProps {
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
   const { classes: styles } = useStyles()
-  const { image, amazonTitle, asin, skusByClient, withoutImage = undefined, withoutSku } = props
+  const { image, amazonTitle, asin, skuByClient, withoutImage = undefined, withoutSku } = props
 
   return (
     <div className={styles.asinCellContainer}>
@@ -26,7 +26,7 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
       <div className={styles.csCodeTypoWrapper}>
         <p className={styles.csCodeTypo}>{amazonTitle}</p>
         <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skusByClient} />}
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skuByClient} />}
       </div>
     </div>
   )

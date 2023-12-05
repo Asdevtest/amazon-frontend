@@ -78,7 +78,7 @@ export const IdeaCreate = [
 
 export const createProductByClient = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'currentSupplierId',
   'parentProductId',
   'category',

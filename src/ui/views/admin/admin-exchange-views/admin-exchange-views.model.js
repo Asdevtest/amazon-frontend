@@ -19,7 +19,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 const filtersFields = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amazon',

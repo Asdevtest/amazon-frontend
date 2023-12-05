@@ -53,9 +53,7 @@ export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
             el.items.some((item: any) =>
               item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()),
             ) ||
-            el.items.some((item: any) =>
-              item.product.skusByClient?.some((sku: any) => sku.toLowerCase().includes(nameSearchValue.toLowerCase())),
-            ) ||
+            el.items.some((item: any) => item.product.skuByClient?.includes(nameSearchValue.toLowerCase())) ||
             el.items.some((item: any) => item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase())),
         ),
       )

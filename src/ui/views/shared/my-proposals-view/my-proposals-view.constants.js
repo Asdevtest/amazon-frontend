@@ -10,7 +10,7 @@ export const filtersFields = [
   'timeoutAt',
   'requestCreatedBy',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'taskComplexity',
   'typeTask',

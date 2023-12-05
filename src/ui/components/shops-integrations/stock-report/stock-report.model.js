@@ -306,7 +306,7 @@ export class StockReportModel {
 
       const result = await ClientModel.createProduct(resData)
 
-      await SellerBoardModel.bindStockProductsBySku({ productId: result.guid, skus: data.skusByClient })
+      await SellerBoardModel.bindStockProductsBySku({ productId: result.guid, skus: data.skuByClient })
 
       if (result) {
         runInAction(() => {

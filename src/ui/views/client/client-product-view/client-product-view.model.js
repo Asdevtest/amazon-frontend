@@ -266,7 +266,7 @@ export class ClientProductViewModel {
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
-          'skusByClient',
+          'skuByClient',
           'niche',
           'asins',
           'shopIds',

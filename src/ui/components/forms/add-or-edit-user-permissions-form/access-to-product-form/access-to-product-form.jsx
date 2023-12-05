@@ -61,7 +61,7 @@ export const AccessToProductForm = React.memo(
       if (searchInputValue) {
         const filter = sourceData?.filter(
           i =>
-            i.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(searchInputValue.toLowerCase())) ||
+            i.originalData.skuByClient?.toLowerCase().includes(searchInputValue.toLowerCase()) ||
             i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
             i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
         )
