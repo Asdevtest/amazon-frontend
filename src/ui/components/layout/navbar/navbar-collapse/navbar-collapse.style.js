@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   listItemText: {
-    marginRight: '12px',
+    marginRight: 5,
     fontSize: 13,
     fontWeight: 500,
   },
@@ -60,15 +60,15 @@ export const useStyles = makeStyles()(theme => ({
 
   bigBadge: {
     width: 'fit-content',
-    padding: '2px 4px',
+    padding: '1px 4px',
     background: theme.palette.primary.main,
-    borderRadius: '50%',
+    borderRadius: 12,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: '#fff',
     fontSize: '12px',
-    lineHeight: '12px',
+    lineHeight: '16px',
   },
 
   subCategory: {

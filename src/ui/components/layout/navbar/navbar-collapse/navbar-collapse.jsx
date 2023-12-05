@@ -6,7 +6,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 
 import { Button } from '@components/shared/buttons/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
@@ -16,6 +15,7 @@ import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
 import { useStyles } from './navbar-collapse.style'
 
+import { alwaysShowSubCategoryKeys } from '../navbar-drawer-content/navbar-drawer-content'
 import { NavbarSubCategory } from '../navbar-sub-category'
 
 export const NavbarCollapse = ({
@@ -184,20 +184,6 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
-      case '/supervisor/ready-to-check':
-        return (
-          <ListItemIcon>
-            <div className={styles.badge}>{userInfo?.vacFromResearcher}</div>
-          </ListItemIcon>
-        )
-
-      case '/supervisor/ready-to-check-by-client':
-        return (
-          <ListItemIcon>
-            <div className={styles.badge}>{userInfo?.vacFromClient}</div>
-          </ListItemIcon>
-        )
-
       default:
         return null
     }
@@ -222,6 +208,15 @@ export const NavbarCollapse = ({
             {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
           </div>
         )
+
+      case '/supervisor/ready-to-check':
+        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromResearcher}</div>
+
+      case '/supervisor/ready-to-check-by-client':
+        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromClient}</div>
+
+      default:
+        return null
     }
   }
 
@@ -260,7 +255,7 @@ export const NavbarCollapse = ({
   }
 
   return (
-    <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS}>
+    <Collapse in={index === activeCategory || alwaysShowSubCategoryKeys.includes(index)}>
       {!shortNavbar ? (
         <List disablePadding>
           {category.subtitles?.map((subCategory, subIndex) =>

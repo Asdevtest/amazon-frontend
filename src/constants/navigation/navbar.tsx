@@ -553,6 +553,7 @@ export const navbarConfig = {
         {
           subtitle: () => t(TranslationKey['From the Researcher']),
           subRoute: '/supervisor/ready-to-check',
+          key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
@@ -560,6 +561,7 @@ export const navbarConfig = {
         {
           subtitle: () => t(TranslationKey['From the Client']),
           subRoute: '/supervisor/ready-to-check-by-client',
+          key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
