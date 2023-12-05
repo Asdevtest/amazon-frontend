@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useChatMessageFileStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     marginTop: '10px',
     display: 'flex',
@@ -10,6 +10,7 @@ export const useChatMessageFileStyles = makeStyles()(theme => ({
 
   fileWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: '10px',
     cursor: 'pointer',
   },
@@ -25,27 +26,36 @@ export const useChatMessageFileStyles = makeStyles()(theme => ({
     },
   },
 
+  fileIcon: {
+    width: '30px !important',
+    height: '40px !important',
+  },
+
   info: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '3px',
+  },
+
+  nameWrapper: {
+    display: 'flex',
 
     p: {
-      margin: '0',
       fontSize: 14,
-      lineHeight: 1,
+      lineHeight: '19px',
       color: theme.palette.text.general,
     },
   },
+
   fileName: {
     maxWidth: 160,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
+
   fileSize: {
-    color: theme.palette.text.second,
     fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.second,
   },
-  fileType: {},
 }))

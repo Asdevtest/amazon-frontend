@@ -15,7 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 
 import { calcPriceForBox } from '@utils/calculation'
-import { checkIsClient, checkIsImageLink } from '@utils/checks'
+import { checkIsClient, checkIsMediaFileLink } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -105,7 +105,7 @@ const WarehouseBodyRowRaw = ({
                     className={classNames.button}
                     variant="contained"
                     onClick={() => {
-                      setCurImages(box.images.filter(img => checkIsImageLink(img)))
+                      setCurImages(box.images.filter(img => checkIsMediaFileLink(img)))
                       setShowPhotosModal(!showPhotosModal)
                     }}
                   >

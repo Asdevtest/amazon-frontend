@@ -19,7 +19,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -83,7 +83,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
       .then((res: ChatAttachmentsType) => {
         const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
           file.images?.forEach(el => {
-            if (!checkIsImageLink(el)) {
+            if (!checkIsMediaFileLink(el)) {
               res.allFiles.push({ files: [el], _id: file._id })
               return
             } else {

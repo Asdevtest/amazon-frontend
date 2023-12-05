@@ -12,7 +12,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -39,7 +39,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickMarkAsCompletedBtn,
   } = props
   const { classes: styles, cx } = useStyles()
-  const requestMedia = request?.media?.filter(el => checkIsImageLink(el.fileLink))
+  const requestMedia = request?.media?.filter(el => checkIsMediaFileLink(el.fileLink))
   const requestPhotos = requestMedia?.map(el => el.fileLink)
   const requestTitles = requestMedia?.map(el => el.commentByPerformer)
   const requestComments = requestMedia?.map(el => el.commentByClient)

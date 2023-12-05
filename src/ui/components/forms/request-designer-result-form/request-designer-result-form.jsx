@@ -15,7 +15,7 @@ import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
@@ -130,7 +130,7 @@ const Slot = ({
                   classes={{ img: styles.image }}
                   src={
                     typeof slot.image === 'string'
-                      ? checkIsImageLink(slot.image)
+                      ? checkIsMediaFileLink(slot.image)
                         ? getAmazonImageUrl(slot.image, false)
                         : '/assets/icons/file.png'
                       : slot.image?.file.type.includes('image')
@@ -142,7 +142,7 @@ const Slot = ({
                   onClick={() => {
                     setCurImageIndex(index)
 
-                    if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                    if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
                       setShowImageModal(!showImageModal)
                     } else {
                       window.open(slot.image?.data_url || getAmazonImageUrl(slot.image), '__blank')
@@ -176,7 +176,7 @@ const Slot = ({
                 if (slot.image) {
                   e.preventDefault()
 
-                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                  if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
                     setShowImageModal(!showImageModal)
                   } else {
                     window.open(slot.image?.data_url || slot.image, '__blank')

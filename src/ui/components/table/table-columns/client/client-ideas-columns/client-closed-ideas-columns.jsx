@@ -15,7 +15,7 @@ import {
   TimeFromSecondsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const clientClosedIdeasColumns = (rowHandlers, shops) => [
@@ -62,7 +62,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsImageLink(el))} />,
+    renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
     width: 96,
     sortable: false,
     filterable: false,

@@ -114,8 +114,9 @@ export const checkIsImageLink = link =>
   link?.includes('rotated-image') ||
   link?.includes('jfif') ||
   link?.includes('bmp') ||
-  link?.includes('placeimg.com') ||
-  checkIsVideoLink(link)
+  link?.includes('placeimg.com')
+
+export const checkIsMediaFileLink = link => checkIsVideoLink(link) || checkIsImageLink(link)
 
 export const checkIsDocumentLink = link =>
   link?.includes('doc') ||

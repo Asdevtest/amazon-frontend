@@ -561,7 +561,8 @@ export const FieldsAndSuppliers = memo(
                   data={[...shops]?.sort((a, b) => a?.name?.localeCompare(b?.name))}
                   searchFields={['name']}
                   selectedItemName={
-                    shops?.find(shop => shop?._id === product?.shopIds[0])?.name || t(TranslationKey['Select a store'])
+                    shops?.find(shop => shop?._id === product?.shopIds?.[0])?.name ||
+                    t(TranslationKey['Select a store'])
                   }
                   onClickNotChosen={() => onChangeShop('')}
                   onClickSelect={el => {
