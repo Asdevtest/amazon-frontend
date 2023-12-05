@@ -120,7 +120,7 @@ export class ManagementTabViewModel {
 
         const currentProductStatus = Number(this.product?.status)
 
-        // this.isEmptyStore = this.product?.shopIds?.length === 0 // empty store check
+        // this.isEmptyStore = this.product?.shopId.length === 0 // empty store check
         this.isEditableClient = currentProductStatus === 200 || currentProductStatus === 275
         this.isEditableBuyer = currentProductStatus <= 200 || currentProductStatus === 275
         this.isEditableSupervisor = true

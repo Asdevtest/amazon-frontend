@@ -85,7 +85,7 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -94,11 +94,9 @@ export const clientInventoryColumns = (
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
-    filterable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },

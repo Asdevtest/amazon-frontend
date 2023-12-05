@@ -61,7 +61,7 @@ export const FieldsAndSuppliers = memo(
     const [edit, setEdit] = useState(true)
 
     const onChangeShop = shopId => {
-      onChangeField('shopIds')({ target: { value: shopId ? [shopId] : [] } })
+      onChangeField('shopId')({ target: { value: shopId } })
     }
 
     const isEditRedFlags =
@@ -489,7 +489,7 @@ export const FieldsAndSuppliers = memo(
                       asin: productVariations?.asin,
                       skuByClient: productVariations?.skuByClient,
                       images: productVariations?.images,
-                      shopIds: productVariations?.shopIds,
+                      shopId: productVariations?.shopId,
                       amazonTitle: productVariations?.amazonTitle,
                     }}
                     navigateToProduct={navigateToProduct}
@@ -561,7 +561,7 @@ export const FieldsAndSuppliers = memo(
                   data={[...shops]?.sort((a, b) => a?.name?.localeCompare(b?.name))}
                   searchFields={['name']}
                   selectedItemName={
-                    shops?.find(shop => shop?._id === product?.shopIds[0])?.name || t(TranslationKey['Select a store'])
+                    shops?.find(shop => shop?._id === product?.shopId)?.name || t(TranslationKey['Select a store'])
                   }
                   onClickNotChosen={() => onChangeShop('')}
                   onClickSelect={el => {

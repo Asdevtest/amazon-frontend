@@ -93,13 +93,13 @@ export const AddOrEditUserPermissionsForm = observer(
           name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
           tmpProductsIds:
             curUserProductPermissions
-              ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopIds?.length))
+              ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopId))
               ?.map(el => el?.productId) || [],
         },
         ...shops.map(shop => ({
           ...shop,
           tmpProductsIds:
-            curUserProductPermissions?.filter(el => el?.shopIds?.includes(shop?._id))?.map(el => el?.productId) || [],
+            curUserProductPermissions?.filter(el => el?.shopId === shop?._id)?.map(el => el?.productId) || [],
         })),
       ],
       [curUserProductPermissions],
@@ -153,8 +153,8 @@ export const AddOrEditUserPermissionsForm = observer(
         shop._id === PRODUCTS_WITHOUT_SHOPS_ID
           ? isWithoutShopsDepends
             ? true
-            : !el.originalData.shopIds?.length
-          : el.originalData.shopIds?.includes(shop._id),
+            : !el.originalData.shopId
+          : el.originalData.shopId === shop._id,
       )
 
     const isChoosenAll = shopDataToRender.every(

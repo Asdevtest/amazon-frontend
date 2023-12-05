@@ -38,7 +38,7 @@ export const fieldsOfProductAllowedToCreate = [
 ]
 
 export const filtersFields = [
-  'shopIds',
+  'shopId',
   'asin',
   'skuByClient',
   'amazonTitle',

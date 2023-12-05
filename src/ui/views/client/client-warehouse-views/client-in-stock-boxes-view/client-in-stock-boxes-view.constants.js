@@ -31,7 +31,7 @@ export const updateBoxWhiteList = [
 ]
 
 export const filtersFields = [
-  'shopIds',
+  'shopId',
   'humanFriendlyId',
   'id',
   'item',

@@ -20,7 +20,7 @@ interface ProductVariationsFormProps {
     asin: string
     skuByClient: string
     images: string[]
-    shopIds: string[]
+    shopId: string
     amazonTitle: string
   }
   onClickShowProduct: () => void
@@ -50,7 +50,7 @@ export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(pr
               asin: product?.asin,
               skuByClient: product?.skuByClient,
               images: product?.images,
-              shopIds: product?.shopIds,
+              shopId: product?.shopId,
               amazonTitle: product?.amazonTitle,
             }}
             navigateToProduct={onClickShowProduct}
