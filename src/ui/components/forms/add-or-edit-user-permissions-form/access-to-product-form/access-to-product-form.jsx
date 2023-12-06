@@ -119,10 +119,12 @@ export const AccessToProductForm = React.memo(
       if (chooseAllCheck) {
         setSelectedAccess(accessProductSettings.NEED_SELECT)
         setSelectionModel([])
+        setChosenGoods([])
         setChooseAllCheck(false)
       } else {
         setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
         setSelectionModel(allProductsIds)
+        setChosenGoods(allProductsIds)
         setChooseAllCheck(true)
       }
     }
@@ -133,10 +135,6 @@ export const AccessToProductForm = React.memo(
       }
       setCurProdutsData(getCurrentData())
     }, [paginationModel])
-
-    useEffect(() => {
-      setCurProdutsData(getCurrentData())
-    }, [sourceData])
 
     return (
       shops && (
@@ -222,7 +220,7 @@ export const AccessToProductForm = React.memo(
                     rowCount={sourceData?.length}
                     paginationModel={paginationModel}
                     isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
-                    rows={curProdutsData}
+                    rows={curProdutsData || []}
                     columns={sourceColumns()}
                     rowHeight={65}
                     rowSelectionModel={selectionModel}
