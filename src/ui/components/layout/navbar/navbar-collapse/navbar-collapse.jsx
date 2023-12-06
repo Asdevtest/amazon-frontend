@@ -184,6 +184,20 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/buyer/search-supplier-by-supervisor':
+        return (
+          <ListItemIcon>
+            <div className={styles.badge}>{userInfo?.searchFromSupervisor}</div>
+          </ListItemIcon>
+        )
+
+      case '/buyer/search-supplier-by-client':
+        return (
+          <ListItemIcon>
+            <div className={styles.badge}>{userInfo?.searchFromClient}</div>
+          </ListItemIcon>
+        )
+
       default:
         return null
     }
