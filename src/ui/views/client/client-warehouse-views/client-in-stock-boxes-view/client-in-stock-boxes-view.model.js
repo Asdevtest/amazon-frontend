@@ -1595,8 +1595,8 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
@@ -1616,7 +1616,7 @@ export class ClientInStockBoxesViewModel {
         currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+          shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''
         }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )
 
@@ -1663,7 +1663,7 @@ export class ClientInStockBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
 
       const curStatus = this.columnMenuSettings.status.currentFilterData.length
         ? this.columnMenuSettings.status.currentFilterData.join(',')
@@ -1674,7 +1674,7 @@ export class ClientInStockBoxesViewModel {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
         storekeeperId: this.currentStorekeeperId,
         destinationId: this.curDestinationId,
-        shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+        shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,

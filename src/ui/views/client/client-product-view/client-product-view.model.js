@@ -150,7 +150,7 @@ export class ClientProductViewModel {
       const result = await ClientModel.getProductPermissionsData(
         option === ProductVariation.PARENT
           ? { isChild: false, offset: 0 }
-          : { isChild: false, isParent: false, shopId: this.product?.shopIds?.[0], offset: 0 },
+          : { isChild: false, isParent: false, shopId: this.product?.shopId, offset: 0 },
       )
 
       runInAction(() => {
@@ -269,7 +269,7 @@ export class ClientProductViewModel {
           'skuByClient',
           'niche',
           'asins',
-          'shopIds',
+          'shopId',
           'redFlags',
           'tags',
         ].includes(fieldName)

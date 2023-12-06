@@ -17,12 +17,12 @@ import { Modal } from '@components/shared/modal'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './receive-box-modal.style'
+import { useStyles } from './receive-box-modal.style'
 
 import { CurrentBox, NewBoxes } from './components'
 
 export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
@@ -199,26 +199,27 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
   const disableSubmit = newBoxes.some(box => box.amount === '')
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.modalHeaderWrapper}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+    <div className={styles.root}>
+      <div className={styles.modalHeaderWrapper}>
+        <Typography className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+
         {!receiveNotFromBuyer && (
-          <div className={classNames.addButtonWrapper}>
+          <div className={styles.addButtonWrapper}>
             <Button
-              className={classNames.addButton}
+              className={styles.addButton}
               tooltipInfoContent={t(TranslationKey['Add a box'])}
               onClick={() => {
                 setNewBoxes(newBoxes.concat(getEmptyBox()))
               }}
             >
               {t(TranslationKey['New box'])}
-              <AddIcon fontSize="small" className={classNames.icon} />
+              <AddIcon fontSize="small" className={styles.icon} />
             </Button>
           </div>
         )}
       </div>
 
-      <div className={classNames.boxesWrapper}>
+      <div className={styles.boxesWrapper}>
         {!receiveNotFromBuyer && (
           <CurrentBox
             boxesBefore={boxesBefore}
@@ -227,7 +228,9 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
             actuallyAssembled={actuallyAssembled}
           />
         )}
-        {!receiveNotFromBuyer && <Divider flexItem className={classNames.divider} orientation="vertical" />}
+
+        {!receiveNotFromBuyer && <Divider flexItem className={styles.divider} orientation="vertical" />}
+
         <NewBoxes
           newBoxes={newBoxes}
           addDouble={addDouble}
@@ -238,24 +241,22 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         />
       </div>
 
-      <div className={classNames.addButtonWrapperMobile}>
+      <div className={styles.addButtonWrapperMobile}>
         <Button
-          className={classNames.addButtonMobile}
+          className={styles.addButtonMobile}
           tooltipInfoContent={t(TranslationKey['Add a box'])}
-          onClick={() => {
-            setNewBoxes(newBoxes.concat(getEmptyBox()))
-          }}
+          onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
         >
           {t(TranslationKey['New box'])}
-          <AddIcon fontSize="small" className={classNames.icon} />
+          <AddIcon fontSize="small" className={styles.icon} />
         </Button>
       </div>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           success
           disabled={disableSubmit}
-          className={classNames.button}
+          className={styles.button}
           onClick={() => {
             receiveNotFromBuyer
               ? onClickRedistributeBtn()
@@ -267,7 +268,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

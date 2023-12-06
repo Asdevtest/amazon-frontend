@@ -22,7 +22,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './slot.style'
 
-interface SlotInterface {
+interface SlotProps {
   item: any
   imagesForDownload: any
   index: number
@@ -35,7 +35,7 @@ interface SlotInterface {
   noShowActions?: boolean
 }
 
-export const Slot: FC<SlotInterface> = memo(props => {
+export const Slot: FC<SlotProps> = memo(props => {
   const {
     item,
     noShowActions,

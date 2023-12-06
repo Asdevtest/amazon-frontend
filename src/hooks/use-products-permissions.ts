@@ -16,7 +16,7 @@ interface IOptions {
 interface IPermissionsData {
   _id: string
   asin: string
-  shopIds: string[]
+  shopId: string
   amazonTitle: string
   skuByClient: string[]
   buyerId: string

@@ -19,7 +19,7 @@ interface IProductsLaunch {
   amazonTitle: string
   asin: string
   images: Array<string>
-  shopIds: Array<string>
+  shopId: string
   skuByClient: string
 }
 

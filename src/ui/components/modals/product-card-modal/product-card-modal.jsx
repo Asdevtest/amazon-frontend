@@ -156,7 +156,7 @@ export const ProductCardModal = observer(props => {
                   : {
                       isChild: false,
                       isParent: false,
-                      shopId: viewModel.product?.shopIds?.[0],
+                      shopId: viewModel.product?.shopId,
                       offset: 0,
                       filters: '',
                     },

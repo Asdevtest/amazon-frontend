@@ -21,7 +21,7 @@ interface InterconnectedProductsProps {
     asin: string
     skuByClient: string
     images: Array<string>
-    shopIds: Array<string>
+    shopId: string
     amazonTitle: string
   }
   navigateToProduct: (id: string) => void
