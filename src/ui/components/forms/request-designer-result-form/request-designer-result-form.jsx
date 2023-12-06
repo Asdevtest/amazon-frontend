@@ -322,6 +322,10 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const disableSubmit = imagesData.every(el => !el.image)
 
+  const imageLinks = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.image)
+  const photosTitles = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.comment)
+  const photosComments = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.commentByClient)
+
   return (
     <div className={styles.modalMainWrapper}>
       <div className={styles.headerWrapper}>
@@ -475,9 +479,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           isRequestResult
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          files={imagesData.map(el => el.image)}
-          photosTitles={imagesData.map(el => el.comment)}
-          photosComments={imagesData.map(el => el.commentByClient)}
+          files={imageLinks}
+          photosTitles={photosTitles}
+          photosComments={photosComments}
           currentFileIndex={curImageIndex}
           handleCurrentFileIndex={index => setCurImageIndex(index)}
         />
