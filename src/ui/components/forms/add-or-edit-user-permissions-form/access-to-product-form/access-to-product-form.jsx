@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -32,7 +31,7 @@ const accessProductSettings = {
 }
 
 export const AccessToProductForm = React.memo(
-  observer(({ shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData }) => {
+  ({ shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData }) => {
     const { classes: styles } = useStyles()
 
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 100 })
@@ -234,5 +233,5 @@ export const AccessToProductForm = React.memo(
         </Accordion>
       )
     )
-  }),
+  },
 )
