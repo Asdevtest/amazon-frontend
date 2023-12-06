@@ -83,20 +83,20 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
 }
 
 export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
-  try {
-    this[type] = []
+  this[type] = []
 
-    const loadingStep = 100 / images.length
+  const loadingStep = 100 / images.length
 
-    if (!withoutShowProgress) {
-      runInAction(() => {
-        this.showProgress = true
-      })
-    }
+  if (!withoutShowProgress) {
+    runInAction(() => {
+      this.showProgress = true
+    })
+  }
 
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
+  for (let i = 0; i < images.length; i++) {
+    const image = images[i]
 
+    try {
       if (typeof image === 'string' && image.includes('/uploads/')) {
         this[type].push(image)
       } else if (typeof image === 'string') {
@@ -105,34 +105,30 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
             ? image
             : getAmazonImageUrl(image, true),
         )
-
         this[type].push(res)
       } else {
         const res = await onPostImage(image)
         this[type].push(res)
       }
+
       runInAction(() => {
         this.progressValue = this.progressValue + loadingStep
       })
+    } catch (error) {
+      continue
     }
+  }
 
-    if (!withoutShowProgress) {
-      runInAction(() => {
-        this.showProgress = false
-      })
-    }
-
+  if (!withoutShowProgress) {
     runInAction(() => {
-      this.progressValue = 0
-      this.isValidLink = true
-    })
-  } catch (error) {
-    runInAction(() => {
-      this.progressValue = 0
       this.showProgress = false
-      this.isValidLink = false
     })
   }
+
+  runInAction(() => {
+    this.progressValue = 0
+    this.isValidLink = true
+  })
 }
 
 export const downloadFile = async (file, fileName) => {
@@ -174,7 +170,7 @@ export const downloadFileByLink = async (str, fileName) => {
 }
 
 export const getFileWeight = async url =>
-  fetch(url /* , {mode: 'no-cors'} */)
+  fetch(getAmazonImageUrl(url, true))
     .then(res => res.blob())
     .then(res => {
       const fileSizeInKB = res.size / 1024
