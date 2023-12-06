@@ -189,11 +189,21 @@ export const RegistrationFormRaw = ({
                   </InputAdornment>
                 ) : null
               }
+              endAdornment={
+                <InputAdornment
+                  position="start"
+                  className={classNames.inputAdornmentVisibility}
+                  onClick={() => setVisibilityOldPass(!visibilityOldPass)}
+                >
+                  {visibilityOldPass ? (
+                    <VisibilityIcon className={classNames.visibilityIcon} />
+                  ) : (
+                    <VisibilityOffIcon className={classNames.visibilityIcon} />
+                  )}
+                </InputAdornment>
+              }
               onChange={onChangeFormField('password')}
             />
-            <div className={classNames.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-              {!visibilityOldPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
-            </div>
           </div>
         )}
 
@@ -217,11 +227,22 @@ export const RegistrationFormRaw = ({
                 </InputAdornment>
               ) : null
             }
+            endAdornment={
+              <InputAdornment
+                position="start"
+                className={classNames.inputAdornmentVisibility}
+                onClick={() => setVisibilityPass(!visibilityPass)}
+              >
+                {visibilityPass ? (
+                  <VisibilityIcon className={classNames.visibilityIcon} />
+                ) : (
+                  <VisibilityOffIcon className={classNames.visibilityIcon} />
+                )}
+              </InputAdornment>
+            }
             onChange={onChangeFormField('password')}
           />
-          <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
-          </div>
+
           <div className={classNames.validationMessage}>
             {validationMessagesArray(
               errorMinLength,

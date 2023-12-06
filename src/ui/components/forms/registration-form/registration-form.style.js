@@ -26,13 +26,8 @@ export const styles = theme => ({
   },
 
   visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
     cursor: 'pointer',
-    [theme.breakpoints.down(768)]: {
-      top: 35,
-    },
+    color: theme.palette.text.second,
   },
 
   inputAdornment: {
@@ -110,5 +105,9 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
+  },
+  inputAdornmentVisibility: {
+    position: 'absolute',
+    right: 0,
   },
 })
