@@ -307,6 +307,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,
+    transparency: item.transparency,
 
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,

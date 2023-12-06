@@ -64,6 +64,7 @@ export const filtersFields = [
   'ideasFinished',
   'tags',
   'redFlags',
+  'transparency',
 ]
 
 export const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']

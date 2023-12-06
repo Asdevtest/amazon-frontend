@@ -37,6 +37,7 @@ export class ClientProductViewModel {
   history = undefined
   requestStatus = undefined
   acceptMessage = ''
+  updateDataHandler = undefined
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -110,8 +111,9 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history, setOpenModal }) {
+  constructor({ history, setOpenModal, updateDataHandler }) {
     this.history = history
+    this.updateDataHandler = updateDataHandler
 
     const url = new URL(window.location.href)
     this.productId = url.searchParams.get('product-id')
@@ -274,14 +276,17 @@ export class ClientProductViewModel {
           'tags',
         ].includes(fieldName)
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
+        if (fieldName === 'transparency') {
+          this.product = { ...this.product, [fieldName]: e }
+          this.patchProductTransparencyHandler()
+          this.updateDataHandler?.()
+          return
+        }
+
         if (['asin'].includes(fieldName)) {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '') }
-          })
+          this.product = { ...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '') }
         }
 
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -300,14 +305,10 @@ export class ClientProductViewModel {
         }
 
         if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          runInAction(() => {
-            this.product[fieldName] = parseInt(e.target.value)
-          })
+          this.product[fieldName] = parseInt(e.target.value)
         }
 
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
@@ -728,6 +729,16 @@ export class ClientProductViewModel {
       )
 
       this.loadData()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  async patchProductTransparencyHandler() {
+    try {
+      ClientModel.patchProductTransparency(this.productId, {
+        transparency: this.product.transparency,
+      })
     } catch (error) {
       console.log('error', error)
     }

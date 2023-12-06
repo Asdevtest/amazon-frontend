@@ -46,18 +46,21 @@ export const ProductCardModal = observer(props => {
         new BuyerProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     } else if (checkIsSupervisor(UserRoleCodeMap[role])) {
       return () =>
         new SupervisorProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     } else {
       return () =>
         new ClientProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     }
   }

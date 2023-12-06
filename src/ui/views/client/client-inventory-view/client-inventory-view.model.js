@@ -28,6 +28,7 @@ import { clientInventoryColumns } from '@components/table/table-columns/client/c
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
@@ -53,7 +54,6 @@ export class ClientInventoryViewModel {
 
   baseNoConvertedProducts = undefined
   productsMy = []
-  productsMyBase = []
   withoutProduct = false
   withProduct = false
   user = undefined
@@ -78,7 +78,7 @@ export class ClientInventoryViewModel {
 
   // isNeedPurchaseFilter = null
 
-  nameSearchValue = ''
+  currentSearchValue = ''
 
   productsToLaunch = []
   productVariations = []
@@ -124,8 +124,6 @@ export class ClientInventoryViewModel {
   currentHscode = ''
   isModalOpen = false
 
-  onHover = null
-
   isTransfer = false
 
   alertShieldSettings = {
@@ -133,16 +131,37 @@ export class ClientInventoryViewModel {
     alertShieldMessage: '',
   }
 
+  transparencyYesNoFilterData = {
+    yes: true,
+    no: true,
+    handleFilters: (yes, no) => this.onHandleOrderedFilter(yes, no),
+  }
+
+  onHandleOrderedFilter = (yes, no) => {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        transparencyYesNoFilterData: {
+          ...this.columnMenuSettings.transparencyYesNoFilterData,
+          yes,
+          no,
+        },
+      }
+      this.getProductsMy()
+    })
+  }
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.onLeaveColumnField()
       this.getProductsMy()
       this.getDataGridState()
     },
 
     filterRequestStatus: undefined,
+
+    transparencyYesNoFilterData: this.transparencyYesNoFilterData,
 
     isNeedPurchaseFilterData: {
       isNeedPurchaseFilter: true,
@@ -155,17 +174,7 @@ export class ClientInventoryViewModel {
       onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
     },
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   barCodeHandlers = {
@@ -222,7 +231,6 @@ export class ClientInventoryViewModel {
     this.stockUsHandlers,
     this.otherHandlers,
     () => this.columnMenuSettings,
-    () => this.onHover,
   )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -232,7 +240,14 @@ export class ClientInventoryViewModel {
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+    return filtersFields.some(
+      el =>
+        this.columnMenuSettings[el]?.currentFilterData.length ||
+        !(
+          this.columnMenuSettings?.transparencyYesNoFilterData.yes &&
+          this.columnMenuSettings?.transparencyYesNoFilterData.no
+        ),
+    )
   }
 
   constructor({ history, location }) {
@@ -328,14 +343,6 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
-  onHoverColumnField(field) {
-    this.onHover = field
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
-  }
-
   setDataGridState() {
     const requestState = {
       sortModel: toJS(this.sortModel),
@@ -402,7 +409,7 @@ export class ClientInventoryViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.currentSearchValue = searchValue
 
     this.getProductsMy()
   }
@@ -700,7 +707,7 @@ export class ClientInventoryViewModel {
         getTableByColumn(column, 'products'),
         column,
 
-        `clients/products/my_with_pag?filters=${this.getFilter(column)}${
+        `clients/products/my_with_pag?filters=${this.getFilters(column)}${
           shopFilter ? `;&[shopId][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
@@ -737,185 +744,206 @@ export class ClientInventoryViewModel {
   onClickResetFilters() {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
-
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
+      transparencyYesNoFilterData: {
+        ...this.columnMenuSettings.transparencyYesNoFilterData,
+        yes: true,
+        no: true,
+      },
+      ...dataGridFiltersInitializer(filtersFields),
     }
 
     this.getProductsMy()
     this.getDataGridState()
   }
 
-  getFilter(exclusion) {
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skuByClientFilter =
-      exclusion !== 'skuByClient' &&
-      this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+  // getFilters(exclusion) {
+  //   const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+  //   const skuByClientFilter =
+  //     exclusion !== 'skuByClient' &&
+  //     this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
+  //       .join(',')
+  //   const amazonTitleFilter =
+  //     exclusion !== 'amazonTitle' &&
+  //     this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+  //   const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+  //   const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
-    const strategyStatusFilter =
-      exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-    const amountInOrdersFilter =
-      exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-    const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-    const inTransferFilter =
-      exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-    const boxAmountsFilter =
-      exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-    const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-    const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
-    const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
-    const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const ideaCountFilter =
-      exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
+  //   const strategyStatusFilter =
+  //     exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
+  //   const amountInOrdersFilter =
+  //     exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
+  //   const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
+  //   const inTransferFilter =
+  //     exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
+  //   const boxAmountsFilter =
+  //     exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
+  //   const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
+  //   const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
+  //   const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
+  //   const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
+  //   const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+  //   const ideaCountFilter =
+  //     exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
 
-    const fbaFbmStockSumFilter =
-      exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
-    const reservedSumFilter =
-      exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
-    const sentToFbaSumFilter =
-      exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
+  //   const fbaFbmStockSumFilter =
+  //     exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
+  //   const reservedSumFilter =
+  //     exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
+  //   const sentToFbaSumFilter =
+  //     exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
 
-    const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
+  //   const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
 
-    const purchaseQuantityFilter =
-      exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
+  //   const purchaseQuantityFilter =
+  //     exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
 
-    const ideasClosedFilter =
-      exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
-    const ideasVerifiedFilter =
-      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
+  //   const ideasClosedFilter =
+  //     exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
+  //   const ideasVerifiedFilter =
+  //     exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
 
-    const tagsFilter =
-      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
+  //   const tagsFilter =
+  //     exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
 
-    const redFlagsFilter =
-      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
+  //   const redFlagsFilter =
+  //     exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
 
-    const filter = objectToUrlQs({
-      archive: { $eq: this.isArchive },
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skuByClient: { $contains: this.nameSearchValue } },
-      ],
+  //   const filter = objectToUrlQs({
+  //     archive: { $eq: this.isArchive },
+  //     or: [
+  //       { asin: { $contains: this.currentSearchValue } },
+  //       { amazonTitle: { $contains: this.currentSearchValue } },
+  //       { skuByClient: { $contains: this.currentSearchValue } },
+  //     ],
 
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skuByClientFilter && {
-        skuByClient: { $eq: skuByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
+  //     ...(asinFilter && {
+  //       asin: { $eq: asinFilter },
+  //     }),
+  //     ...(skuByClientFilter && {
+  //       skuByClient: { $eq: skuByClientFilter },
+  //     }),
+  //     ...(amazonTitleFilter && {
+  //       amazonTitle: { $eq: amazonTitleFilter },
+  //     }),
 
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
+  //     ...(createdAtFilter && {
+  //       createdAt: { $eq: createdAtFilter },
+  //     }),
+  //     ...(updatedAtFilter && {
+  //       updatedAt: { $eq: updatedAtFilter },
+  //     }),
 
-      ...(strategyStatusFilter && {
-        strategyStatus: { $eq: strategyStatusFilter },
-      }),
+  //     ...(strategyStatusFilter && {
+  //       strategyStatus: { $eq: strategyStatusFilter },
+  //     }),
 
-      ...(amountInOrdersFilter && {
-        amountInOrders: { $eq: amountInOrdersFilter },
-      }),
+  //     ...(amountInOrdersFilter && {
+  //       amountInOrders: { $eq: amountInOrdersFilter },
+  //     }),
 
-      ...(stockUSAFilter && {
-        stockUSA: { $eq: stockUSAFilter },
-      }),
-      ...(inTransferFilter && {
-        inTransfer: { $eq: inTransferFilter },
-      }),
-      ...(boxAmountsFilter && {
-        boxAmounts: { $eq: boxAmountsFilter },
-      }),
+  //     ...(stockUSAFilter && {
+  //       stockUSA: { $eq: stockUSAFilter },
+  //     }),
+  //     ...(inTransferFilter && {
+  //       inTransfer: { $eq: inTransferFilter },
+  //     }),
+  //     ...(boxAmountsFilter && {
+  //       boxAmounts: { $eq: boxAmountsFilter },
+  //     }),
 
-      ...(sumStockFilter && {
-        sumStock: { $eq: sumStockFilter },
-      }),
+  //     ...(sumStockFilter && {
+  //       sumStock: { $eq: sumStockFilter },
+  //     }),
 
-      ...(amazonFilter && {
-        amazon: { $eq: amazonFilter },
-      }),
-      ...(profitFilter && {
-        profit: { $eq: profitFilter },
-      }),
-      ...(fbafeeFilter && {
-        fbafee: { $eq: fbafeeFilter },
-      }),
+  //     ...(amazonFilter && {
+  //       amazon: { $eq: amazonFilter },
+  //     }),
+  //     ...(profitFilter && {
+  //       profit: { $eq: profitFilter },
+  //     }),
+  //     ...(fbafeeFilter && {
+  //       fbafee: { $eq: fbafeeFilter },
+  //     }),
 
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
+  //     ...(statusFilter && {
+  //       status: { $eq: statusFilter },
+  //     }),
 
-      ...(fbaFbmStockSumFilter && {
-        fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
-      }),
-      ...(reservedSumFilter && {
-        reservedSum: { $eq: reservedSumFilter },
-      }),
-      ...(sentToFbaSumFilter && {
-        sentToFbaSum: { $eq: sentToFbaSumFilter },
-      }),
+  //     ...(fbaFbmStockSumFilter && {
+  //       fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
+  //     }),
+  //     ...(reservedSumFilter && {
+  //       reservedSum: { $eq: reservedSumFilter },
+  //     }),
+  //     ...(sentToFbaSumFilter && {
+  //       sentToFbaSum: { $eq: sentToFbaSumFilter },
+  //     }),
 
-      ...(ideaCountFilter && {
-        ideasOnCheck: { $eq: ideaCountFilter },
-      }),
+  //     ...(ideaCountFilter && {
+  //       ideasOnCheck: { $eq: ideaCountFilter },
+  //     }),
 
-      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
-      }),
+  //     ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+  //       barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
+  //     }),
 
-      ...(stockCostFilter && {
-        stockCost: { $eq: stockCostFilter },
-      }),
+  //     ...(stockCostFilter && {
+  //       stockCost: { $eq: stockCostFilter },
+  //     }),
 
-      ...(purchaseQuantityFilter && {
-        purchaseQuantity: { $eq: purchaseQuantityFilter },
-      }),
+  //     ...(purchaseQuantityFilter && {
+  //       purchaseQuantity: { $eq: purchaseQuantityFilter },
+  //     }),
 
-      ...(ideasClosedFilter && {
-        ideasClosed: { $eq: ideasClosedFilter },
-      }),
+  //     ...(ideasClosedFilter && {
+  //       ideasClosed: { $eq: ideasClosedFilter },
+  //     }),
 
-      ...(ideasVerifiedFilter && {
-        ideasFinished: { $eq: ideasVerifiedFilter },
-      }),
+  //     ...(ideasVerifiedFilter && {
+  //       ideasFinished: { $eq: ideasVerifiedFilter },
+  //     }),
 
-      ...(tagsFilter && {
-        tags: { $any: tagsFilter },
-      }),
+  //     ...(tagsFilter && {
+  //       tags: { $any: tagsFilter },
+  //     }),
 
-      ...(redFlagsFilter && {
-        redFlags: { $any: redFlagsFilter },
-      }),
-    })
+  //     ...(redFlagsFilter && {
+  //       redFlags: { $any: redFlagsFilter },
+  //     }),
+  //   })
 
-    return filter
+  //   return filter
+  // }
+
+  getFilters(exclusion) {
+    const transparency =
+      this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
+        ? null
+        : this.columnMenuSettings.transparencyYesNoFilterData.yes
+
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle', 'skuByClient'],
+        {
+          ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+            barCode: {
+              [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+            },
+          }),
+          ...(transparency !== null && {
+            transparency: { $eq: transparency },
+          }),
+        },
+      ),
+    )
   }
 
-  async getProductsMy(noProductBaseUpdate) {
+  async getProductsMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -927,7 +955,7 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.getFilter(),
+        filters: this.getFilters(),
 
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
@@ -942,14 +970,8 @@ export class ClientInventoryViewModel {
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
-
         this.rowCount = result.count
-
         this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
-
-        if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result.rows, this.shopsData)
-        }
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
