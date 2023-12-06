@@ -38,7 +38,6 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     withoutFiles,
     imagesTitles = [],
-    isImagesFullWidth = false,
     isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
