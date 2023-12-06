@@ -10,10 +10,10 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from '../receive-box-modal.style'
+import { useStyles } from './current-box.style'
 
 export const CurrentBox = memo(({ boxesBefore, volumeWeightCoefficient, totalProductsAmount, actuallyAssembled }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentBox, setCurrentBox] = useState(boxesBefore?.[currentIndex])
@@ -58,62 +58,62 @@ export const CurrentBox = memo(({ boxesBefore, volumeWeightCoefficient, totalPro
   const isDisableArrowRight = currentIndex === boxesBefore.length - 1
 
   return (
-    <div className={classNames.currentBox}>
-      <div className={classNames.order}>
-        <img className={classNames.img} src={getAmazonImageUrl(boxesBefore[0]?.items[0]?.product.images[0])} />
+    <div className={styles.currentBox}>
+      <div className={styles.order}>
+        <img className={styles.img} src={getAmazonImageUrl(boxesBefore[0]?.items[0]?.product.images[0])} />
         <Tooltip title={productTooltip}>
-          <p className={classNames.titleOfCurBox}>
+          <p className={styles.titleOfCurBox}>
             {getShortenStringIfLongerThanCount(boxesBefore[0].items[0].product.amazonTitle, 225)}
           </p>
         </Tooltip>
       </div>
 
-      <div className={classNames.currentBoxInfo}>
-        <div className={classNames.qtyWrapper}>
-          <p className={classNames.qtyTitle}>{t(TranslationKey.Quantity)}</p>
-          <p className={classNames.qtySubTitle}>{quantity}</p>
+      <div className={styles.currentBoxInfo}>
+        <div className={styles.qtyWrapper}>
+          <p className={styles.qtyTitle}>{t(TranslationKey.Quantity)}</p>
+          <p className={styles.qtySubTitle}>{quantity}</p>
         </div>
-        <div className={classNames.qtyWrapper}>
-          <p className={classNames.qtyTitle}>{t(TranslationKey['Left to redistribute'])}</p>
-          <p className={classNames.qtySubTitle}>{totalProductsAmount}</p>
+        <div className={styles.qtyWrapper}>
+          <p className={styles.qtyTitle}>{t(TranslationKey['Left to redistribute'])}</p>
+          <p className={styles.qtySubTitle}>{totalProductsAmount}</p>
         </div>
-        <div className={classNames.qtyWrapper}>
-          <p className={classNames.qtyTitle}>{t(TranslationKey['Actually assembled'])}</p>
-          <p className={classNames.qtySubTitle}>{actuallyAssembled}</p>
+        <div className={styles.qtyWrapper}>
+          <p className={styles.qtyTitle}>{t(TranslationKey['Actually assembled'])}</p>
+          <p className={styles.qtySubTitle}>{actuallyAssembled}</p>
         </div>
       </div>
 
-      <div className={classNames.currentBoxesWrapper}>
-        <div className={classNames.demensionsWrapper}>
-          <p className={classNames.categoryTitle}>{t(TranslationKey['Sizes from buyer']) + ':'}</p>
+      <div className={styles.currentBoxesWrapper}>
+        <div className={styles.demensionsWrapper}>
+          <p className={styles.categoryTitle}>{t(TranslationKey['Sizes from buyer']) + ':'}</p>
 
-          <p className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
+          <p className={styles.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
             currentBox?.lengthCmSupplier,
             2,
           )} ${t(TranslationKey.cm)}`}</p>
-          <p className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
+          <p className={styles.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
             currentBox?.widthCmSupplier,
             2,
           )} ${t(TranslationKey.cm)}`}</p>
-          <p className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
+          <p className={styles.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
             currentBox?.heightCmSupplier,
             2,
           )} ${t(TranslationKey.cm)}`}</p>
-          <p className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+          <p className={styles.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
             currentBox?.weighGrossKgSupplier,
             2,
           )} `}</p>
-          <p className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${volumeWeight} `}</p>
-          <p className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${finalWeight}`}</p>
+          <p className={styles.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${volumeWeight} `}</p>
+          <p className={styles.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${finalWeight}`}</p>
         </div>
 
-        <div className={classNames.arrowButtons}>
+        <div className={styles.arrowButtons}>
           <button disabled={isDisableArrow || isDisableArrowLeft} onClick={handlePrev}>
-            <ArrowLeftIcon className={cx(classNames.arrowIcon, isDisableArrowLeft && classNames.arrowIconDisable)} />
+            <ArrowLeftIcon className={cx(styles.arrowIcon, isDisableArrowLeft && styles.arrowIconDisable)} />
           </button>
-          <p className={classNames.footerTitle}>{`${currentIndex + 1} / ${boxesBefore.length}`}</p>
+          <p className={styles.footerTitle}>{`${currentIndex + 1} / ${boxesBefore.length}`}</p>
           <button disabled={isDisableArrow || isDisableArrowRight} onClick={handleNext}>
-            <ArrowRightIcon className={cx(classNames.arrowIcon, isDisableArrowRight && classNames.arrowIconDisable)} />
+            <ArrowRightIcon className={cx(styles.arrowIcon, isDisableArrowRight && styles.arrowIconDisable)} />
           </button>
         </div>
       </div>

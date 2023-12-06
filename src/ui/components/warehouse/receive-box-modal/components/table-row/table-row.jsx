@@ -13,48 +13,48 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from '../receive-box-modal.style'
+import { useStyles } from './table-row.style'
 
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <TableRow className={classNames.row}>
-      <TableCell className={classNames.standartCell}>
+    <TableRow className={styles.row}>
+      <TableCell className={styles.standartCell}>
         {item.items.map((el, i) => (
-          <div key={i} className={classNames.descriptionWrapper}>
-            <img className={classNames.img} src={getAmazonImageUrl(el?.product.images[0])} />
+          <div key={i} className={styles.descriptionWrapper}>
+            <img className={styles.img} src={getAmazonImageUrl(el?.product.images[0])} />
 
             <div>
-              <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
+              <Typography className={styles.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
 
-              <div className={classNames.asinWrapper}>
-                <Typography className={classNames.orderText}>
-                  <span className={classNames.unitsText}>{t(TranslationKey.ASIN) + ': '}</span>
+              <div className={styles.asinWrapper}>
+                <Typography className={styles.orderText}>
+                  <span className={styles.unitsText}>{t(TranslationKey.ASIN) + ': '}</span>
                   {el?.product?.asin ? (
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href={`https://www.amazon.com/dp/${el?.product?.asin}`}
-                      className={classNames.normalizeLink}
+                      className={styles.normalizeLink}
                     >
-                      <span className={classNames.linkSpan}>{shortAsin(el?.product?.asin)}</span>
+                      <span className={styles.linkSpan}>{shortAsin(el?.product?.asin)}</span>
                     </a>
                   ) : (
-                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                    <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
                   )}
                 </Typography>
                 {el?.product?.asin ? <CopyValue text={el?.product?.asin} /> : null}
               </div>
 
-              <div className={classNames.unitsWrapper}>
-                <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
+              <div className={styles.unitsWrapper}>
+                <Typography className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
                 <Input
                   classes={{
-                    root: cx(classNames.inputWrapper, {
-                      [classNames.error]: !el.amount || el.amount === '0',
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: !el.amount || el.amount === '0',
                     }),
-                    input: classNames.input,
+                    input: styles.input,
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={el.amount}
@@ -66,13 +66,13 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         ))}
       </TableCell>
 
-      <TableCell className={classNames.standartCell}>
+      <TableCell className={styles.standartCell}>
         <Input
           classes={{
-            root: cx(classNames.inputWrapper, {
-              [classNames.error]: !item.amount || item.amount === '0',
+            root: cx(styles.inputWrapper, {
+              [styles.error]: !item.amount || item.amount === '0',
             }),
-            input: classNames.input,
+            input: styles.input,
           }}
           inputProps={{ maxLength: 6 }}
           value={item.amount}
@@ -80,25 +80,25 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
 
-      <TableCell className={classNames.standartCell}>
+      <TableCell className={styles.standartCell}>
         <Input
           disabled
-          classes={{ root: classNames.inputWrapper, input: classNames.input }}
+          classes={{ root: styles.inputWrapper, input: styles.input }}
           // value={item.items[0].amount * item.amount}
           value={item.items.reduce((ac, cur) => (ac += cur.amount), 0) * item.amount}
         />
       </TableCell>
 
-      <TableCell className={classNames.standartCell}>
-        <div className={classNames.sizesCell}>
-          <div className={classNames.sizeWrapper}>
+      <TableCell className={styles.standartCell}>
+        <div className={styles.sizesCell}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               classes={{
-                root: cx(classNames.inputWrapper, {
-                  [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                root: cx(styles.inputWrapper, {
+                  [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
                 }),
-                input: classNames.input,
+                input: styles.input,
               }}
               inputProps={{ maxLength: 6 }}
               value={item.lengthCmWarehouse}
@@ -106,28 +106,28 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             />
           </div>
 
-          <div className={classNames.sizeWrapper}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.W) + ': '}</Typography>
             <Input
               classes={{
-                root: cx(classNames.inputWrapper, {
-                  [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                root: cx(styles.inputWrapper, {
+                  [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
                 }),
-                input: classNames.input,
+                input: styles.input,
               }}
               inputProps={{ maxLength: 6 }}
               value={item.widthCmWarehouse}
               onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
             />
           </div>
-          <div className={classNames.sizeWrapper}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.H) + ': '}</Typography>
             <Input
               classes={{
-                root: cx(classNames.inputWrapper, {
-                  [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                root: cx(styles.inputWrapper, {
+                  [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
                 }),
-                input: classNames.input,
+                input: styles.input,
               }}
               inputProps={{ maxLength: 6 }}
               value={item.heightCmWarehouse}
@@ -136,30 +136,33 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
           </div>
         </div>
       </TableCell>
-      <TableCell className={classNames.standartCell}>
+
+      <TableCell className={styles.standartCell}>
         <Input
           classes={{
-            root: cx(classNames.inputWrapper, {
-              [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
+            root: cx(styles.inputWrapper, {
+              [styles.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
             }),
-            input: classNames.input,
+            input: styles.input,
           }}
           inputProps={{ maxLength: 6 }}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />
       </TableCell>
-      <TableCell className={classNames.standartCell}>
+
+      <TableCell className={styles.standartCell}>
         <Input
           disabled
-          classes={{ root: classNames.inputWrapper, input: classNames.input }}
+          classes={{ root: styles.inputWrapper, input: styles.input }}
           value={toFixed(item.volumeWeightKgWarehouse, 3)}
         />
       </TableCell>
-      <TableCell className={classNames.standartCell}>
+
+      <TableCell className={styles.standartCell}>
         <Input
           disabled
-          classes={{ root: classNames.inputWrapper, input: classNames.input }}
+          classes={{ root: styles.inputWrapper, input: styles.input }}
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
@@ -176,7 +179,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
 
       <TableCell>
         <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
-          <DeleteIcon className={classNames.deleteBtn} />
+          <DeleteIcon className={styles.deleteBtn} />
         </IconButton>
       </TableCell>
     </TableRow>
