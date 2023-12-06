@@ -20,6 +20,7 @@ import { UserModel } from '@models/user-model'
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
 import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
@@ -144,6 +145,30 @@ export class WarehouseMyWarehouseViewModel {
     () => this.userInfo,
     () => this.unitsOption,
   )
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getBoxesMy()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -1193,30 +1218,6 @@ export class WarehouseMyWarehouseViewModel {
   onLeaveColumnField() {
     this.onHover = null
     this.getDataGridState()
-  }
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.onLeaveColumnField()
-      this.getBoxesMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
   }
 
   async onClickFilterBtn(column) {
