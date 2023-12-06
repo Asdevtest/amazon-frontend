@@ -9,7 +9,7 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
@@ -36,7 +36,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
 
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
+    checkIsMediaFileLink(typeof el !== 'string' ? el?.file?.name : el),
   )
 
   const radioBottonsSettings = [

@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
@@ -71,7 +71,7 @@ export const Slider: FC<SliderProps> = memo(props => {
   const isDisableArrowLeft = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
   const isNotElements = slides?.length === 0
   const isImagesType =
-    !withoutFiles && slides?.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name))
+    !withoutFiles && slides?.every(slide => checkIsMediaFileLink(typeof slide === 'string' ? slide : slide?.file?.name))
 
   return (
     <div

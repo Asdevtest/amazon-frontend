@@ -2,10 +2,10 @@ import { FC, memo } from 'react'
 
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
 
-import { FileIcon } from '@components/shared//file-icon/file-icon'
+import { FileIcon } from '@components/shared//file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
 
-import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
@@ -64,7 +64,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
 
           return (
             <div key={index} className={styles.slideWrapper}>
-              {checkIsImageLink(slideToCheck) ? (
+              {checkIsMediaFileLink(slideToCheck) ? (
                 checkIsVideoLink(slideToCheck) ? (
                   controls ? (
                     <VideoPlayer

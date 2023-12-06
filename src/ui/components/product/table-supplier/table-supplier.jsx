@@ -46,8 +46,6 @@ export const TableSupplier = observer(
   ({ isClient, product, productBaseData, selectedSupplier, onClickSupplier, platformSettings }) => {
     const { classes: classNames } = useClassNames()
 
-    console.log('productBaseData', productBaseData)
-
     const renderHeader = () => (
       <TableHead className={classNames.tableHead}>
         <TableRow>

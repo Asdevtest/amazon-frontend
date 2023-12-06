@@ -11,7 +11,7 @@ import {
   checkIsGif,
   checkIsHasHttp,
   checkIsImageInludesPostfixes,
-  checkIsImageLink,
+  checkIsMediaFileLink,
   checkIsVideoLink,
 } from '@utils/checks'
 import { removeText } from '@utils/text'
@@ -22,7 +22,7 @@ export const getAmazonImageUrl = (str, isBig) => {
   }
 
   if (checkIsHasHttp(str)) {
-    return checkIsImageLink(str)
+    return checkIsMediaFileLink(str)
       ? !isBig && !str.includes('.preview.webp')
         ? str + amazonImageUrlPostfix
         : str
@@ -32,7 +32,7 @@ export const getAmazonImageUrl = (str, isBig) => {
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
       !checkIsVideoLink(str) &&
       !checkIsDocumentLink(str)
-        ? checkIsImageLink(str) && !isBig && !str.includes('.preview.webp')
+        ? checkIsMediaFileLink(str) && !isBig && !str.includes('.preview.webp')
           ? amazonImageUrlPostfix
           : ''
         : ''

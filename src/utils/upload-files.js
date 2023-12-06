@@ -5,7 +5,7 @@ import { Errors } from '@constants/errors'
 
 import { OtherModel } from '@models/other-model'
 
-import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsImageLink } from './checks'
+import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsMediaFileLink } from './checks'
 import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
 
@@ -64,7 +64,7 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
       } else if (typeof file === 'string') {
         try {
           const res = await uploadFileByUrl(
-            checkIsImageInludesPostfixes(file) || checkIsImageLink(file) || checkIsHasHttp(file)
+            checkIsImageInludesPostfixes(file) || checkIsMediaFileLink(file) || checkIsHasHttp(file)
               ? file
               : getAmazonImageUrl(file, true),
           )
@@ -101,7 +101,7 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
         this[type].push(image)
       } else if (typeof image === 'string') {
         const res = await uploadFileByUrl(
-          checkIsImageInludesPostfixes(image) || checkIsImageLink(image) || checkIsHasHttp(image)
+          checkIsImageInludesPostfixes(image) || checkIsMediaFileLink(image) || checkIsHasHttp(image)
             ? image
             : getAmazonImageUrl(image, true),
         )

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { IUploadFile } from '@typings/upload-file'
@@ -41,7 +41,7 @@ export const usePhotoAndFilesSlider = (
     const filteringMediaFiles = files?.filter(file => {
       const currentFile = typeof file === 'string' ? file : file?.file?.name
 
-      return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
+      return checkIsMediaFileLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
     })
 
     setMediaFiles(filteringMediaFiles)
