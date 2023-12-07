@@ -82,6 +82,7 @@ export const WarehouseMyWarehouseView = observer(props => {
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
+            columnMenu: viewModel.columnMenuSettings,
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
