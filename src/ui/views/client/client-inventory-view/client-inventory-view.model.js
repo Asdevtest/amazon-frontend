@@ -1127,18 +1127,22 @@ export class ClientInventoryViewModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
+        let orderObject = this.ordersDataStateToSubmit[i]
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
-
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
+        }
+
+        if (orderObject.tmpTransparencyFile.length) {
+          await onSubmitPostImages.call(this, { images: orderObject.tmpTransparencyFile, type: 'uploadedFiles' })
+
+          orderObject = {
+            ...orderObject,
+            transparencyFile: this.uploadedFiles[0],
+          }
         }
 
         await this.createOrder(orderObject)
@@ -1191,6 +1195,8 @@ export class ClientInventoryViewModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

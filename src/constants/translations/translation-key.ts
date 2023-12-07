@@ -2148,5 +2148,8 @@ export enum TranslationKey {
   'pc' = 'pc',
   'There are unresolved proposals for this request in your queue.' = 'There are unresolved proposals for this request in your queue.',
   'Images' = 'Images',
+  'Transparency codes' = 'Transparency codes',
+  'Transparency' = 'Transparency',
+  'No Transparency codes' = 'No Transparency codes',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

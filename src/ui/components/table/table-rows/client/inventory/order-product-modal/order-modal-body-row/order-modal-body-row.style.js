@@ -180,4 +180,20 @@ export const useClassNames = makeStyles()(theme => ({
   calculationButton: {
     minWidth: '225px !important',
   },
+
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '5px',
+    padding: '5px 0',
+  },
+
+  warningText: {
+    textAlign: 'center',
+    fontSize: '12px',
+    fontWeight: 400,
+    color: theme.palette.text.red,
+  },
 }))

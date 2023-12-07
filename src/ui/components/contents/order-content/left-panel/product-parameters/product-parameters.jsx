@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Chip, Link, Typography } from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -11,12 +11,13 @@ import {
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 // import { calcMaxDeliveryForProduct } from '@utils/calculation'
-import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-parameters.style'
@@ -30,7 +31,7 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
@@ -63,7 +64,6 @@ export const ProductParameters = ({
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
-      {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
       <OrderParameter
         label={t(TranslationKey['Purchase price'])}
         value={toFixed(order?.totalPrice / order?.amount, 2)}
@@ -87,11 +87,7 @@ export const ProductParameters = ({
         }
       />
       <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
-      {/* <OrderParameter
-        label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(maxDelivery, 2)}
-        // value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
-      /> */}
+
       <Field
         oneLine
         label={t(TranslationKey.Dimensions)}
@@ -133,24 +129,14 @@ export const ProductParameters = ({
         inputComponent={
           <>
             {isCanChange ? (
-              <Chip
-                classes={{
-                  root: classNames.barcodeChip,
-                  clickable: classNames.barcodeChipHover,
-                  deletable: classNames.barcodeChipHover,
-                  deleteIcon: classNames.barcodeChipIcon,
-                }}
-                className={cx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
-                size="small"
-                label={
-                  formFields.tmpBarCode.length
-                    ? t(TranslationKey['File added'])
-                    : formFields.product.barCode
-                    ? trimBarcode(formFields.product.barCode)
-                    : t(TranslationKey['Set Barcode'])
+              <ChangeChipCell
+                isChipOutTable
+                text={!formFields.product.barCode && !formFields.tmpBarCode.length && t(TranslationKey['Set Barcode'])}
+                value={
+                  formFields.tmpBarCode?.[0]?.file?.name || formFields.tmpBarCode?.[0] || formFields.product.barCode
                 }
-                onClick={() => onClickBarcode()}
-                onDelete={!formFields.product.barCode ? undefined : () => onDeleteBarcode()}
+                onClickChip={() => onClickBarcode()}
+                onDeleteChip={() => onDeleteBarcode()}
               />
             ) : (
               <LabelWithCopy
@@ -162,6 +148,23 @@ export const ProductParameters = ({
           </>
         }
       />
+
+      <Field
+        oneLine
+        label={t(TranslationKey['Transparency codes'])}
+        containerClasses={classNames.parameterTableCellWrapper}
+        labelClasses={classNames.fieldLabel}
+        inputComponent={
+          <>
+            <LabelWithCopy
+              lableLinkTitleSize="medium"
+              labelValue={order.transparencyFile}
+              lableLinkTitle={t(TranslationKey.View)}
+            />
+          </>
+        }
+      />
+
       {collapsed && (
         <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
       )}

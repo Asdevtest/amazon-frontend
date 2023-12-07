@@ -4,11 +4,12 @@ import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
+import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -22,7 +23,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './order-modal-body-row.style'
@@ -44,6 +45,7 @@ export const OrderModalBodyRow = ({
   withRemove,
   destinationsFavourites,
   onClickSetDestinationFavourite,
+  onClickTransparency,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -385,26 +387,41 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Chip
-            classes={{
-              root: classNames.barcodeChip,
-              clickable: classNames.barcodeChipHover,
-              deletable: classNames.barcodeChipHover,
-              deleteIcon: classNames.barcodeChipIcon,
-            }}
-            className={cx({ [classNames.barcodeChipExists]: item.barCode })}
-            size="small"
-            label={
-              orderState.tmpBarCode.length
-                ? t(TranslationKey['File added'])
-                : orderState.barCode
-                ? trimBarcode(orderState.barCode)
-                : t(TranslationKey['Set Barcode'])
-            }
-            onClick={() => onClickBarcode(item, itemIndex)}
-            onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}
-            onDelete={!orderState.barCode ? undefined : () => onDeleteBarcode(item, itemIndex)}
-          />
+          <div className={classNames.buttonWrapper}>
+            <ChangeChipCell
+              text={!orderState.barCode && !orderState.tmpBarCode.length && t(TranslationKey['Set Barcode'])}
+              value={orderState.tmpBarCode?.[0]?.file?.name || orderState.tmpBarCode?.[0] || orderState.barCode}
+              onClickChip={() => onClickBarcode(item, itemIndex)}
+              onDoubleClickChip={() => onDoubleClickBarcode(item, itemIndex)}
+              onDeleteChip={() => onDeleteBarcode(item, itemIndex)}
+            />
+
+            <ChangeChipCell
+              text={
+                !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && t(TranslationKey.Transparency)
+              }
+              value={
+                orderState.tmpTransparencyFile?.[0]?.file?.name ||
+                orderState.tmpTransparencyFile?.[0] ||
+                orderState.transparencyFile
+              }
+              onClickChip={() =>
+                onClickTransparency({
+                  tmpFiles: orderState.tmpTransparencyFile,
+                  currentFiles: orderState.transparencyFile,
+                  index: itemIndex,
+                })
+              }
+              onDeleteChip={() => {
+                setOrderStateFiled('transparencyFile')('')
+                setOrderStateFiled('tmpTransparencyFile')([])
+              }}
+            />
+
+            {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
+              <p className={classNames.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+            )}
+          </div>
         </TableCell>
 
         <TableCell className={classNames.cell}>
