@@ -70,15 +70,8 @@ export const useStyles = makeStyles()(theme => ({
 
   barcodeWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 40,
-  },
-
-  barcode: {
-    minWidth: 145,
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
+    flexDirection: 'column',
+    gap: 5,
   },
 
   checkbox: {
