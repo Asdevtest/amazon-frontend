@@ -113,7 +113,7 @@ export class ClientExchangePrivateLabelViewModel {
         this.productToPay._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopIds: this.selectedShops,
+            shopId: this.selectedShops,
           },
           ['suppliers'],
         ),

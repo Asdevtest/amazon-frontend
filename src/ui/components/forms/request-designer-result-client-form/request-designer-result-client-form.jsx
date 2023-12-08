@@ -15,7 +15,7 @@ import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -133,9 +133,9 @@ export const RequestDesignerResultClientForm = memo(props => {
     setArchiveButtonInactiveBeforeDownloading(false)
   }
 
-  const imageLinks = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.image)
-  const photosTitles = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.comment)
-  const photosComments = imagesData.filter(el => checkIsImageLink(el.image)).map(el => el.commentByClient)
+  const imageLinks = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.image)
+  const photosTitles = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.comment)
+  const photosComments = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.commentByClient)
 
   return (
     <div className={styles.modalMainWrapper}>

@@ -396,7 +396,7 @@ export class ClientExchangeViewModel {
         this.selectedProduct._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopIds: this.selectedShops,
+            shopId: this.selectedShops,
           },
           ['suppliers'],
         ),
