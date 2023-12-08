@@ -2144,5 +2144,11 @@
   "This rate may have an irrelevant value as the rate may have been changed after shipment.": "Данный рейт может иметь неактуальное значение, поскольку тариф мог быть изменён после отправки.",
   "pc": "шт",
   "There are unresolved proposals for this request in your queue.": "В вашей очереди есть нерешенные предложения по этой заявке.",
-  "Images": "Картинки"
+  "Images": "Картинки",
+  "Transparency codes": "Transparency codes",
+  "Transparency": "Transparency",
+  "No Transparency codes": "Отсутствует Transparency codes",
+  "The supplier glued the Transparency codes": "Поставшик проклеил Transparency codes",
+  "Transparency codes are glued by storekeeper": "Transparency codes проклеен сторкипером",
+  "Transparency codes glued by the supplier": "Transparency codes проклеен поставщиком"
 }

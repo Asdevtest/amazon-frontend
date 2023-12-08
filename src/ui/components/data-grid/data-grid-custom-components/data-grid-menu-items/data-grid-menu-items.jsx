@@ -2728,6 +2728,10 @@ export const OnListingCellMenuItem = React.memo(
 export const YesNoCellMenuItem = React.memo(
   withStyles(({ classes: classNames, data, onClose, field }) => {
     const filterData = data[`${field}YesNoFilterData`]
+    const [condition, setCondition] = useState({
+      yes: filterData.yes,
+      no: filterData.no,
+    })
 
     return (
       <div title="" className={classNames.shopsDataWrapper}>
@@ -2736,12 +2740,18 @@ export const YesNoCellMenuItem = React.memo(
             <div className={classNames.shop}>
               <Checkbox
                 color="primary"
-                checked={filterData.yes}
+                checked={condition.yes}
                 onClick={() => {
-                  if (filterData.yes) {
-                    filterData.handleFilters(false, true)
+                  if (condition.yes) {
+                    setCondition({
+                      yes: false,
+                      no: true,
+                    })
                   } else {
-                    filterData.handleFilters(true, true)
+                    setCondition({
+                      yes: true,
+                      no: true,
+                    })
                   }
                 }}
               />
@@ -2752,12 +2762,18 @@ export const YesNoCellMenuItem = React.memo(
             <div className={classNames.shop}>
               <Checkbox
                 color="primary"
-                checked={filterData.no}
+                checked={condition.no}
                 onClick={() => {
-                  if (filterData.no) {
-                    filterData.handleFilters(true, false)
+                  if (condition.no) {
+                    setCondition({
+                      yes: true,
+                      no: false,
+                    })
                   } else {
-                    filterData.handleFilters(true, true)
+                    setCondition({
+                      yes: true,
+                      no: true,
+                    })
                   }
                 }}
               />
@@ -2770,6 +2786,7 @@ export const YesNoCellMenuItem = React.memo(
           <Button
             variant="contained"
             onClick={e => {
+              filterData.handleFilters(condition.yes, condition.no)
               onClose(e)
             }}
           >

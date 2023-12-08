@@ -98,6 +98,7 @@ export const OrderContent = ({
       newFormFields[fieldName] = event.target.value ? parseInt(event.target.value) : ''
     } else if ('barCode' === fieldName) {
       newFormFields.product[fieldName] = event
+      newFormFields.tmpBarCode = []
     } else if ('tmpBarCode' === fieldName) {
       newFormFields[fieldName] = event
     } else {

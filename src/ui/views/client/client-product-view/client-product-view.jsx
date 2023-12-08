@@ -55,6 +55,7 @@ export const ClientProductView = observer(({ history }) => {
           handleProductActionButtons={viewModel.handleProductActionButtons}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
           onClickGetProductsToBind={option =>

@@ -188,6 +188,7 @@ export class ClientIdeasViewModel {
     },
   }
   columnsModel = clientNewIdeasColumns(this.rowHandlers, this.shopList)
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -256,15 +257,12 @@ export class ClientIdeasViewModel {
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[this.currentSettings.dataGridKey]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   // * Filtration handlers
@@ -275,28 +273,24 @@ export class ClientIdeasViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangePaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
     this.getIdeaList()
   }

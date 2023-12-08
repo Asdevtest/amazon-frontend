@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
+import { TableCell, TableRow, Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
@@ -13,6 +13,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -69,6 +70,8 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
   )
 
   const weightFinalAccountingKgSupplier = Math.max(weighGrossKgSupplier, volumeWeightKgSupplier)
+
+  console.log('item', item)
 
   return (
     <TableRow className={classNames.row}>
@@ -162,13 +165,12 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
       </TableCell>
 
       <TableCell>
-        <div className={classNames.checkboxWithLabelWrapper}>
-          <Checkbox
-            color="primary"
-            disabled={!restProps.barcodeIsExist}
-            checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-            onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
-          />
+        <Checkbox
+          color="primary"
+          disabled={!restProps.barcodeIsExist}
+          checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+          onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
+        >
           <Field
             tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
             label={t(TranslationKey['Supplier glued the barcode'])}
@@ -176,16 +178,30 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             labelClasses={classNames.label}
             containerClasses={classNames.labelWrapper}
           />
-        </div>
+        </Checkbox>
 
-        {!restProps.isNoBuyerSupplier ? (
-          <div className={classNames.checkboxWithLabelWrapper}>
-            <Checkbox
-              color="primary"
-              disabled={restProps.isNoBuyerSupplier}
-              checked={item.tmpUseToUpdateSupplierBoxDimensions}
-              onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+        {item.items?.[0]?.transparencyFile && (
+          <Checkbox
+            color="primary"
+            checked={item?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier}
+            onChange={e => handlers.onClickTransparency(itemIndex)(e)}
+          >
+            <Field
+              label={t(TranslationKey['The supplier glued the Transparency codes'])}
+              inputClasses={classNames.hidden}
+              labelClasses={classNames.label}
+              containerClasses={classNames.labelWrapper}
             />
+          </Checkbox>
+        )}
+
+        {!restProps.isNoBuyerSupplier && (
+          <Checkbox
+            color="primary"
+            disabled={restProps.isNoBuyerSupplier}
+            checked={item.tmpUseToUpdateSupplierBoxDimensions}
+            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+          >
             <Field
               tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
               label={t(TranslationKey['Make the supplier standard'])}
@@ -193,8 +209,8 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
               labelClasses={classNames.label}
               containerClasses={classNames.labelWrapper}
             />
-          </div>
-        ) : null}
+          </Checkbox>
+        )}
       </TableCell>
 
       <TableCell>
@@ -223,6 +239,7 @@ export const BoxesToCreateTable = ({
   onEditBox,
   onClickBarcodeCheckbox,
   onClickUpdateSupplierStandart,
+  onClickTransparency,
   volumeWeightCoefficient,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -258,7 +275,13 @@ export const BoxesToCreateTable = ({
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow()}
-        rowsHandlers={{ onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart }}
+        rowsHandlers={{
+          onRemoveBox,
+          onEditBox,
+          onClickBarcodeCheckbox,
+          onClickUpdateSupplierStandart,
+          onClickTransparency,
+        }}
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={weightCoefficient}
         sizeSetting={sizeSetting}

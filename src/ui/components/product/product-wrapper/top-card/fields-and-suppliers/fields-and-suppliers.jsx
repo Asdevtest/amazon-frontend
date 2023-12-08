@@ -17,6 +17,7 @@ import { GeneralModel } from '@models/general-model'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { TagSelector } from '@components/product/product-wrapper/tag-selector'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -518,6 +519,10 @@ export const FieldsAndSuppliers = memo(
               {t(TranslationKey['Add product linkage'])}
             </Button>
           ) : null}
+
+          <Checkbox checked={product.transparency} onChange={e => onChangeField('transparency')(e.target.checked)}>
+            {'Transparency codes'}
+          </Checkbox>
         </Box>
 
         {checkIsBuyer(curUserRole) ? (

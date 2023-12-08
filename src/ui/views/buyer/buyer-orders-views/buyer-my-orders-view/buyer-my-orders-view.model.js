@@ -1,4 +1,3 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -10,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
-import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
@@ -1086,12 +1084,13 @@ export class BuyerMyOrdersViewModel {
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
 
-            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
+            transparencyFile: formFields?.items?.[0]?.transparencyFile || '',
+            isBarCodeAlreadyAttachedByTheSupplier: formFields?.items?.[0]?.isBarCodeAlreadyAttachedByTheSupplier,
+            isTransparencyFileAlreadyAttachedByTheSupplier:
+              formFields?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier,
           },
         ],
       }
-
-      await transformAndValidate(BoxesCreateBoxContract, createBoxData)
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 

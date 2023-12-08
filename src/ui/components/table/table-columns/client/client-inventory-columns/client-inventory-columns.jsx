@@ -226,13 +226,7 @@ export const clientInventoryColumns = (
   {
     field: 'inTransfer',
     headerName: 'in Transfer',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'in Transfer'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
 
     renderCell: params => {
       return (
@@ -240,7 +234,6 @@ export const clientInventoryColumns = (
           text={String(params.value)}
           onClickText={e => {
             e.stopPropagation()
-
             otherHandlers.onClickInTransfer(params.row.originalData._id)
           }}
         />
@@ -250,6 +243,16 @@ export const clientInventoryColumns = (
     width: 85,
 
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'transparency',
+    headerName: 'Transparency codes',
+    renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    type: 'boolean',
+    width: 135,
+    columnKey: columnnsKeys.shared.YES_NO,
   },
 
   {

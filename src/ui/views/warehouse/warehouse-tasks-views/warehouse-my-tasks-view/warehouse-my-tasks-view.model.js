@@ -388,6 +388,9 @@ export class WarehouseMyTasksViewModel {
                 barCode: el.barCode,
                 isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
                 isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+                isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
+                isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
+                transparencyFile: el.transparencyFile,
               })),
               images: this.imagesOfBox || box.images,
             },
@@ -395,7 +398,6 @@ export class WarehouseMyTasksViewModel {
               'amount',
               'weighGrossKg',
               'weightFinalAccountingKg',
-              // 'shippingLabel',
               'warehouse',
               'deliveryMethod',
               'lengthCmSupplier',
@@ -414,6 +416,9 @@ export class WarehouseMyTasksViewModel {
               'fitsInitialDimensions',
               'trackNumberText',
               'trackNumberFile',
+              'isTransparencyFileAlreadyAttachedByTheSupplier',
+              'isTransparencyFileAttachedByTheStorekeeper',
+              'transparencyFile',
             ],
           )
 

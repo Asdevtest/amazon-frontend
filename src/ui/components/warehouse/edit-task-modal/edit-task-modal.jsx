@@ -89,8 +89,8 @@ export const EditTaskModal = memo(
       }
     }
 
-    const [newBoxes, setNewBoxes] = useState([
-      ...task.boxes.map(
+    const [newBoxes, setNewBoxes] = useState(
+      task.boxes.map(
         box =>
           (box = {
             ...box,
@@ -102,11 +102,18 @@ export const EditTaskModal = memo(
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
 
+            items: box?.items?.map(item => ({
+              ...item,
+              isTransparencyFileAlreadyAttachedByTheSupplier:
+                item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
+              isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
+            })),
+
             tmpImages: [],
             images: box?.images || [],
           }),
       ),
-    ])
+    )
 
     const [isFilledNewBoxesDimensions, setIsFilledNewBoxesDimensions] = useState(false)
 

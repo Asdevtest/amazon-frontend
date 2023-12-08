@@ -1,4 +1,3 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
@@ -6,15 +5,12 @@ import { Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxesWarehouseReceiveBoxModalContract } from '@models/boxes-model/boxes-model.contracts'
-
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useStyles } from './receive-box-modal.style'
@@ -47,7 +43,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
       volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
       weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
-      // fitsInitialDimensions: fitsInitialDimensions ||
       tmpImages: [],
       images: (emptyBox?.images === null ? [] : emptyBox?.images) || [],
     }
@@ -175,6 +170,13 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
       const newBoxesWithoutNumberFields = newBoxesWithoutEmptyBoxes.map(el => ({
         ...el,
+
+        items: el?.items?.map(item => ({
+          ...item,
+          isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
+          isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
+        })),
+
         lengthCmWarehouse: parseFloat(el?.lengthCmWarehouse) || '',
         widthCmWarehouse: parseFloat(el?.widthCmWarehouse) || '',
         heightCmWarehouse: parseFloat(el?.heightCmWarehouse) || '',
@@ -183,13 +185,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         weightFinalAccountingKgWarehouse: parseFloat(el?.weightFinalAccountingKgWarehouse) || '',
       }))
 
-      for (let i = 0; i < newBoxesWithoutNumberFields.length; i++) {
-        const box = getObjectFilteredByKeyArrayBlackList(newBoxesWithoutNumberFields[i], ['tmpImages'])
-
-        await transformAndValidate(BoxesWarehouseReceiveBoxModalContract, box)
-      }
-
-      setSourceBoxes([...newBoxesWithoutNumberFields])
+      setSourceBoxes(newBoxesWithoutNumberFields)
       setOpenModal()
     } catch (error) {
       setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
