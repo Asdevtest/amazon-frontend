@@ -2148,5 +2148,7 @@
   "Transparency codes": "Transparency codes",
   "Transparency": "Transparency",
   "No Transparency codes": "Отсутствует Transparency codes",
-  "The supplier glued the Transparency codes": "Поставшик проклеил Transparency codes"
+  "The supplier glued the Transparency codes": "Поставшик проклеил Transparency codes",
+  "Transparency codes are glued by storekeeper": "Transparency codes проклеен сторкипером",
+  "Transparency codes glued by the supplier": "Transparency codes проклеен поставщиком"
 }

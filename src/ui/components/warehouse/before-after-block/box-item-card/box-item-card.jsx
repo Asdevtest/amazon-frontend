@@ -33,6 +33,8 @@ export const BoxItemCard = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
+  console.log('item', item)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
@@ -194,6 +196,44 @@ export const BoxItemCard = ({
                       />
                     )}
 
+                    {item.isTransparencyFileAttachedByTheStorekeeper === false && item?.transparencyFile && (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                        labelClasses={classNames.label}
+                        inputComponent={
+                          <Checkbox
+                            color="primary"
+                            disabled={!isNewBox || readOnly}
+                            checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                            onChange={e =>
+                              onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
+                            }
+                          />
+                        }
+                      />
+                    )}
+
+                    {item.isTransparencyFileAlreadyAttachedByTheSupplier === false && item?.transparencyFile && (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                        labelClasses={classNames.label}
+                        inputComponent={
+                          <Checkbox
+                            color="primary"
+                            disabled={!isNewBox || readOnly}
+                            checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                            onChange={e =>
+                              onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
+                            }
+                          />
+                        }
+                      />
+                    )}
+
                     {isNewBox &&
                       !readOnly &&
                       boxIndex === 0 &&
@@ -213,6 +253,8 @@ export const BoxItemCard = ({
                                 onApplyGluedBarcodeToAllBoxes(
                                   item.isBarCodeAlreadyAttachedByTheSupplier,
                                   item.isBarCodeAttachedByTheStorekeeper,
+                                  item.isTransparencyFileAlreadyAttachedByTheSupplier,
+                                  item.isTransparencyFileAttachedByTheStorekeeper,
                                 )
                               }
                             >
@@ -241,7 +283,6 @@ export const BoxItemCard = ({
                     <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
                     {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
                   </div>
-                  {/* {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null} */}
                 </div>
               )}
 
