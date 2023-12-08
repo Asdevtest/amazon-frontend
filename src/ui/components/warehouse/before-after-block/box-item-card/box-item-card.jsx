@@ -102,6 +102,20 @@ export const BoxItemCard = ({
                 />
               </div>
 
+              <div
+                className={cx(classNames.barCodeWrapper, {
+                  [classNames.editAccent]:
+                    needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+                })}
+              >
+                <LabelWithCopy
+                  labelTitleColor={'gray'}
+                  labelTitle={t(TranslationKey.Transparency)}
+                  labelValue={item.transparencyFile}
+                  lableLinkTitle={t(TranslationKey.View)}
+                />
+              </div>
+
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Order number'])}</Typography>
                 <Typography className={classNames.subValue}>{item.order.id}</Typography>
@@ -137,11 +151,9 @@ export const BoxItemCard = ({
                     className={cx(classNames.barCodeActionsWrapper, {
                       [classNames.successAccent]:
                         isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
                         (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
                       [classNames.warningAccent]:
                         isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
                         !item.isBarCodeAlreadyAttachedByTheSupplier &&
                         !item.isBarCodeAttachedByTheStorekeeper,
                     })}
@@ -301,6 +313,20 @@ export const BoxItemCard = ({
             labelTitleColor={'gray'}
             labelTitle={t(TranslationKey.BarCode)}
             labelValue={item.barCode}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
+        </div>
+
+        <div
+          className={cx(classNames.barCodeWrapper, {
+            [classNames.editAccent]:
+              needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+          })}
+        >
+          <LabelWithCopy
+            labelTitleColor={'gray'}
+            labelTitle={t(TranslationKey.Transparency)}
+            labelValue={item.transparencyFile}
             lableLinkTitle={t(TranslationKey.View)}
           />
         </div>

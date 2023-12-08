@@ -49,7 +49,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
     styles.isDraftRow
 
   return (
-    <React.Fragment>
+    <>
       <ViewHeader
         isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
@@ -387,6 +387,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </React.Fragment>
+    </>
   )
 })

@@ -1193,7 +1193,6 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.selectedBoxes = []
-
         this.uploadedFiles = []
       })
 
@@ -1207,9 +1206,7 @@ export class ClientInStockBoxesViewModel {
 
       if (
         !boxData.clientTaskComment &&
-        boxData.items.every(item => !item.tmpBarCode?.length) &&
-        // (sourceData.shippingLabel === null ||
-        //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
+        boxData.items.every(item => !item.tmpBarCode?.length && !item.tmpTransparencyFile?.length) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
@@ -1229,6 +1226,7 @@ export class ClientInStockBoxesViewModel {
           referenceId: boxData.referenceId,
           fbaNumber: boxData.fbaNumber,
           prepId: boxData.prepId,
+          transparencyFile: boxData.transparencyFile,
         })
 
         runInAction(() => {
@@ -1259,20 +1257,34 @@ export class ClientInStockBoxesViewModel {
           })
         }
 
-        const getNewItems = () => {
-          const newItems = boxData.items.map(el => {
+        const getNewItems = async () => {
+          const newItems = []
+
+          for await (const el of boxData.items) {
             const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-            return {
+            let transparencyFile
+
+            if (el.tmpTransparencyFile.length) {
+              transparencyFile = await onSubmitPostImages.call(this, {
+                images: el.tmpTransparencyFile,
+                type: 'uploadedTransparencyFiles',
+                withoutShowProgress: true,
+              })
+            }
+
+            const newItem = {
               ...getObjectFilteredByKeyArrayBlackList(el, [
                 'order',
                 'product',
                 'tmpBarCode',
                 'changeBarCodInInventory',
+                'tmpTransparencyFile',
               ]),
               amount: el.amount,
               orderId: el.order._id,
               productId: el.product._id,
 
+              transparencyFile: transparencyFile[0] || el.transparencyFile || '',
               barCode: prodInDataToUpdateBarCode?.newData?.length
                 ? prodInDataToUpdateBarCode?.newData[0]
                 : el.barCode || '',
@@ -1283,19 +1295,25 @@ export class ClientInStockBoxesViewModel {
                 ? false
                 : el.isBarCodeAttachedByTheStorekeeper,
             }
-          })
+
+            newItems.push(newItem)
+          }
 
           return newItems
         }
+
+        const requestBoxItems = isMultipleEdit
+          ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
+          : await getNewItems()
+
+        console.log('requestBoxItems', requestBoxItems)
 
         const requestBox = getObjectFilteredByKeyArrayWhiteList(
           {
             ...boxData,
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-            items: isMultipleEdit
-              ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
-              : getNewItems(),
+            items: requestBoxItems,
             shippingLabel: this.uploadedFiles?.length
               ? this.uploadedFiles[0]
               : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
@@ -1320,11 +1338,11 @@ export class ClientInStockBoxesViewModel {
           this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
             sourceData.storekeeper?.name
           } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
-        })
 
-        !isMultipleEdit
-          ? this.onTriggerOpenModal('showSuccessInfoModal')
-          : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+          !isMultipleEdit
+            ? this.onTriggerOpenModal('showSuccessInfoModal')
+            : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+        })
       }
 
       !isMultipleEdit && this.loadData()

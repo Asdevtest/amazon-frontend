@@ -28,6 +28,7 @@ export const updateBoxWhiteList = [
   'fbaNumber',
   'prepId',
   'variationTariffId',
+  'transparencyFile',
 ]
 
 export const filtersFields = [

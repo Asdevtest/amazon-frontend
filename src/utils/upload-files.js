@@ -129,6 +129,8 @@ export async function onSubmitPostImages({ images, type, withoutShowProgress }) 
     this.progressValue = 0
     this.isValidLink = true
   })
+
+  return this[type]
 }
 
 export const downloadFile = async (file, fileName) => {
