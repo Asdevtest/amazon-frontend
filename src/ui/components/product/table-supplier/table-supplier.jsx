@@ -88,7 +88,7 @@ export const TableSupplier = observer(
                         )}
 
                         {productBaseData?.orderSupplier?._id === supplier?._id && (
-                          <OrderedIcon fontSize={'large'} classes={{ root: classNames.primary }} />
+                          <OrderedIcon classes={{ root: classNames.primary }} className={classNames.orderedIcon} />
                         )}
 
                         {supplier?.multiplicity && supplier?.boxProperties?.amountInBox && (

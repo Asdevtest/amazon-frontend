@@ -112,7 +112,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
   },
 
   {
-    field: 'destination',
+    field: 'destinationId',
     headerName: t(TranslationKey['Destination and tariff']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 

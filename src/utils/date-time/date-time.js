@@ -178,3 +178,10 @@ export const getDaysHoursMinutesForMinuter = minutes => ({
   hours: Math.floor((minutes % 1440) / 60),
   minutes: minutes % 60,
 })
+
+export const getTomorrowDate = () => {
+  const date = new Date()
+  date.setDate(date.getDate() + 1)
+
+  return date
+}

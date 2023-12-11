@@ -65,8 +65,8 @@ const filtersFields = [
   'asin',
   'skuByClient',
   'amazonTitle',
-  'destination',
-  'logicsTariff',
+  'destinationId',
+  'logicsTariffId',
 ]
 
 export class WarehouseMyWarehouseViewModel {
@@ -157,17 +157,7 @@ export class WarehouseMyWarehouseViewModel {
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   get userInfo() {
@@ -1221,10 +1211,17 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickFilterBtn(column) {
+    const currentColumn =
+      column === 'logicsTariffId' ? 'logicsTariff' : column === 'destinationId' ? 'destination' : column
+
     try {
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'boxes'),
-        column,
+        // Костылики, если ты это видишь, то Паша обещал решить эту проблему после релиза 11.12.2023
+        // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
+        // Удалить currentColumn и поставить на его место аргумент функции, column
+        // Костыли зло ┗( T﹏T )┛
+        getTableByColumn(currentColumn, 'boxes'),
+        currentColumn,
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )
 
@@ -1256,86 +1253,16 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   getFilter(exclusion) {
-    const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
-    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
-    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skuByClientFilter =
-      exclusion !== 'skuByClient' && this.columnMenuSettings.skuByClient.currentFilterData.join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-    const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
-    const logicsTariffFilter =
-      exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-    const batchHumanFriendlyIdFilter =
-      exclusion !== 'batchHumanFriendlyId' &&
-      this.columnMenuSettings.batchHumanFriendlyId.currentFilterData.map(el => el._id).join(',')
-
-    // const orderIdsItemsFilter = exclusion !== 'orderIdsItemsFilter' && this.columnMenuSettings.orderIdsItems.currentFilterData.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skuByClient: { $contains: this.nameSearchValue } },
-        { item: { $eq: this.nameSearchValue } },
-        { id: { $eq: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-        { prepId: { $contains: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(idFilter && {
-        id: { $eq: idFilter },
-      }),
-
-      ...(itemFilter && {
-        item: { $eq: itemFilter },
-      }),
-
-      ...(amountFilter && {
-        amount: { $eq: amountFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-
-      ...(prepIdFilter && {
-        prepId: { $eq: prepIdFilter },
-      }),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skuByClientFilter && {
-        skuByClient: { $eq: skuByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(destinationFilter && {
-        destinationId: { $eq: destinationFilter },
-      }),
-      ...(logicsTariffFilter && {
-        logicsTariffId: { $eq: logicsTariffFilter },
-      }),
-      ...(batchHumanFriendlyIdFilter && {
-        batchHumanFriendlyId: { $eq: batchHumanFriendlyIdFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'amazonTitle',
+        'skuByClient',
+        'item',
+        'id',
+        'humanFriendlyId',
+        'prepId',
+      ]),
+    )
   }
 }
