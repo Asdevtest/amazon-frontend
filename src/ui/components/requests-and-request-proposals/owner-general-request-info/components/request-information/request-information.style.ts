@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   firstBlock: {
-    width: 377,
+    width: 380,
   },
 
   priorityWrapper: {
@@ -76,7 +76,7 @@ export const useStyles = makeStyles()(theme => ({
   requestMoreInformation: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 15,
   },
 
   moreInformationSection: {
