@@ -1,19 +1,17 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 400,
     minHeight: 368,
-
-    margin: '0 10px 0 0',
+    padding: '0 5px',
   },
 
   paymentMethodTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
     marginLeft: -12,
-    marginBottom: 20,
+    marginBottom: 10,
     gap: 10,
   },
   paymentMethodIcon: {
