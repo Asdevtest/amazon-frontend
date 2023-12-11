@@ -75,7 +75,7 @@ export const AdminExchangeViewsRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={row => viewModel.onClickTableRow(row._id)}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
