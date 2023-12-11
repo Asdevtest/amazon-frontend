@@ -125,11 +125,10 @@ export const checkIsDocumentLink = link =>
   link?.includes('xlsx') ||
   link?.includes('xls') ||
   link?.includes('txt') ||
-  (link?.includes('.com') && !link?.includes('placeimg.com')) ||
-  link?.includes('.pdf') ||
+  (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
   link?.includes('drive.google.com') ||
   link?.includes('docs.google.com')
-
+// https://m.media-amazon.com/images/I/71CznSVO40L._AC_SY450_.jpg
 export const validateEmail = email =>
   String(email)
     .toLowerCase()
