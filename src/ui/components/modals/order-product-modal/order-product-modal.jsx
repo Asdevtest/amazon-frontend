@@ -158,9 +158,6 @@ export const OrderProductModal = ({
         })),
   )
 
-  console.log('selectedProductsData', selectedProductsData)
-  console.log('orderState', orderState)
-
   useEffect(() => {
     if (!orderState?.length) {
       onTriggerOpenModal('showOrderModal')

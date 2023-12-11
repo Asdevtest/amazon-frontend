@@ -162,7 +162,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     const onChangeField = (fieldName: string) => (value: string | number | Array<IDestinationVariation>) => {
       const newFormFields = { ...formFields }
       if (fieldName === 'yuanToDollarRate') {
-        newFormFields[fieldName] = Number(value)
+        // @ts-ignore
+        newFormFields[fieldName] = value
         newFormFields.destinationVariations = newFormFields.destinationVariations.map(variant => ({
           ...variant,
           // pricePerKgUsd: '',
@@ -409,7 +410,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               inputClasses={classNames.rateFieldInput}
               labelClasses={classNames.currentRate}
               containerClasses={classNames.rateFieldContainer}
-              // @ts-ignore
               inputProps={{ maxLength: 6 }}
               value={formFields.yuanToDollarRate}
               label={t(TranslationKey['Yuan to USD exchange rate'])}

@@ -33,8 +33,6 @@ export const BoxItemCard = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  console.log('item', item)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>

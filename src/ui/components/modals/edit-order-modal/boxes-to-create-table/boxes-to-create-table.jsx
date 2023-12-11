@@ -71,8 +71,6 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
   const weightFinalAccountingKgSupplier = Math.max(weighGrossKgSupplier, volumeWeightKgSupplier)
 
-  console.log('item', item)
-
   return (
     <TableRow className={classNames.row}>
       <TableCell>
