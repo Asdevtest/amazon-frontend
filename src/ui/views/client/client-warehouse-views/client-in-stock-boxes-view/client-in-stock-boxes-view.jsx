@@ -49,7 +49,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
     styles.isDraftRow
 
   return (
-    <React.Fragment>
+    <>
       <ViewHeader
         isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
@@ -241,7 +241,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedBoxes}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          boxesMy={viewModel.boxesMy.map(box => box.originalData)}
+          boxesMy={viewModel.boxesMy
+            .filter(box => viewModel.selectedBoxes.includes(box._id))
+            .map(box => box.originalData)}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
@@ -387,6 +389,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </React.Fragment>
+    </>
   )
 })

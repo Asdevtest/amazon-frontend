@@ -12,7 +12,7 @@ interface ChangeChipCellProps {
   value?: string
   onClickChip: (row?: any) => void
   onDoubleClickChip?: (row?: any) => void
-  onDeleteChip: (row?: any) => void
+  onDeleteChip?: (row?: any) => void
   text?: string
   disabled?: boolean
   label?: string
@@ -51,7 +51,7 @@ export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
             ? undefined
             : e => {
                 e.stopPropagation()
-                onDeleteChip(row)
+                !!onDeleteChip && onDeleteChip(row)
               }
         }
       />

@@ -11,9 +11,11 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
@@ -48,6 +50,9 @@ export const EditMultipleBoxesForm = observer(
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
+    const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+    const [filesConditions, setFilesConditions] = useState({ tmpFiles: [] })
+
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
       logicsTariffId: null,
@@ -56,12 +61,16 @@ export const EditMultipleBoxesForm = observer(
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
 
-      isBarCodeAlreadyAttachedByTheSupplier: false,
       isBarCodeAttachedByTheStorekeeper: false,
+      isBarCodeAlreadyAttachedByTheSupplier: false,
+
+      isTransparencyFileAttachedByTheStorekeeper: false,
+      isTransparencyFileAlreadyAttachedByTheSupplier: false,
 
       storekeeperId: selectedBoxes[0]?.storekeeper?._id || undefined,
       tmpShippingLabel: [],
       tmpBarCode: [],
+      tmpTransparencyFile: [],
     })
 
     const [destinationId, setDestinationId] = useState(sharedFields.destinationId)
@@ -75,13 +84,26 @@ export const EditMultipleBoxesForm = observer(
 
       if (['isShippingLabelAttachedByStorekeeper'].includes(field)) {
         newFormFields[field] = event.target.checked
-      } else if (['isBarCodeAlreadyAttachedByTheSupplier', 'isBarCodeAttachedByTheStorekeeper'].includes(field)) {
+      } else if (
+        [
+          'isBarCodeAlreadyAttachedByTheSupplier',
+          'isBarCodeAttachedByTheStorekeeper',
+          'isTransparencyFileAttachedByTheStorekeeper',
+          'isTransparencyFileAlreadyAttachedByTheSupplier',
+        ].includes(field)
+      ) {
         if (field === 'isBarCodeAlreadyAttachedByTheSupplier' && event.target.checked) {
           newFormFields[field] = event.target.checked
           newFormFields.isBarCodeAttachedByTheStorekeeper = false
         } else if (field === 'isBarCodeAttachedByTheStorekeeper' && event.target.checked) {
           newFormFields[field] = event.target.checked
           newFormFields.isBarCodeAlreadyAttachedByTheSupplier = false
+        } else if (field === 'isTransparencyFileAttachedByTheStorekeeper') {
+          newFormFields[field] = event.target.checked
+          newFormFields.isTransparencyFileAlreadyAttachedByTheSupplier = false
+        } else if (field === 'isTransparencyFileAlreadyAttachedByTheSupplier') {
+          newFormFields[field] = event.target.checked
+          newFormFields.isTransparencyFileAttachedByTheStorekeeper = false
         } else {
           newFormFields[field] = event.target.checked
         }
@@ -190,6 +212,7 @@ export const EditMultipleBoxesForm = observer(
       fbaShipment: false,
       tmpShippingLabel: false,
       tmpBarCode: false,
+      tmpTransparencyFile: false,
       isShippingLabelAttachedByStorekeeper: false,
       isBarcodeLabelAttached: false,
     })
@@ -205,15 +228,18 @@ export const EditMultipleBoxesForm = observer(
       }
     }, [newBoxes.length])
 
-    const onChangeField = (e, field, boxId) => {
-      setNewBoxes(prevBoxes => {
-        const updatedBoxes = prevBoxes.map(newBox => {
+    const onChangeField = (e, field, boxId, itemIndex) => {
+      setNewBoxes(prevBoxes =>
+        prevBoxes.map(newBox => {
           if (newBox._id === boxId) {
             if (field === 'part') {
               return {
                 ...newBox,
                 ...e,
               }
+            } else if (field === 'items') {
+              newBox.items[itemIndex] = e
+              return newBox
             } else {
               return {
                 ...newBox,
@@ -222,10 +248,8 @@ export const EditMultipleBoxesForm = observer(
             }
           }
           return newBox
-        })
-
-        return updatedBoxes
-      })
+        }),
+      )
     }
 
     const onApplySharedValuesToAllBoxes = field => {
@@ -239,13 +263,26 @@ export const EditMultipleBoxesForm = observer(
             ? {
                 ...newBox,
                 items: newBox?.items
-                  ? [
-                      ...newBox.items.map(el => ({
-                        ...el,
-                        changeBarCodInInventory: false,
-                        tmpBarCode: sharedFields.tmpBarCode,
-                      })),
-                    ]
+                  ? newBox.items.map(el => ({
+                      ...el,
+                      changeBarCodInInventory: false,
+                      tmpBarCode: sharedFields.tmpBarCode,
+                    }))
+                  : [],
+              }
+            : newBox,
+        )
+      } else if (field === 'tmpTransparencyFile') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                items: newBox?.items
+                  ? newBox.items.map(el => ({
+                      ...el,
+                      changeBarCodInInventory: false,
+                      tmpTransparencyFile: sharedFields.tmpTransparencyFile,
+                    }))
                   : [],
               }
             : newBox,
@@ -256,13 +293,15 @@ export const EditMultipleBoxesForm = observer(
             ? {
                 ...newBox,
                 items: newBox?.items
-                  ? [
-                      ...newBox.items.map(el => ({
-                        ...el,
-                        isBarCodeAlreadyAttachedByTheSupplier: sharedFields.isBarCodeAlreadyAttachedByTheSupplier,
-                        isBarCodeAttachedByTheStorekeeper: sharedFields.isBarCodeAttachedByTheStorekeeper,
-                      })),
-                    ]
+                  ? newBox.items.map(el => ({
+                      ...el,
+                      isBarCodeAlreadyAttachedByTheSupplier: sharedFields.isBarCodeAlreadyAttachedByTheSupplier,
+                      isBarCodeAttachedByTheStorekeeper: sharedFields.isBarCodeAttachedByTheStorekeeper,
+                      isTransparencyFileAttachedByTheStorekeeper:
+                        sharedFields.isTransparencyFileAttachedByTheStorekeeper,
+                      isTransparencyFileAlreadyAttachedByTheSupplier:
+                        sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier,
+                    }))
                   : [],
               }
             : newBox,
@@ -476,28 +515,13 @@ export const EditMultipleBoxesForm = observer(
                   labelClasses={classNames.label}
                   label={t(TranslationKey.BarCode)}
                   inputComponent={
-                    <div>
-                      <Chip
-                        classes={{
-                          root: classNames.barcodeChip,
-                          clickable: classNames.barcodeChipHover,
-                          deletable: classNames.barcodeChipHover,
-                          deleteIcon: classNames.barcodeChipIcon,
-                          label: classNames.barcodeChiplabel,
-                        }}
-                        className={cx({ [classNames.barcodeChipExists]: sharedFields.barCode })}
-                        size="small"
-                        label={
-                          sharedFields.tmpBarCode?.length
-                            ? t(TranslationKey['File added'])
-                            : sharedFields.barCode
-                            ? sharedFields.barCode
-                            : t(TranslationKey['Set Barcode'])
-                        }
-                        onClick={() => onClickBarcode(sharedFields)}
-                        // onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
-                      />
-                    </div>
+                    <ChangeChipCell
+                      isChipOutTable
+                      text={!sharedFields?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                      value={sharedFields?.tmpBarCode?.[0]?.file?.name || sharedFields?.tmpBarCode?.[0]}
+                      onClickChip={() => onClickBarcode(sharedFields)}
+                      onDeleteChip={() => setSharedFields(prev => ({ ...prev, tmpBarCode: [] }))}
+                    />
                   }
                 />
                 <Button
@@ -506,6 +530,36 @@ export const EditMultipleBoxesForm = observer(
                     [classNames.applyButtonClicked]: applyBtnsClicked.tmpBarCode,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}
+                >
+                  {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
+                </Button>
+              </div>
+
+              <div>
+                <Field
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['Transparency codes'])}
+                  inputComponent={
+                    <ChangeChipCell
+                      isChipOutTable
+                      text={!sharedFields?.tmpTransparencyFile?.length && t(TranslationKey.Transparency)}
+                      value={
+                        sharedFields?.tmpTransparencyFile?.[0]?.file?.name || sharedFields?.tmpTransparencyFile?.[0]
+                      }
+                      onClickChip={() => {
+                        setShowSetFilesModal(true)
+                        setFilesConditions({ tmpFiles: sharedFields?.tmpTransparencyFile })
+                      }}
+                      onDeleteChip={() => setSharedFields(prev => ({ ...prev, tmpTransparencyFile: [] }))}
+                    />
+                  }
+                />
+                <Button
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpTransparencyFile,
+                  })}
+                  onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
@@ -540,7 +594,7 @@ export const EditMultipleBoxesForm = observer(
                 </div>
               ) : null}
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) && (
                 <div>
                   <Field
                     oneLine
@@ -571,6 +625,32 @@ export const EditMultipleBoxesForm = observer(
                     }
                   />
 
+                  <Field
+                    oneLine
+                    labelClasses={classNames.label}
+                    containerClasses={classNames.checkboxContainer}
+                    label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                    inputComponent={
+                      <Checkbox
+                        checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
+                        onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
+                      />
+                    }
+                  />
+
+                  <Field
+                    oneLine
+                    labelClasses={classNames.label}
+                    containerClasses={classNames.checkboxContainer}
+                    label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                    inputComponent={
+                      <Checkbox
+                        checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
+                        onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
+                      />
+                    }
+                  />
+
                   <Button
                     disabled={disabledApplyBtn}
                     className={cx(classNames.applyButton, {
@@ -581,7 +661,7 @@ export const EditMultipleBoxesForm = observer(
                     {applyBtnsClicked.isBarcodeLabelAttached ? <DoneIcon /> : t(TranslationKey.Apply)}
                   </Button>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
 
@@ -658,6 +738,20 @@ export const EditMultipleBoxesForm = observer(
             item={sharedFields}
             onClickSaveBarcode={data => onClickSaveBarcode(sharedFields)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+          <SetFilesModal
+            modalTitle={t(TranslationKey.Transparency)}
+            LabelTitle={t(TranslationKey['Transparency codes'])}
+            currentFiles={filesConditions.currentFiles}
+            tmpFiles={filesConditions.tmpFiles}
+            onClickSave={value => {
+              onChangeSharedFields({ target: { value } }, 'tmpTransparencyFile')
+              setShowSetFilesModal(false)
+            }}
+            onCloseModal={setShowSetFilesModal}
           />
         </Modal>
 

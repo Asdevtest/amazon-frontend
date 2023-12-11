@@ -20,7 +20,6 @@ import { UserModel } from '@models/user-model'
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
 import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
@@ -130,6 +129,7 @@ export class WarehouseMyWarehouseViewModel {
   }
   uploadedImages = []
   uploadedFiles = []
+  uploadedTransparencyFiles = []
   progressValue = 0
   showProgress = false
 
@@ -355,7 +355,6 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
-
       const uploadedBarcodes = []
 
       for (let i = 0; i < newBoxes.length; i++) {
@@ -427,23 +426,42 @@ export class WarehouseMyWarehouseViewModel {
           }
         }
 
-        newBox.items = newBox.items.map(el => {
+        const currentBox = []
+
+        for await (const el of newBox.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-          return {
-            ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
+          let transparencyFile
+
+          if (el.tmpTransparencyFile?.length) {
+            transparencyFile = await onSubmitPostImages.call(this, {
+              images: el?.tmpTransparencyFile,
+              type: 'uploadedFiles',
+              withoutShowProgress: true,
+            })
+          }
+
+          const validItem = {
+            ...getObjectFilteredByKeyArrayBlackList(el, [
+              'order',
+              'product',
+              'tmpBarCode',
+              'changeBarCodInInventory',
+              'tmpTransparencyFile',
+            ]),
             amount: el.amount,
             orderId: el.order._id,
             productId: el.product._id,
-
             _id: el._id,
-
             barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-
+            transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
-
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
           }
-        })
+
+          currentBox.push(validItem)
+        }
+
+        newBox.items = currentBox
 
         await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
@@ -515,13 +533,24 @@ export class WarehouseMyWarehouseViewModel {
     }
 
     try {
-      const getNewItems = () => {
-        const newItems = boxData.items.map(el => {
+      const getNewItems = async () => {
+        const newItems = []
+
+        for await (const el of boxData.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-          return {
+
+          if (el.tmpTransparencyFile.length) {
+            await onSubmitPostImages.call(this, {
+              images: el.tmpTransparencyFile,
+              type: 'uploadedTransparencyFiles',
+              withoutShowProgress: true,
+            })
+          }
+
+          const newItem = {
             ...getObjectFilteredByKeyArrayBlackList(
               el,
-              ['amount', 'order', 'product', 'tmpBarCode', 'changeBarCodInInventory'],
+              ['amount', 'order', 'product', 'tmpBarCode', 'changeBarCodInInventory', 'tmpTransparencyFile'],
               undefined,
               undefined,
               true,
@@ -529,21 +558,24 @@ export class WarehouseMyWarehouseViewModel {
 
             _id: el._id,
 
+            transparencyFile: this.uploadedTransparencyFiles?.[0] || el.transparencyFile,
             barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
-
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
           }
-        })
+          newItems.push(newItem)
+        }
+
         return newItems
       }
+
+      const requestBoxItems = isMultipleEdit ? boxData.items : await getNewItems()
 
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
           ...boxData,
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
-          items: isMultipleEdit ? boxData.items : getNewItems(),
+          items: requestBoxItems,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
             : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
@@ -559,13 +591,10 @@ export class WarehouseMyWarehouseViewModel {
 
       if (!isMultipleEdit) {
         this.loadData()
-
         this.onTriggerOpenModal('showFullEditBoxModal')
-
         runInAction(() => {
           this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
         })
-
         this.onTriggerOpenModal('showSuccessInfoModal')
       }
     } catch (error) {

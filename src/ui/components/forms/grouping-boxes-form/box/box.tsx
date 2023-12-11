@@ -108,50 +108,55 @@ export const Box: FC<BoxProps> = React.memo(props => {
         </div>
 
         {box.items.map((order: any, orderIndex: number) => (
-          <div key={`box_${box._id}_${orderIndex}`}>
-            <div key={orderIndex} className={styles.order}>
-              <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
-              <div>
-                <div className={styles.asinWrapper}>
-                  <p className={styles.asinTitle}>{`${t(TranslationKey.Order)} / item`}</p>
-                  <p className={styles.asinValue}>{`${order.order.id} / ${
-                    Number(order.order.item) ? order.order.item : '-'
-                  }`}</p>
-                </div>
-
-                <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-                <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
-
-                <p className={styles.title}>{order.product.amazonTitle}</p>
-
-                <LabelWithCopy
-                  labelTitleColor="gray"
-                  labelTitle={t(TranslationKey.BarCode)}
-                  labelValue={order.barCode}
-                  lableLinkTitle={t(TranslationKey.View)}
-                />
+          <div key={orderIndex} className={styles.order}>
+            <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
+            <div className={styles.orderInfo}>
+              <div className={styles.asinWrapper}>
+                <p className={styles.asinTitle}>{`${t(TranslationKey.Order)} / item`}</p>
+                <p className={styles.asinValue}>{`${order.order.id} / ${
+                  Number(order.order.item) ? order.order.item : '-'
+                }`}</p>
               </div>
 
-              <div>
-                <Field
-                  disabled
-                  containerClasses={styles.field}
-                  label={t(TranslationKey.Quantity)}
-                  className={styles.orderInput}
-                  labelClasses={[styles.label, styles.quantityLabel]}
-                  value={order.amount}
-                  tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                />
+              <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
 
-                <Field
-                  disabled
-                  containerClasses={styles.field}
-                  label={t(TranslationKey['Quantity in group'])}
-                  className={styles.orderInput}
-                  labelClasses={[styles.label, styles.quantityLabel]}
-                  value={order.amount * box.amount}
-                />
-              </div>
+              <p className={styles.title}>{order.product.amazonTitle}</p>
+
+              <LabelWithCopy
+                labelTitleColor="gray"
+                labelTitle={t(TranslationKey.BarCode)}
+                labelValue={order.barCode}
+                lableLinkTitle={t(TranslationKey.View)}
+              />
+
+              <LabelWithCopy
+                labelTitleColor="gray"
+                labelTitle={t(TranslationKey['Transparency codes'])}
+                labelValue={order.transparencyFile}
+                lableLinkTitle={t(TranslationKey.View)}
+              />
+            </div>
+
+            <div>
+              <Field
+                disabled
+                containerClasses={styles.field}
+                label={t(TranslationKey.Quantity)}
+                className={styles.orderInput}
+                labelClasses={[styles.label, styles.quantityLabel]}
+                value={order.amount}
+                tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={styles.field}
+                label={t(TranslationKey['Quantity in group'])}
+                className={styles.orderInput}
+                labelClasses={[styles.label, styles.quantityLabel]}
+                value={order.amount * box.amount}
+              />
             </div>
           </div>
         ))}

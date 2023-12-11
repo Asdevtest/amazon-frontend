@@ -14,7 +14,7 @@ import { useStyles } from './set-files-modal.style'
 interface SetTransparencyProps {
   tmpFiles: string[]
   currentFiles: string
-  onCloseModal: (condition?: boolean) => void
+  onCloseModal: (condition: boolean) => void
   onClickSave: (files: string[]) => void
   modalTitle?: string
   LabelTitle?: string
