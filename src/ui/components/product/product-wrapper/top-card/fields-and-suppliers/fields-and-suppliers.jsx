@@ -569,9 +569,7 @@ export const FieldsAndSuppliers = memo(
                     shops?.find(shop => shop?._id === product?.shopId)?.name || t(TranslationKey['Select a store'])
                   }
                   onClickNotChosen={() => onChangeShop('')}
-                  onClickSelect={el => {
-                    onChangeShop(el._id)
-                  }}
+                  onClickSelect={el => onChangeShop(el._id)}
                 />
               }
             />
