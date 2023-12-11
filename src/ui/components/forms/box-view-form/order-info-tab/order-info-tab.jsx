@@ -80,8 +80,8 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                 ) : null}
               </div>
 
-              <div>
-                <div className={styles.barcodeWrapper}>
+              <div className={styles.boxLabelsWrapper}>
+                <div className={styles.boxLabelWrapper}>
                   <LabelWithCopy
                     labelTitle={t(TranslationKey.BarCode)}
                     labelValue={item.barCode}
@@ -93,15 +93,27 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                   </Checkbox>
                 </div>
 
-                <div className={styles.barcodeWrapper}>
+                <div className={styles.boxLabelWrapper}>
                   <LabelWithCopy
                     labelTitle={t(TranslationKey['Transparency codes'])}
                     labelValue={item.transparencyFile}
                     lableLinkTitle={t(TranslationKey.View)}
                   />
 
-                  <Checkbox disabled checked={barcodeChecked} className={styles.checkbox}>
-                    <p className={styles.text}>{barcodeCheckedText}</p>
+                  <Checkbox
+                    disabled
+                    checked={item?.isTransparencyFileAlreadyAttachedByTheSupplier}
+                    className={styles.checkbox}
+                  >
+                    <p className={styles.text}>{t(TranslationKey['Transparency codes glued by the supplier'])}</p>
+                  </Checkbox>
+
+                  <Checkbox
+                    disabled
+                    checked={item?.isTransparencyFileAttachedByTheStorekeeper}
+                    className={styles.checkbox}
+                  >
+                    <p className={styles.text}>{t(TranslationKey['Transparency codes are glued by storekeeper'])}</p>
                   </Checkbox>
                 </div>
               </div>

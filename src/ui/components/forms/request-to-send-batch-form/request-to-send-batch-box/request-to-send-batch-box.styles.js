@@ -52,7 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
   boxItemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '420px',
     gap: '5px',
   },
 
@@ -154,8 +153,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   barCodeLabelWrapper: {
-    width: '270px',
-    height: '50px',
+    width: 'fit-content',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -189,12 +187,11 @@ export const useClassNames = makeStyles()(theme => ({
   boxItemSubInfoWrapper: {
     display: 'flex',
     width: '100%',
+    gap: '10px',
     justifyContent: 'space-between',
     margin: '15px 0',
   },
-  boxItemSubSubInfoWrapper: {
-    width: '100%',
-  },
+
   pricePerAmoutCell: {
     display: 'flex',
     flexDirection: 'column',

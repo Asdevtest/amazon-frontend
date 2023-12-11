@@ -123,8 +123,6 @@ export const EditBoxForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
-    console.log('boxFields', boxFields)
-
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     useEffect(() => {

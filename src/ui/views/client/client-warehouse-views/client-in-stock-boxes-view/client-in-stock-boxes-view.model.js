@@ -348,10 +348,6 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -1284,7 +1280,7 @@ export class ClientInStockBoxesViewModel {
               orderId: el.order._id,
               productId: el.product._id,
 
-              transparencyFile: transparencyFile[0] || el.transparencyFile || '',
+              transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
               barCode: prodInDataToUpdateBarCode?.newData?.length
                 ? prodInDataToUpdateBarCode?.newData[0]
                 : el.barCode || '',
@@ -1305,8 +1301,6 @@ export class ClientInStockBoxesViewModel {
         const requestBoxItems = isMultipleEdit
           ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
           : await getNewItems()
-
-        console.log('requestBoxItems', requestBoxItems)
 
         const requestBox = getObjectFilteredByKeyArrayWhiteList(
           {

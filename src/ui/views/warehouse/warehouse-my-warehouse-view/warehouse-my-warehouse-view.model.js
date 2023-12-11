@@ -20,7 +20,6 @@ import { UserModel } from '@models/user-model'
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
 import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
@@ -454,7 +453,7 @@ export class WarehouseMyWarehouseViewModel {
             productId: el.product._id,
             _id: el._id,
             barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-            transparencyFile: transparencyFile[0],
+            transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
           }
@@ -571,9 +570,6 @@ export class WarehouseMyWarehouseViewModel {
       }
 
       const requestBoxItems = isMultipleEdit ? boxData.items : await getNewItems()
-
-      console.log('isMultipleEdit', isMultipleEdit)
-      console.log('requestBoxItems', requestBoxItems)
 
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {

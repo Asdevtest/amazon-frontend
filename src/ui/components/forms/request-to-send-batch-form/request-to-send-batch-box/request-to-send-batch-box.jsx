@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -31,6 +32,8 @@ export const RequestToSendBatchBox = ({
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
+
+  console.log('box', box)
 
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
@@ -66,7 +69,7 @@ export const RequestToSendBatchBox = ({
                 )}`}</Typography>
 
                 <div className={classNames.boxItemSubInfoWrapper}>
-                  <div className={classNames.boxItemSubSubInfoWrapper}>
+                  <div>
                     <AsinOrSkuLink
                       withCopyValue
                       withAttributeTitle={'asin'}
@@ -87,22 +90,7 @@ export const RequestToSendBatchBox = ({
                       {t(TranslationKey.BarCode)}
                     </Typography>
 
-                    {box.items[0].barCode ? (
-                      <div className={classNames.linkWrapper}>
-                        <a
-                          download
-                          target="_blank"
-                          rel="noreferrer"
-                          href={box.items[0].barCode}
-                          className={classNames.downloadLink}
-                        >
-                          {t(TranslationKey.download)}
-                        </a>
-                        <CopyValue text={box.items[0].barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
-                    )}
+                    <LabelWithCopy labelValue={box.items[0].barCode} lableLinkTitle={t(TranslationKey.View)} />
 
                     <div className={classNames.checkboxWrapper}>
                       <Typography className={cx({ [classNames.alertSpan]: isNoBarCodGlued })}>
@@ -134,7 +122,7 @@ export const RequestToSendBatchBox = ({
                   )}`}</Typography>
 
                   <div className={classNames.boxItemSubInfoWrapper}>
-                    <div className={classNames.boxItemSubSubInfoWrapper}>
+                    <div>
                       <AsinOrSkuLink
                         withCopyValue
                         withAttributeTitle={'asin'}
@@ -153,22 +141,7 @@ export const RequestToSendBatchBox = ({
                         {t(TranslationKey.BarCode)}
                       </Typography>
 
-                      {item.barCode ? (
-                        <div className={classNames.linkWrapper}>
-                          <a
-                            download
-                            target="_blank"
-                            rel="noreferrer"
-                            href={item.barCode}
-                            className={classNames.downloadLink}
-                          >
-                            {t(TranslationKey.download)}
-                          </a>
-                          <CopyValue text={item.barCode} />
-                        </div>
-                      ) : (
-                        <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
-                      )}
+                      <LabelWithCopy labelValue={box.items[0].barCode} lableLinkTitle={t(TranslationKey.View)} />
 
                       <div className={classNames.checkboxWrapper}>
                         <Typography className={cx({ [classNames.alertSpan]: isNoBarCodGlued })}>
@@ -181,6 +154,32 @@ export const RequestToSendBatchBox = ({
                           checked={
                             box.items[0].isBarCodeAlreadyAttachedByTheSupplier ||
                             box.items[0].isBarCodeAttachedByTheStorekeeper
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className={classNames.barCodeLabelWrapper}>
+                      <Typography className={cx(classNames.spanText, { [classNames.alertSpan]: !item.barCode })}>
+                        {t(TranslationKey['Transparency codes'])}
+                      </Typography>
+
+                      <LabelWithCopy
+                        labelValue={box.items[0].transparencyFile}
+                        lableLinkTitle={t(TranslationKey.View)}
+                      />
+
+                      <div className={classNames.checkboxWrapper}>
+                        <Typography className={cx({ [classNames.alertSpan]: isNoBarCodGlued })}>
+                          {t(TranslationKey.glued)}
+                        </Typography>
+
+                        <Checkbox
+                          disabled
+                          color="primary"
+                          checked={
+                            box.items[0].isTransparencyFileAlreadyAttachedByTheSupplier ||
+                            box.items[0].isTransparencyFileAttachedByTheStorekeeper
                           }
                         />
                       </div>
@@ -322,23 +321,6 @@ export const RequestToSendBatchBox = ({
           </td>
         </>
       )}
-
-      {/* <td className={cx(tableCellClsx, classNames.priceCellRight)}>
-        {box.amount > 1 ? (
-          price ? (
-            <>
-              <Typography variant="h5">{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
-              <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
-            </>
-          ) : (
-            <Typography variant="h5">{'-'}</Typography>
-          )
-        ) : price ? (
-          <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
-        ) : (
-          <Typography variant="h5">{'-'}</Typography>
-        )}
-      </td> */}
 
       <td className={classNames.tableCellCrossBtn}>
         <Button danger className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>

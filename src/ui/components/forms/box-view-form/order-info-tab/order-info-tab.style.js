@@ -68,7 +68,12 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  barcodeWrapper: {
+  boxLabelsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  boxLabelWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
