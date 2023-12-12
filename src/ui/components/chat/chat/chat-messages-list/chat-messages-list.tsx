@@ -98,15 +98,15 @@ export const ChatMessagesList: FC<Props> = observer(
       setMessageToReply(messageItem)
     }
 
-    const getReplyedMessages = async () => {
-      if (messages?.length) {
-        for (const message of messages) {
-          if (chatId && message.replyMessageId) {
-            await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
-          }
-        }
-      }
-    }
+    // const getReplyedMessages = async () => {
+    //   if (messages?.length) {
+    //     for (const message of messages) {
+    //       if (chatId && message.replyMessageId) {
+    //         await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
+    //       }
+    //     }
+    //   }
+    // }
 
     useEffect(() => {
       chatBottomRef.current?.scrollIntoView({})
@@ -124,9 +124,9 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }, [messages])
 
-    useEffect(() => {
-      getReplyedMessages()
-    }, [messages?.length])
+    // useEffect(() => {
+    //   getReplyedMessages()
+    // }, [messages?.length])
 
     useEffect(() => {
       if (messagesWrapperRef.current) {

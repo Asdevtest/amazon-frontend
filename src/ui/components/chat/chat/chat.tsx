@@ -136,7 +136,7 @@ export const Chat: FC<Props> = observer(
     const handleLoadMoreMessages = (e: Event) => {
       const target = e.target as HTMLDivElement
 
-      if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
+      if (target.scrollTop && target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
         ChatModel.getChatMessages?.(chat?._id).finally(() => {
           messagesLoadingStatus.current = false

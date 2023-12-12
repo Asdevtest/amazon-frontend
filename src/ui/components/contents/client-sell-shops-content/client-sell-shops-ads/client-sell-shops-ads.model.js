@@ -111,14 +111,4 @@ export class ClientSellShopsAdsModel {
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setTableModeState()
-  }
 }
