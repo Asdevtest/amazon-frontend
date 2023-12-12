@@ -187,8 +187,8 @@ export class AdminWarehouseBoxesViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
-        'amazonTitle',
         'skuByClient',
+        'amazonTitle',
       ]),
     )
   }
@@ -199,6 +199,7 @@ export class AdminWarehouseBoxesViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
     this.setDataGridState()
     this.getBoxes()
   }
