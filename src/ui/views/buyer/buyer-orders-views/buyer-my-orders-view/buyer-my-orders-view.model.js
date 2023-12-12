@@ -738,7 +738,7 @@ export class BuyerMyOrdersViewModel {
         await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
         this.loadData()
       } catch (error) {
-        console.log('error', error)
+        console.log(error)
         this.setRequestStatus(loadingStatuses.failed)
       }
     }

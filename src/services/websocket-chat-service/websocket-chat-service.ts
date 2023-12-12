@@ -74,7 +74,6 @@ export class WebsocketChatService {
 
   public disconnect(): void {
     this.socket.disconnect()
-    // console.log('IN_DISCONNECT')
   }
 
   public async getUnreadMessagesCount(): Promise<number> {
@@ -189,8 +188,6 @@ export class WebsocketChatService {
   }
 
   public async readMessage(messageIds: string[]): Promise<null> {
-    // console.log('***READ_OPPONENT_MESSAGE!!!')
-
     return new Promise((resolve, reject) => {
       this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds }, (sendMessageResponse: WebsocketChatResponse<null>) => {
         if (!sendMessageResponse.success) {

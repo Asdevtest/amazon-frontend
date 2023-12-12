@@ -103,7 +103,7 @@ export class GeneralNotificationsViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -137,7 +137,7 @@ export class GeneralNotificationsViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 

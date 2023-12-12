@@ -47,7 +47,6 @@ export const uploadFileByUrl = async image => {
 
     return '/uploads/' + result.fileName
   } catch (error) {
-    console.log(error?.response?.data?.message)
     throw new Error(Errors.INVALID_IMAGE)
   }
 }

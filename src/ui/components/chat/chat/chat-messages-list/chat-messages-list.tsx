@@ -234,7 +234,6 @@ export const ChatMessagesList: FC<Props> = observer(
                               className={styles.repleyWrapper}
                               onClick={e => {
                                 e.stopPropagation()
-                                console.log('e', e)
                                 setMessageToScroll(repleyMessage)
                               }}
                             >
