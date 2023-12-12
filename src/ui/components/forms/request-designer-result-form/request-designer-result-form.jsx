@@ -322,9 +322,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const disableSubmit = imagesData.every(el => !el.image)
 
-  const imageLinks = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.image)
-  const photosTitles = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.comment)
-  const photosComments = imagesData.filter(el => checkIsMediaFileLink(el.image)).map(el => el.commentByClient)
+  const filteredImagesData = imagesData.filter(el =>
+    checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
+  )
+  const imageLinks = filteredImagesData.map(el => el.image)
+  const photosTitles = filteredImagesData.map(el => el.comment)
+  const photosComments = filteredImagesData.map(el => el.commentByClient)
 
   return (
     <div className={styles.modalMainWrapper}>
