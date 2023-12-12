@@ -76,7 +76,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
               userId={sub?._id || createdBy?._id}
               customStyles={{ fontSize: 14, fontWeight: 400 }}
               customAvatarStyles={{ width: 19, height: 19 }}
-              maxNameWidth={150}
+              maxNameWidth={130}
             />
           </div>
           <div className={styles.moreInformationSection}>
