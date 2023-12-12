@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
@@ -11,15 +11,14 @@ import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-con
 import { DrawerModal } from '@components/shared/drawer-modal'
 import { LogoIcon, ShortLogoIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './navbar.styles'
+import { useStyles } from './navbar.styles'
 
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
   ({ shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal }) => {
-    const { classes: classNames } = useClassNames()
-
-    const viewModel = useRef(new NavbarModel())
+    const { classes: styles } = useStyles()
+    const [viewModel] = useState(new NavbarModel())
 
     const {
       userInfo,
@@ -31,27 +30,23 @@ export const Navbar = observer(
       onTriggerOpenModal,
       sendFeedbackAboutPlatform,
       onClickVersion,
-    } = viewModel.current
+    } = viewModel
 
     const [curNavbar] = useState(navbarConfig)
 
     return (
-      <div className={classNames.navbar}>
-        <div className={classNames.logoWrapper}>
-          {shortNavbar ? (
-            <ShortLogoIcon className={classNames.logoIconShort} />
-          ) : (
-            <LogoIcon className={classNames.logoIcon} />
-          )}
+      <div className={styles.navbar}>
+        <div className={styles.logoWrapper}>
+          {shortNavbar ? <ShortLogoIcon className={styles.logoIconShort} /> : <LogoIcon className={styles.logoIcon} />}
           <div
             id="hideAndShowIcon"
-            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
+            className={cx(styles.hideAndShowIconWrapper, { [styles.hideAndShowIcon]: shortNavbar })}
             onClick={onShowNavbar}
           >
             {shortNavbar ? (
-              <ArrowForwardIosIcon className={classNames.arrowIcon} />
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
             ) : (
-              <ArrowBackIosIcon className={classNames.arrowIcon} />
+              <ArrowBackIosIcon className={styles.arrowIcon} />
             )}
           </div>
         </div>

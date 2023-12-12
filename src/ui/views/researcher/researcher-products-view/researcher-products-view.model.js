@@ -48,7 +48,6 @@ export class ResearcherProductsViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
-  baseNoConvertedProducts = []
   products = []
   chekedCode = ''
 
@@ -70,41 +69,35 @@ export class ResearcherProductsViewModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    return this.products
+  }
+
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      if (location?.state?.dataGridFilter) {
-        this.startFilterModel = location.state.dataGridFilter
-      }
-    })
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
-
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
+    this.filterModel = model
     this.setDataGridState()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+    this.paginationModel = model
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
     this.setDataGridState()
   }
 
@@ -122,45 +115,33 @@ export class ResearcherProductsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.RESEARCHER_PRODUCTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(
+        this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+            }
+          : state.filterModel,
+      )
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.products)
+    this.rowSelectionModel = model
   }
 
   async loadData() {
@@ -175,72 +156,6 @@ export class ResearcherProductsViewModel {
       console.log(error)
     }
   }
-
-  // async onClickCheckBtn() {
-  //   if (!this.formFields.productCode) {
-  //     runInAction(() => {
-  //       this.error = 'Product code field is required for this action'
-  //     })
-  //     return
-  //   }
-
-  //   const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
-
-  //   if (checkProductExistResult.isExist) {
-  //     runInAction(() => {
-  //       this.error = 'This product already exists'
-  //       this.reasonError = checkProductExistResult.reason
-  //       return
-  //     })
-  //   } else {
-  //     runInAction(() => {
-  //       this.error = ''
-  //       this.reasonError = ''
-  //     })
-  //   }
-
-  //   runInAction(() => {
-  //     this.chekedCode = this.formFields.productCode
-  //   })
-  // }
-
-  // async onClickAddBtn() {
-  //   try {
-  //     if (!(this.formFields.amazonLink || this.formFields.productCode)) {
-  //       this.error = 'All fields are required for this action'
-  //       return
-  //     }
-  //     const product = {
-  //       asin: this.formFields.productCode,
-  //       lamazon: this.formFields.amazonLink,
-  //       strategyStatus: Number(this.formFields.strategyStatus),
-  //       fba: true,
-
-  //       niche: this.formFields.niche,
-  //       asins: this.formFields.asins,
-  //       avgRevenue: this.formFields.avgRevenue,
-  //       avgBSR: this.formFields.avgBSR,
-  //       totalRevenue: this.formFields.totalRevenue,
-  //       coefficient: this.formFields.coefficient,
-  //       avgPrice: this.formFields.avgPrice,
-  //       avgReviews: this.formFields.avgReviews,
-  //     }
-
-  //     await this.createProduct(product)
-
-  //     const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
-
-  //     this.history.push(
-  //       {
-  //         pathname: '/researcher/products/product',
-  //         search: foundedProd.originalData._id,
-  //       },
-  //       {startParse: true},
-  //     )
-  //   } catch (error) {
-  //     console.warn(error)
-  //   }
-  // }
 
   async onClickCheckAndAddProductBtn() {
     if (!this.formFields.productCode) {
@@ -311,12 +226,8 @@ export class ResearcherProductsViewModel {
   async createProduct(product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      const productFullData = {
-        ...product,
-        // reffee: '',
-      }
 
-      const response = await ResearcherModel.createProduct(productFullData)
+      const response = await ResearcherModel.createProduct(product)
 
       this.setActionStatus(loadingStatuses.success)
       runInAction(() => {
@@ -355,24 +266,9 @@ export class ResearcherProductsViewModel {
   async getPropductsVacant() {
     try {
       const result = await ResearcherModel.getProductsVacant()
-
-      const filteredResult = result
-      // .filter(el =>
-      //   [
-      //     ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-      //     ProductStatusByKey[ProductStatus.DEFAULT],
-      //     ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-      //     // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-      //     ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-      //     ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-      //   ].includes(el.status),
-      // )
-
       runInAction(() => {
-        this.baseNoConvertedProducts = filteredResult
-
         this.products = researcherProductsDataConverter(
-          filteredResult.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )
       })
     } catch (error) {
@@ -412,10 +308,8 @@ export class ResearcherProductsViewModel {
 
   onChangeFormFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.error = undefined
-        this.actionStatus = undefined
-      })
+      this.error = undefined
+      this.actionStatus = undefined
 
       if (
         ['avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
@@ -423,46 +317,37 @@ export class ResearcherProductsViewModel {
       ) {
         return
       }
-      runInAction(() => {
-        if (['avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
-          this.formFields[fieldName] = parseInt(e.target.value) || ''
-        } else {
-          this.formFields[fieldName] = e.target.value
-        }
-      })
 
-      runInAction(() => {
-        if (fieldName === 'amazonLink') {
-          this.chekedCode = ''
-          this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
-        }
-      })
+      if (['avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+        this.formFields[fieldName] = parseInt(e.target.value) || ''
+      } else {
+        this.formFields[fieldName] = e.target.value
+      }
 
-      runInAction(() => {
-        if (fieldName === 'strategyStatus') {
-          if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
-            this.formFields.niche = ''
-            this.formFields.asins = ''
-            this.formFields.avgRevenue = ''
-            this.formFields.avgBSR = ''
-            this.formFields.totalRevenue = ''
-            this.formFields.coefficient = ''
-            this.formFields.avgPrice = ''
-            this.formFields.avgReviews = ''
-          }
+      if (fieldName === 'amazonLink') {
+        this.chekedCode = ''
+        this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
+      }
+
+      if (fieldName === 'strategyStatus') {
+        if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
+          this.formFields.niche = ''
+          this.formFields.asins = ''
+          this.formFields.avgRevenue = ''
+          this.formFields.avgBSR = ''
+          this.formFields.totalRevenue = ''
+          this.formFields.coefficient = ''
+          this.formFields.avgPrice = ''
+          this.formFields.avgReviews = ''
         }
-      })
+      }
     })
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.actionStatus = actionStatus
   }
 }
