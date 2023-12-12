@@ -14,7 +14,7 @@ import { ModalPortal } from './modal-portal'
 
 interface ModalProps extends PropsWithChildren {
   openModal: boolean
-  setOpenModal: (openModal?: boolean) => void
+  setOpenModal: (openModal: boolean) => void
   missClickModalOn?: boolean
   dialogClassName?: string
   contentClassName?: string

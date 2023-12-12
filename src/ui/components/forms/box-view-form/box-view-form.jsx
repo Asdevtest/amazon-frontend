@@ -41,7 +41,6 @@ export const BoxViewForm = memo(props => {
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
     newFormFields[fieldName] = event.target.value
-
     setFormFields(newFormFields)
   }
 

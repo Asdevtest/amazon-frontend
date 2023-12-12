@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Divider, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -11,9 +11,11 @@ import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -60,18 +62,17 @@ export const EditBoxStorekeeperForm = memo(
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
+    const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+    const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
-
       newFormFields.items = [
         ...boxFields.items.map(el =>
           el.product._id === product.product?._id ? { ...el, tmpBarCode: newBarCodeData } : el,
         ),
       ]
-
       setBoxFields(newFormFields)
-
       setShowSetBarcodeModal(false)
     }
 
@@ -79,35 +80,57 @@ export const EditBoxStorekeeperForm = memo(
       const newFormFields = { ...boxFields }
 
       if (field === 'isBarCodeAlreadyAttachedByTheSupplier') {
-        newFormFields.items = [
-          ...boxFields.items.map(el =>
-            el._id === itemId
-              ? {
-                  ...el,
-                  isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
-                  isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
-                    ? !e.target.checked
-                    : el.isBarCodeAttachedByTheStorekeeper,
-                }
-              : el,
-          ),
-        ]
+        newFormFields.items = boxFields.items.map(el =>
+          el._id === itemId
+            ? {
+                ...el,
+                isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
+                isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
+                  ? !e.target.checked
+                  : el.isBarCodeAttachedByTheStorekeeper,
+              }
+            : el,
+        )
       } else if (field === 'isBarCodeAttachedByTheStorekeeper') {
-        newFormFields.items = [
-          ...boxFields.items.map(el =>
-            el._id === itemId
-              ? {
-                  ...el,
-                  isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
-                    ? !e.target.checked
-                    : el.isBarCodeAlreadyAttachedByTheSupplier,
-                  isBarCodeAttachedByTheStorekeeper: e.target.checked,
-                }
-              : el,
-          ),
-        ]
+        newFormFields.items = boxFields.items.map(el =>
+          el._id === itemId
+            ? {
+                ...el,
+                isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
+                  ? !e.target.checked
+                  : el.isBarCodeAlreadyAttachedByTheSupplier,
+                isBarCodeAttachedByTheStorekeeper: e.target.checked,
+              }
+            : el,
+        )
       }
+      setBoxFields(newFormFields)
+    }
 
+    const onClickGluedTransparency = (fieldName, index, value) => {
+      const newFormFields = { ...boxFields }
+      if (fieldName === 'isTransparencyFileAlreadyAttachedByTheSupplier') {
+        newFormFields.items[index] = {
+          ...newFormFields.items[index],
+          isTransparencyFileAlreadyAttachedByTheSupplier: value,
+          isTransparencyFileAttachedByTheStorekeeper: !value,
+        }
+      } else {
+        newFormFields.items[index] = {
+          ...newFormFields.items[index],
+          isTransparencyFileAlreadyAttachedByTheSupplier: !value,
+          isTransparencyFileAttachedByTheStorekeeper: value,
+        }
+      }
+      setBoxFields(newFormFields)
+    }
+
+    const onClickSaveTransparencyFile = (index, value) => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index] = {
+        ...newFormFields.items[index],
+        tmpTransparencyFile: value,
+      }
       setBoxFields(newFormFields)
     }
 
@@ -133,11 +156,13 @@ export const EditBoxStorekeeperForm = memo(
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
-      items: formItem?.items ? [...formItem.items.map(el => ({ ...el, tmpBarCode: [] }))] : [],
+      items: formItem?.items ? formItem.items.map(el => ({ ...el, tmpBarCode: [], tmpTransparencyFile: [] })) : [],
       tmpTrackNumberFile: [],
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+
+    console.log('boxFields', boxFields)
 
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
@@ -148,15 +173,12 @@ export const EditBoxStorekeeperForm = memo(
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       const currentValue = e.target.value
-
       if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
           return
         }
       }
-
       newFormFields[fieldName] = currentValue
-
       setBoxFields(newFormFields)
     }
 
@@ -191,6 +213,13 @@ export const EditBoxStorekeeperForm = memo(
       newFormFields.items = boxFields.items.map(item =>
         item.product._id === productId ? { ...item, barCode: '', tmpBarCode: [] } : item,
       )
+      setBoxFields(newFormFields)
+    }
+
+    const onDeleteTransparencyFile = index => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index].transparencyFile = ''
+      newFormFields.items[index].tmpTransparencyFile = []
       setBoxFields(newFormFields)
     }
 
@@ -418,6 +447,36 @@ export const EditBoxStorekeeperForm = memo(
                               }
                             />
 
+                            <Field
+                              containerClasses={styles.field}
+                              labelClasses={styles.standartLabel}
+                              label={t(TranslationKey['Transparency codes'])}
+                              inputComponent={
+                                <ChangeChipCell
+                                  isChipOutTable
+                                  text={
+                                    !item.transparencyFile &&
+                                    !item?.tmpTransparencyFile?.length &&
+                                    t(TranslationKey.Transparency)
+                                  }
+                                  value={
+                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                    item?.tmpTransparencyFile?.[0] ||
+                                    item.transparencyFile
+                                  }
+                                  onClickChip={() => {
+                                    setFilesConditions({
+                                      tmpFiles: item?.tmpTransparencyFile,
+                                      currentFiles: item.transparencyFile,
+                                      index,
+                                    })
+                                    setShowSetFilesModal(true)
+                                  }}
+                                  onDeleteChip={() => onDeleteTransparencyFile(index)}
+                                />
+                              }
+                            />
+
                             <div>
                               <Field
                                 oneLine
@@ -448,6 +507,44 @@ export const EditBoxStorekeeperForm = memo(
                                   <Checkbox
                                     checked={item.isBarCodeAttachedByTheStorekeeper}
                                     onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
+                                  />
+                                }
+                              />
+
+                              <Field
+                                oneLine
+                                labelClasses={styles.standartLabel}
+                                containerClasses={styles.checkboxContainer}
+                                label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                                inputComponent={
+                                  <Checkbox
+                                    checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                                    onChange={e =>
+                                      onClickGluedTransparency(
+                                        'isTransparencyFileAlreadyAttachedByTheSupplier',
+                                        index,
+                                        e.target.checked,
+                                      )
+                                    }
+                                  />
+                                }
+                              />
+
+                              <Field
+                                oneLine
+                                labelClasses={styles.standartLabel}
+                                containerClasses={styles.checkboxContainer}
+                                label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                                inputComponent={
+                                  <Checkbox
+                                    checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                                    onChange={e =>
+                                      onClickGluedTransparency(
+                                        'isTransparencyFileAttachedByTheStorekeeper',
+                                        index,
+                                        e.target.checked,
+                                      )
+                                    }
                                   />
                                 }
                               />
@@ -868,6 +965,20 @@ export const EditBoxStorekeeperForm = memo(
             item={barcodeModalSetting.item}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+          <SetFilesModal
+            modalTitle={t(TranslationKey.Transparency)}
+            LabelTitle={t(TranslationKey['Transparency codes'])}
+            currentFiles={filesConditions.currentFiles}
+            tmpFiles={filesConditions.tmpFiles}
+            onClickSave={value => {
+              onClickSaveTransparencyFile(filesConditions.index, value)
+              setShowSetFilesModal(false)
+            }}
+            onCloseModal={setShowSetFilesModal}
           />
         </Modal>
 

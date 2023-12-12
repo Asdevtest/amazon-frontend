@@ -61,6 +61,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   field: {
+    marginBottom: '10px !important',
     width: '100%',
   },
   multiline: {
@@ -255,6 +256,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
+    margin: 0,
   },
 
   tableTitle: {
@@ -299,5 +301,9 @@ export const useStyles = makeStyles()(theme => ({
 
   containerField: {
     width: 'min-content',
+  },
+
+  checkboxContainer: {
+    margin: 0,
   },
 }))

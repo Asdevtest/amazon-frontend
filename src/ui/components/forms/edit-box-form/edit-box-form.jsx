@@ -14,6 +14,7 @@ import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
@@ -60,6 +61,9 @@ export const EditBoxForm = memo(
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(undefined)
 
+    const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+    const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
+
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
@@ -76,13 +80,18 @@ export const EditBoxForm = memo(
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
-      newFormFields.items = [
-        ...boxFields.items.map(el =>
-          el.product._id === product.product._id ? { ...el, tmpBarCode: newBarCodeData } : el,
-        ),
-      ]
+      newFormFields.items = boxFields.items.map(el =>
+        el.product._id === product.product._id ? { ...el, tmpBarCode: newBarCodeData } : el,
+      )
       setBoxFields(newFormFields)
       setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onClickSaveTransparencyFile = (newTransparencyFileData, index) => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index] = { ...newFormFields.items[index], tmpTransparencyFile: newTransparencyFileData }
+      setBoxFields(newFormFields)
+      setShowSetFilesModal(false)
     }
 
     const boxInitialState = {
@@ -108,7 +117,7 @@ export const EditBoxForm = memo(
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items
-        ? [...formItem.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))]
+        ? formItem.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [], tmpTransparencyFile: [] }))
         : [],
     }
 
@@ -123,7 +132,6 @@ export const EditBoxForm = memo(
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       newFormFields[fieldName] = e.target.value
-
       setBoxFields(newFormFields)
     }
 
@@ -152,6 +160,14 @@ export const EditBoxForm = memo(
         item.product._id === productId
           ? { ...item, barCode: '', tmpBarCode: [''], changeBarCodInInventory: false }
           : item,
+      )
+      setBoxFields(newFormFields)
+    }
+
+    const onDeleteTransparencyFile = productId => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? { ...item, transparencyFile: '', tmpTransparencyFile: [] } : item,
       )
       setBoxFields(newFormFields)
     }
@@ -323,6 +339,36 @@ export const EditBoxForm = memo(
                                   onClickChip={() => onClickBarcode(item)}
                                   onDoubleClickChip={() => onDoubleClickBarcode(item)}
                                   onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                                />
+                              }
+                            />
+
+                            <Field
+                              containerClasses={styles.field}
+                              labelClasses={styles.standartLabel}
+                              label={t(TranslationKey['Transparency codes'])}
+                              inputComponent={
+                                <ChangeChipCell
+                                  isChipOutTable
+                                  text={
+                                    !item.transparencyFile &&
+                                    !item?.tmpTransparencyFile?.[0] &&
+                                    t(TranslationKey.Transparency)
+                                  }
+                                  value={
+                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                    item?.tmpTransparencyFile?.[0] ||
+                                    item.transparencyFile
+                                  }
+                                  onClickChip={() => {
+                                    setFilesConditions({
+                                      tmpFiles: item?.tmpTransparencyFile,
+                                      currentFiles: item.transparencyFile,
+                                      index,
+                                    })
+                                    setShowSetFilesModal(true)
+                                  }}
+                                  onDeleteChip={() => onDeleteTransparencyFile(item.product._id)}
                                 />
                               }
                             />
@@ -723,6 +769,20 @@ export const EditBoxForm = memo(
             item={curProductToEditBarcode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+          <SetFilesModal
+            modalTitle={t(TranslationKey.Transparency)}
+            LabelTitle={t(TranslationKey['Transparency codes'])}
+            currentFiles={filesConditions.currentFiles}
+            tmpFiles={filesConditions.tmpFiles}
+            onClickSave={value => {
+              onClickSaveTransparencyFile(value, filesConditions.index)
+              setShowSetFilesModal(false)
+            }}
+            onCloseModal={setShowSetFilesModal}
           />
         </Modal>
 

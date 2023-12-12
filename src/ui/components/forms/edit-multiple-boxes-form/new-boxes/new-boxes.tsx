@@ -32,7 +32,6 @@ export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
     showCheckbox,
     userInfo,
     newBoxes,
-    onChangeField,
     destinations,
     storekeepers,
     visibleBoxes,
@@ -41,6 +40,7 @@ export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
     setNewBoxes,
     destinationsFavourites,
     setDestinationsFavouritesItem,
+    onChangeField,
   } = props
 
   const [nameSearchValue, setNameSearchValue] = useState('')

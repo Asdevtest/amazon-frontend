@@ -133,7 +133,6 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
           className={classNames.paymentMethodIcon}
         />
         <p className={classNames.paymentMethodTitle}>
-          {/* {payment?.paymentMethod?.title || payment?.title} */}
           {'paymentMethod' in payment && payment?.paymentMethod?.title
             ? payment?.paymentMethod?.title
             : 'title' in payment
@@ -148,7 +147,6 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
         })}
       >
         <Field
-          // @ts-ignore
           multiline
           disabled={readOnly}
           minRows={2}
@@ -164,6 +162,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput
             withoutTitle
+            fullWidth
             disabled={readOnly}
             dragAndDropBtnHeight={40}
             maxHeight={90}

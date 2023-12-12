@@ -61,6 +61,7 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
+
     width: 100,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,

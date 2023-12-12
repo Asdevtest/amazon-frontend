@@ -4,5 +4,6 @@ export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
   },
 }))

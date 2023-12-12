@@ -15,7 +15,7 @@ import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
-import { checkIsImageLink, checkIsMediaFileLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'

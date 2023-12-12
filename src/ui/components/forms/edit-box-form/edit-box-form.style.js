@@ -41,6 +41,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   field: {
+    marginBottom: '10px',
     width: '100%',
   },
 
@@ -255,6 +256,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartLabel: {
+    margin: 0,
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
