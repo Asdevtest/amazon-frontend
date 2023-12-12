@@ -17,10 +17,11 @@ interface RestoreRequestModalProps {
   currentRequestsCount: number
   handleCloseModal: () => void
   handleSubmit: (timeoutAt?: string, maxAmountOfProposals?: string | number) => void
+  minDate?: string
 }
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
-  const { currentRequestsCount = 1, handleCloseModal, handleSubmit } = props
+  const { currentRequestsCount = 1, minDate, handleCloseModal, handleSubmit } = props
   const { classes: styles } = useStyles()
 
   const [date, setDate] = useState<string>()
@@ -32,7 +33,9 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['When do you want results?'])}
-        inputComponent={<NewDatePicker value={date} onChange={(e: string) => setDate(e)} />}
+        inputComponent={
+          <NewDatePicker disablePast minDate={minDate} value={date} onChange={(e: string) => setDate(e)} />
+        }
       />
       <Field
         labelClasses={styles.label}

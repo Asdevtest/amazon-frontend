@@ -151,4 +151,8 @@ export const useClassNames = makeStyles()(theme => ({
       margin: 0,
     },
   },
+
+  orderedIcon: {
+    fontSize: '3rem !important',
+  },
 }))

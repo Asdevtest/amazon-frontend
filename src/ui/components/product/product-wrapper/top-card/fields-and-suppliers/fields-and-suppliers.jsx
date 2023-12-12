@@ -200,26 +200,20 @@ export const FieldsAndSuppliers = memo(
               <Field
                 label={t(TranslationKey['SKU by Client'])}
                 inputComponent={
-                  <div>
-                    {checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
-                      !product.archive &&
-                      clientToEditStatuses.includes(productBase.status) && (
-                        <div className={styles.subInputWrapper}>
-                          <Input
-                            placeholder={t(TranslationKey.SKU)}
-                            inputProps={{ maxLength: 50 }}
-                            value={product.skuByClient}
-                            className={styles.inputAsin}
-                            onChange={e =>
-                              onChangeField('skuByClient')({
-                                target: { value: e.target.value ? e.target.value : '' },
-                              })
-                            }
-                          />
-                          {product.skuByClient ? <CopyValue text={product.skuByClient} /> : null}
-                        </div>
-                      )}
+                  <div className={styles.subInputWrapper}>
+                    <Input
+                      disabled={!clientToEditStatuses.includes(productBase.status) || product.archive}
+                      placeholder={t(TranslationKey.SKU)}
+                      inputProps={{ maxLength: 50 }}
+                      value={product.skuByClient}
+                      className={styles.inputAsin}
+                      onChange={e =>
+                        onChangeField('skuByClient')({
+                          target: { value: e.target.value ? e.target.value : '' },
+                        })
+                      }
+                    />
+                    {product.skuByClient ? <CopyValue text={product.skuByClient} /> : null}
                   </div>
                 }
               />

@@ -6,6 +6,7 @@ import { RestoreRequestModal } from '@components/requests-and-request-proposals/
 import { Modal } from '@components/shared/modal'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
+import { getTomorrowDate } from '@utils/date-time'
 
 import { useStyles } from './owner-general-request-info.style'
 
@@ -90,6 +91,7 @@ export const OwnerGeneralRequestInfo = props => {
 
       <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
         <RestoreRequestModal
+          minDate={getTomorrowDate()}
           currentRequestsCount={request.request.maxAmountOfProposals}
           handleCloseModal={() => setIsRestoreModalOpen(false)}
           handleSubmit={onRecoverRequest}
