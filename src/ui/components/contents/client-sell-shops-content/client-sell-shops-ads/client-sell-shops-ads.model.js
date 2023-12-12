@@ -35,6 +35,10 @@ export class ClientSellShopsAdsModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    return this.shopSellsData
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -89,6 +93,7 @@ export class ClientSellShopsAdsModel {
     try {
       const result = await ShopSellModel.getShopSells()
 
+      console.log('result', toJS(result))
       runInAction(() => {
         this.shopSellsData = result
       })
