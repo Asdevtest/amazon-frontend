@@ -33,8 +33,6 @@ export const RequestToSendBatchBox = ({
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
 
-  console.log('box', box)
-
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
   const isBadBox =

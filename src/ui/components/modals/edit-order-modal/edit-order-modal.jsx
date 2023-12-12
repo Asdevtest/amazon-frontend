@@ -505,8 +505,6 @@ export const EditOrderModal = memo(
 
     const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
 
-    console.log('order', order)
-
     return (
       <div className={styles.modalWrapper}>
         <div className={styles.modalHeader}>
