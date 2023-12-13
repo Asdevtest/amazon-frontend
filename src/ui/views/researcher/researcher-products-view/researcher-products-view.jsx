@@ -1,8 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import { Paper } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,14 +8,14 @@ import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-prod
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './researcher-products-view.style'
+import { useStyles } from './researcher-products-view.style'
 
 import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
-export const ResearcherProductsViewRaw = props => {
+export const ResearcherProductsView = observer(props => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(
     () =>
       new ResearcherProductsViewModel({
@@ -26,61 +23,56 @@ export const ResearcherProductsViewRaw = props => {
         location: props.location,
       }),
   )
-  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        <Paper className={classNames.card}>
-          <ResearcherAddProductForm
-            user={viewModel.user}
-            formFields={viewModel.formFields}
-            errorMsg={viewModel.error}
-            reasonErrorMsg={viewModel.reasonError}
-            chekedCode={viewModel.chekedCode}
-            actionStatus={viewModel.actionStatus}
-            onChangeFormFields={viewModel.onChangeFormFields}
-            onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
-          />
-        </Paper>
-        <div className={classNames.tableWrapper}>
-          <CustomDataGrid
-            useResizeContainer
-            sortingMode="client"
-            paginationMode="client"
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.getCurrentData()}
-            rowHeight={60}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+    <>
+      <div className={styles.card}>
+        <ResearcherAddProductForm
+          user={viewModel.user}
+          formFields={viewModel.formFields}
+          errorMsg={viewModel.error}
+          reasonErrorMsg={viewModel.reasonError}
+          chekedCode={viewModel.chekedCode}
+          actionStatus={viewModel.actionStatus}
+          onChangeFormFields={viewModel.onChangeFormFields}
+          onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
+        />
+      </div>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          sortingMode="client"
+          paginationMode="client"
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          rowHeight={60}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
 
       <WarningInfoModal
@@ -93,8 +85,6 @@ export const ResearcherProductsViewRaw = props => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
-}
-
-export const ResearcherProductsView = withStyles(observer(ResearcherProductsViewRaw), styles)
+})
