@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useRef, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -43,7 +43,6 @@ interface Props {
 
 export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   const history = useHistory()
-  const location = useLocation()
   const { classes: classNames } = useClassNames()
   const componentModel = useRef(new HeaderModel({ history }))
   const [isEnabledNotifications, setIsEnabledNotifications] = useState(true)
@@ -69,9 +68,9 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   useEffect(() => {
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
-      !location.pathname.includes('/messages') &&
+      !history.location.pathname.includes('/messages') &&
       !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]) &&
-      !location.search.includes(simpleMessageCrmItemId)
+      !history.location.search.includes(simpleMessageCrmItemId)
     ) {
       toast(
         <SimpleMessagesNotification

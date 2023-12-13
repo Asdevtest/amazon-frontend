@@ -89,7 +89,7 @@ export class MessagesViewModel {
 
         setTimeout(() => {
           this.showProgress = false
-        }, 5000)
+        }, 3000)
       }
     }
 
