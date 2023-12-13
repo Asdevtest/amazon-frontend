@@ -23,13 +23,7 @@ export const usePhotoAndFilesSlider = (
   const [mediaFiles, setMediaFiles] = useState<Array<string | IUploadFile>>([])
   const [mediaFileIndex, setMediaFileIndex] = useState(startMediaFileIndex ?? 0)
 
-  const [isPlaying, setIsPlaying] = useState(false) // for video player
-
-  useEffect(() => {
-    if (mediaFiles?.length - 1 < mediaFileIndex && mediaFiles?.length > 0) {
-      setMediaFileIndex(mediaFiles?.length - 1)
-    }
-  }, [mediaFiles?.length])
+  const [isPlaying, setIsPlaying] = useState(false) // to turn off the video when transitioning between slides
 
   useEffect(() => {
     if (startMediaFileIndex !== undefined) {
@@ -49,7 +43,7 @@ export const usePhotoAndFilesSlider = (
 
   const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad([...documents, ...mediaFiles])
+      onChangeImagesForLoad([...mediaFiles, ...documents]) // when saving media files first, then documents - fewer bugs in the future
     }
   }
 

@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 
 import { useStyles } from './video-player.style'
 
-interface Props {
+interface VideoPlayerProps {
   videoSource: string
   controls?: boolean
   isPlaying?: boolean
@@ -20,13 +20,14 @@ interface Props {
  * @param {Boolean} controls - Set to true or false to display native player controls.
  * @param {Boolean} isPlaying - Set to true or false to pause or play the media.
  * @param {String} height - Сustom video height.
- * @param {String} wrapperClass - custom styles for the main wrapper.
- * @param {String} videoPlayerClass - custom styles for the video player.
+ * @param {String} wrapperClass - Custom styles for the main wrapper.
+ * @param {String} videoPlayerClass - Custom styles for the video player.
  * @param {Function} setIsPlaying - A callback function that can be used to set the playing state of the media. When called with `true`, the media will play, and when called with `false`, the media will pause.
  * @returns {HTMLElement} Returns a video player.
  */
-export const VideoPlayer: FC<Props> = memo(props => {
+export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
   const { videoSource, controls, isPlaying, height, wrapperClass, videoPlayerClass, setIsPlaying } = props
+
   const { classes: styles, cx } = useStyles()
 
   return (

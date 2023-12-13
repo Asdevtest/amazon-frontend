@@ -15,7 +15,6 @@ import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -133,12 +132,12 @@ export const RequestDesignerResultClientForm = memo(props => {
     setArchiveButtonInactiveBeforeDownloading(false)
   }
 
-  const filteredImagesData = imagesData.filter(el =>
+  /* const filteredImagesData = imagesData.filter(el =>
     checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
-  )
-  const imageLinks = filteredImagesData.map(el => el.image)
-  const photosTitles = filteredImagesData.map(el => el.comment)
-  const photosComments = filteredImagesData.map(el => el.commentByClient)
+  ) */
+  const fileLinks = imagesData.map(el => el.image)
+  const photosTitles = imagesData.map(el => el.comment)
+  const photosComments = imagesData.map(el => el.commentByClient)
 
   return (
     <div className={styles.modalMainWrapper}>
@@ -300,9 +299,10 @@ export const RequestDesignerResultClientForm = memo(props => {
       {showImageModal && (
         <ImageModal
           showPreviews
+          isRequestResult
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          files={imageLinks}
+          files={fileLinks}
           photosTitles={photosTitles}
           photosComments={photosComments}
           currentFileIndex={curImageIndex}

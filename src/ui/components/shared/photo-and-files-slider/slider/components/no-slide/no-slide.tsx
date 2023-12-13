@@ -6,7 +6,7 @@ import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from '../slider.style'
+import { useStyles } from './no-slide.style'
 
 interface NoSlideProps {
   isImagesType: boolean

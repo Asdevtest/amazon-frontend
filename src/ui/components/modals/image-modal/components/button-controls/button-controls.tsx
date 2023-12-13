@@ -14,7 +14,7 @@ import { checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from '../image-modal.style'
+import { useStyles } from './button-controls.style'
 
 interface ButtonControlsProps {
   mediaFile: string | IUploadFile
@@ -59,13 +59,13 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
         {isEditable && !withoutMakeMainImage && (
           <>
             {mediaFileIndex === 0 ? (
-              <div className={cx(styles.imagesModalBtn, styles.activeMainIcon)}>
+              <div className={cx(styles.button, styles.activeMainIcon)}>
                 <StarOutlinedIcon />
               </div>
             ) : (
               <Button
                 disabled={mediaFileIndex === 0}
-                className={styles.imagesModalBtn}
+                className={styles.button}
                 onClick={() => onClickMakeMainImageObj(mediaFile, mediaFileIndex)}
               >
                 <StarOutlinedIcon />
@@ -75,16 +75,13 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
         )}
 
         {isEditable && !isVideoType && (
-          <Button
-            className={styles.imagesModalBtn}
-            onClick={() => (onImageEditToggle ? onImageEditToggle() : undefined)}
-          >
+          <Button className={styles.button} onClick={() => (onImageEditToggle ? onImageEditToggle() : undefined)}>
             <ModeOutlinedIcon />
           </Button>
         )}
 
         {isEditable && (
-          <Button className={styles.imagesModalBtn}>
+          <Button className={styles.button}>
             <AutorenewIcon />
 
             <input
@@ -97,7 +94,7 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
         )}
 
         {isEditable && (
-          <Button danger className={styles.imagesModalBtn} onClick={() => onClickRemoveImageObj(mediaFileIndex)}>
+          <Button danger className={styles.button} onClick={() => onClickRemoveImageObj(mediaFileIndex)}>
             <DeleteOutlineOutlinedIcon />
           </Button>
         )}

@@ -293,7 +293,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     background: 'rgb(0, 0, 0, 0.5)',
-    borderRadius: 7,
   },
 
   preloaderIcon: {
