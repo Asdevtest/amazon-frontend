@@ -143,7 +143,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
-    width: 140,
+    width: 150,
     sortable: false,
   },
 
@@ -152,7 +152,11 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} noText={t(TranslationKey['Outside Batch'])} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])}
+      />
+    ),
     type: 'number',
     width: 110,
     columnKey: columnnsKeys.shared.OBJECT,

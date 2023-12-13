@@ -84,7 +84,7 @@ export const TableSupplier = observer(
                     <TableCell align="center" className={classNames.nameCell}>
                       <div className={classNames.statsWrapper}>
                         {isClient && new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
-                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
+                          <NewSupplier classes={{ root: classNames.primary }} className={classNames.newSupplierIcon} />
                         )}
 
                         {productBaseData?.orderSupplier?._id === supplier?._id && (

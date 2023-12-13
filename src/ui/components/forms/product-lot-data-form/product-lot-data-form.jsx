@@ -80,7 +80,7 @@ export const ProductLotDataForm = observer(
         setBatchInfo(result)
         setOpenBatchInfoModal()
       } catch (error) {
-        console.log('error', error)
+        console.log(error)
       }
     }
 

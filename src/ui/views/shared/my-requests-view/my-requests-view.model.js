@@ -531,6 +531,8 @@ export class MyRequestsViewModel {
 
     if (e.row.originalData.countProposalsByStatuses.acceptedProposals > 0) {
       this.isAcceptedProposals = true
+    } else {
+      this.isAcceptedProposals = false
     }
 
     this.getRequestDetail(e.row._id).then(() => {
@@ -640,7 +642,6 @@ export class MyRequestsViewModel {
   }
 
   async onMarkAsCompletedRequest(requestId) {
-    console.log(requestId)
     try {
       await RequestModel.manualCompletedRequest(requestId)
 

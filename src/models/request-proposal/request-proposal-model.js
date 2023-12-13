@@ -19,7 +19,7 @@ class RequestProposalModelStatic {
       const fileName = await OtherModel.postImage(formData)
       return '/uploads/' + fileName
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

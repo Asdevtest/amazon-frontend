@@ -166,7 +166,6 @@ const Slot = ({
               className={styles.pasteInput}
               defaultValue={''}
               // onPaste={e => {
-              //   console.log('e', e)
               //   onPasteFiles(slot._id)(e)
               // }}
               onChange={onUploadFile(slot._id)}

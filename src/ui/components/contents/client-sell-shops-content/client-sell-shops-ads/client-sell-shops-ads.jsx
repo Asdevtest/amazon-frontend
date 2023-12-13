@@ -3,11 +3,8 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
-import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
@@ -33,9 +30,7 @@ export const ClientSellShopsAds = observer(() => {
     curFilter,
     filtersSettings,
     nameSearchValue,
-    // viewMode,
-    sortMode,
-    onTriggerSortMode,
+
     onClickViewMore,
     onChangeNameSearchValue,
     onClickAddBtn,
@@ -102,25 +97,12 @@ export const ClientSellShopsAds = observer(() => {
         </Button>
       </div>
 
-      <div className={classNames.tablePanelWrapper}>
-        <div></div>
-        <SearchInput
-          placeholder={t(TranslationKey.search)}
-          inputClasses={classNames.searchInput}
-          value={nameSearchValue}
-          onChange={onChangeNameSearchValue}
-        />
-
-        <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-          <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-          {sortMode === tableSortMode.DESK ? (
-            <ArrowDropDownIcon color="primary" />
-          ) : (
-            <ArrowDropUpIcon color="primary" />
-          )}
-        </div>
-      </div>
+      <SearchInput
+        placeholder={t(TranslationKey.search)}
+        inputClasses={classNames.searchInput}
+        value={nameSearchValue}
+        onChange={onChangeNameSearchValue}
+      />
 
       {model.currentData?.length ? (
         <div>

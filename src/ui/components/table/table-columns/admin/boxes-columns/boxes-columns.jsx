@@ -122,7 +122,6 @@ export const adminBoxesViewColumns = () => [
     width: 110,
     sortable: false,
     filterable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -134,7 +133,6 @@ export const adminBoxesViewColumns = () => [
     width: 120,
     sortable: false,
     filterable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -146,7 +144,6 @@ export const adminBoxesViewColumns = () => [
     width: 130,
     // sortable: false,
     filterable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

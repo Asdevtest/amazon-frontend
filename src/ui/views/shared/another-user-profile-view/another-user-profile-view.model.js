@@ -41,7 +41,7 @@ export class AnotherProfileViewModel {
 
   productsVacant = []
   shopsData = []
-  selectedShops = []
+  selectedShopId = ''
 
   tabExchange = 0
   tabHistory = 0
@@ -196,7 +196,7 @@ export class AnotherProfileViewModel {
         this.selectedProduct._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopId: this.selectedShops,
+            shopId: this.selectedShopId,
           },
           ['suppliers'],
         ),
@@ -204,7 +204,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -222,12 +222,12 @@ export class AnotherProfileViewModel {
     }
   }
 
-  async onClickBuyProductBtn(shops) {
+  async onClickBuyProductBtn(shopId) {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
       runInAction(() => {
-        this.selectedShops = shops
+        this.selectedShopId = shopId
       })
 
       await this.onSaveProductData()

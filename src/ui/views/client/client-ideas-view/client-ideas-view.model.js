@@ -489,7 +489,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -972,7 +972,7 @@ export class ClientIdeasViewModel {
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
 
       this.setActionStatus(loadingStatuses.failed)
     }
@@ -1096,7 +1096,7 @@ export class ClientIdeasViewModel {
         this.onTriggerOpenModal('showRequestStandartResultModal')
       }
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

@@ -225,7 +225,7 @@ class ChatModelStatic {
         this.loadedFiles.push(fileUrl)
       }
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -470,9 +470,7 @@ class ChatModelStatic {
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
-    runInAction(() => {
-      this.chatSelectedId = value
-    })
+    this.chatSelectedId = value
   }
 
   private onReadMessage(response: OnReadMessageResponse) {

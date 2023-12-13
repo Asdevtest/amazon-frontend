@@ -22,8 +22,6 @@ export const SourceFilesView = observer(({ history }) => {
     viewModel.loadData()
   }, [])
 
-  // console.log(viewModel.editField)
-
   return (
     <>
       <div className={styles.searchContainer}>

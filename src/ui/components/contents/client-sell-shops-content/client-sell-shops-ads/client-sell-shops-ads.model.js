@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
@@ -64,14 +64,6 @@ export class ClientSellShopsAdsModel {
     this.setTableModeState()
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.shopSellsData).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    } else {
-      return toJS(this.shopSellsData)
-    }
-  }
-
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
   }
@@ -92,8 +84,6 @@ export class ClientSellShopsAdsModel {
   async getShopSells() {
     try {
       const result = await ShopSellModel.getShopSells()
-
-      console.log('result', toJS(result))
       runInAction(() => {
         this.shopSellsData = result
       })
@@ -120,15 +110,5 @@ export class ClientSellShopsAdsModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setTableModeState()
   }
 }

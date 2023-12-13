@@ -5,4 +5,5 @@ export const errorMessageList = [
   'This token is invalid',
   'Session limit exceeded. This token is invalid.',
   'Your ACCESS token is no longer valid. Use your REFRESH token to get a new one',
+  'Forbidden',
 ]

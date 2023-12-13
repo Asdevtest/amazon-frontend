@@ -1,36 +1,36 @@
-import { FC } from 'react'
-
-import { Paper, Typography } from '@mui/material'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewCard } from '@components/cards/review-card'
-import { useReviewsStyles } from '@components/user/users-views/user-profile-view/reviews/reviews.styles'
+import { useStyles } from '@components/user/users-views/user-profile-view/reviews/reviews.styles'
 
 import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface Props {
+interface ReviewsProps {
   reviews: FeedbackType[]
 }
 
-export const Reviews: FC<Props> = ({ reviews }) => {
-  const { classes: styles } = useReviewsStyles()
+export const Reviews: FC<ReviewsProps> = memo(({ reviews }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const isSingleReview = reviews?.length === 1
 
   return (
-    <div className={styles.mainWrapper}>
-      <Typography variant="h6" className={styles.mainTitle}>
-        {t(TranslationKey.Reviews)}
-      </Typography>
-      <Paper className={styles.body}>
-        <div className={styles.reviewList}>
-          {!!reviews?.length && reviews.map((el, index) => <ReviewCard key={index} review={el} />)}
-          {!reviews?.length && (
-            <Typography className={styles.typoNoReviews}>{t(TranslationKey['No reviews yet'])}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey.Reviews)}</p>
+
+      <div className={styles.body}>
+        <div className={cx(styles.scroll_Y, { [styles.lastReview]: !isSingleReview })}>
+          {reviews?.length ? (
+            reviews.map(review => <ReviewCard key={review._id} review={review} />)
+          ) : (
+            <p className={cx(styles.title, styles.titleCenter)}>{`${t(TranslationKey['No reviews yet'])}.`}</p>
           )}
         </div>
-      </Paper>
+      </div>
     </div>
   )
-}
+})
