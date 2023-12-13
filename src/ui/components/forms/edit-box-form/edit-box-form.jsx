@@ -158,7 +158,7 @@ export const EditBoxForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
         item.product._id === productId
-          ? { ...item, barCode: '', tmpBarCode: [''], changeBarCodInInventory: false }
+          ? { ...item, barCode: '', tmpBarCode: '', changeBarCodInInventory: false }
           : item,
       )
       setBoxFields(newFormFields)

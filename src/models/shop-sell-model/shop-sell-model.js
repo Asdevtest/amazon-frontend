@@ -13,6 +13,7 @@ class ShopSellModelStatic {
 
   getShopSells = async () => {
     const response = await restApiService.shopSellApi.apiV1ShopSellGet()
+    console.log('response', response)
     return response.data
   }
 

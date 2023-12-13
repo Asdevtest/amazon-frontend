@@ -315,8 +315,6 @@ export class MessagesViewModel {
   }
 
   onClickBackButton() {
-    // this.chatSelectedId = undefined
-
     ChatModel.onChangeChatSelectedId(undefined)
   }
 

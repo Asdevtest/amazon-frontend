@@ -470,9 +470,7 @@ class ChatModelStatic {
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
-    runInAction(() => {
-      this.chatSelectedId = value
-    })
+    this.chatSelectedId = value
   }
 
   private onReadMessage(response: OnReadMessageResponse) {
