@@ -185,10 +185,6 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
     this.setDataGridState()
