@@ -31,9 +31,10 @@ import { useStyles } from './warehouse-my-warehouse-view.style'
 import { ActionButtons } from './action-buttons/action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
-export const WarehouseMyWarehouseView = observer(props => {
-  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
+export const WarehouseMyWarehouseView = observer(({ history }) => {
   const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -48,10 +49,10 @@ export const WarehouseMyWarehouseView = observer(props => {
       <div className={styles.headerWrapper}>
         <ActionButtons
           selectedBoxes={viewModel.selectedBoxes}
-          onEditBox={() => viewModel.onEditBox()}
-          onClickMergeBtn={() => viewModel.onClickMergeBtn()}
-          onClickSplitBtn={() => viewModel.onClickSplitBtn()}
-          onClickGroupingBtn={() => viewModel.onClickGroupingBtn()}
+          onEditBox={viewModel.onEditBox}
+          onClickMergeBtn={viewModel.onClickMergeBtn}
+          onClickSplitBtn={viewModel.onClickSplitBtn}
+          onClickGroupingBtn={viewModel.onClickGroupingBtn}
         />
 
         <SearchInput
@@ -62,6 +63,7 @@ export const WarehouseMyWarehouseView = observer(props => {
 
         <div />
       </div>
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
@@ -86,10 +88,16 @@ export const WarehouseMyWarehouseView = observer(props => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columsBtnSettings: {
-              columnsModel: viewModel.columnsModel,
-              columnVisibilityModel: viewModel.columnVisibilityModel,
-              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
             },
           }}
           density={viewModel.densityModel}
@@ -98,7 +106,7 @@ export const WarehouseMyWarehouseView = observer(props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onCellDoubleClick={params =>
             !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
@@ -225,9 +233,7 @@ export const WarehouseMyWarehouseView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
         title={viewModel.modalEditSuccessMessage}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessInfoModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
       />
 
       <Modal
@@ -307,9 +313,7 @@ export const WarehouseMyWarehouseView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
     </>
   )
