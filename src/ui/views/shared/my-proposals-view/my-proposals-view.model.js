@@ -25,7 +25,7 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { filtersFields } from './my-proposals-view.constants'
+import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
 
 export class MyProposalsViewModel {
   // * Pagination & Sort
@@ -87,6 +87,9 @@ export class MyProposalsViewModel {
   showRequestResultModal = false
   selectedProposal = undefined
 
+  isInTheWork = true
+  switcherCondition = switcherConditions.inTheWork
+
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
@@ -111,6 +114,8 @@ export class MyProposalsViewModel {
 
   constructor({ history }) {
     this.history = history
+
+    this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -190,20 +195,10 @@ export class MyProposalsViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setDataGridState()
   }
 
   onClickTaskType(taskType) {
@@ -235,16 +230,12 @@ export class MyProposalsViewModel {
     win?.focus()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
-      await this.getRequestsProposalsPagMy()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getRequestsProposalsPagMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -316,23 +307,12 @@ export class MyProposalsViewModel {
   }
 
   getFilters(exclusion) {
-    // const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
-
     return objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.currentSearchValue,
-        exclusion,
-        filtersFields,
-        ['asin', 'title', 'humanFriendlyId'],
-        // {
-        //   ...(!statusFilterData.length && {
-        //     status: {
-        //       $eq: this.currentSettings.statuses.join(','),
-        //     },
-        //   }),
-        // },
-      ),
+      dataGridFiltersConverter(this.columnMenuSettings, this.currentSearchValue, exclusion, filtersFields, [
+        'asin',
+        'title',
+        'humanFriendlyId',
+      ]),
     )
   }
 
@@ -388,13 +368,7 @@ export class MyProposalsViewModel {
       this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
     }
 
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onTriggerOpenModal(modal) {
@@ -436,6 +410,8 @@ export class MyProposalsViewModel {
       ...dataGridFiltersInitializer(filtersFields),
     }
 
+    this.setDefaultStatuses()
+
     this.getRequestsProposalsPagMy()
   }
 
@@ -444,10 +420,7 @@ export class MyProposalsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onOpenRequestDetailModal(id) {
@@ -458,5 +431,23 @@ export class MyProposalsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  setDefaultStatuses() {
+    this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
+  }
+
+  onClickChangeCatigory(value) {
+    this.switcherCondition = value
+
+    if (value === switcherConditions.inTheWork) {
+      this.isInTheWork = true
+    } else {
+      this.isInTheWork = false
+    }
+
+    this.setDefaultStatuses()
+
+    this.getRequestsProposalsPagMy()
   }
 }
