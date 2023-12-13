@@ -225,7 +225,7 @@ class ChatModelStatic {
         this.loadedFiles.push(fileUrl)
       }
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

@@ -640,7 +640,6 @@ export class MyRequestsViewModel {
   }
 
   async onMarkAsCompletedRequest(requestId) {
-    console.log(requestId)
     try {
       await RequestModel.manualCompletedRequest(requestId)
 

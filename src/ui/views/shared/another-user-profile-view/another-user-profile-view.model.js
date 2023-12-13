@@ -204,7 +204,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 

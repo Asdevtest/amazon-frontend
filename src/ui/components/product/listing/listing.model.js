@@ -152,7 +152,7 @@ export class ListingModel {
         listingImages: updateProductData.listingImages.concat(this.imagesToLoad),
       })
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

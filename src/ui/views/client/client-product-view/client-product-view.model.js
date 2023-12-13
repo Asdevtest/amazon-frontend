@@ -198,7 +198,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -225,7 +225,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -552,7 +552,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -730,7 +730,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -740,7 +740,7 @@ export class ClientProductViewModel {
         transparency: this.product.transparency,
       })
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

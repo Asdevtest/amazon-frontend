@@ -586,7 +586,7 @@ export class ResearcherProductViewModel {
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -627,7 +627,7 @@ export class ResearcherProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

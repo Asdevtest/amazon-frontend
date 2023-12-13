@@ -154,7 +154,6 @@ export class SupervisorProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
-      console.log(result)
 
       runInAction(() => {
         this.product = result
@@ -406,7 +405,7 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
