@@ -93,6 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   row: {
+    width: '100%',
     border: '1px solid rgba(0,0,0, .1)',
   },
 
@@ -147,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '0 10px',
+    padding: '0 5px',
   },
 
   error: {
