@@ -64,7 +64,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   }
 
   const disanledSubmit = JSON.stringify(sourceState) === JSON.stringify(state) || !state.title.replace(/ /g, '')
-  const currentChatAvatar = state.preview.includes('data') ? state.preview : getAmazonImageUrl(state.preview, true)
+  const currentChatAvatar = state?.preview?.includes('data') ? state?.preview : getAmazonImageUrl(state?.preview, true)
 
   return (
     <div className={classNames.root}>

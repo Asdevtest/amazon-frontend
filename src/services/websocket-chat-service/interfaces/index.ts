@@ -80,6 +80,11 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
   is_draft?: boolean
   createdAt: string
   updatedAt: string
+  info: {
+    image: string
+    title: string
+    type: ChatInfoType
+  }
   data: T
 }
 
@@ -100,6 +105,12 @@ export enum ChatMessageType {
   'PROPOSAL_EDITED' = 'PROPOSAL_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
+}
+
+export type ChatInfoType = 'GROUP'
+
+export enum EChatInfoType {
+  'GROUP' = 'GROUP',
 }
 
 export enum ChatMessageTextType {
@@ -145,13 +156,18 @@ export interface ChatMessageDataCreatedNewProposalRequestDescription {
 export interface ChatMessageDataAddUsersToGroupChat {
   createdBy: string
   title: string
-  users: { _id: string; name: string }[]
+  users: ChatMessageUsers[]
 }
 
 export interface ChatMessageRemoveUsersFromGroupChat {
   createdBy: string
   title: string
-  users: { _id: string; name: string }[]
+  users: ChatMessageUsers[]
+}
+
+export interface ChatMessageUsers {
+  _id: string
+  name: string
 }
 
 export interface ChatMessagePatchInfoGroupChat {

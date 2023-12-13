@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Manager, Socket } from 'socket.io-client'
 
 import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
@@ -10,6 +11,8 @@ import {
   AddUsersToGroupChatParams,
   Chat,
   ChatMessage,
+  ChatMessageDataAddUsersToGroupChat,
+  ChatMessageUsers,
   FindChatMessageRequestParams,
   RemoveUsersFromGroupChatParams,
   SendMessageRequestParams,
@@ -129,30 +132,35 @@ export class WebsocketChatService {
     })
   }
 
-  public async addUsersToGroupChat(params: AddUsersToGroupChatParams): Promise<{}> {
-    return new Promise((/* resolve, reject*/) => {
+  public async addUsersToGroupChat(params: AddUsersToGroupChatParams): Promise<ChatMessageUsers[]> {
+    return new Promise((resolve, reject) => {
       this.socket.emit(
         EentToEmit.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN,
         params,
-        // (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
-        //   if (!sendMessageResponse.success || !sendMessageResponse.data) {
-        //     reject(sendMessageResponse.error)
-        //   } else {
-        //     resolve(sendMessageResponse.data)
-        //   }
-        // },
+        (sendMessageResponse: WebsocketChatResponse<ChatMessageDataAddUsersToGroupChat>) => {
+          if (!sendMessageResponse.success || !sendMessageResponse.data) {
+            reject(sendMessageResponse.error)
+          } else {
+            // @ts-ignore
+            resolve(sendMessageResponse.data.data.users)
+          }
+        },
       )
     })
   }
 
   public async removeUsersFromGroupChat(params: RemoveUsersFromGroupChatParams): Promise<{}> {
-    return new Promise((/* resolve, reject*/) => {
+    return new Promise((resolve, reject) => {
       this.socket.emit(
         EentToEmit.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN,
         params,
-        //   () => {
-        //   resolve(this.getChats())
-        // }
+        (response: WebsocketChatResponse<ChatMessage>) => {
+          if (!response.success || !response.data) {
+            reject(response.error)
+          } else {
+            resolve(response.data)
+          }
+        },
       )
     })
   }
@@ -188,11 +196,9 @@ export class WebsocketChatService {
   }
 
   public async readMessage(messageIds: string[]): Promise<null> {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds }, (sendMessageResponse: WebsocketChatResponse<null>) => {
-        if (!sendMessageResponse.success) {
-          reject(null)
-        } else {
+        if (sendMessageResponse.success) {
           resolve(null)
         }
       })
