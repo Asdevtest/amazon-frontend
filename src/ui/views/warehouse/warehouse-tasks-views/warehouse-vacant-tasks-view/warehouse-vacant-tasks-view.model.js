@@ -2,9 +2,11 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -23,9 +25,13 @@ export class WarehouseVacantViewModel {
   tasksVacant = []
 
   selectedTask = undefined
-  curOpenedTask = {}
-
+  curOpenedTask = undefined
+  tmpDataForCancelTask = undefined
   selectedTasks = []
+
+  get currentData() {
+    return this.tasksVacant
+  }
 
   nameSearchValue = ''
 
@@ -42,6 +48,7 @@ export class WarehouseVacantViewModel {
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
   showEditPriorityData = false
+  showConfirmModal = false
 
   editPriorityData = {
     taskId: null,
@@ -50,6 +57,7 @@ export class WarehouseVacantViewModel {
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
+    onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
     updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
@@ -103,14 +111,12 @@ export class WarehouseVacantViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_VACANT_TASKS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onSelectionModel(model) {
@@ -119,6 +125,7 @@ export class WarehouseVacantViewModel {
 
   onClickReportBtn() {
     this.setRequestStatus(loadingStatuses.isLoading)
+
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
@@ -163,14 +170,11 @@ export class WarehouseVacantViewModel {
     this.getTasksVacant()
   }
 
-  getCurrentData() {
-    return toJS(this.tasksVacant)
-  }
-
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksVacant()
+
+      this.getTasksVacant()
     } catch (error) {
       console.log(error)
     }
@@ -329,6 +333,54 @@ export class WarehouseVacantViewModel {
         this.tasksVacant = []
       })
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  onClickCancelTask(boxId, taskId, taskType) {
+    this.tmpDataForCancelTask = { boxId, taskId, taskType }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickConfirmCancelTask(comment) {
+    try {
+      await this.cancelTaskActionByStatus(comment)
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async cancelTaskActionByStatus(comment) {
+    switch (mapTaskOperationTypeKeyToEnum[this.tmpDataForCancelTask.taskType]) {
+      case TaskOperationType.MERGE:
+        await BoxesModel.cancelMergeBoxes(this.tmpDataForCancelTask.boxId)
+        break
+
+      case TaskOperationType.SPLIT:
+        await BoxesModel.cancelSplitBoxes(this.tmpDataForCancelTask.boxId)
+        break
+
+      case TaskOperationType.EDIT:
+        await BoxesModel.cancelEditBoxes(this.tmpDataForCancelTask.boxId)
+        break
+    }
+
+    this.updateTask(this.tmpDataForCancelTask.taskId, comment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
+  }
+
+  async updateTask(taskId, comment, status) {
+    try {
+      await StorekeeperModel.updateTask(taskId, {
+        storekeeperComment: comment || '',
+        images: [],
+        status,
+      })
+
+      this.getTasksVacant()
+    } catch (error) {
+      console.log(error)
     }
   }
 

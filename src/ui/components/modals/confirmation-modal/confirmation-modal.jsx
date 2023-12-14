@@ -63,6 +63,7 @@ export const ConfirmationModal = props => {
   const handleClose = () => {
     onClickCancelBtn()
     setComment('')
+    setIsShowComment(false)
   }
 
   useEffect(() => {

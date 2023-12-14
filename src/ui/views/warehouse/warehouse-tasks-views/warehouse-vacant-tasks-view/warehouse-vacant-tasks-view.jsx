@@ -6,6 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
@@ -39,7 +40,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
   const isDisableDowloadButton =
     !viewModel.selectedTasks.length ||
     viewModel.selectedTasks.length > 1 ||
-    viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData.operationType !==
+    viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData.operationType !==
       TaskOperationType.RECEIVE
 
   return (
@@ -112,7 +113,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
@@ -178,6 +179,22 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      <ConfirmationModal
+        isWarning
+        withComment
+        commentTitleText={t(TranslationKey['Cancel task'])}
+        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
+        openModal={viewModel.showConfirmModal}
+        title={t(TranslationKey['Confirm action'])}
+        message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        commentCancelBtnText={t(TranslationKey.Cancel)}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
     </React.Fragment>
   )
 })
