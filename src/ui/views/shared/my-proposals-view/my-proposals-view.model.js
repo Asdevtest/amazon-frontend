@@ -424,6 +424,9 @@ export class MyProposalsViewModel {
   }
 
   onOpenRequestDetailModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
     try {
       this.getRequestById(id)
 
