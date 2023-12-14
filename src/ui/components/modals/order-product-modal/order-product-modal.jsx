@@ -104,7 +104,7 @@ export const OrderProductModal = ({
           barCode: reorderOrder?.product?.barCode || '',
           tmpBarCode: [],
 
-          transparencyFile: isPendingOrdering ? reorderOrder?.transparencyFile : '',
+          transparencyFile: '',
           tmpTransparencyFile: [],
 
           productId: reorderOrder.product._id,
