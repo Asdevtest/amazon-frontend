@@ -33,7 +33,7 @@ import { useStyles } from './messages-view.style'
 
 import { MessagesViewModel } from './messages-view.model'
 
-export const MessagesView = observer(history => {
+export const MessagesView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
 
