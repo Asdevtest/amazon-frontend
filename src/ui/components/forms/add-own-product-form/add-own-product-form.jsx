@@ -30,7 +30,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
   const sourceFormFields = {
     asin: '',
-    skusByClient: [],
+    skuByClient: '',
     amazonTitle: '',
     images: [],
     lamazon: '',
@@ -44,14 +44,12 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
   }
 
   const onClickSkuBtn = () => {
-    setFormFields({ ...formFields, skusByClient: [...formFields.skusByClient, skuLine.toUpperCase()] })
+    setFormFields({ ...formFields, skuByClient: skuLine.toUpperCase() })
     setSkuLine('')
   }
 
-  const onRemoveSku = index => {
-    const newArr = formFields.skusByClient.filter((el, i) => i !== index)
-
-    setFormFields({ ...formFields, skusByClient: newArr })
+  const onRemoveSku = () => {
+    setFormFields({ ...formFields, skuByClient: '' })
   }
 
   const onChangeField = fieldName => event => {
@@ -61,10 +59,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
   }
 
   const disableSubmitBtn =
-    (formFields.asin === '' &&
-      !formFields.skusByClient.length &&
-      formFields.amazonTitle === '' &&
-      formFields.lamazon === '') ||
+    (formFields.asin === '' && !formFields.skuByClient && formFields.amazonTitle === '' && formFields.lamazon === '') ||
     (!isNoAsin && formFields.asin === '') ||
     submitIsClicked
 
@@ -127,19 +122,17 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
             labelClasses={classNames.fieldLabel}
             inputComponent={
               <div>
-                {formFields.skusByClient.length ? (
+                {!!formFields.skuByClient && (
                   <div className={classNames.skuItemsWrapper}>
-                    {formFields.skusByClient.map((item, index) => (
-                      <div key={index} className={classNames.skuItemWrapper}>
-                        <p className={classNames.skuItemTitle}>{item}</p>
+                    <div className={classNames.skuItemWrapper}>
+                      <p className={classNames.skuItemTitle}>{formFields.skuByClient}</p>
 
-                        <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
-                          <DeleteIcon className={classNames.deleteBtn} />
-                        </IconButton>
-                      </div>
-                    ))}
+                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku()}>
+                        <DeleteIcon className={classNames.deleteBtn} />
+                      </IconButton>
+                    </div>
                   </div>
-                ) : null}
+                )}
 
                 <div className={classNames.inputWrapper}>
                   <Input
@@ -152,7 +145,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
                   <Button
                     disableElevation
-                    disabled={skuLine === '' || !!formFields.skusByClient.length}
+                    disabled={skuLine === '' || !!formFields.skuByClient}
                     className={classNames.defaultBtn}
                     variant="contained"
                     color="primary"

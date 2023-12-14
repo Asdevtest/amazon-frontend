@@ -49,4 +49,11 @@ export const useStyles = makeStyles()(theme => ({
     right: 8,
     bottom: 8,
   },
+
+  noticeTitle: {
+    color: theme.palette.primary.main,
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: '400',
+  },
 }))

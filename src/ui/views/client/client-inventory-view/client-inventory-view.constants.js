@@ -38,9 +38,9 @@ export const fieldsOfProductAllowedToCreate = [
 ]
 
 export const filtersFields = [
-  'shopIds',
+  'shopId',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amountInOrders',
@@ -64,6 +64,7 @@ export const filtersFields = [
   'ideasFinished',
   'tags',
   'redFlags',
+  'transparency',
 ]
 
 export const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']

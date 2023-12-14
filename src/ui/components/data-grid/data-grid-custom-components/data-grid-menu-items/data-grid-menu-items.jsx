@@ -904,14 +904,15 @@ export const IdeaShopsFieldMenuItem = React.memo(
           setChoosenItems([...choosenItems, obj])
         }
       }
+
       // НУжно переделать
       useEffect(() => {
         setFilterData(getData('filterData'))
-      }, [data?.childProductShopIds?.filterData?.length, data?.parentProductShopIds?.filterData?.length])
+      }, [data?.childProductShopId?.filterData?.length, data?.parentProductShopId?.filterData?.length])
       // НУжно переделать
       useEffect(() => {
         setCurrentFilterData(getData('currentFilterData'))
-      }, [data?.childProductShopIds?.currentFilterData?.length, data?.parentProductShopIds?.currentFilterData?.length])
+      }, [data?.childProductShopId?.currentFilterData?.length, data?.parentProductShopId?.currentFilterData?.length])
 
       useEffect(() => {
         setChoosenItems(currentFilterData)
@@ -1012,17 +1013,17 @@ export const IdeaShopsFieldMenuItem = React.memo(
 
                 // НУжно переделать
                 const parentShops = choosenItems.filter(item =>
-                  data?.parentProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.parentProductShopId?.filterData?.some(obj => obj?._id === item?._id),
                 )
                 const childShops = choosenItems.filter(item =>
-                  data?.childProductShopIds?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.childProductShopId?.filterData?.some(obj => obj?._id === item?._id),
                 )
 
                 if (parentShops?.length) {
-                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopIds')
+                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopId')
                 }
                 if (childShops?.length) {
-                  onChangeFullFieldMenuItem(childShops, 'childProductShopIds')
+                  onChangeFullFieldMenuItem(childShops, 'childProductShopId')
                 }
 
                 onClickAccept()
@@ -1222,6 +1223,7 @@ export const NormalFieldMenuItem = React.memo(
                             leftAlign
                             oneLines={columnKey === columnnsKeys.shared.STRING}
                             text={value}
+                            maxLength={value?.length}
                             // color={colorByStatus(el)}
                             customTextClass={classNames.statusText}
                           />
@@ -1464,8 +1466,8 @@ export const ProductMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skusByClient?.currentFilterData?.length
-        ? 'skusByClient'
+        : !withoutSku && data.skuByClient?.currentFilterData?.length
+        ? 'skuByClient'
         : 'asin',
     )
     // const { filterData } = data[currentOption]
@@ -1546,7 +1548,7 @@ export const ProductMenuItem = React.memo(
                 <FormControlLabel
                   title={t(TranslationKey.SKU)}
                   className={classNames.radioOption}
-                  value="skusByClient"
+                  value="skuByClient"
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.SKU)}
                 />
@@ -2726,6 +2728,10 @@ export const OnListingCellMenuItem = React.memo(
 export const YesNoCellMenuItem = React.memo(
   withStyles(({ classes: classNames, data, onClose, field }) => {
     const filterData = data[`${field}YesNoFilterData`]
+    const [condition, setCondition] = useState({
+      yes: filterData.yes,
+      no: filterData.no,
+    })
 
     return (
       <div title="" className={classNames.shopsDataWrapper}>
@@ -2734,12 +2740,18 @@ export const YesNoCellMenuItem = React.memo(
             <div className={classNames.shop}>
               <Checkbox
                 color="primary"
-                checked={filterData.yes}
+                checked={condition.yes}
                 onClick={() => {
-                  if (filterData.yes) {
-                    filterData.handleFilters(false, true)
+                  if (condition.yes) {
+                    setCondition({
+                      yes: false,
+                      no: true,
+                    })
                   } else {
-                    filterData.handleFilters(true, true)
+                    setCondition({
+                      yes: true,
+                      no: true,
+                    })
                   }
                 }}
               />
@@ -2750,12 +2762,18 @@ export const YesNoCellMenuItem = React.memo(
             <div className={classNames.shop}>
               <Checkbox
                 color="primary"
-                checked={filterData.no}
+                checked={condition.no}
                 onClick={() => {
-                  if (filterData.no) {
-                    filterData.handleFilters(true, false)
+                  if (condition.no) {
+                    setCondition({
+                      yes: true,
+                      no: false,
+                    })
                   } else {
-                    filterData.handleFilters(true, true)
+                    setCondition({
+                      yes: true,
+                      no: true,
+                    })
                   }
                 }}
               />
@@ -2768,6 +2786,7 @@ export const YesNoCellMenuItem = React.memo(
           <Button
             variant="contained"
             onClick={e => {
+              filterData.handleFilters(condition.yes, condition.no)
               onClose(e)
             }}
           >

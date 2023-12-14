@@ -1,12 +1,11 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
-import { Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useReviewCardStyles } from '@components/cards/review-card/review-card.styles'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { UserLink } from '@components/user/user-link'
 
 import { formatShortDateTime } from '@utils/date-time'
@@ -14,37 +13,42 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-interface Props {
+import { useStyles } from './review-card.styles'
+
+interface ReviewCardProps {
   review: FeedbackType
 }
 
-export const ReviewCard: FC<Props> = ({ review }) => {
-  const { classes: styles } = useReviewCardStyles()
-  const user = review.sub ?? review.createdBy
+export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const reviewer = review.sub ?? review.createdBy
 
   return (
-    <Grid item className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.header}>
-        <UserLink
-          withAvatar
-          isShortRating
-          ratingSize="small"
-          name={user?.name}
-          userId={user?._id}
-          rating={user?.rating}
-          customRatingClass={{ opacity: 1 }}
-        />
-        <div className={styles.headerItem}>
-          <Typography className={styles.headerItemTitle}>{t(TranslationKey.Role)}</Typography>
-          <Typography>{UserRolePrettyMap[review.role]}</Typography>
+        <div className={styles.userLinkContainer}>
+          <UserLink
+            withAvatar
+            name={reviewer?.name}
+            userId={reviewer?._id}
+            rating={reviewer?.rating}
+            customRatingClass={{ opacity: 1, fontSize: 14 }}
+          />
         </div>
+
         <div className={styles.headerItem}>
-          <Typography className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</Typography>
-          <Rating readOnly value={review.rating} size={'small'} />
+          <p className={styles.headerItemTitle}>{`${t(TranslationKey.Role)}:`}</p>
+          <p className={cx(styles.headerItemTitle, styles.headerItemTitleBold)}>{UserRolePrettyMap[review.role]}</p>
+        </div>
+
+        <div className={styles.headerItem}>
+          <p className={styles.headerItemTitle}>{formatShortDateTime(review.createdAt)}</p>
+          <Rating readOnly value={review.rating} size={'small'} className={styles.rating} />
         </div>
       </div>
 
-      <Typography className={styles.comment}>{review.comment}</Typography>
-    </Grid>
+      <CustomTextEditor readOnly conditions={review.comment} editorMaxHeight={styles.editor} />
+    </div>
   )
-}
+})

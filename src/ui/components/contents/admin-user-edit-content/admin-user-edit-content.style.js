@@ -195,7 +195,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   actionButton: {
@@ -205,7 +205,7 @@ export const useClassNames = makeStyles()(theme => ({
     // backgroundColor: '#006CFF',
     // borderRadius: '4px',
     color: '#00B746',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   allowedStrategiesContainer: {
@@ -255,7 +255,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: 10,
     top: 35,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     [theme.breakpoints.down(768)]: {
       top: 35,
     },

@@ -10,7 +10,7 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { formatDateOnlyTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
@@ -61,7 +61,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
                 )}
 
                 <img
-                  src={checkIsImageLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
+                  src={checkIsMediaFileLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
                   alt={`Image ${index}`}
                   className={classNames.image}
                 />

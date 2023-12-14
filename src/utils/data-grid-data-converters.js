@@ -85,7 +85,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     typeTask: item?.typeTask,
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
-    shopIds: shopsData?.find(el => el._id === item?.product?.shopIds?.[0])?.name || '',
+    shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -307,6 +307,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,
+    transparency: item.transparency,
 
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
@@ -316,7 +317,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
 
-    shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
+    shopId: shopsData?.find(el => el._id === item.shopId)?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -381,8 +382,7 @@ export const clientOrdersDataConverter = (data, shopsData) =>
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
-    shopIds: shopsData?.find(el => el._id === item.product.shopIds?.[0])?.name || '',
-    // shopIds: item.product.shopIds?.[0],
+    shopId: shopsData?.find(el => el._id === item.product.shopId)?.name || '',
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>
@@ -431,13 +431,10 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
 
-    shopIds: Array.from(
+    shopId: Array.from(
       new Set(
         `${item.items.reduce(
-          (ac, cur) =>
-            (ac +=
-              cur.product.shopIds?.reduce((a, c) => (a += shopsData?.find(el => el._id === c)?.name + ', '), '') +
-              ', '),
+          (ac, cur) => (ac += shopsData?.find(el => el._id === cur.product.shopId)?.name + ', '),
           '',
         )}`
           .replace(/undefined/g, '')

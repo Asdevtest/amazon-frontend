@@ -61,8 +61,8 @@ export interface IProduct {
   researcherRate: number
   reservedSum: number
   sentToFbaSum: number
-  shopIds: Record<string, string>[]
-  skusByClient: string[]
+  shopId: string
+  skuByClient: string
   status: number
   stockUSA: number
   strategyStatus: number
@@ -157,8 +157,8 @@ export interface IProductVariation {
   amazonTitle: string
   asin: string
   images: Array<string>
-  shopIds: Array<string>
-  skusByClient: Array<string>
+  shopId: string
+  skuByClient: string
   _id: string
 }
 
@@ -168,7 +168,7 @@ export interface IProductIdeaNotification {
   images: Array<string>
   buyerId: string
   clientId: string
-  skusByClient: Array<string>
+  skuByClient: string
 }
 
 export enum ProductVariation {

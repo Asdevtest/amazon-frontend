@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { History } from 'history'
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
@@ -23,12 +21,16 @@ import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } fro
 import { IProductIdeaNotification } from '@typings/product'
 import { IUser } from '@typings/user'
 
-import { GeneralNotificationsColumns } from './general-notifications-columns/general-notifications-columns'
+import { GeneralNotificationsColumns } from '../../../components/table/table-columns/general-notifications-columns/general-notifications-columns'
+
+interface IVariations {
+  isArchive: boolean
+  showIdeaModal: boolean
+}
 
 export class GeneralNotificationsViewModel {
-  requestStatus: string = loadingStatuses.success
-  isArchive = false
   history: History | undefined = undefined
+  requestStatus = loadingStatuses.success
 
   // * Pagination & Sorting & Filtering
 
@@ -54,10 +56,11 @@ export class GeneralNotificationsViewModel {
   // * dataGrid data
 
   notificationsData = []
-  columnsModel = GeneralNotificationsColumns(this.rowHandlers)
+  columnsModel = GeneralNotificationsColumns(this.rowHandlers, this.userInfo)
 
   // * Modal state
 
+  isArchive = false
   showIdeaModal = false
 
   // * Data for Modals
@@ -68,7 +71,7 @@ export class GeneralNotificationsViewModel {
 
   // * Getters
 
-  get currentUser(): IUser | undefined {
+  get userInfo(): IUser | undefined {
     return UserModel.userInfo
   }
   get languageTag() {
@@ -80,16 +83,14 @@ export class GeneralNotificationsViewModel {
   }
 
   constructor({ history }: { history: History }) {
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     reaction(
       () => this.isArchive,
       () => this.getUserNotifications(),
     )
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onClickReadButton() {
@@ -102,7 +103,7 @@ export class GeneralNotificationsViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -128,16 +129,15 @@ export class GeneralNotificationsViewModel {
       })
 
       runInAction(() => {
-        // @ts-ignore
         this.notificationsData = notificationDataConverter(response.rows) || []
-        // @ts-ignore
-        this.rowCount = response.count
+
+        this.rowCount = response.count || 0
       })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -153,40 +153,32 @@ export class GeneralNotificationsViewModel {
   }
 
   onChangeFilterModel(model: GridFilterModel) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
     this.getUserNotifications()
   }
 
   onColumnVisibilityModelChange(model: IColumnVisibilityModel) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getUserNotifications()
   }
 
   onChangeSortingModel(sortModel: Array<ISortModel>) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getUserNotifications()
   }
 
   setRequestStatus(requestStatus: string) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
-  onChangePaginationModelChange(model: IPaginationModel) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model: IPaginationModel) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getUserNotifications()
@@ -196,33 +188,30 @@ export class GeneralNotificationsViewModel {
     this.selectedRowIds = model
   }
 
-  toggleVariationHandler(variation: string) {
-    runInAction(() => {
-      // @ts-ignore
-      this[variation] = !this[variation]
-    })
+  toggleVariationHandler(variation: keyof IVariations) {
+    this[variation] = !this[variation]
   }
 
   navigateToHandler(notification: any, type: string) {
-    if (!this.currentUser) return
+    if (!this.userInfo) return
 
     if (type === NotificationType.Order) {
-      if (checkIsClient(UserRoleCodeMap[this.currentUser?.role])) {
+      if (checkIsClient(UserRoleCodeMap[this.userInfo?.role])) {
         window
           .open(
-            `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/my-orders/orders/order?orderId=${
+            `/${UserRoleCodeMapForRoutes[this.userInfo?.role]}/my-orders/orders/order?orderId=${
               notification?._id
             }&order-human-friendly-id=${notification?.id}`,
           )
           ?.focus()
-      } else if (checkIsBuyer(UserRoleCodeMap[this.currentUser?.role])) {
+      } else if (checkIsBuyer(UserRoleCodeMap[this.userInfo?.role])) {
         const isVacOrders = !!notification?.vacOrders.length
 
         window
           .open(
-            `/${UserRoleCodeMapForRoutes[this.currentUser?.role]}/${
-              isVacOrders ? 'free-orders' : 'all-orders'
-            }?orderId=${isVacOrders ? notification?.vacOrders?.[0]?._id : notification?.needConfirmOrders?.[0]?._id}`,
+            `/${UserRoleCodeMapForRoutes[this.userInfo?.role]}/${isVacOrders ? 'free-orders' : 'all-orders'}?orderId=${
+              isVacOrders ? notification?.vacOrders?.[0]?.id : notification?.needConfirmOrders?.[0]?.id
+            }`,
           )
           ?.focus()
       }

@@ -25,9 +25,9 @@ import { useStyles } from './vacant-requests-view.style'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
-export const VacantRequestsView = observer(({ history, location }) => {
+export const VacantRequestsView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new VacantRequestsViewModel({ history, location }))
+  const [viewModel] = useState(() => new VacantRequestsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -120,7 +120,6 @@ export const VacantRequestsView = observer(({ history, location }) => {
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={viewModel.pageSizeOptions}
               rows={viewModel.currentData}
               rowHeight={75}
               slotProps={{

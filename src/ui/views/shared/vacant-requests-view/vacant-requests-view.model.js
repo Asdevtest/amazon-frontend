@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
@@ -15,6 +15,7 @@ import { UserModel } from '@models/user-model'
 import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 import { filtersFields } from './vacant-requests-view.constants'
@@ -28,7 +29,9 @@ export class VacantRequestsViewModel {
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
   showRequestDetailModal = false
 
-  currentData = []
+  get currentData() {
+    return this.requests
+  }
   currentRequestDetails = undefined
 
   rowCount = 0
@@ -50,7 +53,7 @@ export class VacantRequestsViewModel {
   }
 
   get languageTag() {
-    return SettingsModel.languageTag || {}
+    return SettingsModel.languageTag
   }
 
   get isSomeFilterOn() {
@@ -60,30 +63,11 @@ export class VacantRequestsViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: withoutUpdate => {
-      this.onLeaveColumnField()
-
-      if (withoutUpdate) {
-        this.getCurrentData()
-      } else {
-        this.getRequestsVacant()
-        // this.getDataGridState()
-      }
-    },
+    onClickAccept: () => this.onLeaveColumnField(),
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   handlers = {
@@ -102,21 +86,6 @@ export class VacantRequestsViewModel {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.languageTag,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.requests,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   setTableModeState() {
@@ -133,24 +102,18 @@ export class VacantRequestsViewModel {
   getTableModeState() {
     const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeViewMode(value) {
     this.viewMode = value
 
     this.setTableModeState()
-  }
-
-  getCurrentData() {
-    return toJS(this.requests)
   }
 
   onClickTaskType(taskType) {
@@ -214,99 +177,13 @@ export class VacantRequestsViewModel {
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
-    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
-    const subUsersFilter =
-      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
-
-    const priceAmazonFilter =
-      exclusion !== 'priceAmazon' && this.columnMenuSettings.priceAmazon.currentFilterData.join(',')
-
-    const withoutConfirmationFilter =
-      exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
-
-    const taskComplexityFilter =
-      exclusion !== 'taskComplexity' && this.columnMenuSettings.taskComplexity.currentFilterData.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { title: { $contains: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-      ...(titleFilter && {
-        title: { $eq: titleFilter },
-      }),
-      ...(typeTaskFilter && {
-        typeTask: { $eq: typeTaskFilter },
-      }),
-      ...(priceFilter && {
-        price: { $eq: priceFilter },
-      }),
-      ...(timeoutAtFilter && {
-        timeoutAt: { $eq: timeoutAtFilter },
-      }),
-      ...(createdByFilter && {
-        createdBy: { $eq: createdByFilter },
-      }),
-      ...(subUsersFilter && {
-        subUsers: { $eq: subUsersFilter },
-      }),
-      ...(priceAmazonFilter && {
-        priceAmazon: { $eq: priceAmazonFilter },
-      }),
-      ...(withoutConfirmationFilter && {
-        withoutConfirmation: { $eq: withoutConfirmationFilter },
-      }),
-      ...(taskComplexityFilter && {
-        taskComplexity: { $eq: taskComplexityFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'title',
+        'humanFriendlyId',
+        'asin',
+      ]),
+    )
   }
 
   async onClickFilterBtn(column) {
@@ -320,10 +197,12 @@ export class VacantRequestsViewModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setRequestStatus(loadingStatuses.success)
@@ -365,17 +244,7 @@ export class VacantRequestsViewModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
 
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
+      ...dataGridFiltersInitializer(filtersFields),
     }
 
     this.getRequestsVacant()
@@ -440,11 +309,13 @@ export class VacantRequestsViewModel {
   async getRequestDetail(id) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       const response = await RequestModel.getCustomRequestById(id)
 
       runInAction(() => {
         this.currentRequestDetails = response
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

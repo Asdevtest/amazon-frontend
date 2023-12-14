@@ -16,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -38,7 +38,6 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     withoutFiles,
     imagesTitles = [],
-    isImagesFullWidth = false,
     isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
@@ -50,13 +49,13 @@ export const PhotoAndFilesCarousel = props => {
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
+  const notEmptyFiles = files?.length ? files.filter(el => !checkIsMediaFileLink(el?.file?.name || el)) : []
 
   const filteredImagesTitles = imagesTitles.length
-    ? imagesTitles.filter((el, i) => checkIsImageLink(files[i]?.file?.name || files[i]))
+    ? imagesTitles.filter((el, i) => checkIsMediaFileLink(files[i]?.file?.name || files[i]))
     : []
 
-  const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
+  const notEmptyPhotos = files?.length ? files.filter(el => checkIsMediaFileLink(el?.file?.name || el)) : []
 
   const onClickRemoveImageObj = imageIndex => {
     const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
@@ -175,7 +174,7 @@ export const PhotoAndFilesCarousel = props => {
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
-                    ? imagesForLoad.filter(el => checkIsImageLink(el?.file?.name || el))
+                    ? imagesForLoad.filter(el => checkIsMediaFileLink(el?.file?.name || el))
                     : notEmptyPhotos
                   )?.map((photo, index) => (
                     <div key={index} className={classNames.imageSubWrapper}>
@@ -193,7 +192,7 @@ export const PhotoAndFilesCarousel = props => {
 
                             setBigImagesOptions({
                               images: (isEditable ? imagesForLoad : files)
-                                .filter(el => checkIsImageLink(el?.file?.name || el))
+                                .filter(el => checkIsMediaFileLink(el?.file?.name || el))
                                 .map(img => img?.data_url || img),
                               imgIndex: index,
                             })
@@ -286,12 +285,12 @@ export const PhotoAndFilesCarousel = props => {
           showPreviews
           isOpenModal={showPhotosModal}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={bigImagesOptions.images.map((el, i) => ({
+          files={bigImagesOptions.images.map((el, i) => ({
             url: el,
             comment: filteredImagesTitles[i],
           }))}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           controls={isEditable ? bigImagesModalControls : undefined}
         />
       )}

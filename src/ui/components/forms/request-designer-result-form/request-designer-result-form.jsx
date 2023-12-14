@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { nanoid } from 'nanoid'
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
@@ -16,13 +15,13 @@ import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-designer-result-form.style'
+import { useStyles } from './request-designer-result-form.style'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -45,7 +44,7 @@ const Slot = ({
   isRework,
   onClickRemoveItem,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: 'slot', id: slot?._id, index },
@@ -82,7 +81,7 @@ const Slot = ({
 
   return (
     <div ref={drop}>
-      <div style={{ opacity }} className={classNames.imageObjWrapper}>
+      <div style={{ opacity }} className={styles.imageObjWrapper}>
         <Tooltip
           arrow
           title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
@@ -93,16 +92,16 @@ const Slot = ({
           <div
             ref={drag}
             className={cx(
-              classNames.imageWrapper,
+              styles.imageWrapper,
 
-              { [classNames.isHaveImage]: !!slot?.image },
-              { [classNames.mainImageWrapper]: index === 0 },
+              { [styles.isHaveImage]: !!slot?.image },
+              { [styles.mainImageWrapper]: index === 0 },
             )}
           >
-            {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+            {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
 
             <div
-              className={classNames.removeIconWrapper}
+              className={styles.removeIconWrapper}
               onClick={e => {
                 e.stopPropagation()
 
@@ -110,15 +109,15 @@ const Slot = ({
               }}
             >
               {slot.image ? (
-                // <DisabledByDefaultOutlinedIcon className={classNames.removeIcon} />
+                // <DisabledByDefaultOutlinedIcon className={styles.removeIcon} />
 
-                <CrossInRectangleIcon className={classNames.removeIcon} />
+                <CrossInRectangleIcon className={styles.removeIcon} />
               ) : (
-                <CloseOutlinedIcon className={classNames.removeIcon} />
+                <CloseOutlinedIcon className={styles.removeIcon} />
               )}
             </div>
             {slot.image ? (
-              <div className={classNames.imageListItem}>
+              <div className={styles.imageListItem}>
                 {/* <Tooltip
                   arrow
                   title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.name}
@@ -127,11 +126,11 @@ const Slot = ({
                   TransitionProps={{timeout: 300}}
                 > */}
                 <Avatar
-                  className={classNames.image}
-                  classes={{ img: classNames.image }}
+                  className={styles.image}
+                  classes={{ img: styles.image }}
                   src={
                     typeof slot.image === 'string'
-                      ? checkIsImageLink(slot.image)
+                      ? checkIsMediaFileLink(slot.image)
                         ? getAmazonImageUrl(slot.image, false)
                         : '/assets/icons/file.png'
                       : slot.image?.file.type.includes('image')
@@ -143,7 +142,7 @@ const Slot = ({
                   onClick={() => {
                     setCurImageIndex(index)
 
-                    if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                    if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
                       setShowImageModal(!showImageModal)
                     } else {
                       window.open(slot.image?.data_url || getAmazonImageUrl(slot.image), '__blank')
@@ -153,21 +152,20 @@ const Slot = ({
                 {/* </Tooltip> */}
               </div>
             ) : (
-              <div className={classNames.imageSubWrapper}>
-                <div className={classNames.cameraIconWrapper}>
-                  <PhotoCameraWithPlus className={classNames.cameraIcon} />
+              <div className={styles.imageSubWrapper}>
+                <div className={styles.cameraIconWrapper}>
+                  <PhotoCameraWithPlus className={styles.cameraIcon} />
                 </div>
 
-                <Typography className={cx(classNames.imageUploadText)}>{'Upload'}</Typography>
+                <Typography className={cx(styles.imageUploadText)}>{'Upload'}</Typography>
               </div>
             )}
             <input
               multiple
               type={'file'}
-              className={classNames.pasteInput}
+              className={styles.pasteInput}
               defaultValue={''}
               // onPaste={e => {
-              //   console.log('e', e)
               //   onPasteFiles(slot._id)(e)
               // }}
               onChange={onUploadFile(slot._id)}
@@ -177,7 +175,7 @@ const Slot = ({
                 if (slot.image) {
                   e.preventDefault()
 
-                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                  if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
                     setShowImageModal(!showImageModal)
                   } else {
                     window.open(slot.image?.data_url || slot.image, '__blank')
@@ -190,23 +188,23 @@ const Slot = ({
           </div>
         </Tooltip>
 
-        <div className={classNames.imageObjSubWrapper}>
-          <Typography className={cx(classNames.imageObjIndex)}>{index + 1}</Typography>
+        <div className={styles.imageObjSubWrapper}>
+          <Typography className={cx(styles.imageObjIndex)}>{index + 1}</Typography>
 
           <Input
             multiline
             inputProps={{ maxLength: 128 }}
             maxRows={2}
             variant="filled"
-            className={classNames.imageObjInput}
-            classes={{ input: classNames.inputComment }}
+            className={styles.imageObjInput}
+            classes={{ input: styles.inputComment }}
             value={slot.comment}
             onChange={e => onChangeImageFileds('comment', slot._id)(e)}
           />
         </div>
 
-        <div className={classNames.imageObjSubWrapper}>
-          <Typography className={cx(classNames.clientComment)}>
+        <div className={styles.imageObjSubWrapper}>
+          <Typography className={cx(styles.clientComment)}>
             {getShortenStringIfLongerThanCount(slot.commentByClient, 30)}
           </Typography>
         </div>
@@ -216,7 +214,7 @@ const Slot = ({
 }
 
 export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpenModal, proposal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const isRework = !!proposal.proposal.media?.length
 
@@ -323,47 +321,54 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const disableSubmit = imagesData.every(el => !el.image)
 
+  /* const filteredImagesData = imagesData.filter(el =>
+    checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
+  ) */
+  const fileLinks = imagesData.map(el => el.image)
+  const photosTitles = imagesData.map(el => el.comment)
+  const photosComments = imagesData.map(el => el.commentByClient)
+
   return (
-    <div className={classNames.modalMainWrapper}>
-      <div className={classNames.headerWrapper}>
-        <div className={classNames.headerLeftSubWrapper}>
-          <Typography className={cx(classNames.headerLabel, classNames.mainTitleMargin)}>{`${t(
+    <div className={styles.modalMainWrapper}>
+      <div className={styles.headerWrapper}>
+        <div className={styles.headerLeftSubWrapper}>
+          <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
             TranslationKey['Request result'],
           )} / ID ${request.request.humanFriendlyId}`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel, classNames.labelMargin)}>
+          <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
             {t(TranslationKey['Your image recommendations'])}
           </Typography>
 
-          <Typography className={cx(classNames.headerSubText, classNames.textMargin)}>
+          <Typography className={cx(styles.headerSubText, styles.textMargin)}>
             {t(TranslationKey['Upload your recommendations for product images.'])}
           </Typography>
 
           <Accordion
             disableGutters
-            classes={{ root: classNames.accordionMain }}
+            classes={{ root: styles.accordionMain }}
             expanded={showDetails}
             onChange={onClickToShowDetails}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               classes={{
-                root: classNames.accordion,
-                content: classNames.accordionContent,
-                expandIconWrapper: classNames.expandIconWrapper,
+                root: styles.accordion,
+                content: styles.accordionContent,
+                expandIconWrapper: styles.expandIconWrapper,
               }}
             >
-              <Typography className={classNames.headerLabel}>
+              <Typography className={styles.headerLabel}>
                 {showDetails ? t(TranslationKey['Hide image guidelines']) : t(TranslationKey['Show image guidelines'])}
               </Typography>
             </AccordionSummary>
 
-            <AccordionDetails classes={{ root: classNames.details }} style={{ padding: 0 }}>
-              <Typography className={cx(classNames.headerSubText, classNames.textMargin)}>
+            <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
+              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
                 {t(TranslationKey['Product images style guideline'])}
               </Typography>
 
-              <Typography className={cx(classNames.headerSubText, classNames.textMargin)}>
+              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
                 {t(
                   TranslationKey[
                     'Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.'
@@ -371,7 +376,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 )}
               </Typography>
 
-              <Typography className={cx(classNames.headerSubText, classNames.textMargin)}>
+              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
                 {t(
                   TranslationKey[
                     'Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.'
@@ -379,32 +384,32 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 )}
               </Typography>
 
-              <div className={cx(classNames.uploadGuidWrapper, classNames.labelMargin)}>
-                <Typography className={cx(classNames.headerLabel, classNames.spanText)}>
+              <div className={cx(styles.uploadGuidWrapper, styles.labelMargin)}>
+                <Typography className={cx(styles.headerLabel, styles.spanText)}>
                   {t(TranslationKey['Upload multiple files'])}
                 </Typography>
-                <Typography className={cx(classNames.headerLabel)}>
+                <Typography className={cx(styles.headerLabel)}>
                   {t(TranslationKey['or drag and drop 1 or more files below']) + '.'}
                 </Typography>
               </div>
             </AccordionDetails>
           </Accordion>
         </div>
-        <div className={classNames.headerRightSubWrapper}>
+        <div className={styles.headerRightSubWrapper}>
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Time till deadline'])}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             inputComponent={
-              <Typography className={classNames.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
+              <Typography className={styles.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
             }
           />
 
           <Field
             multiline
-            className={cx(classNames.heightFieldAuto)}
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.comment}
+            className={cx(styles.heightFieldAuto)}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.comment}
             inputProps={{ maxLength: 1000 }}
             minRows={4}
             maxRows={4}
@@ -415,7 +420,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      <div className={classNames.bodyWrapper}>
+      <div className={styles.bodyWrapper}>
         <DndProvider backend={HTML5Backend}>
           {imagesData.map((slot, index) => (
             <Slot
@@ -437,29 +442,29 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </DndProvider>
       </div>
 
-      <div className={classNames.footerWrapper}>
-        <div className={classNames.bigPlusWrapper}>
-          <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
+      <div className={styles.footerWrapper}>
+        <div className={styles.bigPlusWrapper}>
+          <BigPlus className={styles.bigPlus} onClick={onClickAddImageObj} />
         </div>
 
-        <div className={classNames.flexContainer}>
+        <div className={styles.flexContainer}>
           <Field
-            labelClasses={classNames.fieldLabel}
-            inputClasses={classNames.linkInput}
+            labelClasses={styles.fieldLabel}
+            inputClasses={styles.linkInput}
             inputProps={{ maxLength: 500 }}
             label={t(TranslationKey['Link to sources']) + ':'}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             value={sourceLink}
             onChange={e => setSourceLink(e.target.value)}
           />
 
-          <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+          <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
             {t(TranslationKey.Back)}
           </Button>
 
           <Button
             disabled={disableSubmit}
-            className={cx(classNames.button)}
+            className={cx(styles.button)}
             onClick={() => {
               onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.image), sourceLink })
               setOpenModal()
@@ -473,13 +478,14 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
       {showImageModal && (
         <ImageModal
           showPreviews
+          isRequestResult
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={imagesData.map(el => el.image)}
-          photosTitles={imagesData.map(el => el.comment)}
-          photosComments={imagesData.map(el => el.commentByClient)}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
+          files={fileLinks}
+          photosTitles={photosTitles}
+          photosComments={photosComments}
+          currentFileIndex={curImageIndex}
+          handleCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </div>

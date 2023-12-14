@@ -657,8 +657,10 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
+    const validDate = new Date(timeoutAt.valueOf() - timeoutAt.getTimezoneOffset() * 60000)?.toISOString()
+
     this.setRequestStatus(loadingStatuses.isLoading)
-    await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
+    await RequestModel.updateDeadline(this.requestId, validDate, maxAmountOfProposals)
 
     this.getCustomRequestCur()
     this.getCustomProposalsForRequestCur()

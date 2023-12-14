@@ -56,7 +56,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const isCurrentUser = lastMessage?.user?._id === userId
 
-  const usersList = users.filter((user: ChatUserContract) => {
+  const usersList = users?.filter((user: ChatUserContract) => {
     const isOwnerUser = user._id === userId
     const isRequestAndProposalSub = user._id === chatRequestAndRequestProposal.request?.request?.sub?._id
     const isRequestAndProposalCreator = user._id === chatRequestAndRequestProposal.request?.request?.createdBy?._id
@@ -75,7 +75,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const getUserByChatType = () => {
     if (typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat') {
-      const userByChatType = users.find((user: ChatUserContract) => {
+      const userByChatType = users?.find((user: ChatUserContract) => {
         const userRole = UserRoleCodeMap[Number(user.role)]
         return (
           (checkIsClient(currentUserRole) ? userRole === UserRole.FREELANCER : userRole === UserRole.CLIENT) &&

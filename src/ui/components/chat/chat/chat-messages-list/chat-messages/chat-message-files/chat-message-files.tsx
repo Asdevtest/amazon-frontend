@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
-import { ChatMessageFile } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-file'
-import { useChatMessageFileStyles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files.styles'
+import { useStyles } from './chat-message-files.style'
+
+import { ChatMessageFile } from './chat-message-file'
 
 interface ChatMessageFilesProps {
   files: string[]
 }
 
-export const ChatMessageFiles: FC<ChatMessageFilesProps> = props => {
-  const { files } = props
-  const { classes: styles } = useChatMessageFileStyles()
+export const ChatMessageFiles: FC<ChatMessageFilesProps> = memo(({ files }) => {
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
@@ -18,4 +18,4 @@ export const ChatMessageFiles: FC<ChatMessageFilesProps> = props => {
       ))}
     </div>
   )
-}
+})

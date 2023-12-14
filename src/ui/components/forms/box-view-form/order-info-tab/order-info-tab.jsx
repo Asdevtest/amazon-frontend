@@ -23,12 +23,12 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
     <div className={styles.wrapper}>
       {formFields?.items.map((item, index) => {
         const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
-        const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier
-          ? item.isBarCodeAlreadyAttachedByTheSupplier
-          : item.isBarCodeAttachedByTheStorekeeper
+        const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
+
         const barcodeCheckedText = item.isBarCodeAlreadyAttachedByTheSupplier
           ? t(TranslationKey['BarCode is glued by supplier'])
           : t(TranslationKey['BarCode is glued by storekeeper'])
+
         const isRushOrder = Number(item.order.priority) === orderPriority.urgentPriority
 
         return (
@@ -44,8 +44,8 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                 {getShortenStringIfLongerThanCount(item.product.amazonTitle, 110)}
               </p>
 
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item.product.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.skusByClient?.[0]} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item?.product?.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.product?.skuByClient} />
             </div>
 
             <div className={styles.parametersWrapper}>
@@ -80,30 +80,41 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                 ) : null}
               </div>
 
-              <div className={styles.barcodeWrapper}>
-                <div className={styles.barcode}>
-                  {/* <p className={styles.text}>{t(TranslationKey.BarCode)}</p>
-                  {item.barCode ? (
-                    <LinkWithCopy
-                      title={t(TranslationKey.View)}
-                      url={checkAndMakeAbsoluteUrl(barCodeLink)}
-                      valueToCopy={barCodeLink}
-                    />
-                  ) : (
-                    <p className={styles.text}>{t(TranslationKey['Not available'])}</p>
-                  )} */}
-
+              <div className={styles.boxLabelsWrapper}>
+                <div className={styles.boxLabelWrapper}>
                   <LabelWithCopy
                     labelTitle={t(TranslationKey.BarCode)}
                     labelValue={item.barCode}
                     lableLinkTitle={t(TranslationKey.View)}
-                    // direction="column"
                   />
+
+                  <Checkbox disabled checked={barcodeChecked} className={styles.checkbox}>
+                    <p className={styles.text}>{barcodeCheckedText}</p>
+                  </Checkbox>
                 </div>
 
-                <div className={styles.barcode}>
-                  <Checkbox disabled checked={barcodeChecked} className={styles.checkbox} />
-                  <p className={styles.text}>{barcodeCheckedText}</p>
+                <div className={styles.boxLabelWrapper}>
+                  <LabelWithCopy
+                    labelTitle={t(TranslationKey['Transparency codes'])}
+                    labelValue={item.transparencyFile}
+                    lableLinkTitle={t(TranslationKey.View)}
+                  />
+
+                  <Checkbox
+                    disabled
+                    checked={item?.isTransparencyFileAlreadyAttachedByTheSupplier}
+                    className={styles.checkbox}
+                  >
+                    <p className={styles.text}>{t(TranslationKey['Transparency codes glued by the supplier'])}</p>
+                  </Checkbox>
+
+                  <Checkbox
+                    disabled
+                    checked={item?.isTransparencyFileAttachedByTheStorekeeper}
+                    className={styles.checkbox}
+                  >
+                    <p className={styles.text}>{t(TranslationKey['Transparency codes are glued by storekeeper'])}</p>
+                  </Checkbox>
                 </div>
               </div>
             </div>

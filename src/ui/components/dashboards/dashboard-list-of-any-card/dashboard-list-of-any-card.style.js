@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '10px 35px 10px 30px',
     borderBottom: '1px solid #eeeeee',
     alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       // backgroundColor: '#f1f1f1',
       backgroundColor: theme.palette.background.second,

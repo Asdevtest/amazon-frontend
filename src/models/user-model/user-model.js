@@ -34,7 +34,7 @@ class UserModelStatic {
   }
 
   async signOut() {
-    await restApiService.userApi.apiV1UsersLogoutPost({ body: {} })
+    await this.logout()
     this.accessToken = undefined
     this.refreshToken = undefined
     this.userInfo = undefined
@@ -235,6 +235,11 @@ class UserModelStatic {
 
   async getAccessToken(refreshToken) {
     const response = await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } })
+    return response.data
+  }
+
+  async logout() {
+    const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: {} })
     return response.data
   }
 }

@@ -151,4 +151,14 @@ export const useClassNames = makeStyles()(theme => ({
       margin: 0,
     },
   },
+
+  newSupplierIcon: {
+    height: '25px !important',
+    width: '29px !important',
+  },
+
+  orderedIcon: {
+    height: '25px !important',
+    width: '56px !important',
+  },
 }))

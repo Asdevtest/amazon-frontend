@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -58,7 +57,7 @@ import {
 } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-order-modal.style'
+import { useStyles } from './edit-order-modal.style'
 
 import { BoxesToCreateTable } from './boxes-to-create-table'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
@@ -96,7 +95,7 @@ const statusColorGroups = {
   ],
 }
 
-export const EditOrderModal = observer(
+export const EditOrderModal = memo(
   ({
     platformSettings,
     paymentMethods,
@@ -125,7 +124,7 @@ export const EditOrderModal = observer(
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
@@ -219,7 +218,7 @@ export const EditOrderModal = observer(
       <TableRow>
         {headCells.map((item, index) => (
           <TableCell key={index}>
-            <div className={classNames[item.className]}>{item.label}</div>
+            <div className={styles[item.className]}>{item.label}</div>
           </TableCell>
         ))}
       </TableRow>
@@ -259,9 +258,7 @@ export const EditOrderModal = observer(
 
     const onClickBarcodeCheckbox = boxIndex => e => {
       const newStateFormFields = [...boxesForCreation]
-
       newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
-
       setBoxesForCreation(newStateFormFields)
     }
 
@@ -270,8 +267,17 @@ export const EditOrderModal = observer(
         ...el,
         tmpUseToUpdateSupplierBoxDimensions: false,
       }))
-
       newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
+      setBoxesForCreation(newStateFormFields)
+    }
+
+    const onClickTransparency = boxIndex => e => {
+      const newStateFormFields = [...boxesForCreation]
+
+      newStateFormFields[boxIndex].items[0] = {
+        ...newStateFormFields[boxIndex].items[0],
+        isTransparencyFileAlreadyAttachedByTheSupplier: e.target.checked,
+      }
 
       setBoxesForCreation(newStateFormFields)
     }
@@ -500,25 +506,24 @@ export const EditOrderModal = observer(
     const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
 
     return (
-      <div className={classNames.modalWrapper}>
-        <div className={classNames.modalHeader}>
+      <div className={styles.modalWrapper}>
+        <div className={styles.modalHeader}>
           <div>
-            <div className={classNames.idItemWrapper}>
-              <Typography className={classNames.modalText}>
-                {`${t(TranslationKey.Order)} № ${order.id} / `}{' '}
-                <span className={classNames.modalSpanText}>{'item'}</span>
+            <div className={styles.idItemWrapper}>
+              <Typography className={styles.modalText}>
+                {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={styles.modalSpanText}>{'item'}</span>
               </Typography>
 
               <Input
                 disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-                className={classNames.itemInput}
+                className={styles.itemInput}
                 inputProps={{ maxLength: 9 }}
                 value={orderFields.item}
                 endAdornment={
                   <InputAdornment position="start">
                     {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
                       <SaveIcon
-                        className={classNames.itemInputIcon}
+                        className={styles.itemInputIcon}
                         onClick={() => {
                           onSaveOrderItem(order._id, orderFields.item)
                           order.item = orderFields.item
@@ -535,16 +540,16 @@ export const EditOrderModal = observer(
               <Field
                 oneLine
                 label={'Deadline:'}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 inputComponent={
-                  <div className={classNames.deadlineWrapper}>
-                    <Typography className={cx(classNames.deadlineText)}>
+                  <div className={styles.deadlineWrapper}>
+                    <Typography className={cx(styles.deadlineText)}>
                       {formatDateWithoutTime(orderFields.deadline)}
                     </Typography>
 
                     <Typography
-                      className={cx(classNames.deadlineText, {
-                        [classNames.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
+                      className={cx(styles.deadlineText, {
+                        [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
                       })}
                     >
                       {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
@@ -555,37 +560,37 @@ export const EditOrderModal = observer(
             )}
           </div>
 
-          <Typography className={classNames.amazonTitle}>
+          <Typography className={styles.amazonTitle}>
             {getShortenStringIfLongerThanCount(order.product.amazonTitle, 130)}
           </Typography>
 
-          <div className={classNames.priorityWrapper}>
-            <Typography className={classNames.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
+          <div className={styles.priorityWrapper}>
+            <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
             {order.priority === '40' ? (
-              <div className={classNames.rushOrderWrapper}>
-                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
-                <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+              <div className={styles.rushOrderWrapper}>
+                <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
+                <Typography className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
               </div>
             ) : null}
             {order.expressChinaDelivery ? (
-              <div className={classNames.rushOrderWrapper}>
-                <img className={classNames.rushOrderImg} src="/assets/icons/truck.svg" />
-                <Typography className={classNames.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
+              <div className={styles.rushOrderWrapper}>
+                <img className={styles.rushOrderImg} src="/assets/icons/truck.svg" />
+                <Typography className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
               </div>
             ) : null}
             {order.priority !== '40' && !order.expressChinaDelivery ? (
-              <div className={classNames.rushOrderWrapper}>
-                <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+              <div className={styles.rushOrderWrapper}>
+                <Typography className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
               </div>
             ) : null}
           </div>
 
-          <div className={classNames.orderStatusWrapper}>
+          <div className={styles.orderStatusWrapper}>
             <Field
               tooltipInfoContent={t(TranslationKey['Current order status'])}
               value={order.storekeeper?.name}
               label={t(TranslationKey['Order status'])}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               inputComponent={
                 <Select
                   disabled={
@@ -602,16 +607,16 @@ export const EditOrderModal = observer(
                   value={orderFields.status}
                   classes={{
                     select: cx({
-                      [classNames.orange]: statusColorGroups.orange.includes(
+                      [styles.orange]: statusColorGroups.orange.includes(
                         Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                       ),
-                      [classNames.green]: statusColorGroups.green.includes(
+                      [styles.green]: statusColorGroups.green.includes(
                         Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                       ),
-                      [classNames.red]: statusColorGroups.red.includes(
+                      [styles.red]: statusColorGroups.red.includes(
                         Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                       ),
-                      [classNames.blue]: statusColorGroups.blue.includes(
+                      [styles.blue]: statusColorGroups.blue.includes(
                         Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                       ),
                     }),
@@ -622,16 +627,16 @@ export const EditOrderModal = observer(
                         <InputAdornment position="start">
                           <FiberManualRecordRoundedIcon
                             className={cx({
-                              [classNames.orange]: statusColorGroups.orange.includes(
+                              [styles.orange]: statusColorGroups.orange.includes(
                                 Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                               ),
-                              [classNames.green]: statusColorGroups.green.includes(
+                              [styles.green]: statusColorGroups.green.includes(
                                 Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                               ),
-                              [classNames.red]: statusColorGroups.red.includes(
+                              [styles.red]: statusColorGroups.red.includes(
                                 Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                               ),
-                              [classNames.blue]: statusColorGroups.blue.includes(
+                              [styles.blue]: statusColorGroups.blue.includes(
                                 Number(tmpNewOrderFieldsState?.status) || orderFields.status,
                               ),
                             })}
@@ -662,12 +667,12 @@ export const EditOrderModal = observer(
                     <MenuItem
                       key={statusIndex}
                       value={statusCode}
-                      className={cx(classNames.stantartSelect, {
-                        [classNames.orange]: statusColorGroups.orange.includes(Number(statusCode)),
-                        [classNames.green]: statusColorGroups.green.includes(Number(statusCode)),
-                        [classNames.red]: statusColorGroups.red.includes(Number(statusCode)),
-                        [classNames.blue]: statusColorGroups.blue.includes(Number(statusCode)),
-                        [classNames.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
+                      className={cx(styles.stantartSelect, {
+                        [styles.orange]: statusColorGroups.orange.includes(Number(statusCode)),
+                        [styles.green]: statusColorGroups.green.includes(Number(statusCode)),
+                        [styles.red]: statusColorGroups.red.includes(Number(statusCode)),
+                        [styles.blue]: statusColorGroups.blue.includes(Number(statusCode)),
+                        [styles.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
                       })}
                       disabled={
                         buyerOrderModalDisabledOrderStatuses.includes(statusCode) ||
@@ -706,7 +711,7 @@ export const EditOrderModal = observer(
           </div>
         </div>
 
-        <div className={classNames.paper}>
+        <div className={styles.paper}>
           <SelectFields
             orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
@@ -737,7 +742,7 @@ export const EditOrderModal = observer(
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
 
-          <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
+          <Text className={styles.tableTitle} containerClasses={styles.tableTitleContainer}>
             {t(TranslationKey.Product)}
           </Text>
 
@@ -750,8 +755,8 @@ export const EditOrderModal = observer(
           />
 
           <Text
-            className={classNames.tableTitle}
-            containerClasses={classNames.tableTitleContainer}
+            className={styles.tableTitle}
+            containerClasses={styles.tableTitleContainer}
             tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
           >
             {t(TranslationKey.Suppliers)}
@@ -763,13 +768,13 @@ export const EditOrderModal = observer(
             Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
           orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
           orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ? (
-            <div className={classNames.supplierActionsWrapper}>
-              <div className={classNames.supplierContainer}>
-                <div className={classNames.supplierButtonWrapper}>
+            <div className={styles.supplierActionsWrapper}>
+              <div className={styles.supplierContainer}>
+                <div className={styles.supplierButtonWrapper}>
                   <Button
                     disabled={checkIsPlanningPrice && !isPendingOrder}
                     tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                    className={classNames.iconBtn}
+                    className={styles.iconBtn}
                     onClick={() => {
                       setSelectedSupplier(null)
                       setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
@@ -777,12 +782,12 @@ export const EditOrderModal = observer(
                   >
                     <AddIcon />
                   </Button>
-                  <Typography className={classNames.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
+                  <Typography className={styles.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
                 </div>
 
                 {selectedSupplier ? (
                   <>
-                    <div className={classNames.supplierButtonWrapper}>
+                    <div className={styles.supplierButtonWrapper}>
                       {selectedSupplier?.createdBy._id !== userInfo._id &&
                       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
                         <></>
@@ -794,20 +799,20 @@ export const EditOrderModal = observer(
                               t(TranslationKey['Editing is unavailable due to change of current supplier'])
                             }
                             disabled={(checkIsPlanningPrice && !isPendingOrder) || disableEditInPendingOrder}
-                            className={classNames.iconBtn}
+                            className={styles.iconBtn}
                             onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                           >
                             <EditOutlinedIcon />
                           </Button>
-                          <Typography className={classNames.supplierButtonText}>
+                          <Typography className={styles.supplierButtonText}>
                             {t(TranslationKey['Edit a supplier'])}
                           </Typography>
                         </>
                       )}
 
-                      <div className={classNames.supplierButtonWrapper}>
+                      <div className={styles.supplierButtonWrapper}>
                         <Button
-                          className={classNames.iconBtn}
+                          className={styles.iconBtn}
                           onClick={() => {
                             setForceReadOnly(true)
                             setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
@@ -815,19 +820,19 @@ export const EditOrderModal = observer(
                         >
                           <VisibilityOutlinedIcon />
                         </Button>
-                        <Typography className={classNames.supplierButtonText}>
+                        <Typography className={styles.supplierButtonText}>
                           {t(TranslationKey['Open the parameters supplier'])}
                         </Typography>
                       </div>
                     </div>
 
-                    <div className={classNames.supplierButtonWrapper}>
+                    <div className={styles.supplierButtonWrapper}>
                       <Button
                         danger={isSupplierAcceptRevokeActive}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={cx(classNames.iconBtn, {
-                          [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                        className={cx(styles.iconBtn, {
+                          [styles.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
                         onClick={() => {
                           if (isSupplierAcceptRevokeActive) {
@@ -841,7 +846,7 @@ export const EditOrderModal = observer(
                       >
                         {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
                       </Button>
-                      <Typography className={classNames.supplierButtonText}>
+                      <Typography className={styles.supplierButtonText}>
                         {isSupplierAcceptRevokeActive
                           ? t(TranslationKey['Remove the main supplier status'])
                           : t(TranslationKey['Make the supplier the main'])}
@@ -851,8 +856,8 @@ export const EditOrderModal = observer(
                 ) : null}
               </div>
               <div
-                className={cx(classNames.supplierCheckboxWrapper, {
-                  [classNames.supplierCheckboxWrapperDisabled]: updateSuplierDisable,
+                className={cx(styles.supplierCheckboxWrapper, {
+                  [styles.supplierCheckboxWrapperDisabled]: updateSuplierDisable,
                 })}
                 onClick={() => {
                   if (!updateSuplierDisable) {
@@ -861,9 +866,7 @@ export const EditOrderModal = observer(
                 }}
               >
                 <Checkbox disabled={updateSuplierDisable} checked={updateSupplierData} color="primary" />
-                <Typography className={classNames.checkboxTitle}>
-                  {t(TranslationKey['Update supplier data'])}
-                </Typography>
+                <Typography className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</Typography>
               </div>
             </div>
           ) : null}
@@ -880,11 +883,11 @@ export const EditOrderModal = observer(
           />
         </div>
 
-        <div className={classNames.buttonsBox}>
+        <div className={styles.buttonsBox}>
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
-            className={classNames.saveBtn}
+            className={styles.saveBtn}
             onClick={() => {
               if (boxesForCreation.length > 0) {
                 setConfirmModalMode(confirmModalModes.SUBMIT)
@@ -898,7 +901,7 @@ export const EditOrderModal = observer(
           </Button>
           <Button
             variant="text"
-            className={classNames.cancelBtn}
+            className={styles.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}
           >
@@ -906,17 +909,15 @@ export const EditOrderModal = observer(
           </Button>
         </div>
 
-        <div className={classNames.addBoxButtonAndCommentsWrapper}>
+        <div className={styles.addBoxButtonAndCommentsWrapper}>
           {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
-            <div className={classNames.addBoxButtonWrapper}>
-              <Typography className={classNames.addBoxTitle}>
-                {t(TranslationKey['Add boxes for this order'])}
-              </Typography>
+            <div className={styles.addBoxButtonWrapper}>
+              <Typography className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
 
               <Box width="fit-content">
                 <Button
                   tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-                  className={classNames.addBoxButton}
+                  className={styles.addBoxButton}
                   onClick={addBoxHandler}
                 >
                   {t(TranslationKey['Add a box'])}
@@ -927,9 +928,9 @@ export const EditOrderModal = observer(
             <div />
           )}
 
-          <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
-            <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
-            <VisibilityIcon className={classNames.seeCommentsIcon} />
+          <Button className={styles.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+            <Typography className={styles.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+            <VisibilityIcon className={styles.seeCommentsIcon} />
           </Button>
         </div>
 
@@ -948,15 +949,16 @@ export const EditOrderModal = observer(
               onEditBox={onEditForCreationBox}
               onClickBarcodeCheckbox={onClickBarcodeCheckbox}
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
+              onClickTransparency={onClickTransparency}
             />
 
-            <div className={classNames.InfoWrapper}>
-              <div className={classNames.labelsInfoWrapper}>
+            <div className={styles.InfoWrapper}>
+              <div className={styles.labelsInfoWrapper}>
                 <div>
                   <Field
-                    labelClasses={classNames.label}
-                    containerClasses={classNames.containerField}
-                    inputClasses={classNames.inputField}
+                    labelClasses={styles.label}
+                    containerClasses={styles.containerField}
+                    inputClasses={styles.inputField}
                     inputProps={{ maxLength: 255 }}
                     label={t(TranslationKey['Set track number for new boxes']) + ':'}
                     value={trackNumber.text}
@@ -964,14 +966,14 @@ export const EditOrderModal = observer(
                   />
 
                   <Button
-                    className={classNames.trackNumberPhotoBtn}
+                    className={styles.trackNumberPhotoBtn}
                     onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                   >
                     {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
                   </Button>
                 </div>
 
-                <div className={classNames.trackNumberPhotoWrapper}>
+                <div className={styles.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
                     <PhotoAndFilesSlider withAllFiles customSlideHeight={85} files={trackNumber.files} />
                   ) : (
@@ -979,16 +981,16 @@ export const EditOrderModal = observer(
                   )}
                 </div>
               </div>
-              <div className={classNames.fieldWrapper}>
-                <div className={classNames.inputWrapper}>
+              <div className={styles.fieldWrapper}>
+                <div className={styles.inputWrapper}>
                   <Field
                     multiline
                     minRows={4}
                     maxRows={4}
                     inputProps={{ maxLength: 500 }}
-                    inputClasses={classNames.commentInput}
+                    inputClasses={styles.commentInput}
                     value={commentToWarehouse}
-                    labelClasses={classNames.label}
+                    labelClasses={styles.label}
                     label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
                     onChange={e => setCommentToWarehouse(e.target.value)}
                   />
@@ -998,13 +1000,13 @@ export const EditOrderModal = observer(
           </>
         )}
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <Field
             tooltipInfoContent={t(TranslationKey['All the boxes that the prep center received on order'])}
             label={t(TranslationKey['Boxes on this order:'])}
-            inputClasses={classNames.hidden}
-            labelClasses={classNames.label}
-            containerClasses={classNames.fieldLabel}
+            inputClasses={styles.hidden}
+            labelClasses={styles.label}
+            containerClasses={styles.fieldLabel}
           />
 
           {boxes.length > 0 ? (
@@ -1021,14 +1023,14 @@ export const EditOrderModal = observer(
               onClickHsCode={onClickHsCode}
             />
           ) : (
-            <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
+            <Typography className={styles.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
           )}
         </div>
 
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          dialogClassName={classNames.dialogClassName}
+          dialogClassName={styles.dialogClassName}
         >
           <CreateBoxForm
             isEdit={isEdit}
@@ -1090,11 +1092,11 @@ export const EditOrderModal = observer(
 
         {showPhotosModal && (
           <ImageModal
-            currentImageIndex={bigImagesOptions.imgIndex}
-            imageList={bigImagesOptions.images}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             isOpenModal={showPhotosModal}
-            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 

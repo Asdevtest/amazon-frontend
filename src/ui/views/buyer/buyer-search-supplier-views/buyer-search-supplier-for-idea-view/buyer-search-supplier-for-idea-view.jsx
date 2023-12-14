@@ -57,7 +57,6 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             localeText={getLocalizationByLanguageTag()}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}

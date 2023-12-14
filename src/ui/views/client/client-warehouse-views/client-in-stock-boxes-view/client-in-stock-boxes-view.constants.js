@@ -28,15 +28,16 @@ export const updateBoxWhiteList = [
   'fbaNumber',
   'prepId',
   'variationTariffId',
+  'transparencyFile',
 ]
 
 export const filtersFields = [
-  'shopIds',
+  'shopId',
   'humanFriendlyId',
   'id',
   'item',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'destinationId',
   'logicsTariffId',

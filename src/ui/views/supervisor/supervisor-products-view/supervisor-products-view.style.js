@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   attentionRow: {
     position: 'relative',
     background: theme.palette.background.yellowRow,
@@ -68,4 +70,4 @@ export const styles = theme => ({
     width: '100%',
     maxWidth: 320,
   },
-})
+}))

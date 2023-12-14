@@ -18,9 +18,6 @@ import { t } from '@utils/translations'
 export class ClientOrdersNotificationsViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  error = undefined
-  loadingStatus = undefined
 
   orders = []
   baseNoConvertedOrders = []
@@ -30,44 +27,45 @@ export class ClientOrdersNotificationsViewModel {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
   }
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
+
   rowHandlers = {
     onTriggerOpenConfirmModal: row => this.onTriggerOpenConfirmModal(row),
     onTriggerOpenRejectModal: row => this.onTriggerOpenRejectModal(row),
   }
+
+  rowCount = 0
+  sortModel = []
+  filterModel = { items: [] }
+  densityModel = 'compact'
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  get currentData() {
+    return this.orders
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -85,109 +83,88 @@ export class ClientOrdersNotificationsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_ORDERS_NOTIFICATIONS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onTriggerOpenConfirmModal(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
-          row.totalPriceChanged - row.totalPrice,
-          2,
-        )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
-        onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
+        row.totalPriceChanged - row.totalPrice,
+        2,
+      )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
+      onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenRejectModal(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Do you want to cancel?']),
-        onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Do you want to cancel?']),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
-  getCurrentData() {
-    return toJS(this.orders)
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       this.getDataGridState()
-      await this.getOrders()
-      this.setRequestStatus(loadingStatuses.success)
+
+      this.getOrders()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
   async getOrders() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await ClientModel.getOrders(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE])
 
       runInAction(() => {
         this.baseNoConvertedOrders = result
-
         this.orders = clientOrdersNotificationsDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
+        this.rowCount = result.length
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-          this.baseNoConvertedOrders = []
-          this.orders = []
-        })
-      }
+      this.setRequestStatus(loadingStatuses.failed)
+
+      runInAction(() => {
+        this.baseNoConvertedOrders = []
+        this.orders = []
+      })
     }
   }
 
@@ -200,34 +177,31 @@ export class ClientOrdersNotificationsViewModel {
 
   async onClickConfirmOrderPriceChangeBtn(order) {
     try {
-      this.setLoadingStatus(loadingStatuses.isLoading)
-      await ClientModel.orderConfirmPriceChange(order._id)
+      this.setRequestStatus(loadingStatuses.isLoading)
 
+      await ClientModel.orderConfirmPriceChange(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setLoadingStatus(loadingStatuses.success)
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.warn(error)
-      this.setLoadingStatus(loadingStatuses.failed)
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async onClickRejectOrderPriceChangeBtn(order) {
     try {
-      this.setLoadingStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       await ClientModel.cancelOrder(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setLoadingStatus(loadingStatuses.success)
-    } catch (error) {
-      console.warn(error)
-      this.setLoadingStatus(loadingStatuses.isLoading)
-    }
-  }
 
-  setLoadingStatus(loadingStatus) {
-    runInAction(() => {
-      this.loadingStatus = loadingStatus
-    })
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.isLoading)
+    }
   }
 }

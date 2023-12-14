@@ -44,7 +44,6 @@ export const AdminFeedbackView = observer(({ history }) => {
           rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
           rows={viewModel.getCurrentData()}
-          pageSizeOptions={[15, 25, 50, 100]}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           slotProps={{
             baseTooltip: {

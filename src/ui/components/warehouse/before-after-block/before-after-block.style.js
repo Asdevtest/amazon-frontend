@@ -354,12 +354,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '60px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       alignItems: 'center',
       gap: '10px',
-      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+      cursor: 'pointer',
     },
   },
 

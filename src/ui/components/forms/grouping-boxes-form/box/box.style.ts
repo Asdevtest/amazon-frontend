@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    width: 190,
+    flexGrow: 1,
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -32,6 +32,10 @@ export const useStyles = makeStyles()(theme => ({
   orderWrapper: {
     width: '100%',
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 15,
 
     backgroundColor: theme.palette.background.second,
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
@@ -44,11 +48,13 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexGrow: 1,
-    marginBottom: 20,
+    width: '100%',
   },
 
   iconWrapperAndboxNum: {
+    width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
     gap: 10,
   },
@@ -59,8 +65,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 5,
 
     display: 'flex',
-
-    width: 190,
   },
 
   iconText: {
@@ -83,9 +87,9 @@ export const useStyles = makeStyles()(theme => ({
 
   amountField: {
     marginBottom: '0 !important',
-    width: 'min-content !important',
     gap: 15,
-    marginRight: 20,
+    width: '100%',
+    justifyContent: 'flex-end',
   },
 
   orderInput: {
@@ -106,6 +110,13 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
 
     flexGrow: 1,
+  },
+
+  orderInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '5px',
   },
 
   img: {
@@ -207,6 +218,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   bottomBlockWrapper: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -219,7 +231,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
-    marginLeft: 24,
 
     '& > div': {
       maxWidth: 218,
@@ -235,7 +246,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '27px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   tablePanelViewText: {

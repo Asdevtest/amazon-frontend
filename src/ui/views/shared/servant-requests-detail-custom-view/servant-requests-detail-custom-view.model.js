@@ -186,8 +186,12 @@ export class RequestDetailCustomViewModel {
 
   onClickOpenRequest(media) {
     this.curResultMedia = media
-
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+  }
+
+  onClickCloseDesignerResultClientModal() {
+    this.curResultMedia = []
+    this.showRequestDesignerResultClientModal = false
   }
 
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {

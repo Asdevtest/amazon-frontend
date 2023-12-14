@@ -348,10 +348,6 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -1068,16 +1064,19 @@ export class ClientInStockBoxesViewModel {
 
               uploadedBarcodes.push({
                 strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0],
+                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
               })
             }
 
-            dataToBarCodeChange[j].newData = findUploadedBarcode ? [findUploadedBarcode.link] : [this.uploadedFiles[0]]
+            dataToBarCodeChange[j].newData = findUploadedBarcode
+              ? [findUploadedBarcode.link]
+              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
           }
         }
 
         newBox.items = newBox.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+
           return {
             ...getObjectFilteredByKeyArrayBlackList(el, [
               'order',
@@ -1156,7 +1155,7 @@ export class ClientInStockBoxesViewModel {
       if (isSelectedDestinationNotValid) {
         runInAction(() => {
           this.confirmModalSettings = {
-            isWarning: true,
+            isWarning: false,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
             onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
@@ -1168,9 +1167,9 @@ export class ClientInStockBoxesViewModel {
         if (!isSetCurrentDestination) {
           runInAction(() => {
             this.confirmModalSettings = {
-              isWarning: true,
+              isWarning: false,
               title: t(TranslationKey.Attention),
-              confirmMessage: t(TranslationKey['Wish to change a destination?']),
+              confirmMessage: t(TranslationKey['Wish to set a destination?']),
               onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
               onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
             }
@@ -1190,7 +1189,6 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.selectedBoxes = []
-
         this.uploadedFiles = []
       })
 
@@ -1204,9 +1202,9 @@ export class ClientInStockBoxesViewModel {
 
       if (
         !boxData.clientTaskComment &&
-        boxData.items.every(item => !item.tmpBarCode?.length) &&
-        // (sourceData.shippingLabel === null ||
-        //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
+        boxData.items.every(
+          item => !item.tmpBarCode?.length && item.tmpBarCode !== '' && !item.tmpTransparencyFile?.length,
+        ) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
@@ -1216,7 +1214,8 @@ export class ClientInStockBoxesViewModel {
           variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
-            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -1225,6 +1224,7 @@ export class ClientInStockBoxesViewModel {
           referenceId: boxData.referenceId,
           fbaNumber: boxData.fbaNumber,
           prepId: boxData.prepId,
+          transparencyFile: boxData.transparencyFile,
         })
 
         runInAction(() => {
@@ -1241,7 +1241,7 @@ export class ClientInStockBoxesViewModel {
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
                   productId: el.product?._id,
-                  tmpBarCode: el.tmpBarCode,
+                  tmpBarCode: el.tmpBarCode || '',
                   newData: [],
                 }
               : null,
@@ -1255,21 +1255,37 @@ export class ClientInStockBoxesViewModel {
           })
         }
 
-        const getNewItems = () => {
-          const newItems = boxData.items.map(el => {
+        const getNewItems = async () => {
+          const newItems = []
+
+          for await (const el of boxData.items) {
             const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-            return {
+            let transparencyFile
+
+            if (el.tmpTransparencyFile.length) {
+              transparencyFile = await onSubmitPostImages.call(this, {
+                images: el.tmpTransparencyFile,
+                type: 'uploadedTransparencyFiles',
+                withoutShowProgress: true,
+              })
+            }
+
+            const newItem = {
               ...getObjectFilteredByKeyArrayBlackList(el, [
                 'order',
                 'product',
                 'tmpBarCode',
                 'changeBarCodInInventory',
+                'tmpTransparencyFile',
               ]),
               amount: el.amount,
               orderId: el.order._id,
               productId: el.product._id,
 
-              barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+              transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
+              barCode: prodInDataToUpdateBarCode?.newData?.length
+                ? prodInDataToUpdateBarCode?.newData[0]
+                : el.barCode || '',
               isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
                 ? false
                 : el.isBarCodeAlreadyAttachedByTheSupplier,
@@ -1277,22 +1293,26 @@ export class ClientInStockBoxesViewModel {
                 ? false
                 : el.isBarCodeAttachedByTheStorekeeper,
             }
-          })
+
+            newItems.push(newItem)
+          }
 
           return newItems
         }
+
+        const requestBoxItems = isMultipleEdit
+          ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
+          : await getNewItems()
 
         const requestBox = getObjectFilteredByKeyArrayWhiteList(
           {
             ...boxData,
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-            items: isMultipleEdit
-              ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
-              : getNewItems(),
+            items: requestBoxItems,
             shippingLabel: this.uploadedFiles?.length
               ? this.uploadedFiles[0]
-              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
+              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           },
           updateBoxWhiteList,
         )
@@ -1314,11 +1334,11 @@ export class ClientInStockBoxesViewModel {
           this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
             sourceData.storekeeper?.name
           } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
-        })
 
-        !isMultipleEdit
-          ? this.onTriggerOpenModal('showSuccessInfoModal')
-          : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+          !isMultipleEdit
+            ? this.onTriggerOpenModal('showSuccessInfoModal')
+            : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+        })
       }
 
       !isMultipleEdit && this.loadData()
@@ -1589,8 +1609,8 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
@@ -1610,7 +1630,7 @@ export class ClientInStockBoxesViewModel {
         currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+          shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''
         }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )
 
@@ -1645,7 +1665,7 @@ export class ClientInStockBoxesViewModel {
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
         'amazonTitle',
-        'skusByClient',
+        'skuByClient',
         'id',
         'item',
         'productId',
@@ -1657,7 +1677,7 @@ export class ClientInStockBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
 
       const curStatus = this.columnMenuSettings.status.currentFilterData.length
         ? this.columnMenuSettings.status.currentFilterData.join(',')
@@ -1668,7 +1688,7 @@ export class ClientInStockBoxesViewModel {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
         storekeeperId: this.currentStorekeeperId,
         destinationId: this.curDestinationId,
-        shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+        shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,

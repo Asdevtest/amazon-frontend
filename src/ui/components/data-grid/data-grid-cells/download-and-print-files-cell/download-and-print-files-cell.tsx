@@ -103,9 +103,9 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
         <ImageModal
           isOpenModal={isOpenModal}
           handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
-          imageList={[selectedImage?.fileUrl]}
-          currentImageIndex={0}
-          handleCurrentImageIndex={() => null}
+          files={[selectedImage?.fileUrl]}
+          currentFileIndex={0}
+          handleCurrentFileIndex={() => null}
         />
       )}
     </>

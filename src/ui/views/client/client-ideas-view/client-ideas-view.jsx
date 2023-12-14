@@ -91,7 +91,6 @@ export const ClientIdeasView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
@@ -257,7 +256,7 @@ export const ClientIdeasView = observer(({ history }) => {
 
       {viewModel.showRequestBloggerResultModal && (
         <RequestResultModal
-          request={{ request: viewModel.currentRequest }}
+          request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}

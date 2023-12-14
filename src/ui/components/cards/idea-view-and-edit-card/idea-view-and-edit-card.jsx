@@ -176,7 +176,7 @@ export const IdeaViewAndEditCard = observer(
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
       if (
-        ['price', 'width', 'height', 'length'].includes(fieldName) &&
+        ['price', 'width', 'height', 'length', 'fbaFee', 'approximatePrice'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
       ) {
         return
@@ -350,7 +350,7 @@ export const IdeaViewAndEditCard = observer(
                 title={t(TranslationKey['Child product'])}
                 img={formFields.childProduct?.images?.[0]}
                 asin={formFields.childProduct?.asin}
-                sku={formFields.childProduct?.skusByClient?.[0]}
+                sku={formFields.childProduct?.skuByClient}
                 onClickShareIcon={() => onClickOpenProduct(formFields.childProduct?._id)}
               />
             )}
@@ -360,7 +360,7 @@ export const IdeaViewAndEditCard = observer(
                 title={t(TranslationKey['Parent product'])}
                 img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
                 asin={formFields.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields.parentProduct?.skusByClient?.[0] || currentProduct?.skusByClient?.[0]}
+                sku={formFields.parentProduct?.skuByClient || currentProduct?.skuByClient}
                 onClickShareIcon={() => onClickOpenProduct(formFields.parentProduct?._id || currentProduct?._id)}
               />
             )}

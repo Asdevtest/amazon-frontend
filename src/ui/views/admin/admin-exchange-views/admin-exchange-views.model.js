@@ -19,7 +19,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 const filtersFields = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amazon',
@@ -54,7 +54,11 @@ export class AdminExchangeViewModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = adminExchangeColumns()
+
+  rowHandlers = {
+    onClickOpenInNewTab: id => this.onClickTableRow(id),
+  }
+  columnsModel = adminExchangeColumns(this.rowHandlers)
 
   paginationModel = { page: 0, pageSize: 15 }
   rowsCount = 0
@@ -122,10 +126,10 @@ export class AdminExchangeViewModel {
     this.loadData()
   }
 
-  onClickTableRow(product) {
+  onClickTableRow(id) {
     this.history.push({
       pathname: '/admin/exchange/product',
-      search: `product-id=${product._id}`,
+      search: `product-id=${id}`,
     })
   }
 

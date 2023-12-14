@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   box: {
     display: 'flex',
     alignItems: 'center',
@@ -52,7 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
   boxItemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '420px',
     gap: '5px',
   },
 
@@ -154,8 +153,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   barCodeLabelWrapper: {
-    width: '270px',
-    height: '50px',
+    width: 'fit-content',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -165,7 +163,7 @@ export const useClassNames = makeStyles()(theme => ({
   downloadLink: {
     color: theme.palette.primary.main,
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -179,7 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
   row: {
     outline: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       boxShadow: 'inset 0 0 30px rgba(7, 179, 247, .8)',
@@ -189,12 +187,11 @@ export const useClassNames = makeStyles()(theme => ({
   boxItemSubInfoWrapper: {
     display: 'flex',
     width: '100%',
+    gap: '10px',
     justifyContent: 'space-between',
     margin: '15px 0',
   },
-  boxItemSubSubInfoWrapper: {
-    width: '100%',
-  },
+
   pricePerAmoutCell: {
     display: 'flex',
     flexDirection: 'column',

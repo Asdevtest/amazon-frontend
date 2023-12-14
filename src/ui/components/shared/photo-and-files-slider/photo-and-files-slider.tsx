@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from './photo-and-files-slider.styles'
+import { useStyles } from './photo-and-files-slider.style'
 
 import { NoDocumentIcon, NoPhotoIcon } from '../svg-icons'
 
@@ -87,14 +87,14 @@ export const PhotoAndFilesSlider: FC<Props> = memo(
     mainClasses,
     onChangeImagesForLoad,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const {
       openImageModal,
       onOpenImageModal,
 
-      photos,
-      photoIndex,
-      setPhotoIndex,
+      mediaFiles,
+      mediaFileIndex,
+      setMediaFileIndex,
 
       documents,
       documentIndex,
@@ -108,11 +108,11 @@ export const PhotoAndFilesSlider: FC<Props> = memo(
         {files?.length ? (
           <div
             className={cx(
-              classNames.mainWrapper,
+              styles.mainWrapper,
               {
-                [classNames.column]: column,
-                [classNames.wrapperAlignLeft]: alignLeft,
-                [classNames.wrapperAlignRight]: alignRight,
+                [styles.column]: column,
+                [styles.wrapperAlignLeft]: alignLeft,
+                [styles.wrapperAlignRight]: alignRight,
               },
               mainClasses,
             )}
@@ -120,9 +120,9 @@ export const PhotoAndFilesSlider: FC<Props> = memo(
           >
             {!withoutPhotos && !withAllFiles ? (
               <Slider
-                slides={photos}
-                currentIndex={photoIndex}
-                setCurrentIndex={setPhotoIndex}
+                slides={mediaFiles}
+                currentIndex={mediaFileIndex}
+                setCurrentIndex={setMediaFileIndex}
                 smallSlider={smallSlider}
                 mediumSlider={mediumSlider}
                 bigSlider={bigSlider}
@@ -167,28 +167,28 @@ export const PhotoAndFilesSlider: FC<Props> = memo(
             ) : null}
           </div>
         ) : (
-          <div className={cx(classNames.noFileWrapper, mainClasses)}>
+          <div className={cx(styles.noFileWrapper, mainClasses)}>
             <div
-              className={cx(classNames.slideWrapper, {
-                [classNames.slideSmall]: smallSlider,
-                [classNames.slideMedium]: mediumSlider,
-                [classNames.slideBig]: bigSlider,
+              className={cx(styles.slideWrapper, {
+                [styles.slideSmall]: smallSlider,
+                [styles.slideMedium]: mediumSlider,
+                [styles.slideBig]: bigSlider,
               })}
               style={{ width: customSlideWidth, height: customSlideHeight }}
             >
               {withoutFiles ? (
-                <NoPhotoIcon className={classNames.slide} />
+                <NoPhotoIcon className={styles.slide} />
               ) : (
-                <NoDocumentIcon className={cx(classNames.slide, classNames.slideNoDocuments)} />
+                <NoDocumentIcon className={cx(styles.slide, styles.slideNoDocuments)} />
               )}
             </div>
 
             {!isHideCounter ? (
               <p
-                className={cx(classNames.text, {
-                  [classNames.smallText]: smallSlider,
-                  [classNames.mediumText]: mediumSlider,
-                  [classNames.bigText]: bigSlider,
+                className={cx(styles.text, {
+                  [styles.smallText]: smallSlider,
+                  [styles.mediumText]: mediumSlider,
+                  [styles.bigText]: bigSlider,
                 })}
               >
                 {withoutFiles ? t(TranslationKey['No photos']) : t(TranslationKey['No files'])}
@@ -197,21 +197,21 @@ export const PhotoAndFilesSlider: FC<Props> = memo(
           </div>
         )}
 
-        {openImageModal ? (
+        {openImageModal && (
           <ImageModal
-            isEditable={isEditable}
-            showPreviews={showPreviews}
+            files={mediaFiles}
+            currentFileIndex={mediaFileIndex}
+            handleCurrentFileIndex={setMediaFileIndex}
             isOpenModal={openImageModal}
-            withoutMakeMainImage={withoutMakeMainImage}
-            imageList={photos}
-            currentImageIndex={photoIndex}
+            handleOpenModal={onOpenImageModal}
             photosTitles={photosTitles}
             photosComments={photosComments}
-            handleOpenModal={onOpenImageModal}
-            handleCurrentImageIndex={setPhotoIndex}
+            showPreviews={showPreviews}
+            isEditable={isEditable}
+            withoutMakeMainImage={withoutMakeMainImage}
             onChangeImagesForLoad={onChangeImagesForLoad}
           />
-        ) : null}
+        )}
       </>
     )
   },

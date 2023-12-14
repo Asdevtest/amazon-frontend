@@ -1,67 +1,47 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
-import { Box } from '@mui/material'
+import { FileIcon } from '@components/shared/file-icon'
 
-import { imageTypes } from '@constants/image-types'
-
-import { useChatMessageFileStyles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files.styles'
-
+import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { downloadFileByLink, getFileWeight } from '@utils/upload-files'
+
+import { useStyles } from './chat-message-files.style'
 
 interface ChatMessageFileProps {
   src: string
 }
 
-export const ChatMessageFile: FC<ChatMessageFileProps> = props => {
-  const { src } = props
-  const { classes: styles } = useChatMessageFileStyles()
+export const ChatMessageFile: FC<ChatMessageFileProps> = memo(({ src }) => {
+  const { classes: styles } = useStyles()
 
   const [fileSize, setFileSize] = useState('0 byte')
 
-  const fileName = getFileNameFromUrl(src)
+  const recreatedFile = getFileNameFromUrl(src)
 
   useEffect(() => {
     getFileWeight(src).then(res => setFileSize(res))
   }, [])
 
-  const getFileTypeIcon = (type: string) => {
-    switch (type) {
-      case 'doc':
-      case 'docx':
-        return 'doc.svg'
-      case 'pdf':
-        return 'pdf.svg'
-      case 'xlsx':
-      case 'xls':
-        return 'xlsx.svg'
-      default:
-        return 'default.svg'
-    }
-  }
-
   return (
-    <div className={styles.fileWrapper} onClick={() => downloadFileByLink(src, fileName.name)}>
+    <div className={styles.fileWrapper} onClick={() => downloadFileByLink(src, recreatedFile?.name)}>
       <div className={styles.logo}>
-        <img
-          src={
-            imageTypes.includes(fileName.type!)
-              ? getAmazonImageUrl(src)
-              : `/assets/icons/fileTypes/${getFileTypeIcon(fileName.type!)}`
-          }
-          alt="Img"
-        />
+        {checkIsImageLink(src) ? (
+          <img src={getAmazonImageUrl(src)} alt="message_file_icon" />
+        ) : (
+          recreatedFile.type && <FileIcon fileExtension={recreatedFile.type} className={styles.fileIcon} />
+        )}
       </div>
+
       <div className={styles.info}>
-        <Box display="flex">
-          <p className={styles.fileName}>{fileName.name}</p>
-          <p className={styles.fileType}>.{fileName.type}</p>
-        </Box>
+        <div className={styles.nameWrapper}>
+          <p className={styles.fileName}>{recreatedFile?.name}</p>
+          <p>.{recreatedFile?.type}</p>
+        </div>
 
         <p className={styles.fileSize}>{fileSize}</p>
       </div>
     </div>
   )
-}
+})

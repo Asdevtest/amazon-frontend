@@ -15,7 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 
 import { calcPriceForBox } from '@utils/calculation'
-import { checkIsClient, checkIsImageLink } from '@utils/checks'
+import { checkIsClient, checkIsMediaFileLink } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -88,7 +88,7 @@ const WarehouseBodyRowRaw = ({
                 image={order?.product?.images?.[0]}
                 amazonTitle={order?.product?.amazonTitle}
                 asin={order?.product?.asin}
-                skusByClient={order?.product?.skusByClient?.[0]}
+                skuByClient={order?.product?.skuByClient}
               />
             </TableCell>
 
@@ -105,7 +105,7 @@ const WarehouseBodyRowRaw = ({
                     className={classNames.button}
                     variant="contained"
                     onClick={() => {
-                      setCurImages(box.images.filter(img => checkIsImageLink(img)))
+                      setCurImages(box.images.filter(img => checkIsMediaFileLink(img)))
                       setShowPhotosModal(!showPhotosModal)
                     }}
                   >
@@ -189,9 +189,9 @@ const WarehouseBodyRowRaw = ({
         <ImageModal
           isOpenModal={showPhotosModal}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={curImages}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
-          currentImageIndex={curImageIndex}
+          files={curImages}
+          handleCurrentFileIndex={index => setCurImageIndex(index)}
+          currentFileIndex={curImageIndex}
         />
       )}
     </>

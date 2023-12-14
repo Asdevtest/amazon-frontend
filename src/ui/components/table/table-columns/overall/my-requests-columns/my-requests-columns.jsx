@@ -85,7 +85,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -98,7 +98,6 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 90,
     sortable: false,
-    filterable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },
@@ -112,7 +111,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
           getColumnMenuSettings()?.asin?.currentFilterData?.length ||
-          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skuByClient?.currentFilterData?.length ||
           getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
         }
       />
@@ -123,10 +122,10 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

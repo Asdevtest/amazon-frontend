@@ -1,8 +1,7 @@
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Chip, Divider, Typography } from '@mui/material'
+import { Checkbox, Divider, Typography } from '@mui/material'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -11,9 +10,11 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/buttons/button'
@@ -29,7 +30,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -40,7 +40,7 @@ import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-
 
 import { WarehouseDemensions } from './warehouse-demensions/warehouse-demensions'
 
-export const EditBoxForm = observer(
+export const EditBoxForm = memo(
   ({
     showCheckbox,
     formItem,
@@ -59,7 +59,10 @@ export const EditBoxForm = observer(
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+    const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(undefined)
+
+    const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+    const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -67,7 +70,6 @@ export const EditBoxForm = observer(
 
     const onClickBarcode = item => {
       setCurProductToEditBarcode(item)
-
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
@@ -78,16 +80,18 @@ export const EditBoxForm = observer(
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
-
-      newFormFields.items = [
-        ...boxFields.items.map(el =>
-          el.product._id === product.product._id ? { ...el, tmpBarCode: newBarCodeData } : el,
-        ),
-      ]
-
+      newFormFields.items = boxFields.items.map(el =>
+        el.product._id === product.product._id ? { ...el, tmpBarCode: newBarCodeData } : el,
+      )
       setBoxFields(newFormFields)
-
       setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onClickSaveTransparencyFile = (newTransparencyFileData, index) => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index] = { ...newFormFields.items[index], tmpTransparencyFile: newTransparencyFileData }
+      setBoxFields(newFormFields)
+      setShowSetFilesModal(false)
     }
 
     const boxInitialState = {
@@ -113,7 +117,7 @@ export const EditBoxForm = observer(
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items
-        ? [...formItem.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))]
+        ? formItem.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [], tmpTransparencyFile: [] }))
         : [],
     }
 
@@ -128,7 +132,6 @@ export const EditBoxForm = observer(
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       newFormFields[fieldName] = e.target.value
-
       setBoxFields(newFormFields)
     }
 
@@ -154,7 +157,17 @@ export const EditBoxForm = observer(
     const onDeleteBarcode = productId => {
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? { ...item, barCode: '', changeBarCodInInventory: false } : item,
+        item.product._id === productId
+          ? { ...item, barCode: '', tmpBarCode: '', changeBarCodInInventory: false }
+          : item,
+      )
+      setBoxFields(newFormFields)
+    }
+
+    const onDeleteTransparencyFile = productId => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? { ...item, transparencyFile: '', tmpTransparencyFile: [] } : item,
       )
       setBoxFields(newFormFields)
     }
@@ -180,7 +193,7 @@ export const EditBoxForm = observer(
     ) => {
       if (isSelectedDestinationNotValid) {
         setConfirmModalSettings({
-          isWarning: true,
+          isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -314,39 +327,49 @@ export const EditBoxForm = observer(
                                 !item.barCode && t(TranslationKey['A task will be created for the prep center'])
                               }
                               tooltipInfoContent={
-                                !item.barCode &&
-                                t(
-                                  TranslationKey[
-                                    'Add a product barcode to the box. A task will be created for the prep center'
-                                  ],
-                                )
+                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
                               }
                               labelClasses={styles.standartLabel}
                               label={t(TranslationKey.BarCode)}
                               inputComponent={
-                                <div>
-                                  <Chip
-                                    classes={{
-                                      root: styles.barcodeChip,
-                                      clickable: styles.barcodeChipHover,
-                                      deletable: styles.barcodeChipHover,
-                                      deleteIcon: styles.barcodeChipIcon,
-                                      label: styles.barcodeChiplabel,
-                                    }}
-                                    className={cx({ [styles.barcodeChipExists]: item.barCode })}
-                                    size="small"
-                                    label={
-                                      item.tmpBarCode.length
-                                        ? t(TranslationKey['File added'])
-                                        : item.barCode
-                                        ? item.barCode
-                                        : t(TranslationKey['Set Barcode'])
-                                    }
-                                    onClick={() => onClickBarcode(item)}
-                                    onDoubleClick={() => onDoubleClickBarcode(item)}
-                                    onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
-                                  />
-                                </div>
+                                <ChangeChipCell
+                                  isChipOutTable
+                                  text={!item.barCode && !item?.tmpBarCode?.[0] && t(TranslationKey['Set Barcode'])}
+                                  value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                  onClickChip={() => onClickBarcode(item)}
+                                  onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                  onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                                />
+                              }
+                            />
+
+                            <Field
+                              containerClasses={styles.field}
+                              labelClasses={styles.standartLabel}
+                              label={t(TranslationKey['Transparency codes'])}
+                              inputComponent={
+                                <ChangeChipCell
+                                  isChipOutTable
+                                  text={
+                                    !item.transparencyFile &&
+                                    !item?.tmpTransparencyFile?.[0] &&
+                                    t(TranslationKey.Transparency)
+                                  }
+                                  value={
+                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                    item?.tmpTransparencyFile?.[0] ||
+                                    item.transparencyFile
+                                  }
+                                  onClickChip={() => {
+                                    setFilesConditions({
+                                      tmpFiles: item?.tmpTransparencyFile,
+                                      currentFiles: item.transparencyFile,
+                                      index,
+                                    })
+                                    setShowSetFilesModal(true)
+                                  }}
+                                  onDeleteChip={() => onDeleteTransparencyFile(item.product._id)}
+                                />
                               }
                             />
 
@@ -537,28 +560,21 @@ export const EditBoxForm = observer(
                       )}
                       label={t(TranslationKey['Shipping label'])}
                       inputComponent={
-                        <div>
-                          <Chip
-                            classes={{
-                              root: styles.barcodeChip,
-                              clickable: styles.barcodeChipHover,
-                              deletable: styles.barcodeChipHover,
-                              deleteIcon: styles.barcodeChipIcon,
-                              label: styles.barcodeChiplabel,
-                            }}
-                            className={cx({ [styles.barcodeChipExists]: boxFields.shippingLabel })}
-                            size="small"
-                            label={
-                              boxFields.tmpShippingLabel.length
-                                ? t(TranslationKey['File added'])
-                                : boxFields.shippingLabel
-                                ? trimBarcode(boxFields.shippingLabel)
-                                : t(TranslationKey['Set Shipping Label'])
-                            }
-                            onClick={() => onClickShippingLabel()}
-                            onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                          />
-                        </div>
+                        <ChangeChipCell
+                          isChipOutTable
+                          text={
+                            !boxFields.shippingLabel &&
+                            !boxFields.tmpShippingLabel.length &&
+                            t(TranslationKey['Set Shipping Label'])
+                          }
+                          value={
+                            boxFields.tmpShippingLabel?.[0]?.file?.name ||
+                            boxFields.tmpShippingLabel?.[0] ||
+                            boxFields.shippingLabel
+                          }
+                          onClickChip={() => onClickShippingLabel()}
+                          onDeleteChip={() => onDeleteShippingLabel()}
+                        />
                       }
                     />
                   </div>
@@ -709,9 +725,9 @@ export const EditBoxForm = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={bigImagesOptions.images}
-            currentImageIndex={bigImagesOptions.imgIndex}
-            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 
@@ -753,6 +769,20 @@ export const EditBoxForm = observer(
             item={curProductToEditBarcode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+          <SetFilesModal
+            modalTitle={t(TranslationKey.Transparency)}
+            LabelTitle={t(TranslationKey['Transparency codes'])}
+            currentFiles={filesConditions.currentFiles}
+            tmpFiles={filesConditions.tmpFiles}
+            onClickSave={value => {
+              onClickSaveTransparencyFile(value, filesConditions.index)
+              setShowSetFilesModal(false)
+            }}
+            onCloseModal={setShowSetFilesModal}
           />
         </Modal>
 

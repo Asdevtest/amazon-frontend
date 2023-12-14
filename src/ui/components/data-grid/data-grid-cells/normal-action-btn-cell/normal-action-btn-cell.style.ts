@@ -1,13 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  actionBtn: {
-    height: 30,
-    padding: '0 15px',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    padding: '10px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
 
-    [theme.breakpoints.down(1282)]: {
-      fontSize: 13,
-      lineHeight: 18,
-    },
+  button: {
+    height: 30,
+    width: 140,
   },
 }))

@@ -2,7 +2,7 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Avatar, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -23,6 +23,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { ArrowBackIcon, NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
 import { checkIsResearcher, isNotUndefined } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -32,7 +33,7 @@ import { useStyles } from './messages-view.style'
 
 import { MessagesViewModel } from './messages-view.model'
 
-export const MessagesView = observer(history => {
+export const MessagesView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
 
@@ -47,8 +48,6 @@ export const MessagesView = observer(history => {
     ?.users.find(el => el._id !== viewModel.user._id)
 
   const currentChat = viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)
-
-  const curFoundedMessageIndex = viewModel.messagesFound?.findIndex(el => viewModel.curFoundedMessage?._id === el._id)
 
   const filteredChats = viewModel.simpleChats
     .filter(el => {
@@ -150,11 +149,7 @@ export const MessagesView = observer(history => {
                           underline="none"
                         >
                           <div className={styles.opponentWrapper}>
-                            <Avatar
-                              src={getUserAvatarSrc(currentOpponent?._id)}
-                              className={styles.avatar}
-                              alt="avatar"
-                            />
+                            <img src={getUserAvatarSrc(currentOpponent?._id)} className={styles.avatar} alt="avatar" />
                             <p className={styles.opponentName}>{currentOpponent?.name}</p>
                           </div>
                         </Link>
@@ -168,7 +163,7 @@ export const MessagesView = observer(history => {
                   ) : (
                     <>
                       <div className={styles.opponentWrapper}>
-                        <Avatar src={currentChat?.info.image} className={styles.avatar} />
+                        <img src={getAmazonImageUrl(currentChat?.info?.image)} className={styles.avatar} />
                         <div>
                           <p className={styles.opponentName}>{currentChat?.info.title}</p>
                           <p className={styles.usersCount}>{`${currentChat?.users.length} ${t(
@@ -191,15 +186,14 @@ export const MessagesView = observer(history => {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
-                    value={viewModel.mesSearchValue}
-                    onChange={viewModel.onChangeMesSearchValue}
+                    onSubmit={value => viewModel.onChangeMesSearchValue(value, findChatByChatId._id)}
                   />
 
                   {viewModel.messagesFound.length ? (
                     <SearchResult
-                      curFoundedMessageIndex={curFoundedMessageIndex}
+                      curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
                       messagesFound={viewModel.messagesFound}
-                      onClose={() => viewModel.onChangeMesSearchValue({ target: { value: '' } })}
+                      onClose={() => viewModel.onChangeMesSearchValue('')}
                       onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
                     />
                   ) : viewModel.mesSearchValue ? (

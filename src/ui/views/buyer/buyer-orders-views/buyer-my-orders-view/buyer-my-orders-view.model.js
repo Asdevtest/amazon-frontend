@@ -1,4 +1,3 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -10,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
-import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
@@ -221,7 +219,7 @@ export class BuyerMyOrdersViewModel {
         'asin',
         'id',
         'item',
-        'skusByClient',
+        'skuByClient',
       ]),
     )
   }
@@ -436,7 +434,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
-          isWarning: true,
+          isWarning: false,
           confirmMessage: t(
             TranslationKey[
               'The price per unit in the order is different from the supplier price, do you want to continue?'
@@ -740,7 +738,7 @@ export class BuyerMyOrdersViewModel {
         await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
         this.loadData()
       } catch (error) {
-        console.log('error', error)
+        console.log(error)
         this.setRequestStatus(loadingStatuses.failed)
       }
     }
@@ -1041,10 +1039,16 @@ export class BuyerMyOrdersViewModel {
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:
-          order.priority === '40'
+          order.priority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC]
             ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
             : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
+
+      runInAction(() => {
+        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {
@@ -1080,12 +1084,13 @@ export class BuyerMyOrdersViewModel {
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
 
-            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
+            transparencyFile: formFields?.items?.[0]?.transparencyFile || '',
+            isBarCodeAlreadyAttachedByTheSupplier: formFields?.items?.[0]?.isBarCodeAlreadyAttachedByTheSupplier,
+            isTransparencyFileAlreadyAttachedByTheSupplier:
+              formFields?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier,
           },
         ],
       }
-
-      await transformAndValidate(BoxesCreateBoxContract, createBoxData)
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 

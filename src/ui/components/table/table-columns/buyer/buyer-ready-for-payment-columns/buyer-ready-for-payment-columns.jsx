@@ -63,7 +63,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       sortable: false,
       valueGetter: params =>
         `ASIN: ${params.row.originalData.product.asin ?? ''}, SKU: ${
-          params.row.originalData.product.skusByClient ?? ''
+          params.row.originalData.product.skuByClient ?? ''
         }`,
       width: 280,
 

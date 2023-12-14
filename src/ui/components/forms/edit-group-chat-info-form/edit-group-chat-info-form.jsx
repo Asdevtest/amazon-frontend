@@ -13,6 +13,7 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-group-chat-info-form.style'
@@ -63,6 +64,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   }
 
   const disanledSubmit = JSON.stringify(sourceState) === JSON.stringify(state) || !state.title.replace(/ /g, '')
+  const currentChatAvatar = state?.preview?.includes('data') ? state?.preview : getAmazonImageUrl(state?.preview, true)
 
   return (
     <div className={classNames.root}>
@@ -88,13 +90,13 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
                 backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
                 textAlign: 'center',
                 transition: '0.3s ease',
-                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                cursor: 'pointer',
                 color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
               }}
               borderStyle={{
                 border: ' 3px dashed rgba(0,123, 255, .7)',
                 transition: '0.3s ease',
-                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                cursor: 'pointer',
                 borderRadius: '10px',
                 display: 'flex',
                 justifyContent: 'center',
@@ -103,7 +105,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
               onClose={onClose}
               onBeforeFileLoad={onBeforeFileLoad}
             />
-            <AvatarMui className={classNames.avatar} src={state.preview} />
+            <AvatarMui className={classNames.avatar} src={currentChatAvatar} />
           </div>
         }
       />
@@ -137,9 +139,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowInfoModal(!showInfoModal)
-        }}
+        onClickBtn={() => setShowInfoModal(!showInfoModal)}
       />
     </div>
   )

@@ -1,11 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
     fontWeight: '600',
     color: theme.palette.text.general,
+  },
+
+  hsFieldContainer: {
+    marginTop: 20,
   },
 
   hsCodeBtn: {
@@ -158,7 +162,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkOnEdit: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     color: theme.palette.primary.main,
   },
 
@@ -258,7 +262,6 @@ export const useClassNames = makeStyles()(theme => ({
   strategyAndSubUsersWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
   },
   field: {
     borderRadius: '4px',

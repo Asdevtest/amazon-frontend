@@ -10,5 +10,5 @@ export enum EentToEmit {
   PATCH_CHAT_INFO = 'Chat:user:patch-info',
   GET_CHAT_MESSAGES = 'Chat:user:get-chat-messages',
   GET_UNREAD_MESSAGES_COUNT = 'Chat:user:get-unread-messages',
-  GET_CHAT_MESSAGE = 'Chat:user:find-message',
+  FIND_CHAT_MESSAGE = 'Chat:user:find-message',
 }

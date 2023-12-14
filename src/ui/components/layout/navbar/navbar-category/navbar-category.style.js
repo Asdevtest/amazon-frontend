@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   root: {
     height: 42,
     fontSize: 13,
@@ -9,7 +11,7 @@ export const styles = theme => ({
     paddingRight: '16px',
 
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     '&$selected': {
       borderLeft: `5px solid ${theme.palette.primary.main}`,
@@ -100,4 +102,4 @@ export const styles = theme => ({
   bigBadgePadding: {
     paddingRight: '20px',
   },
-})
+}))

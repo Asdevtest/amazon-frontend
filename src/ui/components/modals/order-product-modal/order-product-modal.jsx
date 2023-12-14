@@ -17,6 +17,8 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './order-product-modal.style'
 
+import { SetFilesModal } from '../set-files-modal'
+
 export const OrderProductModal = ({
   platformSettings,
   destinations,
@@ -37,6 +39,8 @@ export const OrderProductModal = ({
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
+  const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+  const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
@@ -98,9 +102,13 @@ export const OrderProductModal = ({
           amount: reorderOrder.amount,
           clientComment: '',
           barCode: reorderOrder?.product?.barCode || '',
+          tmpBarCode: [],
+
+          transparencyFile: '',
+          tmpTransparencyFile: [],
+
           productId: reorderOrder.product._id,
           images: [],
-          tmpBarCode: [],
 
           destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
             ? reorderOrder.destination?._id
@@ -135,7 +143,10 @@ export const OrderProductModal = ({
           productId: product._id,
           images: [],
           deadline: null,
+
+          transparency: product.transparency,
           tmpBarCode: [],
+          tmpTransparencyFile: [],
 
           destinationId: null,
 
@@ -252,10 +263,11 @@ export const OrderProductModal = ({
       )
     }) ||
     storekeeperEqualsDestination ||
-    // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
     !orderState.length ||
-    submitIsClicked
+    submitIsClicked ||
+    (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
+      !isPendingOrder)
 
   return (
     <div className={classNames.wrapper}>
@@ -313,12 +325,8 @@ export const OrderProductModal = ({
                 </Button>
               </TableCell>
               <TableCell className={classNames.barCodeCell}>
-                <Button
-                  disabled
-                  className={classNames.barCodeCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Product barcode'])}
-                >
-                  {t(TranslationKey.BarCode)}
+                <Button disabled className={classNames.barCodeCellBtn}>
+                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
                 </Button>
               </TableCell>
               <TableCell className={classNames.tariffCell}>
@@ -376,13 +384,18 @@ export const OrderProductModal = ({
                   setOrderStateFiled(index)('expressChinaDelivery')(!product.expressChinaDelivery)
                 }}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+                onDoubleClickBarcode={onDoubleClickBarcode}
                 onClickBarcode={() => {
                   setTmpOrderIndex(index)
                   triggerBarcodeModal()
                 }}
-                onDoubleClickBarcode={onDoubleClickBarcode}
+                onClickTransparency={value => {
+                  setShowSetFilesModal(true)
+                  setFilesConditions(value)
+                }}
                 onDeleteBarcode={() => {
                   setOrderStateFiled(index)('barCode')('')
+                  setOrderStateFiled(index)('tmpBarCode')([])
                 }}
                 onRemoveProduct={onRemoveProduct}
               />
@@ -454,6 +467,19 @@ export const OrderProductModal = ({
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}
+        />
+      </Modal>
+      <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+        <SetFilesModal
+          modalTitle={t(TranslationKey.Transparency)}
+          LabelTitle={t(TranslationKey['Transparency codes'])}
+          currentFiles={filesConditions.currentFiles}
+          tmpFiles={filesConditions.tmpFiles}
+          onClickSave={value => {
+            setOrderStateFiled(filesConditions.index)('tmpTransparencyFile')(value)
+            setShowSetFilesModal(false)
+          }}
+          onCloseModal={setShowSetFilesModal}
         />
       </Modal>
     </div>

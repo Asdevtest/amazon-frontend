@@ -19,8 +19,8 @@ interface IProductsLaunch {
   amazonTitle: string
   asin: string
   images: Array<string>
-  shopIds: Array<string>
-  skusByClient: Array<string>
+  shopId: string
+  skuByClient: string
 }
 
 interface ProductLaunchFormProps {

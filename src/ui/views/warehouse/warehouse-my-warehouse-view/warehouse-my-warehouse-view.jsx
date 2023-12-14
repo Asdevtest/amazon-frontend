@@ -1,7 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,7 +18,6 @@ import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -28,121 +26,92 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-my-warehouse-view.style'
+import { useStyles } from './warehouse-my-warehouse-view.style'
 
+import { ActionButtons } from './action-buttons/action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
-export const WarehouseMyWarehouseViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const WarehouseMyWarehouseView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const renderButtons = () => (
-    <React.Fragment>
-      <Button
-        tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-        disabled={!viewModel.selectedBoxes.length}
-        className={classNames.editBtn}
-        onClick={viewModel.onEditBox}
-      >
-        {t(TranslationKey.Edit)}
-      </Button>
-
-      <Button
-        tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-        disabled={viewModel.selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
-        onClick={viewModel.onClickMergeBtn}
-      >
-        {t(TranslationKey.Merge)}
-      </Button>
-
-      <Button
-        disabled={viewModel.selectedBoxes.length !== 1}
-        tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
-        onClick={viewModel.onClickSplitBtn}
-      >
-        {t(TranslationKey.Redistribute)}
-      </Button>
-
-      <Button disabled={!viewModel.selectedBoxes.length} onClick={viewModel.onClickGroupingBtn}>
-        {t(TranslationKey.Grouping)}
-      </Button>
-    </React.Fragment>
-  )
-
-  const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
+  const getRowClassName = params => params.row.isDraft && styles.isDraftRow
 
   const disableSelectionCells = ['prepId']
 
   return (
-    <React.Fragment>
-      <div>
-        <div className={classNames.headerWrapper}>
-          <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
+    <>
+      <div className={styles.headerWrapper}>
+        <ActionButtons
+          selectedBoxes={viewModel.selectedBoxes}
+          onEditBox={viewModel.onEditBox}
+          onClickMergeBtn={viewModel.onClickMergeBtn}
+          onClickSplitBtn={viewModel.onClickSplitBtn}
+          onClickGroupingBtn={viewModel.onClickGroupingBtn}
+        />
 
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          <div />
-        </div>
-        <div className={classNames.datagridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            propsToRerender={{ unitsOption: viewModel.unitsOption }}
-            isRowSelectable={params =>
-              params.row.isDraft === false &&
-              params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-              params.row.originalData.status !== BoxStatus.IN_BATCH
-            }
-            getRowClassName={getRowClassName}
-            rowCount={viewModel.rowCount}
-            rowSelectionModel={viewModel.selectedBoxes}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+        <div />
+      </div>
+
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          localeText={getLocalizationByLanguageTag()}
+          isRowSelectable={params =>
+            params.row.isDraft === false &&
+            params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+            params.row.originalData.status !== BoxStatus.IN_BATCH
+          }
+          getRowClassName={getRowClassName}
+          rowCount={viewModel.rowCount}
+          rowSelectionModel={viewModel.selectedBoxes}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            columnMenu: viewModel.columnMenuSettings,
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-              columnMenu: viewModel.columnMenuSettings,
-
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onCellDoubleClick={params =>
-              !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
-            }
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onCellDoubleClick={params =>
+            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+          }
+        />
       </div>
 
       <Modal
@@ -264,9 +233,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
         title={viewModel.modalEditSuccessMessage}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessInfoModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
       />
 
       <Modal
@@ -346,12 +313,8 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
-    </React.Fragment>
+    </>
   )
-}
-
-export const WarehouseMyWarehouseView = withStyles(observer(WarehouseMyWarehouseViewRaw), styles)
+})

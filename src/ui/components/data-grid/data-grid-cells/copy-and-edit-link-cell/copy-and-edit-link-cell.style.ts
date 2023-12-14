@@ -37,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 400,
 
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
 
     '&:hover': {

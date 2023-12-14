@@ -24,9 +24,10 @@ import { useStyles } from './my-requests-view.style'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
 
-export const MyRequestsView = observer(({ history, location }) => {
+export const MyRequestsView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new MyRequestsViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new MyRequestsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -75,17 +76,17 @@ export const MyRequestsView = observer(({ history, location }) => {
         <CustomSwitcher
           fullWidth
           switchMode={'big'}
-          condition={viewModel.isRequestsAtWork}
+          condition={viewModel.switcherCondition}
           switcherSettings={[
-            { label: () => t(TranslationKey['Requests in progress']), value: true },
-            { label: () => t(TranslationKey['Completed requests']), value: false },
+            { label: () => t(TranslationKey['Requests in progress']), value: 'inProgress' },
+            { label: () => t(TranslationKey['Ready to check']), value: 'readyToCheck' },
+            { label: () => t(TranslationKey['Completed requests']), value: 'completed' },
           ]}
           changeConditionHandler={viewModel.onClickChangeCatigory}
         />
 
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
-            propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}
@@ -95,7 +96,6 @@ export const MyRequestsView = observer(({ history, location }) => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             rows={viewModel.currentData}
-            pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={130}
             slotProps={{
               baseTooltip: {
@@ -124,7 +124,7 @@ export const MyRequestsView = observer(({ history, location }) => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
           />
         </div>
       </div>
@@ -175,6 +175,7 @@ export const MyRequestsView = observer(({ history, location }) => {
 
       <FreelanceRequestDetailsModal
         isRequestOwner
+        isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
@@ -186,6 +187,7 @@ export const MyRequestsView = observer(({ history, location }) => {
         onRecoverRequest={viewModel.onRecoverRequest}
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
+        onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
       />
     </React.Fragment>
   )

@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './product-wrapper.style'
 
-import { Freelance } from '../freelance'
+import { Freelance } from '../freelance-tab-view'
 import { Integrations } from '../integrations'
 import { ManagementTabView } from '../management-tab-view'
 import { Orders } from '../orders'

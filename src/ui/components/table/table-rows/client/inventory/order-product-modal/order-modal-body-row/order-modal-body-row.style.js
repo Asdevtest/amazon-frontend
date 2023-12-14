@@ -93,6 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   row: {
+    width: '100%',
     border: '1px solid rgba(0,0,0, .1)',
   },
 
@@ -147,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '0 10px',
+    padding: '0 5px',
   },
 
   error: {
@@ -179,5 +180,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   calculationButton: {
     minWidth: '225px !important',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '5px',
+    padding: '5px 0',
+  },
+
+  warningText: {
+    textAlign: 'center',
+    fontSize: '12px',
+    fontWeight: 400,
+    color: theme.palette.text.red,
   },
 }))

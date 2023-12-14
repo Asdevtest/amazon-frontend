@@ -50,7 +50,7 @@ export const clientBoxesViewColumns = (
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -61,6 +61,7 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
+
     width: 100,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
@@ -136,7 +137,7 @@ export const clientBoxesViewColumns = (
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
           getColumnMenuSettings()?.asin?.currentFilterData?.length ||
-          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skuByClient?.currentFilterData?.length ||
           getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
         }
       />

@@ -16,9 +16,9 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
 const filtersFields = [
-  'shopIds',
+  'shopId',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amountInOrders',
@@ -117,9 +117,6 @@ export class BuyerMyProductsViewModel {
         this.startFilterModel = location.state.dataGridFilter
       })
     }
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -321,26 +318,10 @@ export class BuyerMyProductsViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
       //
-      // const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-      // const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      // const shopFilter = shops
-      //   ? shops
-      //   : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
-      //     ? curShops
-      //     : null
-
-      // const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-
-        // `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-        // }${
-        //   purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
-        // }`,
-
         `buyers/products/pag/my?filters=${this.getFilter(column)}`,
       )
 
@@ -398,9 +379,9 @@ export class BuyerMyProductsViewModel {
 
   getFilter(exclusion) {
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+    const skuByClientFilter =
+      exclusion !== 'skuByClient' &&
+      this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
         .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
@@ -461,14 +442,14 @@ export class BuyerMyProductsViewModel {
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
       ],
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
       }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
+      ...(skuByClientFilter && {
+        skuByClient: { $eq: skuByClientFilter },
       }),
       ...(amazonTitleFilter && {
         amazonTitle: { $eq: amazonTitleFilter },

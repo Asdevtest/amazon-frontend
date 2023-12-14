@@ -5,7 +5,7 @@ import { Errors } from '@constants/errors'
 
 import { OtherModel } from '@models/other-model'
 
-import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsImageLink } from './checks'
+import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsMediaFileLink } from './checks'
 import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
 
@@ -19,7 +19,7 @@ export const dataURLtoFile = (dataurl, filename) => {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n)
   }
-  return new File([u8arr], filename, { type: mime })
+  return new File([u8arr], `${filename}.${mime}`, { type: mime })
 }
 
 export const onPostImage = async imageData => {
@@ -47,7 +47,6 @@ export const uploadFileByUrl = async image => {
 
     return '/uploads/' + result.fileName
   } catch (error) {
-    console.log(error?.response?.data?.message)
     throw new Error(Errors.INVALID_IMAGE)
   }
 }
@@ -64,7 +63,7 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
       } else if (typeof file === 'string') {
         try {
           const res = await uploadFileByUrl(
-            checkIsImageInludesPostfixes(file) || checkIsImageLink(file) || checkIsHasHttp(file)
+            checkIsImageInludesPostfixes(file) || checkIsMediaFileLink(file) || checkIsHasHttp(file)
               ? file
               : getAmazonImageUrl(file, true),
           )
@@ -83,56 +82,54 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
 }
 
 export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
-  try {
-    this[type] = []
+  this[type] = []
 
-    const loadingStep = 100 / images.length
+  const loadingStep = 100 / images.length
 
-    if (!withoutShowProgress) {
-      runInAction(() => {
-        this.showProgress = true
-      })
-    }
+  if (!withoutShowProgress) {
+    runInAction(() => {
+      this.showProgress = true
+    })
+  }
 
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
+  for (let i = 0; i < images.length; i++) {
+    const image = images[i]
 
+    try {
       if (typeof image === 'string' && image.includes('/uploads/')) {
         this[type].push(image)
       } else if (typeof image === 'string') {
         const res = await uploadFileByUrl(
-          checkIsImageInludesPostfixes(image) || checkIsImageLink(image) || checkIsHasHttp(image)
+          checkIsImageInludesPostfixes(image) || checkIsMediaFileLink(image) || checkIsHasHttp(image)
             ? image
             : getAmazonImageUrl(image, true),
         )
-
         this[type].push(res)
       } else {
         const res = await onPostImage(image)
         this[type].push(res)
       }
+
       runInAction(() => {
         this.progressValue = this.progressValue + loadingStep
       })
+    } catch (error) {
+      continue
     }
+  }
 
-    if (!withoutShowProgress) {
-      runInAction(() => {
-        this.showProgress = false
-      })
-    }
-
+  if (!withoutShowProgress) {
     runInAction(() => {
-      this.progressValue = 0
-      this.isValidLink = true
-    })
-  } catch (error) {
-    runInAction(() => {
-      this.progressValue = 0
       this.showProgress = false
-      this.isValidLink = false
     })
   }
+
+  runInAction(() => {
+    this.progressValue = 0
+    this.isValidLink = true
+  })
+
+  return this[type]
 }
 
 export const downloadFile = async (file, fileName) => {
@@ -174,7 +171,7 @@ export const downloadFileByLink = async (str, fileName) => {
 }
 
 export const getFileWeight = async url =>
-  fetch(url /* , {mode: 'no-cors'} */)
+  fetch(getAmazonImageUrl(url, true))
     .then(res => res.blob())
     .then(res => {
       const fileSizeInKB = res.size / 1024
@@ -204,7 +201,7 @@ export const downloadArchive = async (files, folderName) => {
   const zip = new JSZip()
 
   const validFilesData = files.map(async file => {
-    const res = await fetch(file.image.file || file.image)
+    const res = await fetch(getAmazonImageUrl(file.image.file || file.image, true))
     const blob = await res.blob()
 
     return {

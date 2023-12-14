@@ -17,7 +17,7 @@ export const ToggleBtn = withStyles(ToggleButton, theme => ({
     width: '27px',
     height: '24px',
     fontFamily: "'Manrope, sans-serif'",
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     '&:hover': {
       color: 'white !important',
@@ -36,23 +36,6 @@ export const ToggleBtnFreelancer = withStyles(ToggleButton, theme => ({
     border: 'none',
     width: '50px',
     height: '100%',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 }))
-
-// export const ToggleBtn = styled(ToggleButton)({
-//   '&.Mui-selected, &.Mui-selected:hover': {
-//     color: 'white',
-//     backgroundColor: '#006CFF',
-//   },
-
-//   '&.MuiToggleButton-root': {
-//     // backgroundColor: 'inherit',
-//     border: 'none',
-//     borderRadius: '4px',
-//     width: '27px',
-//     height: '24px',
-//     fontFamily: "'Manrope, sans-serif'",
-//     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-//   },
-// })

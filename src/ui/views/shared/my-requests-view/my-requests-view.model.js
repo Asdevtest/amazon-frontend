@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -30,6 +30,7 @@ export class MyRequestsViewModel {
   showConfirmModal = false
   showRequestDetailModal = false
   showConfirmWithCommentModal = false
+  isAcceptedProposals = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -44,8 +45,6 @@ export class MyRequestsViewModel {
 
   nameSearchValue = ''
   onHover = null
-
-  currentData = []
 
   rowCount = 0
 
@@ -89,6 +88,8 @@ export class MyRequestsViewModel {
   sortModel = []
 
   isRequestsAtWork = true
+  onlyWaitedProposals = null
+  switcherCondition = 'inProgress' // @params inProgress readyToCheck completed
 
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -114,9 +115,7 @@ export class MyRequestsViewModel {
     onClickAccept: withoutUpdate => {
       this.onLeaveColumnField()
 
-      if (withoutUpdate) {
-        this.getCurrentData()
-      } else {
+      if (!withoutUpdate) {
         this.getCustomRequests()
         this.getDataGridState()
       }
@@ -129,25 +128,29 @@ export class MyRequestsViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     this.history = history
 
-    if (location?.state) {
+    if (history.location?.state) {
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
-        error: location?.state?.error,
+        showAlertShield: history.location?.state?.showAcceptMessage,
+        alertShieldMessage: history.location?.state?.acceptMessage,
+        error: history.location?.state?.error,
       }
 
-      const state = { ...history?.location?.state }
+      const state = { ...history.location?.state }
       delete state?.acceptMessage
       delete state?.showAcceptMessage
-      history.replace({ ...history?.location, state })
+      history.replace({ ...history.location, state })
     }
 
     this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    if (this.isRequestsAtWork) {
+      this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+    }
 
     if (this.alertShieldSettings.showAlertShield) {
       setTimeout(() => {
@@ -164,45 +167,43 @@ export class MyRequestsViewModel {
         }, 1000)
       }, 3000)
     }
+  }
 
-    reaction(
-      () => this.isRequestsAtWork,
-      () => this.setDefaultStatuses(),
-    )
-
-    reaction(
-      () => this.isRequestsAtWork,
-      () => this.getCustomRequests(),
-    )
-
-    reaction(
-      () => this.searchRequests,
-      () => (this.currentData = this.getCurrentData()),
-    )
+  get currentData() {
+    return this.searchRequests
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onChangePaginationModel(model) {
     this.paginationModel = model
-
     this.getCustomRequests()
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
-    this.isRequestsAtWork = value
+    this.switcherCondition = value
+    if (value === 'inProgress') {
+      this.isRequestsAtWork = true
+      this.onlyWaitedProposals = null
+    } else if (value === 'readyToCheck') {
+      this.isRequestsAtWork = true
+      this.onlyWaitedProposals = true
+    } else if (value === 'completed') {
+      this.isRequestsAtWork = false
+      this.onlyWaitedProposals = null
+    }
+    this.setDefaultStatuses()
+    this.getCustomRequests()
   }
 
   setDataGridState() {
@@ -212,21 +213,18 @@ export class MyRequestsViewModel {
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -238,10 +236,6 @@ export class MyRequestsViewModel {
 
     this.setDataGridState()
     this.getCustomRequests()
-  }
-
-  getCurrentData() {
-    return toJS(this.searchRequests)
   }
 
   onHoverColumnField(field) {
@@ -266,17 +260,7 @@ export class MyRequestsViewModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
 
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
+      ...dataGridFiltersInitializer(filtersFields),
     }
 
     this.setDefaultStatuses()
@@ -298,15 +282,11 @@ export class MyRequestsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
       await this.getShops()
       await this.getCustomRequests()
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -400,13 +380,14 @@ export class MyRequestsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
+        onlyWaitedProposals: this.onlyWaitedProposals,
+
         sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
-
         this.rowCount = result.count
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -543,12 +524,18 @@ export class MyRequestsViewModel {
     }
   }
 
-  handleOpenRequestDetailModal(id) {
+  handleOpenRequestDetailModal(e) {
     if (window.getSelection().toString()) {
       return
     }
 
-    this.getRequestDetail(id).then(() => {
+    if (e.row.originalData.countProposalsByStatuses.acceptedProposals > 0) {
+      this.isAcceptedProposals = true
+    } else {
+      this.isAcceptedProposals = false
+    }
+
+    this.getRequestDetail(e.row._id).then(() => {
       this.onTriggerOpenModal('showRequestDetailModal')
     })
   }
@@ -652,5 +639,30 @@ export class MyRequestsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onMarkAsCompletedRequest(requestId) {
+    try {
+      await RequestModel.manualCompletedRequest(requestId)
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickMarkAsCompletedBtn(requestId) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Mark as completed'])}?`,
+      onSubmit: () => {
+        this.onMarkAsCompletedRequest(requestId)
+        this.isAcceptedProposals = false
+        this.onTriggerOpenModal('showRequestDetailModal')
+        this.loadData()
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }

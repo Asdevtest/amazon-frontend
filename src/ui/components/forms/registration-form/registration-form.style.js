@@ -19,20 +19,15 @@ export const styles = theme => ({
   },
   formFooter: {
     width: '290px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     alignItems: 'center',
     display: 'flex',
     marginBottom: theme.spacing(2.5),
   },
 
   visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    [theme.breakpoints.down(768)]: {
-      top: 35,
-    },
+    cursor: 'pointer',
+    color: theme.palette.text.second,
   },
 
   inputAdornment: {
@@ -110,5 +105,9 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
+  },
+  inputAdornmentVisibility: {
+    position: 'absolute',
+    right: 0,
   },
 })

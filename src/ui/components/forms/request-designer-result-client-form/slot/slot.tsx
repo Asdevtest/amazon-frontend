@@ -14,7 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { Input } from '@components/shared/input'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
@@ -22,7 +22,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './slot.style'
 
-interface SlotInterface {
+interface SlotProps {
   item: any
   imagesForDownload: any
   index: number
@@ -35,7 +35,7 @@ interface SlotInterface {
   noShowActions?: boolean
 }
 
-export const Slot: FC<SlotInterface> = memo(props => {
+export const Slot: FC<SlotProps> = memo(props => {
   const {
     item,
     noShowActions,
@@ -91,7 +91,7 @@ export const Slot: FC<SlotInterface> = memo(props => {
               classes={{ img: styles.image }}
               src={
                 typeof item.image === 'string'
-                  ? checkIsImageLink(item.image)
+                  ? checkIsMediaFileLink(item.image)
                     ? getAmazonImageUrl(item.image, false)
                     : '/assets/icons/file.png'
                   : item.image?.file.type.includes('image')
@@ -103,7 +103,7 @@ export const Slot: FC<SlotInterface> = memo(props => {
               onClick={() => {
                 setCurImageIndex(index)
 
-                if (checkIsImageLink(item.image?.file?.name || item.image)) {
+                if (checkIsMediaFileLink(item.image?.file?.name || item.image)) {
                   setShowImageModal(!showImageModal)
                 } else {
                   window.open(item.image?.data_url || getAmazonImageUrl(item.image), '__blank')

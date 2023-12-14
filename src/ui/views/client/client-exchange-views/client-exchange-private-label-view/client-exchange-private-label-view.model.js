@@ -19,6 +19,7 @@ export class ClientExchangePrivateLabelViewModel {
   productsVacant = []
   selectedProduct = {}
   shopsData = []
+  selectedShopId = ''
 
   productToPay = {}
   showConfirmPayModal = false
@@ -113,7 +114,7 @@ export class ClientExchangePrivateLabelViewModel {
         this.productToPay._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopIds: this.selectedShops,
+            shopId: this.selectedShopId,
           },
           ['suppliers'],
         ),
@@ -121,7 +122,7 @@ export class ClientExchangePrivateLabelViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -129,11 +130,11 @@ export class ClientExchangePrivateLabelViewModel {
     await UserModel.getUserInfo()
   }
 
-  async onClickBuyProductBtn(shops) {
+  async onClickBuyProductBtn(shopId) {
     try {
       await ClientModel.makePayments([this.productToPay._id])
       runInAction(() => {
-        this.selectedShops = shops
+        this.selectedShopId = shopId
       })
 
       await this.onSaveProductData()

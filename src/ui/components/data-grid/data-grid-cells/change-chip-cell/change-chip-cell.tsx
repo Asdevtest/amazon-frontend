@@ -8,19 +8,20 @@ import { trimBarcode } from '@utils/text'
 import { useStyles } from './change-chip-cell.style'
 
 interface ChangeChipCellProps {
-  row: any
+  row?: any
   value?: string
-  onClickChip: (row: any) => void
-  onDoubleClickChip: (row: any) => void
-  onDeleteChip: (row: any) => void
+  onClickChip: (row?: any) => void
+  onDoubleClickChip?: (row?: any) => void
+  onDeleteChip?: (row?: any) => void
   text?: string
   disabled?: boolean
   label?: string
+  isChipOutTable?: boolean
 }
 
 export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
   const { classes: styles, cx } = useStyles()
-  const { row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label } = props
+  const { row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label, isChipOutTable } = props
 
   return (
     <>
@@ -28,7 +29,7 @@ export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
       <Chip
         disabled={disabled}
         classes={{
-          root: styles.barcodeChip,
+          root: cx(styles.barcodeChip, { [styles.barcodeChipOutTable]: isChipOutTable }),
           clickable: styles.barcodeChipHover,
           deletable: styles.barcodeChipHover,
           deleteIcon: styles.barcodeChipIcon,
@@ -43,14 +44,14 @@ export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
         }}
         onDoubleClick={e => {
           e.stopPropagation()
-          onDoubleClickChip(row)
+          !!onDoubleClickChip && onDoubleClickChip(row)
         }}
         onDelete={
           !value
             ? undefined
             : e => {
                 e.stopPropagation()
-                onDeleteChip(row)
+                !!onDeleteChip && onDeleteChip(row)
               }
         }
       />

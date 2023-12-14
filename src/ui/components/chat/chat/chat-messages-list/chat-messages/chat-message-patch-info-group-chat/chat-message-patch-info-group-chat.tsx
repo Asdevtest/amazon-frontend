@@ -63,7 +63,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
                 setShowPhotosModal(!showPhotosModal)
 
                 setBigImagesOptions({
-                  images: [getAmazonImageUrl(message.data.prevData?.image)],
+                  images: [message.data.prevData?.image],
                   imgIndex: 0,
                 })
               }}
@@ -78,7 +78,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
                 setShowPhotosModal(!showPhotosModal)
 
                 setBigImagesOptions({
-                  images: [getAmazonImageUrl(message.data.updatedData?.image)],
+                  images: [message.data.updatedData?.image],
                   imgIndex: 0,
                 })
               }}
@@ -89,11 +89,11 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
       {showPhotosModal && (
         <ImageModal
-          imageList={bigImagesOptions.images}
-          currentImageIndex={bigImagesOptions.imgIndex}
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
           isOpenModal={showPhotosModal}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
+          handleCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
       )}
     </div>

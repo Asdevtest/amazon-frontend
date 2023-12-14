@@ -2132,7 +2132,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 0,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
     },
   },
@@ -2149,7 +2149,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 1,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },

@@ -149,6 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   label: {
+    margin: 0,
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,

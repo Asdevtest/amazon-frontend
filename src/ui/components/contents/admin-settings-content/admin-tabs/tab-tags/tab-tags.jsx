@@ -60,10 +60,12 @@ export const TabTags = observer(() => {
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={70}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
