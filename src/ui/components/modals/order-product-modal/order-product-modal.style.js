@@ -1,7 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  wrapper: {},
+  wrapper: {
+    width: '100%',
+  },
 
   modalTitle: {
     color: theme.palette.text.general,
@@ -117,7 +119,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   qntCell: {
-    width: 80,
+    width: 50,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,

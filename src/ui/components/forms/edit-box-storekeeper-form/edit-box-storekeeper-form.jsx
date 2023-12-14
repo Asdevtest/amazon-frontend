@@ -113,12 +113,12 @@ export const EditBoxStorekeeperForm = memo(
         newFormFields.items[index] = {
           ...newFormFields.items[index],
           isTransparencyFileAlreadyAttachedByTheSupplier: value,
-          isTransparencyFileAttachedByTheStorekeeper: !value,
+          isTransparencyFileAttachedByTheStorekeeper: false,
         }
       } else {
         newFormFields.items[index] = {
           ...newFormFields.items[index],
-          isTransparencyFileAlreadyAttachedByTheSupplier: !value,
+          isTransparencyFileAlreadyAttachedByTheSupplier: false,
           isTransparencyFileAttachedByTheStorekeeper: value,
         }
       }

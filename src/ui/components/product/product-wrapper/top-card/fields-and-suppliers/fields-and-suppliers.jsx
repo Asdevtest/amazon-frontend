@@ -514,9 +514,11 @@ export const FieldsAndSuppliers = memo(
             </Button>
           ) : null}
 
-          <Checkbox checked={product.transparency} onChange={e => onChangeField('transparency')(e.target.checked)}>
-            {'Transparency codes'}
-          </Checkbox>
+          {checkIsClient(curUserRole) && (
+            <Checkbox checked={product.transparency} onChange={e => onChangeField('transparency')(e.target.checked)}>
+              {t(TranslationKey['Transparency codes'])}
+            </Checkbox>
+          )}
         </Box>
 
         {checkIsBuyer(curUserRole) ? (
