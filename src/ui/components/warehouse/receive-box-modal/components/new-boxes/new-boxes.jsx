@@ -27,7 +27,13 @@ export const NewBoxes = memo(
 
     return (
       <div className={styles.newBoxes}>
-        <Typography className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
+        <div className={styles.sectionTitleWrapper}>
+          <p className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
+
+          <p className={cx(styles.sectionTitle, styles.redText)}>
+            {t(TranslationKey['A photo of the Transperensy Code sticker is required'])}
+          </p>
+        </div>
         <div className={styles.tableWrapper}>
           <Table
             rowsOnly

@@ -192,7 +192,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     }
   }
 
-  const disableSubmit = newBoxes.some(box => box.amount === '')
+  const disableSubmit = newBoxes.some(box => box.amount === '' || (!box?.tmpImages?.length && !box?.images?.length))
 
   return (
     <div className={styles.root}>

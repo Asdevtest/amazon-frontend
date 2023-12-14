@@ -249,6 +249,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  redText: {
+    color: theme.palette.text.red,
+  },
+
   attributeFooterWrapperMobile: {
     display: 'none',
     [theme.breakpoints.down(768)]: {
