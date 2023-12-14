@@ -263,11 +263,11 @@ export const OrderProductModal = ({
       )
     }) ||
     storekeeperEqualsDestination ||
-    // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
     !orderState.length ||
     submitIsClicked ||
-    orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length)
+    (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
+      !isPendingOrder)
 
   return (
     <div className={classNames.wrapper}>

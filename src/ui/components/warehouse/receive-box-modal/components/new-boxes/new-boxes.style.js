@@ -29,6 +29,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  redText: {
+    color: theme.palette.text.red,
+  },
+
   tableWrapper: {
     width: '100%',
   },
@@ -182,5 +186,11 @@ export const useStyles = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'space-between',
     },
+  },
+
+  sectionTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 }))

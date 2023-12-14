@@ -2154,5 +2154,6 @@ export enum TranslationKey {
   'The supplier glued the Transparency codes' = 'The supplier glued the Transparency codes',
   'Transparency codes are glued by storekeeper' = 'Transparency codes are glued by storekeeper',
   'Transparency codes glued by the supplier' = 'Transparency codes glued by the supplier',
+  'A photo of the Transperensy Code sticker is required' = 'A photo of the Transperensy Code sticker is required',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

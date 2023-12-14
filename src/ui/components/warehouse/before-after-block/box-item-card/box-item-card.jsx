@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Checkbox, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -31,7 +29,7 @@ export const BoxItemCard = ({
   boxIndex,
   onApplyGluedBarcodeToAllBoxes,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   return (
     <div className={classNames.root}>
@@ -211,7 +209,7 @@ export const BoxItemCard = ({
                         oneLine
                         containerClasses={classNames.checkboxContainer}
                         label={t(TranslationKey['Transparency codes glued by the supplier'])}
-                        labelClasses={classNames.label}
+                        labelClasses={cx(classNames.label, classNames.redText)}
                         inputComponent={
                           <Checkbox
                             color="primary"
@@ -230,7 +228,7 @@ export const BoxItemCard = ({
                         oneLine
                         containerClasses={classNames.checkboxContainer}
                         label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
-                        labelClasses={classNames.label}
+                        labelClasses={cx(classNames.label, classNames.redText)}
                         inputComponent={
                           <Checkbox
                             color="primary"
