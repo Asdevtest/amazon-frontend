@@ -10,6 +10,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
@@ -19,6 +20,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './my-proposals-view.style'
 
+import { switcherConditions } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsView = observer(({ history }) => {
@@ -49,7 +51,19 @@ export const MyProposalsView = observer(({ history }) => {
           />
 
           <div />
+          <div />
         </div>
+
+        <CustomSwitcher
+          fullWidth
+          switchMode={'big'}
+          condition={viewModel.switcherCondition}
+          switcherSettings={[
+            { label: () => t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
+            { label: () => t(TranslationKey.Executed), value: switcherConditions.executed },
+          ]}
+          changeConditionHandler={viewModel.onClickChangeCatigory}
+        />
 
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
