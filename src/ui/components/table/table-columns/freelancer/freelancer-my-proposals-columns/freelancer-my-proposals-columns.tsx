@@ -97,7 +97,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       // @ts-ignore
       <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
     ),
-    width: 252,
+    width: 280,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
@@ -123,7 +123,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'requestCreatedBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    width: 130,
+    width: 180,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
         userName={params?.row?.originalData?.request?.createdBy?.name}
@@ -164,7 +164,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
-    width: 161,
+    width: 160,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -173,7 +173,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey['Number of rework']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
-    width: 115,
+    width: 105,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -181,7 +181,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'createdBy',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 122,
+    width: 180,
     renderCell: (params: GridCellParams) => (
       <UserMiniCell
         userName={params?.row?.originalData?.sub?.name || params?.row?.originalData?.createdBy?.name}
@@ -196,7 +196,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
-    width: 85,
+    width: 100,
     columnKey: columnnsKeys.shared.DATE,
   },
 

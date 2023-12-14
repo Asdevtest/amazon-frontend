@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '850px',
-    padding: 20,
+    width: 880,
+    padding: 10,
   },
 
   title: {
@@ -16,12 +16,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    margin: '24px 0 4px',
+    marginTop: 10,
     color: theme.palette.text.second,
   },
 
   btnsWrapper: {
-    marginTop: '15px',
+    paddingRight: 5,
+    marginTop: 10,
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -34,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    margin: '20px 0 13px',
+    marginTop: 20,
   },
 
   betweenChipsText: {
