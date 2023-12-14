@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Checkbox, Divider, Link, Paper, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -14,27 +14,22 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
-import {
-  checkAndMakeAbsoluteUrl,
-  getNewTariffTextForBoxOrOrder,
-  getShortenStringIfLongerThanCount,
-  toFixed,
-} from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './before-after-block.style'
@@ -208,8 +203,8 @@ const Box = observer(
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
-                      : t(TranslationKey['Sizes from storekeeper:'])
-                    : t(TranslationKey['Sizes from storekeeper:'])}
+                      : `${t(TranslationKey['Sizes from storekeeper'])}:`
+                    : `${t(TranslationKey['Sizes from storekeeper'])}:`}
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
@@ -361,30 +356,13 @@ const Box = observer(
 
                 {window.innerWidth < 1282 && (
                   <div className={classNames.footerSubWrapper}>
-                    <div
-                      className={cx(classNames.chipWrapper, {
-                        [classNames.chipWrapperEditAccent]:
-                          needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-                      })}
-                    >
-                      <Text
-                        tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-                        className={classNames.subTitle}
-                      >
-                        {t(TranslationKey['Shipping label']) + ':'}
-                      </Text>
+                    <LabelWithCopy
+                      labelTitleFontWeight={'bold'}
+                      labelTitle={t(TranslationKey['Shipping label'])}
+                      labelValue={box.shippingLabel}
+                      lableLinkTitle={t(TranslationKey.View)}
+                    />
 
-                      {box.shippingLabel ? (
-                        <div className={classNames.barCode}>
-                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                            <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                          </Link>
-                          <CopyValue text={box.shippingLabel} />
-                        </div>
-                      ) : (
-                        <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
-                      )}
-                    </div>
                     <div>
                       <Field
                         oneLine
@@ -539,7 +517,7 @@ const Box = observer(
                       label={t(TranslationKey['Track number'])}
                       labelClasses={classNames.label}
                       inputComponent={
-                        <Tooltip title={box.trackNumberText}>
+                        <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                           <Typography className={classNames.trackNum}>
                             {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                               t(TranslationKey['Not available'])}
@@ -564,30 +542,13 @@ const Box = observer(
             <div className={classNames.footerWrapper}>
               {window.innerWidth > 1281 && (
                 <div className={classNames.footerSubWrapper}>
-                  <div
-                    className={cx(classNames.chipWrapper, {
-                      [classNames.chipWrapperEditAccent]:
-                        needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-                    })}
-                  >
-                    <Text
-                      tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-                      className={classNames.subTitle}
-                    >
-                      {t(TranslationKey['Shipping label']) + ':'}
-                    </Text>
+                  <LabelWithCopy
+                    labelTitleFontWeight={'bold'}
+                    labelTitle={t(TranslationKey['Shipping label'])}
+                    labelValue={box.shippingLabel}
+                    lableLinkTitle={t(TranslationKey.View)}
+                  />
 
-                    {box.shippingLabel ? (
-                      <div className={classNames.barCode}>
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                          <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-                        <CopyValue text={box.shippingLabel} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
-                    )}
-                  </div>
                   <div>
                     <Field
                       oneLine
@@ -620,7 +581,7 @@ const Box = observer(
                     label={t(TranslationKey['Track number'])}
                     labelClasses={classNames.label}
                     inputComponent={
-                      <Tooltip title={box.trackNumberText}>
+                      <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
                         <Typography className={classNames.trackNum}>
                           {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                             t(TranslationKey['Not available'])}
@@ -693,7 +654,7 @@ const Box = observer(
                       !box.lengthCmWarehouse ||
                       !box.heightCmWarehouse
                     }
-                    className={classNames.applyAllBtn}
+                    className={classNames.editBtn}
                     onClick={() => {
                       onClickApplyAllBtn(box)
                     }}
@@ -726,13 +687,15 @@ const Box = observer(
           </div>
         )}
 
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={bigImagesOptions.images}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={bigImagesOptions.images}
+            currentImageIndex={bigImagesOptions.imgIndex}
+            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        )}
       </div>
     )
   },

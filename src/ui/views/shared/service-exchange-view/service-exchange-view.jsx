@@ -1,8 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import { Box, Typography } from '@mui/material'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,92 +13,80 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
-import { styles } from './service-exchange-view.style'
+import { useStyles } from './service-exchange-view.style'
 
 import { ServiceExchangeViewModel } from './service-exchange-view.model'
 
-export const ServiceExchangeViewRaw = props => {
-  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const ServiceExchangeView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
+
   return (
     <React.Fragment>
-      <div>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.tablePanelWrapper}>
+        <div className={styles.toggleBtnAndtaskTypeWrapper}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <FreelanceTypeTaskSelect
-              selectedTaskType={viewModel.selectedTaskType}
-              onClickTaskType={viewModel.onClickTaskType}
-            />
-          </div>
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-              value={viewModel.nameSearchValue}
-              onChange={viewModel.onSearchSubmit}
-            />
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedTaskType={viewModel.selectedTaskType}
+            onClickTaskType={viewModel.onClickTaskType}
+          />
         </div>
 
-        <Box
-          container="true"
-          classes={{ root: classNames.dashboardCardWrapper }}
-          className={classNames.dashboardCardWrapper}
-          sx={{
-            gridTemplateColumns:
-              viewModel.viewMode === tableViewMode.LIST
-                ? 'repeat(auto-fill, minmax(calc((100% - 20px) / 2), 1fr))'
-                : 'repeat(auto-fill, minmax(calc((100% - 80px) / 4), 1fr))',
-          }}
-        >
-          {viewModel.currentData.map((service, serviceKey) =>
-            viewModel.viewMode === tableViewMode.LIST ? (
-              <ServiceExchangeCardList
-                key={serviceKey}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ) : (
-              <ServiceExchangeCard
-                key={serviceKey}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ),
-          )}
-        </Box>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onSearchChange}
+        />
+      </div>
 
-        {!viewModel.currentData && (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey.Missing)}
-            </Typography>
-          </div>
+      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+        {viewModel.currentData.map(service =>
+          isListPosition ? (
+            <ServiceExchangeCardList
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ) : (
+            <ServiceExchangeCard
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ),
         )}
       </div>
 
-      <ImageModal
-        imageList={viewModel.bigImagesOptions.images}
-        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
-        isOpenModal={viewModel.showImageModal}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        handleCurrentImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
-      />
+      {!viewModel.currentData.length && (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
+        </div>
+      )}
+
+      {viewModel.showImageModal && (
+        <ImageModal
+          imageList={viewModel.bigImagesOptions.images}
+          currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+          isOpenModal={viewModel.showImageModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          handleCurrentImageIndex={imgIndex =>
+            viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })
+          }
+        />
+      )}
     </React.Fragment>
   )
-}
-
-export const ServiceExchangeView = withStyles(observer(ServiceExchangeViewRaw), styles)
+})

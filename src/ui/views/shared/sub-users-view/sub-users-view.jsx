@@ -3,19 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -60,30 +58,18 @@ export const SubUsersViewRaw = props => {
           </div>
         </div>
         <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
-            pagination
+          <CustomDataGrid
             disableEnforceFocus
             useResizeContainer
             disableRowSelectionOnClick
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -106,6 +92,7 @@ export const SubUsersViewRaw = props => {
           />
         </div>
       </div>
+
       <Modal
         openModal={viewModel.showAddSubUserModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
@@ -120,6 +107,7 @@ export const SubUsersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
+          masterUserData={viewModel.userInfo}
           isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
@@ -143,6 +131,7 @@ export const SubUsersViewRaw = props => {
           viewModel.onTriggerOpenModal('showWarningModal')
         }}
       />
+
       <ConfirmationModal
         isWarning
         openModal={viewModel.showConfirmModal}

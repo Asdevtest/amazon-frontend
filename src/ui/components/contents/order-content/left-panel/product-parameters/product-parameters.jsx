@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { useState } from 'react'
 
 import { Chip, Link, Typography } from '@mui/material'
@@ -12,9 +11,9 @@ import {
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 // import { calcMaxDeliveryForProduct } from '@utils/calculation'
 import { checkAndMakeAbsoluteUrl, toFixed, trimBarcode } from '@utils/text'
@@ -31,7 +30,7 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
@@ -64,7 +63,6 @@ export const ProductParameters = ({
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
-      {/* // было */}
       {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
       <OrderParameter
         label={t(TranslationKey['Purchase price'])}
@@ -142,7 +140,7 @@ export const ProductParameters = ({
                   deletable: classNames.barcodeChipHover,
                   deleteIcon: classNames.barcodeChipIcon,
                 }}
-                className={clsx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
+                className={cx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
                 size="small"
                 label={
                   formFields.tmpBarCode.length
@@ -155,18 +153,11 @@ export const ProductParameters = ({
                 onDelete={!formFields.product.barCode ? undefined : () => onDeleteBarcode()}
               />
             ) : (
-              <div>
-                {order.product.barCode ? (
-                  <div className={classNames.barCodeWrapper}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
-                      <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-                    <CopyValue text={order.product.barCode} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
-                )}
-              </div>
+              <LabelWithCopy
+                lableLinkTitleSize="medium"
+                labelValue={order.product.barCode}
+                lableLinkTitle={t(TranslationKey.View)}
+              />
             )}
           </>
         }

@@ -55,7 +55,7 @@ const filtersFields = [
   'amount',
   'warehouse',
   'client',
-  'batchId',
+  'batchHumanFriendlyId',
   'dimansions',
   'action',
   'prepId',
@@ -251,14 +251,6 @@ export class WarehouseMyWarehouseViewModel {
     this.getBoxesMy()
   }
 
-  // onSelectionModel(model) {
-  //   const boxes = this.boxesMy.filter(box => model.includes(box.id))
-  //   const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
-  //   runInAction(() => {
-  //     this.selectedBoxes = res
-  //   })
-  // }
-
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedBoxes = model
@@ -392,7 +384,11 @@ export class WarehouseMyWarehouseViewModel {
             })
           }
 
-          newBox.shippingLabel = findUploadedShippingLabel ? findUploadedShippingLabel.link : this.uploadedFiles[0]
+          newBox.shippingLabel = findUploadedShippingLabel
+            ? findUploadedShippingLabel.link
+            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
+
+          console.log('newBox.shippingLabel', newBox.shippingLabel)
         }
 
         const dataToBarCodeChange = newBox.items
@@ -470,58 +466,58 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
-    try {
-      runInAction(() => {
-        this.selectedBoxes = []
-        this.uploadedFiles = []
-        this.uploadedTrackNumber = []
-        this.uploadedImages = []
+    runInAction(() => {
+      this.selectedBoxes = []
+      this.uploadedFiles = []
+      this.uploadedTrackNumber = []
+      this.uploadedImages = []
+    })
+
+    if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
+      await onSubmitPostImages.call(this, {
+        images: boxData.tmpShippingLabel,
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
       })
+    }
 
-      if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
-        await onSubmitPostImages.call(this, {
-          images: boxData.tmpShippingLabel,
-          type: 'uploadedFiles',
-          withoutShowProgress: true,
-        })
-      }
+    if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
+      await onSubmitPostImages.call(this, {
+        images: boxData.tmpTrackNumberFile,
+        type: 'uploadedTrackNumber',
+        withoutShowProgress: true,
+      })
+    }
 
-      if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {
-          images: boxData.tmpTrackNumberFile,
-          type: 'uploadedTrackNumber',
-          withoutShowProgress: true,
-        })
-      }
+    if (imagesOfBox?.length) {
+      await onSubmitPostImages.call(this, {
+        images: imagesOfBox,
+        type: 'uploadedImages',
+        withoutShowProgress: true,
+      })
+    }
 
-      if (imagesOfBox?.length) {
-        await onSubmitPostImages.call(this, {
-          images: imagesOfBox,
-          type: 'uploadedImages',
-          withoutShowProgress: true,
-        })
-      }
+    let dataToBarCodeChange = boxData.items
+      .map(el =>
+        el.tmpBarCode?.length
+          ? {
+              changeBarCodInInventory: el.changeBarCodInInventory,
+              productId: el.product?._id,
+              tmpBarCode: el.tmpBarCode,
+              newData: [],
+            }
+          : null,
+      )
+      .filter(el => el !== null)
 
-      let dataToBarCodeChange = boxData.items
-        .map(el =>
-          el.tmpBarCode?.length
-            ? {
-                changeBarCodInInventory: el.changeBarCodInInventory,
-                productId: el.product?._id,
-                tmpBarCode: el.tmpBarCode,
-                newData: [],
-              }
-            : null,
-        )
-        .filter(el => el !== null)
+    if (!isMultipleEdit && dataToBarCodeChange?.length) {
+      dataToBarCodeChange = await onSubmitPostFilesInData({
+        dataWithFiles: dataToBarCodeChange,
+        nameOfField: 'tmpBarCode',
+      })
+    }
 
-      if (!isMultipleEdit && dataToBarCodeChange?.length) {
-        dataToBarCodeChange = await onSubmitPostFilesInData({
-          dataWithFiles: dataToBarCodeChange,
-          nameOfField: 'tmpBarCode',
-        })
-      }
-
+    try {
       const getNewItems = () => {
         const newItems = boxData.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
@@ -551,7 +547,9 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
           items: isMultipleEdit ? boxData.items : getNewItems(),
-          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles[0]
+            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0],
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
@@ -668,8 +666,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async setHsCode(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
@@ -684,18 +684,12 @@ export class WarehouseMyWarehouseViewModel {
   async onEditBox() {
     try {
       const destinations = await ClientModel.getDestinations()
-
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.destinations = destinations
-
-        this.storekeepersData = storekeepersData
-      })
-
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.destinations = destinations
+        this.storekeepersData = storekeepersData
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -790,7 +784,9 @@ export class WarehouseMyWarehouseViewModel {
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              shippingLabel: this.uploadedFiles.length
+                ? this.uploadedFiles[0]
+                : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
@@ -890,7 +886,9 @@ export class WarehouseMyWarehouseViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxBody,
-          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel,
+          shippingLabel: this.uploadedFiles.length
+            ? this.uploadedFiles[0]
+            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
           images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
         },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
@@ -1066,9 +1064,12 @@ export class WarehouseMyWarehouseViewModel {
 
   async setDimensions(row) {
     try {
+      const box = await BoxesModel.getBoxById(row._id)
+
       runInAction(() => {
-        this.curBox = row
+        this.curBox = box
       })
+
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)
@@ -1181,12 +1182,11 @@ export class WarehouseMyWarehouseViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1328,14 +1328,9 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      // this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-      // console.log('shopFilter', shopFilter)
-
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
-
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )
 
@@ -1345,10 +1340,7 @@ export class WarehouseMyWarehouseViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      // this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
-      // this.setFilterRequestStatus(loadingStatuses.failed)
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1391,8 +1383,9 @@ export class WarehouseMyWarehouseViewModel {
       exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
     const logicsTariffFilter =
       exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-    const batchIdFilter =
-      exclusion !== 'batchId' && this.columnMenuSettings.batchId.currentFilterData.map(el => el._id).join(',')
+    const batchHumanFriendlyIdFilter =
+      exclusion !== 'batchHumanFriendlyId' &&
+      this.columnMenuSettings.batchHumanFriendlyId.currentFilterData.map(el => el._id).join(',')
 
     // const orderIdsItemsFilter = exclusion !== 'orderIdsItemsFilter' && this.columnMenuSettings.orderIdsItems.currentFilterData.join(',')
 
@@ -1449,8 +1442,8 @@ export class WarehouseMyWarehouseViewModel {
       ...(logicsTariffFilter && {
         logicsTariffId: { $eq: logicsTariffFilter },
       }),
-      ...(batchIdFilter && {
-        batchId: { $eq: batchIdFilter },
+      ...(batchHumanFriendlyIdFilter && {
+        batchHumanFriendlyId: { $eq: batchHumanFriendlyIdFilter },
       }),
 
       // ...(orderIdsItemsFilter && {

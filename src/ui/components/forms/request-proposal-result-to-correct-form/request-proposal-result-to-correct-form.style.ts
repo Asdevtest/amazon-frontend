@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '586px',
+    width: 600,
+    padding: 10,
   },
 
   reasonInput: {
@@ -19,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
   btnWrapper: {
     marginTop: '20px',
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
   },
   modalTitle: {
     fontWeight: 600,
@@ -28,16 +29,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   modalHeader: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: '30px',
-  },
-  countTimes: {
-    fontWeight: 400,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   label: {
@@ -95,5 +89,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   totalTime: {
     marginBottom: '30px',
+  },
+
+  uploadFilesInput: {
+    paddingRight: 10,
   },
 }))

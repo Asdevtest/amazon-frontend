@@ -48,7 +48,7 @@ export const supervisorProductsViewColumns = handlers => [
         />
       )
     },
-    width: 350,
+    width: 265,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -61,6 +61,7 @@ export const supervisorProductsViewColumns = handlers => [
     width: 150,
     renderCell: params => (
       <MultilineTextCell
+        maxLength={48}
         text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
@@ -184,7 +185,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.TAGS,
   },
 
   {

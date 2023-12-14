@@ -13,12 +13,12 @@ import {
 
 import { t } from '@utils/translations'
 
-export const sourceFilesColumns = (rowHandlers, getEditField) => [
+export const sourceFilesColumns = (rowHandlers, editField) => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign text={params.value || '-'} />,
+    renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
     width: 205,
   },
 
@@ -27,7 +27,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 50,
+    width: 70,
     headerAlign: 'center',
     align: 'center',
   },
@@ -37,14 +37,14 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 105,
+    width: 100,
   },
 
   {
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 137,
+    width: 180,
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
@@ -56,7 +56,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 137,
+    width: 180,
     renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
   },
 
@@ -64,7 +64,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    width: 128,
+    width: 180,
     renderCell: params => <AsinCell asin={params.value} />,
   },
 
@@ -72,14 +72,19 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'sourceFile',
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    width: 239,
-    renderCell: params => (
-      <CopyAndEditLinkCell
-        link={params.value}
-        isEdit={params?.row?.originalData?._id === getEditField()?._id}
-        onChangeText={rowHandlers.onChangeText}
-      />
-    ),
+    width: 250,
+    renderCell: params =>
+      params?.row?.originalData?._id === editField?._id ? (
+        <ChangeInputCommentCell
+          rowsCount={1}
+          fieldName="sourceFile"
+          text={params.row.originalData.sourceFile}
+          onChangeText={rowHandlers.onChangeText}
+          onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
+        />
+      ) : (
+        <CopyAndEditLinkCell link={params.row.originalData.sourceFile} />
+      ),
   },
 
   {
@@ -87,19 +92,12 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
-    // renderCell: params => (
-    //   <ChangeInputCommentCell
-    //     text={params?.value}
-    //     disabled={params?.row?.originalData?._id !== getEditField()?._id}
-    //     onChangeText={rowHandlers.onChangeText}
-    //   />
-    // ),
     renderCell: params => (
       <ChangeInputCommentCell
-        rowsCount={1}
-        text={params.row.originalData.reason}
-        id={params.row.originalData._id}
-        onClickSubmit={rowHandlers.onChangeText}
+        rowsCount={2}
+        text={params.row.originalData.comments}
+        onChangeText={rowHandlers.onChangeText}
+        onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
       />
     ),
   },
@@ -108,7 +106,6 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
     width: 150,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
@@ -116,10 +113,9 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
         handlers={rowHandlers}
         row={params.row}
-        isSave={params?.row?.originalData?._id === getEditField()?._id}
+        isSave={params?.row?.originalData?._id === editField?._id}
       />
     ),
-
     filterable: false,
     sortable: false,
   },

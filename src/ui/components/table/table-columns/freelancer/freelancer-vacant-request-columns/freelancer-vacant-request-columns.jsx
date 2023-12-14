@@ -1,4 +1,9 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,29 +43,47 @@ export const FreelancerVacantRequestColumns = handlers => [
     ),
 
     filterable: false,
-    sortable: false,
+    // sortable: false,
 
     // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+  },
+
+  {
+    field: 'taskComplexity',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
+    headerName: t(TranslationKey['Difficulty level']),
+
+    renderCell: params => (
+      <MultilineTextCell
+        text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
+        customTextStyles={{
+          color: colorByDifficultyLevel(difficultyLevelByCode[params.value]),
+          fontWeight: 600,
+        }}
+      />
+    ),
+    width: 95,
+    columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 159,
+    renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
+    width: 170,
 
     columnKey: columnnsKeys.shared.STRING,
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
     width: 256,
 
-    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+    columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
 
   {
@@ -74,10 +97,10 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'name',
+    field: 'createdBy',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 112,
+    width: 145,
     renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
   },
 

@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { UserInfoSchema } from '@services/rest-api-service/codegen'
 
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
@@ -15,40 +21,25 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FeedBackModal } from '@components/modals/feedback-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Modal } from '@components/shared/modal'
 import { Feedback } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { NavbarConfigTypes } from '@typings/navbar-config'
 import { IUser } from '@typings/user'
 
 import { useClassNames } from './navbar-drawer-content.styles'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
-interface Subtitles {
-  subtitle: string
-  subRoute: string
-  key: string
-}
-
-export interface CurNavbarType {
-  icon: React.ReactNode
-  title: string
-  route: string
-  subtitles: null | Subtitles
-  key: string
-  checkHideBlock: (user: unknown) => boolean
-}
-
 interface Props {
   shortNavbar: boolean
-  onToggleModal: VoidFunction
+  onToggleModal: () => void
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
-  curNavbar: Record<keyof typeof UserRole, CurNavbarType[]>
-  userInfo: IUser
+  curNavbar: NavbarConfigTypes.RootObject
+  userInfo: UserInfoSchema
   activeCategory: string
   viewModel: NavbarModel
   onClickVersion: NavbarModel['onClickVersion']
@@ -59,6 +50,8 @@ interface Props {
   showWarningModal: boolean
   showConfirmModal: boolean
 }
+
+const alwaysShowSubCategoryKeys = [navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS]
 
 export const NavbarDrawerContent: FC<Props> = observer(
   ({
@@ -79,25 +72,47 @@ export const NavbarDrawerContent: FC<Props> = observer(
     showConfirmModal,
   }) => {
     const { classes: classNames } = useClassNames()
+    const [filteredCategories, setFilteredCategories] = useState<any>([])
+    const [filteredBottomCategories, setFilteredBottomCategories] = useState<any>([])
+
+    const getFilteredCategories = () =>
+      curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(
+        el => !el.route?.includes('/messages'),
+      )
+
+    const getFilteredBottomCategories = () =>
+      curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(el =>
+        el.route?.includes('/messages'),
+      )
+
+    useEffect(() => {
+      setFilteredCategories(getFilteredCategories())
+      setFilteredBottomCategories(getFilteredBottomCategories())
+    }, [])
+
+    useEffect(() => {
+      if (!userInfo.role) return
+      setFilteredCategories(getFilteredCategories())
+      setFilteredBottomCategories(getFilteredBottomCategories())
+    }, [userInfo.role])
 
     return (
       <div className={classNames.mainSubWrapper}>
         <List className={classNames.categoriesWrapper}>
-          {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
-            .filter(el => !el.route?.includes('/messages'))
-            .map((category, index) =>
-              category.checkHideBlock(userInfo) ? (
-                <React.Fragment key={index}>
-                  <NavbarCategory
-                    classes=""
-                    isSelected={category.key === activeCategory}
-                    shortNavbar={shortNavbar}
-                    userInfo={userInfo}
-                    category={category}
-                    badge={getCategoryBadge(category, userInfo)}
-                    onToggleModal={onToggleModal}
-                  />
+          {filteredCategories.map((category: any, index: number) =>
+            category.checkHideBlock(userInfo) ? (
+              <React.Fragment key={index}>
+                <NavbarCategory
+                  classes=""
+                  isSelected={category.key === activeCategory}
+                  shortNavbar={shortNavbar}
+                  userInfo={userInfo}
+                  category={category}
+                  badge={getCategoryBadge(category, userInfo as unknown as IUser) || 0}
+                  onToggleModal={onToggleModal}
+                />
 
+                {(category.key === activeCategory || alwaysShowSubCategoryKeys.includes(category.key)) && (
                   <NavbarCollapse
                     showHighPriorityNotification
                     shortNavbar={shortNavbar}
@@ -108,29 +123,28 @@ export const NavbarDrawerContent: FC<Props> = observer(
                     userInfo={userInfo}
                     currentViewModel={viewModel}
                   />
-                </React.Fragment>
-              ) : null,
-            )}
+                )}
+              </React.Fragment>
+            ) : null,
+          )}
         </List>
 
         <div className={classNames.bottomCategories}>
-          {curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar]
-            .filter(el => el.route?.includes('/messages'))
-            .map((category, index) =>
-              category.checkHideBlock(userInfo) ? (
-                <React.Fragment key={index}>
-                  <NavbarCategory
-                    classes=""
-                    shortNavbar={shortNavbar}
-                    isSelected={category.key === activeCategory}
-                    userInfo={userInfo}
-                    category={category}
-                    badge={category.route?.includes('/messages') && viewModel.unreadMessages}
-                    onToggleModal={onToggleModal}
-                  />
-                </React.Fragment>
-              ) : null,
-            )}
+          {filteredBottomCategories.map((category: any, index: number) =>
+            category.checkHideBlock(userInfo) ? (
+              <React.Fragment key={index}>
+                <NavbarCategory
+                  classes=""
+                  shortNavbar={shortNavbar}
+                  isSelected={category.key === activeCategory}
+                  userInfo={userInfo}
+                  category={category}
+                  badge={category.route?.includes('/messages') && viewModel.unreadMessages}
+                  onToggleModal={onToggleModal}
+                />
+              </React.Fragment>
+            ) : null,
+          )}
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap]) ? (
             <div

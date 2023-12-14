@@ -154,7 +154,6 @@ export class ClientReadyBoxesViewModel {
         this.selectedBoxes = model
       })
     }
-    // console.log('this.curPage', this.curPage * this.rowsPerPage)
   }
 
   setRequestStatus(requestStatus) {
@@ -323,12 +322,11 @@ export class ClientReadyBoxesViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -377,14 +375,12 @@ export class ClientReadyBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(
-        `${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`,
-        {
-          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
-          destinationId: this.curDestination && this.curDestination._id,
-          hasBatch: false,
-        },
-      )
+      const result = await BoxesModel.getBoxesForCurClient({
+        status: `${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`,
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        destinationId: this.curDestination && this.curDestination._id,
+        hasBatch: false,
+      })
 
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()
 

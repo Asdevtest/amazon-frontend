@@ -22,7 +22,7 @@ import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-res
 import { useClassNames } from './multiple-chats.styles'
 
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
-import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatsList } from '../chats-list'
 import { SearchResult } from '../search-result'
 
@@ -44,6 +44,7 @@ export interface CurrentOpponent {
   rate: number
   _id: string
 }
+
 interface Props {
   isFreelanceOwner: boolean
   searchFilter: string
@@ -54,7 +55,7 @@ interface Props {
   mesSearchValue: string
   currentOpponent?: CurrentOpponent
   chatSelectedId?: string
-  chatMessageHandlers?: ChatMessageUniversalHandlers
+  chatMessageHandlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   typingUsers?: OnTypingMessageResponse[]
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
@@ -126,6 +127,7 @@ export const MultipleChats = observer(
         })
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
+
       const isChatSelectedAndFound = isNotUndefined(chatSelectedId) && findChatByChatId
       const isMuteCurrentChat = mutedChats.includes(findChatByChatId ? findChatByChatId?._id : '')
       const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)

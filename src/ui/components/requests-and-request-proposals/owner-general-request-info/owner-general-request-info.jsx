@@ -285,11 +285,11 @@ export const OwnerGeneralRequestInfo = ({
         <Button
           border
           className={classNames.listingButton}
-          onClick={() => onToggleUploadedToListing(request.request._id, request.request.uploadedToListing)}
+          onClick={() => onToggleUploadedToListing(request.request._id, request?.request.uploadedToListing)}
         >
           <Checkbox
             color="primary"
-            checked={request.request.uploadedToListing}
+            checked={request.request?.uploadedToListing}
             className={classNames.listingCheckbox}
           />
           <Typography className={cx(classNames.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>

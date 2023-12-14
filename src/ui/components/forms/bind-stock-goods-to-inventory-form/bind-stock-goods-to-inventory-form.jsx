@@ -2,14 +2,14 @@ import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -150,13 +150,7 @@ export const BindStockGoodsToInventoryForm = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
+            <CustomDataGrid
               rows={toJS(inventoryData)}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
@@ -168,17 +162,7 @@ export const BindStockGoodsToInventoryForm = observer(
           </Typography>
 
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
-              rows={chosenGoods || []}
-              columns={chosenGoodsColumns({ onClickTrash })}
-              rowHeight={60}
-            />
+            <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
           </div>
 
           <div className={classNames.btnsWrapper}>

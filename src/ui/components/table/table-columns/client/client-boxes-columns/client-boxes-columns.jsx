@@ -13,7 +13,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
-  ShortBoxDimensions,
+  ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -142,7 +142,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    width: 400,
+    width: 300,
     renderCell: params => {
       return params.row.originalData ? (
         params.row.originalData?.items.length > 1 ? (
@@ -190,18 +190,15 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => {
-      return params.row.originalData ? (
-        <FormedCell
-          sub={params.row.originalData?.sub}
-          params={params}
-          onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
-        />
-      ) : (
-        ''
-      )
-    },
-    width: 130,
+    renderCell: params => (
+      <FormedCell
+        sub={params.row.originalData?.sub}
+        isChecked={!!params.value}
+        disable={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+        onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
+      />
+    ),
+    width: 120,
     sortable: false,
     filterable: false,
 
@@ -375,7 +372,7 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => {
       return params.row.originalData ? (
-        <ShortBoxDimensions
+        <ShortBoxDimensionsCell
           box={params.row.originalData}
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
           unitsOption={getUnitsOption()}

@@ -1,6 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  wrapper: {},
+
   modalTitle: {
     color: theme.palette.text.general,
     fontSize: '18px',
@@ -49,9 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    margin: '0px -30px',
-    width: 'auto',
-    overflow: 'hidden',
+    width: '100%',
   },
   imgCell: {
     width: '96px',
@@ -269,6 +269,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 50,
     marginTop: 30,
+    marginRight: 15,
   },
   buyNowBtn: {
     color: '#fff',

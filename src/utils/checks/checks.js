@@ -1,3 +1,8 @@
+import {
+  amazonImageUrlBigPostfix,
+  amazonImageUrlMiddlePostfix,
+  amazonImageUrlSmallPostfix,
+} from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
@@ -20,6 +25,9 @@ export const checkIsWithoutProductPermissions = userRole =>
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 
+export const checkIsNumberWithDot = str => {
+  return /^\d*\.?\d*$/.test(str)
+}
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''
@@ -53,30 +61,73 @@ export const isHaveMasterUser = user => !!user.masterUser
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
+export const checkIsVideoLink = link =>
+  link?.endsWith('.3g2') ||
+  link?.endsWith('.3gp') ||
+  link?.endsWith('.3gp2') ||
+  link?.endsWith('.3gpp') ||
+  link?.endsWith('.3gpp2') ||
+  link?.endsWith('.asf') ||
+  link?.endsWith('.asx') ||
+  link?.endsWith('.avi') ||
+  link?.endsWith('.bin') ||
+  link?.endsWith('.dat') ||
+  link?.endsWith('.drv') ||
+  link?.endsWith('.f4v') ||
+  link?.endsWith('.flv') ||
+  link?.endsWith('.gtp') ||
+  link?.endsWith('.h264') ||
+  link?.endsWith('.m4v') ||
+  link?.endsWith('.mkv') ||
+  link?.endsWith('.mod') ||
+  link?.endsWith('.moov') ||
+  link?.endsWith('.mov') ||
+  link?.endsWith('.mp4') ||
+  link?.endsWith('.mpeg') ||
+  link?.endsWith('.mpg') ||
+  link?.endsWith('.mts') ||
+  link?.endsWith('.rm') ||
+  link?.endsWith('.rmvb') ||
+  link?.endsWith('.spl') ||
+  link?.endsWith('.srt') ||
+  link?.endsWith('.stl') ||
+  link?.endsWith('.swf') ||
+  link?.endsWith('.ts') ||
+  link?.endsWith('.vcd') ||
+  link?.endsWith('.vid') ||
+  link?.endsWith('.vob') ||
+  link?.endsWith('.webm') ||
+  link?.endsWith('.wm') ||
+  link?.endsWith('.wmv') ||
+  link?.endsWith('.yuv')
+
 export const checkIsImageLink = link =>
-  link?.endsWith('.png') ||
-  link?.endsWith('.PNG') ||
-  link?.endsWith('.jpg') ||
-  link?.endsWith('.ico') ||
-  link?.endsWith('.gif') ||
-  link?.endsWith('.svg') ||
-  link?.endsWith('.webp') ||
-  link?.endsWith('.avif') ||
-  link?.endsWith('.jpeg') ||
-  link?.endsWith('.rotated-image') ||
-  link?.endsWith('.jfif') ||
-  link?.includes('placeimg.com')
+  link?.endsWith('png') ||
+  link?.endsWith('PNG') ||
+  link?.endsWith('jpg') ||
+  link?.endsWith('ico') ||
+  link?.endsWith('gif') ||
+  link?.endsWith('svg') ||
+  link?.endsWith('webp') ||
+  link?.endsWith('avif') ||
+  link?.endsWith('jpeg') ||
+  link?.endsWith('rotated-image') ||
+  link?.endsWith('jfif') ||
+  link?.endsWith('bmp') ||
+  link?.includes('placeimg.com') ||
+  checkIsVideoLink(link)
 
 export const checkIsDocumentLink = link =>
-  link?.endsWith('.doc') ||
-  link?.endsWith('.docx') ||
-  link?.endsWith('.pdf') ||
-  link?.endsWith('.xlsx') ||
-  link?.endsWith('.xls') ||
-  link?.endsWith('.txt') ||
-  (link?.includes('.com') && !link?.includes('placeimg.com'))
-//   &&
-// (link?.includes('http:/') || link?.includes('https:/'))
+  link?.endsWith('doc') ||
+  link?.endsWith('docx') ||
+  link?.endsWith('pdf') ||
+  link?.endsWith('xlsx') ||
+  link?.endsWith('xls') ||
+  link?.endsWith('txt') ||
+  (link?.includes('.com') && !link?.includes('placeimg.com')) ||
+  link?.includes('.pdf') ||
+  link?.includes('drive.google.com') ||
+  link?.includes('docs.google.com')
 
 export const validateEmail = email =>
   String(email)
@@ -122,3 +173,15 @@ export const checkIsImageUrlValid = async selectedImageUrl =>
   })
 
 export const checkIsValidProposalStatusToShowResoult = status => statusesValidToShowResoult.includes(status)
+
+export const checkIsHasHttp = str => {
+  const reg = /^https?:\/\//
+  return reg.test(str)
+}
+
+export const checkIsGif = str => str.endsWith('.gif')
+
+export const checkIsImageInludesPostfixes = str =>
+  [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64', 'placeimg.com'].some(
+    item => str.includes(item),
+  )

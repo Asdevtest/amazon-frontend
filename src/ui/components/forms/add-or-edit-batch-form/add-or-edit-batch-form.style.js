@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1360px',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -35,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 4,
     right: 390,
-    zIndex: 100,
+    zIndex: 50,
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
@@ -221,22 +222,5 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'center',
     },
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    padding: '10px 15px',
-    height: 64,
   },
 }))

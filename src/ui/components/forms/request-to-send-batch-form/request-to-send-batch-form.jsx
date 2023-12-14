@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -17,7 +17,6 @@ import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-bo
 
 export const RequestToSendBatchForm = observer(
   ({
-    userInfo,
     storekeepersData,
     volumeWeightCoefficient,
     boxesMy,
@@ -26,8 +25,7 @@ export const RequestToSendBatchForm = observer(
     onClickSendBoxesToBatch,
     onClickRemoveBoxFromBatch,
     closeModal,
-    onSubmitChangeBoxFields,
-    onClickHsCode,
+    setCurrentOpenedBox,
   }) => {
     const { classes: classNames } = useClassNames()
     useEffect(() => {
@@ -113,15 +111,13 @@ export const RequestToSendBatchForm = observer(
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
-                userInfo={userInfo}
                 storekeepersData={storekeepersData}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}
+                setCurrentOpenedBox={setCurrentOpenedBox}
                 onClickRemoveBoxFromBatch={onClickRemoveBtn}
-                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-                onClickHsCode={onClickHsCode}
               />
             </div>
           ))}
@@ -150,12 +146,7 @@ export const RequestToSendBatchForm = observer(
           >
             {t(TranslationKey.Send)}
           </Button>
-          <Button
-            danger
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={classNames.btnClose}
-            onClick={closeModal}
-          >
+          <Button danger tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={closeModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

@@ -1,10 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   modalWrapper: {
-    width: '100%',
-    height: '100%',
-    padding: 40,
+    padding: 10,
   },
 
   header: {
@@ -53,12 +51,6 @@ export const useClassNames = makeStyles()(() => ({
     gap: 48,
   },
 
-  files: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30,
-  },
-
   flexColumnContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -83,8 +75,6 @@ export const useClassNames = makeStyles()(() => ({
   description: {
     width: 580,
     height: 377,
-    fontSize: 14,
-    lineHeight: '19px',
     overflow: 'auto',
   },
 

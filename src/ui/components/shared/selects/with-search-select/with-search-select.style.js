@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: 280,
     height: 36,
@@ -171,4 +173,4 @@ export const styles = theme => ({
   apply: {
     color: '#fff !important',
   },
-})
+}))

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
@@ -6,13 +7,9 @@ import { ProductModel } from '@models/product-model'
 
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
 
-interface Flag {
-  _id: string
-  iconImage: string
-  productCount: number
-  title: string
-  value: number
-}
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
+import { Flag } from '@typings/flag'
 
 interface RedFlagsProps {
   isEditMode?: boolean
@@ -29,6 +26,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
 
   useEffect(() => {
     if (isEditMode) {
+      // @ts-ignore
       ProductModel.getProductRedFlags().then(value => setFlags(value))
     }
   }, [])
@@ -56,7 +54,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
               label={
                 <Box display="flex" gap="15px">
                   <Box className={styles.flagIcon}>
-                    <img src={flag.iconImage} alt={flag.title} />
+                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
                   </Box>
                   {flag.title}
                 </Box>
@@ -72,7 +70,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
         !!selectedFlags.length &&
         selectedFlags.map(flag => (
           <Box key={flag._id} className={styles.flagIcon}>
-            <img src={flag.iconImage} alt={flag.title} />
+            <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
           </Box>
         ))}
     </>

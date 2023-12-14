@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import { Grid, Paper, Typography } from '@mui/material'
 
@@ -163,20 +162,22 @@ export const BottomCard = observer(
                     value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
                     onChange={onChangeField('length')}
                   />
+
+                  <Field
+                    disabled
+                    error={errorMessagesTranslate(formFieldsValidationErrors.minpurchase)}
+                    containerClasses={classNames.infoContainer}
+                    inputClasses={classNames.infoInput}
+                    inputProps={{ maxLength: 10 }}
+                    label={t(TranslationKey['Min purchase price, $'])}
+                    value={product.minpurchase === 0 ? '' : toFixed(product.minpurchase, 2) || ''}
+                    onChange={onChangeField('minpurchase')}
+                  />
                 </div>
               </div>
 
               <div className={classNames.infoWrapper}>
                 <div className={classNames.infoSubWrapper}>
-                  {/* <Field
-                    disabled
-                    error={formFieldsValidationErrors.maxDelivery}
-                    containerClasses={classNames.infoContainer}
-                    inputClasses={classNames.infoInput}
-                    label={t(TranslationKey['Max delivery price, $'])}
-                    value={product.maxDelivery === 0 ? 0 : toFixed(product.maxDelivery, 2) || 0}
-                    onChange={onChangeField('maxDelivery')}
-                  /> */}
                   <Field
                     tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
                     disabled={defaultFieldDisable}
@@ -206,16 +207,6 @@ export const BottomCard = observer(
                 </div>
 
                 <div className={classNames.infoSubWrapper}>
-                  <Field
-                    disabled
-                    error={errorMessagesTranslate(formFieldsValidationErrors.minpurchase)}
-                    containerClasses={classNames.infoContainer}
-                    inputClasses={classNames.infoInput}
-                    inputProps={{ maxLength: 10 }}
-                    label={t(TranslationKey['Min purchase price, $'])}
-                    value={product.minpurchase === 0 ? '' : toFixed(product.minpurchase, 2) || ''}
-                    onChange={onChangeField('minpurchase')}
-                  />
                   <Field
                     disabled={defaultFieldDisable}
                     tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
@@ -252,7 +243,7 @@ export const BottomCard = observer(
                 }}
                 sx={{
                   '& .MuiInputBase-input.Mui-disabled': {
-                    WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
+                    WebkitTextFillColor: `${colorByProductStatus(ProductStatusByCode[product.status])} !important`,
                   },
                 }}
                 error={formFieldsValidationErrors.status}

@@ -1,28 +1,25 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-free-orders-view.style'
+import { useStyles } from './buyer-free-orders-view.style'
 
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
-export const BuyerFreeOrdersViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const BuyerFreeOrdersView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -31,7 +28,7 @@ export const BuyerFreeOrdersViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -41,30 +38,22 @@ export const BuyerFreeOrdersViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
+
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            pagination
             useResizeContainer
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
+            disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -82,7 +71,7 @@ export const BuyerFreeOrdersViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowSelectionModelChange={viewModel.onSelectionModel}
           />
@@ -106,12 +95,8 @@ export const BuyerFreeOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
     </React.Fragment>
   )
-}
-
-export const BuyerFreeOrdersView = withStyles(observer(BuyerFreeOrdersViewRaw), styles)
+})

@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -10,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { getYearDate } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -25,7 +24,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.photoWrapper}>
-          <PhotoCarousel files={item.files} alignButtons="end" imageClass={classNames.carouselImage} />
+          <PhotoAndFilesSlider withoutFiles files={item.files} />
         </div>
 
         <div className={classNames.subWrapper}>

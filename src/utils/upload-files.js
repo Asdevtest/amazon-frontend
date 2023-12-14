@@ -1,8 +1,12 @@
+import JSZip from 'jszip'
+import { runInAction } from 'mobx'
+
 import { Errors } from '@constants/errors'
-import { BACKEND_API_URL } from '@constants/keys/env'
 
 import { OtherModel } from '@models/other-model'
 
+import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsImageLink } from './checks'
+import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
 
 export const dataURLtoFile = (dataurl, filename) => {
@@ -22,7 +26,7 @@ export const onPostImage = async imageData => {
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {
-    type: imageData.file?.type,
+    type: imageData.file?.type || '',
     lastModified: imageData.file?.lastModified,
   })
 
@@ -31,7 +35,7 @@ export const onPostImage = async imageData => {
   try {
     const fileName = await OtherModel.postImage(formData)
 
-    return BACKEND_API_URL + '/uploads/' + fileName
+    return '/uploads/' + fileName
   } catch (error) {
     this.error = error
   }
@@ -41,9 +45,9 @@ export const uploadFileByUrl = async image => {
   try {
     const result = await OtherModel.uploadFileByUrl(image)
 
-    return BACKEND_API_URL + '/uploads/' + result.fileName
+    return '/uploads/' + result.fileName
   } catch (error) {
-    console.log(error)
+    console.log(error?.response?.data?.message)
     throw new Error(Errors.INVALID_IMAGE)
   }
 }
@@ -55,13 +59,21 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
     for (let i = 0; i < item[nameOfField].length; i++) {
       const file = item[nameOfField][i]
 
-      if (typeof file === 'string') {
-        const res = await uploadFileByUrl(file)
-
-        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
+      if (typeof file === 'string' && file.includes('/uploads/')) {
+        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, file] }
+      } else if (typeof file === 'string') {
+        try {
+          const res = await uploadFileByUrl(
+            checkIsImageInludesPostfixes(file) || checkIsImageLink(file) || checkIsHasHttp(file)
+              ? file
+              : getAmazonImageUrl(file, true),
+          )
+          dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
+        } catch (error) {
+          dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, file] }
+        }
       } else {
         const res = await onPostImage(file)
-
         dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
       }
     }
@@ -71,35 +83,56 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
 }
 
 export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
-  this[type] = []
-  const loadingStep = 100 / images.length
+  try {
+    this[type] = []
 
-  if (!withoutShowProgress) {
-    this.showProgress = true
-  }
+    const loadingStep = 100 / images.length
 
-  for (let i = 0; i < images.length; i++) {
-    const image = images[i]
-
-    if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
-      this[type].push(image)
-    } else if (typeof image === 'string') {
-      const res = await uploadFileByUrl(image)
-
-      this[type].push(res)
-    } else {
-      const res = await onPostImage(image)
-
-      this[type].push(res)
+    if (!withoutShowProgress) {
+      runInAction(() => {
+        this.showProgress = true
+      })
     }
 
-    this.progressValue = this.progressValue + loadingStep
-  }
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i]
 
-  if (!withoutShowProgress) {
-    this.showProgress = false
+      if (typeof image === 'string' && image.includes('/uploads/')) {
+        this[type].push(image)
+      } else if (typeof image === 'string') {
+        const res = await uploadFileByUrl(
+          checkIsImageInludesPostfixes(image) || checkIsImageLink(image) || checkIsHasHttp(image)
+            ? image
+            : getAmazonImageUrl(image, true),
+        )
+
+        this[type].push(res)
+      } else {
+        const res = await onPostImage(image)
+        this[type].push(res)
+      }
+      runInAction(() => {
+        this.progressValue = this.progressValue + loadingStep
+      })
+    }
+
+    if (!withoutShowProgress) {
+      runInAction(() => {
+        this.showProgress = false
+      })
+    }
+
+    runInAction(() => {
+      this.progressValue = 0
+      this.isValidLink = true
+    })
+  } catch (error) {
+    runInAction(() => {
+      this.progressValue = 0
+      this.showProgress = false
+      this.isValidLink = false
+    })
   }
-  this.progressValue = 0
 }
 
 export const downloadFile = async (file, fileName) => {
@@ -118,7 +151,7 @@ export const downloadFile = async (file, fileName) => {
 }
 
 export const downloadFileByLink = async (str, fileName) => {
-  fetch(str)
+  fetch(getAmazonImageUrl(str, true))
     .then(resp => resp.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob)
@@ -166,3 +199,24 @@ export const getFileWeight = async url =>
 
       return formattedSize
     })
+
+export const downloadArchive = async (files, folderName) => {
+  const zip = new JSZip()
+
+  const validFilesData = files.map(async file => {
+    const res = await fetch(file.image.file || file.image)
+    const blob = await res.blob()
+
+    return {
+      title: file.comment,
+      blob,
+    }
+  })
+
+  const fetchedData = await Promise.all(validFilesData)
+
+  fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
+  zip.generateAsync({ type: 'blob' }).then(content => {
+    downloadFile(content, `${folderName}.rar`)
+  })
+}

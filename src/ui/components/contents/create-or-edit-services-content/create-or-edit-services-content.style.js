@@ -1,24 +1,15 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  imageFileInputWrapper: {
-    width: 760,
-  },
+export const useStyles = makeStyles()(theme => ({
   root: {
     padding: 40,
-
     width: 840,
     minHeight: 540,
-
     background: theme.palette.background.general,
-
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    boxShadow: theme.palette.boxShadow.paper,
     borderRadius: 4,
-
     display: 'flex',
     flexDirection: 'column',
-
     gap: 30,
   },
   announcementTitle: {

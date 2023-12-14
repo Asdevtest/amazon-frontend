@@ -1,13 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
-  title: {
-    fontWeight: 600,
-  },
-
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    height: '100%',
-    maxHeight: '884px',
+    width: 1230,
+    padding: 10,
     overflowY: 'hidden',
   },
 
@@ -19,7 +15,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     gap: '20px',
     position: 'sticky',
     top: 0,
-    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -38,19 +33,20 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     },
   },
 
+  flexContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   headerText: {
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.text.second,
+  },
 
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-
-    span: {
-      // color: theme.palette.text.general,
-      fontWeight: 600,
-    },
+  textBold: {
+    fontWeight: 600,
   },
 
   content: {
@@ -74,13 +70,6 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
     width: '380px',
   },
 
-  productImages: {
-    marginTop: '-10px',
-    '& > div > div': {
-      paddingTop: '0px',
-    },
-  },
-
   category: {
     display: 'flex',
     gap: '2px',
@@ -100,8 +89,7 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   suggestDeal: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    overflow: 'auto',
+    alignItems: 'flex-end',
 
     '& > div': {
       height: 'fit-content',
@@ -109,12 +97,43 @@ export const useFreelanceRequestDetailsModalStyles = makeStyles()(theme => ({
   },
 
   filesList: {
-    paddingBottom: '20px',
     width: 'fit-content',
   },
 
   editorWrapper: {
     maxHeight: '400px !important',
-    maxWidth: '796px',
+    maxWidth: '780px',
+  },
+
+  controlsWrapper: {
+    flexWrap: 'nowrap',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+    marginRight: 5,
+  },
+
+  listingCheckbox: {
+    color: theme.palette.primary.main,
+  },
+
+  listingText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  listingButton: {
+    width: '100%',
+  },
+
+  stopBtn: {
+    width: '100%',
+    background: '#F3AF00',
+    color: '#001029',
+    '&:hover': {
+      opacity: '0.8',
+    },
   },
 }))

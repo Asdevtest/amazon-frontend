@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { useState } from 'react'
 
-import { Container, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -85,7 +85,7 @@ export const SelectionSupplierModal = ({
   }
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
+    <div className={classNames.modalWrapper}>
       <Typography className={cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })}>
         {title || t(TranslationKey['Find a supplier'])}
       </Typography>
@@ -177,6 +177,6 @@ export const SelectionSupplierModal = ({
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   )
 }

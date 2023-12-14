@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    width: '500px',
+    width: '100%',
   },
   amazonTitle: {
     fontSize: '16px',
@@ -17,7 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
   productImg: {
     height: '98px',
     width: '92px',
-    margin: '0 50px 0 0',
+    margin: '0 20px 0 0',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -49,7 +49,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '34px 0 30px',
+    margin: '30px 0 ',
   },
 
   divider: {

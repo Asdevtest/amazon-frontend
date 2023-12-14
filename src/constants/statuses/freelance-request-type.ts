@@ -1,8 +1,3 @@
-import { RequestStatus } from '@constants/requests/request-status'
-import { UiTheme } from '@constants/theme/themes'
-
-import { SettingsModel } from '@models/settings-model'
-
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
@@ -26,10 +21,14 @@ export const freelanceRequestTypeByCode: { [key: number]: string } = {
 
 export const freelanceRequestTypeByKey = objectFlip(freelanceRequestTypeByCode, parseInt)
 
-export const freelanceRequestTypeTranslate = (type: string) => {
+export const freelanceRequestTypeTranslate = (type: string, changeTranslateKey?: boolean) => {
   switch (type) {
     case freelanceRequestType.DEFAULT:
-      return t(TranslationKey.All)
+      if (changeTranslateKey) {
+        return t(TranslationKey.All)
+      } else {
+        return t(TranslationKey.Universal)
+      }
     case freelanceRequestType.DESIGNER:
       return t(TranslationKey.Designer)
     case freelanceRequestType.SEO:

@@ -1,10 +1,13 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   btnsWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
   leftBtnsWrapper: {
     display: 'flex',
     flexDirection: 'row',
@@ -28,9 +31,9 @@ export const styles = theme => ({
     opacity: '.5',
   },
 
-  tasksWrapper: {
+  tableWrapper: {
     marginTop: 20,
-    height: '65vh',
+    height: '66vh',
   },
 
   boxesFiltersWrapper: {
@@ -42,11 +45,6 @@ export const styles = theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
     borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
-  },
-
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
   },
 
   virtualScrollerContent: {
@@ -65,24 +63,4 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
-})
+}))

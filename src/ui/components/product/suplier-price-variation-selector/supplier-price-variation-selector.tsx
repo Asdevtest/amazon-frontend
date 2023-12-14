@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 

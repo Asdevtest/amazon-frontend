@@ -11,7 +11,7 @@ import { BatchesModel } from '@models/batches-model'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -57,18 +57,16 @@ export const ProductLotDataForm = observer(
     const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
     useEffect(() => {
-      if (isTransfer && nameSearchValue) {
+      const searchFields = ['humanFriendlyId', 'fbaShipment']
+
+      if (nameSearchValue) {
         setBatches(
-          data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+          data?.filter(el =>
+            searchFields.some(key => String(el[key]).toLowerCase().includes(nameSearchValue.toLowerCase())),
+          ),
         )
-      } else {
-        if (nameSearchValue) {
-          setBatches(
-            data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
-          )
-        } else {
-          setBatches(data)
-        }
+      } else if (!isTransfer) {
+        setBatches(data)
       }
     }, [nameSearchValue, data])
 
@@ -138,14 +136,13 @@ export const ProductLotDataForm = observer(
             <SearchInput
               value={nameSearchValue}
               inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Lot number search'])}
+              placeholder={t(TranslationKey['Lot number and FBA search'])}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
         </div>
         <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            hideFooter
+          <CustomDataGrid
             localeText={getLocalizationByLanguageTag()}
             getRowId={batches => batches?._id}
             columns={

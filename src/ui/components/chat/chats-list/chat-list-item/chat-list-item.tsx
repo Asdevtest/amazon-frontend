@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import he from 'he'
 import { observer } from 'mobx-react'
@@ -6,16 +7,21 @@ import { FC, useContext } from 'react'
 import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
+import { UserModel } from '@models/user-model'
 
+import { InlineResponse20083 } from '@services/rest-api-service/codegen'
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-icons'
 
+import { checkIsClient } from '@utils/checks'
 import { formatDateWithoutTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -29,9 +35,10 @@ interface Props {
   onClick: (chat: ChatContract) => void
   typingUsers?: OnTypingMessageResponse[]
   isMutedChat?: boolean
+  typeOfChat?: string
 }
 
-export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat }) => {
+export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
   const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -40,37 +47,55 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
     requestProposal => requestProposal?.proposal?.chatId === chat?._id,
   )
 
-  const { messages, users } = chat
+  const { users, lastMessage, unread } = chat
 
-  const lastMessage = messages[messages.length - 1] || {}
+  // @ts-ignore
+  const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
 
   const isGroupChat = chat.type === chatsType.GROUP
 
-  const isCurrentUser = lastMessage.user?._id === userId
+  const isCurrentUser = lastMessage?.user?._id === userId
 
-  const oponentUser = users.filter(
-    (user: ChatUserContract) =>
-      // user._id !== userId &&
-      // ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-      //   userId !== currentProposal?.proposal?.createdBy?._id) ||
-      //   (user._id !== currentProposal?.proposal?.sub?._id &&
-      //     userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
+  const usersList = users.filter((user: ChatUserContract) => {
+    const isOwnerUser = user._id === userId
+    const isRequestAndProposalSub = user._id === chatRequestAndRequestProposal.request?.request?.sub?._id
+    const isRequestAndProposalCreator = user._id === chatRequestAndRequestProposal.request?.request?.createdBy?._id
+    const isCurrentProposalSub = user._id === currentProposal?.proposal?.sub?._id
+    const isCurrentProposalCreator = user._id === currentProposal?.proposal?.createdBy?._id
+    const isOwnerUserSub = userId === chatRequestAndRequestProposal.request?.request?.sub?._id
 
-      user._id !== userId &&
-      user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-      user._id !== currentProposal?.proposal?.sub?._id &&
-      (userId === chatRequestAndRequestProposal.request?.request?.sub?._id
-        ? user._id !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
-        : user._id !== currentProposal?.proposal?.createdBy?._id),
-  )?.[0]
+    const result =
+      !isOwnerUser &&
+      !isRequestAndProposalSub &&
+      !isCurrentProposalSub &&
+      (isOwnerUserSub ? !isRequestAndProposalCreator : !isCurrentProposalCreator)
+
+    return result
+  })
+
+  const getUserByChatType = () => {
+    if (typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat') {
+      const userByChatType = users.find((user: ChatUserContract) => {
+        const userRole = UserRoleCodeMap[Number(user.role)]
+        return (
+          (checkIsClient(currentUserRole) ? userRole === UserRole.FREELANCER : userRole === UserRole.CLIENT) &&
+          !user.masterUser
+        )
+      })
+
+      return userByChatType || usersList?.[0]
+    } else {
+      return usersList?.[0]
+    }
+  }
+
+  const oponentUser = getUserByChatType()
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
 
-  const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
-
-  const message = lastMessage.text
+  const message = lastMessage?.text
     ? (() => {
-        switch (lastMessage.text) {
+        switch (lastMessage?.text) {
           case ChatMessageType.CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION:
             return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION:
@@ -81,6 +106,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.PROPOSAL_RESULT_EDITED:
             return t(TranslationKey['Proposal result edited'])
+
+          case ChatMessageType.PROPOSAL_EDITED:
+            return t(TranslationKey['Proposal changed'])
 
           case ChatMessageType.BLOGGER_PROPOSAL_RESULT_EDITED:
             return t(TranslationKey['Proposal result edited'])
@@ -113,7 +141,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <Avatar
         src={
           isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-            ? chat.info?.image
+            ? getAmazonImageUrl(chat.info?.image)
             : getUserAvatarSrc(oponentUser?._id)
         }
         className={classNames.avatar}
@@ -137,7 +165,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
                 <p className={classNames.nickName}>{oponentUser?.name}</p>
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                    [classNames.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {t(TranslationKey.Writes) + '...'}
@@ -152,7 +180,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                    [classNames.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
@@ -163,8 +191,8 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             <div className={classNames.badgeWrapper}>
               {isMutedChat && <SoundOffIcon className={classNames.soundOffIcon} />}
 
-              {unReadMessages.length > 0 ? (
-                <span className={classNames.badge}>{unReadMessages.length}</span>
+              {Number(unread) > 0 ? (
+                <span className={classNames.badge}>{Number(unread)}</span>
               ) : isCurrentUser ? (
                 readingTick
               ) : null}

@@ -1,9 +1,6 @@
-import { cx } from '@emotion/css'
-import { ClassNamesArg } from '@emotion/react'
-import React, { FC, useEffect, useState } from 'react'
+import { FC, MouseEvent, PropsWithChildren, memo, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import { Breakpoint, Dialog, DialogContent } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,97 +8,75 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './modal.style'
+import { useStyles } from './modal.style'
 
-interface ModalProps {
+import { ModalPortal } from './modal-portal'
+
+interface ModalProps extends PropsWithChildren {
   openModal: boolean
-  isWarning?: boolean
-  noPadding?: boolean
-  missClickModalOn?: boolean
-  children: React.ReactNode
-  dialogContextClassName?: ClassNamesArg
   setOpenModal: (openModal?: boolean) => void
-  fullWidth?: boolean
-  maxWidth?: number
+  missClickModalOn?: boolean
+  dialogClassName?: string
+  contentClassName?: string
+  contentWrapperClassName?: string
 }
 
-export const Modal: FC<ModalProps> = props => {
-  const { classes: classNames } = useClassNames()
-
+export const Modal: FC<ModalProps> = memo(props => {
   const {
     openModal,
-    isWarning,
     setOpenModal,
-    dialogContextClassName,
-    children,
     missClickModalOn,
-    noPadding,
-    fullWidth,
-    maxWidth,
+    dialogClassName,
+    contentClassName,
+    contentWrapperClassName,
+    children,
   } = props
 
-  const [showMissclickModal, setShowMissclickModal] = useState(false)
+  if (!openModal) {
+    return null
+  }
 
-  useEffect(() => {
-    if (!openModal) {
-      setShowMissclickModal(false)
+  const { classes: styles, cx } = useStyles()
+
+  const [showMissClickModal, setShowMissClickModal] = useState(false)
+  const [mousedownTarget, setMousedownTarget] = useState<EventTarget | null>(null)
+
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    setMousedownTarget(e.target)
+  }
+
+  const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
+    if (mousedownTarget === e.target && e.target === e.currentTarget) {
+      missClickModalOn ? setShowMissClickModal(!showMissClickModal) : setOpenModal(false)
     }
-    if (window.getSelection) {
-      const selection = window.getSelection()
-      selection?.removeAllRanges()
-    } else {
-      const selection = document.getSelection()
-      selection?.removeAllRanges()
-    }
-  }, [openModal])
+
+    setMousedownTarget(null)
+  }
 
   return (
-    <Dialog
-      maxWidth={false}
-      classes={{
-        paperScrollBody: cx(classNames.dialogContent, {
-          [classNames.warningPaper]: isWarning,
-        }),
-      }}
-      fullWidth={fullWidth}
-      open={openModal}
-      scroll={'body'}
-      sx={
-        fullWidth
-          ? {
-              '& .MuiDialog-paper': {
-                maxWidth: `${maxWidth ?? 1300}px`,
-              },
-            }
-          : {}
-      }
-      onClose={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
-        (event.detail !== 0 || event.button === 27) &&
-        (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false))
-      }
-    >
-      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
-
-      <DialogContent
-        className={cx(
-          classNames.dialogPadding,
-          { [classNames.warningDialogPadding]: isWarning, [classNames.noPadding]: noPadding },
-          dialogContextClassName,
-        )}
+    <ModalPortal>
+      <div
+        className={cx(styles.dialogWrapper, { [styles.openModal]: openModal }, dialogClassName)}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
       >
-        {children}
-      </DialogContent>
+        <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
+          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
+
+          <div className={cx(styles.content, contentClassName)}>{children}</div>
+        </div>
+      </div>
 
       <ConfirmationModal
-        openModal={showMissclickModal}
-        setOpenModal={() => setShowMissclickModal(!showMissclickModal)}
+        openModal={showMissClickModal}
+        setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
         title={t(TranslationKey.Attention)}
         message={t(TranslationKey['Window will be closed'])}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => setOpenModal()}
-        onClickCancelBtn={() => setShowMissclickModal(!showMissclickModal)}
+        onClickSuccessBtn={() => setOpenModal(false)}
+        onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
       />
-    </Dialog>
+    </ModalPortal>
   )
-}
+})

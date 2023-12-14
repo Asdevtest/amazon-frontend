@@ -121,9 +121,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content',
-    margin: 0,
+    width: 'max-content !important',
+    margin: '0 !important',
   },
+
+  batchWeight: {
+    width: '190px !important',
+  },
+
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.general,
@@ -143,11 +148,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   cell: {
     padding: '0 10px',
-  },
-
-  copyValueWrapper: {
-    display: 'flex',
-    gap: '10px',
   },
 
   error: {
@@ -175,5 +175,9 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 'auto',
     color: theme.palette.text.general,
     fontSize: '12px',
+  },
+
+  calculationButton: {
+    minWidth: '225px !important',
   },
 }))

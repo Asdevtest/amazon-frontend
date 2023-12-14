@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { ImageType } from 'react-images-uploading-alex76457-version'
 
 import { IFile } from '@components/chat/multiple-chats'
@@ -16,15 +16,7 @@ export const ChatFilesInput: FC<Props> = ({ files, setFiles }) => {
 
   return (
     <div className={classNames.root}>
-      <UploadFilesInput
-        withoutLinks
-        oneLine
-        fullWidth
-        images={files}
-        setImages={setFiles}
-        maxNumber={50}
-        acceptType={['']}
-      />
+      <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} acceptType={['']} />
     </div>
   )
 }

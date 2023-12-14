@@ -20,14 +20,7 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({ message }) => {
 
   return (
     <div className={classNames.root}>
-      <UserLink
-        name={message.user?.name}
-        userId={message.user?._id}
-        blackText={undefined}
-        withAvatar={undefined}
-        maxNameWidth={undefined}
-        customClassNames={undefined}
-      />
+      <UserLink name={message.user?.name} userId={message.user?._id} />
 
       <p className={classNames.groupText}>{t(TranslationKey['added to the group chat'])}</p>
 
@@ -35,15 +28,7 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({ message }) => {
 
       <div className={classNames.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (
-          <UserLink
-            key={index}
-            name={el.name}
-            userId={el._id}
-            blackText={undefined}
-            withAvatar={undefined}
-            maxNameWidth={undefined}
-            customClassNames={undefined}
-          />
+          <UserLink key={index} name={el.name} userId={el._id} />
         ))}
       </div>
     </div>

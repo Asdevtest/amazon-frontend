@@ -2,181 +2,137 @@
 // import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { filterNullValues } from '@utils/object'
+
 class ClientModelStatic {
   getProductsVacant = async () => {
     const response = await restApiService.clientApi.apiV1ClientsProductsVacGet()
-    return response
+    return response.data
   }
 
-  pickupProduct = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsPickupGuidPost(id)
-    return response
-  }
-
-  updateProduct = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidPatch(id, {
+  updateProduct = async (guid, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidPatch({
+      guid,
       body: data,
     })
-    return response
+    return response.data
   }
 
   getProductsMy = async filters => {
     const response = await restApiService.clientApi.apiV1ClientsProductsMyGet({ filters })
-    return response
+    return response.data
   }
 
-  getProductsMyFilteredByShopId = async shopId => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet(shopId)
-    return response
+  getProductsMyFilteredByShopId = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet({ guid })
+    return response.data
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
-    return response
-
-    // console.log(`REQUEST_ START ${Date.now()}`)
-    // const st = Date.now()
-
-    // const response = await axios({
-    //   method: 'get',
-    //   url: `${BACKEND_API_URL}/api/v1/clients/products/my_with_pag`,
-    //   params: {
-    //     ...data,
-    //   },
-    //   headers: {
-    //     Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
-    //   },
-    // })
-    // console.log(`REQUEST_ END ${st - Date.now()}`)
-
-    // return response.data
-
-    // const res = await fetch(`${BACKEND_API_URL}/api/v1/clients/products/my_with_pag?limit=100&offset=0`, {
-    //   headers: {
-    //     authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
-    //   },
-    // }).then(resp => resp.json())
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(filterNullValues(data))
+    return response.data
   }
 
   makePayments = async productIds => {
     const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({
       body: { guids: productIds },
     })
-    return response
-  }
-
-  getProductsPaid = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsPaidGet()
-    return response
+    return response.data
   }
 
   createOrder = async data => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersPost({ body: data })
-    return response
+    return response.data
   }
 
   createFormedOrder = async data => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersFormedPost({ body: data })
-    return response
+    return response.data
   }
 
   getOrders = async status => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGet({ status })
-    return response
+    return response.data
   }
 
   getOrdersPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(data)
-    return response
+    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(filterNullValues(data))
+    return response.data
   }
 
-  updateOrder = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch(id, {
-      body: data,
+  updateOrder = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  getOrderById = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet(id)
-    return response
-  }
-
-  removeOrder = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidDelete(id)
-    return response
+  getOrderById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet({ guid })
+    return response.data
   }
 
   createTask = async data => {
     const response = await restApiService.clientApi.apiV1ClientsTasksPost({ body: data })
-    return response
+    return response.data
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(data)
-    return response
-  }
-
-  getBatches = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsBatchesGet()
-    return response
-  }
-
-  getBalance = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsPaymentsMyBalanceGet()
-    return response
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(filterNullValues(data))
+    return response.data
   }
 
   getMyPayments = async () => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
-    return response
+    return response.data
   }
 
-  cancelTask = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost(id, { body: data })
-    return response
+  cancelTask = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost({ guid, body })
+    return response.data
   }
 
-  orderConfirmPriceChange = async orderId => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidConfirmPriceChangePost(orderId, { body: {} })
-    return response
+  orderConfirmPriceChange = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidConfirmPriceChangePost({ guid })
+    return response.data
   }
 
-  updateTariffIfTariffWasDeleted = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost({ body: data })
-    return response
+  updateTariffIfTariffWasDeleted = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost({ body })
+    return response.data
   }
 
-  boxConfirmPriceChange = async boxId => {
+  boxConfirmPriceChange = async guid => {
     const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({
-      body: [{ boxId }],
+      body: [{ boxId: guid }],
     })
-    return response
+    return response.data
   }
 
-  cancelOrder = async orderId => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost(orderId, { body: {} })
-    return response
+  cancelOrder = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost({ guid })
+    return response.data
   }
 
-  returnBoxFromBatch = async boxIds => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({ body: boxIds })
-    return response
+  returnBoxFromBatch = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({ body })
+    return response.data
   }
 
-  getOrdersByProductId = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsGetOrdersByProductIdGuidGet(id)
-    return response
+  getOrdersByProductId = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsGetOrdersByProductIdGuidGet({ guid })
+    return response.data
   }
 
-  createProduct = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsPost({ body: data })
-    return response
+  createProduct = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsPost({ body })
+    return response.data
   }
 
-  calculatePriceToSeekSupplier = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidGetPriceForClientGet(id)
-    return response
+  calculatePriceToSeekSupplier = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidGetPriceForClientGet({ guid })
+    return response.data
   }
 
   calculatePriceToSeekSomeSuppliers = async ids => {
@@ -185,7 +141,7 @@ class ClientModelStatic {
         productIds: ids,
       },
     })
-    return response
+    return response.data
   }
 
   sendProductToSeekSomeSuppliers = async ids => {
@@ -194,89 +150,68 @@ class ClientModelStatic {
         productIds: ids,
       },
     })
-    return response
+    return response.data
   }
 
-  sendProductToSeekSupplier = async (id, data) => {
+  sendProductToSeekSupplier = async (guid, body) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(
-      id,
-      {
-        body: data,
-      },
+      { guid, body },
     )
-    return response
+    return response.data
   }
 
-  updateProductBarCode = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidChangeBarCodePatch(id, {
-      body: data,
+  updateProductBarCode = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidChangeBarCodePatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  updateProductFourMonthesStock = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidFourMonthesStockPatch(id, {
-      body: data,
+  updateProductFourMonthesStock = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidFourMonthesStockPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
   getDestinations = async () => {
     const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
-    return response
+    return response.data
   }
 
-  getClientDestinations = async filtersData => {
-    const response = await restApiService.clientApi.apiV1ClientsDestinationsGet(filtersData)
-    return response
+  getClientDestinations = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsDestinationsGet(body)
+    return response.data
   }
 
-  editShippingLabelFirstTime = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(id, {
-      body: data,
+  editShippingLabelFirstTime = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  getDashboardElementCount = async () => {
-    const response = await restApiService.clientApi.apiV1DashboardClientCountsGet()
-    return response
-  }
-
-  getDashboardBuyerElementCount = async () => {
-    const response = await restApiService.clientApi.apiV1DashboardBuyerCountsGet()
-    return response
-  }
-  getDashboardStorekeeperElementCount = async () => {
-    const response = await restApiService.clientApi.apiV1DashboardStorekeeperCountsGet()
-    return response
-  }
-
-  editProductsStockUS = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidStockUSAPatch(id, { body: data })
-    return response
+  editProductsStockUS = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidStockUSAPatch({ guid, body })
+    return response.data
   }
 
   getProductPermissionsData = async data => {
     const response = await restApiService.clientApi.apiV1ClientsProductsLightGet(data)
-    return response
+    return response.data
   }
 
-  updateBoxComment = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesCommentGuidPatch(id, {
-      body: data,
-    })
-    return response
-  }
-
-  updateOrderStatusToReadyToProcess = async id => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersToReadyToProcessGuidPatch(id)
-    return response
+  updateOrderStatusToReadyToProcess = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersToReadyToProcessGuidPatch({ guid })
+    return response.data
   }
 
   updateShops = async data => {
     const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
-    return response
+    return response.data
   }
 }
 

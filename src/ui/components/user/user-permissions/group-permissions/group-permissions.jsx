@@ -1,17 +1,14 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-group-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -65,16 +62,8 @@ export const GroupPermissions = observer(() => {
         </Button>
       </div>
       <div className={classNames.datagridWrapper}>
-        <MemoDataGrid
-          disableVirtualization
-          pagination
+        <CustomDataGrid
           useResizeContainer
-          classes={{
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
           localeText={getLocalizationByLanguageTag()}
           sortModel={sortModel}
           filterModel={filterModel}
@@ -83,10 +72,6 @@ export const GroupPermissions = observer(() => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

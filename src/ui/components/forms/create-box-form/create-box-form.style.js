@@ -4,7 +4,8 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1121px',
+    width: '1140px',
+    padding: 10,
   },
   form: {
     flexWrap: 'wrap',
@@ -18,11 +19,13 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 20,
     marginTop: '10px',
+    marginRight: 10,
   },
 
   button: {
-    marginLeft: '10px',
+    padding: '0 20px',
   },
   subTitle: {
     color: theme.palette.text.second,

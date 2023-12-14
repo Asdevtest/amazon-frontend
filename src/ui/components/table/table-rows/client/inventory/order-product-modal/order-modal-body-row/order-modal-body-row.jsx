@@ -11,6 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
@@ -47,17 +48,32 @@ export const OrderModalBodyRow = ({
   const { classes: classNames } = useClassNames()
 
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
+
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
   const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false)
+
   const [pricePerUnit, setPerPriceUnit] = useState(null)
+  const [destinationId, setDestinationId] = useState(item?.destinationId)
+  const [confirmModalSettings, setConfirmModalSettings] = useState({
+    isWarning: false,
+    confirmMessage: '',
+    onClickConfirm: () => {},
+    onClickCancelBtn: () => {},
+  })
 
   const curDestination = destinations.find(el => el._id === orderState.destinationId)
   const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
   const priceVariations = item.currentSupplier?.priceVariations
   const firstNumOfCode = curDestination?.zipCode[0]
+
   const tariffName = currentLogicsTariff?.name
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === item?.variationTariffId)?.pricePerKgUsd
+
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
@@ -105,10 +121,126 @@ export const OrderModalBodyRow = ({
     }
   }
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  const onSubmitSelectStorekeeperAndTariff = (
+    storekeeperId,
+    tariffId,
+    variationTariffId,
+    destinationId,
+    isSelectedDestinationNotValid,
+    isReset,
+  ) => {
+    if (isSelectedDestinationNotValid) {
+      setConfirmModalSettings({
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Wish to change a destination?']),
+        onClickConfirm: () => {
+          onChangeInput(
+            {
+              target: {
+                value: {
+                  storekeeperId,
+                  logicsTariffId: tariffId,
+                  variationTariffId,
+                  destinationId,
+                },
+              },
+            },
+            'tariff',
+          )
+          setDestinationId(destinationId)
+          setShowConfirmationModal(false)
+          setShowSelectionStorekeeperAndTariffModal(false)
+        },
+        onClickCancelBtn: () => {
+          onChangeInput(
+            {
+              target: {
+                value: {
+                  storekeeperId,
+                  destinationId: undefined,
+                  logicsTariffId: tariffId,
+                  variationTariffId,
+                },
+              },
+            },
+            'tariff',
+          )
+          setDestinationId(undefined)
+          setShowConfirmationModal(false)
+          setShowSelectionStorekeeperAndTariffModal(false)
+        },
+      })
+
+      setShowConfirmationModal(true)
+    } else {
+      if (item?.destinationId || isReset) {
+        setDestinationId(destinationId)
+        onChangeInput(
+          {
+            target: {
+              value: {
+                storekeeperId,
+                logicsTariffId: tariffId,
+                variationTariffId,
+              },
+            },
+          },
+          'tariff',
+        )
+        setShowSelectionStorekeeperAndTariffModal(false)
+      } else {
+        setConfirmModalSettings({
+          isWarning: true,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to set a destination?']),
+          onClickConfirm: () => {
+            const validDestinationId =
+              destinationId ||
+              storekeepers
+                .find(storekeeper => storekeeper._id === storekeeperId)
+                ?.tariffLogistics?.find(tariff => tariff?._id === tariffId)
+                .destinationVariations.find(dest => dest._id === variationTariffId).destination?._id
+
+            setDestinationId(validDestinationId)
+            onChangeInput(
+              {
+                target: {
+                  value: {
+                    storekeeperId,
+                    logicsTariffId: tariffId,
+                    variationTariffId,
+                    destinationId: validDestinationId,
+                  },
+                },
+              },
+              'tariff',
+            )
+            setShowConfirmationModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
+          onClickCancelBtn: () => {
+            setDestinationId(destinationId)
+            onChangeInput(
+              {
+                target: {
+                  value: {
+                    storekeeperId,
+                    logicsTariffId: tariffId,
+                    variationTariffId,
+                  },
+                },
+              },
+              'tariff',
+            )
+            setShowConfirmationModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
+        })
+
+        setShowConfirmationModal(true)
+      }
+    }
   }
 
   useEffect(() => {
@@ -132,6 +264,10 @@ export const OrderModalBodyRow = ({
       setPerPriceUnit(t(TranslationKey['No data']))
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+
+  useEffect(() => {
+    setDestinationId(item?.destinationId)
+  }, [item?.destinationId])
 
   return (
     <React.Fragment>
@@ -163,17 +299,6 @@ export const OrderModalBodyRow = ({
             sku={item?.skusByClient?.[0]}
             attributeTitleTextStyles={classNames.standartText}
           />
-
-          {/* <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
-            {item.asin ? <CopyValue text={item.asin} /> : null}
-          </div>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.standartText}>{`SKU: ${
-              item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
-            }`}</Typography>
-            {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
-          </div> */}
 
           {!item.currentSupplier && (
             <Typography className={classNames.noCurrentSupplierText}>
@@ -293,7 +418,11 @@ export const OrderModalBodyRow = ({
           >
             {item.storekeeperId
               ? `                
-                ${item.logicsTariffId ? `${tariffName}` : 'none'}`
+                ${
+                  item.logicsTariffId
+                    ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                    : 'none'
+                }`
               : t(TranslationKey.Select)}
           </Button>
         </TableCell>
@@ -305,7 +434,13 @@ export const OrderModalBodyRow = ({
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations /* .filter(el => !el.storekeeperId)*/} // убираем дестинейшены, которые одновременно и склады
+            data={
+              // destinations
+              item.logicsTariffId ? destinations.filter(el => el?._id === destinationId) : destinations
+              // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
+
+              /* .filter(el => !el.storekeeperId)*/
+            } // убираем дестинейшены, которые одновременно и склады
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
@@ -351,21 +486,25 @@ export const OrderModalBodyRow = ({
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            showCheckbox
+            RemoveDestinationRestriction
             storekeepers={storekeepers}
             curStorekeeperId={item.storekeeperId}
             curTariffId={item.logicsTariffId}
-            destinationsData={destinations}
+            currentDestinationId={item?.destinationId}
+            currentVariationTariffId={item?.variationTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>
       </TableRow>
 
       <TableRow key={item._id + `+`}>
-        <TableCell colSpan={11}>
+        <TableCell colSpan={12}>
           <div className={classNames.sumsWrapper}>
             <Button
               tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
               disabled={!boxPropertiesIsFull}
+              className={classNames.calculationButton}
               onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
             >
               {t(TranslationKey['View an oriented calculation'])}
@@ -403,7 +542,7 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
+              containerClasses={cx(classNames.containerField, classNames.batchWeight)}
               labelClasses={classNames.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={
@@ -464,6 +603,18 @@ export const OrderModalBodyRow = ({
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmationModal}
+          setOpenModal={() => setShowConfirmationModal(prev => !prev)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
       </TableRow>
     </React.Fragment>
   )

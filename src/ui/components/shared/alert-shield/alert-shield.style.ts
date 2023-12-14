@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-/* eslint-disable no-unused-vars */
 import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
@@ -30,14 +27,14 @@ const fadeOut = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(() => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
     left: '50vw',
     padding: '10px',
     marginTop: '63px',
-    zIndex: 999,
+    zIndex: 50,
     opacity: 0,
   },
 
@@ -50,7 +47,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   alertRoot: {
-    width: 255,
+    minWidth: 255,
+    maxWidth: 510,
   },
 
   alertIcon: {

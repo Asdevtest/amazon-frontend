@@ -10,7 +10,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
@@ -28,6 +28,7 @@ import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { PlusIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { deepArrayCompare } from '@utils/array'
 import { roundSafely } from '@utils/calculation'
 import {
   checkIsAdmin,
@@ -85,16 +86,23 @@ export const IdeaViewAndEditCard = observer(
     const linkListRef = useRef(null)
 
     const [linkLine, setLinkLine] = useState('')
-    const [images, setImages] = useState([])
     const [showFullCard, setShowFullCard] = useState(false)
 
     const [formFields, setFormFields] = useState({})
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
       curIdea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
     )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
+    const [images, setImages] = useState(formFields?.media || [])
+
+    useEffect(() => {
+      if (formFields?.media) {
+        setImages(formFields?.media)
+      }
+    }, [formFields?.media])
 
     const isCurrentIdea = curIdea?._id === idea?._id
 
@@ -137,6 +145,8 @@ export const IdeaViewAndEditCard = observer(
       variation: idea?.variation || '',
       productName: idea?.productName || '',
       suppliers: idea?.suppliers || [],
+      approximatePrice: idea?.approximatePrice || 0,
+      fbaFee: idea?.fbaFee || 0,
     })
 
     const getFullIdea = () => ({
@@ -148,17 +158,19 @@ export const IdeaViewAndEditCard = observer(
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',
-      quantity: curIdea?.quantity || '',
-      price: curIdea?.price || '',
-      width: curIdea?.width || '',
-      height: curIdea?.height || '',
-      length: curIdea?.length || '',
+      quantity: curIdea?.quantity || 0,
+      price: curIdea?.price || 0,
+      width: curIdea?.width || 0,
+      height: curIdea?.height || 0,
+      length: curIdea?.length || 0,
       suppliers: curIdea?.suppliers || [],
       _id: curIdea?._id || undefined,
       parentProduct: curIdea?.parentProduct || undefined,
       childProduct: curIdea?.childProduct || undefined,
       requestsOnCheck: curIdea?.requestsOnCheck || [],
       requestsOnFinished: curIdea?.requestsOnFinished || [],
+      approximatePrice: idea?.approximatePrice || 0,
+      fbaFee: idea?.fbaFee || 0,
     })
 
     const onChangeField = fieldName => event => {
@@ -221,22 +233,17 @@ export const IdeaViewAndEditCard = observer(
     }, [])
 
     const handleChange = newAlignment => {
-      setSizeSetting(newAlignment)
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (newAlignment === sizesType.INCHES) {
         setFormFields({
           ...formFields,
-          width: toFixed(formFields.width / inchesCoefficient, 2) || '',
-          height: toFixed(formFields.height / inchesCoefficient, 2) || '',
-          length: toFixed(formFields.length / inchesCoefficient, 2) || '',
+          width: toFixed(formFields.width / multiplier, 2) || 0,
+          height: toFixed(formFields.height / multiplier, 2) || 0,
+          length: toFixed(formFields.length / multiplier, 2) || 0,
         })
-      } else {
-        setFormFields({
-          ...formFields,
-          width: toFixed(roundSafely(formFields.width * inchesCoefficient), 2) || '',
-          height: toFixed(roundSafely(formFields.height * inchesCoefficient), 2) || '',
-          length: toFixed(roundSafely(formFields.length * inchesCoefficient), 2) || '',
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
@@ -244,15 +251,20 @@ export const IdeaViewAndEditCard = observer(
       const res = {
         ...formFields,
 
+        approximatePrice: formFields?.approximatePrice || 0,
+        fbaFee: formFields?.fbaFee || 0,
         width:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.width * inchesCoefficient) : formFields.width) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.width * inchesCoefficient)
+            : formFields.width) || 0,
         height:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.height * inchesCoefficient) : formFields.height) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.height * inchesCoefficient)
+            : formFields.height) || 0,
         length:
-          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.length * inchesCoefficient) : formFields.length) ||
-          0,
+          (sizeSetting === unitsOfChangeOptions.US
+            ? roundSafely(formFields.length * inchesCoefficient)
+            : formFields.length) || 0,
       }
 
       return res
@@ -262,21 +274,32 @@ export const IdeaViewAndEditCard = observer(
       const res = {
         ...formFields,
 
+        approximatePrice: formFields?.approximatePrice || 0,
+        fbaFee: formFields?.fbaFee || 0,
         width:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.width / inchesCoefficient) : formFields.width) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.width / inchesCoefficient)
+            : formFields.width) || 0,
         height:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.height / inchesCoefficient) : formFields.height) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.height / inchesCoefficient)
+            : formFields.height) || 0,
         length:
-          (sizeSetting === sizesType.CM ? roundSafely(formFields.length / inchesCoefficient) : formFields.length) || 0,
+          (sizeSetting === unitsOfChangeOptions.EU
+            ? roundSafely(formFields.length / inchesCoefficient)
+            : formFields.length) || 0,
       }
 
       return res
     }
 
-    const disabledSubmit = (objectDeepCompare(formFields, getFullIdea()) && !images.length) || !formFields.productName
+    const disabledSubmit =
+      (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
+      !formFields.productName
 
-    const currentUserIsClient = checkIsClient(UserRoleCodeMap[curUser.role])
-    const currentUserIsBuyer = checkIsBuyer(UserRoleCodeMap[curUser.role])
+    const userRole = UserRoleCodeMap[curUser.role]
+    const currentUserIsClient = checkIsClient(userRole)
+    const currentUserIsBuyer = checkIsBuyer(userRole)
     const checkIsClientOrBuyer = currentUserIsClient || currentUserIsBuyer
 
     const isNewIdea = formFields?.status === ideaStatusByKey[ideaStatus.NEW]
@@ -312,7 +335,7 @@ export const IdeaViewAndEditCard = observer(
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
-      <div className={cx(classNames.root, { [classNames.modalRoot]: isModalView })}>
+      <div className={cx(classNames.root, isModalView && classNames.rootModal)}>
         <div className={classNames.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
@@ -349,8 +372,14 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.mediaBlock}>
               {!inCreate && (
                 <div className={classNames.photoCarouselWrapper}>
-                  <PhotoAndFilesSlider bigSlider withoutFiles files={formFields?.media} />
-                  {/* <PhotoCarousel files={formFields?.media} /> */}
+                  <PhotoAndFilesSlider
+                    showPreviews
+                    withoutFiles
+                    bigSlider
+                    isEditable={inEdit}
+                    files={images}
+                    onChangeImagesForLoad={setImages}
+                  />
                 </div>
               )}
 
@@ -418,7 +447,7 @@ export const IdeaViewAndEditCard = observer(
             <div className={classNames.commentsWrapper}>
               <Field
                 multiline
-                disabled={disableFields || checkIsBuyer(UserRoleCodeMap[curUser.role])}
+                disabled={disableFields || currentUserIsBuyer}
                 className={classNames.сlientСomment}
                 containerClasses={classNames.noMarginContainer}
                 labelClasses={classNames.spanLabel}
@@ -476,6 +505,8 @@ export const IdeaViewAndEditCard = observer(
 
                     <Field
                       multiline
+                      minRows={10}
+                      maxRows={10}
                       disabled={disableFields}
                       labelClasses={classNames.spanLabel}
                       className={classNames.criterionsField}
@@ -483,12 +514,6 @@ export const IdeaViewAndEditCard = observer(
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
-                      sx={{
-                        '& .MuiInputBase-inputMultiline': {
-                          height: '100% !important',
-                          width: '100% !important',
-                        },
-                      }}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
@@ -577,55 +602,83 @@ export const IdeaViewAndEditCard = observer(
                       />
                     </div>
 
-                    <div className={classNames.sizesWrapper}>
-                      <div className={classNames.sizesSubWrapper}>
-                        <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+                    <div className={classNames.shortFieldsSubWrapper}>
+                      <div className={classNames.sizesWrapper}>
+                        <div className={classNames.sizesSubWrapper}>
+                          <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                        <div>
-                          <CustomSwitcher
-                            condition={sizeSetting}
-                            switcherSettings={[
-                              { label: () => 'In', value: sizesType.INCHES },
-                              { label: () => 'Cm', value: sizesType.CM },
-                            ]}
-                            changeConditionHandler={condition => handleChange(condition)}
+                          <div>
+                            <CustomSwitcher
+                              condition={sizeSetting}
+                              switcherSettings={[
+                                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                              ]}
+                              changeConditionHandler={condition => handleChange(condition)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className={classNames.sizesBottomWrapper}>
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Width)}
+                            value={formFields.width}
+                            onChange={onChangeField('width')}
+                          />
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Height)}
+                            value={formFields.height}
+                            onChange={onChangeField('height')}
+                          />
+                          <Field
+                            disabled={disableFields}
+                            inputProps={{ maxLength: 6 }}
+                            labelClasses={classNames.spanLabel}
+                            inputClasses={classNames.sizesInput}
+                            className={classNames.oneLineField}
+                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            label={t(TranslationKey.Length)}
+                            value={formFields.length}
+                            onChange={onChangeField('length')}
                           />
                         </div>
                       </div>
 
-                      <div className={classNames.sizesBottomWrapper}>
+                      <div className={classNames.approximateCalculationFieldsWrapper}>
                         <Field
+                          label={t(TranslationKey['Referral fee, $'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
+                          inputClasses={classNames.approximateCalculationInput}
                           className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Width)}
-                          value={formFields.width}
-                          onChange={onChangeField('width')}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.fbaFee}
+                          onChange={onChangeField('fbaFee')}
                         />
+
                         <Field
+                          label={t(TranslationKey['Approximate price'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
+                          inputClasses={classNames.approximateCalculationInput}
                           className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Height)}
-                          value={formFields.height}
-                          onChange={onChangeField('height')}
-                        />
-                        <Field
-                          disabled={disableFields}
-                          inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.sizesInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
-                          label={t(TranslationKey.Length)}
-                          value={formFields.length}
-                          onChange={onChangeField('length')}
+                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          value={formFields.approximatePrice}
+                          onChange={onChangeField('approximatePrice')}
                         />
                       </div>
                     </div>
@@ -642,13 +695,13 @@ export const IdeaViewAndEditCard = observer(
               containerClasses={classNames.noMarginContainer}
               inputComponent={
                 <div className={classNames.supplierActionsWrapper}>
-                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(UserRoleCodeMap[curUser.role])) && (
+                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
                         disabled={!selectedSupplier}
                         tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                         className={classNames.iconBtn}
-                        onClick={() => onClickSupplierBtns('view')}
+                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
                       >
                         <VisibilityOutlinedIcon />
                       </Button>
@@ -749,7 +802,7 @@ export const IdeaViewAndEditCard = observer(
               />
             )}
 
-            {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && (
+            {!checkIsAdmin(userRole) && (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {currentUserIsBuyer && isSupplierSearch && (
                   <div className={classNames.supplierFoundWrapper}>

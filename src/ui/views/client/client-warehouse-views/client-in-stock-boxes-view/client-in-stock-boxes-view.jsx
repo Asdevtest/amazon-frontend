@@ -1,16 +1,10 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
@@ -26,8 +20,8 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -36,24 +30,25 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-in-stock-boxes-view.style'
+import { useStyles } from './client-in-stock-boxes-view.style'
 
+import { disableSelectionCells } from './client-in-stock-boxes-view.constants'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 
-export const ClientInStockBoxesViewRaw = props => {
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
-  const { classes: classNames } = props
-  const disableSelectionCells = ['prepId']
+export const ClientInStockBoxesView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
+
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
-    classNames.isDraftRow
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+    styles.isDraftRow
 
   const renderButtons = () => {
     const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -70,9 +65,7 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={
-            viewModel.selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || viewModel.isHaveRequestSendToBatch
-          }
+          disabled={viewModel.selectedBoxes.length <= 1 || viewModel.isHaveRequestSendToBatch}
           onClick={viewModel.onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
@@ -113,8 +106,8 @@ export const ClientInStockBoxesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.topHeaderBtnsWrapper}>
+          <div className={styles.boxesFiltersWrapper}>
             <CustomSwitcher
               switchMode={'medium'}
               condition={viewModel.currentStorekeeperId}
@@ -131,14 +124,14 @@ export const ClientInStockBoxesViewRaw = props => {
 
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
             startText={viewModel.nameSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.boxesFiltersWrapper}>
           <CustomSwitcher
             switchMode={'medium'}
             condition={viewModel.curDestinationId}
@@ -155,18 +148,17 @@ export const ClientInStockBoxesViewRaw = props => {
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
-          <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
+        <div className={styles.btnsWrapper}>
+          <div className={styles.leftBtnsWrapper}>{renderButtons()}</div>
           <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
             checkboxSelection
+            disableRowSelectionOnClick
             propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
@@ -174,41 +166,16 @@ export const ClientInStockBoxesViewRaw = props => {
               params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
               params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
             }
-            classes={{
-              row: classNames.row,
-              virtualScrollerContent: classNames.virtualScrollerContent,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sx={{
-              '.MuiDataGrid-sortIcon': {
-                width: 14,
-                height: 14,
-                '& > active': {
-                  display: 'none',
-                },
-              },
-            }}
-            columnHeaderHeight={65}
             getRowClassName={getRowClassName}
             rowSelectionModel={viewModel.selectedBoxes}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData || []}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -238,9 +205,7 @@ export const ClientInStockBoxesViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-            // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onCellDoubleClick={params =>
               !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
             }
@@ -337,9 +302,9 @@ export const ClientInStockBoxesViewRaw = props => {
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={
             (viewModel.selectedBoxes.length &&
-              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
-                box => box.originalData,
-              )) ||
+              viewModel.boxesMy
+                .filter(box => viewModel.selectedBoxes.includes(box._id))
+                ?.map(box => box.originalData)) ||
             []
           }
           requestStatus={viewModel.requestStatus}
@@ -357,17 +322,15 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={viewModel.triggerRequestToSendBatchModal}
       >
         <RequestToSendBatchForm
-          userInfo={viewModel.userInfo}
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedBoxes}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           boxesMy={viewModel.boxesMy.map(box => box.originalData)}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
@@ -422,7 +385,7 @@ export const ClientInStockBoxesViewRaw = props => {
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
           showCheckbox
-          RemoveDestinationRestriction
+          RemoveDestinationRestriction={!viewModel.isCurrentTarrifsButton}
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
@@ -435,7 +398,14 @@ export const ClientInStockBoxesViewRaw = props => {
           total={!viewModel.changeItem}
           currentDestinationId={viewModel.changeItem?.destination?._id}
           currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(storekeeperId, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid) =>
+          onSubmit={(
+            storekeeperId,
+            tariffId,
+            variationTariffId,
+            destinationId,
+            isSelectedDestinationNotValid,
+            isSetCurrentDestination,
+          ) =>
             viewModel.editTariff(
               viewModel.changeItem?._id,
               {
@@ -445,6 +415,7 @@ export const ClientInStockBoxesViewRaw = props => {
                 destinationId,
               },
               isSelectedDestinationNotValid,
+              isSetCurrentDestination,
             )
           }
         />
@@ -504,6 +475,4 @@ export const ClientInStockBoxesViewRaw = props => {
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </React.Fragment>
   )
-}
-
-export const ClientInStockBoxesView = withStyles(observer(ClientInStockBoxesViewRaw), styles)
+})

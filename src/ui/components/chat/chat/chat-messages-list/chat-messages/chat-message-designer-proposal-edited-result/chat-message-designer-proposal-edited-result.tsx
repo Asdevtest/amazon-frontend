@@ -12,6 +12,7 @@ import { Field } from '@components/shared/field'
 
 import { checkIsImageLink } from '@utils/checks'
 import { formatDateOnlyTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -36,10 +37,7 @@ interface Props {
 
 export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
   const { classes: classNames } = useClassNames()
-
-  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  const files = message.data.proposal.media.slice(0, 4).map(el => el.fileLink)
 
   return (
     <div className={classNames.root}>
@@ -54,31 +52,21 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
           <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
 
           <div className={cx(classNames.imagesWrapper, { [classNames.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
-            {message.data.proposal.media
-              ?.slice(0, 4)
-              .map(el => el.fileLink)
-              .map((item, index) => (
-                <div
-                  key={index}
-                  className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}
-                  // onClick={() => {
-                  //   setCurImageId(item._id)
-                  //   setShowImageModal(!showImageModal)
-                  // }}
-                >
-                  {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+            {files.map((item, index) => (
+              <div key={index} className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
+                {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
-                  {index === 3 && message.data.proposal.media.length > 4 && (
-                    <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
-                  )}
+                {index === 3 && message.data.proposal.media.length > 4 && (
+                  <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
+                )}
 
-                  <img
-                    src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
-                    alt={`Image ${index}`}
-                    className={classNames.image}
-                  />
-                </div>
-              ))}
+                <img
+                  src={checkIsImageLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
+                  alt={`Image ${index}`}
+                  className={classNames.image}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -113,33 +101,6 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
         >
           {t(TranslationKey['Open result'])}
         </Button>
-
-        {/* {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-        chatRequestAndRequestProposal &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
-        curUserId  ? (
-          <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
-              <Button
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={cx(classNames.actionButton, classNames.editButton)}
-                onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
-              >
-                {t(TranslationKey['Send in for rework'])}
-              </Button>
-            )}
-            <Button
-              success
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-              className={cx(classNames.actionButton, classNames.successBtn)}
-              onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
-            >
-              {t(TranslationKey.Receive)}
-            </Button>
-          </div>
-        ) : undefined} */}
       </div>
     </div>
   )

@@ -1,22 +1,6 @@
-// import {grey} from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
-  // MuiButton: {
-  //   defaultProps: {
-  //     sx: {
-  //       '&.Mui-disabled': {
-  //         backgroundColor: '#a0a0a4',
-  //       },
-  //     },
-  //   },
-  //   styleOverrides: {
-  //     root: {
-  //       textTransform: 'none',
-  //     },
-  //   },
-  // },
-
   MuiAvatar: {
     styleOverrides: {
       fallback: {
@@ -37,6 +21,30 @@ const baseThemeSettings = {
   },
 }
 
+export const globalStyles = theme => ({
+  '::-webkit-scrollbar': {
+    display: 'block !important',
+    width: '6px',
+    height: '6px',
+    cursor: 'pointer',
+  },
+  '::-webkit-scrollbar-track': {
+    borderRadius: '8px',
+    backgroundColor: 'transparent !important',
+    border: 'none !important',
+  },
+  '::-webkit-scrollbar-thumb': {
+    borderRadius: '8px',
+    backgroundColor: theme.palette.text.gray,
+  },
+  '::-webkit-scrollbar-corner': {
+    backgroundColor: 'transparent !important',
+  },
+  '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
+    visibility: 'visible !important',
+  },
+})
+
 export const lightTheme = createTheme({
   ...baseThemeSettings,
 
@@ -55,61 +63,18 @@ export const lightTheme = createTheme({
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
-          border: '0 !important',
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          border: 'none',
+          boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
           color: '#001029',
-
-          '& .MuiDataGrid-virtualScroller': {
-            '&::-webkit-scrollbar': {
-              // width: '8px',
-            },
-
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#DAE1E9',
-              borderRadius: '22px',
-              border: '2px solid #fff',
-            },
-
-            '&::-webkit-scrollbar-track': {
-              backgroundColor: 'transparent',
-            },
-          },
-          borderRadius: '20px',
+          borderRadius: 20,
         },
 
         row: {
           cursor: 'pointer',
           transition: '0.3s ease',
-        },
-
-        footerContainer: {
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          borderTop: 'none !important',
-        },
-
-        footerCell: {
-          padding: 0,
-          margin: 0,
-        },
-
-        toolbarContainer: {
-          height: '52px',
-        },
-
-        // Убрать
-        columnHeaders: {
-          height: 65,
         },
 
         sortIcon: {
@@ -132,7 +97,7 @@ export const lightTheme = createTheme({
         },
 
         menuIconButton: {
-          zIndex: 1000,
+          zIndex: 50,
           position: 'absolute !important',
           right: -7,
           // visibility: 'visible !important',
@@ -188,14 +153,6 @@ export const lightTheme = createTheme({
         },
       },
     },
-
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#001029',
-    //     },
-    //   },
-    // },
 
     MuiSvgIcon: {
       styleOverrides: {
@@ -396,36 +353,13 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
-          border: '0 !important',
-          // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6) !important', // Новый вид
+          border: 'none',
+          boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#fff',
-
-          // border: '1px solid rgba(81, 81, 81, 1) !important',
-
-          '& .MuiDataGrid-virtualScroller': {
-            '&::-webkit-scrollbar': {
-              // width: '8px',
-            },
-
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#45454d',
-              borderRadius: '22px',
-              border: '2px solid #25252D',
-            },
-
-            '&::-webkit-scrollbar-track': {
-              backgroundColor: 'transparent',
-            },
-          },
+          borderRadius: 20,
         },
 
         row: {
@@ -440,21 +374,10 @@ export const darkTheme = createTheme({
           },
         },
 
-        footerContainer: {
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          borderTop: 'none !important',
-        },
-
-        footerCell: {
-          padding: 0,
-          margin: 0,
-        },
-
-        toolbarContainer: {
-          height: '52px',
-          borderRadius: '20px',
+        sortIcon: {
+          color: '#fff',
+          width: 14,
+          height: 14,
         },
 
         columnSeparator: {
@@ -474,14 +397,7 @@ export const darkTheme = createTheme({
         },
 
         menu: {
-          // backgroundColor: '#2B2B34',
           color: '#fff',
-        },
-
-        sortIcon: {
-          color: '#fff !important',
-          width: 14,
-          height: 14,
         },
 
         cell: {
@@ -504,7 +420,7 @@ export const darkTheme = createTheme({
 
         menuIconButton: {
           color: '#fff',
-          zIndex: 1000,
+          zIndex: 50,
           position: 'absolute !important',
           right: -7,
           // visibility: 'visible !important',
@@ -527,7 +443,6 @@ export const darkTheme = createTheme({
         iconSeparator: {
           padding: '0 1px',
         },
-        //
       },
     },
 
@@ -618,8 +533,8 @@ export const darkTheme = createTheme({
         },
         input: {
           '&.Mui-disabled': {
-            backgroundColor: '#36363F !important',
-            WebkitTextFillColor: '#fff !important',
+            backgroundColor: '#36363F',
+            WebkitTextFillColor: '#fff',
           },
         },
       },
@@ -695,74 +610,6 @@ export const darkTheme = createTheme({
 
     MuiCssBaseline: {
       styleOverrides: {
-        '::-webkit-scrollbar': {
-          backgroundColor: '#25252D',
-          // cursor: 'pointer !important',
-        },
-        '::-webkit-scrollbar-thumb': {
-          backgroundColor: '#53535B',
-          border: '3px solid #25252D',
-          borderTop: 'none',
-          borderBottom: 'none',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button': {
-          backgroundColor: '#25252D',
-          outline: '1px solid #25252D',
-
-          '&:hover': {
-            backgroundColor: 'rgba(43, 43, 52, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button:vertical:start:decrement': {
-          background:
-            'linear-gradient(120deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(240deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(0deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
-          backgroundColor: '#53535B',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button:vertical:end:increment': {
-          background:
-            'linear-gradient(300deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(60deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(180deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
-          backgroundColor: '#53535B',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button:horizontal:start:decrement': {
-          background:
-            'linear-gradient(30deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(150deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(270deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
-          backgroundColor: '#53535B',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button:horizontal:end:increment': {
-          background:
-            'linear-gradient(210deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(330deg, #25252D 42%, rgba(0, 0, 0, 0) 43%), linear-gradient(90deg, #25252D 35%, rgba(0, 0, 0, 0) 36%)',
-          backgroundColor: '#53535B',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-corner': {
-          backgroundColor: '#21212B',
-        },
-
         'input[type="number"]::-webkit-outer-spin-button': {
           // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
@@ -876,7 +723,7 @@ export const darkTheme = createTheme({
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
-        paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
+        paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
         yellow:
           'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
         red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',

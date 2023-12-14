@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
+import { RequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -15,7 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
-import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
+import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
@@ -30,6 +29,8 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
+  const disableProposeDealButton = request?.request?.status === RequestStatus.EXPIRED
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
@@ -42,9 +43,8 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
                 <Typography className={classNames.title}>{request?.request.createdBy.name}</Typography>
 
                 <Rating
-                  disabled
+                  readOnly
                   value={5}
-                  classes={{ icon: classNames.icon }}
                   size="small"
                   // onChange={onChangeField('rating')}
                 />
@@ -56,7 +56,13 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
             </Typography>
           </div>
 
-          <Button variant="contained" color="primary" className={classNames.dealBtn} onClick={onClickSuggestDealBtn}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disableProposeDealButton}
+            className={classNames.dealBtn}
+            onClick={onClickSuggestDealBtn}
+          >
             {t(TranslationKey['Suggest a deal'])}
           </Button>
         </div>

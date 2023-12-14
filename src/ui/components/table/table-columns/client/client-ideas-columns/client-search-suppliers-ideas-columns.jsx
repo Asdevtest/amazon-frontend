@@ -9,10 +9,10 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaSupplier,
+  IdeaSupplierCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OnCheckingIdeaActions,
+  OnCheckingIdeaActionsCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
@@ -68,13 +68,13 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <OnCheckingIdeaActions
+      <OnCheckingIdeaActionsCell
         isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
         onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 220,
+    width: 240,
     sortable: false,
     filterable: false,
   },
@@ -85,7 +85,10 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell
+        twoLines
+        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
+      />
     ),
     width: 100,
     sortable: false,
@@ -109,7 +112,10 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
     renderCell: params => (
-      <IdeaSupplier suppliers={params.value} onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)} />
+      <IdeaSupplierCell
+        suppliers={params.value}
+        onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)}
+      />
     ),
     width: 176,
     sortable: false,
@@ -156,6 +162,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     },
     width: 120,
     type: 'number',
+    sortable: false,
     filterable: false,
   },
 
@@ -168,6 +175,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 80,
     type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
+    sortable: false,
   },
 
   {
@@ -179,6 +187,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 115,
     type: 'number',
     columnKey: columnnsKeys.shared.QUANTITY,
+    sortable: false,
   },
 
   {

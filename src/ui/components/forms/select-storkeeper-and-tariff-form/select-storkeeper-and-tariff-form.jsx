@@ -1,18 +1,16 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
@@ -36,27 +34,16 @@ export const SelectStorekeeperAndTariffForm = observer(
     currentDestinationId,
     RemoveDestinationRestriction,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: classNames } = useClassNames()
 
-    const [tabIndex, setTabIndex] = React.useState(0)
+    const [tabIndex, setTabIndex] = useState(0)
     const [nameSearchValue, setNameSearchValue] = useState('')
-    const [curStorekeeper, setCurStorekeeper] = useState(
-      curStorekeeperId
-        ? storekeepers.find(el => el._id === curStorekeeperId)
-        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
-    )
+    const [curStorekeeper, setCurStorekeeper] = useState(undefined)
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
     const [destinationId, setDestinationId] = useState(currentDestinationId)
     const [isRemovedDestinationRestriction, setIsRemovedDestinationRestriction] = useState(false)
     const [isSelectedDestinationNotValid, setIsSelectedDestinationNotValid] = useState(false)
-
-    const filterByNameSearch = data => {
-      if (nameSearchValue) {
-        return toJS(data).filter(el => el.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
-      } else {
-        return toJS(data)
-      }
-    }
+    const [currentData, setCurrentData] = useState([])
 
     const setVariationTariff = (variationId, destinationId, isNotValidDestination) => {
       if (variationTariffId === variationId) {
@@ -71,72 +58,135 @@ export const SelectStorekeeperAndTariffForm = observer(
     }
 
     const onClickSelectTariff = tariffId =>
-      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId, isSelectedDestinationNotValid)
+      onSubmit(
+        curStorekeeper._id,
+        tariffId,
+        variationTariffId,
+        destinationId,
+        isSelectedDestinationNotValid,
+        Boolean(currentDestinationId),
+      )
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
+    const getCurStorekeeperData = () =>
+      curStorekeeperId
+        ? storekeepers.find(el => el._id === curStorekeeperId)
+        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0]
+
+    const getCurrentData = () => {
+      if (nameSearchValue) {
+        if (tabIndex === 0) {
+          return curStorekeeper?.tariffLogistics.filter(
+            tariff =>
+              tariff?.name?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              tariff.destinationVariations.some(variation =>
+                variation.destination.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              ),
+          )
+        } else {
+          return curStorekeeper?.tariffWarehouses.filter(tariff =>
+            tariff?.name?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
+        }
+      }
+    }
+
+    const getCurrentDataForTabs = value => {
+      if (value === 0) {
+        return (curStorekeeper?.tariffLogistics || [])
+          .filter(item => item?.tariffType === 20)
+          .sort((a, b) => {
+            const aHasMatch = a?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+            const bHasMatch = b?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+
+            if (aHasMatch && !bHasMatch) {
+              return -1
+            } else if (!aHasMatch && bHasMatch) {
+              return 1
+            } else {
+              return 0
+            }
+          })
+      } else {
+        return curStorekeeper?.tariffWarehouses || []
+      }
+    }
+
+    useEffect(() => {
+      if (curStorekeeper) {
+        setCurrentData(getCurrentDataForTabs(tabIndex))
+      }
+    }, [curStorekeeper])
+
+    useEffect(() => {
+      setCurStorekeeper(getCurStorekeeperData())
+    }, [curStorekeeperId])
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        setCurrentData(getCurrentData())
+      } else {
+        setCurrentData(getCurrentDataForTabs(tabIndex))
+      }
+    }, [nameSearchValue])
+
     return (
       <div className={classNames.root}>
-        <div className={classNames.boxesFiltersWrapper}>
-          <CustomSwitcher
-            switchMode={'small'}
-            condition={curStorekeeper}
-            switcherSettings={storekeepers
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b?.name))
-              .map(value => ({
-                label: () => value?.name,
-                value: value?._id,
-              }))}
-            customCondition={value => value === curStorekeeper?._id}
-            changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
-          />
-        </div>
-
-        <SearchInput
-          inputClasses={classNames.searchInput}
-          value={nameSearchValue}
-          placeholder={t(TranslationKey.search)}
-          onChange={e => setNameSearchValue(e.target.value)}
+        <CustomSwitcher
+          switchMode={'small'}
+          condition={curStorekeeper}
+          switcherSettings={storekeepers
+            .slice()
+            .sort((a, b) => a.name?.localeCompare(b?.name))
+            .map(value => ({
+              label: () => value?.name,
+              value: value?._id,
+            }))}
+          customCondition={value => value === curStorekeeper?._id}
+          changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
         />
 
-        <div className={classNames.tabsWrapper}>
-          <CustomSwitcher
-            switchMode={'medium'}
-            condition={tabIndex}
-            switcherSettings={tariffTypesLabels.map((label, index) => ({
-              label: () => t(label),
-              value: index,
-            }))}
-            changeConditionHandler={setTabIndex}
+        <div className={classNames.searchWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={nameSearchValue}
+            placeholder={t(TranslationKey.search)}
+            onChange={e => setNameSearchValue(e.target.value)}
           />
+
+          {RemoveDestinationRestriction && (
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                checked={isRemovedDestinationRestriction}
+                onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
+              />
+              <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+            </div>
+          )}
         </div>
 
-        <TabPanel value={tabIndex} index={0}>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              getRowClassName={getRowClassName}
-              rows={
-                curStorekeeper?.tariffLogistics?.length
-                  ? filterByNameSearch(
-                      addIdDataConverter(curStorekeeper.tariffLogistics)
-                        .filter(item => item.tariffType === 20)
-                        .sort((a, b) => {
-                          const aHasMatch = a?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
-                          const bHasMatch = b?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+        <CustomSwitcher
+          fullWidth
+          switchMode={'medium'}
+          condition={tabIndex}
+          switcherSettings={tariffTypesLabels.map((label, index) => ({
+            label: () => t(label),
+            value: index,
+          }))}
+          changeConditionHandler={value => {
+            setCurrentData(getCurrentDataForTabs(value))
+            setTabIndex(value)
+          }}
+        />
 
-                          if (aHasMatch && !bHasMatch) {
-                            return -1
-                          } else if (!aHasMatch && bHasMatch) {
-                            return 1
-                          } else {
-                            return 0
-                          }
-                        }),
-                    )
-                  : []
-              }
+        <TabPanel value={tabIndex} index={0} className={classNames.tabPanel}>
+          <div className={classNames.tableWrapper}>
+            <CustomDataGrid
+              getRowClassName={getRowClassName}
+              rows={currentData || []}
+              sortingMode="client"
+              paginationMode="client"
               columns={
                 total
                   ? TotalStorkeeperAndWeightBasedTariffFormColumns()
@@ -149,23 +199,12 @@ export const SelectStorekeeperAndTariffForm = observer(
                       isRemovedDestinationRestriction,
                     )
               }
+              getRowId={row => row?._id}
               getRowHeight={() => 'auto'}
             />
           </div>
           {!inNotifications && (
-            <div
-              className={cx(classNames.clearBtnWrapper, { [classNames.oneItemWrapper]: !RemoveDestinationRestriction })}
-            >
-              {RemoveDestinationRestriction && (
-                <div className={classNames.checkboxWrapper}>
-                  <Checkbox
-                    checked={isRemovedDestinationRestriction}
-                    onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
-                  />
-                  <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
-                </div>
-              )}
-
+            <div className={classNames.clearBtnWrapper}>
               <Button
                 disableElevation
                 color="primary"
@@ -173,7 +212,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 className={classNames.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
-                  onSubmit(null, null, null)
+                  onSubmit(null, null, null, null, null, true)
                 }}
               >
                 {t(TranslationKey.reset)}
@@ -181,15 +220,13 @@ export const SelectStorekeeperAndTariffForm = observer(
             </div>
           )}
         </TabPanel>
-        <TabPanel value={tabIndex} index={2}>
+        <TabPanel value={tabIndex} index={1} className={classNames.tabPanel}>
           <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              hideFooter
-              rows={
-                curStorekeeper?.tariffWarehouses?.length
-                  ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))
-                  : []
-              }
+            <CustomDataGrid
+              rows={currentData || []}
+              getRowId={row => row?._id}
+              sortingMode="client"
+              paginationMode="client"
               columns={warehouseTariffsColumns()}
               rowHeight={100}
             />

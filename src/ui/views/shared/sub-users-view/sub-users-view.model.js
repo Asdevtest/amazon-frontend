@@ -14,7 +14,8 @@ import { ShopModel } from '@models/shop-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
-import { subUsersColumns } from '@components/table/table-columns/sub-users-columns/sub-users-columns'
+import { subUsersColumns } from '@components/table/table-columns/sub-users-columns'
+import { subUsersFreelancerColumns } from '@components/table/table-columns/sub-users-freelancer-columns'
 
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
@@ -71,7 +72,9 @@ export class SubUsersViewModel {
   constructor({ history }) {
     runInAction(() => {
       this.history = history
+      this.setColumnsModel()
     })
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -89,6 +92,13 @@ export class SubUsersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+  }
+
+  setColumnsModel() {
+    this.columnsModel =
+      this.history.location.pathname === '/freelancer/users/sub-users'
+        ? subUsersFreelancerColumns(this.rowHandlers)
+        : subUsersColumns(this.rowHandlers)
   }
 
   onChangeFilterModel(model) {
@@ -195,12 +205,10 @@ export class SubUsersViewModel {
 
       this.getDataGridState()
 
-      await Promise.all([
-        this.getUsers(),
-        this.getGroupPermissions(),
-        this.getSinglePermissions(),
-        UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops(),
-      ])
+      this.getUsers()
+      this.getGroupPermissions()
+      this.getSinglePermissions()
+      UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -225,15 +233,19 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      const result = await UserModel.getMySubUsers()
-      runInAction(() => {
-        this.subUsersData = addIdDataConverter(result)
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await UserModel.getMySubUsers().then(result => {
+        runInAction(() => {
+          this.subUsersData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        })
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -277,7 +289,7 @@ export class SubUsersViewModel {
       const methodByRole = () => {
         switch (UserRoleCodeMap[this.userInfo.role]) {
           case UserRole.CLIENT:
-            return ClientModel.getProductPermissionsData()
+            return ClientModel.getProductPermissionsData({})
 
           case UserRole.BUYER:
             return BuyerModel.getProductsMyLight()
@@ -296,7 +308,9 @@ export class SubUsersViewModel {
       const productPermissionsData = await methodByRole()
 
       runInAction(() => {
-        this.productPermissionsData = clientInventoryDataConverter(productPermissionsData)
+        this.productPermissionsData = clientInventoryDataConverter(
+          productPermissionsData?.rows || productPermissionsData,
+        )
           .filter(el => !el.originalData.archive)
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
@@ -319,11 +333,15 @@ export class SubUsersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setPermissionsForUser(id, data, allowedProductsIds) {
+  async setPermissionsForUser(id, data, allowedProductsIds, currentSpec) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
       await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+
+      if (currentSpec) {
+        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
+      }
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -350,9 +368,14 @@ export class SubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
+  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds, currentSpec) {
     try {
-      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedProductsIds)
+      await this.setPermissionsForUser(
+        subUserId,
+        { permissions, permissionGroups: [] },
+        allowedProductsIds,
+        currentSpec,
+      )
 
       await this.getUsers()
     } catch (error) {

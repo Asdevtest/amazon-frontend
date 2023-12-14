@@ -1,26 +1,28 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
 
-import { adminTasksDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+const filtersFields = []
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
   requestStatus = undefined
 
-  error = undefined
-
   tasksData = []
   curOpenedTask = {}
+  currentData = []
 
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
@@ -32,15 +34,20 @@ export class AdminWarehouseTasksViewModel {
   columnsModel = adminTasksViewColumns(this.rowHandlers)
 
   paginationModel = { page: 0, pageSize: 15 }
+  rowsCount = 0
   columnVisibilityModel = {}
 
   showTaskInfoModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => this.tasksData,
+      () => (this.currentData = this.getCurrentData()),
+    )
   }
 
   async loadData() {
@@ -58,30 +65,17 @@ export class AdminWarehouseTasksViewModel {
     }
   }
 
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
-    this.setDataGridState()
-
     this.getTasks()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
+    this.columnVisibilityModel = model
 
+    this.setDataGridState()
     this.getTasks()
   }
 
@@ -115,25 +109,18 @@ export class AdminWarehouseTasksViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
-
     this.getTasks()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   getCurrentData() {
@@ -142,18 +129,27 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      const result = await AdministratorModel.getLightTasks()
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const result = await AdministratorModel.getTasksPag({
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilters(),
+      })
 
       runInAction(() => {
-        this.tasksData = adminTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
-        )
+        this.tasksData = result.rows
+        this.rowsCount = result.count
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       if (error.body.message === 'По данному запросу ничего не найдено.') {
         runInAction(() => {
@@ -172,10 +168,8 @@ export class AdminWarehouseTasksViewModel {
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.curOpenedTask = task
       })
-
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)
@@ -183,8 +177,85 @@ export class AdminWarehouseTasksViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
+  }
+
+  // * Filtration
+
+  getFilters(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, '', exclusion, filtersFields, [
+        'asin',
+        'skusByClient',
+        'amazonTitle',
+      ]),
+    )
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+
+    this.setDataGridState()
+    this.getTasks()
+  }
+
+  onClickResetFilters() {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
+
+    this.getTasks()
+    this.getDataGridState()
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'tasks'),
+        column,
+
+        `admins/orders/pag?filters=${this.getFilters(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 }

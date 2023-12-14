@@ -1,12 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '1510px',
     display: 'flex',
     padding: '10px 20px',
     height: '100%',
-    // backgroundColor: theme.palette.background.second,
 
     flexDirection: 'column',
     position: 'relative',
@@ -251,7 +250,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     color: theme.palette.text.general,
 
-    zIndex: 999,
+    zIndex: 50,
 
     [theme.breakpoints.down(768)]: {
       width: '121px',

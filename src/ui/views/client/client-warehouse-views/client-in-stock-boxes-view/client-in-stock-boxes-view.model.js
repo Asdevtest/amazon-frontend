@@ -21,66 +21,17 @@ import { UserModel } from '@models/user-model'
 import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
 import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
-const updateBoxWhiteList = [
-  'amount',
-  'weighGrossKg',
-  'volumeWeightKg',
-  'shippingLabel',
-  'warehouse',
-  'deliveryMethod',
-  'lengthCmSupplier',
-  'widthCmSupplier',
-  'heightCmSupplier',
-  'weighGrossKgSupplier',
-  'lengthCmWarehouse',
-  'widthCmWarehouse',
-  'heightCmWarehouse',
-  'weighGrossKgWarehouse',
-  'isBarCodeAttachedByTheStorekeeper',
-  'isShippingLabelAttachedByStorekeeper',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'items',
-  'images',
-  'destinationId',
-  'storekeeperId',
-  'logicsTariffId',
-  'fbaShipment',
-  'referenceId',
-  'trackNumberFile',
-  'trackNumberText',
-  'fbaNumber',
-  'prepId',
-  'variationTariffId',
-]
-
-const filtersFields = [
-  'shopIds',
-  'humanFriendlyId',
-  'id',
-  'item',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'destination',
-  'logicsTariff',
-  'createdAt',
-  'updatedAt',
-  'amount',
-  'prepId',
-  'status',
-  'storekeeper',
-  'sub',
-]
+import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 
 export class ClientInStockBoxesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   selectedBox = undefined
 
@@ -93,6 +44,7 @@ export class ClientInStockBoxesViewModel {
 
   curBox = undefined
   showBoxViewModal = false
+  isCurrentTarrifsButton = false
 
   selectedBoxes = []
   selectedRows = []
@@ -102,12 +54,8 @@ export class ClientInStockBoxesViewModel {
   storekeepersData = []
   destinations = []
   clientDestinations = []
-  // isFormed = null
 
   curDestinationId = undefined
-  // curShops = []
-
-  currentData = []
 
   boxesIdsToTask = []
   shopsData = []
@@ -115,8 +63,6 @@ export class ClientInStockBoxesViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    // onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
-    // onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
       this.getBoxesMy()
@@ -125,25 +71,13 @@ export class ClientInStockBoxesViewModel {
 
     filterRequestStatus: undefined,
 
-    isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
+    isFormedData: { isFormed: undefined, onChangeIsFormed: value => this.onChangeIsFormed(value) },
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
-
-  // productSearchGuid = null
 
   volumeWeightCoefficient = undefined
 
@@ -227,8 +161,8 @@ export class ClientInStockBoxesViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = { items: [] }
 
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
@@ -246,6 +180,10 @@ export class ClientInStockBoxesViewModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    return this.boxesMy
+  }
+
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
@@ -255,7 +193,7 @@ export class ClientInStockBoxesViewModel {
       return false
     }
 
-    return this.currentData
+    return this.boxesMy
       .filter(el => this.selectedBoxes.includes(el._id))
       .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
@@ -265,34 +203,23 @@ export class ClientInStockBoxesViewModel {
       return false
     }
 
-    return this.currentData
+    return this.boxesMy
       .filter(el => this.selectedBoxes.includes(el._id))
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
   constructor({ history }) {
+    this.history = history
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.history = history
+    this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+    this.nameSearchValue = url.searchParams.get('search-text')
 
-      this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
-      this.nameSearchValue = url.searchParams.get('search-text')
-    })
+    if (history.location.state?.dataGridFilter) {
+      this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
+    }
 
-    runInAction(() => {
-      this.history = history
-    })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.boxesMy,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
 
     reaction(
       () => this.currentStorekeeperId,
@@ -301,7 +228,15 @@ export class ClientInStockBoxesViewModel {
   }
 
   async getDestinations() {
-    this.destinations = await ClientModel.getDestinations()
+    try {
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async updateUserInfo() {
@@ -309,33 +244,25 @@ export class ClientInStockBoxesViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-      // this.paginationModel = { ...model, page: 0 }
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getBoxesMy()
   }
 
   onChangeUnitsOption(option) {
-    runInAction(() => {
-      this.unitsOption = option
-    })
+    this.unitsOption = option
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getBoxesMy()
   }
@@ -373,47 +300,28 @@ export class ClientInStockBoxesViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
-    this.requestStatus = loadingStatuses.isLoading
-    this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBoxes = model
-    })
+    this.selectedBoxes = model
 
     const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
 
     this.selectedRows = selectedRows
   }
 
-  getCurrentData() {
-    return toJS(this.boxesMy)
-  }
-
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
-  }
-
   onClickStorekeeperBtn(currentStorekeeperId) {
-    runInAction(() => {
-      this.selectedBoxes = []
+    this.selectedBoxes = []
 
-      this.currentStorekeeperId = currentStorekeeperId
-    })
+    this.currentStorekeeperId = currentStorekeeperId
 
     this.getBoxesMy()
   }
@@ -476,9 +384,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   setSelectedBox(item) {
-    runInAction(() => {
-      this.selectedBox = item
-    })
+    this.selectedBox = item
   }
 
   onClickShippingLabel(item) {
@@ -488,14 +394,12 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickReturnBoxesToStockBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
-        onClickConfirm: () => this.returnBoxesToStock(),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
+      onClickConfirm: () => this.returnBoxesToStock(),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -511,9 +415,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -531,34 +432,17 @@ export class ClientInStockBoxesViewModel {
   onDoubleClickShippingLabel = item => {
     this.setSelectedBox(item)
 
-    // if (!item.fbaShipment) {
-    //   runInAction(() => {
-    //     this.warningInfoModalSettings = {
-    //       isWarning: true,
-    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-    //     }
-    //   })
-
-    //   this.onTriggerOpenModal('showWarningInfoModal')
-
-    //   this.onTriggerOpenModal('showSetChipValueModal')
-    // }
-
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
 
   onChangeIsFormed(value) {
-    runInAction(() => {
-      // this.isFormed = value
-
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isFormedData: {
-          ...this.columnMenuSettings.isFormedData,
-          isFormed: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      isFormedData: {
+        ...this.columnMenuSettings.isFormedData,
+        isFormed: value,
+      },
+    }
 
     this.getBoxesMy()
   }
@@ -593,12 +477,11 @@ export class ClientInStockBoxesViewModel {
       !this.selectedBox.fbaShipment &&
       !this.destinations.find(el => el._id === this.selectedBox.destination?._id)?.storekeeper
     ) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-        }
-      })
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+      }
+
       this.onTriggerOpenModal('showWarningInfoModal')
       this.onTriggerOpenModal('showSetChipValueModal')
     }
@@ -614,7 +497,9 @@ export class ClientInStockBoxesViewModel {
     }
 
     if (this.selectedBox.shippingLabel === null) {
-      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, { shippingLabel: this.uploadedFiles[0] })
+      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {
+        shippingLabel: this.uploadedFiles?.[0] || tmpShippingLabel?.[0],
+      })
 
       this.checkAndOpenFbaShipmentEdit()
 
@@ -669,7 +554,7 @@ export class ClientInStockBoxesViewModel {
         updateBoxWhiteList,
       )
 
-      const editBoxesResult = await this.editBox({ id: this.selectedBox._id, data: requestBox })
+      const editBoxesResult = await this.editBox(this.selectedBox._id, requestBox)
 
       await this.postTask({
         idsData: [editBoxesResult.guid],
@@ -690,62 +575,53 @@ export class ClientInStockBoxesViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-          sourceBox?.storekeeper?.name
-        } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
-        onClickConfirm: () =>
-          this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        sourceBox?.storekeeper?.name
+      } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
+      onClickConfirm: () =>
+        this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickConfirmCreateChangeTasks(id, boxData, sourceData, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage:
-          !boxData.clientTaskComment &&
-          boxData.items.every(item => !item.tmpBarCode.length) &&
-          // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
-          (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-            ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
-            : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
-                TranslationKey['to change the Box'],
-              )} № ${boxData?.humanFriendlyId}`,
-        onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage:
+        !boxData.clientTaskComment &&
+        boxData.items.every(item => !item.tmpBarCode.length) &&
+        // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
+              TranslationKey['to change the Box'],
+            )} № ${boxData?.humanFriendlyId}`,
+      onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickConfirmCreateMergeTasks(boxBody, comment, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-          this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
-        } ${t(TranslationKey['to merge boxes'])}`,
-        onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
-        onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
+      } ${t(TranslationKey['to merge boxes'])}`,
+      onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
+      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
   }
 
   onClickFbaShipment(item) {
@@ -793,21 +669,17 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickRemoveBoxFromBatch(boxId) {
-    runInAction(() => {
-      this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
-    })
+    this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   async onClickSavePrepId(itemId, value) {
@@ -827,9 +699,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickDestinationBtn(curDestinationId) {
-    runInAction(() => {
-      this.curDestinationId = curDestinationId
-    })
+    this.curDestinationId = curDestinationId
 
     this.requestStatus = loadingStatuses.isLoading
     this.getBoxesMy().then(() => {
@@ -840,6 +710,7 @@ export class ClientInStockBoxesViewModel {
   openModalAndClear() {
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     this.changeItem = null
+    this.isCurrentTarrifsButton = false
   }
 
   async getClientDestinations() {
@@ -865,15 +736,10 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-
-      await Promise.allSettled([
-        this.getStorekeepers(),
-        this.getDestinations(),
-        this.getClientDestinations(),
-        this.getShops(),
-        this.getBoxesMy(),
-      ])
-
+      await this.getStorekeepers()
+      this.getBoxesMy()
+      this.getDestinations()
+      this.getShops()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -907,15 +773,11 @@ export class ClientInStockBoxesViewModel {
   }
 
   onModalRedistributeBoxAddNewBox(value) {
-    runInAction(() => {
-      this.modalRedistributeBoxAddNewBox = value
-    })
+    this.modalRedistributeBoxAddNewBox = value
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.requestStatus = loadingStatuses.isLoading
     this.getBoxesMy().then(() => {
@@ -953,7 +815,9 @@ export class ClientInStockBoxesViewModel {
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              shippingLabel: this.uploadedFiles.length
+                ? this.uploadedFiles[0]
+                : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
               variationTariffId: updatedBoxes[i].variationTariffId,
@@ -1010,9 +874,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1105,9 +966,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onRemoveBoxFromSelected(boxId) {
-    runInAction(() => {
-      this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
-    })
+    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
 
     if (this.selectedBoxes.length < 2) {
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -1176,7 +1035,9 @@ export class ClientInStockBoxesViewModel {
             })
           }
 
-          newBox.shippingLabel = findUploadedShippingLabel ? findUploadedShippingLabel.link : this.uploadedFiles[0]
+          newBox.shippingLabel = findUploadedShippingLabel
+            ? findUploadedShippingLabel.link
+            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
         }
 
         const dataToBarCodeChange = newBox.items
@@ -1257,27 +1118,40 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async editDestination(id, boxData) {
     try {
       await BoxesModel.editBoxAtClient(id, boxData)
-
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
-  async editTariff(id, boxData, isSelectedDestinationNotValid) {
+  async patchBoxHandler(id, boxData, acceptAction, spliteAction, notShowConfirmModal) {
+    this.setRequestStatus(loadingStatuses.isLoading)
+
+    spliteAction &&
+      (await BoxesModel.editBoxAtClient(id, {
+        destinationId: null,
+      }))
+
+    await BoxesModel.editBoxAtClient(id, {
+      logicsTariffId: boxData.logicsTariffId,
+      variationTariffId: boxData.variationTariffId,
+      ...(acceptAction && { destinationId: boxData.destinationId }),
+    })
+
+    !notShowConfirmModal && this.onTriggerOpenModal('showConfirmModal')
+    await this.getBoxesMy()
+    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    this.setRequestStatus(loadingStatuses.success)
+  }
+
+  async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
     try {
       if (isSelectedDestinationNotValid) {
         runInAction(() => {
@@ -1285,47 +1159,29 @@ export class ClientInStockBoxesViewModel {
             isWarning: true,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: async () => {
-              await BoxesModel.editBoxAtClient(id, {
-                logicsTariffId: boxData.logicsTariffId,
-                variationTariffId: boxData.variationTariffId,
-                destinationId: boxData.destinationId,
-              })
-              this.onTriggerOpenModal('showConfirmModal')
-              await this.getBoxesMy()
-              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
-            },
-            onClickCancelBtn: async () => {
-              await BoxesModel.editBoxAtClient(id, {
-                destinationId: null,
-              })
-              await BoxesModel.editBoxAtClient(id, {
-                logicsTariffId: boxData.logicsTariffId,
-                variationTariffId: boxData.variationTariffId,
-              })
-              this.onTriggerOpenModal('showConfirmModal')
-              await this.getBoxesMy()
-              this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
-            },
+            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
+            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, true, false),
           }
         })
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        await BoxesModel.editBoxAtClient(id, {
-          logicsTariffId: boxData.logicsTariffId,
-          variationTariffId: boxData.variationTariffId,
-        })
-
-        await this.getBoxesMy()
-
-        this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+        if (!isSetCurrentDestination) {
+          runInAction(() => {
+            this.confirmModalSettings = {
+              isWarning: true,
+              title: t(TranslationKey.Attention),
+              confirmMessage: t(TranslationKey['Wish to change a destination?']),
+              onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
+              onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
+            }
+          })
+          this.onTriggerOpenModal('showConfirmModal')
+        } else {
+          this.patchBoxHandler(id, boxData, false, false, true)
+        }
       }
     } catch (error) {
       console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1358,7 +1214,9 @@ export class ClientInStockBoxesViewModel {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
           variationTariffId: boxData.variationTariffId,
-          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles[0]
+            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -1432,12 +1290,14 @@ export class ClientInStockBoxesViewModel {
             items: isMultipleEdit
               ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
               : getNewItems(),
-            shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+            shippingLabel: this.uploadedFiles?.length
+              ? this.uploadedFiles[0]
+              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0],
           },
           updateBoxWhiteList,
         )
 
-        const editBoxesResult = await this.editBox({ id, data: requestBox })
+        const editBoxesResult = await this.editBox(id, requestBox)
 
         await this.updateBarCodesInInventory(dataToBarCodeChange)
 
@@ -1469,9 +1329,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       if (!isMultipleEdit) {
         this.loadData()
@@ -1503,7 +1360,12 @@ export class ClientInStockBoxesViewModel {
       }
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        { ...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel },
+        {
+          ...boxBody,
+          shippingLabel: this.uploadedFiles.length
+            ? this.uploadedFiles[0]
+            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
+        },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
         undefined,
         undefined,
@@ -1554,9 +1416,6 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1590,9 +1449,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
 
@@ -1608,21 +1464,17 @@ export class ClientInStockBoxesViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1644,20 +1496,13 @@ export class ClientInStockBoxesViewModel {
           newPriority: null,
         }
       })
-
-      // this.onTriggerOpenModal('showEditPriorityData')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async onClickCurrentTariffsBtn() {
@@ -1665,18 +1510,19 @@ export class ClientInStockBoxesViewModel {
     await ClientModel.getDestinations()
 
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    runInAction(() => {
+      this.isCurrentTarrifsButton = true
+    })
   }
 
-  async editBox(box) {
+  async editBox(guid, body) {
     try {
-      const result = await BoxesModel.editBox(box)
+      const result = await BoxesModel.editBox(guid, body)
 
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1687,9 +1533,6 @@ export class ClientInStockBoxesViewModel {
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1701,9 +1544,6 @@ export class ClientInStockBoxesViewModel {
       return result
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1714,39 +1554,32 @@ export class ClientInStockBoxesViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getBoxesMy()
     this.getDataGridState()
@@ -1765,9 +1598,16 @@ export class ClientInStockBoxesViewModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
+      const currentColumn =
+        column === 'logicsTariffId' ? 'logicsTariff' : column === 'destinationId' ? 'destination' : column
+
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'boxes'),
-        column,
+        // Костылики, если ты это видишь, то Паша обещал решить эту проблему после релиза 27.11.2023
+        // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
+        // Удалить currentColumn и поставить на его место аргумент функции, column
+        // Костыли зло ┗( T﹏T )┛
+        getTableByColumn(currentColumn, 'boxes'),
+        currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
@@ -1786,9 +1626,6 @@ export class ClientInStockBoxesViewModel {
       this.setFilterRequestStatus(loadingStatuses.failed)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1800,112 +1637,22 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'ashumanFriendlyIdin' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
-    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
-
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
-    const logicsTariffFilter =
-      exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
-    const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
-    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(el => el._id).join(',')
-
-    const storekeeperIdFilter =
-      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.map(el => el._id).join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
-        { id: { $eq: this.nameSearchValue } },
-        { item: { $eq: this.nameSearchValue } },
-        { productId: { $eq: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-        { prepId: { $contains: this.nameSearchValue } },
-        // { sub: { $contains: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(idFilter && {
-        id: { $eq: idFilter },
-      }),
-
-      ...(itemFilter && {
-        item: { $eq: itemFilter },
-      }),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(destinationFilter && {
-        destinationId: { $eq: destinationFilter },
-      }),
-      ...(logicsTariffFilter && {
-        logicsTariffId: { $eq: logicsTariffFilter },
-      }),
-
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
-      ...(amountFilter && {
-        amount: { $eq: amountFilter },
-      }),
-
-      ...(prepIdFilter && {
-        prepId: { $eq: prepIdFilter },
-      }),
-
-      ...(storekeeperIdFilter && {
-        storekeeperId: { $eq: storekeeperIdFilter },
-      }),
-
-      ...(subFilter && {
-        sub: { $eq: subFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'amazonTitle',
+        'skusByClient',
+        'id',
+        'item',
+        'productId',
+        'humanFriendlyId',
+        'prepId',
+      ]),
+    )
   }
 
   async getBoxesMy() {
@@ -1916,25 +1663,17 @@ export class ClientInStockBoxesViewModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
-      const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
+      const result = await BoxesModel.getBoxesForCurClientLightPag({
+        status: curStatus,
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-
         storekeeperId: this.currentStorekeeperId,
-
-        // storekeeperId: 'add51a2a-3f0b-4796-9497-73eaa992de24,402b6b17-280f-4a3a-a04c-543b17a10c28',
-
         destinationId: this.curDestinationId,
-
         shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
-
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
         hasBatch: false,
       })
 
@@ -1951,9 +1690,6 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       runInAction(() => {
         this.boxesMy = []
@@ -1964,9 +1700,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   triggerRequestToSendBatchModal() {
-    runInAction(() => {
-      this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
-    })
+    this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
   }
 
   async updateTaskPriority(taskId, priority, reason) {
@@ -1974,9 +1708,6 @@ export class ClientInStockBoxesViewModel {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

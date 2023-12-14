@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -40,7 +38,6 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => {
       const product = params.row.originalData
-      console.log(product)
 
       return (
         <ProductAsinCell
@@ -209,7 +206,7 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.TAGS,
   },
 
   {

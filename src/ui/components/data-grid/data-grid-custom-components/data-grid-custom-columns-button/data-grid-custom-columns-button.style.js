@@ -9,11 +9,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainFilterBtnInsert: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 8,
   },
 
   mainFilterBtnInsertText: {
     fontWeight: 600,
-    marginLeft: 5,
   },
 
   mainWrapper: {

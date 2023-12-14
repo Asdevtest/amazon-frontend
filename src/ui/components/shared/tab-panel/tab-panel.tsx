@@ -12,8 +12,8 @@ export const TabPanel: FC<Props> = memo(({ children, value, index, className, ..
     hidden={value !== index}
     id={`simple-tabpanel-${index}`}
     aria-labelledby={`simple-tab-${index}`}
+    className={value === index ? className : ''}
     style={{ paddingTop: 10 }}
-    className={className}
     {...restProps}
   >
     {value === index && children}

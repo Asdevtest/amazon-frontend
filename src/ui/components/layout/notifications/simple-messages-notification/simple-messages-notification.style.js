@@ -1,55 +1,52 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
     cursor: 'pointer',
-    display: 'flex',
-    flexWrap: 'wrap',
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
-  messageText: {
-    marginTop: 5,
-    color: theme.palette.text.general,
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word',
-    overflow: 'hidden',
-    minHeight: 50,
-    maxHeight: 150,
-    minWidth: 150,
-    maxWidth: 250,
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
   },
 
-  filesText: {
-    color: theme.palette.text.second,
-    marginTop: 10,
-  },
-
-  messageDate: {
-    fontSize: 12,
-    marginRight: '-20px',
-    marginTop: '-18px',
-    color: theme.palette.text.second,
-  },
-
-  avatarWrapper: {
-    width: 53,
-    height: 53,
-    marginRight: 20,
-  },
-
-  footer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+  content: {
     width: '100%',
-  },
-
-  centerWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    gap: 3,
+  },
+
+  message: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.general,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  files: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  date: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.second,
+  },
+
+  dateContainer: {
+    position: 'absolute',
+    right: 8,
+    bottom: 8,
   },
 }))

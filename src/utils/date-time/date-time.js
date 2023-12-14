@@ -2,15 +2,11 @@
 import {
   compareAsc,
   compareDesc,
-  differenceInDays,
-  differenceInHours,
-  differenceInMinutes,
   format,
   formatDistance,
   formatDistanceStrict,
   formatISO,
   isValid,
-  minutesToMilliseconds,
   parseISO,
 } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
@@ -18,30 +14,76 @@ import ruLocale from 'date-fns/locale/ru'
 
 import { SettingsModel } from '@models/settings-model'
 
-export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
+export const getUtcDateObject = dateString => {
+  const date = new Date(dateString)
+
+  const day = date.getUTCDate().toString().padStart(2, '0')
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
+  const year = date.getUTCFullYear()
+  const hours = date.getUTCHours().toString().padStart(2, '0')
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0')
+
+  return {
+    day,
+    month,
+    year,
+    hours,
+    minutes,
+  }
+}
+
+export const formatDateToCustomFormatInUTC = (dateString, format = 'dd.MM.yyyy HH:mm') => {
+  if (!dateString) {
+    return ''
+  }
+
+  const dateObj = getUtcDateObject(dateString)
+
+  const formattedDate = format
+    .replace('dd', dateObj.day)
+    .replace('MM', dateObj.month)
+    .replace('yyyy', dateObj.year)
+    .replace('HH', dateObj.hours)
+    .replace('mm', dateObj.minutes)
+    .replace('ss', dateObj.seconds)
+
+  return formattedDate
+}
+
+export const getYearDate = dateString => formatDateToCustomFormatInUTC(dateString, 'yyyy')
 
 export const convertDaysToSeconds = days => days * 24 * 60 * 60
 
-export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
+export const formatDate = dateString => {
+  return formatDateToCustomFormatInUTC(dateString, 'dd-MM-yyyy')
+} // предпочтительный формат
 
-export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd.MM.yyyy HH:mm')
+export const formatDateForShowWithoutParseISO = dateString =>
+  formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy HH:mm')
 
-export const formatDateTime = dateString => format(parseISO(dateString), 'MM.dd.yyyy HH:mm')
+export const formatDateTime = dateString => formatDateToCustomFormatInUTC(dateString, 'MM.dd.yyyy HH:mm')
+
 export const formatNormDateTime = dateString => {
   if (dateString) {
-    return format(parseISO(dateString), 'dd.MM.yyyy HH:mm') // предпочтительный формат
+    return formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy HH:mm') // предпочтительный формат
   } else {
     return ''
   }
 }
 
-export const formatDateTimeHourAndMinutes = dateString => (dateString ? format(parseISO(dateString), 'HH:mm') : '')
+export const formatDateTimeHourAndMinutes = dateString => formatDateToCustomFormatInUTC(dateString, 'HH:mm')
 
-export const formatShortDateTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy HH:mm') : '')
-export const formatDateWithoutTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy') : '')
-export const formatDateOnlyTime = dateString => (dateString ? format(parseISO(dateString), 'HH:mm') : '')
+export const formatShortDateTime = dateString => {
+  return formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy HH:mm')
+}
+export const formatDateWithoutTime = dateString => formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy')
 
-export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd.MM.yyyy HH:mm') // предпочтительный формат
+export const reversedFormatDateWithoutTime = dateString => formatDateToCustomFormatInUTC(dateString, 'yyyy.MM.dd')
+
+export const formatDateOnlyTime = dateString => formatDateToCustomFormatInUTC(dateString, 'HH:mm')
+
+export const formatNormDateTimeWithParseISO = dateString =>
+  formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy HH:mm') // предпочтительный формат
 
 export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
   const date1 = parseISO(firstDate)
@@ -60,10 +102,17 @@ export const formatDateDistanceFromNowStrict = (date, tryNow) =>
     partialMethod: 'ceil',
   })
 
-export const formatDateMonthYear = date =>
-  format(parseISO(isValid(date) ? formatISO(date, { representation: 'date' }) : date), 'MMM yyyy', {
-    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
-  })
+export const formatDateMonthYear = date => {
+  const formatedDate = format(
+    parseISO(isValid(date) ? formatISO(date, { representation: 'date' }) : date),
+    'MMM yyyy',
+    {
+      locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+    },
+  )
+
+  return formatedDate
+}
 
 export const formatDateMonthYearWithoutFormatISO = date =>
   format(parseISO(date), 'MMM yyyy', {
@@ -76,7 +125,10 @@ export const formatDateDayMonthYear = date =>
   })
 
 export const formatDateDistanceFromNow = date =>
-  formatDistance(parseISO(date), new Date(), { addSuffix: true, locale: ruLocale })
+  formatDistance(parseISO(date), new Date(), {
+    addSuffix: true,
+    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+  })
 
 export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 
@@ -102,8 +154,6 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldN
         return 1
       }
       return 0
-
-      // compareDesc(first, second)
     })
     .reverse()
 

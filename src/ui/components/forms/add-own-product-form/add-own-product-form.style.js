@@ -2,54 +2,63 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '700px',
+    width: 700,
+    padding: 10,
   },
 
-  btnsWrapper: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'flex-end',
+  title: {
+    marginBottom: 20,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  fieldLabel: {
+    marginBottom: 5,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+  },
+
+  fieldContainer: {
+    marginBottom: 15,
+  },
+
+  checkbox: {
+    padding: 5,
   },
 
   inputWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    gap: 10,
   },
 
   input: {
     height: '32px',
     borderRadius: '7px',
-    width: 'calc(100% - 110px)',
+    width: 'calc(100% - 120px)',
   },
 
   defaultBtn: {
-    marginLeft: '10px',
-    height: '32px',
-    width: '100px',
-  },
-
-  title: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 600,
-    color: theme.palette.text.general,
-
-    marginBottom: '30px',
+    height: 32,
+    width: 100,
   },
 
   skuItemsWrapper: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
     marginBottom: '10px',
     padding: '0 10px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
 
   skuItemWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    justifyContent: 'space-between',
   },
 
   deleteBtnWrapper: {
@@ -65,25 +74,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   skuItemTitle: {
     width: '100%',
-    whiteSpace: 'nowrap',
+    fontSize: '18px',
+    lineHeight: '25px',
+
     overflow: 'hidden',
+    whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    fontSize: '20px',
   },
 
-  checkboxWrapper: {
-    width: '145px',
+  btnsWrapper: {
+    marginTop: '10px',
     display: 'flex',
-    alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      opacity: '0.8',
-    },
-  },
-  fieldLabel: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
+    justifyContent: 'flex-end',
   },
 }))

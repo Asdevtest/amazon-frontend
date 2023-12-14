@@ -1,40 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClientIdeasViewStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '320px',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-
-  root: {
-    boxShadow: theme.palette.boxShadow.paper,
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-
-  toolbarContainer: {
-    height: '52px',
-  },
-
   datagridWrapper: {
     marginTop: '20px',
     height: '78vh',
+    width: '100%',
   },
 
   controls: {

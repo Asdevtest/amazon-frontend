@@ -1,28 +1,23 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { Component, useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import React, { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-search-supplier-by-client-view.style'
+import { useStyles } from './buyer-search-supplier-by-client-view.style'
 
 import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 
-export const BuyerSearchSupplierByClientViewRaw = props => {
+export const BuyerSearchSupplierByClientView = observer(props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
@@ -31,7 +26,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -42,24 +37,14 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
+        <div className={styles.datagridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            pagination
             useResizeContainer
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              cell: classNames.cell,
-            }}
+            disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             columnVisibilityModel={viewModel.columnVisibilityModel}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -76,8 +61,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            // rowHeight={100}
-            getRowHeight={() => 'auto'}
+            rowHeight={80}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
@@ -98,6 +82,4 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const BuyerSearchSupplierByClientView = withStyles(observer(BuyerSearchSupplierByClientViewRaw), styles)
+})

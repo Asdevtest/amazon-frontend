@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Avatar, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
-import { UiTheme } from '@constants/theme/themes'
+import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -67,14 +67,7 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
         <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
         <div className={classNames.centerSubWrapper}>
           <div className={classNames.itemWrapper}>
-            <UserLink
-              name={noticeItem?.creator.name}
-              userId={noticeItem?.creator._id}
-              blackText={undefined}
-              withAvatar={undefined}
-              maxNameWidth={undefined}
-              customClassNames={undefined}
-            />
+            <UserLink name={noticeItem?.creator.name} userId={noticeItem?.creator._id} />
             <Typography className={classNames.messageText}>
               {t(TranslationKey['updated data on idea to product']) + ':'}
             </Typography>

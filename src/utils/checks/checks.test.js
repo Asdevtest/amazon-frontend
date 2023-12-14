@@ -15,6 +15,7 @@ import {
   checkIsStorekeeper,
   checkIsString,
   checkIsSupervisor,
+  checkIsVideoLink,
   findTariffInStorekeepersData,
   isHaveMasterUser,
   isNotNull,
@@ -581,6 +582,63 @@ describe('Test checkIsDocumentLink(link)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(checkIsDocumentLink(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test checkIsVideoLink(link)', () => {
+  const validTestValue = [
+    { enter: 'file.3g2', expect: true },
+    { enter: 'file.3gp', expect: true },
+    { enter: 'file.3gp2', expect: true },
+    { enter: 'file.3gpp', expect: true },
+    { enter: 'file.3gpp2', expect: true },
+    { enter: 'file.asf', expect: true },
+    { enter: 'file.asx', expect: true },
+    { enter: 'file.avi', expect: true },
+    { enter: 'file.f4v', expect: true },
+    { enter: 'file.flv', expect: true },
+    { enter: 'file.h264', expect: true },
+    { enter: 'file.mkv', expect: true },
+    { enter: 'file.mod', expect: true },
+    { enter: 'file.moov', expect: true },
+    { enter: 'file.mov', expect: true },
+    { enter: 'file.mp4', expect: true },
+    { enter: 'file.mpeg', expect: true },
+    { enter: 'file.mpg', expect: true },
+    { enter: 'file.mts', expect: true },
+    { enter: 'file.rm', expect: true },
+    { enter: 'file.rmvb', expect: true },
+    { enter: 'file.srt', expect: true },
+    { enter: 'file.swf', expect: true },
+    { enter: 'file.ts', expect: true },
+    { enter: 'file.vob', expect: true },
+    { enter: 'file.webm', expect: true },
+    { enter: 'file.wmv', expect: true },
+    { enter: 'file.yuv', expect: true },
+  ]
+
+  const unvalidTestValue = [
+    { enter: '', expect: false },
+    { enter: 'google.com', expect: false },
+    { enter: '10.1211221', expect: false },
+    { enter: 'storekeeper', expect: false },
+    { enter: 'file.txt', expect: false },
+    { enter: 'file.mp3', expect: false },
+    { enter: 'file.jpg', expect: false },
+    { enter: 'file.gif', expect: false },
+    { enter: 'file.docx', expect: false },
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid props', () => {
+      expect(checkIsVideoLink(value.enter)).toBe(value.expect)
+    })
+  })
+
+  unvalidTestValue.forEach(value => {
+    test('Unvalid props', () => {
+      expect(checkIsVideoLink(value.enter)).toBe(value.expect)
     })
   })
 })

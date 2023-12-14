@@ -2,14 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 'min-content',
-    [theme.breakpoints.down(1282)]: {
-      width: 'fit-content',
-      minHeight: 500,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
+    padding: 30,
+    width: '100%',
   },
 
   modalTitle: {
@@ -17,11 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '41px',
     fontWeight: 600,
     color: theme.palette.text.general,
-    marginBottom: '27px',
-
-    [theme.breakpoints.down(1282)]: {
-      marginBottom: 15,
-    },
 
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
@@ -34,11 +23,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalHeaderWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
   },
 
   footerTitle: {
@@ -50,18 +36,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxesWrapper: {
+    marginTop: 30,
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '20px',
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-      flexDirection: 'column',
-      padding: 0,
-    },
+    gap: 20,
+
     [theme.breakpoints.down(768)]: {
-      width: '100%',
       flexDirection: 'column',
-      padding: '20px',
     },
   },
 
@@ -127,7 +108,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   divider: {
-    margin: '-20px 10px',
     [theme.breakpoints.down(1282)]: {
       display: 'none',
     },
@@ -138,12 +118,8 @@ export const useClassNames = makeStyles()(theme => ({
   img: {
     width: '70px',
     height: '70px',
-    marginRight: '20px',
     objectFit: 'contain',
     objectPosition: 'center',
-    [theme.breakpoints.down(768)]: {
-      marginRight: '10px',
-    },
   },
   sectionTitle: {
     color: theme.palette.text.second,
@@ -181,7 +157,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    width: '218px',
+    width: 260,
     color: theme.palette.text.general,
 
     [theme.breakpoints.down(1282)]: {
@@ -196,9 +172,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '30px',
     [theme.breakpoints.down(768)]: {
       border: '1px solid rgba(143, 152, 165, 1)',
-      borderRadius: '4px',
       maxWidth: '45px',
-      height: '30px',
     },
   },
 
@@ -219,18 +193,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    minWidth: '1275px',
-    height: '575px',
-    overflow: 'auto',
-    [theme.breakpoints.down(1282)]: {
-      minWidth: 'unset',
-      width: '100%',
-      overflow: 'unset',
-      height: 'auto',
-    },
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
+    width: '100%',
   },
 
   sizesCell: {
@@ -324,14 +287,6 @@ export const useClassNames = makeStyles()(theme => ({
       width: 'fit-content',
       minWidth: 'unset',
     },
-  },
-
-  adaptCatigoryWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: 77,
-    flexWrap: 'wrap',
-    width: 310,
   },
 
   categoryTitle: {

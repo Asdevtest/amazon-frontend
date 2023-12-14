@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import {
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
+} from '@constants/requests/request-proposal-status'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  disabledCancelBtnStatuses,
-  noDisabledEditBtnStatuses,
-} from '@components/cards/my-proposals-list-card/my-proposals-list-card.constants'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
 
@@ -35,7 +36,7 @@ export const ProposalsSlider = ({
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProposals, setSelectedProposals] = useState([])
-  const [currentProposal, setCurrentProposal] = useState(selectedProposals[0])
+  const [currentProposal, setCurrentProposal] = useState(selectedProposals?.[0])
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
@@ -47,22 +48,22 @@ export const ProposalsSlider = ({
   }, [item, proposals])
 
   useEffect(() => {
-    if (selectedProposals.length > 0) {
-      setCurrentProposal(selectedProposals[currentIndex])
+    if (selectedProposals?.length > 0) {
+      setCurrentProposal(selectedProposals?.[currentIndex])
     }
   }, [selectedProposals])
 
   const handlePrev = () => {
     if (!isTransitioning) {
       setIsTransitioning(true)
-      setCurrentIndex(prevIndex => (prevIndex === 0 ? selectedProposals.length - 1 : prevIndex - 1))
+      setCurrentIndex(prevIndex => (prevIndex === 0 ? selectedProposals?.length - 1 : prevIndex - 1))
     }
   }
 
   const handleNext = () => {
     if (!isTransitioning) {
       setIsTransitioning(true)
-      setCurrentIndex(prevIndex => (prevIndex === selectedProposals.length - 1 ? 0 : prevIndex + 1))
+      setCurrentIndex(prevIndex => (prevIndex === selectedProposals?.length - 1 ? 0 : prevIndex + 1))
     }
   }
 
@@ -73,7 +74,7 @@ export const ProposalsSlider = ({
     if (isTransitioning) {
       transitionTimeout = setTimeout(() => {
         setIsTransitioning(false)
-        setCurrentProposal(selectedProposals[currentIndex])
+        setCurrentProposal(selectedProposals?.[currentIndex])
       }, transitionDuration)
     }
 
@@ -82,7 +83,7 @@ export const ProposalsSlider = ({
     }
   }, [isTransitioning])
 
-  const isDisableArrow = selectedProposals.length <= 1
+  const isDisableArrow = selectedProposals?.length <= 1
 
   return (
     <div className={cx(classNames.wrapper, classNamesWrapper)}>

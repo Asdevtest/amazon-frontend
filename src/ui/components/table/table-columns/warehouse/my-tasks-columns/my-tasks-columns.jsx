@@ -21,15 +21,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: window.innerWidth < 1282 ? 115 : 190,
-
-    // renderCell: params => (
-    //   <WarehouseMyTasksBtnsCell
-    //     handlers={handlers}
-    //     row={params.row.originalData}
-    //     isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-    //   />
-    // ),
+    width: window.innerWidth < 1282 ? 115 : 165,
 
     renderCell: params => (
       <WarehouseMyTasksBtnsCell
@@ -71,9 +63,9 @@ export const warehouseMyTasksViewColumns = handlers => [
         rowsCount={4}
         text={params.row.originalData.reason}
         id={params.row.originalData._id}
-        onClickSubmit={(id, reason) => {
-          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-        }}
+        onClickSubmit={reason =>
+          handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)
+        }
       />
     ),
   },

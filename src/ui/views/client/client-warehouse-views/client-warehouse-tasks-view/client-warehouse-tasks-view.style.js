@@ -1,46 +1,12 @@
-export const styles = theme => ({
-  button: {
-    padding: '0 45px',
-    height: 'auto',
-    whiteSpace: 'nowrap',
-    marginBottom: 5,
-    color: theme.palette.primary.main,
+import { makeStyles } from 'tss-react/mui'
 
-    fontSize: 14,
-    fontWeight: 600,
-
-    '&>disabled': {
-      backgroundColor: 'inherit',
-    },
-  },
-
+export const useStyles = makeStyles()(theme => ({
   tasksWrapper: {
     marginTop: 20,
-    height: 'calc(100vh - 250px)',
-  },
-
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+    height: '74vh',
   },
 
   headerWrapper: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     marginBottom: 20,
@@ -115,4 +81,4 @@ export const styles = theme => ({
     gap: 20,
     justifyContent: 'space-between',
   },
-})
+}))

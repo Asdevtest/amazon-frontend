@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
@@ -20,7 +19,6 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './user-profile.style'
 
-import { FeedbackCard } from './feedback-card'
 import { Info } from './info'
 import { Tested } from './tested'
 
@@ -37,6 +35,8 @@ export const UserProfile = observer(
     setTabHistory,
     setTabReview,
     onClickWriteBtn,
+    reviews,
+    onClickReview,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -68,7 +68,7 @@ export const UserProfile = observer(
                   <div className={classNames.ratingWrapper}>
                     <Typography className={classNames.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
-                    <Rating disabled className={classNames.userRating} value={user?.rating} />
+                    <Rating readOnly className={classNames.userRating} value={user?.rating} />
                   </div>
                   <div className={classNames.userButtonsWrapper}>
                     {isAnotherUser && (
@@ -164,13 +164,14 @@ export const UserProfile = observer(
             </div>
 
             <div className={classNames.rightSideWrapper}>
-              <Reviews tabReview={tabReview} setTabReview={setTabReview} />
-
-              <Box className={classNames.normalBox}>
-                <FeedbackCard isPositive counter={265} />
-
-                <FeedbackCard isPositive={false} counter={1} />
-              </Box>
+              <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
+              {isAnotherUser && (
+                <div className={classNames.leaveReviewBtnWrapper}>
+                  <Button variant="contained" className={classNames.leaveReviewBtn} onClick={onClickReview}>
+                    {t(TranslationKey['Leave a review'])}
+                  </Button>
+                </div>
+              )}
 
               {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
             </div>

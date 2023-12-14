@@ -12,7 +12,6 @@ import {
   TaskPriorityCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -62,9 +61,9 @@ export const warehouseVacantTasksViewColumns = handlers => [
         rowsCount={4}
         text={params.row.originalData.reason}
         id={params.row.originalData._id}
-        onClickSubmit={(id, reason) => {
-          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-        }}
+        onClickSubmit={reason =>
+          handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)
+        }
       />
     ),
   },
@@ -74,7 +73,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
 
-    width: 130,
+    width: 165,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 

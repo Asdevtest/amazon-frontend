@@ -21,7 +21,11 @@ export const useClassNames = makeStyles()(theme => ({
     border: '7px solid rgb(255, 255, 255, .2)',
     borderRadius: '20px',
     padding: '10px',
-    background: 'rgb(126, 125, 138, .4)',
+    background: 'rgb(200, 200, 200, 1)',
+  },
+
+  progressContainerDark: {
+    background: 'rgb(80, 80, 80, 1)',
   },
 
   subWrapper: {

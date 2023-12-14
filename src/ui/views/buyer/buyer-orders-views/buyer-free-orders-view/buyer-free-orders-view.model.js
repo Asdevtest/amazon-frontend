@@ -18,8 +18,6 @@ import { t } from '@utils/translations'
 export class BuyerFreeOrdersViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  error = undefined
 
   curOrder = undefined
 
@@ -40,16 +38,20 @@ export class BuyerFreeOrdersViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
   showWarningModal = false
 
+  get currentData() {
+    return this.ordersVacant
+  }
+
   constructor({ history }) {
     this.history = history
 
     const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+
     if (orderId) {
       this.history.push(`${history.location.pathname}`)
       this.onChangeFilterModel({
@@ -74,10 +76,8 @@ export class BuyerFreeOrdersViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
@@ -96,14 +96,12 @@ export class BuyerFreeOrdersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_FREE_ORDERS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -121,33 +119,24 @@ export class BuyerFreeOrdersViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
-  }
+    this.columnVisibilityModel = model
 
-  getCurrentData() {
-    return toJS(this.ordersVacant)
+    this.setDataGridState()
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersVacant()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
     }
   }
 
   async getOrdersVacant() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await BuyerModel.getOrdersVacant()
 
       runInAction(() => {
@@ -155,12 +144,15 @@ export class BuyerFreeOrdersViewModel {
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.ordersVacant = []
+      runInAction(() => {
+        this.ordersVacant = []
+      })
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -186,16 +178,20 @@ export class BuyerFreeOrdersViewModel {
       }
 
       if (!noPush) {
-        this.curOrder = order.originalData
+        runInAction(() => {
+          this.curOrder = order.originalData
+        })
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
 
       this.loadData()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
     } catch (error) {
-      this.warningTitle = t(TranslationKey['Not found'])
+      runInAction(() => {
+        this.warningTitle = t(TranslationKey['Not found'])
+      })
 
       this.onTriggerOpenModal('showWarningModal')
 
@@ -214,20 +210,20 @@ export class BuyerFreeOrdersViewModel {
         }
       }
 
-      this.selectedRowIds = []
+      runInAction(() => {
+        this.selectedRowIds = []
 
-      this.warningTitle = t(TranslationKey['Taken to Work'])
+        this.warningTitle = t(TranslationKey['Taken to Work'])
+      })
 
       this.onTriggerOpenModal('showWarningModal')
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
     }
   }
+
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.loadData()
@@ -235,10 +231,6 @@ export class BuyerFreeOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
-  }
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
   }
 
   onTriggerOpenModal(modal) {

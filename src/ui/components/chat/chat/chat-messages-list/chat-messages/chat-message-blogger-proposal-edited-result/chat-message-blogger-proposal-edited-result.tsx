@@ -1,13 +1,10 @@
 import { FC, useContext } from 'react'
 
-import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageDataBloggerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-import { UserModel } from '@models/user-model'
 
-import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -22,33 +19,17 @@ import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-res
 
 import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
 
-export interface ChatMessageRequestProposalResultEditedHandlers {
-  onClickProposalResultToCorrect: (proposalId: string) => void
-  onClickProposalResultAccept: (proposalId: string) => void
-}
-
 interface Props {
   message: ChatMessageContract<ChatMessageDataBloggerProposalResultEditedContract>
-  handlers: ChatMessageRequestProposalResultEditedHandlers
   isShowChatInfo?: boolean
 }
 
-export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
+export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: classNames, cx } = useClassNames()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-  const proposalStatus = chatRequestAndRequestProposal.requestProposal?.proposal?.status
-  const isShowButtons =
-    curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-    chatRequestAndRequestProposal &&
-    (proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-      proposalStatus === RequestProposalStatus.READY_TO_VERIFY ||
-      proposalStatus === RequestProposalStatus.CORRECTED) &&
-    curUserId /* &&
-    message.data.needApproveBy?.includes(curUserId)  */
   const files = chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)
   const links = message.data.proposal.details.publicationLinks
 
@@ -66,7 +47,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
-            files={files}
+            files={files || []}
           />
 
           <div className={classNames.infosSubWrapper}>
@@ -114,7 +95,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                             rel="noreferrer"
                             className={classNames.infoItemText}
                           >
-                            {el}
+                            {el.slice(0, 80)}
                           </a>
 
                           <CopyValue text={el} />
@@ -132,28 +113,6 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
           </div>
         </div>
       </div>
-
-      {isShowButtons ? (
-        <div className={cx(classNames.btnsWrapper, { [classNames.btnsWrapperShowChatInfo]: isShowChatInfo })}>
-          {proposalStatus !== RequestProposalStatus.TO_CORRECT && (
-            <Button
-              btnWrapperStyle={cx(classNames.button, { [classNames.buttonShowChatInfo]: isShowChatInfo })}
-              className={cx(classNames.actionButton, classNames.editButton)}
-              onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
-            >
-              {t(TranslationKey['Send in for rework'])}
-            </Button>
-          )}
-          <Button
-            success
-            btnWrapperStyle={classNames.button}
-            className={cx(classNames.actionButton, classNames.successBtn)}
-            onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
-          >
-            {t(TranslationKey.Receive)}
-          </Button>
-        </div>
-      ) : null}
     </div>
   )
 }

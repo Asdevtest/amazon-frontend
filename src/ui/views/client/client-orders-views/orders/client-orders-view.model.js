@@ -67,9 +67,7 @@ export class ClientOrdersViewModel {
   showConfirmModal = false
   showCheckPendingOrderFormModal = false
 
-  isOrder = []
-  existingOrders = []
-  checkPendingData = []
+  existingProducts = []
   shopsData = []
 
   alertShieldSettings = {
@@ -95,7 +93,7 @@ export class ClientOrdersViewModel {
   }
 
   rowHandlers = {
-    onClickReorder: item => this.onClickReorder(item),
+    onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
   }
 
   rowCount = 0
@@ -654,27 +652,28 @@ export class ClientOrdersViewModel {
     }
   }
 
-  async onClickReorder(item) {
+  async onClickReorder(item, isPending) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const pendingOrders = []
-      const correctIds = []
-
-      const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
-
-      if (res.length > 0) {
-        correctIds.push(item.product._id)
-        pendingOrders.push(res.filter(el => el.id !== item.id))
+      if (isPending) {
+        await this.onClickContinueBtn(item)
+        return
       }
 
-      this.checkPendingData = pendingOrders
+      const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
 
-      if (this.checkPendingData.length > 0 && this.checkPendingData[0].length > 0) {
-        this.existingOrders = await this.currentData
-          .filter(product => correctIds.includes(product.originalData.product._id))
-          .map(prod => prod.originalData.product)
+      const resultWithoutCurrentOrder = res?.filter(order => order?._id !== item?._id)
 
-        this.isOrder = item
+      if (resultWithoutCurrentOrder?.length) {
+        runInAction(() => {
+          this.existingProducts = [
+            {
+              _id: item?._id,
+              asin: item?.product?.asin,
+              orders: resultWithoutCurrentOrder,
+            },
+          ]
+        })
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {

@@ -1,43 +1,49 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalWrapper: {
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '30px',
   },
+
   modalTitle: {
-    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
-    lineHeight: '140%',
-    marginBottom: '30px',
+    lineHeight: '25px',
+    color: theme.palette.text.general,
   },
 
-  boxCode: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '48px 0px',
-  },
-
-  input: {
-    width: '400px',
-  },
-  saveBox: {
-    marginTop: '16px',
-    display: 'flex',
-    gap: '10px',
-    justifyContent: 'space-between',
-  },
-  actionButton: {
-    width: '179px',
-    height: '40px',
+  uploadInput: {
+    margin: '0 15px 0 5px',
   },
 
   linkWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
+
   link: {
-    width: '660px',
+    width: 350,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  saveBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+
+  actionButton: {
+    width: 170,
+    height: 40,
   },
 }))

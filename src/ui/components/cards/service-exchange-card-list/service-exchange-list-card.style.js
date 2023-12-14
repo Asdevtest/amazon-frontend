@@ -1,11 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     height: 165,
-    width: 800,
+    width: '100%',
     padding: '20px 20px 20px 0',
-    marginBottom: 30,
     display: 'flex',
     justifyContent: 'space-between',
     boxShadow: theme.palette.boxShadow.paper,
@@ -22,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 5,
   },
 
   cardTitle: {
@@ -36,14 +35,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardDescription: {
-    maxHeight: 95,
+    maxHeight: 76,
     fontSize: '14px',
     lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 5,
+    WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -74,7 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   detailsWrapper: {
     display: 'flex',
-    gap: 30,
+    gap: 20,
   },
 
   detailsSubWrapper: {
@@ -102,5 +101,13 @@ export const useClassNames = makeStyles()(theme => ({
   detailsSubWrapperAll: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  serviceTypeWrapper: {
+    width: '81px',
+  },
+
+  performerWrapper: {
+    width: '140px',
   },
 }))

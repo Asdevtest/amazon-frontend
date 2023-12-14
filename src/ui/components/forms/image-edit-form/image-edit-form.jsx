@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined'
@@ -7,29 +8,29 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './image-edit-form.style'
 
-export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
+export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
   const { classes: classNames } = useClassNames()
+  const currentItem = typeof item === 'string' ? getAmazonImageUrl(item, true) : item?.data_url
 
   const [rotation, setRotation] = useState(0)
 
   const handleRotateLeft = () => {
     setRotation(rotation - 90)
   }
-
   const handleRotateRight = () => {
     setRotation(rotation + 90)
   }
-
   const handleSave = () => {
     if (!item) {
       return
     }
 
-    fetch(typeof item === 'string' ? item : item.data_url)
+    fetch(currentItem)
       .then(resp => resp.blob())
       .then(blob => {
         const url = window.URL.createObjectURL(blob)
@@ -70,17 +71,13 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
     <div className={classNames.root}>
       <div className={classNames.imageWrapper}>
         <img
+          src={currentItem}
+          alt="rotate-image"
           style={{ transform: `rotate(${rotation}deg)` }}
           className={classNames.image}
-          src={
-            typeof item === 'string'
-              ? item
-              : item?.file.type.includes('image')
-              ? item?.data_url
-              : '/assets/icons/file.png'
-          }
         />
       </div>
+
       <div className={classNames.btnsWrapper}>
         <div className={classNames.btnsSubWrapper}>
           <Button onClick={handleRotateLeft}>
@@ -102,4 +99,4 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
       </div>
     </div>
   )
-}
+})

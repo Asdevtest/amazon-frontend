@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -18,7 +18,7 @@ import { RequestStandartResultForm } from '@components/forms/request-standart-re
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -79,11 +79,11 @@ export const OwnerRequestProposalsCard = ({
                   <div className={classNames.userNameWrapper}>
                     <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
                     <div className={classNames.reviewWrapper}>
-                      <Typography className={classNames.reviews} onClick={() => onClickReview()}>
+                      <Typography className={classNames.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
                         {t(TranslationKey.Reviews)}
                       </Typography>
-                      {/* <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} /> */}
-                      <Rating disabled className={classNames.userRating} value={item.proposal.createdBy?.rating} />
+
+                      <Rating readOnly className={classNames.userRating} value={item.proposal.createdBy?.rating} />
                     </div>
                   </div>
                 </div>
@@ -118,8 +118,7 @@ export const OwnerRequestProposalsCard = ({
             </div>
 
             <div className={classNames.photoWrapper}>
-              <PhotoCarousel files={item.proposal.linksToMediaFiles} />
-              {/* <PhotoCarousel files={item.proposal.media?.map(el => el.fileLink)} /> */}
+              <PhotoAndFilesSlider withoutFiles files={item.proposal.linksToMediaFiles} />
             </div>
           </div>
         </div>
@@ -151,27 +150,17 @@ export const OwnerRequestProposalsCard = ({
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
+                danger
                 tooltipInfoContent={t(
                   TranslationKey[
                     'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                   ],
                 )}
                 variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.cancelBtn)}
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
               </Button>
-              {/* <Button
-                tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
-              >
-                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
-              </Button> */}
             </>
           )}
 
@@ -191,10 +180,10 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
+                success
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
-                color="primary"
-                className={cx(classNames.actionButton, classNames.successBtn)}
+                className={classNames.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}

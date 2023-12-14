@@ -1,15 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: 600,
     display: 'flex',
     flexDirection: 'column',
     gap: 30,
+    padding: 15,
 
     [theme.breakpoints.down(768)]: {
       width: 'auto',
       minHeight: '100%',
+      padding: 0,
       justifyContent: 'space-between',
       gap: 20,
     },

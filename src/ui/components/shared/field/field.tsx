@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import React, { FC, ReactElement, useEffect, useState } from 'react'
+import React, { FC, InputHTMLAttributes, ReactElement, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -14,8 +14,8 @@ import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { useClassNames } from './field.style'
 
-interface Props {
-  label: string
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   containerClasses?: ClassNamesArg | undefined
@@ -26,6 +26,12 @@ interface Props {
   successText?: string
   oneLine?: boolean
   withIcon?: boolean
+  inputProps?: {
+    maxLength?: number
+  }
+  multiline?: boolean
+  minRows?: number
+  maxRows?: number
 }
 
 export const Field: FC<Props> = observer(

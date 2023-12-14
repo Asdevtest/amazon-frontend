@@ -1,20 +1,23 @@
-import { cx } from '@emotion/css'
-import React from 'react'
-
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
+
+import { UiTheme } from '@constants/theme/mui-theme.type'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './circular-progress-with-label.style'
 
 export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
+  const isDarkTheme = SettingsModel.uiTheme === UiTheme.dark
+
   return (
     <div
       className={cx(classNames.mainWrapper, {
         [wrapperClassName]: !!wrapperClassName,
       })}
     >
-      <div className={classNames.progressContainer}>
+      <div className={cx(classNames.progressContainer, { [classNames.progressContainerDark]: isDarkTheme })}>
         {title ? (
           <Typography variant="h4" className={classNames.standartText}>
             {title}

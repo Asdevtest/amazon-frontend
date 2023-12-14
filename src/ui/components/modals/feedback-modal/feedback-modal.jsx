@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -58,7 +58,11 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) =>
             onClick={() => setShowFiles(!showFiles)}
           />
         </div>
-        {showFiles ? <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} /> : null}
+        {showFiles ? (
+          <div className={classNames.uploadFilesInput}>
+            <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
+          </div>
+        ) : null}
 
         <div className={classNames.buttonsWrapper}>
           <Button

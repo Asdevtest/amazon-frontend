@@ -2,9 +2,9 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AddAsinIdeaActions,
+  AddAsinIdeaActionsCell,
   BarcodeCell,
-  IdeaRequests,
+  IdeaRequestsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -54,7 +54,10 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell twoLines text={shops.find(el => params.row.parentProduct.shopIds.includes(el._id))?.name} />
+      <MultilineTextCell
+        twoLines
+        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
+      />
     ),
     width: 100,
     sortable: false,
@@ -111,7 +114,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => <AddAsinIdeaActions rowHandlers={rowHandlers} row={params.row} />,
+    renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
     width: 110,
     sortable: false,
     filterable: false,
@@ -133,7 +136,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
 
     renderCell: params => (
-      <IdeaRequests
+      <IdeaRequestsCell
         row={params.row}
         onFinishedOnly
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}

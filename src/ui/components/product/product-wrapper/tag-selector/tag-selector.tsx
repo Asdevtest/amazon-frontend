@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete } from '@mui/material'
@@ -9,8 +6,9 @@ import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
-import { MultilineTextCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { useTagSelectorStyles } from '@components/product/product-wrapper/tag-selector/tag-selector.styles'
+import { useStyles } from './tag-selector.styles'
+
+import { Option } from './option'
 
 interface Tag {
   _id: string
@@ -27,9 +25,9 @@ interface TagSelectorProps {
   placeholder: string
 }
 
-export const TagSelector: FC<TagSelectorProps> = props => {
+export const TagSelector: FC<TagSelectorProps> = memo(props => {
   const { currentTags, getTags, handleSaveTags, isEditMode, prefix = '', placeholder = 'Input' } = props
-  const { classes: styles } = useTagSelectorStyles()
+  const { classes: styles } = useStyles()
 
   const [tagList, setTagList] = useState<Tag[]>([])
   const [selectedTags, setSelectedTags] = useState<Tag[]>(currentTags)
@@ -61,7 +59,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       setSelectedTags(newValue)
       handleSaveTags(newValue)
     } else {
-      GeneralModel.createTag(selectValue!.title).then(res => {
+      GeneralModel.createTag(selectValue.title).then(res => {
         newValue = [...selectedTags, { title: selectValue?.title, _id: res._id } as Tag]
         setSelectedTags(newValue)
         handleSaveTags(newValue)
@@ -85,13 +83,10 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             renderInput={params => (
               <TextField
                 {...params}
-                // InputProps={{
-                //   startAdornment: selectValue ? <InputAdornment position="start">{prefix}</InputAdornment> : null,
-                // }}
                 style={{ width: '100%' }}
                 label={placeholder}
                 value={textValue}
-                onInput={(event: any) => {
+                onInput={(event: ChangeEvent<HTMLInputElement>) => {
                   setTextValue(event.target.value)
                   event.target.value = event?.target.value.slice(0, 75) // Ограничиваем длину ввода
                 }}
@@ -99,9 +94,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             )}
             renderOption={(_, option) => (
               <li {..._}>
-                <div className={styles.option}>
-                  <MultilineTextCell oneLines leftAlign maxLength={32} text={`${prefix} ${option.title}`} />
-                </div>
+                <Option prefix={prefix} option={option.title} />
               </li>
             )}
             value={selectValue}
@@ -115,7 +108,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             disabled={!textValue?.length || selectedTags.some(el => el.title === textValue)}
             onClick={handleAddTags}
           >
-            <img src="/assets/icons/addTag.svg" alt="+" />
+            <img src="/assets/icons/addTag.svg" alt="add tag to products tags" />
           </button>
         </div>
       )}
@@ -123,12 +116,10 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       <div className={styles.tagList}>
         {selectedTags.map(el => (
           <div key={el._id} className={styles.tagListItem}>
-            <MultilineTextCell oneLines leftAlign maxLength={32} text={prefix + el.title} />
+            <Option prefix={prefix} option={el.title} />
             {isEditMode && (
               <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>
-                <div>
-                  <CloseIcon fontSize="inherit" />
-                </div>
+                <CloseIcon fontSize="inherit" />
               </button>
             )}
           </div>
@@ -136,4 +127,4 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       </div>
     </div>
   )
-}
+})

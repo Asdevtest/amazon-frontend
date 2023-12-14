@@ -32,6 +32,7 @@ export const AdminProductView = observer(props => {
             platformSettings={viewModel.platformSettings}
             userRole={viewModel.userInfo.role}
             product={viewModel.product}
+            imagesForLoad={viewModel.imagesForLoad}
             selectedSupplier={viewModel.selectedSupplier}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
             handleSupplierButtons={viewModel.onClickSupplierButtons}

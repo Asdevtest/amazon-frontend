@@ -30,7 +30,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={item?.request?.createdBy?.name} userId={item?.request?.createdBy?._id} />
 
-                  <Rating disabled value={item?.request?.createdBy?.rating} />
+                  <Rating readOnly value={item?.request?.createdBy?.rating} />
                 </div>
               </div>
             </div>
@@ -42,7 +42,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
 
-                  <Rating disabled value={item?.createdBy?.rating} />
+                  <Rating readOnly value={item?.createdBy?.rating} />
                 </div>
               </div>
             </div>

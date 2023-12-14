@@ -4,9 +4,8 @@ export const useClassNames = makeStyles()(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    height: 801,
-    width: 1692,
     gap: 20,
+    padding: 10,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -16,26 +15,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterWrapper: {
-    height: '52px',
     display: 'flex',
     alignItems: 'center',
-    marginRight: 400,
-
-    position: 'absolute',
-    zIndex: 999,
-
-    top: 0,
-    right: 0,
-
-    borderTop: 'none !important',
-    [theme.breakpoints.down(768)]: {
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
-        display: 'none',
-      },
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
-        marginLeft: '2px',
-      },
-    },
   },
 
   boxCounterText: {
@@ -74,7 +55,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   downloadButton: {
-    width: 216,
     height: 40,
     gap: 5,
   },
@@ -145,7 +125,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: 270,
     height: 40,
-
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -169,13 +148,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subFieldLabel: {
     color: theme.palette.text.second,
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-
     whiteSpace: 'pre-wrap',
-
     marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
@@ -186,7 +162,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   infoField: {
     height: 40,
-
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
@@ -196,19 +171,13 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
       minWidth: '280px',
-
       display: 'flex',
       justifyContent: 'center',
     },
   },
   tableWrapper: {
-    height: 590,
-    overflowY: 'auto',
+    height: 400,
     width: '100%',
-    position: 'relative',
-    border: `1px solid  ${theme.palette.background.second}`,
-    boxShadow: theme.palette.boxShadow.paper,
-    borderRadius: 7,
   },
 
   virtualScroller: {
@@ -241,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   filesAndButtonWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   shippinCostContainer: {
@@ -251,11 +220,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   closeFieldsWrapper: {
     display: 'flex',
-    gap: 30,
-  },
-
-  toolbarContainer: {
-    height: 52,
     gap: 30,
   },
 }))

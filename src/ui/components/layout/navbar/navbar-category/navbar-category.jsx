@@ -1,5 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from 'tss-react/mui'
 
@@ -15,16 +16,7 @@ import { styles } from './navbar-category.style'
 
 const NavBarCategoryRaw = observer(
   ({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
-    const subRoutes = category.subtitles
-      ?.map(subCategory =>
-        subCategory.checkHideSubBlock
-          ? subCategory.checkHideSubBlock(userInfo)
-            ? subCategory.subRoute
-            : null
-          : subCategory.subRoute,
-      )
-      .filter(el => el !== null)
-
+    const [subRoutes, setSubRoutes] = useState([])
     const isRedBadge = category.route?.includes('/buyer/free-orders')
 
     const getHighPriorityValue = route => {
@@ -49,12 +41,28 @@ const NavBarCategoryRaw = observer(
       }
     }
 
+    const getSubRoutes = () => {
+      return category.subtitles
+        ?.map(subCategory =>
+          subCategory.checkHideSubBlock
+            ? subCategory.checkHideSubBlock(userInfo)
+              ? subCategory.subRoute
+              : null
+            : subCategory.subRoute,
+        )
+        .filter(el => el !== null)
+    }
+
     const highPriorityValue = getHighPriorityValue(category.route)
+
+    useEffect(() => {
+      setSubRoutes(getSubRoutes())
+    }, [category])
 
     return (
       <Button
         tooltipPosition="center"
-        tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title, userInfo.role)}
+        tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
         className={classNames.menuItem}
         onClick={onToggleModal}
       >
@@ -84,11 +92,11 @@ const NavBarCategoryRaw = observer(
               <div className={cx(classNames.badge, { [classNames.redBadge]: isRedBadge })}>{badge}</div>
             ) : undefined}
           </ListItemIcon>
-          {!shortNavbar && ( // убрать условие если нужно вернуть старый вид
+          {!shortNavbar && (
             <ListItemText
               disableTypography
               className={cx({ [classNames.listItemSelected]: isSelected })}
-              primary={category.title}
+              primary={category.title()}
             />
           )}
 
@@ -97,7 +105,7 @@ const NavBarCategoryRaw = observer(
               <HighPriorityValue value={highPriorityValue} />
             </Box>
           )}
-          {/* {subRoutes?.[0] || category.route} */}
+
           {!shortNavbar && (
             <div className={cx({ [classNames.bigBadgePadding]: category.title })}>
               {getBigBadge(subRoutes?.[0] || category.route)}

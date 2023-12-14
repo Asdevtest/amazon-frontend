@@ -2,6 +2,8 @@ import { Manager, Socket } from 'socket.io-client'
 
 import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
 
+import { ChatMessagesType } from '@models/chat-model/contracts/chat-messages-type'
+
 import { ChatHandlerName, handlerToEventMapping } from './event-handler-mappings'
 import { EentToEmit } from './event-to-emit'
 import {
@@ -74,17 +76,49 @@ export class WebsocketChatService {
     // console.log('IN_DISCONNECT')
   }
 
+  public async getUnreadMessagesCount(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_UNREAD_MESSAGES_COUNT,
+        null,
+        (getChatsResponse: WebsocketChatResponse<number>) => {
+          if (!getChatsResponse.success || !getChatsResponse.data) {
+            reject(getChatsResponse.error)
+          } else {
+            resolve(getChatsResponse.data)
+          }
+        },
+      )
+    })
+  }
+
   public async getChats(crmItemId?: string | null, crmItemType?: string | null): Promise<Chat[]> {
-    // if (!crmItemId || !crmItemType) {
-    //   throw new Error('crmItemId and crmItemType should be both in parameters')
-    // }
     return new Promise((resolve, reject) => {
       this.socket.emit(
         crmItemType ? EentToEmit.GET_CHATS : EentToEmit.GET_SIMPLE_CHATS,
-        // 'Chat:user:get-simple-chats',
-        // {crmItemId: null, crmItemType: null},
         { crmItemId, crmItemType },
         (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
+          if (!getChatsResponse.success || !getChatsResponse.data) {
+            reject(getChatsResponse.error)
+          } else {
+            resolve(getChatsResponse.data)
+          }
+        },
+      )
+    })
+  }
+
+  public async getChatMessages(
+    chatId?: string | null,
+    offset?: number,
+    limit?: number,
+    messageId?: string,
+  ): Promise<ChatMessagesType> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_CHAT_MESSAGES,
+        { chatId, offset, limit, messageId },
+        (getChatsResponse: WebsocketChatResponse<ChatMessagesType>) => {
           if (!getChatsResponse.success || !getChatsResponse.data) {
             reject(getChatsResponse.error)
           } else {
@@ -153,11 +187,33 @@ export class WebsocketChatService {
     })
   }
 
-  public async readMessage(messageIds: string[]): Promise<ChatMessage> {
+  public async readMessage(messageIds: string[]): Promise<null> {
     // console.log('***READ_OPPONENT_MESSAGE!!!')
 
-    return new Promise(() => {
-      this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds })
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds }, (sendMessageResponse: WebsocketChatResponse<null>) => {
+        if (!sendMessageResponse.success) {
+          reject(null)
+        } else {
+          resolve(null)
+        }
+      })
+    })
+  }
+
+  public async getChatMessage(params: any): Promise<ChatMessage> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.GET_CHAT_MESSAGE,
+        params,
+        (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
+          if (!sendMessageResponse.success || !sendMessageResponse.data) {
+            reject(sendMessageResponse.error)
+          } else {
+            resolve(sendMessageResponse.data)
+          }
+        },
+      )
     })
   }
 }

@@ -15,11 +15,10 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-
     renderCell: params => <AsinCell asin={params.value} />,
-
     width: 190,
   },
+
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -37,12 +36,14 @@ export const clientFreelanceNotificationsColumns = handlers => [
     ),
     width: 200,
   },
+
   {
     field: 'humanFriendlyId',
     headerName: `ID ${t(TranslationKey.Requests)}`,
     renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
+
   {
     field: 'unreadMessages',
     headerName: t(TranslationKey['Unread messages']),
@@ -50,6 +51,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
+
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -59,14 +61,12 @@ export const clientFreelanceNotificationsColumns = handlers => [
         sx={{
           height: '30px !important',
         }}
-        onClick={() => {
-          handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
-        }}
+        onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}
       >
         {t(TranslationKey.Reply)}
       </Button>
     ),
-
     sortable: false,
+    width: 140,
   },
 ]

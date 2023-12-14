@@ -75,6 +75,9 @@ export class ClientAwaitingBatchesViewModel {
   boxesData = []
   volumeWeightCoefficient = undefined
 
+  curBox = undefined
+  showBoxViewModal = false
+
   progressValue = 0
   showProgress = false
 
@@ -207,6 +210,23 @@ export class ClientAwaitingBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
+  async setCurrentOpenedBox(row) {
+    try {
+      const box = await BoxesModel.getBoxById(row._id)
+
+      runInAction(() => {
+        this.curBox = box
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -309,16 +329,12 @@ export class ClientAwaitingBatchesViewModel {
     try {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
-        options: {
-          limit: this.paginationModel.pageSize,
-          offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
-          filters: this.getFilter(),
-          storekeeperId: this.currentStorekeeperId,
-        },
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        filters: this.getFilter(),
+        storekeeperId: this.currentStorekeeperId,
       })
 
       const res = await UserModel.getPlatformSettings()

@@ -3,47 +3,42 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 class SupplierModelStatic {
   getSuppliers = async () => {
     const response = await restApiService.supplierApi.apiV1SuppliersGet()
-    return response
+    return response.data
   }
 
-  createSupplier = async data => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPost({ body: data })
-    return response
+  createSupplier = async body => {
+    const response = await restApiService.supplierApi.apiV1SuppliersPost({ body })
+    return response.data
   }
 
-  getSupplier = async id => {
-    const response = await restApiService.supplierApi.apiV1SuppliersGuidGet(id)
-    return response
+  getSupplier = async guid => {
+    const response = await restApiService.supplierApi.apiV1SuppliersGuidGet({ guid })
+    return response.data
   }
 
-  updateSupplier = async (id, data) => {
-    const response = await restApiService.supplierApi.apiV1SuppliersGuidPatch(id, {
-      body: data,
-    })
-    if (response && response.error) {
-      throw new Error(response.message)
-    }
-    return response
+  updateSupplier = async (guid, body) => {
+    const response = await restApiService.supplierApi.apiV1SuppliersGuidPatch({ guid, body })
+    return response.data
   }
 
-  removeSupplier = async id => {
-    const response = await restApiService.supplierApi.apiV1SuppliersGuidDelete(id)
-    return response
+  removeSupplier = async guid => {
+    const response = await restApiService.supplierApi.apiV1SuppliersGuidDelete({ guid })
+    return response.data
   }
 
   getSuppliersPaymentMethods = async () => {
     const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsGet()
-    return response
+    return response.data
   }
 
   addSuppliersPaymentMethod = async data => {
     const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsPostWithHttpInfo({ body: data })
-    return response
+    return response.data
   }
 
-  editSuppliersPaymentMethod = async (id, data) => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsGuidPatch(id, { body: data })
-    return response
+  editSuppliersPaymentMethod = async (guid, body) => {
+    const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsGuidPatch({ guid, body })
+    return response.data
   }
 }
 

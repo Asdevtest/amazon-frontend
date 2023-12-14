@@ -257,7 +257,9 @@ export class ClientBoxesNotificationsViewModel {
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
+      const result = await BoxesModel.getBoxesForCurClient({
+        status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+      })
 
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()
 
@@ -277,12 +279,11 @@ export class ClientBoxesNotificationsViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      runInAction(() => {
-        this.curBox = row
-      })
+      const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.curBox = box
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 

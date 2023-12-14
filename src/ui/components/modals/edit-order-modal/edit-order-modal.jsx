@@ -9,7 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, Checkbox, InputAdornment, MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
 
 import {
   OrderStatus,
@@ -38,10 +38,10 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
-import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
@@ -114,6 +114,7 @@ export const EditOrderModal = observer(
     hsCodeData,
     progressValue,
     volumeWeightCoefficient,
+    setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
@@ -234,6 +235,12 @@ export const EditOrderModal = observer(
       setSelectedSupplier(null)
     }, [order])
 
+    useEffect(() => {
+      if (isPendingOrder) {
+        onClickUpdateButton()
+      }
+    }, [orderFields.orderSupplier])
+
     const onRemoveForCreationBox = boxIndex => {
       const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
       setBoxesForCreation(updatedNewBoxes)
@@ -273,22 +280,22 @@ export const EditOrderModal = observer(
       const newOrderFieldsState = { ...orderFields }
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan /
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan /
           orderFields?.yuanToDollarRate /
-          orderFields.orderSupplier.amount) *
-        orderFields.amount
+          orderFields?.orderSupplier?.amount) *
+        orderFields?.amount
 
       newOrderFieldsState.priceBatchDeliveryInYuan =
-        (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount
+        (orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) * orderFields?.amount
 
       newOrderFieldsState.priceInYuan =
-        (orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        (orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
         orderFields?.amount
 
       newOrderFieldsState.totalPriceChanged =
-        ((orderFields?.orderSupplier.priceInYuan +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        ((orderFields?.orderSupplier?.priceInYuan +
+          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
           orderFields?.amount) /
         orderFields?.yuanToDollarRate
 
@@ -490,8 +497,10 @@ export const EditOrderModal = observer(
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
 
+    const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
+
     return (
-      <Box className={classNames.modalWrapper}>
+      <div className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
           <div>
             <div className={classNames.idItemWrapper}>
@@ -697,7 +706,7 @@ export const EditOrderModal = observer(
           </div>
         </div>
 
-        <Paper elevation={0} className={classNames.paper}>
+        <div className={classNames.paper}>
           <SelectFields
             orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
@@ -780,7 +789,11 @@ export const EditOrderModal = observer(
                       ) : (
                         <>
                           <Button
-                            disabled={checkIsPlanningPrice && !isPendingOrder}
+                            tooltipAttentionContent={
+                              disableEditInPendingOrder &&
+                              t(TranslationKey['Editing is unavailable due to change of current supplier'])
+                            }
+                            disabled={(checkIsPlanningPrice && !isPendingOrder) || disableEditInPendingOrder}
                             className={classNames.iconBtn}
                             onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                           >
@@ -813,7 +826,7 @@ export const EditOrderModal = observer(
                         danger={isSupplierAcceptRevokeActive}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                        className={cx(classNames.iconBtn, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
                         onClick={() => {
@@ -865,9 +878,9 @@ export const EditOrderModal = observer(
             suppliers={orderFields.product.suppliers}
             setSelectedSupplier={setSelectedSupplier}
           />
-        </Paper>
+        </div>
 
-        <Box mt={2} className={classNames.buttonsBox}>
+        <div className={classNames.buttonsBox}>
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
@@ -891,7 +904,7 @@ export const EditOrderModal = observer(
           >
             {t(TranslationKey.Cancel)}
           </Button>
-        </Box>
+        </div>
 
         <div className={classNames.addBoxButtonAndCommentsWrapper}>
           {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
@@ -960,29 +973,7 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <CustomSlider>
-                      {trackNumber.files.map((el, index) => (
-                        <img
-                          key={index}
-                          className={classNames.trackNumberPhoto}
-                          src={
-                            typeof trackNumber.files[index] === 'string'
-                              ? trackNumber.files[index]
-                              : trackNumber.files[index]?.data_url
-                          }
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-                            setBigImagesOptions({
-                              ...bigImagesOptions,
-                              imgIndex: index,
-                              images: trackNumber.files.map(el => {
-                                return el === 'string' ? el : el?.data_url
-                              }),
-                            })
-                          }}
-                        />
-                      ))}
-                    </CustomSlider>
+                    <PhotoAndFilesSlider withAllFiles customSlideHeight={85} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}
@@ -1024,6 +1015,7 @@ export const EditOrderModal = observer(
               renderHeadRow={renderHeadRow()}
               mainProductId={order.product._id}
               userInfo={userInfo}
+              setCurrentOpenedBox={setCurrentOpenedBox}
               volumeWeightCoefficient={volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
@@ -1036,7 +1028,7 @@ export const EditOrderModal = observer(
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          dialogContextClassName={classNames.dialogContextClassName}
+          dialogClassName={classNames.dialogClassName}
         >
           <CreateBoxForm
             isEdit={isEdit}
@@ -1096,13 +1088,15 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <ImageModal
-          currentImageIndex={bigImagesOptions.imgIndex}
-          imageList={bigImagesOptions.images}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          isOpenModal={showPhotosModal}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            currentImageIndex={bigImagesOptions.imgIndex}
+            imageList={bigImagesOptions.images}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            isOpenModal={showPhotosModal}
+            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        )}
 
         <Modal
           openModal={showCheckQuantityModal}
@@ -1132,9 +1126,9 @@ export const EditOrderModal = observer(
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
           <SupplierPaymentForm
-            item={orderFields}
             uploadedFiles={paymentDetailsPhotosToLoad}
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
+            setEditPaymentDetailsPhotos={setEditPaymentDetailsPhotos}
             onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
@@ -1146,7 +1140,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
         >
           <PaymentMethodsForm
-            payments={(!!orderPayments.length && orderPayments) || paymentMethods}
+            payments={orderPayments}
             onClickSaveButton={setOrderPayments}
             onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
@@ -1189,7 +1183,7 @@ export const EditOrderModal = observer(
             }}
           />
         </Modal>
-      </Box>
+      </div>
     )
   },
 )

@@ -1,6 +1,7 @@
+import { cx } from '@emotion/css'
 import { useState } from 'react'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import {
   getConversion,
@@ -57,17 +58,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
-          value={
-            //   toFixed(
-            //   (sizeSetting === unitsOfChangeOptions.US
-            //     ? (box.heightCmWarehouse / inchesCoefficient) *
-            //       (box.widthCmWarehouse / inchesCoefficient) *
-            //       (box.lengthCmWarehouse / inchesCoefficient)
-            //     : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-            //   2,
-            // )
-            toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)
-          }
+          value={toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -122,7 +113,6 @@ export const EditBoxTasksModal = ({
   box,
   operationType,
   setNewBoxes,
-
   newBoxes,
   volumeWeightCoefficient,
   storekeeperWarehouseSubmit,
@@ -136,7 +126,7 @@ export const EditBoxTasksModal = ({
     if (fieldName === 'fitsInitialDimensions') {
       newFormFields[fieldName] = e.target.checked
     } else {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }
 
@@ -178,15 +168,9 @@ export const EditBoxTasksModal = ({
           (sizeSetting === unitsOfChangeOptions.US
             ? toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2)
             : parseFloat(editingBox?.weighGrossKgWarehouse)) || 0,
-
-        // volumeWeightKgWarehouse:
-        //   (sizeSetting === unitsOfChangeOptions.US
-        //     ? Math.round(editingBox?.volumeWeightKgWarehouse * poundsWeightCoefficient * 100) / 100
-        //     : parseFloat(editingBox?.volumeWeightKgWarehouse)) || 0,
       }
 
       storekeeperWarehouseSubmit(box._id, lastStepEditBox)
-      // console.log('lastStepEditBox', lastStepEditBox)
     } else {
       const lastStepEditBox = {
         ...editingBox,
@@ -223,25 +207,19 @@ export const EditBoxTasksModal = ({
 
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
 
-  const handleChange = condition => {
-    setSizeSetting(condition)
+  const handleChange = newAlignment => {
+    if (newAlignment !== sizeSetting) {
+      const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-    if (condition === unitsOfChangeOptions.US) {
       setEditingBox({
         ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / multiplier, 2),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / multiplier, 2),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / multiplier, 2),
+        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse / multiplier, 2),
       })
-    } else {
-      setEditingBox({
-        ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-      })
+
+      setSizeSetting(newAlignment)
     }
   }
 
@@ -252,20 +230,18 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.weighGrossKgWarehouse)
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
+    <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</p>
 
-        <div className={classNames.customSwitcherWrapper}>
-          <CustomSwitcher
-            condition={sizeSetting}
-            switcherSettings={[
-              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-            ]}
-            changeConditionHandler={condition => handleChange(condition)}
-          />
-        </div>
+        <CustomSwitcher
+          condition={sizeSetting}
+          switcherSettings={[
+            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+          ]}
+          changeConditionHandler={condition => handleChange(condition)}
+        />
       </div>
 
       <AttributesEditBlock
@@ -277,34 +253,38 @@ export const EditBoxTasksModal = ({
         sizeSetting={sizeSetting}
       />
 
-      <Box className={classNames.boxCode}>
-        <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput
-            withoutLinks
-            fullWidth
-            dragAndDropBtnHeight={67}
-            images={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images}
-            setImages={setImagesOfBox}
-            maxNumber={50}
-          />
-        </div>
-      </Box>
+      <UploadFilesInput
+        withoutLinks
+        fullWidth
+        dragAndDropBtnHeight={67}
+        images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
+        setImages={setImagesOfBox}
+        maxNumber={50}
+      />
+
       <div className={classNames.photoWrapper}>
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <PhotoAndFilesSlider smallSlider files={editingBox.tmpImages.length > 0 ? editingBox.tmpImages : box?.images} />
+        <PhotoAndFilesSlider
+          smallSlider
+          files={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
+        />
       </div>
 
       <div className={classNames.buttonsWrapper}>
-        <Button success disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
+        <Button success disabled={disabledSubmit} className={classNames.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelButton} onClick={() => setEditModal()}>
+        <Button
+          variant="text"
+          className={cx(classNames.button, classNames.cancelButton)}
+          onClick={() => setEditModal()}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>
-    </Container>
+    </div>
   )
 }

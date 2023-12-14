@@ -16,6 +16,8 @@ import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
 
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
 import { IProductIdeaNotification } from '@typings/product'
@@ -28,15 +30,16 @@ export class GeneralNotificationsViewModel {
   isArchive = false
   history: History | undefined = undefined
 
-  // * Pagination & Sort
+  // * Pagination & Sorting & Filtering
 
   rowCount = 0
   sortModel: Array<ISortModel> = []
   densityModel = 'compact'
-  paginationModel: IPaginationModel = { page: 0, pageSize: 15 }
+  paginationModel: IPaginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel: IColumnVisibilityModel = {}
   filterModel: GridFilterModel = { items: [] }
   selectedRowIds: Array<string> = []
+  curNotificationType: string | number | null | undefined = undefined
 
   // * Table settings
 
@@ -50,7 +53,6 @@ export class GeneralNotificationsViewModel {
 
   // * dataGrid data
 
-  currentData = []
   notificationsData = []
   columnsModel = GeneralNotificationsColumns(this.rowHandlers)
 
@@ -73,6 +75,10 @@ export class GeneralNotificationsViewModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.notificationsData
+  }
+
   constructor({ history }: { history: History }) {
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -81,18 +87,8 @@ export class GeneralNotificationsViewModel {
     })
 
     reaction(
-      () => this.notificationsData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
       () => this.isArchive,
       () => this.getUserNotifications(),
-    )
-
-    reaction(
-      () => this.searchValue,
-      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -128,10 +124,13 @@ export class GeneralNotificationsViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
         // storekeeperId: opts.storekeeperId,
+        filters: this.getFilter(),
       })
 
       runInAction(() => {
+        // @ts-ignore
         this.notificationsData = notificationDataConverter(response.rows) || []
+        // @ts-ignore
         this.rowCount = response.count
       })
 
@@ -139,28 +138,6 @@ export class GeneralNotificationsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log('error', error)
-    }
-  }
-
-  getCurrentData() {
-    console.log(this.notificationsData)
-
-    if (this.searchValue) {
-      const searchValue = String(this.searchValue).toLowerCase()
-
-      return this.notificationsData.filter((notification: any) => {
-        const product = notification?.product
-
-        return (
-          String(product?.asin)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.skusByClient?.[0])?.toLowerCase()?.includes(searchValue) ||
-          String(product?.humanFriendlyId)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.title)?.toLowerCase()?.includes(searchValue) ||
-          String(product?.amazonTitle)?.toLowerCase()?.includes(searchValue)
-        )
-      })
-    } else {
-      return this.notificationsData
     }
   }
 
@@ -261,5 +238,47 @@ export class GeneralNotificationsViewModel {
 
   onChangeSearchValue(value: string) {
     this.searchValue = value
+  }
+
+  onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.curNotificationType = notificationType
+
+      this.getUserNotifications()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (err) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.error(err)
+    }
+  }
+
+  getFilter() {
+    return objectToUrlQs(
+      dataGridFiltersConverter({}, this.searchValue, '', [], ['data'], {
+        ...(this.curNotificationType && {
+          type: {
+            $eq: this.curNotificationType,
+          },
+        }),
+      }),
+    )
+  }
+
+  onSearchSubmit(searchValue: string) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.searchValue = searchValue
+
+      this.getUserNotifications()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (err) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.error(err)
+    }
   }
 }

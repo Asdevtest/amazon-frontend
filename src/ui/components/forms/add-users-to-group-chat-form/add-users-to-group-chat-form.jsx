@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { css, cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { components } from 'react-select'
 
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -33,7 +32,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
         [classNames.isFocusedOption]: isFocused,
       })}
     >
-      <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{ width: 28, height: 28 }} />
+      <Avatar src={getUserAvatarSrc(props.value)} sx={{ width: 28, height: 28 }} />
       <components.Option {...props} />
     </div>
   )
@@ -41,12 +40,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
   const MultiValueContainer = props => (
     <components.MultiValueContainer {...props}>
       {[
-        <Avatar
-          key={props.key}
-          src={getUserAvatarSrc(props.data._id)}
-          className={classNames.avatarWrapper}
-          sx={{ width: 20, height: 20 }}
-        />,
+        <Avatar key={props.key} src={getUserAvatarSrc(props.data._id)} sx={{ width: 20, height: 20 }} />,
         ...props.children,
       ]}
     </components.MultiValueContainer>
@@ -54,28 +48,30 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add a member to group chat'])}</Typography>
+      <div className={classNames.contentWrapper}>
+        <p className={classNames.modalTitle}>{t(TranslationKey['Add a member to group chat'])}</p>
 
-      <Field
-        label={t(TranslationKey['Choose your speaker'])}
-        labelClasses={classNames.labelField}
-        inputComponent={
-          <CustomReactSelect
-            hideDropdownIndicator
-            menuIsOpen
-            isMulti
-            closeMenuOnSelect={false}
-            value={chosenUsers}
-            options={usersData}
-            components={{ Option, MultiValueContainer }}
-            getOptionValue={option => `${option._id}`}
-            getOptionLabel={option => `${option.name}`}
-            onChange={newValue => {
-              setChosenUsers(newValue)
-            }}
-          />
-        }
-      />
+        <Field
+          label={t(TranslationKey['Choose your speaker'])}
+          labelClasses={classNames.labelField}
+          inputComponent={
+            <CustomReactSelect
+              hideDropdownIndicator
+              menuIsOpen
+              isMulti
+              closeMenuOnSelect={false}
+              value={chosenUsers}
+              options={usersData}
+              components={{ Option, MultiValueContainer }}
+              getOptionValue={option => `${option._id}`}
+              getOptionLabel={option => `${option.name}`}
+              onChange={newValue => {
+                setChosenUsers(newValue)
+              }}
+            />
+          }
+        />
+      </div>
 
       <div className={classNames.buttonWrapper}>
         <Button

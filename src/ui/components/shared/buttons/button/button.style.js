@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
     // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
+    fontWeight: 600,
   },
 
   defaultButton: {
@@ -110,5 +111,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   small: {
     height: '30px',
+  },
+
+  transparent: {
+    padding: 0,
+    color: theme.palette.text.general,
+    background: 'transparent',
+
+    '&:hover': {
+      color: theme.palette.text.general,
+      background: 'transparent',
+    },
+
+    '&: disabled': {
+      color: theme.palette.text.general,
+      background: 'transparent',
+    },
   },
 }))

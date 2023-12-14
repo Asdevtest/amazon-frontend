@@ -1,21 +1,20 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
@@ -48,12 +47,14 @@ export const AnotherUserProfileViewRaw = props => {
         {viewModel.user && (
           <UserProfile
             isAnotherUser
+            reviews={viewModel.reviews}
             user={viewModel.user}
             curUser={viewModel.curUser}
             headerInfoData={viewModel.headerInfoData}
             tabReview={viewModel.tabReview}
             tabHistory={viewModel.tabHistory}
             onClickWriteBtn={viewModel.onClickWriteBtn}
+            onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
           />
         )}
 
@@ -68,15 +69,8 @@ export const AnotherUserProfileViewRaw = props => {
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
-            <MemoDataGrid
-              pagination
+            <CustomDataGrid
               useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
               localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
@@ -85,10 +79,6 @@ export const AnotherUserProfileViewRaw = props => {
               pageSizeOptions={[15, 25, 50, 100]}
               rows={viewModel.getCurrentData()}
               rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -172,6 +162,19 @@ export const AnotherUserProfileViewRaw = props => {
           viewModel.onTriggerOpenModal('showSuccessModal')
         }}
       />
+
+      {viewModel.showConfirmWorkResultFormModal && (
+        <RequestProposalAcceptOrRejectResultForm
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Leave a review'])}
+          rateLabel={t(TranslationKey['Rate the user'])}
+          reviewLabel={t(TranslationKey['Leave a user review'])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      )}
     </>
   )
 }

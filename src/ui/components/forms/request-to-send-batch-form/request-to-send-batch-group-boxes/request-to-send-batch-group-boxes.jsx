@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import React from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -19,15 +18,13 @@ import { useClassNames } from './request-to-send-batch-group-boxes.style'
 import { RequestToSendBatchBox } from '../request-to-send-batch-box'
 
 export const RequestToSendBatchesGroupBoxes = ({
-  userInfo,
   storekeepersData,
   volumeWeightCoefficient,
   selectedGroup,
   boxesMy,
   boxesDeliveryCosts,
   onClickRemoveBoxFromBatch,
-  onSubmitChangeBoxFields,
-  onClickHsCode,
+  setCurrentOpenedBox,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -111,14 +108,12 @@ export const RequestToSendBatchesGroupBoxes = ({
           return (
             <tbody key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
               <RequestToSendBatchBox
-                userInfo={userInfo}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 box={findBox}
                 index={index}
                 price={findRequestToSendBatchPriceForCurBox?.deliveryCost}
+                setCurrentOpenedBox={setCurrentOpenedBox}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
-                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-                onClickHsCode={onClickHsCode}
               />
             </tbody>
           )

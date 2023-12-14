@@ -1,15 +1,18 @@
-import { isArray } from 'class-validator'
-import { toJS } from 'mobx'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { UserModel } from '@models/user-model'
 
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NotificationMessage,
+  NotificationMessageCell,
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -22,9 +25,10 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    // renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    // @ts-ignore
     renderCell: (params: GridCellParams) => <NormDateCell value={params.value} />,
     width: 100,
     // filterable: false,
@@ -35,27 +39,22 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
   {
     field: 'product',
     headerName: t(TranslationKey.Product),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: (params: GridCellParams) => {
-      // const notification = isArray(params?.row?.data) ? params?.row?.data?.[0] : params?.row?.data
-      // const product =
-      //   notification?.product ||
-      //   notification?.vacOrders?.[0]?.product ||
-      //   notification?.needConfirmOrders?.[0]?.product ||
-      //   notification?.request?.product ||
-      //   notification?.items?.[0]?.product ||
-      //   notification?.parentProduct
+    renderCell: (params: GridCellParams) => (
+      <ProductAsinCell
+        // @ts-ignore
+        withoutSku={UserRoleCodeMap[(UserModel?.userInfo as any).role] === UserRole.FREELANCER}
+        skusByClient={
+          params.row.product?.skusByClient?.slice()[0] || params.row.parentProduct?.skusByClient?.slice()[0]
+        }
+        image={params.row.product?.images?.slice()[0]}
+        amazonTitle={params.row.product?.amazonTitle}
+        asin={params.row.product?.asin}
+      />
+    ),
 
-      return (
-        <ProductAsinCell
-          image={params.row.product?.images?.slice()[0]}
-          amazonTitle={params.row.product?.amazonTitle}
-          asin={params.row.product?.asin}
-          skusByClient={params.row.product?.skusByClient?.slice()[0]}
-        />
-      )
-    },
     width: 300,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -65,12 +64,13 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
     headerName: t(TranslationKey['Notification type']),
     renderHeader: (/* params: GridRenderCellParams */) => (
       <MultilineTextHeaderCell
+        // @ts-ignore
         text={t(TranslationKey['Notification type'])}
         // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
+    // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />,
     width: 110,
     sortable: false,
@@ -82,6 +82,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
   {
     field: 'message',
     headerName: t(TranslationKey.Message),
+    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Message)} />,
 
     // renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
@@ -89,7 +90,8 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers) => [
       const notification = params?.row?.data?.[0] || params?.row?.data
 
       return (
-        <NotificationMessage
+        <NotificationMessageCell
+          // @ts-ignore
           notificationType={params?.row?.type}
           notification={notification}
           navigateToHandler={rowHandlers.navigateToHandler}

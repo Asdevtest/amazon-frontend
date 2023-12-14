@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
@@ -26,16 +24,14 @@ export const DashboardButtons = ({ user, routes }) => {
     (user.needConfirmPriceChange?.orders || 0) +
     (user.needUpdateTariff?.boxes || 0) +
     (user.freelanceNotices?.length || 0) +
-    (user.updatesOnIdeas || 0)
+    (user.notificationCounter || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>
       {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
         <div
           className={classNames.buttonWrapper}
-          onClick={() => {
-            history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
-          }}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
         >
           <div className={classNames.iconWrapper}>
             <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />

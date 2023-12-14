@@ -7,7 +7,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
 
@@ -15,15 +15,8 @@ import { t } from '@utils/translations'
 
 import { BuyerProductViewModel } from './buyer-product-view.model'
 
-export const BuyerProductView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new BuyerProductViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  // const { classes: classNames } = props;
+export const BuyerProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new BuyerProductViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -31,28 +24,28 @@ export const BuyerProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <div>
-        {viewModel.product ? (
-          <ProductWrapper
-            platformSettings={viewModel.platformSettings}
-            showTab={viewModel.showTab}
-            user={viewModel.userInfo}
-            userRole={viewModel.userInfo.role}
-            product={viewModel.product}
-            productBase={viewModel.productBase}
-            productVariations={viewModel.productVariations}
-            navigateToProduct={viewModel.navigateToProduct}
-            selectedSupplier={viewModel.selectedSupplier}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
-            onChangeField={viewModel.onChangeProductFields}
-            onClickHsCode={viewModel.onClickHsCode}
-          />
-        ) : undefined}
-      </div>
+      {viewModel.product ? (
+        <ProductWrapper
+          platformSettings={viewModel.platformSettings}
+          showTab={viewModel.showTab}
+          user={viewModel.userInfo}
+          userRole={viewModel.userInfo.role}
+          imagesForLoad={viewModel.imagesForLoad}
+          product={viewModel.currentData}
+          productBase={viewModel.productBase}
+          productVariations={viewModel.productVariations}
+          navigateToProduct={viewModel.navigateToProduct}
+          selectedSupplier={viewModel.selectedSupplier}
+          formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+          handleSupplierButtons={viewModel.onClickSupplierButtons}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
+          onClickSupplier={viewModel.onChangeSelectedSupplier}
+          onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
+          onChangeField={viewModel.onChangeProductFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : undefined}
+
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}
         openModal={viewModel.showAddOrEditSupplierModal}

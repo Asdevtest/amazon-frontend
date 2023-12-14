@@ -1,34 +1,49 @@
 import {
   amazonImageUrlBigPostfix,
+  amazonImageUrlPostfix,
   amazonImageUrlPrefix,
   amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-export const getAmazonImageUrl = (str, big) => {
-  if (str) {
-    if (str.includes(BACKEND_API_URL)) {
-      if (str.includes('.preview.webp')) {
-        return str
-      } else {
-        return big ? str : str + '.preview.webp'
-      }
-    } else if (str.includes('placeimg.com')) {
-      return str
-    } else if (str.includes('.com')) {
-      return '/assets/img/no-photo.jpg'
-    } else if (str.includes('base64')) {
-      return str
-    } else if (
-      str.includes(amazonImageUrlBigPostfix) ||
-      str.includes(amazonImageUrlSmallPostfix) ||
-      str.includes('_AC_SL1500_')
-    ) {
-      return str
-    } else {
-      return `${amazonImageUrlPrefix}${str}${big ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix}`
-    }
-  } else {
+import {
+  checkIsDocumentLink,
+  checkIsGif,
+  checkIsHasHttp,
+  checkIsImageInludesPostfixes,
+  checkIsImageLink,
+  checkIsVideoLink,
+} from '@utils/checks'
+import { removeText } from '@utils/text'
+
+export const getAmazonImageUrl = (str, isBig) => {
+  if (!str || str.endsWith('.com')) {
     return '/assets/img/no-photo.jpg'
+  }
+
+  if (checkIsHasHttp(str)) {
+    return checkIsImageLink(str)
+      ? !isBig && !str.includes('.preview.webp')
+        ? str + amazonImageUrlPostfix
+        : str
+      : str /* + amazonImageUrlPostfix */ // deleted because of Google drive link or files
+  } else if (str.includes('/uploads/')) {
+    return `${BACKEND_API_URL}${str}${
+      !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
+      !checkIsVideoLink(str) &&
+      !checkIsDocumentLink(str)
+        ? checkIsImageLink(str) && !isBig && !str.includes('.preview.webp')
+          ? amazonImageUrlPostfix
+          : ''
+        : ''
+    }`
+  } else {
+    if (checkIsImageInludesPostfixes(str) || checkIsVideoLink(str) || checkIsDocumentLink(str)) {
+      return amazonImageUrlPrefix + str
+    } else {
+      return `${amazonImageUrlPrefix}${removeText(str, '.jpg')}${
+        isBig && !checkIsGif(str) ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix
+      }`
+    }
   }
 }

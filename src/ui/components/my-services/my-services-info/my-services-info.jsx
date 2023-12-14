@@ -1,6 +1,6 @@
-import { cx } from '@emotion/css'
+import { useEffect, useRef, useState } from 'react'
 
-import { Avatar, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Rating, Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,76 +14,95 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './my-services.style'
 
-export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
-  const { classes: classNames } = useClassNames()
+export const MyServicesInfo = ({
+  announcementData,
+  onClickEditBtn,
+  onClickBackBtn,
+  onClickCloseAnnouncementBtn,
+  onClickReview,
+}) => {
+  const { classes: classNames, cx } = useClassNames()
+  const descriptionRef = useRef()
+
+  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [shopFullDescriptionButton, setShopFullDescriptionButton] = useState(false)
+
+  useEffect(() => {
+    const containerElement = descriptionRef?.current
+    const componentHeight = containerElement?.scrollHeight
+
+    if (componentHeight > 76) {
+      setShopFullDescriptionButton(componentHeight)
+    }
+  }, [announcementData])
 
   return (
-    <Paper className={classNames.root}>
+    <div className={classNames.root}>
       <div className={classNames.userWrapper}>
         <div className={classNames.userInfoAndFooterWrapper}>
-          <div className={classNames.userInfoAndMoreInfoWrapper}>
-            <div className={classNames.userInfoWrapper}>
-              {announcementData?.createdBy?._id && (
-                <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
-              )}
+          <div className={classNames.userInfoWrapper}>
+            {announcementData?.createdBy?._id && (
+              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
+            )}
 
-              <div className={classNames.userInfoSubWrapper}>
-                <UserLink
-                  blackText
-                  customStyles={{ maxWidth: 500, fontSize: 18 }}
-                  name={announcementData?.createdBy?.name}
-                  userId={announcementData?.createdBy?._id}
-                />
-                <div className={classNames.userRatingWrapper}>
-                  <Typography className={classNames.reviewText}>{t(TranslationKey.Reviews)}</Typography>
-                  <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
-                </div>
+            <div className={classNames.userInfoSubWrapper}>
+              <UserLink
+                blackText
+                customStyles={{ maxWidth: 500, fontSize: 18 }}
+                name={announcementData?.createdBy?.name}
+                userId={announcementData?.createdBy?._id}
+              />
+              <div className={classNames.userRatingWrapper}>
+                <Button
+                  variant="text"
+                  className={classNames.reviewText}
+                  onClick={() => onClickReview(announcementData?.createdBy)}
+                >
+                  {t(TranslationKey.Reviews)}
+                </Button>
+                <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
               </div>
             </div>
+          </div>
 
-            <div className={classNames.userMoreInfoWrapper}>
-              <div className={classNames.titleAndTaksTypeWrapper}>
-                <Typography className={classNames.announcementText}>{announcementData?.title}</Typography>
-                <div className={classNames.descriptionWrapper}>
-                  <Typography className={classNames.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
-                  <Typography className={classNames.announcementText}>
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
-                  </Typography>
-                </div>
-              </div>
-              <div className={classNames.descriptionTextWrapper}>
-                <Typography className={cx(classNames.regularText, classNames.description)}>
-                  {announcementData?.description}
+          <div className={classNames.userMoreInfoWrapper}>
+            <div className={classNames.titleAndTaksTypeWrapper}>
+              <Typography className={classNames.announcementText}>{announcementData?.title}</Typography>
+              <div className={classNames.descriptionWrapper}>
+                <Typography className={classNames.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
+                <Typography className={classNames.announcementText}>
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
                 </Typography>
               </div>
             </div>
+            <div
+              className={cx(classNames.descriptionTextWrapper, {
+                [classNames.showFullDescription]: showFullDescription,
+              })}
+            >
+              <p ref={descriptionRef} className={cx(classNames.regularText, classNames.description)}>
+                {announcementData?.description}
+              </p>
+            </div>
           </div>
         </div>
-        <div className={classNames.userCarouselWrapper}>
-          <div className={classNames.photoWrapper}>
-            <PhotoAndFilesSlider smallSlider files={announcementData?.linksToMediaFiles} />
-          </div>
-
-          {/* <Carousel
-            navButtonsAlwaysInvisible
-            autoPlay={false}
-            timeout={100}
-            animation="fade"
-            // index={imgIndex}
-          >
-            {announcementData?.linksToMediaFiles?.map((el, index) => (
-              <div key={index} className={classNames.mainWrapper}>
-                <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el, true)} />
-              </div>
-            ))}
-          </Carousel> */}
+        <div className={classNames.photosWrapper}>
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={150} files={announcementData?.linksToMediaFiles} />
         </div>
       </div>
+
       <div className={classNames.footerWrapper}>
-        {/* <div className={classNames.statusWrapper}>
-          <FiberManualRecordRoundedIcon className={cx({})} />
-          <Typography className={classNames.regularText}>{'Status'}</Typography>
-        </div> */}
+        {shopFullDescriptionButton ? (
+          <Button
+            variant={'text'}
+            className={classNames.detailsButton}
+            onClick={() => setShowFullDescription(prev => !prev)}
+          >
+            {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
+          </Button>
+        ) : (
+          <div />
+        )}
 
         <div className={classNames.buttonsWrapper}>
           <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>
@@ -99,6 +118,6 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
           </Button>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

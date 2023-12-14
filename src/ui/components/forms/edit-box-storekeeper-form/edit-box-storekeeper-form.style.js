@@ -1,9 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    paddingRight: 10,
   },
   form: {
     borderRadius: '5px',
@@ -43,13 +45,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: '10px',
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
 
   button: {
-    marginLeft: '40px',
+    padding: '0 20px',
   },
 
   field: {
@@ -76,25 +84,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
   },
 
-  numberInputFieldsBlocksWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'flex-start',
-    width: '100%',
-    gap: 10,
-  },
-  numberInputFieldsWrapper: {
-    width: '100%',
-    height: 70,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  numberInputField: {
-    margin: '5px 5px',
-  },
   blockOfNewBoxWrapper: {
     height: '100%',
     width: 525,

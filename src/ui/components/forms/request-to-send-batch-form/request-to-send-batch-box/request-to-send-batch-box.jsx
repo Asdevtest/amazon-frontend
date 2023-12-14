@@ -1,15 +1,13 @@
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { Modal } from '@components/shared/modal'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -23,9 +21,7 @@ export const RequestToSendBatchBox = ({
   price,
   onClickRemoveBoxFromBatch,
   volumeWeightCoefficient,
-  userInfo,
-  onSubmitChangeBoxFields,
-  onClickHsCode,
+  setCurrentOpenedBox,
 }) => {
   const { classes: classNames } = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -48,7 +44,10 @@ export const RequestToSendBatchBox = ({
   return (
     <tr
       className={cx(classNames.box, classNames.row, { [classNames.badBox]: isBadBox })}
-      onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+      onDoubleClick={() => {
+        setCurrentOpenedBox(box)
+        setShowBoxViewModal(!showBoxViewModal)
+      }}
     >
       <div className={cx(tableCellClsx, classNames.indexCell)}>
         <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
@@ -346,20 +345,6 @@ export const RequestToSendBatchBox = ({
           X
         </Button>
       </td>
-
-      <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
-        <BoxViewForm
-          userInfo={userInfo}
-          box={box}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
-          onSubmitChangeFields={data => {
-            onSubmitChangeBoxFields(data, true)
-            setShowBoxViewModal(!showBoxViewModal)
-          }}
-          onClickHsCode={onClickHsCode}
-        />
-      </Modal>
     </tr>
   )
 }

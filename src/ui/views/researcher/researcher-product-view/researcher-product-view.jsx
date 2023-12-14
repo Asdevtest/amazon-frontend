@@ -13,14 +13,8 @@ import { t } from '@utils/translations'
 
 import { ResearcherProductViewModel } from './researcher-product-view.model'
 
-export const ResearcherProductView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new ResearcherProductViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const ResearcherProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new ResearcherProductViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -28,31 +22,29 @@ export const ResearcherProductView = observer(props => {
 
   return (
     <React.Fragment>
-      <div>
-        {viewModel.product ? (
-          <ProductWrapper
-            user={viewModel.userInfo}
-            userRole={viewModel.userInfo.role}
-            imagesForLoad={viewModel.imagesForLoad}
-            showProgress={viewModel.showProgress}
-            progressValue={viewModel.progressValue}
-            alertFailedText={viewModel.alertFailedText}
-            platformSettings={viewModel.platformSettings}
-            product={viewModel.product}
-            productBase={viewModel.productBase}
-            actionStatus={viewModel.actionStatus}
-            selectedSupplier={viewModel.selectedSupplier}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            onChangeField={viewModel.onChangeProductFields}
-            onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onClickParseProductData={viewModel.onClickParseProductData}
-            onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
-          />
-        ) : undefined}
-      </div>
+      {viewModel.currentData ? (
+        <ProductWrapper
+          user={viewModel.userInfo}
+          userRole={viewModel.userInfo.role}
+          imagesForLoad={viewModel.imagesForLoad}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          alertFailedText={viewModel.alertFailedText}
+          platformSettings={viewModel.platformSettings}
+          product={viewModel.currentData}
+          productBase={viewModel.productBase}
+          actionStatus={viewModel.requestStatus}
+          selectedSupplier={viewModel.selectedSupplier}
+          formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+          handleSupplierButtons={viewModel.onClickSupplierButtons}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
+          onChangeField={viewModel.onChangeProductFields}
+          onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
+          onClickSupplier={viewModel.onChangeSelectedSupplier}
+          onClickParseProductData={viewModel.onClickParseProductData}
+          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
+        />
+      ) : undefined}
 
       <Modal
         missClickModalOn={!viewModel.supplierModalReadOnly}

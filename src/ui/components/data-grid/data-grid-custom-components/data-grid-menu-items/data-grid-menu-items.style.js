@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export const styles = theme => ({
   isFormedWrapper: {
     padding: '10px 20px',
@@ -60,6 +59,13 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  statusText: {
+    fontSize: 16,
+    lineHeight: '22px',
+    fontWeight: 400,
+    color: theme.palette.text.general,
   },
 
   noOptionText: {
@@ -189,8 +195,8 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: 300,
-    padding: '20px 21px',
+    width: 350,
+    padding: 20,
     gap: 20,
   },
 
@@ -202,7 +208,7 @@ export const styles = theme => ({
   universalFilterBody: {
     width: '100%',
     minHeight: 50,
-    maxHeight: 245,
+    maxHeight: 255,
     overflowY: 'auto',
     textAlign: 'center',
     boxShadow: theme.palette.boxShadow.filter,

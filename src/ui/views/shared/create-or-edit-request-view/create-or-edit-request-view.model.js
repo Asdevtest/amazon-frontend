@@ -1,9 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { ClientModel } from '@models/client-model'
 import { RequestModel } from '@models/request-model'
 import { UserModel } from '@models/user-model'
 
@@ -66,10 +66,13 @@ export class CreateOrEditRequestViewModel {
         asin: url.searchParams.get('asin'),
       }
 
+      const announcementId = url.searchParams.get('announcementId')
+      if (announcementId) {
+        this.announcementId = announcementId
+      }
+
       if (location.state) {
         this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-        this.executor = location.state?.executor
       }
     })
 
@@ -95,7 +98,11 @@ export class CreateOrEditRequestViewModel {
 
   async getProductPermissionsData() {
     try {
-      this.permissionsData = await ClientModel.getProductPermissionsData()
+      // await ClientModel.getProductPermissionsData().then(result => {
+      //   runInAction(() => {
+      //     this.permissionsData = result.rows
+      //   })
+      // })
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -104,9 +111,9 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async getMasterUsersData(specsType) {
+  async getMasterUsersData(specsType, guid = '') {
     try {
-      this.masterUsersData = await UserModel.getMasterUsers(35, '', { specs: specsType })
+      this.masterUsersData = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
     } catch (error) {
       runInAction(() => {
         this.error = error
@@ -264,6 +271,7 @@ export class CreateOrEditRequestViewModel {
       this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
+        error: true,
       })
 
       runInAction(() => {
@@ -278,9 +286,7 @@ export class CreateOrEditRequestViewModel {
   }
 
   async onClickChoosePerformer(typeTask) {
-    this.announcements = await AnnouncementsModel.getVacAnnouncements({
-      type: typeTask,
-    })
+    this.announcements = await AnnouncementsModel.getVacAnnouncements(typeTask)
   }
 
   async getCustomRequestCur() {
@@ -301,9 +307,13 @@ export class CreateOrEditRequestViewModel {
   }
 
   async getAnnouncementData() {
-    const id = this.announcementId || this.requestToEdit?.request?.announcementId
-    if (id) {
-      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(id)
+    const guid = this.announcementId || this.requestToEdit?.request?.announcementId
+    if (guid) {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+      runInAction(() => {
+        this.choosenAnnouncements = result
+        this.executor = result?.createdBy
+      })
     }
   }
 

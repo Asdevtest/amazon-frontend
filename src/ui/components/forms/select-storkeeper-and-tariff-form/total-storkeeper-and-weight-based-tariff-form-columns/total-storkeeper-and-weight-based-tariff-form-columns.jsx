@@ -34,7 +34,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => (
-      <DestinationVariationsSpanningCell destinationVariations={params.row.originalData.destinationVariations} />
+      <DestinationVariationsSpanningCell destinationVariations={params.row.destinationVariations} />
     ),
     width: 149,
     filterable: false,

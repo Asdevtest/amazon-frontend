@@ -1,23 +1,17 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { ChatModel } from '@models/chat-model'
-import { RequestModel } from '@models/request-model'
-import { RequestProposalModel } from '@models/request-proposal'
+import { FeedbackModel } from '@models/feedback-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { FreelancerFreelanceColumns } from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
 
 import { freelancerServiceDetaildsDataConverter } from '@utils/data-grid-data-converters'
-import { toFixed } from '@utils/text'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
-import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ServiceDetailsViewModel {
   history = undefined
@@ -35,6 +29,10 @@ export class ServiceDetailsViewModel {
   filterModel = { items: [] }
 
   showConfirmModal = false
+  showReviewModal = false
+
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -62,15 +60,15 @@ export class ServiceDetailsViewModel {
     return SettingsModel.languageTag || {}
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
+      const url = new URL(window.location.href)
+
       this.history = history
 
-      if (location.state) {
-        runInAction(() => {
-          this.announcementId = location.state.data
-        })
-      }
+      runInAction(() => {
+        this.announcementId = url.searchParams.get('serviceId')
+      })
     })
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -97,10 +95,11 @@ export class ServiceDetailsViewModel {
 
   async getAnnouncementsDataByGuid() {
     try {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
-      runInAction(() => {
-        this.announcementData = result
-        this.rowCount = result.length
+      await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId).then(result => {
+        runInAction(() => {
+          this.announcementData = result
+          this.rowCount = result.length
+        })
       })
     } catch (error) {
       this.error = error
@@ -134,10 +133,9 @@ export class ServiceDetailsViewModel {
   }
 
   onClickOpenBtn(id) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds/custom-service-type`, {
-      requestId: id,
-      announcementId: this.announcementId,
-    })
+    this.history.push(
+      `/freelancer/freelance/my-services/service-detailds/custom-service-type?requestId=${id}&announcementId=${this.announcementId}`,
+    )
   }
 
   onClickEditBtn() {
@@ -188,5 +186,26 @@ export class ServiceDetailsViewModel {
     runInAction(() => {
       this.requestStatus = requestStatus
     })
+  }
+
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+
+      runInAction(() => {
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
+    this.onTriggerOpenModal('showReviewModal')
   }
 }

@@ -107,3 +107,15 @@ export const objectDeepCompare = (obj1, obj2) => {
 
   return true
 }
+
+export const getSumPropertiesObject = object => {
+  let result = 0
+
+  for (const key in object) {
+    if (typeof object[key] === 'number') {
+      result += object[key]
+    }
+  }
+
+  return result
+}

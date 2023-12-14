@@ -1,23 +1,31 @@
+import { FC, memo } from 'react'
+
 import { CopyValue } from '@components/shared/copy-value'
-import { useLinkWithCopyStyles } from '@components/shared/link-with-copy/link-with-copy.styles'
+import { useStyles } from '@components/shared/link-with-copy/link-with-copy.styles'
 
 interface LinkWithCopyProps {
   url: string
   title: string
   valueToCopy: string
+  linkTextSize?: 'medium'
 }
 
-export const LinkWithCopy = (props: LinkWithCopyProps) => {
-  const { url, title, valueToCopy } = props
-  const { classes: styles } = useLinkWithCopyStyles()
+export const LinkWithCopy: FC<LinkWithCopyProps> = memo(props => {
+  const { url, title, valueToCopy, linkTextSize } = props
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <a target="_blank" rel="noreferrer" href={url} className={styles.normalizeLink}>
-        <span className={styles.linkSpan}>{title}</span>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={url}
+        className={cx(styles.normalizeLink, { [styles.mediumSizeLinkText]: linkTextSize === 'medium' })}
+      >
+        {title}
       </a>
 
       <CopyValue text={valueToCopy} />
     </div>
   )
-}
+})

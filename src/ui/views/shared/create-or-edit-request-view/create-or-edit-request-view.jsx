@@ -3,11 +3,15 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
+
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
@@ -20,9 +24,11 @@ export const CreateOrEditRequestView = observer(props => {
         location: props.location,
       }),
   )
+  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
     viewModel.loadData()
+    useProductsPermissions.getPermissionsData()
   }, [])
 
   return (
@@ -32,7 +38,7 @@ export const CreateOrEditRequestView = observer(props => {
           mainContentRef={mainContentRef}
           executor={viewModel.executor}
           choosenAnnouncements={viewModel.choosenAnnouncements}
-          permissionsData={viewModel.permissionsData}
+          permissionsData={useProductsPermissions.permissionsData}
           masterUsersData={viewModel.masterUsersData}
           announcements={viewModel.announcements}
           platformSettingsData={viewModel.platformSettingsData}
@@ -43,6 +49,8 @@ export const CreateOrEditRequestView = observer(props => {
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
           getMasterUsersData={viewModel.getMasterUsersData}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickExistingRequest={viewModel.onClickExistingRequest}
           onCreateSubmit={viewModel.onSubmitCreateRequest}
           onEditSubmit={viewModel.onSubmitEditRequest}
@@ -51,19 +59,21 @@ export const CreateOrEditRequestView = observer(props => {
         />
       </div>
 
-      <ImageModal
-        showPreviews
-        imageList={viewModel.bigImagesOptions.images}
-        handleCurrentImageIndex={index =>
-          viewModel.setBigImagesOptions({
-            ...viewModel.bigImagesOptions,
-            imgIndex: index,
-          })
-        }
-        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
-        isOpenModal={viewModel.showImageModal}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-      />
+      {viewModel.showImageModal && (
+        <ImageModal
+          showPreviews
+          imageList={viewModel.bigImagesOptions.images}
+          handleCurrentImageIndex={index =>
+            viewModel.setBigImagesOptions({
+              ...viewModel.bigImagesOptions,
+              imgIndex: index,
+            })
+          }
+          currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+          isOpenModal={viewModel.showImageModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        />
+      )}
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}

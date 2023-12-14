@@ -94,6 +94,6 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'sticky',
     bottom: '0',
     right: '0',
-    zIndex: 999,
+    zIndex: 50,
   },
 }))

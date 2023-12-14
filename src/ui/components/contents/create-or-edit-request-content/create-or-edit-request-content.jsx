@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import {
-  Avatar,
   Checkbox,
   Input,
   InputAdornment,
@@ -14,11 +13,11 @@ import {
   ListItem,
   ListItemText,
   MenuItem,
-  Rating,
   Select,
   Typography,
 } from '@mui/material'
 
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -42,14 +41,13 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -76,6 +74,8 @@ export const CreateOrEditRequestContent = observer(
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
+    loadMorePermissionsDataHadler,
+    onClickSubmitSearch,
     onClickExistingRequest,
     onClickChoosePerformer,
     onClickThumbnail,
@@ -92,7 +92,7 @@ export const CreateOrEditRequestContent = observer(
     const [showScrollDown, setShowScrollDown] = useState(false)
     const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
-    const [announcementsData, setAnnouncementsData] = useState(announcements)
+    const [announcementsData, setAnnouncementsData] = useState([])
 
     const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
     const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
@@ -169,7 +169,9 @@ export const CreateOrEditRequestContent = observer(
     }, [])
 
     useEffect(() => {
-      setAnnouncementsData(announcements)
+      if (announcements?.length) {
+        setAnnouncementsData(announcements)
+      }
     }, [announcements])
 
     useEffect(() => {
@@ -212,6 +214,7 @@ export const CreateOrEditRequestContent = observer(
               2,
             )
           : 0,
+        taskComplexity: requestToEdit?.request?.taskComplexity || 20,
       },
       details: {
         conditions: requestToEdit?.details?.conditions || '',
@@ -422,16 +425,43 @@ export const CreateOrEditRequestContent = observer(
             {curStep === stepVariant.STEP_ONE && (
               <div className={classNames.mainSubRightWrapper}>
                 <div className={classNames.middleWrapper}>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    inputProps={{ maxLength: 100 }}
+                    placeholder={t(TranslationKey['Request title'])}
+                    label={t(TranslationKey['Request title']) + '*'}
+                    className={classNames.nameField}
+                    containerClasses={classNames.nameFieldContainer}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.request.title}
+                    onChange={onChangeField('request')('title')}
+                  />
+
                   <div className={classNames.nameFieldWrapper}>
                     <Field
-                      tooltipInfoContent={t(TranslationKey['Future request title'])}
-                      inputProps={{ maxLength: 100 }}
-                      label={t(TranslationKey['Request title']) + '*'}
-                      className={classNames.nameField}
-                      containerClasses={classNames.nameFieldContainer}
+                      label={t(TranslationKey['Difficulty level'])}
                       labelClasses={classNames.spanLabelSmall}
-                      value={formFields.request.title}
-                      onChange={onChangeField('request')('title')}
+                      tooltipInfoContent={t(TranslationKey['Difficulty level'])}
+                      containerClasses={classNames.difficultylevelContainer}
+                      inputComponent={
+                        <Select
+                          displayEmpty
+                          value={formFields.request.taskComplexity}
+                          className={classNames.requestTypeField}
+                          input={<Input startAdornment={<InputAdornment position="start" />} />}
+                          onChange={onChangeField('request')('taskComplexity')}
+                        >
+                          <MenuItem disabled value={null}>
+                            {t(TranslationKey['Select from the list'])}
+                          </MenuItem>
+
+                          {Object.keys(difficultyLevelByCode).map((difficultyLevel, difficultyLevelIndex) => (
+                            <MenuItem key={difficultyLevelIndex} value={difficultyLevel}>
+                              {difficultyLevelTranslate(difficultyLevelByCode[difficultyLevel])}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      }
                     />
 
                     <Field
@@ -442,14 +472,13 @@ export const CreateOrEditRequestContent = observer(
                       className={classNames.nameField}
                       inputComponent={
                         <WithSearchSelect
-                          asinSelect
                           grayBorder
                           blackSelectedItem
                           darkIcon
                           chosenItemNoHover
-                          data={permissionsData}
-                          width={185}
-                          searchOnlyFields={['asin', 'skusByClient']}
+                          CustomButton={componentProps => <SelectProductButton {...componentProps} />}
+                          data={permissionsData || []}
+                          width={'100%'}
                           customSubMainWrapper={classNames.customSubMainWrapperAsin}
                           customSearchInput={classNames.customSearchInput}
                           selectedItemName={
@@ -457,6 +486,8 @@ export const CreateOrEditRequestContent = observer(
                             (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
                             t(TranslationKey['Select ASIN'])
                           }
+                          onScrollItemList={loadMorePermissionsDataHadler}
+                          onClickSubmitSearch={onClickSubmitSearch}
                           onClickSelect={el => {
                             onChangeField('request')('asin')(el.asin)
                             onChangeField('request')('productId')(el._id)
@@ -494,12 +525,6 @@ export const CreateOrEditRequestContent = observer(
                         </Select>
                       }
                     />
-
-                    {/* <span
-                  className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
-                >{`${formFields.request.title.length} ${t(TranslationKey.of)} 80 ${t(
-                  TranslationKey.characters,
-                )}`}</span> */}
                   </div>
 
                   {`${formFields?.request?.typeTask}` ===
@@ -556,7 +581,6 @@ export const CreateOrEditRequestContent = observer(
                       images={images}
                       setImages={setImages}
                       maxNumber={50}
-                      // oneLineMaxHeight
                       maxHeight={160}
                       addFilesButtonTitle={t(TranslationKey['Add file'])}
                     />
@@ -1013,22 +1037,13 @@ export const CreateOrEditRequestContent = observer(
                               <Typography className={classNames.spanLabelSmall}>
                                 {t(TranslationKey.Performer)}
                               </Typography>
-                              <div className={classNames.userInfo}>
-                                <Avatar
-                                  src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                                  className={classNames.cardImg}
-                                />
 
-                                <div className={classNames.nameWrapperStepTwo}>
-                                  <UserLink
-                                    blackText
-                                    name={announcement?.createdBy?.name}
-                                    userId={announcement?.createdBy?._id}
-                                    customStyles={{ maxWidth: 300 }}
-                                  />
-                                  <Rating disabled value={5} size="small" classes={classNames.rating} />
-                                </div>
-                              </div>
+                              <MasterUserItem
+                                id={chosenExecutor?._id}
+                                name={chosenExecutor?.name}
+                                rating={chosenExecutor?.rating}
+                              />
+
                               <Typography className={classNames.performerDescriptionText}>
                                 {announcement?.description}
                               </Typography>
@@ -1272,7 +1287,7 @@ export const CreateOrEditRequestContent = observer(
         <Modal
           openModal={showCheckRequestByTypeExists}
           setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-          dialogContextClassName={classNames.dialogContextClassName}
+          dialogClassName={classNames.dialogClassName}
         >
           <CheckRequestByTypeExists
             requestsData={requestIds}

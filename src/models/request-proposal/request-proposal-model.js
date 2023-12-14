@@ -1,8 +1,8 @@
-import { BACKEND_API_URL } from '@constants/keys/env'
-
 import { OtherModel } from '@models/other-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
+
+import { filterNullValues } from '@utils/object'
 
 class RequestProposalModelStatic {
   async onPostFile(fileData) {
@@ -17,149 +17,128 @@ class RequestProposalModelStatic {
 
     try {
       const fileName = await OtherModel.postImage(formData)
-      return BACKEND_API_URL + '/uploads/' + fileName
+      return '/uploads/' + fileName
     } catch (error) {
       console.log('error', error)
     }
   }
 
-  createRequestProposalCustom = async (requestId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomPost({
-      body: {
-        requestId,
-        details: data,
-      },
+  updateRequestProposalCustom = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalEditPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  updateRequestProposalCustom = async (id, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalEditPatch(id, {
-      body: { ...data },
+  getRequestProposalsCustomByRequestId = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomByRequestIdGuidGet({ guid })
+    return response.data
+  }
+
+  getRequestProposalsCustom = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet({ guid })
+    return response.data
+  }
+
+  requestProposalAccept = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalAcceptPatch({
+      guid,
     })
+    return response.data
+  }
+
+  requestProposalReject = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalRejectPatch({ guid })
     return response
   }
 
-  deleteRequestProposalCustom = async id => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidDelete(id)
-    return response
-  }
-
-  getRequestProposalsCustomByRequestId = async requestId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomByRequestIdGuidGet(requestId)
-    return response
-  }
-
-  getRequestProposalsCustom = async proposalId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet(proposalId)
-    return response
-  }
-
-  requestProposalAccept = async proposalId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalAcceptPatch(proposalId, {
-      body: {},
+  requestProposalCorrected = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalCorrectedPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  requestProposalReject = async proposalId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalRejectPatch(proposalId, {
-      body: {},
+  requestProposalReadyToVerify = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidReadyToVerifyPatch({
+      guid,
     })
-    return response
+    return response.data
   }
 
-  requestProposalCorrected = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalCorrectedPatch(
-      proposalId,
-      { body: data },
-    )
-    return response
-  }
-
-  requestProposalReadyToVerify = async proposalId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidReadyToVerifyPatch(proposalId, {
-      body: {},
+  requestProposalResultToCorrect = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultToCorrectPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  requestProposalResultToCorrect = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultToCorrectPatch(
-      proposalId,
-      { body: data },
-    )
-    return response
-  }
-
-  requestProposalResultCorrected = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultCorrectedPatch(
-      proposalId,
-      { body: data },
-    )
-    return response
-  }
-
-  requestProposalResultAccept = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultAcceptPatch(proposalId, {
-      body: data || {},
+  requestProposalResultCorrected = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultCorrectedPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  requestProposalCancelBeforDeal = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelBeforeDealPatch(
-      proposalId,
-      {
-        body: data || {},
-      },
-    )
-    return response
+  requestProposalResultAccept = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultAcceptPatch({ guid, body })
+    return response.data
   }
 
-  requestProposalCancel = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelPatch(proposalId, {
-      body: data || {},
+  requestProposalCancelBeforDeal = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelBeforeDealPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  requestProposalLinkOrUnlinkSupervisor = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(
-      proposalId,
-      { body: data },
-    )
-    return response
+  requestProposalCancel = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelPatch({ guid, body })
+    return response.data
   }
 
-  requestProposalResultEdit = async (proposalId, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidResultEditPatch(
-      proposalId,
-      { body: data },
-    )
-    return response
+  requestProposalLinkOrUnlinkSupervisor = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch({
+      guid,
+      body,
+    })
+    return response.data
   }
 
-  getRequestProposalsForSupervisor = async (type, requestsType) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGet(type, requestsType)
-    return response
+  requestProposalResultEdit = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidResultEditPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  getRequestProposalsForSupervisor = async (type, kind) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGet({ type, kind })
+    return response.data
   }
 
   getFreelanceSourceFiles = async () => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGet()
-    return response
+    return response.data
   }
 
-  patchFreelanceSourceFilesByGuid = async (id, data) => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidPatch(id, {
-      body: data,
+  patchFreelanceSourceFilesByGuid = async (guid, body) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  deleteFreelanceSourceFilesByGuid = async id => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete(id)
-    return response
+  getRequestProposalsPagMy = async opts => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(filterNullValues(opts))
+    return response.data
   }
 }
 

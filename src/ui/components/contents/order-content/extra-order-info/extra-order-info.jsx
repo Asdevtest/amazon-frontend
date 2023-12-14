@@ -4,7 +4,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -25,25 +25,22 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           >
             {t(TranslationKey['Order photos:'])}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoCarousel files={order?.images} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.images} />
         </div>
         <div className={classNames.photoWrapper}>
           <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoCarousel files={order.orderSupplier?.images} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order.orderSupplier?.images} />
         </div>
         <div className={classNames.photoWrapper}>
           <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
             {t(TranslationKey['Supplier payment']) + ':'}
           </Text>
-          <div className={classNames.photoCarousel}>
-            <PhotoCarousel files={order?.paymentDetails} />
-          </div>
+
+          <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.paymentDetails} />
         </div>
       </div>
 

@@ -10,6 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { UserLink } from '@components/user/user-link'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './chat-message-patch-info-group-chat.style'
@@ -29,17 +30,11 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
   const titleIsChanged = message.data.prevData?.title !== message.data.updatedData?.title
   const imageIsChanged = message.data.prevData?.image !== message.data.updatedData?.image
+
   return (
     <div className={classNames.root}>
       <div className={classNames.root}>
-        <UserLink
-          name={message.user?.name}
-          userId={message.user?._id}
-          blackText={undefined}
-          withAvatar={undefined}
-          maxNameWidth={undefined}
-          customClassNames={undefined}
-        />
+        <UserLink name={message.user?.name} userId={message.user?._id} />
 
         <p className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</p>
       </div>
@@ -63,12 +58,12 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
             <img
               className={classNames.groupImage}
-              src={message.data.prevData?.image || '/assets/img/no-photo.jpg'}
+              src={getAmazonImageUrl(message.data.prevData?.image) || '/assets/img/no-photo.jpg'}
               onClick={() => {
                 setShowPhotosModal(!showPhotosModal)
 
                 setBigImagesOptions({
-                  images: [message.data.prevData?.image],
+                  images: [getAmazonImageUrl(message.data.prevData?.image)],
                   imgIndex: 0,
                 })
               }}
@@ -78,12 +73,12 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
             <img
               className={classNames.groupImage}
-              src={message.data.updatedData?.image}
+              src={getAmazonImageUrl(message.data.updatedData?.image)}
               onClick={() => {
                 setShowPhotosModal(!showPhotosModal)
 
                 setBigImagesOptions({
-                  images: [message.data.updatedData?.image],
+                  images: [getAmazonImageUrl(message.data.updatedData?.image)],
                   imgIndex: 0,
                 })
               }}
@@ -92,13 +87,15 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
         ) : null}
       </div>
 
-      <ImageModal
-        imageList={bigImagesOptions.images}
-        currentImageIndex={bigImagesOptions.imgIndex}
-        isOpenModal={showPhotosModal}
-        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
-      />
+      {showPhotosModal && (
+        <ImageModal
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
+        />
+      )}
     </div>
   )
 }

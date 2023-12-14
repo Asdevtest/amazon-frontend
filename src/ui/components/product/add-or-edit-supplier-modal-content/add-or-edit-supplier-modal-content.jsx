@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { React, useState } from 'react'
+import { useState } from 'react'
 
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
+import { Checkbox, Divider, Grid, Link, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,9 +13,8 @@ import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -50,31 +48,23 @@ export const AddOrEditSupplierModalContent = observer(
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
+    const handleChange = newAlignment => {
+      if (newAlignment !== sizeSetting) {
+        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
 
-      if (newAlignment === sizesType.INCHES) {
         setTmpSupplier({
           ...tmpSupplier,
           boxProperties: {
             ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / inchesCoefficient, 2),
+            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / multiplier, 2),
+            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / multiplier, 2),
+            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / multiplier, 2),
           },
         })
-      } else {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: {
-            ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2),
-          },
-        })
+
+        setSizeSetting(newAlignment)
       }
     }
 
@@ -125,15 +115,15 @@ export const AddOrEditSupplierModalContent = observer(
         boxProperties: {
           ...tmpSupplier.boxProperties,
           boxLengthCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxLengthCm) || 0,
           boxWidthCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxWidthCm) || 0,
           boxHeightCm:
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.US
               ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
               : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
@@ -403,7 +393,7 @@ export const AddOrEditSupplierModalContent = observer(
         !boxPropertiesIsFullAndMainsValues)
 
     return (
-      <Container disableGutters className={classNames.modalContainer}>
+      <div className={classNames.modalContainer}>
         {onlyRead ? (
           <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
         ) : (
@@ -709,14 +699,14 @@ export const AddOrEditSupplierModalContent = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <Typography className={classNames.standartText}>{t(TranslationKey.Dimensions)}</Typography>
 
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    switcherSettings={[
+                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                    ]}
+                    changeConditionHandler={condition => handleChange(condition)}
+                  />
                 </div>
 
                 <div className={classNames.sizesBottomWrapper}>
@@ -814,7 +804,7 @@ export const AddOrEditSupplierModalContent = observer(
                       containerClasses={classNames.shortContainer}
                       labelClasses={classNames.normalLabel}
                       value={toFixed(
-                        (sizeSetting === sizesType.INCHES
+                        (sizeSetting === unitsOfChangeOptions.US
                           ? tmpSupplier.boxProperties.boxHeightCm *
                             inchesCoefficient *
                             tmpSupplier.boxProperties.boxWidthCm *
@@ -916,13 +906,15 @@ export const AddOrEditSupplierModalContent = observer(
           <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
         )}
 
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={tmpSupplier.images}
-          currentImageIndex={curImageIndex}
-          handleCurrentImageIndex={index => setCurImageIndex(index)}
-        />
+        {showPhotosModal && (
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={tmpSupplier.images}
+            currentImageIndex={curImageIndex}
+            handleCurrentImageIndex={index => setCurImageIndex(index)}
+          />
+        )}
 
         <Modal
           openModal={showSupplierApproximateCalculationsModal}
@@ -936,7 +928,7 @@ export const AddOrEditSupplierModalContent = observer(
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>
-      </Container>
+      </div>
     )
   },
 )

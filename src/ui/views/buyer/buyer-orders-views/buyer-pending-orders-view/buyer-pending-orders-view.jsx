@@ -1,66 +1,50 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './buyer-pending-orders-view.style'
+import { useStyles } from './buyer-pending-orders-view.style'
 
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
-export const BuyerPendingOrdersViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+export const BuyerPendingOrdersView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
-    viewModel.getDataGridState()
   }, [])
 
   return (
     <React.Fragment>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -68,13 +52,7 @@ export const BuyerPendingOrdersViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            // rowHeight={100}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -94,7 +72,7 @@ export const BuyerPendingOrdersViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
@@ -105,7 +83,6 @@ export const BuyerPendingOrdersViewRaw = props => {
         missClickModalOn
         openModal={viewModel.showOrderModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-        dialogContextClassName={classNames.dialogContextClassName}
       >
         <EditOrderModal
           isPendingOrder
@@ -151,9 +128,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['The fields must be filled in to create the box!'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
       />
 
       <WarningInfoModal
@@ -161,9 +136,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
         title={t(TranslationKey['Creating new boxes. Be careful!'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningNewBoxesModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
       />
 
       <WarningInfoModal
@@ -172,9 +145,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
 
       <WarningInfoModal
@@ -186,9 +157,7 @@ export const BuyerPendingOrdersViewRaw = props => {
           ],
         )}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
       />
 
       <SuccessInfoModal
@@ -196,9 +165,7 @@ export const BuyerPendingOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.showSuccessModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <Modal
@@ -213,6 +180,4 @@ export const BuyerPendingOrdersViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const BuyerPendingOrdersView = withStyles(observer(BuyerPendingOrdersViewRaw), styles)
+})

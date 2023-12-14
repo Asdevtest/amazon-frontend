@@ -1,5 +1,8 @@
 export const columnnsKeys = {
   supervisor: {},
+  admin: {
+    STRATEGY_STATUS: 'STRATEGY_STATUS',
+  },
   buyer: {
     MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
     ORDERS_PRIORITY: 'ORDERS_PRIORITY',
@@ -42,6 +45,8 @@ export const columnnsKeys = {
   researcher: {},
   freelancer: {
     FREELANCE_REQUESTS_CONFIRMATION: 'FREELANCE_REQUESTS_CONFIRMATION',
+    FREELANCE_PROPOSALS_CREATED_BY: 'FREELANCE_REQUESTS_CREATED_BY',
+    FREELANCER_VACANT_REQUEST_PRODUCT: 'FREELANCER_VACANT_REQUEST_PRODUCT',
   },
 
   shared: {
@@ -60,5 +65,7 @@ export const columnnsKeys = {
     BATCHES_SHIPPING_DATE: 'BATCHES_SHIPPING_DATE',
     BATCHES_TRACKING: 'BATCHES_TRACKING',
     SECONDS: 'SECONDS',
+    TASK_COMPLEXITY: 'TASK_COMPLEXITY',
+    TAGS: 'TAGS',
   },
 }
