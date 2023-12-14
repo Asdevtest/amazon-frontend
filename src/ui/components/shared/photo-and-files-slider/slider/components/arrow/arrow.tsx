@@ -3,9 +3,9 @@ import { FC, memo } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { useStyles } from '../slider.style'
+import { useStyles } from './arrow.style'
 
-import { Arrows, ArrowsType } from '../slider.type'
+import { Arrows, ArrowsType } from '../../slider.type'
 
 interface ArrowProps {
   direction: string

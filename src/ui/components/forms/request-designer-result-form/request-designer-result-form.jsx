@@ -321,12 +321,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const disableSubmit = imagesData.every(el => !el.image)
 
-  const filteredImagesData = imagesData.filter(el =>
+  /* const filteredImagesData = imagesData.filter(el =>
     checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
-  )
-  const imageLinks = filteredImagesData.map(el => el.image)
-  const photosTitles = filteredImagesData.map(el => el.comment)
-  const photosComments = filteredImagesData.map(el => el.commentByClient)
+  ) */
+  const fileLinks = imagesData.map(el => el.image)
+  const photosTitles = imagesData.map(el => el.comment)
+  const photosComments = imagesData.map(el => el.commentByClient)
 
   return (
     <div className={styles.modalMainWrapper}>
@@ -481,7 +481,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           isRequestResult
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          files={imageLinks}
+          files={fileLinks}
           photosTitles={photosTitles}
           photosComments={photosComments}
           currentFileIndex={curImageIndex}

@@ -6,13 +6,11 @@ import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { getShortenStringIfLongerThanCount } from '@utils/text'
-
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './image-modal.style'
 
-import { ButtonControls, ShowPreviews } from './components'
+import { ButtonControls, Comment, ShowPreviews } from './components'
 
 interface ImageModalProps {
   files: Array<string | IUploadFile>
@@ -45,7 +43,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     onChangeImagesForLoad,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const {
     openImageEditModal,
     onOpenImageEditModal,
@@ -79,9 +77,9 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     >
       <div className={styles.wrapper}>
         <ShowPreviews
-          mediaFiles={mediaFiles}
-          mediaFileIndex={mediaFileIndex}
-          setMediaFileIndex={setMediaFileIndex}
+          slides={files}
+          currentIndex={mediaFileIndex}
+          setCurrentIndex={setMediaFileIndex}
           setIsPlaying={setIsPlaying}
           showPreviews={showPreviews}
           photosTitles={photosTitles}
@@ -94,21 +92,14 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
             controls
             isHideCounter
             customSlideHeight={500}
-            slides={mediaFiles}
+            slides={files}
             currentIndex={mediaFileIndex}
             setCurrentIndex={setMediaFileIndex}
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
           />
 
-          {photosComments?.[mediaFileIndex] && (
-            <p
-              title={photosComments?.[mediaFileIndex].length > 200 ? photosComments?.[mediaFileIndex] : ''}
-              className={cx(styles.title, { [styles.titleError]: isRequestResult })}
-            >
-              {getShortenStringIfLongerThanCount(photosComments?.[mediaFileIndex], 200)}
-            </p>
-          )}
+          <Comment mediaFileIndex={mediaFileIndex} isRequestResult={isRequestResult} photosComments={photosComments} />
 
           <ButtonControls
             isEditable={isEditable}

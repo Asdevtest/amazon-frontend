@@ -1,16 +1,15 @@
 import { FC, memo } from 'react'
 
-import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
-
 import { FileIcon } from '@components/shared//file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
+import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from '../slider.style'
+import { useStyles } from './slides.style'
 
 interface SlidesProps {
   slides: Array<string | IUploadFile>
@@ -43,7 +42,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={cx(styles.slidesWrapper)}>
+    <div className={styles.slidesWrapper}>
       <div
         className={cx(styles.slides, {
           [styles.slideSmall]: smallSlider,
@@ -61,6 +60,8 @@ export const Slides: FC<SlidesProps> = memo(props => {
           const slideToCheck = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.file.name
           const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
           const isActiveSlide = currentIndex === index
+          const documentName = typeof slide === 'string' ? slide : slide?.file?.name
+          const documentLink = typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'
 
           return (
             <div key={index} className={styles.slideWrapper}>
@@ -74,29 +75,28 @@ export const Slides: FC<SlidesProps> = memo(props => {
                       setIsPlaying={setIsPlaying}
                     />
                   ) : (
-                    <div className={styles.preloaderContainer} onClick={onPhotosModalToggle}>
-                      <VideoPlayer videoSource={currentSlide} />
-                      <div className={styles.preloader}>
-                        <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
-                      </div>
-                    </div>
+                    <VideoPreloader
+                      videoSource={currentSlide}
+                      iconPlayClassName={styles.preloaderIcon}
+                      onClick={onPhotosModalToggle}
+                    />
                   )
                 ) : (
                   <img
                     src={currentSlide}
-                    alt={`Slide ${currentIndex}`}
+                    alt={`Slide-${currentIndex}`}
                     className={styles.slide}
                     onClick={onPhotosModalToggle}
                   />
                 )
               ) : (
                 <div className={styles.documentWrapper}>
-                  <a href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'} target="_blank" rel="noreferrer">
+                  <a href={documentLink} target="_blank" rel="noreferrer">
                     <FileIcon fileExtension={elementExtension} className={styles.slide} />
                   </a>
 
                   <a
-                    href={typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'}
+                    href={documentLink}
                     target="_blank"
                     rel="noreferrer"
                     className={cx(styles.linkDocument, styles.text, {
@@ -105,7 +105,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
                       [styles.bigText]: bigSlider,
                     })}
                   >
-                    {typeof slide === 'string' ? slide : slide?.file?.name}
+                    {documentName}
                   </a>
                 </div>
               )}
