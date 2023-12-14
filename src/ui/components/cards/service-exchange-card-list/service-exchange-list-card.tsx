@@ -49,6 +49,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
       <PhotoAndFilesSlider
         withoutFiles
         showPreviews
+        smallPhotos
         files={service.linksToMediaFiles}
         mainClasses={!service.linksToMediaFiles.length ? styles.photosWrapper : ''}
       />
