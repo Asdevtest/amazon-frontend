@@ -18,24 +18,19 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { filtersFields } from './admin-warehouse-boxes-view.constants'
 
 export class AdminWarehouseBoxesViewModel {
-  history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
-
+  curBox = undefined
+  volumeWeightCoefficient = undefined
   boxes = []
+  selectedBoxes = []
 
   get currentData() {
     return this.boxes
   }
 
-  curBox = undefined
-
-  volumeWeightCoefficient = undefined
-
   showBoxViewModal = false
-
-  selectedBoxes = []
 
   rowCount = 0
   sortModel = []
@@ -49,8 +44,8 @@ export class AdminWarehouseBoxesViewModel {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.getBoxes()
       this.getDataGridState()
+      this.getBoxes()
     },
 
     filterRequestStatus: undefined,
@@ -58,9 +53,7 @@ export class AdminWarehouseBoxesViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -112,7 +105,7 @@ export class AdminWarehouseBoxesViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -120,10 +113,6 @@ export class AdminWarehouseBoxesViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
   }
 
   loadData() {
@@ -150,13 +139,18 @@ export class AdminWarehouseBoxesViewModel {
 
       runInAction(() => {
         this.boxes = adminBoxesDataConverter(rows).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
-        this.rowCount = count || 0
+        this.rowCount = count
       })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+
+      runInAction(() => {
+        this.boxes = []
+        this.rowCount = 0
+      })
     }
   }
 
@@ -179,6 +173,10 @@ export class AdminWarehouseBoxesViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
   }
 
   // * Filtration
@@ -215,10 +213,7 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   async onClickFilterBtn(column) {
@@ -248,12 +243,6 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 }
