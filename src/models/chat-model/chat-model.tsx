@@ -14,6 +14,7 @@ import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
   ChatMessageType,
+  EChatInfoType,
   FindChatMessageRequestParams,
   OnReadMessageResponse,
   OnTypingMessageResponse,
@@ -22,6 +23,7 @@ import {
   patchInfoGroupChatParams,
 } from '@services/websocket-chat-service/interfaces'
 
+import { getTypeAndIndexOfChat } from '@utils/chat'
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
 
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
@@ -122,15 +124,13 @@ class ChatModelStatic {
       return
     }
     try {
-      const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
-      const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
+      const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
 
-      if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+      if (!chatTypeAndIndex) {
         return
       }
 
-      const index = Math.max(findChatIndexById, findSimpleChatIndexById)
-      const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+      const { chatType, index } = chatTypeAndIndex
 
       if (this[chatType][index].isAllMessagesLoaded) {
         return
@@ -258,13 +258,14 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-    const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === chatId)
-    const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === chatId)
-    if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
+
+    if (!chatTypeAndIndex) {
       return
     }
-    const index = Math.max(findChatIndexById, findSimpleChatIndexById)
-    const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+
+    const { chatType, index } = chatTypeAndIndex
 
     const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
 
@@ -316,7 +317,20 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    await this.websocketChatService.addUsersToGroupChat(params)
+    try {
+      const addedUsers = await this.websocketChatService.addUsersToGroupChat(params)
+      const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
+      if (!chatTypeAndIndex) {
+        return
+      }
+      const { chatType, index } = chatTypeAndIndex
+      runInAction(() => {
+        // @ts-ignore
+        this[chatType][index].users = [...this[chatType][index].users, ...addedUsers]
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public async removeUsersFromGroupChat(params: RemoveUsersFromGroupChatParams) {
@@ -324,7 +338,20 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    await this.websocketChatService.removeUsersFromGroupChat(params)
+    try {
+      await this.websocketChatService.removeUsersFromGroupChat(params)
+      const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
+      if (!chatTypeAndIndex) {
+        return
+      }
+      const { chatType, index } = chatTypeAndIndex
+
+      runInAction(() => {
+        this[chatType][index].users = this[chatType][index].users.filter(el => !params.users.includes(el._id))
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public async patchInfoGroupChat(params: patchInfoGroupChatParams) {
@@ -388,7 +415,7 @@ class ChatModelStatic {
     }
 
     await this.websocketChatService.readMessage(messageIds)
-    await this.getUnreadMessagesCount(-messageIds.length)
+    await this.getUnreadMessagesCount(-messageIds?.length)
   }
 
   private onConnectionError(error: Error) {
@@ -413,7 +440,7 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    if (newMessage.type === ChatMessageType.SYSTEM) {
+    if (newMessage.type === ChatMessageType.SYSTEM && newMessage?.info?.type !== EChatInfoType.GROUP) {
       this.getSimpleChats()
     }
 
@@ -430,15 +457,13 @@ class ChatModelStatic {
       noticeSound.play()
     }
 
-    const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
-    const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, message.chatId)
 
-    if (findChatIndexById === -1 && findSimpleChatIndexById === -1) {
+    if (!chatTypeAndIndex) {
       return
     }
 
-    const index = Math.max(findChatIndexById, findSimpleChatIndexById)
-    const chatType = findChatIndexById !== -1 ? 'chats' : 'simpleChats'
+    const { chatType, index } = chatTypeAndIndex
 
     runInAction(() => {
       this[chatType][index] = {

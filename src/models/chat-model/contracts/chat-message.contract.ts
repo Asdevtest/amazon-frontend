@@ -2,6 +2,7 @@
 import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 import { TWebsocketChatService } from '@services/websocket-chat-service'
+import { ChatInfoType } from '@services/websocket-chat-service/interfaces'
 
 import {
   ChatMessageDataAddUsersToGroupChatContract,
@@ -72,6 +73,12 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsString()
   public updatedAt!: string
   public data!: T
+
+  public info!: {
+    image: string
+    title: string
+    type: ChatInfoType
+  }
 
   @IsOptional()
   public user?: ChatUserContract

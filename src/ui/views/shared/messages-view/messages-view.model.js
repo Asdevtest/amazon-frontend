@@ -180,8 +180,6 @@ export class MessagesViewModel {
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
 
       await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }
@@ -190,8 +188,6 @@ export class MessagesViewModel {
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }
