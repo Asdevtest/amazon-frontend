@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -185,16 +185,12 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.setDataGridState()
     this.getBoxesMy()
