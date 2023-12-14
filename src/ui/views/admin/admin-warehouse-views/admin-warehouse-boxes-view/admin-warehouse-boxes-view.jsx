@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,17 +16,17 @@ import { useStyles } from './admin-warehouse-boxes-view.style'
 
 import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
 
-export const AdminWarehouseBoxesView = observer(({ history }) => {
+export const AdminWarehouseBoxesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({ history }))
+  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.topHeaderBtnsWrapper}>
         <SearchInput
           inputClasses={styles.searchInput}
@@ -84,6 +84,6 @@ export const AdminWarehouseBoxesView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

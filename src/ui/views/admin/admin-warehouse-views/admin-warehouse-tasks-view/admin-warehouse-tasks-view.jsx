@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,17 +15,17 @@ import { useStyles } from './admin-warehouse-tasks-view.style'
 
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 
-export const AdminWarehouseTasksView = observer(({ history }) => {
+export const AdminWarehouseTasksView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history }))
+  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel())
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
@@ -77,6 +77,6 @@ export const AdminWarehouseTasksView = observer(({ history }) => {
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })
