@@ -52,10 +52,19 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = (
         {isGroupChat ? (
           <p className={styles.noticeTitle}>{noticeItem?.info?.title}</p>
         ) : (
-          <UserLink name={noticeItem?.user?.name} userId={noticeItem?.user?._id} />
+          <UserLink
+            name={noticeItem?.user?.name}
+            userId={noticeItem?.user?._id}
+            customClassNames={styles.noticeTitle}
+          />
         )}
 
-        {message ? <p className={styles.message}>{message}</p> : null}
+        {!!message && (
+          <p className={styles.message}>
+            {isGroupChat && <span className={styles.messageOwner}>{`${noticeItem?.user?.name}: `}</span>}
+            {message}
+          </p>
+        )}
 
         {hasFiles || hasImages ? (
           <div className={styles.files}>
