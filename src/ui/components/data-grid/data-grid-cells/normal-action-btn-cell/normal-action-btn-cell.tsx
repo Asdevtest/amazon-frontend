@@ -37,6 +37,8 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
   } = props
   const { classes: styles } = useStyles()
 
+  const showCancelButton = isShowCancelButton && operationType !== TaskOperationType.RECEIVE
+
   return (
     <div className={styles.wrapper}>
       <Button
@@ -50,7 +52,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
         {bTnText}
       </Button>
 
-      {isShowCancelButton && operationType !== TaskOperationType.RECEIVE && (
+      {showCancelButton && (
         <Button
           danger
           tooltipInfoContent={
