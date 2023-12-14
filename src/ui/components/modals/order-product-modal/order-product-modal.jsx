@@ -108,6 +108,7 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
 
+          // @refactor: need to create function
           destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
           storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
 
