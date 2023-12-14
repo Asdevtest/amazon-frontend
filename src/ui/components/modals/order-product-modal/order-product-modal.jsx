@@ -32,6 +32,7 @@ export const OrderProductModal = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
   isPendingOrdering,
+  isSetDeadline,
   isInventory,
 }) => {
   const { classes: classNames } = useClassNames()
@@ -57,35 +58,32 @@ export const OrderProductModal = ({
 
   const [productsForRender, setProductsForRender] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          ...reorderOrder.product,
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
 
-          amount: reorderOrder.amount,
+          return {
+            ...reorderOrder.product,
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline:
-            isPendingOrdering &&
-            !(
-              isPast(new Date(reorderOrder.deadline)) ||
-              isToday(new Date(reorderOrder.deadline)) ||
-              isTomorrow(new Date(reorderOrder.deadline))
-            )
-              ? reorderOrder.deadline
-              : null,
-        }))
+            amount: reorderOrder.amount,
+
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            deadline:
+              (isSetDeadline || isPendingOrdering) &&
+              !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+                ? reorderOrder.deadline
+                : null,
+          }
+        })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
@@ -110,12 +108,9 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
+          destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+          storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
           logicsTariffId: storekeepers
             .find(el => el._id === reorderOrder.storekeeper?._id)
             ?.tariffLogistics.map(el => el._id)

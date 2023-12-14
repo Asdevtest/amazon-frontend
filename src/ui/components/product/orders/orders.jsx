@@ -102,8 +102,8 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
+          isSetDeadline
           reorderOrdersData={[reorderOrder]}
-          // volumeWeightCoefficient={volumeWeightCoefficient}
           platformSettings={platformSettings}
           destinations={destinations}
           storekeepers={storekeepers}
