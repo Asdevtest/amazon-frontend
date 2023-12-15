@@ -14,6 +14,11 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 5,
+
+    span: {
+      width: 20,
+      height: 20,
+    },
   },
 
   fullSizeIconWrapper: {
@@ -24,8 +29,8 @@ export const useStyles = makeStyles()(theme => ({
 
   shareLinkIcon: {
     color: theme.palette.primary.main,
-    width: '21px !important',
-    height: '21px !important',
+    width: '20px !important',
+    height: '20px !important',
     cursor: 'pointer',
   },
 }))
