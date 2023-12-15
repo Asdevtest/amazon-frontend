@@ -178,27 +178,27 @@ export const navbarConfig = {
         user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
 
-    // {
-    //   icon: TradingShops,
-    //   title: () => t(TranslationKey['Trading stores']),
-    //   route: '/client/trading-shops/sell-shops',
-    //   subtitles: [
-    //     {
-    //       subtitle: () => t(TranslationKey['Buy store']),
-    //       subRoute: '/client/trading-shops/buy-shops',
-    //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
-    //     },
-    //     {
-    //       subtitle: () => t(TranslationKey['Sell the store']),
-    //       subRoute: '/client/trading-shops/sell-shops',
-    //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-    //     },
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
-    //   checkHideBlock: user =>
-    //     !isHaveMasterUser(user) ||
-    //     user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
-    // },
+    {
+      icon: TradingShops,
+      title: () => t(TranslationKey['Trading stores']),
+      route: '/client/trading-shops/sell-shops',
+      subtitles: [
+        {
+          subtitle: () => t(TranslationKey['Buy store']),
+          subRoute: '/client/trading-shops/buy-shops',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+        },
+        {
+          subtitle: () => t(TranslationKey['Sell the store']),
+          subRoute: '/client/trading-shops/sell-shops',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+        },
+      ],
+      key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
+    },
 
     {
       icon: MyOrdersIcon,
