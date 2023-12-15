@@ -230,12 +230,14 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <RequestResultModal
-        request={request}
-        proposal={item}
-        openModal={showRequestResultModal}
-        setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
-      />
+      {showRequestResultModal && (
+        <RequestResultModal
+          request={request}
+          proposal={item}
+          openModal={showRequestResultModal}
+          setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
+        />
+      )}
     </div>
   )
 }

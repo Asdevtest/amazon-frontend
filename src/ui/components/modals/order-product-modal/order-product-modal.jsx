@@ -1,5 +1,5 @@
 import { isPast, isToday, isTomorrow } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
@@ -15,26 +15,29 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-product-modal.style'
+import { useStyles } from './order-product-modal.style'
 
 import { SetFilesModal } from '../set-files-modal'
 
-export const OrderProductModal = ({
-  platformSettings,
-  destinations,
-  storekeepers,
-  onTriggerOpenModal,
-  selectedProductsData,
-  onDoubleClickBarcode,
-  onSubmit,
-  onClickCancel,
-  reorderOrdersData,
-  destinationsFavourites,
-  setDestinationsFavouritesItem,
-  isPendingOrdering,
-  isInventory,
-}) => {
-  const { classes: classNames } = useClassNames()
+export const OrderProductModal = memo(props => {
+  const { classes: styles } = useStyles()
+
+  const {
+    platformSettings,
+    destinations,
+    storekeepers,
+    onTriggerOpenModal,
+    selectedProductsData,
+    onDoubleClickBarcode,
+    onSubmit,
+    onClickCancel,
+    reorderOrdersData,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+    isPendingOrdering,
+    isSetDeadline,
+    isInventory,
+  } = props
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
@@ -57,35 +60,33 @@ export const OrderProductModal = ({
 
   const [productsForRender, setProductsForRender] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          ...reorderOrder.product,
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
 
-          amount: reorderOrder.amount,
+          return {
+            ...reorderOrder.product,
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline:
-            isPendingOrdering &&
-            !(
-              isPast(new Date(reorderOrder.deadline)) ||
-              isToday(new Date(reorderOrder.deadline)) ||
-              isTomorrow(new Date(reorderOrder.deadline))
-            )
-              ? reorderOrder.deadline
-              : null,
-        }))
+            amount: reorderOrder.amount,
+
+            // @refactor: need to create function
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            deadline:
+              (isSetDeadline || isPendingOrdering) &&
+              !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+                ? reorderOrder.deadline
+                : null,
+          }
+        })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
@@ -110,12 +111,10 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
+          // @refactor: need to create function
+          destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+          storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
           logicsTariffId: storekeepers
             .find(el => el._id === reorderOrder.storekeeper?._id)
             ?.tariffLogistics.map(el => el._id)
@@ -270,69 +269,69 @@ export const OrderProductModal = ({
       !isPendingOrder)
 
   return (
-    <div className={classNames.wrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
-      <TableContainer className={classNames.tableWrapper}>
-        <Table className={classNames.table}>
+    <div className={styles.wrapper}>
+      <Typography className={styles.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
+      <TableContainer className={styles.tableWrapper}>
+        <Table className={styles.table}>
           <TableHead>
-            <TableRow className={classNames.tableRow}>
-              <TableCell className={classNames.imgCell}>
-                <p className={classNames.cellText}>{t(TranslationKey.Image)}</p>
+            <TableRow className={styles.tableRow}>
+              <TableCell className={styles.imgCell}>
+                <p className={styles.cellText}>{t(TranslationKey.Image)}</p>
               </TableCell>
-              <TableCell className={classNames.productCell}>
-                <p className={classNames.cellText}>{t(TranslationKey.Product)}</p>
+              <TableCell className={styles.productCell}>
+                <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
-              <TableCell className={classNames.priceCell}>
+              <TableCell className={styles.priceCell}>
                 <Button
                   disabled
-                  className={classNames.priceCellBtn}
+                  className={styles.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
                   {t(TranslationKey['Price without delivery']) + ' $'}
                 </Button>
               </TableCell>
 
-              <TableCell className={classNames.deliveryCell}>
+              <TableCell className={styles.deliveryCell}>
                 <Button
                   disabled
-                  className={classNames.deliveryCellBtn}
+                  className={styles.deliveryCellBtn}
                   tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
                 >
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.qntCell}>
+              <TableCell className={styles.qntCell}>
                 <Button
                   disabled
-                  className={classNames.qntCellBtn}
+                  className={styles.qntCellBtn}
                   tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.totalCell}>
+              <TableCell className={styles.totalCell}>
                 <Button
                   disabled
-                  className={classNames.totalCellBtn}
+                  className={styles.totalCellBtn}
                   tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
                 >
                   {t(TranslationKey.Total) + ' $'}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.totalCell}>
-                <Button disabled className={classNames.totalCellBtn}>
+              <TableCell className={styles.totalCell}>
+                <Button disabled className={styles.totalCellBtn}>
                   {t(TranslationKey['Price variations'])}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.barCodeCell}>
-                <Button disabled className={classNames.barCodeCellBtn}>
+              <TableCell className={styles.barCodeCell}>
+                <Button disabled className={styles.barCodeCellBtn}>
                   {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.tariffCell}>
+              <TableCell className={styles.tariffCell}>
                 <Button
                   disabled
-                  className={classNames.tariffCellBtn}
+                  className={styles.tariffCellBtn}
                   tooltipInfoContent={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
@@ -340,27 +339,27 @@ export const OrderProductModal = ({
                   {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.warehouseCell}>
+              <TableCell className={styles.warehouseCell}>
                 <Button
                   disabled
-                  className={classNames.warehouseCellBtn}
+                  className={styles.warehouseCellBtn}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
                 </Button>
               </TableCell>
 
-              <TableCell className={classNames.commentCell}>
+              <TableCell className={styles.commentCell}>
                 <Button
                   disabled
-                  className={classNames.commentCellBtn}
+                  className={styles.commentCellBtn}
                   tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
                 </Button>
               </TableCell>
-              <TableCell className={classNames.deadlineCell}>
-                <p className={classNames.cellText}>{'Deadline'}</p>
+              <TableCell className={styles.deadlineCell}>
+                <p className={styles.cellText}>{'Deadline'}</p>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -404,34 +403,32 @@ export const OrderProductModal = ({
         </Table>
       </TableContainer>
 
-      <div className={classNames.sumWrapper}>
-        <Typography className={classNames.sumText}>{`${t(
-          TranslationKey['Total amount'],
-        )}: ${totalOrdersCost}`}</Typography>
+      <div className={styles.sumWrapper}>
+        <Typography className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</Typography>
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
+      <div className={styles.buttonsWrapper}>
+        <div className={styles.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
           <Checkbox
             checked={isResearchSupplier}
             color="primary"
             classes={{
-              root: classNames.checkbox,
+              root: styles.checkbox,
             }}
           />
-          <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+          <Typography className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
         </div>
 
         {!isPendingOrdering ? (
-          <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
+          <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
             <Checkbox
               checked={isPendingOrder}
               color="primary"
               classes={{
-                root: classNames.checkbox,
+                root: styles.checkbox,
               }}
             />
-            <Typography className={classNames.sumText}>{t(TranslationKey['Pending order'])}</Typography>
+            <Typography className={styles.sumText}>{t(TranslationKey['Pending order'])}</Typography>
           </div>
         ) : null}
 
@@ -442,7 +439,7 @@ export const OrderProductModal = ({
           tooltipAttentionContent={
             storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
           }
-          className={(classNames.modalButton, classNames.buyNowBtn)}
+          className={(styles.modalButton, styles.buyNowBtn)}
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
@@ -451,7 +448,7 @@ export const OrderProductModal = ({
 
         <Button
           tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
-          className={(classNames.modalButton, classNames.cancelBtn)}
+          className={(styles.modalButton, styles.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {t(TranslationKey.Cancel)}
@@ -484,4 +481,4 @@ export const OrderProductModal = ({
       </Modal>
     </div>
   )
-}
+})
