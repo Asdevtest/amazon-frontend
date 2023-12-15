@@ -406,8 +406,6 @@ export class MyRequestsViewModel {
   }
 
   async onClickFilterBtn(column) {
-    console.log('column', column)
-
     try {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
