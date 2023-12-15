@@ -24,6 +24,7 @@ interface SliderProps {
   customSlideHeight?: number
   controls?: boolean
   isPlaying?: boolean
+  smallPhotos?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
   onPhotosModalToggle?: () => void
 }
@@ -34,18 +35,20 @@ export const Slider: FC<SliderProps> = memo(props => {
     currentIndex,
     setCurrentIndex,
     onPhotosModalToggle,
-    smallSlider = false,
-    mediumSlider = false,
-    bigSlider = false,
-    alignLeft = false,
-    alignRight = false,
-    isHideCounter = false,
+    smallSlider,
+    mediumSlider,
+    bigSlider,
+    alignLeft,
+    alignRight,
+    isHideCounter,
+    smallPhotos,
     customSlideHeight,
     withoutFiles,
     controls = false,
     isPlaying,
     setIsPlaying,
   } = props
+
   const { classes: styles, cx } = useStyles()
 
   const handleArrowClick = (direction: ArrowsType) => {
@@ -107,6 +110,7 @@ export const Slider: FC<SliderProps> = memo(props => {
               customSlideHeight={customSlideHeight}
               customSlideWidth={customSlideWidth}
               isPlaying={isPlaying}
+              smallPhotos={smallPhotos}
               setIsPlaying={setIsPlaying}
               onPhotosModalToggle={onPhotosModalToggle}
             />
