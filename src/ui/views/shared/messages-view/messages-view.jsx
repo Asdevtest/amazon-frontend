@@ -8,6 +8,8 @@ import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChatModel } from '@models/chat-model'
+
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { ChatsList } from '@components/chat/chats-list'
@@ -41,6 +43,10 @@ export const MessagesView = observer(({ history }) => {
 
   useEffect(() => {
     viewModel.loadData()
+
+    return () => {
+      ChatModel.onChangeChatSelectedId(undefined)
+    }
   }, [])
 
   const currentOpponent = viewModel.simpleChats
