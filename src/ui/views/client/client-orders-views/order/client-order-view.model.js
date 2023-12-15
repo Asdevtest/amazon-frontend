@@ -483,10 +483,8 @@ export class ClientOrderViewModel {
   async onSubmitCancelOrder() {
     try {
       await ClientModel.cancelOrder(this.order._id)
-
       this.onTriggerOpenModal('showConfirmModal')
-
-      this.history.goBack()
+      await this.getOrderById()
     } catch (error) {
       console.log(error)
     }

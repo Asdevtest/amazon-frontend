@@ -105,6 +105,7 @@ export const OrderProductModal = memo(props => {
           barCode: reorderOrder?.product?.barCode || '',
           tmpBarCode: [],
 
+          transparency: reorderOrder?.product?.transparency,
           transparencyFile: '',
           tmpTransparencyFile: [],
 
