@@ -21,10 +21,10 @@ interface ButtonControlsProps {
   mediaFileIndex: number
   withoutMakeMainImage?: boolean
   isEditable?: boolean
-  onClickRemoveImageObj: (mediaFileIndex: number) => void
+  onRemoveFile: (mediaFileIndex: number) => void
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => void
-  onClickMakeMainImageObj: (mediaFile: string | IUploadFile, mediaFileIndex: number) => void
-  onClickDownloadPhoto: (mediaFile: string | IUploadFile) => void
+  onMakeMainFile: (mediaFile: string | IUploadFile, mediaFileIndex: number) => void
+  onDownloadFile: (mediaFile: string | IUploadFile) => void
   onOpenImageZoomModal: () => void
   onImageEditToggle?: () => void
 }
@@ -36,10 +36,10 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
     withoutMakeMainImage,
     isEditable,
     onImageEditToggle,
-    onClickRemoveImageObj,
+    onRemoveFile,
     onUploadFile,
-    onClickMakeMainImageObj,
-    onClickDownloadPhoto,
+    onMakeMainFile,
+    onDownloadFile,
     onOpenImageZoomModal,
   }) => {
     const { classes: styles, cx } = useStyles()
@@ -48,7 +48,7 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
 
     return (
       <div className={styles.controls}>
-        <Button onClick={() => onClickDownloadPhoto(mediaFile)}>
+        <Button onClick={() => onDownloadFile(mediaFile)}>
           <DownloadOutlinedIcon />
         </Button>
 
@@ -66,7 +66,7 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
               <Button
                 disabled={mediaFileIndex === 0}
                 className={styles.button}
-                onClick={() => onClickMakeMainImageObj(mediaFile, mediaFileIndex)}
+                onClick={() => onMakeMainFile(mediaFile, mediaFileIndex)}
               >
                 <StarOutlinedIcon />
               </Button>
@@ -94,7 +94,7 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
         )}
 
         {isEditable && (
-          <Button danger className={styles.button} onClick={() => onClickRemoveImageObj(mediaFileIndex)}>
+          <Button danger className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
             <DeleteOutlineOutlinedIcon />
           </Button>
         )}

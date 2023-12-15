@@ -26,6 +26,7 @@ export const usePhotoAndFilesSlider = (
   const [isPlaying, setIsPlaying] = useState(false) // to turn off the video when transitioning between slides
 
   useEffect(() => {
+    // 'undefined' - because 0 === false
     if (startMediaFileIndex !== undefined) {
       setMediaFileIndex(startMediaFileIndex)
     }
@@ -47,18 +48,26 @@ export const usePhotoAndFilesSlider = (
     }
   }
 
-  const onClickEditImageSubmit = (file: string) => {
-    const editingMediaFiles = mediaFiles.map((slide, index) => (index === mediaFileIndex ? file : slide))
-    setMediaFiles(editingMediaFiles)
+  const onEditRotateFile = (file: string) => {
+    setMediaFiles(prevMediaFiles => prevMediaFiles.map((slide, index) => (index === mediaFileIndex ? file : slide)))
   }
 
-  const onClickRemoveImageObj = (fileIndex: number) => {
-    const filteringMediaFiles = mediaFiles.filter((_, index) => index !== fileIndex)
-    setMediaFiles(filteringMediaFiles)
+  const onRemoveFile = (fileIndex: number) => {
+    setMediaFiles(prevMediaFiles => {
+      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
 
-    if (!filteringMediaFiles?.length) {
-      onOpenImageModal()
-    }
+      if (fileIndex > 0) {
+        setMediaFileIndex(fileIndex - 1) // returns to the previous photo
+      }
+
+      console.log(filteringMediaFiles.length)
+
+      if (filteringMediaFiles?.length === 0) {
+        onOpenImageModal()
+      }
+
+      return filteringMediaFiles
+    })
   }
 
   const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, fileIndex: number) => {
@@ -77,20 +86,22 @@ export const usePhotoAndFilesSlider = (
       }),
     }))
 
-    const editingMediaFiles = mediaFiles.map((mediaFile, index) => (index === fileIndex ? readyFilesArr[0] : mediaFile))
-
-    setMediaFiles(editingMediaFiles)
+    setMediaFiles(prevMediaFiles =>
+      prevMediaFiles.map((mediaFile, index) => (index === fileIndex ? readyFilesArr[0] : mediaFile)),
+    )
   }
 
-  const onClickMakeMainImageObj = (file: string | IUploadFile, fileIndex: number) => {
-    const filteringMediaFiles = mediaFiles.filter((_, index) => index !== fileIndex)
-    const editingMediaFiles = [file, ...filteringMediaFiles]
+  const onMakeMainFile = (file: string | IUploadFile, fileIndex: number) => {
+    setMediaFiles(prevMediaFiles => {
+      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
+      const editingMediaFiles = [file, ...filteringMediaFiles]
 
-    setMediaFiles(editingMediaFiles)
+      return editingMediaFiles
+    })
     setMediaFileIndex(0)
   }
 
-  const onClickDownloadPhoto = (file: string | IUploadFile) =>
+  const onDownloadFile = (file: string | IUploadFile) =>
     typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {
@@ -112,11 +123,11 @@ export const usePhotoAndFilesSlider = (
     isPlaying,
     setIsPlaying,
 
-    onClickMakeMainImageObj,
+    onMakeMainFile,
     onUploadFile,
-    onClickRemoveImageObj,
-    onClickEditImageSubmit,
-    onClickDownloadPhoto,
+    onRemoveFile,
+    onEditRotateFile,
+    onDownloadFile,
     updateImagesForLoad,
   }
 }
