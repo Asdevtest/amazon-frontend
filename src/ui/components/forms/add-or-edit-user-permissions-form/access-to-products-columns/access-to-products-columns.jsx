@@ -4,7 +4,7 @@ import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid
 
 import { t } from '@utils/translations'
 
-export const sourceColumns = () => [
+export const sourceColumns = isResearcher => [
   {
     field: 'product',
     headerName: t(TranslationKey.Product),
@@ -14,6 +14,7 @@ export const sourceColumns = () => [
 
       return (
         <ProductAsinCell
+          withoutSku={isResearcher}
           image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
