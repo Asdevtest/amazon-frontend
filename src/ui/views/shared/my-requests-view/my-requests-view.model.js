@@ -17,6 +17,7 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getLocalToUTCDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -615,10 +616,13 @@ export class MyRequestsViewModel {
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
     this.setRequestStatus(loadingStatuses.isLoading)
-    await RequestModel.updateDeadline(this.currentRequestDetails.request._id, timeoutAt, maxAmountOfProposals)
 
+    await RequestModel.updateDeadline(
+      this.currentRequestDetails.request._id,
+      getLocalToUTCDate(timeoutAt),
+      maxAmountOfProposals,
+    )
     await this.loadData()
-
     this.onTriggerOpenModal('showRequestDetailModal')
 
     this.setRequestStatus(loadingStatuses.success)

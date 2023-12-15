@@ -10,6 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
+import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { useStyles } from './freelance-request-details-modal.styles'
@@ -111,6 +112,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
                   <RestoreRequestModal
+                    minDate={getTomorrowDate()}
                     currentDate={request?.timeoutAt}
                     currentRequestsCount={request?.maxAmountOfProposals}
                     handleCloseModal={() => setIsRestoreModalOpen(false)}

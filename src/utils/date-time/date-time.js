@@ -185,3 +185,7 @@ export const getTomorrowDate = () => {
 
   return date
 }
+
+export const getLocalToUTCDate = date => {
+  return new Date(date.valueOf() - date.getTimezoneOffset() * 60000)?.toISOString()
+}
