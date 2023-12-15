@@ -158,12 +158,14 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      <RequestResultModal
-        request={viewModel.request}
-        openModal={viewModel.showRequestResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-        onClickSendAsResult={viewModel.onClickSendAsResult}
-      />
+      {viewModel.showRequestResultModal && (
+        <RequestResultModal
+          request={viewModel.request}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+          onClickSendAsResult={viewModel.onClickSendAsResult}
+        />
+      )}
 
       <Modal
         missClickModalOn
