@@ -32,46 +32,8 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { intervalFields } from './client-ideas-view.constants'
+import { filtersFields, intervalFields } from './client-ideas-view.constants'
 import { settingsByUrl } from './settings-by-url'
-
-// * Список полей для фильтраций
-
-const filtersFields = [
-  'parentProductSkuByClient',
-  'parentProductAmazonTitle',
-  'parentProductAsin',
-  'childProductAmazonTitle',
-  'childProductSkuByClient',
-  'childProductAsin',
-  'title',
-  // 'shopId',
-  'childProductShopId',
-  'parentProductShopId',
-  'comments',
-  'createdAt',
-  'dateStatusOnCheck',
-  'suppliers',
-  'minlot',
-  'productionTerm',
-  'dateStatusProductCreating',
-  'buyerComment',
-  'dateStatusAddingAsin',
-  'amount',
-  'intervalStatusNew',
-  'intervalStatusOnCheck',
-  'intervalStatusSupplierSearch',
-  'intervalStatusSupplierFound',
-  'intervalStatusProductCreating',
-  'intervalStatusAddingAsin',
-  'intervalStatusFinished',
-  'intervalsSum',
-  'updatedAt',
-  'amazonTitle',
-  'asin',
-  'skuByClient',
-  'status',
-]
 
 export class ClientIdeasViewModel {
   history = undefined

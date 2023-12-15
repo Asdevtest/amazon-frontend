@@ -474,6 +474,7 @@ export class SuppliersAndIdeasModel {
 
     this.getIdea(this.curIdea._id)
     this.onTriggerOpenModal('showBindingModal')
+    this.loadData()
   }
 
   async unbindRequest(requestId) {
@@ -511,6 +512,8 @@ export class SuppliersAndIdeasModel {
       })
 
       this.onTriggerOpenModal('showBindingModal')
+
+      this.loadData()
     } catch (error) {
       console.log(error)
     }
