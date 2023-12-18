@@ -1135,33 +1135,39 @@ export const NormalFieldMenuItem = React.memo(
 
       const { filterData, currentFilterData } = data
 
-      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+      const [choosenItems, setChoosenItems] = useState([])
+
+      useEffect(() => {
+        if (currentFilterData) {
+          setChoosenItems(currentFilterData.filter(item => filterData.includes(item)))
+        }
+      }, [currentFilterData, filterData])
 
       const onClickItem = str => {
         if (choosenItems.some(item => item === str)) {
-          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+          setChoosenItems(choosenItems.filter(item => item !== str))
         } else {
           setChoosenItems([...choosenItems, str])
         }
       }
-      useEffect(() => {
-        setChoosenItems(currentFilterData)
-      }, [currentFilterData])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+      const [itemsForRender, setItemsForRender] = useState([])
 
       useEffect(() => {
-        setItemsForRender(
-          filterData
-            .filter(el => el !== undefined && el !== null)
-            .sort(
-              (a, b) =>
-                currentFilterData.length &&
-                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-            ),
-        )
+        if (filterData) {
+          setItemsForRender(
+            filterData
+              .filter(el => el !== undefined && el !== null)
+              .sort(
+                (a, b) =>
+                  currentFilterData.length &&
+                  Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+              ),
+          )
+        }
       }, [filterData])
+
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
         if (nameSearchValue) {
