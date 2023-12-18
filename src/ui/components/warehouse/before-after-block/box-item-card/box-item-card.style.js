@@ -227,7 +227,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   checkboxContainer: {
-    width: 'fit-content !important',
+    justifyContent: 'space-between',
+    width: '100%',
     margin: 0,
     padding: 0,
   },

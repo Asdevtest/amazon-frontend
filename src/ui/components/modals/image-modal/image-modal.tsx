@@ -57,11 +57,11 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     isPlaying,
     setIsPlaying,
 
-    onClickMakeMainImageObj,
+    onMakeMainFile,
     onUploadFile,
-    onClickRemoveImageObj,
-    onClickEditImageSubmit,
-    onClickDownloadPhoto,
+    onRemoveFile,
+    onEditRotateFile,
+    onDownloadFile,
     updateImagesForLoad,
   } = usePhotoAndFilesSlider(files, onChangeImagesForLoad, currentFileIndex)
 
@@ -77,7 +77,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     >
       <div className={styles.wrapper}>
         <ShowPreviews
-          slides={files}
+          slides={isRequestResult ? files : mediaFiles} // use files only in request results for viewing (no actions)
           currentIndex={mediaFileIndex}
           setCurrentIndex={setMediaFileIndex}
           setIsPlaying={setIsPlaying}
@@ -92,7 +92,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
             controls
             isHideCounter
             customSlideHeight={500}
-            slides={files}
+            slides={isRequestResult ? files : mediaFiles} // use files only in request results for viewing (no actions)
             currentIndex={mediaFileIndex}
             setCurrentIndex={setMediaFileIndex}
             isPlaying={isPlaying}
@@ -106,11 +106,11 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
             mediaFile={mediaFiles?.[mediaFileIndex]}
             mediaFileIndex={mediaFileIndex}
             withoutMakeMainImage={withoutMakeMainImage}
-            onClickMakeMainImageObj={onClickMakeMainImageObj}
+            onMakeMainFile={onMakeMainFile}
             onImageEditToggle={onOpenImageEditModal}
             onUploadFile={onUploadFile}
-            onClickRemoveImageObj={onClickRemoveImageObj}
-            onClickDownloadPhoto={onClickDownloadPhoto}
+            onRemoveFile={onRemoveFile}
+            onDownloadFile={onDownloadFile}
             onOpenImageZoomModal={onOpenImageZoomModal}
           />
         </div>
@@ -130,7 +130,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         <ImageEditForm
           item={mediaFiles?.[mediaFileIndex]}
           setOpenModal={onOpenImageEditModal}
-          onSave={onClickEditImageSubmit}
+          onSave={onEditRotateFile}
         />
       </Modal>
     </Modal>

@@ -117,4 +117,9 @@ export const useStyles = makeStyles()(theme => ({
       color: theme.palette.text.general,
     },
   },
+
+  plusIcon: {
+    width: '14px !important',
+    height: '14px !important',
+  },
 }))

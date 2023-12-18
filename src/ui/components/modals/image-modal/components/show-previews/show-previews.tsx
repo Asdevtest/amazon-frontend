@@ -47,7 +47,7 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
               checkIsVideoLink(slideToCheck) ? (
                 <VideoPreloader videoSource={currentSlide} height="74px" />
               ) : (
-                <img src={currentSlide} alt={`Photo-${currentIndex}`} />
+                <img src={currentSlide} alt={`Photo-${index}`} />
               )
             ) : (
               <FileIcon fileExtension={elementExtension} className={styles.fileIcon} />

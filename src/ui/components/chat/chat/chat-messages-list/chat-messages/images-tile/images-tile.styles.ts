@@ -15,10 +15,12 @@ export const useClassNames = makeStyles()(() => ({
       overflow: 'hidden',
     },
   },
+
   imageTile2: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'repeat(1, 1fr)',
   },
+
   imageTile3: {
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(2, 1fr)',
@@ -26,8 +28,13 @@ export const useClassNames = makeStyles()(() => ({
     '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
+      img: {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
+
   imageTile4: {
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(3, 1fr)',
@@ -35,8 +42,13 @@ export const useClassNames = makeStyles()(() => ({
     '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/4',
+      img: {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
+
   imageTile5: {
     gridTemplateColumns: 'repeat(4, 1fr)',
     gridTemplateRows: 'repeat(2, 1fr)',
@@ -44,8 +56,13 @@ export const useClassNames = makeStyles()(() => ({
     '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
+      img: {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
+
   imageTile6: {
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(3, 1fr)',
@@ -53,6 +70,10 @@ export const useClassNames = makeStyles()(() => ({
     '& div:nth-of-type(1)': {
       gridColumn: '1/3',
       gridRow: '1/3',
+      img: {
+        width: '100%',
+        height: '100%',
+      },
     },
 
     '& div:nth-of-type(6)': {
@@ -62,8 +83,8 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   image: {
-    width: '100%',
-    height: '100%',
+    width: '200px',
+    height: '200px',
     objectFit: 'cover',
     borderRadius: '4px',
     cursor: 'pointer',

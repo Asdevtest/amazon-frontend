@@ -192,7 +192,9 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     }
   }
 
-  const disableSubmit = newBoxes.some(box => box.amount === '' || (!box?.tmpImages?.length && !box?.images?.length))
+  const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+
+  const disableSubmit = newBoxes.some(box => box.amount === '') || isSomeBoxHasntImage
 
   return (
     <div className={styles.root}>
@@ -249,6 +251,10 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       </div>
 
       <div className={styles.buttonsWrapper}>
+        {isSomeBoxHasntImage && (
+          <p className={styles.noImageText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+        )}
+
         <Button
           success
           disabled={disableSubmit}
