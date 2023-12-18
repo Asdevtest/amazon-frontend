@@ -19,16 +19,14 @@ export const ClientShopView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        {viewModel.shopInfo ? (
-          <ShopWrapper
-            userInfo={viewModel.userInfo}
-            shopInfo={viewModel.shopInfo}
-            onClickEditBtn={viewModel.onClickEditBtn}
-          />
-        ) : null}
-      </div>
-    </React.Fragment>
+    <>
+      {viewModel.shopInfo ? (
+        <ShopWrapper
+          userInfo={viewModel.userInfo}
+          shopInfo={viewModel.shopInfo}
+          onClickEditBtn={viewModel.onClickEditBtn}
+        />
+      ) : null}
+    </>
   )
 })
