@@ -119,8 +119,11 @@ export const ChatMessagesList: FC<Props> = observer(
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
 
-      if (unReadMessages?.length) {
-        ChatModel.readMessages(unReadMessages.map(el => el._id))
+      if (unReadMessages?.length && chatId) {
+        ChatModel.readMessages(
+          chatId,
+          unReadMessages.map(el => el._id),
+        )
       }
     }, [messages])
 
