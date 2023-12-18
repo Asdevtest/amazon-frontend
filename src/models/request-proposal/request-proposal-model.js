@@ -32,7 +32,10 @@ class RequestProposalModelStatic {
   }
 
   getRequestProposalsCustomByRequestId = async guid => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomByRequestIdGuidGet({ guid })
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomByRequestIdGuidGet({
+      guid,
+      noCache: true,
+    })
     return response.data
   }
 
