@@ -590,6 +590,8 @@ export class ClientOrdersViewModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {
