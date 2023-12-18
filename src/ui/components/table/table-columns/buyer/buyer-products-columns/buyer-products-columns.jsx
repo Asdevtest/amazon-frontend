@@ -1,7 +1,7 @@
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -16,6 +16,7 @@ import {
   TagsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
+import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -61,10 +62,11 @@ export const buyerProductsViewColumns = handlers => [
     width: 170,
     renderCell: params => (
       <MultilineTextCell
-        text={params.value}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
+    valueGetter: params => t(productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status])),
 
     columnKey: columnnsKeys.buyer.MY_PRODUCTS_STATUS,
   },
@@ -104,8 +106,8 @@ export const buyerProductsViewColumns = handlers => [
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
     type: 'number',
     minWidth: 90,
 
@@ -116,7 +118,7 @@ export const buyerProductsViewColumns = handlers => [
     field: 'profit',
     headerName: t(TranslationKey.Profit),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-
+    valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 90,
@@ -140,7 +142,7 @@ export const buyerProductsViewColumns = handlers => [
     field: 'fbaamount',
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
-
+    valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     minWidth: 150,
@@ -204,6 +206,9 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    valueGetter: params => {
+      return params.row.originalData.tags?.map(el => `#${el.title}`).join()
+    },
     width: 160,
     sortable: false,
     columnKey: columnnsKeys.shared.TAGS,
@@ -225,6 +230,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     minWidth: 120,
+    valueFormatter: params => formatNormDateTime(params.value),
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
 
@@ -235,7 +241,7 @@ export const buyerProductsViewColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
+    valueFormatter: params => formatNormDateTime(params.value),
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
