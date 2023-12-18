@@ -1,6 +1,4 @@
-import { memo, useState } from 'react'
-
-import { Typography } from '@mui/material'
+import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,60 +11,59 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './supplier-approximate-calculations-form.style'
 
-import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns/supplier-weight-based-approximate-calculations-form-columns.jsx'
+import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
 
-export const SupplierApproximateCalculationsForm = memo(
-  ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient, destinationData }) => {
-    const { classes: styles } = useStyles()
+export const SupplierApproximateCalculationsForm = memo(props => {
+  const { product, supplier, storekeepers, onClose, volumeWeightCoefficient /* , destinationData */ } = props
+  const { classes: styles } = useStyles()
 
-    const [curStorekeeper, setCurStorekeeper] = useState(
-      storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
-    )
+  const [curStorekeeper, setCurStorekeeper] = useState([])
 
-    return (
-      <div className={styles.root}>
-        <Typography className={styles.title}>{t(TranslationKey['Approximate calculation'])}</Typography>
+  useEffect(() => {
+    if (storekeepers.length > 0) {
+      setCurStorekeeper(storekeepers.sort((a, b) => a.name.localeCompare(b.name))[0])
+    }
+  }, [storekeepers])
 
-        <div className={styles.boxesFiltersWrapper}>
-          <CustomSwitcher
-            fullWidth
-            switchMode={'small'}
-            condition={curStorekeeper?._id}
-            switcherSettings={[...storekeepers]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map(storekeeper => ({
-                label: () => storekeeper.name || '',
-                value: storekeeper._id,
-              }))}
-            changeConditionHandler={value => {
-              setCurStorekeeper(storekeepers.find(storekeeper => storekeeper._id === value))
-            }}
-          />
-        </div>
+  return (
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
 
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            rows={
-              curStorekeeper.tariffLogistics?.length
-                ? supplierWeightBasedApproximateCalculationsDataConverter(
-                    curStorekeeper.tariffLogistics,
-                    product,
-                    supplier,
-                    volumeWeightCoefficient,
-                  )
-                : []
-            }
-            columns={SupplierWeightBasedApproximateCalculationsFormColumns(destinationData)}
-            getRowHeight={() => 'auto'}
-          />
-        </div>
+      <CustomSwitcher
+        fullWidth
+        switchMode={'small'}
+        condition={curStorekeeper?._id}
+        switcherSettings={[...storekeepers]
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(storekeeper => ({
+            label: () => storekeeper.name || '',
+            value: storekeeper._id,
+          }))}
+        changeConditionHandler={value => setCurStorekeeper(storekeepers.find(storekeeper => storekeeper._id === value))}
+      />
 
-        <div className={styles.clearBtnWrapper}>
-          <Button danger onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
-        </div>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          rows={
+            curStorekeeper.tariffLogistics?.length
+              ? supplierWeightBasedApproximateCalculationsDataConverter(
+                  curStorekeeper.tariffLogistics,
+                  product,
+                  supplier,
+                  volumeWeightCoefficient,
+                )
+              : []
+          }
+          columns={SupplierWeightBasedApproximateCalculationsFormColumns()}
+          getRowHeight={() => 'auto'}
+        />
       </div>
-    )
-  },
-)
+
+      <div className={styles.buttonsWrapper}>
+        <Button danger onClick={onClose}>
+          {t(TranslationKey.Close)}
+        </Button>
+      </div>
+    </div>
+  )
+})
