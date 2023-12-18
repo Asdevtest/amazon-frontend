@@ -84,7 +84,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 ) : (
                   <img
                     src={currentSlide}
-                    alt={`Slide-${currentIndex}`}
+                    alt={`Slide-${index}`}
                     className={styles.slide}
                     onClick={onPhotosModalToggle}
                   />
