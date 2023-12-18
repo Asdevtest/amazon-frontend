@@ -57,7 +57,7 @@ export const PhotoAndFilesCarousel = props => {
 
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsMediaFileLink(el?.file?.name || el)) : []
 
-  const onClickRemoveImageObj = imageIndex => {
+  const onRemoveFile = imageIndex => {
     const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
 
     onChangeImagesForLoad(newArr)
@@ -96,7 +96,7 @@ export const PhotoAndFilesCarousel = props => {
     }
   }
 
-  const onClickMakeMainImageObj = (imageIndex, image) => {
+  const onMakeMainFile = (imageIndex, image) => {
     onChangeImagesForLoad([image, ...imagesForLoad.filter((el, i) => i !== imageIndex)])
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
@@ -109,7 +109,7 @@ export const PhotoAndFilesCarousel = props => {
     setImageEditOpen(!imageEditOpen)
   }
 
-  const onClickEditImageSubmit = image => {
+  const onEditRotateFile = image => {
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
@@ -130,7 +130,7 @@ export const PhotoAndFilesCarousel = props => {
               <Button
                 disabled={imageIndex === 0}
                 className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+                onClick={() => onMakeMainFile(imageIndex, image)}
               >
                 <StarOutlinedIcon />
               </Button>
@@ -152,7 +152,7 @@ export const PhotoAndFilesCarousel = props => {
           />
         </Button>
 
-        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
+        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onRemoveFile(imageIndex)}>
           <DeleteOutlineOutlinedIcon />
         </Button>
       </>
@@ -276,7 +276,7 @@ export const PhotoAndFilesCarousel = props => {
         <ImageEditForm
           item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
           setOpenModal={() => setImageEditOpen(!imageEditOpen)}
-          onSave={onClickEditImageSubmit}
+          onSave={onEditRotateFile}
         />
       </Modal>
 
