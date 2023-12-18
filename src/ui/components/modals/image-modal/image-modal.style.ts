@@ -26,25 +26,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  imagesList: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'auto',
-    gap: 18,
-    paddingRight: 20,
-    maxHeight: 'calc(80vh - 80px)',
-
-    [theme.breakpoints.down(768)]: {
-      maxHeight: '273px',
-      overflow: 'auto',
-      paddingRight: 0,
-      gap: 10,
-      justifyContent: 'center',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-    },
-  },
-
   body: {
     padding: '0 50px',
     display: 'flex',

@@ -31,7 +31,7 @@ export const NewBoxes = memo(
           <p className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
 
           <p className={cx(styles.sectionTitle, styles.redText)}>
-            {t(TranslationKey['A photo of the Transperensy Code sticker is required'])}
+            {t(TranslationKey['A photo of the Transperensy Code sticker'])}
           </p>
         </div>
         <div className={styles.tableWrapper}>
