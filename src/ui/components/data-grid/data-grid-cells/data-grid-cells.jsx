@@ -106,3 +106,4 @@ export { NotificationMessageCell } from './notification-message-cell/notificatio
 export { MultipleAsinCell } from './multiple-asin-cell/multiple-asin-cell'
 export { FreelancerMyProposalsActionsCell } from './freelancer-my-proposals-actions-cell/freelancer-my-proposals-actions-cell'
 export { RequestStatusCell } from './request-status-cell/request-status-cell'
+export { CustomDestinationsCell } from './custom-destinations-cell/custom-destinations-cell'

@@ -24,7 +24,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixed } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -1001,12 +1001,19 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * finalWeightOfUnit
 
         return {
-          ...destinationVariation,
+          /* ...destinationVariation, */
           roi:
-            (((product?.amazon || product?.approximatePrice || 0) - calcTotalFbaForProduct(product) - deliveryToUsa) /
-              deliveryToUsa) *
-            100,
-          costDeliveryToUsa: deliveryToUsa,
+            toFixed(
+              (((product?.amazon || product?.approximatePrice || 0) - calcTotalFbaForProduct(product) - deliveryToUsa) /
+                deliveryToUsa) *
+                100,
+              2,
+            ) + ' %',
+          costDeliveryToUsa: toFixed(deliveryToUsa, 2),
+          weight: `${!!destinationVariation.minWeight && t(TranslationKey.From) + ' '}${
+            destinationVariation.minWeight
+          } ${!!destinationVariation.maxWeight && t(TranslationKey.To) + ' '}${destinationVariation.maxWeight}`,
+          destinationName: destinationVariation.destination.name,
         }
       })
 
@@ -1014,7 +1021,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         id: i,
         originalData: tariffLogistic,
         name: tariffLogistic?.name,
-        costDeliveryToChina,
+        costDeliveryToChina: toFixed(costDeliveryToChina, 2),
         destinationVariations,
       }
     })
