@@ -320,9 +320,7 @@ export class ClientInStockBoxesViewModel {
 
   onClickStorekeeperBtn(currentStorekeeperId) {
     this.selectedBoxes = []
-
     this.currentStorekeeperId = currentStorekeeperId
-
     this.getBoxesMy()
   }
 
@@ -1662,16 +1660,22 @@ export class ClientInStockBoxesViewModel {
 
   getFilter(exclusion) {
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'asin',
-        'amazonTitle',
-        'skuByClient',
-        'id',
-        'item',
-        'productId',
-        'humanFriendlyId',
-        'prepId',
-      ]),
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.nameSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'productId', 'humanFriendlyId', 'prepId'],
+        {
+          ...(!!this.currentStorekeeperId &&
+            exclusion !== 'storekeeper' &&
+            !this.columnMenuSettings?.storekeeper?.currentFilterData?.length && {
+              storekeeper: {
+                $eq: this.currentStorekeeperId,
+              },
+            }),
+        },
+      ),
     )
   }
 
@@ -1685,8 +1689,7 @@ export class ClientInStockBoxesViewModel {
 
       const result = await BoxesModel.getBoxesForCurClientLightPag({
         status: curStatus,
-        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-        storekeeperId: this.currentStorekeeperId,
+        filters: this.getFilter(),
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
         isFormed: this.columnMenuSettings.isFormedData.isFormed,

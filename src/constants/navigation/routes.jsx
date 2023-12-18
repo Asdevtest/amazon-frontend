@@ -1481,21 +1481,21 @@ export const privateRoutesConfigs = [
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////
 
-  {
-    routePath: '/client/inventory/archive',
-    component: ClientInventoryView,
-    exact: true,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
+  // {
+  //   routePath: '/client/inventory/archive',
+  //   component: ClientInventoryView,
+  //   exact: true,
+  //   permission: [UserRole.CLIENT],
+  //   permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
-    crumbNameKey: TranslationKey.Archive,
+  //   crumbNameKey: TranslationKey.Archive,
 
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Inventory),
-    },
-  },
+  //   navigationInfo: {
+  //     activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+  //     activeSubCategory: '',
+  //     title: () => t(TranslationKey.Inventory),
+  //   },
+  // },
 
   {
     routePath: '/client/inventory',
