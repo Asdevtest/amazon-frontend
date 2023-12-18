@@ -24,6 +24,8 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
       {formFields?.items.map((item, index) => {
         const quantity = (formFields?.amount > 1 ? `${item.amount} * ${formFields?.amount}` : item.amount) || 0
         const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
+        const isTransparencyFileAlreadyAttachedByTheSupplier = item.isTransparencyFileAlreadyAttachedByTheSupplier
+        const isTransparencyFileAttachedByTheStorekeeper = item.isTransparencyFileAttachedByTheStorekeeper
 
         const barcodeCheckedText = item.isBarCodeAlreadyAttachedByTheSupplier
           ? t(TranslationKey['BarCode is glued by supplier'])
@@ -88,9 +90,11 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                     lableLinkTitle={t(TranslationKey.View)}
                   />
 
-                  <Checkbox disabled checked={barcodeChecked} className={styles.checkbox}>
-                    <p className={styles.text}>{barcodeCheckedText}</p>
-                  </Checkbox>
+                  {barcodeChecked && (
+                    <Checkbox disabled checked={barcodeChecked} className={styles.checkbox}>
+                      <p className={styles.text}>{barcodeCheckedText}</p>
+                    </Checkbox>
+                  )}
                 </div>
 
                 <div className={styles.boxLabelWrapper}>
@@ -100,21 +104,21 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                     lableLinkTitle={t(TranslationKey.View)}
                   />
 
-                  <Checkbox
-                    disabled
-                    checked={item?.isTransparencyFileAlreadyAttachedByTheSupplier}
-                    className={styles.checkbox}
-                  >
-                    <p className={styles.text}>{t(TranslationKey['Transparency codes glued by the supplier'])}</p>
-                  </Checkbox>
+                  {isTransparencyFileAlreadyAttachedByTheSupplier && (
+                    <Checkbox
+                      disabled
+                      checked={isTransparencyFileAlreadyAttachedByTheSupplier}
+                      className={styles.checkbox}
+                    >
+                      <p className={styles.text}>{t(TranslationKey['Transparency codes glued by the supplier'])}</p>
+                    </Checkbox>
+                  )}
 
-                  <Checkbox
-                    disabled
-                    checked={item?.isTransparencyFileAttachedByTheStorekeeper}
-                    className={styles.checkbox}
-                  >
-                    <p className={styles.text}>{t(TranslationKey['Transparency codes are glued by storekeeper'])}</p>
-                  </Checkbox>
+                  {isTransparencyFileAttachedByTheStorekeeper && (
+                    <Checkbox disabled checked={isTransparencyFileAttachedByTheStorekeeper} className={styles.checkbox}>
+                      <p className={styles.text}>{t(TranslationKey['Transparency codes are glued by storekeeper'])}</p>
+                    </Checkbox>
+                  )}
                 </div>
               </div>
             </div>
