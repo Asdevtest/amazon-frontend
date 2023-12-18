@@ -6,8 +6,11 @@ import { Typography } from '@mui/material'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
@@ -177,6 +180,7 @@ export const MyRequestsView = observer(({ history }) => {
         isRequestOwner
         isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
+        requestProposals={viewModel.curProposal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
@@ -188,7 +192,42 @@ export const MyRequestsView = observer(({ history }) => {
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
         onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
+        onClickResultBtn={viewModel.handleClickResultBtn}
       />
+
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={viewModel.currentRequestDetails}
+          proposal={viewModel.curProposal}
+          curResultMedia={viewModel.curProposal?.proposal.media}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showRequestStandartResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+      >
+        <RequestStandartResultForm
+          request={viewModel.currentRequestDetails}
+          proposal={viewModel.curProposal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
+        />
+      </Modal>
+
+      {viewModel.showRequestResultModal && (
+        <RequestResultModal
+          request={viewModel.currentRequestDetails}
+          proposal={viewModel.curProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
+      )}
     </React.Fragment>
   )
 })

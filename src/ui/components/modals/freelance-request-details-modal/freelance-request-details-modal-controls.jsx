@@ -19,6 +19,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
   const {
     request,
     isAcceptedProposals,
+    requestProposals,
     onClickSuggest,
     onClickOpenNewTab,
     onClickPublishBtn,
@@ -29,6 +30,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
     onRecoverRequest,
     onClickAbortBtn,
     onClickMarkAsCompletedBtn,
+    onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
@@ -51,7 +53,13 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
   return (
     <div className={styles.suggestDeal}>
-      <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+      <div className={styles.controlsWrapper}>
+        <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+
+        <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+          {t(TranslationKey.Result)}
+        </Button>
+      </div>
 
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (

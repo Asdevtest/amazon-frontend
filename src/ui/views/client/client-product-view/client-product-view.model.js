@@ -355,8 +355,8 @@ export class ClientProductViewModel {
         break
       case 'cancel':
         this.product.archive
-          ? this.history.push('/client/inventory/archive', { isArchive: this.product.archive })
-          : this.history.push('/client/inventory', { isArchive: this.product.archive })
+          ? this.history.push(`/client/inventory/archive?isArchive=${this.product.archive}`)
+          : this.history.push('/client/inventory')
         break
       case 'delete':
         runInAction(() => {
