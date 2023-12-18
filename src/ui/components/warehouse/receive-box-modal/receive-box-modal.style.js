@@ -73,6 +73,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     marginTop: '30px',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'end',
     gap: '20px',
 
@@ -99,5 +100,9 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelButton: {
     color: theme.palette.text.general,
+  },
+
+  noImageText: {
+    color: theme.palette.text.red,
   },
 }))

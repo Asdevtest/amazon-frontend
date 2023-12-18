@@ -283,7 +283,6 @@ export class MyRequestsViewModel {
   async loadData() {
     try {
       this.getDataGridState()
-
       await this.getShops()
       await this.getCustomRequests()
     } catch (error) {
@@ -294,7 +293,6 @@ export class MyRequestsViewModel {
   async getShops() {
     try {
       const response = await ShopModel.getMyShopNames()
-
       runInAction(() => {
         this.shopsData = response
       })
@@ -412,7 +410,9 @@ export class MyRequestsViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
-        `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
+        `requests?${
+          column === 'humanFriendlyId' && this.switcherCondition === 'readyToCheck' ? 'onlyWaitedProposals=true&' : ''
+        }kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
