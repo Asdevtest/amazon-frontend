@@ -106,8 +106,8 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'destination',
-    headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row.originalData.destination?.name} />,
     width: 200,
     sortable: false,
