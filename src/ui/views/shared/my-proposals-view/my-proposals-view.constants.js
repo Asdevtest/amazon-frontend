@@ -30,6 +30,11 @@ export const inTheWorkStatuses = [
   RequestStatus.CORRECTED,
   RequestStatus.TO_CORRECT,
   RequestStatus.CREATED,
+  RequestStatus.OFFER_CONDITIONS_CORRECTED,
 ]
 
-export const executedStatuses = [RequestStatus.ACCEPTED_BY_CLIENT, RequestStatus.CANCELED_BY_EXECUTOR]
+export const executedStatuses = [
+  RequestStatus.ACCEPTED_BY_CLIENT,
+  RequestStatus.CANCELED_BY_EXECUTOR,
+  RequestStatus.OFFER_CONDITIONS_REJECTED,
+]

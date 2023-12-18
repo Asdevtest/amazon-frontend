@@ -253,7 +253,7 @@ export class MyProposalsViewModel {
       })
 
       runInAction(() => {
-        this.requests = myProposalsDataConverter(response.rows) || []
+        this.requests = myProposalsDataConverter(response.rows)
         this.rowCount = response.count
       })
 
@@ -261,6 +261,11 @@ export class MyProposalsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+
+      runInAction(() => {
+        this.requests = []
+        this.rowCount = 0
+      })
     }
   }
 
@@ -351,7 +356,12 @@ export class MyProposalsViewModel {
         runInAction(() => {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
+            [column]: {
+              ...this.columnMenuSettings[column],
+              filterData: data.filter(status =>
+                this.isInTheWork ? inTheWorkStatuses.includes(status) : executedStatuses.includes(status),
+              ),
+            },
           }
         })
       }
