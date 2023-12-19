@@ -4,11 +4,13 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
@@ -43,6 +45,12 @@ export class MyRequestsViewModel {
   selectedRequests = []
   researchIdToRemove = undefined
   currentRequestDetails = undefined
+
+  curProposal = undefined
+
+  showRequestDesignerResultClientModal = false
+  showRequestStandartResultModal = false
+  showRequestResultModal = false
 
   nameSearchValue = ''
   onHover = null
@@ -525,7 +533,7 @@ export class MyRequestsViewModel {
     }
   }
 
-  handleOpenRequestDetailModal(e) {
+  async handleOpenRequestDetailModal(e) {
     if (window.getSelection().toString()) {
       return
     }
@@ -536,9 +544,57 @@ export class MyRequestsViewModel {
       this.isAcceptedProposals = false
     }
 
-    this.getRequestDetail(e.row._id).then(() => {
-      this.onTriggerOpenModal('showRequestDetailModal')
-    })
+    await this.getRequestDetail(e.row._id)
+    await this.getRequestProposals(e.row._id)
+    this.onTriggerOpenModal('showRequestDetailModal')
+  }
+
+  async getRequestProposals(id) {
+    try {
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(id)
+
+      const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
+
+      if (!proposal) {
+        runInAction(() => {
+          this.curProposal = undefined
+        })
+        return
+      }
+
+      runInAction(() => {
+        this.curProposal = proposal
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.curProposal = undefined
+      })
+    }
+  }
+
+  async handleClickResultBtn(request) {
+    try {
+      switch (freelanceRequestTypeByCode[request.typeTask]) {
+        case freelanceRequestType.DESIGNER:
+          this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+          break
+
+        case freelanceRequestType.BLOGGER:
+          this.onTriggerOpenModal('showRequestResultModal')
+          break
+
+        case freelanceRequestType.SEO:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+
+        default:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onClickOpenInNewTab(id) {

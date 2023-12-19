@@ -2,56 +2,27 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 850,
-  },
-
-  boxesFiltersWrapper: {
+    width: '90vw',
+    padding: 10,
     display: 'flex',
-    flexWrap: 'wrap',
-    marginBottom: '15px',
-  },
-
-  button: {
-    marginBottom: 5,
-    marginRight: '10px',
-    fontSize: 18,
-    padding: '8px 29px',
-    color: theme.palette.text.general,
-  },
-
-  selectedBoxesBtn: {
-    fontWeight: 600,
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-    borderBottom: theme.palette.other.tableActiveFilterBtn,
-    color: `${theme.palette.primary.main} !important`,
-  },
-
-  tableWrapper: {
-    height: '35vh',
-  },
-
-  clearBtnWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    margin: '15px 0 0',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   title: {
-    fontWeight: 600,
     fontSize: 18,
-    lineHeight: '140%',
+    lineHeight: '25px',
+    fontWeight: 600,
     color: theme.palette.text.general,
-    marginBottom: 20,
   },
 
-  tabsRoot: {
-    fontSize: 14,
-    fontWeight: 600,
+  tableWrapper: {
+    height: '65vh',
     width: '100%',
   },
 
-  indicator: {
-    backgroundColor: '#1da1f2',
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

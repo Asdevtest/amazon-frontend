@@ -370,52 +370,34 @@ class ChatModelStatic {
     // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
-  public async readMessages(messageIds: string[]) {
+  public async readMessages(chatId: string, messageIds: string[]) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    for (let i = 0; i < messageIds.length; i++) {
-      const messageId = messageIds[i]
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
 
-      const findChatIndexById = this.chats.findIndex((chat: ChatContract) =>
-        chat.messages.some(el => el._id === messageId),
-      )
-
-      if (findChatIndexById !== -1) {
-        runInAction(() => {
-          this.chats[findChatIndexById] = {
-            ...this.chats[findChatIndexById],
-            messages: [
-              ...this.chats[findChatIndexById].messages.map(mes =>
-                mes._id !== messageId ? mes : { ...mes, isRead: true },
-              ),
-            ],
-          }
-        })
-      }
-
-      const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) =>
-        chat.messages.some(el => el._id === messageId),
-      )
-
-      if (findSimpleChatIndexById !== -1) {
-        runInAction(() => {
-          this.simpleChats[findSimpleChatIndexById] = {
-            ...this.simpleChats[findSimpleChatIndexById],
-            messages: [
-              ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
-                mes._id !== messageId ? mes : { ...mes, isRead: true },
-              ),
-            ],
-            unread: '0',
-          }
-        })
-      }
+    if (!chatTypeAndIndex) {
+      return
     }
 
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: this[chatType][index].messages.map(mes => {
+          return messageIds.includes(mes._id) ? { ...mes, isRead: true } : mes
+        }),
+        unread: '0',
+      }
+    })
+
     await this.websocketChatService.readMessage(messageIds)
-    await this.getUnreadMessagesCount(-messageIds?.length)
+
+    if (chatType === 'simpleChats') {
+      this.getUnreadMessagesCount(-messageIds?.length)
+    }
   }
 
   private onConnectionError(error: Error) {

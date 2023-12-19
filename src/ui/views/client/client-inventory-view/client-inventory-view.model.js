@@ -253,8 +253,10 @@ export class ClientInventoryViewModel {
   constructor({ history, location }) {
     this.history = history
 
+    const url = new URL(window.location.href)
+    this.isArchive = url.searchParams.get('isArchive')
+
     if (location.state) {
-      this.isArchive = location.state.isArchive
       this.isModalOpen = location.state.isModalOpen
 
       const state = { ...history.location.state }
@@ -309,12 +311,13 @@ export class ClientInventoryViewModel {
     if (window.getSelection().toString()) {
       return
     }
+
     if (row) {
       this.isArchive
-        ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
+        ? this.history.push(`/client/inventory?product-id=${row.originalData._id}&isArchive=true`)
         : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
     } else {
-      this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
+      this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
     }
 
     this.onTriggerOpenModal('productCardModal')
@@ -494,9 +497,10 @@ export class ClientInventoryViewModel {
   onTriggerArchive() {
     this.selectedRowIds = []
 
-    this.isArchive
-      ? this.history.push('/client/inventory', { isArchive: !this.isArchive })
-      : this.history.push('/client/inventory/archive', { isArchive: !this.isArchive })
+    this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
+    this.isArchive = this.isArchive ? false : true
+
+    this.loadData()
   }
 
   async getSuppliersPaymentMethods() {
@@ -756,166 +760,6 @@ export class ClientInventoryViewModel {
     this.getDataGridState()
   }
 
-  // getFilters(exclusion) {
-  //   const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-  //   const skuByClientFilter =
-  //     exclusion !== 'skuByClient' &&
-  //     this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
-  //       .join(',')
-  //   const amazonTitleFilter =
-  //     exclusion !== 'amazonTitle' &&
-  //     this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-  //   const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-  //   const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-  //   const strategyStatusFilter =
-  //     exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-  //   const amountInOrdersFilter =
-  //     exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-  //   const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-  //   const inTransferFilter =
-  //     exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-  //   const boxAmountsFilter =
-  //     exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-  //   const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-  //   const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
-  //   const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
-  //   const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
-  //   const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-  //   const ideaCountFilter =
-  //     exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
-
-  //   const fbaFbmStockSumFilter =
-  //     exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
-  //   const reservedSumFilter =
-  //     exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
-  //   const sentToFbaSumFilter =
-  //     exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
-
-  //   const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
-
-  //   const purchaseQuantityFilter =
-  //     exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
-
-  //   const ideasClosedFilter =
-  //     exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
-  //   const ideasVerifiedFilter =
-  //     exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
-
-  //   const tagsFilter =
-  //     exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
-
-  //   const redFlagsFilter =
-  //     exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
-
-  //   const filter = objectToUrlQs({
-  //     archive: { $eq: this.isArchive },
-  //     or: [
-  //       { asin: { $contains: this.currentSearchValue } },
-  //       { amazonTitle: { $contains: this.currentSearchValue } },
-  //       { skuByClient: { $contains: this.currentSearchValue } },
-  //     ],
-
-  //     ...(asinFilter && {
-  //       asin: { $eq: asinFilter },
-  //     }),
-  //     ...(skuByClientFilter && {
-  //       skuByClient: { $eq: skuByClientFilter },
-  //     }),
-  //     ...(amazonTitleFilter && {
-  //       amazonTitle: { $eq: amazonTitleFilter },
-  //     }),
-
-  //     ...(createdAtFilter && {
-  //       createdAt: { $eq: createdAtFilter },
-  //     }),
-  //     ...(updatedAtFilter && {
-  //       updatedAt: { $eq: updatedAtFilter },
-  //     }),
-
-  //     ...(strategyStatusFilter && {
-  //       strategyStatus: { $eq: strategyStatusFilter },
-  //     }),
-
-  //     ...(amountInOrdersFilter && {
-  //       amountInOrders: { $eq: amountInOrdersFilter },
-  //     }),
-
-  //     ...(stockUSAFilter && {
-  //       stockUSA: { $eq: stockUSAFilter },
-  //     }),
-  //     ...(inTransferFilter && {
-  //       inTransfer: { $eq: inTransferFilter },
-  //     }),
-  //     ...(boxAmountsFilter && {
-  //       boxAmounts: { $eq: boxAmountsFilter },
-  //     }),
-
-  //     ...(sumStockFilter && {
-  //       sumStock: { $eq: sumStockFilter },
-  //     }),
-
-  //     ...(amazonFilter && {
-  //       amazon: { $eq: amazonFilter },
-  //     }),
-  //     ...(profitFilter && {
-  //       profit: { $eq: profitFilter },
-  //     }),
-  //     ...(fbafeeFilter && {
-  //       fbafee: { $eq: fbafeeFilter },
-  //     }),
-
-  //     ...(statusFilter && {
-  //       status: { $eq: statusFilter },
-  //     }),
-
-  //     ...(fbaFbmStockSumFilter && {
-  //       fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
-  //     }),
-  //     ...(reservedSumFilter && {
-  //       reservedSum: { $eq: reservedSumFilter },
-  //     }),
-  //     ...(sentToFbaSumFilter && {
-  //       sentToFbaSum: { $eq: sentToFbaSumFilter },
-  //     }),
-
-  //     ...(ideaCountFilter && {
-  //       ideasOnCheck: { $eq: ideaCountFilter },
-  //     }),
-
-  //     ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-  //       barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
-  //     }),
-
-  //     ...(stockCostFilter && {
-  //       stockCost: { $eq: stockCostFilter },
-  //     }),
-
-  //     ...(purchaseQuantityFilter && {
-  //       purchaseQuantity: { $eq: purchaseQuantityFilter },
-  //     }),
-
-  //     ...(ideasClosedFilter && {
-  //       ideasClosed: { $eq: ideasClosedFilter },
-  //     }),
-
-  //     ...(ideasVerifiedFilter && {
-  //       ideasFinished: { $eq: ideasVerifiedFilter },
-  //     }),
-
-  //     ...(tagsFilter && {
-  //       tags: { $any: tagsFilter },
-  //     }),
-
-  //     ...(redFlagsFilter && {
-  //       redFlags: { $any: redFlagsFilter },
-  //     }),
-  //   })
-
-  //   return filter
-  // }
-
   getFilters(exclusion) {
     const transparency =
       this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
@@ -937,6 +781,10 @@ export class ClientInventoryViewModel {
           }),
           ...(transparency !== null && {
             transparency: { $eq: transparency },
+          }),
+
+          ...(this.isArchive && {
+            archive: { $eq: true },
           }),
         },
       ),

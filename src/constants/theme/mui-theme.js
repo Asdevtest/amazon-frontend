@@ -99,10 +99,10 @@ export const lightTheme = createTheme({
         menuIconButton: {
           zIndex: 50,
           position: 'absolute !important',
-          right: -7,
+          right: -2,
           // visibility: 'visible !important',
-          width: '18px !important',
-          height: '18px !important',
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
             width: 14,
@@ -422,10 +422,10 @@ export const darkTheme = createTheme({
           color: '#fff',
           zIndex: 50,
           position: 'absolute !important',
-          right: -7,
+          right: -2,
           // visibility: 'visible !important',
-          width: '18px !important',
-          height: '18px !important',
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
             width: 14,
