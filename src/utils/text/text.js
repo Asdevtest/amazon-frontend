@@ -287,7 +287,7 @@ export const getTableByColumn = (column, hint) => {
       'trackNumberText',
     ].includes(column)
   ) {
-    if (['buyer'].includes(column) && hint === 'orders') {
+    if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
     } else if (['childProductShopId', 'parentProductShopId'].includes(column) && hint === 'ideas') {
       return 'products'

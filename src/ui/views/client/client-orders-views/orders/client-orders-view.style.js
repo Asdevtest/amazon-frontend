@@ -1,16 +1,4 @@
-import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
-
-const ani = keyframes`
-0% {
-    transform: translateY(-150%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1
-  }
-`
 
 export const useStyles = makeStyles()(theme => ({
   button: {
@@ -46,20 +34,8 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
   },
 
-  datagridWrapper: {
+  tableWrapper: {
     height: '79vh',
     width: '100%',
-  },
-
-  acceptMessageWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: '50%',
-    padding: '10px',
-    marginTop: '63px',
-    zIndex: 50,
-    opacity: 0,
-    transform: 'translateY(-150%)',
-    animation: `${ani} 1s forwards`,
   },
 }))
