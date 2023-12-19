@@ -80,6 +80,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
                   ) : (
                     <VideoPreloader
                       videoSource={currentSlide}
+                      height="300px"
                       iconPlayClassName={styles.preloaderIcon}
                       onClick={onPhotosModalToggle}
                     />
