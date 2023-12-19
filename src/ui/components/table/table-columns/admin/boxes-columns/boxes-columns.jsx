@@ -118,7 +118,7 @@ export const adminBoxesViewColumns = () => [
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.amazonPrice, 2)} />,
     width: 110,
     sortable: false,
     filterable: false,
@@ -142,7 +142,7 @@ export const adminBoxesViewColumns = () => [
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.weighGrossKgWarehouse} fix={2} />,
     type: 'number',
     width: 130,
-    // sortable: false,
+    sortable: false,
     filterable: false,
   },
 
