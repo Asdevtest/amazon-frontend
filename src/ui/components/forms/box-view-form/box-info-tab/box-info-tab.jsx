@@ -207,7 +207,7 @@ export const BoxInfoTab = observer(
 
                 <div className={styles.trackNumberPhoto}>
                   {trackNumbers.length ? (
-                    <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={trackNumbers} />
+                    <PhotoAndFilesSlider customSlideHeight={76} files={trackNumbers} />
                   ) : (
                     <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                   )}

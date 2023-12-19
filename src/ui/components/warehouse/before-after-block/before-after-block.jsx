@@ -529,7 +529,7 @@ const Box = observer(
 
                     <div className={classNames.trackNumberPhotoWrapper}>
                       {box.trackNumberFile.length ? (
-                        <PhotoAndFilesSlider smallSlider withoutPhotos files={box.trackNumberFile} />
+                        <PhotoAndFilesSlider smallSlider files={box.trackNumberFile} />
                       ) : (
                         <Typography className={classNames.trackNumberNoPhotoText}>
                           {`${t(TranslationKey['no photo track number'])}...`}
@@ -593,7 +593,7 @@ const Box = observer(
 
                   <div className={classNames.trackNumberPhotoWrapper}>
                     {box.trackNumberFile.length ? (
-                      <PhotoAndFilesSlider smallSlider withoutFiles files={box.trackNumberFile} />
+                      <PhotoAndFilesSlider smallSlider files={box.trackNumberFile} />
                     ) : (
                       <Typography className={classNames.trackNumberNoPhotoText}>
                         {`${t(TranslationKey['no photo track number'])}...`}
