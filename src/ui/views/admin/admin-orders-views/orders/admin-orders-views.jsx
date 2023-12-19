@@ -19,7 +19,7 @@ import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 export const AdminOrdersViews = observer(({ history }) => {
   const { classes: classNames } = useStyles()
   const [viewModel] = useState(() => new AdminOrdersAllViewModel({ history }))
-
+  
   useEffect(() => {
     viewModel.getOrdersByStatus(viewModel.activeSubCategory)
   }, [])
@@ -37,7 +37,7 @@ export const AdminOrdersViews = observer(({ history }) => {
         <CustomSwitcher
           switchMode={'medium'}
           condition={viewModel.activeSubCategory}
-          switcherSettings={adminOrdersBtnsConfig}
+          switcherSettings={[...adminOrdersBtnsConfig]}
           changeConditionHandler={viewModel.onChangeSubCategory}
         />
       </div>
