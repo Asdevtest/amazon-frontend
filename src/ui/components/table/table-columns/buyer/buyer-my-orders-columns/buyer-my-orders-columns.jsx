@@ -1,5 +1,3 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -60,7 +58,7 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 130,
     renderCell: params => (
