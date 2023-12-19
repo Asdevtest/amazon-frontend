@@ -87,6 +87,8 @@ export const RequestToSendBatchForm = observer(
       setSubmitIsClicked(false)
     }
 
+    console.log('boxesMy', boxesMy)
+
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
       boxesWithPriceRequest.some(
@@ -102,7 +104,15 @@ export const RequestToSendBatchForm = observer(
       ) ||
       submitIsClicked ||
       boxesMy.some(
-        box => !box.shippingLabel && box.items.some(item => !item?.transparencyFile && item?.product?.transparency),
+        box =>
+          !box.shippingLabel &&
+          box.items.some(
+            item =>
+              (!item?.transparencyFile ||
+                !item?.isTransparencyFileAlreadyAttachedByTheSupplier ||
+                !item?.isTransparencyFileAttachedByTheStorekeeper) &&
+              item?.product?.transparency,
+          ),
       )
 
     return (
