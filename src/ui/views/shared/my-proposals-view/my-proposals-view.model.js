@@ -354,13 +354,18 @@ export class MyProposalsViewModel {
 
       if (this.columnMenuSettings[column]) {
         runInAction(() => {
+          const filterData =
+            column === 'status'
+              ? data.filter(status =>
+                  this.isInTheWork ? inTheWorkStatuses.includes(status) : executedStatuses.includes(status),
+                )
+              : data
+
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
             [column]: {
               ...this.columnMenuSettings[column],
-              filterData: data.filter(status =>
-                this.isInTheWork ? inTheWorkStatuses.includes(status) : executedStatuses.includes(status),
-              ),
+              filterData,
             },
           }
         })

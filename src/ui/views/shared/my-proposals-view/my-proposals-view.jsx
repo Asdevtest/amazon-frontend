@@ -20,7 +20,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './my-proposals-view.style'
 
-import { switcherConditions } from './my-proposals-view.constants'
+import { customSwitcherSettings, searchInputPlaceholder } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsView = observer(({ history }) => {
@@ -43,9 +43,7 @@ export const MyProposalsView = observer(({ history }) => {
 
           <SearchInput
             inputClasses={styles.searchInput}
-            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(
-              TranslationKey.ID,
-            )}`}
+            placeholder={searchInputPlaceholder}
             value={viewModel.currentSearchValue}
             onSubmit={viewModel.onChangeSearchValue}
           />
@@ -56,12 +54,9 @@ export const MyProposalsView = observer(({ history }) => {
 
         <CustomSwitcher
           fullWidth
-          switchMode={'big'}
+          switchMode="big"
           condition={viewModel.switcherCondition}
-          switcherSettings={[
-            { label: () => t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
-            { label: () => t(TranslationKey.Executed), value: switcherConditions.executed },
-          ]}
+          switcherSettings={customSwitcherSettings}
           changeConditionHandler={viewModel.onClickChangeCatigory}
         />
 
