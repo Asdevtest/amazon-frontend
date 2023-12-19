@@ -184,9 +184,7 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'tags',
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-    valueGetter: params => {
-      return params.row.originalData.tags?.map(el => `#${el.title}`).join()
-    },
+    valueGetter: params => params.row.originalData.tags?.map(el => `#${el.title}`).join(),
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,

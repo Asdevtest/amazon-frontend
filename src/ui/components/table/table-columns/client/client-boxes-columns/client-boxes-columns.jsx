@@ -352,11 +352,10 @@ export const clientBoxesViewColumns = (
         ''
       )
     },
-    valueGetter: params => {
-      return `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
+    valueGetter: params =>
+      `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
         params.row.fbaShipment || ''
-      }`
-    },
+      }`,
     minWidth: 150,
     headerAlign: 'center',
     sortable: false,

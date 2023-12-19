@@ -206,9 +206,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
-    valueGetter: params => {
-      return params.row.originalData.tags?.map(el => `#${el.title}`).join()
-    },
+    valueGetter: params => params.row.originalData.tags?.map(el => `#${el.title}`).join(),
     width: 160,
     sortable: false,
     columnKey: columnnsKeys.shared.TAGS,
