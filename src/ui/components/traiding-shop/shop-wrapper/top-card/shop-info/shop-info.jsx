@@ -1,7 +1,7 @@
-import { observer } from 'mobx-react'
+import { memo } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import { Box, Link, Typography } from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,13 +10,13 @@ import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
 import { Field } from '@components/shared/field/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
-import { toFixed } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './shop-info.style'
+import { useStyles } from './shop-info.style'
 
-export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
-  const { classes: classNames } = useClassNames()
+export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
+  const { classes: styles } = useStyles()
 
   const averageGrossIncome =
     data.statistics.reduce((acc, cur) => (acc += +cur.grossIncome), 0) /
@@ -31,62 +31,62 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
   const monthlyMultiplier = data.price / averagePureIncome || 0
 
   return (
-    <Box className={classNames.shopInfoWrapper}>
-      <div className={classNames.shopInfoTopWrapper}>
-        <div className={classNames.photosWrapper}>
+    <div>
+      <div className={styles.shopInfoTopWrapper}>
+        <div className={styles.photosWrapper}>
           <PhotoAndFilesSlider withoutFiles files={data.files} />
         </div>
-        <div className={classNames.rightSideWrapper}>
-          <div className={classNames.rightSideHeader}>
-            <Typography className={classNames.shopTitle}>{data.title}</Typography>
-            <div className={classNames.statusWrapper}>
-              <Typography className={classNames.cardTitle}>{t(TranslationKey['For sale'])}</Typography>
+        <div className={styles.rightSideWrapper}>
+          <div className={styles.rightSideHeader}>
+            <Typography className={styles.shopTitle}>{data.title}</Typography>
+            <div className={styles.statusWrapper}>
+              <Typography className={styles.cardTitle}>{t(TranslationKey['For sale'])}</Typography>
               <FiberManualRecordRoundedIcon color="success" />
             </div>
           </div>
           <div>
-            <Link target="__blank" href={data.shopLink} className={classNames.link}>
+            <Link target="__blank" href={checkAndMakeAbsoluteUrl(data.shopLink)} className={styles.link}>
               {t(TranslationKey['Go to the store website'])}
             </Link>
           </div>
-          <div className={classNames.shortInfoWrapper}>
+          <div className={styles.shortInfoWrapper}>
             <div>
               <Field
-                labelClasses={classNames.shortInfoLabel}
-                containerClasses={classNames.shortInfoContainer}
+                labelClasses={styles.shortInfoLabel}
+                containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey['Price period'])}
                 inputComponent={
-                  <Typography className={classNames.shortInfoValue}>{`${data.statistics.length} месяцев`}</Typography>
+                  <Typography className={styles.shortInfoValue}>{`${data.statistics.length} месяцев`}</Typography>
                 }
               />
             </div>
             <div>
               <Field
-                labelClasses={classNames.shortInfoLabel}
-                containerClasses={classNames.shortInfoContainer}
+                labelClasses={styles.shortInfoLabel}
+                containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey['Monthly multiplier'])}
                 inputComponent={
-                  <Typography className={classNames.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</Typography>
+                  <Typography className={styles.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</Typography>
                 }
               />
             </div>
 
             <div>
               <Field
-                labelClasses={classNames.shortInfoLabel}
-                containerClasses={classNames.shortInfoContainer}
+                labelClasses={styles.shortInfoLabel}
+                containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey.Price)}
-                inputComponent={<Typography className={classNames.shortInfoValue}>{`${data.price} $`}</Typography>}
+                inputComponent={<Typography className={styles.shortInfoValue}>{`${data.price} $`}</Typography>}
               />
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             {userInfo._id === data.ownerId ? (
               <>
-                <Button className={classNames.editButton} onClick={onClickEditBtn}>
+                <Button className={styles.editButton} onClick={onClickEditBtn}>
                   {t(TranslationKey.Edit)}
                 </Button>
-                <Button disabled danger className={classNames.deleteButton}>
+                <Button disabled danger className={styles.deleteButton}>
                   {t(TranslationKey['Delete ad'])}
                 </Button>
               </>
@@ -94,15 +94,15 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
           </div>
         </div>
       </div>
-      <div className={classNames.shopInfoBottomWrapper}>
-        <div className={classNames.chartsWrapper}>
+      <div className={styles.shopInfoBottomWrapper}>
+        <div className={styles.chartsWrapper}>
           <div>
             <Field
               label={t(TranslationKey['Average. Monthly net profit'])}
-              labelClasses={classNames.chartLabel}
+              labelClasses={styles.chartLabel}
               inputComponent={
-                <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{toFixed(averageGrossIncome, 2) + ' $'}</Typography>
+                <div className={styles.chart}>
+                  <Typography className={styles.profit}>{toFixed(averageGrossIncome, 2) + ' $'}</Typography>
                   <LinesChart data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -111,10 +111,10 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
           <div>
             <Field
               label={t(TranslationKey['Average. Monthly income'])}
-              labelClasses={classNames.chartLabel}
+              labelClasses={styles.chartLabel}
               inputComponent={
-                <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{toFixed(averagePureIncome, 2) + ' $'}</Typography>
+                <div className={styles.chart}>
+                  <Typography className={styles.profit}>{toFixed(averagePureIncome, 2) + ' $'}</Typography>
                   <LinesChart profit data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -123,10 +123,10 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
           <div>
             <Field
               label={t(TranslationKey.Profitability)}
-              labelClasses={classNames.chartLabel}
+              labelClasses={styles.chartLabel}
               inputComponent={
-                <div className={classNames.chart}>
-                  <Typography className={classNames.profitability}>{toFixed(profitability, 2) + ' %'}</Typography>
+                <div className={styles.chart}>
+                  <Typography className={styles.profitability}>{toFixed(profitability, 2) + ' %'}</Typography>
                   <Link>{t(TranslationKey['View profit'])}</Link>
                 </div>
               }
@@ -134,6 +134,6 @@ export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
           </div>
         </div>
       </div>
-    </Box>
+    </div>
   )
 })
