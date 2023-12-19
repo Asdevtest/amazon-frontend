@@ -102,7 +102,15 @@ export const RequestToSendBatchForm = observer(
       ) ||
       submitIsClicked ||
       boxesMy.some(
-        box => !box.shippingLabel && box.items.some(item => !item?.transparencyFile && item?.product?.transparency),
+        box =>
+          !box.shippingLabel ||
+          box.items.some(
+            item =>
+              (!item?.transparencyFile ||
+                !item?.isTransparencyFileAlreadyAttachedByTheSupplier ||
+                !item?.isTransparencyFileAttachedByTheStorekeeper) &&
+              item?.product?.transparency,
+          ),
       )
 
     return (

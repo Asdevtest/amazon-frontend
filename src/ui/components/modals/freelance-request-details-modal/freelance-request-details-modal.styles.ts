@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 1230,
+    width: 1370,
     padding: 10,
     overflowY: 'hidden',
   },
