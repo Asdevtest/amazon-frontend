@@ -63,7 +63,10 @@ export class VacantRequestsViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => this.onLeaveColumnField(),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getRequestsVacant()
+    },
 
     filterRequestStatus: undefined,
 
