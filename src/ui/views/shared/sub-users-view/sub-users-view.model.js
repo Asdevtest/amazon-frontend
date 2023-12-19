@@ -300,6 +300,9 @@ export class SubUsersViewModel {
           case UserRole.RESEARCHER:
             return ResearcherModel.getProductsVacant()
 
+          case UserRole.FREELANCER:
+            return []
+
           default:
             return ClientModel.getProductPermissionsData()
         }
