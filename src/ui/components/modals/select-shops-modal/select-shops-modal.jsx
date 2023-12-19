@@ -51,7 +51,7 @@ export const SelectShopsModal = memo(props => {
         <Button
           success
           disableElevation
-          disabled={currentShopId === ''}
+          disabled={shops.length && currentShopId === ''}
           className={styles.button}
           variant="contained"
           onClick={() => onClickSuccessBtn(currentShopId)}
