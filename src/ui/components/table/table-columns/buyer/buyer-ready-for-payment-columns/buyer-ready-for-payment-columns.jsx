@@ -140,7 +140,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
         />
       ),
-      valueGetter: params => params.row.originalData.payments.map(payment => payment.paymentMethod.title).join(', '),
+      valueGetter: params => params.row.originalData.payments.map(payment => payment?.paymentMethod?.title).join(', '),
       width: 180,
       sortable: false,
 

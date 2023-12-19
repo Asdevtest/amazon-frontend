@@ -169,7 +169,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                   <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <img
-                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
+                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
                       alt={paymentMethod.title}
                       className={classNames.paymentMethodIcon}
                     />
@@ -187,8 +187,8 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
                     <img
-                      src={getAmazonImageUrl(paymentMethod.iconImage, false)}
-                      alt={paymentMethod.title}
+                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
+                      alt={paymentMethod?.title}
                       className={classNames.paymentMethodIcon}
                     />
                     <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
