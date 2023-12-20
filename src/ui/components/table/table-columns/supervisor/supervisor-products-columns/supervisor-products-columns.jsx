@@ -17,6 +17,8 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const supervisorProductsViewColumns = handlers => [
@@ -66,7 +68,7 @@ export const supervisorProductsViewColumns = handlers => [
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
-
+    valueFormatter: params => t(productStatusTranslateKey(ProductStatusByCode[params.value])),
     columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
@@ -89,7 +91,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     type: 'number',
     width: 100,
-
+    valueGetter: params => (params.row.amazon ? toFixedWithDollarSign(params.row.amazon, 2) : '-'),
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -97,7 +99,6 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-
     renderCell: params => (
       <UserLinkCell
         blackText
@@ -105,7 +106,7 @@ export const supervisorProductsViewColumns = handlers => [
         userId={params.row.originalData.createdBy?._id}
       />
     ),
-
+    valueGetter: params => params.row.originalData.createdBy?.name,
     width: 170,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -119,6 +120,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
     ),
+    valueGetter: params => params.row.originalData.buyer?.name,
     width: 170,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -128,7 +130,6 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'bsr',
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
@@ -140,7 +141,7 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'fbafee',
     headerName: t(TranslationKey['FBA fee , $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
-
+    valueGetter: params => (params.row.fbafee ? toFixedWithDollarSign(params.row.fbafee, 2) : ''),
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     type: 'number',
     minWidth: 100,
@@ -172,6 +173,7 @@ export const supervisorProductsViewColumns = handlers => [
         text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
       />
     ),
+    valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
     minWidth: 50,
     type: 'boolean',
     sortable: false,
@@ -182,6 +184,7 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'tags',
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    valueGetter: params => params.row.originalData.tags?.map(el => `#${el.title}`).join(),
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
@@ -205,6 +208,7 @@ export const supervisorProductsViewColumns = handlers => [
 
     width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
+    valueFormatter: params => formatNormDateTime(params.value),
     // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
@@ -217,9 +221,9 @@ export const supervisorProductsViewColumns = handlers => [
 
     minWidth: 150,
     flex: 1,
+    valueFormatter: params => formatNormDateTime(params.value),
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
-
     columnKey: columnnsKeys.shared.DATE,
   },
 ]
