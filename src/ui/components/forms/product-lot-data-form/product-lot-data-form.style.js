@@ -1,20 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   productLotDataBlock: {
+    width: 1400,
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
-    width: '1380px',
-    minHeight: '650px',
-    borderRadius: '4px',
+    gap: 20,
   },
 
   aboutProduct: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginTop: '20px',
   },
 
   productInfo: {
@@ -26,11 +24,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   title: {
-    fontWeight: '600',
     fontSize: '22px',
     lineHeight: '26px',
+    fontWeight: '600',
     color: theme.palette.text.general,
-
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -56,15 +53,6 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  attribute: {
-    display: 'flex',
-  },
-
-  attributeWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
   attributeTitle: {
     paddingRight: '5px',
     fontSize: 14,
@@ -85,6 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    height: '630px',
+    height: 550,
+    width: '100%',
   },
 }))
