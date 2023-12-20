@@ -28,25 +28,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberPhotoWrapper: {
-    width: 230,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    [theme.breakpoints.down(1282)]: {
-      width: 270,
-    },
-  },
-
-  trackNumberPhoto: {
-    width: 230,
-    height: 80,
-    objectFit: 'contain',
-    cursor: 'pointer',
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   trackNumberNoPhotoText: {
