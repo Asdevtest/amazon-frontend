@@ -705,7 +705,7 @@ export const EditOrderModal = memo(
 
         <div className={styles.paper}>
           <SelectFields
-            orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
+            orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
@@ -1129,7 +1129,11 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <Modal openModal={paymentMethodsModal} setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}>
+        <Modal
+          missClickModalOn
+          openModal={paymentMethodsModal}
+          setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+        >
           <PaymentMethodsForm
             orderPayments={orderPayments}
             allPayments={paymentMethods}

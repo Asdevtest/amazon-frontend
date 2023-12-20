@@ -334,6 +334,13 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 25,
   },
 
+  labelClass: {
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
   partialPaymentWrapper: {
     width: '100%',
     padding: 10,

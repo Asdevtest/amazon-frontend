@@ -15,13 +15,14 @@ import { PaymentMethodCard } from './payment-method-card'
 interface PaymentMethodsFormProps {
   orderPayments: Payment[]
   allPayments: Payment[]
+  onClickSaveButton: (payments: Payment[]) => void
+  onClickCancelButton: () => void
   readOnly?: boolean
-  onClickSaveButton?: (payments: Payment[]) => void
-  onClickCancelButton?: () => void
 }
 
 export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
   const { orderPayments, allPayments, readOnly, onClickSaveButton, onClickCancelButton } = props
+
   const { classes: styles } = useStyles()
 
   const [selectedPayments, setSelectedPayments] = useState<Payment[]>(allPayments || [])
@@ -44,6 +45,13 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
     }
   }, [orderPayments])
 
+  const handleSaveButton = () => {
+    const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
+
+    onClickSaveButton(filteringSelectedPayments)
+    onClickCancelButton()
+  }
+
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Select payment methods'])}</p>
@@ -65,15 +73,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button
-            success
-            className={styles.actionButton}
-            onClick={() => {
-              !!onClickCancelButton && onClickCancelButton()
-              !!onClickSaveButton &&
-                onClickSaveButton(selectedPayments.filter(selectedPayment => selectedPayment.isChecked))
-            }}
-          >
+          <Button success className={styles.actionButton} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}
