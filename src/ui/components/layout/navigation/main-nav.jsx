@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Suspense, useState, useEffect, useMemo, useRef } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { GlobalStyles } from '@mui/material'
@@ -19,11 +19,11 @@ import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'
 import { generateRedirects } from './redirects'
 
-export const MainNav = observer(() => {
-  const languageTagRef = useRef(SettingsModel.languageTag)
 
+export const MainNav = observer(() => {
+  const [lang,setLang]= useState()
   useEffect(() => {
-    languageTagRef.current = SettingsModel.languageTag
+    setLang(SettingsModel.languageTag)
   }, [SettingsModel.languageTag])
 
   const uiThemeModeRef = useRef(SettingsModel.uiTheme)
@@ -39,7 +39,7 @@ export const MainNav = observer(() => {
   )
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{...theme, lang}}>
       <ToastifyProvder theme={SettingsModel.uiTheme} />
       <GlobalStyles styles={globalStyles} />
       <CssBaseline />
