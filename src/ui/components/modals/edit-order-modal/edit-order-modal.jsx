@@ -705,8 +705,7 @@ export const EditOrderModal = memo(
 
         <div className={styles.paper}>
           <SelectFields
-            orderPayments={orderPayments}
-            allPayments={paymentMethods}
+            orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
             imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}

@@ -108,7 +108,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowClick={e => viewModel.onClickOrder(e.row.originalData._id)}
+          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
         />
       </div>
 

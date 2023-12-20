@@ -64,7 +64,6 @@ export const SelectFields = ({
   onChangeImagesForLoad,
   setPaymentMethodsModal,
   orderPayments,
-  allPayments,
 }) => {
   const { classes: classNames } = useClassNames()
 
@@ -395,7 +394,7 @@ export const SelectFields = ({
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
             <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
-              <CustomSelectPaymentDetails column onlyRead orderPayments={orderPayments} allPayments={allPayments} />
+              <CustomSelectPaymentDetails column onlyRead orderPayments={orderPayments} />
             </div>
           )}
         </div>
