@@ -107,8 +107,8 @@ export const RequestToSendBatchForm = observer(
           box.items.some(
             item =>
               (!item?.transparencyFile ||
-                !item?.isTransparencyFileAlreadyAttachedByTheSupplier ||
-                !item?.isTransparencyFileAttachedByTheStorekeeper) &&
+                (!item?.isTransparencyFileAlreadyAttachedByTheSupplier &&
+                  !item?.isTransparencyFileAttachedByTheStorekeeper)) &&
               item?.product?.transparency,
           ),
       )
