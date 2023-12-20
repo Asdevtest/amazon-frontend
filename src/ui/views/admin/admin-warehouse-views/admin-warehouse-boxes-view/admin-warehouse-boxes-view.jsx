@@ -27,7 +27,7 @@ export const AdminWarehouseBoxesView = observer(() => {
 
   return (
     <>
-      <div className={styles.topHeaderBtnsWrapper}>
+      <div className={styles.header}>
         <SearchInput
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
