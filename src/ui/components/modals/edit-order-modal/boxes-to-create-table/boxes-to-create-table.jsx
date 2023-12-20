@@ -210,8 +210,9 @@ export const BoxesToCreateTable = ({
   onClickUpdateSupplierStandart,
   onClickTransparency,
   volumeWeightCoefficient,
+  orderGoodsAmount,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
@@ -222,11 +223,13 @@ export const BoxesToCreateTable = ({
     setSizeSetting(newAlignment)
   }
 
+  const itemsGoodsAmount = newBoxes?.reduce((acc, item) => {
+    return acc + item?.items?.[0]?.amount * item?.amount
+  }, 0)
+
   return (
     <div className={styles.newBoxes}>
-      <Typography className={styles.sectionTitle} variant="h6">
-        {t(TranslationKey['Boxes will be created'])}
-      </Typography>
+      <p className={styles.sectionTitle}>{t(TranslationKey['Boxes will be created'])}</p>
 
       <div className={styles.sizesSubWrapper}>
         <CustomSwitcher
@@ -237,6 +240,20 @@ export const BoxesToCreateTable = ({
           ]}
           changeConditionHandler={condition => handleChange(condition)}
         />
+
+        <p>
+          {`${t(TranslationKey['Total quantity'])}:`}{' '}
+          <span
+            className={cx({
+              [styles.itemsNotEqualTotal]: itemsGoodsAmount !== orderGoodsAmount,
+              [styles.itemsEqualTotal]: itemsGoodsAmount === orderGoodsAmount,
+            })}
+          >
+            {itemsGoodsAmount}
+          </span>
+          {` / `}
+          <span>{orderGoodsAmount}</span>
+        </p>
       </div>
 
       <Table

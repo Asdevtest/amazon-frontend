@@ -401,7 +401,7 @@ export const SelectFields = ({
                 generalText
                 labelClass={classNames.labelClass}
                 currentPaymentMethods={orderPayments
-                  ?.filter(item => item?.paymentMethod)
+                  ?.filter(item => item?.paymentMethod?._id)
                   .map(item => item?.paymentMethod)}
               />
             </div>

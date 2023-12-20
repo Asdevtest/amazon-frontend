@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
@@ -23,7 +22,7 @@ import { useStyles } from './client-orders-view.style'
 import { ClientOrdersViewModel } from './client-orders-view.model'
 
 export const ClientOrdersView = observer(history => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
 
@@ -66,7 +65,7 @@ export const ClientOrdersView = observer(history => {
 
         <div className={cx({ [styles.invis]: viewModel.isPendingOrdering })} />
       </div>
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           disableRowSelectionOnClick
@@ -84,7 +83,6 @@ export const ClientOrdersView = observer(history => {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,

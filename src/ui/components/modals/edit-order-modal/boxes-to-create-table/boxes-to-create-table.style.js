@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   sectionTitle: {
     color: theme.palette.text.second,
+    fontSize: '20px',
     marginBottom: '10px',
     marginTop: '10px',
   },
@@ -142,7 +143,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sizesSubWrapper: {
-    width: 'fit-content',
+    display: 'flex',
+    gap: '140px',
     marginBottom: 10,
   },
 
@@ -151,5 +153,13 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     color: theme.palette.text.red,
+  },
+
+  itemsNotEqualTotal: {
+    color: theme.palette.text.red,
+  },
+
+  itemsEqualTotal: {
+    color: theme.palette.text.green,
   },
 }))

@@ -1,4 +1,3 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Checkbox } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -87,7 +86,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     {
       field: 'status',
       headerName: t(TranslationKey.Status),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
         <MultilineTextCell
           text={params.value}
@@ -140,7 +139,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
         />
       ),
-      valueGetter: params => params.row.originalData.payments.map(payment => payment.paymentMethod.title).join(', '),
+      valueGetter: params => params.row.originalData.payments.map(payment => payment?.paymentMethod?.title).join(', '),
       width: 180,
       sortable: false,
 

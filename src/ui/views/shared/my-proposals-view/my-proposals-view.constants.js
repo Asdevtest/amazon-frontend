@@ -1,4 +1,7 @@
 import { RequestStatus } from '@constants/requests/request-status'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 export const filtersFields = [
   'status',
@@ -23,6 +26,15 @@ export const switcherConditions = {
   inTheWork: 'inTheWork',
   executed: 'executed',
 }
+
+export const customSwitcherSettings = [
+  { label: () => t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
+  { label: () => t(TranslationKey.Executed), value: switcherConditions.executed },
+]
+
+export const searchInputPlaceholder = `${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
+  TranslationKey.Title,
+)}, ${t(TranslationKey.ID)}`
 
 export const inTheWorkStatuses = [
   RequestStatus.READY_TO_VERIFY,

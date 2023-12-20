@@ -21,13 +21,13 @@ export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = React.memo(props 
   return (
     <div className={styles.paymentMethods} onClick={onClickCell && onClickCell}>
       {paymentMethods.map(({ paymentMethod }) => (
-        <div key={paymentMethod.title} className={styles.paymentMethod}>
+        <div key={paymentMethod?.title} className={styles.paymentMethod}>
           <img
-            src={getAmazonImageUrl(paymentMethod.iconImage, false)}
-            alt={paymentMethod.title}
+            src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
+            alt={paymentMethod?.title}
             className={styles.paymentMethodIcon}
           />
-          <p className={styles.paymentMethodTitle}>{paymentMethod.title}</p>
+          <p className={styles.paymentMethodTitle}>{paymentMethod?.title}</p>
         </div>
       ))}
     </div>

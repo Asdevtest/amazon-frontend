@@ -184,13 +184,7 @@ export class ClientOrdersViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onLeaveColumnField() {
@@ -366,6 +360,7 @@ export class ClientOrdersViewModel {
     } else {
       this.filteredStatus = this.chosenStatus
     }
+
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 

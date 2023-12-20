@@ -937,6 +937,7 @@ export const EditOrderModal = memo(
         {boxesForCreation.length > 0 && (
           <>
             <BoxesToCreateTable
+              orderGoodsAmount={orderFields?.amount}
               volumeWeightCoefficient={volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={

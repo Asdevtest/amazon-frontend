@@ -1,7 +1,3 @@
-import { t } from 'i18n-js'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,6 +21,7 @@ import { checkIsHasHttp } from '@utils/checks'
 import { formatDate, formatNormDateTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -86,7 +83,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => (
       <MultilineTextCell
         maxLength={50}
@@ -275,7 +272,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderCell: params => <NormDateCell value={params.value} />,
     valueFormatter: params => formatNormDateTime(params.value),
     width: 120,
-    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },

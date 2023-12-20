@@ -64,8 +64,18 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
         if (newPaymentsFieldsState?.paymentMethod?._id) {
           newPaymentsFieldsState.paymentMethod = {
             _id: '',
-            title: '',
-            iconImage: '',
+            title:
+              'paymentMethod' in payment && payment?.paymentMethod?.title
+                ? payment?.paymentMethod?.title
+                : 'title' in payment
+                ? payment.title
+                : '',
+            iconImage:
+              'paymentMethod' in payment && payment?.paymentMethod?.iconImage
+                ? payment?.paymentMethod?.iconImage
+                : 'title' in payment
+                ? payment.iconImage
+                : '',
           }
         } else {
           newPaymentsFieldsState.paymentMethod = {
