@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
@@ -10,6 +10,8 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 import { renderTooltipTitle } from '@utils/renders'
 
 import { useStyles } from './navbar-category.style'
+import { HintsContext } from '@contexts/hints-context'
+
 
 export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
   const { classes: styles, cx } = useStyles()
@@ -17,6 +19,8 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
   const [subRoutes, setSubRoutes] = useState([])
   const isRedBadge = category.route?.includes('/buyer/free-orders')
 
+  const {hints}= useContext(HintsContext)
+  
   const getHighPriorityValue = route => {
     switch (route) {
       case '/warehouse/tasks':
@@ -60,7 +64,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
   return (
     <Button
       tooltipPosition="center"
-      tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
+      tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
       onClick={onToggleModal}
     >
