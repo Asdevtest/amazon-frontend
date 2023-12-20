@@ -638,7 +638,12 @@ export class SuppliersAndIdeasModel {
       const response = await SupplierModel.getSuppliersPaymentMethods()
 
       runInAction(() => {
-        this.paymentMethods = response
+        this.paymentMethods = response.map(paymentMethod => ({
+          isChecked: false,
+          paymentDetails: '',
+          paymentImages: [],
+          paymentMethod,
+        }))
       })
     } catch (error) {
       console.log(error)

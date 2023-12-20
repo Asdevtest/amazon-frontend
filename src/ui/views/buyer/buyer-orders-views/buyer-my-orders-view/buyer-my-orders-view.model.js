@@ -712,17 +712,15 @@ export class BuyerMyOrdersViewModel {
         const validOrderPayments = []
 
         for (const payment of orderPayments) {
-          if (payment.isChecked) {
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
 
-            const updatedPayment = {
-              paymentMethodId: payment.paymentMethod._id,
-              paymentDetails: payment.paymentDetails,
-              paymentImages: this.readyImages,
-            }
-
-            validOrderPayments.push(updatedPayment)
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
+
+          validOrderPayments.push(updatedPayment)
         }
 
         await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
@@ -843,17 +841,15 @@ export class BuyerMyOrdersViewModel {
         const validOrderPayments = []
 
         for (const payment of orderPayments) {
-          if (payment.isChecked) {
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
 
-            const updatedPayment = {
-              paymentMethodId: payment.paymentMethod._id,
-              paymentDetails: payment.paymentDetails,
-              paymentImages: this.readyImages,
-            }
-
-            validOrderPayments.push(updatedPayment)
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
+
+          validOrderPayments.push(updatedPayment)
         }
 
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })

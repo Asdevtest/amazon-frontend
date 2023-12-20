@@ -70,7 +70,8 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
             className={styles.actionButton}
             onClick={() => {
               !!onClickCancelButton && onClickCancelButton()
-              !!onClickSaveButton && onClickSaveButton(selectedPayments)
+              !!onClickSaveButton &&
+                onClickSaveButton(selectedPayments.filter(selectedPayment => selectedPayment.isChecked))
             }}
           >
             {t(TranslationKey.Save)}

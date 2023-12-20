@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { ClassNamesArg } from '@emotion/react'
 import { FC, memo, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
+import { MenuItem, Select } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -52,8 +50,6 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = m
     }
   }, [orderPayments])
 
-  const EditIconToRender = () => <EditIcon className={classNames.editIcon} />
-
   const selectContentToRender = (payments: Payment[], isReadOnly: boolean): JSX.Element => {
     if (payments.length) {
       return (
@@ -76,11 +72,11 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = m
         <div className={classNames.paymentMethodsPlaceholder}>
           {!isReadOnly ? (
             <>
-              <Typography className={classNames.placeholderText}>{t(TranslationKey.Add)}</Typography>
+              <p className={classNames.placeholderText}>{t(TranslationKey.Add)}</p>
               <AddIcon className={classNames.addIcon} />
             </>
           ) : (
-            <Typography className={classNames.placeholderText}>{t(TranslationKey.Missing)}</Typography>
+            <p className={classNames.placeholderText}>{t(TranslationKey.Missing)}</p>
           )}
         </div>
       )
@@ -102,7 +98,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = m
               displayEmpty
               disabled={onlyRead}
               value={selectedPayments}
-              IconComponent={EditIconToRender}
+              IconComponent={() => (orderPayments.length ? <EditIcon className={classNames.editIcon} /> : <></>)}
               classes={{
                 select: classNames.select,
               }}
@@ -113,10 +109,16 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = m
                 )
               }
               className={classNames.paymentMethodsField}
+              onChange={event => {
+                if (!onlyRead) {
+                  // @ts-ignore
+                  !!onChangePaymentMethod && onChangePaymentMethod(event.target.value)
+                }
+              }}
             >
               <MenuItem className={classNames.paymentMethod}>
                 <Checkbox color="primary" checked={selectedPayments.every(payment => payment.isChecked)} />
-                <Typography>{t(TranslationKey.All)}</Typography>
+                <p>{t(TranslationKey.All)}</p>
               </MenuItem>
 
               {allPayments?.map((payment, index) => (

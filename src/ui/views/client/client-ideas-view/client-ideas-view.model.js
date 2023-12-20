@@ -467,7 +467,20 @@ export class ClientIdeasViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response.map(paymentMethod => ({
+          isChecked: false,
+          paymentDetails: '',
+          paymentImages: [],
+          paymentMethod,
+        }))
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getStorekeepers() {
