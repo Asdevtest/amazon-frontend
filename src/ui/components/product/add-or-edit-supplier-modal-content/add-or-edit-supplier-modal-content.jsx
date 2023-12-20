@@ -684,8 +684,8 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div className={classNames.paymentsBlock}>
             <CustomSelectPaymentDetails
-              currentPaymentMethods={tmpSupplier?.paymentMethods}
-              paymentMethods={paymentMethods}
+              orderPayments={tmpSupplier?.paymentMethods}
+              allPayments={paymentMethods}
               onlyRead={onlyRead}
               onChangePaymentMethod={onChangePaymentMethod}
             />

@@ -375,11 +375,20 @@ export class BuyerMyOrdersViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    const response = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
 
-    runInAction(() => {
-      this.paymentMethods = response
-    })
+      runInAction(() => {
+        this.paymentMethods = response.map(paymentMethod => ({
+          isChecked: false,
+          paymentDetails: '',
+          paymentImages: [],
+          paymentMethod,
+        }))
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
@@ -576,8 +585,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickPaymentMethodsCell(row) {
-    await this.getSuppliersPaymentMethods()
-
     runInAction(() => {
       this.currentOrder = row
     })
@@ -592,6 +599,7 @@ export class BuyerMyOrdersViewModel {
       await this.getOrdersMy()
       this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
+      this.getSuppliersPaymentMethods()
     } catch (error) {
       console.log(error)
     }
@@ -647,7 +655,6 @@ export class BuyerMyOrdersViewModel {
       const orderData = await BuyerModel.getOrderById(orderId)
 
       await this.onClickHsCode(orderData.product._id)
-      await this.getSuppliersPaymentMethods()
 
       runInAction(() => {
         this.selectedOrder = orderData
@@ -702,40 +709,24 @@ export class BuyerMyOrdersViewModel {
   async saveOrderPayment(order, orderPayments) {
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
-          }
-
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
+          if (payment.isChecked) {
             await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+            const updatedPayment = {
+              paymentMethodId: payment.paymentMethod._id,
+              paymentDetails: payment.paymentDetails,
+              paymentImages: this.readyImages,
+            }
+
+            validOrderPayments.push(updatedPayment)
           }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
         }
 
         await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
+
         this.loadData()
       } catch (error) {
         console.log(error)
@@ -849,38 +840,20 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
-
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
-          }
-
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
+          if (payment.isChecked) {
             await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+            const updatedPayment = {
+              paymentMethodId: payment.paymentMethod._id,
+              paymentDetails: payment.paymentDetails,
+              paymentImages: this.readyImages,
+            }
+
+            validOrderPayments.push(updatedPayment)
           }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
         }
 
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })

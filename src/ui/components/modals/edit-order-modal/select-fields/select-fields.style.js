@@ -333,13 +333,6 @@ export const useClassNames = makeStyles()(theme => ({
   paymentsBlock: {
     marginTop: 25,
   },
-  labelClass: {
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: '19px',
-
-    color: theme.palette.text.second,
-  },
 
   partialPaymentWrapper: {
     width: '100%',

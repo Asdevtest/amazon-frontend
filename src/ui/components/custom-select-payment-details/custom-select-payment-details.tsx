@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, Input, MenuItem, Select, Typography } from '@mui/material'
+import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,85 +15,63 @@ import { Field } from '@components/shared/field'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { Payment } from '@typings/payments'
+
 import { useClassNames } from './custom-select-payment-details.style'
 
-interface PaymentMethodsObject {
-  title: string
-  _id: string
-  iconImage: string
-}
-
-interface CurrentPaymentMethodsObject {
-  title: string
-  _id: string
-  iconImage: string
-  updatedAt: string
-}
-
 interface CustomSelectPaymentDetailsProps {
-  currentPaymentMethods: Array<CurrentPaymentMethodsObject>
-  paymentMethods: Array<PaymentMethodsObject>
+  orderPayments: Payment[]
+  allPayments: Payment[]
   onlyRead?: boolean
   column?: boolean
   disabled?: boolean
-  generalText?: boolean
-  cursorPointer?: boolean
-  labelClass?: ClassNamesArg
-  selectWrapper?: ClassNamesArg
-  onChangePaymentMethod?: (paymentMethod: PaymentMethodsObject) => void
-  onClickButton?: () => void
+  onChangePaymentMethod?: (paymentMethod: Payment) => void
 }
 
-export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = props => {
-  const { classes: classNames } = useClassNames()
-  const {
-    currentPaymentMethods,
-    paymentMethods,
-    onlyRead,
-    column,
-    labelClass,
-    disabled,
-    generalText,
-    cursorPointer,
-    selectWrapper,
-    onChangePaymentMethod,
-    onClickButton,
-  } = props
+export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = memo(props => {
+  const { orderPayments, allPayments, onlyRead, column, onChangePaymentMethod } = props
+  const { classes: classNames, cx } = useClassNames()
 
-  const [isEmpty, setIsEmpty] = useState(true)
-
-  const initValue = currentPaymentMethods.map(item => ({
-    iconImage: getAmazonImageUrl(item?.iconImage),
-    title: item?.title,
-    _id: item?._id,
-  }))
-
-  const [value, setValue] = useState(initValue || [])
+  const [selectedPayments, setSelectedPayments] = useState<Payment[]>(allPayments || [])
 
   useEffect(() => {
-    setValue(initValue)
-  }, [currentPaymentMethods])
+    if (orderPayments.length) {
+      const updatedPayments = allPayments
+        .map(payment => {
+          const foundPayment = orderPayments.find(
+            orderPayment => orderPayment.paymentMethod._id === payment.paymentMethod._id,
+          )
+
+          return foundPayment ? { ...foundPayment, isChecked: true } : payment
+        })
+        .sort((a, b) => (a.isChecked === b.isChecked ? 0 : a.isChecked ? -1 : 1))
+
+      setSelectedPayments(updatedPayments)
+    } else {
+      setSelectedPayments(allPayments)
+    }
+  }, [orderPayments])
 
   const EditIconToRender = () => <EditIcon className={classNames.editIcon} />
 
-  const selectContentToRender = (valuesToRender: Array<PaymentMethodsObject>, isReadOnly: boolean): JSX.Element => {
-    if (valuesToRender && valuesToRender.length) {
-      setIsEmpty(false)
-
+  const selectContentToRender = (payments: Payment[], isReadOnly: boolean): JSX.Element => {
+    if (payments.length) {
       return (
-        <div className={cx(classNames.paymentMethods, { [classNames.generalText]: generalText })}>
-          {valuesToRender?.map((valueToRender, index) => (
-            <div key={valueToRender.title} className={classNames.paymentMethod}>
-              <img src={valueToRender.iconImage} alt={valueToRender.title} className={classNames.paymentMethodIcon} />
-              <p className={classNames.paymentMethodTitle}>{valueToRender.title}</p>
-              {index !== valuesToRender.length - 1 && '/'}
+        <div className={classNames.paymentMethods}>
+          {payments?.map((payment, index) => (
+            <div key={index} className={classNames.paymentMethod}>
+              <img
+                src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
+                alt={payment.paymentMethod?.title}
+                className={classNames.paymentMethodIcon}
+              />
+              <p className={classNames.paymentMethodTitle}>{payment.paymentMethod?.title}</p>
+              {index !== payments.length - 1 && '/'}
             </div>
           ))}
         </div>
       )
     } else {
-      setIsEmpty(true)
-
       return (
         <div className={classNames.paymentMethodsPlaceholder}>
           {!isReadOnly ? (
@@ -114,90 +91,53 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
     <div className={classNames.root}>
       <Field
         label={t(TranslationKey['Payment methods']) + ':'}
-        labelClasses={cx(classNames.paymentMethodsLabel, labelClass)}
+        labelClasses={classNames.paymentMethodsLabel}
         containerClasses={cx(classNames.paymentMethodsContainer, {
           [classNames.rowPaymentMethodsContainer]: column,
         })}
         inputComponent={
-          <div className={cx(selectWrapper)} onClick={onClickButton}>
+          <div>
             <Select
               multiple
               displayEmpty
-              disabled={(onlyRead && isEmpty) || disabled || onlyRead}
-              value={value} // @ts-ignore
-              IconComponent={!isEmpty ? EditIconToRender : ''}
+              disabled={onlyRead}
+              value={selectedPayments}
+              IconComponent={EditIconToRender}
               classes={{
-                select: cx(classNames.select, {
-                  [classNames.selectIsNotEmpty]: !isEmpty,
-                  [classNames.generalText]: generalText,
-                  [classNames.cursorPointer]: cursorPointer,
-                }),
+                select: classNames.select,
               }}
-              renderValue={selected => selectContentToRender(selected, !!onlyRead && onlyRead)}
-              className={cx(classNames.paymentMethodsField, {
-                [classNames.grayBorder]: (onlyRead && isEmpty) || onlyRead,
-                [classNames.cursorPointer]: cursorPointer,
-              })}
-              input={<Input /* startAdornment={<InputAdornment position="start" />} */ />}
-              MenuProps={{
-                anchorOrigin: {
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                },
-                transformOrigin: {
-                  vertical: 'top',
-                  horizontal: 'left',
-                },
-              }}
-              onChange={event => {
-                if (!onlyRead && !disabled) {
-                  // @ts-ignore
-                  !!onChangePaymentMethod && onChangePaymentMethod(event.target.value)
-                }
-              }}
+              renderValue={selected =>
+                selectContentToRender(
+                  selected.filter(payment => payment.isChecked),
+                  !!onlyRead,
+                )
+              }
+              className={classNames.paymentMethodsField}
             >
-              {!onlyRead && ( // @ts-ignore
-                <MenuItem value={{ _id: 'SELECT_ALL' }}>
-                  <Checkbox color="primary" checked={value?.length === paymentMethods?.length} />
-                  <Typography>{t(TranslationKey.All)}</Typography>
+              <MenuItem className={classNames.paymentMethod}>
+                <Checkbox color="primary" checked={selectedPayments.every(payment => payment.isChecked)} />
+                <Typography>{t(TranslationKey.All)}</Typography>
+              </MenuItem>
+
+              {allPayments?.map((payment, index) => (
+                // @ts-ignore
+                <MenuItem key={index} value={payment} className={classNames.paymentMethod}>
+                  <Checkbox
+                    color="primary"
+                    checked={selectedPayments?.some(item => item.paymentMethod?._id === payment.paymentMethod?._id)}
+                  />
+                  <img
+                    src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
+                    alt={payment.paymentMethod?.title}
+                    className={classNames.paymentMethodIcon}
+                  />
+                  <p className={classNames.paymentMethodTitle}>{payment.paymentMethod?.title}</p>
                 </MenuItem>
-              )}
-
-              {!onlyRead &&
-                paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
-                  // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
-                    <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
-                    <img
-                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod.title}
-                      className={classNames.paymentMethodIcon}
-                    />
-                    <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
-                  </MenuItem>
-                ))}
-
-              {onlyRead &&
-                value?.map((paymentMethod, paymentMethodIndex) => (
-                  // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={classNames.paymentMethod}>
-                    <Checkbox
-                      disabled
-                      color="primary"
-                      checked={value?.some(item => item?._id === paymentMethod?._id)}
-                    />
-                    <img
-                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod?.title}
-                      className={classNames.paymentMethodIcon}
-                    />
-                    <p className={classNames.paymentMethodTitle}>{paymentMethod.title}</p>
-                  </MenuItem>
-                ))}
+              ))}
             </Select>
           </div>
         }
       />
     </div>
   )
-}
+})

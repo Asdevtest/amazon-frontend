@@ -201,15 +201,7 @@ export const EditOrderModal = memo(
     const [hsCode, setHsCode] = useState({ ...hsCodeData })
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
-    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
-      ? orderFields?.orderSupplier?.paymentMethods.filter(
-          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : paymentMethods.filter(
-          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
+    const [orderPayments, setOrderPayments] = useState(orderFields.payments)
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
@@ -714,6 +706,7 @@ export const EditOrderModal = memo(
         <div className={styles.paper}>
           <SelectFields
             orderPayments={orderPayments}
+            allPayments={paymentMethods}
             imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
@@ -1137,13 +1130,10 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <Modal
-          missClickModalOn
-          openModal={paymentMethodsModal}
-          setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
-        >
+        <Modal openModal={paymentMethodsModal} setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}>
           <PaymentMethodsForm
-            payments={orderPayments}
+            orderPayments={orderPayments}
+            allPayments={paymentMethods}
             onClickSaveButton={setOrderPayments}
             onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
