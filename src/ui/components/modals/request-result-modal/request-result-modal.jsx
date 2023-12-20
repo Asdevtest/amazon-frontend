@@ -55,7 +55,8 @@ export const RequestResultModal = memo(props => {
     onChangeField('publicationLinks')({ target: { value: [...newArr] } })
   }
 
-  const isBloggerTypeTask = request?.request?.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+  const isBloggerTypeTask =
+    (request?.typeTask || request?.request?.typeTask) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledBtn =
     (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
     (!isBloggerTypeTask && !formFields.result)
@@ -79,7 +80,7 @@ export const RequestResultModal = memo(props => {
           />
         )}
 
-        {isBloggerTypeTask && (
+        {onClickSendAsResult && (
           <div
             className={cx(styles.linkPublicationContainer, {
               [styles.marginBottomDefault]: !formFields.publicationLinks.length,
@@ -108,7 +109,7 @@ export const RequestResultModal = memo(props => {
           </div>
         )}
 
-        {formFields.publicationLinks.length ? (
+        {isBloggerTypeTask && formFields.publicationLinks.length ? (
           <div className={styles.links}>
             {formFields.publicationLinks.map((el, index) => (
               <div key={index} className={styles.linkWrapper}>
