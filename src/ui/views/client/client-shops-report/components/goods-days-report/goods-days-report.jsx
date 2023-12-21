@@ -17,7 +17,7 @@ import { useStyles } from './goods-days-report.style'
 
 import { GoodsDaysReportModel } from './goods-days-report.model'
 
-export const GoodsDaysReport = observer(({ history, curShop }) => {
+export const GoodsDaysReport = observer(({ curShop }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new GoodsDaysReportModel({ history, curShop }))
 

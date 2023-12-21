@@ -20,6 +20,8 @@ export class DataGridTableModel extends ModalsModel {
   private _filterModel: GridFilterModel = { items: [] }
   private _columnVisibilityModel: GridColumnVisibilityModel = {}
 
+  private _selectedRows: string[] = []
+
   private _tableKey: string | undefined
 
   get requestStatus() {
@@ -37,6 +39,9 @@ export class DataGridTableModel extends ModalsModel {
   get paginationModel() {
     return this._paginationModel
   }
+  get selectedRows() {
+    return this._selectedRows
+  }
 
   constructor(history?: History, listOfModals?: IListOfModals, tableKey?: string) {
     super(history, listOfModals)
@@ -46,8 +51,6 @@ export class DataGridTableModel extends ModalsModel {
 
   onChangeSortingModel(sortModel: GridSortModel) {
     this._sortModel = sortModel
-    // this.setDataGridState()
-    // this.getIdeaList()
   }
 
   setDataGridState() {
@@ -72,5 +75,14 @@ export class DataGridTableModel extends ModalsModel {
       // @ts-ignore
       this._columnVisibilityModel = state?.columnVisibilityModel
     }
+  }
+
+  onSelectionModel(model: string[]) {
+    this._selectedRows = model
+  }
+
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
+    this._columnVisibilityModel = model
+    this.setDataGridState()
   }
 }

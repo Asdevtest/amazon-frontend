@@ -17,17 +17,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  btnsWrapper: {
-    marginTop: 20,
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  btnsSubWrapper: {
-    display: 'flex',
-    gap: 20,
-  },
-
   tableWrapper: {
     marginTop: 20,
     height: 'calc(100vh - 300px)',

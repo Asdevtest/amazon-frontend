@@ -3,8 +3,6 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ModalsModel } from '@models/model-with-modals'
-
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -14,14 +12,11 @@ import { t } from '@utils/translations'
 // import { useStyles } from './client-shops-view.style'
 // import { ClientShopsViewModel } from './client-shops-view.model'
 import { GoodsDaysReport, StockReport } from './components'
+import { ControllButtons } from './components/controll-buttons/controll-buttons'
 import { tabsValues } from './helpers/tabs-value'
 
 export const ClientShopsReportView = observer(props => {
   // const [viewModel] = useState(() => new ClientShopsViewModel({ history: props.history, location: props.location }))
-
-  const [classAvtovaz] = useState(() => new ModalsModel(props.history, getPropertiesToObject(['modal', 'moda2'])))
-
-  console.log('classAvtovaz', classAvtovaz)
 
   // const { classes: styles } = useStyles()
 
@@ -42,8 +37,14 @@ export const ClientShopsReportView = observer(props => {
           { label: () => 'PPC-Organic by Weeks', value: tabsValues.PPC },
           { label: () => 'Inventory Shipments', value: tabsValues.INVENTORY_SHIPMENTS },
         ]}
-        changeConditionHandler={setTabIndex}
+        changeConditionHandler={value => {
+          if (typeof value === 'string') {
+            setTabIndex(value)
+          }
+        }}
       />
+
+      <ControllButtons selectedRows onSubmitMoveToInventoryGoods onClickBindStockGoodsToInventoryBtn onClickDeleteBtn />
 
       <TabPanel value={tabIndex} index={tabsValues.STOCK_REPORT}>
         <StockReport curShop={curShop} />
@@ -53,9 +54,9 @@ export const ClientShopsReportView = observer(props => {
         <GoodsDaysReport curShop={curShop} />
       </TabPanel>
 
-      <TabPanel value={tabIndex} index={tabsValues.INVENTORY}>
+      {/* <TabPanel value={tabIndex} index={tabsValues.INVENTORY}>
         <GoodsDaysReport curShop={curShop} />
-      </TabPanel>
+      </TabPanel> */}
     </>
   )
 })

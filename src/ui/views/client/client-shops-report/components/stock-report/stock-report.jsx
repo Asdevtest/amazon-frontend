@@ -23,7 +23,7 @@ import { useStyles } from './stock-report.style'
 
 import { StockReportModel } from './stock-report.model'
 
-export const StockReport = observer(({ history, curShop }) => {
+export const StockReport = observer(({ curShop }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new StockReportModel({ history, curShop }))
 
@@ -61,41 +61,6 @@ export const StockReport = observer(({ history, curShop }) => {
           }
           onClickSelect={shop => viewModel.onClickShopBtn(shop)}
         />
-      </div>
-
-      <div className={styles.btnsWrapper}>
-        <div className={styles.btnsSubWrapper}>
-          <Button
-            tooltipInfoContent={t(
-              TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
-            )}
-            disabled={viewModel.selectedRows.length === 0}
-            variant="contained"
-            onClick={viewModel.onSubmitMoveToInventoryGoods}
-          >
-            {t(TranslationKey['Move to inventory'])}
-          </Button>
-
-          <Button
-            tooltipInfoContent={t(
-              TranslationKey['Adds integration from the report to the selected item from the inventory'],
-            )}
-            disabled={viewModel.selectedRows.length === 0}
-            variant="contained"
-            onClick={viewModel.onClickBindStockGoodsToInventoryBtn}
-          >
-            {t(TranslationKey['Bind to an item in the inventory'])}
-          </Button>
-        </div>
-
-        <Button
-          danger
-          disabled={!viewModel.selectedRows.length || viewModel.selectedRows.length > 1}
-          variant="contained"
-          onClick={viewModel.onClickDeleteBtn}
-        >
-          {t(TranslationKey.Remove)}
-        </Button>
       </div>
 
       <div className={styles.tableWrapper}>
