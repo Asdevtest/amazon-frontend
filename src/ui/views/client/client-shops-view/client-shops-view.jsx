@@ -1,62 +1,153 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { Checkbox, Typography } from '@mui/material'
+
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ModalsModel } from '@models/model-with-modals'
+import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { TabPanel } from '@components/shared/tab-panel'
-
-import { getPropertiesToObject } from '@utils/object'
 import { t } from '@utils/translations'
 
-// import { useStyles } from './client-shops-view.style'
-// import { ClientShopsViewModel } from './client-shops-view.model'
-import { GoodsDaysReport, ShopsView, StockReport } from './components'
-import { tabsValues } from './helpers/tabs-value'
+import { useStyles } from './client-shops-view.style'
+
+import { ShopsViewModel } from './client-shops-view.model'
 
 export const ClientShopsView = observer(props => {
-  // const [viewModel] = useState(() => new ClientShopsViewModel({ history: props.history, location: props.location }))
+  const { classes: styles, cx } = useStyles()
 
-  const [classAvtovaz] = useState(() => new ModalsModel(props.history, getPropertiesToObject(['modal', 'moda2'])))
+  const [viewModel] = useState(
+    () =>
+      new ShopsViewModel({
+        history: props.history,
+        onChangeTabIndex: props.onChangeTabIndex,
+        tabsValues: props.tabsValues,
+        onChangeCurShop: props.onChangeCurShop,
+      }),
+  )
 
-  console.log('classAvtovaz', classAvtovaz)
-
-  // const { classes: styles } = useStyles()
-
-  const [tabIndex, setTabIndex] = useState(tabsValues.SHOPS)
-  const [curShop, setCurShop] = useState('')
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
   return (
     <>
-      <CustomSwitcher
-        fullWidth
-        switchMode={'big'}
-        condition={tabIndex}
-        switcherSettings={[
-          { label: () => t(TranslationKey.Shops), value: tabsValues.SHOPS },
-          { label: () => t(TranslationKey['Warehouse report']), value: tabsValues.STOCK_REPORT },
-          { label: () => t(TranslationKey['Dashboard by goods/days']), value: tabsValues.GOODS_DAYS_REPORT },
-        ]}
-        changeConditionHandler={setTabIndex}
+      <div className={styles.buttonBox}>
+        <Button
+          tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
+          onClick={viewModel.onClickAddBtn}
+        >
+          {t(TranslationKey['Add shop'])}
+        </Button>
+
+        <Button
+          disabled={!viewModel.rowSelectionModel.length || viewModel.requestStatus === loadingStatuses.isLoading}
+          onClick={viewModel.updateShops}
+        >
+          {t(TranslationKey.Update)}
+        </Button>
+
+        <div className={styles.shopsSelect}>
+          <WithSearchSelect
+            checkbox
+            notCloseOneClick
+            firstItems={
+              <Button className={styles.filterBtn} variant="text" onClick={viewModel.handleSelectAllShops}>
+                <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
+                  <Checkbox
+                    checked={viewModel.selectedShopFilters.length === viewModel.shopsData.length}
+                    color="primary"
+                  />
+                  <Typography className={styles.fieldName}>{t(TranslationKey['All shops'])}</Typography>
+                </div>
+              </Button>
+            }
+            currentShops={viewModel.selectedShopFilters}
+            data={viewModel.shopsData}
+            searchFields={['name']}
+            selectedItemName={t(TranslationKey['All shops'])}
+            onClickSelect={viewModel.onSelectShopFilter}
+          />
+        </div>
+      </div>
+
+      <div className={styles.tabledWrapper}>
+        <CustomDataGrid
+          useResizeContainer
+          checkboxSelection
+          disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.getCurrentData()}
+          getRowHeight={() => 90}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          rowSelectionModel={viewModel.rowSelectionModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
+      </div>
+
+      <Modal
+        openModal={viewModel.showAddOrEditShopModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
+      >
+        <AddOrEditShopForm
+          shopToEdit={viewModel.selectedShop}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
+          onSubmit={viewModel.onSubmitShopForm}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
       />
 
-      <TabPanel value={tabIndex} index={tabsValues.SHOPS}>
-        <ShopsView
-          tabsValues={tabsValues}
-          openModal={props?.location?.state?.openModal}
-          onChangeTabIndex={setTabIndex}
-          onChangeCurShop={setCurShop}
-        />
-      </TabPanel>
-      <TabPanel value={tabIndex} index={tabsValues.STOCK_REPORT}>
-        <StockReport curShop={curShop} />
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={tabsValues.GOODS_DAYS_REPORT}>
-        <GoodsDaysReport curShop={curShop} />
-      </TabPanel>
+      <ConfirmationModal
+        isWarning
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={viewModel.confirmModalSettings.title}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+      />
     </>
   )
 })

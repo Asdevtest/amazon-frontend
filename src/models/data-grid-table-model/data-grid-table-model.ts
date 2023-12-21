@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ModalsModel } from '@models/model-with-modals'
+import { SettingsModel } from '@models/settings-model'
 
-import { IListOfModals, IPaginationModel, ISortModel } from '@typings/data-grid'
+import { IListOfModals } from '@typings/data-grid'
 
 export class DataGridTableModel extends ModalsModel {
-  private _tableMainData: any[] = []
   private _requestStatus: loadingStatuses = loadingStatuses.success
+
   private _rowCount: number | undefined
   private _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
   private _densityModel = 'compact'
@@ -17,9 +20,8 @@ export class DataGridTableModel extends ModalsModel {
   private _filterModel: GridFilterModel = { items: [] }
   private _columnVisibilityModel: GridColumnVisibilityModel = {}
 
-  get tableMainData() {
-    return this._tableMainData
-  }
+  private _tableKey: string | undefined
+
   get requestStatus() {
     return this._requestStatus
   }
@@ -36,8 +38,10 @@ export class DataGridTableModel extends ModalsModel {
     return this._paginationModel
   }
 
-  constructor(history?: History, listOfModals?: IListOfModals) {
+  constructor(history?: History, listOfModals?: IListOfModals, tableKey?: string) {
     super(history, listOfModals)
+
+    this._tableKey = tableKey
   }
 
   onChangeSortingModel(sortModel: GridSortModel) {
@@ -53,7 +57,20 @@ export class DataGridTableModel extends ModalsModel {
       paginationModel: this._paginationModel,
       columnVisibilityModel: this._columnVisibilityModel,
     }
+    SettingsModel.setDataGridState(requestState, this._tableKey)
+  }
 
-    // SettingsModel.setDataGridState(requestState, this.currentSettings.dataGridKey)
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
+    if (state) {
+      // @ts-ignore
+      this._sortModel = state?.sortModel
+      // @ts-ignore
+      this._filterModel = state?.filterModel
+      // @ts-ignore
+      this._paginationModel = state?.paginationModel
+      // @ts-ignore
+      this._columnVisibilityModel = state?.columnVisibilityModel
+    }
   }
 }
