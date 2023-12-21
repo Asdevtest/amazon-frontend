@@ -23,7 +23,7 @@ export const getAmazonImageUrl = (str, isBig) => {
 
   if (checkIsHasHttp(str)) {
     return checkIsMediaFileLink(str)
-      ? !isBig && !str.includes('.preview.webp') && !str.includes('.bmp') && !str.includes('.png')
+      ? !isBig && !str.includes('.preview.webp') && !str.includes('.bmp')
         ? str + amazonImageUrlPostfix
         : str
       : str /* + amazonImageUrlPostfix */ // deleted because of Google drive link or files
@@ -32,11 +32,7 @@ export const getAmazonImageUrl = (str, isBig) => {
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
       !checkIsVideoLink(str) &&
       !checkIsDocumentLink(str)
-        ? checkIsMediaFileLink(str) &&
-          !isBig &&
-          !str.includes('.preview.webp') &&
-          !str.includes('.bmp') &&
-          !str.includes('.png')
+        ? checkIsMediaFileLink(str) && !isBig && !str.includes('.preview.webp') && !str.includes('.bmp')
           ? amazonImageUrlPostfix
           : ''
         : ''

@@ -1,0 +1,39 @@
+import { FC, memo } from 'react'
+
+import { ArrowDown, ArrowUp } from '@components/shared/svg-icons'
+
+import { useStyles } from './arrow.style'
+
+import { Arrows, ArrowsType } from './arrows.type'
+
+interface ArrowProps {
+  direction: string
+  isDisableArrow: boolean
+  isSlidesFitOnScreenWithoutArrows: boolean
+  onClick: (direction: ArrowsType) => void
+}
+
+export const Arrow: FC<ArrowProps> = memo(props => {
+  const { direction, isDisableArrow, isSlidesFitOnScreenWithoutArrows, onClick } = props
+
+  const { classes: styles, cx } = useStyles()
+
+  const isDownArrow = direction === Arrows.DOWN
+  const ArrowIcon = isDownArrow ? ArrowDown : ArrowUp
+
+  return !isSlidesFitOnScreenWithoutArrows ? (
+    <button
+      disabled={isDisableArrow}
+      className={cx(styles.arrowButton, {
+        [styles.arrowIconDisable]: isDisableArrow,
+      })}
+      onClick={() => onClick(isDownArrow ? Arrows.DOWN : Arrows.UP)}
+    >
+      <ArrowIcon
+        className={cx(styles.arrowIcon, {
+          [styles.arrowIconDisable]: isDisableArrow,
+        })}
+      />
+    </button>
+  ) : null
+})
