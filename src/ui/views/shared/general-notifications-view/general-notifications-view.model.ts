@@ -173,7 +173,7 @@ export class GeneralNotificationsViewModel {
     this.getUserNotifications()
   }
 
-  setRequestStatus(requestStatus: string) {
+  setRequestStatus(requestStatus: loadingStatuses) {
     this.requestStatus = requestStatus
   }
 

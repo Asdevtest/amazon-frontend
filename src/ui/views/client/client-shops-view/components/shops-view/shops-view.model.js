@@ -66,13 +66,12 @@ export class ShopsViewModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({ history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal }) {
+  constructor({ history, tabsValues, onChangeTabIndex, onChangeCurShop }) {
     this.history = history
 
     this.tabsValues = tabsValues
     this.onChangeTabIndex = onChangeTabIndex
     this.onChangeCurShop = onChangeCurShop
-    this.openModal = openModal
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -142,7 +141,6 @@ export class ShopsViewModel {
 
   onClickSeeStockReport(shop) {
     this.onChangeTabIndex(this.tabsValues.STOCK_REPORT)
-
     this.onChangeCurShop(shop)
   }
 

@@ -1,2 +1,3 @@
-/* eslint-disable no-unused-vars */
-export const styles = theme => ({})
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({}))

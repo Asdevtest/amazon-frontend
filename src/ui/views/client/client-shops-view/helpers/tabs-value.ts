@@ -1,0 +1,5 @@
+export const tabsValues = {
+  SHOPS: 'SHOPS',
+  STOCK_REPORT: 'STOCK_REPORT',
+  GOODS_DAYS_REPORT: 'GOODS_DAYS_REPORT',
+}
