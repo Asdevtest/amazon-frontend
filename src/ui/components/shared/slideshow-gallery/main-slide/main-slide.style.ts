@@ -10,18 +10,18 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: 12,
     overflow: 'hidden',
     boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.1)',
-  },
-
-  mainSlideImg: {
-    width: '100%',
-    height: 270,
-    objectFit: 'contain',
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
   },
 
   slideTransition: {
     opacity: 0,
+  },
+
+  mainSlideImg: {
+    width: '100%',
+    height: 270,
+    objectFit: 'contain',
   },
 
   document: {

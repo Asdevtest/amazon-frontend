@@ -1,16 +1,14 @@
-import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
-
-import { FileIcon } from '@components/shared/file-icon'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './previews.style'
 
-import { GetSlideByType } from '../get-slide-by-type'
+import { FIRST_SLIDE, MIN_FILES_IN_ARRAY, QUANTITY_SLIDES_INSTEAD_OF_ARROWS } from '../slideshow-gallery.constants'
 
 import { Arrow } from './arrow'
 import { Arrows, ArrowsType } from './arrow/arrows.type'
+import { Slides } from './slides'
 
 interface PreviewsProps {
   mediaFiles: Array<string | IUploadFile>
@@ -33,7 +31,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     showPreviews,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const handleArrowClick = (direction: ArrowsType) => {
     setIsTransitioning(true)
@@ -41,7 +39,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     setTimeout(() => {
       setCurrentMediaFileIndex((prevIndex: number) => {
         return direction === Arrows.UP
-          ? prevIndex === 0
+          ? prevIndex === FIRST_SLIDE
             ? mediaFiles?.length - 1
             : prevIndex - 1
           : (prevIndex + 1) % mediaFiles?.length
@@ -50,23 +48,9 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     }, 300)
   }
 
-  const activeSlideRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (activeSlideRef.current) {
-        activeSlideRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        })
-      }
-    }, 0)
-  }, [currentMediaFileIndex])
-
-  const isDisableArrowDown = mediaFiles.length <= 1 || currentMediaFileIndex === mediaFiles?.length - 1
-  const isDisableArrowUp = mediaFiles.length <= 1 || currentMediaFileIndex === 0
-  const isSlidesFitOnScreenWithoutArrows = mediaFiles.length === slidesToShow + 1
+  const isDisableArrowDown = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === mediaFiles.length - 1
+  const isDisableArrowUp = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === FIRST_SLIDE
+  const isSlidesFitOnScreenWithoutArrows = mediaFiles.length === slidesToShow + QUANTITY_SLIDES_INSTEAD_OF_ARROWS
 
   return !showPreviews ? (
     <div className={styles.previews}>
@@ -77,40 +61,12 @@ export const Previews: FC<PreviewsProps> = memo(props => {
         onClick={handleArrowClick}
       />
 
-      <div
-        className={cx(styles.previewSlides, {
-          [styles.previewSlidesFitOnScreenWithoutArrows]: isSlidesFitOnScreenWithoutArrows,
-        })}
-      >
-        {mediaFiles.map((mediaFile, index) => (
-          <div
-            key={index}
-            ref={index === currentMediaFileIndex ? activeSlideRef : null}
-            className={cx(styles.previewSlide, { [styles.previewSlideActive]: index === currentMediaFileIndex })}
-            onClick={() => setCurrentMediaFileIndex(index)}
-          >
-            <GetSlideByType
-              isPreviews
-              mediaFile={mediaFile}
-              mediaFileIndex={index}
-              ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.previewSlideImg} />}
-              VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height="46px" />}
-              FileComponent={({ documentLink, fileExtension }) => (
-                <a
-                  href={documentLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.document}
-                  onClick={e => e.preventDefault()}
-                >
-                  <FileIcon fileExtension={fileExtension} className={styles.fileIcon} />
-                  <span className={styles.linkText}>{documentLink}</span>
-                </a>
-              )}
-            />
-          </div>
-        ))}
-      </div>
+      <Slides
+        mediaFiles={mediaFiles}
+        currentMediaFileIndex={currentMediaFileIndex}
+        setCurrentMediaFileIndex={setCurrentMediaFileIndex}
+        isSlidesFitOnScreenWithoutArrows={isSlidesFitOnScreenWithoutArrows}
+      />
 
       <Arrow
         direction={Arrows.DOWN}

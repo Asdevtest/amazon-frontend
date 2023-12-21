@@ -9,9 +9,9 @@ import { IUploadFile } from '@typings/upload-file'
 interface GetSlideByTypeProps {
   mediaFile: string | IUploadFile
   mediaFileIndex: number
-  ImageComponent: ComponentType<{ src: string; alt: string; className?: string }>
-  VideoComponent: ComponentType<{ videoSource: string; height?: string }>
-  FileComponent: ComponentType<{ documentLink: string; fileExtension: string; className?: string }>
+  ImageComponent: ComponentType<{ src: string; alt: string }>
+  VideoComponent: ComponentType<{ videoSource: string }>
+  FileComponent: ComponentType<{ documentLink: string; fileExtension: string }>
   isPreviews?: boolean
 }
 

@@ -21,13 +21,11 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={styles.mainSlide}>
+    <div className={cx(styles.mainSlide, { [styles.slideTransition]: isTransitioning })}>
       <GetSlideByType
         mediaFile={mediaFiles[currentMediaFileIndex]}
         mediaFileIndex={currentMediaFileIndex}
-        ImageComponent={({ src, alt }) => (
-          <img src={src} alt={alt} className={cx(styles.mainSlideImg, { [styles.slideTransition]: isTransitioning })} />
-        )}
+        ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.mainSlideImg} />}
         VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height="285px" />}
         FileComponent={({ documentLink, fileExtension }) => (
           <a href={documentLink} target="_blank" rel="noreferrer" className={styles.document}>
