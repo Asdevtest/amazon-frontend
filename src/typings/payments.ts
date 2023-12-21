@@ -1,14 +1,14 @@
 import { IUploadFile } from './upload-file'
 
-export interface Payment {
+export interface PaymentMethod {
   _id: string
   title: string
   iconImage: string
 }
 
-export interface Payments {
+export interface Payment {
   paymentDetails: string
   paymentImages: Array<string | IUploadFile>
-  paymentMethod: Payment
-  photosForLoad: Array<string | IUploadFile>
+  paymentMethod: PaymentMethod
+  isChecked?: boolean
 }

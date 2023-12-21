@@ -395,14 +395,11 @@ export const SelectFields = ({
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
             <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
               <CustomSelectPaymentDetails
-                column
                 disabled
                 cursorPointer
                 generalText
                 labelClass={classNames.labelClass}
-                currentPaymentMethods={orderPayments
-                  ?.filter(item => item?.paymentMethod?._id)
-                  .map(item => item?.paymentMethod)}
+                orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
               />
             </div>
           )}

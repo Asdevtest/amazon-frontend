@@ -98,45 +98,50 @@ export const Button: FC<Props> = React.memo(
           {...restProps}
         >
           {children}
-        </StyledButton>
-        {tooltipAttentionContent || tooltipInfoContent ? (
-          <div className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}>
-            {tooltipAttentionContent ? (
-              <Tooltip
-                arrow
-                open={openAttentionTooltip}
-                title={tooltipAttentionContent}
-                placement="top-end"
-                onClose={() => setOpenAttentionTooltip(false)}
-                onOpen={() => setOpenAttentionTooltip(true)}
-              >
-                <div>
-                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
-                </div>
-              </Tooltip>
-            ) : null}
+          {tooltipAttentionContent || tooltipInfoContent ? (
+            <div
+              className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}
+            >
+              {tooltipAttentionContent ? (
+                <Tooltip
+                  arrow
+                  open={openAttentionTooltip}
+                  title={tooltipAttentionContent}
+                  placement="top-end"
+                  onClose={() => setOpenAttentionTooltip(false)}
+                  onOpen={() => setOpenAttentionTooltip(true)}
+                >
+                  <div>
+                    <TooltipAttention
+                      className={cx(classNames.tooltip)}
+                      onClick={() => setOpenAttentionTooltip(true)}
+                    />
+                  </div>
+                </Tooltip>
+              ) : null}
 
-            {tooltipInfoContent && showHints ? (
-              <Tooltip
-                arrow
-                open={openInfoTooltip}
-                title={tooltipInfoContent}
-                placement="top-end"
-                onClose={() => setOpenInfoTooltip(false)}
-                onOpen={() => setOpenInfoTooltip(true)}
-              >
-                <Box display="flex" alignItems="center">
-                  <TooltipInfoIcon
-                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                    // fontSize={'small'}
-                    viewBox={'0 0 18 18'}
-                    onClick={() => setOpenInfoTooltip(true)}
-                  />
-                </Box>
-              </Tooltip>
-            ) : null}
-          </div>
-        ) : null}
+              {tooltipInfoContent && showHints ? (
+                <Tooltip
+                  arrow
+                  open={openInfoTooltip}
+                  title={tooltipInfoContent}
+                  placement="top-end"
+                  onClose={() => setOpenInfoTooltip(false)}
+                  onOpen={() => setOpenInfoTooltip(true)}
+                >
+                  <Box display="flex" alignItems="center">
+                    <TooltipInfoIcon
+                      className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                      // fontSize={'small'}
+                      viewBox={'0 0 18 18'}
+                      onClick={() => setOpenInfoTooltip(true)}
+                    />
+                  </Box>
+                </Tooltip>
+              ) : null}
+            </div>
+          ) : null}
+        </StyledButton>
       </div>
     )
   },

@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { observer } from 'mobx-react'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
-
-import { Checkbox } from '@mui/material'
+import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -13,147 +10,64 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { Payment, Payments } from '@typings/payments'
+import { Payment } from '@typings/payments'
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from './payment-method-card.style'
-
-type FieldName = 'paymentDetails' | 'paymentImages' | 'paymentMethod' | 'isCheckedPayment' | 'photosForLoad'
+import { useStyles } from './payment-method-card.style'
 
 interface PaymentMethodCardProps {
-  payment: Payments | Payment
+  payment: Payment
+  setSelectedPayments: (state: (prevState: Payment[]) => Payment[]) => void
   readOnly?: boolean
-  onStateChange?: (newPaymentsFieldsState: Payments) => void
 }
 
-export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment, readOnly, onStateChange }) => {
-  const { classes: classNames, cx } = useClassNames()
+export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
+  const { classes: styles, cx } = useStyles()
 
-  const initialState = {
-    paymentDetails: 'paymentDetails' in payment ? payment?.paymentDetails : '',
-    paymentImages: 'paymentImages' in payment ? payment?.paymentImages : [],
-    paymentMethod: {
-      _id:
-        'paymentMethod' in payment && '_id' in payment.paymentMethod && payment?.paymentMethod?._id
-          ? payment?.paymentMethod?._id
-          : '',
-      title:
-        'paymentMethod' in payment && 'title' in payment.paymentMethod && payment?.paymentMethod?.title
-          ? payment?.paymentMethod?.title
-          : '',
-      iconImage:
-        'paymentMethod' in payment && 'iconImage' in payment.paymentMethod && payment?.paymentMethod?.iconImage
-          ? payment?.paymentMethod?.iconImage
-          : '',
-    },
-    photosForLoad: 'photosForLoad' in payment ? payment.photosForLoad : [],
-  }
+  const handleFieldChange = (field: string, value: string | Array<string | IUploadFile> | boolean) => {
+    setSelectedPayments((prevSelectedPayments: Payment[]) => {
+      const findPaymentIndex = prevSelectedPayments.findIndex(
+        prevSelectedPayment => prevSelectedPayment.paymentMethod?._id === payment.paymentMethod?._id,
+      )
 
-  const [paymentsFields, setPaymentsFields] = useState(initialState)
-
-  const setFielData =
-    (filedName: FieldName) =>
-    (event: string | ChangeEvent<HTMLInputElement>): void => {
-      const newPaymentsFieldsState = { ...paymentsFields }
-
-      if (filedName === 'paymentDetails') {
-        if (typeof event !== 'string') {
-          newPaymentsFieldsState[filedName] = event.target.value
+      if (findPaymentIndex !== -1) {
+        const updatedSelectedPayments = [...prevSelectedPayments]
+        updatedSelectedPayments[findPaymentIndex] = {
+          ...updatedSelectedPayments[findPaymentIndex],
+          [field]: value,
         }
-      } else if (filedName === 'isCheckedPayment') {
-        if (newPaymentsFieldsState?.paymentMethod?._id) {
-          newPaymentsFieldsState.paymentMethod = {
-            _id: '',
-            title:
-              'paymentMethod' in payment && payment?.paymentMethod?.title
-                ? payment?.paymentMethod?.title
-                : 'title' in payment
-                ? payment.title
-                : '',
-            iconImage:
-              'paymentMethod' in payment && payment?.paymentMethod?.iconImage
-                ? payment?.paymentMethod?.iconImage
-                : 'title' in payment
-                ? payment.iconImage
-                : '',
-          }
-        } else {
-          newPaymentsFieldsState.paymentMethod = {
-            _id:
-              'paymentMethod' in payment && payment.paymentMethod._id
-                ? payment.paymentMethod._id
-                : '_id' in payment
-                ? payment._id
-                : '',
-            title:
-              'paymentMethod' in payment && payment?.paymentMethod?.title
-                ? payment?.paymentMethod?.title
-                : 'title' in payment
-                ? payment.title
-                : '',
-            iconImage:
-              'paymentMethod' in payment && payment?.paymentMethod?.iconImage
-                ? payment?.paymentMethod?.iconImage
-                : 'title' in payment
-                ? payment.iconImage
-                : '',
-          }
-        }
-      } else {
-        // @ts-ignore
-        newPaymentsFieldsState[filedName] = event
+
+        return updatedSelectedPayments
       }
 
-      setPaymentsFields(newPaymentsFieldsState)
-      !!onStateChange && onStateChange(newPaymentsFieldsState)
-    }
-
-  const handleChangeImagesForLoad = (changedImages: Array<string | IUploadFile>) => {
-    setPaymentsFields(state => ({ ...state, paymentImages: changedImages }))
+      return prevSelectedPayments
+    })
+  }
+  const handleChangePaymentDetails = (event: ChangeEvent<HTMLInputElement>) => {
+    handleFieldChange('paymentDetails', event.target.value)
+  }
+  const handleChangeImagesForLoad = (files: Array<string | IUploadFile>) => {
+    handleFieldChange('paymentImages', files)
+  }
+  const handleChangeIsChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    handleFieldChange('isChecked', event.target.checked)
   }
 
-  useEffect(() => {
-    !!onStateChange && onStateChange(paymentsFields)
-  }, [paymentsFields.paymentImages])
-
   return (
-    <div className={classNames.root}>
-      <div className={classNames.paymentMethodTitleWrapper}>
-        <Checkbox
-          disabled={readOnly}
-          color="primary"
-          checked={!!paymentsFields?.paymentMethod?._id} // @ts-ignore
-          onClick={setFielData('isCheckedPayment')}
-        />
+    <div className={styles.root}>
+      <div className={styles.paymentMethodTitleWrapper}>
+        <Checkbox disabled={readOnly} checked={payment.isChecked} onChange={handleChangeIsChecked} />
         <img
-          src={
-            'paymentMethod' in payment && payment?.paymentMethod?.iconImage
-              ? getAmazonImageUrl(payment?.paymentMethod?.iconImage, false)
-              : 'iconImage' in payment
-              ? getAmazonImageUrl(payment.iconImage, false)
-              : ''
-          }
-          alt={
-            'paymentMethod' in payment && payment?.paymentMethod?.title
-              ? payment?.paymentMethod?.title
-              : 'title' in payment
-              ? payment.title
-              : ''
-          }
-          className={classNames.paymentMethodIcon}
+          src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
+          alt={payment.paymentMethod?.title}
+          className={styles.paymentMethodIcon}
         />
-        <p className={classNames.paymentMethodTitle}>
-          {'paymentMethod' in payment && payment?.paymentMethod?.title
-            ? payment?.paymentMethod?.title
-            : 'title' in payment
-            ? payment.title
-            : ''}
-        </p>
+        <p className={styles.paymentMethodTitle}>{payment.paymentMethod?.title}</p>
       </div>
 
       <div
-        className={cx(classNames.cardManageWrapper, {
-          [classNames.notActiceCard]: !paymentsFields?.paymentMethod?._id,
+        className={cx(styles.cardManageWrapper, {
+          [styles.notActiceCard]: !payment.isChecked,
         })}
       >
         <Field
@@ -162,36 +76,30 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = observer(({ payment
           minRows={2}
           maxRows={2}
           inputProps={{ maxLength: 250 }}
-          inputClasses={classNames.commentInput}
-          value={paymentsFields.paymentDetails}
-          labelClasses={cx(classNames.paymentMethodTitle, classNames.label)}
+          inputClasses={styles.commentInput}
+          value={payment.paymentDetails}
+          labelClasses={cx(styles.paymentMethodTitle, styles.label)}
           label={t(TranslationKey['Payment details'])}
-          onChange={setFielData('paymentDetails')}
+          onChange={handleChangePaymentDetails}
         />
 
-        <div className={classNames.imageFileInputWrapper}>
+        <div className={styles.imageFileInputWrapper}>
           <UploadFilesInput
             withoutTitle
             fullWidth
             disabled={readOnly}
             dragAndDropBtnHeight={40}
             maxHeight={90}
-            imageListWrapperStyles={classNames.imageListWrapperStyles}
-            filesLength={paymentsFields?.paymentImages?.length}
-            сontainerStyles={classNames.containerClasses}
-            images={paymentsFields.photosForLoad}
-            setImages={setFielData('photosForLoad')}
+            imageListWrapperStyles={styles.imageListWrapperStyles}
+            filesLength={payment.paymentImages.length}
+            сontainerStyles={styles.containerClasses}
+            images={payment.paymentImages}
+            setImages={handleChangeImagesForLoad}
             maxNumber={50}
           />
-          {!!paymentsFields?.paymentImages?.length && (
-            <PhotoAndFilesSlider
-              smallSlider
-              showPreviews
-              withoutMakeMainImage
-              isEditable={!readOnly}
-              files={paymentsFields?.paymentImages}
-              onChangeImagesForLoad={handleChangeImagesForLoad}
-            />
+
+          {readOnly && (
+            <PhotoAndFilesSlider smallSlider showPreviews withoutMakeMainImage files={payment.paymentImages} />
           )}
         </div>
       </div>
