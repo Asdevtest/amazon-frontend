@@ -56,7 +56,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 12 }}
                     containerClasses={classNames.infoContainer}
                     inputClasses={classNames.infoInput}
-                    label={t(TranslationKey['Amazon price'])}
+                    label={t(TranslationKey['Amazon price'])+', $'}
                     // error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
                     value={product.amazon === 0 ? 0 : product.amazon || ''}
                     onChange={onChangeField('amazon')}
