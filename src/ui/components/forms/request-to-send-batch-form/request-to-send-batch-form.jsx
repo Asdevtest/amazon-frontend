@@ -103,7 +103,7 @@ export const RequestToSendBatchForm = observer(
       submitIsClicked ||
       boxesMy.some(
         box =>
-          (!box.shippingLabel && !boxesMy.destination?.storekeeperId) ||
+          (!box.shippingLabel && !box.destination?.storekeeperId) ||
           box.items.some(
             item =>
               (!item?.transparencyFile ||
