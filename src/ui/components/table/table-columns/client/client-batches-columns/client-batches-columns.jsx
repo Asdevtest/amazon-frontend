@@ -26,7 +26,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
           <DataGridSelectViewProductBatch
             changeViewModeHandler={rowHandlers?.changeViewModeHandler}
             selectedViewMode={getProductViewMode()}
-            rootStyles={{ marginLeft: 15 }}
+            rootStyles={{ marginLeft: 15, marginRight: 15 }}
           />
         }
       />
