@@ -42,17 +42,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
     history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
     styles.attentionRow
 
-  const validOrderPayments =
-    viewModel.currentOrder && viewModel.currentOrder?.orderSupplier?.paymentMethods?.length
-      ? viewModel.currentOrder?.orderSupplier?.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : viewModel.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-  const payments = viewModel.currentOrder && [...viewModel.currentOrder.payments, ...validOrderPayments]
-
   const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
     status =>
       Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
@@ -239,7 +228,8 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       >
         <PaymentMethodsForm
           readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
-          payments={payments}
+          orderPayments={viewModel.currentOrder?.payments}
+          allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />

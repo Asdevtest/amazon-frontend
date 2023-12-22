@@ -400,9 +400,7 @@ export const SelectFields = ({
                 cursorPointer
                 generalText
                 labelClass={classNames.labelClass}
-                currentPaymentMethods={orderPayments
-                  ?.filter(item => item?.paymentMethod?._id)
-                  .map(item => item?.paymentMethod)}
+                orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
               />
             </div>
           )}
