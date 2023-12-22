@@ -1,26 +1,34 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { GridColumnVisibilityModel } from '@mui/x-data-grid'
+
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { TabPanel } from '@components/shared/tab-panel'
 
-import { getPropertiesToObject } from '@utils/object'
 import { t } from '@utils/translations'
 
-// import { useStyles } from './client-shops-view.style'
-// import { ClientShopsViewModel } from './client-shops-view.model'
-import { GoodsDaysReport, StockReport } from './components'
-import { ControllButtons } from './components/controll-buttons/controll-buttons'
+import { useStyles } from './client-shops-report-view.style'
+
+import { ClientShopsViewModel } from './client-shops-report-view.model'
+import { getClassParams } from './helpers/get-class-params'
 import { tabsValues } from './helpers/tabs-value'
 
-export const ClientShopsReportView = observer(props => {
-  // const [viewModel] = useState(() => new ClientShopsViewModel({ history: props.history, location: props.location }))
-
-  // const { classes: styles } = useStyles()
+export const ClientShopsReportView = observer(() => {
+  const { classes: styles } = useStyles()
 
   const [tabIndex, setTabIndex] = useState(tabsValues.STOCK_REPORT)
+
+  const { getMainDataMethod, columnsModel } = getClassParams(tabIndex)
+
+  const [viewModel] = useState(() => new ClientShopsViewModel(getMainDataMethod, columnsModel))
+
+  console.log('viewModel', viewModel)
+  console.log('viewModel.columnVisibilityModel', viewModel.columnVisibilityModel)
+
   const [curShop, setCurShop] = useState('')
 
   return (
@@ -39,22 +47,55 @@ export const ClientShopsReportView = observer(props => {
         ]}
         changeConditionHandler={value => {
           if (typeof value === 'string') {
-            setTabIndex(value)
+            setTabIndex(value as tabsValues)
           }
         }}
       />
 
-      <ControllButtons selectedRows onSubmitMoveToInventoryGoods onClickBindStockGoodsToInventoryBtn onClickDeleteBtn />
+      {/* <ControllButtons selectedRows onSubmitMoveToInventoryGoods onClickBindStockGoodsToInventoryBtn onClickDeleteBtn /> */}
 
-      <TabPanel value={tabIndex} index={tabsValues.STOCK_REPORT}>
+      <div className={styles.tabledWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
+          sortModel={viewModel.sortModel}
+          // filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.tableData}
+          getRowHeight={() => 90}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: (model: GridColumnVisibilityModel) =>
+                  viewModel.onColumnVisibilityModelChange(model),
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          // rowSelectionModel={viewModel.rowSelectionModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          // onFilterModelChange={viewModel.onChangeFilterModel}
+        />
+      </div>
+
+      {/* <TabPanel value={tabIndex} index={tabsValues.STOCK_REPORT}>
         <StockReport curShop={curShop} />
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.GOODS_DAYS_REPORT}>
-        <GoodsDaysReport curShop={curShop} />
-      </TabPanel>
-
-      {/* <TabPanel value={tabIndex} index={tabsValues.INVENTORY}>
         <GoodsDaysReport curShop={curShop} />
       </TabPanel> */}
     </>

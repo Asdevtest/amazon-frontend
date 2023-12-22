@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { action, computed, makeObservable, observable } from 'mobx'
+
 import { IListOfModals } from '@typings/data-grid'
 
 import { DefaultModel } from '../default-model'
@@ -8,8 +10,8 @@ import { DefaultModel } from '../default-model'
 import { IConfirmModalSettings, IWarningInfoModalSettings } from './model-with-modals-interface'
 
 export class ModalsModel extends DefaultModel {
-  private _confirmModalSettings: IConfirmModalSettings | undefined = undefined
-  private _warningInfoModalSettings: IWarningInfoModalSettings | undefined = undefined
+  _confirmModalSettings: IConfirmModalSettings | undefined = undefined
+  _warningInfoModalSettings: IWarningInfoModalSettings | undefined = undefined
 
   get confirmModalSettings() {
     if (!this._confirmModalSettings) {
@@ -46,9 +48,18 @@ export class ModalsModel extends DefaultModel {
     if (listOfModals) {
       Object.assign(this, listOfModals)
     }
+
+    makeObservable(this, {
+      _confirmModalSettings: observable,
+      _warningInfoModalSettings: observable,
+
+      confirmModalSettings: computed,
+      warningInfoModalSettings: computed,
+      onTriggerOpenModal: action,
+    })
   }
 
-  onTriggerOpenModal(modalName: keyof ModalsModel, value: boolean) {
+  onTriggerOpenModal(modalName: keyof ModalsModel, value?: boolean) {
     if (value) {
       // @ts-ignore
       this[modalName] = value
