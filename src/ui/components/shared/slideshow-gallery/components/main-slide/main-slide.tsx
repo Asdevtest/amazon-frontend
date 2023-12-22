@@ -3,6 +3,8 @@ import { FC, memo } from 'react'
 import { FileIcon } from '@components/shared/file-icon'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
+import { checkIsDocumentLink } from '@utils/checks'
+
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './main-slide.style'
@@ -25,6 +27,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
 
   const customDimensionMainSlideSubjectToQuantitySlides =
     getCustomDimensionMainSlideSubjectToQuantitySlides(slidesToShow)
+  const isDocument = checkIsDocumentLink(mediaFiles[currentMediaFileIndex]) // TODO: is it needed?
 
   return (
     <div
@@ -33,7 +36,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         height: customDimensionMainSlideSubjectToQuantitySlides,
         width: customDimensionMainSlideSubjectToQuantitySlides,
       }}
-      onClick={onOpenImageModal}
+      onClick={isDocument ? undefined : onOpenImageModal}
     >
       <GetSlideByType
         mediaFile={mediaFiles[currentMediaFileIndex]}
