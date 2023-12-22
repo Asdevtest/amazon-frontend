@@ -273,12 +273,6 @@ export class WarehouseMyTasksViewModel {
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]
 
-      box.items = box.items.map(item => ({
-        orderId: item?.order?._id,
-        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
-        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
-      }))
-
       await Promise.all([this.updateBox(box._id, box), this.setBoxBarcodeAttached(box._id, box)])
     }
   }
@@ -290,7 +284,6 @@ export class WarehouseMyTasksViewModel {
         isBarCodeAttachedByTheStorekeeper: item?.isBarCodeAttachedByTheStorekeeper,
         isBarCodeAlreadyAttachedByTheSupplier: item?.isBarCodeAlreadyAttachedByTheSupplier,
       }))
-
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
       console.log(error)
@@ -301,13 +294,18 @@ export class WarehouseMyTasksViewModel {
     try {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-
         data = { ...data, images: [...this.imagesOfBox] }
       }
 
+      const boxItems = data.items.map(item => ({
+        orderId: item?.order?._id,
+        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
+        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
+      }))
+
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
-          data,
+          { ...data, items: boxItems },
           [
             'lengthCmWarehouse',
             'widthCmWarehouse',
