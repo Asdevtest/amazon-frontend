@@ -3,6 +3,9 @@ import { FC, memo } from 'react'
 import { FileIcon } from '@components/shared/file-icon'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
+import { checkIsDocumentLink } from '@utils/checks'
+
+import { isString } from '@typings/type-guards'
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './main-slide.style'
@@ -11,7 +14,7 @@ import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../slides
 import { GetSlideByType } from '../get-slide-by-type'
 
 interface MainSlideProps {
-  mediaFiles: Array<string | IUploadFile>
+  mediaFile: string | IUploadFile
   currentMediaFileIndex: number
   isTransitioning: boolean
   slidesToShow: number
@@ -19,12 +22,13 @@ interface MainSlideProps {
 }
 
 export const MainSlide: FC<MainSlideProps> = memo(props => {
-  const { mediaFiles, currentMediaFileIndex, isTransitioning, slidesToShow, onOpenImageModal } = props
+  const { mediaFile, currentMediaFileIndex, isTransitioning, slidesToShow, onOpenImageModal } = props
 
   const { classes: styles, cx } = useStyles()
 
   const customDimensionMainSlideSubjectToQuantitySlides =
     getCustomDimensionMainSlideSubjectToQuantitySlides(slidesToShow)
+  const isDocument = checkIsDocumentLink(isString(mediaFile) ? mediaFile : mediaFile?.file.name)
 
   return (
     <div
@@ -33,10 +37,10 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         height: customDimensionMainSlideSubjectToQuantitySlides,
         width: customDimensionMainSlideSubjectToQuantitySlides,
       }}
-      onClick={onOpenImageModal}
+      onClick={isDocument ? undefined : onOpenImageModal}
     >
       <GetSlideByType
-        mediaFile={mediaFiles[currentMediaFileIndex]}
+        mediaFile={mediaFile}
         mediaFileIndex={currentMediaFileIndex}
         ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.mainSlideImg} />}
         VideoComponent={({ videoSource }) => (

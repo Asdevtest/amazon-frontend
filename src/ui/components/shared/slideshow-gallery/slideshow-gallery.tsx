@@ -65,7 +65,7 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
         >
           <MainSlide
             slidesToShow={slidesToShow}
-            mediaFiles={mediaFiles}
+            mediaFile={mediaFiles[currentMediaFileIndex]}
             currentMediaFileIndex={currentMediaFileIndex}
             isTransitioning={isTransitioning}
             onOpenImageModal={onOpenImageModal}
@@ -87,7 +87,6 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
 
       {openImageModal && (
         <ImageModal
-          isRequestResult
           showPreviews
           files={mediaFiles}
           currentFileIndex={currentMediaFileIndex}

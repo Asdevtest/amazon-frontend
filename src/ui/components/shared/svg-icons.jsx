@@ -1098,13 +1098,13 @@ export const TruckIcon = props => (
   </SvgIcon>
 )
 
-export const ArrowUp = props => (
+export const ArrowUpIcon = props => (
   <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
     <path d="M15 8L8 1L1 8" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </SvgIcon>
 )
 
-export const ArrowDown = props => (
+export const ArrowDownIcon = props => (
   <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
     <path d="M15 1.5L8 8.5L1 1.5" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </SvgIcon>

@@ -56,7 +56,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   iconPreloader: {
-    height: '36px !important',
-    width: '36px !important',
+    height: '48px !important',
+    width: '48px !important',
   },
 }))

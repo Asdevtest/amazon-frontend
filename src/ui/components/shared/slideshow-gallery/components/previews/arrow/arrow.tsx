@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { ArrowDown, ArrowUp } from '@components/shared/svg-icons'
+import { ArrowDownIcon, ArrowUpIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './arrow.style'
 
@@ -19,7 +19,7 @@ export const Arrow: FC<ArrowProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const isDownArrow = direction === Arrows.DOWN
-  const ArrowIcon = isDownArrow ? ArrowDown : ArrowUp
+  const ArrowIcon = isDownArrow ? ArrowDownIcon : ArrowUpIcon
 
   return !isSlidesFitOnScreenWithoutArrows ? (
     <button
