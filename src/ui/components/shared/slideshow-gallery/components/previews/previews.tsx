@@ -22,7 +22,7 @@ interface PreviewsProps {
   isTransitioning: boolean
   setIsTransitioning: Dispatch<SetStateAction<boolean>>
   slidesToShow: number
-  showPreviews?: boolean
+  hiddenPreviews?: boolean
 }
 
 export const Previews: FC<PreviewsProps> = memo(props => {
@@ -33,7 +33,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     isTransitioning,
     setIsTransitioning,
     slidesToShow,
-    showPreviews,
+    hiddenPreviews,
   } = props
 
   const { classes: styles } = useStyles()
@@ -57,7 +57,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
   const isDisableArrowUp = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === FIRST_SLIDE
   const isSlidesFitOnScreenWithoutArrows = mediaFiles.length === slidesToShow + QUANTITY_SLIDES_INSTEAD_OF_ARROWS
 
-  return !showPreviews ? (
+  return !hiddenPreviews ? (
     <div className={styles.previews}>
       <Arrow
         direction={Arrows.UP}

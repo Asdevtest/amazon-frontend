@@ -15,10 +15,11 @@ interface MainSlideProps {
   currentMediaFileIndex: number
   isTransitioning: boolean
   slidesToShow: number
+  onOpenImageModal: () => void
 }
 
 export const MainSlide: FC<MainSlideProps> = memo(props => {
-  const { mediaFiles, currentMediaFileIndex, isTransitioning, slidesToShow } = props
+  const { mediaFiles, currentMediaFileIndex, isTransitioning, slidesToShow, onOpenImageModal } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -32,6 +33,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         height: customDimensionMainSlideSubjectToQuantitySlides,
         width: customDimensionMainSlideSubjectToQuantitySlides,
       }}
+      onClick={onOpenImageModal}
     >
       <GetSlideByType
         mediaFile={mediaFiles[currentMediaFileIndex]}

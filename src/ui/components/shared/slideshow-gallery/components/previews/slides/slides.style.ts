@@ -6,7 +6,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    overflow: 'hidden',
+    overflow: 'auto',
+
+    '&::-webkit-scrollbar': {
+      display: 'none !important',
+    },
   },
 
   previewSlidesFitOnScreenWithoutArrows: {

@@ -123,7 +123,12 @@ export const TopCard = memo(
               <div className={classNames.card}>
                 {product.images.length ? (
                   <div className={classNames.carouselWrapper}>
-                    <SlideshowGallery files={imagesForLoad} slidesToShow={5} />
+                    <SlideshowGallery
+                      files={imagesForLoad}
+                      slidesToShow={5}
+                      isEditable={clientToEdit}
+                      onChangeImagesForLoad={onChangeImagesForLoad}
+                    />
                   </div>
                 ) : undefined}
 

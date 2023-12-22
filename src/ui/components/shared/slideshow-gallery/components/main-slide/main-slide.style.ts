@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(() => ({
     boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.1)',
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
+    cursor: 'pointer',
   },
 
   slideTransition: {
