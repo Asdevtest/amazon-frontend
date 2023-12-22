@@ -273,6 +273,12 @@ export class WarehouseMyTasksViewModel {
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]
 
+      box.items = box.items.map(item => ({
+        orderId: item?.order?._id,
+        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
+        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
+      }))
+
       await Promise.all([this.updateBox(box._id, box), this.setBoxBarcodeAttached(box._id, box)])
     }
   }
@@ -280,9 +286,9 @@ export class WarehouseMyTasksViewModel {
   async setBoxBarcodeAttached(id, box) {
     try {
       const barcodesAttachedData = box.items.map(item => ({
-        orderId: item.order._id,
-        isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
-        isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
+        orderId: item?.order?._id,
+        isBarCodeAttachedByTheStorekeeper: item?.isBarCodeAttachedByTheStorekeeper,
+        isBarCodeAlreadyAttachedByTheSupplier: item?.isBarCodeAlreadyAttachedByTheSupplier,
       }))
 
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
@@ -310,6 +316,7 @@ export class WarehouseMyTasksViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
+            'items',
           ],
           false,
           (key, value) => {
