@@ -7,7 +7,7 @@ interface VideoPlayerProps {
   videoSource: string
   controls?: boolean
   isPlaying?: boolean
-  height?: string
+  height?: number
   wrapperClass?: string
   videoPlayerClass?: string
   setIsPlaying?: (isPlaying: boolean) => void
@@ -19,7 +19,7 @@ interface VideoPlayerProps {
  * @param {String} videoSource - The url of a video or song to play.
  * @param {Boolean} controls - Set to true or false to display native player controls.
  * @param {Boolean} isPlaying - Set to true or false to pause or play the media.
- * @param {String} height - Сustom video height.
+ * @param {Number} height - Сustom video height.
  * @param {String} wrapperClass - Custom styles for the main wrapper.
  * @param {String} videoPlayerClass - Custom styles for the video player.
  * @param {Function} setIsPlaying - A callback function that can be used to set the playing state of the media. When called with `true`, the media will play, and when called with `false`, the media will pause.
@@ -39,7 +39,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
         controls={controls}
         url={videoSource}
         width="100%"
-        height={height || 'auto'}
+        height={`${height}px` || 'auto'}
         className={cx(styles.videoPlayer, videoPlayerClass)}
         onPlay={() => (setIsPlaying ? setIsPlaying(true) : undefined)} // fix a bug when changing focus from video to photo
       />

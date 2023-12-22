@@ -10,9 +10,7 @@ export const useSlideshowGallery = (files: Array<string | IUploadFile>) => {
   const [isTransitioning, setIsTransitioning] = useState(false) // for animation between slide switches
 
   useEffect(() => {
-    if (files.length) {
-      setMediaFiles(files)
-    }
+    setMediaFiles(files)
   }, [files])
 
   return {

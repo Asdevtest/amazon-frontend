@@ -60,7 +60,7 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
           >
             {checkIsMediaFileLink(slideToCheck) ? (
               checkIsVideoLink(slideToCheck) ? (
-                <VideoPreloader videoSource={currentSlide} height="74px" />
+                <VideoPreloader videoSource={currentSlide} height={74} />
               ) : (
                 <img src={currentSlide} alt={`Photo-${index}`} />
               )

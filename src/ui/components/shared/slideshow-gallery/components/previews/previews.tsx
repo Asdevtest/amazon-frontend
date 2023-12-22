@@ -4,7 +4,12 @@ import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './previews.style'
 
-import { FIRST_SLIDE, MIN_FILES_IN_ARRAY, QUANTITY_SLIDES_INSTEAD_OF_ARROWS } from '../slideshow-gallery.constants'
+import {
+  DEFAULT_ANIMATION_DELAY,
+  FIRST_SLIDE,
+  MIN_FILES_IN_ARRAY,
+  QUANTITY_SLIDES_INSTEAD_OF_ARROWS,
+} from '../../slideshow-gallery.constants'
 
 import { Arrow } from './arrow'
 import { Arrows, ArrowsType } from './arrow/arrows.type'
@@ -45,7 +50,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
           : (prevIndex + 1) % mediaFiles?.length
       })
       setIsTransitioning(false)
-    }, 300)
+    }, DEFAULT_ANIMATION_DELAY)
   }
 
   const isDisableArrowDown = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === mediaFiles.length - 1
@@ -62,6 +67,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
       />
 
       <Slides
+        slidesToShow={slidesToShow}
         mediaFiles={mediaFiles}
         currentMediaFileIndex={currentMediaFileIndex}
         setCurrentMediaFileIndex={setCurrentMediaFileIndex}

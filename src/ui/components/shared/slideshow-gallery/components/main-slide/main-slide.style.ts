@@ -2,8 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   mainSlide: {
-    height: 270,
-    width: 285,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -19,8 +17,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   mainSlideImg: {
-    width: '100%',
-    height: 270,
     objectFit: 'contain',
   },
 
@@ -56,5 +52,10 @@ export const useStyles = makeStyles()(() => ({
     opacity: 0,
     transition: 'opacity 0.3s ease-in-out',
     wordBreak: 'break-all',
+  },
+
+  iconPreloader: {
+    height: '36px !important',
+    width: '36px !important',
   },
 }))

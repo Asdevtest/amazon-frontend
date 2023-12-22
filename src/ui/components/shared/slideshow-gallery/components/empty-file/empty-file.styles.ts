@@ -1,13 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
-    width: 'fit-content',
+  noMediaFilesWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  leftPreviews: {
-    flexDirection: 'row-reverse',
+  noPhotoIcon: {
+    height: '90% !important',
+    width: '90% !important',
   },
 }))

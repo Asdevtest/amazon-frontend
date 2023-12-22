@@ -30,6 +30,12 @@ export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
   } else if (checkIsDocumentLink(mediaFileToCheck)) {
     return <FileComponent documentLink={documentLink} fileExtension={elementExtension} />
   } else {
-    return <img src="/assets/img/no-photo.jpg" alt="Media file not defined" style={{ width: '75%', height: '100%' }} />
+    return (
+      <img
+        src="/assets/img/no-photo.jpg"
+        alt="Media file not defined"
+        style={{ width: isPreviews ? '75%' : '100%', height: '100%' }}
+      />
+    )
   }
 })

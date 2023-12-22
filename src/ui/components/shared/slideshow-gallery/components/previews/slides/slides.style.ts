@@ -3,16 +3,15 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   previewSlides: {
     padding: '5px 15px',
-    height: 224,
-    overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
+    overflow: 'hidden',
   },
 
   previewSlidesFitOnScreenWithoutArrows: {
-    height: 270,
     padding: '0 15px',
+    overflow: 'inherit',
   },
 
   previewSlide: {
