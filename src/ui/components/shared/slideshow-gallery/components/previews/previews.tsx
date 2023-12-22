@@ -55,7 +55,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
 
   const isDisableArrowDown = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === mediaFiles.length - 1
   const isDisableArrowUp = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === FIRST_SLIDE
-  const isSlidesFitOnScreenWithoutArrows = mediaFiles.length === slidesToShow + QUANTITY_SLIDES_INSTEAD_OF_ARROWS
+  const isSlidesFitOnScreenWithoutArrows = mediaFiles.length <= slidesToShow + QUANTITY_SLIDES_INSTEAD_OF_ARROWS
 
   return !hiddenPreviews ? (
     <div className={styles.previews}>
