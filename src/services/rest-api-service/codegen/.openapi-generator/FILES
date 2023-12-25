@@ -74,6 +74,7 @@ models/api-v1-boxes-merge-box-body.ts
 models/api-v1-boxes-split-box-body.ts
 models/api-v1-boxes-split-box-items.ts
 models/api-v1-boxes-split-new-boxes-params.ts
+models/api-v1-boxes-storekeepers-guid-items.ts
 models/api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes.ts
 models/api-v1-boxes-storekeepers-sent-to-batch-items.ts
 models/api-v1-boxes-storekeepers-sent-to-batch-order.ts
@@ -330,6 +331,10 @@ models/inline-response20038-orders.ts
 models/inline-response20038.ts
 models/inline-response20039.ts
 models/inline-response2004.ts
+models/inline-response20040-destination.ts
+models/inline-response20040-order-supplier.ts
+models/inline-response20040-product.ts
+models/inline-response20040-rows.ts
 models/inline-response20040.ts
 models/inline-response20041.ts
 models/inline-response20042.ts
