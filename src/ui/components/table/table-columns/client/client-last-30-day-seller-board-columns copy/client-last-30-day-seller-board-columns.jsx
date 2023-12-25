@@ -19,6 +19,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     width: 120,
     // type: 'date',
   },
+  
   {
     field: 'shopName',
     headerName: t(TranslationKey.Shop),

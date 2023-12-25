@@ -1,68 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { computed, makeAutoObservable, makeObservable, observable, override, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 
-import { GridColDef } from '@mui/x-data-grid'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { DataGridTableModel } from '@models/data-grid-table-model/data-grid-table-model'
-import { SellerBoardModel } from '@models/seller-board-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { t } from '@utils/translations'
 
-import { IListOfModals } from '@typings/data-grid'
+import { getClassParams } from './helpers/get-class-params'
+import { tabsValues } from './helpers/tabs-value'
 
-export class ClientShopsViewModel extends DataGridTableModel {
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    history?: History,
-    listOfModals?: IListOfModals,
-    tableKey?: string,
-  ) {
-    super(getMainDataMethod, columnsModel, history, listOfModals, tableKey)
+export class ClientShopsViewModel extends DataGridFilterTableModel {
+  _tabKey = tabsValues.STOCK_REPORT
+
+  get tabKey() {
+    return this._tabKey
+  }
+
+  constructor(currentTabsValues: tabsValues) {
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
+
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
     makeObservable(this, {})
 
-    this.loadData()
+    this.getMainTableData()
   }
 
-  async loadData() {
-    try {
-      const res = await this.getMainDataMethod()
+  changeTabHandler = (key: tabsValues) => {
+    this._tabKey = key
 
-      runInAction(() => {
-        this.tableData = addIdDataConverter(res)
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    const { getMainDataMethod, columnsModel } = getClassParams(key)
+
+    this.getMainDataMethod = getMainDataMethod
+    this.columnsModel = columnsModel()
+
+    this.getMainTableData()
   }
-
-  // async onSubmitMoveToInventoryGoods(selectedRows: string[]) {
-  //   try {
-  //     const productsToCreate: any[] = []
-  //     runInAction(() => {
-  //       this.tableData.forEach(
-  //         cur =>
-  //           selectedRows.includes(cur.id) &&
-  //           productsToCreate.push({ shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title }),
-  //       )
-  //     })
-  //     await SellerBoardModel.createAndLinkSkuProducts({ payload: productsToCreate })
-  //     runInAction(() => {
-  //       this.warningInfoModalSettings = {
-  //         isWarning: false,
-  //         title: t(TranslationKey['The products will appear in the inventory soon']),
-  //       }
-  //     })
-  //     this.onTriggerOpenModal('showInfoModal')
-  //   } catch (error) {
-  //     console.log(error)
-  //     // runInAction(() => {
-  //     //   this.infoModalText = t(TranslationKey['Will not be moved to inventory'])
-  //     // })
-  //     // this.onTriggerOpenModal('showInfoModal')
-  //   }
-  // }
 }

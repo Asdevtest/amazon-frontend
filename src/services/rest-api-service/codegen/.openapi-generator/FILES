@@ -35,6 +35,7 @@ models/admin-user-patch-dto-schema.ts
 models/api-v1-admins-feedback-user.ts
 models/api-v1-admins-get-products-by-status-box-amounts.ts
 models/api-v1-admins-get-products-by-status-box-properties.ts
+models/api-v1-admins-get-products-by-status-created-by.ts
 models/api-v1-admins-get-products-by-status-payment-methods.ts
 models/api-v1-admins-get-products-by-status-red-flags.ts
 models/api-v1-admins-get-products-by-status-suppliers.ts
@@ -52,7 +53,6 @@ models/api-v1-admins-products-vac-checkedby.ts
 models/api-v1-admins-tasks-light-boxes.ts
 models/api-v1-admins-tasks-light-storekeeper.ts
 models/api-v1-admins-tasks-light-variation-tariff.ts
-models/api-v1-announcements-my-created-by.ts
 models/api-v1-announcements-my-requests.ts
 models/api-v1-batches-batch.ts
 models/api-v1-batches-boxes.ts
@@ -97,7 +97,6 @@ models/api-v1-ideas-notifications-idea.ts
 models/api-v1-ideas-notifications-product.ts
 models/api-v1-integrations-create-and-link-sku-products-payload.ts
 models/api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks.ts
-models/api-v1-integrations-sellerboard-warehouse-stocks-shop.ts
 models/api-v1-products-keepa-offers.ts
 models/api-v1-products-keepa-stats.ts
 models/api-v1-request-proposals-created-by.ts
@@ -185,6 +184,7 @@ models/inline-object139.ts
 models/inline-object14.ts
 models/inline-object140.ts
 models/inline-object141.ts
+models/inline-object142.ts
 models/inline-object15.ts
 models/inline-object16.ts
 models/inline-object17.ts
@@ -309,6 +309,10 @@ models/inline-response20026.ts
 models/inline-response20027.ts
 models/inline-response20028.ts
 models/inline-response20029.ts
+models/inline-response2003-allowed-urls.ts
+models/inline-response2003-permission-groups.ts
+models/inline-response2003-permissions.ts
+models/inline-response2003-sub-users.ts
 models/inline-response2003.ts
 models/inline-response20030.ts
 models/inline-response20031.ts
@@ -326,10 +330,6 @@ models/inline-response20038-box-amounts.ts
 models/inline-response20038-orders.ts
 models/inline-response20038.ts
 models/inline-response20039.ts
-models/inline-response2004-allowed-urls.ts
-models/inline-response2004-permission-groups.ts
-models/inline-response2004-permissions.ts
-models/inline-response2004-sub-users.ts
 models/inline-response2004.ts
 models/inline-response20040-destination.ts
 models/inline-response20040-order-supplier.ts
@@ -373,7 +373,10 @@ models/inline-response20052-rows.ts
 models/inline-response20052-suppliers.ts
 models/inline-response20052.ts
 models/inline-response20053.ts
+models/inline-response20054-rows.ts
+models/inline-response20054-shop.ts
 models/inline-response20054.ts
+models/inline-response20055-rows.ts
 models/inline-response20055.ts
 models/inline-response20056.ts
 models/inline-response20057-rows.ts

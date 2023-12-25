@@ -2159,5 +2159,7 @@ export enum TranslationKey {
   'Total quantity' = 'Total quantity',
   'Account report' = 'Account report',
   'Reports' = 'Reports',
+  'FBA fee' = 'FBA fee',
+  'Ref fee' = 'Ref fee',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

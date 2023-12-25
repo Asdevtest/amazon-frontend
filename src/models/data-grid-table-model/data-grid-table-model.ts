@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, flow, makeObservable, observable } from 'mobx'
+import { action, computed, flow, makeObservable, observable, runInAction } from 'mobx'
 
 import {
   GridColDef,
@@ -21,7 +21,7 @@ import { IListOfModals } from '@typings/data-grid'
 export class DataGridTableModel extends ModalsModel {
   _requestStatus: loadingStatuses = loadingStatuses.success
 
-  _rowCount: number | undefined = undefined
+  _rowCount = 0
   _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
   _densityModel = 'compact'
   _paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
@@ -32,8 +32,9 @@ export class DataGridTableModel extends ModalsModel {
 
   _getMainDataMethod: (...args: any) => any
   _columnsModel: GridColDef[]
-
   _tableData: any[] = []
+
+  _mainDataMethodOptions: any = {}
 
   get requestStatus() {
     return this._requestStatus
@@ -56,17 +57,14 @@ export class DataGridTableModel extends ModalsModel {
   get selectedRows() {
     return this._selectedRows
   }
+  get filterModel() {
+    return this._filterModel
+  }
   get columnVisibilityModel() {
     return this._columnVisibilityModel
   }
-  set columnVisibilityModel(columnVisibilityModel: GridColumnVisibilityModel) {
-    this._columnVisibilityModel = columnVisibilityModel
-  }
   get tableData() {
     return this._tableData
-  }
-  set tableData(tableData: any[]) {
-    this._tableData = tableData
   }
 
   get getMainDataMethod() {
@@ -108,6 +106,7 @@ export class DataGridTableModel extends ModalsModel {
       _tableData: observable,
       _getMainDataMethod: observable,
       _columnsModel: observable,
+      _mainDataMethodOptions: observable,
 
       requestStatus: computed,
       rowCount: computed,
@@ -125,23 +124,27 @@ export class DataGridTableModel extends ModalsModel {
       onColumnVisibilityModelChange: action,
       onSelectionModel: action,
       onPaginationModelChange: action,
+      onChangeFilterModel: action,
+
+      getMainTableData: flow,
     })
   }
 
   setDataGridState() {
-    if (this._tableKey) {
-      const requestState = {
-        sortModel: this._sortModel,
-        filterModel: this._filterModel,
-        paginationModel: this._paginationModel,
-        columnVisibilityModel: this._columnVisibilityModel,
-      }
-      SettingsModel.setDataGridState(requestState, this._tableKey)
+    if (!this._tableKey) return
+
+    const requestState = {
+      sortModel: this._sortModel,
+      filterModel: this._filterModel,
+      paginationModel: this._paginationModel,
+      columnVisibilityModel: this._columnVisibilityModel,
     }
+    SettingsModel.setDataGridState(requestState, this._tableKey)
   }
 
   getDataGridState() {
     if (!this._tableKey) return
+
     const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
     if (state) {
       // @ts-ignore
@@ -158,7 +161,7 @@ export class DataGridTableModel extends ModalsModel {
   onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
     this._columnVisibilityModel = model
     this.setDataGridState()
-    this.getMainDataMethod()
+    this.getMainTableData()
   }
 
   onSelectionModel(selectedRows: string[]) {
@@ -168,10 +171,47 @@ export class DataGridTableModel extends ModalsModel {
   onChangeSortingModel(sortModel: GridSortModel) {
     this._sortModel = sortModel
     this.setDataGridState()
+    this.getMainTableData()
+  }
+
+  onChangeFilterModel(model: GridFilterModel) {
+    this._filterModel = model
+    this.setDataGridState()
+    this.getMainTableData()
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
     this._paginationModel = model
     this.setDataGridState()
+    this.getMainTableData()
+  }
+
+  async getMainTableData(options?: any) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      const result = await this.getMainDataMethod(
+        options || {
+          sortModel: this._sortModel,
+          filterModel: this._filterModel,
+          paginationModel: this._paginationModel,
+          columnVisibilityModel: this._columnVisibilityModel,
+
+          ...this._mainDataMethodOptions,
+        },
+      )
+
+      runInAction(() => {
+        this._tableData = result?.rows || result
+        this._rowCount = result?.count
+      })
+
+      this.requestStatus = loadingStatuses.success
+
+      return result
+    } catch (error) {
+      console.log(error)
+      this.requestStatus = loadingStatuses.failed
+    }
   }
 }
