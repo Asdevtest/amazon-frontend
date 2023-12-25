@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 
 interface IHintsContext {
   hints: boolean
   setHints: (hints: boolean) => void
 }
+
 export const HintsContext = React.createContext<IHintsContext>({} as IHintsContext)
 
-export const HintsContextProvider = (props: any) => {
+export const HintsContextProvider = ({ children }: PropsWithChildren) => {
   const setHints = (hints: boolean) => {
-    setState({ ...state, hints })
+    setState(prevState => {
+      return { ...prevState, hints }
+    })
   }
 
   const initState = {
     hints: true,
     setHints,
   }
-
   const [state, setState] = useState(initState)
 
-  return <HintsContext.Provider value={state}> {props.children}</HintsContext.Provider>
+  return <HintsContext.Provider value={state}> {children}</HintsContext.Provider>
 }
