@@ -16,7 +16,7 @@ import { BindProductForm } from '@components/forms/bind-product-form'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -123,12 +123,7 @@ export const TopCard = memo(
               <div className={classNames.card}>
                 {product.images.length ? (
                   <div className={classNames.carouselWrapper}>
-                    <SlideshowGallery
-                      files={imagesForLoad}
-                      slidesToShow={5}
-                      isEditable={clientToEdit}
-                      onChangeImagesForLoad={onChangeImagesForLoad}
-                    />
+                    <PhotoAndFilesSlider showPreviews withoutFiles bigSlider isEditable={clientToEdit} />
                   </div>
                 ) : undefined}
 
