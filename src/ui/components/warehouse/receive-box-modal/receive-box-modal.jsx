@@ -194,7 +194,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
   const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
 
-  const disableSubmit = newBoxes.some(box => box.amount === '') || isSomeBoxHasntImage
+  const disableSubmit = newBoxes.some(box => box.amount === '') || (isSomeBoxHasntImage && !receiveNotFromBuyer)
 
   return (
     <div className={styles.root}>
