@@ -3,6 +3,7 @@ import {
   ProductStatusByCode,
   ProductStatusByKey,
   colorByProductStatus,
+  productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,7 +39,7 @@ export const researcherProductsViewColumns = () => [
     renderCell: params => (
       <MultilineTextCell
         leftAlign
-        text={params.value}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status]))}
         color={
           [
             ProductStatusByKey[ProductStatus.NEW_PRODUCT],

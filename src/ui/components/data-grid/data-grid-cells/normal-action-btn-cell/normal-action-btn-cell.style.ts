@@ -13,7 +13,8 @@ export const useStyles = makeStyles()(() => ({
 
   button: {
     height: 30,
-    width: 140,
+    width: 'auto',
+    maxWidth: '100%',
   },
 
   fullWidthButton: {

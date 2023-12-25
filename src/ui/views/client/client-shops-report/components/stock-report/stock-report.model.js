@@ -89,7 +89,6 @@ export class StockReportModel {
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -139,7 +138,6 @@ export class StockReportModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 

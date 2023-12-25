@@ -74,6 +74,7 @@ models/api-v1-boxes-merge-box-body.ts
 models/api-v1-boxes-split-box-body.ts
 models/api-v1-boxes-split-box-items.ts
 models/api-v1-boxes-split-new-boxes-params.ts
+models/api-v1-boxes-storekeepers-guid-items.ts
 models/api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes.ts
 models/api-v1-boxes-storekeepers-sent-to-batch-items.ts
 models/api-v1-boxes-storekeepers-sent-to-batch-order.ts
