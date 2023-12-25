@@ -280,11 +280,10 @@ export class WarehouseMyTasksViewModel {
   async setBoxBarcodeAttached(id, box) {
     try {
       const barcodesAttachedData = box.items.map(item => ({
-        orderId: item.order._id,
-        isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
-        isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
+        orderId: item?.order?._id,
+        isBarCodeAttachedByTheStorekeeper: item?.isBarCodeAttachedByTheStorekeeper,
+        isBarCodeAlreadyAttachedByTheSupplier: item?.isBarCodeAlreadyAttachedByTheSupplier,
       }))
-
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
       console.log(error)
@@ -295,13 +294,18 @@ export class WarehouseMyTasksViewModel {
     try {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-
         data = { ...data, images: [...this.imagesOfBox] }
       }
 
+      const boxItems = data.items.map(item => ({
+        orderId: item?.order?._id,
+        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
+        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
+      }))
+
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
-          data,
+          { ...data, items: boxItems },
           [
             'lengthCmWarehouse',
             'widthCmWarehouse',
@@ -310,6 +314,7 @@ export class WarehouseMyTasksViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
+            'items',
           ],
           false,
           (key, value) => {
