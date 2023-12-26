@@ -1,16 +1,16 @@
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import React, { FC, InputHTMLAttributes, ReactElement, useEffect, useState } from 'react'
+import React, { FC, InputHTMLAttributes, ReactElement, useContext, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { Input } from '@components/shared/input'
 import { InputWithIcon } from '@components/shared/input/input'
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+
+import { HintsContext } from '@contexts/hints-context'
 
 import { useClassNames } from './field.style'
 
@@ -55,11 +55,7 @@ export const Field: FC<Props> = observer(
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
+    const { hints } = useContext(HintsContext)
 
     return (
       <div className={cx(classNames.root, { [classNames.rootOneLine]: oneLine }, containerClasses)}>
@@ -91,7 +87,7 @@ export const Field: FC<Props> = observer(
                   </Tooltip>
                 ) : null}
 
-                {tooltipInfoContent && showHints ? (
+                {tooltipInfoContent && hints ? (
                   <Tooltip
                     arrow
                     open={openInfoTooltip}
