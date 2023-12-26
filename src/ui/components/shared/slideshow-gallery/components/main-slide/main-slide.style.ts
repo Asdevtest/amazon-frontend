@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     borderRadius: 12,
     overflow: 'hidden',
-    boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.17)',
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
     cursor: 'pointer',

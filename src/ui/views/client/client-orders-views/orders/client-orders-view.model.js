@@ -710,11 +710,11 @@ export class ClientOrdersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickTableRow(order) {
+  onClickOpenNewTab(orderId) {
     const win = window.open(
-      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
-        order.originalData._id
-      }&order-human-friendly-id=${order.originalData.id}`,
+      `/client/my-orders/${window.location.pathname
+        .split('/')
+        .at(-1)}/order?orderId=${orderId}&order-human-friendly-id=${orderId}`,
       '_blank',
     )
 

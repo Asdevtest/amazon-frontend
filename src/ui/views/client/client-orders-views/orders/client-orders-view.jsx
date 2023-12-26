@@ -107,7 +107,7 @@ export const ClientOrdersView = observer(history => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowClick={params => viewModel.onClickMyOrderModal(params.row)}
-          // onRowDoubleClick={params => viewModel.onClickTableRow(params.row)}
+          // onRowDoubleClick={params => viewModel.onClickOpenNewTab(params.row.originalData._id)}
         />
       </div>
 
@@ -185,6 +185,7 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showMyOrderModal}
           handleOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
           order={viewModel.order}
+          onClickOpenNewTab={() => viewModel.onClickOpenNewTab(viewModel.order?._id)}
         />
       )}
     </React.Fragment>
