@@ -15,6 +15,8 @@ import { SettingsModel } from '@models/settings-model'
 import { ToastifyProvder } from '@components/layout/navigation/toastify/toastify-provder'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
+import { HintsContextProvider } from '@contexts/hints-context'
+
 import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'
 import { generateRedirects } from './redirects'
@@ -40,18 +42,20 @@ export const MainNav = observer(() => {
 
   return (
     <ThemeProvider theme={{...theme, lang}}>
-      <ToastifyProvder theme={SettingsModel.uiTheme} />
-      <GlobalStyles styles={globalStyles} />
-      <CssBaseline />
-      <Router>
-        <Suspense fallback={<CircularProgressWithLabel />}>
-          <Switch>
-            {generateRedirects()}
-            {generatePublicRoutes()}
-            <PrivateRoutes />
-          </Switch>
-        </Suspense>
-      </Router>
+      <HintsContextProvider hints>
+        <ToastifyProvder theme={SettingsModel.uiTheme} />
+        <GlobalStyles styles={globalStyles} />
+        <CssBaseline />
+        <Router>
+          <Suspense fallback={<CircularProgressWithLabel />}>
+            <Switch>
+              {generateRedirects()}
+              {generatePublicRoutes()}
+              <PrivateRoutes />
+            </Switch>
+          </Suspense>
+        </Router>
+      </HintsContextProvider>
     </ThemeProvider>
   )
 })

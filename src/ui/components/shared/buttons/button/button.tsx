@@ -3,14 +3,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, useContext, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+
+import { HintsContext } from '@contexts/hints-context'
 
 import { useClassNames } from './button.style'
 
@@ -62,14 +62,9 @@ export const Button: FC<Props> = React.memo(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
+    const { hints } = useContext(HintsContext)
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
 
     return (
       <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
@@ -120,7 +115,7 @@ export const Button: FC<Props> = React.memo(
                 </Tooltip>
               ) : null}
 
-              {tooltipInfoContent && showHints ? (
+              {tooltipInfoContent && hints ? (
                 <Tooltip
                   arrow
                   open={openInfoTooltip}

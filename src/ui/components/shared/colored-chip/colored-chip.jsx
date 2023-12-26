@@ -1,12 +1,12 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { Chip, Tooltip } from '@mui/material'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+
+import { HintsContext } from '@contexts/hints-context'
 
 import { useClassNames } from './colored-chip.style'
 
@@ -30,11 +30,7 @@ export const ColoredChip = observer(
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
+    const { hints } = useContext(HintsContext)
 
     return (
       <div className={classNames.chipWrapper}>
@@ -65,7 +61,7 @@ export const ColoredChip = observer(
               </Tooltip>
             ) : null}
 
-            {tooltipInfoContent && showHints ? (
+            {tooltipInfoContent && hints ? (
               <Tooltip
                 arrow
                 open={openInfoTooltip}
