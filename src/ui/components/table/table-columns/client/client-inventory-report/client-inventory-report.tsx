@@ -1,5 +1,6 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -18,6 +19,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -30,6 +34,9 @@ export const clientInventoryReportColumns = () => [
     ),
     width: 185,
     sortable: false,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
   {
@@ -38,6 +45,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price) + ', $'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -46,6 +56,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee'])} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -54,6 +67,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ref fee'])} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -62,6 +78,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Available)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -70,6 +89,9 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -78,5 +100,8 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
+
+    table: 'inventory',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]

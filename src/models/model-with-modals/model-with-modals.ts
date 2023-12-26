@@ -55,6 +55,7 @@ export class ModalsModel extends DefaultModel {
 
       confirmModalSettings: computed,
       warningInfoModalSettings: computed,
+
       onTriggerOpenModal: action,
     })
   }

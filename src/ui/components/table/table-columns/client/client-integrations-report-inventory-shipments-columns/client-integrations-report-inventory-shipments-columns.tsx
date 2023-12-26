@@ -1,5 +1,6 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -18,6 +19,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -30,6 +34,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     ),
     width: 185,
     sortable: false,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -38,6 +45,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Shipment ID'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 143,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -46,6 +56,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Reference ID'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 108,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -54,6 +67,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Date created'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -62,6 +78,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Date updated'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -70,6 +89,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Ship to'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -78,6 +100,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Units expected'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -86,14 +111,20 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Status'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
     field: 'scheduledCarrierDeliveryDate',
     headerName: 'scheduledCarrierDeliveryDate',
     renderHeader: () => <MultilineTextHeaderCell text={'Scheduled carrier delivery date'} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 155,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -102,6 +133,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window start'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -110,5 +144,8 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window end'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'inventoryShipments',
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

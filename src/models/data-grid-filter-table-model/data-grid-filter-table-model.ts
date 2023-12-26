@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, flow, makeObservable, observable, runInAction } from 'mobx'
+import { action, computed, makeObservable, observable, override, runInAction } from 'mobx'
 
 import { GridColDef } from '@mui/x-data-grid'
 
@@ -11,21 +11,54 @@ import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { objectToUrlQs } from '@utils/text'
 
 import { IListOfModals } from '@typings/data-grid'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
   _filtersFields: string[]
+  get filtersFields() {
+    return this._filtersFields
+  }
+  set filtersFields(filtersFields: string[]) {
+    this._filtersFields = filtersFields
+  }
+
   _mainMethodURL: string
+  get mainMethodURL() {
+    return this._mainMethodURL
+  }
+  set mainMethodURL(mainMethodURL: string) {
+    this._mainMethodURL = mainMethodURL
+  }
+
   _fieldsForSearch: string[] = []
+  get fieldsForSearch() {
+    return this._fieldsForSearch
+  }
+  set fieldsForSearch(fieldsForSearch: string[]) {
+    this._fieldsForSearch = fieldsForSearch
+  }
 
   _columnMenuSettings = {}
   get columnMenuSettings() {
     return this._columnMenuSettings
   }
+  set columnMenuSettings(columnMenuSettings: any) {
+    this._columnMenuSettings = columnMenuSettings
+  }
+
+  get isSomeFilterOn() {
+    return this._filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
+  }
 
   _currentSearchValue = ''
+  get currentSearchValue() {
+    return this._currentSearchValue
+  }
+  set currentSearchValue(currentSearchValue: string) {
+    this._currentSearchValue = currentSearchValue
+  }
 
   constructor(
     getMainDataMethod: (...args: any) => any,
@@ -52,42 +85,46 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       _currentSearchValue: observable,
       _fieldsForSearch: observable,
 
+      filtersFields: computed,
       columnMenuSettings: computed,
+      isSomeFilterOn: computed,
+      currentSearchValue: computed,
+      fieldsForSearch: computed,
+      mainMethodURL: computed,
 
       setColumnMenuSettings: action,
       getFilters: action,
       onChangeSearchValue: action,
       onChangeFullFieldMenuItem: action,
+      onClickFilterBtn: action,
+      onClickResetFilters: action,
 
-      onClickFilterBtn: flow,
+      getMainTableData: override,
     })
   }
 
   setColumnMenuSettings(filtersFields: string[]) {
-    this._columnMenuSettings = {
-      onClickFilterBtn: (field: string) => this.onClickFilterBtn(field),
+    this.columnMenuSettings = {
+      onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
-      onClickAccept: () => {
-        this.getMainTableData()
-      },
-
+      onClickAccept: () => this.getMainTableData(),
       filterRequestStatus: loadingStatuses.success,
 
       ...dataGridFiltersInitializer(filtersFields),
     }
   }
 
-  async onClickFilterBtn(column: string, hint?: string) {
+  async onClickFilterBtn(column: string, table: string) {
     try {
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, hint),
+        table,
         column,
         `${this._mainMethodURL}?filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
         runInAction(() => {
-          this._columnMenuSettings = {
+          this.columnMenuSettings = {
             ...this.columnMenuSettings,
             // @ts-ignore
             [column]: { ...this.columnMenuSettings[column], filterData: data },
@@ -99,11 +136,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
   }
 
-  getFilters(exclusion: string) {
+  getFilters(exclusion?: string) {
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
-        this._currentSearchValue,
+        this.currentSearchValue,
         exclusion,
         this._filtersFields,
         this._fieldsForSearch,
@@ -112,18 +149,55 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeSearchValue(value: string) {
-    this._currentSearchValue = value
+    this.currentSearchValue = value
     this.getMainTableData()
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
-    this._columnMenuSettings = {
+    this.columnMenuSettings = {
       ...this.columnMenuSettings,
       [field]: {
         // @ts-ignore
         ...this.columnMenuSettings[field],
         currentFilterData: value,
       },
+    }
+  }
+
+  onClickResetFilters() {
+    this.setColumnMenuSettings(this._filtersFields)
+    this.getMainTableData()
+  }
+
+  async getMainTableData(options?: any) {
+    try {
+      this.requestStatus = loadingStatuses.isLoading
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? this.sortModel?.[0]?.field : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+
+          ...this.defaultGetDataMethodOptions,
+        },
+      )
+
+      runInAction(() => {
+        this.tableData = result?.rows || result
+        this.rowCount = result?.count
+      })
+
+      this.requestStatus = loadingStatuses.success
+
+      return result
+    } catch (error) {
+      console.log(error)
+      this.requestStatus = loadingStatuses.failed
     }
   }
 }

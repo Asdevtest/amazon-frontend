@@ -20,35 +20,23 @@ export const ControllButtons: FC<IControllButtonsProps> = memo(props => {
 
   const { selectedRows, onSubmitMoveToInventoryGoods, onClickBindStockGoodsToInventoryBtn, onClickDeleteBtn } = props
 
+  const noSelectedRows = !selectedRows?.length
+
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button
-          tooltipInfoContent={t(
-            TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
-          )}
-          disabled={selectedRows.length === 0}
-          variant="contained"
-          onClick={onSubmitMoveToInventoryGoods}
-        >
+        <Button disabled={noSelectedRows} variant="contained" onClick={onSubmitMoveToInventoryGoods}>
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button
-          tooltipInfoContent={t(
-            TranslationKey['Adds integration from the report to the selected item from the inventory'],
-          )}
-          disabled={selectedRows.length === 0}
-          variant="contained"
-          onClick={onClickBindStockGoodsToInventoryBtn}
-        >
+        <Button disabled={noSelectedRows} variant="contained" onClick={onClickBindStockGoodsToInventoryBtn}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>
 
       <Button
         danger
-        disabled={!selectedRows.length || selectedRows.length > 1}
+        disabled={noSelectedRows || selectedRows.length > 1}
         variant="contained"
         onClick={onClickDeleteBtn}
       >

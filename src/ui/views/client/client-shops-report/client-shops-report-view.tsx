@@ -14,15 +14,16 @@ import { t } from '@utils/translations'
 import { useStyles } from './client-shops-report-view.style'
 
 import { ClientShopsViewModel } from './client-shops-report-view.model'
+import { ControllButtons } from './components/controll-buttons/controll-buttons'
 import { tabsValues } from './helpers/tabs-value'
 
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel('STOCK_REPORT' as tabsValues))
+  const [viewModel] = useState(() => new ClientShopsViewModel(tabsValues.STOCK_REPORT))
 
   return (
-    <>
+    <div className={styles.root}>
       <CustomSwitcher
         fullWidth
         switchMode={'big'}
@@ -38,7 +39,18 @@ export const ClientShopsReportView = observer(() => {
         changeConditionHandler={value => viewModel.changeTabHandler(value as tabsValues)}
       />
 
-      {/* <ControllButtons selectedRows onSubmitMoveToInventoryGoods onClickBindStockGoodsToInventoryBtn onClickDeleteBtn /> */}
+      <ControllButtons
+        selectedRows={viewModel.selectedRows}
+        onSubmitMoveToInventoryGoods={() => {
+          throw new Error('Function not implemented.')
+        }}
+        onClickBindStockGoodsToInventoryBtn={() => {
+          throw new Error('Function not implemented.')
+        }}
+        onClickDeleteBtn={() => {
+          throw new Error('Function not implemented.')
+        }}
+      />
 
       <div className={styles.tabledWrapper}>
         <CustomDataGrid
@@ -49,7 +61,6 @@ export const ClientShopsReportView = observer(() => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.tableData}
           getRowHeight={() => 90}
           slotProps={{
             columnMenu: viewModel.columnMenuSettings,
@@ -57,6 +68,10 @@ export const ClientShopsReportView = observer(() => {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: () => viewModel.onClickResetFilters(),
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -66,6 +81,7 @@ export const ClientShopsReportView = observer(() => {
             },
           }}
           density={viewModel.densityModel}
+          rows={viewModel.tableData}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           rowSelectionModel={viewModel.selectedRows}
@@ -79,6 +95,6 @@ export const ClientShopsReportView = observer(() => {
           onFilterModelChange={(value: GridFilterModel) => viewModel.onChangeFilterModel(value)}
         />
       </div>
-    </>
+    </div>
   )
 })

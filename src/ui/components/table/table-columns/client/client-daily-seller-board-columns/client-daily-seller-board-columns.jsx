@@ -1,3 +1,4 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -16,6 +17,9 @@ export const clientDailySellerBoardColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -25,6 +29,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
     width: 150,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -37,6 +44,9 @@ export const clientDailySellerBoardColumns = () => [
     ),
     width: 185,
     sortable: false,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
   {
@@ -46,6 +56,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
     width: 250,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -55,6 +68,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 108,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -64,6 +80,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -73,6 +92,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 80,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -82,6 +104,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 220,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -91,6 +116,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'sentToFba',
@@ -99,6 +127,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 108,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'fbaPrepStock',
@@ -107,6 +138,9 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'ordered',
@@ -115,5 +149,8 @@ export const clientDailySellerBoardColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 108,
+
+    table: 'sellerboardWarehouseEveryDay',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]

@@ -738,6 +738,7 @@ export const ObJectFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       nullObjName,
@@ -763,7 +764,7 @@ export const ObJectFieldMenuItem = React.memo(
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
@@ -1122,6 +1123,7 @@ export const NormalFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -1130,7 +1132,7 @@ export const NormalFieldMenuItem = React.memo(
       asBlock = false,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const { filterData, currentFilterData } = data
@@ -1451,6 +1453,9 @@ export const ProductMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
+      withoutTitle,
+      skuOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1471,18 +1476,20 @@ export const ProductMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skuByClient?.currentFilterData?.length
+        : !withoutSku && data?.skuByClient?.currentFilterData?.length
         ? 'skuByClient'
+        : data.sku?.currentFilterData?.length
+        ? 'sku'
         : 'asin',
     )
-    // const { filterData } = data[currentOption]
+
     const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(getCurrentField(currentOption))
+      onClickFilterBtn(getCurrentField(currentOption), table)
     }, [currentOption])
 
     useEffect(() => {
@@ -1536,8 +1543,8 @@ export const ProductMenuItem = React.memo(
             <RadioGroup
               row
               className={cx({
-                [classNames.radioGroup]: !withoutSku,
-                [classNames.radioGroupTwoItems]: withoutSku,
+                [classNames.radioGroup]: !withoutSku && !withoutTitle,
+                [classNames.radioGroupTwoItems]: withoutSku || withoutTitle,
               })}
               value={currentOption}
               onChange={handleCategory}
@@ -1553,18 +1560,20 @@ export const ProductMenuItem = React.memo(
                 <FormControlLabel
                   title={t(TranslationKey.SKU)}
                   className={classNames.radioOption}
-                  value="skuByClient"
+                  value={skuOption ? 'sku' : 'skuByClient'}
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.SKU)}
                 />
               )}
-              <FormControlLabel
-                title={t(TranslationKey.Title)}
-                className={classNames.radioOption}
-                value="amazonTitle"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Title)}
-              />
+              {!withoutTitle && (
+                <FormControlLabel
+                  title={t(TranslationKey.Title)}
+                  className={classNames.radioOption}
+                  value="amazonTitle"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Title)}
+                />
+              )}
             </RadioGroup>
           </FormControl>
         </div>
@@ -1954,6 +1963,7 @@ export const FromToDateMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1964,7 +1974,7 @@ export const FromToDateMenuItem = React.memo(
       const [toDate, setToDate] = useState(null)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const { filterData, currentFilterData } = data
@@ -2236,6 +2246,7 @@ export const NumberFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
 
@@ -2248,7 +2259,7 @@ export const NumberFieldMenuItem = React.memo(
       const [isNotFixedValue, setIsNotFixedValue] = useState(false)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
         setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
@@ -2317,6 +2328,7 @@ export const NumberFieldMenuItem = React.memo(
           'fbaamount',
           'id',
           'reworkCounter',
+          'fbaFbmStock',
         ]
         return whiteList.includes(field)
       }, [field])

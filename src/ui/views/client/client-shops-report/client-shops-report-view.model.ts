@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable, runInAction } from 'mobx'
-
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { action, computed, makeObservable, observable } from 'mobx'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
-
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 
 import { getClassParams } from './helpers/get-class-params'
 import { tabsValues } from './helpers/tabs-value'
@@ -21,18 +17,24 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
-    makeObservable(this, {})
 
-    this.getMainTableData()
+    makeObservable(this, {
+      _tabKey: observable,
+      tabKey: computed,
+      changeTabHandler: action,
+    })
   }
 
   changeTabHandler = (key: tabsValues) => {
     this._tabKey = key
 
-    const { getMainDataMethod, columnsModel } = getClassParams(key)
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(key)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
+    this.filtersFields = filtersFields
+    this.setColumnMenuSettings(filtersFields)
+    this.mainMethodURL = mainMethodURL
 
     this.getMainTableData()
   }

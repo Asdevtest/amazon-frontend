@@ -1,5 +1,6 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -18,6 +19,9 @@ export const clientPPCSalesWeekColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'ppcSalesWeek',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -30,6 +34,9 @@ export const clientPPCSalesWeekColumns = () => [
     ),
     width: 185,
     sortable: false,
+
+    table: 'ppcSalesWeek',
+    columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
   {
@@ -38,6 +45,9 @@ export const clientPPCSalesWeekColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Start of Period'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'ppcSalesWeek',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -46,6 +56,9 @@ export const clientPPCSalesWeekColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'End of Period'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
+
+    table: 'ppcSalesWeek',
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -54,6 +67,9 @@ export const clientPPCSalesWeekColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={'Week'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
+
+    table: 'ppcSalesWeek',
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
