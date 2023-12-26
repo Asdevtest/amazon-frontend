@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '16px',
     marginBottom: '16px',
     height: '350px',
+    position: 'relative',
   },
 
   carouselImage: {
@@ -159,7 +160,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainCard: {
-    width: '50%',
+    width: '48%',
     display: 'flex',
     flexDirection: 'column',
   },

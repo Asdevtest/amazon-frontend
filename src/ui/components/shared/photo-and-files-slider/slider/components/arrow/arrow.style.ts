@@ -6,6 +6,14 @@ export const useStyles = makeStyles()(theme => ({
     height: '30px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
+    position: 'absolute',
+  },
+
+  leftArrow: {
+    left: '20px',
+  },
+  rightArrow: {
+    right: '20px',
   },
 
   arrowIconDisable: {

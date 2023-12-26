@@ -193,7 +193,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputLink: {
-    width: '600px',
+    width: '100%',
+    maxWidth: '600px',
     overflow: 'hidden',
     color: theme.palette.text.general,
     outline: 'none',
@@ -225,6 +226,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    width: '100%',
   },
 
   subUsersBodyWrapper: {
