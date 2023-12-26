@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { AlertShield } from '@components/shared/alert-shield'
@@ -65,6 +66,7 @@ export const ClientOrdersView = observer(history => {
 
         <div className={cx({ [styles.invis]: viewModel.isPendingOrdering })} />
       </div>
+
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
@@ -103,8 +105,9 @@ export const ClientOrdersView = observer(history => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowClick={params => viewModel.onClickMyOrderModal(params.row)}
+          // onRowDoubleClick={params => viewModel.onClickTableRow(params.row)}
         />
       </div>
 
@@ -174,6 +177,14 @@ export const ClientOrdersView = observer(history => {
         <AlertShield
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
+
+      {viewModel.showMyOrderModal && (
+        <MyOrderModal
+          openModal={viewModel.showMyOrderModal}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          order={viewModel.order}
         />
       )}
     </React.Fragment>

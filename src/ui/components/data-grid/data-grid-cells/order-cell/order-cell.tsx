@@ -42,8 +42,8 @@ export const OrderCell: FC<OrderCellProps> = React.memo(props => {
       <div>
         <p className={styles.orderTitle}>{product?.amazonTitle}</p>
 
-        <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={product.asin} />
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={product?.skuByClient} />}
+        <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} />
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />}
 
         {withQuantity ? (
           <div className={styles.copyAsin}>

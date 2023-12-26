@@ -1,3 +1,5 @@
+import { IUploadFile } from './upload-file'
+
 export interface IProduct {
   amazon: number
   amazonDescription: string
@@ -42,7 +44,7 @@ export interface IProduct {
   ideasClosed: number
   ideasOnCheck: number
   ideasVerified: number
-  images: string[]
+  images: Array<string | IUploadFile>
   inTransfer: number
   isCreatedByClient: boolean
   lamazon: string

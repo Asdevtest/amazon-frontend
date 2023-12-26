@@ -32,7 +32,7 @@ export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
   } else {
     return (
       <img
-        src="/assets/img/no-photo.jpg"
+        src={getAmazonImageUrl(mediaFile, !isPreviews)}
         alt="Media file not defined"
         style={{ width: isPreviews ? '75%' : '100%', height: '100%' }}
       />

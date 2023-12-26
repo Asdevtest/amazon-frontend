@@ -1032,7 +1032,7 @@
   "and": "и",
   "The password must contain": "Пароль должен содержать",
   "minimum": "минимум",
-  "number": "цифру",
+  "number": "номер",
   "uppercase": "прописные",
   "lowercase": "строчные",
   "latin letters": "латинские буквы",
@@ -2153,5 +2153,7 @@
   "Transparency codes glued by the supplier": "Transparency codes проклеен поставщиком",
   "A photo of the Transperensy Code sticker": "Фотография проклеенной наклейки Transperensy Code",
   "Be sure to add a photo to the box": "Обязательно добавьте фотографию к коробке",
-  "Total quantity": "Общее количество"
+  "Total quantity": "Общее количество",
+  "currency": "валюта",
+  "total amount": "вся сумма"
 }

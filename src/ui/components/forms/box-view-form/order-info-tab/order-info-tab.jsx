@@ -46,8 +46,8 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                 {getShortenStringIfLongerThanCount(item.product.amazonTitle, 110)}
               </p>
 
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item?.product?.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.product?.skuByClient} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item?.product?.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={item?.product?.skuByClient} />
             </div>
 
             <div className={styles.parametersWrapper}>

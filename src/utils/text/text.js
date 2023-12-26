@@ -144,6 +144,7 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
+export const shortLink = value => getShortenStringIfLongerThanCount(value, 12)
 
 export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)

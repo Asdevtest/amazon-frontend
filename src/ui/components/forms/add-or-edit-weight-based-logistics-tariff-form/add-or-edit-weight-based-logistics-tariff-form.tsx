@@ -27,7 +27,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
 import { IDestination, IDestinationVariation } from '../../../../typings/destination'
-import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
+import { ILogisticTariff } from '../../../../typings/logistics-tariff'
 
 interface FormFields {
   tariffType: number
@@ -55,9 +55,9 @@ interface DestinationVariationsContentProps {
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: LogisticTariffInterface
+  tariffToEdit: ILogisticTariff
   sourceYuanToDollarRate: number
-  logisticsTariffsData: Array<LogisticTariffInterface>
+  logisticsTariffsData: Array<ILogisticTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -137,9 +137,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       ) ||
       !isWeightRangeValid
 
-    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<LogisticTariffInterface | undefined>(undefined)
+    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogisticTariff | undefined>(undefined)
 
-    const onSetDataFromTariff = (tariff: LogisticTariffInterface) => {
+    const onSetDataFromTariff = (tariff: ILogisticTariff) => {
       setSelectedLogisticTariff(tariff)
       // @ts-ignore
       setFormFields(prevState => ({
@@ -368,7 +368,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                   selectedItemName={
                     (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
                   }
-                  onClickSelect={(el: LogisticTariffInterface) => onSetDataFromTariff(el)}
+                  onClickSelect={(el: ILogisticTariff) => onSetDataFromTariff(el)}
                 />
               }
             />

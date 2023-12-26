@@ -25,8 +25,8 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
 
       <div className={styles.csCodeTypoWrapper}>
         <p className={styles.csCodeTypo}>{amazonTitle}</p>
-        <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skuByClient} />}
+        <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={skuByClient} />}
       </div>
     </div>
   )

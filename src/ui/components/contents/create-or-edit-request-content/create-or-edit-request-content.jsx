@@ -887,9 +887,8 @@ export const CreateOrEditRequestContent = memo(props => {
                             inputComponent={
                               <AsinOrSkuLink
                                 withCopyValue
-                                asin={formFields?.request?.asin}
+                                link={formFields?.request?.asin}
                                 textStyles={styles.copyAsinlinkSpan}
-                                missingValueTextStyles={styles.copyAsinlinkSpan}
                               />
                             }
                           />

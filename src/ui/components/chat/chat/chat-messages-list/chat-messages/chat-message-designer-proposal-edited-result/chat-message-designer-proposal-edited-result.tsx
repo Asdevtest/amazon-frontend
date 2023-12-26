@@ -89,9 +89,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
             labelClasses={classNames.fieldLabel}
             label={'ASIN'}
             containerClasses={classNames.containerField}
-            inputComponent={
-              <AsinOrSkuLink withCopyValue asin={message?.data?.request?.asin} textStyles={classNames.simpleSpan} />
-            }
+            inputComponent={<AsinOrSkuLink withCopyValue link={message?.data?.request?.asin} />}
           />
         </div>
 

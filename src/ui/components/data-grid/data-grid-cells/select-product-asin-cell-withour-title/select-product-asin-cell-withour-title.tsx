@@ -37,8 +37,8 @@ export const SelectProductAsinCellWithourTitle: FC<SelectProductAsinCellWithourT
       <div className={styles.productInfoWrapper}>
         <img alt="" className={cx(styles.productImg)} src={getAmazonImageUrl(product?.images?.[0])} />
         <div>
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={product.asin} />
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={product.skuByClient} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product.skuByClient} />
         </div>
       </div>
     </div>

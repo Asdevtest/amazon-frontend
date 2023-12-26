@@ -56,9 +56,8 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           <AsinOrSkuLink
             withCopyValue
             withAttributeTitle="asin"
-            asin={request?.request.product.asin}
+            link={request?.request.product.asin}
             textStyles={classNames.linkSpan}
-            missingValueTextStyles={classNames.linkSpan}
           />
 
           <div className={classNames.idTitleWrapper}>

@@ -2157,5 +2157,7 @@ export enum TranslationKey {
   'A photo of the Transperensy Code sticker' = 'A photo of the Transperensy Code sticker',
   'Be sure to add a photo to the box' = 'Be sure to add a photo to the box',
   'Total quantity' = 'Total quantity',
+  'currency' = 'currency',
+  'total amount' = 'total amount',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

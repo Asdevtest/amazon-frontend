@@ -186,7 +186,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             inputComponent={
               <AsinOrSkuLink
                 withCopyValue
-                asin={request?.request?.product?.asin || proposal?.request?.asin}
+                link={request?.request?.product?.asin || proposal?.request?.asin}
                 textStyles={styles.simpleSpan}
               />
             }

@@ -291,15 +291,15 @@ export const OrderModalBodyRow = ({
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
           <AsinOrSkuLink
             withCopyValue
-            withAttributeTitle={'asin'}
-            asin={item?.asin}
-            attributeTitleTextStyles={classNames.standartText}
+            withAttributeTitle="asin"
+            kink={item?.asin}
+            textStyles={classNames.standartText}
           />
           <AsinOrSkuLink
             withCopyValue
-            withAttributeTitle={'sku'}
-            sku={item?.skuByClient}
-            attributeTitleTextStyles={classNames.standartText}
+            withAttributeTitle="sku"
+            link={item?.skuByClient}
+            textStyles={classNames.standartText}
           />
 
           {!item.currentSupplier && (

@@ -105,8 +105,8 @@ export const ProductLotDataForm = memo(props => {
           <Typography className={styles.productTitle}>{product[0]?.amazonTitle}</Typography>
 
           <div>
-            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={product[0].asin} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={product[0]?.skuByClient} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product[0].asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product[0]?.skuByClient} />
           </div>
         </div>
 

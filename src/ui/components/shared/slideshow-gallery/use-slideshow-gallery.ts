@@ -14,7 +14,9 @@ export const useSlideshowGallery = (files: Array<string | IUploadFile>) => {
   const onOpenImageModal = () => setOpenImageModal(!openImageModal)
 
   useEffect(() => {
-    setMediaFiles(files)
+    if (files) {
+      setMediaFiles(files)
+    }
   }, [files])
 
   return {

@@ -43,11 +43,13 @@ export class ClientOrdersViewModel {
     return this.orders
   }
   selectedRowIds = []
+  order = undefined
 
   showOrderModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
   showCheckPendingOrderFormModal = false
+  showMyOrderModal = false
 
   existingProducts = []
   shopsData = []
@@ -717,6 +719,28 @@ export class ClientOrdersViewModel {
     )
 
     win.focus()
+  }
+
+  async getOrderById(orderId) {
+    try {
+      const resolve = await ClientModel.getOrderById(orderId)
+
+      runInAction(() => {
+        this.order = resolve
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickMyOrderModal(row) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    await this.getOrderById(row.originalData._id)
+
+    this.onTriggerOpenModal('showMyOrderModal')
   }
 
   onTriggerOpenModal(modalState) {
