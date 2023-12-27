@@ -3,12 +3,7 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import {
-  inchesCoefficient,
-  maxLengthInputInSizeBox,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -34,6 +29,7 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -344,29 +340,15 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
-    const maxBoxSizeFromOption = () => {
-      const maxValue =
-        sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
-          : maxLengthInputInSizeBox
-      if (
-        boxFields.lengthCmWarehouse > maxValue ||
-        boxFields.widthCmWarehouse > maxValue ||
-        boxFields.heightCmWarehouse > maxValue
-      ) {
-        return true
-      }
-      return false
-    }
-
     const disableSubmit =
       JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
         JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption()
+      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
     !imagesOfBox.length
 
-    console.log(boxFields)
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,

@@ -3,13 +3,13 @@ import { observer } from 'mobx-react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox } from '@mui/material'
 
-import { inchesCoefficient, maxLengthInputInSizeBox, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -30,17 +30,6 @@ export const OrderBox = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    const maxBoxSizeFromOption = length => {
-      const maxValue =
-        sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
-          : maxLengthInputInSizeBox
-      if (length > maxValue) {
-        return true
-      }
-      return false
-    }
-
     return (
       <div className={classNames.numberInputFieldsBlocksWrapper}>
         <div className={classNames.numberInputFieldsBlocksSubWrapper}>
@@ -49,7 +38,9 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box length'])}
-              error={Number(orderBox.lengthCmSupplier) === 0 || maxBoxSizeFromOption(orderBox.lengthCmSupplier)}
+              error={
+                Number(orderBox.lengthCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
+              }
               value={orderBox.lengthCmSupplier}
               onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
             />
@@ -58,7 +49,9 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box width'])}
-              error={Number(orderBox.widthCmSupplier) === 0 || maxBoxSizeFromOption(orderBox.widthCmSupplier)}
+              error={
+                Number(orderBox.widthCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
+              }
               value={orderBox.widthCmSupplier}
               onChange={setFormField('widthCmSupplier', orderBoxIndex)}
             />
@@ -69,7 +62,9 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box height'])}
-              error={Number(orderBox.heightCmSupplier) === 0 || maxBoxSizeFromOption(orderBox.heightCmSupplier)}
+              error={
+                Number(orderBox.heightCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
+              }
               value={orderBox.heightCmSupplier}
               onChange={setFormField('heightCmSupplier', orderBoxIndex)}
             />
