@@ -37,12 +37,11 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
     fullWidthButton,
     onClickCancelTask,
   } = props
-  const { classes: styles, cx } = useStyles({
-    fullWidthButton,
-  })
+  const { classes: styles, cx } = useStyles()
+
+  const buttonStyle = cx(styles.button, { [styles.fullWidthButton]: fullWidthButton })
 
   const showCancelButton = isShowCancelButton && operationType !== TaskOperationType.RECEIVE
-  console.log(fullWidthButton)
   return (
     <div className={styles.wrapper}>
       <Button
@@ -50,7 +49,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
         tooltipInfoContent={isFirstRow ? tooltipText : ''}
         variant="contained"
         color="primary"
-        className={cx(styles.button)}
+        className={buttonStyle}
         onClick={onClickOkBtn}
       >
         {bTnText}
@@ -62,7 +61,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
-          className={cx(styles.button)}
+          className={buttonStyle}
           onClick={() => (onClickCancelTask ? onClickCancelTask(boxId, rowId, operationType) : undefined)}
         >
           {t(TranslationKey.Cancel)}

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles<{ fullWidthButton?: boolean }>()((_, { fullWidthButton }) => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: '100%',
     height: '100%',
@@ -12,7 +12,10 @@ export const useStyles = makeStyles<{ fullWidthButton?: boolean }>()((_, { fullW
   },
   button: {
     height: 30,
-    width: fullWidthButton ? '100%' : 'auto',
+    width: 'auto',
     maxWidth: '100%',
+  },
+  fullWidthButton: {
+    width: '100%',
   },
 }))
