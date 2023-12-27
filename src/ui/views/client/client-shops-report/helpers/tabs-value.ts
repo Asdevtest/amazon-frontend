@@ -1,8 +1,7 @@
 export enum tabsValues {
-  SHOPS = 'SHOPS',
-  STOCK_REPORT = 'STOCK_REPORT',
-  GOODS_DAYS_REPORT = 'GOODS_DAYS_REPORT',
-  INVENTORY = 'INVENTORY',
-  PPC = 'PPC',
-  INVENTORY_SHIPMENTS = 'INVENTORY_SHIPMENTS',
+  STOCK_REPORT = 'sellerboardWarehouseEveryDay',
+  GOODS_DAYS_REPORT = 'sellerboardLast30Days',
+  INVENTORY = 'inventory',
+  PPC = 'ppcSalesWeeks',
+  INVENTORY_SHIPMENTS = 'inventoryShipments',
 }

@@ -11,14 +11,14 @@ import { useStyles } from './controll-buttons.style'
 interface СontrollButtonsProps {
   selectedRows: string[]
   onClickMoveGoodsToInventory: () => void
-  onClickBindStockGoodsToInventoryBtn: () => void
+  onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
 }
 
 export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { selectedRows, onClickMoveGoodsToInventory, onClickBindStockGoodsToInventoryBtn, onClickDeleteBtn } = props
+  const { selectedRows, onClickMoveGoodsToInventory, onClickBindStockGoodsToInventory, onClickDeleteBtn } = props
 
   const noSelectedRows = !selectedRows?.length
 
@@ -29,7 +29,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button disabled={noSelectedRows} variant="contained" onClick={onClickBindStockGoodsToInventoryBtn}>
+        <Button disabled={noSelectedRows} variant="contained" onClick={onClickBindStockGoodsToInventory}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>

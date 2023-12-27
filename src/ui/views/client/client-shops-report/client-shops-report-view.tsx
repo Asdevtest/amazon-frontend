@@ -42,12 +42,8 @@ export const ClientShopsReportView = observer(() => {
       <ControllButtons
         selectedRows={viewModel.selectedRows}
         onClickMoveGoodsToInventory={() => viewModel.moveGoodsToInventoryHandler()}
-        onClickBindStockGoodsToInventoryBtn={() => {
-          throw new Error('Function not implemented.')
-        }}
-        onClickDeleteBtn={() => {
-          throw new Error('Function not implemented.')
-        }}
+        onClickBindStockGoodsToInventory={() => viewModel.bindStockGoodsToInventoryHandler()}
+        onClickDeleteBtn={() => viewModel.deleteReportHandler()}
       />
 
       <div className={styles.tabledWrapper}>

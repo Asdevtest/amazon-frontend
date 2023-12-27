@@ -60,7 +60,7 @@ export class ModalsModel extends DefaultModel {
     })
   }
 
-  onTriggerOpenModal(modalName: keyof ModalsModel, value?: boolean) {
+  onTriggerOpenModal(modalName: keyof IListOfModals, value?: boolean) {
     if (value) {
       // @ts-ignore
       this[modalName] = value

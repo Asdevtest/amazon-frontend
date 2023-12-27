@@ -81,6 +81,14 @@ class SellerBoardModelStatic {
     const response = await restApiService.integrationsApi.apiV1IntegrationsReportInventoryShipmentsGet(options)
     return response.data
   }
+
+  deleteIntegrationsReport = async (table, reportIds) => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsRowsFromReportDelete({
+      table,
+      body: { reportIds },
+    })
+    return response.data
+  }
 }
 
 export const SellerBoardModel = new SellerBoardModelStatic()

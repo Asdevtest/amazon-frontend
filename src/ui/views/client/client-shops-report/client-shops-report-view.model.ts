@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, computed, makeObservable, observable } from 'mobx'
 
@@ -5,6 +7,10 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
+
+import { getPropertiesToObject } from '@utils/object'
+
+import { IListOfModals } from '@typings/data-grid'
 
 import { getClassParams } from './helpers/get-class-params'
 import { tabsValues } from './helpers/tabs-value'
@@ -19,7 +25,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   constructor(currentTabsValues: tabsValues) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
+    super(
+      getMainDataMethod,
+      columnsModel(),
+      filtersFields,
+      mainMethodURL,
+      undefined,
+      undefined,
+      getPropertiesToObject(['showBindStockGoodsToInventoryModal']) as IListOfModals,
+    )
 
     makeObservable(this, {
       _tabKey: observable,
@@ -73,36 +87,22 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async bindStockGoodsToInventoryHandler() {
+  async deleteReportHandler() {
     try {
       this.requestStatus = loadingStatuses.isLoading
 
-      const requestBody = []
+      await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
 
-      for (const row of this.selectedRows) {
-        const selectedRow = this.tableData?.find(item => item._id === row)
-
-        if (selectedRow) {
-          requestBody.push({
-            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            warehouseStocks: [
-              {
-                shopId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-                sku: 'string',
-              },
-            ],
-          })
-        }
-      }
-
-      console.log(requestBody)
-
-      // await SellerBoardModel.bindStockProductsBySku(requestBody)
+      await this.getMainTableData()
 
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       console.log(error)
     }
+  }
+
+  async bindStockGoodsToInventoryHandler() {
+    this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
   }
 }
