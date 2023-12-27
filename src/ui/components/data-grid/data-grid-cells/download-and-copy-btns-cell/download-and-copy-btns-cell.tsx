@@ -27,8 +27,8 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
     <>
       {value ? (
         <div className={styles.shopsReportBtnsWrapper}>
-          <div className={cx({ [styles.tooltipWrapperMargin]: isFirstRow })}>
-            <Text tooltipInfoContent={isFirstRow ? t(TranslationKey['Download the file to your device']) : ''}>
+          <div>
+            <Text>
               <a
                 download
                 target={'_blank'}
