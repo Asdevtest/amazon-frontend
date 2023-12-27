@@ -1,4 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -19,7 +20,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -30,7 +31,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
     width: 150,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -45,7 +46,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     width: 185,
     sortable: false,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
@@ -57,7 +58,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
     width: 250,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -69,7 +70,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
     minWidth: 80,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.DATE,
   },
   {
@@ -79,7 +80,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
@@ -89,7 +90,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
@@ -99,7 +100,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
 
-    table: 'sellerboardLast30Days',
+    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]

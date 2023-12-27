@@ -1,6 +1,7 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -20,7 +21,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -35,7 +36,7 @@ export const clientInventoryReportColumns = () => [
     width: 185,
     sortable: false,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
@@ -46,7 +47,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -57,7 +58,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -68,7 +69,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -79,7 +80,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -90,7 +91,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -101,7 +102,7 @@ export const clientInventoryReportColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
 
-    table: 'inventory',
+    table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]

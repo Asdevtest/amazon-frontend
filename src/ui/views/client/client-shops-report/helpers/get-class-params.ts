@@ -17,28 +17,28 @@ export const getClassParams = (currentShopReport: tabsValues): any => {
       return {
         getMainDataMethod: SellerBoardModel.getStockGoods,
         columnsModel: clientDailySellerBoardColumns,
-        filtersFields: getFilterFields(clientDailySellerBoardColumns()),
+        filtersFields: getFilterFields(clientDailySellerBoardColumns(), ['sku']),
         mainMethodURL: 'integrations/sellerboard_warehouse_stocks',
       }
     case tabsValues.GOODS_DAYS_REPORT:
       return {
         getMainDataMethod: SellerBoardModel.getMyDailyReportsLast30Days,
         columnsModel: clientLast30DaySellerBoardColumns,
-        filtersFields: [...getFilterFields(clientLast30DaySellerBoardColumns()), 'sku'],
+        filtersFields: getFilterFields(clientLast30DaySellerBoardColumns(), ['sku']),
         mainMethodURL: 'integrations/sellerboard_dashboard_products_days_reports_last_30_days',
       }
     case tabsValues.INVENTORY:
       return {
         getMainDataMethod: SellerBoardModel.getIntegrationsReportInventory,
         columnsModel: clientInventoryReportColumns,
-        filtersFields: [...getFilterFields(clientInventoryReportColumns()), 'sku'],
+        filtersFields: getFilterFields(clientInventoryReportColumns(), ['sku']),
         mainMethodURL: 'integrations/report_inventory',
       }
     case tabsValues.PPC:
       return {
         getMainDataMethod: SellerBoardModel.getIntegrationsReportPpcSalesWeeks,
         columnsModel: clientPPCSalesWeekColumns,
-        filtersFields: [...getFilterFields(clientPPCSalesWeekColumns()), 'sku'],
+        filtersFields: getFilterFields(clientPPCSalesWeekColumns(), ['sku']),
         mainMethodURL: 'integrations/report_ppc_sales_weeks',
       }
     case tabsValues.INVENTORY_SHIPMENTS:

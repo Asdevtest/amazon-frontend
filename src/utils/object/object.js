@@ -125,5 +125,5 @@ export const getPropertiesToObject = properties => {
   for (const prop of properties) {
     template[prop] = false
   }
-  return template || undefined
+  return template
 }

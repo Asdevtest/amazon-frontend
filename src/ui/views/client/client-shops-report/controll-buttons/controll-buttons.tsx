@@ -8,24 +8,24 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './controll-buttons.style'
 
-interface IControllButtonsProps {
+interface СontrollButtonsProps {
   selectedRows: string[]
-  onSubmitMoveToInventoryGoods: () => void
+  onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventoryBtn: () => void
   onClickDeleteBtn: () => void
 }
 
-export const ControllButtons: FC<IControllButtonsProps> = memo(props => {
+export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { selectedRows, onSubmitMoveToInventoryGoods, onClickBindStockGoodsToInventoryBtn, onClickDeleteBtn } = props
+  const { selectedRows, onClickMoveGoodsToInventory, onClickBindStockGoodsToInventoryBtn, onClickDeleteBtn } = props
 
   const noSelectedRows = !selectedRows?.length
 
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button disabled={noSelectedRows} variant="contained" onClick={onSubmitMoveToInventoryGoods}>
+        <Button disabled={noSelectedRows} variant="contained" onClick={onClickMoveGoodsToInventory}>
           {t(TranslationKey['Move to inventory'])}
         </Button>
 

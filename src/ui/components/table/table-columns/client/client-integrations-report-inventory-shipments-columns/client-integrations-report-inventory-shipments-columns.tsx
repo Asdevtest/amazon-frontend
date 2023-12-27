@@ -1,6 +1,7 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -20,7 +21,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -35,7 +36,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     width: 185,
     sortable: false,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -46,7 +47,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 143,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -57,7 +58,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 108,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -68,7 +69,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -79,7 +80,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -90,7 +91,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -101,7 +102,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -112,7 +113,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -123,7 +124,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
     width: 155,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -134,7 +135,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -145,7 +146,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
 
-    table: 'inventoryShipments',
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]
