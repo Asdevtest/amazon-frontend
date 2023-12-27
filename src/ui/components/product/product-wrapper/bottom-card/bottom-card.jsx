@@ -43,7 +43,7 @@ export const BottomCard = observer(
     return (
       <>
         <Grid container spacing={2}>
-          <Grid item sm={7} xs={12}>
+          <Grid item sm={12} md={7} xs={12}>
             <Paper className={classNames.cardPadding}>
               <Typography className={classNames.title}>
                 {t(TranslationKey['Product information']).toUpperCase()}
@@ -56,7 +56,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 12 }}
                     containerClasses={classNames.infoContainer}
                     inputClasses={classNames.infoInput}
-                    label={t(TranslationKey['Amazon price'])+', $'}
+                    label={t(TranslationKey['Amazon price']) + ', $'}
                     // error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
                     value={product.amazon === 0 ? 0 : product.amazon || ''}
                     onChange={onChangeField('amazon')}
@@ -253,7 +253,7 @@ export const BottomCard = observer(
               />
             </Paper>
           </Grid>
-          <Grid item sm={5} xs={12}>
+          <Grid item sm={12} md={5} xs={12}>
             <Paper className={classNames.cardPadding}>
               <Typography className={classNames.title}>
                 {t(TranslationKey['Product description']).toUpperCase()}

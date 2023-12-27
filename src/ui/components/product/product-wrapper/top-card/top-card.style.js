@@ -163,6 +163,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '48%',
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   card: {
@@ -175,6 +178,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     gap: 30,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+    },
   },
 
   variationWrapper: {

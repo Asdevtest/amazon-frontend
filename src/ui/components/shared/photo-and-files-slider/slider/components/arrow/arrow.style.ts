@@ -6,14 +6,18 @@ export const useStyles = makeStyles()(theme => ({
     height: '30px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
+    zIndex: 20,
   },
 
   leftArrow: {
-    left: '20px',
+    left: '0',
   },
   rightArrow: {
-    right: '20px',
+    right: '0',
   },
 
   arrowIconDisable: {

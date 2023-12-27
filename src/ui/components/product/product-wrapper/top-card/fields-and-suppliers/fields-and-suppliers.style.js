@@ -6,6 +6,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '20px',
     fontWeight: '600',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+    },
   },
 
   hsFieldContainer: {
@@ -221,12 +224,19 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1440)]: {
+      flexWrap: 'wrap',
+    },
   },
   copyLink: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    width: '100%',
+    width: '75%',
+    [theme.breakpoints.down(1440)]: {
+      width: '100%',
+      marginBottom: '20px',
+    },
   },
 
   subUsersBodyWrapper: {
