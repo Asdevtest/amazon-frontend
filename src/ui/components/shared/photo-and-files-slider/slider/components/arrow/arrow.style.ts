@@ -15,9 +15,15 @@ export const useStyles = makeStyles()(theme => ({
 
   leftArrow: {
     left: '0',
+    [theme.breakpoints.down(520)]: {
+      left: '-30px',
+    },
   },
   rightArrow: {
     right: '0',
+    [theme.breakpoints.down(520)]: {
+      right: '-30px',
+    },
   },
 
   arrowIconDisable: {
