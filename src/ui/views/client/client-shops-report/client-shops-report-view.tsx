@@ -14,7 +14,7 @@ import { t } from '@utils/translations'
 import { useStyles } from './client-shops-report-view.style'
 
 import { ClientShopsViewModel } from './client-shops-report-view.model'
-import { ControllButtons } from './components/controll-buttons/controll-buttons'
+import { ControllButtons } from './controll-buttons/controll-buttons'
 import { tabsValues } from './helpers/tabs-value'
 
 export const ClientShopsReportView = observer(() => {
@@ -61,7 +61,7 @@ export const ClientShopsReportView = observer(() => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          getRowHeight={() => 90}
+          getRowHeight={() => 'auto'}
           slotProps={{
             columnMenu: viewModel.columnMenuSettings,
             baseTooltip: {
