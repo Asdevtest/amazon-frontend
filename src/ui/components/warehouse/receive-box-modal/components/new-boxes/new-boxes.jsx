@@ -128,7 +128,8 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                      [styles.error]:
+                        !item.widthCmWarehouse || item.widthCmWarehouse === '0' || +item.widthCmWarehouse > 120,
                     }),
                     input: styles.input,
                   }}
@@ -137,12 +138,14 @@ export const NewBoxes = memo(
                   onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
                 />
               </div>
+              {console.log(1111111111)}
               <div className={styles.sizeWrapper}>
                 <Typography className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                      [styles.error]:
+                        !item.heightCmWarehouse || item.heightCmWarehouse === '0' || +item.heightCmWarehouse > 120,
                     }),
                     input: styles.input,
                   }}

@@ -3,7 +3,12 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import {
+  inchesCoefficient,
+  maxLengthInputInSizeBox,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -339,12 +344,29 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
-    const disableSubmit =
-      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
-        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
-        boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+    const maxBoxSizeFromOption = () => {
+      const maxValue =
+        sizeSetting === unitsOfChangeOptions.US
+          ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
+          : maxLengthInputInSizeBox
+      if (
+        boxFields.lengthCmWarehouse > maxValue ||
+        boxFields.widthCmWarehouse > maxValue ||
+        boxFields.heightCmWarehouse > maxValue
+      ) {
+        return true
+      }
+      return false
+    }
 
+    const disableSubmit =
+      JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
+        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
+      boxFields.storekeeperId === '' ||
+      maxBoxSizeFromOption()
+    !imagesOfBox.length
+
+    console.log(boxFields)
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,

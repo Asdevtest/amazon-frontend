@@ -3,6 +3,7 @@ import { memo } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -97,7 +98,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                  [styles.error]:
+                    !item.lengthCmWarehouse ||
+                    item.lengthCmWarehouse === '0' ||
+                    item.lengthCmWarehouse > maxLengthInputInSizeBox,
                 }),
                 input: styles.input,
               }}
@@ -112,7 +116,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                  [styles.error]:
+                    !item.widthCmWarehouse ||
+                    item.widthCmWarehouse === '0' ||
+                    item.widthCmWarehouse > maxLengthInputInSizeBox,
                 }),
                 input: styles.input,
               }}
@@ -126,7 +133,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                  [styles.error]:
+                    !item.heightCmWarehouse ||
+                    item.heightCmWarehouse === '0' ||
+                    item.heightCmWarehouse > maxLengthInputInSizeBox,
                 }),
                 input: styles.input,
               }}

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FC } from 'react'
 
+import { inchesCoefficient, maxLengthInputInSizeBox, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
@@ -16,18 +17,32 @@ interface WarehouseDemensionsProps {
   orderBox: IOrderBox
   volumeWeightCoefficient: number
   setFormField: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
+  sizeSetting: string
 }
 
 export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
-  ({ orderBox, volumeWeightCoefficient, setFormField }) => {
+  ({ orderBox, volumeWeightCoefficient, setFormField, sizeSetting }) => {
     const { classes: styles } = useStyles()
+
+    const maxBoxSizeFromOption = (length: number) => {
+      const maxValue =
+        sizeSetting === unitsOfChangeOptions.US
+          ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
+          : maxLengthInputInSizeBox
+      if (length > maxValue) {
+        return true
+      }
+      return false
+    }
 
     return (
       <div className={styles.numberInputFieldsBlocksWrapper}>
         <div className={styles.numberInputFieldsWrapper}>
           <Field
             inputProps={{ maxLength: 6 }}
-            error={Number(orderBox.lengthCmWarehouse) === 0 && true}
+            error={
+              (Number(orderBox.lengthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(orderBox.lengthCmWarehouse)
+            }
             containerClasses={styles.numberInputField}
             labelClasses={styles.label}
             label={t(TranslationKey.Length) + ': '}
@@ -37,7 +52,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
 
           <Field
             inputProps={{ maxLength: 6 }}
-            error={Number(orderBox.widthCmWarehouse) === 0 && true}
+            error={(Number(orderBox.widthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(orderBox.widthCmWarehouse)}
             containerClasses={styles.numberInputField}
             labelClasses={styles.label}
             label={t(TranslationKey.Width) + ': '}
@@ -48,7 +63,9 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
         <div className={styles.numberInputFieldsWrapper}>
           <Field
             inputProps={{ maxLength: 6 }}
-            error={Number(orderBox.heightCmWarehouse) === 0 && true}
+            error={
+              (Number(orderBox.heightCmWarehouse) === 0 && true) || maxBoxSizeFromOption(orderBox.heightCmWarehouse)
+            }
             labelClasses={styles.label}
             containerClasses={styles.numberInputField}
             label={t(TranslationKey.Height) + ': '}

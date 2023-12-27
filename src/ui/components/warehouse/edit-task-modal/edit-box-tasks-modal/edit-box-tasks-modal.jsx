@@ -6,6 +6,7 @@ import { Typography } from '@mui/material'
 import {
   getConversion,
   inchesCoefficient,
+  maxLengthInputInSizeBox,
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
@@ -24,16 +25,25 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) => {
+const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
 
+  const maxBoxSizeFromOption = length => {
+    const maxValue =
+      sizeSetting === unitsOfChangeOptions.US
+        ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
+        : maxLengthInputInSizeBox
+    if (length > maxValue) {
+      return true
+    }
+    return false
+  }
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          error={(Number(box.lengthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(box.lengthCmWarehouse)}
           inputProps={{ maxLength: 6 }}
-          error={Number(box.lengthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
@@ -43,9 +53,8 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
 
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.heightCmWarehouse) === 0 && true}
+          error={(Number(box.heightCmWarehouse) === 0 && true) || maxBoxSizeFromOption(box.heightCmWarehouse)}
           labelClasses={classNames.label}
-          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={toFixed(box.heightCmWarehouse, 2)}
@@ -64,8 +73,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.widthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
+          error={(Number(box.widthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(box.widthCmWarehouse)}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
@@ -223,12 +231,27 @@ export const EditBoxTasksModal = ({
     }
   }
 
+  const maxBoxSizeFromOption = () => {
+    const maxValue =
+      sizeSetting === unitsOfChangeOptions.US
+        ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
+        : maxLengthInputInSizeBox
+    if (
+      editingBox.lengthCmWarehouse > maxValue ||
+      editingBox.widthCmWarehouse > maxValue ||
+      editingBox.heightCmWarehouse > maxValue
+    ) {
+      return true
+    }
+    return false
+  }
   const disabledSubmit =
     !Number(editingBox.lengthCmWarehouse) ||
     !Number(editingBox.widthCmWarehouse) ||
     !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse)
-
+    !Number(editingBox.weighGrossKgWarehouse) ||
+    maxBoxSizeFromOption()
+  console.log('disableSubmit', disabledSubmit)
   return (
     <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>
