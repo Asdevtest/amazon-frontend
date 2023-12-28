@@ -182,6 +182,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
+          showViewTooltip={false}
           value={params.value}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
