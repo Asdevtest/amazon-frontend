@@ -16,8 +16,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
 
-import { IListOfModals } from '@typings/data-grid'
-
 export class DataGridTableModel extends ModalsModel {
   _requestStatus: loadingStatuses = loadingStatuses.success
 
@@ -112,10 +110,9 @@ export class DataGridTableModel extends ModalsModel {
     getMainDataMethod: (...args: any) => any,
     columnsModel: GridColDef[],
     history?: History,
-    listOfModals?: IListOfModals,
     tableKey?: string,
   ) {
-    super(history, listOfModals)
+    super(history)
 
     this._getMainDataMethod = getMainDataMethod
     this._columnsModel = columnsModel

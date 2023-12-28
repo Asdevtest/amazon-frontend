@@ -11,10 +11,7 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/d
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { getPropertiesToObject } from '@utils/object'
 import { t } from '@utils/translations'
-
-import { IListOfModals } from '@typings/data-grid'
 
 import { getClassParams } from './helpers/get-class-params'
 import { tabsValues } from './helpers/tabs-value'
@@ -33,25 +30,37 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this._inventoryProducts = inventoryProducts
   }
 
+  _showBindStockGoodsToInventoryModal = false
+  get showBindStockGoodsToInventoryModal() {
+    return this._showBindStockGoodsToInventoryModal
+  }
+  set showBindStockGoodsToInventoryModal(showBindStockGoodsToInventoryModal) {
+    this._showBindStockGoodsToInventoryModal = showBindStockGoodsToInventoryModal
+  }
+
+  _showWarningInfoModal = false
+  get showWarningInfoModal() {
+    return this._showWarningInfoModal
+  }
+  set showWarningInfoModal(showWarningInfoModal) {
+    this._showWarningInfoModal = showWarningInfoModal
+  }
+
   constructor(currentTabsValues: tabsValues) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
 
-    super(
-      getMainDataMethod,
-      columnsModel(),
-      filtersFields,
-      mainMethodURL,
-      undefined,
-      undefined,
-      getPropertiesToObject(['showBindStockGoodsToInventoryModal', 'showWarningInfoModal']) as IListOfModals,
-    )
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
 
     makeObservable(this, {
       _tabKey: observable,
       _inventoryProducts: observable,
+      _showBindStockGoodsToInventoryModal: observable,
+      _showWarningInfoModal: observable,
 
       tabKey: computed,
       inventoryProducts: computed,
+      showBindStockGoodsToInventoryModal: computed,
+      showWarningInfoModal: computed,
 
       changeTabHandler: action.bound,
       moveGoodsToInventoryHandler: action.bound,
@@ -99,6 +108,17 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       await SellerBoardModel.createAndLinkSkuProducts({ payload: requestBody })
 
       this.requestStatus = loadingStatuses.success
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey.Created),
+          buttonText: t(TranslationKey.Ok),
+          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
       console.log(error)

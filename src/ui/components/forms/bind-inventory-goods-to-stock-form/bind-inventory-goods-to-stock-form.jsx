@@ -160,6 +160,8 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         <div className={classNames.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
+            sortingMode="client"
+            paginationMode="client"
             rows={toJS(stockData)}
             rowCount={stockData?.length}
             columns={sourceColumns()}
@@ -185,7 +187,13 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
+          <CustomDataGrid
+            sortingMode="client"
+            paginationMode="client"
+            rows={chosenGoods || []}
+            columns={chosenGoodsColumns({ onClickTrash })}
+            rowHeight={60}
+          />
         </div>
 
         <div className={classNames.btnsWrapper}>

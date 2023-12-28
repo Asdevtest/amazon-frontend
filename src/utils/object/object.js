@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+
 /* eslint-disable no-prototype-builtins */
 import { isNull, isUndefined } from '@utils/checks'
 
@@ -118,12 +120,4 @@ export const getSumPropertiesObject = object => {
   }
 
   return result
-}
-
-export const getPropertiesToObject = properties => {
-  const template = {}
-  for (const prop of properties) {
-    template[prop] = false
-  }
-  return template
 }

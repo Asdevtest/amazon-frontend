@@ -1545,7 +1545,7 @@ export class ClientInventoryViewModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
       console.log(error)

@@ -13,8 +13,6 @@ import { GeneralModel } from '@models/general-model'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
-import { IListOfModals } from '@typings/data-grid'
-
 export class DataGridFilterTableModel extends DataGridTableModel {
   _filtersFields: string[]
   get filtersFields() {
@@ -67,16 +65,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     mainMethodURL: string,
     fieldsForSearch?: string[],
     history?: History,
-    listOfModals?: IListOfModals,
     tableKey?: string,
   ) {
-    super(getMainDataMethod, columnsModel, history, listOfModals, tableKey)
+    super(getMainDataMethod, columnsModel, history, tableKey)
 
     this.setColumnMenuSettings(filtersFields)
     this._filtersFields = filtersFields
     this._mainMethodURL = mainMethodURL
 
-    if (fieldsForSearch) this._fieldsForSearch = fieldsForSearch
+    if (fieldsForSearch) {
+      this._fieldsForSearch = fieldsForSearch
+    }
 
     makeObservable(this, {
       _filtersFields: observable,
