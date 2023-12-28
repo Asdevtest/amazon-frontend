@@ -17,7 +17,7 @@ import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
 
 export class DataGridTableModel extends ModalsModel {
-  _requestStatus: loadingStatuses = loadingStatuses.success
+  _requestStatus: loadingStatuses = loadingStatuses.SUCCESS
 
   _rowCount = 0
   _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
@@ -214,7 +214,7 @@ export class DataGridTableModel extends ModalsModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.requestStatus = loadingStatuses.IS_LOADING
 
       const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions)
 
@@ -223,12 +223,12 @@ export class DataGridTableModel extends ModalsModel {
         this.rowCount = result?.count
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
 
       return result
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.failed
+      this.requestStatus = loadingStatuses.FAILED
     }
   }
 }

@@ -162,7 +162,7 @@ export const RedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>

@@ -148,7 +148,7 @@ export class ShopsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await this.getShops()
@@ -157,9 +157,9 @@ export class ShopsViewModel {
         this.selectedShopFilters = this.shopsData
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -179,10 +179,10 @@ export class ShopsViewModel {
 
   async updateShops() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await ClientModel.updateShops(this.rowSelectionModel)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -202,19 +202,19 @@ export class ShopsViewModel {
         }
       })
       this.onTriggerOpenModal('showWarningModal')
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async removeShopById() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ShopModel.removeShopById(this.selectedShop._id)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

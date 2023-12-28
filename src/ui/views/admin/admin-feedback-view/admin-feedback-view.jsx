@@ -44,7 +44,7 @@ export const AdminFeedbackView = observer(({ history }) => {
           rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
           rows={viewModel.getCurrentData()}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

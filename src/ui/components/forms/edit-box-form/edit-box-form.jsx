@@ -230,7 +230,7 @@ export const EditBoxForm = memo(
 
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&

@@ -48,7 +48,7 @@ export const ClientShopsView = observer(props => {
         </Button>
 
         <Button
-          disabled={!viewModel.rowSelectionModel.length || viewModel.requestStatus === loadingStatuses.isLoading}
+          disabled={!viewModel.rowSelectionModel.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onClick={viewModel.updateShops}
         >
           {t(TranslationKey.Update)}
@@ -105,7 +105,7 @@ export const ClientShopsView = observer(props => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           rowSelectionModel={viewModel.rowSelectionModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}

@@ -180,7 +180,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.isLoading ? (
+          {requestStatus === loadingStatuses.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : curIdea ? (
             <IdeaViewAndEditCard
@@ -227,7 +227,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {!isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.isLoading ? (
+          {requestStatus === loadingStatuses.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : currentData?.length ? (
             currentData.map(idea => (

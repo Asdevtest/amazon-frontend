@@ -146,13 +146,13 @@ export class ResearcherProductsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
       await this.getPropductsVacant()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -225,18 +225,18 @@ export class ResearcherProductsViewModel {
 
   async createProduct(product) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setActionStatus(loadingStatuses.IS_LOADING)
 
       const response = await ResearcherModel.createProduct(product)
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setActionStatus(loadingStatuses.SUCCESS)
       runInAction(() => {
         this.formFields = formFieldsDefault
         this.newProductId = response.guid
       })
       await this.loadData()
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      this.setActionStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -278,17 +278,17 @@ export class ResearcherProductsViewModel {
 
   async checkProductExists() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setActionStatus(loadingStatuses.IS_LOADING)
       const checkProductExistResult = await ResearcherModel.checkProductExists(
         this.formFields.productCode,
         this.formFields.strategyStatus,
       )
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setActionStatus(loadingStatuses.SUCCESS)
       return checkProductExistResult
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      this.setActionStatus(loadingStatuses.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message

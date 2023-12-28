@@ -19,7 +19,7 @@ import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 export const AdminOrdersViews = observer(({ history }) => {
   const { classes: classNames } = useStyles()
   const [viewModel] = useState(() => new AdminOrdersAllViewModel({ history }))
-  
+
   useEffect(() => {
     viewModel.getOrdersByStatus(viewModel.activeSubCategory)
   }, [])
@@ -72,7 +72,7 @@ export const AdminOrdersViews = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection[0])}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

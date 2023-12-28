@@ -1,3 +1,5 @@
+// Значение должно быть равно названию таблицы в базе данных
+
 export enum DataGridFilterTables {
   SELLERBOARD_WAREHOUSE_EVERY_DAY = 'sellerboardWarehouseEveryDay',
   SELLERBOARD_LAST_30_DAYS = 'sellerboardLast30Days',

@@ -288,14 +288,14 @@ export class WarehouseSentBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
       runInAction(() => {
         this.batches = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -378,7 +378,7 @@ export class WarehouseSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -396,9 +396,9 @@ export class WarehouseSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

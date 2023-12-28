@@ -103,7 +103,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -249,7 +249,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.requestStatus === loadingStatuses.isLoading && (
+      {viewModel.requestStatus === loadingStatuses.IS_LOADING && (
         <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
       )}
     </>

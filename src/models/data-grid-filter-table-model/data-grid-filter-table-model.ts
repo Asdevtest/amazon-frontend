@@ -107,7 +107,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
-      filterRequestStatus: loadingStatuses.success,
+      filterRequestStatus: loadingStatuses.SUCCESS,
 
       ...dataGridFiltersInitializer(filtersFields),
     }
@@ -170,7 +170,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.requestStatus = loadingStatuses.IS_LOADING
 
       const result = await this.getMainDataMethod(
         options || {
@@ -191,12 +191,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.rowCount = result?.count
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
 
       return result
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.failed
+      this.requestStatus = loadingStatuses.FAILED
     }
   }
 }

@@ -76,7 +76,7 @@ export const ResearcherAddProductFormRaw = observer(
                 ) : null}
               </Alert>
             ) : undefined}
-            {!errorMsg && actionStatus === loadingStatuses.success ? (
+            {!errorMsg && actionStatus === loadingStatuses.SUCCESS ? (
               <Alert className={classNames.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>

@@ -226,7 +226,7 @@ export class SupervisorProductsViewModel {
   }
 
   async getProductsMy() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     try {
       const ordered =
         this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
@@ -250,9 +250,9 @@ export class SupervisorProductsViewModel {
         this.productsMy = supervisorProductsDataConverter(result.rows)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       if (error.body && error.body.message) {
         runInAction(() => {
@@ -397,7 +397,7 @@ export class SupervisorProductsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
       const ordered =
         this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
           ? null
@@ -418,9 +418,9 @@ export class SupervisorProductsViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
       runInAction(() => {

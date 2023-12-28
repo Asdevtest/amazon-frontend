@@ -83,7 +83,7 @@ export class ClientOrderViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getStorekeepers()
       await this.getDestinations()
@@ -91,9 +91,9 @@ export class ClientOrderViewModel {
       await this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -105,7 +105,7 @@ export class ClientOrderViewModel {
         this.destinations = destinations
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -117,7 +117,7 @@ export class ClientOrderViewModel {
         this.storekeepers = storekeepers
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

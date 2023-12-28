@@ -256,7 +256,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
                 },
               },
             }}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             columns={viewModel.columnsModel}
             rowCount={viewModel.rowsCount}
             onRowHover={viewModel.onHover}

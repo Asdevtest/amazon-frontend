@@ -660,7 +660,7 @@ export const CreatedByMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -811,7 +811,7 @@ export const ObJectFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -965,7 +965,7 @@ export const IdeaShopsFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1208,7 +1208,7 @@ export const NormalFieldMenuItem = React.memo(
           </div>
 
           <div className={classNames.universalFilterBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1590,7 +1590,7 @@ export const ProductMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1739,7 +1739,7 @@ export const OrderOrItemMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1909,7 +1909,7 @@ export const DestinationMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -2050,7 +2050,7 @@ export const FromToDateMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2369,7 +2369,7 @@ export const NumberFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2573,7 +2573,7 @@ export const InStockMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -3135,7 +3135,7 @@ export const SecondsCellMenuItem = React.memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>

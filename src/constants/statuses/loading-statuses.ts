@@ -1,5 +1,5 @@
 export enum loadingStatuses {
-  isLoading = 'isLoading',
-  success = 'success',
-  failed = 'failed',
+  IS_LOADING = 'IS_LOADING',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
 }

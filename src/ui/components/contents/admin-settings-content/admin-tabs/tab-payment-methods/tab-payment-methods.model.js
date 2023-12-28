@@ -36,13 +36,13 @@ export class AdminSettingsPaymentMethodsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getPaymentMethods()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -52,7 +52,7 @@ export class AdminSettingsPaymentMethodsModel {
 
   async getPaymentMethods() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await SupplierModel.getSuppliersPaymentMethods()
 
@@ -60,15 +60,15 @@ export class AdminSettingsPaymentMethodsModel {
         this.paymentMethods = result
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async createPaymentMethod(paymentMethod) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
 
@@ -80,7 +80,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
@@ -88,13 +88,13 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async editPaymentMethod(id, paymentMethod) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await SupplierModel.editSuppliersPaymentMethod(id, paymentMethod)
 
@@ -106,7 +106,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
@@ -114,13 +114,13 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemovePaymentMethod(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.removePaymentMethod(id)
 
@@ -128,9 +128,9 @@ export class AdminSettingsPaymentMethodsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

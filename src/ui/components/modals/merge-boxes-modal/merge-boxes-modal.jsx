@@ -198,7 +198,7 @@ export const MergeBoxesModal = ({
   const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0]?.storekeeper._id)
 
   const disabledSubmit =
-    requestStatus === loadingStatuses.isLoading ||
+    requestStatus === loadingStatuses.IS_LOADING ||
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
@@ -506,7 +506,7 @@ export const MergeBoxesModal = ({
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            disabled={requestStatus === loadingStatuses.isLoading}
+            disabled={requestStatus === loadingStatuses.IS_LOADING}
             variant="text"
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}

@@ -280,14 +280,14 @@ export class ClientAwaitingBatchesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getStorekeepers()
       this.getDataGridState()
       await this.getBatchesPagMy()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -539,7 +539,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -555,9 +555,9 @@ export class ClientAwaitingBatchesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

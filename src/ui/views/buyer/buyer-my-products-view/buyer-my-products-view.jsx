@@ -78,7 +78,7 @@ export const BuyerMyProductsViewRaw = props => {
             rowHeight={160}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

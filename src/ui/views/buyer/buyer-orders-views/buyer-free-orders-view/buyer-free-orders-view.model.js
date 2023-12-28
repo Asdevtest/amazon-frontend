@@ -135,7 +135,7 @@ export class BuyerFreeOrdersViewModel {
 
   async getOrdersVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await BuyerModel.getOrdersVacant()
 
@@ -145,14 +145,14 @@ export class BuyerFreeOrdersViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.ordersVacant = []
       })
       console.log(error)
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

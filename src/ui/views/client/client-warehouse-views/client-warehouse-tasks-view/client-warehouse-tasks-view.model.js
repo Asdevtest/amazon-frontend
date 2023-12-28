@@ -223,13 +223,13 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedBoxes.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedBoxes.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
@@ -241,15 +241,15 @@ export class ClientWarehouseTasksViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getStorekeepers(), this.getTasksMy()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -326,7 +326,7 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.paginationModel.pageSize,
@@ -346,7 +346,7 @@ export class ClientWarehouseTasksViewModel {
 
         this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {

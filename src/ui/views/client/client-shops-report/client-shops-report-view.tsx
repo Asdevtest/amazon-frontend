@@ -80,7 +80,7 @@ export const ClientShopsReportView = observer(() => {
           density={viewModel.densityModel}
           rows={viewModel.tableData}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           getRowId={({ _id }: { _id: string }) => _id}
           onRowSelectionModelChange={viewModel.onSelectionModel}

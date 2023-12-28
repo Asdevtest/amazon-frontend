@@ -126,7 +126,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
             density="compact"
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

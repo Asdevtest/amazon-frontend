@@ -132,7 +132,7 @@ export class BuyerProductViewModel {
 
   async getProductsVariations() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
@@ -140,16 +140,16 @@ export class BuyerProductViewModel {
         this.productVariations = result
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async getProductById() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductById(this.productId)
 
@@ -171,9 +171,9 @@ export class BuyerProductViewModel {
 
         this.getProductById()
       }
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -284,7 +284,7 @@ export class BuyerProductViewModel {
   }
   async onRemoveSupplier() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
 
@@ -301,10 +301,10 @@ export class BuyerProductViewModel {
       })
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -381,7 +381,7 @@ export class BuyerProductViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -425,17 +425,17 @@ export class BuyerProductViewModel {
 
   async onSaveProductData(updateDataHandler) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
       this.showSuccesAlert()
       updateDataHandler && (await updateDataHandler())
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -487,7 +487,7 @@ export class BuyerProductViewModel {
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.clearReadyImages()
 
@@ -535,11 +535,11 @@ export class BuyerProductViewModel {
 
       this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

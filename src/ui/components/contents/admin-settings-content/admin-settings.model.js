@@ -44,15 +44,15 @@ export class AdminSettingsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getAdminSettings()
 
       await this.getServerProxy()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -62,7 +62,7 @@ export class AdminSettingsModel {
 
   async getAdminSettings() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await AdministratorModel.getSettings()
 
@@ -71,15 +71,15 @@ export class AdminSettingsModel {
         this.prevFormFields = result?.dynamicSettings
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onCreateAdminSettings() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.setSettings(this.formFields)
 
@@ -95,7 +95,7 @@ export class AdminSettingsModel {
         this.isFormFieldsChanged = false
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The settings are not saved.'])
@@ -103,7 +103,7 @@ export class AdminSettingsModel {
 
       this.onClickToggleInfoModal()
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -150,7 +150,7 @@ export class AdminSettingsModel {
 
   async getServerProxy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await AdministratorModel.getProxy()
 
@@ -158,15 +158,15 @@ export class AdminSettingsModel {
         this.serverProxy = result
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onCreateProxy(proxy) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.createProxy(proxy)
 
@@ -178,7 +178,7 @@ export class AdminSettingsModel {
 
       this.getServerProxy()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])
@@ -186,7 +186,7 @@ export class AdminSettingsModel {
 
       this.onClickToggleInfoModal()
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
