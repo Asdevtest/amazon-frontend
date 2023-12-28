@@ -30,6 +30,15 @@ export const OrderBox = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
+    const isNormalLength =
+      !Number(orderBox.lengthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
+
+    const isNormalWidth =
+      !Number(orderBox.widthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
+
+    const isNormalHeight =
+      !Number(orderBox.heightCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
+
     return (
       <div className={classNames.numberInputFieldsBlocksWrapper}>
         <div className={classNames.numberInputFieldsBlocksSubWrapper}>
@@ -38,9 +47,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box length'])}
-              error={
-                Number(orderBox.lengthCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
-              }
+              error={Boolean(isNormalLength)}
               value={orderBox.lengthCmSupplier}
               onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
             />
@@ -49,9 +56,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box width'])}
-              error={
-                Number(orderBox.widthCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
-              }
+              error={Boolean(isNormalWidth)}
               value={orderBox.widthCmSupplier}
               onChange={setFormField('widthCmSupplier', orderBoxIndex)}
             />
@@ -62,9 +67,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box height'])}
-              error={
-                Number(orderBox.heightCmSupplier) === 0 || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
-              }
+              error={Boolean(isNormalHeight)}
               value={orderBox.heightCmSupplier}
               onChange={setFormField('heightCmSupplier', orderBoxIndex)}
             />

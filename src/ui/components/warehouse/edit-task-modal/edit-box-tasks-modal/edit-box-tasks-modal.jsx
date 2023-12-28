@@ -6,7 +6,6 @@ import { Typography } from '@mui/material'
 import {
   getConversion,
   inchesCoefficient,
-  maxLengthInputInSizeBox,
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
@@ -29,13 +28,16 @@ import { useClassNames } from './edit-box-tasks-modal.style'
 const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
 
+  const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
+
+  const isNormalWidth = !Number(box.widthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.widthCmWarehouse)
+
+  const isNormalHeight = !Number(box.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.heightCmWarehouse)
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          error={
-            (Number(box.lengthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
-          }
+          error={isNormalLength}
           inputProps={{ maxLength: 6 }}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
@@ -46,9 +48,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
 
         <Field
           inputProps={{ maxLength: 6 }}
-          error={
-            (Number(box.heightCmWarehouse) === 0 && true) || maxBoxSizeFromOption(sizeSetting, box.heightCmWarehouse)
-          }
+          error={isNormalHeight}
           labelClasses={classNames.label}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
@@ -68,9 +68,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           inputProps={{ maxLength: 6 }}
-          error={
-            (Number(box.widthCmWarehouse) === 0 && true) || maxBoxSizeFromOption(sizeSetting, box.widthCmWarehouse)
-          }
+          error={isNormalWidth}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
@@ -228,27 +226,14 @@ export const EditBoxTasksModal = ({
     }
   }
 
-  const maxBoxSizeFromOption = () => {
-    const maxValue =
-      sizeSetting === unitsOfChangeOptions.US
-        ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
-        : maxLengthInputInSizeBox
-    if (
-      editingBox.lengthCmWarehouse > maxValue ||
-      editingBox.widthCmWarehouse > maxValue ||
-      editingBox.heightCmWarehouse > maxValue
-    ) {
-      return true
-    }
-    return false
-  }
   const disabledSubmit =
     !Number(editingBox.lengthCmWarehouse) ||
     !Number(editingBox.widthCmWarehouse) ||
     !Number(editingBox.heightCmWarehouse) ||
     !Number(editingBox.weighGrossKgWarehouse) ||
-    maxBoxSizeFromOption()
-  console.log('disableSubmit', disabledSubmit)
+    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
   return (
     <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>

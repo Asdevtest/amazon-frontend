@@ -20,6 +20,12 @@ import { useStyles } from './table-row.style'
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
 
+  const isNormalLength = length => !Number(length) || Number(length) > maxLengthInputInSizeBox
+
+  const isNormalWidth = width => !Number(width) || Number(width) > maxLengthInputInSizeBox
+
+  const isNormalHeight = height => !Number(height) || Number(height) > maxLengthInputInSizeBox
+
   return (
     <TableRow className={styles.row}>
       <TableCell className={styles.standartCell}>
@@ -98,10 +104,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]:
-                    !item.lengthCmWarehouse ||
-                    item.lengthCmWarehouse === '0' ||
-                    item.lengthCmWarehouse > maxLengthInputInSizeBox,
+                  [styles.error]: isNormalLength(item.lengthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -116,10 +119,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]:
-                    !item.widthCmWarehouse ||
-                    item.widthCmWarehouse === '0' ||
-                    item.widthCmWarehouse > maxLengthInputInSizeBox,
+                  [styles.error]: isNormalWidth(item.widthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -133,10 +133,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]:
-                    !item.heightCmWarehouse ||
-                    item.heightCmWarehouse === '0' ||
-                    item.heightCmWarehouse > maxLengthInputInSizeBox,
+                  [styles.error]: isNormalHeight(item.heightCmWarehouse),
                 }),
                 input: styles.input,
               }}
