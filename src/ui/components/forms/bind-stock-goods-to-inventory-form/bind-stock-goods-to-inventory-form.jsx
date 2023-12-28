@@ -30,8 +30,6 @@ export const BindStockGoodsToInventoryForm = observer(
 
     const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
-    console.log('goodsToSelect', goodsToSelect)
-
     const [chipConfig, setChipConfig] = useState(chipConfigSettings.RECOMMENDED)
 
     const [searchInputValue, setSearchInputValue] = useState('')
