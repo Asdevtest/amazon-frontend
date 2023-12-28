@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   header: {
     maxHeight: 270,
     display: 'flex',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     gap: 40,
   },
 }))

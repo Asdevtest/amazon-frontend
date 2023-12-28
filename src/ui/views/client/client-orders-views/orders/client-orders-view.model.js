@@ -14,6 +14,7 @@ import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
+import { SwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
@@ -50,6 +51,8 @@ export class ClientOrdersViewModel {
   showConfirmModal = false
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
+
+  switcherCondition = SwitcherConditions.BASIC_INFORMATION
 
   existingProducts = []
   shopsData = []
@@ -296,6 +299,10 @@ export class ClientOrdersViewModel {
 
       await this.getShops()
       await this.getOrders()
+
+      this.getDestinations()
+      this.getStorekeepers()
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -740,7 +747,54 @@ export class ClientOrdersViewModel {
 
     await this.getOrderById(row.originalData._id)
 
+    // await this.getDestinations()
+    // await this.getStorekeepers()
+    // await this.getPlatformSettings()
+
     this.onTriggerOpenModal('showMyOrderModal')
+  }
+
+  onClickChangeCondition(value) {
+    this.switcherCondition = value
+  }
+
+  async getDestinations() {
+    try {
+      const response = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = response
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const response = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepers = response
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onTriggerOpenModal(modalState) {

@@ -34,7 +34,7 @@ export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
       <img
         src={getAmazonImageUrl(mediaFile, !isPreviews)}
         alt="Media file not defined"
-        style={{ width: isPreviews ? '75%' : '100%', height: '100%' }}
+        style={{ width: '100%', height: isPreviews ? '100%' : undefined, objectFit: isPreviews ? 'cover' : 'inherit' }} // width: isPreviews ? '75%' : '100%', height: '100%' - these settings to correct aspect ratio option
       />
     )
   }

@@ -37,8 +37,8 @@ export const useStyles = makeStyles()(theme => ({
 
   previewSlideImg: {
     width: '100%',
-    height: 46,
-    objectFit: 'contain',
+    height: '100%',
+    objectFit: 'cover', // 'contain' - correct aspect ratio option
   },
 
   document: {

@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     gap: 5,
   },
 }))

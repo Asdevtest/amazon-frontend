@@ -18,6 +18,11 @@ export const useStyles = makeStyles()(() => ({
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
   },
 
+  icon: {
+    width: '20px !important',
+    height: '20px !important',
+  },
+
   button: {
     padding: '8px 24px',
     color: '#912018',

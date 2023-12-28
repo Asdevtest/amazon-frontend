@@ -74,7 +74,7 @@
   "Box photos:": "Фотографии коробки:",
   "Photos of current supplier": "Фотографии текущего поставщика",
   "No photos yet...": "Фотографий пока нет...",
-  "Order photos:": "Фотографии заказа:",
+  "Order photos": "Фотографии заказа",
   "Shipping label": "Шиппинг лейбл",
   "Shipping label was glued to the warehouse": "Шиппинг лейбл был проклеен складом",
   "New boxes": "Новые коробки",
@@ -2155,5 +2155,8 @@
   "Be sure to add a photo to the box": "Обязательно добавьте фотографию к коробке",
   "Total quantity": "Общее количество",
   "currency": "валюта",
-  "total amount": "вся сумма"
+  "total amount": "вся сумма",
+  "Supplier information": "Информация о поставщике",
+  "Additional order information": "Доп.информация о заказе",
+  "Supplier details": "Данные поставщика"
 }

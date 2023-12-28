@@ -9,14 +9,14 @@ import { t } from '@utils/translations'
 
 import { IOrderStatus } from './information.type'
 
-export const getInfoItems = (order: any) => [
+export const getInfoItems = (order: any, diagramClassName?: string) => [
   {
     icon: <DollarIcon />,
     title: t(TranslationKey['Order amount']),
     value: `$ ${toFixed(order?.totalPrice, 2)}`,
   },
   {
-    icon: <DiagramIcon />,
+    icon: <DiagramIcon className={diagramClassName} />,
     title: t(TranslationKey['Order number']),
     value: `№ ${order?.id}`,
   },

@@ -73,7 +73,7 @@ export enum TranslationKey {
   'Final weight' = 'Final weight',
   'Box photos:' = 'Box photos:',
   'No photos yet...' = 'No photos yet...',
-  'Order photos:' = 'Order photos:',
+  'Order photos' = 'Order photos',
   'Shipping label' = 'Shipping label',
   'Shipping label was glued to the warehouse' = 'Shipping label was glued to the warehouse',
   'New boxes' = 'New boxes',
@@ -2159,5 +2159,8 @@ export enum TranslationKey {
   'Total quantity' = 'Total quantity',
   'currency' = 'currency',
   'total amount' = 'total amount',
+  'Supplier information' = 'Supplier information',
+  'Additional order information' = 'Additional order information',
+  'Supplier details' = 'Supplier details',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

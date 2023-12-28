@@ -71,7 +71,7 @@
   "Final weight": "Final weight",
   "Box photos:": "Box photos:",
   "No photos yet...": "No photos yet...",
-  "Order photos:": "Order photos:",
+  "Order photos": "Order photos",
   "Shipping label": "Shipping label",
   "Shipping label was glued to the warehouse": "Shipping label was glued to the warehouse",
   "New boxes": "New boxes",
@@ -2156,5 +2156,8 @@
   "Be sure to add a photo to the box": "Be sure to add a photo to the box",
   "Total quantity": "Total quantity",
   "currency": "currency",
-  "total amount": "total amount"
+  "total amount": "total amount",
+  "Supplier information": "Supplier information",
+  "Additional order information": "Additional order information",
+  "Supplier details": "Supplier details"
 }

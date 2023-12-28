@@ -23,7 +23,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
             className={classNames.subTitle}
             containerClasses={classNames.subTitleWrapper}
           >
-            {t(TranslationKey['Order photos:'])}
+            {t(TranslationKey['Order photos']) + ':'}
           </Text>
 
           <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.images} />

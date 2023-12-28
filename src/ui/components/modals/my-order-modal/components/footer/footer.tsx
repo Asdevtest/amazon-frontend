@@ -18,7 +18,7 @@ export const Footer: FC<FooterProps> = memo(({ onClickOpenNewTab }) => {
   return (
     <div className={styles.footer}>
       <button className={styles.linkToNewTab} onClick={onClickOpenNewTab}>
-        <ShareIcon />
+        <ShareIcon className={styles.icon} />
       </button>
 
       {/* Change button after refactor button */}

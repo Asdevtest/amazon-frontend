@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   toolbar: {
     padding: '5px 5px 0',
     display: 'flex',
@@ -12,6 +12,11 @@ export const useClassNames = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: 30,
+  },
+
+  fullWidth: {
+    width: '100%',
+    justifyContent: 'space-between',
   },
 
   text: {

@@ -185,7 +185,12 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showMyOrderModal}
           handleOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
           order={viewModel.order}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          platformSettings={viewModel.platformSettings}
+          switcherCondition={viewModel.switcherCondition}
           onClickOpenNewTab={() => viewModel.onClickOpenNewTab(viewModel.order?._id)}
+          onClickChangeCondition={viewModel.onClickChangeCondition}
         />
       )}
     </React.Fragment>

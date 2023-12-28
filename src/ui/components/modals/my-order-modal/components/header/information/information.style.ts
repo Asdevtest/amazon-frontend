@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 320,
     height: '100%',
@@ -14,5 +14,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
+  },
+
+  diagramClassName: {
+    color: theme.palette.primary.main,
   },
 }))
