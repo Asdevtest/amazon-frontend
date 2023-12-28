@@ -8,8 +8,11 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './controll-buttons.style'
 
+import { tabsValues } from '../helpers/tabs-value'
+
 interface СontrollButtonsProps {
   selectedRows: string[]
+  currentTabKey: tabsValues
   onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
@@ -18,18 +21,25 @@ interface СontrollButtonsProps {
 export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { selectedRows, onClickMoveGoodsToInventory, onClickBindStockGoodsToInventory, onClickDeleteBtn } = props
+  const {
+    selectedRows,
+    currentTabKey,
+    onClickMoveGoodsToInventory,
+    onClickBindStockGoodsToInventory,
+    onClickDeleteBtn,
+  } = props
 
   const noSelectedRows = !selectedRows?.length
+  const disableButton = currentTabKey !== tabsValues.STOCK_REPORT || noSelectedRows
 
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button disabled={noSelectedRows} variant="contained" onClick={onClickMoveGoodsToInventory}>
+        <Button disabled={disableButton} variant="contained" onClick={onClickMoveGoodsToInventory}>
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button disabled={noSelectedRows} variant="contained" onClick={onClickBindStockGoodsToInventory}>
+        <Button disabled={disableButton} variant="contained" onClick={onClickBindStockGoodsToInventory}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>

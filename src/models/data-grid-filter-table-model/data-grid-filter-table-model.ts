@@ -92,12 +92,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       fieldsForSearch: computed,
       mainMethodURL: computed,
 
-      setColumnMenuSettings: action,
-      getFilters: action,
-      onChangeSearchValue: action,
-      onChangeFullFieldMenuItem: action,
-      onClickFilterBtn: action,
-      onClickResetFilters: action,
+      setColumnMenuSettings: action.bound,
+      getFilters: action.bound,
+      onChangeSearchValue: action.bound,
+      onChangeFullFieldMenuItem: action.bound,
+      onClickFilterBtn: action.bound,
+      onClickResetFilters: action.bound,
 
       getMainTableData: override,
     })

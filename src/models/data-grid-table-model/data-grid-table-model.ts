@@ -148,14 +148,14 @@ export class DataGridTableModel extends ModalsModel {
       columnsModel: computed,
       defaultGetDataMethodOptions: computed,
 
-      setDataGridState: action,
-      getDataGridState: action,
-      onChangeSortingModel: action,
-      onColumnVisibilityModelChange: action,
-      onSelectionModel: action,
-      onPaginationModelChange: action,
-      onChangeFilterModel: action,
-      getMainTableData: action,
+      setDataGridState: action.bound,
+      getDataGridState: action.bound,
+      onChangeSortingModel: action.bound,
+      onColumnVisibilityModelChange: action.bound,
+      onSelectionModel: action.bound,
+      onPaginationModelChange: action.bound,
+      onChangeFilterModel: action.bound,
+      getMainTableData: action.bound,
     })
   }
 

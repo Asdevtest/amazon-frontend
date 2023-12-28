@@ -34,6 +34,8 @@ export class ModalsModel extends DefaultModel {
       this._warningInfoModalSettings = {
         isWarning: false,
         title: '',
+        buttonText: '',
+        onSubmit: () => {},
       }
     }
     return this._warningInfoModalSettings
@@ -56,7 +58,7 @@ export class ModalsModel extends DefaultModel {
       confirmModalSettings: computed,
       warningInfoModalSettings: computed,
 
-      onTriggerOpenModal: action,
+      onTriggerOpenModal: action.bound,
     })
   }
 

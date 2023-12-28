@@ -30,6 +30,8 @@ export const BindStockGoodsToInventoryForm = observer(
 
     const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
+    console.log('goodsToSelect', goodsToSelect)
+
     const [chipConfig, setChipConfig] = useState(chipConfigSettings.RECOMMENDED)
 
     const [searchInputValue, setSearchInputValue] = useState('')
@@ -151,6 +153,8 @@ export const BindStockGoodsToInventoryForm = observer(
 
           <div className={classNames.tableWrapper}>
             <CustomDataGrid
+              sortingMode="client"
+              paginationMode="client"
               rows={toJS(inventoryData)}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
@@ -162,7 +166,13 @@ export const BindStockGoodsToInventoryForm = observer(
           </Typography>
 
           <div className={classNames.tableWrapper}>
-            <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
+            <CustomDataGrid
+              sortingMode="client"
+              paginationMode="client"
+              rows={chosenGoods || []}
+              columns={chosenGoodsColumns({ onClickTrash })}
+              rowHeight={60}
+            />
           </div>
 
           <div className={classNames.btnsWrapper}>

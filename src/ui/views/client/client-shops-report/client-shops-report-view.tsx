@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { useState } from 'react'
-
-import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Modal } from '@components/shared/modal'
 
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { useStyles } from './client-shops-report-view.style'
@@ -40,10 +43,11 @@ export const ClientShopsReportView = observer(() => {
       />
 
       <ControllButtons
+        currentTabKey={viewModel.tabKey}
         selectedRows={viewModel.selectedRows}
-        onClickMoveGoodsToInventory={() => viewModel.moveGoodsToInventoryHandler()}
-        onClickBindStockGoodsToInventory={() => viewModel.bindStockGoodsToInventoryHandler()}
-        onClickDeleteBtn={() => viewModel.deleteReportHandler()}
+        onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
+        onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
+        onClickDeleteBtn={viewModel.deleteReportHandler}
       />
 
       <div className={styles.tabledWrapper}>
@@ -63,14 +67,13 @@ export const ClientShopsReportView = observer(() => {
             },
             toolbar: {
               resetFiltersBtnSettings: {
-                onClickResetFilters: () => viewModel.onClickResetFilters(),
+                onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: (model: GridColumnVisibilityModel) =>
-                  viewModel.onColumnVisibilityModelChange(model),
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
@@ -80,15 +83,38 @@ export const ClientShopsReportView = observer(() => {
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           rowSelectionModel={viewModel.selectedRows}
           getRowId={({ _id }: { _id: string }) => _id}
-          onRowSelectionModelChange={(value: string[]) => viewModel.onSelectionModel(value)}
-          onSortModelChange={(value: GridSortModel) => viewModel.onChangeSortingModel(value)}
-          onColumnVisibilityModelChange={(value: GridColumnVisibilityModel) =>
-            viewModel.onColumnVisibilityModelChange(value)
-          }
-          onPaginationModelChange={(value: GridPaginationModel) => viewModel.onPaginationModelChange(value)}
-          onFilterModelChange={(value: GridFilterModel) => viewModel.onChangeFilterModel(value)}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
+
+      <Modal
+        // @ts-ignore
+        openModal={viewModel.showBindStockGoodsToInventoryModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
+      >
+        <BindStockGoodsToInventoryForm
+          goodsToSelect={addIdDataConverter(
+            viewModel.tableData?.filter(item => viewModel.selectedRows?.includes(item?._id)),
+          )}
+          inventoryData={viewModel.inventoryProducts}
+          updateInventoryData={viewModel.getProductsMy}
+          onSubmit={viewModel.submitBindStockGoodsHandler}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        // @ts-ignore
+        openModal={viewModel.showWarningInfoModal}
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={viewModel.warningInfoModalSettings.buttonText}
+        onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
+      />
     </div>
   )
 })
