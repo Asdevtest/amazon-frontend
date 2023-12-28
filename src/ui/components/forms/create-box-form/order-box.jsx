@@ -47,7 +47,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box length'])}
-              error={Boolean(isNormalLength)}
+              error={isNormalLength}
               value={orderBox.lengthCmSupplier}
               onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
             />
@@ -56,7 +56,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box width'])}
-              error={Boolean(isNormalWidth)}
+              error={isNormalWidth}
               value={orderBox.widthCmSupplier}
               onChange={setFormField('widthCmSupplier', orderBoxIndex)}
             />
@@ -67,7 +67,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box height'])}
-              error={Boolean(isNormalHeight)}
+              error={isNormalHeight}
               value={orderBox.heightCmSupplier}
               onChange={setFormField('heightCmSupplier', orderBoxIndex)}
             />

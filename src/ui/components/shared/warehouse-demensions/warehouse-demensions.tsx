@@ -24,15 +24,21 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
   ({ orderBox, volumeWeightCoefficient, setFormField, sizeSetting }) => {
     const { classes: styles } = useStyles()
 
+    const isNormalLength =
+      !Number(orderBox.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmWarehouse)
+
+    const isNormalWidth =
+      !Number(orderBox.widthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmWarehouse)
+
+    const isNormalHeight =
+      !Number(orderBox.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmWarehouse)
+
     return (
       <div className={styles.numberInputFieldsBlocksWrapper}>
         <div className={styles.numberInputFieldsWrapper}>
           <Field
             inputProps={{ maxLength: 6 }}
-            error={
-              (Number(orderBox.lengthCmWarehouse) === 0 && true) ||
-              maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmWarehouse)
-            }
+            error={isNormalLength}
             containerClasses={styles.numberInputField}
             labelClasses={styles.label}
             label={t(TranslationKey.Length) + ': '}
@@ -42,10 +48,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
 
           <Field
             inputProps={{ maxLength: 6 }}
-            error={
-              (Number(orderBox.widthCmWarehouse) === 0 && true) ||
-              maxBoxSizeFromOption(sizeSetting, orderBox.widthCmWarehouse)
-            }
+            error={isNormalWidth}
             containerClasses={styles.numberInputField}
             labelClasses={styles.label}
             label={t(TranslationKey.Width) + ': '}
@@ -56,10 +59,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
         <div className={styles.numberInputFieldsWrapper}>
           <Field
             inputProps={{ maxLength: 6 }}
-            error={
-              (Number(orderBox.heightCmWarehouse) === 0 && true) ||
-              maxBoxSizeFromOption(sizeSetting, orderBox.heightCmWarehouse)
-            }
+            error={isNormalHeight}
             labelClasses={styles.label}
             containerClasses={styles.numberInputField}
             label={t(TranslationKey.Height) + ': '}
@@ -69,7 +69,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
 
           <Field
             inputProps={{ maxLength: 6 }}
-            error={Number(orderBox.weighGrossKgWarehouse) === 0 && true}
+            error={Number(orderBox.weighGrossKgWarehouse) === 0}
             containerClasses={styles.numberInputField}
             labelClasses={styles.label}
             label={t(TranslationKey.Weight) + ': '}

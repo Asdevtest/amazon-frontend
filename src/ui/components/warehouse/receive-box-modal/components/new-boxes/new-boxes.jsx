@@ -3,6 +3,7 @@ import { memo } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Typography } from '@mui/material'
 
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -24,6 +25,12 @@ export const NewBoxes = memo(
     const { classes: styles, cx } = useStyles()
 
     const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(styles)} />
+
+    const isNormalLength = length => !Number(length) || Number(length) > maxLengthInputInSizeBox
+
+    const isNormalWidth = width => !Number(width) || Number(width) > maxLengthInputInSizeBox
+
+    const isNormalHeight = height => !Number(height) || Number(height) > maxLengthInputInSizeBox
 
     return (
       <div className={styles.newBoxes}>
@@ -113,10 +120,10 @@ export const NewBoxes = memo(
 
                 <Input
                   classes={{
-                    root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
-                    }),
                     input: styles.input,
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: isNormalLength(item.length),
+                    }),
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={item.lengthCmWarehouse}
@@ -128,8 +135,7 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]:
-                        !item.widthCmWarehouse || item.widthCmWarehouse === '0' || +item.widthCmWarehouse > 120,
+                      [styles.error]: isNormalWidth(item.widthCmWarehouse),
                     }),
                     input: styles.input,
                   }}
@@ -138,14 +144,12 @@ export const NewBoxes = memo(
                   onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
                 />
               </div>
-              {console.log(1111111111)}
               <div className={styles.sizeWrapper}>
                 <Typography className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]:
-                        !item.heightCmWarehouse || item.heightCmWarehouse === '0' || +item.heightCmWarehouse > 120,
+                      [styles.error]: isNormalHeight(item.heightCmWarehouse),
                     }),
                     input: styles.input,
                   }}
