@@ -159,7 +159,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     ),
     type: 'number',
     width: 110,
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
