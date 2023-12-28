@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,7 +10,6 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
@@ -21,7 +18,7 @@ import { useStyles } from './client-shops-view.style'
 import { ShopsViewModel } from './client-shops-view.model'
 
 export const ClientShopsView = observer(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(
     () =>
@@ -53,29 +50,6 @@ export const ClientShopsView = observer(props => {
         >
           {t(TranslationKey.Update)}
         </Button>
-
-        <div className={styles.shopsSelect}>
-          <WithSearchSelect
-            checkbox
-            notCloseOneClick
-            firstItems={
-              <Button className={styles.filterBtn} variant="text" onClick={viewModel.handleSelectAllShops}>
-                <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                  <Checkbox
-                    checked={viewModel.selectedShopFilters.length === viewModel.shopsData.length}
-                    color="primary"
-                  />
-                  <Typography className={styles.fieldName}>{t(TranslationKey['All shops'])}</Typography>
-                </div>
-              </Button>
-            }
-            currentShops={viewModel.selectedShopFilters}
-            data={viewModel.shopsData}
-            searchFields={['name']}
-            selectedItemName={t(TranslationKey['All shops'])}
-            onClickSelect={viewModel.onSelectShopFilter}
-          />
-        </div>
       </div>
 
       <div className={styles.tabledWrapper}>

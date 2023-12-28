@@ -130,22 +130,6 @@ export class ShopsViewModel {
     this.setDataGridState()
   }
 
-  onSelectShopFilter(shop) {
-    if (this.selectedShopFilters.some(el => el._id === shop._id)) {
-      this.selectedShopFilters = this.selectedShopFilters.filter(el => el._id !== shop._id)
-    } else {
-      this.selectedShopFilters.push(shop)
-    }
-  }
-
-  handleSelectAllShops() {
-    if (this.selectedShopFilters.length === this.shopsData.length) {
-      this.selectedShopFilters = []
-    } else {
-      this.selectedShopFilters = this.shopsData
-    }
-  }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -203,31 +187,6 @@ export class ShopsViewModel {
       })
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.FAILED)
-    }
-  }
-
-  async removeShopById() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await ShopModel.removeShopById(this.selectedShop._id)
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  async onSubmitRemoveShop() {
-    try {
-      await this.removeShopById()
-
-      this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      console.log(error)
     }
   }
 

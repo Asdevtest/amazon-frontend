@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { action, computed, makeObservable, observable } from 'mobx'
+import { makeObservable } from 'mobx'
 
 import { IListOfModals } from '@typings/data-grid'
 
 import { DefaultModel } from '../default-model'
 
 import { IConfirmModalSettings, IWarningInfoModalSettings } from './model-with-modals-interface'
+import { observerConfig } from './observer-config'
 
 export class ModalsModel extends DefaultModel {
   _confirmModalSettings: IConfirmModalSettings | undefined = undefined
@@ -47,15 +48,7 @@ export class ModalsModel extends DefaultModel {
   constructor(history?: History) {
     super(history)
 
-    makeObservable(this, {
-      _confirmModalSettings: observable,
-      _warningInfoModalSettings: observable,
-
-      confirmModalSettings: computed,
-      warningInfoModalSettings: computed,
-
-      onTriggerOpenModal: action.bound,
-    })
+    makeObservable(this, observerConfig)
   }
 
   onTriggerOpenModal(modalName: keyof IListOfModals, value?: boolean) {

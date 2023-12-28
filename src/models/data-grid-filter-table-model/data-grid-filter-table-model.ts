@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, makeObservable, observable, override, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 
 import { GridColDef } from '@mui/x-data-grid'
 
@@ -12,6 +12,8 @@ import { GeneralModel } from '@models/general-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+
+import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
   _filtersFields: string[]
@@ -77,29 +79,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this._fieldsForSearch = fieldsForSearch
     }
 
-    makeObservable(this, {
-      _filtersFields: observable,
-      _mainMethodURL: observable,
-      _columnMenuSettings: observable,
-      _currentSearchValue: observable,
-      _fieldsForSearch: observable,
-
-      filtersFields: computed,
-      columnMenuSettings: computed,
-      isSomeFilterOn: computed,
-      currentSearchValue: computed,
-      fieldsForSearch: computed,
-      mainMethodURL: computed,
-
-      setColumnMenuSettings: action.bound,
-      getFilters: action.bound,
-      onChangeSearchValue: action.bound,
-      onChangeFullFieldMenuItem: action.bound,
-      onClickFilterBtn: action.bound,
-      onClickResetFilters: action.bound,
-
-      getMainTableData: override,
-    })
+    makeObservable(this, observerConfig)
   }
 
   setColumnMenuSettings(filtersFields: string[]) {

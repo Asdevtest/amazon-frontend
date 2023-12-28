@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, makeObservable, observable, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 
 import {
   GridColDef,
@@ -15,6 +15,8 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
+
+import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
   _requestStatus: loadingStatuses = loadingStatuses.SUCCESS
@@ -119,41 +121,7 @@ export class DataGridTableModel extends ModalsModel {
 
     this._tableKey = tableKey
 
-    makeObservable(this, {
-      _requestStatus: observable,
-      _rowCount: observable,
-      _sortModel: observable,
-      _densityModel: observable,
-      _paginationModel: observable,
-      _filterModel: observable,
-      _columnVisibilityModel: observable,
-      _selectedRows: observable,
-      _tableKey: observable,
-      _tableData: observable,
-      _getMainDataMethod: observable,
-      _columnsModel: observable,
-      _defaultGetDataMethodOptions: observable,
-
-      requestStatus: computed,
-      rowCount: computed,
-      sortModel: computed,
-      densityModel: computed,
-      paginationModel: computed,
-      selectedRows: computed,
-      tableData: computed,
-      getMainDataMethod: computed,
-      columnsModel: computed,
-      defaultGetDataMethodOptions: computed,
-
-      setDataGridState: action.bound,
-      getDataGridState: action.bound,
-      onChangeSortingModel: action.bound,
-      onColumnVisibilityModelChange: action.bound,
-      onSelectionModel: action.bound,
-      onPaginationModelChange: action.bound,
-      onChangeFilterModel: action.bound,
-      getMainTableData: action.bound,
-    })
+    makeObservable(this, observerConfig)
   }
 
   setDataGridState() {

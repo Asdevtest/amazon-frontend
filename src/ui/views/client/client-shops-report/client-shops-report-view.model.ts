@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, makeObservable, observable, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,6 +14,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { getClassParams } from './helpers/get-class-params'
+import { observerConfig } from './helpers/observer-config'
 import { TabsValues } from './helpers/tabs-value'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
@@ -51,25 +52,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
 
-    makeObservable(this, {
-      _tabKey: observable,
-      _inventoryProducts: observable,
-      _showBindStockGoodsToInventoryModal: observable,
-      _showWarningInfoModal: observable,
-
-      tabKey: computed,
-      inventoryProducts: computed,
-      showBindStockGoodsToInventoryModal: computed,
-      showWarningInfoModal: computed,
-
-      changeTabHandler: action.bound,
-      moveGoodsToInventoryHandler: action.bound,
-      deleteReportHandler: action.bound,
-      bindStockGoodsToInventoryHandler: action.bound,
-
-      getProductsMy: action.bound,
-      submitBindStockGoodsHandler: action.bound,
-    })
+    makeObservable(this, observerConfig)
   }
 
   changeTabHandler = (key: TabsValues) => {
