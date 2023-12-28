@@ -25,14 +25,17 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
 
     const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
 
+    const isShowViewTooltip = isFirstRow && showViewTooltip
+
+
     return (
       <>
         {value ? (
           <div className={styles.shopsReportBtnsWrapper}>
-            <div className={cx({ [styles.tooltipWrapperMargin]: isFirstRow && showViewTooltip })}>
+            <div className={cx({ [styles.tooltipWrapperMargin]: isShowViewTooltip })}>
               <Text
                 tooltipInfoContent={
-                  isFirstRow && showViewTooltip ? t(TranslationKey['Download the file to your device']) : ''
+                  isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''
                 }
               >
                 <a
