@@ -28,7 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    position: 'relative',
     gap: 10,
   },
 

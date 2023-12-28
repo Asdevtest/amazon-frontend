@@ -31,8 +31,6 @@ export const Arrow: FC<ArrowProps> = memo(props => {
         [styles.smallArrow]: smallSlider,
         [styles.mediumArrow]: mediumSlider,
         [styles.bigArrow]: bigSlider,
-        [styles.leftArrow]: isLeftArrow,
-        [styles.rightArrow]: !isLeftArrow,
       })}
       onClick={() => onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)}
     >

@@ -6,24 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '30px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    zIndex: 20,
-  },
-
-  leftArrow: {
-    left: '0',
-    [theme.breakpoints.down(520)]: {
-      left: '-30px',
-    },
-  },
-  rightArrow: {
-    right: '0',
-    [theme.breakpoints.down(520)]: {
-      right: '-30px',
-    },
   },
 
   arrowIconDisable: {
