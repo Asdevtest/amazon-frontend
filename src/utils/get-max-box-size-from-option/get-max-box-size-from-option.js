@@ -7,8 +7,7 @@ export const maxBoxSizeFromOption = (sizeSetting, field) => {
     sizeSetting === unitsOfChangeOptions.US
       ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
       : maxLengthInputInSizeBox
-  if (field.lengthCmWarehouse > maxValue) {
-    return true
-  }
-  return false
+  const isFieldLengthAbove = field > maxValue
+
+  return isFieldLengthAbove
 }
