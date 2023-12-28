@@ -27,17 +27,12 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.m
 
     const isShowViewTooltip = isFirstRow && showViewTooltip
 
-
     return (
       <>
         {value ? (
           <div className={styles.shopsReportBtnsWrapper}>
             <div className={cx({ [styles.tooltipWrapperMargin]: isShowViewTooltip })}>
-              <Text
-                tooltipInfoContent={
-                  isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''
-                }
-              >
+              <Text tooltipInfoContent={isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''}>
                 <a
                   download
                   target={'_blank'}
