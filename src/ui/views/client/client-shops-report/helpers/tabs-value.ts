@@ -1,4 +1,4 @@
-export enum tabsValues {
+export enum TabsValues {
   STOCK_REPORT = 'sellerboardWarehouseEveryDay',
   GOODS_DAYS_REPORT = 'sellerboardLast30Days',
   INVENTORY = 'inventory',

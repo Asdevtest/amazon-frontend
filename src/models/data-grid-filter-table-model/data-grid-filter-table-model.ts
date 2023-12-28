@@ -38,7 +38,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._fieldsForSearch = fieldsForSearch
   }
 
-  _columnMenuSettings = {}
+  _columnMenuSettings = undefined
   get columnMenuSettings() {
     return this._columnMenuSettings
   }
@@ -125,6 +125,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         runInAction(() => {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
+            // Не меняет состояние колонки напрямую, а деструктуризируем, чтобы изменилась ссылка и корректно перерисовался компонент
             // @ts-ignore
             [column]: { ...this.columnMenuSettings[column], filterData: data },
           }
@@ -153,13 +154,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        // @ts-ignore
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
+    this.columnMenuSettings[field] = {
+      // @ts-ignore
+      ...this.columnMenuSettings[field],
+      currentFilterData: value,
     }
   }
 
@@ -188,12 +186,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       runInAction(() => {
         this.tableData = result?.rows || result
-        this.rowCount = result?.count
+        this.rowCount = result?.count || result.length
       })
 
       this.requestStatus = loadingStatuses.SUCCESS
-
-      return result
     } catch (error) {
       console.log(error)
       this.requestStatus = loadingStatuses.FAILED

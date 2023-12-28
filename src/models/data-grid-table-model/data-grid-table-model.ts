@@ -220,7 +220,7 @@ export class DataGridTableModel extends ModalsModel {
 
       runInAction(() => {
         this.tableData = result?.rows || result
-        this.rowCount = result?.count
+        this.rowCount = result?.count || result.length
       })
 
       this.requestStatus = loadingStatuses.SUCCESS

@@ -8,11 +8,11 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './controll-buttons.style'
 
-import { tabsValues } from '../helpers/tabs-value'
+import { TabsValues } from '../helpers/tabs-value'
 
 interface СontrollButtonsProps {
   selectedRows: string[]
-  currentTabKey: tabsValues
+  currentTabKey: TabsValues
   onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
@@ -30,7 +30,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   } = props
 
   const noSelectedRows = !selectedRows?.length
-  const disableButton = currentTabKey !== tabsValues.STOCK_REPORT || noSelectedRows
+  const disableButton = currentTabKey !== TabsValues.STOCK_REPORT || noSelectedRows
 
   return (
     <div className={styles.root}>

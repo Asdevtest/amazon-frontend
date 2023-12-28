@@ -18,12 +18,13 @@ import { useStyles } from './client-shops-report-view.style'
 
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
-import { tabsValues } from './helpers/tabs-value'
+import { switcherConfig } from './helpers/switcher-config'
+import { TabsValues } from './helpers/tabs-value'
 
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(tabsValues.STOCK_REPORT))
+  const [viewModel] = useState(() => new ClientShopsViewModel(TabsValues.STOCK_REPORT))
 
   return (
     <div className={styles.root}>
@@ -31,15 +32,8 @@ export const ClientShopsReportView = observer(() => {
         fullWidth
         switchMode={'big'}
         condition={viewModel.tabKey}
-        switcherSettings={[
-          { label: () => t(TranslationKey['Warehouse report']), value: tabsValues.STOCK_REPORT },
-          { label: () => t(TranslationKey['Dashboard by goods/days']), value: tabsValues.GOODS_DAYS_REPORT },
-
-          { label: () => 'Inventory', value: tabsValues.INVENTORY },
-          { label: () => 'PPC-Organic by Weeks', value: tabsValues.PPC },
-          { label: () => 'Inventory Shipments', value: tabsValues.INVENTORY_SHIPMENTS },
-        ]}
-        changeConditionHandler={value => viewModel.changeTabHandler(value as tabsValues)}
+        switcherSettings={switcherConfig}
+        changeConditionHandler={value => viewModel.changeTabHandler(value as TabsValues)}
       />
 
       <ControllButtons

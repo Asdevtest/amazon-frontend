@@ -14,10 +14,10 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { getClassParams } from './helpers/get-class-params'
-import { tabsValues } from './helpers/tabs-value'
+import { TabsValues } from './helpers/tabs-value'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = tabsValues.STOCK_REPORT
+  _tabKey = TabsValues.STOCK_REPORT
   get tabKey() {
     return this._tabKey
   }
@@ -46,7 +46,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this._showWarningInfoModal = showWarningInfoModal
   }
 
-  constructor(currentTabsValues: tabsValues) {
+  constructor(currentTabsValues: TabsValues) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
@@ -72,7 +72,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     })
   }
 
-  changeTabHandler = (key: tabsValues) => {
+  changeTabHandler = (key: TabsValues) => {
     this._tabKey = key
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(key)
