@@ -43,6 +43,9 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
     visibility: 'visible !important',
   },
+  '.MuiDataGrid-main': {
+    borderRadius: 20,
+  },
 })
 
 export const lightTheme = createTheme({
