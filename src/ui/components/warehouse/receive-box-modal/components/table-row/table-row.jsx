@@ -3,7 +3,6 @@ import { memo } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
-import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -11,6 +10,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
+import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -19,12 +19,6 @@ import { useStyles } from './table-row.style'
 
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
-
-  const isNormalLength = length => !Number(length) || Number(length) > maxLengthInputInSizeBox
-
-  const isNormalWidth = width => !Number(width) || Number(width) > maxLengthInputInSizeBox
-
-  const isNormalHeight = height => !Number(height) || Number(height) > maxLengthInputInSizeBox
 
   return (
     <TableRow className={styles.row}>
@@ -104,7 +98,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: isNormalLength(item.lengthCmWarehouse),
+                  [styles.error]: checkIsValidBoxSize(item.lengthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -119,7 +113,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: isNormalWidth(item.widthCmWarehouse),
+                  [styles.error]: checkIsValidBoxSize(item.widthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -133,7 +127,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: isNormalHeight(item.heightCmWarehouse),
+                  [styles.error]: checkIsValidBoxSize(item.heightCmWarehouse),
                 }),
                 input: styles.input,
               }}

@@ -3,7 +3,6 @@ import { memo } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Typography } from '@mui/material'
 
-import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -11,6 +10,7 @@ import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
+import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -25,12 +25,6 @@ export const NewBoxes = memo(
     const { classes: styles, cx } = useStyles()
 
     const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(styles)} />
-
-    const isNormalLength = length => !Number(length) || Number(length) > maxLengthInputInSizeBox
-
-    const isNormalWidth = width => !Number(width) || Number(width) > maxLengthInputInSizeBox
-
-    const isNormalHeight = height => !Number(height) || Number(height) > maxLengthInputInSizeBox
 
     return (
       <div className={styles.newBoxes}>
@@ -122,7 +116,7 @@ export const NewBoxes = memo(
                   classes={{
                     input: styles.input,
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: isNormalLength(item.length),
+                      [styles.error]: checkIsValidBoxSize(item.lengthCmWarehouse),
                     }),
                   }}
                   inputProps={{ maxLength: 6 }}
@@ -135,7 +129,7 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: isNormalWidth(item.widthCmWarehouse),
+                      [styles.error]: checkIsValidBoxSize(item.widthCmWarehouse),
                     }),
                     input: styles.input,
                   }}
@@ -149,7 +143,7 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: isNormalHeight(item.heightCmWarehouse),
+                      [styles.error]: checkIsValidBoxSize(item.heightCmWarehouse),
                     }),
                     input: styles.input,
                   }}
