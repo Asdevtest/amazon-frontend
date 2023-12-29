@@ -34,6 +34,15 @@ export const ClientAwaitingBatchesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
+        <div className={className.searchWrapper}>
+          <SearchInput
+            key={'client_batches_awaiting-batch_search_input'}
+            inputClasses={className.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
+        </div>
         <div className={className.btnsWrapper}>
           <div className={className.btnsSubWrapper}>
             <Button
@@ -65,14 +74,6 @@ export const ClientAwaitingBatchesViewRaw = props => {
           </div>
 
           <div className={className.rightSideWrapper}>
-            <SearchInput
-              key={'client_batches_awaiting-batch_search_input'}
-              inputClasses={className.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-              onSubmit={viewModel.onSearchSubmit}
-            />
-
             <div className={className.rightSideButtonsWrapper}>
               <Button
                 disabled={viewModel.selectedBatches.length !== 1}

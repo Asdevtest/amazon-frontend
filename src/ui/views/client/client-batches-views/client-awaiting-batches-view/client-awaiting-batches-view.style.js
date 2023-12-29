@@ -3,6 +3,11 @@ export const styles = theme => ({
     marginRight: '24px',
   },
 
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   btnsWrapper: {
     width: '100%',
 
