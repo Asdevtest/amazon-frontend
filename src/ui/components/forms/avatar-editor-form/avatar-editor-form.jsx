@@ -80,7 +80,7 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
               color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
             }}
             borderStyle={{
-              border: ' 3px dashed rgba(0,123, 255, .7)',
+              border: ' 3px dashed #4CA1DE',
               transition: '0.3s ease',
               cursor: 'pointer',
               borderRadius: '10px',
