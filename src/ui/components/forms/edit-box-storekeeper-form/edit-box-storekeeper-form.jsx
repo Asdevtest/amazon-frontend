@@ -65,6 +65,12 @@ export const EditBoxStorekeeperForm = memo(
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
+    useEffect(() => {
+      if (formItem.images.length > 0) {
+        setImagesOfBox(formItem.images)
+      }
+    }, [formItem])
+
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
       newFormFields.items = [
@@ -153,7 +159,7 @@ export const EditBoxStorekeeperForm = memo(
       shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
-      images: formItem?.images || [],
+      // images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items ? formItem.items.map(el => ({ ...el, tmpBarCode: [], tmpTransparencyFile: [] })) : [],
@@ -421,9 +427,7 @@ export const EditBoxStorekeeperForm = memo(
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={styles.productWrapper}>
                         <div className={styles.leftProductColumn}>
-                          <div className={styles.photoWrapper}>
-                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-                          </div>
+                          <PhotoAndFilesSlider withoutFiles mediumSlider files={item.product.images} />
 
                           <>
                             <Field
@@ -829,9 +833,10 @@ export const EditBoxStorekeeperForm = memo(
 
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput
+                    fullWidth
                     images={imagesOfBox}
                     setImages={setImagesOfBox}
-                    maxNumber={boxFields.images?.length ? 50 - boxFields.images?.length : 50}
+                    maxNumber={50 - imagesOfBox.length}
                   />
                 </div>
 
@@ -839,7 +844,7 @@ export const EditBoxStorekeeperForm = memo(
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
+                  <PhotoAndFilesSlider smallSlider showPreviews files={imagesOfBox} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
