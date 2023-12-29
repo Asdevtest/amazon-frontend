@@ -1,25 +1,28 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC } from 'react'
 
-import { TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
+import { TaskStatus, TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 
 import { useStyles } from './task-status-cell.style'
 
 interface TaskStatusCellProps {
   status: string
+  usedStatusFromProps?: boolean
 }
 
-export const TaskStatusCell: FC<TaskStatusCellProps> = React.memo(({ status }) => {
+export const TaskStatusCell: FC<TaskStatusCellProps> = React.memo(({ status, usedStatusFromProps = false }) => {
   const { classes: styles } = useStyles()
 
-  // @ts-ignore
+  const actualStatus = usedStatusFromProps
+    ? status
+    : mapTaskStatusKeyToEnum[status as unknown as keyof typeof mapTaskStatusKeyToEnum]
 
   const colorByStatus = () => {
-    if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
+    if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(actualStatus)) {
       return '#F3AF00'
-    } else if ([TaskStatus.SOLVED].includes(status)) {
+    } else if ([TaskStatus.SOLVED].includes(actualStatus)) {
       return '#00B746'
-    } else if ([TaskStatus.NOT_SOLVED].includes(status)) {
+    } else if ([TaskStatus.NOT_SOLVED].includes(actualStatus)) {
       return '#FF1616'
     } else {
       return '#black'
@@ -31,7 +34,7 @@ export const TaskStatusCell: FC<TaskStatusCellProps> = React.memo(({ status }) =
   return (
     <div className={styles.statusWrapper}>
       <p className={styles.orderStatusText} style={{ color: colorStatus }}>
-        {TaskStatusTranslate(status)}
+        {TaskStatusTranslate(actualStatus)}
       </p>
     </div>
   )
