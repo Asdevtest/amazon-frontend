@@ -70,12 +70,6 @@ export const styles = theme => ({
     },
   },
 
-  rightSideWrapper: {
-    display: 'flex',
-    alignItems: 'end',
-    gap: 30,
-  },
-
   rightSideButtonsWrapper: {
     display: 'flex',
     flexDirection: 'column',

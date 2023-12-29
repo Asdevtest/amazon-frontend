@@ -73,25 +73,23 @@ export const ClientAwaitingBatchesViewRaw = props => {
             />
           </div>
 
-          <div className={className.rightSideWrapper}>
-            <div className={className.rightSideButtonsWrapper}>
-              <Button
-                disabled={viewModel.selectedBatches.length !== 1}
-                variant="contained"
-                className={className.rightSideButton}
-                onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
-              >
-                {t(TranslationKey['Edit batch'])}
-              </Button>
-              <Button
-                success
-                className={className.rightSideButton}
-                variant="contained"
-                onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
-              >
-                {t(TranslationKey['Create a batch'])}
-              </Button>
-            </div>
+          <div className={className.rightSideButtonsWrapper}>
+            <Button
+              disabled={viewModel.selectedBatches.length !== 1}
+              variant="contained"
+              className={className.rightSideButton}
+              onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
+            >
+              {t(TranslationKey['Edit batch'])}
+            </Button>
+            <Button
+              success
+              className={className.rightSideButton}
+              variant="contained"
+              onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
+            >
+              {t(TranslationKey['Create a batch'])}
+            </Button>
           </div>
         </div>
         <div className={className.datagridWrapper}>
