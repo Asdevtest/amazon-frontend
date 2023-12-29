@@ -26,48 +26,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
-const updateBoxWhiteList = [
-  'shippingLabel',
-  'lengthCmWarehouse',
-  'widthCmWarehouse',
-  'heightCmWarehouse',
-  'weighGrossKgWarehouse',
-  'isShippingLabelAttachedByStorekeeper',
-  'fbaShipment',
-  'images',
-  'destinationId',
-  'items',
-  'storekeeperComment',
-  'logicsTariffId',
-  'variationTariffId',
-  'referenceId',
-  'storekeeperTaskComment',
-  'trackNumberFile',
-  'trackNumberText',
-  'upsTrackNumber',
-  'fbaNumber',
-  'prepId',
-]
-
-const filtersFields = [
-  'humanFriendlyId',
-  'orderIdsItems',
-  'orders',
-  'amount',
-  'warehouse',
-  'client',
-  'batchHumanFriendlyId',
-  'dimansions',
-  'action',
-  'prepId',
-  'id',
-  'item',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'destinationId',
-  'logicsTariffId',
-]
+import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
@@ -244,20 +203,16 @@ export class WarehouseMyWarehouseViewModel {
     this.selectedBoxes = model
   }
 
-  getCurrentData() {
-    return toJS(this.boxesMy)
-  }
-
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
     this.getBoxesMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getBoxesMy()
+      this.getBoxesMy()
     } catch (error) {
       console.log(error)
     }
@@ -1269,13 +1224,7 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   getFilter(exclusion) {
