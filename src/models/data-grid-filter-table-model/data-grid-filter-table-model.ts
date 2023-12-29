@@ -134,11 +134,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
-    this.columnMenuSettings[field] = {
-      // @ts-ignore
-      ...this.columnMenuSettings[field],
-      currentFilterData: value,
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
