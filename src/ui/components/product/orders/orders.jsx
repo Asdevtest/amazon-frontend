@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,6 +18,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './orders.style'
 
+import { statusesForChecking } from './orders.constant'
 import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
@@ -104,11 +104,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           isSetDeadline
-          statusesForChecking={[
-            OrderStatusByKey[OrderStatus.FORMED],
-            OrderStatusByKey[OrderStatus.PENDING],
-            OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT],
-          ]}
+          statusesForChecking={statusesForChecking}
           reorderOrdersData={[reorderOrder]}
           platformSettings={platformSettings}
           destinations={destinations}
