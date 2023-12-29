@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  DeadlineCell,
   FormedCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -19,8 +20,8 @@ import {
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
-import { formatDate, formatNormDateTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientBoxesViewColumns = (
@@ -291,25 +292,17 @@ export const clientBoxesViewColumns = (
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
+    headerName: t(TranslationKey.Deadline),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        text={'Deadline'}
+        text={t(TranslationKey.Deadline)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
       />
     ),
-
-    renderCell: params => (
-      <MultilineTextCell
-        withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDate(params.value) : ''}
-      />
-    ),
+    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
     valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
-    width: 120,
+    width: 100,
   },
 
   {
