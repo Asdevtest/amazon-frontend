@@ -43,7 +43,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     field: 'priorityAndChinaDelivery',
     headerName: 'priorityAndChinaDelivery',
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-    width: 60,
+    width: 90,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
