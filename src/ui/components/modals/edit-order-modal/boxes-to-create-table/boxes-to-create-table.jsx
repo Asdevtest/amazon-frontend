@@ -226,7 +226,6 @@ export const BoxesToCreateTable = ({
   const itemsGoodsAmount = newBoxes?.reduce((acc, item) => {
     return acc + item?.items?.[0]?.amount * item?.amount
   }, 0)
-
   return (
     <div className={styles.newBoxes}>
       <p className={styles.sectionTitle}>{t(TranslationKey['Boxes will be created'])}</p>

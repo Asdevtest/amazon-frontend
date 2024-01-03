@@ -29,6 +29,7 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -346,10 +347,13 @@ export const EditBoxStorekeeperForm = memo(
     }
 
     const disableSubmit =
-      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
+      JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
         JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
-        boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+      boxFields.storekeeperId === '' ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+    !imagesOfBox.length
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,

@@ -9,6 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -25,8 +26,18 @@ export const OrderBox = observer(
     onRemoveBox,
     volumeWeightCoefficient,
     currentSupplier,
+    sizeSetting,
   }) => {
     const { classes: classNames } = useClassNames()
+
+    const isNormalLength =
+      !Number(orderBox.lengthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
+
+    const isNormalWidth =
+      !Number(orderBox.widthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
+
+    const isNormalHeight =
+      !Number(orderBox.heightCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
 
     return (
       <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -36,7 +47,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box length'])}
-              error={Number(orderBox.lengthCmSupplier) === 0}
+              error={isNormalLength}
               value={orderBox.lengthCmSupplier}
               onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
             />
@@ -45,7 +56,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box width'])}
-              error={Number(orderBox.widthCmSupplier) === 0}
+              error={isNormalWidth}
               value={orderBox.widthCmSupplier}
               onChange={setFormField('widthCmSupplier', orderBoxIndex)}
             />
@@ -56,7 +67,7 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box height'])}
-              error={Number(orderBox.heightCmSupplier) === 0}
+              error={isNormalHeight}
               value={orderBox.heightCmSupplier}
               onChange={setFormField('heightCmSupplier', orderBoxIndex)}
             />
