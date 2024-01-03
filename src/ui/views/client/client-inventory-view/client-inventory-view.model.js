@@ -68,6 +68,9 @@ export class ClientInventoryViewModel {
   isArchive = false
   batchesData = []
 
+  presetsData = []
+  currentPresets = []
+
   receivedFiles = undefined
 
   paymentMethods = []
@@ -518,9 +521,54 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.getDataGridState()
+
+      this.getPresets()
+      this.getCurrentPresets()
+
       await this.getShops()
       await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async getPresets() {
+    try {
+      const result = await OtherModel.getPresets()
+
+      console.log('getPresets', result)
+
+      runInAction(() => {
+        this.presetsData = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getCurrentPresets() {
+    try {
+      const result = await UserModel.getUsersPresets()
+
+      runInAction(() => {
+        this.currentPresets = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async savePresetsHandler() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      const response = await OtherModel.getPresets()
+
+      runInAction(() => {
+        this.presetsData = response
+      })
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)

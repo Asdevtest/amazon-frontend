@@ -2161,5 +2161,9 @@ export enum TranslationKey {
   'Reports' = 'Reports',
   'FBA fee' = 'FBA fee',
   'Ref fee' = 'Ref fee',
+  'Standardized' = 'Standardized',
+  'Additional' = 'Additional',
+  'Parameters of the table' = 'Parameters of the table',
+  'Reset Settings' = 'Reset Settings',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

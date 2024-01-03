@@ -69,13 +69,15 @@ export const SearchInput: FC<Props> = ({
     }
   }
 
+  const defaultPlaceholder = t(TranslationKey.Search)
+
   return (
     <Input
       disabled={disabled}
       className={cx(classNames.input, !!inputClasses && inputClasses)}
       value={onSubmit ? internalValue : value}
-      title={placeholder}
-      placeholder={placeholder}
+      title={placeholder || defaultPlaceholder}
+      placeholder={placeholder || defaultPlaceholder}
       classes={{ input: classNames.inputClass }}
       endAdornment={
         <InputAdornment classes={{ root: classNames.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
@@ -87,7 +89,7 @@ export const SearchInput: FC<Props> = ({
                 btnWrapperStyle={classNames.btnWrapperStyle}
                 onClick={searchAndClearSpaces}
               >
-                {t(TranslationKey.Search)}
+                {defaultPlaceholder}
               </Button>
             </div>
           ) : (

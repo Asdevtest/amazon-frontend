@@ -2157,5 +2157,9 @@
   "Account report": "Отчет по аккаунту",
   "Reports": "Отчеты",
   "FBA fee": "FBA fee",
-  "Ref fee": "Ref fee"
+  "Ref fee": "Ref fee",
+  "Standardized": "Стандартные",
+  "Additional": "Дополнительные",
+  "Parameters of the table": "Параметры таблицы",
+  "Reset Settings": "Сбросить настройки"
 }

@@ -51,6 +51,8 @@ export const clientInventoryColumns = (
       />
     ),
     width: 120,
+
+    hide: true,
   },
 
   {
