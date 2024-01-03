@@ -3,6 +3,7 @@ import { cx } from '@emotion/css'
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OrderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -20,17 +21,17 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
   const { classes: classNames } = useClassNames()
 
   const getCardClassName = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return classNames.redBackground
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return classNames.yellowBackground
     }
   }
 
   /* const getDeadlineColor = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return classNames.redColor
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return classNames.yellowColor
     }
   } */

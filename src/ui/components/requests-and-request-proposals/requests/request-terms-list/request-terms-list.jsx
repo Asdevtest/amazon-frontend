@@ -10,6 +10,7 @@ import {
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -25,9 +26,9 @@ export const RequestTermsList = props => {
   const { classes: styles } = useRequestTermsListStyles()
 
   const getDeadlineColor = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return styles.redColor
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return styles.yellowColor
     }
   }

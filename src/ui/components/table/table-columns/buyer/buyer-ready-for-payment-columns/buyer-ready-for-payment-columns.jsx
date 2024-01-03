@@ -5,6 +5,7 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
@@ -19,7 +20,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign } from '@utils/text'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
@@ -221,20 +222,12 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'deadline',
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-      renderCell: params => {
-        const deadline = params.row.originalData.deadline
-
-        return params.row.originalData.status < 20 ? (
-          <MultilineTextCell
-            withLineBreaks
-            tooltipText={deadline ? timeToDeadlineInHoursAndMins({ date: deadline }) : ''}
-            color={deadline && getDistanceBetweenDatesInSeconds(deadline) < 86400 ? '#FF1616' : null}
-            text={deadline ? formatDate(deadline) : ''}
-          />
+      renderCell: params =>
+        params.row.originalData.status < 20 ? (
+          <DeadlineCell deadline={params.row.deadline} />
         ) : (
           <MultilineTextCell text={'-'} />
-        )
-      },
+        ),
       valueGetter: params => (params.row.originalData.deadline ? formatDate(params.row.originalData.deadline) : ''),
       width: 100,
 

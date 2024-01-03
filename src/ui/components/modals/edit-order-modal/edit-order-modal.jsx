@@ -22,6 +22,7 @@ import {
 } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -541,7 +542,7 @@ export const EditOrderModal = memo(
 
                     <Typography
                       className={cx(styles.deadlineText, {
-                        [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
+                        [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < ONE_DAY_IN_SECONDS,
                       })}
                     >
                       {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
