@@ -245,6 +245,31 @@ export class ShopsViewModel {
     }
   }
 
+  async removeShopById() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      await ShopModel.removeShopById(this.selectedShop._id)
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async onSubmitRemoveShop() {
+    try {
+      await this.removeShopById()
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onClickEditBtn(row) {
     this.selectedShop = row
     this.onTriggerOpenModal('showAddOrEditShopModal')
