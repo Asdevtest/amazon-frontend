@@ -33,6 +33,8 @@ export const clientLast30DaySellerBoardColumns = () => [
 
     table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
     columnKey: columnnsKeys.shared.OBJECT,
+
+    sortable: false,
   },
 
   {
