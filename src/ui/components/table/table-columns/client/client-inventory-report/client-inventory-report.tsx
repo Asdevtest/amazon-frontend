@@ -26,6 +26,18 @@ export const clientInventoryReportColumns = () => [
   },
 
   {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
+    width: 150,
+
+    sortable: false,
+    filterable: false,
+  },
+
+  {
     field: 'asin',
     headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
     renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
