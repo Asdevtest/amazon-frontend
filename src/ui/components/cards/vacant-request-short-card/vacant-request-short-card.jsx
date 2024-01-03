@@ -11,6 +11,7 @@ import {
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -29,17 +30,17 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
   const { classes: classNames } = useClassNames()
 
   const getCardClassName = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return classNames.redBackground
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return classNames.yellowBackground
     }
   }
 
   const getDeadlineColor = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return classNames.redColor
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return classNames.yellowColor
     }
   }

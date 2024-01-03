@@ -3,6 +3,7 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
@@ -18,9 +19,9 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { checkIsHasHttp } from '@utils/checks'
-import { formatDate, formatNormDateTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { formatDate, formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
@@ -192,20 +193,15 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 150,
+    width: 100,
     valueGetter: params => (params.value ? formatDate(params.value) : ''),
     columnKey: columnnsKeys.shared.DATE,
   },

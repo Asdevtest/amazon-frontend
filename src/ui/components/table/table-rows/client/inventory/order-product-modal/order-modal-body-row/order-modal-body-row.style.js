@@ -150,7 +150,9 @@ export const useClassNames = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
-
+  deleteCell: {
+    padding: '0',
+  },
   error: {
     lineHeight: 0,
     fontSize: 12,

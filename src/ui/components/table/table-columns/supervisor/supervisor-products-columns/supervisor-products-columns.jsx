@@ -14,7 +14,7 @@ import {
   SelectRowCell,
   TagsCell,
   ToFixedWithDollarSignCell,
-  UserLinkCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -37,7 +37,6 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
     renderCell: params => {
       const product = params.row.originalData
 
@@ -59,8 +58,6 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-
-    width: 150,
     renderCell: params => (
       <MultilineTextCell
         maxLength={48}
@@ -69,6 +66,8 @@ export const supervisorProductsViewColumns = handlers => [
       />
     ),
     valueFormatter: params => t(productStatusTranslateKey(ProductStatusByCode[params.value])),
+    width: 150,
+
     columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
@@ -87,11 +86,10 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
-    type: 'number',
-    width: 100,
     valueGetter: params => (params.row.amazon ? toFixedWithDollarSign(params.row.amazon, 2) : '-'),
+    width: 100,
+
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -100,14 +98,13 @@ export const supervisorProductsViewColumns = handlers => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: params => (
-      <UserLinkCell
-        blackText
-        name={params.row.originalData.createdBy?.name}
+      <UserMiniCell
+        userName={params.row.originalData.createdBy?.name}
         userId={params.row.originalData.createdBy?._id}
       />
     ),
     valueGetter: params => params.row.originalData.createdBy?.name,
-    width: 170,
+    width: 180,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -116,12 +113,11 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'buyer',
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-
     renderCell: params => (
-      <UserLinkCell blackText name={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
+      <UserMiniCell userName={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
     ),
     valueGetter: params => params.row.originalData.buyer?.name,
-    width: 170,
+    width: 180,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -153,7 +149,6 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'ordered',
     headerName: t(TranslationKey.Ordered),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
-
     renderCell: params => (
       <MultilineTextCell
         customTextStyles={
@@ -175,8 +170,8 @@ export const supervisorProductsViewColumns = handlers => [
     ),
     valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
     minWidth: 50,
-    type: 'boolean',
     sortable: false,
+
     columnKey: columnnsKeys.shared.YES_NO,
   },
 
@@ -188,6 +183,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
+
     columnKey: columnnsKeys.shared.TAGS,
   },
 
@@ -198,6 +194,7 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
     sortable: false,
+
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
@@ -205,11 +202,9 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
     valueFormatter: params => formatNormDateTime(params.value),
-    // type: 'date',
+    width: 105,
 
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -218,12 +213,10 @@ export const supervisorProductsViewColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    minWidth: 150,
-    flex: 1,
-    valueFormatter: params => formatNormDateTime(params.value),
     renderCell: params => <NormDateCell value={params.value} />,
-    // type: 'date',
+    valueFormatter: params => formatNormDateTime(params.value),
+    width: 100,
+
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

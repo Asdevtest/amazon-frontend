@@ -57,7 +57,7 @@ export const Integrations = observer(({ productId, modal }) => {
     <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
         <div className={classNames.addProductBtnsWrapper}>
-          <Button onClick={onClickBindInventoryGoodsToStockBtn}>
+          <Button disabled={!selectedRowIds.length} onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 

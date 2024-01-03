@@ -58,11 +58,12 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 210,
+    width: 220,
     renderCell: params => (
       <MultilineTextCell
         text={OrderStatusTranslate(OrderStatusByCode[params.value])}
         color={orderColorByStatus(OrderStatusByCode[params.value])}
+        maxLength={40}
       />
     ),
 

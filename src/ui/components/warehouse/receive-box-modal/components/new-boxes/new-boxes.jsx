@@ -10,6 +10,7 @@ import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
+import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -113,10 +114,10 @@ export const NewBoxes = memo(
 
                 <Input
                   classes={{
-                    root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
-                    }),
                     input: styles.input,
+                    root: cx(styles.inputWrapper, {
+                      [styles.error]: checkIsValidBoxSize(item.lengthCmWarehouse),
+                    }),
                   }}
                   inputProps={{ maxLength: 6 }}
                   value={item.lengthCmWarehouse}
@@ -128,7 +129,7 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                      [styles.error]: checkIsValidBoxSize(item.widthCmWarehouse),
                     }),
                     input: styles.input,
                   }}
@@ -142,7 +143,7 @@ export const NewBoxes = memo(
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
-                      [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                      [styles.error]: checkIsValidBoxSize(item.heightCmWarehouse),
                     }),
                     input: styles.input,
                   }}
