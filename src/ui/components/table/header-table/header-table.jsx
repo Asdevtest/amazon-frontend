@@ -13,15 +13,18 @@ import { useStyles } from './header-table.style'
 export const HeaderTable = ({ viewModel }) => {
   const { classes: styles } = useStyles()
 
-  const switcherSettings = [
-    ...viewModel.storekeepersData
-      .slice()
-      .filter(storekeeper => storekeeper.boxesCount !== 0)
-      .sort((a, b) => a.name?.localeCompare(b.name))
-      .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
-    { label: () => t(TranslationKey['All warehouses']), value: undefined },
-  ]
+  const switcherSettings = viewModel.storekeepersData
+    .filter(({ boxesCount }) => boxesCount !== 0)
+    .sort((a, b) => a.name?.localeCompare(b.name))
+    .map(({ name, _id }) => ({ label: () => name, value: _id }))
+    .concat([
+      {
+        label: () => t(TranslationKey['All warehouses']),
+        value: undefined,
+      },
+    ])
 
+  console.log(switcherSettings)
   return (
     <React.Fragment>
       <div className={styles.searchWrapper}>
