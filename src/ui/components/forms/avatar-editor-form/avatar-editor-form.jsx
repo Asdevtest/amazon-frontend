@@ -4,10 +4,7 @@ import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -59,11 +56,11 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
 
   const labelStyle = {
     width: '100%',
-    backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
+    backgroundColor: `${theme.palette.background.chatIncomeMessage}`,
     textAlign: 'center',
     transition: '0.3s ease',
     cursor: 'pointer',
-    color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
+    color: `${theme.palette.text.general}`,
   }
 
   const borderStyle = {
