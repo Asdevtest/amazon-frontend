@@ -24,7 +24,6 @@ export const HeaderTable = ({ viewModel }) => {
       },
     ])
 
-  console.log(switcherSettings)
   return (
     <React.Fragment>
       <div className={styles.searchWrapper}>
