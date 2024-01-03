@@ -28,7 +28,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './warehouse-my-warehouse-view.style'
 
-import { ActionButtons } from './action-buttons/action-buttons'
+import { ActionButtons } from './action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
 export const WarehouseMyWarehouseView = observer(({ history }) => {
