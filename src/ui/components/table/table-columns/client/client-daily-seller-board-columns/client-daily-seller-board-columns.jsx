@@ -33,6 +33,8 @@ export const clientDailySellerBoardColumns = () => [
 
     table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
     columnKey: columnnsKeys.shared.OBJECT,
+
+    sortable: false,
   },
 
   {
