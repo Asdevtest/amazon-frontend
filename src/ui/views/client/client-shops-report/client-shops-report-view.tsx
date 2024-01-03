@@ -86,7 +86,6 @@ export const ClientShopsReportView = observer(() => {
       </div>
 
       <Modal
-        // @ts-ignore
         openModal={viewModel.showBindStockGoodsToInventoryModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
@@ -102,7 +101,6 @@ export const ClientShopsReportView = observer(() => {
 
       <WarningInfoModal
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        // @ts-ignore
         openModal={viewModel.showWarningInfoModal}
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         title={viewModel.warningInfoModalSettings.title}

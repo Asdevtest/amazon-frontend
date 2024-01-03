@@ -1,4 +1,4 @@
-import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
+import { GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -51,15 +51,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     ...other
   } = props
 
-  // const renderStandartItems = () => ( // стандартные
-  //   <div>
-  //     <GridColumnMenuSortItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuFilterItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuHideItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuColumnsItem column={currentColumn} onClick={hideMenu} />
-  //   </div>
-  // )
-
   const currentColumn = colDef
 
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
@@ -77,7 +68,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
-        {/* {renderStandartItems()} пример*/}
       </GridColumnMenuContainer>
     )
   }
@@ -545,15 +535,7 @@ export const DataGridCustomColumnMenuComponent = props => {
 
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
-        <OnListingCellMenuItem
-          data={props}
-          // field={currentColumn.field}
-          // filterRequestStatus={filterRequestStatus}
-          // onClickFilterBtn={onClickFilterBtn}
-          onClose={hideMenu}
-          // onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          // onClickAccept={onClickAccept}
-        />
+        <OnListingCellMenuItem data={props} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }
@@ -567,6 +549,4 @@ export const DataGridCustomColumnMenuComponent = props => {
       </GridColumnMenuContainer>
     )
   }
-
-  return <GridColumnMenu /* hideMenu={hideMenu} currentColumn={currentColumn} */ {...props} />
 }

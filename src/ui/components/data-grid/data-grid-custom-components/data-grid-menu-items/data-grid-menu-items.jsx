@@ -748,7 +748,8 @@ export const ObJectFieldMenuItem = React.memo(
       rowContent,
       asBlock,
     }) => {
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -773,8 +774,8 @@ export const ObJectFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) =>
                 Number(b._id === 'null') - Number(a._id === 'null') ||
                 Number(choosenItems?.some(item => item._id === b._id)) -
@@ -1135,19 +1136,20 @@ export const NormalFieldMenuItem = React.memo(
         onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState([])
 
       useEffect(() => {
         if (currentFilterData) {
-          setChoosenItems(currentFilterData.filter(item => filterData.includes(item)))
+          setChoosenItems(currentFilterData.filter(item => filterData?.includes(item)))
         }
       }, [currentFilterData, filterData])
 
       const onClickItem = str => {
-        if (choosenItems.some(item => item === str)) {
-          setChoosenItems(choosenItems.filter(item => item !== str))
+        if (choosenItems?.some(item => item === str)) {
+          setChoosenItems(choosenItems?.filter(item => item !== str))
         } else {
           setChoosenItems([...choosenItems, str])
         }
@@ -1159,8 +1161,8 @@ export const NormalFieldMenuItem = React.memo(
         if (filterData) {
           setItemsForRender(
             filterData
-              .filter(el => el !== undefined && el !== null)
-              .sort(
+              ?.filter(el => el !== undefined && el !== null)
+              ?.sort(
                 (a, b) =>
                   currentFilterData.length &&
                   Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
@@ -1175,8 +1177,8 @@ export const NormalFieldMenuItem = React.memo(
         if (nameSearchValue) {
           const filter = filterData?.filter(item =>
             String(getStatusByColumnKeyAndStatusKey(item, columnKey))
-              .toLowerCase()
-              .includes(nameSearchValue.toLowerCase()),
+              ?.toLowerCase()
+              ?.includes(nameSearchValue.toLowerCase()),
           )
           setItemsForRender(filter)
         } else {
@@ -1277,7 +1279,6 @@ export const PriorityMenuItem = React.memo(
       onClose,
       data,
       field,
-      filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1291,7 +1292,7 @@ export const PriorityMenuItem = React.memo(
       const urgentPriority = isOrder ? [40] : [30]
       const withoutPriority = isOrder ? [30] : [10, 20]
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1379,7 +1380,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1661,7 +1662,8 @@ export const OrderOrItemMenuItem = React.memo(
         }
       }, [currentOption])
 
-      const { filterData, currentFilterData } = data[currentOption]
+      const filterData = data[currentOption]?.filterData
+      const currentFilterData = data[currentOption]?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1682,8 +1684,8 @@ export const OrderOrItemMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
             ),
         )
@@ -1818,7 +1820,10 @@ export const DestinationMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
     )
-    const { filterData, currentFilterData } = data[currentOption]
+
+    const filterData = data[currentOption]?.filterData
+    const currentFilterData = data[currentOption]?.currentFilterData
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1834,8 +1839,8 @@ export const DestinationMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el)
-          .sort(
+          ?.filter(el => el)
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item?._id === b?._id)) -
               Number(choosenItems?.some(item => item?._id === a?._id)),
@@ -1977,7 +1982,8 @@ export const FromToDateMenuItem = React.memo(
         onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1998,8 +2004,8 @@ export const FromToDateMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 compareDesc(parseISO(a), parseISO(b)),
@@ -2263,7 +2269,8 @@ export const NumberFieldMenuItem = React.memo(
         setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -2285,8 +2292,8 @@ export const NumberFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el || el === 0 || el === '0')
-            .sort(
+            ?.filter(el => el || el === 0 || el === '0')
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 Number(b) - Number(a),
@@ -3097,7 +3104,8 @@ export const SecondsCellMenuItem = React.memo(
       onClickFilterBtn,
     } = props
 
-    const { filterData, currentFilterData } = data
+    const filterData = data?.filterData
+    const currentFilterData = data?.currentFilterData
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -3114,8 +3122,8 @@ export const SecondsCellMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el || el === 0 || el === '0')
-          .sort(
+          ?.filter(el => el || el === 0 || el === '0')
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
               Number(b) - Number(a),
