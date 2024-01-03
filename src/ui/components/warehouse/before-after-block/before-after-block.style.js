@@ -40,6 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   divider: {
     gridColumn: '2 / 3',
+    margin: '0 auto',
   },
 
   currentBox: {

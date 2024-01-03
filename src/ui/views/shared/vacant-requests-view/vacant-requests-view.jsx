@@ -6,6 +6,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
@@ -34,9 +35,9 @@ export const VacantRequestsView = observer(({ history }) => {
   }, [])
 
   const getRowClassName = params => {
-    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return [styles.deadlineBorder, styles.redBorder]
-    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return [styles.deadlineBorder, styles.yellowBorder]
     }
   }

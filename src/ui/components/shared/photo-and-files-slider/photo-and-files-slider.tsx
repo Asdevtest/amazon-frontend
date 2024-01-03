@@ -16,7 +16,7 @@ import { Slider } from './slider'
 import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 import { usePhotoAndFilesSlider } from './use-photo-and-files-slider'
 
-interface Props {
+interface PhotoAndFilesSliderProps {
   files: Array<string | IUploadFile>
   column?: boolean
   withoutPhotos?: boolean
@@ -66,7 +66,7 @@ interface Props {
  * @param {Function} onChangeImagesForLoad - Method to change the array of transferred files from outside the component.
  * @returns {HTMLElement} Return custom slider for photos and documents.
  */
-export const PhotoAndFilesSlider: FC<Props> = memo(props => {
+export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
   const {
     files,
     column = false,

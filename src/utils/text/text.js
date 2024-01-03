@@ -11,6 +11,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUTES_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
@@ -88,11 +89,11 @@ export const minsToTime = mins => {
 }
 
 export const secondsToTime = secs => {
-  if (secs >= 60) {
-    const days = Math.floor(secs / 86400)
-    const hours = Math.floor((secs % 86400) / 3600)
-    const minutes = Math.floor((secs % 3600) / 60)
-    const seconds = Math.floor(secs % 60)
+  if (secs >= ONE_MINUTES_IN_SECONDS) {
+    const days = Math.floor(secs / ONE_DAY_IN_SECONDS)
+    const hours = Math.floor((secs % ONE_DAY_IN_SECONDS) / ONE_HOUR_IN_SECONDS)
+    const minutes = Math.floor((secs % ONE_HOUR_IN_SECONDS) / ONE_HOUR_IN_MINUTES)
+    const seconds = Math.floor(secs % ONE_MINUTES_IN_SECONDS)
 
     return {
       days,

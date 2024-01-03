@@ -19,21 +19,26 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) => {
+const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
 
+  const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
+
+  const isNormalWidth = !Number(box.widthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.widthCmWarehouse)
+
+  const isNormalHeight = !Number(box.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.heightCmWarehouse)
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          error={isNormalLength}
           inputProps={{ maxLength: 6 }}
-          error={Number(box.lengthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
@@ -43,9 +48,8 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
 
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.heightCmWarehouse) === 0 && true}
+          error={isNormalHeight}
           labelClasses={classNames.label}
-          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={toFixed(box.heightCmWarehouse, 2)}
@@ -64,8 +68,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.widthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
+          error={isNormalWidth}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
@@ -227,8 +230,10 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.lengthCmWarehouse) ||
     !Number(editingBox.widthCmWarehouse) ||
     !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse)
-
+    !Number(editingBox.weighGrossKgWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
   return (
     <div className={classNames.modalWrapper}>
       <div className={classNames.modalHeaderWrapper}>

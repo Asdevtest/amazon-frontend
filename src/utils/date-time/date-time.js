@@ -12,7 +12,7 @@ import {
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
-import { ONE_MINUTE } from '@constants/time'
+import { ONE_HOUR_IN_MILLISECONDS } from '@constants/time'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -189,5 +189,5 @@ export const getTomorrowDate = () => {
 }
 
 export const getLocalToUTCDate = date => {
-  return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_MINUTE)?.toISOString()
+  return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_HOUR_IN_MILLISECONDS)?.toISOString()
 }

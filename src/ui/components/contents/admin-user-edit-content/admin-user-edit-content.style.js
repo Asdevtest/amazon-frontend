@@ -256,6 +256,7 @@ export const useClassNames = makeStyles()(theme => ({
     right: 10,
     top: 35,
     cursor: 'pointer',
+    color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
       top: 35,
     },

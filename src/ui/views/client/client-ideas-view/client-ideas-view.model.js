@@ -753,7 +753,7 @@ export class ClientIdeasViewModel {
   }
 
   async onClickBindButton(requests) {
-    this.setActionStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     const methodBody =
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
@@ -921,7 +921,7 @@ export class ClientIdeasViewModel {
 
   async onClickLinkRequestButton(idea) {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const isChildProcuct =
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
@@ -929,7 +929,7 @@ export class ClientIdeasViewModel {
 
       const result = await RequestModel.getRequestsByProductLight({
         guid: currentProductId,
-        status: 'DRAFT, PUBLISHED',
+        status: 'DRAFT, PUBLISHED, IN_PROCESS',
         excludeIdeaId: idea._id,
       })
 
@@ -940,11 +940,11 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showBindingModal')
 
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -1109,7 +1109,7 @@ export class ClientIdeasViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
       })
@@ -1156,9 +1156,9 @@ export class ClientIdeasViewModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1197,10 +1197,6 @@ export class ClientIdeasViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
   }
 
   setDestinationsFavouritesItem(item) {

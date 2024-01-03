@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   slidesWrapper: {
     overflow: 'hidden',
   },
@@ -11,6 +11,9 @@ export const useStyles = makeStyles()(() => ({
 
     height: 110,
     width: 146,
+    [theme.breakpoints.down(768)]: {
+      width: '100%!important',
+    },
   },
 
   slideWrapper: {
@@ -29,16 +32,25 @@ export const useStyles = makeStyles()(() => ({
   slideSmall: {
     height: '48px !important',
     width: '64px !important',
+    [theme.breakpoints.down(768)]: {
+      width: '100%!important',
+    },
   },
 
   slideMedium: {
     height: '160px !important',
     width: '213px !important',
+    [theme.breakpoints.down(768)]: {
+      width: '100%!important',
+    },
   },
 
   slideBig: {
     height: '300px !important',
     width: '550px !important',
+    [theme.breakpoints.down(768)]: {
+      width: '100%!important',
+    },
   },
 
   documentWrapper: {
