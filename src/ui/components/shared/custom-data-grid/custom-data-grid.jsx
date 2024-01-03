@@ -17,7 +17,6 @@ export const CustomDataGrid = ({ ...restProps }) => {
       pagination
       hideFooter
       disableVirtualization
-      localeText={getLocalizationByLanguageTag()}
       sortingMode="server"
       paginationMode="server"
       pageSizeOptions={pageSizeOptions}

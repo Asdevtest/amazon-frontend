@@ -51,13 +51,16 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
     marginBottom: '20px',
     width: '38%',
+    [theme.breakpoints.down(768)]: {
+      right: '5px',
+    },
   },
 
   buttonWrapper: {
     position: 'fixed',
     bottom: 50,
     right: 60,
-    zIndex: 50,
+    zIndex: 150,
     width: '33%',
     display: 'grid',
   },
@@ -136,6 +139,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     // flexDirection: 'column',
     width: '50%',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   alertShieldWrapperStyle: {

@@ -13,6 +13,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
@@ -26,8 +27,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
@@ -174,21 +174,15 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 100,
   },
 
   {

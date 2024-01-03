@@ -830,7 +830,6 @@ export const BeforeAfterBlock = observer(
     const onClickEditBox = box => {
       onEditBox(box)
     }
-
     return (
       <>
         <div className={classNames.currentBox}>

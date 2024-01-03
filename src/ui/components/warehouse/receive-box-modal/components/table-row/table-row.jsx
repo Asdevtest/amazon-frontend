@@ -10,6 +10,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
+import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -97,7 +98,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.lengthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -112,7 +113,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.widthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -126,7 +127,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.heightCmWarehouse),
                 }),
                 input: styles.input,
               }}

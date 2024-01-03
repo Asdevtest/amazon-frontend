@@ -6,6 +6,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '20px',
     fontWeight: '600',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+    },
   },
 
   hsFieldContainer: {
@@ -128,11 +131,17 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 15,
     width: '520px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   fieldsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    [theme.breakpoints.down(768)]: {
+      width: '48%',
+    },
   },
 
   fieldsSubWrapper: {
@@ -144,9 +153,15 @@ export const useStyles = makeStyles()(theme => ({
   shortInput: {
     width: '100%',
     whiteSpace: 'nowrap',
+    [theme.breakpoints.down(768)]: {
+      width: '48%!important',
+    },
   },
   shortInputClass: {
     width: 100,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   editButtonWrapper: {
@@ -193,7 +208,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputLink: {
-    width: '600px',
+    width: '100%',
+    maxWidth: '600px',
     overflow: 'hidden',
     color: theme.palette.text.general,
     outline: 'none',
@@ -220,11 +236,20 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1440)]: {
+      flexWrap: 'wrap',
+    },
   },
   copyLink: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    width: '75%',
+    [theme.breakpoints.down(1440)]: {
+      width: '100%',
+      marginBottom: '20px',
+      marginRight: '10px'
+    },
   },
 
   subUsersBodyWrapper: {
@@ -262,6 +287,9 @@ export const useStyles = makeStyles()(theme => ({
   strategyAndSubUsersWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   field: {
     borderRadius: '4px',
@@ -272,6 +300,9 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '22px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   redFlags: {

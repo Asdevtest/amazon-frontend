@@ -491,7 +491,7 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         {withRemove && (
-          <TableCell>
+          <TableCell className={classNames.deleteCell}>
             <IconButton onClick={() => onRemoveProduct(item._id)}>
               <DeleteIcon />
             </IconButton>

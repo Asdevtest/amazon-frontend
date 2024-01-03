@@ -515,6 +515,9 @@ export class ClientProductViewModel {
             images: this.uploadedImages,
           },
           ['suppliers'],
+          undefined,
+          undefined,
+          true,
         ),
       )
 

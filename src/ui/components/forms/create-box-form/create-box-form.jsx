@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
+  maxLengthInputInSizeBox,
   poundsWeightCoefficient,
   unitsOfChangeOptions,
   volumePoundsWeightCoefficient,
@@ -133,8 +134,13 @@ export const CreateBoxForm = observer(
           el?.items?.[0]?.amount < 1 ||
           el?.amount < 1 ||
           (currentSupplier?.multiplicity && el?.items?.[0]?.amount % currentSupplier?.boxProperties?.amountInBox !== 0),
+      ) ||
+      formFieldsArr.some(
+        el =>
+          el.widthCmSupplier > maxLengthInputInSizeBox ||
+          el.heightCmSupplier > maxLengthInputInSizeBox ||
+          el.lengthCmSupplier > maxLengthInputInSizeBox,
       )
-
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const convertedFormFieldsArr = formFieldsArr.map(editingBox => {

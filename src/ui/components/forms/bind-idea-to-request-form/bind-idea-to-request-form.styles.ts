@@ -1,23 +1,29 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   root: {
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: 20,
   },
 
   title: {
-    fontSize: '18px',
+    fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
   },
 
   tableWrapper: {
-    height: '354px',
+    height: 358,
+  },
+
+  columnHeaderTitleContainer: {
+    padding: '0 !important',
   },
 
   buttonWrapper: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
   },
 }))

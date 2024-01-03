@@ -503,7 +503,7 @@ export class SuppliersAndIdeasModel {
     try {
       const result = await RequestModel.getRequestsByProductLight({
         guid: this.productId,
-        status: 'DRAFT, PUBLISHED',
+        status: 'DRAFT, PUBLISHED, IN_PROCESS',
         excludeIdeaId: idea._id,
       })
 

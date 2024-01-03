@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -32,6 +32,8 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { HintsContext } from '@contexts/hints-context'
+
 import { useClassNames } from './header.styles'
 
 import { HeaderModel } from './header.model'
@@ -42,6 +44,7 @@ interface Props {
 }
 
 export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
+  const { hints, setHints } = useContext(HintsContext)
   const history = useHistory()
   const { classes: classNames } = useClassNames()
   const componentModel = useRef(new HeaderModel({ history }))
@@ -62,7 +65,6 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
     onExitFromRole,
     changeUserInfo,
     changeUiTheme,
-    onTriggerShowHints,
   } = componentModel.current
 
   useEffect(() => {
@@ -190,7 +192,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             {t(TranslationKey[`${title as TranslationKey}`])}
           </p>
 
-          <div className={classNames.tooltipWrapper} onClick={onTriggerShowHints}>
+          <div className={classNames.tooltipWrapper} onClick={() => setHints(!hints)}>
             {showHints ? (
               <HintsOn
                 className={cx(classNames.hintsIcon, classNames.hintsIconActive)}
