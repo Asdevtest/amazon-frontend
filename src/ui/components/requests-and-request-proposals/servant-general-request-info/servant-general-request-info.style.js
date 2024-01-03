@@ -19,7 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'spaceBetween',
+    justifyContent: 'space-between',
     maxWidth: 310,
     flex: '1 1 auto',
   },
