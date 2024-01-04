@@ -33,8 +33,10 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
     width: 150,
 
+    table: DataGridFilterTables.INVENTORY_SHIPMENTS,
+    columnKey: columnnsKeys.shared.OBJECT,
+
     sortable: false,
-    filterable: false,
   },
 
   {

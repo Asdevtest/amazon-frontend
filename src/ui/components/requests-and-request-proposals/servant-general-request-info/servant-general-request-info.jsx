@@ -170,11 +170,12 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         {getMainInfos()}
 
         {requestProposals.length !== 0 ? (
-          <div className={classNames.proposalsWrapper}>
+          <>
             <Divider orientation={'vertical'} />
-
-            <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
-          </div>
+            <div className={classNames.proposalsWrapper}>
+              <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
+            </div>
+          </>
         ) : null}
       </div>
     </div>

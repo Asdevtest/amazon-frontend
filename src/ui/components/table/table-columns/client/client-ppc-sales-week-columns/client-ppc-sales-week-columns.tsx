@@ -33,8 +33,10 @@ export const clientPPCSalesWeekColumns = () => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
     width: 150,
 
+    table: DataGridFilterTables.PPC_SALES_WEEKS,
+    columnKey: columnnsKeys.shared.OBJECT,
+
     sortable: false,
-    filterable: false,
   },
 
   {

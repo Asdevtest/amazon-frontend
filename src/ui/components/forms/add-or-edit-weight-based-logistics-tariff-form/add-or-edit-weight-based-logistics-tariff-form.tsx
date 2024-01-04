@@ -515,7 +515,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           labelClasses={classNames.fieldLabel}
           classes={{ root: classNames.inputClass }}
           // @ts-ignore
-          inputProps={{ maxLength: 320, padding: '10px' }}
+          inputProps={{ maxLength: 255, padding: '10px' }}
           className={classNames.descriptionField}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           placeholder={t(TranslationKey['Service description'])}

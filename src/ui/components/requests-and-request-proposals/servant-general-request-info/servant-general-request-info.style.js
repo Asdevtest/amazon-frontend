@@ -17,6 +17,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     maxWidth: 310,
     flex: '1 1 auto',
   },
@@ -155,6 +158,12 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     color: theme.palette.text.general,
+    [theme.breakpoints.down(1500)]: {
+      textOverflow: 'ellipsis',
+      textWrap: 'nowrap',
+      maxWidth: 220,
+      overflow: 'hidden',
+    },
   },
 
   mainInfosSubWrapper: {
