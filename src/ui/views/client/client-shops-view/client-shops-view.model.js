@@ -207,6 +207,10 @@ export class ShopsViewModel {
 
   async createShop(data, shopId) {
     try {
+      if (!data.reportAccountUrl) {
+        delete data.reportAccountUrl
+      }
+
       if (shopId) {
         await ShopModel.editShop(shopId, data)
 
