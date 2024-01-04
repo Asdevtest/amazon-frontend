@@ -168,9 +168,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
-
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
+        <Button onClick={() => handlers.onAddImages(item._id)}>
+          {t(TranslationKey.Photos)} {item.tmpImages.length > 0 && `+ ${item.tmpImages.length}`}
+        </Button>
       </TableCell>
 
       <TableCell>
