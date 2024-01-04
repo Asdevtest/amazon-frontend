@@ -345,7 +345,9 @@ export const clientInventoryColumns = (
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    renderCell: params => {
+      return <RedFlagsCell flags={params.row.originalData.redFlags} />
+    },
     width: 130,
     sortable: false,
     columnKey: columnnsKeys.shared.RED_FLAGS,
