@@ -56,7 +56,7 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
 
   const labelStyle = {
     width: '100%',
-    backgroundColor: `${theme.palette.background.chatIncomeMessage}`,
+    backgroundColor: theme.palette.background.chatIncomeMessage,
     textAlign: 'center',
     transition: '0.3s ease',
     cursor: 'pointer',
