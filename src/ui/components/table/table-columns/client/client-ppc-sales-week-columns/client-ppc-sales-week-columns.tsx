@@ -58,7 +58,7 @@ export const clientPPCSalesWeekColumns = () => [
     field: 'periodStart',
     headerName: 'periodStart',
     renderHeader: () => <MultilineTextHeaderCell text={'Start of Period'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.PPC_SALES_WEEKS,
@@ -69,7 +69,7 @@ export const clientPPCSalesWeekColumns = () => [
     field: 'periodEnd',
     headerName: 'periodEnd',
     renderHeader: () => <MultilineTextHeaderCell text={'End of Period'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.PPC_SALES_WEEKS,

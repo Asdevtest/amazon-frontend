@@ -4,6 +4,7 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -15,12 +16,14 @@ import { t } from '@utils/translations'
 
 import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './helpers/observer-config'
-import { TabsValues } from './helpers/tabs-value'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = TabsValues.STOCK_REPORT
+  _tabKey = ShopReportsTabsValues.STOCK_REPORT
   get tabKey() {
     return this._tabKey
+  }
+  set tabKey(tabKey) {
+    this._tabKey = tabKey
   }
 
   _inventoryProducts: any = []
@@ -47,16 +50,33 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this._showWarningInfoModal = showWarningInfoModal
   }
 
-  constructor(currentTabsValues: TabsValues) {
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
+  _showConfirmModal = false
+  get showConfirmModal() {
+    return this._showConfirmModal
+  }
+  set showConfirmModal(showConfirmModal) {
+    this._showConfirmModal = showConfirmModal
+  }
+
+  constructor(currentTabsValues: ShopReportsTabsValues) {
+    const url = new URL(window.location.href)
+    const currentReport = url.searchParams.get('currentReport') as ShopReportsTabsValues
+
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(
+      currentReport || currentTabsValues,
+    )
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
+
+    if (currentReport) {
+      this.tabKey = currentReport
+    }
 
     makeObservable(this, observerConfig)
   }
 
-  changeTabHandler = (key: TabsValues) => {
-    this._tabKey = key
+  changeTabHandler = (key: ShopReportsTabsValues) => {
+    this.tabKey = key
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(key)
 
@@ -108,7 +128,24 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async deleteReportHandler() {
+  deleteReportHandler() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        message: t(TranslationKey['Are you sure?']),
+        onSubmit: () => {
+          this.submitDeleteReportHandler()
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async submitDeleteReportHandler() {
     try {
       this.requestStatus = loadingStatuses.IS_LOADING
 

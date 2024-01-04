@@ -45,9 +45,8 @@ export class ModalsModel extends DefaultModel {
     this._warningInfoModalSettings = warningInfoModalSettings
   }
 
-  constructor(history?: History) {
-    super(history)
-
+  constructor() {
+    super()
     makeObservable(this, observerConfig)
   }
 

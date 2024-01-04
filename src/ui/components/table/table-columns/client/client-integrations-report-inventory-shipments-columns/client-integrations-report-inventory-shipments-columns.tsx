@@ -80,7 +80,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     field: 'dateCreated',
     headerName: 'dateCreated',
     renderHeader: () => <MultilineTextHeaderCell text={'Date created'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -91,7 +91,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     field: 'dateUpdated',
     headerName: 'dateUpdated',
     renderHeader: () => <MultilineTextHeaderCell text={'Date updated'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -135,7 +135,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     field: 'scheduledCarrierDeliveryDate',
     headerName: 'scheduledCarrierDeliveryDate',
     renderHeader: () => <MultilineTextHeaderCell text={'Scheduled carrier delivery date'} />,
-    renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 155,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -146,7 +146,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     field: 'deliveryWindowStart',
     headerName: 'deliveryWindowStart',
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window start'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -157,7 +157,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     field: 'deliveryWindowEnd',
     headerName: 'deliveryWindowEnd',
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window end'} />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,

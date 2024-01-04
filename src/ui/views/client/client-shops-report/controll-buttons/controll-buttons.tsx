@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 
+import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -8,11 +9,9 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './controll-buttons.style'
 
-import { TabsValues } from '../helpers/tabs-value'
-
 interface СontrollButtonsProps {
   selectedRows: string[]
-  currentTabKey: TabsValues
+  currentTabKey: ShopReportsTabsValues
   onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
@@ -30,7 +29,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   } = props
 
   const noSelectedRows = !selectedRows?.length
-  const disableButton = currentTabKey !== TabsValues.STOCK_REPORT || noSelectedRows
+  const disableButton = currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows
 
   return (
     <div className={styles.root}>

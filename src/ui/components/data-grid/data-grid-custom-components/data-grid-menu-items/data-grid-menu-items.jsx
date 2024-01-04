@@ -40,6 +40,8 @@ import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
 
+import { wholeIntegersList } from './whole-integers-list'
+
 export const IsFormedMenuItem = React.memo(
   withStyles(
     ({
@@ -2312,32 +2314,7 @@ export const NumberFieldMenuItem = React.memo(
       }, [nameSearchValue, fromValue, toValue])
 
       const checkIsNotFixedValue = useCallback(() => {
-        const whiteList = [
-          'amount',
-          'productionTerm',
-          'amountInOrders',
-          'stockUSA',
-          'purchaseQuantity',
-          'sentToFbaSum',
-          'reservedSum',
-          'bsr',
-          'fbaFbmStockSum',
-          'reservedSum',
-          'sentToFbaSum',
-          'sumStock',
-          'humanFriendlyId',
-          'ideasVerified',
-          'ideasClosed',
-          'ideasOnCheck',
-          'ideasOnCheck',
-          'ideasClosed',
-          'ideasFinished',
-          'fbaamount',
-          'id',
-          'reworkCounter',
-          'fbaFbmStock',
-        ]
-        return whiteList.includes(field)
+        return wholeIntegersList.includes(field)
       }, [field])
 
       return (
