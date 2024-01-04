@@ -70,6 +70,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
     if (currentReport) {
       this.tabKey = currentReport
+      this.history.push(this.history.location.pathname)
     }
 
     makeObservable(this, observerConfig)
