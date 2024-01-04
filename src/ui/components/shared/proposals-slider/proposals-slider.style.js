@@ -73,6 +73,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     width: 450,
+    [theme.breakpoints.down(1500)]: {
+      width: '100%',
+    },
   },
 
   customPerformerLink: {
