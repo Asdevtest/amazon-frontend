@@ -36,11 +36,13 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { PresetStatus } from '../../../../constants/statuses/presets'
+
 import {
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
   filtersFields,
-} from './client-inventory-view.constants'
+} from './helpers/client-inventory-view.constants'
 
 const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
 
@@ -69,7 +71,6 @@ export class ClientInventoryViewModel {
   batchesData = []
 
   presetsData = []
-  currentPresets = []
 
   receivedFiles = undefined
 
@@ -523,7 +524,6 @@ export class ClientInventoryViewModel {
       this.getDataGridState()
 
       this.getPresets()
-      this.getCurrentPresets()
 
       await this.getShops()
       await this.getProductsMy()
@@ -536,13 +536,42 @@ export class ClientInventoryViewModel {
 
   async getPresets() {
     try {
-      const result = await OtherModel.getPresets()
+      const currentPresets = await this.getCurrentPresets()
+      const allPresets = await this.getAllPresets()
 
-      console.log('getPresets', result)
+      for (const currentPreset of currentPresets) {
+        const existFields = currentPreset?.fields?.map(field => ({
+          field,
+          status: PresetStatus.EXIST,
+          checked: true,
+        }))
+
+        const preset = allPresets.find(preset => preset?.table === currentPreset?.table)
+
+        const notExistFields = preset?.fields
+          ?.filter(field => !preset?.fields?.includes(field))
+          ?.map(field => ({
+            field,
+            status: PresetStatus.NOT_EXIST,
+            checked: false,
+          }))
+
+        currentPreset.fields = [...existFields, ...notExistFields]
+      }
 
       runInAction(() => {
-        this.presetsData = result
+        this.presetsData = currentPresets
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getAllPresets() {
+    try {
+      const result = await OtherModel.getPresets()
+
+      return result
     } catch (error) {
       console.log(error)
     }
@@ -552,9 +581,7 @@ export class ClientInventoryViewModel {
     try {
       const result = await UserModel.getUsersPresets()
 
-      runInAction(() => {
-        this.currentPresets = result
-      })
+      return result
     } catch (error) {
       console.log(error)
     }

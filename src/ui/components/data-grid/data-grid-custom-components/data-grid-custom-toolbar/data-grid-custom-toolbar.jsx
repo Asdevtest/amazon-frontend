@@ -2,7 +2,6 @@ import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-
 
 import { useStyles } from './data-grid-custom-toolbar.style'
 
-import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 import { DataGridTableSetting } from '../data-grid-table-setting'
 
@@ -19,17 +18,7 @@ export const DataGridCustomToolbar = ({
     <GridToolbarContainer className={styles.toolbar} {...other}>
       <div className={styles.buttons}>
         {!!columsBtnSettings && (
-          <>
-            {presetsSettings ? (
-              <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
-            ) : (
-              <DataGridCustomColumnsButton
-                size={'large'}
-                className={styles.text}
-                columsBtnSettings={columsBtnSettings}
-              />
-            )}
-          </>
+          <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
         )}
 
         <GridToolbarExport size={'large'} className={styles.text} />

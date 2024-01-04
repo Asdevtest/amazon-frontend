@@ -44,11 +44,16 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useStyles } from './client-inventory-view.style'
 
-import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
+import {
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './helpers/client-inventory-view.constants'
 
 export const ClientInventoryView = observer(({ history, location }) => {
   const { classes: styles } = useStyles()
+
   const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
   const [useProductsPermissions] = useState(
     () =>
@@ -232,7 +237,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
             toolbar: {
               presetsSettings: {
                 presetsData: viewModel.presetsData,
-                currentPreset: viewModel.currentPresets,
 
                 // onClickSavePresets: viewModel.savePresetsHandler,
                 // onClickResetPresets: viewModel.onClickResetPresets,
