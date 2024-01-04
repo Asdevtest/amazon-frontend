@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   footer: {
     display: 'flex',
     alignItems: 'center',
@@ -13,14 +13,24 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#f2f4f7',
+    background: theme.palette.background.general,
     borderRadius: '50%',
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.7,
+    },
   },
 
   icon: {
     width: '20px !important',
     height: '20px !important',
+
+    path: {
+      stroke: theme.palette.text.second,
+    },
   },
 
   button: {
@@ -30,5 +40,11 @@ export const useStyles = makeStyles()(() => ({
     background: '#fee4e2',
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     borderRadius: 24,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.7,
+    },
   },
 }))

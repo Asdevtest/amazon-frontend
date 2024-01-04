@@ -185,6 +185,7 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showMyOrderModal}
           handleOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
           order={viewModel.order}
+          orderBoxes={viewModel.orderBoxes}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           platformSettings={viewModel.platformSettings}

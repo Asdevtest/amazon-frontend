@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#f2f4f7',
+    background: theme.palette.background.general,
     borderRadius: '50%',
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     opacity: 1,

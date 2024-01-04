@@ -297,7 +297,7 @@
   "No boxes...": "Коробок нет...",
   "Gross weight": "Фактический вес",
   "kg": "кг",
-  "pcs.": "шт",
+  "pcs.": "шт.",
   "cm": "см",
   "All product parameters": "Все параметры продукта",
   "Collapse": "Свернуть",
@@ -2158,5 +2158,7 @@
   "total amount": "вся сумма",
   "Supplier information": "Информация о поставщике",
   "Additional order information": "Доп.информация о заказе",
-  "Supplier details": "Данные поставщика"
+  "Supplier details": "Данные поставщика",
+  "All files": "Все файлы",
+  "Page": "Страница"
 }

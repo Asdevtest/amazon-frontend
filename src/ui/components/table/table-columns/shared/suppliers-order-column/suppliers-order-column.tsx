@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -8,17 +10,25 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { FilesCell } from '@components/data-grid/data-grid-cells/files-cell/files-cell'
 import { PriceVariationsCell } from '@components/data-grid/data-grid-cells/price-variations-cell/price-variations-cell'
+import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const suppliersOrderColumn = platformSettings => [
+import { IPlatformSettings } from '@typings/patform-settings'
+import { IUploadFile } from '@typings/upload-file'
+
+interface ISuppliersOrderColumn {
+  platformSettings: IPlatformSettings
+  onOpenGalleryModal: (files?: Array<string | IUploadFile>) => void
+}
+
+export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: ISuppliersOrderColumn) => [
   {
     field: 'supplier',
-    headerName: t(TranslationKey.Supplier),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
-    renderCell: ({ row }) => <MultilineTextCell leftAlign text={row.name} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign text={row.name} />,
     filterable: false,
     sortable: false,
     width: 110,
@@ -26,9 +36,13 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'link',
-    headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    renderCell: ({ row }) => <UserMiniCell userName={row.link} />,
+    renderCell: ({ row }: GridRowModel) =>
+      row.link !== 'access denied' ? (
+        <LinkWithCopy url={row.link} title={t(TranslationKey['Go to supplier site'])} valueToCopy={row.link} />
+      ) : (
+        <MultilineTextCell leftAlign text={t(TranslationKey['Link not available'])} />
+      ),
     filterable: false,
     sortable: false,
     width: 140,
@@ -36,9 +50,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'price',
-    headerName: t(TranslationKey['Price with delivery']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery'])} />,
-    renderCell: ({ row }) => (
+    renderCell: ({ row }: GridRowModel) => (
       <MultilineTextCell text={toFixedWithDollarSign(row.price + row.batchDeliveryCostInDollar / row.amount, 2)} />
     ),
     filterable: false,
@@ -48,9 +61,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'minBatch',
-    headerName: t(TranslationKey['Minimum batch']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Minimum batch'])} />,
-    renderCell: ({ row }) => <MultilineTextCell text={String(row.minlot)} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
     width: 105,
@@ -58,9 +70,10 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'bathPrice',
-    headerName: t(TranslationKey['Batch price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch price'])} />,
-    renderCell: ({ row }) => <MultilineTextCell text={toFixedWithDollarSign(row.batchTotalCostInDollar, 2)} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={toFixedWithDollarSign(row.batchTotalCostInDollar, 2)} />
+    ),
     filterable: false,
     sortable: false,
     width: 100,
@@ -68,9 +81,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'productionTime',
-    headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time'])} />,
-    renderCell: ({ row }) => <MultilineTextCell text={row.productionTerm} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.productionTerm)} />,
     filterable: false,
     sortable: false,
     width: 105,
@@ -78,9 +90,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'priceVariations',
-    headerName: t(TranslationKey['Price variations']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price variations'])} />,
-    renderCell: ({ row }) => (
+    renderCell: ({ row }: GridRowModel) => (
       <PriceVariationsCell variations={row.priceVariations} platformSettings={platformSettings} />
     ),
     filterable: false,
@@ -91,9 +102,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'paymentMethods',
-    headerName: t(TranslationKey['Payment methods']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -102,9 +112,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'files',
-    headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }) => <FilesCell filesLength={row.images?.length} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onOpenGalleryModal} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -113,9 +122,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'createdBy',
-    headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    renderCell: ({ row }) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,
+    renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,
     filterable: false,
     sortable: false,
     width: 180,
@@ -123,9 +131,8 @@ export const suppliersOrderColumn = platformSettings => [
 
   {
     field: 'updated',
-    headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: ({ row }) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
     width: 100,

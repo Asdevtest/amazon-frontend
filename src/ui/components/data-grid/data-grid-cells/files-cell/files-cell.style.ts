@@ -8,19 +8,30 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  button: {
-    padding: '5px 25px',
-    fontSize: 14,
-    lineHeight: '20px',
-    color: theme.palette.text.general,
+  visibilityButton: {
+    width: 64,
+    height: 32,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     background: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.paper,
     borderRadius: 6,
+    boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     opacity: 1,
     transition: '.3s ease-in-out',
 
-    '&: hover': {
-      opacity: 0.5,
+    '&:hover': {
+      opacity: 0.7,
     },
+
+    '&:active': {
+      boxShadow: '0 0 2px 1px rgba(0, 0, 0, 0.17)',
+    },
+  },
+
+  visibilityIcon: {
+    width: '20px !important',
+    height: '20px !important',
+    color: theme.palette.primary.main,
   },
 }))

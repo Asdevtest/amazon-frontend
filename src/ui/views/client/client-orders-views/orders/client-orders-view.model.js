@@ -6,6 +6,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -19,6 +20,7 @@ import { clientOrdersViewColumns } from '@components/table/table-columns/client/
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
@@ -45,6 +47,7 @@ export class ClientOrdersViewModel {
   }
   selectedRowIds = []
   order = undefined
+  orderBoxes = []
 
   showOrderModal = false
   showSetBarcodeModal = false
@@ -752,10 +755,30 @@ export class ClientOrdersViewModel {
     // await this.getPlatformSettings()
 
     this.onTriggerOpenModal('showMyOrderModal')
+
+    if (this.showMyOrderModal) {
+      this.switcherCondition = SwitcherConditions.BASIC_INFORMATION
+    }
   }
 
   onClickChangeCondition(value) {
     this.switcherCondition = value
+
+    if (value === SwitcherConditions.BOXES_TO_ORDER) {
+      this.getBoxesOfOrder(this.order._id)
+    }
+  }
+
+  async getBoxesOfOrder(orderId) {
+    try {
+      const result = await BoxesModel.getBoxesOfOrder(orderId)
+
+      runInAction(() => {
+        this.orderBoxes = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getDestinations() {

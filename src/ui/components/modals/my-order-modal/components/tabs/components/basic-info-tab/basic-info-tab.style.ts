@@ -127,6 +127,11 @@ export const useStyles = makeStyles()(theme => ({
     height: 19,
   },
 
+  eyeButton: {
+    width: 24,
+    height: 24,
+  },
+
   eyeIcon: {
     color: theme.palette.primary.main,
   },

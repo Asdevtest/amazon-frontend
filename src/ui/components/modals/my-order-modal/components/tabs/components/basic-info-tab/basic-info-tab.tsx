@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserMiniCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { GalleryModal } from '@components/modals/gallery-modal'
 import { Card } from '@components/modals/my-order-modal/components'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -172,7 +173,18 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
     },
   ]
 
-  console.log(isChecked)
+  const [showGalleryModal, setShowGalleryModal] = useState(false)
+  const [galleryFiles, setGalleryFiles] = useState<Array<string | IUploadFile>>([])
+
+  const handleOpenGalleryModal = (files?: Array<string | IUploadFile>) => {
+    if (files && files.length > 0) {
+      setGalleryFiles(files)
+    } else {
+      setGalleryFiles([])
+    }
+
+    setShowGalleryModal(!showGalleryModal)
+  }
 
   const photosConfig: IFieldConfig[] = [
     {
@@ -253,7 +265,9 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
                 <Card key={index} wrapperClassName={styles.card}>
                   <div className={styles.field}>
                     <p className={styles.fieldText}>{item.title}</p>
-                    <button className={styles.fieldIconButton}>{item.element}</button>
+                    <button className={styles.fieldIconButton} onClick={() => handleOpenGalleryModal(item.files)}>
+                      {item.element}
+                    </button>
                   </div>
                 </Card>
               ))}
@@ -286,6 +300,14 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
           </div>
         </div>
       </div>
+
+      {showGalleryModal && (
+        <GalleryModal
+          files={galleryFiles}
+          isOpenModal={showGalleryModal}
+          onOpenModal={() => setShowGalleryModal(!showGalleryModal)}
+        />
+      )}
 
       {showSelectionStorekeeperAndTariffModal && (
         <Modal

@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import { Modal } from '@components/shared/modal'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IOrderBox } from '@typings/order-box'
 import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './my-order-modal.style'
@@ -14,6 +15,7 @@ interface MyOrderModalProps {
   openModal: boolean
   handleOpenModal: () => void
   order: any
+  orderBoxes: IOrderBox[]
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
@@ -27,6 +29,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     openModal,
     handleOpenModal,
     order,
+    orderBoxes,
     destinations,
     storekeepers,
     platformSettings,
@@ -37,8 +40,6 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  // console.log('order', order)
-
   return (
     <Modal openModal={openModal} setOpenModal={handleOpenModal}>
       <div className={styles.wrapper}>
@@ -46,6 +47,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
 
         <Tabs
           order={order}
+          orderBoxes={orderBoxes}
           destinations={destinations}
           storekeepers={storekeepers}
           platformSettings={platformSettings}

@@ -335,6 +335,15 @@ export const lightTheme = createTheme({
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
+
+    fileIcons: {
+      xls: '#0F8105',
+      pdf: '#D70D0D',
+      doc: '#0A6FE8',
+      txt: '#F17048',
+      zip: '#6D56F8',
+      file: '#475467',
+    },
   },
 })
 
@@ -753,6 +762,15 @@ export const darkTheme = createTheme({
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
         ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
         ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+      },
+
+      fileIcons: {
+        xls: '#02AE44',
+        pdf: '#DD2121',
+        doc: '#4CA1DE',
+        txt: '#E37451',
+        zip: '#8B79F9',
+        file: '#A2ADBD',
       },
     },
   },

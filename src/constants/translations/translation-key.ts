@@ -2162,5 +2162,8 @@ export enum TranslationKey {
   'Supplier information' = 'Supplier information',
   'Additional order information' = 'Additional order information',
   'Supplier details' = 'Supplier details',
+  'All files' = 'All files',
+  'Page' = 'Page',
+
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
