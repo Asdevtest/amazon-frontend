@@ -36,7 +36,7 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
     })
 
   return (
-    <>
+    <div className={styles.parametersWrapper}>
       <Checkbox checked={!columnVisibilityModel || !isSomeItemChecked} onChange={onClickAllItemBtn}>
         <p title={t(TranslationKey.All)} className={styles.parameterTitle}>
           {t(TranslationKey.All)}
@@ -52,6 +52,6 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
           {el.headerName}
         </Checkbox>
       ))}
-    </>
+    </div>
   )
 })

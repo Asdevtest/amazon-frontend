@@ -237,9 +237,8 @@ export const ClientInventoryView = observer(({ history, location }) => {
             toolbar: {
               presetsSettings: {
                 presetsData: viewModel.presetsData,
-
-                // onClickSavePresets: viewModel.savePresetsHandler,
-                // onClickResetPresets: viewModel.onClickResetPresets,
+                onClickResetPresets: viewModel.resetPresetsHandler,
+                onClickSavePresets: viewModel.savePresetsHandler,
               },
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,

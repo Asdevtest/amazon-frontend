@@ -61,19 +61,4 @@ export const useStyles = makeStyles()(theme => ({
     border: '1px solid var(--Gray-100, #F2F4F7)',
     boxShadow: '0px 2.18px 4.36px 0px rgba(97, 97, 97, 0.18), 0px 1.09px 2.18px 0px rgba(97, 97, 97, 0.18)',
   },
-
-  additionalButtonsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: '10px',
-  },
-
-  buttonWrapper: {
-    width: 'calc(50% - 5px)',
-  },
-
-  additionalButton: {
-    width: '100%',
-  },
 }))

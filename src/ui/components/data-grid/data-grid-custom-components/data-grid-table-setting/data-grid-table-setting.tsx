@@ -16,8 +16,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './data-grid-table-setting.style'
 
-import { AdditionalTableSettings } from './components/additional-table-settings/additional-table-settings'
-import { DefaultTableSettings } from './components/default-table-settings/default-table-settings'
+import { AdditionalTableSettings, DefaultTableSettings } from './components'
 import { DataGridTableSettingProps } from './helpers/interfaces'
 import { SwitcherSetting, switcherConfig } from './helpers/switcher-setting'
 
@@ -69,29 +68,10 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
 
           <SearchInput inputClasses={styles.searchInput} onChange={e => setNameSearchValue(e.target.value)} />
 
-          <div className={styles.parametersWrapper}>
-            {isAdditionalMode ? (
-              <AdditionalTableSettings presetsSettings={presetsSettings} />
-            ) : (
-              <DefaultTableSettings nameSearchValue={nameSearchValue} columsBtnSettings={columsBtnSettings} />
-            )}
-          </div>
-
-          {isAdditionalMode && (
-            <div className={styles.additionalButtonsWrapper}>
-              <Button
-                danger
-                btnWrapperStyle={styles.buttonWrapper}
-                className={styles.additionalButton}
-                onClick={handleClose}
-              >
-                {t(TranslationKey['Reset Settings'])}
-              </Button>
-
-              <Button btnWrapperStyle={styles.buttonWrapper} className={styles.additionalButton} onClick={handleClose}>
-                {t(TranslationKey.Save)}
-              </Button>
-            </div>
+          {isAdditionalMode ? (
+            <AdditionalTableSettings presetsSettings={presetsSettings} handleClose={handleClose} />
+          ) : (
+            <DefaultTableSettings nameSearchValue={nameSearchValue} columsBtnSettings={columsBtnSettings} />
           )}
         </Menu>
       )}

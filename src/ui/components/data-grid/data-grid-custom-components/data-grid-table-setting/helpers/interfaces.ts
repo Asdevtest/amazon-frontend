@@ -16,6 +16,8 @@ export interface IColumsBtnSettings {
 
 export interface IPresetsSettings {
   presetsData: IPresets[]
+  onClickResetPresets: () => void
+  onClickSavePresets: (presetsData: IPresets[] | undefined) => void
 }
 
 export interface IPresets {

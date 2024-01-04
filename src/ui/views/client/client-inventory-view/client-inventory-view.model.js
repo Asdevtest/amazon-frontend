@@ -539,28 +539,58 @@ export class ClientInventoryViewModel {
       const currentPresets = await this.getCurrentPresets()
       const allPresets = await this.getAllPresets()
 
-      for (const currentPreset of currentPresets) {
-        const existFields = currentPreset?.fields?.map(field => ({
-          field,
-          status: PresetStatus.EXIST,
-          checked: true,
-        }))
+      const presetsData = []
 
-        const preset = allPresets.find(preset => preset?.table === currentPreset?.table)
+      if (currentPresets) {
+        for (const preset of allPresets) {
+          const presetData = {}
+          const existPreset = currentPresets.find(currentPreset => currentPreset?.table === preset?.table)
 
-        const notExistFields = preset?.fields
-          ?.filter(field => !preset?.fields?.includes(field))
-          ?.map(field => ({
-            field,
-            status: PresetStatus.NOT_EXIST,
-            checked: false,
-          }))
+          if (existPreset) {
+            presetData._id = existPreset?._id
+            presetData.table = existPreset?.table
 
-        currentPreset.fields = [...existFields, ...notExistFields]
+            const existFields = existPreset?.fields?.map(field => ({
+              field,
+              status: PresetStatus.EXIST,
+              checked: true,
+            }))
+
+            const notExistFields = preset?.fields
+              ?.filter(field => !existPreset?.fields?.includes(field))
+              ?.map(field => ({
+                field,
+                status: PresetStatus.NOT_EXIST,
+                checked: false,
+              }))
+
+            presetData.fields = [...existFields, ...notExistFields]
+          } else {
+            presetData._id = undefined
+            presetData.table = preset?.table
+            presetData.fields = preset?.fields?.map(field => ({
+              field,
+              checked: false,
+              status: PresetStatus.NOT_EXIST,
+            }))
+          }
+
+          presetsData.push(presetData)
+        }
+      } else {
+        for (const preset of allPresets) {
+          const presetData = {}
+
+          presetData.fields = preset?.fields?.map(field => ({ field, checked: false, status: PresetStatus.NOT_EXIST }))
+          presetData.table = preset?.table
+          presetData._id = undefined
+
+          presetsData.push(presetData)
+        }
       }
 
       runInAction(() => {
-        this.presetsData = currentPresets
+        this.presetsData = presetsData
       })
     } catch (error) {
       console.log(error)
@@ -587,14 +617,56 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async savePresetsHandler() {
+  async resetPresetsHandler() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const response = await OtherModel.getPresets()
 
-      runInAction(() => {
-        this.presetsData = response
-      })
+      for (const preset of this.presetsData) {
+        if (!preset?._id) {
+          continue
+        }
+
+        UserModel.deleteUsersPresetsByGuid(preset?._id)
+
+        preset.fields = preset?.fields?.map(field => ({
+          field: field?.field,
+          checked: false,
+          status: PresetStatus.NOT_EXIST,
+        }))
+        preset._id = undefined
+      }
+
+      await this.getProductsMy()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async savePresetsHandler(presetsData) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      for (const preset of presetsData) {
+        if (!preset?._id) {
+          const fields = preset?.fields?.filter(field => field?.checked).map(field => field?.field)
+
+          if (!fields?.length) {
+            continue
+          }
+
+          const body = {
+            endpoint: 'clients/products/my_with_pag_v2',
+            table: preset?.table,
+            fields,
+          }
+
+          UserModel.postUsersPresets(body)
+        }
+      }
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
