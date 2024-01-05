@@ -660,7 +660,9 @@ export class ClientInventoryViewModel {
             fields,
           }
 
-          await UserModel.postUsersPresets(body)
+          const response = await UserModel.postUsersPresets(body)
+
+          preset._id = response.guid
         } else {
           if (!fields?.length) {
             await UserModel.deleteUsersPresetsByGuid(presetId)
@@ -981,6 +983,8 @@ export class ClientInventoryViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        noCache: true,
       })
 
       runInAction(() => {
