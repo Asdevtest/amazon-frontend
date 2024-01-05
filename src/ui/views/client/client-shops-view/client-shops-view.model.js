@@ -44,7 +44,7 @@ export class ShopsViewModel extends DataGridTableModel {
   async updateShops() {
     try {
       this.requestStatus = loadingStatuses.IS_LOADING
-      await ClientModel.updateShops(this.rowSelectionModel)
+      await ClientModel.updateShops(this.selectedRows)
 
       this.requestStatus = loadingStatuses.SUCCESS
 
