@@ -9,6 +9,15 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 export const CustomDataGrid = ({ ...restProps }) => {
+  const slots =
+    restProps.paginationMode === 'client'
+      ? { columnMenuIcon: FilterAltOutlinedIcon }
+      : {
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+          columnMenu: DataGridCustomColumnMenuComponent,
+        }
+
   return (
     <DataGrid
       key={SettingsModel.languageTag}
@@ -19,11 +28,7 @@ export const CustomDataGrid = ({ ...restProps }) => {
       paginationMode="server"
       pageSizeOptions={[15, 25, 50, 100]}
       localeText={getLocalizationByLanguageTag()}
-      slots={{
-        toolbar: DataGridCustomToolbar,
-        columnMenuIcon: FilterAltOutlinedIcon,
-        columnMenu: DataGridCustomColumnMenuComponent,
-      }}
+      slots={slots}
       {...restProps}
     />
   )
