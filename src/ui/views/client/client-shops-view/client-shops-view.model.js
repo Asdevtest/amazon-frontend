@@ -14,6 +14,14 @@ import { t } from '@utils/translations'
 import { observerConfig } from './model-config'
 
 export class ShopsViewModel extends DataGridTableModel {
+  get currentData() {
+    if (this.unserverSearchValue) {
+      return this.tableData.filter(shop => shop.name.toLowerCase().includes(this.unserverSearchValue.toLowerCase()))
+    } else {
+      return this.tableData
+    }
+  }
+
   selectedShop = undefined
 
   showAddOrEditShopModal = false
@@ -25,7 +33,7 @@ export class ShopsViewModel extends DataGridTableModel {
       onClickRemoveBtn: row => this.onClickRemoveBtn(row),
       onClickEditBtn: row => this.onClickEditBtn(row),
 
-      onClickSeeShopReport: row => this.onClickSeeShopReport(row),
+      onClickSeeShopReport: (currentReport, row) => this.onClickSeeShopReport(currentReport, row),
     }
 
     super(ShopModel.getMyShops, shopsColumns(rowHandlers), history)
@@ -167,7 +175,7 @@ export class ShopsViewModel extends DataGridTableModel {
     this.onTriggerOpenModal('showAddOrEditShopModal')
   }
 
-  onClickSeeShopReport(currentReport) {
-    this.history.push(`/client/shops/reports?currentReport=${currentReport}`)
+  onClickSeeShopReport(currentReport, row) {
+    this.history.push(`/client/shops/reports?currentReport=${currentReport}&shopId=${row?._id}`)
   }
 }

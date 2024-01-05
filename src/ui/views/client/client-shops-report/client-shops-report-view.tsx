@@ -38,11 +38,13 @@ export const ClientShopsReportView = observer(() => {
       />
 
       <ControllButtons
+        currentSearchValue={viewModel.currentSearchValue}
         currentTabKey={viewModel.tabKey}
         selectedRows={viewModel.selectedRows}
         onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
         onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
         onClickDeleteBtn={viewModel.deleteReportHandler}
+        onChangeSearchValue={viewModel.onChangeSearchValue}
       />
 
       <div className={styles.tabledWrapper}>

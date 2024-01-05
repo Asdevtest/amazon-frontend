@@ -49,7 +49,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   get isSomeFilterOn() {
-    return this._filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
+    return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
 
   _currentSearchValue = ''
@@ -67,8 +67,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     mainMethodURL: string,
     fieldsForSearch?: string[],
     tableKey?: string,
+    defaultGetDataMethodOptions?: any,
   ) {
-    super(getMainDataMethod, columnsModel, tableKey)
+    super(getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions)
 
     this.setColumnMenuSettings(filtersFields)
     this._filtersFields = filtersFields
