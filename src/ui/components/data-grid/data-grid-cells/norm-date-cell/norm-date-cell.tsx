@@ -12,9 +12,7 @@ interface NormDateCellProps {
 export const NormDateCell: FC<NormDateCellProps> = React.memo(({ value, dateWithoutTime }) => {
   const { classes: styles } = useStyles()
 
-  return (
-    <p className={styles.normDateCellTypo}>
-      {value ? (dateWithoutTime ? formatDateWithoutTime(value) : formatNormDateTime(value)) : '-'}
-    </p>
-  )
+  const validDate = value ? (dateWithoutTime ? formatDateWithoutTime(value) : formatNormDateTime(value)) : '-'
+
+  return <p className={styles.normDateCellTypo}>{validDate}</p>
 })
