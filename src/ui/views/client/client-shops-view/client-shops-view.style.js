@@ -7,8 +7,13 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  buttonBox: {
-    marginTop: 20,
+  headerWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  buttonsWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 30,

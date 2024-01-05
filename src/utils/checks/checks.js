@@ -30,6 +30,8 @@ export const checkIsNumberWithDot = str => {
   return /^\d*\.?\d*$/.test(str)
 }
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
+export const checkIsPositiveOrNegativeDigit = str => /^-?\d*\.?\d+$/.test(Number(str)) || '-' === str
+
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''
   const indexOfDot = str.indexOf('.')

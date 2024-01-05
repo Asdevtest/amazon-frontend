@@ -144,7 +144,7 @@ export const BindStockGoodsToInventoryForm = observer(
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               value={searchInputValue}
               placeholder={t(TranslationKey.search)}
-              onChange={e => setSearchInputValue(e.target.value)}
+              onSubmit={setSearchInputValue}
             />
           </div>
 
@@ -153,7 +153,6 @@ export const BindStockGoodsToInventoryForm = observer(
               sortingMode="client"
               paginationMode="client"
               rows={inventoryData}
-              slots={{}}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
             />
@@ -168,7 +167,6 @@ export const BindStockGoodsToInventoryForm = observer(
               sortingMode="client"
               paginationMode="client"
               rows={chosenGoods}
-              slots={{}}
               columns={chosenGoodsColumns({ onClickTrash })}
               rowHeight={60}
             />

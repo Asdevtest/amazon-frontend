@@ -56,7 +56,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'periodStart',
-    headerName: 'periodStart',
+    headerName: 'Start of Period',
     renderHeader: () => <MultilineTextHeaderCell text={'Start of Period'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
@@ -67,7 +67,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'periodEnd',
-    headerName: 'periodEnd',
+    headerName: 'End of Period',
     renderHeader: () => <MultilineTextHeaderCell text={'End of Period'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
@@ -78,7 +78,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'week',
-    headerName: 'week',
+    headerName: 'Week',
     renderHeader: () => <MultilineTextHeaderCell text={'Week'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -89,7 +89,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'acos',
-    headerName: 'acos',
+    headerName: 'ACOS',
     renderHeader: () => <MultilineTextHeaderCell text={'ACOS'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -100,7 +100,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ppcImpressions',
-    headerName: 'ppcImpressions',
+    headerName: 'PPC Impressions',
     renderHeader: () => <MultilineTextHeaderCell text={'PPC Impressions'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 110,
@@ -111,7 +111,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'clicks',
-    headerName: 'clicks',
+    headerName: 'Clicks',
     renderHeader: () => <MultilineTextHeaderCell text={'Clicks'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -122,7 +122,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'spend',
-    headerName: 'spend',
+    headerName: 'Spend',
     renderHeader: () => <MultilineTextHeaderCell text={'Spend'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -133,7 +133,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ppcOrders',
-    headerName: 'ppcOrders',
+    headerName: 'PPC Orders',
     renderHeader: () => <MultilineTextHeaderCell text={'PPC Orders'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -144,7 +144,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ppcUnits',
-    headerName: 'ppcUnits',
+    headerName: 'PPC Units',
     renderHeader: () => <MultilineTextHeaderCell text={'PPC Units'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -155,7 +155,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ppcSales',
-    headerName: 'ppcSales',
+    headerName: 'PPC sales',
     renderHeader: () => <MultilineTextHeaderCell text={'PPC sales'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -166,7 +166,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'orderSalesCost',
-    headerName: 'orderSalesCost',
+    headerName: 'Order sales cost',
     renderHeader: () => <MultilineTextHeaderCell text={'Order sales cost'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -177,7 +177,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'unitSalesCost',
-    headerName: 'unitSalesCost',
+    headerName: 'Unit sales cost',
     renderHeader: () => <MultilineTextHeaderCell text={'Unit sales cost'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -188,7 +188,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicSessions',
-    headerName: 'organicSessions',
+    headerName: 'Organic sessions',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic sessions'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -199,7 +199,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicOrders',
-    headerName: 'organicOrders',
+    headerName: 'Organic orders',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic orders'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -210,7 +210,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicUnits',
-    headerName: 'organicUnits',
+    headerName: 'Organic units',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic units'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -221,7 +221,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicSales',
-    headerName: 'organicSales',
+    headerName: 'Organic sales',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic sales'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -232,7 +232,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicAvgOrderPrice',
-    headerName: 'organicAvgOrderPrice',
+    headerName: 'Organic average price order',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic average price order'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 113,
@@ -243,7 +243,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicAvgUnitPrice',
-    headerName: 'organicAvgUnitPrice',
+    headerName: 'Organic average price unit',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic average price unit'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 113,
@@ -254,7 +254,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'impressions',
-    headerName: 'impressions',
+    headerName: 'Impressions',
     renderHeader: () => <MultilineTextHeaderCell text={'Impressions'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -265,7 +265,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'sessions',
-    headerName: 'sessions',
+    headerName: 'Sessions',
     renderHeader: () => <MultilineTextHeaderCell text={'Sessions'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -276,7 +276,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ctr',
-    headerName: 'ctr',
+    headerName: 'CTR',
     renderHeader: () => <MultilineTextHeaderCell text={'CTR'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -287,7 +287,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'orders',
-    headerName: 'orders',
+    headerName: 'Orders',
     renderHeader: () => <MultilineTextHeaderCell text={'Orders'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -298,7 +298,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'units',
-    headerName: 'units',
+    headerName: 'Units',
     renderHeader: () => <MultilineTextHeaderCell text={'Units'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -309,7 +309,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'avgUnitsInPerOrder',
-    headerName: 'avgUnitsInPerOrder',
+    headerName: 'Average units per order',
     renderHeader: () => <MultilineTextHeaderCell text={'Average units per order'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -320,7 +320,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'sales',
-    headerName: 'sales',
+    headerName: 'Sales',
     renderHeader: () => <MultilineTextHeaderCell text={'Sales'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -331,7 +331,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'avgPriceOrder',
-    headerName: 'avgPriceOrder',
+    headerName: 'Average price order',
     renderHeader: () => <MultilineTextHeaderCell text={'Average price order'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -342,7 +342,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'avgUnitPrice',
-    headerName: 'avgUnitPrice',
+    headerName: 'Average price unit',
     renderHeader: () => <MultilineTextHeaderCell text={'Average price unit'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -353,7 +353,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'buyBox',
-    headerName: 'buyBox',
+    headerName: 'Buy Box',
     renderHeader: () => <MultilineTextHeaderCell text={'Buy Box, %'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -364,7 +364,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'ppcSale',
-    headerName: 'ppcSale',
+    headerName: 'РРС Sale',
     renderHeader: () => <MultilineTextHeaderCell text={'РРС Sale, %'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -375,7 +375,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'organicSale',
-    headerName: 'organicSale',
+    headerName: 'Organic Sale',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic Sale, %'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -386,7 +386,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'conversion',
-    headerName: 'conversion',
+    headerName: 'Conversion',
     renderHeader: () => <MultilineTextHeaderCell text={'Conversion'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -397,7 +397,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'conversionPpc',
-    headerName: 'conversionPpc',
+    headerName: 'РРС сonversion',
     renderHeader: () => <MultilineTextHeaderCell text={'РРС сonversion'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,
@@ -408,7 +408,7 @@ export const clientPPCSalesWeekColumns = () => [
 
   {
     field: 'conversionOrganic',
-    headerName: 'conversionOrganic',
+    headerName: 'Organic сonversion',
     renderHeader: () => <MultilineTextHeaderCell text={'Organic сonversion'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 105,

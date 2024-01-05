@@ -36,11 +36,11 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
     width: 125,
-    renderCell: () => (
+    renderCell: params => (
       <NormalActionBtnCell
         fullWidthButton
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.STOCK_REPORT)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.STOCK_REPORT, params.row)}
       />
     ),
   },
@@ -51,11 +51,11 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
     width: 125,
-    renderCell: () => (
+    renderCell: params => (
       <NormalActionBtnCell
         fullWidthButton
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.GOODS_DAYS_REPORT)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.GOODS_DAYS_REPORT, params.row)}
       />
     ),
   },
@@ -71,7 +71,7 @@ export const shopsColumns = handlers => [
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY, params.row)}
       />
     ),
   },
@@ -87,7 +87,7 @@ export const shopsColumns = handlers => [
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC, params.row)}
       />
     ),
   },
@@ -103,7 +103,7 @@ export const shopsColumns = handlers => [
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY_SHIPMENTS)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY_SHIPMENTS, params.row)}
       />
     ),
   },

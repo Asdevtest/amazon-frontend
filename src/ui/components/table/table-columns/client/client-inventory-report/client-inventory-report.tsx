@@ -56,7 +56,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'price',
-    headerName: 'price',
+    headerName: t(TranslationKey.Price),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price) + ', $'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -67,7 +67,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'fbaFee',
-    headerName: 'fbaFee',
+    headerName: t(TranslationKey['FBA fee']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee'])} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -78,7 +78,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'refFee',
-    headerName: 'refFee',
+    headerName: t(TranslationKey['Ref fee']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ref fee'])} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -89,7 +89,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'available',
-    headerName: 'available',
+    headerName: t(TranslationKey.Available),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Available)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
@@ -100,7 +100,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'inbound',
-    headerName: 'inbound',
+    headerName: t(TranslationKey.Inbound),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -111,7 +111,7 @@ export const clientInventoryReportColumns = () => [
 
   {
     field: 'reserved',
-    headerName: 'reserved',
+    headerName: t(TranslationKey.Reserved),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,

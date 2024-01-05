@@ -61,12 +61,17 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   constructor(currentTabsValues: ShopReportsTabsValues) {
     const url = new URL(window.location.href)
     const currentReport = url.searchParams.get('currentReport') as ShopReportsTabsValues
+    const currentShopId = url.searchParams.get('shopId')
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(
       currentReport || currentTabsValues,
     )
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL)
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, ['asin', 'sku'])
+
+    if (currentShopId) {
+      this.onChangeFullFieldMenuItem([{ _id: currentShopId }], 'shop')
+    }
 
     if (currentReport) {
       this.tabKey = currentReport
