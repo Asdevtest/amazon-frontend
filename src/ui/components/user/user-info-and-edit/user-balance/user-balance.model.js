@@ -90,14 +90,14 @@ export class UserBalanceModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getUserInfo(this.userId), this.getBalanceHistory(this.userId)])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -150,7 +150,7 @@ export class UserBalanceModel {
 
   async makePayment(data) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.error = undefined
 
       await AdministratorModel.makePayment(data)
@@ -159,9 +159,9 @@ export class UserBalanceModel {
 
       await this.getBalanceHistory(data.recipientId)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       this.error = error?.body?.message || error
     }

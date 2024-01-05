@@ -37,8 +37,8 @@ export const AnotherUserProfileViewRaw = props => {
     <>
       <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.success ||
-            viewModel.requestStatus === loadingStatuses.failed) && (
+          (viewModel.requestStatus === loadingStatuses.SUCCESS ||
+            viewModel.requestStatus === loadingStatuses.FAILED) && (
             <Typography variant="h4" className={classNames.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
@@ -92,7 +92,7 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onChangePaginationModelChange}

@@ -153,13 +153,15 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
             value={searchInputValue}
             placeholder={t(TranslationKey.search)}
-            onChange={e => setSearchInputValue(e.target.value)}
+            onSubmit={setSearchInputValue}
           />
         </div>
 
         <div className={classNames.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
+            sortingMode="client"
+            paginationMode="client"
             rows={toJS(stockData)}
             rowCount={stockData?.length}
             columns={sourceColumns()}
@@ -185,7 +187,13 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
+          <CustomDataGrid
+            sortingMode="client"
+            paginationMode="client"
+            rows={chosenGoods || []}
+            columns={chosenGoodsColumns({ onClickTrash })}
+            rowHeight={60}
+          />
         </div>
 
         <div className={classNames.btnsWrapper}>

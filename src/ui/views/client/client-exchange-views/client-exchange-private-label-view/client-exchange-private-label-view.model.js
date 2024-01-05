@@ -34,13 +34,13 @@ export class ClientExchangePrivateLabelViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await Promise.all([this.getProductsVacant(), this.getShops()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -108,7 +108,7 @@ export class ClientExchangePrivateLabelViewModel {
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.productToPay._id,
@@ -119,9 +119,9 @@ export class ClientExchangePrivateLabelViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

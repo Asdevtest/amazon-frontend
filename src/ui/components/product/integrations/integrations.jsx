@@ -89,7 +89,7 @@ export const Integrations = observer(({ productId, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         rowSelectionModel={selectedRowIds}
         onPaginationModelChange={onChangePaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}

@@ -78,7 +78,7 @@ export const Freelance = observer(({ productId, modal }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onSortModelChange={viewModel.onChangeSortingModel}

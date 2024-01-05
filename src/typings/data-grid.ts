@@ -15,3 +15,7 @@ export interface IPaginationModel {
 export type RowHandlers = {
   navigateToHandler: (type: string, value: string) => void
 }
+
+export interface IListOfModals {
+  [key: string]: boolean
+}

@@ -41,7 +41,7 @@ export class AdminOrderViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const [order, boxes, storekeepers, destinations, platformSettings] = await Promise.all([
         this.getOrderById(),
@@ -56,9 +56,9 @@ export class AdminOrderViewModel {
         this.storekeepers = storekeepers
         this.platformSettings = platformSettings
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

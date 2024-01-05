@@ -167,7 +167,7 @@ export const ProductCardModal = observer(props => {
             }
           />
         )}
-        {viewModel?.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}
+        {viewModel?.requestStatus === loadingStatuses.IS_LOADING && <CircularProgressWithLabel />}
       </div>
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={styles.footerWrapper}>

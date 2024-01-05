@@ -130,7 +130,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -188,7 +188,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -246,7 +246,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -304,7 +304,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}

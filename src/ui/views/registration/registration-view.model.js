@@ -58,7 +58,7 @@ export class RegistrationViewModel {
   async onSubmitForm() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
         this.error = undefined
       })
       const result = await UserModel.isCheckUniqueUser({ name: this.name, email: this.email.toLowerCase() })
@@ -76,7 +76,7 @@ export class RegistrationViewModel {
       this.onTriggerOpenModal('showSuccessRegistrationModal')
 
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
 
       setTimeout(() => {
@@ -84,7 +84,7 @@ export class RegistrationViewModel {
       }, delayRedirectToAuthTime)
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
     }
   }

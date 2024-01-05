@@ -142,7 +142,7 @@ export const VacantRequestsView = observer(({ history }) => {
                 },
               }}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               getRowClassName={getRowClassName}
               onSortModelChange={viewModel.onChangeSortingModel}
               onFilterModelChange={viewModel.onChangeFilterModel}
@@ -153,7 +153,7 @@ export const VacantRequestsView = observer(({ history }) => {
           </div>
         ) : (
           !viewModel.currentData?.length &&
-          loadingStatuses.success && (
+          loadingStatuses.SUCCESS && (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
               <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>

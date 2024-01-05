@@ -50,7 +50,7 @@ export class ClientFreelanceNotificationsViewModel {
 
   async getNotifications() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
       runInAction(() => {
@@ -64,10 +64,10 @@ export class ClientFreelanceNotificationsViewModel {
         })
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

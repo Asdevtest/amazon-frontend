@@ -293,7 +293,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -415,9 +415,9 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -701,7 +701,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -788,11 +788,11 @@ export class WarehouseMyWarehouseViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -809,7 +809,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickConfirmMerge(boxBody, imagesOfBox) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const selectedIds = this.selectedBoxes
 
@@ -861,7 +861,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -872,7 +872,7 @@ export class WarehouseMyWarehouseViewModel {
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -1134,7 +1134,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
@@ -1154,14 +1154,14 @@ export class WarehouseMyWarehouseViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

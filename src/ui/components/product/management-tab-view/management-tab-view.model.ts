@@ -65,7 +65,7 @@ export class ManagementTabViewModel {
 
   async onComponentDidMount() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       if (this.productIdFromUrl) {
         await this.onGetProduct(this.productIdFromUrl)
@@ -102,15 +102,15 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (e) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   private async onGetProduct(id: string) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductById(id)
 
@@ -127,15 +127,15 @@ export class ManagementTabViewModel {
         this.isEditableResearcher = currentProductStatus < 200
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onUpdateMember() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.bindOrUnbindUserToProduct(this.dataIds)
 
@@ -151,7 +151,7 @@ export class ManagementTabViewModel {
 
       this.onTriggerOpenModal()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error: any) {
       runInAction(() => {
         this.infoModalText = `${error.body.message}!`
@@ -159,7 +159,7 @@ export class ManagementTabViewModel {
 
       this.onTriggerOpenModal()
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

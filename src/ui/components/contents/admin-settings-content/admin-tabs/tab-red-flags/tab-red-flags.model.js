@@ -36,13 +36,13 @@ export class AdminSettingsRedFlagsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getRedFlags()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -52,7 +52,7 @@ export class AdminSettingsRedFlagsModel {
 
   async getRedFlags() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductRedFlags()
 
@@ -60,15 +60,15 @@ export class AdminSettingsRedFlagsModel {
         this.redFlags = result
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onCreateRedFlag(redFlag) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.createRedFlag(redFlag)
 
@@ -80,7 +80,7 @@ export class AdminSettingsRedFlagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Red flag is not saved'])
@@ -88,13 +88,13 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onEditRedFlag(id, redFlag) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.editRedFlag(id, redFlag)
 
@@ -106,7 +106,7 @@ export class AdminSettingsRedFlagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Red flag is not saved'])
@@ -114,13 +114,13 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemoveRedFlag(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.removeRedFlag(id)
 
@@ -128,9 +128,9 @@ export class AdminSettingsRedFlagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

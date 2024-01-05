@@ -43,7 +43,7 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getUnreadMessagesCount()
-      resetAccessTokenByTime(UserModel.accessToken, UserModel.refreshToken)
+      // resetAccessTokenByTime(UserModel.accessToken, UserModel.refreshToken)
     }
   }, [])
 
@@ -67,9 +67,9 @@ export const PrivateRoutes = observer(() => {
 
     return (
       <>
-        {allowedRoutes.map((route, index) => (
-          <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
-        ))}
+        {allowedRoutes.map((route, index) => {
+          return <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
+        })}
 
         {notAllowedRoute ? (
           allowedRoutes[0] ? (

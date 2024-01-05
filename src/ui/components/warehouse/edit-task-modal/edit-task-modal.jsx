@@ -286,7 +286,7 @@ export const EditTaskModal = memo(
                   success
                   className={styles.successBtn}
                   disabled={
-                    newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading || !isFilledNewBoxesDimensions
+                    newBoxes.length === 0 || requestStatus === loadingStatuses.IS_LOADING || !isFilledNewBoxesDimensions
                   }
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {

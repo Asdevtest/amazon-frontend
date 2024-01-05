@@ -62,15 +62,15 @@ export class BuyerSearchSupplierForIdeaModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
       })
       await this.getSupplierSearchRequestsVacant()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
       console.log(error)
     }
@@ -78,7 +78,7 @@ export class BuyerSearchSupplierForIdeaModel {
 
   async getSupplierSearchRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
       })
@@ -89,9 +89,9 @@ export class BuyerSearchSupplierForIdeaModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.supplierSearchRequestsVacant = []

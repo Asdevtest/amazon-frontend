@@ -78,7 +78,6 @@ export { ProductInfoExtended } from './product-info-extended/product-info-extend
 export { BatchBoxesCell } from './batch-boxes-cell/batch-boxes-cell'
 export { TrashCell } from './trash-cell/trash-cell'
 export { WarehouseBoxesBtnsCell } from './warehouse-boxes-btns-cell/warehouse-boxes-btns-cell'
-export { ShopsReportBtnsCell } from './shops-report-btns-cell/shops-report-btns-cell'
 export { DownloadAndCopyBtnsCell } from './download-and-copy-btns-cell/download-and-copy-btns-cell'
 export { ShortBoxDimensionsCell } from './short-box-dimensions-cell/short-box-dimensions-cell'
 export { RedFlagsCell } from './red-flags-cell/red-flags-cell'

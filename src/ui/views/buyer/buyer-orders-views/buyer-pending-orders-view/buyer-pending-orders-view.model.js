@@ -214,13 +214,13 @@ export class BuyerMyOrdersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
       await this.getOrdersMy()
       this.getSuppliersPaymentMethods()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -340,7 +340,7 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitSaveOrder({ order, orderFields, photosToLoad, hsCode }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.clearReadyImages()
 
@@ -390,12 +390,12 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerOpenModal('showOrderModal')
 
       this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

@@ -1,4 +1,4 @@
-import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
+import { GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -51,15 +51,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     ...other
   } = props
 
-  // const renderStandartItems = () => ( // стандартные
-  //   <div>
-  //     <GridColumnMenuSortItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuFilterItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuHideItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnMenuColumnsItem column={currentColumn} onClick={hideMenu} />
-  //   </div>
-  // )
-
   const currentColumn = colDef
 
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
@@ -69,6 +60,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           isFormedData={isFormedData}
           data={props.sub}
           field={'sub'}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
           onClickFilterBtn={onClickFilterBtn}
@@ -76,7 +68,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
-        {/* {renderStandartItems()} пример*/}
       </GridColumnMenuContainer>
     )
   }
@@ -220,6 +211,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           nullObjName={[columnnsKeys.shared.TAGS].includes(currentColumn.columnKey) && t(TranslationKey.Empty)}
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -299,6 +291,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <NormalFieldMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
           onClickFilterBtn={onClickFilterBtn}
@@ -311,15 +304,22 @@ export const DataGridCustomColumnMenuComponent = props => {
   }
 
   if (
-    [columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT, columnnsKeys.client.INVENTORY_PRODUCT].includes(
-      currentColumn.columnKey,
-    )
+    [
+      columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+      columnnsKeys.client.INVENTORY_PRODUCT,
+      columnnsKeys.client.SHOP_REPORT,
+    ].includes(currentColumn.columnKey)
   ) {
+    const isShopReportColumn = currentColumn.columnKey === columnnsKeys.client.SHOP_REPORT
+
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem
+          withoutTitle={isShopReportColumn}
+          skuOption={isShopReportColumn}
           field={currentColumn.field}
           data={props}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
@@ -346,15 +346,18 @@ export const DataGridCustomColumnMenuComponent = props => {
   }
 
   if (
-    [columnnsKeys.shared.BATCHES_PRODUCTS, columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT].includes(
-      currentColumn.columnKey,
-    )
+    [
+      columnnsKeys.shared.BATCHES_PRODUCTS,
+      columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
+      columnnsKeys.client.SHOP_REPORT,
+    ].includes(currentColumn.columnKey)
   ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem
           withoutSku
           data={props}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
@@ -401,6 +404,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <FromToDateMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -449,6 +453,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <NumberFieldMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -530,15 +535,7 @@ export const DataGridCustomColumnMenuComponent = props => {
 
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
-        <OnListingCellMenuItem
-          data={props}
-          // field={currentColumn.field}
-          // filterRequestStatus={filterRequestStatus}
-          // onClickFilterBtn={onClickFilterBtn}
-          onClose={hideMenu}
-          // onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          // onClickAccept={onClickAccept}
-        />
+        <OnListingCellMenuItem data={props} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }
@@ -552,6 +549,4 @@ export const DataGridCustomColumnMenuComponent = props => {
       </GridColumnMenuContainer>
     )
   }
-
-  return <GridColumnMenu /* hideMenu={hideMenu} currentColumn={currentColumn} */ {...props} />
 }

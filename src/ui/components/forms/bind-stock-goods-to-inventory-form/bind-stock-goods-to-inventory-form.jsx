@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
@@ -145,13 +144,15 @@ export const BindStockGoodsToInventoryForm = observer(
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               value={searchInputValue}
               placeholder={t(TranslationKey.search)}
-              onChange={e => setSearchInputValue(e.target.value)}
+              onSubmit={setSearchInputValue}
             />
           </div>
 
           <div className={classNames.tableWrapper}>
             <CustomDataGrid
-              rows={toJS(inventoryData)}
+              sortingMode="client"
+              paginationMode="client"
+              rows={inventoryData}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
             />
@@ -162,7 +163,13 @@ export const BindStockGoodsToInventoryForm = observer(
           </Typography>
 
           <div className={classNames.tableWrapper}>
-            <CustomDataGrid rows={chosenGoods || []} columns={chosenGoodsColumns({ onClickTrash })} rowHeight={60} />
+            <CustomDataGrid
+              sortingMode="client"
+              paginationMode="client"
+              rows={chosenGoods}
+              columns={chosenGoodsColumns({ onClickTrash })}
+              rowHeight={60}
+            />
           </div>
 
           <div className={classNames.btnsWrapper}>

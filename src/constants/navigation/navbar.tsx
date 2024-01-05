@@ -297,11 +297,14 @@ export const navbarConfig = {
       icon: ShopsIcon,
       title: () => t(TranslationKey.Shops),
       route: '/client/shops',
-      subtitles: null,
       key: navBarActiveCategory.NAVBAR_SHOPS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_SHOPS_CLIENT),
+      subtitles: [
+        { subtitle: () => t(TranslationKey.Shops), subRoute: '/client/shops/shops' },
+        { subtitle: () => t(TranslationKey.Reports), subRoute: '/client/shops/reports' },
+      ],
     },
 
     {
