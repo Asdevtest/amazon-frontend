@@ -12,7 +12,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: '15px',
 
     overflow: 'auto',
 

@@ -36,8 +36,6 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { PresetStatus } from '../../../../constants/statuses/presets'
-
 import {
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
@@ -552,7 +550,6 @@ export class ClientInventoryViewModel {
 
             const existFields = existPreset?.fields?.map(field => ({
               field,
-              status: PresetStatus.EXIST,
               checked: true,
             }))
 
@@ -560,7 +557,6 @@ export class ClientInventoryViewModel {
               ?.filter(field => !existPreset?.fields?.includes(field))
               ?.map(field => ({
                 field,
-                status: PresetStatus.NOT_EXIST,
                 checked: false,
               }))
 
@@ -571,7 +567,6 @@ export class ClientInventoryViewModel {
             presetData.fields = preset?.fields?.map(field => ({
               field,
               checked: false,
-              status: PresetStatus.NOT_EXIST,
             }))
           }
 
@@ -581,7 +576,7 @@ export class ClientInventoryViewModel {
         for (const preset of allPresets) {
           const presetData = {}
 
-          presetData.fields = preset?.fields?.map(field => ({ field, checked: false, status: PresetStatus.NOT_EXIST }))
+          presetData.fields = preset?.fields?.map(field => ({ field, checked: false }))
           presetData.table = preset?.table
           presetData._id = undefined
 
@@ -621,17 +616,16 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      for (const preset of this.presetsData) {
+      for await (const preset of this.presetsData) {
         if (!preset?._id) {
           continue
         }
 
-        UserModel.deleteUsersPresetsByGuid(preset?._id)
+        await UserModel.deleteUsersPresetsByGuid(preset?._id)
 
         preset.fields = preset?.fields?.map(field => ({
           field: field?.field,
           checked: false,
-          status: PresetStatus.NOT_EXIST,
         }))
         preset._id = undefined
       }
@@ -649,23 +643,40 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      for (const preset of presetsData) {
-        if (!preset?._id) {
-          const fields = preset?.fields?.filter(field => field?.checked).map(field => field?.field)
+      for await (const preset of presetsData) {
+        const presetId = preset?._id
+        const presetTable = preset?.table
+        const presetEndpoint = 'clients/products/my_with_pag_v2'
+        const fields = preset?.fields?.filter(field => field?.checked)?.map(field => field?.field)
 
+        if (!presetId) {
           if (!fields?.length) {
             continue
           }
 
           const body = {
-            endpoint: 'clients/products/my_with_pag_v2',
-            table: preset?.table,
+            endpoint: presetEndpoint,
+            table: presetTable,
             fields,
           }
 
-          UserModel.postUsersPresets(body)
+          await UserModel.postUsersPresets(body)
+        } else {
+          if (!fields?.length) {
+            await UserModel.deleteUsersPresetsByGuid(presetId)
+          } else {
+            const body = {
+              endpoint: presetEndpoint,
+              table: presetTable,
+              fields,
+            }
+
+            await UserModel.patchUsersPresetsByGuid(presetId, body)
+          }
         }
       }
+
+      await this.getProductsMy()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -958,6 +969,7 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
+        preset: true,
         filters: this.getFilters(),
 
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,

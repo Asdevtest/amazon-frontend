@@ -5,9 +5,5 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-
-    '& span:first-child': {
-      padding: '0 !important',
-    },
   },
 }))

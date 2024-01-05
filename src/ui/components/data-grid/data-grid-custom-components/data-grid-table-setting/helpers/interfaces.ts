@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GridColDef } from '@mui/x-data-grid'
 
-import { PresetStatus } from '@constants/statuses/presets'
-
 export interface DataGridTableSettingProps {
   columsBtnSettings: IColumsBtnSettings
   presetsSettings: IPresetsSettings
@@ -33,6 +31,5 @@ export interface IPresets {
 
 export interface IPresetsFields {
   field: string
-  status: PresetStatus
   checked: boolean
 }
