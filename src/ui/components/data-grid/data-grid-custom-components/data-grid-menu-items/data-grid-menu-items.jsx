@@ -32,7 +32,7 @@ import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsPositiveNum } from '@utils/checks'
+import { checkIsPositiveNum, checkIsPositiveOrNegativeDigit } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
@@ -40,7 +40,7 @@ import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
 
-import { wholeIntegersList } from './whole-integers-list'
+import { negativeOrPositiveList, wholeIntegersList } from './whole-integers-list'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -2262,19 +2262,15 @@ export const NumberFieldMenuItem = React.memo(
       onClickFilterBtn,
       asBlock = false,
     }) => {
-      const [fromValue, setFromValue] = useState('')
-      const [toValue, setToValue] = useState('')
-      const [isNotFixedValue, setIsNotFixedValue] = useState(false)
-
-      useEffect(() => {
-        onClickFilterBtn(field, table)
-        setIsNotFixedValue(checkIsNotFixedValue(field))
-      }, [])
-
       const filterData = data?.filterData
       const currentFilterData = data?.currentFilterData
 
+      const [fromValue, setFromValue] = useState('')
+      const [toValue, setToValue] = useState('')
+      const [isNotFixedValue, setIsNotFixedValue] = useState(false)
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
       const onClickItem = str => {
         if (choosenItems.some(item => item === str)) {
@@ -2284,12 +2280,26 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
+      const checkIsNotFixedValue = useCallback(() => {
+        return wholeIntegersList.includes(field)
+      }, [field])
+
+      const inputNumberCheckHandler = value => {
+        const isValidDigit = negativeOrPositiveList.includes(field)
+          ? checkIsPositiveOrNegativeDigit(value)
+          : checkIsPositiveNum(value)
+
+        isValidDigit && setFromValue(value)
+      }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+      useEffect(() => {
+        onClickFilterBtn(field, table)
+        setIsNotFixedValue(checkIsNotFixedValue(field))
+      }, [])
 
       useEffect(() => {
         setItemsForRender(
@@ -2313,10 +2323,6 @@ export const NumberFieldMenuItem = React.memo(
         setItemsForRender(filter)
       }, [nameSearchValue, fromValue, toValue])
 
-      const checkIsNotFixedValue = useCallback(() => {
-        return wholeIntegersList.includes(field)
-      }, [field])
-
       return (
         <div
           title=""
@@ -2329,7 +2335,7 @@ export const NumberFieldMenuItem = React.memo(
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value)}
             />
             <Input
               title={t(TranslationKey.To)}
@@ -2337,7 +2343,7 @@ export const NumberFieldMenuItem = React.memo(
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value)}
             />
           </div>
 
