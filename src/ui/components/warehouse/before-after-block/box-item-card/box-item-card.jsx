@@ -69,7 +69,6 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subValue}>{boxId}</Typography>
               </div>
             ) : null}
-
             {window.innerWidth < 1282 && (
               <div className={classNames.copyValueMainWrapper}>
                 <div className={classNames.copyValueWrapper}>
@@ -285,13 +284,20 @@ export const BoxItemCard = ({
               ) : null}
 
               {window.innerWidth > 1281 && (
-                <div className={classNames.copyValueWrapper}>
+                <>
                   <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
-                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+                    <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
+                    <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
-                </div>
+                  <div className={classNames.copyValueWrapper}>
+                    <div className={classNames.asinWrapper}>
+                      <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
+                      <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+                      {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+                    </div>
+                  </div>
+                </>
               )}
 
               <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
