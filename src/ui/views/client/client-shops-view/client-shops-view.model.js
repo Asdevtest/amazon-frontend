@@ -14,6 +14,14 @@ import { t } from '@utils/translations'
 import { observerConfig } from './model-config'
 
 export class ShopsViewModel extends DataGridTableModel {
+  get currentData() {
+    if (this.unserverSearchValue) {
+      return this.tableData.filter(shop => shop.name.toLowerCase().includes(this.unserverSearchValue.toLowerCase()))
+    } else {
+      return this.tableData
+    }
+  }
+
   selectedShop = undefined
 
   showAddOrEditShopModal = false
@@ -25,7 +33,7 @@ export class ShopsViewModel extends DataGridTableModel {
       onClickRemoveBtn: row => this.onClickRemoveBtn(row),
       onClickEditBtn: row => this.onClickEditBtn(row),
 
-      onClickSeeShopReport: row => this.onClickSeeShopReport(row),
+      onClickSeeShopReport: (currentReport, row) => this.onClickSeeShopReport(currentReport, row),
     }
 
     super(ShopModel.getMyShops, shopsColumns(rowHandlers), history)
@@ -63,22 +71,14 @@ export class ShopsViewModel extends DataGridTableModel {
   }
 
   onSubmitShopForm(data, shopId) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Are you sure?']),
-      onSubmit: () => {
-        this.createShop(data, shopId)
-        this.onTriggerOpenModal('showAddOrEditShopModal')
-      },
-      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
+    this.createShop(data, shopId)
+    this.onTriggerOpenModal('showAddOrEditShopModal')
   }
 
   async createShop(data, shopId) {
     try {
+      this.requestStatus = loadingStatuses.IS_LOADING
+
       if (!data.reportAccountUrl) {
         delete data.reportAccountUrl
       }
@@ -106,9 +106,10 @@ export class ShopsViewModel extends DataGridTableModel {
         this.onTriggerOpenModal('showWarningModal')
       }
 
-      this.onTriggerOpenModal('showConfirmModal')
       this.getMainTableData()
+      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
+      this.requestStatus = loadingStatuses.FAILED
       console.log(error)
 
       runInAction(() => {
@@ -167,7 +168,7 @@ export class ShopsViewModel extends DataGridTableModel {
     this.onTriggerOpenModal('showAddOrEditShopModal')
   }
 
-  onClickSeeShopReport(currentReport) {
-    this.history.push(`/client/shops/reports?currentReport=${currentReport}`)
+  onClickSeeShopReport(currentReport, row) {
+    this.history.push(`/client/shops/reports?currentReport=${currentReport}&shopId=${row?._id}`)
   }
 }

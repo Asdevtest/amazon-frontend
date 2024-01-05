@@ -4,28 +4,33 @@ import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
+import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './controll-buttons.style'
 
 interface СontrollButtonsProps {
+  currentSearchValue: string
   selectedRows: string[]
   currentTabKey: ShopReportsTabsValues
   onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
+  onChangeSearchValue: (value: string) => void
 }
 
 export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
+    currentSearchValue,
     selectedRows,
     currentTabKey,
     onClickMoveGoodsToInventory,
     onClickBindStockGoodsToInventory,
     onClickDeleteBtn,
+    onChangeSearchValue,
   } = props
 
   const noSelectedRows = !selectedRows?.length
@@ -42,6 +47,12 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>
+
+      <SearchInput
+        value={currentSearchValue}
+        placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(TranslationKey.SKU)}`}
+        onSubmit={onChangeSearchValue}
+      />
 
       <Button
         danger
