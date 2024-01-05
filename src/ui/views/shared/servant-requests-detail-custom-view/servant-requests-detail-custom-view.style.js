@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  backBtnWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   requestInfoWrapper: {
     marginTop: '24px',
   },
@@ -22,10 +18,5 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 20,
-  },
-
-  backBtn: {
-    width: '140px',
-    height: '40px',
   },
 }))
