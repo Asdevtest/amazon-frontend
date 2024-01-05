@@ -56,7 +56,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'shipmentId',
-    headerName: 'shipmentId',
+    headerName: 'Shipment ID',
     renderHeader: () => <MultilineTextHeaderCell text={'Shipment ID'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 143,
@@ -67,7 +67,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'referenceId',
-    headerName: 'referenceId',
+    headerName: 'Reference ID',
     renderHeader: () => <MultilineTextHeaderCell text={'Reference ID'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 108,
@@ -78,7 +78,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'dateCreated',
-    headerName: 'dateCreated',
+    headerName: 'Date created',
     renderHeader: () => <MultilineTextHeaderCell text={'Date created'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
@@ -89,7 +89,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'dateUpdated',
-    headerName: 'dateUpdated',
+    headerName: 'Date updated',
     renderHeader: () => <MultilineTextHeaderCell text={'Date updated'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
@@ -100,7 +100,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'shipTo',
-    headerName: 'shipTo',
+    headerName: 'Ship to',
     renderHeader: () => <MultilineTextHeaderCell text={'Ship to'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -111,7 +111,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'unitsExpected',
-    headerName: 'unitsExpected',
+    headerName: 'Units expected',
     renderHeader: () => <MultilineTextHeaderCell text={'Units expected'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -122,7 +122,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'status',
-    headerName: 'status',
+    headerName: 'Status',
     renderHeader: () => <MultilineTextHeaderCell text={'Status'} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 83,
@@ -133,7 +133,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'scheduledCarrierDeliveryDate',
-    headerName: 'scheduledCarrierDeliveryDate',
+    headerName: 'Scheduled carrier delivery date',
     renderHeader: () => <MultilineTextHeaderCell text={'Scheduled carrier delivery date'} />,
     renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 155,
@@ -144,7 +144,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'deliveryWindowStart',
-    headerName: 'deliveryWindowStart',
+    headerName: 'Delivery window start',
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window start'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
@@ -155,7 +155,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
 
   {
     field: 'deliveryWindowEnd',
-    headerName: 'deliveryWindowEnd',
+    headerName: 'Delivery window end',
     renderHeader: () => <MultilineTextHeaderCell text={'Delivery window end'} />,
     renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
     width: 118,
