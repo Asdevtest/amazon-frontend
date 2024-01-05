@@ -71,6 +71,7 @@ export const Button: FC<Props> = React.memo(
         {/* @ts-ignore */}
         <StyledButton
           disableElevation
+          sx={{ pointerEvents: 'all!important' }}
           title={defaultButtonTooltip || ''}
           color={color || 'primary'}
           disabled={disabled}
