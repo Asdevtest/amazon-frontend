@@ -20,6 +20,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
+import { Select } from '@components/shared/selects/select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { EyeIcon } from '@components/shared/svg-icons'
 import { Switch } from '@components/shared/switch'
@@ -156,31 +157,26 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
     order?.logicsTariff?._id || '',
     order?.variationTariff?._id || null,
   )
-
   const currentTariffName =
     order?.storekeeper?._id && (tariffName || tariffRate)
       ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
       : t(TranslationKey.Select)
+  const selectedItem = destinations?.find(el => el?._id === order?.destination?._id)
+  const selectedItems =
+    order?.variationTariffId && order?.destination?._id
+      ? destinations.filter(el => el?._id === order?.destination?._id)
+      : destinations?.filter(el => el?.storekeeper?._id !== order?.storekeeper?._id)
 
   const additionalOrderInformationFieldsConfig: IFieldConfig[] = [
     {
       title: t(TranslationKey.Destination),
       element: (
-        <WithSearchSelect
-          /* @ts-ignore */
-          // disabled
-          width={120}
-          selectedItemName={
-            destinations?.find(el => el?._id === order?.destinationId)?.name || t(TranslationKey['Not chosen'])
-          }
-          data={
-            order?.variationTariffId && order?.destinationId
-              ? destinations.filter(el => el?._id === order?.destinationId)
-              : destinations?.filter(el => el?.storekeeper?._id !== order?.storekeeperId)
-          }
-          searchFields={['name']}
+        <Select
+          withFaworites
+          currentItem={selectedItem?.name}
+          items={selectedItems}
           favourites={destinationsFavourites}
-          onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+          onChangeFavourite={setDestinationsFavouritesItem}
         />
       ),
     },
@@ -271,9 +267,7 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
     },
     {
       title: t(TranslationKey.Client),
-      text:
-        order?.clientComment ||
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, numquam tempore quibusdam debitis quis deleniti rerum officiis ab nobis quos?',
+      text: order?.clientComment,
       element: order?.clientComment.length > 0 ? <CopyValue text={order?.clientComment} /> : undefined,
     },
   ]

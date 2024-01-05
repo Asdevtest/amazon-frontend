@@ -153,17 +153,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tafiffButton: {
-    width: 110,
+    width: 115,
     background: theme.palette.primary.main,
-    padding: '2px 5px',
+    padding: '2px 2px',
     color: '#fff',
     borderRadius: 6,
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     opacity: 1,
     transition: '.3s ease-in-out',
-    overflow: 'hidden',
 
     span: {
+      maxWidth: '90%',
+      overflow: 'hidden',
       display: '-webkit-box',
       WebkitLineClamp: 1,
       WebkitBoxOrient: 'vertical',

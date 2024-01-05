@@ -981,26 +981,7 @@ export const ParentProductIcon = props => (
 
 export const RatingStarIcon = props => (
   <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M6.3 9.5567L2.40639 11.4016L3.15 7.49409L0 4.7268L4.35319 4.1567L6.3 0.601562L8.24681 4.1567L12.6 4.7268L9.45 7.49409L10.1936 11.4016L6.3 9.5567Z"
-      fill="url(#paint0_linear_13300_372589)"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_13300_372589"
-        x1="6.3"
-        y1="0.601562"
-        x2="6.3"
-        y2="11.4016"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#F5CF00" />
-        <stop offset="1" stopColor="#F5C106" />
-        <stop offset="1" stopColor="#F2CC00" />
-      </linearGradient>
-    </defs>
+    <path d="M6.3 9.5567L2.40639 11.4016L3.15 7.49409L0 4.7268L4.35319 4.1567L6.3 0.601562L8.24681 4.1567L12.6 4.7268L9.45 7.49409L10.1936 11.4016L6.3 9.5567Z" />
   </SvgIcon>
 )
 export const DefaultFileTypeIcon = props => (
@@ -1099,13 +1080,29 @@ export const TruckIcon = props => (
 )
 
 export const ArrowUpIcon = props => (
-  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+  <SvgIcon
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="9"
+    viewBox="0 0 16 9"
+    fill="none"
+    style={{ fill: 'none' }}
+  >
     <path d="M15 8L8 1L1 8" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </SvgIcon>
 )
 
 export const ArrowDownIcon = props => (
-  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
+  <SvgIcon
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="10"
+    viewBox="0 0 16 10"
+    fill="none"
+    style={{ fill: 'none' }}
+  >
     <path d="M15 1.5L8 8.5L1 1.5" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </SvgIcon>
 )

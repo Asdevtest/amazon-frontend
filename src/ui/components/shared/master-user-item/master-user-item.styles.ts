@@ -38,5 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
   ratingIcon: {
     width: '13px !important',
     height: '11px !important',
+    color: 'yellow',
   },
 }))
