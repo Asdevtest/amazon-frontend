@@ -3,9 +3,11 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -19,12 +21,11 @@ import { useStyles } from './client-shops-report-view.style'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 import { switcherConfig } from './helpers/switcher-config'
-import { TabsValues } from './helpers/tabs-value'
 
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(TabsValues.STOCK_REPORT))
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.STOCK_REPORT))
 
   return (
     <div className={styles.root}>
@@ -33,7 +34,7 @@ export const ClientShopsReportView = observer(() => {
         switchMode={'big'}
         condition={viewModel.tabKey}
         switcherSettings={switcherConfig}
-        changeConditionHandler={value => viewModel.changeTabHandler(value as TabsValues)}
+        changeConditionHandler={value => viewModel.changeTabHandler(value as ShopReportsTabsValues)}
       />
 
       <ControllButtons
@@ -106,6 +107,18 @@ export const ClientShopsReportView = observer(() => {
         title={viewModel.warningInfoModalSettings.title}
         btnText={viewModel.warningInfoModalSettings.buttonText}
         onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
+      />
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings?.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings?.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings?.onCancel}
       />
     </div>
   )

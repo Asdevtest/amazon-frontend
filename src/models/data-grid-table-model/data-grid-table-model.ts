@@ -108,13 +108,8 @@ export class DataGridTableModel extends ModalsModel {
   set columnsModel(columnsModel: GridColDef[]) {
     this._columnsModel = columnsModel
   }
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    history?: History,
-    tableKey?: string,
-  ) {
-    super(history)
+  constructor(getMainDataMethod: (...args: any) => any, columnsModel: GridColDef[], tableKey?: string) {
+    super()
 
     this._getMainDataMethod = getMainDataMethod
     this._columnsModel = columnsModel

@@ -10,11 +10,9 @@ import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
+import { HeaderTable } from '@components/table/header-table/header-table'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -34,65 +32,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
   return (
     <React.Fragment>
       <div>
-        <div className={className.btnsWrapper}>
-          <div className={className.btnsSubWrapper}>
-            <Button
-              disabled={!viewModel.selectedBatches.length}
-              tooltipInfoContent={t(
-                TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
-              )}
-              className={className.cancelBtn}
-              color="primary"
-              variant="contained"
-              onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-            >
-              {t(TranslationKey['Cancel Send'])}
-            </Button>
-
-            <CustomSwitcher
-              switchMode={'medium'}
-              condition={viewModel.currentStorekeeperId}
-              switcherSettings={[
-                ...viewModel.storekeepersData
-                  .slice()
-                  .filter(storekeeper => storekeeper.boxesCount !== 0)
-                  .sort((a, b) => a.name?.localeCompare(b.name))
-                  .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
-                { label: () => t(TranslationKey['All warehouses']), value: undefined },
-              ]}
-              changeConditionHandler={viewModel.onClickStorekeeperBtn}
-            />
-          </div>
-
-          <div className={className.rightSideWrapper}>
-            <SearchInput
-              key={'client_batches_awaiting-batch_search_input'}
-              inputClasses={className.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-              onSubmit={viewModel.onSearchSubmit}
-            />
-
-            <div className={className.rightSideButtonsWrapper}>
-              <Button
-                disabled={viewModel.selectedBatches.length !== 1}
-                variant="contained"
-                className={className.rightSideButton}
-                onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
-              >
-                {t(TranslationKey['Edit batch'])}
-              </Button>
-              <Button
-                success
-                className={className.rightSideButton}
-                variant="contained"
-                onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
-              >
-                {t(TranslationKey['Create a batch'])}
-              </Button>
-            </div>
-          </div>
-        </div>
+        <HeaderTable viewModel={viewModel} />
         <div className={className.datagridWrapper}>
           <CustomDataGrid
             useResizeContainer

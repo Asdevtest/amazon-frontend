@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,15 +24,8 @@ export const ClientShopsView = observer(props => {
     () =>
       new ShopsViewModel({
         history: props.history,
-        onChangeTabIndex: props.onChangeTabIndex,
-        tabsValues: props.tabsValues,
-        onChangeCurShop: props.onChangeCurShop,
       }),
   )
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -45,7 +38,7 @@ export const ClientShopsView = observer(props => {
         </Button>
 
         <Button
-          disabled={!viewModel.rowSelectionModel.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          disabled={!viewModel.selectedRows.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onClick={viewModel.updateShops}
         >
           {t(TranslationKey.Update)}
@@ -63,8 +56,9 @@ export const ClientShopsView = observer(props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
-          getRowHeight={() => 90}
+          rows={viewModel.tableData}
+          getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -80,7 +74,7 @@ export const ClientShopsView = observer(props => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-          rowSelectionModel={viewModel.rowSelectionModel}
+          rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
@@ -153,7 +152,8 @@ export const BindStockGoodsToInventoryForm = observer(
             <CustomDataGrid
               sortingMode="client"
               paginationMode="client"
-              rows={toJS(inventoryData)}
+              rows={inventoryData}
+              slots={{}}
               columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
             />
@@ -167,7 +167,8 @@ export const BindStockGoodsToInventoryForm = observer(
             <CustomDataGrid
               sortingMode="client"
               paginationMode="client"
-              rows={chosenGoods || []}
+              rows={chosenGoods}
+              slots={{}}
               columns={chosenGoodsColumns({ onClickTrash })}
               rowHeight={60}
             />

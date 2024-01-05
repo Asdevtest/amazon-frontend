@@ -66,10 +66,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     filtersFields: string[],
     mainMethodURL: string,
     fieldsForSearch?: string[],
-    history?: History,
     tableKey?: string,
   ) {
-    super(getMainDataMethod, columnsModel, history, tableKey)
+    super(getMainDataMethod, columnsModel, tableKey)
 
     this.setColumnMenuSettings(filtersFields)
     this._filtersFields = filtersFields
@@ -168,6 +167,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
       console.log(error)
+      this.tableData = []
+      this.rowCount = 0
       this.requestStatus = loadingStatuses.FAILED
     }
   }
