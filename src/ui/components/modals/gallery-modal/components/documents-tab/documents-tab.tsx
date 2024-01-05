@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomFileIcon } from '@components/shared/custom-file-icon'
-import { DownloadRoundIcon } from '@components/shared/svg-icons'
+import { BasketIcon, DownloadRoundIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
@@ -47,9 +47,9 @@ export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitionin
                 <button className={styles.buttonIcon} onClick={() => onDownloadFile(file)}>
                   <DownloadRoundIcon className={cx(styles.icon, styles.downloadIcon)} />
                 </button>
-                {/* <button className={styles.buttonIcon}>
-                <BasketIcon className={styles.icon} />
-              </button> */}
+                <button className={styles.buttonIcon}>
+                  <BasketIcon className={styles.icon} />
+                </button>
               </div>
             </div>
           )

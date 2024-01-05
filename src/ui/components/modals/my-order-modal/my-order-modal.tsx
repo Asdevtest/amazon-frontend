@@ -21,6 +21,8 @@ interface MyOrderModalProps {
   platformSettings: IPlatformSettings
   onClickOpenNewTab: () => void
   switcherCondition: SwitcherConditions
+  destinationsFavourites: IDestination[]
+  setDestinationsFavouritesItem: () => void
   onClickChangeCondition: () => void
 }
 
@@ -35,6 +37,8 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     platformSettings,
     onClickOpenNewTab,
     switcherCondition,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
     onClickChangeCondition,
   } = props
 
@@ -52,6 +56,8 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
           storekeepers={storekeepers}
           platformSettings={platformSettings}
           switcherCondition={switcherCondition}
+          destinationsFavourites={destinationsFavourites}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
           onClickChangeCondition={onClickChangeCondition}
         />
 

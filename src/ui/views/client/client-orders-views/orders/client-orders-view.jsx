@@ -190,6 +190,8 @@ export const ClientOrdersView = observer(history => {
           storekeepers={viewModel.storekeepers}
           platformSettings={viewModel.platformSettings}
           switcherCondition={viewModel.switcherCondition}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onClickOpenNewTab={() => viewModel.onClickOpenNewTab(viewModel.order?._id)}
           onClickChangeCondition={viewModel.onClickChangeCondition}
         />

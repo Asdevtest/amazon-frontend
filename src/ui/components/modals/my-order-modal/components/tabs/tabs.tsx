@@ -20,12 +20,23 @@ interface TabsProps {
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
   switcherCondition: SwitcherConditions
+  destinationsFavourites: IDestination[]
+  setDestinationsFavouritesItem: () => void
   onClickChangeCondition: () => void
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
-  const { order, orderBoxes, destinations, storekeepers, platformSettings, switcherCondition, onClickChangeCondition } =
-    props
+  const {
+    order,
+    orderBoxes,
+    destinations,
+    storekeepers,
+    platformSettings,
+    switcherCondition,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+    onClickChangeCondition,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -40,7 +51,13 @@ export const Tabs: FC<TabsProps> = memo(props => {
       />
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.BASIC_INFORMATION}>
-        <BasicInfoTab order={order} destinations={destinations} storekeepers={storekeepers} />
+        <BasicInfoTab
+          order={order}
+          destinations={destinations}
+          storekeepers={storekeepers}
+          destinationsFavourites={destinationsFavourites}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+        />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.LIST_O_FSUPPLIERS}>

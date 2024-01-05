@@ -33,7 +33,7 @@ export const SupplierWithIconsCell: FC<SupplierWithIconsCellProps> = memo(props 
 
   return (
     <>
-      <MultilineTextCell leftAlign text={supplierName} />
+      <MultilineTextCell leftAlign oneLines text={supplierName} />
 
       <div className={styles.icons}>
         {isNewSupplier && <p className={styles.text}>NEW</p>}

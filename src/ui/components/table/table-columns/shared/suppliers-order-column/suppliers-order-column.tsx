@@ -43,7 +43,7 @@ export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryMod
     ),
     filterable: false,
     sortable: false,
-    width: 140,
+    width: 130,
   },
 
   {
@@ -77,7 +77,7 @@ export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryMod
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
-    width: 95,
+    width: 105,
   },
 
   {

@@ -75,8 +75,12 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 500,
   },
 
+  cardComment: {
+    gap: 0,
+  },
+
   comment: {
-    height: 38,
+    height: 32,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     wordWrap: 'break-word',
@@ -86,6 +90,17 @@ export const useStyles = makeStyles()(theme => ({
     WebkitBoxOrient: 'vertical',
   },
 
+  commentTitle: {
+    fontWeight: 500,
+    color: theme.palette.text.general,
+  },
+
+  commentText: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.general,
+  },
+
   empty: {
     display: 'flex',
     alignItems: 'center',
@@ -93,6 +108,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldButtonContainer: {
+    height: 16,
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -134,5 +150,35 @@ export const useStyles = makeStyles()(theme => ({
 
   eyeIcon: {
     color: theme.palette.primary.main,
+  },
+
+  tafiffButton: {
+    width: 110,
+    background: theme.palette.primary.main,
+    padding: '2px 5px',
+    color: '#fff',
+    borderRadius: 6,
+    boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
+    opacity: 1,
+    transition: '.3s ease-in-out',
+    overflow: 'hidden',
+
+    span: {
+      display: '-webkit-box',
+      WebkitLineClamp: 1,
+      WebkitBoxOrient: 'vertical',
+    },
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+
+    '&:active': {
+      boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+    },
   },
 }))

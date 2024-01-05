@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FC, memo, useState } from 'react'
+import { Dispatch, FC, Fragment, SetStateAction, memo, useState } from 'react'
 
 import {
   getConversion,
@@ -8,16 +8,19 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserMiniCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { CommentsModal } from '@components/modals/comments-modal'
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { Card } from '@components/modals/my-order-modal/components'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { EyeIcon } from '@components/shared/svg-icons'
 import { Switch } from '@components/shared/switch'
 
@@ -26,6 +29,8 @@ import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
 import { IUploadFile } from '@typings/upload-file'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './basic-info-tab.style'
 
@@ -40,10 +45,12 @@ interface BasicInfoTabProps {
   order: any
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
+  destinationsFavourites: IDestination[]
+  setDestinationsFavouritesItem: () => void
 }
 
 export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
-  const { order, destinations, storekeepers } = props
+  const { order, destinations, storekeepers, destinationsFavourites, setDestinationsFavouritesItem } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -89,6 +96,11 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
       element: undefined,
     },
     {
+      title: t(TranslationKey.BarCode),
+      text: undefined,
+      element: <LabelWithCopy labelValue={order?.product.barCode} lableLinkTitle={t(TranslationKey.View)} />,
+    },
+    {
       title: undefined,
       text: undefined,
       element: (
@@ -126,46 +138,85 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
         : t(TranslationKey['No data']),
       element: undefined,
     },
-    {
-      title: t(TranslationKey.BarCode),
-      text: undefined,
-      element: <LabelWithCopy labelValue={order?.product.barCode} lableLinkTitle={t(TranslationKey.View)} />,
-    },
   ]
 
-  const [isChecked, setIsChecked] = useState(false)
+  const [isCheckedUrgent, setIsCheckedUrgent] = useState(order?.priority === String(orderPriority.urgentPriority))
+  const [isCheckedChina, setIsCheckedChina] = useState(order?.expressChinaDelivery)
+  const [isCheckedResearch, setIsCheckedResearch] = useState(order?.needsResearch)
 
-  const handleToggle = () => {
+  const handleToggle = (isChecked: boolean, setIsChecked: Dispatch<SetStateAction<boolean>>) => {
     setIsChecked(!isChecked)
   }
+
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    order?.destination?._id || order?.variationTariff?.destinationId || null,
+    order?.storekeeper?._id || '',
+    order?.logicsTariff?._id || '',
+    order?.variationTariff?._id || null,
+  )
+
+  const currentTariffName =
+    order?.storekeeper?._id && (tariffName || tariffRate)
+      ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+      : t(TranslationKey.Select)
 
   const additionalOrderInformationFieldsConfig: IFieldConfig[] = [
     {
       title: t(TranslationKey.Destination),
-      element: undefined,
+      element: (
+        <WithSearchSelect
+          /* @ts-ignore */
+          // disabled
+          width={120}
+          selectedItemName={
+            destinations?.find(el => el?._id === order?.destinationId)?.name || t(TranslationKey['Not chosen'])
+          }
+          data={
+            order?.variationTariffId && order?.destinationId
+              ? destinations.filter(el => el?._id === order?.destinationId)
+              : destinations?.filter(el => el?.storekeeper?._id !== order?.storekeeperId)
+          }
+          searchFields={['name']}
+          favourites={destinationsFavourites}
+          onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+        />
+      ),
     },
     {
       title: `${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`,
-      element: undefined,
+      element: (
+        <button
+          className={cx(styles.fieldText, styles.tafiffButton)}
+          onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+        >
+          <span>{currentTariffName}</span>
+        </button>
+      ),
     },
     {
       title: t(TranslationKey['Mark an order as urgent']),
-      element: <Switch isChecked={isChecked} onChange={handleToggle} />,
+      element: (
+        <Switch isChecked={isCheckedUrgent} onChange={() => handleToggle(isCheckedUrgent, setIsCheckedUrgent)} />
+      ),
     },
     {
       title: t(TranslationKey['Order express delivery in China']),
-      element: <Switch isChecked={isChecked} onChange={handleToggle} />,
+      element: <Switch isChecked={isCheckedChina} onChange={() => handleToggle(isCheckedChina, setIsCheckedChina)} />,
     },
     {
       title: t(TranslationKey['Re-search supplier']),
-      element: <Switch isChecked={isChecked} onChange={handleToggle} />,
+      element: (
+        <Switch isChecked={isCheckedResearch} onChange={() => handleToggle(isCheckedResearch, setIsCheckedResearch)} />
+      ),
     },
     {
       title: t(TranslationKey.Buyer),
       element: (
         <UserMiniCell
-          userName={order.buyer?.name}
-          userId={order.buyer?._id}
+          userName={order?.buyer?.name}
+          userId={order?.buyer?._id}
           wrapperClassName={styles.userMiniCellWrapper}
           avatarClassName={styles.userMiniCellAvatar}
         />
@@ -204,19 +255,25 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
     },
   ]
 
+  const [showCommentsModal, setShowCommentsModal] = useState(false)
+  const [comment, setComment] = useState({ title: '', text: '' })
+  const handleChangeComment = (title?: string, text?: string) => {
+    setComment(prevComment => ({ ...prevComment, title: title || '', text: text || '' }))
+
+    setShowCommentsModal(!showCommentsModal)
+  }
+
   const commentsConfig: IFieldConfig[] = [
     {
       title: t(TranslationKey.Buyer),
-      text:
-        order?.buyerComment ||
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet a aspernatur nostrum consequaturmollitia consectetur error quis omnis debitis facilis?',
+      text: order?.buyerComment,
       element: order?.buyerComment.length > 0 ? <CopyValue text={order?.buyerComment} /> : undefined,
     },
     {
       title: t(TranslationKey.Client),
       text:
         order?.clientComment ||
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet a aspernatur nostrum consequatur mollitia consectetur error quis omnis debitis facilis?',
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, numquam tempore quibusdam debitis quis deleniti rerum officiis ab nobis quos?',
       element: order?.clientComment.length > 0 ? <CopyValue text={order?.clientComment} /> : undefined,
     },
   ]
@@ -281,19 +338,25 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
 
             <div className={styles.cardsWrapper}>
               {commentsConfig.map((item, index) => (
-                <Card key={index} wrapperClassName={styles.card}>
+                <Card key={index} wrapperClassName={cx(styles.card, styles.cardComment)}>
                   <div className={styles.field}>
-                    <p className={cx(styles.fieldText, styles.fieldTextMedium)}>{item.title}</p>
+                    <p className={cx(styles.fieldText, styles.commentTitle)}>{item.title}</p>
                     {item.element}
                   </div>
-                  <p className={cx(styles.fieldText, styles.comment, { [styles.empty]: !item.text })}>
+                  <p className={cx(styles.commentText, styles.comment, { [styles.empty]: !item.text })}>
                     {item.text || t(TranslationKey.Empty)}
                   </p>
-                  {item.text && (
-                    <div className={styles.fieldButtonContainer}>
-                      <button className={cx(styles.fieldText, styles.link)}>{t(TranslationKey['View more'])}</button>
-                    </div>
-                  )}
+
+                  <div className={styles.fieldButtonContainer}>
+                    {item.text && (
+                      <button
+                        className={cx(styles.commentText, styles.link)}
+                        onClick={() => handleChangeComment(item.title, item.text)}
+                      >
+                        {t(TranslationKey['View more'])}
+                      </button>
+                    )}
+                  </div>
                 </Card>
               ))}
             </div>
@@ -306,6 +369,15 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
           files={galleryFiles}
           isOpenModal={showGalleryModal}
           onOpenModal={() => setShowGalleryModal(!showGalleryModal)}
+        />
+      )}
+
+      {showCommentsModal && (
+        <CommentsModal
+          title={comment.title}
+          text={comment.text}
+          isOpenModal={showCommentsModal}
+          onOpenModal={() => setShowCommentsModal(!showCommentsModal)}
         />
       )}
 
@@ -323,7 +395,9 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
             currentDestinationId={order?.destinationId}
             curTariffId={order?.logicsTariffId}
             currentVariationTariffId={order?.variationTariffId}
-            // onSubmit={onSubmitSelectStorekeeperAndTariff}
+            onSubmit={() => {
+              console.log('test')
+            }}
           />
         </Modal>
       )}
