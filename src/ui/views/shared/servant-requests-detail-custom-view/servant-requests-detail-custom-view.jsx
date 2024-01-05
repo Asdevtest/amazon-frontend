@@ -56,12 +56,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
   return (
     <React.Fragment>
       <div>
-        <div className={styles.backBtnWrapper}>
-          <Button variant="contained" color="primary" className={styles.backBtn} onClick={viewModel.onClickBackBtn}>
-            {t(TranslationKey.Back)}
-          </Button>
-        </div>
-
         {viewModel.request && viewModel.requestProposals ? (
           <div className={styles.requestInfoWrapper}>
             <ServantGeneralRequestInfo
