@@ -108,3 +108,4 @@ export { FreelancerMyProposalsActionsCell } from './freelancer-my-proposals-acti
 export { RequestStatusCell } from './request-status-cell/request-status-cell'
 export { CustomDestinationsCell } from './custom-destinations-cell/custom-destinations-cell'
 export { DeadlineCell } from './deadline-cell/deadline-cell'
+export { SupplierWithIconsCell } from './supplier-with-icons-cell/supplier-with-icons-cell'

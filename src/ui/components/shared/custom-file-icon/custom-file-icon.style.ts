@@ -22,6 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     width: '24px !important',
     height: '28px !important',
+    color: theme.palette.fileIcons.icon,
   },
 
   fileExtension: {
@@ -34,7 +35,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '12px',
     textAlign: 'center',
-    color: '#fff',
+    color: theme.palette.background.second,
     background: theme.palette.fileIcons.file,
     borderRadius: 2,
   },

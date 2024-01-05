@@ -44,7 +44,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.LIST_O_FSUPPLIERS}>
-        <ListSuppliersTab order={order} platformSettings={platformSettings} />
+        <ListSuppliersTab order={order} storekeepers={storekeepers} platformSettings={platformSettings} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.BOXES_TO_ORDER}>

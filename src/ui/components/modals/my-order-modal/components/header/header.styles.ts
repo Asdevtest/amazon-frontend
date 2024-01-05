@@ -5,6 +5,6 @@ export const useStyles = makeStyles()(() => ({
     maxHeight: 270,
     display: 'flex',
     // flexWrap: 'wrap',
-    gap: 40,
+    gap: 30,
   },
 }))

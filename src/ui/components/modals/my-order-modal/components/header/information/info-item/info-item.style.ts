@@ -19,9 +19,10 @@ export const useStyles = makeStyles()(theme => ({
     height: 36,
     display: 'flex',
     alignItems: 'center',
-    WebkitJustifyContent: 'center',
+    justifyContent: 'center',
     borderRadius: '50%',
-    background: '#f4f7fe',
+    background: theme.palette.background.second,
+    boxShadow: '0 0 3px 1px rgba(0, 0, 0, 0.17)',
   },
 
   title: {

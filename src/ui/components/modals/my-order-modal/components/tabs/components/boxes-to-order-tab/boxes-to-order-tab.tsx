@@ -79,6 +79,7 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = memo(props => {
           paginationModel={paginationModel}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
+            '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
           }}
           slotProps={{
             toolbar: {

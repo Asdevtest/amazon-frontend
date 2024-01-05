@@ -6,6 +6,7 @@ import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { DownloadRoundIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { isString } from '@typings/type-guards'
 import { IUploadFile } from '@typings/upload-file'
@@ -19,6 +20,9 @@ interface DocumentsTabProps {
 
 export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitioning }) => {
   const { classes: styles, cx } = useStyles()
+
+  const onDownloadFile = (file: string | IUploadFile) =>
+    isString(file) ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return (
     <div className={cx(styles.files, { [styles.slidesTransition]: isTransitioning })}>
@@ -40,7 +44,7 @@ export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitionin
               </div>
 
               <div className={styles.icons}>
-                <button className={styles.buttonIcon}>
+                <button className={styles.buttonIcon} onClick={() => onDownloadFile(file)}>
                   <DownloadRoundIcon className={cx(styles.icon, styles.downloadIcon)} />
                 </button>
                 {/* <button className={styles.buttonIcon}>

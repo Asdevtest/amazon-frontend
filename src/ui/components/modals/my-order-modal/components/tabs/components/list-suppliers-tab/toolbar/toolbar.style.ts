@@ -1,21 +1,33 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  wrapper: {
-    padding: '10px 0',
+  toolbar: {
+    padding: '0 5px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: 20,
+  },
+
+  tableTitle: {
+    fontSize: 16,
+    lineHeight: '22px',
+    fontWeight: 600,
+  },
+
+  actionsButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 
   visibilityButton: {
-    width: 64,
+    width: 32,
     height: 32,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     background: theme.palette.background.general,
-    borderRadius: 6,
+    borderRadius: '50%',
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     opacity: 1,
     transition: '.3s ease-in-out',

@@ -1,69 +1,59 @@
-import { FC, memo, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { FC, memo } from 'react'
+
+import { GridRowClassNameParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GalleryModal } from '@components/modals/gallery-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { EyeIcon } from '@components/shared/svg-icons'
+import { Modal } from '@components/shared/modal'
 import { suppliersOrderColumn } from '@components/table/table-columns/shared/suppliers-order-column'
 
 import { t } from '@utils/translations'
 
+import { IDestinationStorekeeper } from '@typings/destination'
 import { IPlatformSettings } from '@typings/patform-settings'
-import { ISupplier } from '@typings/product'
-import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './list-suppliers-tab.style'
 
-interface ISupplierState extends ISupplier {
-  id: string
-}
+import { Toolbar } from './toolbar'
+import { useListSuppliersTab } from './use-list-suppliers-tab'
 
 interface ListSuppliersTabProps {
   order: any
+  storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
 }
 
 export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
-  const { order, platformSettings } = props
+  const { order, storekeepers, platformSettings } = props
 
   const { classes: styles } = useStyles()
 
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 15 })
-  const [selectionModel, setSelectionModel] = useState<string[]>([])
-  const [suppliers, setSuppliers] = useState<ISupplierState[]>([])
-  const [showGalleryModal, setShowGalleryModal] = useState(false)
-  const [galleryFiles, setGalleryFiles] = useState<Array<string | IUploadFile>>([])
+  const {
+    paginationModel,
+    setPaginationModel,
 
-  const handleOpenGalleryModal = (files?: Array<string | IUploadFile>) => {
-    if (files && files.length > 0) {
-      setGalleryFiles(files)
-    } else {
-      setGalleryFiles([])
-    }
+    selectionModel,
+    setSelectionModel,
 
-    setShowGalleryModal(!showGalleryModal)
-  }
+    currentSupplier,
+    suppliers,
 
-  useEffect(() => {
-    const product = order?.product
+    galleryFiles,
+    showGalleryModal,
+    setShowGalleryModal,
+    onOpenGalleryModal,
 
-    if (product?.suppliers?.length > 0) {
-      const currentSupplierId = product.currentSupplier?._id
-
-      if (currentSupplierId) {
-        setSelectionModel(prevState => [currentSupplierId, ...prevState])
-      }
-
-      const foundCurrentSupplier = product.suppliers.find((supplier: ISupplier) => supplier._id === currentSupplierId)
-      const filteringSuppliers = product.suppliers.filter((supplier: ISupplier) => supplier._id !== currentSupplierId)
-      const resultSuppliers = foundCurrentSupplier ? [foundCurrentSupplier, ...filteringSuppliers] : product.suppliers
-
-      setSuppliers(resultSuppliers.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id })))
-    }
-  }, [order])
+    showAddOrEditSupplierModal,
+    onAddOrEditSupplierModal,
+  } = useListSuppliersTab(order)
 
   const showVisibilityButton = selectionModel.length > 0
+  const getRowClassName = ({ id }: GridRowClassNameParams) =>
+    id === order?.product?.currentSupplier?._id && styles.currentSupplierBackground
 
   return (
     <>
@@ -71,31 +61,28 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
         <CustomDataGrid
           disableColumnMenu
           rows={suppliers}
+          getRowClassName={getRowClassName}
           rowCount={suppliers.length}
           getRowHeight={() => 'auto'}
           columns={suppliersOrderColumn({
+            order,
             platformSettings,
-            onOpenGalleryModal: handleOpenGalleryModal,
+            onOpenGalleryModal,
           })}
           paginationModel={paginationModel}
           rowSelectionModel={selectionModel}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
+            '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
+            '& .MuiDataGrid-row': styles.row,
           }}
           slotProps={{
             toolbar: {
               children: (
-                <div className={styles.toolbar}>
-                  <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
-
-                  <div className={styles.actionsButtons}>
-                    {showVisibilityButton && (
-                      <button className={styles.visibilityButton}>
-                        <EyeIcon className={styles.visibilityIcon} />
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <Toolbar
+                  showVisibilityButton={showVisibilityButton}
+                  onAddOrEditSupplierModal={onAddOrEditSupplierModal}
+                />
               ),
             },
           }}
@@ -111,6 +98,20 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
           onOpenModal={() => setShowGalleryModal(!showGalleryModal)}
         />
       )}
+
+      <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onAddOrEditSupplierModal}>
+        {/* @ts-ignore */}
+        <AddOrEditSupplierModalContent
+          onlyRead
+          product={order?.product}
+          supplier={currentSupplier}
+          storekeepersData={storekeepers}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onTriggerShowModal={onAddOrEditSupplierModal}
+        />
+      </Modal>
     </>
   )
 })

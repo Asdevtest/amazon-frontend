@@ -343,6 +343,7 @@ export const lightTheme = createTheme({
       txt: '#F17048',
       zip: '#6D56F8',
       file: '#475467',
+      icon: '#E9F0FA',
     },
   },
 })
@@ -771,6 +772,7 @@ export const darkTheme = createTheme({
         txt: '#E37451',
         zip: '#8B79F9',
         file: '#A2ADBD',
+        icon: '#475467',
       },
     },
   },

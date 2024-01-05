@@ -6,6 +6,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   PaymentMethodsCell,
+  SupplierWithIconsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { FilesCell } from '@components/data-grid/data-grid-cells/files-cell/files-cell'
@@ -20,18 +21,29 @@ import { IPlatformSettings } from '@typings/patform-settings'
 import { IUploadFile } from '@typings/upload-file'
 
 interface ISuppliersOrderColumn {
+  order: any
   platformSettings: IPlatformSettings
   onOpenGalleryModal: (files?: Array<string | IUploadFile>) => void
 }
 
-export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: ISuppliersOrderColumn) => [
+export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryModal }: ISuppliersOrderColumn) => [
   {
     field: 'supplier',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign text={row.name} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <SupplierWithIconsCell
+        supplierName={row.name}
+        orderCreatedAt={order?.createdAt}
+        orderSupplierId={order?.orderSupplier?._id}
+        supplierCreatedAt={row.createdAt}
+        supplierId={row._id}
+        supplierMultiplicity={row.multiplicity}
+        supplierAmountInBox={row.boxProperties?.amountInBox}
+      />
+    ),
     filterable: false,
     sortable: false,
-    width: 110,
+    width: 140,
   },
 
   {
@@ -45,7 +57,7 @@ export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: I
       ),
     filterable: false,
     sortable: false,
-    width: 140,
+    width: 160,
   },
 
   {
@@ -65,7 +77,7 @@ export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: I
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
-    width: 105,
+    width: 95,
   },
 
   {
@@ -76,7 +88,7 @@ export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: I
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 90,
   },
 
   {
@@ -96,7 +108,7 @@ export const suppliersOrderColumn = ({ platformSettings, onOpenGalleryModal }: I
     ),
     filterable: false,
     sortable: false,
-    width: 220,
+    width: 190,
     align: 'center',
   },
 

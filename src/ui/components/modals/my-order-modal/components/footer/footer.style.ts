@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease-in-out',
 
     '&:hover': {
-      opacity: 0.7,
+      opacity: 0.8,
     },
   },
 
@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease-in-out',
 
     '&:hover': {
-      opacity: 0.7,
+      opacity: 0.8,
     },
   },
 }))
