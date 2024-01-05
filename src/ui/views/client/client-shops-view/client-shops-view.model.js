@@ -71,22 +71,14 @@ export class ShopsViewModel extends DataGridTableModel {
   }
 
   onSubmitShopForm(data, shopId) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Are you sure?']),
-      onSubmit: () => {
-        this.createShop(data, shopId)
-        this.onTriggerOpenModal('showAddOrEditShopModal')
-      },
-      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
+    this.createShop(data, shopId)
+    this.onTriggerOpenModal('showAddOrEditShopModal')
   }
 
   async createShop(data, shopId) {
     try {
+      this.requestStatus = loadingStatuses.IS_LOADING
+
       if (!data.reportAccountUrl) {
         delete data.reportAccountUrl
       }
@@ -114,9 +106,10 @@ export class ShopsViewModel extends DataGridTableModel {
         this.onTriggerOpenModal('showWarningModal')
       }
 
-      this.onTriggerOpenModal('showConfirmModal')
       this.getMainTableData()
+      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
+      this.requestStatus = loadingStatuses.FAILED
       console.log(error)
 
       runInAction(() => {
