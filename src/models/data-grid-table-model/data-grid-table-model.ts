@@ -2,6 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
+import { ChangeEvent } from 'react'
 
 import {
   GridColDef,
@@ -20,6 +21,14 @@ import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
   _requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+
+  _unserverSearchValue = ''
+  get unserverSearchValue() {
+    return this._unserverSearchValue
+  }
+  set unserverSearchValue(unserverSearchValue: string) {
+    this._unserverSearchValue = unserverSearchValue
+  }
 
   _rowCount = 0
   _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
@@ -108,13 +117,18 @@ export class DataGridTableModel extends ModalsModel {
   set columnsModel(columnsModel: GridColDef[]) {
     this._columnsModel = columnsModel
   }
-  constructor(getMainDataMethod: (...args: any) => any, columnsModel: GridColDef[], tableKey?: string) {
+  constructor(
+    getMainDataMethod: (...args: any) => any,
+    columnsModel: GridColDef[],
+    tableKey?: string,
+    defaultGetDataMethodOptions?: any,
+  ) {
     super()
 
     this._getMainDataMethod = getMainDataMethod
     this._columnsModel = columnsModel
-
     this._tableKey = tableKey
+    this.defaultGetDataMethodOptions = defaultGetDataMethodOptions
 
     makeObservable(this, observerConfig)
   }
@@ -193,5 +207,9 @@ export class DataGridTableModel extends ModalsModel {
       console.log(error)
       this.requestStatus = loadingStatuses.FAILED
     }
+  }
+
+  onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
+    this.unserverSearchValue = e.target.value
   }
 }

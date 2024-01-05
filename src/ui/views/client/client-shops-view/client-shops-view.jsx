@@ -10,6 +10,7 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -29,20 +30,31 @@ export const ClientShopsView = observer(props => {
 
   return (
     <>
-      <div className={styles.buttonBox}>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
-          onClick={viewModel.onClickAddBtn}
-        >
-          {t(TranslationKey['Add shop'])}
-        </Button>
+      <div className={styles.headerWrapper}>
+        <div className={styles.buttonsWrapper}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
+            onClick={viewModel.onClickAddBtn}
+          >
+            {t(TranslationKey['Add shop'])}
+          </Button>
 
-        <Button
-          disabled={!viewModel.selectedRows.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
-          onClick={viewModel.updateShops}
-        >
-          {t(TranslationKey.Update)}
-        </Button>
+          <Button
+            disabled={!viewModel.selectedRows.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            onClick={viewModel.updateShops}
+          >
+            {t(TranslationKey.Update)}
+          </Button>
+        </div>
+
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}`}
+          value={viewModel.unserverSearchValue}
+          onChange={viewModel.onChangeUnserverSearchValue}
+        />
+
+        <div />
       </div>
 
       <div className={styles.tabledWrapper}>
@@ -56,7 +68,7 @@ export const ClientShopsView = observer(props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.tableData}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           slotProps={{

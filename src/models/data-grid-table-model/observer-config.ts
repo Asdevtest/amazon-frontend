@@ -14,6 +14,7 @@ export const observerConfig = {
   _getMainDataMethod: observable,
   _columnsModel: observable,
   _defaultGetDataMethodOptions: observable,
+  _unserverSearchValue: observable,
 
   requestStatus: computed,
   rowCount: computed,
@@ -25,6 +26,7 @@ export const observerConfig = {
   getMainDataMethod: computed,
   columnsModel: computed,
   defaultGetDataMethodOptions: computed,
+  unserverSearchValue: computed,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,
@@ -34,4 +36,5 @@ export const observerConfig = {
   onPaginationModelChange: action.bound,
   onChangeFilterModel: action.bound,
   getMainTableData: action.bound,
+  onChangeUnserverSearchValue: action.bound,
 }
