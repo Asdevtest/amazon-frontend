@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(theme => ({
 
   secondBlock: {
     width: 670,
+    marginTop: '-10px',
   },
 
   requestInformationTitleWrapper: {
@@ -20,6 +21,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 400,
     color: theme.palette.text.second,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
 
   confirmationWrapper: {
@@ -38,7 +42,7 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.background.general,
     borderRadius: 7,
     padding: 20,
-    height: 171,
+    height: 180,
   },
 
   blockInfoWrapper: {
