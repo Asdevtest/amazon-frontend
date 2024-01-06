@@ -810,20 +810,21 @@ export class ClientInventoryViewModel {
 
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
+      runInAction(() => {
+        this.productsMy = []
+      })
+
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: this.getFilters(),
 
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
       runInAction(() => {
         this.baseNoConvertedProducts = result
         this.rowCount = result.count
@@ -1105,6 +1106,8 @@ export class ClientInventoryViewModel {
 
   async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
     try {
+      console.log(111)
+
       runInAction(() => {
         this.readyImages = []
       })
