@@ -30,7 +30,7 @@ interface IVariations {
 
 export class GeneralNotificationsViewModel {
   history: History | undefined = undefined
-  requestStatus = loadingStatuses.success
+  requestStatus = loadingStatuses.SUCCESS
 
   // * Pagination & Sorting & Filtering
 
@@ -95,14 +95,14 @@ export class GeneralNotificationsViewModel {
 
   async onClickReadButton() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await UserModel.addNotificationsToArchive(this.selectedRowIds)
       await this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -113,7 +113,7 @@ export class GeneralNotificationsViewModel {
 
   async getUserNotifications() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await UserModel.getUsersNotificationsPagMy({
         archive: this.isArchive,
@@ -134,9 +134,9 @@ export class GeneralNotificationsViewModel {
         this.rowCount = response.count || 0
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -173,7 +173,7 @@ export class GeneralNotificationsViewModel {
     this.getUserNotifications()
   }
 
-  setRequestStatus(requestStatus: string) {
+  setRequestStatus(requestStatus: loadingStatuses) {
     this.requestStatus = requestStatus
   }
 
@@ -231,15 +231,15 @@ export class GeneralNotificationsViewModel {
 
   onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.curNotificationType = notificationType
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.error(err)
     }
   }
@@ -258,15 +258,15 @@ export class GeneralNotificationsViewModel {
 
   onSearchSubmit(searchValue: string) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.searchValue = searchValue
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.error(err)
     }
   }

@@ -67,7 +67,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}

@@ -87,7 +87,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onPaginationModelChange={onChangePaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}

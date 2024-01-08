@@ -1,16 +1,16 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SellerBoardModelStatic {
-  getMyDailyReportsLast30Days = async shopId => {
+  getMyDailyReportsLast30Days = async options => {
     const response =
-      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet({
-        shopId,
-      })
+      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(
+        options,
+      )
     return response.data
   }
 
-  getStockGoods = async shopId => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGet({ shopId })
+  getStockGoods = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGet(options)
     return response.data
   }
 
@@ -64,6 +64,29 @@ class SellerBoardModelStatic {
       await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGuidDelete(
         { guid },
       )
+    return response.data
+  }
+
+  getIntegrationsReportInventory = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportInventoryGet(options)
+    return response.data
+  }
+
+  getIntegrationsReportPpcSalesWeeks = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportPpcSalesWeeksGet(options)
+    return response.data
+  }
+
+  getIntegrationsReportInventoryShipments = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportInventoryShipmentsGet(options)
+    return response.data
+  }
+
+  deleteIntegrationsReport = async (table, reportIds) => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsRowsFromReportDelete({
+      table,
+      body: { reportIds },
+    })
     return response.data
   }
 }

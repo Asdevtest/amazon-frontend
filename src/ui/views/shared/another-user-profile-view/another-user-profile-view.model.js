@@ -190,7 +190,7 @@ export class AnotherProfileViewModel {
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.selectedProduct._id,
@@ -201,9 +201,9 @@ export class AnotherProfileViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -316,7 +316,7 @@ export class AnotherProfileViewModel {
 
   async onLaunchPrivateLabel() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
@@ -325,7 +325,7 @@ export class AnotherProfileViewModel {
       ])
 
       await this.createOrder(requestProduct)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
@@ -334,7 +334,7 @@ export class AnotherProfileViewModel {
 
       this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         if (error.body && error.body.message) {
@@ -426,7 +426,7 @@ export class AnotherProfileViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getUserById()
 
@@ -440,9 +440,9 @@ export class AnotherProfileViewModel {
 
       await Promise.all(this.getDataGridState(), this.getReviews())
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

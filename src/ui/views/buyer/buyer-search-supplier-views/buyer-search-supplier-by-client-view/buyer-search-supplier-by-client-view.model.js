@@ -60,15 +60,15 @@ export class BuyerSearchSupplierByClientModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
       })
       await this.getProductsVacant()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
       console.log(error)
     }
@@ -76,7 +76,7 @@ export class BuyerSearchSupplierByClientModel {
 
   async getProductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
       })
@@ -89,9 +89,9 @@ export class BuyerSearchSupplierByClientModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.productsVacant = []

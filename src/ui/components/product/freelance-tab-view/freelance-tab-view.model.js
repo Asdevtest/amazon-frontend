@@ -147,14 +147,14 @@ export class FreelanceModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await this.getCustomRequests()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -205,7 +205,7 @@ export class FreelanceModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
@@ -222,9 +222,9 @@ export class FreelanceModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }

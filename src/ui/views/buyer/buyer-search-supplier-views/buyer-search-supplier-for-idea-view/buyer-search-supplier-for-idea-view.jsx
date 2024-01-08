@@ -60,7 +60,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}

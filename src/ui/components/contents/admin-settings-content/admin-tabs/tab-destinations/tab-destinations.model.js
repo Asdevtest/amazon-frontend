@@ -46,14 +46,14 @@ export class AdminSettingsDestinationsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await this.getDestinations()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -63,7 +63,7 @@ export class AdminSettingsDestinationsModel {
 
   async getDestinations() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ClientModel.getDestinations().then(result => {
         runInAction(() => {
@@ -71,11 +71,11 @@ export class AdminSettingsDestinationsModel {
         })
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.destinations = []
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -169,7 +169,7 @@ export class AdminSettingsDestinationsModel {
 
   async onCreateDestination(data) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.createDestination(data)
 
@@ -177,15 +177,15 @@ export class AdminSettingsDestinationsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onEditDestination(data, destinationId) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.editDestination(destinationId, data)
 
@@ -193,15 +193,15 @@ export class AdminSettingsDestinationsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemoveDestination() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.removeDestination(this.destinationIdToRemove)
 
@@ -209,9 +209,9 @@ export class AdminSettingsDestinationsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

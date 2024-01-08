@@ -23,10 +23,10 @@ export class AdminUserPermissionsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

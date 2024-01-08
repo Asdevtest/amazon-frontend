@@ -373,7 +373,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -397,9 +397,9 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -449,7 +449,7 @@ export class MyRequestsViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -468,9 +468,9 @@ export class MyRequestsViewModel {
         }
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -520,15 +520,15 @@ export class MyRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const response = await RequestModel.getCustomRequestById(id)
 
       runInAction(() => {
         this.currentRequestDetails = response
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -671,7 +671,7 @@ export class MyRequestsViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
 
     await RequestModel.updateDeadline(
       this.currentRequestDetails.request._id,
@@ -681,7 +681,7 @@ export class MyRequestsViewModel {
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 
   onClickAbortBtn() {

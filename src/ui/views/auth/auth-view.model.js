@@ -79,7 +79,7 @@ export class AuthViewModel {
   async onSubmitForm() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
         this.error = undefined
       })
       await UserModel.signIn(this.email.toLowerCase(), this.password)
@@ -87,7 +87,7 @@ export class AuthViewModel {
       await UserModel.getUsersInfoCounters()
       if (UserModel.accessToken) {
         runInAction(() => {
-          this.requestStatus = loadingStatuses.success
+          this.requestStatus = loadingStatuses.SUCCESS
         })
         const allowedRoutes = privateRoutesConfigs.filter(route =>
           route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
@@ -95,13 +95,13 @@ export class AuthViewModel {
         this.history.push(allowedRoutes[0].routePath)
       } else {
         runInAction(() => {
-          this.requestStatus = loadingStatuses.failed
+          this.requestStatus = loadingStatuses.FAILED
           this.error = new Error('The user is waiting for confirmation by the Administrator')
         })
       }
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
         this.error = error
       })
     }

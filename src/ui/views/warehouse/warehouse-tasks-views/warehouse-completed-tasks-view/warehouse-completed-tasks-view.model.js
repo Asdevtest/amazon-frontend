@@ -137,13 +137,13 @@ export class WarehouseCompletedViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
@@ -160,7 +160,7 @@ export class WarehouseCompletedViewModel {
 
   async getCompletedTasksPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -201,14 +201,14 @@ export class WarehouseCompletedViewModel {
           this.completedTasksBase.map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
         this.completedTasks = []
       })
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

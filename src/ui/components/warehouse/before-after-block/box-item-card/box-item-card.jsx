@@ -141,7 +141,7 @@ export const BoxItemCard = ({
 
             <div>
               <div className={classNames.chipWrapper}>
-                {window.innerWidth > 1281 && item.barCode && (
+                {window.innerWidth > 1281 && item?.transparencyFile && (
                   <div
                     className={cx(classNames.barCodeActionsWrapper, {
                       [classNames.successAccent]:

@@ -124,7 +124,7 @@ export const MyRequestsView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onSortModelChange={viewModel.onChangeSortingModel}

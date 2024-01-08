@@ -79,17 +79,17 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
       })
 
       this.getElementCount()
 
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
       console.log(error)
     }

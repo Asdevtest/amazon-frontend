@@ -7,12 +7,13 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { useStyles } from './product-asin-cell.style'
 
 interface ProductAsinCellProps {
-  amazonTitle: string
   asin: string
+  image?: string
+  amazonTitle?: string
   skuByClient?: string
   withoutImage?: boolean
   withoutSku?: boolean
-  image?: string
+  withoutTitle?: boolean
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {

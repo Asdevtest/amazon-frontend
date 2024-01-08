@@ -234,17 +234,17 @@ export class BuyerMyProductsViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
       })
 
       this.getDataGridState()
       await this.getProductsMy()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
       console.log(error)
     }
@@ -252,7 +252,7 @@ export class BuyerMyProductsViewModel {
 
   async getProductsMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
       })
@@ -272,9 +272,9 @@ export class BuyerMyProductsViewModel {
         this.baseNoConvertedProducts = result.rows
         this.productsMy = buyerProductsDataConverter(result.rows)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.baseNoConvertedProducts = []
@@ -316,7 +316,7 @@ export class BuyerMyProductsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
       //
 
       const data = await GeneralModel.getDataForColumn(
@@ -331,9 +331,9 @@ export class BuyerMyProductsViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
       runInAction(() => {

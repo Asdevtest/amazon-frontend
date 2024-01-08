@@ -48,14 +48,14 @@ export class AdminSettingsTagsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await this.getTags()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -65,7 +65,7 @@ export class AdminSettingsTagsModel {
 
   async getTags() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await GeneralModel.getTagList()
 
@@ -73,10 +73,10 @@ export class AdminSettingsTagsModel {
         this.tags = addIdDataConverter(result)
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.tags = []
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -192,7 +192,7 @@ export class AdminSettingsTagsModel {
 
   async onCreateTag(titleTag) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await GeneralModel.createTag(titleTag)
 
@@ -200,15 +200,15 @@ export class AdminSettingsTagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onEditTag(id, data) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.editTag(id, data)
 
@@ -216,15 +216,15 @@ export class AdminSettingsTagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemoveTag() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.removeTags([this.tagIdToRemove])
 
@@ -232,15 +232,15 @@ export class AdminSettingsTagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemoveTags() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await AdministratorModel.removeTags(this.rowSelectionModel)
 
@@ -248,9 +248,9 @@ export class AdminSettingsTagsModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

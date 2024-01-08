@@ -55,7 +55,7 @@ export const TabDestinations = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onPaginationModelChange={viewModel.onChangePaginationModel}
           onFilterModelChange={viewModel.onChangeFilterModel}

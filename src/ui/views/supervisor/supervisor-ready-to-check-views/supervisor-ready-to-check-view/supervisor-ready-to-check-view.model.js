@@ -85,7 +85,7 @@ export class SupervisorReadyToCheckViewModel {
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await SupervisorModel.getProductsVacant()
 
@@ -97,10 +97,10 @@ export class SupervisorReadyToCheckViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []

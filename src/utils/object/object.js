@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+
 /* eslint-disable no-prototype-builtins */
 import { isNull, isUndefined } from '@utils/checks'
 

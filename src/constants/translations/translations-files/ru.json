@@ -2160,5 +2160,9 @@
   "Additional order information": "Доп.информация о заказе",
   "Supplier details": "Данные поставщика",
   "All files": "Все файлы",
-  "Page": "Страница"
+  "Page": "Страница",
+  "Account report": "Отчет по аккаунту",
+  "Reports": "Отчеты",
+  "FBA fee": "FBA fee",
+  "Ref fee": "Ref fee"
 }

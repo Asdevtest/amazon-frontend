@@ -7,7 +7,17 @@ import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-gr
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 
 export const CustomDataGrid = ({ ...restProps }) => {
-  const pageSizeOptions = [15, 25, 50, 100]
+  const slots =
+    restProps.paginationMode === 'client'
+      ? {
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+        }
+      : {
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+          columnMenu: DataGridCustomColumnMenuComponent,
+        }
 
   return (
     <DataGrid
@@ -17,12 +27,8 @@ export const CustomDataGrid = ({ ...restProps }) => {
       disableVirtualization
       sortingMode="server"
       paginationMode="server"
-      pageSizeOptions={pageSizeOptions}
-      slots={{
-        toolbar: DataGridCustomToolbar,
-        columnMenuIcon: FilterAltOutlinedIcon,
-        columnMenu: DataGridCustomColumnMenuComponent,
-      }}
+      pageSizeOptions={[15, 25, 50, 100]}
+      slots={slots}
       {...restProps}
     />
   )

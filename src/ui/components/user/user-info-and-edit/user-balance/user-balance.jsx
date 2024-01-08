@@ -95,7 +95,7 @@ export const UserBalance = observer(({ userId }) => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.isLoading}
+          loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={model.current.onChangePaginationModelChange}
           onFilterModelChange={onChangeFilterModel}

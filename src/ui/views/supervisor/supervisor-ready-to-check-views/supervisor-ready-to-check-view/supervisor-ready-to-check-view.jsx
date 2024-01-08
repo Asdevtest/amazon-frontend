@@ -63,7 +63,7 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
             rows={viewModel.currentData}
             rowHeight={100}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

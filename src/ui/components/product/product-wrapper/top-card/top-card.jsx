@@ -150,13 +150,13 @@ export const TopCard = memo(
                     )}
                   </div>
                 ) : undefined}
-                {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
+                {actionStatus === loadingStatuses.SUCCESS || actionStatus === loadingStatuses.FAILED ? (
                   <Alert
                     className={classNames.alert}
                     elevation={0}
-                    severity={actionStatus === loadingStatuses.success ? 'success' : 'error'}
+                    severity={actionStatus === loadingStatuses.SUCCESS ? 'success' : 'error'}
                   >
-                    {actionStatus === loadingStatuses.success
+                    {actionStatus === loadingStatuses.SUCCESS
                       ? t(TranslationKey['Request processed'])
                       : alertFailedText || t(TranslationKey['Fields not filled in'])}
                   </Alert>
@@ -371,7 +371,7 @@ export const TopCard = memo(
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
           )}
 
-          {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
+          {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
 
         {showBindProductModal && (

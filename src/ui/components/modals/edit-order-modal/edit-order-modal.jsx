@@ -474,7 +474,7 @@ export const EditOrderModal = memo(
     }
 
     const disableSubmit =
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields?.yuanToDollarRate ||

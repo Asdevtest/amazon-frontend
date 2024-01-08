@@ -4,10 +4,7 @@ import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -17,8 +14,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
-  const { classes: classNames } = useClassNames()
-
+  const { classes: classNames, theme } = useClassNames()
   const [showInfoModal, setShowInfoModal] = useState(false)
 
   const [showInfoModalText, setShowInfoModalText] = useState('')
@@ -58,6 +54,24 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
     }
   }
 
+  const labelStyle = {
+    width: '100%',
+    backgroundColor: theme.palette.background.chatIncomeMessage,
+    textAlign: 'center',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    color: theme.palette.text.general,
+  }
+
+  const borderStyle = {
+    border: `3px dashed ${theme.palette.primary.main}`,
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+  }
+
   return (
     <div className={classNames.root}>
       <Typography variant="h4" className={classNames.mainTitle}>
@@ -71,22 +85,8 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
             height={210}
             imageWidth={320}
             // imageHeight={210}
-            labelStyle={{
-              width: '100%',
-              backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
-              textAlign: 'center',
-              transition: '0.3s ease',
-              cursor: 'pointer',
-              color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-            }}
-            borderStyle={{
-              border: ' 3px dashed rgba(0,123, 255, .7)',
-              transition: '0.3s ease',
-              cursor: 'pointer',
-              borderRadius: '10px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
+            labelStyle={labelStyle}
+            borderStyle={borderStyle}
             onCrop={onCrop}
             onClose={onClose}
             onBeforeFileLoad={onBeforeFileLoad}
