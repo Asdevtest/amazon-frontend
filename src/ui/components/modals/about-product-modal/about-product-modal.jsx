@@ -38,8 +38,8 @@ export const AboutProductModal = ({ selectedProduct, shops, getBatches, batches,
     setActiveTab(value)
   }
   const switcherSettings = [
-    { label: () => 'Информация о заказах', value: 'orderInformation' },
-    { label: () => 'Данные партий', value: 'batchData' },
+    { label: () => t(TranslationKey['Orders info']), value: 'orderInformation' },
+    { label: () => t(TranslationKey['Batch data']), value: 'batchData' },
   ]
 
   if (showLoading) {
@@ -67,34 +67,35 @@ export const AboutProductModal = ({ selectedProduct, shops, getBatches, batches,
         <Table sx={{ marginBottom: 10 }}>
           <TableHead>
             <TableRow>
-              <TableCell>Available</TableCell>
-              <TableCell>Резерв</TableCell>
-              <TableCell>В пути</TableCell>
-              <TableCell>Order</TableCell>
+              <TableCell>{t(TranslationKey.Available)}</TableCell>
+              <TableCell>{t(TranslationKey.Reserved)}</TableCell>
+              <TableCell>{t(TranslationKey.Inbound)}</TableCell>
+              <TableCell>{t(TranslationKey.Order)}</TableCell>
               <TableCell>In Transfer</TableCell>
-              <TableCell>In Stock</TableCell>
-              <TableCell>Сумма стока</TableCell>
-              <TableCell>Стоимость стока</TableCell>
-              <TableCell>Рекомендации к дозакупке</TableCell>
+              <TableCell>{t(TranslationKey['In stock'])}</TableCell>
+              <TableCell>{t(TranslationKey['Stock sum'])}</TableCell>
+              <TableCell>{t(TranslationKey['Stock cost'])}</TableCell>
+              <TableCell>{t(TranslationKey['Recommendation for additional purchases'])}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">{selectedProduct?.fbaFbmStockSum}</TableCell>
-              <TableCell align="center">{selectedProduct?.reservedSum}</TableCell>
-              <TableCell align="center">{selectedProduct?.sentToFbaSum}</TableCell>
+              <TableCell align="center">{selectedProduct?.fbaFbmStockSum || '-'}</TableCell>
+              <TableCell align="center">{selectedProduct?.reservedSum || '-'}</TableCell>
+              <TableCell align="center">{selectedProduct?.sentToFbaSum || '-'}</TableCell>
               <TableCell align="right">
-                <p className={classNames.amountOrder}>{selectedProduct?.amountInOrders}</p>{' '}
+                <p className={classNames.amountOrder}>{selectedProduct?.amountInOrders}</p>
                 <p className={classNames.waitOrder}>
                   <WatchLaterSharpIcon color="primary" />
                   {selectedProduct?.amountInPendingOrders}
                 </p>
               </TableCell>
-              <TableCell align="center">{selectedProduct?.inTransfer}</TableCell>
+              <TableCell align="center">{selectedProduct?.inTransfer || '-'}</TableCell>
               <TableCell align="center">
                 {selectedProduct?.boxAmounts?.map(box => (
                   <p key={box._id} className={classNames.inStock}>
-                    {box.storekeeper.name} <span> {box.amountInBoxes}</span>
+                    <span className={classNames.storekeeperName}>{box.storekeeper.name}</span>
+                    <span> {box.amountInBoxes}</span>
                   </p>
                 ))}
               </TableCell>

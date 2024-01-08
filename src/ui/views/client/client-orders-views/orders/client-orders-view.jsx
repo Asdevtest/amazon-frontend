@@ -30,7 +30,6 @@ export const ClientOrdersView = observer(history => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
   return (
     <React.Fragment>
       <div className={styles.topHeaderBtnsWrapper}>

@@ -35,4 +35,12 @@ export const useClassNames = makeStyles()(theme => ({
   tableWrapper: {
     marginTop: 10,
   },
+  storekeeperName: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    maxWidth: 90,
+    overflow: 'hidden',
+    textWrap: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
 }))

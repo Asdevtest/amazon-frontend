@@ -15,9 +15,9 @@ import { t } from '@utils/translations'
 export const batchDataColumns = () => [
   {
     field: 'id',
-    headerName: 'Номер партии',
+    headerName: t(TranslationKey['Batch number']),
     valueGetter: params => params.row.humanFriendlyId,
-    renderHeader: () => <MultilineTextHeaderCell text={'Номер партии'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
     renderCell: params => <MultilineTextCell text={params.row.humanFriendlyId} />,
     width: 100,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -27,8 +27,8 @@ export const batchDataColumns = () => [
   },
   {
     field: 'title',
-    headerName: 'Название партии',
-    renderHeader: () => <MultilineTextHeaderCell text={'Название партии'} />,
+    headerName: t(TranslationKey['Batch title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
     sortable: false,
@@ -37,8 +37,10 @@ export const batchDataColumns = () => [
   },
   {
     field: 'amountInBatch',
-    headerName: 'Кол-во выбранных това-ров  в партии',
-    renderHeader: () => <MultilineTextHeaderCell text={'Кол-во выбранных това-ров  в партии'} />,
+    headerName: t(TranslationKey['Quantity of the selected item in the batch']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
+    ),
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
     type: 'number',
@@ -49,8 +51,8 @@ export const batchDataColumns = () => [
   },
   {
     field: 'destination',
-    headerName: 'Пункт назначения',
-    renderHeader: () => <MultilineTextHeaderCell text={'Пункт назначения'} />,
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row.boxes[0].destination.name} />,
     width: 100,
     sortable: false,
@@ -59,8 +61,8 @@ export const batchDataColumns = () => [
   },
   {
     field: 'etd',
-    headerName: 'ETD: дата отправки',
-    renderHeader: () => <MultilineTextHeaderCell text={'ETD: дата отправки'} />,
+    headerName: t(TranslationKey['ETD (date of shipment)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
     renderCell: params => <MultilineTextCell text={formatDate(params.row.boxes[0].logicsTariff.etd)} />,
     width: 100,
     sortable: false,
@@ -69,18 +71,8 @@ export const batchDataColumns = () => [
   },
   {
     field: 'eta',
-    headerName: 'ETА: дата прибытия',
-    renderHeader: () => <MultilineTextHeaderCell text={'ETD: дата отправки'} />,
-    renderCell: params => <MultilineTextCell text={formatDate(params.row.boxes[0].logicsTariff.eta)} />,
-    width: 100,
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
-  },
-  {
-    field: 'eta',
-    headerName: 'ETА: дата прибытия',
-    renderHeader: () => <MultilineTextHeaderCell text={'ETD: дата отправки'} />,
+    headerName: t(TranslationKey['ETA (arrival date)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
     renderCell: params => <MultilineTextCell text={formatDate(params.row.boxes[0].logicsTariff.eta)} />,
     width: 100,
     sortable: false,

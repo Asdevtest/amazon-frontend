@@ -18,7 +18,7 @@ export const aboutProductsColumns = () => [
     valueGetter: params => params.row.id,
     renderCell: params => <MultilineTextCell text={params.row.id} />,
     width: 100,
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+
     filterable: false,
     sortable: false,
     disableColumnMenu: true,
@@ -37,7 +37,8 @@ export const aboutProductsColumns = () => [
     ),
     width: 160,
     sortable: false,
-    columnKey: columnnsKeys.client.ORDERS_STATUS,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
 
   {
@@ -50,7 +51,6 @@ export const aboutProductsColumns = () => [
     sortable: false,
     filterable: false,
     disableColumnMenu: true,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'deadline',
@@ -58,7 +58,6 @@ export const aboutProductsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
     width: 100,
-    sortable: false,
     filterable: false,
     disableColumnMenu: true,
   },

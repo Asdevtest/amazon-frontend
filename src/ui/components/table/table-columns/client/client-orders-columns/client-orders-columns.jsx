@@ -95,7 +95,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     ),
     width: 160,
     sortable: false,
-
+    filterable: false,
     columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
@@ -118,7 +118,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         )}
       </>
     ),
-    width: 180,
+    width: 220,
     filterable: false,
     sortable: false,
   },
