@@ -5,12 +5,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IPaymentMethod } from '@typings/product'
+import { PaymentMethod } from '@typings/payments'
 
 import { useStyles } from './payment-methods-cell.style'
 
 interface PaymentMethodsCellProps {
-  paymentMethods: IPaymentMethod[]
+  paymentMethods: PaymentMethod[]
   onClickCell?: () => void
 }
 

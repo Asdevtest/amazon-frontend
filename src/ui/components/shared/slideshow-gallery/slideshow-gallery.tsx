@@ -41,8 +41,6 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  console.log('files', files)
-
   const {
     mediaFiles,
     currentMediaFileIndex,

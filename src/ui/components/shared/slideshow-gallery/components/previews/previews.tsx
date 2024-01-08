@@ -50,6 +50,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
           : (prevIndex + 1) % mediaFiles?.length
       })
 
+      // test animation
       setTimeout(() => {
         setIsTransitioning(false)
       }, 0)

@@ -69,6 +69,8 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = memo(props => {
         <CustomDataGrid
           disableColumnMenu
           disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
           rows={boxes}
           rowCount={boxes.length}
           columnHeaderHeight={40}

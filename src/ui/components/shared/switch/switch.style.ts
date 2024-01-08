@@ -30,9 +30,10 @@ export const useStyles = makeStyles()(theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: theme.palette.customSwitcher.background,
-    transition: '0.3s',
+    background: theme.palette.customSwitcher.switch,
+    transition: '0.3s ease',
     borderRadius: 18,
+    boxShadow: '0 0 1px 1px rgba(0, 0, 0, 0.17)',
 
     '&:before': {
       position: 'absolute',
@@ -42,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
       left: 2,
       bottom: 2,
       background: '#fff',
-      transition: '.3s',
+      transition: '.3s ease',
       borderRadius: '50%',
     },
   },

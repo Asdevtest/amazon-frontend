@@ -5,6 +5,7 @@ import { GridRowClassNameParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -45,10 +46,17 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
     galleryFiles,
     showGalleryModal,
     setShowGalleryModal,
-    onOpenGalleryModal,
+    onToggleGalleryModal,
 
     showAddOrEditSupplierModal,
-    onAddOrEditSupplierModal,
+    onToggleAddOrEditSupplierModal,
+
+    showPaymentMethodsModal,
+    onTogglePaymentMethodsModal,
+
+    currentOrderPaymentMethods,
+    paymentMethods,
+    onClickPaymentMethodsCell,
   } = useListSuppliersTab(order)
 
   const showVisibilityButton = selectionModel.length > 0
@@ -60,6 +68,8 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
       <div className={styles.wrapper}>
         <CustomDataGrid
           disableColumnMenu
+          sortingMode="client"
+          paginationMode="client"
           rows={suppliers}
           getRowClassName={getRowClassName}
           rowCount={suppliers.length}
@@ -68,7 +78,8 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
           columns={suppliersOrderColumn({
             order,
             platformSettings,
-            onOpenGalleryModal,
+            onToggleGalleryModal,
+            onClickPaymentMethodsCell,
           })}
           paginationModel={paginationModel}
           rowSelectionModel={selectionModel}
@@ -82,7 +93,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
               children: (
                 <Toolbar
                   showVisibilityButton={showVisibilityButton}
-                  onAddOrEditSupplierModal={onAddOrEditSupplierModal}
+                  onAddOrEditSupplierModal={onToggleAddOrEditSupplierModal}
                 />
               ),
             },
@@ -100,19 +111,32 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
         />
       )}
 
-      <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onAddOrEditSupplierModal}>
-        {/* @ts-ignore */}
-        <AddOrEditSupplierModalContent
-          onlyRead
-          product={order?.product}
-          supplier={currentSupplier}
-          storekeepersData={storekeepers}
-          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          onTriggerShowModal={onAddOrEditSupplierModal}
-        />
-      </Modal>
+      {showAddOrEditSupplierModal && (
+        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onToggleAddOrEditSupplierModal}>
+          {/* @ts-ignore */}
+          <AddOrEditSupplierModalContent
+            onlyRead
+            product={order?.product}
+            supplier={currentSupplier}
+            storekeepersData={storekeepers}
+            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+            title={t(TranslationKey['Adding and editing a supplier'])}
+            onTriggerShowModal={onToggleAddOrEditSupplierModal}
+          />
+        </Modal>
+      )}
+
+      {showPaymentMethodsModal && (
+        <Modal openModal={showPaymentMethodsModal} setOpenModal={onTogglePaymentMethodsModal}>
+          <PaymentMethodsForm
+            readOnly
+            orderPayments={currentOrderPaymentMethods}
+            allPayments={paymentMethods}
+            onClickCancelButton={onTogglePaymentMethodsModal}
+          />
+        </Modal>
+      )}
     </>
   )
 })

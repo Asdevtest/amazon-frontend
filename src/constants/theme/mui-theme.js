@@ -301,6 +301,7 @@ export const lightTheme = createTheme({
       text: '#001029',
       activeText: '#007bff',
       headerBackground: '#F4F4F4',
+      switch: '#E3E3E3',
     },
 
     linearGradient: {
@@ -731,6 +732,7 @@ export const darkTheme = createTheme({
         text: '#5C6A7A',
         activeText: '#4CA1DE',
         headerBackground: '#25252D',
+        switch: '#667085',
       },
 
       linearGradient: {

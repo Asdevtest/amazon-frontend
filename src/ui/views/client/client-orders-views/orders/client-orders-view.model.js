@@ -84,6 +84,7 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+    onClickOpenNewTab: id => this.onClickOpenNewTab(id),
   }
 
   rowCount = 0

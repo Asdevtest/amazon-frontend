@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: 10,
     borderRadius: 10,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
   },
@@ -31,8 +31,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fileName: {
+    maxWidth: 170,
+    height: 19,
     fontSize: 14,
     lineHeight: '19px',
+    overflow: 'hidden',
+    wordBreak: 'break-all',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
   },
 
   icons: {

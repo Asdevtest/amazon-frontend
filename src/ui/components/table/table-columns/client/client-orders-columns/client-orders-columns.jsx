@@ -10,6 +10,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   NormalActionBtnCell,
+  OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
@@ -25,6 +26,14 @@ import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+  {
+    renderCell: params => <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenNewTab(params.row.id)} />,
+    width: 50,
+    filterable: false,
+    sortable: false,
+    disableColumnMenu: true,
+  },
+
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',

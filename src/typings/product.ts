@@ -1,3 +1,4 @@
+import { PaymentMethod } from './payments'
 import { IUploadFile } from './upload-file'
 
 export interface IProduct {
@@ -106,7 +107,7 @@ export interface ISupplier {
   minlot: number
   multiplicity: boolean
   name: string
-  paymentMethods: IPaymentMethod[]
+  paymentMethods: PaymentMethod[]
   price: number
   priceInYuan: number
   priceVariations: IPriceVariation[]
@@ -128,13 +129,6 @@ export interface IMember {
   name: string
   rating: number
   _id: string
-}
-
-export interface IPaymentMethod {
-  title: string
-  _id: string
-  iconImage?: string
-  updatedAt?: string
 }
 
 export interface IRedFlag {

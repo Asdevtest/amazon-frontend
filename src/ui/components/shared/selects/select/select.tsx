@@ -73,7 +73,7 @@ export const Select: FC<SelectProps> = memo(props => {
       </button>
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
-        <div>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
             value={searchValue}
             placeholder={t(TranslationKey.Search)}

@@ -23,10 +23,16 @@ import { IUploadFile } from '@typings/upload-file'
 interface ISuppliersOrderColumn {
   order: any
   platformSettings: IPlatformSettings
-  onOpenGalleryModal: (files?: Array<string | IUploadFile>) => void
+  onToggleGalleryModal: (files?: Array<string | IUploadFile>) => void
+  onClickPaymentMethodsCell: (row: GridRowModel) => void
 }
 
-export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryModal }: ISuppliersOrderColumn) => [
+export const suppliersOrderColumn = ({
+  order,
+  platformSettings,
+  onToggleGalleryModal,
+  onClickPaymentMethodsCell,
+}: ISuppliersOrderColumn) => [
   {
     field: 'supplier',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
@@ -115,7 +121,9 @@ export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryMod
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <PaymentMethodsCell paymentMethods={row.paymentMethods} onClickCell={() => onClickPaymentMethodsCell(row)} />
+    ),
     filterable: false,
     sortable: false,
     width: 100,
@@ -125,7 +133,7 @@ export const suppliersOrderColumn = ({ order, platformSettings, onOpenGalleryMod
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onOpenGalleryModal} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onToggleGalleryModal} />,
     filterable: false,
     sortable: false,
     width: 100,

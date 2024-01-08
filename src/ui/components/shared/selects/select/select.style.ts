@@ -87,6 +87,10 @@ export const useStyles = makeStyles()(theme => ({
     animation: `${fadeIn} 0.3s ease-in-out`,
   },
 
+  searchInputWrapper: {
+    padding: 5,
+  },
+
   searchInput: {
     width: '100%',
     height: 30,
@@ -95,7 +99,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
-    marginTop: 10,
     maxHeight: 233,
     overflowX: 'auto',
     display: 'flex',
