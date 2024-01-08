@@ -37,6 +37,7 @@ export const boxesToOrderColumn = ({ platformSettings, onOpenGalleryModal }: IBo
     filterable: false,
     sortable: false,
     width: 105,
+    height: 40,
   },
 
   {

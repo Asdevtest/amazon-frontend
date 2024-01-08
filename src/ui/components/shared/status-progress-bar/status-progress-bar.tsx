@@ -60,6 +60,7 @@ export const StatusProgressBar: FC<StatusProgressBarProps> = memo(props => {
   )
   const currentStatusColor = orderColorByStatus(getOrderStatusByCode(currentStatus))
   const currentStatusText = OrderStatusTranslate(getOrderStatusByCode(currentStatus))
+  const longCurrentStatusText = currentStatusText && currentStatusText.length > 30 ? currentStatusText : ''
 
   const getProgressBarColor = (statusIndex: number): string =>
     statusIndex <= currentStatusIndex || isNegativeCurrentStatus ? currentStatusColor : 'none'
@@ -138,7 +139,11 @@ export const StatusProgressBar: FC<StatusProgressBarProps> = memo(props => {
   return (
     <div className={cx(styles.wrapper, wrapperClassName)}>
       <div className={cx(styles.information, informationClassName)}>
-        <p style={{ color: currentStatusColor }} className={cx(styles.status, statusClassName)}>
+        <p
+          title={longCurrentStatusText}
+          style={{ color: currentStatusColor }}
+          className={cx(styles.status, statusClassName)}
+        >
           {currentStatusText}
         </p>
         <p className={cx(styles.percent, percentClassName)}>{`${currentCompletionPercent} %`}</p>

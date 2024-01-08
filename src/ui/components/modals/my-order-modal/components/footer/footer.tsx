@@ -1,11 +1,9 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
+// import { TranslationKey } from '@constants/translations/translation-key'
 import { ShareIcon } from '@components/shared/svg-icons'
 
-import { t } from '@utils/translations'
-
+// import { t } from '@utils/translations'
 import { useStyles } from './footer.style'
 
 interface FooterProps {
@@ -22,7 +20,7 @@ export const Footer: FC<FooterProps> = memo(({ onClickOpenNewTab }) => {
       </button>
 
       {/* Change button after refactor button */}
-      <button className={styles.button}>{t(TranslationKey['Cancel order'])}</button>
+      {/* <button className={styles.button}>{t(TranslationKey['Cancel order'])}</button> */}
     </div>
   )
 })

@@ -63,6 +63,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
           rows={suppliers}
           getRowClassName={getRowClassName}
           rowCount={suppliers.length}
+          columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           columns={suppliersOrderColumn({
             order,

@@ -46,7 +46,7 @@ interface BasicInfoTabProps {
   order: any
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
-  destinationsFavourites: IDestination[]
+  destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
 }
 
@@ -172,11 +172,12 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
       title: t(TranslationKey.Destination),
       element: (
         <Select
+          // disabled
           withFaworites
           currentItem={selectedItem?.name}
           items={selectedItems}
-          favourites={destinationsFavourites}
-          onChangeFavourite={setDestinationsFavouritesItem}
+          destinationsFavourites={destinationsFavourites}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
         />
       ),
     },
@@ -184,7 +185,7 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
       title: `${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`,
       element: (
         <button
-          className={cx(styles.fieldText, styles.tafiffButton)}
+          className={styles.tafiffButton}
           onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <span>{currentTariffName}</span>
@@ -206,6 +207,11 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
       element: (
         <Switch isChecked={isCheckedResearch} onChange={() => handleToggle(isCheckedResearch, setIsCheckedResearch)} />
       ),
+    },
+    {
+      title: t(TranslationKey['Transparency codes']),
+      text: undefined,
+      element: <LabelWithCopy labelValue={order?.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />,
     },
     {
       title: t(TranslationKey.Buyer),
@@ -313,7 +319,7 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
 
             <div className={styles.cardsWrapper}>
               {photosConfig.map((item, index) => (
-                <Card key={index} wrapperClassName={styles.card}>
+                <Card key={index} wrapperClassName={cx(styles.card, styles.photosCard)}>
                   <div className={styles.field}>
                     <p className={styles.fieldText}>{item.title}</p>
                     <button className={styles.fieldIconButton} onClick={() => handleOpenGalleryModal(item.files)}>

@@ -12,12 +12,15 @@ export const useStyles = makeStyles()(theme => ({
   arrowIcon: {
     width: '18px !important',
     height: '18px !important',
-    color: theme.palette.background.general,
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
 
+    path: {
+      stroke: theme.palette.primary.main,
+    },
+
     '&:hover': {
-      opacity: 0.6,
+      opacity: 0.8,
     },
   },
 

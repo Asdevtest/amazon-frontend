@@ -21,7 +21,7 @@ interface MyOrderModalProps {
   platformSettings: IPlatformSettings
   onClickOpenNewTab: () => void
   switcherCondition: SwitcherConditions
-  destinationsFavourites: IDestination[]
+  destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   onClickChangeCondition: () => void
 }

@@ -1,7 +1,7 @@
 import { OrderStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DiagramIcon, DollarIcon, ItemsIcon, SandglassIcon } from '@components/shared/svg-icons'
+import { CalendarIcon, DiagramIcon, DollarIcon, SandglassIcon } from '@components/shared/svg-icons'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
@@ -9,22 +9,26 @@ import { t } from '@utils/translations'
 
 import { IOrderStatus } from './information.type'
 
-export const getInfoItems = (order: any, diagramClassName?: string) => [
+export const getInfoItems = (order: any, blueBackgroundForIcon?: string) => [
   {
     icon: <DollarIcon />,
     title: t(TranslationKey['Order amount']),
-    value: `$ ${toFixed(order?.totalPrice, 2)}`,
+    value: order?.totalPrice ? `$ ${toFixed(order?.totalPrice, 2)}` : t(TranslationKey['No data']),
   },
   {
-    icon: <DiagramIcon className={diagramClassName} />,
+    icon: <DiagramIcon className={blueBackgroundForIcon} />,
     title: t(TranslationKey['Order number']),
-    value: `№ ${order?.id}`,
+    value: order?.id ? `№ ${order?.id}` : t(TranslationKey['No data']),
   },
-  { icon: <ItemsIcon />, title: 'Item', value: order?.item || '-' },
+  {
+    icon: <CalendarIcon className={blueBackgroundForIcon} />,
+    title: t(TranslationKey['Payment date']),
+    value: formatShortDateTime(order?.paymentDateToSupplier) || t(TranslationKey['No data']),
+  },
   {
     icon: <SandglassIcon />,
     title: t(TranslationKey.Created),
-    value: formatShortDateTime(order?.createdAt),
+    value: formatShortDateTime(order?.createdAt) || t(TranslationKey['No data']),
   },
 ]
 

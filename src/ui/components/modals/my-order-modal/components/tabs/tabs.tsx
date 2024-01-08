@@ -20,7 +20,7 @@ interface TabsProps {
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
   switcherCondition: SwitcherConditions
-  destinationsFavourites: IDestination[]
+  destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   onClickChangeCondition: () => void
 }

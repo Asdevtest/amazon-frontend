@@ -27,10 +27,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   infoBlock: {
-    height: '100%',
+    height: 270,
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: 10,
   },
 
   title: {
@@ -48,7 +48,12 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: 5,
+  },
+
+  photosCard: {
+    justifyContent: 'center',
   },
 
   switcher: {
@@ -65,8 +70,12 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldText: {
     fontSize: 14,
-    lineHeight: '19px',
+    lineHeight: '23px',
     color: theme.palette.text.general,
+
+    '&:hover': {
+      opacity: 1,
+    },
   },
 
   fieldTextMedium: {
@@ -80,13 +89,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   comment: {
-    height: 32,
+    height: 48,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     wordWrap: 'break-word',
 
     display: '-webkit-box',
-    WebkitLineClamp: 2,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -158,11 +167,14 @@ export const useStyles = makeStyles()(theme => ({
     padding: '2px 2px',
     color: '#fff',
     borderRadius: 6,
-    boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
+    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     opacity: 1,
     transition: '.3s ease-in-out',
 
     span: {
+      fontSize: 14,
+      lineHeight: '19px',
+      color: theme.palette.text.general,
       maxWidth: '90%',
       overflow: 'hidden',
       display: '-webkit-box',
@@ -172,10 +184,6 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       opacity: 0.8,
-    },
-
-    '&:active': {
-      boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     },
 
     '&:disabled': {

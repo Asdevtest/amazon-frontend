@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  diagramClassName: {
+  blueBackgroundForIcon: {
     color: theme.palette.primary.main,
   },
 }))

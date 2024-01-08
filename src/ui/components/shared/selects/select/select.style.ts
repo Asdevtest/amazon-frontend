@@ -30,13 +30,13 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     width: 115,
-    padding: '2px 5px',
+    padding: '1px 5px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 5,
     background: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.paper,
+    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     border: `1px solid ${theme.palette.background.second}`,
     borderRadius: 6,
   },
@@ -70,12 +70,12 @@ export const useStyles = makeStyles()(theme => ({
 
   menuContainer: {
     position: 'absolute',
-    top: 27,
+    top: 28,
     right: 0,
     zIndex: 20,
     padding: 5,
     background: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.paper,
+    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     border: `1px solid ${theme.palette.background.second}`,
     borderRadius: 6,
     display: 'none',
@@ -87,7 +87,17 @@ export const useStyles = makeStyles()(theme => ({
     animation: `${fadeIn} 0.3s ease-in-out`,
   },
 
+  searchInput: {
+    width: '100%',
+    height: 30,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
   menuItems: {
+    marginTop: 10,
+    maxHeight: 233,
+    overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -116,11 +126,16 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  starButton: {
+    width: 18,
+    height: 18,
+    transition: '.3s ease',
+  },
+
   starIcon: {
     width: '18px !important',
     height: '18px !important',
     color: theme.palette.background.second,
-    transition: 'color .3s',
 
     '&:hover': {
       color: theme.palette.background.general,
@@ -128,6 +143,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   starIconFavorite: {
-    color: 'yellow',
+    color: '#FFDF4E',
+
+    '&:hover': {
+      color: '#FFDF4E',
+    },
   },
 }))

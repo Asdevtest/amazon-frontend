@@ -12,6 +12,5 @@
   "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
   "cSpell.words": ["linkify"],
   "editor.formatOnSave": true,
-  "eslint.format.enable": true,
-  "editor.fontSize": 12
+  "eslint.format.enable": true
 }

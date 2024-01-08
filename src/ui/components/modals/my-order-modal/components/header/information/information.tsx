@@ -26,7 +26,7 @@ export const Information: FC<InformationProps> = memo(({ order }) => {
         />
 
         <div className={styles.information}>
-          {getInfoItems(order, styles.diagramClassName).map(({ icon, title, value }, index) => (
+          {getInfoItems(order, styles.blueBackgroundForIcon).map(({ icon, title, value }, index) => (
             <InfoItem key={index} icon={icon} title={title} value={value} />
           ))}
         </div>

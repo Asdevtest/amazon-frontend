@@ -61,6 +61,8 @@ export const lightTheme = createTheme({
 
         toolbar: {
           color: '#001029',
+          height: 40,
+          minHeight: '40px !important',
         },
       },
     },
@@ -361,6 +363,8 @@ export const darkTheme = createTheme({
 
         toolbar: {
           color: '#fff',
+          height: 40,
+          minHeight: '40px !important',
         },
       },
     },

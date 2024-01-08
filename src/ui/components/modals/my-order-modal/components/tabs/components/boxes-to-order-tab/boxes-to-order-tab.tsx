@@ -71,6 +71,7 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = memo(props => {
           disableRowSelectionOnClick
           rows={boxes}
           rowCount={boxes.length}
+          columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           columns={boxesToOrderColumn({
             platformSettings,
