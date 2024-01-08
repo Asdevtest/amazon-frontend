@@ -21,4 +21,5 @@ export const observerConfig = {
 
   getProductsMy: action.bound,
   submitBindStockGoodsHandler: action.bound,
+  initUserSettings: action.bound,
 }

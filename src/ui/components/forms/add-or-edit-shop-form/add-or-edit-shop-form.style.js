@@ -19,8 +19,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    width: '100%',
-    overflowY: 'hidden',
+    width: 'unset',
+    flex: 1,
     height: '40px',
   },
 

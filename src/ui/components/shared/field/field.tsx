@@ -14,6 +14,8 @@ import { HintsContext } from '@contexts/hints-context'
 
 import { useClassNames } from './field.style'
 
+import { CopyValue } from '../copy-value'
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   tooltipAttentionContent?: ReactElement | string
@@ -32,6 +34,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   multiline?: boolean
   minRows?: number
   maxRows?: number
+  withCopy?: boolean
 }
 
 export const Field: FC<Props> = observer(
@@ -47,6 +50,7 @@ export const Field: FC<Props> = observer(
     tooltipAttentionContent,
     tooltipInfoContent,
     withIcon,
+    withCopy,
 
     ...restProps
   }) => {
@@ -59,69 +63,67 @@ export const Field: FC<Props> = observer(
 
     return (
       <div className={cx(classNames.root, { [classNames.rootOneLine]: oneLine }, containerClasses)}>
+        <div className={classNames.labelWrapper}>
+          {label ? (
+            <Typography className={cx(classNames.label, labelClasses, { [classNames.labelOneLine]: oneLine })}>
+              {label}
+            </Typography>
+          ) : null}
+
+          {(tooltipAttentionContent || tooltipInfoContent) && label ? (
+            <div className={classNames.tooltipsWrapper}>
+              {tooltipAttentionContent ? (
+                <Tooltip
+                  arrow
+                  open={openAttentionTooltip}
+                  title={tooltipAttentionContent}
+                  placement="top-end"
+                  onClose={() => setOpenAttentionTooltip(false)}
+                  onOpen={() => setOpenAttentionTooltip(true)}
+                >
+                  <div>
+                    <TooltipAttention
+                      className={cx(classNames.tooltip)}
+                      onClick={() => setOpenAttentionTooltip(true)}
+                    />
+                  </div>
+                </Tooltip>
+              ) : null}
+
+              {tooltipInfoContent && hints ? (
+                <Tooltip
+                  arrow
+                  open={openInfoTooltip}
+                  title={tooltipInfoContent}
+                  placement="top-end"
+                  onClose={() => setOpenInfoTooltip(false)}
+                  onOpen={() => setOpenInfoTooltip(true)}
+                >
+                  <div>
+                    <TooltipInfoIcon
+                      className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                      onClick={() => setOpenInfoTooltip(true)}
+                    />
+                  </div>
+                </Tooltip>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
         <>
-          <div className={classNames.labelWrapper}>
-            {label ? (
-              <Typography className={cx(classNames.label, labelClasses, { [classNames.labelOneLine]: oneLine })}>
-                {label}
-              </Typography>
-            ) : null}
-
-            {(tooltipAttentionContent || tooltipInfoContent) && label ? (
-              <div className={classNames.tooltipsWrapper}>
-                {tooltipAttentionContent ? (
-                  <Tooltip
-                    arrow
-                    open={openAttentionTooltip}
-                    title={tooltipAttentionContent}
-                    placement="top-end"
-                    onClose={() => setOpenAttentionTooltip(false)}
-                    onOpen={() => setOpenAttentionTooltip(true)}
-                  >
-                    <div>
-                      <TooltipAttention
-                        className={cx(classNames.tooltip)}
-                        onClick={() => setOpenAttentionTooltip(true)}
-                      />
-                    </div>
-                  </Tooltip>
-                ) : null}
-
-                {tooltipInfoContent && hints ? (
-                  <Tooltip
-                    arrow
-                    open={openInfoTooltip}
-                    title={tooltipInfoContent}
-                    placement="top-end"
-                    onClose={() => setOpenInfoTooltip(false)}
-                    onOpen={() => setOpenInfoTooltip(true)}
-                  >
-                    <div>
-                      <TooltipInfoIcon
-                        className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                        onClick={() => setOpenInfoTooltip(true)}
-                      />
-                    </div>
-                  </Tooltip>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
           {inputComponent ||
             (withIcon ? (
-              <InputWithIcon
-                className={cx(/* classNames.input,  */ inputClasses, { [classNames.errorActive]: !!error })}
-                {...restProps}
-              />
+              <InputWithIcon className={cx(inputClasses, { [classNames.errorActive]: !!error })} {...restProps} />
             ) : (
-              <Input
-                className={cx(/* classNames.input,  */ inputClasses, { [classNames.errorActive]: !!error })}
-                {...restProps}
-              />
+              <div className={classNames.inputWrapper}>
+                <Input className={cx(inputClasses, { [classNames.errorActive]: !!error })} {...restProps} />
+
+                {withCopy && restProps.value && <CopyValue text={restProps.value as string} />}
+              </div>
             ))}
-          {error && typeof error === 'string' && <Typography className={classNames.errorText}>{error}</Typography>}
-          {successText && <Typography className={classNames.successText}>{successText}</Typography>}
         </>
+        {error && typeof error === 'string' && <Typography className={classNames.errorText}>{error}</Typography>}
+        {successText && <Typography className={classNames.successText}>{successText}</Typography>}
       </div>
     )
   },

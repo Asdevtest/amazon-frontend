@@ -18,15 +18,11 @@ import { useStyles } from './client-shops-view.style'
 
 import { ShopsViewModel } from './client-shops-view.model'
 
-export const ClientShopsView = observer(props => {
+export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(
-    () =>
-      new ShopsViewModel({
-        history: props.history,
-      }),
-  )
+  const [viewModel] = useState(() => new ShopsViewModel())
+  viewModel.initHistory()
 
   return (
     <>
