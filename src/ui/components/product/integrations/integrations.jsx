@@ -15,6 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
+import { checkIsAdmin } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
@@ -22,7 +23,7 @@ import { useClassNames } from './integrations.style'
 
 import { IntegrationsModel } from './integrations.model'
 
-export const Integrations = observer(({ productId, modal }) => {
+export const Integrations = observer(({ productId, modal, userRole }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({ history, productId }))
@@ -53,15 +54,18 @@ export const Integrations = observer(({ productId, modal }) => {
     onUnlinkSkuSProduct,
   } = model.current
 
+  const isAdmin = checkIsAdmin(userRole)
+  const isDisabledButton = isAdmin || !selectedRowIds.length
+
   return (
     <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
         <div className={classNames.addProductBtnsWrapper}>
-          <Button disabled onClick={onClickBindInventoryGoodsToStockBtn}>
+          <Button disabled={isDisabledButton} onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled onClick={onUnlinkSkuSProduct}>
+          <Button disabled={isDisabledButton} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
