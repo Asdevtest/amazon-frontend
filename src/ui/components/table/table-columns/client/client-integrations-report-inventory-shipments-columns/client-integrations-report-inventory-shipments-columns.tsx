@@ -45,7 +45,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
     renderCell: (params: GridRenderCellParams) => (
-      <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={params.row?.sku} />
+      <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={params.row?.sku} />
     ),
     width: 185,
     sortable: false,

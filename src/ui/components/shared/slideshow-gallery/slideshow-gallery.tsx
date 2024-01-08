@@ -41,6 +41,8 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  console.log('files', files)
+
   const {
     mediaFiles,
     currentMediaFileIndex,
@@ -88,6 +90,7 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
       {openImageModal && (
         <ImageModal
           showPreviews
+          isRequestResult
           files={mediaFiles}
           currentFileIndex={currentMediaFileIndex}
           handleCurrentFileIndex={setCurrentMediaFileIndex}

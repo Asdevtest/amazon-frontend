@@ -49,7 +49,10 @@ export const Previews: FC<PreviewsProps> = memo(props => {
             : prevIndex - 1
           : (prevIndex + 1) % mediaFiles?.length
       })
-      setIsTransitioning(false)
+
+      setTimeout(() => {
+        setIsTransitioning(false)
+      }, 0)
     }, DEFAULT_ANIMATION_DELAY)
   }
 

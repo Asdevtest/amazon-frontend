@@ -1,4 +1,16 @@
+import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+		display: none;
+  }
+  100% {
+    opacity: 1;
+		display: block;
+  }
+`
 
 export const useStyles = makeStyles()(() => ({
   mainSlide: {
@@ -11,6 +23,7 @@ export const useStyles = makeStyles()(() => ({
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
     cursor: 'pointer',
+    animation: `${fadeIn} 0.3s ease-in-out`,
   },
 
   slideTransition: {
