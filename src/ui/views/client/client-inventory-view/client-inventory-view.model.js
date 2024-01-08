@@ -810,10 +810,6 @@ export class ClientInventoryViewModel {
 
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
-      runInAction(() => {
-        this.productsMy = []
-      })
-
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: this.getFilters(),
 
