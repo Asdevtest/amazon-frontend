@@ -11,7 +11,10 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 export const CustomDataGrid = ({ ...restProps }) => {
   const slots =
     restProps.paginationMode === 'client'
-      ? { columnMenuIcon: FilterAltOutlinedIcon }
+      ? {
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+        }
       : {
           toolbar: DataGridCustomToolbar,
           columnMenuIcon: FilterAltOutlinedIcon,
