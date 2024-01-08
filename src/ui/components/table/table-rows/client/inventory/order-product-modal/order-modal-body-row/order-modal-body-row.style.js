@@ -169,7 +169,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   priceVariationsCell: {
-    minWidth: 130,
+    maxWidth: 130,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
