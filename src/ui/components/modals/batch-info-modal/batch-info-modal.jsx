@@ -62,7 +62,6 @@ export const BatchInfoModal = observer(
         }),
     )
     const { classes: classNames } = useClassNames()
-    console.log(batch)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 

@@ -17,6 +17,7 @@ interface SlidesProps {
   smallSlider?: boolean
   mediumSlider?: boolean
   bigSlider?: boolean
+  preMediumSlider?: boolean
   customSlideHeight?: number
   customSlideWidth?: number
   controls?: boolean
@@ -39,6 +40,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     isPlaying,
     smallPhotos,
     setIsPlaying,
+    preMediumSlider,
     onPhotosModalToggle,
   } = props
 
@@ -51,6 +53,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
           [styles.slideSmall]: smallSlider,
           [styles.slideMedium]: mediumSlider,
           [styles.slideBig]: bigSlider,
+          [styles.slidePreMid]: preMediumSlider,
         })}
         style={{
           width: customSlideWidth,

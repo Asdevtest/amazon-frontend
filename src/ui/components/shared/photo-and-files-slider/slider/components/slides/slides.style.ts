@@ -36,7 +36,10 @@ export const useStyles = makeStyles()(theme => ({
       width: '100%!important',
     },
   },
-
+  slidePreMid: {
+    height: '102px!important',
+    width: '204px!important',
+  },
   slideMedium: {
     height: '160px !important',
     width: '213px !important',

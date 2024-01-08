@@ -437,11 +437,18 @@ export class ClientOrdersViewModel {
   }
 
   async getBatches() {
-    const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
 
-    runInAction(() => {
-      this.productBatches = result
-    })
+      runInAction(() => {
+        this.productBatches = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.productBatches = undefined
+      })
+    }
   }
 
   async onClickReorder(item, isPending) {
@@ -729,11 +736,18 @@ export class ClientOrdersViewModel {
   }
 
   async getCurrBatch(guid) {
-    const result = await BatchesModel.getBatchesByGuid(guid)
+    try {
+      const result = await BatchesModel.getBatchesByGuid(guid)
 
-    runInAction(() => {
-      this.currentBatch = result
-    })
+      runInAction(() => {
+        this.currentBatch = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.currentBatch = undefined
+      })
+    }
   }
 
   async onClickWarehouseOrderButton(guid) {

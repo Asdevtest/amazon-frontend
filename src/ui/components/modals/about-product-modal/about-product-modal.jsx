@@ -71,7 +71,7 @@ export const AboutProductModal = props => {
       </div>
       <Divider />
       <div className={styles.subHeader}>
-        <PhotoAndFilesSlider withoutFiles smallPhotos mediumSlider files={selectedProduct?.images} />
+        <PhotoAndFilesSlider withoutFiles preMediumSlider files={selectedProduct?.images} />
         <p className={styles.amazonTitle}>{selectedProduct.amazonTitle}</p>
         <div>
           {selectedProductShop && <p className={styles.shopName}>Shop: {selectedProductShop.name}</p>}

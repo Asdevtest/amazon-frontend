@@ -21,6 +21,7 @@ interface SliderProps {
   alignRight?: boolean
   isHideCounter?: boolean
   withoutFiles?: boolean
+  preMediumSlider?: boolean
   customSlideHeight?: number
   controls?: boolean
   isPlaying?: boolean
@@ -40,6 +41,7 @@ export const Slider: FC<SliderProps> = memo(props => {
     bigSlider,
     alignLeft,
     alignRight,
+    preMediumSlider,
     isHideCounter,
     smallPhotos,
     customSlideHeight,
@@ -106,6 +108,7 @@ export const Slider: FC<SliderProps> = memo(props => {
               smallSlider={smallSlider}
               mediumSlider={mediumSlider}
               bigSlider={bigSlider}
+              preMediumSlider={preMediumSlider}
               controls={controls}
               customSlideHeight={customSlideHeight}
               customSlideWidth={customSlideWidth}
