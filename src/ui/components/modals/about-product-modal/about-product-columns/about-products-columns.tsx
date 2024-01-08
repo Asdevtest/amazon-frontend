@@ -1,3 +1,5 @@
+import { GridRenderCellParams } from '@mui/x-data-grid'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,13 +12,12 @@ import {
 
 import { t } from '@utils/translations'
 
-export const aboutProductsColumns = () => [
+export const aboutProductsColumns = [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-    valueGetter: params => params.row.id,
-    renderCell: params => <MultilineTextCell text={params.row.id} />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.row.id} />,
     width: 100,
 
     filterable: false,
@@ -27,25 +28,25 @@ export const aboutProductsColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    valueGetter: (params: GridRenderCellParams) =>
+      OrderStatusTranslate(OrderStatusByCode[params.value as keyof typeof OrderStatusByCode]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => (
+    renderCell: (params: GridRenderCellParams) => (
       <MultilineTextCell
         maxLength={50}
-        text={OrderStatusTranslate(OrderStatusByCode[params.row.status])}
-        color={orderColorByStatus(OrderStatusByCode[params.row.status])}
+        text={OrderStatusTranslate(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
+        color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
       />
     ),
     width: 160,
     sortable: false,
-
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
 
   {
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 130,
     type: 'number',
     sortable: false,
@@ -56,7 +57,7 @@ export const aboutProductsColumns = () => [
     field: 'deadline',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
+    renderCell: (params: GridRenderCellParams) => <DeadlineCell deadline={params.row.deadline} />,
     width: 100,
     filterable: false,
     disableColumnMenu: true,

@@ -2,7 +2,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ClientActionButtons } from '@components/data-grid/data-grid-cells/client-action-buttons/client-action-buttons'
+import { ActionButtons } from '@components/data-grid/data-grid-cells/action-buttons/action-buttons'
 import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
@@ -10,7 +10,6 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
@@ -106,7 +105,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderCell: params => (
       <>
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <ClientActionButtons params={params} rowHandlers={rowHandlers} />
+          <ActionButtons params={params} rowHandlers={rowHandlers} />
         ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}

@@ -14,14 +14,15 @@ interface FourMonthesStockCellProps {
   fourMonthesStock: string
   onClickSaveFourMonthsStock: (rowId: string, value: string | undefined) => void
   value: string
+  withoutPadding?: boolean
 }
 
 export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = React.memo(
-  ({ onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => {
-    const { classes: styles } = useStyles()
-
+  ({ onClickSaveFourMonthsStock, rowId, fourMonthesStock, value, withoutPadding = false }) => {
+    const { classes: styles, cx } = useStyles()
+    const mainStyle = cx(styles.fourMonthesStockWrapper, { [styles.withoutPadding]: withoutPadding })
     return (
-      <div className={styles.fourMonthesStockWrapper}>
+      <div className={mainStyle}>
         <p className={styles.fourMonthesStockLabel}>{`${t(TranslationKey['To repurchase'])}: ${value}`}</p>
 
         <ChangeInputCell

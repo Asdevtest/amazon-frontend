@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
-import { Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,20 +16,27 @@ import { formatDateTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './about-product-modal.style'
+import { useStyles } from './about-product-modal.style'
 
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
 
-export const AboutProductModal = ({ selectedProduct, shops, getBatches, batches, showLoading }) => {
-  const { classes: classNames } = useClassNames()
+const SwitcherStatus = {
+  ORDER_INFORMATION: 'ORDER_INFORMATION',
+  BATCH_DATA: 'BATCH_DATA',
+}
 
-  const shop = shops?.find(shop => shop._id === selectedProduct?.shopId)
+export const AboutProductModal = props => {
+  const { selectedProduct, shops, getBatches, batches, showLoading, setShowBatchModal, getCurrentBatch } = props
 
-  const [activeTab, setActiveTab] = useState('orderInformation')
+  const { classes: styles } = useStyles()
+
+  const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
+
+  const [activeTab, setActiveTab] = useState(SwitcherStatus.ORDER_INFORMATION)
 
   useEffect(() => {
-    if (activeTab === 'batchData') {
+    if (activeTab === SwitcherStatus.BATCH_DATA) {
       getBatches()
     }
   }, [activeTab])
@@ -38,71 +45,96 @@ export const AboutProductModal = ({ selectedProduct, shops, getBatches, batches,
     setActiveTab(value)
   }
   const switcherSettings = [
-    { label: () => t(TranslationKey['Orders info']), value: 'orderInformation' },
-    { label: () => t(TranslationKey['Batch data']), value: 'batchData' },
+    { label: () => t(TranslationKey['Orders info']), value: SwitcherStatus.ORDER_INFORMATION },
+    { label: () => t(TranslationKey['Batch data']), value: SwitcherStatus.BATCH_DATA },
   ]
+
+  const batchRowHandler = guid => {
+    getCurrentBatch(guid)
+    setShowBatchModal()
+  }
+
+  const columns = activeTab === SwitcherStatus.BATCH_DATA ? batchDataColumns(batchRowHandler) : aboutProductsColumns
+  const rows = activeTab === SwitcherStatus.BATCH_DATA ? batches : selectedProduct?.orders
+
+  const updatedText = `${t(TranslationKey.Updated)}: ${formatDateTime(selectedProduct?.updatedAt)}`
 
   if (showLoading) {
     return <CircularProgressWithLabel />
   }
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.modalHeader}>
-        <Typography variant="h5">{t(TranslationKey['Product information'])}</Typography>
-        <Typography>{t(TranslationKey.Updated) + ': ' + formatDateTime(selectedProduct.updatedAt)}</Typography>
+    <div className={styles.root}>
+      <div className={styles.modalHeader}>
+        <p className={styles.title}>{t(TranslationKey['Product information'])}</p>
+        <p className={styles.updated}>{updatedText}</p>
       </div>
       <Divider />
-      <div className={classNames.subHeader}>
+      <div className={styles.subHeader}>
         <PhotoAndFilesSlider withoutFiles smallPhotos mediumSlider files={selectedProduct?.images} />
-        <Typography className={classNames.amazonTitle}>{selectedProduct.amazonTitle}</Typography>
+        <p className={styles.amazonTitle}>{selectedProduct.amazonTitle}</p>
         <div>
-          {shop && <p>Shop: {shop.name}</p>}
+          {selectedProductShop && <p>Shop: {selectedProductShop.name}</p>}
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={selectedProduct.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={selectedProduct.skuByClient} />
         </div>
       </div>
       <Divider />
       <TableContainer>
-        <Table sx={{ marginBottom: 10 }}>
+        <Table className={styles.table}>
           <TableHead>
             <TableRow>
-              <TableCell>{t(TranslationKey.Available)}</TableCell>
-              <TableCell>{t(TranslationKey.Reserved)}</TableCell>
-              <TableCell>{t(TranslationKey.Inbound)}</TableCell>
-              <TableCell>{t(TranslationKey.Order)}</TableCell>
-              <TableCell>In Transfer</TableCell>
-              <TableCell>{t(TranslationKey['In stock'])}</TableCell>
-              <TableCell>{t(TranslationKey['Stock sum'])}</TableCell>
-              <TableCell>{t(TranslationKey['Stock cost'])}</TableCell>
-              <TableCell>{t(TranslationKey['Recommendation for additional purchases'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Available)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Reserved)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Inbound)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Order)}</TableCell>
+              <TableCell className={styles.tableCell}>In Transfer</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['In stock'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Stock sum'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Stock cost'])}</TableCell>
+              <TableCell className={styles.tableCell}>
+                {t(TranslationKey['Recommendation for additional purchases'])}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">{selectedProduct?.fbaFbmStockSum || '-'}</TableCell>
-              <TableCell align="center">{selectedProduct?.reservedSum || '-'}</TableCell>
-              <TableCell align="center">{selectedProduct?.sentToFbaSum || '-'}</TableCell>
-              <TableCell align="right">
-                <p className={classNames.amountOrder}>{selectedProduct?.amountInOrders}</p>
-                <p className={classNames.waitOrder}>
+              <TableCell align="center" className={styles.tableCell}>
+                {selectedProduct?.fbaFbmStockSum || '-'}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {selectedProduct?.reservedSum || '-'}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {selectedProduct?.sentToFbaSum || '-'}
+              </TableCell>
+              <TableCell align="right" className={styles.tableCell}>
+                <p className={styles.amountOrder}>{selectedProduct?.amountInOrders}</p>
+                <p className={styles.waitOrder}>
                   <WatchLaterSharpIcon color="primary" />
                   {selectedProduct?.amountInPendingOrders}
                 </p>
               </TableCell>
-              <TableCell align="center">{selectedProduct?.inTransfer || '-'}</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={styles.tableCell}>
+                {selectedProduct?.inTransfer || '-'}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
                 {selectedProduct?.boxAmounts?.map(box => (
-                  <p key={box._id} className={classNames.inStock}>
-                    <span className={classNames.storekeeperName}>{box.storekeeper.name}</span>
+                  <p key={box._id} className={styles.inStock}>
+                    <span className={styles.storekeeperName}>{box.storekeeper.name}</span>
                     <span> {box.amountInBoxes}</span>
                   </p>
                 ))}
               </TableCell>
-              <TableCell align="center">{selectedProduct?.sumStock}</TableCell>
-              <TableCell align="center">{toFixed(selectedProduct?.stockCost, 0)}</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={styles.tableCell}>
+                {selectedProduct?.sumStock}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {toFixed(selectedProduct?.stockCost, 0)}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
                 <FourMonthesStockCell
+                  withoutPadding
                   value={selectedProduct?.purchaseQuantity}
                   fourMonthesStock={selectedProduct?.fourMonthesStock}
                 />
@@ -119,18 +151,16 @@ export const AboutProductModal = ({ selectedProduct, shops, getBatches, batches,
         changeConditionHandler={handleChange}
       />
 
-      <div className={classNames.tableWrapper}>
-        {activeTab === 'orderInformation' && !showLoading ? (
-          <CustomDataGrid getRowHeight={() => 'auto'} rows={selectedProduct?.orders} columns={aboutProductsColumns()} />
-        ) : (
-          <CustomDataGrid
-            rows={batches ?? []}
-            getRowHeight={() => 'auto'}
-            columns={batchDataColumns()}
-            loading={!batches?.length}
-            getRowId={row => row.humanFriendlyId}
-          />
-        )}
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          getRowHeight={() => 'auto'}
+          slots={{
+            pagination: () => null,
+          }}
+          rows={rows ?? []}
+          getRowId={row => row._id}
+          columns={columns}
+        />
       </div>
     </div>
   )

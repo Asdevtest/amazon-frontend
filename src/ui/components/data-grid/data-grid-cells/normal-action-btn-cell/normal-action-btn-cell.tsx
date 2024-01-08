@@ -11,8 +11,8 @@ import { useStyles } from './normal-action-btn-cell.style'
 
 interface NormalActionBtnCellProps {
   bTnText: string
-  tooltipText: string
-  onClickOkBtn: () => void
+  tooltipText?: string
+  onClickOkBtn?: () => void
   isShowCancelButton?: boolean
   disabled?: boolean
   isFirstRow?: boolean

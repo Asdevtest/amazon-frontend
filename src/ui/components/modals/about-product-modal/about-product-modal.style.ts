@@ -1,9 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '900px',
-    padding: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+  },
+  updated: {
+    fontSize: 14,
   },
   inStock: {
     display: 'flex',
@@ -32,8 +38,18 @@ export const useClassNames = makeStyles()(theme => ({
   amazonTitle: {
     maxWidth: 270,
   },
+  infoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  table: { margin: '30px 0px' },
+  tableCell: {
+    border: 'none',
+    verticalAlign: 'top',
+  },
   tableWrapper: {
     marginTop: 10,
+    width: '100%',
   },
   storekeeperName: {
     color: theme.palette.primary.main,

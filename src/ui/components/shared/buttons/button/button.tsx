@@ -90,6 +90,7 @@ export const Button: FC<Props> = React.memo(
                 [classNames.small]: small,
                 [classNames.transparent]: transparent,
                 [classNames.casual]: casual,
+                [classNames.outlined]: variant === 'outlined',
               },
               className,
             ),

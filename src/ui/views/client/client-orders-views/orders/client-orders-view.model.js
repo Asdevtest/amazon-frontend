@@ -85,6 +85,7 @@ export class ClientOrdersViewModel {
 
   rowCount = 0
   startFilterModel = undefined
+  currentBatch = undefined
   sortModel = []
   activeProductGuid = undefined
   filterModel = { items: [] }
@@ -727,16 +728,32 @@ export class ClientOrdersViewModel {
     win.focus()
   }
 
-  async onClickWarehouseOrderButton(guid) {
-    this.productBatches = undefined
-    this.onTriggerOpenModal('showProductModal')
-    this.showLoading = true
-    this.activeProductGuid = guid
-    const result = await ClientModel.getProductById(guid)
+  async getCurrBatch(guid) {
+    const result = await BatchesModel.getBatchesByGuid(guid)
+
     runInAction(() => {
-      this.selectedWarehouseOrderProduct = result
-      this.showLoading = false
+      this.currentBatch = result
     })
+  }
+
+  async onClickWarehouseOrderButton(guid) {
+    try {
+      this.productBatches = undefined
+      this.onTriggerOpenModal('showProductModal')
+      this.showLoading = true
+      this.activeProductGuid = guid
+      const result = await ClientModel.getProductById(guid)
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = result
+        this.showLoading = false
+      })
+    } catch (e) {
+      console.log(e)
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = undefined
+        this.showLoading = false
+      })
+    }
   }
 
   onTriggerOpenModal(modalState) {

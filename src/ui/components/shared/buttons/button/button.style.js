@@ -22,6 +22,10 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'unset !important',
   },
 
+  outlined: {
+    color: theme.palette.text.general,
+  },
+
   success: {
     backgroundColor: '#009a07 !important',
     '&:hover': {
