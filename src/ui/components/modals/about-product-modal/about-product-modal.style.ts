@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '900px',
+    width: '950px',
+    padding: '10px',
   },
   title: {
     fontSize: 18,
@@ -30,10 +31,17 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: 8,
   },
+  shopName: {
+    overflow: 'hidden',
+    textWrap: 'nowrap',
+    textOverflow: 'ellipsis',
+    width: '200px',
+  },
   subHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingRight: '50px',
   },
   amazonTitle: {
     maxWidth: 270,

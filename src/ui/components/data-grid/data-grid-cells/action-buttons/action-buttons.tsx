@@ -18,7 +18,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({ rowHandlers, params }) =
   return (
     <div className={styles.wrapper}>
       <Button
-        className={cx(styles.button, styles.fullWidthButton, styles.repeatButton)}
+        className={cx(styles.button, styles.repeatButton)}
         onClick={(e: ChangeEvent<HTMLButtonElement>) => {
           e.stopPropagation()
           rowHandlers.onClickReorder(params.row.originalData, false)

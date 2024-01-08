@@ -5,10 +5,8 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  fullWidthButton: {
-    width: '100%',
-  },
   button: {
+    width: '100%',
     height: 30,
   },
   repeatButton: {

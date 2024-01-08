@@ -74,7 +74,7 @@ export const AboutProductModal = props => {
         <PhotoAndFilesSlider withoutFiles smallPhotos mediumSlider files={selectedProduct?.images} />
         <p className={styles.amazonTitle}>{selectedProduct.amazonTitle}</p>
         <div>
-          {selectedProductShop && <p>Shop: {selectedProductShop.name}</p>}
+          {selectedProductShop && <p className={styles.shopName}>Shop: {selectedProductShop.name}</p>}
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={selectedProduct.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={selectedProduct.skuByClient} />
         </div>
@@ -84,15 +84,31 @@ export const AboutProductModal = props => {
         <Table className={styles.table}>
           <TableHead>
             <TableRow>
-              <TableCell className={styles.tableCell}>{t(TranslationKey.Available)}</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey.Reserved)}</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey.Inbound)}</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey.Order)}</TableCell>
-              <TableCell className={styles.tableCell}>In Transfer</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey['In stock'])}</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey['Stock sum'])}</TableCell>
-              <TableCell className={styles.tableCell}>{t(TranslationKey['Stock cost'])}</TableCell>
-              <TableCell className={styles.tableCell}>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey.Available)}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey.Reserved)}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey.Inbound)}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey.Order)}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                In Transfer
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey['In stock'])}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey['Stock sum'])}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
+                {t(TranslationKey['Stock cost'])}
+              </TableCell>
+              <TableCell align="center" className={styles.tableCell}>
                 {t(TranslationKey['Recommendation for additional purchases'])}
               </TableCell>
             </TableRow>
@@ -153,6 +169,7 @@ export const AboutProductModal = props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          useResizeContainer
           getRowHeight={() => 'auto'}
           slots={{
             pagination: () => null,

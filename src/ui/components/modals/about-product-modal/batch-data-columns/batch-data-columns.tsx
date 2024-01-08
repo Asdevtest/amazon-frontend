@@ -31,7 +31,6 @@ export const batchDataColumns = (rowHandler: (guid: string) => void) => [
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 100,
     sortable: false,
-    columnKey: columnnsKeys.client.ORDERS_STATUS,
     disableColumnMenu: true,
   },
   {
@@ -46,7 +45,6 @@ export const batchDataColumns = (rowHandler: (guid: string) => void) => [
     sortable: false,
     filterable: false,
     disableColumnMenu: true,
-    columnKey: columnnsKeys.shared.QUANTITY,
   },
   {
     field: 'destination',
