@@ -19,7 +19,6 @@ interface NormalActionBtnCellProps {
   operationType?: string
   rowId?: string
   boxId?: string
-  variant?: string
   fullWidthButton?: boolean
   casual?: boolean
   onClickCancelTask?: (boxId?: string, rowId?: string, operationType?: string) => void
@@ -38,7 +37,6 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
     boxId,
     fullWidthButton,
     casual,
-    variant = 'contained',
     onClickCancelTask,
   } = props
   const { classes: styles, cx } = useStyles()
@@ -52,7 +50,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
         casual={casual}
         disabled={disabled}
         tooltipInfoContent={isFirstRow ? tooltipText : ''}
-        variant={variant}
+        variant="contained"
         color="primary"
         className={buttonStyle}
         onClick={onClickOkBtn}
