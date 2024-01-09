@@ -12,7 +12,9 @@ import {
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-export const batchDataColumns = (rowHandler: (guid: string) => void) => [
+type TBatchColumnRowHandler = (guid: string) => void
+
+export const batchDataColumns = (rowHandler: TBatchColumnRowHandler) => [
   {
     field: 'id',
     headerName: t(TranslationKey['Batch number']),

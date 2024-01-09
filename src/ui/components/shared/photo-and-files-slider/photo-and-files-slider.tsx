@@ -27,7 +27,6 @@ interface PhotoAndFilesSliderProps {
   bigSlider?: boolean
   alignLeft?: boolean
   alignRight?: boolean
-  preMediumSlider?: boolean
   smallPhotos?: boolean
   isHideCounter?: boolean
   customGap?: number
@@ -75,7 +74,6 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
     withoutFiles = false,
     withAllFiles = false,
     smallSlider = false,
-    preMediumSlider = false,
     mediumSlider = false,
     bigSlider = false,
     alignLeft = false,
@@ -148,7 +146,6 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
               setCurrentIndex={setDocumentIndex}
               smallSlider={smallSlider}
               mediumSlider={mediumSlider}
-              preMediumSlider={preMediumSlider}
               bigSlider={bigSlider}
               alignLeft={alignLeft}
               alignRight={alignRight}

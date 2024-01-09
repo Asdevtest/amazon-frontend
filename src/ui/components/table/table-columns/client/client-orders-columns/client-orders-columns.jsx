@@ -2,7 +2,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtons } from '@components/data-grid/data-grid-cells/action-buttons/action-buttons'
+import { ActionButtons } from '@components/data-grid/data-grid-cells/action-buttons-cell/action-buttons-cell'
 import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
@@ -102,21 +102,25 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <ActionButtons params={params} rowHandlers={rowHandlers} />
-        ) : (
-          <SuccessActionBtnCell
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData, true)
-            }}
-          />
-        )}
-      </>
-    ),
+    renderCell: params =>
+      Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+        <ActionButtons
+          params={params}
+          rowHandlers={rowHandlers}
+          repeatButtonText={t(TranslationKey['Repeat order'])}
+          warehouseOrdersButtonText={t(TranslationKey['Warehouse and orders'])}
+          onClickRepeatButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
+          onClickOrderButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+        />
+      ) : (
+        <SuccessActionBtnCell
+          bTnText={t(TranslationKey['To order'])}
+          onClickOkBtn={e => {
+            e.stopPropagation()
+            rowHandlers.onClickReorder(params.row.originalData, true)
+          }}
+        />
+      ),
     width: 220,
     filterable: false,
     sortable: false,

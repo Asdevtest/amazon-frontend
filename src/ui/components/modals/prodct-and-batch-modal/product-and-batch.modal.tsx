@@ -1,17 +1,18 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
-import { Modal } from '@components/shared/modal'
-
-import { IOrderBoxBatch } from '@typings/order-box'
+import { IOrderBox, IOrderBoxBatch } from '@typings/order-box'
 import { IProduct } from '@typings/product'
+import { IShop } from '@typings/shop'
 
 import { AboutProductModal } from '../about-product-modal'
+import { AboutProductSwitcher } from '../about-product-modal/about-product-switcher'
 import { BatchInfoModal } from '../batch-info-modal'
 
 interface ProductAndBatchModalProps {
-  selectedProduct: IProduct
-  shops: any
-  getBatches: () => void
+  changeSwitcher: (field?: string | number | null) => void
+  currentSwitch: AboutProductSwitcher
+  selectedProduct: IProduct & { orders: IOrderBox[]; sumStock: number; purchaseQuantity: number; stockCost: number }
+  shops: IShop[]
   batches: IOrderBoxBatch[]
   showLoading: boolean
   openModal: boolean
@@ -20,22 +21,21 @@ interface ProductAndBatchModalProps {
   getCurrentBatch: (guid: string) => void
 }
 
-export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = props => {
+export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
   const {
     selectedProduct,
     shops,
     batches,
     showLoading,
-    getBatches,
     openModal,
     setOpenModal,
     currentBatch,
     getCurrentBatch,
+    currentSwitch,
+    changeSwitcher,
   } = props
 
   const [isShowBatchModal, setIsShowBatchModal] = useState(false)
-
-  console.log(isShowBatchModal)
 
   const handleShowModal = () => {
     setIsShowBatchModal(prev => !prev)
@@ -43,30 +43,29 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = props => {
 
   return (
     <>
-      <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <AboutProductModal
-          selectedProduct={selectedProduct}
-          shops={shops}
-          getBatches={getBatches}
-          batches={batches}
-          showLoading={showLoading}
-          setShowBatchModal={handleShowModal}
-          getCurrentBatch={getCurrentBatch}
-        />
-      </Modal>
+      <AboutProductModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        selectedProduct={selectedProduct}
+        shops={shops}
+        changeSwitcher={changeSwitcher}
+        currentSwitch={currentSwitch}
+        batches={batches}
+        showLoading={showLoading}
+        setShowBatchModal={handleShowModal}
+        getCurrentBatch={getCurrentBatch}
+      />
+
       {isShowBatchModal && (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        /*
+        // @ts-ignore */
         <BatchInfoModal
           batch={currentBatch ?? {}}
           openModal={isShowBatchModal}
-          userInfo={undefined}
-          history={undefined}
-          patchActualShippingCostBatch={undefined}
-          location={undefined}
           setOpenModal={() => setIsShowBatchModal(prev => !prev)}
-          onClickHsCode={undefined}
-          onSubmitChangeBoxFields={undefined}
         />
       )}
     </>
   )
-}
+})

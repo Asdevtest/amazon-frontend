@@ -40,6 +40,7 @@ export const aboutProductsColumns = [
     ),
     width: 160,
     sortable: false,
+    columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
   {
@@ -56,9 +57,9 @@ export const aboutProductsColumns = [
   {
     field: 'deadline',
     headerName: t(TranslationKey.Deadline),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Deadline)} />,
     renderCell: (params: GridRenderCellParams) => <DeadlineCell deadline={params.row.deadline} />,
-    width: 100,
+    width: 130,
     filterable: false,
     disableColumnMenu: true,
   },

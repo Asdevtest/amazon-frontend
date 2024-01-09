@@ -15,6 +15,7 @@ import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
+import { AboutProductSwitcher } from '@components/modals/about-product-modal/about-product-switcher'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
@@ -86,6 +87,7 @@ export class ClientOrdersViewModel {
   rowCount = 0
   startFilterModel = undefined
   currentBatch = undefined
+  aboutProductSwitcher = AboutProductSwitcher.ORDER_INFORMATION
   sortModel = []
   activeProductGuid = undefined
   filterModel = { items: [] }
@@ -747,6 +749,14 @@ export class ClientOrdersViewModel {
       runInAction(() => {
         this.currentBatch = undefined
       })
+    }
+  }
+
+  onClickAboutSwitcherField(field) {
+    this.aboutProductSwitcher = field
+
+    if (field === AboutProductSwitcher.BATCH_DATA) {
+      this.getBatches()
     }
   }
 

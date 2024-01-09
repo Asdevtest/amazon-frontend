@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: '950px',
-    padding: '10px',
   },
   title: {
     fontSize: 18,
@@ -12,9 +11,44 @@ export const useStyles = makeStyles()(theme => ({
   updated: {
     fontSize: 14,
   },
+  contentWrapperClassName: {
+    padding: '10px 20px 25px 20px',
+  },
+  additionPurchaseWrap: {
+    marginTop: '-10px',
+  },
+  toPurchase: {
+    fontSize: 14,
+    fontWeight: 600,
+  },
+  inputAdditionPurchase: {
+    width: 95,
+    height: 25,
+  },
+  fieldText: {
+    fontSize: 14,
+    fontWeight: 600,
+  },
+  infoHeader: {
+    fontSize: 12,
+    fontWeight: 500,
+    color: theme.palette.text.second,
+  },
+  fieldWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: 26,
+  },
   inStock: {
     display: 'flex',
     justifyContent: 'space-between',
+    width: '100%',
+  },
+  field: {
+    width: 'auto !important',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   waitOrder: {
     display: 'flex',
@@ -24,6 +58,7 @@ export const useStyles = makeStyles()(theme => ({
   amountOrder: {
     color: theme.palette.primary.main,
     fontSize: 14,
+    textAlign: 'right',
   },
   modalHeader: {
     display: 'flex',
@@ -36,6 +71,10 @@ export const useStyles = makeStyles()(theme => ({
     textWrap: 'nowrap',
     textOverflow: 'ellipsis',
     width: '200px',
+    marginBottom: 8,
+  },
+  showAttributeName: {
+    color: theme.palette.text.second,
   },
   subHeader: {
     display: 'flex',
@@ -45,6 +84,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   amazonTitle: {
     maxWidth: 270,
+    minHeight: '50px',
   },
   infoWrapper: {
     display: 'flex',
@@ -58,6 +98,16 @@ export const useStyles = makeStyles()(theme => ({
   tableWrapper: {
     marginTop: 10,
     width: '100%',
+    height: '425px',
+    [theme.breakpoints.down(1500)]: {
+      height: 200,
+    },
+  },
+  amountInPendingOrders: {
+    marginLeft: 5,
+  },
+  inStockField: {
+    width: '126px !important',
   },
   storekeeperName: {
     color: theme.palette.primary.main,
