@@ -44,6 +44,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
       <Typography className={classNames.title}>{t(TranslationKey['Add shop'])}</Typography>
 
       <Field
+        withCopy
         labelClasses={classNames.label}
         containerClasses={classNames.containerField}
         tooltipInfoContent={t(TranslationKey['Enter store name'])}
@@ -55,6 +56,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
       />
 
       <Field
+        withCopy
         labelClasses={classNames.label}
         containerClasses={classNames.containerField}
         tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
@@ -66,6 +68,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
       />
 
       <Field
+        withCopy
         labelClasses={classNames.label}
         containerClasses={classNames.containerField}
         className={classNames.descriptionField}
@@ -77,6 +80,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
       />
 
       <Field
+        withCopy
         labelClasses={classNames.label}
         containerClasses={classNames.containerField}
         className={classNames.descriptionField}

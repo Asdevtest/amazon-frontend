@@ -28,7 +28,7 @@ export class ShopsViewModel extends DataGridTableModel {
   showWarningModal = false
   showConfirmModal = false
 
-  constructor({ history }) {
+  constructor() {
     const rowHandlers = {
       onClickRemoveBtn: row => this.onClickRemoveBtn(row),
       onClickEditBtn: row => this.onClickEditBtn(row),
@@ -36,7 +36,7 @@ export class ShopsViewModel extends DataGridTableModel {
       onClickSeeShopReport: (currentReport, row) => this.onClickSeeShopReport(currentReport, row),
     }
 
-    super(ShopModel.getMyShops, shopsColumns(rowHandlers), history)
+    super(ShopModel.getMyShops, shopsColumns(rowHandlers))
 
     makeObservable(this, observerConfig)
   }

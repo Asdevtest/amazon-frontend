@@ -18,7 +18,7 @@ import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './helpers/observer-config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = ShopReportsTabsValues.STOCK_REPORT
+  _tabKey = ShopReportsTabsValues.PPC
   get tabKey() {
     return this._tabKey
   }
@@ -59,24 +59,9 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   constructor(currentTabsValues: ShopReportsTabsValues) {
-    const url = new URL(window.location.href)
-    const currentReport = url.searchParams.get('currentReport') as ShopReportsTabsValues
-    const currentShopId = url.searchParams.get('shopId')
-
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(
-      currentReport || currentTabsValues,
-    )
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, ['asin', 'sku'])
-
-    if (currentShopId) {
-      this.onChangeFullFieldMenuItem([{ _id: currentShopId }], 'shop')
-    }
-
-    if (currentReport) {
-      this.tabKey = currentReport
-      this.history.push(this.history.location.pathname)
-    }
 
     makeObservable(this, observerConfig)
   }
@@ -93,6 +78,33 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.mainMethodURL = mainMethodURL
 
     this.getMainTableData()
+  }
+
+  initUserSettings() {
+    const url = new URL(window.location.href)
+    const currentReport = url.searchParams.get('currentReport') as ShopReportsTabsValues
+    const currentShopId = url.searchParams.get('shopId')
+
+    if (!currentReport || !currentShopId) {
+      return
+    }
+
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentReport)
+
+    this.getMainDataMethod = getMainDataMethod
+    this.columnsModel = columnsModel()
+    this.filtersFields = filtersFields
+    this.setColumnMenuSettings(filtersFields)
+    this.mainMethodURL = mainMethodURL
+
+    if (currentShopId) {
+      this.onChangeFullFieldMenuItem([{ _id: currentShopId }], 'shop')
+    }
+
+    if (currentReport) {
+      this.tabKey = currentReport
+      this.history.push(this.history.location.pathname)
+    }
   }
 
   async moveGoodsToInventoryHandler() {
