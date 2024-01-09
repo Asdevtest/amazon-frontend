@@ -2284,12 +2284,14 @@ export const NumberFieldMenuItem = React.memo(
         return wholeIntegersList.includes(field)
       }, [field])
 
-      const inputNumberCheckHandler = value => {
+      const inputNumberCheckHandler = (value, isToType) => {
         const isValidDigit = negativeOrPositiveList.includes(field)
           ? checkIsPositiveOrNegativeDigit(value)
           : checkIsPositiveNum(value)
 
-        isValidDigit && setFromValue(value)
+        if (isValidDigit) {
+          isToType ? setToValue(value) : setFromValue(value)
+        }
       }
 
       useEffect(() => {
@@ -2343,7 +2345,7 @@ export const NumberFieldMenuItem = React.memo(
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
-              onChange={e => inputNumberCheckHandler(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value, true)}
             />
           </div>
 
@@ -2370,26 +2372,19 @@ export const NumberFieldMenuItem = React.memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
-                        // )
-                        ?.map((el, index) => {
-                          const value = isNotFixedValue ? el : toFixed(el, 2) || 0
-                          const valueChecked = choosenItems?.some(item => item === el)
+                      {itemsForRender?.map((el, index) => {
+                        const value = isNotFixedValue ? el : toFixed(el, 2) || 0
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={classNames.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={classNames.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={classNames.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
