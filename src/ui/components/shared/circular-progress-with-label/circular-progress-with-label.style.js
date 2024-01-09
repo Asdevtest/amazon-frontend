@@ -11,6 +11,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+  },
+  background: {
     background: theme.palette.background.general,
   },
   progressContainer: {

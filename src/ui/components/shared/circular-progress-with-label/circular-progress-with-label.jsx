@@ -7,7 +7,8 @@ import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './circular-progress-with-label.style'
 
-export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) => {
+export const CircularProgressWithLabel = props => {
+  const { value, title, wrapperClassName, showBackground = false } = props
   const { classes: classNames, cx } = useClassNames()
   const isDarkTheme = SettingsModel.uiTheme === UiTheme.dark
 
@@ -15,6 +16,7 @@ export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) =>
     <div
       className={cx(classNames.mainWrapper, {
         [wrapperClassName]: !!wrapperClassName,
+        [classNames.background]: showBackground,
       })}
     >
       <div className={cx(classNames.progressContainer, { [classNames.progressContainerDark]: isDarkTheme })}>
