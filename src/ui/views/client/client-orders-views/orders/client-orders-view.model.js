@@ -6,6 +6,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BatchesModel } from '@models/batches-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -45,8 +46,11 @@ export class ClientOrdersViewModel {
   selectedRowIds = []
 
   showOrderModal = false
+  showLoading = false
+  showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
+  productBatches = undefined
   showCheckPendingOrderFormModal = false
 
   existingProducts = []
@@ -56,7 +60,7 @@ export class ClientOrdersViewModel {
     showAlertShield: false,
     alertShieldMessage: '',
   }
-
+  selectedWarehouseOrderProduct = undefined
   selectedProduct = undefined
   reorderOrdersData = []
   uploadedFiles = []
@@ -76,11 +80,13 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+    onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
   }
 
   rowCount = 0
   startFilterModel = undefined
   sortModel = []
+  activeProductGuid = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
   amountLimit = 1000
@@ -429,6 +435,14 @@ export class ClientOrdersViewModel {
     }
   }
 
+  async getBatches() {
+    const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+
+    runInAction(() => {
+      this.productBatches = result
+    })
+  }
+
   async onClickReorder(item, isPending) {
     try {
       if (isPending) {
@@ -711,6 +725,18 @@ export class ClientOrdersViewModel {
     )
 
     win.focus()
+  }
+
+  async onClickWarehouseOrderButton(guid) {
+    this.productBatches = undefined
+    this.onTriggerOpenModal('showProductModal')
+    this.showLoading = true
+    this.activeProductGuid = guid
+    const result = await ClientModel.getProductById(guid)
+    runInAction(() => {
+      this.selectedWarehouseOrderProduct = result
+      this.showLoading = false
+    })
   }
 
   onTriggerOpenModal(modalState) {

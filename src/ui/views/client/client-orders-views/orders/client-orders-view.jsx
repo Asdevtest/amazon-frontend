@@ -5,6 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { AboutProductModal } from '@components/modals/about-product-modal/about-product-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -117,6 +118,21 @@ export const ClientOrdersView = observer(history => {
             item={viewModel.selectedProduct}
             onClickSaveBarcode={viewModel.onClickSaveBarcode}
             onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showProductModal && (
+        <Modal
+          openModal={viewModel.showProductModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+        >
+          <AboutProductModal
+            showLoading={viewModel.showLoading}
+            batches={viewModel.productBatches}
+            shops={viewModel.shopsData}
+            selectedProduct={viewModel.selectedWarehouseOrderProduct}
+            getBatches={viewModel.getBatches}
           />
         </Modal>
       )}

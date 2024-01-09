@@ -2161,5 +2161,6 @@ export enum TranslationKey {
   'Reports' = 'Reports',
   'FBA fee' = 'FBA fee',
   'Ref fee' = 'Ref fee',
+  'Warehouse and orders' = 'Warehouse and orders',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -185,6 +185,9 @@ export const lightTheme = createTheme({
             backgroundColor: '#B3D1FB',
             color: '#F9FCFF',
           },
+          '&.MuiButton-outlined': {
+            color: '#292D32',
+          },
         },
       },
       styleOverrides: {
