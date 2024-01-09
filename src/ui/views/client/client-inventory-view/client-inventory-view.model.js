@@ -816,14 +816,11 @@ export class ClientInventoryViewModel {
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
       runInAction(() => {
         this.baseNoConvertedProducts = result
         this.rowCount = result.count

@@ -31,6 +31,10 @@ export const RedFlags: FC<RedFlagsProps> = props => {
     }
   }, [])
 
+  useEffect(() => {
+    setSelectedFlags(activeFlags)
+  }, [activeFlags])
+
   const handleFlag = (flag: Flag) => {
     let newSelectedFlags = []
 
