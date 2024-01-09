@@ -68,7 +68,6 @@ export const useStyles = makeStyles()(theme => ({
 
   rightSideButtonsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
     gap: 10,
   },
 
