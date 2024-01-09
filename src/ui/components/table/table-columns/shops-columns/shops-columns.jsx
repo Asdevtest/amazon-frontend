@@ -38,6 +38,7 @@ export const shopsColumns = handlers => [
     width: 125,
     renderCell: params => (
       <NormalActionBtnCell
+        casual
         fullWidthButton
         bTnText={t(TranslationKey.View)}
         onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.STOCK_REPORT, params.row)}
@@ -53,6 +54,7 @@ export const shopsColumns = handlers => [
     width: 125,
     renderCell: params => (
       <NormalActionBtnCell
+        casual
         fullWidthButton
         bTnText={t(TranslationKey.View)}
         onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.GOODS_DAYS_REPORT, params.row)}
@@ -68,6 +70,7 @@ export const shopsColumns = handlers => [
     width: 125,
     renderCell: params => (
       <NormalActionBtnCell
+        casual
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
@@ -84,6 +87,7 @@ export const shopsColumns = handlers => [
     width: 125,
     renderCell: params => (
       <NormalActionBtnCell
+        casual
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
@@ -100,6 +104,7 @@ export const shopsColumns = handlers => [
     width: 125,
     renderCell: params => (
       <NormalActionBtnCell
+        casual
         fullWidthButton
         disabled={!params?.row?.reportAccountUrl}
         bTnText={t(TranslationKey.View)}
