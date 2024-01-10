@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import { IOrderBox, IOrderBoxBatch } from '@typings/order-box'
@@ -8,20 +9,27 @@ import { AboutProductModal } from '../about-product-modal'
 import { AboutProductSwitcher } from '../about-product-modal/about-product-switcher'
 import { BatchInfoModal } from '../batch-info-modal'
 
-interface ProductAndBatchModalProps {
+export interface IProductWithOrder extends IProduct {
+  orders: IOrderBox[]
+  sumStock: number
+  purchaseQuantity: number
+  stockCost: number
+}
+
+export interface IProductAndBatchModalProps {
   changeSwitcher: (field?: string | number | null) => void
   currentSwitch: AboutProductSwitcher
-  selectedProduct: IProduct & { orders: IOrderBox[]; sumStock: number; purchaseQuantity: number; stockCost: number }
   shops: IShop[]
+  selectedProduct: IProductWithOrder
   batches: IOrderBoxBatch[]
   showLoading: boolean
   openModal: boolean
   setOpenModal: () => void
-  currentBatch: IOrderBoxBatch
+  currentBatch?: IOrderBoxBatch
   getCurrentBatch: (guid: string) => void
 }
 
-export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
+export const ProductAndBatchModal: FC<IProductAndBatchModalProps> = memo(props => {
   const {
     selectedProduct,
     shops,
@@ -57,8 +65,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
       />
 
       {isShowBatchModal && (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        /*
         // @ts-ignore */
         <BatchInfoModal
           batch={currentBatch ?? {}}

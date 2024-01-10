@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, ReactElement, memo } from 'react'
 
-import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 import { Divider } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,35 +10,23 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
-import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateTime } from '@utils/date-time'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { IOrderBox, IOrderBoxBatch } from '@typings/order-box'
-import { IProduct } from '@typings/product'
-import { IShop } from '@typings/shop'
 
 import { useStyles } from './about-product-modal.style'
 
+import { IProductAndBatchModalProps } from '../prodct-and-batch-modal/product-and-batch.modal'
+
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
+import { infoModalConfig, switcherSettings } from './about-product-modal-configs'
 import { AboutProductSwitcher } from './about-product-switcher'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
 
-interface IAboutProductModal {
-  selectedProduct: IProduct & { orders: IOrderBox[]; sumStock: number; purchaseQuantity: number; stockCost: number }
-  shops: IShop[]
-  batches: IOrderBoxBatch[]
-  showLoading: boolean
+interface IAboutProductModal extends IProductAndBatchModalProps {
   setShowBatchModal: () => void
-  getCurrentBatch: (guid: string) => void
-  currentSwitch: AboutProductSwitcher
-  changeSwitcher: (condition?: string | number | null) => void
-  openModal: boolean
-  setOpenModal: () => void
 }
 
 export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
@@ -59,103 +47,24 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
 
   const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
 
-  const switcherSettings = [
-    { label: () => t(TranslationKey['Orders info']), value: AboutProductSwitcher.ORDER_INFORMATION },
-    { label: () => t(TranslationKey['Batch data']), value: AboutProductSwitcher.BATCH_DATA },
-  ]
-
-  const infoModalConfig = [
-    {
-      title: t(TranslationKey.Available),
-      element: <p>{selectedProduct?.fbaFbmStockSum || '-'}</p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey.Reserved),
-      element: <p className={styles.fieldText}> {selectedProduct?.reservedSum || '-'} </p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey.Inbound),
-      element: <p className={styles.fieldText}> {selectedProduct?.sentToFbaSum || '-'}</p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey.Order),
-      element: (
-        <div>
-          <p className={styles.amountOrder}>{selectedProduct?.amountInOrders}</p>
-          <p className={cx(styles.waitOrder, styles.fieldText)}>
-            <WatchLaterSharpIcon color="primary" />
-            <span className={styles.amountInPendingOrders}>{selectedProduct?.amountInPendingOrders}</span>
-          </p>
-        </div>
-      ),
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: 'In Transfer',
-      element: <p className={styles.fieldText}> {selectedProduct?.inTransfer || '-'}</p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey['In stock']),
-      element: selectedProduct?.boxAmounts?.map(box => (
-        <p key={box._id} className={styles.inStock}>
-          <span className={styles.storekeeperName}>{box.storekeeper.name}</span>
-          <span className={styles.fieldText}> {box.amountInBoxes}</span>
-        </p>
-      )),
-      containerClass: cx(styles.field, styles.inStockField),
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey['Stock sum']),
-      element: <p className={styles.fieldText}> {selectedProduct?.sumStock}</p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey['Stock cost']),
-      element: <p className={styles.fieldText}>{toFixed(selectedProduct?.stockCost, 0)}</p>,
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-    {
-      title: t(TranslationKey['Recommendation for additional purchases']),
-      element: (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        <div className={styles.additionPurchaseWrap}>
-          <p className={styles.toPurchase}>К дозакупке: {selectedProduct?.purchaseQuantity}</p>
-          <Input className={styles.inputAdditionPurchase} value={selectedProduct?.fourMonthesStock} />
-        </div>
-      ),
-      containerClass: styles.field,
-      labelClass: styles.infoHeader,
-    },
-  ]
-
   const batchRowHandler = (guid: string) => {
     getCurrentBatch(guid)
     setShowBatchModal()
   }
-  const columns =
-    currentSwitch === AboutProductSwitcher.BATCH_DATA ? batchDataColumns(batchRowHandler) : aboutProductsColumns
-  const rows = currentSwitch === AboutProductSwitcher.BATCH_DATA ? batches : selectedProduct?.orders
+
+  const switchCurrentCondition = currentSwitch === AboutProductSwitcher.BATCH_DATA
+
+  const columns = switchCurrentCondition ? batchDataColumns(batchRowHandler) : aboutProductsColumns
+  const rows = switchCurrentCondition ? batches : selectedProduct?.orders
 
   const updatedText = `${t(TranslationKey.Updated)}: ${formatDateTime(selectedProduct?.updatedAt)}`
 
   if (showLoading) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return <CircularProgressWithLabel />
   }
+
+  const fieldConfig = infoModalConfig({ selectedProduct, styles, cx })
 
   return (
     <Modal contentWrapperClassName={styles.contentWrapperClassName} openModal={openModal} setOpenModal={setOpenModal}>
@@ -180,7 +89,7 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
         </div>
         <Divider />
         <div className={styles.fieldWrapper}>
-          {infoModalConfig.map(field => (
+          {fieldConfig.map(field => (
             <Field
               key={field.title}
               containerClasses={field.containerClass}

@@ -12,9 +12,11 @@ import {
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-type TBatchColumnRowHandler = (guid: string) => void
+interface IBatchColumnRowHandler {
+  (guid: string): void
+}
 
-export const batchDataColumns = (rowHandler: TBatchColumnRowHandler) => [
+export const batchDataColumns = (rowHandler: IBatchColumnRowHandler) => [
   {
     field: 'id',
     headerName: t(TranslationKey['Batch number']),
@@ -30,7 +32,7 @@ export const batchDataColumns = (rowHandler: TBatchColumnRowHandler) => [
     field: 'title',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell maxLength={18} text={params.value} />,
     width: 100,
     sortable: false,
     disableColumnMenu: true,
