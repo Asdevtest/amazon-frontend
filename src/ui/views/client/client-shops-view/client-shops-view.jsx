@@ -7,16 +7,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './client-shops-view.style'
 
 import { ShopsViewModel } from './client-shops-view.model'
+import { Header } from './header/header'
 
 export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
@@ -26,32 +25,14 @@ export const ClientShopsView = observer(() => {
 
   return (
     <>
-      <div className={styles.headerWrapper}>
-        <div className={styles.buttonsWrapper}>
-          <Button
-            tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
-            onClick={viewModel.onClickAddBtn}
-          >
-            {t(TranslationKey['Add shop'])}
-          </Button>
-
-          <Button
-            disabled={!viewModel.selectedRows.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            onClick={viewModel.updateShops}
-          >
-            {t(TranslationKey.Update)}
-          </Button>
-        </div>
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}`}
-          value={viewModel.unserverSearchValue}
-          onChange={viewModel.onChangeUnserverSearchValue}
-        />
-
-        <div />
-      </div>
+      <Header
+        requestStatus={viewModel.requestStatus}
+        unserverSearchValue={viewModel.unserverSearchValue}
+        selectedRows={viewModel.selectedRows}
+        updateShops={viewModel.updateShops}
+        onClickAddBtn={viewModel.onClickAddBtn}
+        onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
+      />
 
       <div className={styles.tabledWrapper}>
         <CustomDataGrid
