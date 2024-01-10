@@ -144,6 +144,16 @@ export const EditTaskModal = memo(
       setIsFileDownloading(false)
     }
 
+    const isSomeBoxHasntImageToRecive =
+      newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) &&
+      task.operationType === TaskOperationType.RECEIVE
+
+    const disableSaveButton =
+      !newBoxes.length ||
+      requestStatus === loadingStatuses.IS_LOADING ||
+      !isFilledNewBoxesDimensions ||
+      isSomeBoxHasntImageToRecive
+
     return (
       <div className={styles.root}>
         <div className={styles.modalHeader}>
@@ -285,9 +295,7 @@ export const EditTaskModal = memo(
                 <Button
                   success
                   className={styles.successBtn}
-                  disabled={
-                    newBoxes.length === 0 || requestStatus === loadingStatuses.IS_LOADING || !isFilledNewBoxesDimensions
-                  }
+                  disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
                     onClickSolveTask({

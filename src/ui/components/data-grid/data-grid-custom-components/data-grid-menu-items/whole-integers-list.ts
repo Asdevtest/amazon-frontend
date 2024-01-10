@@ -45,6 +45,7 @@ export const wholeIntegersList = [
   'units',
   'ppcSale',
   'unitsExpected',
+  'organicUnits',
 ]
 
 export const negativeOrPositiveList = ['roi']
