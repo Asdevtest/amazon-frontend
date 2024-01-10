@@ -328,6 +328,9 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(480)]: {
       flexDirection: 'column',
     },
+    [theme.breakpoints.down(1500)]: {
+      flexDirection: 'column',
+    },
   },
 
   checkboxAndButtonWrapperMarginTop: {
