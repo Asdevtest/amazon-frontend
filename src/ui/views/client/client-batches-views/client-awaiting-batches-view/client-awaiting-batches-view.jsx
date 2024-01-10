@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,13 +16,13 @@ import { HeaderTable } from '@components/table/header-table/header-table'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-awaiting-batches-view.style'
+import { useStyles } from './client-awaiting-batches-view.style'
 
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
-export const ClientAwaitingBatchesViewRaw = props => {
+export const ClientAwaitingBatchesView = observer(props => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history: props.history }))
-  const { classes: className } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -31,51 +30,49 @@ export const ClientAwaitingBatchesViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
-        <HeaderTable viewModel={viewModel} />
-        <div className={className.datagridWrapper}>
-          <CustomDataGrid
-            useResizeContainer
-            checkboxSelection
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            rowSelectionModel={viewModel.selectedBatches}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              columnMenu: viewModel.columnMenuSettings,
+      <HeaderTable viewModel={viewModel} />
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          useResizeContainer
+          checkboxSelection
+          disableRowSelectionOnClick
+          localeText={getLocalizationByLanguageTag()}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          rowSelectionModel={viewModel.selectedBatches}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
-          />
-        </div>
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+        />
       </div>
 
       <Modal
@@ -140,6 +137,4 @@ export const ClientAwaitingBatchesViewRaw = props => {
       />
     </React.Fragment>
   )
-}
-
-export const ClientAwaitingBatchesView = withStyles(observer(ClientAwaitingBatchesViewRaw), styles)
+})

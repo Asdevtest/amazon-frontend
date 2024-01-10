@@ -362,6 +362,9 @@ export const darkTheme = createTheme({
           color: '#fff',
           borderRadius: 20,
         },
+        overlay: {
+          backgroundColor: '#1E1E1E !important',
+        },
 
         row: {
           cursor: 'pointer',

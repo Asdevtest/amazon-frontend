@@ -324,9 +324,9 @@ export class ClientInStockBoxesViewModel {
     this.getBoxesMy()
   }
 
-  async getStorekeepers(withoutTariffs) {
+  async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, undefined, withoutTariffs)
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, undefined)
 
       runInAction(() => {
         this.storekeepersData = result
@@ -730,7 +730,7 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
-      await this.getStorekeepers(true)
+      await this.getStorekeepers()
       this.getBoxesMy()
       this.getDestinations()
       this.getShops()
