@@ -7,18 +7,28 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { useStyles } from './product-asin-cell.style'
 
 interface ProductAsinCellProps {
-  asin: string
+  asin?: string
   image?: string
   amazonTitle?: string
   skuByClient?: string
   withoutImage?: boolean
   withoutSku?: boolean
+  withoutAsin?: boolean
   withoutTitle?: boolean
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
   const { classes: styles } = useStyles()
-  const { image, amazonTitle, asin, skuByClient, withoutImage = undefined, withoutSku, withoutTitle } = props
+  const {
+    image,
+    amazonTitle,
+    asin,
+    skuByClient,
+    withoutImage = undefined,
+    withoutSku,
+    withoutTitle,
+    withoutAsin,
+  } = props
 
   return (
     <div className={styles.asinCellContainer}>
@@ -26,7 +36,7 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
 
       <div className={styles.csCodeTypoWrapper}>
         {!withoutTitle && <p className={styles.csCodeTypo}>{amazonTitle}</p>}
-        <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+        {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />}
         {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skuByClient} />}
       </div>
     </div>

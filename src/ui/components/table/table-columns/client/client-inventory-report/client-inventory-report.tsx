@@ -45,13 +45,24 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
     renderCell: (params: GridRenderCellParams) => (
-      <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
+      <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
     ),
-    width: 185,
+    width: 250,
     sortable: false,
 
     table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.client.SHOP_REPORT,
+  },
+
+  {
+    field: 'categoryAbc',
+    headerName: 'ABC',
+    renderHeader: () => <MultilineTextHeaderCell text="ABC" />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    width: 83,
+
+    table: DataGridFilterTables.INVENTORY,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

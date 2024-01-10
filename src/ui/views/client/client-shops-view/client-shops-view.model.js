@@ -38,6 +38,8 @@ export class ShopsViewModel extends DataGridTableModel {
 
     super(ShopModel.getMyShops, shopsColumns(rowHandlers))
 
+    this.getMainTableData()
+
     makeObservable(this, observerConfig)
   }
 

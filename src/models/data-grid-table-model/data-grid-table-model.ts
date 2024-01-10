@@ -161,9 +161,11 @@ export class DataGridTableModel extends ModalsModel {
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, isNotServer?: boolean) {
     this.columnVisibilityModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
@@ -171,21 +173,27 @@ export class DataGridTableModel extends ModalsModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeSortingModel(sortModel: GridSortModel) {
+  onChangeSortingModel(sortModel: GridSortModel, isNotServer?: boolean) {
     this.sortModel = sortModel
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
-  onChangeFilterModel(model: GridFilterModel) {
+  onChangeFilterModel(model: GridFilterModel, isNotServer?: boolean) {
     this.filterModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
-  onPaginationModelChange(model: GridPaginationModel) {
+  onPaginationModelChange(model: GridPaginationModel, isNotServer?: boolean) {
     this.paginationModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
