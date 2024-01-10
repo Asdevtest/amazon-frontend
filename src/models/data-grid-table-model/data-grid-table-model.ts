@@ -17,6 +17,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
 
+import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
@@ -30,11 +31,11 @@ export class DataGridTableModel extends ModalsModel {
     this._unserverSearchValue = unserverSearchValue
   }
 
-  _rowCount = 0
-  _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
   _densityModel = 'compact'
-  _paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
-  _filterModel: GridFilterModel = { items: [] }
+  _rowCount = 0
+  _sortModel: GridSortModel = sortModelInitialValue
+  _paginationModel: GridPaginationModel = paginationModelInitialValue
+  _filterModel: GridFilterModel = filterModelInitialValue
   _columnVisibilityModel: GridColumnVisibilityModel = {}
   _selectedRows: string[] = []
   _tableKey: string | undefined = undefined
