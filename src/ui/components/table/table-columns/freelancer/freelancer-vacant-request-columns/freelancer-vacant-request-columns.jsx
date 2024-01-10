@@ -25,14 +25,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        textCenter
-        component={<img src="/assets/icons/bookmark.svg" />}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
     width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
@@ -161,6 +154,28 @@ export const FreelancerVacantRequestColumns = handlers => [
       <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
     width: 100,
+  },
+
+  {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />,
+    width: 130,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'announcement',
+    headerName: t(TranslationKey.Announcement),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.announcement?.title || t(TranslationKey.Missing)} />,
+    width: 130,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

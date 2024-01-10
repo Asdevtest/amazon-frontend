@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '30px !important',
+    minWidth: 'unset !important',
     cursor: 'pointer',
     color: '#fff',
     height: 40,

@@ -20,6 +20,8 @@ export const filtersFields = [
   'taskComplexity',
   'typeTask',
   'reworkCounter',
+  'shop',
+  'announcement',
 ]
 
 export const switcherConditions = {

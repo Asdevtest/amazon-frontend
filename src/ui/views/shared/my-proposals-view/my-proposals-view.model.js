@@ -334,10 +334,11 @@ export class MyProposalsViewModel {
         'requestCreatedBy',
         'taskComplexity',
         'typeTask',
+        'announcement',
       ].includes(column)
     ) {
       return 'requests'
-    } else if (['asin', 'skuByClient', 'amazonTitle'].includes(column)) {
+    } else if (['asin', 'skuByClient', 'amazonTitle', 'shop'].includes(column)) {
       return 'products'
     }
   }
