@@ -34,6 +34,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   } = props
 
   const noSelectedRows = !selectedRows?.length
+  const isInventoryShipments = currentTabKey === ShopReportsTabsValues.INVENTORY_SHIPMENTS
   const disableButton = currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows
 
   return (
@@ -50,7 +51,9 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
 
       <SearchInput
         value={currentSearchValue}
-        placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(TranslationKey.SKU)}`}
+        placeholder={`${t(TranslationKey['Search by'])} ${
+          !isInventoryShipments ? t(TranslationKey.ASIN) + ', ' : ''
+        }${t(TranslationKey.SKU)}`}
         onSubmit={onChangeSearchValue}
       />
 

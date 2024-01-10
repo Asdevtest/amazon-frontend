@@ -9,6 +9,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
+import {
+  filterModelInitialValue,
+  paginationModelInitialValue,
+  sortModelInitialValue,
+} from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
@@ -59,9 +64,10 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   constructor(currentTabsValues: ShopReportsTabsValues) {
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentTabsValues)
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+      getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, ['asin', 'sku'])
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch)
 
     makeObservable(this, observerConfig)
   }
@@ -69,13 +75,17 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   changeTabHandler = (key: ShopReportsTabsValues) => {
     this.tabKey = key
 
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(key)
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } = getClassParams(key)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
+    this.sortModel = sortModelInitialValue
+    this.paginationModel = paginationModelInitialValue
+    this.filterModel = filterModelInitialValue
+    this.fieldsForSearch = fieldsForSearch
 
     this.getMainTableData()
   }
@@ -89,13 +99,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       return
     }
 
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(currentReport)
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+      getClassParams(currentReport)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
 
     if (currentShopId) {
       this.onChangeFullFieldMenuItem([{ _id: currentShopId }], 'shop')
