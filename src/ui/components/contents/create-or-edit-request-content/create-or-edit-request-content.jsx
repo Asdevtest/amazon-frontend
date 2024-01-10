@@ -900,8 +900,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                       <Typography className={styles.imagesTitle}>{t(TranslationKey.Files)}</Typography>
                       <PhotoAndFilesSlider
-                        column
                         smallSlider
+                        customSlideHeight={98}
                         files={images.map(el => el.file)}
                         imagesTitles={images.map(el => el.comment)}
                       />

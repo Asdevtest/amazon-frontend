@@ -90,6 +90,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
     [theme.breakpoints.down(1500)]: {
       flexDirection: 'column',
+      alignItems: 'flex-start',
     },
   },
 
