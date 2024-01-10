@@ -118,6 +118,32 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+    ),
+    width: 130,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'announcement',
+    headerName: t(TranslationKey.Announcement),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
+
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
+    ),
+    width: 130,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
     field: 'requestCreatedBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,

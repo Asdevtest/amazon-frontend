@@ -240,7 +240,6 @@ export const lightTheme = createTheme({
     text: {
       general: '#001029',
       second: '#656565',
-
       gray: '#C4C4C4',
       red: '#DD2121',
       negativeMain: '#fff',
@@ -259,6 +258,15 @@ export const lightTheme = createTheme({
       casualDisabledBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
       casualHoverBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
       casualDisabledText: '#E0E0E0',
+
+      outlineEditBoxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+      outlineEditHoverColor: '#0F5BB6',
+      outlineEditHoverBackground: '#F4F9FF',
+      outlineEditDisabledColor: '#D7E8FF',
+
+      deleteHoverColor: '#912018',
+      deleteHoverBackground: '#FFF0EF',
+      deleteDisabledColor: '#FFF0EE',
     },
 
     orderStatus: {
@@ -660,7 +668,17 @@ export const darkTheme = createTheme({
       casualBorder: '#424250',
       casualDisabledBorder: 'rgba(43, 43, 52, 0.89)',
       casualHoverBorder: '#5A5A67',
-      casualDisabledText: 'rgba(255, 255, 255, 0.17)  ',
+      casualDisabledText: 'rgba(255, 255, 255, 0.17)',
+
+      outlineEditBoxShadow:
+        '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      outlineEditHoverColor: '#4CA1DE',
+      outlineEditHoverBackground: '#375674',
+      outlineEditDisabledColor: '#2E4760',
+
+      deleteHoverColor: '#8C0000',
+      deleteHoverBackground: '#451F27',
+      deleteDisabledColor: '#471721',
     },
 
     action: {

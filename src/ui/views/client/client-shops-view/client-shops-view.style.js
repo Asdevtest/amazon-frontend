@@ -7,18 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  headerWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  buttonsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 30,
-  },
-
   shopsSelect: {
     marginLeft: 'auto',
   },

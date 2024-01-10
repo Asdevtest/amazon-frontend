@@ -14,4 +14,8 @@ export const filtersFields = [
   'priceAmazon',
   'withoutConfirmation',
   'taskComplexity',
+  'shop',
+  'announcement',
 ]
+
+export const defaultHiddenColumns = ['cashBackInPercent', 'priceAmazon']

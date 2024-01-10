@@ -18,7 +18,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-import { filtersFields } from './vacant-requests-view.constants'
+import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -111,6 +111,9 @@ export class VacantRequestsViewModel {
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
+    defaultHiddenColumns.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
   }
 
   onChangeViewMode(value) {
