@@ -5,6 +5,7 @@ import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 
 import {
+  GridCallbackDetails,
   GridColDef,
   GridColumnVisibilityModel,
   GridFilterModel,
@@ -162,7 +163,7 @@ export class DataGridTableModel extends ModalsModel {
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, isNotServer?: boolean) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.columnVisibilityModel = model
     if (!isNotServer) {
       this.getMainTableData()
@@ -174,15 +175,16 @@ export class DataGridTableModel extends ModalsModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeSortingModel(sortModel: GridSortModel, isNotServer?: boolean) {
+  onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.sortModel = sortModel
+
     if (!isNotServer) {
       this.getMainTableData()
     }
     this.setDataGridState()
   }
 
-  onChangeFilterModel(model: GridFilterModel, isNotServer?: boolean) {
+  onChangeFilterModel(model: GridFilterModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.filterModel = model
     if (!isNotServer) {
       this.getMainTableData()
@@ -190,7 +192,7 @@ export class DataGridTableModel extends ModalsModel {
     this.setDataGridState()
   }
 
-  onPaginationModelChange(model: GridPaginationModel, isNotServer?: boolean) {
+  onPaginationModelChange(model: GridPaginationModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.paginationModel = model
     if (!isNotServer) {
       this.getMainTableData()

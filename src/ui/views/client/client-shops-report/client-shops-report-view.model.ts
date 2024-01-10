@@ -87,7 +87,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
 
-    this.getMainTableData()
+    // this.getMainTableData()
   }
 
   initUserSettings() {

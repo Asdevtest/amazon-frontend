@@ -56,7 +56,8 @@ export const ClientShopsView = observer(() => {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: model => viewModel.onColumnVisibilityModelChange(model, true),
+                onColumnVisibilityModelChange: (model, details) =>
+                  viewModel.onColumnVisibilityModelChange(model, details, true),
               },
             },
           }}
@@ -65,10 +66,12 @@ export const ClientShopsView = observer(() => {
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={sortModel => viewModel.onChangeSortingModel(sortModel, true)}
-          onColumnVisibilityModelChange={model => viewModel.onColumnVisibilityModelChange(model, true)}
-          onPaginationModelChange={model => viewModel.onPaginationModelChange(model, true)}
-          onFilterModelChange={model => viewModel.onChangeFilterModel(model, true)}
+          onSortModelChange={(model, details) => viewModel.onChangeSortingModel(model, details, true)}
+          onColumnVisibilityModelChange={(model, details) =>
+            viewModel.onColumnVisibilityModelChange(model, details, true)
+          }
+          onPaginationModelChange={(model, details) => viewModel.onPaginationModelChange(model, details, true)}
+          onFilterModelChange={(model, details) => viewModel.onChangeFilterModel(model, details, true)}
         />
       </div>
 
