@@ -25,7 +25,7 @@ export const HeaderTable = ({ viewModel }) => {
     ])
 
   return (
-    <React.Fragment>
+    <div>
       <div className={styles.searchWrapper}>
         <SearchInput
           key={'client_batches_awaiting-batch_search_input'}
@@ -77,6 +77,6 @@ export const HeaderTable = ({ viewModel }) => {
           </Button>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   )
 }
