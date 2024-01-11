@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   listItemText: {
-    marginRight: 14,
+    marginRight: 25,
     fontSize: 13,
     fontWeight: 500,
   },
