@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   datePickerWrapper: {
-    width: 150,
+    width: 100,
   },
 
   commentInput: {
