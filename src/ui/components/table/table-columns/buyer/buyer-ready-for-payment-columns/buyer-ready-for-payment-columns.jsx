@@ -1,7 +1,13 @@
 import { Checkbox } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
+import {
+  OrderStatus,
+  OrderStatusByCode,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+  orderColorByStatus,
+} from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -90,7 +96,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
         <MultilineTextCell
-          text={params.value}
+          text={OrderStatusTranslate(OrderStatusByCode[params.row.originalData.status])}
           maxLength={50}
           color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
         />
