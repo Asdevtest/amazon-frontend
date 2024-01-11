@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,18 +13,18 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './services-detail-view.style'
+import { useStyles } from './services-detail-view.style'
 
 import { ServiceDetailsViewModel } from './services-detail-view.model'
 
-export const ServiceDetailsViewRaw = props => {
+export const ServiceDetailsView = observer(props => {
   const [viewModel] = useState(
     () =>
       new ServiceDetailsViewModel({
         history: props.history,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
@@ -42,7 +41,7 @@ export const ServiceDetailsViewRaw = props => {
           onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
         />
 
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -72,7 +71,6 @@ export const ServiceDetailsViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
           />
         </div>
       </div>
@@ -98,6 +96,4 @@ export const ServiceDetailsViewRaw = props => {
       </Modal>
     </React.Fragment>
   )
-}
-
-export const ServiceDetailsView = withStyles(observer(ServiceDetailsViewRaw), styles)
+})

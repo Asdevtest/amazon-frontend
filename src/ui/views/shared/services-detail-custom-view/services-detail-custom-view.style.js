@@ -1,4 +1,6 @@
-export const styles = () => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   backBtnWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -14,4 +16,4 @@ export const styles = () => ({
     width: '140px',
     height: '40px',
   },
-})
+}))
