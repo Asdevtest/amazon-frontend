@@ -283,6 +283,7 @@ export const lightTheme = createTheme({
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       activeChat: '#E7F1FF',
+      secondary: 'rgba(200, 200, 200, 1)',
     },
 
     customSwitcher: {
@@ -687,6 +688,7 @@ export const darkTheme = createTheme({
       entryLeftPanel: '#2B2B34',
       disabled: '#a0a0a4',
       activeChat: '#384C68',
+      secondary: 'rgba(200, 200, 200, 1)',
     },
 
     customSwitcher: {
