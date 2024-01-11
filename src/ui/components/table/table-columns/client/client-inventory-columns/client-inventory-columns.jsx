@@ -473,12 +473,10 @@ export const clientInventoryColumns = (
       />
     ),
     renderCell: params => (
-      <>
-        <MultilineTextCell
-          text={productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status])}
-          color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
-        />
-      </>
+      <MultilineTextCell
+        text={productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status])}
+        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
+      />
     ),
     width: 100,
 
