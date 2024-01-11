@@ -9,7 +9,6 @@ export const useStyles = makeStyles()(theme => ({
 
   secondBlock: {
     width: 670,
-    marginTop: '-10px',
   },
 
   requestInformationTitleWrapper: {
@@ -28,6 +27,8 @@ export const useStyles = makeStyles()(theme => ({
 
   confirmationWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    height: '21px',
   },
 
   doneIcon: {
