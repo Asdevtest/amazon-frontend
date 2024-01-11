@@ -771,6 +771,7 @@ export class ClientOrdersViewModel {
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (e) {
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(e)
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
