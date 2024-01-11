@@ -43,8 +43,8 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
     setOpenModal,
   } = props
 
-  const { classes: styles, cx } = useStyles()
-
+  const { classes: styles } = useStyles()
+  const fieldConfig = infoModalConfig({ selectedProduct })
   const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
 
   const batchRowHandler = (guid: string) => {
@@ -63,8 +63,6 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
     // @ts-ignore
     return <CircularProgressWithLabel />
   }
-
-  const fieldConfig = infoModalConfig({ selectedProduct, styles, cx })
 
   return (
     <Modal contentWrapperClassName={styles.contentWrapperClassName} openModal={openModal} setOpenModal={setOpenModal}>
