@@ -6,6 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
+import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
@@ -35,7 +36,7 @@ export class BuyerFreeOrdersViewModel {
   selectedRowIds = []
 
   sortModel = []
-  filterModel = { items: [] }
+  filterModel = filterModelInitialValue
   densityModel = 'compact'
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
@@ -45,6 +46,10 @@ export class BuyerFreeOrdersViewModel {
 
   get currentData() {
     return this.ordersVacant
+  }
+
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
   }
 
   constructor({ history }) {
@@ -235,5 +240,9 @@ export class BuyerFreeOrdersViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
   }
 }
