@@ -80,7 +80,7 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
           <div>
             {selectedProductShop && (
               <p className={styles.shopName}>
-                <span className={styles.showAttributeName}>Shop:</span> {selectedProductShop.name}
+                <span className={styles.showAttributeName}>{t(TranslationKey.Shop)}:</span> {selectedProductShop.name}
               </p>
             )}
             <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={selectedProduct.asin} />
@@ -89,9 +89,9 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
         </div>
         <Divider />
         <div className={styles.fieldWrapper}>
-          {fieldConfig.map(field => (
+          {fieldConfig.map((field, index) => (
             <Field
-              key={field.title}
+              key={index}
               containerClasses={field.containerClass}
               labelClasses={field.labelClass}
               label={field.title}
@@ -116,7 +116,7 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
               pagination: () => null,
             }}
             rows={rows ?? []}
-            getRowId={(row: any) => row._id}
+            getRowId={({ _id }: { _id: string }) => _id}
             columns={columns}
           />
         </div>

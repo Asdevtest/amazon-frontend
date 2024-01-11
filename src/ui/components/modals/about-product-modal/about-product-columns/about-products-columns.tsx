@@ -28,8 +28,6 @@ export const aboutProductsColumns = [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    valueGetter: (params: GridRenderCellParams) =>
-      OrderStatusTranslate(OrderStatusByCode[params.value as keyof typeof OrderStatusByCode]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: (params: GridRenderCellParams) => (
       <MultilineTextCell

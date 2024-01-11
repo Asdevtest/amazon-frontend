@@ -5,24 +5,24 @@ import { Button } from '@components/shared/buttons/button'
 import { useStyles } from './action-buttons-cell.style'
 
 interface ActionButtonsProps {
-  onClickRepeatButton: () => void
-  onClickOrderButton: () => void
-  repeatButtonText: string
-  warehouseOrdersButtonText: string
+  onClickFirstButton: () => void
+  onClickSecondButton: () => void
+  firstButtonText: string
+  secondButtonText: string
 }
 
 export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
-  const { onClickRepeatButton, onClickOrderButton, repeatButtonText, warehouseOrdersButtonText } = props
+  const { onClickFirstButton, onClickSecondButton, firstButtonText, secondButtonText } = props
 
   const { classes: styles, cx } = useStyles()
   return (
     <div className={styles.wrapper}>
-      <Button className={cx(styles.button, styles.repeatButton)} onClick={onClickRepeatButton}>
-        {repeatButtonText}
+      <Button className={cx(styles.button, styles.repeatButton)} onClick={onClickFirstButton}>
+        {firstButtonText}
       </Button>
 
-      <Button className={styles.button} variant="outlined" onClick={onClickOrderButton}>
-        {warehouseOrdersButtonText}
+      <Button className={styles.button} variant="outlined" onClick={onClickSecondButton}>
+        {secondButtonText}
       </Button>
     </div>
   )

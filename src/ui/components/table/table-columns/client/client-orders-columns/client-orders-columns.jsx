@@ -105,10 +105,10 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderCell: params =>
       Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
         <ActionButtons
-          repeatButtonText={t(TranslationKey['Repeat order'])}
-          warehouseOrdersButtonText={t(TranslationKey['Warehouse and orders'])}
-          onClickRepeatButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
-          onClickOrderButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+          firstButtonText={t(TranslationKey['Repeat order'])}
+          secondButtonText={t(TranslationKey['Warehouse and orders'])}
+          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
+          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
         />
       ) : (
         <SuccessActionBtnCell
