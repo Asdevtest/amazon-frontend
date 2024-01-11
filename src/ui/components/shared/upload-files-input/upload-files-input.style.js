@@ -1,7 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 import { tooltipClasses } from '@mui/material/Tooltip'
-import { width } from '@mui/system'
 
 export const useStyles = makeStyles()(theme => ({
   mainWrapper: {

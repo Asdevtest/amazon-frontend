@@ -5,7 +5,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flex: '1 0',
     width: '22%',
-    maxWidth: '30%',
     padding: '35px 20px',
     flexDirection: 'column',
     gap: '15px',
@@ -13,7 +12,6 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.general,
     [theme.breakpoints.down(1500)]: {
       width: '30%',
-      maxWidth: '50%',
     },
   },
 
