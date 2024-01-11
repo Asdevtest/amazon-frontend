@@ -1,7 +1,6 @@
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { OrderStatusByCode } from '@constants/orders/order-status'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -474,7 +473,7 @@ export const clientInventoryColumns = (
     ),
     renderCell: params => (
       <MultilineTextCell
-        text={productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status])}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
