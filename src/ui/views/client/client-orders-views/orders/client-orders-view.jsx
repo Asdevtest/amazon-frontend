@@ -125,7 +125,6 @@ export const ClientOrdersView = observer(history => {
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
-          showLoading={viewModel.showLoading}
           changeSwitcher={viewModel.onClickAboutSwitcherField}
           currentSwitch={viewModel.aboutProductSwitcher}
           batches={viewModel.productBatches}

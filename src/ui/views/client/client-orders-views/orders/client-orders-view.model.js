@@ -47,7 +47,6 @@ export class ClientOrdersViewModel {
   selectedRowIds = []
 
   showOrderModal = false
-  showLoading = false
   showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
@@ -762,20 +761,19 @@ export class ClientOrdersViewModel {
 
   async onClickWarehouseOrderButton(guid) {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      const result = await ClientModel.getProductById(guid)
       this.productBatches = undefined
       this.onTriggerOpenModal('showProductModal')
-      this.showLoading = true
       this.activeProductGuid = guid
-      const result = await ClientModel.getProductById(guid)
       runInAction(() => {
         this.selectedWarehouseOrderProduct = result
-        this.showLoading = false
+        this.setRequestStatus(loadingStatuses.SUCCESS)
       })
     } catch (e) {
       console.log(e)
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
-        this.showLoading = false
       })
     }
   }

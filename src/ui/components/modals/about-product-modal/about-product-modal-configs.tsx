@@ -16,10 +16,6 @@ import { IProductWithOrder } from '../prodct-and-batch-modal/product-and-batch.m
 
 import { AboutProductSwitcher } from './about-product-switcher'
 
-interface IModalFieldConfig {
-  selectedProduct: IProductWithOrder
-}
-
 interface IModalConfig {
   title: string
   element: ReactElement | ReactElement[]
@@ -32,7 +28,7 @@ export const switcherSettings = [
   { label: () => t(TranslationKey['Batch data']), value: AboutProductSwitcher.BATCH_DATA },
 ]
 
-export const infoModalConfig = ({ selectedProduct }: IModalFieldConfig): IModalConfig[] => {
+export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfig[] => {
   const { classes: styles, cx } = useStyles()
   return [
     {

@@ -6,7 +6,6 @@ import { Divider } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -34,7 +33,6 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
     selectedProduct,
     shops,
     batches,
-    showLoading,
     setShowBatchModal,
     getCurrentBatch,
     currentSwitch,
@@ -44,7 +42,7 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
   } = props
 
   const { classes: styles } = useStyles()
-  const fieldConfig = infoModalConfig({ selectedProduct })
+  const fieldConfig = infoModalConfig(selectedProduct)
   const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
 
   const batchRowHandler = (guid: string) => {
@@ -58,11 +56,6 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
   const rows = switchCurrentCondition ? batches : selectedProduct?.orders
 
   const updatedText = `${t(TranslationKey.Updated)}: ${formatDateTime(selectedProduct?.updatedAt)}`
-
-  if (showLoading) {
-    // @ts-ignore
-    return <CircularProgressWithLabel />
-  }
 
   return (
     <Modal contentWrapperClassName={styles.contentWrapperClassName} openModal={openModal} setOpenModal={setOpenModal}>

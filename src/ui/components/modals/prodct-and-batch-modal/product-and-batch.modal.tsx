@@ -22,7 +22,6 @@ export interface IProductAndBatchModalProps {
   shops: IShop[]
   selectedProduct: IProductWithOrder
   batches: IOrderBoxBatch[]
-  showLoading: boolean
   openModal: boolean
   setOpenModal: () => void
   currentBatch?: IOrderBoxBatch
@@ -34,7 +33,6 @@ export const ProductAndBatchModal: FC<IProductAndBatchModalProps> = memo(props =
     selectedProduct,
     shops,
     batches,
-    showLoading,
     openModal,
     setOpenModal,
     currentBatch,
@@ -59,7 +57,6 @@ export const ProductAndBatchModal: FC<IProductAndBatchModalProps> = memo(props =
         changeSwitcher={changeSwitcher}
         currentSwitch={currentSwitch}
         batches={batches}
-        showLoading={showLoading}
         setShowBatchModal={handleShowModal}
         getCurrentBatch={getCurrentBatch}
       />
