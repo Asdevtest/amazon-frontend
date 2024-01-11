@@ -174,7 +174,7 @@ export class AdminInventoryViewModel {
 
   async getProducts() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await AdministratorModel.getProductsPag({
         status: statuses.join(),
@@ -193,9 +193,9 @@ export class AdminInventoryViewModel {
         this.products = result.rows
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
       if (error.body && error.body.message) {
@@ -302,7 +302,7 @@ export class AdminInventoryViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -317,9 +317,9 @@ export class AdminInventoryViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

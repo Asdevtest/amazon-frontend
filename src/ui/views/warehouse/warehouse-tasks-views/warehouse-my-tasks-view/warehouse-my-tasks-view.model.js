@@ -154,13 +154,13 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
@@ -216,7 +216,7 @@ export class WarehouseMyTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -259,13 +259,13 @@ export class WarehouseMyTasksViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -353,7 +353,7 @@ export class WarehouseMyTasksViewModel {
 
   async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(
@@ -450,13 +450,13 @@ export class WarehouseMyTasksViewModel {
       }
 
       await this.updateTask(this.selectedTask._id, comment)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       this.onTriggerEditTaskModal()
 
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

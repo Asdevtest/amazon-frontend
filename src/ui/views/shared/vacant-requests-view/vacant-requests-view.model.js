@@ -18,7 +18,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-import { filtersFields } from './vacant-requests-view.constants'
+import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -111,6 +111,9 @@ export class VacantRequestsViewModel {
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
+    defaultHiddenColumns.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
   }
 
   onChangeViewMode(value) {
@@ -131,19 +134,19 @@ export class VacantRequestsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getTableModeState()
       await this.getRequestsVacant()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   async getRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await RequestModel.getRequests({
         kind: RequestSubType.VACANT,
@@ -168,9 +171,9 @@ export class VacantRequestsViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -191,7 +194,7 @@ export class VacantRequestsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
@@ -208,9 +211,9 @@ export class VacantRequestsViewModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }
@@ -311,7 +314,7 @@ export class VacantRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await RequestModel.getCustomRequestById(id)
 
@@ -319,9 +322,9 @@ export class VacantRequestsViewModel {
         this.currentRequestDetails = response
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

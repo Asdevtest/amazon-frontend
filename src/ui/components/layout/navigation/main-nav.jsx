@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Suspense, useState, useEffect, useMemo, useRef } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { GlobalStyles } from '@mui/material'
@@ -15,15 +15,17 @@ import { SettingsModel } from '@models/settings-model'
 import { ToastifyProvder } from '@components/layout/navigation/toastify/toastify-provder'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
+import { HintsContextProvider } from '@contexts/hints-context'
+
 import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'
 import { generateRedirects } from './redirects'
 
-export const MainNav = observer(() => {
-  const languageTagRef = useRef(SettingsModel.languageTag)
 
+export const MainNav = observer(() => {
+  const [lang,setLang]= useState()
   useEffect(() => {
-    languageTagRef.current = SettingsModel.languageTag
+    setLang(SettingsModel.languageTag)
   }, [SettingsModel.languageTag])
 
   const uiThemeModeRef = useRef(SettingsModel.uiTheme)
@@ -39,19 +41,21 @@ export const MainNav = observer(() => {
   )
 
   return (
-    <ThemeProvider theme={theme}>
-      <ToastifyProvder theme={SettingsModel.uiTheme} />
-      <GlobalStyles styles={globalStyles} />
-      <CssBaseline />
-      <Router>
-        <Suspense fallback={<CircularProgressWithLabel />}>
-          <Switch>
-            {generateRedirects()}
-            {generatePublicRoutes()}
-            <PrivateRoutes />
-          </Switch>
-        </Suspense>
-      </Router>
+    <ThemeProvider theme={{...theme, lang}}>
+      <HintsContextProvider hints>
+        <ToastifyProvder theme={SettingsModel.uiTheme} />
+        <GlobalStyles styles={globalStyles} />
+        <CssBaseline />
+        <Router>
+          <Suspense fallback={<CircularProgressWithLabel />}>
+            <Switch>
+              {generateRedirects()}
+              {generatePublicRoutes()}
+              <PrivateRoutes />
+            </Switch>
+          </Suspense>
+        </Router>
+      </HintsContextProvider>
     </ThemeProvider>
   )
 })

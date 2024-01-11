@@ -57,7 +57,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const isCreatedByClient = true
 
@@ -69,10 +69,10 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []

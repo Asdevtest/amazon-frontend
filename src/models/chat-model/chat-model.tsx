@@ -473,7 +473,9 @@ class ChatModelStatic {
       })
     }
 
-    this.getUnreadMessagesCount(!isCurrentUser ? 1 : 0)
+    const isAddCounter = !isCurrentUser && newMessage?.text !== ChatMessageType.PROPOSAL_STATUS_CHANGED
+
+    this.getUnreadMessagesCount(isAddCounter ? 1 : 0)
   }
 
   public onChangeChatSelectedId(value: string | undefined) {

@@ -25,17 +25,15 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
         component={
           <DataGridSelectViewProductBatch
             changeViewModeHandler={rowHandlers?.changeViewModeHandler}
-            selectedViewMode={getProductViewMode()}
-            rootStyles={{ marginLeft: 15 }}
+            selectedViewMode={getProductViewMode}
+            rootStyles={{ marginLeft: 15, marginRight: 15 }}
           />
         }
       />
     ),
     headerName: t(TranslationKey.Product),
     width: 420,
-    renderCell: params => (
-      <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
-    ),
+    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode} />,
     filterable: false,
     sortable: false,
 

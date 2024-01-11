@@ -18,6 +18,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './orders.style'
 
+import { statusesForChecking } from './orders.constant'
 import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
@@ -86,7 +87,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onPaginationModelChange={onChangePaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
@@ -103,6 +104,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           isSetDeadline
+          statusesForChecking={statusesForChecking}
           reorderOrdersData={[reorderOrder]}
           platformSettings={platformSettings}
           destinations={destinations}

@@ -135,8 +135,6 @@ export class ClientOrdersViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
@@ -159,11 +157,7 @@ export class ClientOrdersViewModel {
           }
         })
       }
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -366,7 +360,7 @@ export class ClientOrdersViewModel {
 
   async onClickManyReorder() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       runInAction(() => {
         this.reorderOrdersData = []
@@ -395,9 +389,9 @@ export class ClientOrdersViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -442,7 +436,7 @@ export class ClientOrdersViewModel {
         return
       }
 
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
 
@@ -463,9 +457,9 @@ export class ClientOrdersViewModel {
       } else {
         await this.onClickContinueBtn(item)
       }
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -506,7 +500,7 @@ export class ClientOrdersViewModel {
 
   async getOrders() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
       const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
@@ -535,9 +529,9 @@ export class ClientOrdersViewModel {
         this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
 

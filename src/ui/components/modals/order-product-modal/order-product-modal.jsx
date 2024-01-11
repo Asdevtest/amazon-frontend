@@ -37,6 +37,7 @@ export const OrderProductModal = memo(props => {
     isPendingOrdering,
     isSetDeadline,
     isInventory,
+    statusesForChecking,
   } = props
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -62,6 +63,11 @@ export const OrderProductModal = memo(props => {
     reorderOrdersData?.length
       ? reorderOrdersData.map(reorderOrder => {
           const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
           return {
             ...reorderOrder.product,
@@ -80,11 +86,7 @@ export const OrderProductModal = memo(props => {
               : '',
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-            deadline:
-              (isSetDeadline || isPendingOrdering) &&
-              !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
-                ? reorderOrder.deadline
-                : null,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
           }
         })
       : selectedProductsData.map(product => ({
@@ -99,43 +101,44 @@ export const OrderProductModal = memo(props => {
 
   const [orderState, setOrderState] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          amount: reorderOrder.amount,
-          clientComment: '',
-          barCode: reorderOrder?.product?.barCode || '',
-          tmpBarCode: [],
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
-          transparency: reorderOrder?.product?.transparency,
-          transparencyFile: '',
-          tmpTransparencyFile: [],
+          return {
+            amount: reorderOrder.amount,
+            clientComment: '',
+            barCode: reorderOrder?.product?.barCode || '',
+            tmpBarCode: [],
 
-          productId: reorderOrder.product._id,
-          images: [],
+            transparency: reorderOrder?.product?.transparency,
+            transparencyFile: '',
+            tmpTransparencyFile: [],
 
-          // @refactor: need to create function
-          destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
-          storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+            productId: reorderOrder.product._id,
+            images: [],
 
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          _id: reorderOrder._id,
-          deadline:
-            isPendingOrdering &&
-            !(
-              isPast(new Date(reorderOrder.deadline)) ||
-              isToday(new Date(reorderOrder.deadline)) ||
-              isTomorrow(new Date(reorderOrder.deadline))
-            )
-              ? reorderOrder.deadline
-              : null,
-          buyerId: reorderOrder.buyer?._id || null,
-        }))
+            // @refactor: need to create function
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            _id: reorderOrder._id,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            buyerId: reorderOrder.buyer?._id || null,
+          }
+        })
       : selectedProductsData.map(product => ({
           amount: 1,
           clientComment: '',

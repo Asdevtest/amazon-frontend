@@ -12,6 +12,8 @@ export const unitsOfChangeOptions = {
   US: 'US',
 }
 
+export const maxLengthInputInSizeBox = 120
+
 export const inchesCoefficient = 2.54
 
 export const poundsCoefficient = /* 2.046223 */ 2.20462

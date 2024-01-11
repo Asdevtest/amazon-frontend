@@ -2,12 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '30px !important',
+    minWidth: 'unset !important',
     cursor: 'pointer',
     color: '#fff',
     height: 40,
     borderRadius: 7,
-    // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
     fontWeight: 600,
   },
@@ -52,9 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
     '&:disabled': {
-      // background: '#4F2026',
       background: theme.palette.button.disabledDangerBackground,
-      // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
   },
   border: {
@@ -126,6 +123,28 @@ export const useClassNames = makeStyles()(theme => ({
     '&: disabled': {
       color: theme.palette.text.general,
       background: 'transparent',
+    },
+  },
+
+  casual: {
+    borderRadius: '100px',
+    fontWeight: 500,
+    color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.casualBoxShadow,
+    border: `1px solid ${theme.palette.button.casualBorder}`,
+
+    '&:hover': {
+      boxShadow: theme.palette.boxShadow.casualBoxShadow,
+      backgroundColor: `${theme.palette.boxShadow.casualHover}`,
+      border: `1px solid ${theme.palette.button.casualHoverBorder}`,
+    },
+
+    '&:disabled': {
+      color: theme.palette.button.casualDisabledText,
+      backgroundColor: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.casualBoxShadow,
+      border: `1px solid ${theme.palette.button.casualDisabledBorder}`,
     },
   },
 }))

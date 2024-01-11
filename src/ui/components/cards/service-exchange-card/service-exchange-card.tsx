@@ -54,7 +54,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         {t(TranslationKey.Details)}
       </button>
 
-      <PhotoAndFilesSlider withoutFiles showPreviews mediumSlider files={service?.linksToMediaFiles} />
+      <PhotoAndFilesSlider withoutFiles smallPhotos showPreviews mediumSlider files={service?.linksToMediaFiles} />
 
       {isNotMyServices ? (
         <div className={classNames.detailsWrapper}>

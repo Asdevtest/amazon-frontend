@@ -198,15 +198,15 @@ export class OwnerRequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -286,7 +286,6 @@ export class OwnerRequestDetailCustomViewModel {
       })
 
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
-      this.loadData()
     } catch (error) {
       console.warn('onClickProposalResultAccept error ', error)
     }
@@ -628,7 +627,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -637,9 +636,9 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -657,12 +656,12 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     await RequestModel.updateDeadline(this.requestId, getLocalToUTCDate(timeoutAt), maxAmountOfProposals)
 
     this.getCustomRequestCur()
     this.getCustomProposalsForRequestCur()
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 }

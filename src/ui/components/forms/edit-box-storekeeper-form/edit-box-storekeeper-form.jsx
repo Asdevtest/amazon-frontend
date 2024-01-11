@@ -29,6 +29,7 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -64,6 +65,12 @@ export const EditBoxStorekeeperForm = memo(
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
+
+    useEffect(() => {
+      if (formItem.images.length > 0) {
+        setImagesOfBox(formItem.images)
+      }
+    }, [formItem])
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
@@ -153,7 +160,7 @@ export const EditBoxStorekeeperForm = memo(
       shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
-      images: formItem?.images || [],
+      // images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items ? formItem.items.map(el => ({ ...el, tmpBarCode: [], tmpTransparencyFile: [] })) : [],
@@ -340,10 +347,13 @@ export const EditBoxStorekeeperForm = memo(
     }
 
     const disableSubmit =
-      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
+      JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
         JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
-        boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+      boxFields.storekeeperId === '' ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+    !imagesOfBox.length
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -421,9 +431,7 @@ export const EditBoxStorekeeperForm = memo(
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={styles.productWrapper}>
                         <div className={styles.leftProductColumn}>
-                          <div className={styles.photoWrapper}>
-                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-                          </div>
+                          <PhotoAndFilesSlider withoutFiles mediumSlider files={item.product.images} />
 
                           <>
                             <Field
@@ -829,9 +837,10 @@ export const EditBoxStorekeeperForm = memo(
 
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput
+                    fullWidth
                     images={imagesOfBox}
                     setImages={setImagesOfBox}
-                    maxNumber={boxFields.images?.length ? 50 - boxFields.images?.length : 50}
+                    maxNumber={50 - imagesOfBox.length}
                   />
                 </div>
 
@@ -839,7 +848,7 @@ export const EditBoxStorekeeperForm = memo(
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
+                  <PhotoAndFilesSlider smallSlider showPreviews files={imagesOfBox} />
                 </div>
 
                 <div className={styles.commentsWrapper}>

@@ -244,7 +244,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           rowSelectionModel={viewModel.selectedRowIds}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -462,9 +462,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          selectedProductsData={viewModel.currentData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
+          selectedProductsData={viewModel.dataForOrderModal}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}

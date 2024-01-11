@@ -139,7 +139,7 @@ export class AdminOrdersAllViewModel {
 
   async getOrdersByStatus() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.getDataGridState()
 
@@ -159,9 +159,9 @@ export class AdminOrdersAllViewModel {
         this.rowsCount = result.count
         this.currentOrdersData = result.rows
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -227,7 +227,7 @@ export class AdminOrdersAllViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const filters = this.getFilters(column)
       const data = await GeneralModel.getDataForColumn(
@@ -246,9 +246,9 @@ export class AdminOrdersAllViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

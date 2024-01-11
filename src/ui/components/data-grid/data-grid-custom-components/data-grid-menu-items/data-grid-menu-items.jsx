@@ -32,13 +32,15 @@ import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsPositiveNum } from '@utils/checks'
+import { checkIsPositiveNum, checkIsPositiveOrNegativeDigit } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
+
+import { negativeOrPositiveList, wholeIntegersList } from './whole-integers-list'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -660,7 +662,7 @@ export const CreatedByMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -738,6 +740,7 @@ export const ObJectFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       nullObjName,
@@ -747,7 +750,8 @@ export const ObJectFieldMenuItem = React.memo(
       rowContent,
       asBlock,
     }) => {
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -763,7 +767,7 @@ export const ObJectFieldMenuItem = React.memo(
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
@@ -772,8 +776,8 @@ export const ObJectFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) =>
                 Number(b._id === 'null') - Number(a._id === 'null') ||
                 Number(choosenItems?.some(item => item._id === b._id)) -
@@ -810,7 +814,7 @@ export const ObJectFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -964,7 +968,7 @@ export const IdeaShopsFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1122,6 +1126,7 @@ export const NormalFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -1130,22 +1135,23 @@ export const NormalFieldMenuItem = React.memo(
       asBlock = false,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState([])
 
       useEffect(() => {
         if (currentFilterData) {
-          setChoosenItems(currentFilterData.filter(item => filterData.includes(item)))
+          setChoosenItems(currentFilterData.filter(item => filterData?.includes(item)))
         }
       }, [currentFilterData, filterData])
 
       const onClickItem = str => {
-        if (choosenItems.some(item => item === str)) {
-          setChoosenItems(choosenItems.filter(item => item !== str))
+        if (choosenItems?.some(item => item === str)) {
+          setChoosenItems(choosenItems?.filter(item => item !== str))
         } else {
           setChoosenItems([...choosenItems, str])
         }
@@ -1157,8 +1163,8 @@ export const NormalFieldMenuItem = React.memo(
         if (filterData) {
           setItemsForRender(
             filterData
-              .filter(el => el !== undefined && el !== null)
-              .sort(
+              ?.filter(el => el !== undefined && el !== null)
+              ?.sort(
                 (a, b) =>
                   currentFilterData.length &&
                   Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
@@ -1173,8 +1179,8 @@ export const NormalFieldMenuItem = React.memo(
         if (nameSearchValue) {
           const filter = filterData?.filter(item =>
             String(getStatusByColumnKeyAndStatusKey(item, columnKey))
-              .toLowerCase()
-              .includes(nameSearchValue.toLowerCase()),
+              ?.toLowerCase()
+              ?.includes(nameSearchValue.toLowerCase()),
           )
           setItemsForRender(filter)
         } else {
@@ -1206,7 +1212,7 @@ export const NormalFieldMenuItem = React.memo(
           </div>
 
           <div className={classNames.universalFilterBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1275,7 +1281,6 @@ export const PriorityMenuItem = React.memo(
       onClose,
       data,
       field,
-      filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1289,7 +1294,7 @@ export const PriorityMenuItem = React.memo(
       const urgentPriority = isOrder ? [40] : [30]
       const withoutPriority = isOrder ? [30] : [10, 20]
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1377,7 +1382,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1451,6 +1456,9 @@ export const ProductMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
+      withoutTitle,
+      skuOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1471,18 +1479,20 @@ export const ProductMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skuByClient?.currentFilterData?.length
+        : !withoutSku && data?.skuByClient?.currentFilterData?.length
         ? 'skuByClient'
+        : data.sku?.currentFilterData?.length
+        ? 'sku'
         : 'asin',
     )
-    // const { filterData } = data[currentOption]
+
     const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(getCurrentField(currentOption))
+      onClickFilterBtn(getCurrentField(currentOption), table)
     }, [currentOption])
 
     useEffect(() => {
@@ -1536,8 +1546,8 @@ export const ProductMenuItem = React.memo(
             <RadioGroup
               row
               className={cx({
-                [classNames.radioGroup]: !withoutSku,
-                [classNames.radioGroupTwoItems]: withoutSku,
+                [classNames.radioGroup]: !withoutSku && !withoutTitle,
+                [classNames.radioGroupTwoItems]: withoutSku || withoutTitle,
               })}
               value={currentOption}
               onChange={handleCategory}
@@ -1553,18 +1563,20 @@ export const ProductMenuItem = React.memo(
                 <FormControlLabel
                   title={t(TranslationKey.SKU)}
                   className={classNames.radioOption}
-                  value="skuByClient"
+                  value={skuOption ? 'sku' : 'skuByClient'}
                   control={<Radio className={classNames.radioControl} />}
                   label={t(TranslationKey.SKU)}
                 />
               )}
-              <FormControlLabel
-                title={t(TranslationKey.Title)}
-                className={classNames.radioOption}
-                value="amazonTitle"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Title)}
-              />
+              {!withoutTitle && (
+                <FormControlLabel
+                  title={t(TranslationKey.Title)}
+                  className={classNames.radioOption}
+                  value="amazonTitle"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Title)}
+                />
+              )}
             </RadioGroup>
           </FormControl>
         </div>
@@ -1581,7 +1593,7 @@ export const ProductMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1652,7 +1664,8 @@ export const OrderOrItemMenuItem = React.memo(
         }
       }, [currentOption])
 
-      const { filterData, currentFilterData } = data[currentOption]
+      const filterData = data[currentOption]?.filterData
+      const currentFilterData = data[currentOption]?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1673,8 +1686,8 @@ export const OrderOrItemMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
             ),
         )
@@ -1730,7 +1743,7 @@ export const OrderOrItemMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1809,7 +1822,10 @@ export const DestinationMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
     )
-    const { filterData, currentFilterData } = data[currentOption]
+
+    const filterData = data[currentOption]?.filterData
+    const currentFilterData = data[currentOption]?.currentFilterData
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1825,8 +1841,8 @@ export const DestinationMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el)
-          .sort(
+          ?.filter(el => el)
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item?._id === b?._id)) -
               Number(choosenItems?.some(item => item?._id === a?._id)),
@@ -1900,7 +1916,7 @@ export const DestinationMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1954,6 +1970,7 @@ export const FromToDateMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1964,10 +1981,11 @@ export const FromToDateMenuItem = React.memo(
       const [toDate, setToDate] = useState(null)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1988,8 +2006,8 @@ export const FromToDateMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 compareDesc(parseISO(a), parseISO(b)),
@@ -2040,7 +2058,7 @@ export const FromToDateMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2236,6 +2254,7 @@ export const NumberFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
 
@@ -2243,18 +2262,15 @@ export const NumberFieldMenuItem = React.memo(
       onClickFilterBtn,
       asBlock = false,
     }) => {
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
+
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
       const [isNotFixedValue, setIsNotFixedValue] = useState(false)
-
-      useEffect(() => {
-        onClickFilterBtn(field)
-        setIsNotFixedValue(checkIsNotFixedValue(field))
-      }, [])
-
-      const { filterData, currentFilterData } = data
-
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
       const onClickItem = str => {
         if (choosenItems.some(item => item === str)) {
@@ -2264,18 +2280,34 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
+      const checkIsNotFixedValue = useCallback(() => {
+        return wholeIntegersList.includes(field)
+      }, [field])
+
+      const inputNumberCheckHandler = (value, isToType) => {
+        const isValidDigit = negativeOrPositiveList.includes(field)
+          ? checkIsPositiveOrNegativeDigit(value)
+          : checkIsPositiveNum(value)
+
+        if (isValidDigit) {
+          isToType ? setToValue(value) : setFromValue(value)
+        }
+      }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+      useEffect(() => {
+        onClickFilterBtn(field, table)
+        setIsNotFixedValue(checkIsNotFixedValue(field))
+      }, [])
 
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el || el === 0 || el === '0')
-            .sort(
+            ?.filter(el => el || el === 0 || el === '0')
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 Number(b) - Number(a),
@@ -2293,34 +2325,6 @@ export const NumberFieldMenuItem = React.memo(
         setItemsForRender(filter)
       }, [nameSearchValue, fromValue, toValue])
 
-      const checkIsNotFixedValue = useCallback(() => {
-        const whiteList = [
-          'amount',
-          'productionTerm',
-          'amountInOrders',
-          'stockUSA',
-          'purchaseQuantity',
-          'sentToFbaSum',
-          'reservedSum',
-          'bsr',
-          'fbaFbmStockSum',
-          'reservedSum',
-          'sentToFbaSum',
-          'sumStock',
-          'humanFriendlyId',
-          'ideasVerified',
-          'ideasClosed',
-          'ideasOnCheck',
-          'ideasOnCheck',
-          'ideasClosed',
-          'ideasFinished',
-          'fbaamount',
-          'id',
-          'reworkCounter',
-        ]
-        return whiteList.includes(field)
-      }, [field])
-
       return (
         <div
           title=""
@@ -2333,7 +2337,7 @@ export const NumberFieldMenuItem = React.memo(
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value)}
             />
             <Input
               title={t(TranslationKey.To)}
@@ -2341,7 +2345,7 @@ export const NumberFieldMenuItem = React.memo(
               classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value, true)}
             />
           </div>
 
@@ -2357,7 +2361,7 @@ export const NumberFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2368,26 +2372,19 @@ export const NumberFieldMenuItem = React.memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
-                        // )
-                        ?.map((el, index) => {
-                          const value = isNotFixedValue ? el : toFixed(el, 2) || 0
-                          const valueChecked = choosenItems?.some(item => item === el)
+                      {itemsForRender?.map((el, index) => {
+                        const value = isNotFixedValue ? el : toFixed(el, 2) || 0
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={classNames.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={classNames.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={classNames.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
@@ -2561,7 +2558,7 @@ export const InStockMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -3085,7 +3082,8 @@ export const SecondsCellMenuItem = React.memo(
       onClickFilterBtn,
     } = props
 
-    const { filterData, currentFilterData } = data
+    const filterData = data?.filterData
+    const currentFilterData = data?.currentFilterData
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -3102,8 +3100,8 @@ export const SecondsCellMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el || el === 0 || el === '0')
-          .sort(
+          ?.filter(el => el || el === 0 || el === '0')
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
               Number(b) - Number(a),
@@ -3123,7 +3121,7 @@ export const SecondsCellMenuItem = React.memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>

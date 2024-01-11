@@ -1,14 +1,14 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { FC, ReactElement, useEffect, useState } from 'react'
+import { FC, ReactElement, useContext, useState } from 'react'
 
 import { Tab } from '@mui/material'
 import { TabClasses } from '@mui/material/Tab/tabClasses'
 import Tooltip from '@mui/material/Tooltip'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { BulbIcon, TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+
+import { HintsContext } from '@contexts/hints-context'
 
 import { useClassNames } from './i-tab.style'
 
@@ -30,11 +30,7 @@ export const ITab: FC<Props> = observer(
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
+    const { hints } = useContext(HintsContext)
 
     return (
       <div className={classNames.tabWrapper}>
@@ -63,7 +59,7 @@ export const ITab: FC<Props> = observer(
             </Tooltip>
           )}
 
-          {tooltipInfoContent && showHints && (
+          {tooltipInfoContent && hints && (
             <Tooltip
               arrow
               open={openInfoTooltip}

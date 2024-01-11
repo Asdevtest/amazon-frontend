@@ -328,7 +328,7 @@ export class ClientIdeasViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'ideas'),
@@ -345,9 +345,9 @@ export class ClientIdeasViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -375,7 +375,7 @@ export class ClientIdeasViewModel {
 
   async getIdeaList() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await IdeaModel.getIdeaList({
         ...this.currentSettings.queries,
@@ -394,7 +394,7 @@ export class ClientIdeasViewModel {
         this.rowCount = response.count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
@@ -402,7 +402,7 @@ export class ClientIdeasViewModel {
         this.error = error
       })
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -412,7 +412,7 @@ export class ClientIdeasViewModel {
 
   async getShopList() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await ShopModel.getMyShopNames()
 
@@ -420,20 +420,20 @@ export class ClientIdeasViewModel {
         this.shopList = response
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async getDataForIdeaModal(idea) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const isChildProcuct =
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
@@ -449,10 +449,10 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showIdeaModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -461,7 +461,7 @@ export class ClientIdeasViewModel {
       const result = await ClientModel.getProductPermissionsData({ isParent: true, isChild: false })
       this.productsToLaunch = result.rows
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -493,7 +493,7 @@ export class ClientIdeasViewModel {
   async onTriggerAddOrEditSupplierModal(row) {
     try {
       if (!this.showAddOrEditSupplierModal) {
-        this.setRequestStatus(loadingStatuses.isLoading)
+        this.setRequestStatus(loadingStatuses.IS_LOADING)
 
         const product = await ProductModel.getProductById(row?.parentProduct?._id)
 
@@ -511,7 +511,7 @@ export class ClientIdeasViewModel {
           this.volumeWeightCoefficient = result.volumeWeightCoefficient
         })
 
-        this.setRequestStatus(loadingStatuses.success)
+        this.setRequestStatus(loadingStatuses.SUCCESS)
       }
 
       runInAction(() => {
@@ -519,7 +519,7 @@ export class ClientIdeasViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -527,7 +527,7 @@ export class ClientIdeasViewModel {
 
   async statusHandler(method, id, addSupliersToParentProductData) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await method(id)
 
       if (addSupliersToParentProductData) {
@@ -541,13 +541,13 @@ export class ClientIdeasViewModel {
 
       UserModel.getUsersInfoCounters()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -753,7 +753,7 @@ export class ClientIdeasViewModel {
   }
 
   async onClickBindButton(requests) {
-    this.setActionStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     const methodBody =
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
       this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
@@ -770,7 +770,7 @@ export class ClientIdeasViewModel {
 
     this.loadData()
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
 
     this.onTriggerOpenModal('showBindingModal')
   }
@@ -814,7 +814,7 @@ export class ClientIdeasViewModel {
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.clearReadyImages()
 
@@ -864,11 +864,11 @@ export class ClientIdeasViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -881,7 +881,7 @@ export class ClientIdeasViewModel {
 
   async onClickToOrder(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const [storekeepers, destinations, platformSettings] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
@@ -900,9 +900,9 @@ export class ClientIdeasViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -921,7 +921,7 @@ export class ClientIdeasViewModel {
 
   async onClickLinkRequestButton(idea) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const isChildProcuct =
         idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
@@ -929,7 +929,7 @@ export class ClientIdeasViewModel {
 
       const result = await RequestModel.getRequestsByProductLight({
         guid: currentProductId,
-        status: 'DRAFT, PUBLISHED',
+        status: 'DRAFT, PUBLISHED, IN_PROCESS',
         excludeIdeaId: idea._id,
       })
 
@@ -940,11 +940,11 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showBindingModal')
 
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -1109,7 +1109,7 @@ export class ClientIdeasViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
       })
@@ -1156,9 +1156,9 @@ export class ClientIdeasViewModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1197,10 +1197,6 @@ export class ClientIdeasViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
   }
 
   setDestinationsFavouritesItem(item) {

@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   datePickerWrapper: {
-    width: 150,
+    width: 100,
   },
 
   commentInput: {
@@ -150,7 +150,9 @@ export const useClassNames = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
-
+  deleteCell: {
+    padding: '0',
+  },
   error: {
     lineHeight: 0,
     fontSize: 12,
@@ -167,7 +169,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   priceVariationsCell: {
-    minWidth: 130,
+    maxWidth: 130,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

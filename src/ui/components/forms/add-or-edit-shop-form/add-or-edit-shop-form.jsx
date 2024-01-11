@@ -20,6 +20,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
     name: shopToEdit?.name || '',
     sellerBoardWarehouseReportUrlDaily: shopToEdit?.sellerBoardWarehouseReportUrlDaily || '',
     sellerBoardWarehouseReportUrlMonthly: shopToEdit?.sellerBoardWarehouseReportUrlMonthly || '',
+    reportAccountUrl: shopToEdit?.reportAccountUrl || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -34,42 +35,60 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
   const disableSubmitBtn =
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
-    formFields.name === '' ||
-    formFields.sellerBoardWarehouseReportUrlDaily === '' ||
-    formFields.sellerBoardWarehouseReportUrlMonthly === ''
+    !formFields?.name ||
+    !formFields?.sellerBoardWarehouseReportUrlDaily ||
+    !formFields?.sellerBoardWarehouseReportUrlMonthly
 
   return (
     <div className={classNames.root}>
       <Typography className={classNames.title}>{t(TranslationKey['Add shop'])}</Typography>
 
-      <div className={classNames.form}>
-        <Field
-          tooltipInfoContent={t(TranslationKey['Enter store name'])}
-          className={classNames.descriptionField}
-          label={t(TranslationKey.Title) + '*'}
-          value={formFields.name}
-          placeholder={t(TranslationKey['Store name'])}
-          onChange={onChangeField('name')}
-        />
+      <Field
+        withCopy
+        labelClasses={classNames.label}
+        containerClasses={classNames.containerField}
+        tooltipInfoContent={t(TranslationKey['Enter store name'])}
+        className={classNames.descriptionField}
+        label={t(TranslationKey.Title) + '*'}
+        value={formFields.name}
+        placeholder={t(TranslationKey['Store name'])}
+        onChange={onChangeField('name')}
+      />
 
-        <Field
-          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
-          className={classNames.descriptionField}
-          placeholder={t(TranslationKey.Link)}
-          label={t(TranslationKey['Warehouse report']) + '*'}
-          value={formFields.sellerBoardWarehouseReportUrlDaily}
-          onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
-        />
+      <Field
+        withCopy
+        labelClasses={classNames.label}
+        containerClasses={classNames.containerField}
+        tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
+        className={classNames.descriptionField}
+        placeholder={t(TranslationKey.Link)}
+        label={t(TranslationKey['Warehouse report']) + '*'}
+        value={formFields.sellerBoardWarehouseReportUrlDaily}
+        onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
+      />
 
-        <Field
-          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
-          className={classNames.descriptionField}
-          label={t(TranslationKey['Dashboard by goods/days']) + '*'}
-          placeholder={t(TranslationKey.Link)}
-          value={formFields.sellerBoardWarehouseReportUrlMonthly}
-          onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
-        />
-      </div>
+      <Field
+        withCopy
+        labelClasses={classNames.label}
+        containerClasses={classNames.containerField}
+        className={classNames.descriptionField}
+        tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
+        label={t(TranslationKey['Dashboard by goods/days']) + '*'}
+        placeholder={t(TranslationKey.Link)}
+        value={formFields.sellerBoardWarehouseReportUrlMonthly}
+        onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
+      />
+
+      <Field
+        withCopy
+        labelClasses={classNames.label}
+        containerClasses={classNames.containerField}
+        className={classNames.descriptionField}
+        label={t(TranslationKey['Account report'])}
+        placeholder={t(TranslationKey.Link)}
+        value={formFields.reportAccountUrl}
+        onChange={onChangeField('reportAccountUrl')}
+      />
 
       <div className={classNames.buttonsWrapper}>
         <Button

@@ -105,7 +105,6 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}
         >
           {`6 ${t(TranslationKey.months)}`}
@@ -115,7 +114,6 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}
         >
           {`12 ${t(TranslationKey.months)}`}
@@ -125,7 +123,6 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}
         >
           {t(TranslationKey['All time'])}

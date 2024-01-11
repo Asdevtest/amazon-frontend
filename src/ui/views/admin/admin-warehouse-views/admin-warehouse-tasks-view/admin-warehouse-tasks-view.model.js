@@ -104,7 +104,7 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await AdministratorModel.getTasksPag({
         limit: this.paginationModel.pageSize,
@@ -119,9 +119,9 @@ export class AdminWarehouseTasksViewModel {
         this.rowsCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -133,7 +133,7 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const task = await StorekeeperModel.getTaskById(item._id)
       const result = await UserModel.getPlatformSettings()
@@ -145,10 +145,10 @@ export class AdminWarehouseTasksViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

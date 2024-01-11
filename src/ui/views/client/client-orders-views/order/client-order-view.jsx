@@ -141,7 +141,7 @@ export const ClientOrderView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}

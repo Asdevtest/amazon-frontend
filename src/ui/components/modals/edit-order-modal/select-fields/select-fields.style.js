@@ -21,7 +21,9 @@ export const useClassNames = makeStyles()(theme => ({
   deliveredGoodsSuccessWrapper: {
     border: `2px solid #388E3C !important`,
   },
-
+  noFlex: {
+    display: 'block',
+  },
   deliveredGoodsSuccessText: {
     color: '#388E3C',
   },
@@ -333,11 +335,11 @@ export const useClassNames = makeStyles()(theme => ({
   paymentsBlock: {
     marginTop: 25,
   },
+
   labelClass: {
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 

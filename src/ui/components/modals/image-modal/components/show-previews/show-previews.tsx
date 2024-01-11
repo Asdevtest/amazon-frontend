@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useRef } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
@@ -24,6 +24,20 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const activeSlideRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (activeSlideRef.current) {
+        activeSlideRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        })
+      }
+    }, 0)
+  }, [currentIndex])
+
   return showPreviews ? (
     <div className={styles.slides}>
       {slides?.map((slide, index) => {
@@ -34,6 +48,7 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
 
         return (
           <div
+            ref={isActiveSlide ? activeSlideRef : null}
             key={index}
             className={cx(styles.slide, {
               [styles.activeSlide]: isActiveSlide,

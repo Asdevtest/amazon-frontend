@@ -258,6 +258,15 @@ export class ClientInStockBoxesViewModel {
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
+    this.columnsModel = clientBoxesViewColumns(
+      this.rowHandlers,
+      () => this.storekeepersData,
+      () => this.destinations,
+      () => SettingsModel.destinationsFavourites,
+      () => this.columnMenuSettings,
+      () => this.onHover,
+      () => this.unitsOption,
+    )
   }
 
   onColumnVisibilityModelChange(model) {
@@ -326,7 +335,7 @@ export class ClientInStockBoxesViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, undefined)
 
       runInAction(() => {
         this.storekeepersData = result
@@ -346,8 +355,10 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
+      let uploadedFiles = []
+
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
+        uploadedFiles = await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -355,7 +366,7 @@ export class ClientInStockBoxesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+        trackNumberFile: [...data.trackNumberFile, ...uploadedFiles],
 
         prepId: data.prepId,
       })
@@ -695,9 +706,9 @@ export class ClientInStockBoxesViewModel {
   onClickDestinationBtn(curDestinationId) {
     this.curDestinationId = curDestinationId
 
-    this.requestStatus = loadingStatuses.isLoading
+    this.requestStatus = loadingStatuses.IS_LOADING
     this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
     })
   }
 
@@ -728,16 +739,16 @@ export class ClientInStockBoxesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
       await this.getStorekeepers()
       this.getBoxesMy()
       this.getDestinations()
       this.getShops()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -773,15 +784,15 @@ export class ClientInStockBoxesViewModel {
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
-    this.requestStatus = loadingStatuses.isLoading
+    this.requestStatus = loadingStatuses.IS_LOADING
     this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
     })
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -841,7 +852,7 @@ export class ClientInStockBoxesViewModel {
           priority,
           reason,
         })
-        this.setRequestStatus(loadingStatuses.success)
+        this.setRequestStatus(loadingStatuses.SUCCESS)
 
         if (splitBoxesResult) {
           runInAction(() => {
@@ -866,7 +877,7 @@ export class ClientInStockBoxesViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -991,7 +1002,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -1111,9 +1122,9 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -1128,7 +1139,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   async patchBoxHandler(id, boxData, acceptAction, spliteAction, notShowConfirmModal) {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
 
     spliteAction &&
       (await BoxesModel.editBoxAtClient(id, {
@@ -1145,7 +1156,7 @@ export class ClientInStockBoxesViewModel {
     await this.getBoxesMy()
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 
   async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
@@ -1184,7 +1195,7 @@ export class ClientInStockBoxesViewModel {
 
   async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit, priority, priorityReason) {
     try {
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
         this.uploadedFiles = []
@@ -1343,9 +1354,9 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
       !isMultipleEdit && this.onTriggerOpenModal('showConfirmModal')
 
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.success)
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.failed)
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       if (!isMultipleEdit) {
@@ -1365,7 +1376,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickMerge(boxBody, comment, priority, priorityReason) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const selectedIds = this.selectedBoxes
 
@@ -1422,7 +1433,7 @@ export class ClientInStockBoxesViewModel {
         reason: priorityReason,
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -1432,7 +1443,7 @@ export class ClientInStockBoxesViewModel {
         this.tmpClientComment = ''
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -1605,7 +1616,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
@@ -1639,9 +1650,9 @@ export class ClientInStockBoxesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }
@@ -1736,7 +1747,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickRequestToSendBatch() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const boxesWithoutTariffOrDestinationIds = this.selectedBoxes.filter(boxId => {
         const findBox = this.boxesMy.find(box => box._id === boxId)
@@ -1757,7 +1768,7 @@ export class ClientInStockBoxesViewModel {
 
         this.onTriggerOpenModal('showWarningInfoModal')
 
-        this.setRequestStatus(loadingStatuses.failed)
+        this.setRequestStatus(loadingStatuses.FAILED)
 
         return
       }
@@ -1777,17 +1788,17 @@ export class ClientInStockBoxesViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.triggerRequestToSendBatchModal()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   async onClickSendBoxesToBatch() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const boxesSendToBatch = this.selectedBoxes.filter(
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
@@ -1796,7 +1807,7 @@ export class ClientInStockBoxesViewModel {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.updateUserInfo()
       this.loadData()
 
@@ -1811,7 +1822,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

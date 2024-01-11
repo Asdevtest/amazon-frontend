@@ -21,8 +21,6 @@ export class ServicesDetailCustomViewModel {
   announcementData = undefined
 
   requestProposals = undefined
-  showWarningModal = false
-  showConfirmModal = false
   showReviewModal = false
 
   currentReviews = []
@@ -30,12 +28,7 @@ export class ServicesDetailCustomViewModel {
 
   loadedFiles = []
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
@@ -49,12 +42,12 @@ export class ServicesDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getCustomRequestById()
       this.getAnnouncementsDataById()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -103,9 +96,11 @@ export class ServicesDetailCustomViewModel {
   }
 
   onClickSuggestDealBtn() {
-    this.history.push('/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal', {
-      request: toJS(this.request),
-    })
+    console.log('this.request', this.request)
+
+    this.history.push(
+      `/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal?requestId=${this.request?.request?._id}`,
+    )
   }
 
   async getReviews(guid) {

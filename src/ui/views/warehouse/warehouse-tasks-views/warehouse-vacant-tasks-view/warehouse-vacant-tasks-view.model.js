@@ -124,14 +124,14 @@ export class WarehouseVacantViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
 
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
@@ -283,7 +283,7 @@ export class WarehouseVacantViewModel {
 
   async getTasksVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -326,13 +326,13 @@ export class WarehouseVacantViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.tasksVacant = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

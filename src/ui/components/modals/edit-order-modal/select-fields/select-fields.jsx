@@ -65,7 +65,7 @@ export const SelectFields = ({
   setPaymentMethodsModal,
   orderPayments,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = { ...hsCode }
@@ -395,7 +395,6 @@ export const SelectFields = ({
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
             <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
               <CustomSelectPaymentDetails
-                column
                 disabled
                 cursorPointer
                 generalText
@@ -518,7 +517,7 @@ export const SelectFields = ({
 
         {/** Hs code fields */}
 
-        <Box my={3} className={classNames.formItem} alignItems="flex-end">
+        <Box my={3} className={cx(classNames.formItem, classNames.noFlex)} alignItems="flex-end">
           <div className={classNames.partialPaymentWrapper}>
             <div className={classNames.partialPaymentCheckbox}>
               <Checkbox

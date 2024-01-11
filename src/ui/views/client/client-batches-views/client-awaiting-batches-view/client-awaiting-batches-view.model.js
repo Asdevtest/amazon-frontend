@@ -97,7 +97,7 @@ export class ClientAwaitingBatchesViewModel {
     changeViewModeHandler: value => this.changeViewModeHandler(value),
   }
 
-  columnsModel = clientBatchesViewColumns(this.rowHandlers, () => this.productViewMode)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -280,21 +280,19 @@ export class ClientAwaitingBatchesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getStorekeepers()
       this.getDataGridState()
       await this.getBatchesPagMy()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onSubmitChangeBoxFields(data) {
     try {
-      this.uploadedFiles = []
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -461,10 +459,6 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (filesToAdd.length) {
         await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
@@ -519,12 +513,11 @@ export class ClientAwaitingBatchesViewModel {
 
   changeViewModeHandler(value) {
     this.productViewMode = value
+    this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   // * Filtration
@@ -539,7 +532,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -555,9 +548,9 @@ export class ClientAwaitingBatchesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

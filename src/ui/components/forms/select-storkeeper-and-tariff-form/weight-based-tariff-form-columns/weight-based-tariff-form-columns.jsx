@@ -118,6 +118,7 @@ export const WeightBasedTariffFormColumns = (
     width: 200,
     renderCell: params => (
       <NormalActionBtnCell
+        fullWidthButton
         disabled={
           showCheckbox &&
           ((currentDestinationId &&

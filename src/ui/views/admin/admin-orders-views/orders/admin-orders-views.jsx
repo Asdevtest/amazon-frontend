@@ -37,7 +37,7 @@ export const AdminOrdersViews = observer(({ history }) => {
         <CustomSwitcher
           switchMode={'medium'}
           condition={viewModel.activeSubCategory}
-          switcherSettings={adminOrdersBtnsConfig}
+          switcherSettings={[...adminOrdersBtnsConfig]}
           changeConditionHandler={viewModel.onChangeSubCategory}
         />
       </div>
@@ -72,7 +72,7 @@ export const AdminOrdersViews = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection[0])}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

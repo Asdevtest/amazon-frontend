@@ -3,6 +3,7 @@ import {
   amazonImageUrlMiddlePostfix,
   amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
@@ -29,6 +30,8 @@ export const checkIsNumberWithDot = str => {
   return /^\d*\.?\d*$/.test(str)
 }
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
+export const checkIsPositiveOrNegativeDigit = str => /^-?\d*\.?\d+$/.test(Number(str)) || '-' === str
+
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''
   const indexOfDot = str.indexOf('.')
@@ -185,3 +188,5 @@ export const checkIsImageInludesPostfixes = str =>
   [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64', 'placeimg.com'].some(
     item => str.includes(item),
   )
+
+export const checkIsValidBoxSize = field => !Number(field) || Number(field) > maxLengthInputInSizeBox

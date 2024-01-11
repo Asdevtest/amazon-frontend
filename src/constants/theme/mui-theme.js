@@ -43,6 +43,9 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
     visibility: 'visible !important',
   },
+  '.MuiDataGrid-main': {
+    borderRadius: 20,
+  },
 })
 
 export const lightTheme = createTheme({
@@ -100,7 +103,6 @@ export const lightTheme = createTheme({
           zIndex: 50,
           position: 'absolute !important',
           right: -2,
-          // visibility: 'visible !important',
           width: '20px !important',
           height: '20px !important',
 
@@ -130,9 +132,6 @@ export const lightTheme = createTheme({
             textAlign: 'center',
           },
         },
-        // icon: {
-        //   color: '#fff',
-        // },
       },
     },
 
@@ -156,9 +155,6 @@ export const lightTheme = createTheme({
 
     MuiSvgIcon: {
       styleOverrides: {
-        // root: {
-        //   color: '#fff',
-        // },
         colorPrimary: {
           color: '#007bff !important',
         },
@@ -222,12 +218,10 @@ export const lightTheme = createTheme({
         },
 
         'input[type="number"]::-webkit-outer-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
@@ -246,7 +240,6 @@ export const lightTheme = createTheme({
     text: {
       general: '#001029',
       second: '#656565',
-
       gray: '#C4C4C4',
       red: '#DD2121',
       negativeMain: '#fff',
@@ -260,6 +253,20 @@ export const lightTheme = createTheme({
       disabledSuccessBackground: '#B3E7C7',
       disabledDangerText: '#E5FFEF',
       disabledDangerBackground: '#FEB9B9',
+
+      casualBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualDisabledBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualHoverBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualDisabledText: '#E0E0E0',
+
+      outlineEditBoxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+      outlineEditHoverColor: '#0F5BB6',
+      outlineEditHoverBackground: '#F4F9FF',
+      outlineEditDisabledColor: '#D7E8FF',
+
+      deleteHoverColor: '#912018',
+      deleteHoverBackground: '#FFF0EF',
+      deleteDisabledColor: '#FFF0EE',
     },
 
     orderStatus: {
@@ -270,7 +277,6 @@ export const lightTheme = createTheme({
       general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
-      fourth: '#E7F1FF',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
       yellowRow: '#FFFDF3',
@@ -281,13 +287,10 @@ export const lightTheme = createTheme({
       red: '#FFC7C7',
       green: '#D9FAE5',
       darkBlue: '#006CFF',
-      greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
       yellow: '#0164F4',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
-      disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
       activeChat: '#E7F1FF',
-      scrollThumb: '#AEAEAE',
     },
 
     customSwitcher: {
@@ -313,14 +316,12 @@ export const lightTheme = createTheme({
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
       imageList: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
       filter: '0 -4px 13px 0 rgba(135, 135, 135, 0.15) inset',
+      casualBoxShadow: '0px 2.18px 4.36px 0px rgba(97, 97, 97, 0.18), 0px 1.09px 2.18px 0px rgba(97, 97, 97, 0.18)',
+      casualHover: '#F4F4F4',
     },
 
     input: {
-      // disabled: 'rgba(0, 0, 0, 0.38)',
-      // disabled: '#C4C4C4',
       customDisabled: '#EBEBEB',
-      // disabled: 'normal',
-      // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
     },
 
@@ -361,6 +362,9 @@ export const darkTheme = createTheme({
           color: '#fff',
           borderRadius: 20,
         },
+        overlay: {
+          backgroundColor: '#1E1E1E !important',
+        },
 
         row: {
           cursor: 'pointer',
@@ -386,8 +390,6 @@ export const darkTheme = createTheme({
 
         columnHeaders: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
-
-          // Убрать
           height: 65,
         },
 
@@ -423,7 +425,6 @@ export const darkTheme = createTheme({
           zIndex: 50,
           position: 'absolute !important',
           right: -2,
-          // visibility: 'visible !important',
           width: '20px !important',
           height: '20px !important',
 
@@ -475,9 +476,6 @@ export const darkTheme = createTheme({
 
     MuiSvgIcon: {
       styleOverrides: {
-        // root: {
-        //   color: '#fff',
-        // },
         colorPrimary: {
           color: '#4CA1DE !important',
         },
@@ -497,7 +495,6 @@ export const darkTheme = createTheme({
         select: {
           '& > option': {
             backgroundColor: '#2B2B34 !important',
-            // paddingLeft: '10px !important',
             textAlign: 'center',
           },
         },
@@ -564,8 +561,6 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
-          // backgroundColor: '#21212B',
-
           color: '#fff',
         },
       },
@@ -615,12 +610,10 @@ export const darkTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         'input[type="number"]::-webkit-outer-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
@@ -644,113 +637,119 @@ export const darkTheme = createTheme({
   palette: {
     // mode: 'dark', // при выставлении меняет некотрые стили по умолчанию
 
-    ...{
-      primary: {
-        // main: '#008CF1',
-        main: '#4CA1DE',
-        mainRgb: '76, 161, 222',
-      },
+    primary: {
+      // main: '#008CF1',
+      main: '#4CA1DE',
+      mainRgb: '76, 161, 222',
+    },
 
-      text: {
-        general: '#fff',
-        second: '#E1E1E1',
+    text: {
+      general: '#fff',
+      second: '#E1E1E1',
 
-        gray: 'gray',
-        red: '#DD2121',
-        negativeMain: '#001029',
-        green: '#2FE341',
-        disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
+      gray: 'gray',
+      red: '#DD2121',
+      negativeMain: '#001029',
+      green: '#2FE341',
+      disabled: '#001029',
 
-        primary: '#fff',
-        secondary: 'rgba(255, 255, 255, 0.7)',
-      },
+      primary: '#fff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+    },
 
-      button: {
-        disabledText: '#8291A0',
-        disabledBackground: '#2E4760',
-        disabledSuccessText: '#41715A',
-        disabledSuccessBackground: '#184831',
-        disabledDangerText: '#636369',
-        disabledDangerBackground: '#451F27',
-      },
+    button: {
+      disabledText: '#8291A0',
+      disabledBackground: '#2E4760',
+      disabledSuccessText: '#41715A',
+      disabledSuccessBackground: '#184831',
+      disabledDangerText: '#636369',
+      disabledDangerBackground: '#451F27',
 
-      action: {
-        active: '#fff',
-        disabled: 'rgba(255, 255, 255, 0.3)',
-      },
+      casualBorder: '#424250',
+      casualDisabledBorder: 'rgba(43, 43, 52, 0.89)',
+      casualHoverBorder: '#5A5A67',
+      casualDisabledText: 'rgba(255, 255, 255, 0.17)',
 
-      orderStatus: {
-        red: '#DD2121',
-      },
+      outlineEditBoxShadow:
+        '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      outlineEditHoverColor: '#4CA1DE',
+      outlineEditHoverBackground: '#375674',
+      outlineEditDisabledColor: '#2E4760',
 
-      background: {
-        general: '#2B2B34',
-        second: '#21212B',
-        third: '#25252D',
-        fourth: '#0A6FE8',
-        searchSelectHover: '#25252D',
-        chatIncomeMessage: '#36363F',
-        chatMyMessage: '#384C68',
-        darkBlue: '#4CA1DE',
-        yellowRow: '#2F2C23',
-        greenRow: 'rgba(0, 64, 0, 0.5)',
-        redRow: '#2F2329',
-        tableCurRow: '#001A15', // '#388E3C',
-        red: '#2E0505',
-        green: '#001A15',
-        greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-        yellow: '#FEF0A6',
-        entryLeftPanel: '#2B2B34',
-        disabled: '#a0a0a4',
-        default: '#121212',
-        disabledDangerBtn: '#4F2026',
-        activeChat: '#384C68',
-        scrollThumb: '#45454d',
-      },
+      deleteHoverColor: '#8C0000',
+      deleteHoverBackground: '#451F27',
+      deleteDisabledColor: '#471721',
+    },
 
-      customSwitcher: {
-        background: '#272730',
-        indicator: '#31313A',
-        text: '#5C6A7A',
-        activeText: '#4CA1DE',
-        headerBackground: '#25252D',
-      },
+    action: {
+      active: '#fff',
+      disabled: 'rgba(255, 255, 255, 0.3)',
+    },
 
-      linearGradient: {
-        successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-        // negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-        negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-        hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-        // hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-        hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
-      },
+    orderStatus: {
+      red: '#DD2121',
+    },
 
-      boxShadow: {
-        general: 'rgba(31, 31, 31, 0.6)',
-        paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
-        yellow:
-          'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-        red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-        imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
-        filter: '-4px -4px 13px 0 rgba(1, 1, 1, 0.17) inset',
-      },
+    background: {
+      general: '#2B2B34',
+      second: '#21212B',
+      third: '#25252D',
+      searchSelectHover: '#25252D',
+      chatIncomeMessage: '#36363F',
+      chatMyMessage: '#384C68',
+      darkBlue: '#4CA1DE',
+      yellowRow: '#2F2C23',
+      greenRow: 'rgba(0, 64, 0, 0.5)',
+      redRow: '#2F2329',
+      tableCurRow: '#001A15',
+      red: '#2E0505',
+      green: '#001A15',
+      yellow: '#FEF0A6',
+      entryLeftPanel: '#2B2B34',
+      disabled: '#a0a0a4',
+      activeChat: '#384C68',
+    },
 
-      input: {
-        // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
-        customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду, если снова будешь исправлять скажи мне, больше не буду трогать это (18.01.23)
-        // customDisabled: '#21212B',
-        // customDisabled: '#EBEBEB', // макет
-        customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
-      },
+    customSwitcher: {
+      background: '#272730',
+      indicator: '#31313A',
+      text: '#5C6A7A',
+      activeText: '#4CA1DE',
+      headerBackground: '#25252D',
+    },
 
-      other: {
-        rejected: '#D70D0D',
-        succes: '#0B903E',
-        tableActiveFilterBtn: '5px solid #4CA1DE',
-        ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
-        ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
-        ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
-      },
+    linearGradient: {
+      successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+      negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
+      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
+    },
+
+    boxShadow: {
+      general: 'rgba(31, 31, 31, 0.6)',
+      paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+      yellow:
+        'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
+      red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+      imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+      filter: '-4px -4px 13px 0 rgba(1, 1, 1, 0.17) inset',
+      casualBoxShadow:
+        '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      casualHover: '#474753',
+    },
+
+    input: {
+      customBorder: '#424250',
+      customDisabled: '#36363F',
+    },
+
+    other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
+      tableActiveFilterBtn: '5px solid #4CA1DE',
+      ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
+      ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
+      ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
   },
 })

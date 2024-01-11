@@ -64,6 +64,7 @@ export class ClientInventoryViewModel {
   storekeepers = []
   destinations = []
   shopsData = []
+  dataForOrderModal = []
   ideaId = ''
   isArchive = false
   batchesData = []
@@ -376,7 +377,7 @@ export class ClientInventoryViewModel {
 
   async onClickVariationButton(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductsVariationsByGuid(id)
       runInAction(() => {
@@ -385,9 +386,9 @@ export class ClientInventoryViewModel {
 
       this.onTriggerOpenModal('showProductVariationsForm')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -419,7 +420,7 @@ export class ClientInventoryViewModel {
 
   async uploadTemplateFile(file) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.showProgress = true
       })
@@ -437,9 +438,9 @@ export class ClientInventoryViewModel {
       })
 
       this.onTriggerOpenModal('showGetFilesModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -522,7 +523,7 @@ export class ClientInventoryViewModel {
       await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -535,7 +536,7 @@ export class ClientInventoryViewModel {
         this.productsToLaunch = result.rows
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -618,16 +619,18 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result] = await Promise.all([
+    const [storekeepers, destinations, result, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
       UserModel.getPlatformSettings(),
+      ClientModel.getProductsInfoForOrders(this.selectedRowIds.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
       this.platformSettings = result
+      this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -703,7 +706,7 @@ export class ClientInventoryViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter =
@@ -732,9 +735,9 @@ export class ClientInventoryViewModel {
           }
         })
       }
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
       runInAction(() => {
@@ -801,7 +804,7 @@ export class ClientInventoryViewModel {
 
   async getProductsMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
 
@@ -816,22 +819,19 @@ export class ClientInventoryViewModel {
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
       runInAction(() => {
         this.baseNoConvertedProducts = result
         this.rowCount = result.count
         this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.rowCount = 0
@@ -891,7 +891,7 @@ export class ClientInventoryViewModel {
 
   async onSaveProductData(productId, updateProductData) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
@@ -901,10 +901,10 @@ export class ClientInventoryViewModel {
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
       await this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -974,7 +974,7 @@ export class ClientInventoryViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
         this.showProgress = true
@@ -1034,9 +1034,9 @@ export class ClientInventoryViewModel {
       const noProductBaseUpdate = true
       await this.getProductsMy(noProductBaseUpdate)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1545,7 +1545,7 @@ export class ClientInventoryViewModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
       console.log(error)

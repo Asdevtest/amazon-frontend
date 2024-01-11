@@ -384,7 +384,7 @@ export const AddOrEditSupplierModalContent = observer(
       0 === parseFloat(tmpSupplier.price) ||
       0 === parseInt(tmpSupplier.amount) ||
       0 === parseInt(tmpSupplier.minlot) ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       ((tmpSupplier.boxProperties?.amountInBox ||
         tmpSupplier.boxProperties?.boxLengthCm ||
         tmpSupplier.boxProperties?.boxWidthCm ||

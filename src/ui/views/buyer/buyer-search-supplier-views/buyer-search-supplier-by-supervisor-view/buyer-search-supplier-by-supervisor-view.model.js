@@ -60,16 +60,16 @@ export class BuyerSearchSupplierBySupervisorModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatuses.IS_LOADING
       })
       await this.getProductsVacant()
       // this.updateProductsHead()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatuses.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatuses.FAILED
       })
       console.log(error)
     }

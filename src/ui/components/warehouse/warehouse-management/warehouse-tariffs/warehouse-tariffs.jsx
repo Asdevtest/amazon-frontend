@@ -84,7 +84,7 @@ export const WarehouseTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onChangePaginationModelChange}
         onFilterModelChange={onChangeFilterModel}

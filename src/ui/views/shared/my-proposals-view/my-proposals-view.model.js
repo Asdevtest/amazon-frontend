@@ -242,7 +242,7 @@ export class MyProposalsViewModel {
 
   async getRequestsProposalsPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await RequestProposalModel.getRequestProposalsPagMy({
         filters: this.getFilters(),
@@ -257,9 +257,9 @@ export class MyProposalsViewModel {
         this.rowCount = response.count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -334,17 +334,18 @@ export class MyProposalsViewModel {
         'requestCreatedBy',
         'taskComplexity',
         'typeTask',
+        'announcement',
       ].includes(column)
     ) {
       return 'requests'
-    } else if (['asin', 'skuByClient', 'amazonTitle'].includes(column)) {
+    } else if (['asin', 'skuByClient', 'amazonTitle', 'shop'].includes(column)) {
       return 'products'
     }
   }
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         this.getTableByColumn(column),
@@ -371,9 +372,9 @@ export class MyProposalsViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

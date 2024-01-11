@@ -3,6 +3,7 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
@@ -17,8 +18,10 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { checkIsHasHttp } from '@utils/checks'
+import { formatDate, formatNormDateTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
@@ -26,6 +29,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+    valueGetter: params => params.row.idItem,
     renderCell: params => <MultilineTextCell text={params.row.idItem} />,
     width: 100,
 
@@ -129,11 +133,11 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
     width: 170,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
+    valueFormatter: params => (checkIsHasHttp(params.value) ? params.value : getAmazonImageUrl(params.value, true)),
     sortable: false,
     filterable: false,
   },
@@ -168,6 +172,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
     renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
+    valueGetter: params => params.row.originalData.destination?.name,
     width: 140,
     sortable: false,
 
@@ -179,6 +184,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
     renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier?.productionTerm} />,
+    valueGetter: params => params.row.originalData.orderSupplier?.productionTerm,
     width: 120,
     sortable: false,
 
@@ -187,21 +193,16 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 150,
-
+    width: 100,
+    valueGetter: params => (params.value ? formatDate(params.value) : ''),
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -220,6 +221,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    valueFormatter: params => toFixedWithDollarSign(params.value, 2),
     width: 140,
     type: 'number',
 
@@ -231,6 +233,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.product?.weight} fix={2} />,
+    valueGetter: params => toFixedWithKg(params.row.originalData.product?.weight, 2),
     width: 110,
     type: 'number',
     sortable: false,
@@ -258,12 +261,12 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
 
     columnKey: columnnsKeys.shared.STRING,
   },
-
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.value} />,
+    valueFormatter: params => formatNormDateTime(params.value),
     width: 120,
 
     columnKey: columnnsKeys.shared.DATE,
@@ -274,7 +277,9 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    valueFormatter: params => formatNormDateTime(params.value),
+    width: 140,
+    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },

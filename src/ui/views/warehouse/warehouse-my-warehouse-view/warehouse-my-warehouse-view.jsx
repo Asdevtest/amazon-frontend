@@ -28,7 +28,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './warehouse-my-warehouse-view.style'
 
-import { ActionButtons } from './action-buttons/action-buttons'
+import { ActionButtons } from './action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
 export const WarehouseMyWarehouseView = observer(({ history }) => {
@@ -102,7 +102,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

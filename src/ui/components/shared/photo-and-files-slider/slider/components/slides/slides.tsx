@@ -21,6 +21,7 @@ interface SlidesProps {
   customSlideWidth?: number
   controls?: boolean
   isPlaying?: boolean
+  smallPhotos?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
   onPhotosModalToggle?: () => void
 }
@@ -36,9 +37,11 @@ export const Slides: FC<SlidesProps> = memo(props => {
     customSlideWidth,
     customSlideHeight,
     isPlaying,
+    smallPhotos,
     setIsPlaying,
     onPhotosModalToggle,
   } = props
+
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -58,7 +61,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
         {slides?.map((slide, index) => {
           const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
           const slideToCheck = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.file.name
-          const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.data_url
+          const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, !smallPhotos) : slide?.data_url // '!smallPhotos' - the function's second argument takes isBig
           const isActiveSlide = currentIndex === index
           const documentName = typeof slide === 'string' ? slide : slide?.file?.name
           const documentLink = typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'
