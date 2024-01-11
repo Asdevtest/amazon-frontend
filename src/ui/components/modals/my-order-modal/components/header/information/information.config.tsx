@@ -1,15 +1,25 @@
 import { OrderStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { CalendarIcon, DiagramIcon, DollarIcon, SandglassIcon } from '@components/shared/svg-icons'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IOrderStatus } from './information.type'
+interface IInfoItem {
+  icon: JSX.Element
+  title: string
+  value: string
+}
 
-export const getInfoItems = (order: any, blueBackgroundForIcon?: string) => [
+export interface IOrderStatus {
+  status: string
+  statusCode: number
+}
+
+export const getInfoItems = (order: IOrderWithAdditionalFields, blueBackgroundForIcon?: string): IInfoItem[] => [
   {
     icon: <DollarIcon />,
     title: t(TranslationKey['Order amount']),
@@ -44,7 +54,7 @@ export const trackedOrderStatuses: IOrderStatus[] = [
   { status: OrderStatus.IN_STOCK, statusCode: 30 },
 ]
 
-export const negativeTrackedOrderStatuses = [
+export const negativeTrackedOrderStatuses: IOrderStatus[] = [
   { status: OrderStatus.CANCELED_BY_BUYER, statusCode: 35 },
   { status: OrderStatus.CANCELED_BY_CLIENT, statusCode: 40 },
 ]

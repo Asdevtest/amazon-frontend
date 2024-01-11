@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FC, memo } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useState } from 'react'
 
-import { GridRowClassNameParams } from '@mui/x-data-grid'
+import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { GalleryModal } from '@components/modals/gallery-modal'
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { suppliersOrderColumn } from '@components/table/table-columns/shared/suppliers-order-column'
 
 import { t } from '@utils/translations'
 
@@ -19,47 +20,24 @@ import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './list-suppliers-tab.style'
 
+import { ListSuppliersTabModel } from './list-suppliers-tab.model'
+import { suppliersOrderColumn } from './suppliers-order-column'
 import { Toolbar } from './toolbar'
-import { useListSuppliersTab } from './use-list-suppliers-tab'
 
 interface ListSuppliersTabProps {
-  order: any
+  order: IOrderWithAdditionalFields
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
 }
 
-export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
+export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
   const { order, storekeepers, platformSettings } = props
 
   const { classes: styles } = useStyles()
 
-  const {
-    paginationModel,
-    setPaginationModel,
+  const [viewModel] = useState(() => new ListSuppliersTabModel(order))
 
-    selectionModel,
-    setSelectionModel,
-
-    currentSupplier,
-    suppliers,
-
-    galleryFiles,
-    showGalleryModal,
-    setShowGalleryModal,
-    onToggleGalleryModal,
-
-    showAddOrEditSupplierModal,
-    onToggleAddOrEditSupplierModal,
-
-    showPaymentMethodsModal,
-    onTogglePaymentMethodsModal,
-
-    currentOrderPaymentMethods,
-    paymentMethods,
-    onClickPaymentMethodsCell,
-  } = useListSuppliersTab(order)
-
-  const showVisibilityButton = selectionModel.length > 0
+  const showVisibilityButton = viewModel.selectionModel.length > 0
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === order?.product?.currentSupplier?._id && styles.currentSupplierBackground
 
@@ -70,19 +48,19 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
           disableColumnMenu
           sortingMode="client"
           paginationMode="client"
-          rows={suppliers}
+          rows={viewModel.suppliers}
           getRowClassName={getRowClassName}
-          rowCount={suppliers.length}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
-          columns={suppliersOrderColumn({
+          getRowId={(row: GridRowModel) => row._id}
+          columns={suppliersOrderColumn(
             order,
             platformSettings,
-            onToggleGalleryModal,
-            onClickPaymentMethodsCell,
-          })}
-          paginationModel={paginationModel}
-          rowSelectionModel={selectionModel}
+            viewModel.onClickFilesCell,
+            viewModel.onClickPaymentMethodsCell,
+          )}
+          paginationModel={viewModel.paginationModel}
+          rowSelectionModel={viewModel.selectionModel}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
@@ -93,47 +71,47 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = memo(props => {
               children: (
                 <Toolbar
                   showVisibilityButton={showVisibilityButton}
-                  onAddOrEditSupplierModal={onToggleAddOrEditSupplierModal}
+                  onAddOrEditSupplierModal={viewModel.onToggleAddOrEditSupplierModal}
                 />
               ),
             },
           }}
-          onPaginationModelChange={setPaginationModel}
-          onRowSelectionModelChange={setSelectionModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowSelectionModelChange={viewModel.onRowSelectionModelChange}
         />
       </div>
 
-      {showGalleryModal && (
+      {viewModel.showGalleryModal && (
         <GalleryModal
-          files={galleryFiles}
-          isOpenModal={showGalleryModal}
-          onOpenModal={() => setShowGalleryModal(!showGalleryModal)}
+          files={viewModel.galleryFiles}
+          isOpenModal={viewModel.showGalleryModal}
+          onOpenModal={viewModel.onToggleGalleryModal}
         />
       )}
 
-      {showAddOrEditSupplierModal && (
-        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onToggleAddOrEditSupplierModal}>
+      {viewModel.showAddOrEditSupplierModal && (
+        <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onToggleAddOrEditSupplierModal}>
           {/* @ts-ignore */}
           <AddOrEditSupplierModalContent
             onlyRead
             product={order?.product}
-            supplier={currentSupplier}
+            supplier={viewModel.currentSupplier}
             storekeepersData={storekeepers}
             sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
             volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
-            onTriggerShowModal={onToggleAddOrEditSupplierModal}
+            onTriggerShowModal={viewModel.onToggleAddOrEditSupplierModal}
           />
         </Modal>
       )}
 
-      {showPaymentMethodsModal && (
-        <Modal openModal={showPaymentMethodsModal} setOpenModal={onTogglePaymentMethodsModal}>
+      {viewModel.showPaymentMethodsModal && (
+        <Modal openModal={viewModel.showPaymentMethodsModal} setOpenModal={viewModel.onTogglePaymentMethodsModal}>
           <PaymentMethodsForm
             readOnly
-            orderPayments={currentOrderPaymentMethods}
-            allPayments={paymentMethods}
-            onClickCancelButton={onTogglePaymentMethodsModal}
+            orderPayments={viewModel.supplierPaymentMethods}
+            allPayments={viewModel.paymentMethods}
+            onClickCancelButton={viewModel.onTogglePaymentMethodsModal}
           />
         </Modal>
       )}

@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   mainSlideImg: {
+    height: '100%',
     objectFit: 'contain',
   },
 

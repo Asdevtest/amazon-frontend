@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 10,
   },
 
   title: {
@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorWrapper: {
-    maxHeight: '400px !important',
-    maxWidth: 500,
+    height: '200px !important',
+    width: 550,
   },
 }))

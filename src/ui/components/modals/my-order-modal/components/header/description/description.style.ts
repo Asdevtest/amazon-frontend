@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   icon: {
-    width: '22px !important',
-    height: '22px !important',
+    width: '19px !important',
+    height: '19px !important',
   },
 }))

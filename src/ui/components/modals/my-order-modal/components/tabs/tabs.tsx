@@ -9,12 +9,15 @@ import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './tabs.style'
 
+import { ChangeFieldFunction, IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
+
 import { BasicInfoTab, BoxesToOrderTab, ListSuppliersTab } from './components'
 import { customSwitcherSettings } from './tabs.config'
 import { SwitcherConditions } from './tabs.type'
 
 interface TabsProps {
-  order: any
+  isOrderEditable: boolean
+  order: IOrderWithAdditionalFields
   orderBoxes: IOrderBox[]
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
@@ -22,11 +25,14 @@ interface TabsProps {
   switcherCondition: SwitcherConditions
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
+  setFormFields: SetFormFieldsType
   onClickChangeCondition: () => void
+  onChangeField: ChangeFieldFunction
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
   const {
+    isOrderEditable,
     order,
     orderBoxes,
     destinations,
@@ -35,7 +41,9 @@ export const Tabs: FC<TabsProps> = memo(props => {
     switcherCondition,
     destinationsFavourites,
     setDestinationsFavouritesItem,
+    setFormFields,
     onClickChangeCondition,
+    onChangeField,
   } = props
 
   const { classes: styles } = useStyles()
@@ -52,11 +60,14 @@ export const Tabs: FC<TabsProps> = memo(props => {
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.BASIC_INFORMATION}>
         <BasicInfoTab
+          isOrderEditable={isOrderEditable}
           order={order}
           destinations={destinations}
           storekeepers={storekeepers}
           destinationsFavourites={destinationsFavourites}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+          setFormFields={setFormFields}
+          onChangeField={onChangeField}
         />
       </TabPanel>
 

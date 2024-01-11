@@ -9,6 +9,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -107,7 +108,6 @@ export const ClientOrdersView = observer(history => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowClick={params => viewModel.onClickMyOrderModal(params.row)}
-          // onRowDoubleClick={params => viewModel.onClickOpenNewTab(params.row.originalData._id)}
         />
       </div>
 
@@ -182,8 +182,7 @@ export const ClientOrdersView = observer(history => {
 
       {viewModel.showMyOrderModal && (
         <MyOrderModal
-          openModal={viewModel.showMyOrderModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          isClient
           order={viewModel.order}
           orderBoxes={viewModel.orderBoxes}
           destinations={viewModel.destinations}
@@ -192,8 +191,26 @@ export const ClientOrdersView = observer(history => {
           switcherCondition={viewModel.switcherCondition}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          onClickOpenNewTab={() => viewModel.onClickOpenNewTab(viewModel.order?._id)}
+          openModal={viewModel.showMyOrderModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          onClickOpenNewTab={viewModel.onClickOpenNewTab}
           onClickChangeCondition={viewModel.onClickChangeCondition}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+        />
+      )}
+
+      {viewModel.showWarningInfoModal && (
+        <WarningInfoModal
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            viewModel.onTriggerOpenModal('showWarningInfoModal')
+          }}
         />
       )}
     </React.Fragment>

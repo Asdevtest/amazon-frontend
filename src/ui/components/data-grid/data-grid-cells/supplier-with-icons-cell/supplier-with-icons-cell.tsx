@@ -6,8 +6,8 @@ import { MultilineTextCell } from '../data-grid-cells'
 
 interface SupplierWithIconsCellProps {
   supplierName: string
-  orderCreatedAt: Date
-  supplierCreatedAt: Date
+  orderCreatedAt: string
+  supplierCreatedAt: string
   orderSupplierId: string
   supplierId: string
   supplierMultiplicity: boolean

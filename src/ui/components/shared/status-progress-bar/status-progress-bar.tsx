@@ -2,8 +2,6 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { OrderStatusTranslate, getOrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
 
-import { IOrderStatus } from '@components/modals/my-order-modal/components/header/information/information.type'
-
 import { toFixed } from '@utils/text'
 
 import { useStyles } from './status-progress-bar.style'
@@ -15,6 +13,11 @@ import { OPACITY_TO_NEXT_ELEMENT, PERCENT_COMLETE } from './status-progress-bar.
 interface IElementWithKey {
   element: JSX.Element
   elementKey: string
+}
+
+interface IOrderStatus {
+  status: string
+  statusCode: number
 }
 
 interface StatusProgressBarProps {

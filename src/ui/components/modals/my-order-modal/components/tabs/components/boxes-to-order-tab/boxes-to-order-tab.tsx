@@ -1,10 +1,12 @@
 import { FC, memo, useEffect, useState } from 'react'
 
+import { GridRowModel } from '@mui/x-data-grid'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GalleryModal } from '@components/modals/gallery-modal'
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { boxesToOrderColumn } from '@components/table/table-columns/shared/boxes-to-order-column'
 
 import { t } from '@utils/translations'
 
@@ -14,8 +16,9 @@ import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './boxes-to-order-tab.style'
 
+import { boxesToOrderColumn } from './boxes-to-order-column'
+
 interface IBoxState extends IOrderBox {
-  id: string
   asin: string
   amazonTitle: string
   boxProductPreview: string | IUploadFile
@@ -23,7 +26,7 @@ interface IBoxState extends IOrderBox {
 }
 
 interface BoxesToOrderTabProps {
-  order: any
+  order: IOrderWithAdditionalFields
   orderBoxes: IOrderBox[]
   platformSettings: IPlatformSettings
 }
@@ -52,7 +55,6 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = memo(props => {
     if (orderBoxes.length > 0) {
       const transformedBoxesForColumnModel = orderBoxes.map(box => ({
         ...box,
-        id: box._id,
         asin: order.product?.asin || '',
         boxProductPreview: order.product?.images?.[0] || '',
         amazonTitle: order.product?.amazonTitle || '',
@@ -75,6 +77,7 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = memo(props => {
           rowCount={boxes.length}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
+          getRowId={(row: GridRowModel) => row._id}
           columns={boxesToOrderColumn({
             platformSettings,
             onOpenGalleryModal: handleOpenGalleryModal,

@@ -54,6 +54,7 @@ export class ClientOrdersViewModel {
   showConfirmModal = false
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
+  showWarningInfoModal = false
 
   switcherCondition = SwitcherConditions.BASIC_INFORMATION
 
@@ -63,6 +64,11 @@ export class ClientOrdersViewModel {
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
+  }
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
   }
 
   selectedProduct = undefined
@@ -631,7 +637,6 @@ export class ClientOrdersViewModel {
       runInAction(() => {
         this.error = undefined
       })
-      this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < ordersDataState.length; i++) {
         const orderObject = ordersDataState[i]
@@ -700,6 +705,10 @@ export class ClientOrdersViewModel {
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
+
+      this.onTriggerOpenModal('showOrderModal')
+
+      this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -723,9 +732,7 @@ export class ClientOrdersViewModel {
 
   onClickOpenNewTab(orderId) {
     const win = window.open(
-      `/client/my-orders/${window.location.pathname
-        .split('/')
-        .at(-1)}/order?orderId=${orderId}&order-human-friendly-id=${orderId}`,
+      `/client/my-orders/orders/order?orderId=${orderId}&order-human-friendly-id=${orderId}`,
       '_blank',
     )
 
@@ -734,13 +741,18 @@ export class ClientOrdersViewModel {
 
   async getOrderById(orderId) {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const resolve = await ClientModel.getOrderById(orderId)
 
       runInAction(() => {
         this.order = resolve
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -750,10 +762,6 @@ export class ClientOrdersViewModel {
     }
 
     await this.getOrderById(row.originalData._id)
-
-    // await this.getDestinations()
-    // await this.getStorekeepers()
-    // await this.getPlatformSettings()
 
     this.onTriggerOpenModal('showMyOrderModal')
 
@@ -772,13 +780,18 @@ export class ClientOrdersViewModel {
 
   async getBoxesOfOrder(orderId) {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const result = await BoxesModel.getBoxesOfOrder(orderId)
 
       runInAction(() => {
         this.orderBoxes = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -790,7 +803,6 @@ export class ClientOrdersViewModel {
         this.destinations = response
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -803,7 +815,6 @@ export class ClientOrdersViewModel {
         this.storekeepers = response
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -816,7 +827,80 @@ export class ClientOrdersViewModel {
         this.platformSettings = response
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  onClickCancelOrder(orderId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => {
+        this.onSubmitCancelOrder(orderId)
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onTriggerOpenModal('showMyOrderModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitSaveOrder(order) {
+    console.log(order)
+    try {
+      console.log('1')
+      if (order.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: order.tmpBarCode, type: 'uploadedFiles' })
+
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: this.uploadedFiles[0] })
+      } else if (!order.product.barCode) {
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: null })
+      }
+
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...order,
+          totalPrice:
+            order.amount *
+            (order.orderSupplier?.price + order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount),
+        },
+        [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+          // 'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+          'variationTariffId',
+        ],
+        undefined,
+        undefined,
+        true,
+      )
+
+      await OrderModel.changeOrderData(this.order._id, dataToRequest)
+
+      this.loadData()
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
+
+      await this.getOrderById(order._id)
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
       console.log(error)
     }
   }

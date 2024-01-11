@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { StatusProgressBar } from '@components/shared/status-progress-bar'
 
 import { useStyles } from './information.style'
@@ -10,7 +11,7 @@ import { InfoItem } from './info-item'
 import { getInfoItems, negativeTrackedOrderStatuses, trackedOrderStatuses } from './information.config'
 
 interface InformationProps {
-  order: any
+  order: IOrderWithAdditionalFields
 }
 
 export const Information: FC<InformationProps> = memo(({ order }) => {

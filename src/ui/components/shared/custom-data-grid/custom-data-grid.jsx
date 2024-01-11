@@ -6,6 +6,8 @@ import { SettingsModel } from '@models/settings-model'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+
 export const CustomDataGrid = ({ ...restProps }) => {
   const slots =
     restProps.paginationMode === 'client'
@@ -27,6 +29,7 @@ export const CustomDataGrid = ({ ...restProps }) => {
       disableVirtualization
       sortingMode="server"
       paginationMode="server"
+      localeText={getLocalizationByLanguageTag()}
       pageSizeOptions={[15, 25, 50, 100]}
       slots={slots}
       {...restProps}

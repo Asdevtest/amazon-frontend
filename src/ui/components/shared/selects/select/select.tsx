@@ -67,9 +67,9 @@ export const Select: FC<SelectProps> = memo(props => {
     <div className={styles.wrapper}>
       <button disabled={disabled} className={styles.button} onClick={handleToggleMenu}>
         <p className={styles.text}>{selectedItem}</p>
-        <button className={cx(styles.iconButton, { [styles.iconRotate]: isOpen })}>
+        <div className={cx(styles.iconButton, { [styles.iconRotate]: isOpen })}>
           <ArrowDownIcon className={styles.icon} />
-        </button>
+        </div>
       </button>
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>

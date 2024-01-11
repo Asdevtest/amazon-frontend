@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
@@ -6,14 +6,16 @@ import { Modal } from '@components/shared/modal'
 import { useStyles } from './comments-modal.style'
 
 interface CommentsModalProps {
+  readOnly: boolean
+  title: string
+  text: string
   isOpenModal: boolean
   onOpenModal: () => void
-  title?: string
-  text?: string
+  onChangeField: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
-  const { title, text, isOpenModal, onOpenModal } = props
+  const { readOnly = true, title, text, isOpenModal, onOpenModal, onChangeField } = props
 
   const { classes: styles } = useStyles()
 
@@ -22,7 +24,12 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
       <div className={styles.wrapper}>
         <p className={styles.title}>{title}</p>
 
-        <CustomTextEditor readOnly conditions={text} editorMaxHeight={styles.editorWrapper} />
+        <CustomTextEditor
+          readOnly={readOnly}
+          conditions={text}
+          editorMaxHeight={styles.editorWrapper}
+          changeConditions={onChangeField}
+        />
       </div>
     </Modal>
   )

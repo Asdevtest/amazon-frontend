@@ -11,28 +11,23 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { FilesCell } from '@components/data-grid/data-grid-cells/files-cell/files-cell'
 import { PriceVariationsCell } from '@components/data-grid/data-grid-cells/price-variations-cell/price-variations-cell'
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { formatNormDateTime } from '@utils/date-time'
-import { toFixedWithDollarSign } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/patform-settings'
+import { PaymentMethod } from '@typings/payments'
 import { IUploadFile } from '@typings/upload-file'
 
-interface ISuppliersOrderColumn {
-  order: any
-  platformSettings: IPlatformSettings
-  onToggleGalleryModal: (files?: Array<string | IUploadFile>) => void
-  onClickPaymentMethodsCell: (row: GridRowModel) => void
-}
-
-export const suppliersOrderColumn = ({
-  order,
-  platformSettings,
-  onToggleGalleryModal,
-  onClickPaymentMethodsCell,
-}: ISuppliersOrderColumn) => [
+export const suppliersOrderColumn = (
+  order: IOrderWithAdditionalFields,
+  platformSettings: IPlatformSettings,
+  onClickFilesCell: (files?: Array<string | IUploadFile>) => void,
+  onClickPaymentMethodsCell: (paymentMethods: PaymentMethod[]) => void,
+) => [
   {
     field: 'supplier',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
@@ -57,7 +52,11 @@ export const suppliersOrderColumn = ({
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     renderCell: ({ row }: GridRowModel) =>
       row.link !== 'access denied' ? (
-        <LinkWithCopy url={row.link} title={t(TranslationKey['Go to supplier site'])} valueToCopy={row.link} />
+        <LinkWithCopy
+          url={checkAndMakeAbsoluteUrl(row.link)}
+          title={t(TranslationKey['Go to supplier site'])}
+          valueToCopy={checkAndMakeAbsoluteUrl(row.link)}
+        />
       ) : (
         <MultilineTextCell leftAlign text={t(TranslationKey['Link not available'])} />
       ),
@@ -122,7 +121,10 @@ export const suppliersOrderColumn = ({
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <PaymentMethodsCell paymentMethods={row.paymentMethods} onClickCell={() => onClickPaymentMethodsCell(row)} />
+      <PaymentMethodsCell
+        paymentMethods={row.paymentMethods}
+        onClickCell={() => onClickPaymentMethodsCell(row.paymentMethods)}
+      />
     ),
     filterable: false,
     sortable: false,
@@ -133,7 +135,7 @@ export const suppliersOrderColumn = ({
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onToggleGalleryModal} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
     filterable: false,
     sortable: false,
     width: 100,

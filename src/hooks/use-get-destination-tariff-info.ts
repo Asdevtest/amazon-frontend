@@ -9,10 +9,10 @@ type regionOfDeliveryNameType = 'west' | 'central' | 'east'
 export const useGetDestinationTariffInfo = (
   destinations: IDestination[],
   storekeepers: IDestinationStorekeeper[],
-  destinationId: string,
+  destinationId: string | null,
   storekeeperId: string,
   logicsTariffId: string,
-  variationTariffId: string,
+  variationTariffId: string | null,
 ) => {
   const curDestination = destinations?.find(el => el._id === destinationId)
   const firstNumOfCode = curDestination?.zipCode[0]

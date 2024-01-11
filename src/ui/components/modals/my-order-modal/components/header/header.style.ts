@@ -2,9 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   header: {
-    maxHeight: 270,
     display: 'flex',
-    // flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     gap: 30,
   },
 }))

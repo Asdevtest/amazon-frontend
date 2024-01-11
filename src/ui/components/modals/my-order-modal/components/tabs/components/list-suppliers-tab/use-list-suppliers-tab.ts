@@ -4,6 +4,8 @@ import { GridRowModel } from '@mui/x-data-grid'
 
 import { SupplierModel } from '@models/supplier-model'
 
+import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
+
 import { Payment, PaymentMethod } from '@typings/payments'
 import { ISupplier } from '@typings/product'
 import { IUploadFile } from '@typings/upload-file'
@@ -12,7 +14,7 @@ interface ISupplierState extends ISupplier {
   id: string
 }
 
-export const useListSuppliersTab = (order: any) => {
+export const useListSuppliersTab = (order: IOrderWithAdditionalFields) => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 15 })
   const [selectionModel, setSelectionModel] = useState<string[]>([])
   const [suppliers, setSuppliers] = useState<ISupplierState[]>([])

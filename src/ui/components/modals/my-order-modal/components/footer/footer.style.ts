@@ -33,11 +33,15 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  buttons: {
+    display: 'flex',
+    gap: 20,
+  },
+
   button: {
+    minWidth: 170,
     padding: '8px 24px',
-    color: '#912018',
     fontWeight: 500,
-    background: '#fee4e2',
     boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
     borderRadius: 24,
     opacity: 1,
@@ -46,5 +50,28 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       opacity: 0.8,
     },
+
+    '&:disabled': {
+      opacity: 0.5,
+    },
+
+    '&:active': {
+      boxShadow: 'none',
+    },
+  },
+
+  buttonCancel: {
+    color: '#912018',
+    background: '#fee4e2',
+  },
+
+  buttonOrder: {
+    color: '#fff',
+    background: theme.palette.primary.main,
+  },
+
+  buttonSave: {
+    color: '#fff',
+    background: '#1EB564',
   },
 }))

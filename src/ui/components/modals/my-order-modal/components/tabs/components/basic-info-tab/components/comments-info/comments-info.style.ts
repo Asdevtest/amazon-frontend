@@ -1,0 +1,98 @@
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    width: 250,
+  },
+
+  infoBlock: {
+    height: 270,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  title: {
+    fontWeight: 600,
+  },
+
+  cardsWrapper: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
+  },
+
+  card: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  cardComment: {
+    gap: 0,
+  },
+
+  field: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+
+  fieldText: {
+    fontSize: 14,
+    lineHeight: '23px',
+    color: theme.palette.text.general,
+
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+
+  commentEditor: {
+    minHeight: 48,
+    height: '48px !important',
+    fontSize: 12,
+    lineHeight: '16px',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  commentTitle: {
+    fontWeight: 500,
+    color: theme.palette.text.general,
+  },
+
+  commentText: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.general,
+  },
+
+  empty: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonContainer: {
+    height: 16,
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  link: {
+    color: theme.palette.primary.main,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+  },
+}))

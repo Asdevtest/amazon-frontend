@@ -78,7 +78,9 @@ export const boxesToOrderColumn = ({ platformSettings, onOpenGalleryModal }: IBo
   {
     field: 'quantity',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={`${row.amount} ${t(TranslationKey['pcs.'])}`} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={`${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`} />
+    ),
     filterable: false,
     sortable: false,
     width: 100,

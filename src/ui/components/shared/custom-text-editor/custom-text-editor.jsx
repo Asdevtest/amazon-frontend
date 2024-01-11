@@ -128,9 +128,10 @@ export const CustomTextEditor = observer(props => {
             }
           }}
           onChange={EditorState => {
-            if (changeConditions) {
+            if (textToCheck) {
               textToCheck(EditorState.getCurrentContent().getPlainText())
             }
+            handleSave()
           }}
           onSave={text => {
             changeConditions && changeConditions(text)

@@ -47,6 +47,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     maxWidth: '80%',
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
@@ -99,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
-    maxHeight: 233,
+    maxHeight: 204,
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
