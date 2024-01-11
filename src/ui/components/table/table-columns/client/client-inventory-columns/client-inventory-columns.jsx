@@ -246,16 +246,6 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'transparency',
-    headerName: 'Transparency codes',
-    renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
-    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-    type: 'boolean',
-    width: 135,
-    columnKey: columnnsKeys.shared.YES_NO,
-  },
-
-  {
     field: 'boxAmounts',
     headerName: 'In stock',
     renderHeader: params => (
@@ -317,38 +307,6 @@ export const clientInventoryColumns = (
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'tags',
-    headerName: t(TranslationKey.Tags),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Tags)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
-    width: 160,
-    sortable: false,
-    columnKey: columnnsKeys.shared.TAGS,
-  },
-
-  {
-    field: 'redFlags',
-    headerName: t(TranslationKey['Red flags']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Red flags'])}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
-    width: 130,
-    sortable: false,
-    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {
@@ -432,6 +390,48 @@ export const clientInventoryColumns = (
     headerAlign: 'center',
 
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Tags)}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    width: 160,
+    sortable: false,
+    columnKey: columnnsKeys.shared.TAGS,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Red flags'])}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    width: 130,
+    sortable: false,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
+  },
+
+  {
+    field: 'transparency',
+    headerName: 'Transparency codes',
+    renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    type: 'boolean',
+    width: 135,
+    columnKey: columnnsKeys.shared.YES_NO,
   },
 
   {
