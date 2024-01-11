@@ -258,6 +258,15 @@ export class ClientInStockBoxesViewModel {
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
+    this.columnsModel = clientBoxesViewColumns(
+      this.rowHandlers,
+      () => this.storekeepersData,
+      () => this.destinations,
+      () => SettingsModel.destinationsFavourites,
+      () => this.columnMenuSettings,
+      () => this.onHover,
+      () => this.unitsOption,
+    )
   }
 
   onColumnVisibilityModelChange(model) {
@@ -346,8 +355,10 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
+      let uploadedFiles = []
+
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
+        uploadedFiles = await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -355,7 +366,7 @@ export class ClientInStockBoxesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+        trackNumberFile: [...data.trackNumberFile, ...uploadedFiles],
 
         prepId: data.prepId,
       })

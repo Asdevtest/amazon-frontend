@@ -135,8 +135,6 @@ export class ClientOrdersViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
@@ -159,11 +157,7 @@ export class ClientOrdersViewModel {
           }
         })
       }
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-
       console.log(error)
       runInAction(() => {
         this.error = error
