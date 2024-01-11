@@ -104,7 +104,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
               masterUserSelect
               blackSelectedItem
               chosenItemNoHover
-              width={372}
+              width={'100%'}
               data={masterUsersData}
               searchOnlyFields={['name']}
               customSubMainWrapper={classNames.customSubMainWrapper}

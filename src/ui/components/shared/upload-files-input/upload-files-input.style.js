@@ -36,6 +36,9 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 20,
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   label: {
@@ -46,6 +49,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   loadImageInput: {
@@ -53,6 +59,9 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '7px',
     width: 'calc(100% - 192px)',
     border: `1px solid #424250`,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   loadImageInputSmall: {
@@ -61,11 +70,20 @@ export const useStyles = makeStyles()(theme => ({
 
   inputColor: {
     color: `${theme.palette.text.general} !important`,
+    [theme.breakpoints.down(768)]: {
+      height: 68,
+    },
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   loadBtn: {
     width: '172px',
     color: '#fff',
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   attachFiles: {
@@ -99,6 +117,9 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       height: 68,
     },
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   dragingOnDropBtn: {
@@ -114,6 +135,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: 20,
     color: theme.palette.primary.main,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+      maxWidth: '100%',
+    },
   },
 
   oneLineDADBtn: {

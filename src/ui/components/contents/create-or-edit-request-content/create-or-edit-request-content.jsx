@@ -672,6 +672,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         <Checkbox color="primary" checked={formFields.request.withoutConfirmation} />
                         <Text
                           tooltipPosition={'corner'}
+                          className={styles.textInCheckbox}
                           tooltipInfoContent={t(
                             TranslationKey['Allow the performer to take the request for work without confirmation'],
                           )}
@@ -692,6 +693,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         />
                         <Text
                           tooltipPosition={'corner'}
+                          className={styles.textInCheckbox}
                           tooltipInfoContent={t(
                             TranslationKey['After providing the result, the same performer may make a new proposal'],
                           )}
@@ -757,7 +759,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             masterUserSelect
                             blackSelectedItem
                             chosenItemNoHover
-                            width={372}
+                            width={'100%'}
                             disabled={!formFields?.request?.typeTask}
                             data={masterUsersData}
                             searchOnlyFields={['name']}
@@ -898,8 +900,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                       <Typography className={styles.imagesTitle}>{t(TranslationKey.Files)}</Typography>
                       <PhotoAndFilesSlider
-                        column
                         smallSlider
+                        customSlideHeight={98}
                         files={images.map(el => el.file)}
                         imagesTitles={images.map(el => el.comment)}
                       />
