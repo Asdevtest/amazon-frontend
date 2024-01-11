@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '800px',
+    padding: 10,
   },
 
   title: {
@@ -21,6 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   btnsWrapper: {
+    paddingRight: 5,
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'flex-end',

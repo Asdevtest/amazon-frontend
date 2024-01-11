@@ -180,16 +180,16 @@ export const navbarConfig = {
 
     // {
     //   icon: TradingShops,
-    //   title: () =>  t(TranslationKey['Trading stores']),
+    //   title: () => t(TranslationKey['Trading stores']),
     //   route: '/client/trading-shops/sell-shops',
     //   subtitles: [
     //     {
-    //       subtitle: () =>  t(TranslationKey['Buy store']),
+    //       subtitle: () => t(TranslationKey['Buy store']),
     //       subRoute: '/client/trading-shops/buy-shops',
     //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
     //     },
     //     {
-    //       subtitle: () =>  t(TranslationKey['Sell the store']),
+    //       subtitle: () => t(TranslationKey['Sell the store']),
     //       subRoute: '/client/trading-shops/sell-shops',
     //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
     //     },
@@ -553,6 +553,7 @@ export const navbarConfig = {
         {
           subtitle: () => t(TranslationKey['From the Researcher']),
           subRoute: '/supervisor/ready-to-check',
+          key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
@@ -560,6 +561,7 @@ export const navbarConfig = {
         {
           subtitle: () => t(TranslationKey['From the Client']),
           subRoute: '/supervisor/ready-to-check-by-client',
+          key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),

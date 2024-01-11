@@ -16,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -38,7 +38,6 @@ export const PhotoAndFilesCarousel = props => {
     withoutPhotos,
     withoutFiles,
     imagesTitles = [],
-    isImagesFullWidth = false,
     isHideCounter = false,
     imagesForLoad,
     onChangeImagesForLoad,
@@ -50,15 +49,15 @@ export const PhotoAndFilesCarousel = props => {
   const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
+  const notEmptyFiles = files?.length ? files.filter(el => !checkIsMediaFileLink(el?.file?.name || el)) : []
 
   const filteredImagesTitles = imagesTitles.length
-    ? imagesTitles.filter((el, i) => checkIsImageLink(files[i]?.file?.name || files[i]))
+    ? imagesTitles.filter((el, i) => checkIsMediaFileLink(files[i]?.file?.name || files[i]))
     : []
 
-  const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
+  const notEmptyPhotos = files?.length ? files.filter(el => checkIsMediaFileLink(el?.file?.name || el)) : []
 
-  const onClickRemoveImageObj = imageIndex => {
+  const onRemoveFile = imageIndex => {
     const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
 
     onChangeImagesForLoad(newArr)
@@ -97,7 +96,7 @@ export const PhotoAndFilesCarousel = props => {
     }
   }
 
-  const onClickMakeMainImageObj = (imageIndex, image) => {
+  const onMakeMainFile = (imageIndex, image) => {
     onChangeImagesForLoad([image, ...imagesForLoad.filter((el, i) => i !== imageIndex)])
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
@@ -110,7 +109,7 @@ export const PhotoAndFilesCarousel = props => {
     setImageEditOpen(!imageEditOpen)
   }
 
-  const onClickEditImageSubmit = image => {
+  const onEditRotateFile = image => {
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
@@ -131,7 +130,7 @@ export const PhotoAndFilesCarousel = props => {
               <Button
                 disabled={imageIndex === 0}
                 className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+                onClick={() => onMakeMainFile(imageIndex, image)}
               >
                 <StarOutlinedIcon />
               </Button>
@@ -153,7 +152,7 @@ export const PhotoAndFilesCarousel = props => {
           />
         </Button>
 
-        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
+        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onRemoveFile(imageIndex)}>
           <DeleteOutlineOutlinedIcon />
         </Button>
       </>
@@ -175,7 +174,7 @@ export const PhotoAndFilesCarousel = props => {
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
-                    ? imagesForLoad.filter(el => checkIsImageLink(el?.file?.name || el))
+                    ? imagesForLoad.filter(el => checkIsMediaFileLink(el?.file?.name || el))
                     : notEmptyPhotos
                   )?.map((photo, index) => (
                     <div key={index} className={classNames.imageSubWrapper}>
@@ -193,7 +192,7 @@ export const PhotoAndFilesCarousel = props => {
 
                             setBigImagesOptions({
                               images: (isEditable ? imagesForLoad : files)
-                                .filter(el => checkIsImageLink(el?.file?.name || el))
+                                .filter(el => checkIsMediaFileLink(el?.file?.name || el))
                                 .map(img => img?.data_url || img),
                               imgIndex: index,
                             })
@@ -277,7 +276,7 @@ export const PhotoAndFilesCarousel = props => {
         <ImageEditForm
           item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
           setOpenModal={() => setImageEditOpen(!imageEditOpen)}
-          onSave={onClickEditImageSubmit}
+          onSave={onEditRotateFile}
         />
       </Modal>
 
@@ -286,12 +285,12 @@ export const PhotoAndFilesCarousel = props => {
           showPreviews
           isOpenModal={showPhotosModal}
           handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imageList={bigImagesOptions.images.map((el, i) => ({
+          files={bigImagesOptions.images.map((el, i) => ({
             url: el,
             comment: filteredImagesTitles[i],
           }))}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           controls={isEditable ? bigImagesModalControls : undefined}
         />
       )}

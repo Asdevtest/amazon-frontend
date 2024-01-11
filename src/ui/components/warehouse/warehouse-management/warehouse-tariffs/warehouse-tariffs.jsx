@@ -68,7 +68,6 @@ export const WarehouseTariffs = observer(() => {
         filterModel={filterModel}
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         getRowHeight={() => 'auto'}
         slotProps={{

@@ -18,13 +18,15 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 3,
+    gap: 4,
   },
 
   message: {
     fontSize: 12,
-    lineHeight: '16px',
+    lineHeight: '110%',
+    fontWeight: 400,
     color: theme.palette.text.general,
+    wordBreak: 'break-all',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -48,5 +50,16 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     right: 8,
     bottom: 8,
+  },
+
+  noticeTitle: {
+    lineHeight: '110%',
+    color: theme.palette.primary.main,
+    fontSize: '12px',
+    fontWeight: 600,
+  },
+
+  messageOwner: {
+    fontWeight: 600,
   },
 }))

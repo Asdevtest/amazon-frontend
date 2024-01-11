@@ -32,46 +32,8 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { intervalFields } from './client-ideas-view.constants'
+import { filtersFields, intervalFields } from './client-ideas-view.constants'
 import { settingsByUrl } from './settings-by-url'
-
-// * Список полей для фильтраций
-
-const filtersFields = [
-  'parentProductSkusByClient',
-  'parentProductAmazonTitle',
-  'parentProductAsin',
-  'childProductAmazonTitle',
-  'childProductSkusByClient',
-  'childProductAsin',
-  'title',
-  // 'shopIds',
-  'childProductShopIds',
-  'parentProductShopIds',
-  'comments',
-  'createdAt',
-  'dateStatusOnCheck',
-  'suppliers',
-  'minlot',
-  'productionTerm',
-  'dateStatusProductCreating',
-  'buyerComment',
-  'dateStatusAddingAsin',
-  'amount',
-  'intervalStatusNew',
-  'intervalStatusOnCheck',
-  'intervalStatusSupplierSearch',
-  'intervalStatusSupplierFound',
-  'intervalStatusProductCreating',
-  'intervalStatusAddingAsin',
-  'intervalStatusFinished',
-  'intervalsSum',
-  'updatedAt',
-  'amazonTitle',
-  'asin',
-  'skusByClient',
-  'status',
-]
 
 export class ClientIdeasViewModel {
   history = undefined
@@ -188,6 +150,7 @@ export class ClientIdeasViewModel {
     },
   }
   columnsModel = clientNewIdeasColumns(this.rowHandlers, this.shopList)
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -256,15 +219,12 @@ export class ClientIdeasViewModel {
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[this.currentSettings.dataGridKey]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   // * Filtration handlers
@@ -275,28 +235,24 @@ export class ClientIdeasViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangePaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getIdeaList()
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
     this.getIdeaList()
   }
@@ -323,11 +279,11 @@ export class ClientIdeasViewModel {
         exclusion,
         filtersFields,
         [
-          'parentProductSkusByClient',
+          'parentProductSkuByClient',
           'parentProductAmazonTitle',
           'parentProductAsin',
           'childProductAmazonTitle',
-          'childProductSkusByClient',
+          'childProductSkuByClient',
           'childProductAsin',
           'title',
         ],
@@ -373,18 +329,20 @@ export class ClientIdeasViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'ideas'),
         column,
-
         `ideas/pag/my?filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
       this.setFilterRequestStatus(loadingStatuses.success)
@@ -493,7 +451,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
@@ -509,7 +467,15 @@ export class ClientIdeasViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getStorekeepers() {
@@ -976,7 +942,7 @@ export class ClientIdeasViewModel {
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
 
       this.setActionStatus(loadingStatuses.failed)
     }
@@ -1100,7 +1066,7 @@ export class ClientIdeasViewModel {
         this.onTriggerOpenModal('showRequestStandartResultModal')
       }
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

@@ -186,8 +186,12 @@ export class RequestDetailCustomViewModel {
 
   onClickOpenRequest(media) {
     this.curResultMedia = media
-
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+  }
+
+  onClickCloseDesignerResultClientModal() {
+    this.curResultMedia = []
+    this.showRequestDesignerResultClientModal = false
   }
 
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {
@@ -222,7 +226,7 @@ export class RequestDetailCustomViewModel {
 
   async getRequestProposals() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId) // inside the method is noCache: true
 
       runInAction(() => {
         this.requestProposals = result
@@ -258,10 +262,6 @@ export class RequestDetailCustomViewModel {
       if (!findRequestProposalByChatSelectedId) {
         return
       }
-
-      runInAction(() => {
-        this.loadedFiles = []
-      })
 
       if (files.length) {
         await onSubmitPostImages.call(this, {

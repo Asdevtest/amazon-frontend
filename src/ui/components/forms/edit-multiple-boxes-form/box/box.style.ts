@@ -70,6 +70,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   label: {
+    margin: 0,
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
@@ -107,7 +108,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
-    marginBottom: 10,
+    marginBottom: '0 !important',
     alignItems: 'flex-end',
   },
 
@@ -138,7 +139,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperTrafficBtn: {
-    color: theme.palette.text.general,
+    color: '#ffff',
   },
 
   fieldInput: {
@@ -167,7 +168,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '27px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   tablePanelViewText: {

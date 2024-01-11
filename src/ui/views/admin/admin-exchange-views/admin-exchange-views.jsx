@@ -47,7 +47,6 @@ export const AdminExchangeViewsRaw = props => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={100}
             rows={viewModel.currentData}
             rowCount={viewModel.rowsCount}
@@ -56,9 +55,7 @@ export const AdminExchangeViewsRaw = props => {
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
-
               columnMenu: viewModel.columnMenuSettings,
-
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,
@@ -78,7 +75,7 @@ export const AdminExchangeViewsRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            // onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            // onRowDoubleClick={row => viewModel.onClickTableRow(row._id)}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />

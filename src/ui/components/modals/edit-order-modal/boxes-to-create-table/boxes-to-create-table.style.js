@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   newBoxes: {
     marginBottom: '20px',
   },
@@ -17,6 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   sectionTitle: {
     color: theme.palette.text.second,
+    fontSize: '20px',
     marginBottom: '10px',
     marginTop: '10px',
   },
@@ -142,7 +143,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesSubWrapper: {
-    width: 'fit-content',
+    display: 'flex',
+    gap: '140px',
     marginBottom: 10,
+  },
+
+  transparencyCodesText: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: theme.palette.text.red,
+  },
+
+  itemsNotEqualTotal: {
+    color: theme.palette.text.red,
+  },
+
+  itemsEqualTotal: {
+    color: theme.palette.text.green,
   },
 }))

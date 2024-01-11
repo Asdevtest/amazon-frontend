@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-
-import { Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
@@ -22,13 +20,13 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import { toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
 import { attentionStatuses } from './buyer-my-orders-view.constants'
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
+import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
@@ -44,17 +42,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
     history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
     styles.attentionRow
 
-  const validOrderPayments =
-    viewModel.currentOrder && viewModel.currentOrder?.orderSupplier?.paymentMethods?.length
-      ? viewModel.currentOrder?.orderSupplier?.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : viewModel.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-  const payments = viewModel.currentOrder && [...viewModel.currentOrder.payments, ...validOrderPayments]
-
   const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
     status =>
       Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
@@ -62,93 +49,67 @@ export const BuyerMyOrdersView = observer(({ history }) => {
   )
 
   return (
-    <React.Fragment>
-      <div>
-        <div
-          className={cx(styles.headerWrapper, {
-            [styles.headerWrapperCenter]:
-              !viewModel.paymentAmount?.totalPriceInYuan &&
-              !viewModel.paymentAmount?.totalPriceInUSD &&
-              !viewModel.paymentAmount?.partialPaymentAmountRmb,
-          })}
-        >
-          {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
-            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && <div className={styles.totalPriceWrapper} />}
+    <>
+      <div
+        className={cx(styles.headerWrapper, {
+          [styles.headerWrapperCenter]:
+            !viewModel.paymentAmount?.totalPriceInYuan &&
+            !viewModel.paymentAmount?.totalPriceInUSD &&
+            !viewModel.paymentAmount?.partialPaymentAmountRmb,
+        })}
+      >
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          <SearchInput
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <PaymentAllSuppliers
+          paymentAmount={viewModel.paymentAmount}
+          isNoPaidedOrders={isNoPaidedOrders}
+          yuanToDollarRate={viewModel.yuanToDollarRate}
+        />
+      </div>
 
-          {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
-            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && (
-            <div className={styles.totalPriceWrapper}>
-              <Typography className={styles.totalPriceText}>
-                {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
-              </Typography>
-              <div className={styles.totalPriceTextWrapper}>
-                <Typography className={cx(styles.totalPriceText, styles.totalPrice)}>
-                  {`${toFixedWithYuanSign(
-                    isNoPaidedOrders
-                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate) +
-                          viewModel.paymentAmount?.partialPaymentAmountRmb
-                      : viewModel.paymentAmount?.totalPriceInYuan + viewModel.paymentAmount?.partialPaymentAmountRmb,
-                    2,
-                  )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                    viewModel.paymentAmount?.totalPriceInUSD +
-                      viewModel.paymentAmount?.partialPaymentAmountRmb / Number(viewModel.yuanToDollarRate),
-                    2,
-                  )}`}
-                </Typography>
-              </div>
-            </div>
-          )}
-        </div>
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          getRowClassName={getRowClassName}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
 
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            getRowClassName={getRowClassName}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-              columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
-
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
+        />
       </div>
 
       <Modal
@@ -267,7 +228,8 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       >
         <PaymentMethodsForm
           readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
-          payments={payments}
+          orderPayments={viewModel.currentOrder?.payments}
+          allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
@@ -290,6 +252,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       {viewModel.requestStatus === loadingStatuses.isLoading && (
         <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
       )}
-    </React.Fragment>
+    </>
   )
 })

@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import {
   freelanceRequestType,
@@ -25,26 +25,7 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
-// * Список полей для фильтраций
-
-const filtersFields = [
-  'status',
-  'createdBy',
-  'sub',
-  'updatedAt',
-  'humanFriendlyId',
-  'priority',
-  'title',
-  'maxAmountOfProposals',
-  'timeoutAt',
-  'requestCreatedBy',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'taskComplexity',
-  'typeTask',
-  'reworkCounter',
-]
+import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
 
 export class MyProposalsViewModel {
   // * Pagination & Sort
@@ -54,7 +35,6 @@ export class MyProposalsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   filterModel = { items: [] }
   selectedRowIds = []
-  pageSizeOptions = [15, 25, 50, 100]
 
   // * Table settings
 
@@ -87,8 +67,6 @@ export class MyProposalsViewModel {
 
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   currentProposal = null
   currentRequest = null
@@ -102,14 +80,15 @@ export class MyProposalsViewModel {
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
-  userInfo = []
-  userRole = undefined
-
+  showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
   showRequestResultModal = false
   selectedProposal = undefined
+
+  isInTheWork = true
+  switcherCondition = switcherConditions.inTheWork
 
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
@@ -121,7 +100,7 @@ export class MyProposalsViewModel {
     onClickConfirm: () => {},
   }
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -135,6 +114,8 @@ export class MyProposalsViewModel {
 
   constructor({ history }) {
     this.history = history
+
+    this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -192,7 +173,7 @@ export class MyProposalsViewModel {
         await RequestProposalModel.requestProposalCancel(proposalId)
       }
 
-      await this.loadData()
+      this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -214,20 +195,10 @@ export class MyProposalsViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setDataGridState()
   }
 
   onClickTaskType(taskType) {
@@ -243,7 +214,7 @@ export class MyProposalsViewModel {
   onClickEditBtn(requestId, proposalId) {
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-proposals/edit-proposal?proposalId=${proposalId}&requestId=${requestId}`,
     )
   }
@@ -251,7 +222,7 @@ export class MyProposalsViewModel {
   onClickOpenBtn(requestId) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user.role]
+        UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
       '_blank',
     )
@@ -259,21 +230,12 @@ export class MyProposalsViewModel {
     win?.focus()
   }
 
-  getUserInfo() {
-    const result = UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUserInfo()
-      await this.getRequestsProposalsPagMy()
       this.getDataGridState()
-      this.setRequestStatus(loadingStatuses.success)
+
+      this.getRequestsProposalsPagMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -282,32 +244,37 @@ export class MyProposalsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await RequestProposalModel.getRequestProposalsPagMy({
+      const response = await RequestProposalModel.getRequestProposalsPagMy({
         filters: this.getFilters(),
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-      }).then(response => {
-        runInAction(() => {
-          this.requests = myProposalsDataConverter(response.rows) || []
-          this.rowCount = response.count
-        })
+      })
+
+      runInAction(() => {
+        this.requests = myProposalsDataConverter(response.rows)
+        this.rowCount = response.count
       })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+
+      runInAction(() => {
+        this.requests = []
+        this.rowCount = 0
+      })
     }
   }
 
   async getProposalById(proposalId) {
     try {
-      await RequestProposalModel.getRequestProposalsCustom(proposalId).then(response => {
-        runInAction(() => {
-          this.currentProposal = response
-        })
+      const response = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
+      runInAction(() => {
+        this.currentProposal = response
       })
     } catch (error) {
       console.log(error)
@@ -315,11 +282,15 @@ export class MyProposalsViewModel {
   }
 
   async getRequestById(requestId) {
-    await RequestModel.getCustomRequestById(requestId).then(response => {
+    try {
+      const response = await RequestModel.getCustomRequestById(requestId)
+
       runInAction(() => {
         this.currentRequest = response
       })
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickResultBtn(requestId, proposalId) {
@@ -341,23 +312,12 @@ export class MyProposalsViewModel {
   }
 
   getFilters(exclusion) {
-    // const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
-
     return objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.currentSearchValue,
-        exclusion,
-        filtersFields,
-        ['asin', 'title', 'humanFriendlyId'],
-        // {
-        //   ...(!statusFilterData.length && {
-        //     status: {
-        //       $eq: this.currentSettings.statuses.join(','),
-        //     },
-        //   }),
-        // },
-      ),
+      dataGridFiltersConverter(this.columnMenuSettings, this.currentSearchValue, exclusion, filtersFields, [
+        'asin',
+        'title',
+        'humanFriendlyId',
+      ]),
     )
   }
 
@@ -377,7 +337,7 @@ export class MyProposalsViewModel {
       ].includes(column)
     ) {
       return 'requests'
-    } else if (['asin', 'skusByClient', 'amazonTitle'].includes(column)) {
+    } else if (['asin', 'skuByClient', 'amazonTitle'].includes(column)) {
       return 'products'
     }
   }
@@ -394,9 +354,19 @@ export class MyProposalsViewModel {
 
       if (this.columnMenuSettings[column]) {
         runInAction(() => {
+          const filterData =
+            column === 'status'
+              ? data.filter(status =>
+                  this.isInTheWork ? inTheWorkStatuses.includes(status) : executedStatuses.includes(status),
+                )
+              : data
+
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
+            [column]: {
+              ...this.columnMenuSettings[column],
+              filterData,
+            },
           }
         })
       }
@@ -413,17 +383,7 @@ export class MyProposalsViewModel {
       this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
     }
 
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
-  }
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onTriggerOpenModal(modal) {
@@ -434,7 +394,7 @@ export class MyProposalsViewModel {
     this.requestStatus = requestStatus
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.getRequestsProposalsPagMy()
@@ -465,6 +425,8 @@ export class MyProposalsViewModel {
       ...dataGridFiltersInitializer(filtersFields),
     }
 
+    this.setDefaultStatuses()
+
     this.getRequestsProposalsPagMy()
   }
 
@@ -473,9 +435,37 @@ export class MyProposalsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
+    this.columnMenuSettings.filterRequestStatus = requestStatus
+  }
+
+  onOpenRequestDetailModal(id) {
+    if (window.getSelection().toString()) {
+      return
     }
+    try {
+      this.getRequestById(id)
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  setDefaultStatuses() {
+    this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
+  }
+
+  onClickChangeCatigory(value) {
+    this.switcherCondition = value
+
+    if (value === switcherConditions.inTheWork) {
+      this.isInTheWork = true
+    } else {
+      this.isInTheWork = false
+    }
+
+    this.setDefaultStatuses()
+
+    this.getRequestsProposalsPagMy()
   }
 }

@@ -14,12 +14,44 @@ type FilterList = {
 }
 
 const onlyDigitsRegex = /^\d+$/
+const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId']
 
 const searchOperatorByColumn = {
   $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'productId'],
 }
+const filterOperatorByColumn = {
+  $any: ['tags', 'redFlags'],
+}
 
-const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId']
+const setValueForFilter = (column: string, FilterString: string) => {
+  const FinalFilterString = FilterString.substring(0, FilterString.length - 1)
+
+  let operator = '$eq'
+
+  for (const key in filterOperatorByColumn) {
+    if (filterOperatorByColumn[key as keyof typeof filterOperatorByColumn].includes(column)) {
+      operator = key
+      break
+    }
+  }
+
+  return { [operator]: FinalFilterString }
+}
+
+const setValueForSearch = (searchField: string, searchValue: string) => {
+  let operator = '$contains'
+
+  for (const key in searchOperatorByColumn) {
+    if (searchOperatorByColumn[key as keyof typeof searchOperatorByColumn].includes(searchField)) {
+      operator = key
+      break
+    }
+  }
+
+  return {
+    [searchField]: { [operator]: searchValue },
+  }
+}
 
 /*
  * Функция для генераций объекта фильтров таблицы
@@ -42,20 +74,7 @@ export const dataGridFiltersConverter = (
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
   const searchFieldsArray: FilterObject[] = searchValue
     ? searchFields
-        .map(searchField => {
-          let operator = '$contains'
-
-          for (const key in searchOperatorByColumn) {
-            if (searchOperatorByColumn[key as keyof typeof searchOperatorByColumn].includes(searchField)) {
-              operator = key
-              break
-            }
-          }
-
-          return {
-            [searchField]: { [operator]: searchValue },
-          }
-        })
+        .map(searchField => setValueForSearch(searchField, searchValue))
         .filter(el => {
           const key = Object.keys(el)[0]
 
@@ -93,9 +112,7 @@ export const dataGridFiltersConverter = (
 
     acc = {
       ...acc,
-      [column]: {
-        $eq: finalFilterString.substring(0, finalFilterString.length - 1),
-      },
+      [column]: setValueForFilter(column, finalFilterString),
     }
 
     return acc

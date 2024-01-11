@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
 
@@ -10,13 +10,16 @@ import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
+import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { useStyles } from './freelance-request-details-modal.styles'
 
-export const FreelanceRequestDetailsModalControls = props => {
+export const FreelanceRequestDetailsModalControls = memo(props => {
   const {
     request,
+    isAcceptedProposals,
+    requestProposals,
     onClickSuggest,
     onClickOpenNewTab,
     onClickPublishBtn,
@@ -26,15 +29,45 @@ export const FreelanceRequestDetailsModalControls = props => {
     isRequestOwner,
     onRecoverRequest,
     onClickAbortBtn,
+    onClickMarkAsCompletedBtn,
+    onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
+  const showMarkAsCompletedButtton =
+    isAcceptedProposals &&
+    request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
+    request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+  const showChangeRequestTermsButton =
+    request?.status === RequestStatus.IN_PROCESS ||
+    request?.status === RequestStatus.EXPIRED ||
+    request?.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+  const showAcceptingProposalsButton =
+    request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
+    request?.status !== RequestStatus.EXPIRED &&
+    request?.status !== RequestStatus.DRAFT
+  const showMainActionsButton =
+    request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED)
+  const showPublishButton = request?.status === RequestStatus.DRAFT
+
   return (
     <div className={styles.suggestDeal}>
-      <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+      <div className={styles.controlsWrapper}>
+        <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
+
+        <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+          {t(TranslationKey.Result)}
+        </Button>
+      </div>
 
       <div className={styles.controlsWrapper}>
+        {showMarkAsCompletedButtton && (
+          <Button success className={styles.publishBtn} onClick={() => onClickMarkAsCompletedBtn(request?._id)}>
+            {t(TranslationKey['Mark as completed'])}
+          </Button>
+        )}
+
         {isRequestOwner && (
           <>
             <Button
@@ -43,9 +76,10 @@ export const FreelanceRequestDetailsModalControls = props => {
               onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
             >
               <Checkbox color="primary" checked={request?.uploadedToListing} className={styles.listingCheckbox} />
-              <Typography className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
+              <Typography className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
             </Button>
-            {request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED) && (
+
+            {showMainActionsButton && (
               <>
                 <Button
                   danger
@@ -65,7 +99,7 @@ export const FreelanceRequestDetailsModalControls = props => {
                   {t(TranslationKey.Edit)}
                 </Button>
 
-                {request?.status === RequestStatus.DRAFT && (
+                {showPublishButton && (
                   <Button
                     success
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
@@ -78,9 +112,7 @@ export const FreelanceRequestDetailsModalControls = props => {
               </>
             )}
 
-            {(request?.status === RequestStatus.IN_PROCESS ||
-              request?.status === RequestStatus.EXPIRED ||
-              request?.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
+            {showChangeRequestTermsButton && (
               <>
                 <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
                   {t(TranslationKey['Change request terms'])}
@@ -88,8 +120,9 @@ export const FreelanceRequestDetailsModalControls = props => {
 
                 <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
                   <RestoreRequestModal
+                    minDate={getTomorrowDate()}
                     currentDate={request?.timeoutAt}
-                    currentRequestsCount={request.maxAmountOfProposals}
+                    currentRequestsCount={request?.maxAmountOfProposals}
                     handleCloseModal={() => setIsRestoreModalOpen(false)}
                     handleSubmit={onRecoverRequest}
                   />
@@ -97,29 +130,28 @@ export const FreelanceRequestDetailsModalControls = props => {
               </>
             )}
 
-            {request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
-              request?.status !== RequestStatus.EXPIRED &&
-              request?.status !== RequestStatus.DRAFT && (
-                <Button
-                  tooltipInfoContent={
-                    request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
-                    t(TranslationKey['Removes the visibility of the request on the exchange'])
-                  }
-                  color="primary"
-                  className={cx({
-                    [styles.stopBtn]: request?.status !== RequestStatus.FORBID_NEW_PROPOSALS,
-                  })}
-                  onClick={request?.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-                >
-                  {request?.status === RequestStatus.FORBID_NEW_PROPOSALS
-                    ? t(TranslationKey['Resume accepting proposals'])
-                    : t(TranslationKey['Stop accepting proposals'])}
-                </Button>
-              )}
+            {showAcceptingProposalsButton && (
+              <Button
+                tooltipInfoContent={
+                  request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
+                  t(TranslationKey['Removes the visibility of the request on the exchange'])
+                }
+                color="primary"
+                className={cx({
+                  [styles.stopBtn]: request?.status !== RequestStatus.FORBID_NEW_PROPOSALS,
+                })}
+                onClick={request?.status !== RequestStatus.FORBID_NEW_PROPOSALS ? onClickAbortBtn : onClickPublishBtn}
+              >
+                {request?.status === RequestStatus.FORBID_NEW_PROPOSALS
+                  ? t(TranslationKey['Resume accepting proposals'])
+                  : t(TranslationKey['Stop accepting proposals'])}
+              </Button>
+            )}
           </>
         )}
+
         {onClickSuggest && <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>}
       </div>
     </div>
   )
-}
+})

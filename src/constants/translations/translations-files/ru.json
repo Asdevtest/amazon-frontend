@@ -1164,7 +1164,7 @@
   "When re-sticking will create a task for the prep center": "При повторной поклейке будет создана задача преп-центру",
   "Add or replace the shipping label": "Добавить или заменить транспортировочную этикетку",
   "The dimensions of the box specified by the prep center": "Размеры коробки, указанные преп-центром",
-  "Add a product barcode to the box. A task will be created for the prep center": "Добавить штрихкод товара к коробке. Будет создана задача преп-центру",
+  "Add a product barcode to the box": "Добавить штрихкод товара к коробке",
   "A task will be created for the prep center": "Будет создана задача преп-центру",
   "The supplier has glued the barcode before shipment": "Поставщик проклеил штрихкод перед отправкой",
   "The new barcode will be updated at the product in the inventory": "Новый штрихкод будет обновлен у продукта в инвентаре",
@@ -2144,5 +2144,14 @@
   "This rate may have an irrelevant value as the rate may have been changed after shipment.": "Данный рейт может иметь неактуальное значение, поскольку тариф мог быть изменён после отправки.",
   "pc": "шт",
   "There are unresolved proposals for this request in your queue.": "В вашей очереди есть нерешенные предложения по этой заявке.",
-  "Images": "Картинки"
+  "Images": "Картинки",
+  "Transparency codes": "Transparency codes",
+  "Transparency": "Transparency",
+  "No Transparency codes": "Отсутствует Transparency codes",
+  "The supplier glued the Transparency codes": "Поставщик проклеил Transparency codes",
+  "Transparency codes are glued by storekeeper": "Transparency codes проклеен сторкипером",
+  "Transparency codes glued by the supplier": "Transparency codes проклеен поставщиком",
+  "A photo of the Transperensy Code sticker": "Фотография проклеенной наклейки Transperensy Code",
+  "Be sure to add a photo to the box": "Обязательно добавьте фотографию к коробке",
+  "Total quantity": "Общее количество"
 }

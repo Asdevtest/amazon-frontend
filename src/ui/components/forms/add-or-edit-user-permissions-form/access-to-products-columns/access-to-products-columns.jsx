@@ -17,7 +17,7 @@ export const sourceColumns = () => [
           image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

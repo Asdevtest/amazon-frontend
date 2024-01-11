@@ -1,11 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  modalMainWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
     width: 540,
     padding: 10,
   },
-  modalTitle: {
+
+  title: {
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
@@ -25,67 +26,61 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 7,
   },
 
-  linksWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
+  inputContainer: {
+    marginBottom: 0,
   },
 
-  inputWrapper: {
+  linkPublicationContainer: {
+    marginBottom: 10,
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     gap: 20,
   },
 
-  pubInput: {
-    width: '100%',
-    height: 40,
-    borderRadius: 7,
-    padding: '0 5px',
-
-    '&:before, &:after': {
-      border: 'none',
-    },
+  marginBottomDefault: {
+    marginBottom: 20,
   },
 
   button: {
     padding: '0 25px',
   },
 
-  linksSubWrapper: {
+  links: {
+    marginBottom: 20,
+    padding: '0 10px',
     maxHeight: 130,
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    padding: '0 10px',
+    borderRadius: 7,
     boxShadow: 'inset 0 -4px 13px rgba(135, 135, 135, 0.15)',
   },
 
   linkWrapper: {
     minHeight: 40,
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   linkText: {
     width: '95%',
     overflow: 'auto',
     whiteSpace: 'nowrap',
+    color: theme.palette.primary.main,
   },
 
   linksBtnsWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
 
   deleteBtn: {
+    width: '20px !important',
+    height: '20px !important',
     color: theme.palette.text.second,
-    width: '20px',
-    height: '20px',
-  },
-
-  commentFieldWrapper: {
-    marginBottom: 20,
+    cursor: 'pointer',
   },
 
   commentField: {
@@ -98,8 +93,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    gap: 40,
     justifyContent: 'flex-end',
+    gap: 40,
   },
 
   cancelButton: {

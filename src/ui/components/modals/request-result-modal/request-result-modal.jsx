@@ -1,9 +1,6 @@
-import { cx } from '@emotion/css'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import Input from '@mui/material/Input'
-import Link from '@mui/material/Link'
 
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,136 +14,124 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-result-modal.style'
+import { useStyles } from './request-result-modal.style'
 
-export const RequestResultModal = ({
-  openModal,
-  setOpenModal,
-  onClickSendAsResult,
-  request,
-  proposal,
-  missClickModalOn,
-}) => {
-  const { classes: classNames } = useClassNames()
+export const RequestResultModal = memo(props => {
+  const { openModal, setOpenModal, onClickSendAsResult, request, proposal, missClickModalOn } = props
 
-  const [linkLine, setLinkLine] = useState('')
-  const [images, setImages] = useState([])
+  const { classes: styles, cx } = useStyles()
 
-  const disableFields = null
-
-  const getSourceFormFields = () => ({
+  const getInitialFormFields = () => ({
     amazonOrderId: proposal?.details?.amazonOrderId || '',
     publicationLinks: proposal?.details?.publicationLinks || [],
     result: proposal?.details?.result || '',
   })
 
-  const [formFields, setFormFields] = useState(getSourceFormFields())
+  const [link, setLink] = useState('')
+  const [images, setImages] = useState([])
+  const [formFields, setFormFields] = useState(getInitialFormFields())
 
   useEffect(() => {
-    setFormFields(getSourceFormFields())
+    setFormFields(getInitialFormFields())
   }, [proposal])
 
   const onChangeField = fieldName => event => {
-    const newFormFields = { ...formFields }
-
-    newFormFields[fieldName] = event.target.value
-
-    setFormFields(newFormFields)
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      [fieldName]: event.target.value,
+    }))
   }
 
   const onClickLinkBtn = () => {
-    onChangeField('publicationLinks')({ target: { value: [...formFields.publicationLinks, linkLine] } })
+    const newLinks = [...formFields.publicationLinks, link]
+    onChangeField('publicationLinks')({ target: { value: newLinks } })
 
-    setLinkLine('')
+    setLink('')
   }
 
-  const onRemoveLink = index => {
-    const newArr = formFields.publicationLinks.filter((el, i) => i !== index)
+  const onRemoveLink = removeLinkIndex => {
+    const newArr = formFields.publicationLinks.filter((_, linkIndex) => linkIndex !== removeLinkIndex)
 
     onChangeField('publicationLinks')({ target: { value: [...newArr] } })
   }
 
+  const isBloggerTypeTask = request?.request?.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledBtn =
-    (`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-      (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
-    (`${request?.request?.typeTask}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-      !formFields.result)
+    (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
+    (!isBloggerTypeTask && !formFields.result)
+  const disableFields = null
+  const mediaFiles = proposal?.proposal?.media?.map(el => (typeof el === 'string' ? el : el?.fileLink))
 
   return (
     <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMainWrapper}>
-        <p className={classNames.modalTitle}>{t(TranslationKey['Result of the request'])}</p>
+      <div className={styles.wrapper}>
+        <p className={styles.title}>{t(TranslationKey['Result of the request'])}</p>
 
-        {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+        {isBloggerTypeTask && (
           <Field
-            disabled={proposal}
+            disabled={!!proposal}
             inputProps={{ maxLength: 100 }}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             label={'Amazon order ID*'}
-            className={classNames.input}
+            className={styles.input}
             value={formFields.amazonOrderId}
             onChange={onChangeField('amazonOrderId')}
           />
         )}
 
-        {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-          <Field
-            labelClasses={classNames.label}
-            label={t(TranslationKey['Link to publication']) + '*'}
-            inputComponent={
-              <div className={classNames.linksWrapper}>
-                {!proposal && (
-                  <div className={classNames.inputWrapper}>
-                    <Input
-                      inputProps={{ maxLength: 512 }}
-                      value={linkLine}
-                      className={classNames.pubInput}
-                      onChange={e => setLinkLine(e.target.value)}
-                    />
-                    <Button
-                      disableElevation
-                      disabled={!linkLine || disableFields}
-                      className={classNames.button}
-                      variant="contained"
-                      color="primary"
-                      onClick={onClickLinkBtn}
-                    >
-                      {t(TranslationKey.Add)}
-                    </Button>
-                  </div>
-                )}
-                {!!formFields?.publicationLinks?.length && (
-                  <div className={classNames.linksSubWrapper}>
-                    {formFields?.publicationLinks.map((el, index) => (
-                      <div key={index} className={classNames.linkWrapper}>
-                        <Link target="_blank" href={el} className={classNames.linkText}>
-                          {`${index + 1}. ${el}`}
-                        </Link>
+        {isBloggerTypeTask && (
+          <div
+            className={cx(styles.linkPublicationContainer, {
+              [styles.marginBottomDefault]: !formFields.publicationLinks.length,
+            })}
+          >
+            <Field
+              inputProps={{ maxLength: 512 }}
+              labelClasses={styles.label}
+              label={t(TranslationKey['Link to publication']) + '*'}
+              className={styles.input}
+              containerClasses={styles.inputContainer}
+              value={link}
+              onChange={e => setLink(e.target.value)}
+            />
 
-                        <div className={classNames.linksBtnsWrapper}>
-                          <CopyValue text={el} />
-                          {!disableFields && !proposal && (
-                            <DeleteOutlineOutlinedIcon
-                              className={classNames.deleteBtn}
-                              onClick={() => onRemoveLink(index)}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            }
-          />
+            <Button
+              disableElevation
+              disabled={!link || disableFields}
+              className={styles.button}
+              variant="contained"
+              color="primary"
+              onClick={onClickLinkBtn}
+            >
+              {t(TranslationKey.Add)}
+            </Button>
+          </div>
         )}
+
+        {formFields.publicationLinks.length ? (
+          <div className={styles.links}>
+            {formFields.publicationLinks.map((el, index) => (
+              <div key={index} className={styles.linkWrapper}>
+                <a href={el} className={styles.linkText} target="_blank" rel="noreferrer">
+                  {`${index + 1}. ${el}`}
+                </a>
+
+                <div className={styles.linksBtnsWrapper}>
+                  <CopyValue text={el} />
+                  {!disableFields && !proposal && (
+                    <DeleteOutlineOutlinedIcon className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : null}
 
         <Field
           multiline
-          disabled={proposal}
-          containerClasses={classNames.commentFieldWrapper}
-          labelClasses={classNames.label}
-          className={classNames.commentField}
+          disabled={!!proposal}
+          labelClasses={styles.label}
+          className={styles.commentField}
           inputProps={{ maxLength: 255 }}
           minRows={4}
           maxRows={4}
@@ -155,11 +140,9 @@ export const RequestResultModal = ({
           onChange={onChangeField('result')}
         />
 
-        <div className={classNames.dragAndDropWrapper}>
+        <div className={styles.dragAndDropWrapper}>
           {proposal ? (
-            <PhotoAndFilesSlider
-              files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
-            />
+            <PhotoAndFilesSlider files={mediaFiles} />
           ) : (
             <UploadFilesInput
               withComment
@@ -174,13 +157,13 @@ export const RequestResultModal = ({
           )}
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           {!!onClickSendAsResult && (
             <Button
               success
               disableElevation
               disabled={disabledBtn}
-              className={classNames.button}
+              className={styles.button}
               onClick={() => {
                 onClickSendAsResult({
                   message: formFields.result,
@@ -198,7 +181,7 @@ export const RequestResultModal = ({
           <Button
             disableElevation
             variant="text"
-            className={cx(classNames.button, classNames.cancelButton)}
+            className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >
             {t(TranslationKey.Cancel)}
@@ -207,4 +190,4 @@ export const RequestResultModal = ({
       </div>
     </Modal>
   )
-}
+})

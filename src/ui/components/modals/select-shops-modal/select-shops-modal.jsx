@@ -1,126 +1,67 @@
-import { useEffect, useState } from 'react'
-
-import ClearIcon from '@mui/icons-material/Clear'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { MenuItem, Select } from '@mui/material'
+import { memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
-import { Input } from '@components/shared/input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './select-shops-modal.style'
+import { useStyles } from './select-shops-modal.style'
 
-export const SelectShopsModal = ({ onClickSuccessBtn, onClickCancelBtn, title, message, shops }) => {
-  const { classes: classNames } = useClassNames()
+export const SelectShopsModal = memo(props => {
+  const { onClickSuccessBtn, onClickCancelBtn, title, message, shops } = props
 
-  const shopsNames = shops.map(shop => shop.name)
-  const [clearSelect, setClearSelect] = useState(true)
-  const [selectedItem, setSelectedItem] = useState(null)
-  const [currentShops, setCurrentShops] = useState([])
-  const [currentShopsIds, setCurrentShopsIds] = useState([])
+  const { classes: styles, cx } = useStyles()
 
-  useEffect(() => {
-    !selectedItem && shops?.length ? setClearSelect(true) : setClearSelect(false)
-  }, [selectedItem, shops])
+  const [currentShopId, setCurrentShopId] = useState('')
 
-  const onChangeShopNamesField = () => {
-    setClearSelect(true)
-    selectedItem && setCurrentShops(prev => [...new Set([...prev, selectedItem])])
-    selectedItem && setCurrentShopsIds(prev => [...new Set([...prev, selectedItem._id])])
-  }
-
-  const onRemoveShop = (name, id) => {
-    setSelectedItem(null)
-    setCurrentShops(currentShops.filter(shop => shop.name !== name))
-    currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
-  }
+  const sortingShops = shops?.sort((a, b) => a?.name?.localeCompare(b?.name))
+  const selectedItem = shops?.find(shop => shop?._id === currentShopId)
+  const selectedItemName = selectedItem?.name || t(TranslationKey['Select a store'])
 
   return (
-    <div className={classNames.modalMessageWrapper}>
-      <p className={classNames.title}>{title}</p>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{title}</p>
 
-      <div className={classNames.shopsWrapper}>
-        <Field
-          label={t(TranslationKey.Shops)}
-          labelClasses={classNames.fieldLabel}
-          containerClasses={classNames.allowedRoleContainer}
-          inputComponent={
-            <div className={classNames.shopsFieldWrapper}>
-              <Select
-                value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
-                variant="outlined"
-                disabled={!shops.length}
-                input={<Input fullWidth />}
-                renderValue={() =>
-                  clearSelect
-                    ? t(TranslationKey['Select a store'])
-                    : !shopsNames.length
-                    ? t(TranslationKey['No stores'])
-                    : selectedItem?.name
-                }
-                className={classNames.shopsSelect}
-                classes={{ select: classNames.select }}
-                onChange={e => setSelectedItem(e.target.value)}
-              >
-                {shops.map((shop, index) => (
-                  <MenuItem
-                    key={index}
-                    disabled={currentShops.includes(shop)}
-                    value={shop}
-                    className={classNames.selectMenu}
-                  >
-                    {/* <Checkbox color="primary" checked={currentShops.includes(traiding-shop._id)} /> */}
+      <Field
+        label={t(TranslationKey.Shops)}
+        labelClasses={styles.fieldLabel}
+        inputComponent={
+          <WithSearchSelect
+            grayBorder
+            blackSelectedItem
+            darkIcon
+            chosenItemNoHover
+            width={340}
+            disabled={!shops.length}
+            data={sortingShops}
+            searchFields={['name']}
+            selectedItemName={selectedItemName}
+            onClickNotChosen={() => setCurrentShopId('')}
+            onClickSelect={el => setCurrentShopId(el._id)}
+          />
+        }
+      />
 
-                    <p className={classNames.selectText}>{shop.name}</p>
-                  </MenuItem>
-                ))}
-              </Select>
-              <HighlightOffIcon className={classNames.deleteIcon} onClick={() => setSelectedItem('')} />
-              <Button
-                disabled={!shops.length}
-                className={classNames.shopsFieldAddButton}
-                onClick={onChangeShopNamesField}
-              >
-                {t(TranslationKey.Add)}
-              </Button>
-            </div>
-          }
-        />
+      <p className={styles.message}>{message}</p>
 
-        <div className={classNames.selectedShopsWrapper}>
-          {currentShops.map((shop, index) => (
-            <div key={index} className={classNames.selectedShop}>
-              <p className={classNames.selectedShopText}>{shop.name}</p>
-              <ClearIcon className={classNames.removeShopButton} onClick={() => onRemoveShop(shop.name, shop._id)} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <p className={classNames.modalMessage}>{message}</p>
-
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttons}>
         <Button
           success
           disableElevation
-          disabled={selectedItem?.name && !clearSelect}
-          // tooltipAttentionContent={!clearSelect && t(TranslationKey.)}
-          className={classNames.button}
-          // disabled={submitIsClicked}
+          disabled={currentShopId === ''}
+          className={styles.button}
           variant="contained"
-          onClick={() => onClickSuccessBtn(currentShopsIds)}
+          onClick={() => onClickSuccessBtn(currentShopId)}
         >
           {t(TranslationKey.Yes)}
         </Button>
 
         <Button
-          // disabled={submitIsClicked}
-          className={classNames.cancelButton}
-          variant={'text'}
+          className={cx(styles.button, styles.cancelButton)}
+          variant="text"
           color="primary"
           onClick={onClickCancelBtn}
         >
@@ -129,4 +70,4 @@ export const SelectShopsModal = ({ onClickSuccessBtn, onClickCancelBtn, title, m
       </div>
     </div>
   )
-}
+})

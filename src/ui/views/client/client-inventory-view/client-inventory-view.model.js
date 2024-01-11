@@ -28,6 +28,7 @@ import { clientInventoryColumns } from '@components/table/table-columns/client/c
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
@@ -53,7 +54,6 @@ export class ClientInventoryViewModel {
 
   baseNoConvertedProducts = undefined
   productsMy = []
-  productsMyBase = []
   withoutProduct = false
   withProduct = false
   user = undefined
@@ -64,7 +64,6 @@ export class ClientInventoryViewModel {
   storekeepers = []
   destinations = []
   shopsData = []
-  currentShops = []
   ideaId = ''
   isArchive = false
   batchesData = []
@@ -79,7 +78,7 @@ export class ClientInventoryViewModel {
 
   // isNeedPurchaseFilter = null
 
-  nameSearchValue = ''
+  currentSearchValue = ''
 
   productsToLaunch = []
   productVariations = []
@@ -125,8 +124,6 @@ export class ClientInventoryViewModel {
   currentHscode = ''
   isModalOpen = false
 
-  onHover = null
-
   isTransfer = false
 
   alertShieldSettings = {
@@ -134,16 +131,37 @@ export class ClientInventoryViewModel {
     alertShieldMessage: '',
   }
 
+  transparencyYesNoFilterData = {
+    yes: true,
+    no: true,
+    handleFilters: (yes, no) => this.onHandleOrderedFilter(yes, no),
+  }
+
+  onHandleOrderedFilter = (yes, no) => {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        transparencyYesNoFilterData: {
+          ...this.columnMenuSettings.transparencyYesNoFilterData,
+          yes,
+          no,
+        },
+      }
+      this.getProductsMy()
+    })
+  }
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.onLeaveColumnField()
       this.getProductsMy()
       this.getDataGridState()
     },
 
     filterRequestStatus: undefined,
+
+    transparencyYesNoFilterData: this.transparencyYesNoFilterData,
 
     isNeedPurchaseFilterData: {
       isNeedPurchaseFilter: true,
@@ -156,17 +174,7 @@ export class ClientInventoryViewModel {
       onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
     },
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
   barCodeHandlers = {
@@ -223,7 +231,6 @@ export class ClientInventoryViewModel {
     this.stockUsHandlers,
     this.otherHandlers,
     () => this.columnMenuSettings,
-    () => this.onHover,
   )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -233,14 +240,23 @@ export class ClientInventoryViewModel {
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+    return filtersFields.some(
+      el =>
+        this.columnMenuSettings[el]?.currentFilterData.length ||
+        !(
+          this.columnMenuSettings?.transparencyYesNoFilterData.yes &&
+          this.columnMenuSettings?.transparencyYesNoFilterData.no
+        ),
+    )
   }
 
   constructor({ history, location }) {
     this.history = history
 
+    const url = new URL(window.location.href)
+    this.isArchive = url.searchParams.get('isArchive')
+
     if (location.state) {
-      this.isArchive = location.state.isArchive
       this.isModalOpen = location.state.isModalOpen
 
       const state = { ...history.location.state }
@@ -295,12 +311,13 @@ export class ClientInventoryViewModel {
     if (window.getSelection().toString()) {
       return
     }
+
     if (row) {
       this.isArchive
-        ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
+        ? this.history.push(`/client/inventory?product-id=${row.originalData._id}&isArchive=true`)
         : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
     } else {
-      this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
+      this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
     }
 
     this.onTriggerOpenModal('productCardModal')
@@ -327,14 +344,6 @@ export class ClientInventoryViewModel {
     )
 
     win.focus()
-  }
-
-  onHoverColumnField(field) {
-    this.onHover = field
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
   }
 
   setDataGridState() {
@@ -403,7 +412,7 @@ export class ClientInventoryViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.currentSearchValue = searchValue
 
     this.getProductsMy()
   }
@@ -488,13 +497,22 @@ export class ClientInventoryViewModel {
   onTriggerArchive() {
     this.selectedRowIds = []
 
-    this.isArchive
-      ? this.history.push('/client/inventory', { isArchive: !this.isArchive })
-      : this.history.push('/client/inventory/archive', { isArchive: !this.isArchive })
+    this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
+    this.isArchive = this.isArchive ? false : true
+
+    this.loadData()
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async loadData() {
@@ -687,13 +705,9 @@ export class ClientInventoryViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = shops
-        ? shops
-        : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
-        ? curShops
-        : null
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter =
+        this.columnMenuSettings.shopId.currentFilterData.length > 0 && column !== 'shopId' ? curShops : null
 
       const purchaseQuantityAboveZero =
         this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
@@ -705,16 +719,18 @@ export class ClientInventoryViewModel {
         getTableByColumn(column, 'products'),
         column,
 
-        `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;&[shopIds][$eq]=${shopFilter}` : ''
+        `clients/products/my_with_pag?filters=${this.getFilters(column)}${
+          shopFilter ? `;&[shopId][$eq]=${shopFilter}` : ''
         }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
       this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -740,191 +756,54 @@ export class ClientInventoryViewModel {
   onClickResetFilters() {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
-
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
+      transparencyYesNoFilterData: {
+        ...this.columnMenuSettings.transparencyYesNoFilterData,
+        yes: true,
+        no: true,
+      },
+      ...dataGridFiltersInitializer(filtersFields),
     }
 
     this.getProductsMy()
     this.getDataGridState()
   }
 
-  getFilter(exclusion) {
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+  getFilters(exclusion) {
+    const transparency =
+      this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
+        ? null
+        : this.columnMenuSettings.transparencyYesNoFilterData.yes
 
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle', 'skuByClient'],
+        {
+          ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+            barCode: {
+              [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+            },
+          }),
+          ...(transparency !== null && {
+            transparency: { $eq: transparency },
+          }),
 
-    const strategyStatusFilter =
-      exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-    const amountInOrdersFilter =
-      exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-    const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-    const inTransferFilter =
-      exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-    const boxAmountsFilter =
-      exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-    const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-    const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
-    const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
-    const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const ideaCountFilter =
-      exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
-
-    const fbaFbmStockSumFilter =
-      exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
-    const reservedSumFilter =
-      exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
-    const sentToFbaSumFilter =
-      exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
-
-    const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
-
-    const purchaseQuantityFilter =
-      exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
-
-    const ideasClosedFilter =
-      exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
-    const ideasVerifiedFilter =
-      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
-
-    const tagsFilter =
-      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
-
-    const redFlagsFilter =
-      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
-
-    const filter = objectToUrlQs({
-      archive: { $eq: this.isArchive },
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
-      ],
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
-      ...(strategyStatusFilter && {
-        strategyStatus: { $eq: strategyStatusFilter },
-      }),
-
-      ...(amountInOrdersFilter && {
-        amountInOrders: { $eq: amountInOrdersFilter },
-      }),
-
-      ...(stockUSAFilter && {
-        stockUSA: { $eq: stockUSAFilter },
-      }),
-      ...(inTransferFilter && {
-        inTransfer: { $eq: inTransferFilter },
-      }),
-      ...(boxAmountsFilter && {
-        boxAmounts: { $eq: boxAmountsFilter },
-      }),
-
-      ...(sumStockFilter && {
-        sumStock: { $eq: sumStockFilter },
-      }),
-
-      ...(amazonFilter && {
-        amazon: { $eq: amazonFilter },
-      }),
-      ...(profitFilter && {
-        profit: { $eq: profitFilter },
-      }),
-      ...(fbafeeFilter && {
-        fbafee: { $eq: fbafeeFilter },
-      }),
-
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-
-      ...(fbaFbmStockSumFilter && {
-        fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
-      }),
-      ...(reservedSumFilter && {
-        reservedSum: { $eq: reservedSumFilter },
-      }),
-      ...(sentToFbaSumFilter && {
-        sentToFbaSum: { $eq: sentToFbaSumFilter },
-      }),
-
-      ...(ideaCountFilter && {
-        ideasOnCheck: { $eq: ideaCountFilter },
-      }),
-
-      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
-      }),
-
-      ...(stockCostFilter && {
-        stockCost: { $eq: stockCostFilter },
-      }),
-
-      ...(purchaseQuantityFilter && {
-        purchaseQuantity: { $eq: purchaseQuantityFilter },
-      }),
-
-      ...(ideasClosedFilter && {
-        ideasClosed: { $eq: ideasClosedFilter },
-      }),
-
-      ...(ideasVerifiedFilter && {
-        ideasFinished: { $eq: ideasVerifiedFilter },
-      }),
-
-      ...(tagsFilter && {
-        tags: { $any: tagsFilter },
-      }),
-
-      ...(redFlagsFilter && {
-        redFlags: { $any: redFlagsFilter },
-      }),
-    })
-
-    return filter
+          ...(this.isArchive && {
+            archive: { $eq: true },
+          }),
+        },
+      ),
+    )
   }
 
-  async getProductsMy(noProductBaseUpdate) {
+  async getProductsMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
 
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
@@ -932,9 +811,9 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
+        filters: this.getFilters(),
 
-        shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+        shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
 
@@ -947,14 +826,8 @@ export class ClientInventoryViewModel {
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
-
         this.rowCount = result.count
-
         this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
-
-        if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result.rows, this.shopsData)
-        }
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -1110,18 +983,22 @@ export class ClientInventoryViewModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
+        let orderObject = this.ordersDataStateToSubmit[i]
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
-
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
+        }
+
+        if (orderObject.tmpTransparencyFile.length) {
+          await onSubmitPostImages.call(this, { images: orderObject.tmpTransparencyFile, type: 'uploadedFiles' })
+
+          orderObject = {
+            ...orderObject,
+            transparencyFile: this.uploadedFiles[0],
+          }
         }
 
         await this.createOrder(orderObject)
@@ -1174,6 +1051,8 @@ export class ClientInventoryViewModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

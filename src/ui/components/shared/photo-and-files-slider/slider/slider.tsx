@@ -1,16 +1,16 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from './slider.style'
+import { useStyles } from './slider.style'
 
 import { Arrow, NoSlide, Slides } from './components'
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
 import { Arrows, ArrowsType } from './slider.type'
 
-interface Props {
+interface SliderProps {
   slides: Array<string | IUploadFile>
   currentIndex: number
   setCurrentIndex: Dispatch<SetStateAction<number>>
@@ -28,8 +28,8 @@ interface Props {
   onPhotosModalToggle?: () => void
 }
 
-export const Slider: FC<Props> = memo(
-  ({
+export const Slider: FC<SliderProps> = memo(props => {
+  const {
     slides,
     currentIndex,
     setCurrentIndex,
@@ -45,106 +45,105 @@ export const Slider: FC<Props> = memo(
     controls = false,
     isPlaying,
     setIsPlaying,
-  }) => {
-    const { classes: classNames, cx } = useClassNames()
+  } = props
+  const { classes: styles, cx } = useStyles()
 
-    const handleArrowClick = (direction: ArrowsType) => {
-      const updateIndex = (prevIndex: number) => {
-        const prevSlide = slides[prevIndex]
-        if (checkIsVideoLink(typeof prevSlide === 'string' ? prevSlide : prevSlide.file.name) && setIsPlaying) {
-          setIsPlaying(false) // fix a bug when changing focus from video to photo
-        }
-
-        return direction === Arrows.LEFT
-          ? prevIndex === 0
-            ? slides?.length - 1
-            : prevIndex - 1
-          : (prevIndex + 1) % slides?.length
+  const handleArrowClick = (direction: ArrowsType) => {
+    const updateIndex = (prevIndex: number) => {
+      const prevSlide = slides[prevIndex]
+      if (checkIsVideoLink(typeof prevSlide === 'string' ? prevSlide : prevSlide.file.name) && setIsPlaying) {
+        setIsPlaying(false) // fix a bug when changing focus from video to photo
       }
 
-      setCurrentIndex(updateIndex)
+      return direction === Arrows.LEFT
+        ? prevIndex === 0
+          ? slides?.length - 1
+          : prevIndex - 1
+        : (prevIndex + 1) % slides?.length
     }
 
-    const quantitySlides = `${currentIndex + 1}/${slides?.length}`
-    const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
-    const isDisableArrowRight = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === slides?.length - 1
-    const isDisableArrowLeft = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
-    const isNotElements = slides?.length === 0
-    const isImagesType =
-      !withoutFiles && slides?.every(slide => checkIsImageLink(typeof slide === 'string' ? slide : slide?.file?.name))
+    setCurrentIndex(updateIndex)
+  }
 
-    return (
-      <div
-        className={cx(classNames.wrapper, {
-          [classNames.wrapperAlignLeft]: alignLeft,
-          [classNames.wrapperAlignRight]: alignRight,
-        })}
-      >
-        {!isNotElements ? (
-          <div className={classNames.mainWrapper}>
+  const quantitySlides = `${currentIndex + 1}/${slides?.length}`
+  const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
+  const isDisableArrowRight = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === slides?.length - 1
+  const isDisableArrowLeft = slides?.length <= MIN_FILES_IN_ARRAY || currentIndex === 0
+  const isNotElements = slides?.length === 0
+  const isImagesType =
+    !withoutFiles && slides?.every(slide => checkIsMediaFileLink(typeof slide === 'string' ? slide : slide?.file?.name))
+
+  return (
+    <div
+      className={cx(styles.wrapper, {
+        [styles.wrapperAlignLeft]: alignLeft,
+        [styles.wrapperAlignRight]: alignRight,
+      })}
+    >
+      {!isNotElements ? (
+        <div className={styles.mainWrapper}>
+          <div
+            className={cx(styles.sliderWrapper, {
+              [styles.smallGap]: smallSlider,
+              [styles.bigGap]: bigSlider,
+            })}
+          >
+            <Arrow
+              direction={Arrows.LEFT}
+              isDisableArrow={isDisableArrowLeft}
+              smallSlider={smallSlider}
+              mediumSlider={mediumSlider}
+              bigSlider={bigSlider}
+              onClick={handleArrowClick}
+            />
+
+            <Slides
+              slides={slides}
+              currentIndex={currentIndex}
+              smallSlider={smallSlider}
+              mediumSlider={mediumSlider}
+              bigSlider={bigSlider}
+              controls={controls}
+              customSlideHeight={customSlideHeight}
+              customSlideWidth={customSlideWidth}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+              onPhotosModalToggle={onPhotosModalToggle}
+            />
+
+            <Arrow
+              direction={Arrows.RIGHT}
+              isDisableArrow={isDisableArrowRight}
+              smallSlider={smallSlider}
+              mediumSlider={mediumSlider}
+              bigSlider={bigSlider}
+              onClick={handleArrowClick}
+            />
+          </div>
+
+          {!isHideCounter && (
             <div
-              className={cx(classNames.sliderWrapper, {
-                [classNames.smallGap]: smallSlider,
-                [classNames.bigGap]: bigSlider,
+              className={cx(styles.quantitySlides, {
+                [styles.smallText]: smallSlider,
+                [styles.mediumText]: mediumSlider,
+                [styles.bigText]: bigSlider,
               })}
             >
-              <Arrow
-                direction={Arrows.LEFT}
-                isDisableArrow={isDisableArrowLeft}
-                smallSlider={smallSlider}
-                mediumSlider={mediumSlider}
-                bigSlider={bigSlider}
-                onClick={handleArrowClick}
-              />
-
-              <Slides
-                slides={slides}
-                currentIndex={currentIndex}
-                smallSlider={smallSlider}
-                mediumSlider={mediumSlider}
-                bigSlider={bigSlider}
-                controls={controls}
-                customSlideHeight={customSlideHeight}
-                customSlideWidth={customSlideWidth}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-                onPhotosModalToggle={onPhotosModalToggle}
-              />
-
-              <Arrow
-                direction={Arrows.RIGHT}
-                isDisableArrow={isDisableArrowRight}
-                smallSlider={smallSlider}
-                mediumSlider={mediumSlider}
-                bigSlider={bigSlider}
-                onClick={handleArrowClick}
-              />
+              {quantitySlides}
             </div>
-
-            {!isHideCounter && (
-              <div
-                className={cx(classNames.quantitySlides, {
-                  [classNames.smallText]: smallSlider,
-                  [classNames.mediumText]: mediumSlider,
-                  [classNames.bigText]: bigSlider,
-                })}
-              >
-                {quantitySlides}
-              </div>
-            )}
-          </div>
-        ) : (
-          <NoSlide
-            isImagesType={isImagesType}
-            isHideCounter={isHideCounter}
-            smallSlider={smallSlider}
-            mediumSlider={mediumSlider}
-            bigSlider={bigSlider}
-            customSlideHeight={customSlideHeight}
-            customSlideWidth={customSlideWidth}
-          />
-        )}
-      </div>
-    )
-  },
-)
+          )}
+        </div>
+      ) : (
+        <NoSlide
+          isImagesType={isImagesType}
+          isHideCounter={isHideCounter}
+          smallSlider={smallSlider}
+          mediumSlider={mediumSlider}
+          bigSlider={bigSlider}
+          customSlideHeight={customSlideHeight}
+          customSlideWidth={customSlideWidth}
+        />
+      )}
+    </div>
+  )
+})

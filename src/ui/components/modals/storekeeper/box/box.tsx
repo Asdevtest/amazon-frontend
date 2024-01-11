@@ -6,13 +6,14 @@ import React, { FC, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { Chip, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
@@ -89,7 +90,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   }
 
   const onDeleteShippingLabel = () => {
-    onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
+    onChangeField({ shippingLabel: '', tmpShippingLabel: [] }, 'part', box._id)
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
@@ -103,7 +104,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -217,7 +218,6 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     {isNewBox ? (
                       <Button
                         disabled={!isNewBox}
-                        variant={box.logicsTariffId && 'text'}
                         className={cx(
                           styles.storekeeperBtnDefault,
                           { [styles.storekeeperBtn]: !box.logicsTariffId },
@@ -281,25 +281,18 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                     labelClasses={styles.label}
                     inputComponent={
-                      <Chip
-                        classes={{
-                          root: styles.barcodeChip,
-                          clickable: styles.barcodeChipHover,
-                          deletable: styles.barcodeChipHover,
-                          deleteIcon: styles.barcodeChipIcon,
-                          label: styles.barcodeChiplabel,
-                        }}
-                        className={cx({ [styles.barcodeChipExists]: box.shippingLabel })}
-                        size="small"
-                        label={
-                          box.tmpShippingLabel?.length
-                            ? t(TranslationKey['File added'])
-                            : box.shippingLabel
-                            ? box.shippingLabel
-                            : t(TranslationKey['Set Shipping Label'])
+                      <ChangeChipCell
+                        isChipOutTable
+                        text={
+                          !box.shippingLabel && !box?.tmpShippingLabel?.length
+                            ? t(TranslationKey['Set Shipping Label'])
+                            : ''
                         }
-                        onClick={() => onClickShippingLabel()}
-                        onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                        value={
+                          box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel
+                        }
+                        onClickChip={onClickShippingLabel}
+                        onDeleteChip={onDeleteShippingLabel}
                       />
                     }
                   />

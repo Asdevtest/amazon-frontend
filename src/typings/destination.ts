@@ -22,14 +22,14 @@ export interface IRequestProposal {}
 
 export interface IDestinationVariation {
   _id: string
-  destination: {
-    name: string
-    _id: string
-  }
   minWeight: number
   maxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
+  destination: {
+    _id: string
+    name: string
+  }
 }
 
 export interface IDestinationVariationApproximateCalculations extends IDestinationVariation {

@@ -4,11 +4,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { ChatMessageTextType } from '@services/websocket-chat-service/interfaces'
+import { ChatMessageTextType, EChatInfoType } from '@services/websocket-chat-service/interfaces'
 
 import { UserLink } from '@components/user/user-link'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -39,14 +40,31 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = (
 
   const hasFiles = !!noticeItem?.files?.length
   const hasImages = !!noticeItem?.images?.length
+  const isGroupChat = noticeItem?.info?.type === EChatInfoType.GROUP
 
   return (
     <div className={styles.mainWrapper} onClick={() => onClickMessage(noticeItem)}>
-      <img src={getUserAvatarSrc(noticeItem?.user?._id)} className={styles.avatar} />
+      <img
+        src={isGroupChat ? getAmazonImageUrl(noticeItem?.info?.image) : getUserAvatarSrc(noticeItem?.user?._id)}
+        className={styles.avatar}
+      />
       <div className={styles.content}>
-        <UserLink name={noticeItem?.user?.name} userId={noticeItem?.user?._id} />
+        {isGroupChat ? (
+          <p className={styles.noticeTitle}>{noticeItem?.info?.title}</p>
+        ) : (
+          <UserLink
+            name={noticeItem?.user?.name}
+            userId={noticeItem?.user?._id}
+            customClassNames={styles.noticeTitle}
+          />
+        )}
 
-        {message ? <p className={styles.message}>{message}</p> : null}
+        {!!message && (
+          <p className={styles.message}>
+            {isGroupChat && <span className={styles.messageOwner}>{`${noticeItem?.user?.name}: `}</span>}
+            {message}
+          </p>
+        )}
 
         {hasFiles || hasImages ? (
           <div className={styles.files}>

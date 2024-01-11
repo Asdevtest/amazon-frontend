@@ -17,6 +17,8 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { IUploadFile } from '@typings/upload-file'
+
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './multiple-chats.styles'
@@ -25,11 +27,6 @@ import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatsList } from '../chats-list'
 import { SearchResult } from '../search-result'
-
-export interface IFile {
-  data_url: string
-  file: File
-}
 
 export interface CurrentOpponent {
   active: boolean
@@ -61,7 +58,7 @@ interface Props {
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, files: IFile[], chat: string, replyMessageId: string | null) => void
+  onSubmitMessage: (message: string, files: IUploadFile[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -110,8 +107,8 @@ export const MultipleChats = observer(
       const { isMobileResolution } = useCreateBreakpointResolutions()
 
       const filteredChats = chats
-        .filter(el => {
-          const oponentUser = el.users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
+        ?.filter(el => {
+          const oponentUser = el.users?.filter((user: ChatUserContract) => user._id !== userId)?.[0]
           const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
           if (!searchFilter || title.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase())) {
             return true
@@ -191,7 +188,7 @@ export const MultipleChats = observer(
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
                 currentOpponent={currentOpponent}
-                onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
+                onSubmitMessage={(message: string, files: IUploadFile[], replyMessageId: string | null) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                 }

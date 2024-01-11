@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
@@ -19,7 +18,7 @@ interface PriorityAndChinaDeliverCellProps {
   onClickOpenInNewTab: () => void
 }
 
-export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> = React.memo(props => {
+export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { priority, chinaDelivery, status, isRequest, onClickOpenInNewTab } = props
 

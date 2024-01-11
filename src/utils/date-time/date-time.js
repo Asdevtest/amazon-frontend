@@ -12,6 +12,8 @@ import {
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
+import { ONE_MINUTE } from '@constants/time'
+
 import { SettingsModel } from '@models/settings-model'
 
 export const getUtcDateObject = dateString => {
@@ -178,3 +180,14 @@ export const getDaysHoursMinutesForMinuter = minutes => ({
   hours: Math.floor((minutes % 1440) / 60),
   minutes: minutes % 60,
 })
+
+export const getTomorrowDate = () => {
+  const date = new Date()
+  date.setDate(date.getDate() + 1)
+
+  return date
+}
+
+export const getLocalToUTCDate = date => {
+  return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_MINUTE)?.toISOString()
+}

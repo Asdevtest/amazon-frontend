@@ -16,6 +16,7 @@ export const formFieldsDefault = {
   material: '',
   reffee: 15,
   status: 0,
+  shopId: null,
   supplier: [],
   updateDate: '',
   _id: '',
@@ -49,8 +50,7 @@ export const fieldsOfProductAllowedToUpdate = [
   'currentSupplierId',
   'asin',
   'clientComment',
-  'skusByClient',
-
+  'skuByClient',
   'niche',
   'asins',
   'avgRevenue',
@@ -59,8 +59,8 @@ export const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
-  'shopIds',
   'redFlags',
   'tags',
+  'shopId',
   // 'totalFba'
 ]

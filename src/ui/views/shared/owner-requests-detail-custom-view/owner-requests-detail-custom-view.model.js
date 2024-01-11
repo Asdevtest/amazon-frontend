@@ -13,7 +13,7 @@ import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -658,7 +658,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
     this.setRequestStatus(loadingStatuses.isLoading)
-    await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
+    await RequestModel.updateDeadline(this.requestId, getLocalToUTCDate(timeoutAt), maxAmountOfProposals)
 
     this.getCustomRequestCur()
     this.getCustomProposalsForRequestCur()

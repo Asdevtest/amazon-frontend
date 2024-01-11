@@ -684,8 +684,8 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div className={classNames.paymentsBlock}>
             <CustomSelectPaymentDetails
-              currentPaymentMethods={tmpSupplier?.paymentMethods}
-              paymentMethods={paymentMethods}
+              orderPayments={tmpSupplier?.paymentMethods}
+              allPayments={paymentMethods}
               onlyRead={onlyRead}
               onChangePaymentMethod={onChangePaymentMethod}
             />
@@ -910,9 +910,9 @@ export const AddOrEditSupplierModalContent = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={tmpSupplier.images}
-            currentImageIndex={curImageIndex}
-            handleCurrentImageIndex={index => setCurImageIndex(index)}
+            files={tmpSupplier.images}
+            currentFileIndex={curImageIndex}
+            handleCurrentFileIndex={index => setCurImageIndex(index)}
           />
         )}
 

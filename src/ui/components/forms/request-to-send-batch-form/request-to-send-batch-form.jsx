@@ -100,7 +100,18 @@ export const RequestToSendBatchForm = observer(
             selectedGroup.logicsTariff?._id,
           ),
       ) ||
-      submitIsClicked
+      submitIsClicked ||
+      boxesMy.some(
+        box =>
+          (!box.shippingLabel && !box.destination?.storekeeperId) ||
+          box.items.some(
+            item =>
+              (!item?.transparencyFile ||
+                (!item?.isTransparencyFileAlreadyAttachedByTheSupplier &&
+                  !item?.isTransparencyFileAttachedByTheStorekeeper)) &&
+              item?.product?.transparency,
+          ),
+      )
 
     return (
       <div className={classNames.content}>

@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
 
@@ -21,76 +20,74 @@ import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './sub-users-view.style'
+import { useStyles } from './sub-users-view.style'
 
 import { SubUsersViewModel } from './sub-users-view.model'
 
-export const SubUsersViewRaw = props => {
+export const SubUsersView = observer(props => {
   const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        <div className={classNames.subUserHeader}>
-          <div />
+    <>
+      <div className={styles.subUserHeader}>
+        <div />
 
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by name, email'])}
-            value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
-          />
-          <div className={classNames.buttonWrapper}>
-            <Button
-              success
-              tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-              className={classNames.addUserButton}
-              onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
-            >
-              <AddIcon />
-              {t(TranslationKey['Add a user'])}
-            </Button>
-          </div>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by name, email'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onChangeNameSearchValue}
+        />
+        <div className={styles.buttonWrapper}>
+          <Button
+            success
+            tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
+            className={styles.addUserButton}
+            onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+          >
+            <AddIcon />
+            {t(TranslationKey['Add a user'])}
+          </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
-          <CustomDataGrid
-            disableEnforceFocus
-            useResizeContainer
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+      </div>
+
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          disableEnforceFocus
+          useResizeContainer
+          disableRowSelectionOnClick
+          localeText={getLocalizationByLanguageTag()}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
 
       <Modal
@@ -143,8 +140,6 @@ export const SubUsersViewRaw = props => {
         onClickSuccessBtn={viewModel.onSubmitUnlinkSubUser}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
-}
-
-export const SubUsersView = withStyles(observer(SubUsersViewRaw), styles)
+})

@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '290px',
@@ -44,4 +46,4 @@ export const styles = theme => ({
       justifyContent: 'center',
     },
   },
-})
+}))

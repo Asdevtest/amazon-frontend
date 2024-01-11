@@ -65,7 +65,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperBtnDefault: {
-    color: theme.palette.text.general,
+    color: '#ffff',
   },
 
   storekeeperBtn: {
@@ -174,7 +174,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   tablePanelViewText: {

@@ -1,14 +1,7 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
-import {
-  ProductStatus,
-  ProductStatusByCode,
-  ProductStatusByKey,
-  ProductStatusGroups,
-  productStatusTranslateKey,
-} from '@constants/product/product-status'
+import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,70 +13,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './supervisor-products-view.style'
+import { useStyles } from './supervisor-products-view.style'
 
+import { attentionStatuses, statusesList } from './statuses'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
-const attentionStatuses = [
-  ProductStatus.BUYER_FOUND_SUPPLIER,
-  ProductStatus.NEW_PRODUCT,
-  ProductStatus.RESEARCHER_FOUND_SUPPLIER,
-  ProductStatus.CHECKED_BY_SUPERVISOR,
-
-  ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-  ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-
-  ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
-  ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
-  ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-  ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-  ProductStatus.RESEARCHER_CREATED_PRODUCT,
-]
-
-const statusesList = [
-  {
-    userInfoKey: ProductStatusGroups.allProducts,
-    status: ProductStatusByKey[ProductStatus.DEFAULT],
-  },
-  {
-    userInfoKey: ProductStatusGroups.atTheBuyerInWork,
-    status: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
-  },
-  {
-    userInfoKey: ProductStatusGroups.buyerFoundSupplier,
-    status: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-  },
-  {
-    userInfoKey: ProductStatusGroups.paidByTheClient,
-    status: ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
-  },
-  {
-    userInfoKey: ProductStatusGroups.productIsAppropriate,
-    status: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-  },
-  {
-    userInfoKey: ProductStatusGroups.rejectedBySupervisor,
-    status: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-  },
-  {
-    userInfoKey: ProductStatusGroups.searchComplete,
-    status: ProductStatusByKey[ProductStatus.SUPPLIER_FOUND],
-  },
-  {
-    userInfoKey: ProductStatusGroups.supplierPriceDoesNotFit,
-    status: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
-  },
-  {
-    userInfoKey: ProductStatusGroups.supplierWasNotFound,
-    status: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
-  },
-  {
-    userInfoKey: ProductStatusGroups.onCheckWithSupervisor,
-    status: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-  },
-]
-
-export const SupervisorProductsViewRaw = props => {
+export const SupervisorProductsView = observer(props => {
   const [viewModel] = useState(
     () =>
       new SupervisorProductsViewModel({
@@ -91,14 +26,14 @@ export const SupervisorProductsViewRaw = props => {
         location: props.location,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
     viewModel.getDataGridState()
   }, [])
 
-  const getRowClassName = params => attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
+  const getRowClassName = params => attentionStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
   return (
     <React.Fragment>
@@ -108,7 +43,7 @@ export const SupervisorProductsViewRaw = props => {
           condition={viewModel.currentStatusGroup}
           switcherSettings={[
             ...statusesList.map(el => ({
-              icon: <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
+              icon: <span className={styles.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
               label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status])),
               value: el.userInfoKey,
             })),
@@ -116,31 +51,16 @@ export const SupervisorProductsViewRaw = props => {
           changeConditionHandler={viewModel.onClickStatusFilterButton}
         />
 
-        {/* {statusesList.map(el => (
-            <Button
-              key={el.status}
-              variant="text"
-              disabled={!viewModel.userInfo[el.userInfoKey]}
-              // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-              className={cx(classNames.selectStatusFilterButton, {
-                [classNames.selectedStatusFilterButton]: el.userInfoKey === viewModel.currentStatusGroup,
-              })}
-              onClick={() => viewModel.onClickStatusFilterButton(el.userInfoKey)}
-            >
-              {t(productStatusTranslateKey(ProductStatusByCode[el.status]))}{' '}
-              <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
-            </Button>
-          ))} */}
-        <div className={classNames.searchInputWrapper}>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
             onChange={viewModel.onChangeNameSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -152,7 +72,6 @@ export const SupervisorProductsViewRaw = props => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
@@ -197,6 +116,4 @@ export const SupervisorProductsViewRaw = props => {
       </div>
     </React.Fragment>
   )
-}
-
-export const SupervisorProductsView = withStyles(observer(SupervisorProductsViewRaw), styles)
+})

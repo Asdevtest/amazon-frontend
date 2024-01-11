@@ -388,7 +388,7 @@ export class ClientWarehouseTasksViewModel {
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
         { id: { $eq: this.nameSearchValue } },
         { item: { $eq: this.nameSearchValue } },
         { humanFriendlyId: { $eq: this.nameSearchValue } },

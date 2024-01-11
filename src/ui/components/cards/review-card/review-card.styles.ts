@@ -1,61 +1,50 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useReviewCardStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
+    padding: '10px 0',
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
-    width: '100%',
-    padding: '10px 0',
-    borderBottom: '1px solid #EBEBEB',
+    gap: 10,
+    borderBottom: '1px solid #e0e0e0',
   },
 
   header: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-    gap: 115,
-    flexWrap: 'wrap',
+    gap: 20,
+  },
 
-    [theme.breakpoints.down(656)]: {
-      gap: 20,
-      justifyContent: 'space-between',
-    },
+  userLinkContainer: {
+    width: 200,
   },
 
   headerItem: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
-    fontSize: 14,
-    fontWeight: 600,
 
     '&:last-of-type': {
       display: 'flex',
       marginLeft: 'auto',
       alignItems: 'flex-end',
-      width: 'fit-content',
-
-      p: {
-        width: 'fit-content',
-      },
-
-      [theme.breakpoints.down(656)]: {
-        margin: 'unset',
-        alignItems: 'flex-start',
-      },
     },
   },
 
   headerItemTitle: {
-    color: theme.palette.text.second,
     fontSize: 14,
-    fontWeight: 400,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
   },
 
-  comment: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: theme.palette.text.general,
+  headerItemTitleBold: {
+    fontWeight: 600,
+  },
+
+  rating: {
+    fontSize: 16,
+  },
+
+  editor: {
+    minHeight: 'auto',
   },
 }))

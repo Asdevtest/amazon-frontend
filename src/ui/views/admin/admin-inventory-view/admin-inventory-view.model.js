@@ -30,7 +30,7 @@ const statuses = [
 
 const filtersFields = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amazon',
@@ -76,7 +76,11 @@ export class AdminInventoryViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = exchangeInventoryColumns()
+
+  rowHandlers = {
+    onClickOpenInNewTab: id => this.onClickTableRow(id),
+  }
+  columnsModel = exchangeInventoryColumns(this.rowHandlers)
 
   rowsCount = 0
 
@@ -149,9 +153,8 @@ export class AdminInventoryViewModel {
     })
   }
 
-  onClickTableRow(product) {
-    const url = `/admin/inventory/product?product-id=${product.originalData._id}`
-
+  onClickTableRow(id) {
+    const url = `/admin/inventory/product?product-id=${id}`
     const newTab = window.open(`${url}`, '_blank')
     newTab.focus()
   }
@@ -254,7 +257,7 @@ export class AdminInventoryViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'asin',
-        'skusByClient',
+        'skuByClient',
         'amazonTitle',
       ]),
     )

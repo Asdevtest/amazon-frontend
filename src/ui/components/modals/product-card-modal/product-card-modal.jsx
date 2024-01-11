@@ -46,18 +46,21 @@ export const ProductCardModal = observer(props => {
         new BuyerProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     } else if (checkIsSupervisor(UserRoleCodeMap[role])) {
       return () =>
         new SupervisorProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     } else {
       return () =>
         new ClientProductViewModel({
           history,
           setOpenModal,
+          updateDataHandler,
         })
     }
   }
@@ -156,7 +159,7 @@ export const ProductCardModal = observer(props => {
                   : {
                       isChild: false,
                       isParent: false,
-                      shopId: viewModel.product?.shopIds?.[0],
+                      shopId: viewModel.product?.shopId,
                       offset: 0,
                       filters: '',
                     },

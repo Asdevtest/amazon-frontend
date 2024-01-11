@@ -45,7 +45,7 @@ export class ClientExchangeViewModel {
   showWarningModalText = ''
 
   selectedProduct = {}
-  selectedShops = []
+  selectedShopId = ''
   product = {}
   uploadedFiles = []
 
@@ -358,12 +358,12 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onClickBuyProductBtn(shops) {
+  async onClickBuyProductBtn(shopId) {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
       runInAction(() => {
-        this.selectedShops = shops
+        this.selectedShopId = shopId
       })
 
       await this.onSaveProductData()
@@ -396,7 +396,7 @@ export class ClientExchangeViewModel {
         this.selectedProduct._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopIds: this.selectedShops,
+            shopId: this.selectedShopId,
           },
           ['suppliers'],
         ),
@@ -404,7 +404,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      console.log(error)
     }
   }
 

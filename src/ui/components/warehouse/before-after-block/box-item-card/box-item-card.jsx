@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Checkbox, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -31,7 +29,7 @@ export const BoxItemCard = ({
   boxIndex,
   onApplyGluedBarcodeToAllBoxes,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: classNames, cx } = useClassNames()
 
   return (
     <div className={classNames.root}>
@@ -100,6 +98,20 @@ export const BoxItemCard = ({
                 />
               </div>
 
+              <div
+                className={cx(classNames.barCodeWrapper, {
+                  [classNames.editAccent]:
+                    needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+                })}
+              >
+                <LabelWithCopy
+                  labelTitleColor={'gray'}
+                  labelTitle={t(TranslationKey.Transparency)}
+                  labelValue={item.transparencyFile}
+                  lableLinkTitle={t(TranslationKey.View)}
+                />
+              </div>
+
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Order number'])}</Typography>
                 <Typography className={classNames.subValue}>{item.order.id}</Typography>
@@ -135,11 +147,9 @@ export const BoxItemCard = ({
                     className={cx(classNames.barCodeActionsWrapper, {
                       [classNames.successAccent]:
                         isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
                         (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
                       [classNames.warningAccent]:
                         isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
                         !item.isBarCodeAlreadyAttachedByTheSupplier &&
                         !item.isBarCodeAttachedByTheStorekeeper,
                     })}
@@ -194,6 +204,44 @@ export const BoxItemCard = ({
                       />
                     )}
 
+                    {item.isTransparencyFileAttachedByTheStorekeeper === false && item?.transparencyFile && (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                        labelClasses={cx(classNames.label, classNames.redText)}
+                        inputComponent={
+                          <Checkbox
+                            color="primary"
+                            disabled={!isNewBox || readOnly}
+                            checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                            onChange={e =>
+                              onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
+                            }
+                          />
+                        }
+                      />
+                    )}
+
+                    {item.isTransparencyFileAlreadyAttachedByTheSupplier === false && item?.transparencyFile && (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                        labelClasses={cx(classNames.label, classNames.redText)}
+                        inputComponent={
+                          <Checkbox
+                            color="primary"
+                            disabled={!isNewBox || readOnly}
+                            checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                            onChange={e =>
+                              onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
+                            }
+                          />
+                        }
+                      />
+                    )}
+
                     {isNewBox &&
                       !readOnly &&
                       boxIndex === 0 &&
@@ -213,6 +261,8 @@ export const BoxItemCard = ({
                                 onApplyGluedBarcodeToAllBoxes(
                                   item.isBarCodeAlreadyAttachedByTheSupplier,
                                   item.isBarCodeAttachedByTheStorekeeper,
+                                  item.isTransparencyFileAlreadyAttachedByTheSupplier,
+                                  item.isTransparencyFileAttachedByTheStorekeeper,
                                 )
                               }
                             >
@@ -241,7 +291,6 @@ export const BoxItemCard = ({
                     <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
                     {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
                   </div>
-                  {/* {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null} */}
                 </div>
               )}
 
@@ -260,6 +309,20 @@ export const BoxItemCard = ({
             labelTitleColor={'gray'}
             labelTitle={t(TranslationKey.BarCode)}
             labelValue={item.barCode}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
+        </div>
+
+        <div
+          className={cx(classNames.barCodeWrapper, {
+            [classNames.editAccent]:
+              needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+          })}
+        >
+          <LabelWithCopy
+            labelTitleColor={'gray'}
+            labelTitle={t(TranslationKey.Transparency)}
+            labelValue={item.transparencyFile}
             lableLinkTitle={t(TranslationKey.View)}
           />
         </div>

@@ -34,7 +34,9 @@ export const SearchResult = observer(
 
     return (
       <div className={classNames.searchResultWrapper}>
-        <p className={classNames.searchResult}>{t(TranslationKey['Search results']) + ': ' + messagesFound.length}</p>
+        <p className={classNames.searchResult}>
+          {t(TranslationKey['Search results']) + ': ' + (curFoundedMessageIndex + 1) + ' / ' + messagesFound.length}
+        </p>
 
         <div className={classNames.dropUpOrDownWrapper}>
           <ArrowDropUpIcon

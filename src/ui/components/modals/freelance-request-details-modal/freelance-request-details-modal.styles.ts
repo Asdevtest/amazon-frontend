@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 1230,
+    width: 1370,
     padding: 10,
     overflowY: 'hidden',
   },
@@ -134,6 +134,12 @@ export const useStyles = makeStyles()(theme => ({
     color: '#001029',
     '&:hover': {
       opacity: '0.8',
+      background: '#F3AF00',
     },
+  },
+
+  publishBtn: {
+    width: '100%',
+    height: 40,
   },
 }))

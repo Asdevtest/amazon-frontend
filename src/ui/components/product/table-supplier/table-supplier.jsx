@@ -20,7 +20,7 @@ import { SettingsModel } from '@models/settings-model'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
-import { NewSupplier } from '@components/shared/svg-icons'
+import { NewSupplier, OrderedIcon } from '@components/shared/svg-icons'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
@@ -83,19 +83,22 @@ export const TableSupplier = observer(
                   >
                     <TableCell align="center" className={classNames.nameCell}>
                       <div className={classNames.statsWrapper}>
-                        {isClient ? (
-                          new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
-                            <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
-                          ) : null
-                        ) : null}
-                        {supplier?.multiplicity && supplier?.boxProperties?.amountInBox ? (
+                        {isClient && new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
+                          <NewSupplier classes={{ root: classNames.primary }} className={classNames.newSupplierIcon} />
+                        )}
+
+                        {productBaseData?.orderSupplier?._id === supplier?._id && (
+                          <OrderedIcon classes={{ root: classNames.primary }} className={classNames.orderedIcon} />
+                        )}
+
+                        {supplier?.multiplicity && supplier?.boxProperties?.amountInBox && (
                           <div className={classNames.multiplicityWrapper}>
                             <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
                             <Typography className={classNames.amountInBoxText}>
                               {supplier?.boxProperties?.amountInBox}
                             </Typography>
                           </div>
-                        ) : null}
+                        )}
                       </div>
 
                       <Typography className={classNames.mainText}>{supplier.name}</Typography>

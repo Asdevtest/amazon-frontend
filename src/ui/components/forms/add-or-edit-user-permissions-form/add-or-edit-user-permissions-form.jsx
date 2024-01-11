@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -28,7 +27,7 @@ import { deepArrayCompare } from '@utils/array'
 import { checkIsFreelancer } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-user-permissions-form.style'
+import { useStyles } from './add-or-edit-user-permissions-form.style'
 
 import { AccessToProductForm } from './access-to-product-form'
 
@@ -39,7 +38,7 @@ const tabsValues = {
 
 const PRODUCTS_WITHOUT_SHOPS_ID = 'PRODUCTS_WITHOUT_SHOPS_ID'
 
-export const AddOrEditUserPermissionsForm = observer(
+export const AddOrEditUserPermissionsForm = memo(
   ({
     masterUserData,
     curUserProductPermissions,
@@ -54,7 +53,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
     productPermissionsData,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
@@ -93,13 +92,13 @@ export const AddOrEditUserPermissionsForm = observer(
           name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
           tmpProductsIds:
             curUserProductPermissions
-              ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopIds?.length))
+              ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopId))
               ?.map(el => el?.productId) || [],
         },
         ...shops.map(shop => ({
           ...shop,
           tmpProductsIds:
-            curUserProductPermissions?.filter(el => el?.shopIds?.includes(shop?._id))?.map(el => el?.productId) || [],
+            curUserProductPermissions?.filter(el => el?.shopId === shop?._id)?.map(el => el?.productId) || [],
         })),
       ],
       [curUserProductPermissions],
@@ -153,8 +152,8 @@ export const AddOrEditUserPermissionsForm = observer(
         shop._id === PRODUCTS_WITHOUT_SHOPS_ID
           ? isWithoutShopsDepends
             ? true
-            : !el.originalData.shopIds?.length
-          : el.originalData.shopIds?.includes(shop._id),
+            : !el.originalData.shopId
+          : el.originalData.shopId === shop._id,
       )
 
     const isChoosenAll = shopDataToRender.every(
@@ -183,16 +182,16 @@ export const AddOrEditUserPermissionsForm = observer(
     }, [sourceData.allowedSpec?.length])
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.currentUserBlock}>
+      <div className={styles.root}>
+        <div className={styles.currentUserBlock}>
           <p>{t(TranslationKey.User)}:</p>
           <UserLink withAvatar name={sourceData?.name} userId={sourceData?._id} />
         </div>
         <Tabs
           variant={'fullWidth'}
           classes={{
-            root: classNames.row,
-            indicator: classNames.indicator,
+            root: styles.row,
+            indicator: styles.indicator,
           }}
           value={tabIndex}
           onChange={(e, value) => {
@@ -200,14 +199,14 @@ export const AddOrEditUserPermissionsForm = observer(
           }}
         >
           <ITab
-            classes={{ root: classNames.tab, selected: classNames.selectedTab }}
+            classes={{ root: styles.tab, selected: styles.selectedTab }}
             value={tabsValues.ASSIGN_PERMISSIONS}
             label={t(TranslationKey['Assign permissions'])}
           />
           {!isWithoutProductPermissions ? (
             <ITab
               disabled={isWithoutProductPermissions}
-              classes={{ root: classNames.tab, selected: classNames.selectedTab }}
+              classes={{ root: styles.tab, selected: styles.selectedTab }}
               value={tabsValues.ACCESS_TO_PRODUCTS}
               label={t(TranslationKey['Access to products'])}
             />
@@ -218,13 +217,13 @@ export const AddOrEditUserPermissionsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.ASSIGN_PERMISSIONS}>
           {window.innerWidth > 768 ? (
-            <div className={classNames.form}>
-              <div className={classNames.leftSideWrapper}>
+            <div className={styles.form}>
+              <div className={styles.leftSideWrapper}>
                 {groupsToSelect.map(item => (
-                  <div key={item._id} className={classNames.permissionGroupsToSelectItemWrapper}>
+                  <div key={item._id} className={styles.permissionGroupsToSelectItemWrapper}>
                     <div
-                      className={cx(classNames.permissionGroupsToSelectItem, {
-                        [classNames.selectedItem]: rightSide.key === item.key,
+                      className={cx(styles.permissionGroupsToSelectItem, {
+                        [styles.selectedItem]: rightSide.key === item.key,
                       })}
                       onClick={() => onSetRightSide(item)}
                     >
@@ -233,12 +232,12 @@ export const AddOrEditUserPermissionsForm = observer(
 
                     <div
                       className={cx(
-                        classNames.permissionGroupsToSelectCheckboxWrapper,
+                        styles.permissionGroupsToSelectCheckboxWrapper,
                         {
-                          [classNames.selectedItem]: rightSide.key === item.key,
+                          [styles.selectedItem]: rightSide.key === item.key,
                         },
                         {
-                          [classNames.tabWillBeOpened]: formFields.includes(
+                          [styles.tabWillBeOpened]: formFields.includes(
                             item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
                           ),
                         },
@@ -258,10 +257,10 @@ export const AddOrEditUserPermissionsForm = observer(
                 ))}
               </div>
 
-              <Divider flexItem orientation={'vertical'} className={classNames.divider} />
+              <Divider flexItem orientation={'vertical'} className={styles.divider} />
 
-              <div className={classNames.rightSideWrapper}>
-                <Typography className={classNames.rightSideTitle}>{rightSide?.title}</Typography>
+              <div className={styles.rightSideWrapper}>
+                <Typography className={styles.rightSideTitle}>{rightSide?.title}</Typography>
 
                 {rightSide?.permissions
                   ?.slice()
@@ -276,14 +275,11 @@ export const AddOrEditUserPermissionsForm = observer(
                       TransitionComponent={Zoom}
                       TransitionProps={{ timeout: 900 }}
                     >
-                      <Box
-                        className={classNames.permissionWrapper}
-                        onClick={() => onChangePermissionCheckbox(item._id)}
-                      >
+                      <Box className={styles.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
                         <Checkbox color="primary" checked={formFields.includes(item._id)} />
                         <Typography
-                          className={cx(classNames.standartText, {
-                            [classNames.keyPermission]: item.key.startsWith('SHOW_'),
+                          className={cx(styles.standartText, {
+                            [styles.keyPermission]: item.key.startsWith('SHOW_'),
                           })}
                         >
                           {item.title}
@@ -294,23 +290,20 @@ export const AddOrEditUserPermissionsForm = observer(
               </div>
             </div>
           ) : (
-            <div className={classNames.form}>
-              <div className={classNames.leftSideWrapper}>
+            <div className={styles.form}>
+              <div className={styles.leftSideWrapper}>
                 {groupsToSelect.map(item => (
-                  <div key={item._id} className={classNames.permGroupWrapper}>
-                    <div
-                      className={classNames.permissionGroupsToSelectItemWrapper}
-                      onClick={() => onSetRightSide(item)}
-                    >
-                      <div className={classNames.permissionGroupsToSelectItemSubWrapper}>
+                  <div key={item._id} className={styles.permGroupWrapper}>
+                    <div className={styles.permissionGroupsToSelectItemWrapper} onClick={() => onSetRightSide(item)}>
+                      <div className={styles.permissionGroupsToSelectItemSubWrapper}>
                         <div
                           className={cx(
-                            classNames.permissionGroupsToSelectCheckboxWrapper,
+                            styles.permissionGroupsToSelectCheckboxWrapper,
                             {
-                              [classNames.selectedItem]: rightSide.key === item.key && showPermissions,
+                              [styles.selectedItem]: rightSide.key === item.key && showPermissions,
                             },
                             {
-                              [classNames.tabWillBeOpened]: formFields.includes(
+                              [styles.tabWillBeOpened]: formFields.includes(
                                 item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
                               ),
                             },
@@ -330,19 +323,19 @@ export const AddOrEditUserPermissionsForm = observer(
                           />
                         </div>
                         <div
-                          className={cx(classNames.permissionGroupsToSelectItem, {
-                            [classNames.selectedItem]: rightSide.key === item.key,
+                          className={cx(styles.permissionGroupsToSelectItem, {
+                            [styles.selectedItem]: rightSide.key === item.key,
                           })}
                         >
                           <ListItemText primary={`${item.title}`} />
                         </div>
-                        <div className={classNames.iconWrapper}>
+                        <div className={styles.iconWrapper}>
                           {!showPermissions ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                         </div>
                       </div>
                     </div>
                     {rightSide.key === item.key && showPermissions && (
-                      <div className={classNames.rightSideWrapper}>
+                      <div className={styles.rightSideWrapper}>
                         {rightSide?.permissions
                           ?.sort((a, b) => a.hierarchy - b.hierarchy)
                           .map(item => (
@@ -356,13 +349,11 @@ export const AddOrEditUserPermissionsForm = observer(
                               TransitionProps={{ timeout: 900 }}
                             >
                               <Box
-                                className={classNames.permissionWrapper}
+                                className={styles.permissionWrapper}
                                 onClick={() => onChangePermissionCheckbox(item._id)}
                               >
                                 <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                                <Typography
-                                  className={cx({ [classNames.keyPermission]: item.key.startsWith('SHOW_') })}
-                                >
+                                <Typography className={cx({ [styles.keyPermission]: item.key.startsWith('SHOW_') })}>
                                   {item.title}
                                 </Typography>
                               </Box>
@@ -378,9 +369,9 @@ export const AddOrEditUserPermissionsForm = observer(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.ACCESS_TO_PRODUCTS}>
-          <div className={classNames.accordionWrapper}>
+          <div className={styles.accordionWrapper}>
             {!isWithoutShopsDepends ? (
-              <div className={classNames.accardionTitleWrapper}>
+              <div className={styles.accardionTitleWrapper}>
                 <Checkbox
                   color="primary"
                   checked={isChoosenAll}
@@ -388,12 +379,12 @@ export const AddOrEditUserPermissionsForm = observer(
                   onClick={onClickChooseAllProductCheck}
                 />
 
-                <Typography className={classNames.title}>{t(TranslationKey['Select all'])}</Typography>
+                <Typography className={styles.title}>{t(TranslationKey['Select all'])}</Typography>
               </div>
             ) : null}
             {sourceDataToProductsPermissions
               .map(shop => {
-                const sourceData = useMemo(() => getSourceDataToShop(shop), [])
+                const sourceData = getSourceDataToShop(shop)
 
                 return (
                   <AccessToProductForm
@@ -411,16 +402,16 @@ export const AddOrEditUserPermissionsForm = observer(
           </div>
         </TabPanel>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           {isFreelancer ? (
-            <div className={classNames.requestTypeWrapper}>
+            <div className={styles.requestTypeWrapper}>
               <p>{t(TranslationKey['Available request types'])}</p>
 
               <Select
                 multiple
                 displayEmpty
                 value={currentSpec}
-                className={classNames.requestTypeField}
+                className={styles.requestTypeField}
                 input={<Input startAdornment={<InputAdornment position="start" />} />}
                 renderValue={selected =>
                   !selected?.length
@@ -447,11 +438,11 @@ export const AddOrEditUserPermissionsForm = observer(
             <div />
           )}
 
-          <div className={classNames.buttonsSubWrapper}>
+          <div className={styles.buttonsSubWrapper}>
             <Button
               disableElevation
               disabled={submitDisabled}
-              className={classNames.button}
+              className={styles.button}
               color="primary"
               variant="contained"
               onClick={() => {
@@ -469,7 +460,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
             <Button
               disableElevation
-              className={cx(classNames.button, classNames.cancelBtn)}
+              className={cx(styles.button, styles.cancelBtn)}
               color="primary"
               variant="text"
               onClick={onCloseModal}

@@ -74,6 +74,8 @@ const Box = observer(
     const onApplyGluedBarcodeToAllBoxes = (
       isBarCodeAlreadyAttachedByTheSupplier,
       isBarCodeAttachedByTheStorekeeper,
+      isTransparencyFileAlreadyAttachedByTheSupplier,
+      isTransparencyFileAttachedByTheStorekeeper,
     ) => {
       const updatedNewBoxes = newBoxes.map(newBox => ({
         ...newBox,
@@ -81,6 +83,8 @@ const Box = observer(
           ...el,
           isBarCodeAlreadyAttachedByTheSupplier,
           isBarCodeAttachedByTheStorekeeper,
+          isTransparencyFileAlreadyAttachedByTheSupplier,
+          isTransparencyFileAttachedByTheStorekeeper,
         })),
       }))
       setNewBoxes(updatedNewBoxes)
@@ -88,11 +92,8 @@ const Box = observer(
 
     const onChangeBarCode = (value, field, itemIndex) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
-
       targetBox.items[itemIndex][field] = value
-
       const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? targetBox : newBox))
-
       setNewBoxes(updatedNewBoxes)
     }
 
@@ -691,9 +692,9 @@ const Box = observer(
           <ImageModal
             isOpenModal={showPhotosModal}
             handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            imageList={bigImagesOptions.images}
-            currentImageIndex={bigImagesOptions.imgIndex}
-            handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
       </div>

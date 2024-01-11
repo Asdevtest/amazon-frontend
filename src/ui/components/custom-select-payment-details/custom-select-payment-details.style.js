@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '100%',
   },
@@ -83,7 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cursorPointer: {
-    cursor: 'pointer !important',
+    cursor: 'pointer',
   },
 
   editIcon: {

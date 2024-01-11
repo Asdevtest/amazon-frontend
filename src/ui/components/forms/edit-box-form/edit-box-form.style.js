@@ -41,6 +41,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   field: {
+    marginBottom: '10px',
     width: '100%',
   },
 
@@ -255,6 +256,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartLabel: {
+    margin: 0,
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
@@ -270,7 +272,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   noBarCodeGlued: {
     color: 'red',

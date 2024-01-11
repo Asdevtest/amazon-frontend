@@ -6,76 +6,64 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { Payment, Payments } from '@typings/payments'
+import { Payment } from '@typings/payments'
 
 import { useStyles } from './payment-methods-form.style'
 
 import { PaymentMethodCard } from './payment-method-card'
 
 interface PaymentMethodsFormProps {
-  payments: Array<Payments | Payment>
+  orderPayments: Payment[]
+  allPayments: Payment[]
+  onClickSaveButton: (payments: Payment[]) => void
+  onClickCancelButton: () => void
   readOnly?: boolean
-  onClickSaveButton?: (childStates: Array<Payments | Payment>) => void
-  onClickCancelButton?: () => void
 }
 
 export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
-  const { payments, readOnly, onClickSaveButton, onClickCancelButton } = props
+  const { orderPayments, allPayments, readOnly, onClickSaveButton, onClickCancelButton } = props
+
   const { classes: styles } = useStyles()
 
-  const [childStates, setChildStates] = useState<Array<Payments | Payment>>([])
+  const [selectedPayments, setSelectedPayments] = useState<Payment[]>(allPayments || [])
 
   useEffect(() => {
-    if (payments.length) {
-      setChildStates(
-        payments
-          ?.sort((a, b) => {
-            const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
-            const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
-            return titleA?.localeCompare(titleB)
-          })
-          .sort((a, b) => {
-            if (
-              typeof a !== 'undefined' &&
-              'paymentMethod' in a &&
-              typeof b !== 'undefined' &&
-              'paymentMethod' in b &&
-              a.paymentMethod?._id &&
-              b.paymentMethod?._id
-            ) {
-              return 0
-            }
-            if (typeof a !== 'undefined' && 'paymentMethod' in a && a.paymentMethod?._id) {
-              return -1
-            }
-            if (typeof b !== 'undefined' && 'paymentMethod' in b && b.paymentMethod?._id) {
-              return 1
-            }
-            return 0
-          }),
-      )
+    if (orderPayments.length) {
+      const updatedPayments = allPayments
+        .map(payment => {
+          const foundPayment = orderPayments.find(
+            orderPayment => orderPayment.paymentMethod._id === payment.paymentMethod._id,
+          )
+
+          return foundPayment ? { ...foundPayment, isChecked: true } : payment
+        })
+        .sort((a, b) => (a.isChecked === b.isChecked ? 0 : a.isChecked ? -1 : 1))
+
+      setSelectedPayments(updatedPayments)
+    } else {
+      setSelectedPayments(allPayments)
     }
-  }, [payments])
+  }, [orderPayments])
 
-  const handleChildStateChange = (index: number, newState: Payments) => {
-    const newChildStates = [...childStates]
-    newChildStates[index] = newState
+  const handleSaveButton = () => {
+    const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
 
-    setChildStates(newChildStates)
+    onClickSaveButton(filteringSelectedPayments)
+    onClickCancelButton()
   }
 
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Select payment methods'])}</p>
 
-      <div className={styles.modalCardsWrapper}>
-        {payments?.length ? (
-          payments.map((payment, paymentMethodIndex) => (
+      <div className={styles.payments}>
+        {selectedPayments?.length ? (
+          selectedPayments.map((payment, paymentMethodIndex) => (
             <PaymentMethodCard
               key={paymentMethodIndex}
               readOnly={readOnly}
               payment={payment}
-              onStateChange={(newState: Payments) => handleChildStateChange(paymentMethodIndex, newState)}
+              setSelectedPayments={setSelectedPayments}
             />
           ))
         ) : (
@@ -85,14 +73,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button
-            success
-            className={styles.actionButton}
-            onClick={() => {
-              !!onClickCancelButton && onClickCancelButton()
-              !!onClickSaveButton && onClickSaveButton(childStates)
-            }}
-          >
+          <Button success className={styles.actionButton} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}

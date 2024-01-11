@@ -99,25 +99,23 @@ export const ClientAwaitingBatchesViewRaw = props => {
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
-            propsToRerender={{ productViewMode: viewModel.productViewMode }}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             rowSelectionModel={viewModel.selectedBatches}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             slotProps={{
-              columnMenu: viewModel.columnMenuSettings,
-
               baseTooltip: {
                 title: t(TranslationKey.Filter),
               },
+              columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,

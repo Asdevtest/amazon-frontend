@@ -11,7 +11,7 @@ import {
   SmallRowImageCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const clientNewIdeasColumns = (rowHandlers, shops) => [
@@ -37,10 +37,10 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },
@@ -51,15 +51,12 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShopIds', 'childProductShopIds'],
+    field: ['parentProductShopId', 'childProductShopId'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
     renderCell: params => (
-      <MultilineTextCell
-        twoLines
-        text={shops?.find(el => params?.row?.parentProduct?.shopIds?.includes(el?._id))?.name}
-      />
+      <MultilineTextCell twoLines text={shops?.find(el => el?._id === params?.row?.parentProduct?.shopId)?.name} />
     ),
     width: 100,
     sortable: false,
@@ -71,7 +68,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey.Idea),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsImageLink(el))} />,
+    renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
     width: 96,
     sortable: false,
     filterable: false,

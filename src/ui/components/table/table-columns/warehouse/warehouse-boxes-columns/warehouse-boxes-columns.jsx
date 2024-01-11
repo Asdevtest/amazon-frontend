@@ -68,8 +68,10 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
 
   {
     field: 'shippingLabel',
-    headerName: 'Shipping label/Barcode',
-    renderHeader: () => <MultilineTextHeaderCell text={'Shipping label / Barcode'} />,
+    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`,
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
+    ),
 
     width: 250,
     renderCell: params => (
@@ -90,6 +92,12 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
             fileType: getFileNameFromUrl(
               params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
             ).type,
+          },
+          {
+            title: t(TranslationKey['Transparency codes']),
+            fileUrl: params.row.originalData.items[0].transparencyFile,
+            fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
+            fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,
           },
         ]}
       />
@@ -112,7 +120,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
   },
 
   {
-    field: 'destination',
+    field: 'destinationId',
     headerName: t(TranslationKey['Destination and tariff']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
@@ -135,7 +143,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
-    width: 140,
+    width: 150,
     sortable: false,
   },
 
@@ -144,7 +152,11 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} noText={t(TranslationKey['Outside Batch'])} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])}
+      />
+    ),
     type: 'number',
     width: 110,
     columnKey: columnnsKeys.shared.OBJECT,

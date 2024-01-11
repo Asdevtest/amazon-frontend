@@ -18,15 +18,15 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const exchangeInventoryColumns = () => [
+export const exchangeInventoryColumns = rowHandlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={''} />,
 
-    renderCell: params => {
-      return <OpenInNewTabCell href={`/admin/inventory/product?product-id=${params.row._id}`} />
-    },
+    renderCell: params => (
+      <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenInNewTab(params.row._id)} />
+    ),
     width: 60,
     filterable: false,
     sortable: false,
@@ -45,7 +45,7 @@ export const exchangeInventoryColumns = () => [
           image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

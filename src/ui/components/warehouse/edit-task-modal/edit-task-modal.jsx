@@ -89,8 +89,8 @@ export const EditTaskModal = memo(
       }
     }
 
-    const [newBoxes, setNewBoxes] = useState([
-      ...task.boxes.map(
+    const [newBoxes, setNewBoxes] = useState(
+      task.boxes.map(
         box =>
           (box = {
             ...box,
@@ -102,11 +102,18 @@ export const EditTaskModal = memo(
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
 
+            items: box?.items?.map(item => ({
+              ...item,
+              isTransparencyFileAlreadyAttachedByTheSupplier:
+                item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
+              isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
+            })),
+
             tmpImages: [],
             images: box?.images || [],
           }),
       ),
-    ])
+    )
 
     const [isFilledNewBoxesDimensions, setIsFilledNewBoxesDimensions] = useState(false)
 
@@ -198,8 +205,8 @@ export const EditTaskModal = memo(
                 multiline
                 className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
                 disabled={readOnly}
-                minRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
-                maxRows={isMobileResolution < 768 ? 4 : isPcSmallResolution ? 7 : 11}
+                minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
+                maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 inputProps={{ maxLength: 2000 }}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}

@@ -64,7 +64,9 @@ export const CreateBoxForm = observer(
           amount: formItem?.amount,
           order: formItem,
 
+          transparencyFile: formItem?.transparencyFile || '',
           isBarCodeAlreadyAttachedByTheSupplier: false,
+          isTransparencyFileAlreadyAttachedByTheSupplier: false,
         },
       ],
 

@@ -25,11 +25,13 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { IUploadFile } from '@typings/upload-file'
+
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useClassNames } from './chat.styles'
 
-import { CurrentOpponent, IFile } from '../multiple-chats'
+import { CurrentOpponent } from '../multiple-chats'
 
 import { ChatCurrentReplyMessage } from './chat-current-reply-message'
 import { ChatFilesInput } from './chat-files-input'
@@ -38,7 +40,7 @@ import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-m
 
 export interface RenderAdditionalButtonsParams {
   message: string
-  files: IFile[]
+  files: IUploadFile[]
 }
 
 export interface OnEmojiSelectEvent {
@@ -52,7 +54,7 @@ export interface OnEmojiSelectEvent {
 
 export interface MessageStateParams {
   message: string
-  files: IFile[]
+  files: IUploadFile[]
 }
 
 interface Props {
@@ -67,7 +69,7 @@ interface Props {
   searchPhrase?: string
   classNamesWrapper?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
+  onSubmitMessage: (message: string, files: IUploadFile[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
@@ -134,7 +136,7 @@ export const Chat: FC<Props> = observer(
     const handleLoadMoreMessages = (e: Event) => {
       const target = e.target as HTMLDivElement
 
-      if (target.scrollTop < 350 && !messagesLoadingStatus.current) {
+      if (target.scrollTop && target.scrollTop < 350 && !messagesLoadingStatus.current) {
         messagesLoadingStatus.current = true
         ChatModel.getChatMessages?.(chat?._id).finally(() => {
           messagesLoadingStatus.current = false
@@ -166,7 +168,7 @@ export const Chat: FC<Props> = observer(
 
     const [message, setMessage] = useState(messageInitialState.message)
 
-    const [files, setFiles] = useState<IFile[]>(
+    const [files, setFiles] = useState<IUploadFile[]>(
       messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
     )
 
@@ -238,7 +240,7 @@ export const Chat: FC<Props> = observer(
       setMessage(value)
       SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
-    const changeFilesAndState = (value: IFile[]) => {
+    const changeFilesAndState = (value: IUploadFile[]) => {
       setFiles(value)
       SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
@@ -273,7 +275,7 @@ export const Chat: FC<Props> = observer(
 
         evt.preventDefault()
 
-        const readyFilesArr: IFile[] = filesArr.map((el: File) => ({
+        const readyFilesArr: IUploadFile[] = filesArr.map((el: File) => ({
           data_url: URL.createObjectURL(el),
           file: new File([el], el.name?.replace(/ /g, ''), {
             type: el.type,

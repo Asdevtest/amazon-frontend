@@ -213,6 +213,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
     return response.data
   }
+
+  patchProductTransparency = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidTransparencyPatch({ guid, body })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

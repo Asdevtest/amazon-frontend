@@ -400,9 +400,7 @@ export const SelectFields = ({
                 cursorPointer
                 generalText
                 labelClass={classNames.labelClass}
-                currentPaymentMethods={orderPayments
-                  ?.filter(item => item?.paymentMethod)
-                  .map(item => item?.paymentMethod)}
+                orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
               />
             </div>
           )}
@@ -720,9 +718,9 @@ export const SelectFields = ({
           showPreviews
           isOpenModal={showImageModal}
           handleOpenModal={() => setShowImageModal(!showImageModal)}
-          imageList={bigImagesOptions.images}
-          currentImageIndex={bigImagesOptions.imgIndex}
-          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </Grid>

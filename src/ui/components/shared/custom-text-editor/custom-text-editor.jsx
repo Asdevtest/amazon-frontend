@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { cx } from '@emotion/css'
 import { EditorState, convertToRaw } from 'draft-js'
 import { observer } from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
@@ -17,14 +13,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-text-editor.style'
+import { useStyles } from './custom-text-editor.style'
 
 const TextAlign = ({ children, textAlign }) => <span style={{ textAlign: `${textAlign}` }}>{children}</span>
 
 export const CustomTextEditor = observer(props => {
   const { conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize, textToCheck } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const isJSON = text => {
     try {
@@ -59,14 +55,12 @@ export const CustomTextEditor = observer(props => {
   }, [conditions])
 
   return (
-    <div className={classNames.richTextEditorWrapper}>
+    <div className={styles.richTextEditorWrapper}>
       {!readOnly && (
-        <Typography className={classNames.richTextEditorTitle}>
-          {t(TranslationKey['Describe your task']) + '*'}
-        </Typography>
+        <Typography className={styles.richTextEditorTitle}>{t(TranslationKey['Describe your task']) + '*'}</Typography>
       )}
 
-      <div className={classNames.richTextEditorSubWrapper} onClick={() => richTextEditorRef.current.focus()}>
+      <div className={styles.richTextEditorSubWrapper} onClick={() => richTextEditorRef.current.focus()}>
         <MUIRichTextEditor
           ref={richTextEditorRef}
           maxLength={6000}
@@ -118,15 +112,15 @@ export const CustomTextEditor = observer(props => {
             },
           ]}
           classes={{
-            root: classNames.root,
-            container: classNames.container,
-            editor: cx(classNames.editor, editorMaxHeight, {
-              [classNames.verticalResize]: verticalResize,
-              [classNames.editorBorder]: !readOnly,
+            root: styles.root,
+            container: styles.container,
+            editor: cx(styles.editor, editorMaxHeight, {
+              [styles.verticalResize]: verticalResize,
+              [styles.editorBorder]: !readOnly,
             }),
-            editorContainer: cx(classNames.editorContainer, { [classNames.editorContainerReadOnly]: readOnly }),
-            placeHolder: classNames.placeHolder,
-            toolbar: classNames.toolbar,
+            editorContainer: cx(styles.editorContainer, { [styles.editorContainerReadOnly]: readOnly }),
+            placeHolder: styles.placeHolder,
+            toolbar: styles.toolbar,
           }}
           onBlur={() => {
             if (changeConditions) {

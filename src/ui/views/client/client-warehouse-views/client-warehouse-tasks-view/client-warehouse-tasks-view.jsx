@@ -72,6 +72,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         <div className={styles.controls}>
           <div className={styles.filters}>
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
@@ -110,6 +111,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
@@ -146,6 +148,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               checkbox
               notCloseOneClick
               selectedItemName={t(TranslationKey['All warehouses'])}
@@ -181,6 +184,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             />
 
             <WithSearchSelect
+              isCloseAfterClickSubmit
               notCloseOneClick
               isFlat
               checkbox
@@ -234,7 +238,6 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
             checkboxSelection
             disableRowSelectionOnClick
             localeText={getLocalizationByLanguageTag()}
-            pageSizeOptions={[15, 25, 50, 100]}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.getCurrentTaskData()}

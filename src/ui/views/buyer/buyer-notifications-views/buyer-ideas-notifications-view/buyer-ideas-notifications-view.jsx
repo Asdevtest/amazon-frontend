@@ -38,7 +38,6 @@ export const BuyerIdeasNotificationsViewRaw = props => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={120}
             slotProps={{

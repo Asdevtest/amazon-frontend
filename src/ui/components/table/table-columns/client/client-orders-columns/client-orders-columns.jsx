@@ -1,7 +1,3 @@
-import { t } from 'i18n-js'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,6 +19,7 @@ import {
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -36,7 +33,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
   },
 
   {
-    field: 'shopIds',
+    field: 'shopId',
     headerName: t(TranslationKey.Shop),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -83,9 +80,10 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => (
       <MultilineTextCell
+        maxLength={50}
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
@@ -104,6 +102,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       <>
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
           <NormalActionBtnCell
+            fullWidthButton
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
@@ -266,7 +265,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -276,8 +274,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 140,
-    // type: 'date',
+    width: 120,
 
     columnKey: columnnsKeys.shared.DATE,
   },

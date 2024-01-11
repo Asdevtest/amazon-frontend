@@ -22,6 +22,10 @@ export class SupervisorReadyToCheckForIdeaViewModel {
 
   isSupervisor = true
 
+  get currentData() {
+    return toJS(this.productsReadyToCheck)
+  }
+
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
@@ -30,47 +34,31 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   columnVisibilityModel = {}
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  getCurrentData() {
-    return toJS(this.productsReadyToCheck)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   async loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-      })
       await this.getProductsReadyToCheck()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
       console.log(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const isCreatedByClient = true
 
       const result = await SupervisorModel.getProductsVacant(isCreatedByClient)
@@ -80,17 +68,15 @@ export class SupervisorReadyToCheckForIdeaViewModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
 
       runInAction(() => {
         this.productsReadyToCheck = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -105,15 +91,12 @@ export class SupervisorReadyToCheckForIdeaViewModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
+
       this.onTriggerOpenModal('showInfoModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -129,29 +112,14 @@ export class SupervisorReadyToCheckForIdeaViewModel {
       }
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

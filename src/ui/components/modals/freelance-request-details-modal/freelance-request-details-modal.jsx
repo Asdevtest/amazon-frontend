@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Typography } from '@mui/material'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -10,7 +12,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsMediaFileLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -18,10 +20,12 @@ import { useStyles } from './freelance-request-details-modal.styles'
 
 import { FreelanceRequestDetailsModalControls } from './freelance-request-details-modal-controls'
 
-export const FreelanceRequestDetailsModal = props => {
+export const FreelanceRequestDetailsModal = memo(props => {
   const {
     request,
     details,
+    requestProposals,
+    isAcceptedProposals,
     isOpenModal,
     handleOpenModal,
     onClickSuggest,
@@ -33,9 +37,11 @@ export const FreelanceRequestDetailsModal = props => {
     isRequestOwner,
     onRecoverRequest,
     onClickAbortBtn,
+    onClickMarkAsCompletedBtn,
+    onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
-  const requestMedia = request?.media?.filter(el => checkIsImageLink(el.fileLink))
+  const requestMedia = request?.media?.filter(el => checkIsMediaFileLink(el.fileLink))
   const requestPhotos = requestMedia?.map(el => el.fileLink)
   const requestTitles = requestMedia?.map(el => el.commentByPerformer)
   const requestComments = requestMedia?.map(el => el.commentByClient)
@@ -135,14 +141,12 @@ export const FreelanceRequestDetailsModal = props => {
             )}
           </div>
         </div>
-        {/* <div className={styles.suggestDeal}> */}
-        {/*   <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} /> */}
 
-        {/*   {onClickSuggest ? <Button onClick={onClickSuggest}>{t(TranslationKey["Suggest a deal"])}</Button> : <div />} */}
-        {/* </div> */}
         <FreelanceRequestDetailsModalControls
           isRequestOwner={isRequestOwner}
+          isAcceptedProposals={isAcceptedProposals}
           request={request}
+          requestProposals={requestProposals}
           onClickSuggest={onClickSuggest}
           onClickOpenNewTab={onClickOpenNewTab}
           onClickPublishBtn={onClickPublishBtn}
@@ -151,8 +155,10 @@ export const FreelanceRequestDetailsModal = props => {
           onToggleUploadedToListing={onToggleUploadedToListing}
           onRecoverRequest={onRecoverRequest}
           onClickAbortBtn={onClickAbortBtn}
+          onClickMarkAsCompletedBtn={onClickMarkAsCompletedBtn}
+          onClickResultBtn={onClickResultBtn}
         />
       </div>
     </Modal>
   )
-}
+})

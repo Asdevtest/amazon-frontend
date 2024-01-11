@@ -173,11 +173,7 @@ export class SuppliersAndIdeasModel {
     window
       .open(
         `${
-          checkIsClient(userRole)
-            ? '/client/inventory'
-            : checkIsBuyer(userRole)
-            ? '/buyer/my-products'
-            : UserRoleCodeMap[this.curUser?.role]
+          checkIsClient(userRole) ? '/client/inventory' : checkIsBuyer(userRole) ? '/buyer/my-products' : userRole
         }/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
         '_blank',
       )
@@ -444,7 +440,7 @@ export class SuppliersAndIdeasModel {
         this.onTriggerOpenModal('showRequestStandartResultModal')
       }
     } catch (error) {
-      console.log('error', error)
+      console.log(error)
     }
   }
 

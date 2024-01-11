@@ -181,18 +181,14 @@ class SettingsModelStatic {
     } else {
       this.destinationsFavourites.push(item)
     }
-    // console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
   }
 
   setIntervalCheckAppVersion() {
     setTimeout(() => {
-      // console.log('!!!*** setTimeout version check')
       this.checkAppVersion()
     }, 30000)
 
     setInterval(() => {
-      // console.log('!!!*** setInterval version check')
-
       this.checkAppVersion()
     }, 300000)
   }

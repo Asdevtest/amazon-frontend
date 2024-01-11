@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   messagesWrapper: {
     width: '100%',
     height: '100%',
@@ -53,6 +53,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  highlightMessage: {
+    background: theme.palette.background.activeChat,
+    borderRadius: '8px',
+  },
+
   messageWrapper: {
     width: '100%',
     display: 'flex',
@@ -102,7 +107,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   messageAvatarWrapperIsIncomming: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
 
     '&:hover': {

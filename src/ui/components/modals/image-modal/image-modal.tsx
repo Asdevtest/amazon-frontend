@@ -6,40 +6,40 @@ import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { getShortenStringIfLongerThanCount } from '@utils/text'
-
 import { IUploadFile } from '@typings/upload-file'
 
-import { useStyles } from './image-modal.styles'
+import { useStyles } from './image-modal.style'
 
-import { ButtonControls, ShowPreviews } from './components'
+import { ButtonControls, Comment, ShowPreviews } from './components'
 
 interface ImageModalProps {
+  files: Array<string | IUploadFile>
+  currentFileIndex: number
+  handleCurrentFileIndex: (index: number) => void
   isOpenModal: boolean
-  imageList: Array<string | IUploadFile>
-  currentImageIndex: number
   handleOpenModal: () => void
-  handleCurrentImageIndex: (index: number) => void
   photosTitles?: string[]
   photosComments?: string[]
   showPreviews?: boolean
   isEditable?: boolean
   withoutMakeMainImage?: boolean
+  isRequestResult?: boolean
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
 }
 
 export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
-    imageList,
-    currentImageIndex,
+    files,
+    currentFileIndex,
+    handleCurrentFileIndex,
+    isOpenModal,
+    handleOpenModal,
     photosTitles,
     photosComments,
-    isOpenModal,
     showPreviews,
     isEditable,
     withoutMakeMainImage,
-    handleOpenModal,
-    handleCurrentImageIndex,
+    isRequestResult = false,
     onChangeImagesForLoad,
   } = props
 
@@ -50,92 +50,87 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     openImageZoomModal,
     onOpenImageZoomModal,
 
-    photos,
-    photoIndex,
-    setPhotoIndex,
+    mediaFiles,
+    mediaFileIndex,
+    setMediaFileIndex,
 
     isPlaying,
     setIsPlaying,
 
-    onClickMakeMainImageObj,
+    onMakeMainFile,
     onUploadFile,
-    onClickRemoveImageObj,
-    onClickEditImageSubmit,
-    onClickDownloadPhoto,
+    onRemoveFile,
+    onEditRotateFile,
+    onDownloadFile,
     updateImagesForLoad,
-  } = usePhotoAndFilesSlider(imageList, onChangeImagesForLoad, currentImageIndex)
+  } = usePhotoAndFilesSlider(files, onChangeImagesForLoad, currentFileIndex)
 
   return (
     <Modal
       openModal={isOpenModal}
       setOpenModal={() => {
         handleOpenModal()
-        handleCurrentImageIndex(photoIndex)
+        handleCurrentFileIndex(mediaFileIndex)
         updateImagesForLoad()
       }}
       dialogClassName={styles.modalContainer}
     >
       <div className={styles.wrapper}>
         <ShowPreviews
-          photos={photos}
-          photoIndex={photoIndex}
-          setPhotoIndex={setPhotoIndex}
+          slides={isRequestResult ? files : mediaFiles} // use files only in request results for viewing (no actions)
+          currentIndex={mediaFileIndex}
+          setCurrentIndex={setMediaFileIndex}
           setIsPlaying={setIsPlaying}
           showPreviews={showPreviews}
           photosTitles={photosTitles}
         />
 
         <div className={styles.body}>
-          {photosTitles?.[photoIndex] && <p className={styles.title}>{photosTitles?.[photoIndex]}</p>}
+          {photosTitles?.[mediaFileIndex] && <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p>}
 
           <Slider
             controls
             isHideCounter
             customSlideHeight={500}
-            slides={photos}
-            currentIndex={photoIndex}
-            setCurrentIndex={setPhotoIndex}
+            slides={isRequestResult ? files : mediaFiles} // use files only in request results for viewing (no actions)
+            currentIndex={mediaFileIndex}
+            setCurrentIndex={setMediaFileIndex}
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
           />
 
-          {photosComments?.[photoIndex] && (
-            <p
-              title={photosComments?.[photoIndex].length > 200 ? photosComments?.[photoIndex] : ''}
-              className={styles.title}
-            >
-              {getShortenStringIfLongerThanCount(photosComments?.[photoIndex], 200)}
-            </p>
-          )}
+          <Comment mediaFileIndex={mediaFileIndex} isRequestResult={isRequestResult} photosComments={photosComments} />
 
           <ButtonControls
             isEditable={isEditable}
-            image={photos?.[photoIndex]}
-            imageIndex={photoIndex}
+            mediaFile={mediaFiles?.[mediaFileIndex]}
+            mediaFileIndex={mediaFileIndex}
             withoutMakeMainImage={withoutMakeMainImage}
-            onClickMakeMainImageObj={onClickMakeMainImageObj}
+            onMakeMainFile={onMakeMainFile}
             onImageEditToggle={onOpenImageEditModal}
             onUploadFile={onUploadFile}
-            onClickRemoveImageObj={onClickRemoveImageObj}
-            onClickDownloadPhoto={onClickDownloadPhoto}
+            onRemoveFile={onRemoveFile}
+            onDownloadFile={onDownloadFile}
             onOpenImageZoomModal={onOpenImageZoomModal}
           />
         </div>
       </div>
 
-      <ZoomModal
-        images={photos}
-        currentImageIndex={photoIndex}
-        isOpenModal={openImageZoomModal}
-        setIsOpenModal={onOpenImageZoomModal}
-        setCurrentImageIndex={setPhotoIndex}
-      />
+      {openImageZoomModal && (
+        <ZoomModal
+          mediaFiles={mediaFiles}
+          currentMediaFileIndex={mediaFileIndex}
+          isOpenModal={openImageZoomModal}
+          setIsOpenModal={onOpenImageZoomModal}
+          setCurrentMediaFileIndex={setMediaFileIndex}
+        />
+      )}
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm
-          item={photos?.[photoIndex]}
+          item={mediaFiles?.[mediaFileIndex]}
           setOpenModal={onOpenImageEditModal}
-          onSave={onClickEditImageSubmit}
+          onSave={onEditRotateFile}
         />
       </Modal>
     </Modal>

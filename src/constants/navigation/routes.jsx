@@ -1481,21 +1481,21 @@ export const privateRoutesConfigs = [
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////
 
-  {
-    routePath: '/client/inventory/archive',
-    component: ClientInventoryView,
-    exact: true,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
+  // {
+  //   routePath: '/client/inventory/archive',
+  //   component: ClientInventoryView,
+  //   exact: true,
+  //   permission: [UserRole.CLIENT],
+  //   permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
-    crumbNameKey: TranslationKey.Archive,
+  //   crumbNameKey: TranslationKey.Archive,
 
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Inventory),
-    },
-  },
+  //   navigationInfo: {
+  //     activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+  //     activeSubCategory: '',
+  //     title: () => t(TranslationKey.Inventory),
+  //   },
+  // },
 
   {
     routePath: '/client/inventory',
@@ -2132,7 +2132,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 0,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
     },
   },
@@ -2149,7 +2149,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 1,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },

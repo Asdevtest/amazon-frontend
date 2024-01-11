@@ -74,7 +74,6 @@ export const Integrations = observer(({ productId, modal }) => {
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
         slotProps={{

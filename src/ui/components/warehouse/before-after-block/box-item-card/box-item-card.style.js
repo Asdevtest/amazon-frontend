@@ -227,7 +227,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   checkboxContainer: {
-    width: 'fit-content !important',
+    justifyContent: 'space-between',
+    width: '100%',
     margin: 0,
     padding: 0,
   },
@@ -247,6 +248,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '120px',
     },
+  },
+
+  redText: {
+    color: theme.palette.text.red,
   },
 
   attributeFooterWrapperMobile: {

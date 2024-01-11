@@ -1,3 +1,4 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -7,7 +8,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   ToFixedWithKgSignCell,
-  UserLinkCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -19,66 +20,67 @@ export const adminBoxesViewColumns = () => [
     headerName: '',
     renderCell: params => (params.value ? 'isDraft' : 'OK'),
     width: 60,
-    type: 'boolean',
+    sortable: false,
+    filterable: false,
   },
 
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-    // type: 'date',
+    width: 105,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 150,
-    // type: 'date',
+    width: 105,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
-    width: 80,
+    width: 60,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+      <UserMiniCell
+        userName={params.row.originalData.items[0].product.client?.name}
+        userId={params.row.originalData.items[0].product.client?._id}
+      />
     ),
-    width: 200,
+    width: 180,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
+
   {
     field: 'storekeeper',
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
-
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
-    width: 250,
+    renderCell: params => <UserMiniCell userName={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    width: 180,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-    width: 350,
+    width: 300,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -89,65 +91,68 @@ export const adminBoxesViewColumns = () => [
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />
       ),
-    filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
-    width: 150,
-    type: 'number',
+    renderCell: params => <MultilineTextCell text={params.row.originalData.amount} />,
+    width: 100,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'warehouses',
+    field: 'destination',
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.destination?.name} />,
     width: 200,
+    sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'amazonPrice',
+    field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 150,
-    type: 'number',
+    width: 110,
+    sortable: false,
+    filterable: false,
   },
 
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 150,
+    width: 120,
+    sortable: false,
+    filterable: false,
   },
 
   {
-    field: 'grossWeight',
+    field: 'weighGrossKgWarehouse',
     headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
-
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.weighGrossKgWarehouse} fix={2} />,
     type: 'number',
-    width: 160,
+    width: 130,
+    // sortable: false,
+    filterable: false,
   },
 
   {
-    field: 'trackNumber',
+    field: 'trackNumberText',
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.trackNumberText} />,
     width: 150,
+    sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 ]

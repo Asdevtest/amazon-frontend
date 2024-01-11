@@ -1,8 +1,8 @@
 import { IDestinationVariation } from './destination'
 
 export interface LogisticTariffInterface {
-  name: string
   tariffType: number
+  name: string
   description: string
   deliveryTimeInDay: string
   cls: string
@@ -11,22 +11,20 @@ export interface LogisticTariffInterface {
   minWeightInKg: number
   archive: boolean
   conditionsByRegion: IConditionsByRegion
-  destinationVariations: Array<IDestinationVariation>
+  destinationVariations: IDestinationVariation[]
   _id: string
   storekeeperId: string
   updatedAt: string
-  id: string
+  createdAt: string
 }
 
 export interface IConditionsByRegion {
-  west: {
-    rate: number
-  }
-  central: {
-    rate: number
-  }
-  east: {
-    rate: number
-  }
-  yuanToDollarRate: number
+  west: IOrdersLogicsTariffConditionsByRegion
+  central: IOrdersLogicsTariffConditionsByRegion
+  east: IOrdersLogicsTariffConditionsByRegion
+  yuanToDollarRate?: number
+}
+
+export interface IOrdersLogicsTariffConditionsByRegion {
+  rate: number
 }

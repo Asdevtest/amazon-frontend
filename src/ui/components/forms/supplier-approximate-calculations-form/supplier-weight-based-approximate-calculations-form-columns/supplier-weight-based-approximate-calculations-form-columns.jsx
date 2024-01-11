@@ -1,17 +1,22 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { WeightBasedApproximateCalculationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
+import {
+  CustomDestinationsCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
 
-export const SupplierWeightBasedApproximateCalculationsFormColumns = destinationData => [
+export const SupplierWeightBasedApproximateCalculationsFormColumns = () => [
   {
     field: 'name',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    width: 125,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
+    renderCell: params => <MultilineTextCell text={params.row.originalData.name} />,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -20,33 +25,23 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => (
-      <WeightBasedApproximateCalculationsSpanningCell
-        destinationVariations={params?.row?.destinationVariations}
-        costDeliveryToChina={params?.row?.costDeliveryToChina}
-        destinationData={destinationData}
-        destinationVariationWidth={150}
-        weightWrapperWidth={180}
-        chinaCostWrapperWidth={90}
-        usaCostWrapperWidth={90}
-        roiWrapperWidth={100}
-      />
+      <CustomDestinationsCell destinations={params.row.destinationVariations} field="destinationName" />
     ),
-    width: 180,
+    minWidth: 140,
+    align: 'center',
     filterable: false,
     sortable: false,
-    colSpan: 5,
-    hideable: false,
   },
 
   {
     field: 'weight',
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
-
-    width: 200,
+    renderCell: params => <CustomDestinationsCell destinations={params.row.destinationVariations} field="weight" />,
+    minWidth: 150,
+    align: 'center',
     filterable: false,
     sortable: false,
-    hideable: false,
   },
 
   {
@@ -55,29 +50,34 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
     ),
-    width: 110,
+    renderCell: params => <MultilineTextCell text={params.row.costDeliveryToChina} />,
+    width: 130,
+    align: 'center',
     filterable: false,
     sortable: false,
-    hideable: false,
   },
 
   {
     field: 'costDeliveryToUsa',
     headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
-    width: 110,
+    renderCell: params => (
+      <CustomDestinationsCell destinations={params.row.destinationVariations} field="costDeliveryToUsa" />
+    ),
+    width: 130,
+    align: 'center',
     filterable: false,
     sortable: false,
-    hideable: false,
   },
 
   {
     field: 'roi',
     headerName: t(TranslationKey['ROI calculation']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation'])} />,
-    width: 120,
+    renderCell: params => <CustomDestinationsCell destinations={params.row.destinationVariations} field="roi" />,
+    width: 140,
+    align: 'center',
     filterable: false,
     sortable: false,
-    hideable: false,
   },
 ]

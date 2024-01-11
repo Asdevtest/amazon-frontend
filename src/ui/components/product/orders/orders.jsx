@@ -65,7 +65,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
@@ -103,8 +102,8 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
+          isSetDeadline
           reorderOrdersData={[reorderOrder]}
-          // volumeWeightCoefficient={volumeWeightCoefficient}
           platformSettings={platformSettings}
           destinations={destinations}
           storekeepers={storekeepers}

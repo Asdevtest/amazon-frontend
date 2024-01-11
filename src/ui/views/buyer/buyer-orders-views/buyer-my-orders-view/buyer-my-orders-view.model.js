@@ -1,4 +1,3 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -10,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
-import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
@@ -221,7 +219,7 @@ export class BuyerMyOrdersViewModel {
         'asin',
         'id',
         'item',
-        'skusByClient',
+        'skuByClient',
       ]),
     )
   }
@@ -377,11 +375,20 @@ export class BuyerMyOrdersViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    const response = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
 
-    runInAction(() => {
-      this.paymentMethods = response
-    })
+      runInAction(() => {
+        this.paymentMethods = response.map(paymentMethod => ({
+          isChecked: false,
+          paymentDetails: '',
+          paymentImages: [],
+          paymentMethod,
+        }))
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
@@ -436,7 +443,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
-          isWarning: true,
+          isWarning: false,
           confirmMessage: t(
             TranslationKey[
               'The price per unit in the order is different from the supplier price, do you want to continue?'
@@ -578,8 +585,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickPaymentMethodsCell(row) {
-    await this.getSuppliersPaymentMethods()
-
     runInAction(() => {
       this.currentOrder = row
     })
@@ -594,6 +599,7 @@ export class BuyerMyOrdersViewModel {
       await this.getOrdersMy()
       this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
+      this.getSuppliersPaymentMethods()
     } catch (error) {
       console.log(error)
     }
@@ -649,7 +655,6 @@ export class BuyerMyOrdersViewModel {
       const orderData = await BuyerModel.getOrderById(orderId)
 
       await this.onClickHsCode(orderData.product._id)
-      await this.getSuppliersPaymentMethods()
 
       runInAction(() => {
         this.selectedOrder = orderData
@@ -704,43 +709,25 @@ export class BuyerMyOrdersViewModel {
   async saveOrderPayment(order, orderPayments) {
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
 
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
-          }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
+          validOrderPayments.push(updatedPayment)
         }
 
         await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
+
         this.loadData()
       } catch (error) {
-        console.log('error', error)
+        console.log(error)
         this.setRequestStatus(loadingStatuses.failed)
       }
     }
@@ -851,38 +838,18 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
-
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
 
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
-          }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
+          validOrderPayments.push(updatedPayment)
         }
 
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })
@@ -1041,10 +1008,16 @@ export class BuyerMyOrdersViewModel {
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:
-          order.priority === '40'
+          order.priority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC]
             ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
             : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
+
+      runInAction(() => {
+        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {
@@ -1080,12 +1053,13 @@ export class BuyerMyOrdersViewModel {
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
 
-            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
+            transparencyFile: formFields?.items?.[0]?.transparencyFile || '',
+            isBarCodeAlreadyAttachedByTheSupplier: formFields?.items?.[0]?.isBarCodeAlreadyAttachedByTheSupplier,
+            isTransparencyFileAlreadyAttachedByTheSupplier:
+              formFields?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier,
           },
         ],
       }
-
-      await transformAndValidate(BoxesCreateBoxContract, createBoxData)
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 

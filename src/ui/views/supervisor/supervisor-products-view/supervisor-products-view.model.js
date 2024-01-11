@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
@@ -12,13 +12,12 @@ import { UserModel } from '@models/user-model'
 import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
 
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
 const filtersFields = [
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amountInOrders',
@@ -42,7 +41,6 @@ const filtersFields = [
   'ideasVerified',
   'tags',
   'redFlags',
-
   'createdBy',
   'buyer',
   'bsr',
@@ -57,8 +55,6 @@ export class SupervisorProductsViewModel {
 
   currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
   currentStatusGroup = ProductStatusGroups.allProducts
-
-  currentData = []
 
   baseProducts = []
   productsMy = []
@@ -88,17 +84,15 @@ export class SupervisorProductsViewModel {
   }
 
   onHandleOrderedFilter = (yes, no) => {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        orderedYesNoFilterData: {
-          ...this.columnMenuSettings.orderedYesNoFilterData,
-          yes,
-          no,
-        },
-      }
-      this.getProductsMy()
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      orderedYesNoFilterData: {
+        ...this.columnMenuSettings.orderedYesNoFilterData,
+        yes,
+        no,
+      },
+    }
+    this.getProductsMy()
   }
 
   columnMenuSettings = {
@@ -126,72 +120,54 @@ export class SupervisorProductsViewModel {
   }
 
   constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+    this.history = history
 
-      if (location?.state?.dataGridFilter) {
-        this.startFilterModel = location.state.dataGridFilter
-      }
-    })
-
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
   }
 
   get userInfo() {
     return UserModel.userInfo
   }
 
-  onHoverColumnField(field) {
-    this.onHover = field
+  get currentData() {
+    return this.productsMy
   }
 
-  onLeaveColumnField() {
-    this.onHover = null
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
     this.getProductsMy()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getProductsMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.getProductsMy()
     this.setDataGridState()
   }
 
   setDataGridState() {
     const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
+      sortModel: this.sortModel,
+      filterModel: this.filterModel,
+      paginationModel: this.paginationModel,
+      columnVisibilityModel: this.columnVisibilityModel,
     }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
@@ -200,33 +176,22 @@ export class SupervisorProductsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_PRODUCTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
-  }
+    if (state) {
+      this.sortModel = state.sortModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+          }
+        : state.filterModel
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+      this.paginationModel = state.paginationModel
+      this.columnVisibilityModel = state.columnVisibilityModel
+    }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getProductsMy()
   }
@@ -237,39 +202,18 @@ export class SupervisorProductsViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getProductsMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(
-        this.productsMy.filter(
-          el =>
-            el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
-            el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        ),
-      )
-    } else {
-      return toJS(this.productsMy)
-    }
+    this.rowSelectionModel = model
   }
 
   async loadData() {
@@ -278,27 +222,6 @@ export class SupervisorProductsViewModel {
       await this.getProductsMy()
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  async getProductsMy2() {
-    try {
-      const result = await SupervisorModel.getProductsMy()
-
-      runInAction(() => {
-        this.baseProducts = supervisorProductsDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
-
-        this.productsMy = this.baseProducts
-      })
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -341,25 +264,18 @@ export class SupervisorProductsViewModel {
 
   onClickTableRow(id) {
     const win = window.open(`${window.location.origin}/supervisor/products/product?product-id=${id}`, '_blank')
-
     win.focus()
   }
 
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   getFilter(exclusion) {
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+    const skuByClientFilter =
+      exclusion !== 'skuByClient' &&
+      this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
         .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
@@ -395,15 +311,15 @@ export class SupervisorProductsViewModel {
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
       ],
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
       }),
 
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
+      ...(skuByClientFilter && {
+        skuByClient: { $eq: skuByClientFilter },
       }),
 
       ...(amazonTitleFilter && {
@@ -459,23 +375,21 @@ export class SupervisorProductsViewModel {
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getProductsMy()
     this.getDataGridState()
@@ -516,24 +430,20 @@ export class SupervisorProductsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickProductModal(row) {

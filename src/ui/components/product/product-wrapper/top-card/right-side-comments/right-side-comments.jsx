@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
+import { memo } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -35,7 +34,7 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-export const RightSideComments = observer(
+export const RightSideComments = memo(
   ({
     modal,
     showActionBtns,
@@ -49,7 +48,7 @@ export const RightSideComments = observer(
     acceptMessage,
     showAcceptMessage,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: classNames, cx } = useClassNames()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 

@@ -21,8 +21,6 @@ export class MessagesViewModel {
   showWarningInfoModal = false
   showEditGroupChatInfoModal = false
 
-  // chatSelectedId = undefined
-
   nameSearchValue = ''
   mesSearchValue = ''
 
@@ -34,8 +32,10 @@ export class MessagesViewModel {
   readyImages = []
 
   usersData = []
+
   messagesFound = []
   curFoundedMessage = undefined
+  curFoundedMessageIndex = undefined
 
   showProgress = false
 
@@ -74,23 +74,6 @@ export class MessagesViewModel {
   constructor({ history }) {
     this.history = history
 
-    if (history.location.state?.anotherUserId || history.location.state?.chatId) {
-      ChatModel.onChangeChatSelectedId(
-        history.location.state?.chatId ||
-          this.simpleChats
-            .filter(el => el.type === chatsType.DEFAULT)
-            .find(el => el.users.map(e => e._id).includes(history.location.state.anotherUserId))?._id,
-      )
-
-      if (!this.chatSelectedId) {
-        this.showProgress = true
-
-        setTimeout(() => {
-          this.showProgress = false
-        }, 5000)
-      }
-    }
-
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -106,33 +89,28 @@ export class MessagesViewModel {
     )
 
     reaction(
-      () => this.chatSelectedId,
-      () => (this.mesSearchValue = ''),
-    )
-
-    reaction(
-      () => this.mesSearchValue,
-      () => {
-        if (this.mesSearchValue && this.chatSelectedId) {
-          const mesAr = this.simpleChats
-            .find(el => el._id === this.chatSelectedId)
-            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
-
-          this.messagesFound = mesAr
-
-          setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-        } else {
-          this.curFoundedMessage = undefined
-
-          this.messagesFound = []
-        }
-      },
-    )
-
-    reaction(
       () => ChatModel.isConnected,
       () => this.loadData(),
     )
+  }
+
+  selectChatHandler() {
+    if (this.history.location.state?.anotherUserId || this.history.location.state?.chatId) {
+      ChatModel.onChangeChatSelectedId(
+        this.history.location.state?.chatId ||
+          this.simpleChats
+            .filter(el => el.type === chatsType.DEFAULT)
+            .find(el => el.users.map(e => e._id).includes(this.history.location.state.anotherUserId))?._id,
+      )
+
+      if (!this.chatSelectedId) {
+        this.showProgress = true
+
+        setTimeout(() => {
+          this.showProgress = false
+        }, 3000)
+      }
+    }
   }
 
   onToggleMuteCurrentChat() {
@@ -143,14 +121,21 @@ export class MessagesViewModel {
     SettingsModel.onToggleMuteAllChats(this.simpleChats)
   }
 
-  onChangeCurFoundedMessage(index) {
-    this.curFoundedMessage = this.messagesFound[index]
+  async onChangeCurFoundedMessage(index) {
+    const curFoundedMessage = this.messagesFound[index]
+    await ChatModel.getChatMessage(this.chatSelectedId, undefined, curFoundedMessage)
+
+    runInAction(() => {
+      this.curFoundedMessage = curFoundedMessage
+      this.curFoundedMessageIndex = index
+    })
   }
 
   async loadData() {
     try {
+      ChatModel.getUnreadMessagesCount()
       await ChatModel.getSimpleChats()
-      await ChatModel.getUnreadMessagesCount()
+      this.selectChatHandler()
     } catch (error) {
       console.log(error)
     }
@@ -196,8 +181,6 @@ export class MessagesViewModel {
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
 
       await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }
@@ -206,8 +189,6 @@ export class MessagesViewModel {
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }
@@ -293,8 +274,23 @@ export class MessagesViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  onChangeMesSearchValue(e) {
-    this.mesSearchValue = e.target.value
+  async onChangeMesSearchValue(value, chatId) {
+    runInAction(() => {
+      this.mesSearchValue = value
+    })
+    if (!value) {
+      runInAction(() => {
+        this.messagesFound = []
+        this.curFoundedMessage = undefined
+        this.curFoundedMessageIndex = undefined
+      })
+      return
+    }
+    const res = await ChatModel.FindChatMessage({ chatId, text: value })
+    runInAction(() => {
+      this.messagesFound = res
+    })
+    this.onChangeCurFoundedMessage(res?.length - 1)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
@@ -316,8 +312,6 @@ export class MessagesViewModel {
   }
 
   onClickBackButton() {
-    // this.chatSelectedId = undefined
-
     ChatModel.onChangeChatSelectedId(undefined)
   }
 

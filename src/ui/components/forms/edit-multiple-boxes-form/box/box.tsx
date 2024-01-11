@@ -12,9 +12,11 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
@@ -44,7 +46,7 @@ interface BoxProps {
   onRemoveBox: (boxIndex: string) => void
   setNewBoxes: (newBoxes: any) => void
   setDestinationsFavouritesItem: (destinationId: string) => void
-  onChangeField: (e: any, field: string, boxId: string) => void
+  onChangeField: (e: any, field: string, boxId: string, itemIndex?: number) => void
 }
 
 export const Box: FC<BoxProps> = React.memo(props => {
@@ -71,9 +73,21 @@ export const Box: FC<BoxProps> = React.memo(props => {
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmModalSettings, setConfirmModalSettings] = useState<any | undefined>(undefined)
 
+  const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+  const [filesConditions, setFilesConditions] = useState<{
+    tmpFiles: any
+    currentFiles: any
+    index: number
+  }>({
+    tmpFiles: [],
+    currentFiles: '',
+    index: 0,
+  })
+
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+
   const onClickBarcode = (item: any) => {
     setCurProductToEditBarcode(item)
-
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
@@ -83,65 +97,68 @@ export const Box: FC<BoxProps> = React.memo(props => {
 
   const onClickSaveBarcode = (product: any) => (value: any) => {
     const targetBox = newBoxes.filter((newBox: any) => newBox._id === box._id)[0]
-
     const newFormFields = { ...targetBox }
-
     newFormFields.items = [
       ...targetBox.items.map((el: any) => (el.product._id === product.product._id ? { ...el, tmpBarCode: value } : el)),
     ]
-
     const updatedNewBoxes = newBoxes.map((newBox: any) => (newBox._id === box._id ? newFormFields : newBox))
-
     setNewBoxes(updatedNewBoxes)
-
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
   const onChangeBarcodeGlued = (product: any, field: any) => (value: any) => {
     const targetBox = newBoxes.filter((newBox: any) => newBox._id === box._id)[0]
-
     const newFormFields = { ...targetBox }
-
     if (field === 'isBarCodeAttachedByTheStorekeeper' && value) {
-      newFormFields.items = [
-        ...targetBox.items.map((el: any) =>
-          el.product._id === product.product._id
-            ? { ...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false }
-            : el,
-        ),
-      ]
+      newFormFields.items = targetBox.items.map((el: any) =>
+        el.product._id === product.product._id
+          ? { ...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false }
+          : el,
+      )
     } else if (field === 'isBarCodeAlreadyAttachedByTheSupplier' && value) {
-      newFormFields.items = [
-        ...targetBox.items.map((el: any) =>
-          el.product._id === product.product._id
-            ? { ...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false }
-            : el,
-        ),
-      ]
+      newFormFields.items = targetBox.items.map((el: any) =>
+        el.product._id === product.product._id
+          ? { ...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false }
+          : el,
+      )
+    } else if (field === 'isTransparencyFileAlreadyAttachedByTheSupplier' && value) {
+      newFormFields.items = targetBox.items.map((el: any) =>
+        el.product._id === product.product._id
+          ? { ...el, [field]: value, isTransparencyFileAttachedByTheStorekeeper: false }
+          : el,
+      )
+    } else if (field === 'isTransparencyFileAttachedByTheStorekeeper' && value) {
+      newFormFields.items = targetBox.items.map((el: any) =>
+        el.product._id === product.product._id
+          ? { ...el, [field]: value, isTransparencyFileAlreadyAttachedByTheSupplier: false }
+          : el,
+      )
     } else {
       newFormFields.items = [
         ...targetBox.items.map((el: any) => (el.product._id === product.product._id ? { ...el, [field]: value } : el)),
       ]
     }
-
     const updatedNewBoxes = newBoxes.map((newBox: any) => (newBox._id === box._id ? newFormFields : newBox))
-
     setNewBoxes(updatedNewBoxes)
-  }
-
-  const setShippingLabel = () => (value: any) => {
-    onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
 
   const onClickShippingLabel = () => {
     setShowSetShippingLabelModal(!showSetShippingLabelModal)
   }
-
+  const setShippingLabel = () => (value: any) => {
+    onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
+  }
   const onDeleteShippingLabel = () => {
     onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
   }
 
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const onDeleteBarcode = (value: any, index: number) => {
+    onChangeField(value, 'items', box._id, index)
+  }
+
+  const onSaveTransparencyFile = (value: any, index: number) => {
+    onChangeField(value, 'items', box._id, index)
+  }
 
   const onSubmitSelectStorekeeperAndTariff = (
     storekeeperId: string,
@@ -152,7 +169,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   ) => {
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
-        isWarning: true,
+        isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
 
@@ -249,7 +266,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
                   </div>
 
                   <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skusByClient[0]} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
 
                   <p className={styles.title}>{order.product.amazonTitle}</p>
 
@@ -257,29 +274,47 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     labelClasses={styles.label}
                     label={t(TranslationKey.BarCode)}
                     inputComponent={
-                      <div>
-                        <Chip
-                          classes={{
-                            root: styles.barcodeChip,
-                            clickable: styles.barcodeChipHover,
-                            deletable: styles.barcodeChipHover,
-                            deleteIcon: styles.barcodeChipIcon,
-                            label: styles.barcodeChiplabel,
-                          }}
-                          className={cx({ [styles.barcodeChipExists]: order.barCode })}
-                          size="small"
-                          label={
-                            order.tmpBarCode?.length
-                              ? t(TranslationKey['File added'])
-                              : order.barCode
-                              ? order.barCode
-                              : t(TranslationKey['Set Barcode'])
-                          }
-                          onClick={() => onClickBarcode(order)}
-                        />
-                      </div>
+                      <ChangeChipCell
+                        isChipOutTable
+                        text={!order.tmpBarCode?.length && !order.barCode ? t(TranslationKey['Set Barcode']) : ''}
+                        value={order.tmpBarCode?.[0]?.file?.name || order.tmpBarCode?.[0] || order.barCode}
+                        onClickChip={() => onClickBarcode(order)}
+                        onDeleteChip={() => onDeleteBarcode({ ...order, tmpBarCode: [], barCode: '' }, orderIndex)}
+                      />
                     }
                   />
+
+                  <Field
+                    labelClasses={styles.label}
+                    label={t(TranslationKey['Transparency codes'])}
+                    inputComponent={
+                      <ChangeChipCell
+                        isChipOutTable
+                        text={
+                          !order?.tmpTransparencyFile?.length && !order?.transparencyFile
+                            ? t(TranslationKey.Transparency)
+                            : ''
+                        }
+                        value={
+                          order?.tmpTransparencyFile?.[0]?.file?.name ||
+                          order?.tmpTransparencyFile?.[0] ||
+                          order?.transparencyFile
+                        }
+                        onClickChip={() => {
+                          setShowSetFilesModal(true)
+                          setFilesConditions({
+                            tmpFiles: order?.tmpTransparencyFile,
+                            currentFiles: order?.transparencyFile,
+                            index: orderIndex,
+                          })
+                        }}
+                        onDeleteChip={() =>
+                          onDeleteBarcode({ ...order, tmpTransparencyFile: [], transparencyFile: '' }, orderIndex)
+                        }
+                      />
+                    }
+                  />
+
                   {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
                     <div>
                       <Field
@@ -300,6 +335,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
                           />
                         }
                       />
+
                       <Field
                         oneLine
                         labelClasses={styles.label}
@@ -316,6 +352,42 @@ export const Box: FC<BoxProps> = React.memo(props => {
                                 order,
                                 'isBarCodeAttachedByTheStorekeeper',
                               )(!order.isBarCodeAttachedByTheStorekeeper)
+                            }
+                          />
+                        }
+                      />
+
+                      <Field
+                        oneLine
+                        labelClasses={styles.label}
+                        containerClasses={styles.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                        inputComponent={
+                          <Checkbox
+                            checked={order.isTransparencyFileAlreadyAttachedByTheSupplier}
+                            onChange={e =>
+                              onChangeBarcodeGlued(
+                                order,
+                                'isTransparencyFileAlreadyAttachedByTheSupplier',
+                              )(e.target.checked)
+                            }
+                          />
+                        }
+                      />
+
+                      <Field
+                        oneLine
+                        labelClasses={styles.label}
+                        containerClasses={styles.checkboxContainer}
+                        label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                        inputComponent={
+                          <Checkbox
+                            checked={order.isTransparencyFileAttachedByTheStorekeeper}
+                            onChange={e =>
+                              onChangeBarcodeGlued(
+                                order,
+                                'isTransparencyFileAttachedByTheStorekeeper',
+                              )(e.target.checked)
                             }
                           />
                         }
@@ -380,7 +452,6 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Button
-                    variant={box.logicsTariffId && 'text'}
                     className={cx({
                       [styles.storekeeperBtn]: !box.logicsTariffId,
                       [styles.storekeeperTrafficBtn]: box.logicsTariffId,
@@ -507,13 +578,29 @@ export const Box: FC<BoxProps> = React.memo(props => {
       </Modal>
 
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
-        {/* @ts-ignore */}
         <SetBarcodeModal
           // @ts-ignore
           tmpCode={curProductToEditBarcode?.tmpBarCode}
           item={curProductToEditBarcode}
           onClickSaveBarcode={(data: any) => onClickSaveBarcode(curProductToEditBarcode)(data)}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+        />
+      </Modal>
+
+      <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+        <SetFilesModal
+          modalTitle={t(TranslationKey.Transparency)}
+          LabelTitle={t(TranslationKey['Transparency codes'])}
+          currentFiles={filesConditions.currentFiles}
+          tmpFiles={filesConditions.tmpFiles}
+          onClickSave={value => {
+            onSaveTransparencyFile(
+              { ...box.items[filesConditions.index], tmpTransparencyFile: value },
+              filesConditions.index,
+            )
+            setShowSetFilesModal(false)
+          }}
+          onCloseModal={setShowSetFilesModal}
         />
       </Modal>
 

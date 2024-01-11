@@ -23,9 +23,14 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     renderCell: params => (
       <NormalActionBtnCell
+        isShowCancelButton
         tooltipText={t(TranslationKey['Take the task to work'])}
         bTnText={t(TranslationKey['Get to work'])}
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        boxId={params.row.originalData.boxes[0]?._id}
+        rowId={params.row.originalData._id}
+        operationType={params.row.originalData.operationType}
+        onClickCancelTask={handlers.onClickCancelTask}
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),

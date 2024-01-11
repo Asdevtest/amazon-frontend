@@ -99,10 +99,10 @@ export const lightTheme = createTheme({
         menuIconButton: {
           zIndex: 50,
           position: 'absolute !important',
-          right: -7,
+          right: -2,
           // visibility: 'visible !important',
-          width: '18px !important',
-          height: '18px !important',
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
             width: 14,
@@ -282,7 +282,7 @@ export const lightTheme = createTheme({
       green: '#D9FAE5',
       darkBlue: '#006CFF',
       greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      yellow: '#F5CF00',
+      yellow: '#0164F4',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
@@ -422,10 +422,10 @@ export const darkTheme = createTheme({
           color: '#fff',
           zIndex: 50,
           position: 'absolute !important',
-          right: -7,
+          right: -2,
           // visibility: 'visible !important',
-          width: '18px !important',
-          height: '18px !important',
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
             width: 14,
@@ -530,6 +530,10 @@ export const darkTheme = createTheme({
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+
+          '&.Mui-focused': {
+            border: '1px solid #4CA1DE',
+          },
         },
         input: {
           '&.Mui-disabled': {

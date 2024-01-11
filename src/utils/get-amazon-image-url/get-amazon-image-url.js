@@ -11,7 +11,7 @@ import {
   checkIsGif,
   checkIsHasHttp,
   checkIsImageInludesPostfixes,
-  checkIsImageLink,
+  checkIsMediaFileLink,
   checkIsVideoLink,
 } from '@utils/checks'
 import { removeText } from '@utils/text'
@@ -22,8 +22,8 @@ export const getAmazonImageUrl = (str, isBig) => {
   }
 
   if (checkIsHasHttp(str)) {
-    return checkIsImageLink(str)
-      ? !isBig && !str.includes('.preview.webp')
+    return checkIsMediaFileLink(str)
+      ? !isBig && !str.includes('.preview.webp') && !str.includes('.bmp') && !str.includes('.png')
         ? str + amazonImageUrlPostfix
         : str
       : str /* + amazonImageUrlPostfix */ // deleted because of Google drive link or files
@@ -32,7 +32,11 @@ export const getAmazonImageUrl = (str, isBig) => {
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
       !checkIsVideoLink(str) &&
       !checkIsDocumentLink(str)
-        ? checkIsImageLink(str) && !isBig && !str.includes('.preview.webp')
+        ? checkIsMediaFileLink(str) &&
+          !isBig &&
+          !str.includes('.preview.webp') &&
+          !str.includes('.bmp') &&
+          !str.includes('.png')
           ? amazonImageUrlPostfix
           : ''
         : ''

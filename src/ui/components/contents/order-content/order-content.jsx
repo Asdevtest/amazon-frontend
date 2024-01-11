@@ -69,7 +69,7 @@ export const OrderContent = ({
   const [formFields, setFormFields] = useState({
     ...order,
 
-    destinationId: order?.destination?._id || null,
+    destinationId: order?.destination?._id || order?.variationTariff?.destinationId || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
     variationTariffId: order?.variationTariff?._id || null,
@@ -98,6 +98,7 @@ export const OrderContent = ({
       newFormFields[fieldName] = event.target.value ? parseInt(event.target.value) : ''
     } else if ('barCode' === fieldName) {
       newFormFields.product[fieldName] = event
+      newFormFields.tmpBarCode = []
     } else if ('tmpBarCode' === fieldName) {
       newFormFields[fieldName] = event
     } else {

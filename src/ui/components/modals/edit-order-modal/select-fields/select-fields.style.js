@@ -324,7 +324,7 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'contain',
 
     transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.02)',
     },

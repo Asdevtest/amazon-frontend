@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { IUploadFile } from '@typings/upload-file'
@@ -8,7 +8,7 @@ import { IUploadFile } from '@typings/upload-file'
 export const usePhotoAndFilesSlider = (
   files: Array<string | IUploadFile>,
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
-  startPhotoIndex?: number,
+  startMediaFileIndex?: number,
 ) => {
   const [openImageModal, setOpenImageModal] = useState(false)
   const [openImageEditModal, setOpenImageEditModal] = useState(false)
@@ -20,54 +20,57 @@ export const usePhotoAndFilesSlider = (
   const documents = files?.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
-  const [photos, setPhotos] = useState<Array<string | IUploadFile>>([])
-  const [photoIndex, setPhotoIndex] = useState(startPhotoIndex ?? 0)
+  const [mediaFiles, setMediaFiles] = useState<Array<string | IUploadFile>>([])
+  const [mediaFileIndex, setMediaFileIndex] = useState(startMediaFileIndex ?? 0)
 
-  const [isPlaying, setIsPlaying] = useState(false) // for video player
+  const [isPlaying, setIsPlaying] = useState(false) // to turn off the video when transitioning between slides
 
   useEffect(() => {
-    if (photos?.length - 1 < photoIndex && photos?.length > 0) {
-      setPhotoIndex(photos?.length - 1)
+    // 'undefined' - because 0 === false
+    if (startMediaFileIndex !== undefined) {
+      setMediaFileIndex(startMediaFileIndex)
     }
-  }, [photos?.length])
+  }, [startMediaFileIndex])
 
   useEffect(() => {
-    if (startPhotoIndex !== undefined) {
-      setPhotoIndex(startPhotoIndex)
-    }
-  }, [startPhotoIndex])
+    const filteringMediaFiles = files?.filter(file => {
+      const currentFile = typeof file === 'string' ? file : file?.file?.name
 
-  useEffect(() => {
-    const photoFiltering = files?.filter(el => {
-      const currentFile = typeof el === 'string' ? el : el?.file?.name
-
-      return checkIsImageLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
+      return checkIsMediaFileLink(currentFile) || !checkIsDocumentLink(currentFile) // checkIsDocumentLink for photos of this format '61H0DsE0SfL'
     })
 
-    setPhotos(photoFiltering)
+    setMediaFiles(filteringMediaFiles)
   }, [files])
 
   const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad([...documents, ...photos])
+      onChangeImagesForLoad([...mediaFiles, ...documents]) // when saving media files first, then documents - fewer bugs in the future
     }
   }
 
-  const onClickEditImageSubmit = (image: string) => {
-    const editingPhotos = photos.map((slide, index) => (index === photoIndex ? image : slide))
-    setPhotos(editingPhotos)
+  const onEditRotateFile = (file: string) => {
+    setMediaFiles(prevMediaFiles => prevMediaFiles.map((slide, index) => (index === mediaFileIndex ? file : slide)))
   }
 
-  const onClickRemoveImageObj = (imageIndex: number) => {
-    const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
-    setPhotos(filteringPhotos)
+  const onRemoveFile = (fileIndex: number) => {
+    setMediaFiles(prevMediaFiles => {
+      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
 
-    if (!filteringPhotos?.length) {
-      onOpenImageModal()
-    }
+      if (fileIndex > 0) {
+        setMediaFileIndex(fileIndex - 1) // returns to the previous photo
+      }
+
+      console.log(filteringMediaFiles.length)
+
+      if (filteringMediaFiles?.length === 0) {
+        onOpenImageModal()
+      }
+
+      return filteringMediaFiles
+    })
   }
 
-  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, imageIndex: number) => {
+  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, fileIndex: number) => {
     if (!event?.target?.files || event?.target?.files?.length === 0) {
       return
     }
@@ -82,21 +85,24 @@ export const usePhotoAndFilesSlider = (
         lastModified: el?.lastModified,
       }),
     }))
-    const editingPhotos = photos.map((photo, index) => (index === imageIndex ? readyFilesArr[0] : photo))
 
-    setPhotos(editingPhotos)
+    setMediaFiles(prevMediaFiles =>
+      prevMediaFiles.map((mediaFile, index) => (index === fileIndex ? readyFilesArr[0] : mediaFile)),
+    )
   }
 
-  const onClickMakeMainImageObj = (image: string | IUploadFile, imageIndex: number) => {
-    const filteringPhotos = photos.filter((_, index) => index !== imageIndex)
-    const editingPhotos = [image, ...filteringPhotos]
+  const onMakeMainFile = (file: string | IUploadFile, fileIndex: number) => {
+    setMediaFiles(prevMediaFiles => {
+      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
+      const editingMediaFiles = [file, ...filteringMediaFiles]
 
-    setPhotos(editingPhotos)
-    setPhotoIndex(0)
+      return editingMediaFiles
+    })
+    setMediaFileIndex(0)
   }
 
-  const onClickDownloadPhoto = (photo: string | IUploadFile) =>
-    typeof photo === 'string' ? downloadFileByLink(photo) : downloadFile(photo?.file)
+  const onDownloadFile = (file: string | IUploadFile) =>
+    typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {
     openImageModal,
@@ -106,9 +112,9 @@ export const usePhotoAndFilesSlider = (
     openImageZoomModal,
     onOpenImageZoomModal,
 
-    photos,
-    photoIndex,
-    setPhotoIndex,
+    mediaFiles,
+    mediaFileIndex,
+    setMediaFileIndex,
 
     documents,
     documentIndex,
@@ -117,11 +123,11 @@ export const usePhotoAndFilesSlider = (
     isPlaying,
     setIsPlaying,
 
-    onClickMakeMainImageObj,
+    onMakeMainFile,
     onUploadFile,
-    onClickRemoveImageObj,
-    onClickEditImageSubmit,
-    onClickDownloadPhoto,
+    onRemoveFile,
+    onEditRotateFile,
+    onDownloadFile,
     updateImagesForLoad,
   }
 }

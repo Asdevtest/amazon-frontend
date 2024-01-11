@@ -280,11 +280,10 @@ export class WarehouseMyTasksViewModel {
   async setBoxBarcodeAttached(id, box) {
     try {
       const barcodesAttachedData = box.items.map(item => ({
-        orderId: item.order._id,
-        isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
-        isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
+        orderId: item?.order?._id,
+        isBarCodeAttachedByTheStorekeeper: item?.isBarCodeAttachedByTheStorekeeper,
+        isBarCodeAlreadyAttachedByTheSupplier: item?.isBarCodeAlreadyAttachedByTheSupplier,
       }))
-
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
       console.log(error)
@@ -295,13 +294,18 @@ export class WarehouseMyTasksViewModel {
     try {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-
         data = { ...data, images: [...this.imagesOfBox] }
       }
 
+      const boxItems = data.items.map(item => ({
+        orderId: item?.order?._id,
+        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
+        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
+      }))
+
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
-          data,
+          { ...data, items: boxItems },
           [
             'lengthCmWarehouse',
             'widthCmWarehouse',
@@ -310,6 +314,7 @@ export class WarehouseMyTasksViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
+            'items',
           ],
           false,
           (key, value) => {
@@ -388,6 +393,9 @@ export class WarehouseMyTasksViewModel {
                 barCode: el.barCode,
                 isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
                 isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+                isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
+                isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
+                transparencyFile: el.transparencyFile,
               })),
               images: this.imagesOfBox || box.images,
             },
@@ -395,7 +403,6 @@ export class WarehouseMyTasksViewModel {
               'amount',
               'weighGrossKg',
               'weightFinalAccountingKg',
-              // 'shippingLabel',
               'warehouse',
               'deliveryMethod',
               'lengthCmSupplier',
@@ -414,6 +421,9 @@ export class WarehouseMyTasksViewModel {
               'fitsInitialDimensions',
               'trackNumberText',
               'trackNumberFile',
+              'isTransparencyFileAlreadyAttachedByTheSupplier',
+              'isTransparencyFileAttachedByTheStorekeeper',
+              'transparencyFile',
             ],
           )
 
@@ -426,13 +436,7 @@ export class WarehouseMyTasksViewModel {
           }),
           await this.resolveTask(task._id, requestBoxes),
         ])
-
-        // await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
-        //   status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-        // })
-        // await this.resolveTask(task._id, requestBoxes)
       } else {
-        // await Promise.all([await this.onSubmitUpdateBoxes(newBoxes), await this.resolveTask(task._id)])
         await this.onSubmitUpdateBoxes(newBoxes)
         await this.resolveTask(task._id)
       }
@@ -453,18 +457,6 @@ export class WarehouseMyTasksViewModel {
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
-  async updateTask(taskId, comment, status) {
-    try {
-      await StorekeeperModel.updateTask(taskId, {
-        storekeeperComment: comment || '',
-        images: this.imagesOfTask || [],
-        status,
-      })
-    } catch (error) {
       console.log(error)
     }
   }
@@ -504,57 +496,43 @@ export class WarehouseMyTasksViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async cancelTaskActionByStatus(comment) {
-    switch (mapTaskOperationTypeKeyToEnum[this.tmpDataForCancelTask.taskType]) {
-      case TaskOperationType.MERGE:
-        await this.onCancelMergeBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
-        break
-
-      case TaskOperationType.SPLIT:
-        await this.onCancelSplitBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
-        break
-
-      case TaskOperationType.EDIT:
-        await this.onCancelEditBox(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
-        break
-    }
-  }
-
   async onClickConfirmCancelTask(comment) {
     try {
       await this.cancelTaskActionByStatus(comment)
+
       this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showCancelTaskModal')
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onCancelMergeBoxes(id, taskId, warehouseComment) {
-    try {
-      await BoxesModel.cancelMergeBoxes(id)
-      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
-      await this.getTasksMy()
-    } catch (error) {
-      console.log(error)
+  async cancelTaskActionByStatus(comment) {
+    switch (mapTaskOperationTypeKeyToEnum[this.tmpDataForCancelTask.taskType]) {
+      case TaskOperationType.MERGE:
+        await BoxesModel.cancelMergeBoxes(this.tmpDataForCancelTask.boxId)
+        break
+
+      case TaskOperationType.SPLIT:
+        await BoxesModel.cancelSplitBoxes(this.tmpDataForCancelTask.boxId)
+        break
+
+      case TaskOperationType.EDIT:
+        await BoxesModel.cancelEditBoxes(this.tmpDataForCancelTask.boxId)
+        break
     }
+
+    this.updateTask(this.tmpDataForCancelTask.taskId, comment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
   }
 
-  async onCancelSplitBoxes(id, taskId, warehouseComment) {
+  async updateTask(taskId, comment, status) {
     try {
-      await BoxesModel.cancelSplitBoxes(id)
-      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
-      await this.getTasksMy()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+      await StorekeeperModel.updateTask(taskId, {
+        storekeeperComment: comment || '',
+        images: this.imagesOfTask || [],
+        status,
+      })
 
-  async onCancelEditBox(id, taskId, warehouseComment) {
-    try {
-      await BoxesModel.cancelEditBoxes(id)
-      await this.updateTask(taskId, warehouseComment, mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED])
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
     }

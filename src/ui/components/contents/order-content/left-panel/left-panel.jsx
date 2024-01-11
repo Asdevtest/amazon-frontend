@@ -36,7 +36,7 @@ export const LeftPanel = ({
             {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
           </Typography>
           <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order?.product?.asin} />
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={order.product?.skusByClient?.[0]} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={order.product?.skuByClient} />
         </div>
       </div>
 
