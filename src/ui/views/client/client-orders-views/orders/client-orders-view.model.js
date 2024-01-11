@@ -768,8 +768,8 @@ export class ClientOrdersViewModel {
       this.activeProductGuid = guid
       runInAction(() => {
         this.selectedWarehouseOrderProduct = result
-        this.setRequestStatus(loadingStatuses.SUCCESS)
       })
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (e) {
       console.log(e)
       runInAction(() => {
