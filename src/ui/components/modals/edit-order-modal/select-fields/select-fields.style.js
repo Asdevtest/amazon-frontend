@@ -21,7 +21,9 @@ export const useClassNames = makeStyles()(theme => ({
   deliveredGoodsSuccessWrapper: {
     border: `2px solid #388E3C !important`,
   },
-
+  noFlex: {
+    display: 'block',
+  },
   deliveredGoodsSuccessText: {
     color: '#388E3C',
   },
