@@ -14,10 +14,10 @@ interface ActionButtonsProps {
 export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
   const { onClickFirstButton, onClickSecondButton, firstButtonText, secondButtonText } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   return (
     <div className={styles.wrapper}>
-      <Button className={cx(styles.button, styles.repeatButton)} onClick={onClickFirstButton}>
+      <Button className={styles.button} onClick={onClickFirstButton}>
         {firstButtonText}
       </Button>
 
