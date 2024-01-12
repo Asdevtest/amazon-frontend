@@ -40,7 +40,7 @@ export class MyProposalsViewModel {
 
   currentSettings = undefined
 
-  columnVisibilityModel = {}
+  columnVisibilityModel = { requestCreatedBy: false }
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),

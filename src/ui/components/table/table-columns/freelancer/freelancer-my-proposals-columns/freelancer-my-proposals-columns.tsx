@@ -83,7 +83,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
-    width: 140,
+    width: 120,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -95,7 +95,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       // @ts-ignore
       <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
     ),
-    width: 280,
+    width: 250,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
@@ -112,7 +112,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 62,
+    width: 60,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -123,9 +123,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+      <MultilineTextCell maxLength={20} text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
     ),
-    width: 130,
+    width: 100,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -138,7 +138,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
     ),
-    width: 130,
+    width: 110,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -165,7 +165,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])} />
     ),
     type: 'number',
-    width: 86,
+    width: 85,
     sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
@@ -177,7 +177,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <ShortDateCell value={params.value} />,
-    width: 110,
+    width: 80,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -188,7 +188,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
-    width: 160,
+    width: 110,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -216,15 +216,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
-    width: 100,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-
-  {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
@@ -242,8 +233,17 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         }
       />
     ),
-    width: 220,
+    width: 200,
     sortable: false,
     filterable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
+    width: 100,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
