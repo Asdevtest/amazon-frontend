@@ -83,7 +83,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cursorPointer: {
-    cursor: 'pointer',
+    cursor: 'pointer !important',
   },
 
   editIcon: {
