@@ -80,6 +80,8 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
     type: ChatInfoType
   }
 
+  public crmItemId?: string
+
   @IsOptional()
   public user?: ChatUserContract
   public humanFriendlyId?: string

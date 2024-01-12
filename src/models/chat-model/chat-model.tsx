@@ -473,7 +473,7 @@ class ChatModelStatic {
       })
     }
 
-    const isAddCounter = !isCurrentUser && newMessage?.text !== ChatMessageType.PROPOSAL_STATUS_CHANGED
+    const isAddCounter = !isCurrentUser && !newMessage?.crmItemId
 
     this.getUnreadMessagesCount(isAddCounter ? 1 : 0)
   }
