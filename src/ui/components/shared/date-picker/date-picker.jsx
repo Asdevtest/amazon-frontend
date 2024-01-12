@@ -209,6 +209,7 @@ export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) 
             <TextField {...params} title={t(TranslationKey.Date)} helperText={null} variant="standard" size="small" />
           )}
           onChange={newValue => {
+            console.log(value, '||||||||||||', newValue)
             onChange(newValue)
           }}
           {...restProps}

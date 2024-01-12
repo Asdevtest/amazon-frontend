@@ -10,8 +10,8 @@ export const useGetDestinationTariffInfo = (
   destinations: IDestination[],
   storekeepers: IDestinationStorekeeper[],
   destinationId: string | null,
-  storekeeperId: string,
-  logicsTariffId: string,
+  storekeeperId: string | null,
+  logicsTariffId: string | null,
   variationTariffId: string | null,
 ) => {
   const curDestination = destinations?.find(el => el._id === destinationId)

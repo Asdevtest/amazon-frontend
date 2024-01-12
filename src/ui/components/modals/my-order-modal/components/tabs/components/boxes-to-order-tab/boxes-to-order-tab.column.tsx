@@ -18,12 +18,10 @@ import { t } from '@utils/translations'
 import { IPlatformSettings } from '@typings/patform-settings'
 import { IUploadFile } from '@typings/upload-file'
 
-interface IBoxesToOrderColumn {
-  platformSettings: IPlatformSettings
-  onOpenGalleryModal: (files?: Array<string | IUploadFile>) => void
-}
-
-export const boxesToOrderColumn = ({ platformSettings, onOpenGalleryModal }: IBoxesToOrderColumn) => [
+export const boxesToOrderColumn = (
+  platformSettings: IPlatformSettings,
+  onClickFilesCell: (files?: Array<string | IUploadFile>) => void,
+) => [
   {
     field: 'status',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
@@ -68,7 +66,7 @@ export const boxesToOrderColumn = ({ platformSettings, onOpenGalleryModal }: IBo
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onOpenGalleryModal} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
     filterable: false,
     sortable: false,
     width: 100,

@@ -5,5 +5,8 @@ export const useStyles = makeStyles()(() => ({
     padding: 12,
     borderRadius: 12,
     boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.17)',
+
+    maxHeight: 266,
+    overflow: 'hidden',
   },
 }))

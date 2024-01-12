@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: '100%',
-    height: 270,
+    height: 300,
     maxWidth: 1085,
   },
 

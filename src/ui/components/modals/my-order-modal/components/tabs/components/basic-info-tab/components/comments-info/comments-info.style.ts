@@ -3,10 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 250,
-  },
-
-  infoBlock: {
-    height: 270,
+    height: 300,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -44,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldText: {
     fontSize: 14,
-    lineHeight: '23px',
+    lineHeight: '19px',
     color: theme.palette.text.general,
 
     '&:hover': {
@@ -53,13 +50,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentEditor: {
-    minHeight: 48,
-    height: '48px !important',
+    minHeight: 64,
+    height: '64px !important',
     fontSize: 12,
     lineHeight: '16px',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
   },
 

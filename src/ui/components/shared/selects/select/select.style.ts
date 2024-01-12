@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
-    width: 115,
+    width: 140,
     padding: '1px 5px',
     display: 'flex',
     alignItems: 'center',
@@ -39,6 +39,17 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     border: `1px solid ${theme.palette.background.second}`,
     borderRadius: 6,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'auto',
+    },
   },
 
   text: {

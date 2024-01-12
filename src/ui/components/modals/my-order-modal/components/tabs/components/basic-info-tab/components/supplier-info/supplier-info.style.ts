@@ -3,10 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 280,
-  },
-
-  infoBlock: {
-    height: 270,
+    height: 300,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -59,6 +56,28 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       opacity: 0.8,
+    },
+  },
+
+  inputAmount: {
+    width: 100,
+    padding: '1px 5px',
+    fontSize: 14,
+    lineHeight: '19px',
+    textAlign: 'right',
+    background: theme.palette.background.general,
+    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
+    border: `1px solid ${theme.palette.background.second}`,
+    borderRadius: 6,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:focus': {
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
     },
   },
 }))

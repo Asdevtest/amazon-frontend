@@ -171,3 +171,11 @@ export enum ProductVariation {
   PARENT = 'PARENT',
   CHILD = 'CHILD',
 }
+
+export interface IHSCode {
+  chinaTitle: string | null
+  hsCode: string | null
+  material: string | null
+  productUsage: string | null
+  _id: string
+}

@@ -12,7 +12,7 @@ export interface IOrder {
   createdAt: string
   createdBy: IShortUser
   createdById: string
-  deadline: string
+  deadline: string | null
   deliveryCostToTheWarehouse: number
   destination: IDestination
   expressChinaDelivery: boolean
@@ -20,7 +20,7 @@ export interface IOrder {
   images: string[]
   item: string
   logicsTariff: ILogisticTariff
-  logicsTariffId: string
+  logicsTariffId: string | null
   needsResearch: boolean
   orderSupplier: ISupplier
   paidAt: string

@@ -4,12 +4,11 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
-import { IOrderBox } from '@typings/order-box'
 import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './tabs.style'
 
-import { ChangeFieldFunction, IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
+import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
 
 import { BasicInfoTab, BoxesToOrderTab, ListSuppliersTab } from './components'
 import { customSwitcherSettings } from './tabs.config'
@@ -18,7 +17,6 @@ import { SwitcherConditions } from './tabs.type'
 interface TabsProps {
   isOrderEditable: boolean
   order: IOrderWithAdditionalFields
-  orderBoxes: IOrderBox[]
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
@@ -27,14 +25,14 @@ interface TabsProps {
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
   onClickChangeCondition: () => void
-  onChangeField: ChangeFieldFunction
+  isClient?: boolean
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
   const {
     isOrderEditable,
+    isClient,
     order,
-    orderBoxes,
     destinations,
     storekeepers,
     platformSettings,
@@ -43,7 +41,6 @@ export const Tabs: FC<TabsProps> = memo(props => {
     setDestinationsFavouritesItem,
     setFormFields,
     onClickChangeCondition,
-    onChangeField,
   } = props
 
   const { classes: styles } = useStyles()
@@ -61,13 +58,13 @@ export const Tabs: FC<TabsProps> = memo(props => {
       <TabPanel value={switcherCondition} index={SwitcherConditions.BASIC_INFORMATION}>
         <BasicInfoTab
           isOrderEditable={isOrderEditable}
+          isClient={isClient}
           order={order}
           destinations={destinations}
           storekeepers={storekeepers}
           destinationsFavourites={destinationsFavourites}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
           setFormFields={setFormFields}
-          onChangeField={onChangeField}
         />
       </TabPanel>
 
@@ -76,7 +73,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.BOXES_TO_ORDER}>
-        <BoxesToOrderTab order={order} orderBoxes={orderBoxes} platformSettings={platformSettings} />
+        <BoxesToOrderTab order={order} platformSettings={platformSettings} />
       </TabPanel>
     </div>
   )

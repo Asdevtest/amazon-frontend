@@ -19,14 +19,12 @@ import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/patform-settings'
-import { PaymentMethod } from '@typings/payments'
 import { IUploadFile } from '@typings/upload-file'
 
 export const suppliersOrderColumn = (
   order: IOrderWithAdditionalFields,
   platformSettings: IPlatformSettings,
   onClickFilesCell: (files?: Array<string | IUploadFile>) => void,
-  onClickPaymentMethodsCell: (paymentMethods: PaymentMethod[]) => void,
 ) => [
   {
     field: 'supplier',
@@ -44,7 +42,7 @@ export const suppliersOrderColumn = (
     ),
     filterable: false,
     sortable: false,
-    width: 130,
+    width: 140,
   },
 
   {
@@ -120,12 +118,7 @@ export const suppliersOrderColumn = (
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <PaymentMethodsCell
-        paymentMethods={row.paymentMethods}
-        onClickCell={() => onClickPaymentMethodsCell(row.paymentMethods)}
-      />
-    ),
+    renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -138,7 +131,7 @@ export const suppliersOrderColumn = (
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 90,
     align: 'center',
   },
 

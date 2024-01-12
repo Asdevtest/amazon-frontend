@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
 import {
   getConversion,
@@ -10,10 +10,11 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Card } from '@components/modals/my-order-modal/components/card'
-import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
+import { IOrderWithAdditionalFields, SetFormFieldsType } from '@components/modals/my-order-modal/my-order-modal.type'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -22,10 +23,14 @@ import { useStyles } from './supplier-info.style'
 import { IFieldConfig } from '../../basic-info-tab.type'
 
 interface SupplierInfoProps {
+  isOrderEditable: boolean
   order: IOrderWithAdditionalFields
+  setFormFields: SetFormFieldsType
 }
 
-export const SupplierInfo: FC<SupplierInfoProps> = memo(({ order }) => {
+export const SupplierInfo: FC<SupplierInfoProps> = memo(props => {
+  const { isOrderEditable, order, setFormFields } = props
+
   const { classes: styles, cx } = useStyles()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
@@ -34,7 +39,31 @@ export const SupplierInfo: FC<SupplierInfoProps> = memo(({ order }) => {
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
   const weightSizesType = getWeightSizesType(sizeSetting)
 
+  const onChangeField = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    const currentInputValue = event.target.value
+
+    if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(currentInputValue, 0)) {
+      return
+    }
+
+    setFormFields(prevFormFields => ({ ...prevFormFields, [field]: parseInt(currentInputValue) }))
+  }
+
   const supplierInfoFieldsConfig: IFieldConfig[] = [
+    {
+      title: t(TranslationKey['Quantity (pcs.)']),
+      text: undefined,
+      element: (
+        <input
+          type="number"
+          name="amount"
+          value={order?.amount}
+          disabled={!isOrderEditable}
+          className={styles.inputAmount}
+          onChange={onChangeField('amount')}
+        />
+      ),
+    },
     {
       title: t(TranslationKey['Purchase price']),
       text:
@@ -114,19 +143,17 @@ export const SupplierInfo: FC<SupplierInfoProps> = memo(({ order }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.infoBlock}>
-        <p className={styles.title}>{t(TranslationKey['Supplier information'])}</p>
+      <p className={styles.title}>{t(TranslationKey['Supplier information'])}</p>
 
-        <Card wrapperClassName={styles.card}>
-          {supplierInfoFieldsConfig.map((item, index) => (
-            <div key={index} className={styles.field}>
-              <p className={styles.fieldText}>{item.title}</p>
-              {item.element}
-              {item.text && <p className={styles.fieldText}>{item.text}</p>}
-            </div>
-          ))}
-        </Card>
-      </div>
+      <Card wrapperClassName={styles.card}>
+        {supplierInfoFieldsConfig.map((item, index) => (
+          <div key={index} className={styles.field}>
+            <p className={styles.fieldText}>{item.title}</p>
+            {item.element}
+            {item.text && <p className={styles.fieldText}>{item.text}</p>}
+          </div>
+        ))}
+      </Card>
     </div>
   )
 })

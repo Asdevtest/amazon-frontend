@@ -19,4 +19,8 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.primary.main,
     borderRadius: 4,
   },
+
+  uppercase: {
+    textTransform: 'uppercase',
+  },
 }))

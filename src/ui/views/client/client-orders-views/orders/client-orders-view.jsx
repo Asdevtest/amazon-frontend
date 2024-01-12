@@ -180,11 +180,10 @@ export const ClientOrdersView = observer(history => {
         />
       )}
 
-      {viewModel.showMyOrderModal && (
+      {viewModel.showMyOrderModal ? (
         <MyOrderModal
           isClient
           order={viewModel.order}
-          orderBoxes={viewModel.orderBoxes}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           platformSettings={viewModel.platformSettings}
@@ -199,9 +198,9 @@ export const ClientOrdersView = observer(history => {
           onClickReorder={viewModel.onClickReorder}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
         />
-      )}
+      ) : null}
 
-      {viewModel.showWarningInfoModal && (
+      {viewModel.showWarningInfoModal ? (
         <WarningInfoModal
           isWarning={viewModel.warningInfoModalSettings.isWarning}
           openModal={viewModel.showWarningInfoModal}
@@ -212,7 +211,7 @@ export const ClientOrdersView = observer(history => {
             viewModel.onTriggerOpenModal('showWarningInfoModal')
           }}
         />
-      )}
+      ) : null}
     </React.Fragment>
   )
 })

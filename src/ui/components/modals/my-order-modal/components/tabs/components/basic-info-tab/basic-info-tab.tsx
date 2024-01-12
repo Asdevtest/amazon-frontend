@@ -1,10 +1,6 @@
 import { FC, memo } from 'react'
 
-import {
-  ChangeFieldFunction,
-  IOrderWithAdditionalFields,
-  SetFormFieldsType,
-} from '@components/modals/my-order-modal/my-order-modal.type'
+import { IOrderWithAdditionalFields, SetFormFieldsType } from '@components/modals/my-order-modal/my-order-modal.type'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
 
@@ -20,26 +16,26 @@ interface BasicInfoTabProps {
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
-  onChangeField: ChangeFieldFunction
+  isClient?: boolean
 }
 
 export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
   const {
     isOrderEditable,
+    isClient,
     order,
     destinations,
     storekeepers,
     destinationsFavourites,
     setDestinationsFavouritesItem,
     setFormFields,
-    onChangeField,
   } = props
 
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <SupplierInfo order={order} />
+      <SupplierInfo isOrderEditable={isOrderEditable} order={order} setFormFields={setFormFields} />
 
       <AdditionalInfo
         isOrderEditable={isOrderEditable}
@@ -49,12 +45,11 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
         destinationsFavourites={destinationsFavourites}
         setDestinationsFavouritesItem={setDestinationsFavouritesItem}
         setFormFields={setFormFields}
-        onChangeField={onChangeField}
       />
 
       <PhotosInfo order={order} />
 
-      <CommentsInfo isOrderEditable={isOrderEditable} order={order} onChangeField={onChangeField} />
+      <CommentsInfo isOrderEditable={isOrderEditable} isClient={isClient} order={order} setFormFields={setFormFields} />
     </div>
   )
 })

@@ -56,31 +56,33 @@ export const PhotosInfo: FC<PhotosInfoProps> = memo(({ order }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.infoBlock}>
-          <p className={styles.title}>{t(TranslationKey.Photos)}</p>
+        <p className={styles.title}>{t(TranslationKey.Photos)}</p>
 
-          <div className={styles.cardsWrapper}>
-            {photosConfig.map((item, index) => (
-              <Card key={index} wrapperClassName={cx(styles.card, styles.photosCard)}>
-                <div className={styles.field}>
-                  <p className={styles.fieldText}>{item.title}</p>
-                  <button className={styles.fieldIconButton} onClick={() => handleOpenGalleryModal(item.files)}>
-                    {item.element}
-                  </button>
-                </div>
-              </Card>
-            ))}
-          </div>
+        <div className={styles.cardsWrapper}>
+          {photosConfig.map((item, index) => (
+            <Card key={index} wrapperClassName={cx(styles.card, styles.photosCard)}>
+              <div className={styles.field}>
+                <p className={styles.fieldText}>{item.title}</p>
+                <button
+                  disabled={item.files?.length === 0}
+                  className={styles.iconButton}
+                  onClick={() => handleOpenGalleryModal(item.files)}
+                >
+                  {item.element}
+                </button>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
 
-      {showGalleryModal && (
+      {showGalleryModal ? (
         <GalleryModal
           files={galleryFiles}
           isOpenModal={showGalleryModal}
           onOpenModal={() => setShowGalleryModal(!showGalleryModal)}
         />
-      )}
+      ) : null}
     </>
   )
 })

@@ -1,36 +1,27 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, reaction } from 'mobx'
 
 import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
-import { SupplierModel } from '@models/supplier-model'
-
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
-import { Payment, PaymentMethod } from '@typings/payments'
 import { ISupplier } from '@typings/product'
 import { IUploadFile } from '@typings/upload-file'
 
-interface ISupplierState extends ISupplier {
-  id: string
-}
+import { ModalNames } from './list-suppliers-tab.type'
 
 export class ListSuppliersTabModel {
-  suppliers: ISupplierState[] = []
-  currentSupplier: ISupplier | undefined = undefined
-  paymentMethods: Payment[] = []
-  supplierPaymentMethods: Payment[] = []
-  galleryFiles: Array<string | IUploadFile> = []
-
-  showGalleryModal = false
-  showPaymentMethodsModal = false
-  showAddOrEditSupplierModal = false
-
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
   selectionModel: GridRowSelectionModel = []
 
+  suppliers: ISupplier[] = []
+  currentSupplier: ISupplier | undefined = undefined
+  galleryFiles: Array<string | IUploadFile> = []
+
+  showGalleryModal = false
+  showAddOrEditSupplierModal = false
+
   constructor(order: IOrderWithAdditionalFields) {
     this.onGetSuppliers(order)
-    this.getPaymentMethods()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -79,42 +70,6 @@ export class ListSuppliersTabModel {
     }
   }
 
-  async getPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response.map(paymentMethod => ({
-          isChecked: false,
-          paymentDetails: '',
-          paymentImages: [],
-          paymentMethod,
-        }))
-      })
-    } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.paymentMethods = []
-      })
-    }
-  }
-
-  onClickPaymentMethodsCell(paymentMethods: PaymentMethod[]) {
-    const supplierPaymentMethodsRow = paymentMethods?.map((paymentMethod: PaymentMethod) => ({
-      isChecked: false,
-      paymentDetails: '',
-      paymentImages: [],
-      paymentMethod,
-    }))
-
-    if (supplierPaymentMethodsRow.length > 0) {
-      this.supplierPaymentMethods = supplierPaymentMethodsRow
-    }
-
-    this.onTogglePaymentMethodsModal()
-  }
-
   onClickFilesCell = (files?: Array<string | IUploadFile>) => {
     if (files && files.length > 0) {
       this.galleryFiles = files
@@ -122,18 +77,10 @@ export class ListSuppliersTabModel {
       this.galleryFiles = []
     }
 
-    this.onToggleGalleryModal()
+    this.onToggleModal(ModalNames.GALLERY)
   }
 
-  onTogglePaymentMethodsModal() {
-    this.showPaymentMethodsModal = !this.showPaymentMethodsModal
-  }
-
-  onToggleAddOrEditSupplierModal() {
-    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-  }
-
-  onToggleGalleryModal() {
-    this.showGalleryModal = !this.showGalleryModal
+  onToggleModal(modalName: ModalNames) {
+    this[modalName] = !this[modalName]
   }
 }

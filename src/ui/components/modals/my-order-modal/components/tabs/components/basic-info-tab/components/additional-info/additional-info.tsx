@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FC, memo, useState } from 'react'
+import dayjs from 'dayjs'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,16 +9,13 @@ import { UserMiniCell } from '@components/data-grid/data-grid-cells/data-grid-ce
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Card } from '@components/modals/my-order-modal/components/card'
-import {
-  ChangeFieldFunction,
-  IOrderWithAdditionalFields,
-  SetFormFieldsType,
-} from '@components/modals/my-order-modal/my-order-modal.type'
+import { IOrderWithAdditionalFields, SetFormFieldsType } from '@components/modals/my-order-modal/my-order-modal.type'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { Select } from '@components/shared/selects/select'
 import { Switch } from '@components/shared/switch'
 
+import { formatDateToDefaultInputDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
@@ -28,6 +26,14 @@ import { useStyles } from './additional-info.style'
 
 import { IFieldConfig } from '../../basic-info-tab.type'
 
+interface InitialConfirmModalSettingsState {
+  isWarning: boolean
+  title: string
+  confirmMessage: string
+  onClickConfirm: () => void
+  onClickCancelBtn: () => void
+}
+
 interface AdditionalInfoProps {
   isOrderEditable: boolean
   order: IOrderWithAdditionalFields
@@ -36,15 +42,6 @@ interface AdditionalInfoProps {
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
-  onChangeField: ChangeFieldFunction
-}
-
-interface InitialConfirmModalSettingsState {
-  isWarning: boolean
-  title: string
-  confirmMessage: string
-  onClickConfirm: () => void
-  onClickCancelBtn: () => void
 }
 
 export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
@@ -56,7 +53,6 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
     destinationsFavourites,
     setDestinationsFavouritesItem,
     setFormFields,
-    onChangeField,
   } = props
 
   const { classes: styles } = useStyles()
@@ -81,12 +77,48 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
     order?.variationTariffId && order?.destinationId
       ? destinations.filter(el => el?._id === order?.destinationId)
       : destinations?.filter(el => el?.storekeeper?._id !== order?.storekeeper?._id)
-  const currentTariffName =
-    order.storekeeperId && (tariffName || tariffRate)
-      ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-      : t(TranslationKey.Select)
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
+  const shoWcurrentTariff = order.storekeeperId && (currentTariffName || currentTariffRate)
+  const minDate = dayjs().add(2, 'day')
+
+  const onChangeField = (fieldName: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    setFormFields(prevFormFields => {
+      const updatedFormFields: IOrderWithAdditionalFields = { ...prevFormFields }
+
+      if (fieldName === 'deadline') {
+        updatedFormFields[fieldName] = event.target.value
+      }
+
+      if (fieldName === 'expressChinaDelivery' || fieldName === 'needsResearch') {
+        updatedFormFields[fieldName] = event.target.checked
+      }
+
+      if (fieldName === 'priority') {
+        updatedFormFields[fieldName] = event.target.checked
+          ? String(orderPriority.urgentPriority)
+          : String(orderPriority.normalPriority)
+      }
+
+      return updatedFormFields
+    })
+  }
 
   const additionalInfoFieldsConfig: IFieldConfig[] = [
+    {
+      title: t(TranslationKey.Deadline),
+      element: (
+        <input
+          type="date"
+          name="deadline"
+          value={formatDateToDefaultInputDate(order?.deadline)}
+          min={formatDateToDefaultInputDate(minDate)}
+          disabled={!isOrderEditable}
+          className={styles.inputDeadline}
+          onChange={onChangeField('deadline')}
+        />
+      ),
+    },
     {
       title: t(TranslationKey.Destination),
       element: (
@@ -101,14 +133,21 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
       ),
     },
     {
-      title: `${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`,
+      title: `${t(TranslationKey.Tariff)}`,
       element: (
         <button
           disabled={!isOrderEditable}
           className={styles.tafiffButton}
           onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
-          <p>{currentTariffName}</p>
+          {shoWcurrentTariff ? (
+            <>
+              <p className={styles.tafiffText}>{currentTariffName}</p>
+              <p className={styles.tafiffText}>{currentTariffRate}</p>
+            </>
+          ) : (
+            <p>{t(TranslationKey.Select)}</p>
+          )}
         </button>
       ),
     },
@@ -221,22 +260,20 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.infoBlock}>
-          <p className={styles.title}>{t(TranslationKey['Additional order information'])}</p>
+        <p className={styles.title}>{t(TranslationKey['Additional order information'])}</p>
 
-          <Card wrapperClassName={styles.card}>
-            {additionalInfoFieldsConfig.map((item, index) => (
-              <div key={index} className={styles.field}>
-                <p className={styles.fieldText}>{item.title}</p>
-                {item.element}
-                {item.text && <p className={styles.fieldText}>{item.text}</p>}
-              </div>
-            ))}
-          </Card>
-        </div>
+        <Card wrapperClassName={styles.card}>
+          {additionalInfoFieldsConfig.map((item, index) => (
+            <div key={index} className={styles.field}>
+              <p className={styles.fieldText}>{item.title}</p>
+              {item.element}
+              {item.text && <p className={styles.fieldText}>{item.text}</p>}
+            </div>
+          ))}
+        </Card>
       </div>
 
-      {showSelectionStorekeeperAndTariffModal && (
+      {showSelectionStorekeeperAndTariffModal ? (
         <Modal
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
@@ -253,9 +290,9 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>
-      )}
+      ) : null}
 
-      {showConfirmModal && (
+      {showConfirmModal ? (
         <ConfirmationModal
           isWarning={confirmModalSettings?.isWarning}
           openModal={showConfirmModal}
@@ -267,7 +304,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
           onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
           onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
         />
-      )}
+      ) : null}
     </>
   )
 })

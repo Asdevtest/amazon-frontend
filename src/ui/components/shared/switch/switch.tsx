@@ -11,12 +11,12 @@ interface SwitchProps {
 export const Switch: FC<SwitchProps> = memo(props => {
   const { isChecked = false, onChange, disabled = false } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <label className={styles.switch}>
       <input type="checkbox" disabled={disabled} checked={isChecked} className={styles.input} onChange={onChange} />
-      <span className={styles.slider} />
+      <span className={cx(styles.slider, { [styles.disabled]: disabled })} />
     </label>
   )
 })

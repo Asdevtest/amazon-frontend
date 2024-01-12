@@ -3,10 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 210,
-  },
-
-  infoBlock: {
-    height: 270,
+    height: 300,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -52,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  fieldIconButton: {
+  iconButton: {
     width: 24,
     height: 24,
     opacity: 1,
@@ -60,6 +57,11 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       opacity: 0.8,
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'auto',
     },
   },
 

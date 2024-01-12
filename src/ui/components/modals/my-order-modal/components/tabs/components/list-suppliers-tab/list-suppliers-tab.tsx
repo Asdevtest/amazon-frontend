@@ -6,7 +6,6 @@ import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
@@ -20,8 +19,9 @@ import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './list-suppliers-tab.style'
 
+import { suppliersOrderColumn } from './list-suppliers-tab.column'
 import { ListSuppliersTabModel } from './list-suppliers-tab.model'
-import { suppliersOrderColumn } from './suppliers-order-column'
+import { ModalNames } from './list-suppliers-tab.type'
 import { Toolbar } from './toolbar'
 
 interface ListSuppliersTabProps {
@@ -37,9 +37,9 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
 
   const [viewModel] = useState(() => new ListSuppliersTabModel(order))
 
-  const showVisibilityButton = viewModel.selectionModel.length > 0
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === order?.product?.currentSupplier?._id && styles.currentSupplierBackground
+  const showVisibilityButton = viewModel.selectionModel.length > 0
 
   return (
     <>
@@ -53,12 +53,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}
-          columns={suppliersOrderColumn(
-            order,
-            platformSettings,
-            viewModel.onClickFilesCell,
-            viewModel.onClickPaymentMethodsCell,
-          )}
+          columns={suppliersOrderColumn(order, platformSettings, viewModel.onClickFilesCell)}
           paginationModel={viewModel.paginationModel}
           rowSelectionModel={viewModel.selectionModel}
           sx={{
@@ -71,7 +66,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
               children: (
                 <Toolbar
                   showVisibilityButton={showVisibilityButton}
-                  onAddOrEditSupplierModal={viewModel.onToggleAddOrEditSupplierModal}
+                  onAddOrEditSupplierModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
                 />
               ),
             },
@@ -81,18 +76,22 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
         />
       </div>
 
-      {viewModel.showGalleryModal && (
+      {viewModel.showGalleryModal ? (
         <GalleryModal
           files={viewModel.galleryFiles}
           isOpenModal={viewModel.showGalleryModal}
-          onOpenModal={viewModel.onToggleGalleryModal}
+          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
         />
-      )}
+      ) : null}
 
-      {viewModel.showAddOrEditSupplierModal && (
-        <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onToggleAddOrEditSupplierModal}>
-          {/* @ts-ignore */}
+      {viewModel.showAddOrEditSupplierModal ? (
+        <Modal
+          openModal={viewModel.showAddOrEditSupplierModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+        >
           <AddOrEditSupplierModalContent
+            // remove memo from the modal or add types to the modal
+            /* @ts-ignore */
             onlyRead
             product={order?.product}
             supplier={viewModel.currentSupplier}
@@ -100,21 +99,10 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
             sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
             volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
-            onTriggerShowModal={viewModel.onToggleAddOrEditSupplierModal}
+            onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
           />
         </Modal>
-      )}
-
-      {viewModel.showPaymentMethodsModal && (
-        <Modal openModal={viewModel.showPaymentMethodsModal} setOpenModal={viewModel.onTogglePaymentMethodsModal}>
-          <PaymentMethodsForm
-            readOnly
-            orderPayments={viewModel.supplierPaymentMethods}
-            allPayments={viewModel.paymentMethods}
-            onClickCancelButton={viewModel.onTogglePaymentMethodsModal}
-          />
-        </Modal>
-      )}
+      ) : null}
     </>
   )
 })

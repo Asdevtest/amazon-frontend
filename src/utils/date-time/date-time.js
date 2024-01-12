@@ -191,3 +191,5 @@ export const getTomorrowDate = () => {
 export const getLocalToUTCDate = date => {
   return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_HOUR_IN_MILLISECONDS)?.toISOString()
 }
+
+export const formatDateToDefaultInputDate = dateString => format(new Date(dateString), 'yyyy-MM-dd')

@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     maxWidth: 36,
     height: 18,
+    opacity: 1,
 
     'input:checked + span': {
       background: theme.palette.primary.main,
@@ -46,5 +47,10 @@ export const useStyles = makeStyles()(theme => ({
       transition: '.3s ease',
       borderRadius: '50%',
     },
+  },
+
+  disabled: {
+    opacity: 0.5,
+    cursor: 'auto',
   },
 }))

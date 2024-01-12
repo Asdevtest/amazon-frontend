@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ChangeEvent, FC, memo, useState } from 'react'
-
-import { orderPriority } from '@constants/orders/order-priority'
+import { FC, memo, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
 import { IOrder } from '@typings/order'
-import { IOrderBox } from '@typings/order-box'
 import { IPlatformSettings } from '@typings/patform-settings'
 
 import { useStyles } from './my-order-modal.style'
@@ -20,7 +17,6 @@ interface MyOrderModalProps {
   openModal: boolean
   onOpenModal: () => void
   order: IOrder
-  orderBoxes: IOrderBox[]
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
@@ -40,7 +36,6 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     openModal,
     onOpenModal,
     order,
-    orderBoxes,
     destinations,
     storekeepers,
     platformSettings,
@@ -63,32 +58,11 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
     variationTariffId: order?.variationTariff?._id || null,
+    deadline: order?.deadline || null,
     tmpBarCode: [],
   })
 
   const [formFields, setFormFields] = useState<IOrderWithAdditionalFields>(getInitialOrderState())
-
-  const onChangeField = (fieldName: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setFormFields(prevFormFields => {
-      const updatedFormFields: IOrderWithAdditionalFields = { ...prevFormFields }
-
-      if (fieldName === 'buyerComment' || fieldName === 'clientComment') {
-        updatedFormFields[fieldName] = event as unknown as string
-      }
-
-      if (fieldName === 'expressChinaDelivery' || fieldName === 'needsResearch') {
-        updatedFormFields[fieldName] = event.target.checked
-      }
-
-      if (fieldName === 'priority') {
-        updatedFormFields[fieldName] = event.target.checked
-          ? String(orderPriority.urgentPriority)
-          : String(orderPriority.normalPriority)
-      }
-
-      return updatedFormFields
-    })
-  }
 
   const isOrderEditable = order.status <= 3 // OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
@@ -99,8 +73,8 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
 
         <Tabs
           isOrderEditable={isOrderEditable}
+          isClient={isClient}
           order={formFields}
-          orderBoxes={orderBoxes}
           destinations={destinations}
           storekeepers={storekeepers}
           platformSettings={platformSettings}
@@ -109,7 +83,6 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
           setFormFields={setFormFields}
           onClickChangeCondition={onClickChangeCondition}
-          onChangeField={onChangeField}
         />
 
         <Footer
