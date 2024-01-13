@@ -619,18 +619,18 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result, dataForOrder] = await Promise.all([
+    const [storekeepers, destinations, result /* , dataForOrder */] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
       UserModel.getPlatformSettings(),
-      ClientModel.getProductsInfoForOrders(this.selectedRowIds.join(',')),
+      // ClientModel.getProductsInfoForOrders(this.selectedRowIds.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
       this.platformSettings = result
-      this.dataForOrderModal = dataForOrder
+      // this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')

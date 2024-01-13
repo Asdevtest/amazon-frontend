@@ -64,7 +64,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
-    width: 170,
+    width: 110,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -74,7 +74,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
-    width: 256,
+    width: 250,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
@@ -95,6 +95,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 145,
     renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -153,7 +155,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => (
       <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
-    width: 100,
+    width: 80,
   },
 
   {
@@ -162,7 +164,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
     renderCell: params => <MultilineTextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />,
-    width: 130,
+    width: 110,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },

@@ -638,7 +638,8 @@ export class ClientOrdersViewModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < ordersDataState.length; i++) {
-        const orderObject = ordersDataState[i]
+        let orderObject = ordersDataState[i]
+        let uploadedTransparencyFiles = []
 
         runInAction(() => {
           this.uploadedFiles = []
@@ -650,6 +651,18 @@ export class ClientOrdersViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
+        }
+
+        if (orderObject.tmpTransparencyFile.length) {
+          uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
+            images: orderObject.tmpTransparencyFile,
+            type: 'uploadedFiles',
+          })
+
+          orderObject = {
+            ...orderObject,
+            transparencyFile: uploadedTransparencyFiles[0],
+          }
         }
 
         if (this.isPendingOrdering) {
@@ -668,6 +681,7 @@ export class ClientOrdersViewModel {
             'destinationId',
             'storekeeperId',
             'logicsTariffId',
+            'transparencyFile',
           ])
 
           await OrderModel.changeOrderData(orderObject._id, dataToRequest)
