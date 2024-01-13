@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ interface IdeaSupplierCellProps {
   onClickAddSupplier: () => void
 }
 
-export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = React.memo(({ onClickAddSupplier, suppliers }) => {
+export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSupplier, suppliers }) => {
   const { classes: styles } = useStyles()
 
   return (

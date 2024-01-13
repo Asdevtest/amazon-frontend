@@ -9,20 +9,18 @@ import { CustomList } from '@components/shared/custom-list'
 import { formatDateDayMonthYear, formatDateDistanceFromNowStrict } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './business-info.style'
+import { useStyles } from './business-info.style'
 
 export const BusinessInfo = observer(({ data }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <Box className={classNames.businessInfoWrapper}>
-      <Typography className={classNames.businessInfoTitle}>{t(TranslationKey['Business Started'])}</Typography>
+    <Box className={styles.businessInfoWrapper}>
+      <Typography className={styles.businessInfoTitle}>{t(TranslationKey['Business Started'])}</Typography>
 
       <div>
-        <Typography className={classNames.businessInfoDate}>
-          {formatDateDayMonthYear(data.businessStartDate)}
-        </Typography>
-        <Typography className={classNames.businessInfoDateAgo}>
+        <Typography className={styles.businessInfoDate}>{formatDateDayMonthYear(data.businessStartDate)}</Typography>
+        <Typography className={styles.businessInfoDateAgo}>
           {formatDateDistanceFromNowStrict(data.businessStartDate)}
         </Typography>
       </div>

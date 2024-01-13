@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -22,12 +21,12 @@ import { UploadIcon } from '@components/shared/svg-icons'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-red-flags.style'
+import { useStyles } from './tab-red-flags.style'
 
 import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 
 export const TabRedFlags = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsRedFlagsModel())
 
@@ -44,39 +43,34 @@ export const TabRedFlags = observer(() => {
   return (
     <>
       {SettingsModel.languageTag && (
-        <div className={classNames.wrapper}>
-          <p className={classNames.title}>{t(TranslationKey['Adding a red flag'])}</p>
+        <div className={styles.wrapper}>
+          <p className={styles.title}>{t(TranslationKey['Adding a red flag'])}</p>
 
-          <div className={classNames.container}>
+          <div className={styles.container}>
             <Field
               label={t(TranslationKey['Add a red flag icon']) + '*'}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
+              labelClasses={styles.label}
+              classes={{ root: styles.textField }}
               value={viewModel.flag.iconImage?.data_url ?? viewModel.flag.iconImage}
               placeholder={t(TranslationKey.Link)}
               onChange={viewModel.onChangeIconImage}
             />
 
-            <label htmlFor="image-upload" className={classNames.inputContainer}>
-              <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
-              <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
-              <UploadIcon className={classNames.icon} />
+            <label htmlFor="image-upload" className={styles.inputContainer}>
+              <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
+              <span className={styles.text}>{t(TranslationKey['Add photo'])}</span>
+              <UploadIcon className={styles.icon} />
             </label>
           </div>
 
           {viewModel.flag.iconImage && (
-            <div className={classNames.container}>
-              <div className={cx(classNames.containerImage, { [classNames.error]: !viewModel.isValidUrl })}>
+            <div className={styles.container}>
+              <div className={cx(styles.containerImage, { [styles.error]: !viewModel.isValidUrl })}>
                 <img src={viewModel.flag.iconImage?.data_url ?? viewModel.flag.iconImage} alt="red flag" />
-                <span className={classNames.redFlagLabel}>{viewModel.currentImageName}</span>
-                <div className={classNames.actionIconWrapper}>
-                  <div className={classNames.actionIcon}>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className={classNames.input}
-                      onChange={viewModel.onImageUpload}
-                    />
+                <span className={styles.redFlagLabel}>{viewModel.currentImageName}</span>
+                <div className={styles.actionIconWrapper}>
+                  <div className={styles.actionIcon}>
+                    <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
                     <AutorenewIcon fontSize="small" />
                   </div>
 
@@ -86,36 +80,36 @@ export const TabRedFlags = observer(() => {
             </div>
           )}
 
-          <div className={classNames.container}>
+          <div className={styles.container}>
             <Field
               label={t(TranslationKey['Red flag name']) + '*'}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
+              labelClasses={styles.label}
+              classes={{ root: styles.textField }}
               value={viewModel.flag.title}
               placeholder={t(TranslationKey.Add)}
               onChange={viewModel.onChangeTitle}
             />
           </div>
 
-          <div className={classNames.redFlags}>
+          <div className={styles.redFlags}>
             {viewModel.redFlags.length !== 0 &&
               viewModel.redFlags.map(flag => (
-                <div key={flag._id} className={classNames.redFlagWrapper}>
-                  <div className={classNames.iconContainer}>
-                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} className={classNames.iconImage} />
-                    <Typography className={classNames.redFlag}>{flag.title}</Typography>
+                <div key={flag._id} className={styles.redFlagWrapper}>
+                  <div className={styles.iconContainer}>
+                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} className={styles.iconImage} />
+                    <Typography className={styles.redFlag}>{flag.title}</Typography>
                   </div>
 
-                  <div className={classNames.iconsWrapper}>
+                  <div className={styles.iconsWrapper}>
                     <CopyValue text={flag.title} />
 
                     <EditOutlinedIcon
-                      className={classNames.iconAction}
+                      className={styles.iconAction}
                       onClick={() => viewModel.onClickEditRedFlag(flag._id)}
                     />
 
                     <DeleteOutlineOutlinedIcon
-                      className={classNames.iconAction}
+                      className={styles.iconAction}
                       onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
                     />
                   </div>
@@ -123,7 +117,7 @@ export const TabRedFlags = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={classNames.button} onClick={viewModel.onSubmitRedFlag}>
+          <Button disabled={!isDisableButton} className={styles.button} onClick={viewModel.onSubmitRedFlag}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

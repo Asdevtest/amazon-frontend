@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -24,7 +24,7 @@ import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 
 export const WarehouseDashboardViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -37,30 +37,28 @@ export const WarehouseDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             <div>
               <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
 
               {window.innerWidth >= 768 ? (
-                <div className={classNames.addressMainWrapper}>
+                <div className={styles.addressMainWrapper}>
                   {viewModel.storekeeperDestination ? (
-                    <div className={classNames.addressSubWrapper}>
-                      <Typography className={classNames.address}>
-                        {t(TranslationKey['Warehouse address']) + ':'}
-                      </Typography>
+                    <div className={styles.addressSubWrapper}>
+                      <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
                       <Typography
-                        className={classNames.addressMain}
+                        className={styles.addressMain}
                       >{`${viewModel.storekeeperDestination.name} : ${viewModel.storekeeperDestination.zipCode}, ${viewModel.storekeeperDestination.country}, ${viewModel.storekeeperDestination.state}, ${viewModel.storekeeperDestination.city}, ${viewModel.storekeeperDestination.address}`}</Typography>
                     </div>
                   ) : null}
 
-                  <Button className={classNames.editBtn} onClick={viewModel.onClickAddressBtn}>
+                  <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
                     {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
                   </Button>
                 </div>
@@ -69,18 +67,18 @@ export const WarehouseDashboardViewRaw = props => {
           </div>
 
           {window.innerWidth < 768 ? (
-            <div className={classNames.addressMainWrapper}>
+            <div className={styles.addressMainWrapper}>
               {viewModel.storekeeperDestination ? (
-                <div className={classNames.addressSubWrapper}>
-                  <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+                <div className={styles.addressSubWrapper}>
+                  <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
                   <Typography
-                    className={classNames.addressMain}
+                    className={styles.addressMain}
                   >{`${viewModel.storekeeperDestination.name} : ${viewModel.storekeeperDestination.zipCode}, ${viewModel.storekeeperDestination.country}, ${viewModel.storekeeperDestination.state}, ${viewModel.storekeeperDestination.city}, ${viewModel.storekeeperDestination.address}`}</Typography>
                 </div>
               ) : null}
 
-              <Button className={classNames.editBtn} onClick={viewModel.onClickAddressBtn}>
+              <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
                 {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
               </Button>
             </div>
@@ -89,7 +87,7 @@ export const WarehouseDashboardViewRaw = props => {
           <DashboardButtons user={viewModel.userInfo} routes={warhouseButtonsRoutes} />
 
           {viewModel.userInfo.masterUser && (
-            <div className={classNames.masterUserWrapper}>
+            <div className={styles.masterUserWrapper}>
               <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
               <UserLink
@@ -121,7 +119,7 @@ export const WarehouseDashboardViewRaw = props => {
           />
         </Modal>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

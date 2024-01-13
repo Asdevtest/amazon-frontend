@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
@@ -21,7 +20,7 @@ import { IUploadFile } from '@typings/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './multiple-chats.styles'
+import { useStyles } from './multiple-chats.style'
 
 import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
@@ -103,7 +102,7 @@ export const MultipleChats = observer(
       },
       ref,
     ) => {
-      const { classes: classNames } = useClassNames()
+      const { classes: styles, cx } = useStyles()
       const { isMobileResolution } = useCreateBreakpointResolutions()
 
       const filteredChats = chats
@@ -130,10 +129,10 @@ export const MultipleChats = observer(
       const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
 
       return (
-        <div ref={ref} className={classNames.wrapper}>
+        <div ref={ref} className={styles.wrapper}>
           <div
-            className={cx(classNames.leftSide, {
-              [classNames.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+            className={cx(styles.leftSide, {
+              [styles.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
             })}
           >
             <ChatsList
@@ -147,12 +146,12 @@ export const MultipleChats = observer(
             />
           </div>
 
-          <div className={classNames.rightSide}>
+          <div className={styles.rightSide}>
             {isChatSelectedAndFound && (
-              <div className={classNames.header}>
-                <div className={classNames.searchMessageContainer}>
+              <div className={styles.header}>
+                <div className={styles.searchMessageContainer}>
                   <SearchInput
-                    inputClasses={classNames.searchInput}
+                    inputClasses={styles.searchInput}
                     placeholder={t(TranslationKey['Message Search'])}
                     value={mesSearchValue}
                     onChange={onChangeMesSearchValue}
@@ -166,7 +165,7 @@ export const MultipleChats = observer(
                       onChangeCurFoundedMessage={onChangeCurFoundedMessage}
                     />
                   ) : mesSearchValue ? (
-                    <p className={classNames.searchResult}>{t(TranslationKey['Not found'])}</p>
+                    <p className={styles.searchResult}>{t(TranslationKey['Not found'])}</p>
                   ) : null}
                 </div>
 
@@ -184,7 +183,7 @@ export const MultipleChats = observer(
                 toScrollMesId={curFoundedMessage?._id}
                 messagesFound={messagesFound}
                 searchPhrase={searchPhrase}
-                classNamesWrapper={classNames.chatWrapper}
+                classNamesWrapper={styles.chatWrapper}
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
                 currentOpponent={currentOpponent}
@@ -198,10 +197,10 @@ export const MultipleChats = observer(
                 onClickEditGroupChatInfo={onClickEditGroupChatInfo}
               />
             ) : !isMobileResolution ? (
-              <div className={classNames.noSelectedChatWrapper}>
-                <NoSelectedChat className={classNames.noSelectedChatIcon} />
-                <p className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
-                <p className={classNames.noChatSubTitle}>
+              <div className={styles.noSelectedChatWrapper}>
+                <NoSelectedChat className={styles.noSelectedChatIcon} />
+                <p className={styles.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
+                <p className={styles.noChatSubTitle}>
                   {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
                 </p>
               </div>

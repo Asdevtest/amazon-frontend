@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
@@ -15,7 +14,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-order-suppliers-table.style'
+import { useStyles } from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(
   ({
@@ -28,30 +27,30 @@ export const EditOrderSuppliersTable = observer(
     orderFields,
     platformSettings,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     return (
-      <TableContainer className={classNames.table}>
+      <TableContainer className={styles.table}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className={cx(classNames.tableCellPadding, classNames.alignCenter)}>
+              <TableCell className={cx(styles.tableCellPadding, styles.alignCenter)}>
                 {t(TranslationKey.Name)}
               </TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey.Link)}</TableCell>
 
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
 
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price variations'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Price variations'])}</TableCell>
 
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Updated)}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey.Files)}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
+              <TableCell className={styles.alignCenter}>{t(TranslationKey.Updated)}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,16 +60,16 @@ export const EditOrderSuppliersTable = observer(
                   key={`supplier_${supplier.id}_${index}`}
                   className={cx(
                     {
-                      [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
+                      [styles.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                     },
                     {
-                      [classNames.clickedRow]:
+                      [styles.clickedRow]:
                         isPendingOrder ||
                         orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                         orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
                     },
                     {
-                      [classNames.curSelectedSupplier]:
+                      [styles.curSelectedSupplier]:
                         (isPendingOrder ||
                           orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                           orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) &&
@@ -79,32 +78,30 @@ export const EditOrderSuppliersTable = observer(
                   )}
                   onClick={() => setSelectedSupplier(supplier)}
                 >
-                  <TableCell className={cx(classNames.alignCenter, classNames.alignCenter)}>
-                    <div className={classNames.StatsWrapper}>
+                  <TableCell className={cx(styles.alignCenter, styles.alignCenter)}>
+                    <div className={styles.StatsWrapper}>
                       {new Date(productBaseData?.createdAt) < new Date(supplier?.createdAt) ? (
-                        <div className={classNames.imgWrapper}>
-                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
+                        <div className={styles.imgWrapper}>
+                          <NewSupplier fontSize={'large'} classes={{ root: styles.primary }} />
                         </div>
                       ) : null}
                       {supplier.multiplicity && supplier.boxProperties?.amountInBox ? (
-                        <div className={classNames.multiplicityWrapper}>
-                          <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
-                          <Typography className={classNames.amountInBoxText}>
+                        <div className={styles.multiplicityWrapper}>
+                          <Typography className={styles.multiplicityText}>{'Multiplicity:'}</Typography>
+                          <Typography className={styles.amountInBoxText}>
                             {supplier.boxProperties?.amountInBox}
                           </Typography>
                         </div>
                       ) : null}
                     </div>
-                    <Typography className={classNames.nameCell}>{supplier.name}</Typography>
+                    <Typography className={styles.nameCell}>{supplier.name}</Typography>
                   </TableCell>
 
-                  <TableCell className={classNames.alignCenter}>
+                  <TableCell className={styles.alignCenter}>
                     {supplier.link !== 'access denied' ? (
-                      <div className={classNames.linkWrapper}>
+                      <div className={styles.linkWrapper}>
                         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
-                          <Typography className={classNames.Link}>
-                            {t(TranslationKey['Go to supplier site'])}
-                          </Typography>
+                          <Typography className={styles.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
                         </Link>
                         <CopyValue text={supplier.link} />
                       </div>
@@ -113,23 +110,23 @@ export const EditOrderSuppliersTable = observer(
                     )}
                   </TableCell>
 
-                  <TableCell className={classNames.alignRight}>
-                    <Typography className={classNames.priceCell}>
+                  <TableCell className={styles.alignRight}>
+                    <Typography className={styles.priceCell}>
                       {toFixedWithDollarSign(supplier.price + supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
                     </Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>
-                    <Typography className={classNames.amountCell}>{supplier.minlot}</Typography>
+                  <TableCell className={styles.alignCenter}>
+                    <Typography className={styles.amountCell}>{supplier.minlot}</Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>
-                    <Typography className={classNames.amountCell}>
+                  <TableCell className={styles.alignCenter}>
+                    <Typography className={styles.amountCell}>
                       {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                     </Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>{supplier?.productionTerm}</TableCell>
+                  <TableCell className={styles.alignCenter}>{supplier?.productionTerm}</TableCell>
 
-                  <TableCell className={classNames.alignCenter}>
-                    <div className={classNames.priceVariationsCell}>
+                  <TableCell className={styles.alignCenter}>
+                    <div className={styles.priceVariationsCell}>
                       {supplier?.priceVariations?.map((el, index) => (
                         <div key={index}>
                           {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
@@ -140,17 +137,17 @@ export const EditOrderSuppliersTable = observer(
                     </div>
                   </TableCell>
 
-                  <TableCell className={classNames.alignCenter}>
-                    <Typography className={classNames.textCell}>{supplier.comment}</Typography>
+                  <TableCell className={styles.alignCenter}>
+                    <Typography className={styles.textCell}>{supplier.comment}</Typography>
                   </TableCell>
                   <TableCell>
                     <PhotoAndFilesSlider smallSlider showPreviews files={supplier.images} />
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>
+                  <TableCell className={styles.alignCenter}>
                     <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                   </TableCell>
-                  <TableCell className={classNames.createdByCell}>
-                    <Typography className={classNames.normDateCellTypo}>
+                  <TableCell className={styles.createdByCell}>
+                    <Typography className={styles.normDateCellTypo}>
                       {supplier.updatedAt ? formatNormDateTime(supplier.updatedAt) : '-'}
                     </Typography>
                   </TableCell>
@@ -158,7 +155,7 @@ export const EditOrderSuppliersTable = observer(
               ))
             ) : (
               <TableRow>
-                <TableCell className={cx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+                <TableCell className={cx(styles.alignCenter, styles.tableCellPadding)} colSpan={8}>
                   {t(TranslationKey['No suppliers'])}
                 </TableCell>
               </TableRow>

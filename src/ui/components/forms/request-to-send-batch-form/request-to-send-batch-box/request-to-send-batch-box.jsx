@@ -14,7 +14,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './request-to-send-batch-box.styles'
+import { useStyles } from './request-to-send-batch-box.style'
 
 export const RequestToSendBatchBox = memo(
   ({ box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient, setCurrentOpenedBox }) => {

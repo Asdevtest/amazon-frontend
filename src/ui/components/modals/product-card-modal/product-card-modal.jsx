@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -38,7 +37,7 @@ import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {

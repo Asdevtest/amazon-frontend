@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -14,7 +12,7 @@ import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { useRequestTermsListStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.styles'
+import { useStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.style'
 import { Field } from '@components/shared/field'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -23,7 +21,7 @@ import { t } from '@utils/translations'
 
 export const RequestTermsList = props => {
   const { request, wrapperClassName, withBorder } = props
-  const { classes: styles } = useRequestTermsListStyles()
+  const { classes: styles, cx } = useStyles()
 
   const getDeadlineColor = timeoutAt => {
     if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {

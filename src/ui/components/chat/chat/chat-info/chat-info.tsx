@@ -12,7 +12,7 @@ import { ChatsModel } from '@models/chats-model'
 
 import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
 import { ChatInfoHeader } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header'
-import { useChatInfoStyles } from '@components/chat/chat/chat-info/chat-info.styles'
+import { useChatInfoStyles } from '@components/chat/chat/chat-info/chat-info.style'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'

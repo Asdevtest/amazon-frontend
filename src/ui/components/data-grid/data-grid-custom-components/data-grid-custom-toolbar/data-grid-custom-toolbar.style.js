@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   toolbar: {
     padding: '5px 5px 0',
     display: 'flex',

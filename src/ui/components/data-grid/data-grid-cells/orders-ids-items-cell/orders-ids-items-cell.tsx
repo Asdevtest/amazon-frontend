@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './orders-ids-items-cell.style'
 
@@ -8,7 +8,7 @@ interface OrdersIdsItemsCellProps {
   value: string
 }
 
-export const OrdersIdsItemsCell: FC<OrdersIdsItemsCellProps> = React.memo(({ value }) => {
+export const OrdersIdsItemsCell: FC<OrdersIdsItemsCellProps> = memo(({ value }) => {
   const { classes: styles } = useStyles()
   const sortedValue = value?.split('item')
   const orderIds = sortedValue[0]

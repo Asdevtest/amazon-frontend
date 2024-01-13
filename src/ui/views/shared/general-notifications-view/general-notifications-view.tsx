@@ -19,7 +19,7 @@ import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useStyles } from './general-notifications-view.styles'
+import { useStyles } from './general-notifications-view.style'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 

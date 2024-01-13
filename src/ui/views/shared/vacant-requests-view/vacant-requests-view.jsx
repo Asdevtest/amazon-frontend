@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -44,7 +44,7 @@ export const VacantRequestsView = observer(({ history }) => {
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
@@ -170,6 +170,6 @@ export const VacantRequestsView = observer(({ history }) => {
         onClickSuggest={viewModel.onClickSuggest}
         onClickOpenNewTab={viewModel.onClickOpenInNewTab}
       />
-    </React.Fragment>
+    </>
   )
 })

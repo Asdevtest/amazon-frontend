@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
@@ -11,7 +11,7 @@ interface SmallRowImageCellProps {
   image: string
 }
 
-export const SmallRowImageCell: FC<SmallRowImageCellProps> = React.memo(({ image }) => {
+export const SmallRowImageCell: FC<SmallRowImageCellProps> = memo(({ image }) => {
   const { classes: styles } = useStyles()
 
   const checkIsVideo = checkIsVideoLink(image)

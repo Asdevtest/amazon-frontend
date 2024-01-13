@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 import { orderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-info-tab.style'
 
-export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
+export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
   const { classes: styles, cx } = useStyles()
 
   return (

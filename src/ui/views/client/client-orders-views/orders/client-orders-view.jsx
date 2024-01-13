@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -31,7 +31,7 @@ export const ClientOrdersView = observer(history => {
     viewModel.loadData()
   }, [])
   return (
-    <React.Fragment>
+    <>
       <div className={styles.topHeaderBtnsWrapper}>
         {viewModel.isPendingOrdering ? (
           <div className={styles.topHeaderBtnsSubWrapper}>
@@ -190,6 +190,6 @@ export const ClientOrdersView = observer(history => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

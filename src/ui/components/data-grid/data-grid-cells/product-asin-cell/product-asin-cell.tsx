@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
@@ -17,7 +17,7 @@ interface ProductAsinCellProps {
   withoutTitle?: boolean
 }
 
-export const ProductAsinCell: FC<ProductAsinCellProps> = React.memo(props => {
+export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     image,

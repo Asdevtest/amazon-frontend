@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -38,7 +38,7 @@ interface BoxProps {
   onClickBasicBoxRadio: any
 }
 
-export const Box: FC<BoxProps> = React.memo(props => {
+export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     isNewBox,

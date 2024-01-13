@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ interface FeesValuesWithCalculateBtnCellProps {
   reffee: number
 }
 
-export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellProps> = React.memo(props => {
+export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { noCalculate, onClickCalculate, productId, fbafee, reffee } = props
 

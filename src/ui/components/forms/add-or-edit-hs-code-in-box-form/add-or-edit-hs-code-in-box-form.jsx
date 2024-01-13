@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TableCell, TableRow, Typography } from '@mui/material'
 
@@ -13,32 +13,32 @@ import { TableHeadRow } from '@components/table/table-rows/batches-view/table-he
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-hs-code-in-box-form.style'
+import { useStyles } from './add-or-edit-hs-code-in-box-form.style'
 
 const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
     <TableRow>
       <TableCell>
-        <div className={classNames.descriptionWrapper}>
-          <div className={classNames.imgBlock}>
-            <img className={classNames.imgBox} src={getAmazonImageUrl(item.image)} />
-            <div className={classNames.imgSubBlock}>
-              <Typography className={classNames.productTitle}>{item.amazonTitle}</Typography>
+        <div className={styles.descriptionWrapper}>
+          <div className={styles.imgBlock}>
+            <img className={styles.imgBox} src={getAmazonImageUrl(item.image)} />
+            <div className={styles.imgSubBlock}>
+              <Typography className={styles.productTitle}>{item.amazonTitle}</Typography>
 
-              <Typography className={classNames.boxTitle}>{`ASIN: ${item.asin}`}</Typography>
+              <Typography className={styles.boxTitle}>{`ASIN: ${item.asin}`}</Typography>
             </div>
           </div>
         </div>
       </TableCell>
 
       <TableCell>
-        <div className={classNames.countBlock}>
-          <Typography className={classNames.amount}>{item.qty}</Typography>
+        <div className={styles.countBlock}>
+          <Typography className={styles.amount}>{item.qty}</Typography>
 
           {restProps.box.amount > 1 && (
-            <Typography className={classNames.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</Typography>
+            <Typography className={styles.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</Typography>
           )}
         </div>
       </TableCell>
@@ -55,7 +55,7 @@ const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
 }
 
 export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, startData }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const HEAD_CELLS = [
     { title: t(TranslationKey.Product) },
@@ -92,8 +92,8 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
   const submitDisabled = JSON.stringify(sourceData) === JSON.stringify(formFields)
 
   return (
-    <div className={classNames.form}>
-      <Typography className={classNames.modalTitle} variant="h5">
+    <div className={styles.form}>
+      <Typography className={styles.modalTitle} variant="h5">
         {`${t(TranslationKey.Box)} ${box.humanFriendlyId}`}
       </Typography>
 
@@ -106,12 +106,12 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
         rowsHandlers={{ onChangeField }}
       />
 
-      <div className={classNames.buttonsWrapper}>
-        <Button success disabled={submitDisabled} className={classNames.saveButton} onClick={onClickSubmit}>
+      <div className={styles.buttonsWrapper}>
+        <Button success disabled={submitDisabled} className={styles.saveButton} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={classNames.closeButton} variant="text" onClick={() => setOpenModal()}>
+        <Button className={styles.closeButton} variant="text" onClick={() => setOpenModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

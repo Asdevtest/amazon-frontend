@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import { Menu } from '@mui/material'
@@ -24,7 +24,7 @@ interface StringListCellProps {
   onClickCell?: () => void
 }
 
-export const StringListCell: FC<StringListCellProps> = React.memo(props => {
+export const StringListCell: FC<StringListCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { sourceString, withCopy, maxItemsDisplay, maxLettersInItem } = props
 

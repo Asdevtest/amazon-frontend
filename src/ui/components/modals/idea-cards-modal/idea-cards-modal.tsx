@@ -6,7 +6,7 @@ import { Modal } from '@components/shared/modal'
 
 import { IProduct, IProductIdeaNotification } from '@typings/product'
 
-import { useClassNames } from './idea-cards-modal.styles'
+import { useStyles } from './idea-cards-modal.style'
 
 interface IdeaCardsModalProps {
   productId?: string
@@ -19,13 +19,13 @@ interface IdeaCardsModalProps {
 }
 
 export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.root}>
+      <div className={styles.root}>
         <SuppliersAndIdeas
           isModalView
           isCreate={isCreate}

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Checkbox } from '@mui/material'
 
@@ -18,7 +18,7 @@ interface SelectProductAsinCellWithourTitleProps {
   onClickCheckbox?: () => void
 }
 
-export const SelectProductAsinCellWithourTitle: FC<SelectProductAsinCellWithourTitleProps> = React.memo(props => {
+export const SelectProductAsinCellWithourTitle: FC<SelectProductAsinCellWithourTitleProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { product, checkboxDisabled, checkboxChecked, withCheckbox, onClickCheckbox } = props
 

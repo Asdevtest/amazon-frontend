@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +25,7 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
           <Button
@@ -80,6 +80,6 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
           viewModel.onTriggerOpenModal('showInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 })

@@ -9,7 +9,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-proposal-result-to-correct-form.style'
+import { useStyles } from './request-proposal-result-to-correct-form.style'
 
 interface Props {
   onPressSubmitForm: (formFields: FormFileds, images?: Array<{}>) => void
@@ -30,7 +30,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   const [hour, setHour] = useState('')
   const [minute, setMinute] = useState('')
   const [images, setImages] = useState([])
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const onChangeHour = (value: string) => {
     const maxValue = 99
@@ -70,68 +70,68 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   }, [totalTimeInMinute, images])
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.modalHeader}>
-        <p className={classNames.modalTitle}>{t(TranslationKey['Send in for rework'])}</p>
-        <p className={classNames.label}>{t(TranslationKey['No more than 5 times'])}</p>
+    <div className={styles.root}>
+      <div className={styles.modalHeader}>
+        <p className={styles.modalTitle}>{t(TranslationKey['Send in for rework'])}</p>
+        <p className={styles.label}>{t(TranslationKey['No more than 5 times'])}</p>
       </div>
 
-      <div className={classNames.reasonWrapper}>
+      <div className={styles.reasonWrapper}>
         <Field
           multiline
-          className={classNames.reasonInput}
+          className={styles.reasonInput}
           inputProps={{ maxLength: 1100 }}
           minRows={6}
           maxRows={6}
           label={t(TranslationKey['Reason for rework']) + '*'}
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           value={formFields.reason}
           onChange={onChangeField('reason')}
         />
       </div>
 
-      <div className={classNames.totalTime}>
-        <p className={classNames.time}>{t(TranslationKey['Time for rework']) + '*'}</p>
-        <div className={classNames.inputsWrapper}>
-          <div className={classNames.inputWrapper}>
+      <div className={styles.totalTime}>
+        <p className={styles.time}>{t(TranslationKey['Time for rework']) + '*'}</p>
+        <div className={styles.inputsWrapper}>
+          <div className={styles.inputWrapper}>
             <Field
               oneLine
               placeholder={'00'}
               value={hour}
-              containerClasses={classNames.inputField}
-              inputClasses={classNames.input}
+              containerClasses={styles.inputField}
+              inputClasses={styles.input}
               onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                 onChangeHour(event.target.value)
               }
             />
 
-            <p className={classNames.inputLabel}>{t(TranslationKey.hour)}</p>
+            <p className={styles.inputLabel}>{t(TranslationKey.hour)}</p>
           </div>
 
-          <div className={classNames.inputWrapper}>
+          <div className={styles.inputWrapper}>
             <Field
               oneLine
               placeholder={'00'}
               value={minute}
-              containerClasses={classNames.inputField}
-              inputClasses={classNames.input}
+              containerClasses={styles.inputField}
+              inputClasses={styles.input}
               onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                 onChangeMinute(event.target.value)
               }
             />
 
-            <p className={classNames.inputLabel}>{t(TranslationKey.minute)}</p>
+            <p className={styles.inputLabel}>{t(TranslationKey.minute)}</p>
           </div>
         </div>
       </div>
-      <div className={classNames.uploadFilesInput}>
+      <div className={styles.uploadFilesInput}>
         <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
       </div>
 
-      <div className={classNames.btnWrapper}>
+      <div className={styles.btnWrapper}>
         <Button
           color="primary"
-          className={classNames.btnSubmit}
+          className={styles.btnSubmit}
           disabled={!formFields.reason || totalTimeInMinute === '0'}
           onClick={() => onPressSubmitForm(formFields, images)}
         >

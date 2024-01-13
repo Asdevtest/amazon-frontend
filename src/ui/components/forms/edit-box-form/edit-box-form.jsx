@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
@@ -54,7 +53,7 @@ export const EditBoxForm = memo(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)

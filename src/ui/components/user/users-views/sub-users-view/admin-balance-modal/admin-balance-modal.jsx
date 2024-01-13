@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Container, MenuItem, Select, Typography } from '@mui/material'
 
@@ -12,7 +12,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './admin-balance-modal.style'
+import { useStyles } from './admin-balance-modal.style'
 
 const paymentTypeSettings = {
   DEPOSIT: 'DEPOSIT',
@@ -21,7 +21,7 @@ const paymentTypeSettings = {
 }
 
 export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [balanceValue, setBalanceValue] = useState('')
 
@@ -51,7 +51,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
   }
 
   const renderPositiveMessage = (
-    <div className={classNames.positiveMsg}>
+    <div className={styles.positiveMsg}>
       {`${t(TranslationKey['The balance of the user'])} ${user.name} ${t(
         TranslationKey['will be replenished by'],
       )} ${balanceValue}`}
@@ -59,7 +59,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
   )
 
   const renderNegativeMessage = (
-    <div className={classNames.negativeMsg}>
+    <div className={styles.negativeMsg}>
       {`${t(TranslationKey['From the balance of the user'])} ${user.name} ${t(
         TranslationKey['will be debited by'],
       )} ${balanceValue}`}
@@ -77,8 +77,8 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
 
   return (
     <>
-      <Container disableGutters className={classNames.modalContainer}>
-        <Typography paragraph variant="h3" className={classNames.title}>
+      <Container disableGutters className={styles.modalContainer}>
+        <Typography paragraph variant="h3" className={styles.title}>
           {isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}
         </Typography>
 
@@ -118,13 +118,13 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
           maxRows={4}
           value={reasonValue}
           placeholder={t(TranslationKey['Add comment'])}
-          className={classNames.modalTextArea}
+          className={styles.modalTextArea}
           onChange={e => setReasonValue(e.target.value)}
         />
 
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
 
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <Button
             disableElevation
             disabled={disableButtonExecute}
@@ -138,9 +138,9 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
       </Container>
 
       <Modal openModal={showConfirmModal} setOpenModal={onTriggerConfirmModal}>
-        <div className={classNames.confirmModal}>
+        <div className={styles.confirmModal}>
           <Typography paragraph>{confirmMsg()}</Typography>
-          <div className={classNames.buttonWrapper}>
+          <div className={styles.buttonWrapper}>
             <Button color="primary" variant="contained" onClick={onConfirm}>
               {t(TranslationKey.Yes)}
             </Button>

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -57,7 +57,7 @@ export const MyRequestsView = observer(({ history }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.header}>
           <div />
@@ -232,6 +232,6 @@ export const MyRequestsView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

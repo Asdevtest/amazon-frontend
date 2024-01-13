@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './order-boxes-cell.style'
 
@@ -15,7 +15,7 @@ interface OrderBoxesCellProps {
   withQuantity?: boolean
 }
 
-export const OrderBoxesCell: FC<OrderBoxesCellProps> = React.memo(props => {
+export const OrderBoxesCell: FC<OrderBoxesCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { superbox, superboxQty, qty, box, product, withoutSku, withQuantity } = props
 

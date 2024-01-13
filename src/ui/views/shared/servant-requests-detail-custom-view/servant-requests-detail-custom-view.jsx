@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -54,7 +54,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
   const isRefine = viewModel.requestProposals?.[0]?.proposal?.status === RequestProposalStatus.TO_CORRECT
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {viewModel.request && viewModel.requestProposals ? (
           <div className={styles.requestInfoWrapper}>
@@ -187,6 +187,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
       />
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </React.Fragment>
+    </>
   )
 })

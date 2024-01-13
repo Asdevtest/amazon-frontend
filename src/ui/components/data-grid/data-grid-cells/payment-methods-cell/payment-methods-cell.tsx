@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -14,7 +14,7 @@ interface PaymentMethodsCellProps {
   onClickCell?: () => void
 }
 
-export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = React.memo(props => {
+export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { paymentMethods, onClickCell } = props
 

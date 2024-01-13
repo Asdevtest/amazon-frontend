@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { parseISO } from 'date-fns/esm'
 import { useState } from 'react'
 
@@ -12,10 +11,10 @@ import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 
-import { useClassNames } from './custom-search-request-form.style'
+import { useStyles } from './custom-search-request-form.style'
 
 export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, requestToEdit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const sourceFormFields = {
     request: {
@@ -70,33 +69,33 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) || isOneOfFieldIsEmpty || deadlineError
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.form}>
-        <Typography variant="h3" className={classNames.title}>
+    <div className={styles.root}>
+      <div className={styles.form}>
+        <Typography variant="h3" className={styles.title}>
           {'title'}
         </Typography>
 
         <Field
-          containerClasses={classNames.field}
+          containerClasses={styles.field}
           label={'maxAmountOfProposals'}
           value={formFields.request.maxAmountOfProposals}
           onChange={onChangeField('request')('maxAmountOfProposals')}
         />
 
         <Field
-          containerClasses={classNames.field}
+          containerClasses={styles.field}
           label={'priceOfProposal'}
           value={formFields.request.price}
           onChange={onChangeField('request')('price')}
         />
 
         <Field
-          containerClasses={classNames.field}
+          containerClasses={styles.field}
           label={'timeoutAt'}
           inputComponent={
-            <div className={cx({ [classNames.deadlineError]: deadlineError })}>
+            <div className={cx({ [styles.deadlineError]: deadlineError })}>
               <NewDatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-              {deadlineError && <p className={classNames.deadlineErrorText}>{'deadlineError'}</p>}
+              {deadlineError && <p className={styles.deadlineErrorText}>{'deadlineError'}</p>}
             </div>
           }
         />
@@ -127,7 +126,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
           label={'requestName'}
           inputComponent={
             <TextareaAutosize
-              className={classNames.nameField}
+              className={styles.nameField}
               value={formFields.details.name}
               onChange={onChangeField('details')('name')}
             />
@@ -139,7 +138,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
           label={'conditionsRequest'}
           inputComponent={
             <TextareaAutosize
-              className={classNames.conditionsField}
+              className={styles.conditionsField}
               value={formFields.details.conditions}
               onChange={onChangeField('details')('conditions')}
             />
@@ -161,7 +160,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
 
       <Button
         disableElevation
-        className={classNames.button}
+        className={styles.button}
         color="primary"
         variant="contained"
         onClick={() => setOpenModal()}

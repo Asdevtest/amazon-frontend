@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -11,7 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-to-send-batch-form.style'
+import { useStyles } from './request-to-send-batch-form.style'
 
 import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
@@ -27,7 +26,7 @@ export const RequestToSendBatchForm = observer(
     closeModal,
     setCurrentOpenedBox,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     useEffect(() => {
       if (!selectedBoxes.length) {
         closeModal()
@@ -114,11 +113,11 @@ export const RequestToSendBatchForm = observer(
       )
 
     return (
-      <div className={classNames.content}>
-        <Typography className={classNames.modalTitle} variant="h5">
+      <div className={styles.content}>
+        <Typography className={styles.modalTitle} variant="h5">
           {t(TranslationKey['Sending boxes'])}
         </Typography>
-        <div className={classNames.boxesWrapper}>
+        <div className={styles.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
@@ -133,10 +132,10 @@ export const RequestToSendBatchForm = observer(
             </div>
           ))}
         </div>
-        <div className={classNames.warningWrapper}>
+        <div className={styles.warningWrapper}>
           <Typography
             variant="subtitle1"
-            className={cx(classNames.warningText, { [classNames.noWarningText]: !disabledSubmit })}
+            className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}
           >
             {'*' +
               t(
@@ -147,7 +146,7 @@ export const RequestToSendBatchForm = observer(
           </Typography>
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             disabled={disabledSubmit}
             tooltipAttentionContent={t(

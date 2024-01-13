@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 
@@ -7,16 +7,16 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 // import 'react-image-gallery/styles/css/image-gallery.css'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useClassNames } from './custom-image-gallery.style'
+import { useStyles } from './custom-image-gallery.style'
 
 export const CustomImageGallery = ({ images, imgIndex = 0 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [curItems, setCurItems] = useState(
     images.map(el => ({
       original: getAmazonImageUrl(el, true),
       thumbnail: getAmazonImageUrl(el, true),
-      originalClass: classNames.imgBox,
+      originalClass: styles.imgBox,
       sizes: { width: '50vw', height: '70vh' },
 
       // sizes: {width: '100%', height: '50%'},
@@ -29,7 +29,7 @@ export const CustomImageGallery = ({ images, imgIndex = 0 }) => {
       images.map(el => ({
         original: getAmazonImageUrl(el, true),
         thumbnail: getAmazonImageUrl(el, true),
-        originalClass: classNames.imgBox,
+        originalClass: styles.imgBox,
         // sizes: {width: '50vw', height: '70vh'},
         // sizes: {width: '100%', height: '50%'},
 
@@ -39,12 +39,12 @@ export const CustomImageGallery = ({ images, imgIndex = 0 }) => {
   }, [images])
 
   return (
-    <div className={classNames.carouselWrapper}></div>
+    <div className={styles.carouselWrapper}></div>
     // <ImageGallery
     //   items={curItems}
     //   startIndex={imgIndex}
     //   thumbnailPosition="left"
-    //   additionalClass={classNames.mainWrapper}
+    //   additionalClass={styles.mainWrapper}
     //   renderCustomControls={() => (
     //     <DeleteOutlineOutlinedIcon
     //       onClick={(event1, event2) => {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { UserInfoAndEdit } from '@components/user/user-info-and-edit'
 
@@ -19,10 +19,10 @@ export const AdminUserView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <UserInfoAndEdit user={viewModel.user} />
       </div>
-    </React.Fragment>
+    </>
   )
 })

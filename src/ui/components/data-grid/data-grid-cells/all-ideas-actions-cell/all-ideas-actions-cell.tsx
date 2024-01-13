@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 
@@ -27,7 +27,7 @@ interface AllIdeasActionsCellProps {
   }
 }
 
-export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = React.memo(({ row, rowHandlers }) => {
+export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = memo(({ row, rowHandlers }) => {
   const status = row.status
 
   return (

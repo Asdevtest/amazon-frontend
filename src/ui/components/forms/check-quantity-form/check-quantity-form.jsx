@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -11,7 +10,7 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './check-quantity-form.style'
+import { useStyles } from './check-quantity-form.style'
 
 export const CheckQuantityForm = ({
   title,
@@ -23,7 +22,7 @@ export const CheckQuantityForm = ({
   withRefund,
   maxRefundNumber,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [quantityValue, setQuantityValue] = useState('')
 
@@ -48,16 +47,16 @@ export const CheckQuantityForm = ({
   const isBadValue = Number(quantityValue) !== Number(comparisonQuantity)
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.modalText}>{title}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.modalText}>{title}</Typography>
 
-      <Typography className={classNames.normalText}>{description}</Typography>
+      <Typography className={styles.normalText}>{description}</Typography>
 
       <Field
         inputProps={{ maxLength: 10 }}
-        containerClasses={classNames.inputContainer}
-        inputClasses={classNames.input}
-        classes={{ input: classNames.input }}
+        containerClasses={styles.inputContainer}
+        inputClasses={styles.input}
+        classes={{ input: styles.input }}
         error={isBadValue && valueIsEntered && t(TranslationKey['Incorrect value'])}
         value={quantityValue}
         onChange={onChangeQuantityValue}
@@ -65,15 +64,15 @@ export const CheckQuantityForm = ({
 
       {withRefund && (
         <>
-          <Typography className={classNames.normalText}>
+          <Typography className={styles.normalText}>
             {t(TranslationKey['Enter the amount of the refund to the Client']) + ', $'}
           </Typography>
 
           <Field
             inputProps={{ maxLength: 8 }}
-            containerClasses={classNames.inputContainer}
-            inputClasses={classNames.input}
-            classes={{ input: classNames.input }}
+            containerClasses={styles.inputContainer}
+            inputClasses={styles.input}
+            classes={{ input: styles.input }}
             placeholder={'0.00'}
             value={refundValue}
             onChange={onChangeRefundValue}
@@ -81,18 +80,18 @@ export const CheckQuantityForm = ({
         </>
       )}
 
-      <Typography className={classNames.normalText}>{acceptText}</Typography>
+      <Typography className={styles.normalText}>{acceptText}</Typography>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           disabled={isBadValue || !valueIsEntered || !quantityValue}
-          className={classNames.button}
+          className={styles.button}
           onClick={() => onSubmit({ refundValue })}
         >
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button variant="text" className={cx(classNames.closeButton, classNames.button)} onClick={onClose}>
+        <Button variant="text" className={cx(styles.closeButton, styles.button)} onClick={onClose}>
           {t(TranslationKey.No)}
         </Button>
       </div>

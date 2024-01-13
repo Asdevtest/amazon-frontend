@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
@@ -9,7 +9,7 @@ interface PricePerUnitCellProps {
   item: any
 }
 
-export const PricePerUnitCell: FC<PricePerUnitCellProps> = React.memo(({ item }) => {
+export const PricePerUnitCell: FC<PricePerUnitCellProps> = memo(({ item }) => {
   const { classes: styles } = useStyles()
 
   return (

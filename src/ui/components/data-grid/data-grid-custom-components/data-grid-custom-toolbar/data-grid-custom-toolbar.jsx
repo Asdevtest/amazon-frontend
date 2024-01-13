@@ -1,36 +1,32 @@
 import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
-import { useClassNames } from './data-grid-custom-toolbar.style'
+import { useStyles } from './data-grid-custom-toolbar.style'
 
 import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 
 export const DataGridCustomToolbar = ({ resetFiltersBtnSettings, columsBtnSettings, children, ...other }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <GridToolbarContainer className={classNames.toolbar} {...other}>
-      <div className={classNames.buttons}>
+    <GridToolbarContainer className={styles.toolbar} {...other}>
+      <div className={styles.buttons}>
         {columsBtnSettings ? (
-          <DataGridCustomColumnsButton
-            size={'large'}
-            className={classNames.text}
-            columsBtnSettings={columsBtnSettings}
-          />
+          <DataGridCustomColumnsButton size={'large'} className={styles.text} columsBtnSettings={columsBtnSettings} />
         ) : null}
 
-        <GridToolbarExport size={'large'} className={classNames.text} />
+        <GridToolbarExport size={'large'} className={styles.text} />
 
         {resetFiltersBtnSettings?.isSomeFilterOn ? (
           <DataGridResetFilterButton
             size={'large'}
-            className={classNames.text}
+            className={styles.text}
             resetFiltersBtnSettings={resetFiltersBtnSettings}
           />
         ) : null}
       </div>
 
-      <div className={classNames.buttons}>
+      <div className={styles.buttons}>
         {children}
         <GridPagination />
       </div>

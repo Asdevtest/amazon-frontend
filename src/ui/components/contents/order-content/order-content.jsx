@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
@@ -55,7 +54,7 @@ export const OrderContent = ({
   onClickHsCode,
   setCurrentOpenedBox,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)

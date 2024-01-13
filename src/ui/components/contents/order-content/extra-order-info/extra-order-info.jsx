@@ -9,34 +9,34 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './extra-order-info.style'
+import { useStyles } from './extra-order-info.style'
 
 export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.orderContainer}>
-      <div className={classNames.photosWrapper}>
-        <div className={classNames.photoWrapper}>
+    <div className={styles.orderContainer}>
+      <div className={styles.photosWrapper}>
+        <div className={styles.photoWrapper}>
           <Text
             tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
-            className={classNames.subTitle}
-            containerClasses={classNames.subTitleWrapper}
+            className={styles.subTitle}
+            containerClasses={styles.subTitleWrapper}
           >
             {t(TranslationKey['Order photos:'])}
           </Text>
 
           <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order?.images} />
         </div>
-        <div className={classNames.photoWrapper}>
-          <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
+        <div className={styles.photoWrapper}>
+          <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Text>
 
           <PhotoAndFilesSlider withoutFiles customSlideHeight={75} files={order.orderSupplier?.images} />
         </div>
-        <div className={classNames.photoWrapper}>
-          <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
+        <div className={styles.photoWrapper}>
+          <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
             {t(TranslationKey['Supplier payment']) + ':'}
           </Text>
 
@@ -44,8 +44,8 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
         </div>
       </div>
 
-      <div className={classNames.commentsWrapper}>
-        <Typography className={classNames.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
+      <div className={styles.commentsWrapper}>
+        <Typography className={styles.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
 
         <Field
           disabled
@@ -53,8 +53,8 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           minRows={6}
           maxRows={6}
           value={order.buyerComment}
-          inputClasses={classNames.input}
-          containerClasses={classNames.textField}
+          inputClasses={styles.input}
+          containerClasses={styles.textField}
           label={t(TranslationKey.Buyer)}
         />
 
@@ -64,8 +64,8 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           minRows={6}
           maxRows={6}
           value={formFields.clientComment}
-          containerClasses={classNames.textField}
-          inputClasses={classNames.input}
+          containerClasses={styles.textField}
+          inputClasses={styles.input}
           label={t(TranslationKey.Client)}
           onChange={onChangeField('clientComment')}
         />

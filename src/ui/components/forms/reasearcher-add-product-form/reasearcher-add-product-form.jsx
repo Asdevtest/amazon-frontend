@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Alert, Box, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
@@ -30,7 +30,7 @@ export const ResearcherAddProductFormRaw = observer(
     formFields,
     onChangeFormFields,
     onClickCheckAndAddProductBtn,
-    classes: classNames,
+    classes: styles,
     errorMsg,
     reasonErrorMsg,
     chekedCode,
@@ -41,8 +41,8 @@ export const ResearcherAddProductFormRaw = observer(
     // const [disableAddButton, setDisabledAddButton] = useState(false)
     return (
       SettingsModel.languageTag && (
-        <div className={classNames.mainWrapper}>
-          <div className={classNames.leftBlockWrapper}>
+        <div className={styles.mainWrapper}>
+          <div className={styles.leftBlockWrapper}>
             <div>
               <Field
                 tooltipInfoContent={t(TranslationKey['Copy and paste the link to the product from Amazon'])}
@@ -63,26 +63,23 @@ export const ResearcherAddProductFormRaw = observer(
             </div>
 
             {errorMsg ? (
-              <Alert classes={{ root: classNames.alert }} elevation={0} severity="error">
+              <Alert classes={{ root: styles.alert }} elevation={0} severity="error">
                 {errorMessagesTranslate(errorMsg)}
                 {reasonErrorMsg ? (
                   <>
-                    <Typography className={classNames.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
-                    <TextareaAutosize
-                      className={classNames.alertMessage}
-                      value={errorMessagesTranslate(reasonErrorMsg)}
-                    />
+                    <Typography className={styles.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
+                    <TextareaAutosize className={styles.alertMessage} value={errorMessagesTranslate(reasonErrorMsg)} />
                   </>
                 ) : null}
               </Alert>
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.SUCCESS ? (
-              <Alert className={classNames.alert} elevation={5} severity="success">
+              <Alert className={styles.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>
             ) : undefined}
 
-            <Box mt={3} className={classNames.strategyWrapper}>
+            <Box mt={3} className={styles.strategyWrapper}>
               <Field
                 tooltipInfoContent={t(TranslationKey['Choose a strategy for your future product card'])}
                 label={`${t(TranslationKey['Product Strategy'])}*`}
@@ -91,26 +88,26 @@ export const ResearcherAddProductFormRaw = observer(
                     displayEmpty
                     // disabled={errorMsg}
                     value={formFields.strategyStatus}
-                    className={classNames.nativeSelect}
+                    className={styles.nativeSelect}
                     input={
                       <Input
                         classes={{
-                          input: classNames.input,
-                          disabled: classNames.inputDisabled,
+                          input: styles.input,
+                          disabled: styles.inputDisabled,
                         }}
                       />
                     }
                     onChange={onChangeFormFields('strategyStatus')}
                     // onClick={() => setDisabledAddButton(true)}
                   >
-                    <MenuItem value={''} className={classNames.selectOption}>
+                    <MenuItem value={''} className={styles.selectOption}>
                       {t(TranslationKey['not selected'])}
                     </MenuItem>
 
                     {Object.keys(mapProductStrategyStatusEnum)
                       .filter(el => user.allowedStrategies.includes(Number(el)))
                       .map((statusCode, statusIndex) => (
-                        <MenuItem key={statusIndex} value={statusCode} className={classNames.selectOption}>
+                        <MenuItem key={statusIndex} value={statusCode} className={styles.selectOption}>
                           {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
                         </MenuItem>
                       ))}
@@ -119,7 +116,7 @@ export const ResearcherAddProductFormRaw = observer(
               />
             </Box>
 
-            <Box className={classNames.btnsWrapper}>
+            <Box className={styles.btnsWrapper}>
               {/* <Button
                 disabled={!formFields.strategyStatus}
                 tooltipInfoContent={t(
@@ -152,7 +149,7 @@ export const ResearcherAddProductFormRaw = observer(
           </div>
 
           {!disabledNoProvatLabel && (
-            <div className={classNames.rightBlockWrapper}>
+            <div className={styles.rightBlockWrapper}>
               <div>
                 <Field
                   disabled={disabledNoProvatLabel}
@@ -169,18 +166,18 @@ export const ResearcherAddProductFormRaw = observer(
                   onChange={onChangeFormFields('asins')}
                 />
 
-                <div className={classNames.fieldsSubWrapper}>
+                <div className={styles.fieldsSubWrapper}>
                   <Field
                     disabled={disabledNoProvatLabel}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortInput}
+                    containerClasses={styles.shortInput}
                     label={t(TranslationKey['Average revenue'])}
                     value={formFields.avgRevenue}
                     onChange={onChangeFormFields('avgRevenue')}
                   />
                   <Field
                     disabled={disabledNoProvatLabel}
-                    containerClasses={classNames.shortInput}
+                    containerClasses={styles.shortInput}
                     inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Average BSR'])}
                     value={formFields.avgBSR}
@@ -205,18 +202,18 @@ export const ResearcherAddProductFormRaw = observer(
                   onChange={onChangeFormFields('coefficient')}
                 />
 
-                <div className={classNames.fieldsSubWrapper}>
+                <div className={styles.fieldsSubWrapper}>
                   <Field
                     disabled={disabledNoProvatLabel}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortInput}
+                    containerClasses={styles.shortInput}
                     label={t(TranslationKey['Average Price'])}
                     value={formFields.avgPrice}
                     onChange={onChangeFormFields('avgPrice')}
                   />
                   <Field
                     disabled={disabledNoProvatLabel}
-                    containerClasses={classNames.shortInput}
+                    containerClasses={styles.shortInput}
                     inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Average Review'])}
                     value={formFields.avgReviews}

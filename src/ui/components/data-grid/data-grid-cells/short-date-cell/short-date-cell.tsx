@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { formatShortDateTime } from '@utils/date-time'
 
@@ -8,7 +8,7 @@ interface ShortDateCellProps {
   value: string
 }
 
-export const ShortDateCell: FC<ShortDateCellProps> = React.memo(({ value }) => {
+export const ShortDateCell: FC<ShortDateCellProps> = memo(({ value }) => {
   const { classes: styles } = useStyles()
 
   return <p className={styles.shortDateCellTypo}>{!value ? '-' : formatShortDateTime(value)}</p>

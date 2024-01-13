@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   input: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ interface WarehouseTariffDatesCellProps {
   eta?: string
 }
 
-export const WarehouseTariffDatesCell: FC<WarehouseTariffDatesCellProps> = React.memo(({ cls, etd, eta }) => {
+export const WarehouseTariffDatesCell: FC<WarehouseTariffDatesCellProps> = memo(({ cls, etd, eta }) => {
   const { classes: styles } = useStyles()
 
   return (

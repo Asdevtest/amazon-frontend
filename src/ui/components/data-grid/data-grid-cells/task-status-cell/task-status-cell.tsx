@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 
@@ -10,7 +10,7 @@ interface TaskStatusCellProps {
   usedStatusFromProps?: boolean
 }
 
-export const TaskStatusCell: FC<TaskStatusCellProps> = React.memo(({ status, usedStatusFromProps = false }) => {
+export const TaskStatusCell: FC<TaskStatusCellProps> = memo(({ status, usedStatusFromProps = false }) => {
   const { classes: styles } = useStyles()
 
   const actualStatus = usedStatusFromProps

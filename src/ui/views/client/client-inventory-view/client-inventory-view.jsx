@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'

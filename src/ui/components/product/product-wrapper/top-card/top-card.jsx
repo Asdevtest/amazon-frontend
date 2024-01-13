@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { Fragment, memo } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -23,7 +23,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './top-card.style'
+import { useStyles } from './top-card.style'
 
 import { TableSupplier } from '../../table-supplier'
 
@@ -75,7 +75,7 @@ export const TopCard = memo(
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
@@ -105,24 +105,24 @@ export const TopCard = memo(
     const isChildProduct = product.parentProductId
 
     return (
-      <React.Fragment>
-        <Paper className={classNames.mainCardWrapper}>
-          <div className={classNames.topPartCardWrapper}>
-            <div className={classNames.mainCard}>
-              <div className={classNames.variationWrapper}>
+      <Fragment>
+        <Paper className={styles.mainCardWrapper}>
+          <div className={styles.topPartCardWrapper}>
+            <div className={styles.mainCard}>
+              <div className={styles.variationWrapper}>
                 {!isChildProduct ? (
-                  <ParentProductIcon className={classNames.parentVariation} />
+                  <ParentProductIcon className={styles.parentVariation} />
                 ) : (
-                  <VariationIcon className={classNames.variationIcon} />
+                  <VariationIcon className={styles.variationIcon} />
                 )}
 
-                <p className={cx(classNames.variationText, { [classNames.parentVariation]: !isChildProduct })}>
+                <p className={cx(styles.variationText, { [styles.parentVariation]: !isChildProduct })}>
                   {isChildProduct ? t(TranslationKey['Child product']) : t(TranslationKey['Parent product'])}
                 </p>
               </div>
-              <div className={classNames.card}>
+              <div className={styles.card}>
                 {product.images.length ? (
-                  <div className={classNames.carouselWrapper}>
+                  <div className={styles.carouselWrapper}>
                     <PhotoAndFilesSlider
                       showPreviews
                       withoutFiles
@@ -137,9 +137,9 @@ export const TopCard = memo(
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
-                  <div className={classNames.actionsWrapper}>
+                  <div className={styles.actionsWrapper}>
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
-                      <div className={classNames.imageFileInputWrapper}>
+                      <div className={styles.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
                           images={imagesForLoad}
@@ -152,7 +152,7 @@ export const TopCard = memo(
                 ) : undefined}
                 {actionStatus === loadingStatuses.SUCCESS || actionStatus === loadingStatuses.FAILED ? (
                   <Alert
-                    className={classNames.alert}
+                    className={styles.alert}
                     elevation={0}
                     severity={actionStatus === loadingStatuses.SUCCESS ? 'success' : 'error'}
                   >
@@ -199,8 +199,8 @@ export const TopCard = memo(
 
           {!checkIsResearcher(curUserRole) && (
             <>
-              <div className={classNames.suppliersWrapper}>
-                <Typography variant="h6" className={classNames.supplierTitle}>
+              <div className={styles.suppliersWrapper}>
+                <Typography variant="h6" className={styles.supplierTitle}>
                   {t(TranslationKey['List of suppliers'])}
                 </Typography>
 
@@ -214,17 +214,17 @@ export const TopCard = memo(
                   (checkIsResearcher(curUserRole) &&
                     productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
                 ) || checkIsBuyer(curUserRole) ? (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
-                      <div className={classNames.supplierButtonWrapper}>
+                  <div className={styles.supplierActionsWrapper}>
+                    <div className={styles.supplierContainer}>
+                      <div className={styles.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                          className={classNames.iconBtn}
+                          className={styles.iconBtn}
                           onClick={() => onClickSupplierBtns('add')}
                         >
                           <AddIcon />
                         </Button>
-                        <Typography className={classNames.supplierButtonText}>
+                        <Typography className={styles.supplierButtonText}>
                           {t(TranslationKey['Add supplier'])}
                         </Typography>
                       </div>
@@ -237,31 +237,31 @@ export const TopCard = memo(
                           selectedSupplier.name !== 'access denied' ? (
                             <>
                               {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
-                                <div className={classNames.supplierButtonWrapper}>
+                                <div className={styles.supplierButtonWrapper}>
                                   <Button
                                     tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                    className={classNames.iconBtn}
+                                    className={styles.iconBtn}
                                     onClick={() => onClickSupplierBtns('edit')}
                                   >
                                     <EditOutlinedIcon />
                                   </Button>
-                                  <Typography className={classNames.supplierButtonText}>
+                                  <Typography className={styles.supplierButtonText}>
                                     {t(TranslationKey['Edit a supplier'])}
                                   </Typography>
                                 </div>
                               ) : null}
 
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                                <div className={classNames.supplierButtonWrapper}>
+                                <div className={styles.supplierButtonWrapper}>
                                   <Button
                                     danger
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                    className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                    className={cx(styles.iconBtn, styles.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
                                   >
                                     <DeleteOutlineOutlinedIcon />
                                   </Button>
-                                  <Typography className={classNames.supplierButtonText}>
+                                  <Typography className={styles.supplierButtonText}>
                                     {t(TranslationKey['Delete supplier'])}
                                   </Typography>
                                 </div>
@@ -270,22 +270,22 @@ export const TopCard = memo(
                           ) : null}
 
                           {showActionBtns ? (
-                            <div className={classNames.supplierButtonWrapper}>
+                            <div className={styles.supplierButtonWrapper}>
                               <Button
                                 tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                                className={classNames.iconBtn}
+                                className={styles.iconBtn}
                                 onClick={() => onClickSupplierBtns('view')}
                               >
                                 <VisibilityOutlinedIcon />
                               </Button>
-                              <Typography className={classNames.supplierButtonText}>
+                              <Typography className={styles.supplierButtonText}>
                                 {t(TranslationKey['Open the parameters supplier'])}
                               </Typography>
                             </div>
                           ) : null}
 
                           {showActionBtns ? (
-                            <div className={classNames.supplierButtonWrapper}>
+                            <div className={styles.supplierButtonWrapper}>
                               <Button
                                 danger={isSupplierAcceptRevokeActive}
                                 success={!isSupplierAcceptRevokeActive}
@@ -294,8 +294,8 @@ export const TopCard = memo(
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={cx(classNames.iconBtn, {
-                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                                className={cx(styles.iconBtn, {
+                                  [styles.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                                 })}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
@@ -305,7 +305,7 @@ export const TopCard = memo(
                               >
                                 {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
                               </Button>
-                              <Typography className={classNames.supplierButtonText}>
+                              <Typography className={styles.supplierButtonText}>
                                 {isSupplierAcceptRevokeActive
                                   ? t(TranslationKey['Remove the main supplier status'])
                                   : t(TranslationKey['Make the supplier the main'])}
@@ -317,19 +317,19 @@ export const TopCard = memo(
                     </div>
                   </div>
                 ) : (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
+                  <div className={styles.supplierActionsWrapper}>
+                    <div className={styles.supplierContainer}>
                       {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
+                        <div className={styles.supplierButtonWrapper}>
                           <Button
                             disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
+                            className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('view')}
                           >
                             <VisibilityOutlinedIcon />
                           </Button>
-                          <Typography className={classNames.supplierButtonText}>
+                          <Typography className={styles.supplierButtonText}>
                             {t(TranslationKey['Open the parameters supplier'])}
                           </Typography>
                         </div>
@@ -337,16 +337,16 @@ export const TopCard = memo(
                       {(user?._id === selectedSupplier?.createdBy?._id ||
                         user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
                       checkIsBuyer(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
+                        <div className={styles.supplierButtonWrapper}>
                           <Button
                             disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
                             tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                            className={classNames.iconBtn}
+                            className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('edit')}
                           >
                             <EditOutlinedIcon />
                           </Button>
-                          <Typography className={classNames.supplierButtonText}>
+                          <Typography className={styles.supplierButtonText}>
                             {t(TranslationKey['Edit a supplier'])}
                           </Typography>
                         </div>
@@ -391,7 +391,7 @@ export const TopCard = memo(
             />
           </Modal>
         )}
-      </React.Fragment>
+      </Fragment>
     )
   },
 )

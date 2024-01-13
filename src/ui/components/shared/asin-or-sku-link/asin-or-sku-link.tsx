@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ interface AsinOrSkuLinkProps {
   attributeTitleTextStyles?: string
 }
 
-export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = React.memo(
+export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(
   ({ asin, sku, withCopyValue, withAttributeTitle, textStyles, attributeTitleTextStyles, missingValueTextStyles }) => {
     const { classes: styles, cx } = useStyles()
 

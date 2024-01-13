@@ -13,7 +13,7 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-launch-form.styles'
+import { useStyles } from './product-launch-form.style'
 
 interface IProductsLaunch {
   amazonTitle: string
@@ -45,7 +45,7 @@ const radioBottonsSettings = [
 ]
 
 export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const {
     productsToLaunch,
     selectedProductToLaunch,
@@ -78,10 +78,10 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
   }, [selectedProductToLaunch])
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.modalTitle}>{t(TranslationKey['Create or select product'])}</p>
+    <div className={styles.root}>
+      <p className={styles.modalTitle}>{t(TranslationKey['Create or select product'])}</p>
 
-      <div className={classNames.radioButtonsWrapper}>
+      <div className={styles.radioButtonsWrapper}>
         <RadioButtons
           verticalDirection
           radioBottonsSettings={radioBottonsSettings}
@@ -104,9 +104,9 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         disabled={!selectedRadioValue}
         data={productsToLaunch}
         width={300}
-        customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
-        customSearchInput={classNames.searchSelectCustomSearchInput}
-        customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
+        customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
+        customSearchInput={styles.searchSelectCustomSearchInput}
+        customItemsWrapper={styles.searchSelectCustomItemsWrapper}
         selectedItemName={
           selectedProduct?.asin ||
           (selectedProduct?.asin === '' && t(TranslationKey.Missing)) ||
@@ -117,7 +117,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         onClickSelect={(el: IProductsLaunch) => setSelectedProduct(el)}
       />
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           success
           disabled={selectedRadioValue && !selectedProduct}
@@ -127,7 +127,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={classNames.canselButton} onClick={onClickCancelButton}>
+        <Button variant="text" className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

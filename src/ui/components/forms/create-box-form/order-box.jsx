@@ -13,7 +13,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-box-form.style'
+import { useStyles } from './create-box-form.style'
 
 export const OrderBox = observer(
   ({
@@ -28,7 +28,7 @@ export const OrderBox = observer(
     currentSupplier,
     sizeSetting,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const isNormalLength =
       !Number(orderBox.lengthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
@@ -40,9 +40,9 @@ export const OrderBox = observer(
       !Number(orderBox.heightCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
 
     return (
-      <div className={classNames.numberInputFieldsBlocksWrapper}>
-        <div className={classNames.numberInputFieldsBlocksSubWrapper}>
-          <div className={classNames.numberInputFieldsWrapper}>
+      <div className={styles.numberInputFieldsBlocksWrapper}>
+        <div className={styles.numberInputFieldsBlocksSubWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               type="number"
               inputProps={{ maxLength: 6 }}
@@ -62,7 +62,7 @@ export const OrderBox = observer(
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               type="number"
               inputProps={{ maxLength: 6 }}
@@ -82,7 +82,7 @@ export const OrderBox = observer(
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               disabled
               label={t(TranslationKey['Volume weight'])}
@@ -103,7 +103,7 @@ export const OrderBox = observer(
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               error={orderBox.amount < 1}
               inputProps={{ maxLength: 3 }}
@@ -126,7 +126,7 @@ export const OrderBox = observer(
           </div>
         </div>
 
-        <div className={classNames.checkboxWithLabelWrapper}>
+        <div className={styles.checkboxWithLabelWrapper}>
           <Checkbox
             color="primary"
             disabled={!order.orderSupplier?.boxProperties}
@@ -138,18 +138,18 @@ export const OrderBox = observer(
               TranslationKey['Allows you to use the box parameters specified when creating a supplier'],
             )}
             label={t(TranslationKey['Use the supplier standard'])}
-            containerClasses={classNames.checkboxLabelContainer}
-            inputClasses={classNames.hidden}
-            labelClasses={classNames.checkboxLabel}
+            containerClasses={styles.checkboxLabelContainer}
+            inputClasses={styles.hidden}
+            labelClasses={styles.checkboxLabel}
           />
         </div>
 
         <Button
           tooltipInfoContent={t(TranslationKey['Remove box'])}
-          className={classNames.iconBtn}
+          className={styles.iconBtn}
           onClick={() => onRemoveBox(orderBoxIndex)}
         >
-          <DeleteIcon className={classNames.deleteBtn} />
+          <DeleteIcon className={styles.deleteBtn} />
         </Button>
       </div>
     )

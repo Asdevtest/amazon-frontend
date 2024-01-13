@@ -5,7 +5,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { useClassNames } from './chat-files-input.style'
+import { useStyles } from './chat-files-input.style'
 
 interface ChatFilesInputProps {
   files: ImageType[]
@@ -13,7 +13,7 @@ interface ChatFilesInputProps {
 }
 
 export const ChatFilesInput: FC<ChatFilesInputProps> = memo(({ files, setFiles }) => {
-  const { classes: styles } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.root}>

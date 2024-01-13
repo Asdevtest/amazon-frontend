@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -56,7 +56,7 @@ interface BoxProps {
   onChangeField: (value: any, field: string, guid: string) => void
 }
 
-export const Box: FC<BoxProps> = React.memo(props => {
+export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     showCheckbox,

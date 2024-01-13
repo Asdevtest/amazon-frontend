@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { CSSProperties, FC } from 'react'
+import { CSSProperties, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ interface TimeFromSecondsCellProps {
   color?: CSSProperties
 }
 
-export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = React.memo(({ seconds, color }) => {
+export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds, color }) => {
   const { classes: styles } = useStyles()
 
   const time = secondsToTime(seconds)

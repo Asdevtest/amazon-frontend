@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
@@ -14,10 +13,10 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './feedback-modal.style'
+import { useStyles } from './feedback-modal.style'
 
 export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
@@ -37,44 +36,44 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) =>
 
   return (
     <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5" className={classNames.modalMessageTitle}>
+      <div className={styles.modalMessageWrapper}>
+        <Typography variant="h5" className={styles.modalMessageTitle}>
           {t(TranslationKey['Any suggestions?'])}
         </Typography>
-        <div className={classNames.commentWrapper}>
+        <div className={styles.commentWrapper}>
           <Field
             multiline
-            className={classNames.heightFieldAuto}
+            className={styles.heightFieldAuto}
             minRows={6}
             maxRows={6}
             inputProps={{ maxLength: 1000 }}
-            labelClasses={classNames.commentLabelText}
+            labelClasses={styles.commentLabelText}
             label={t(TranslationKey['Tell us how we can improve our platform'])}
             value={comment}
             onChange={e => setComment(e.target.value)}
           />
           <FileIcon
-            className={cx(classNames.fileIcon, { [classNames.fileIconActive]: showFiles })}
+            className={cx(styles.fileIcon, { [styles.fileIconActive]: showFiles })}
             onClick={() => setShowFiles(!showFiles)}
           />
         </div>
         {showFiles ? (
-          <div className={classNames.uploadFilesInput}>
+          <div className={styles.uploadFilesInput}>
             <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
           </div>
         ) : null}
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             color="primary"
             variant="contained"
             disabled={disabledSubmitButton}
-            className={classNames.buttonOk}
+            className={styles.buttonOk}
             onClick={onClickSendButton}
           >
             {t(TranslationKey.Send)}
           </Button>
-          <Button variant="text" className={classNames.buttonCancel} onClick={() => setIsShowConfirmationModal(true)}>
+          <Button variant="text" className={styles.buttonCancel} onClick={() => setIsShowConfirmationModal(true)}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

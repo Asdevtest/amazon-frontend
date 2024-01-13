@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
@@ -10,7 +10,7 @@ interface PhotoAndFilesCellProps {
   files: IUploadFile[]
 }
 
-export const PhotoAndFilesCell: FC<PhotoAndFilesCellProps> = React.memo(({ files }) => {
+export const PhotoAndFilesCell: FC<PhotoAndFilesCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
   return (

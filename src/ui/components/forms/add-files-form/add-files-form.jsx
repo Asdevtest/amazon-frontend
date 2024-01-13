@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Box, Typography } from '@mui/material'
 
@@ -9,10 +9,10 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-files-form.style'
+import { useStyles } from './add-files-form.style'
 
 export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseModal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [editingItem, setEditingItem] = useState(item)
 
@@ -33,15 +33,15 @@ export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseMod
   }
 
   return (
-    <div className={classNames.root}>
-      <Box className={classNames.boxCode}>
-        <Typography className={classNames.modalText}>{t(TranslationKey['Add files'])}</Typography>
-        <div className={classNames.imageFileInputWrapper}>
+    <div className={styles.root}>
+      <Box className={styles.boxCode}>
+        <Typography className={styles.modalText}>{t(TranslationKey['Add files'])}</Typography>
+        <div className={styles.imageFileInputWrapper}>
           <UploadFilesInput withoutTitle images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
         </div>
       </Box>
 
-      <Button className={classNames.saveButton} onClick={() => onSubmith()}>
+      <Button className={styles.saveButton} onClick={() => onSubmith()}>
         {t(TranslationKey.Save)}
       </Button>
     </div>

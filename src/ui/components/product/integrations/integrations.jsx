@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -19,12 +18,12 @@ import { checkIsAdmin } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './integrations.style'
+import { useStyles } from './integrations.style'
 
 import { IntegrationsModel } from './integrations.model'
 
 export const Integrations = observer(({ productId, modal, userRole }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({ history, productId }))
 
@@ -58,9 +57,9 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
   const isDisabledButton = isAdmin || !selectedRowIds.length
 
   return (
-    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
+    <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
-        <div className={classNames.addProductBtnsWrapper}>
+        <div className={styles.addProductBtnsWrapper}>
           <Button disabled={isDisabledButton} onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>

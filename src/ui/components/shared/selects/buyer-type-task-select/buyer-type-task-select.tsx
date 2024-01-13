@@ -12,7 +12,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './buyer-type-task-select.styles'
+import { useStyles } from './buyer-type-task-select.style'
 
 interface BuyerTypeTaskSelectProps {
   curTaskType: string | null
@@ -21,7 +21,7 @@ interface BuyerTypeTaskSelectProps {
 
 export const BuyerTypeTaskSelect: FC<BuyerTypeTaskSelectProps> = props => {
   const { curTaskType, onClickOperationTypeBtn } = props
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
     <CustomSwitcher

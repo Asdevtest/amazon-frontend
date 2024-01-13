@@ -17,7 +17,7 @@ import { LanguageSelector } from '@components/shared/selectors/language-selector
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './auth-form-wrapper.style.js'
+import { useStyles } from './auth-form-wrapper.style.js'
 
 export const AuthFormWrapper = observer(
   ({
@@ -31,7 +31,7 @@ export const AuthFormWrapper = observer(
     onToggleModal,
     onClickVersion,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [config, setConfig] = useFaviconNotification()
 
@@ -41,24 +41,21 @@ export const AuthFormWrapper = observer(
 
     return (
       <>
-        <div className={classNames.rightPanel}>
-          <div className={classNames.formWrapper}>
-            <div className={classNames.formHeader}>
-              <Typography className={classNames.title}>{title}</Typography>
-              <div className={classNames.redirectWrapper}>
-                <Typography className={classNames.redirect} onClick={onClickRedirect}>
+        <div className={styles.rightPanel}>
+          <div className={styles.formWrapper}>
+            <div className={styles.formHeader}>
+              <Typography className={styles.title}>{title}</Typography>
+              <div className={styles.redirectWrapper}>
+                <Typography className={styles.redirect} onClick={onClickRedirect}>
                   {redirect}
                 </Typography>
 
-                <div className={classNames.selectorsWrapper}>
+                <div className={styles.selectorsWrapper}>
                   {SettingsModel.uiTheme === UiTheme.light ? (
-                    <WbSunnyRoundedIcon
-                      className={classNames.themeIcon}
-                      onClick={() => onClickThemeIcon(UiTheme.dark)}
-                    />
+                    <WbSunnyRoundedIcon className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
                   ) : (
                     <Brightness3RoundedIcon
-                      className={classNames.themeIcon}
+                      className={styles.themeIcon}
                       onClick={() => onClickThemeIcon(UiTheme.light)}
                     />
                   )}
@@ -67,11 +64,11 @@ export const AuthFormWrapper = observer(
                 </div>
               </div>
             </div>
-            <Divider className={classNames.divider} />
+            <Divider className={styles.divider} />
             {children}
           </div>
 
-          <Typography className={classNames.version} onClick={onClickVersion}>
+          <Typography className={styles.version} onClick={onClickVersion}>
             {appVersion}
           </Typography>
         </div>

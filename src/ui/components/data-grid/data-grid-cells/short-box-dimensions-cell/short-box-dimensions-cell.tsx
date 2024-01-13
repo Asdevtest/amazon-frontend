@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import {
   getConversion,
@@ -21,7 +21,7 @@ interface ShortBoxDimensionsCellProps {
   unitsOption: string
 }
 
-export const ShortBoxDimensionsCell: FC<ShortBoxDimensionsCellProps> = React.memo(
+export const ShortBoxDimensionsCell: FC<ShortBoxDimensionsCellProps> = memo(
   ({ box, volumeWeightCoefficient, unitsOption }) => {
     const { classes: styles, cx } = useStyles()
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)

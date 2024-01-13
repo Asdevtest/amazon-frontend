@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,22 +19,22 @@ import { AdminSentBatchesViewModel } from './admin-sent-batches-view.model'
 
 export const AdminSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminSentBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div className={classNames.topHeaderBtnsWrapper}>
+    <>
+      <div className={styles.topHeaderBtnsWrapper}>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />
       </div>
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -87,7 +87,7 @@ export const AdminSentBatchesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         batch={viewModel.curBatch}
       />
-    </React.Fragment>
+    </>
   )
 }
 

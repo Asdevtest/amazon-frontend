@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,7 @@ interface WeightBasedApproximateCalculationsSpanningCellProps {
 }
 
 export const WeightBasedApproximateCalculationsSpanningCell: FC<WeightBasedApproximateCalculationsSpanningCellProps> =
-  React.memo(props => {
+  memo(props => {
     const { classes: styles, cx } = useStyles()
 
     const {

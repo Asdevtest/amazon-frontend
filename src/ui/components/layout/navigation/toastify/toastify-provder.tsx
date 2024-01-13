@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import CloseIcon from '@mui/icons-material/Close'
 
-import { useStyles } from '@components/layout/navigation/toastify/toastify.styles'
+import { useStyles } from '@components/layout/navigation/toastify/toastify.style'
 
 interface ToastiyProvderProps {
   theme: Theme

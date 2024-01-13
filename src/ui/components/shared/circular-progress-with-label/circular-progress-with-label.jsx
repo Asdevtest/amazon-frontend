@@ -3,32 +3,32 @@ import { memo } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 
-import { useClassNames } from './circular-progress-with-label.style'
+import { useStyles } from './circular-progress-with-label.style'
 
 export const CircularProgressWithLabel = memo(props => {
+  const { classes: styles, cx } = useStyles()
   const { value, title, wrapperClassName, showBackground = false } = props
-  const { classes: classNames, cx } = useClassNames()
 
   return (
     <div
-      className={cx(classNames.mainWrapper, {
+      className={cx(styles.mainWrapper, {
         [wrapperClassName]: !!wrapperClassName,
-        [classNames.background]: showBackground,
+        [styles.background]: showBackground,
       })}
     >
-      <div className={classNames.progressContainer}>
+      <div className={styles.progressContainer}>
         {title ? (
-          <Typography variant="h4" className={classNames.standartText}>
+          <Typography variant="h4" className={styles.standartText}>
             {title}
           </Typography>
         ) : null}
 
         {value ? (
-          <div className={classNames.progressWrapper}>
+          <div className={styles.progressWrapper}>
             <CircularProgress variant="determinate" value={value} size={85} />
             {title ? (
-              <div className={classNames.subWrapper}>
-                <Typography className={classNames.text}>{`${Math.round(value)}%`}</Typography>
+              <div className={styles.subWrapper}>
+                <Typography className={styles.text}>{`${Math.round(value)}%`}</Typography>
               </div>
             ) : null}
           </div>

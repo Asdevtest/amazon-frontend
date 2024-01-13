@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -25,7 +25,7 @@ export const AdminProductView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {viewModel.product ? (
           <ProductWrapper
@@ -59,6 +59,6 @@ export const AdminProductView = observer(props => {
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import he from 'he'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
@@ -15,7 +14,7 @@ import { UserLink } from '@components/user/user-link'
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { imagesRegex } from '@utils/text'
 
-import { useClassNames } from './chat-message-basic-text.style'
+import { useStyles } from './chat-message-basic-text.style'
 
 interface Props {
   showName: boolean
@@ -85,7 +84,7 @@ const findChunks = ({ searchWords, textToHighlight }: FindChunksProps) => {
 
 export const ChatMessageBasicText: FC<Props> = observer(
   ({ message, isIncomming, unReadMessage, isFound, searchPhrase, showName }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const [photoFiles, setPhotoFiles] = useState(() => [
       ...message.files.filter(url => imagesRegex.test(url)),
       ...message.images,
@@ -100,17 +99,17 @@ export const ChatMessageBasicText: FC<Props> = observer(
     return (
       <div
         className={cx(
-          classNames.root,
-          { [classNames.rootIsIncomming]: isIncomming },
-          { [classNames.isFound]: isFound },
-          { [classNames.isFoundIncomming]: isFound && isIncomming },
+          styles.root,
+          { [styles.rootIsIncomming]: isIncomming },
+          { [styles.isFound]: isFound },
+          { [styles.isFoundIncomming]: isFound && isIncomming },
         )}
       >
-        <div className={classNames.subWrapper}>
+        <div className={styles.subWrapper}>
           {showName ? <UserLink name={message.user?.name} userId={message.user?._id} /> : null}
 
           {!!photoFiles.length && !anotherFiles.length ? (
-            <div className={classNames.filesMainWrapper}>
+            <div className={styles.filesMainWrapper}>
               <ImagesTile images={photoFiles} />
             </div>
           ) : undefined}
@@ -121,13 +120,13 @@ export const ChatMessageBasicText: FC<Props> = observer(
               highlightClassName="YourHighlightClass"
               searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
               textToHighlight={he.decode(message.text)}
-              className={classNames.messageText}
+              className={styles.messageText}
               findChunks={findChunks}
               highlightTag={({ children }: HighlightTag) => (
                 <Linkify>
                   <span
                     className={cx({
-                      [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                      [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
                     })}
                   >
                     {children}
@@ -137,19 +136,19 @@ export const ChatMessageBasicText: FC<Props> = observer(
             />
           )}
           {anotherFiles.length ? (
-            <div className={classNames.filesMainWrapper}>
+            <div className={styles.filesMainWrapper}>
               <ChatMessageFiles files={[...message.files, ...message.images]} />
             </div>
           ) : undefined}
         </div>
 
-        <div className={classNames.infoContainer}>
-          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+        <div className={styles.infoContainer}>
+          <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
 
           {!isIncomming && unReadMessage ? (
-            <NoReadIcon className={cx(classNames.icon, classNames.noReadIcon)} />
+            <NoReadIcon className={cx(styles.icon, styles.noReadIcon)} />
           ) : (
-            <IsReadIcon className={cx(classNames.icon, classNames.isReadIcon)} />
+            <IsReadIcon className={cx(styles.icon, styles.isReadIcon)} />
           )}
         </div>
       </div>

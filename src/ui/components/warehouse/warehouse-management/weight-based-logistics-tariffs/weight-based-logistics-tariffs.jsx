@@ -17,12 +17,12 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './weight-based-logistics-tariffs.style'
+import { useStyles } from './weight-based-logistics-tariffs.style'
 
 import { LogisticsTariffsModel } from './weight-based-logistics-tariffs.model'
 
 export const WeightBasedLogisticsTariffs = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const gpModel = useRef(new LogisticsTariffsModel({ history }))
 
@@ -69,15 +69,15 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <div className={classNames.addressMainWrapper}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <div className={styles.addressMainWrapper}>
           {storekeeperDestination ? (
-            <div className={classNames.addressSubWrapper}>
-              <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+            <div className={styles.addressSubWrapper}>
+              <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
               <Typography
-                className={classNames.addressMain}
+                className={styles.addressMain}
               >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
             </div>
           ) : null}
@@ -88,19 +88,19 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         </div>
 
         {isArchive ? (
-          <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <Button variant="outlined" className={styles.openArchiveBtn} onClick={onTriggerArchive}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
-          <div className={classNames.btnsWrapper}>
-            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <div className={styles.btnsWrapper}>
+            <Button variant="outlined" className={styles.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>
 
             <Button
               success
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              className={classNames.placeAddBtn}
+              className={styles.placeAddBtn}
               onClick={() => onClickAddBtn()}
             >
               {t(TranslationKey.Add)}

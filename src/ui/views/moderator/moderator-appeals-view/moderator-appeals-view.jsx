@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { AppealsListCard } from '@components/cards/appeals-list-card/appeals-list-card'
@@ -13,7 +13,7 @@ export const ModeratorAppealsViewRaw = props => {
   const [viewModel] = useState(() => new ModeratorAppealsViewModel({ history: props.history }))
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <AppealsListCard onClickViewMore={viewModel.onClickViewMore} />
       </div>
@@ -28,7 +28,7 @@ export const ModeratorAppealsViewRaw = props => {
           onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
-    </React.Fragment>
+    </>
   )
 }
 

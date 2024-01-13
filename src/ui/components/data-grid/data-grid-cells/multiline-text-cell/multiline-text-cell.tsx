@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { CSSProperties, FC } from 'react'
+import { CSSProperties, FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -28,7 +28,7 @@ interface MultilineTextCellProps {
   onClickText?: () => void
 }
 
-export const MultilineTextCell: FC<MultilineTextCellProps> = React.memo(props => {
+export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     text = '',

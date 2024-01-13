@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,7 +17,7 @@ interface ProductInfoExtendedProps {
   boxesLength: number
 }
 
-export const ProductInfoExtended: FC<ProductInfoExtendedProps> = React.memo(({ box, boxesLength }) => {
+export const ProductInfoExtended: FC<ProductInfoExtendedProps> = memo(({ box, boxesLength }) => {
   const { classes: styles } = useStyles()
 
   return (

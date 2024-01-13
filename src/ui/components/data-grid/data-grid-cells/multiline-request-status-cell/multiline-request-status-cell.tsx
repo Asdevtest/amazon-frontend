@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
@@ -13,40 +13,36 @@ interface MultilineRequestStatusCellProps {
   fontSize?: string
 }
 
-export const MultilineRequestStatusCell: FC<MultilineRequestStatusCellProps> = React.memo(
-  ({ status, fontSize = '14px' }) => {
-    const { classes: styles } = useStyles()
+export const MultilineRequestStatusCell: FC<MultilineRequestStatusCellProps> = memo(({ status, fontSize = '14px' }) => {
+  const { classes: styles } = useStyles()
 
-    const colorByStatus = () => {
-      if ([RequestStatus.DRAFT].includes(status)) {
-        return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
-      } else if (
-        [
-          RequestStatus.CANCELED_BY_CREATOR,
-          RequestStatus.FORBID_NEW_PROPOSALS,
-          RequestStatus.CANCELED_BY_ADMIN,
-        ].includes(status)
-      ) {
-        return '#FF1616'
-      } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
-        return '#00B746'
-      } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
-        return '#F3AF00'
-      } else if ([RequestStatus.EXPIRED].includes(status)) {
-        return '#C4C4C4'
-      } else {
-        return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
-      }
+  const colorByStatus = () => {
+    if ([RequestStatus.DRAFT].includes(status)) {
+      return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
+    } else if (
+      [RequestStatus.CANCELED_BY_CREATOR, RequestStatus.FORBID_NEW_PROPOSALS, RequestStatus.CANCELED_BY_ADMIN].includes(
+        status,
+      )
+    ) {
+      return '#FF1616'
+    } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
+      return '#00B746'
+    } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+      return '#F3AF00'
+    } else if ([RequestStatus.EXPIRED].includes(status)) {
+      return '#C4C4C4'
+    } else {
+      return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
     }
+  }
 
-    const colorStatus = colorByStatus()
+  const colorStatus = colorByStatus()
 
-    return (
-      <div className={styles.multilineTextWrapper}>
-        <p className={styles.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {MyRequestStatusTranslate(status)}
-        </p>
-      </div>
-    )
-  },
-)
+  return (
+    <div className={styles.multilineTextWrapper}>
+      <p className={styles.multilineStatusText} style={{ color: colorStatus, fontSize }}>
+        {MyRequestStatusTranslate(status)}
+      </p>
+    </div>
+  )
+})

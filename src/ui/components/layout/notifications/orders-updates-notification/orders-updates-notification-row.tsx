@@ -1,10 +1,10 @@
 import { History } from 'history'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Link, Typography } from '@mui/material'
 
 import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
+import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 interface OrdersUpdatesNotificationRowProps {
   orders: OrdersUpdatesNotificationItem[]

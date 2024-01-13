@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import InboxIcon from '@mui/icons-material/Inbox'
 import { Paper } from '@mui/material'
@@ -22,7 +22,7 @@ interface RequestProposalsCardListProps {
   onClickReview: any
 }
 
-export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = React.memo(props => {
+export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
@@ -16,15 +16,15 @@ import { ModeratorDashboardViewModel } from './moderator-dashboard-view.model'
 
 export const ModeratorDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ModeratorDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+        <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
 
         {viewModel.userInfo.masterUser && (
-          <div className={classNames.masterUserWrapper}>
+          <div className={styles.masterUserWrapper}>
             <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
             <UserLink
@@ -35,7 +35,7 @@ export const ModeratorDashboardViewRaw = props => {
           </div>
         )}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

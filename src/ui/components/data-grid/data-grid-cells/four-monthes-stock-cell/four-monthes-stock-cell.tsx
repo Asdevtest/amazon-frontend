@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,7 +18,7 @@ interface FourMonthesStockCellProps {
   withoutPadding?: boolean
 }
 
-export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = React.memo(props => {
+export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props => {
   const { onClickSaveFourMonthsStock, rowId, fourMonthesStock, disabled = false, value, withoutPadding = false } = props
 
   const { classes: styles, cx } = useStyles()

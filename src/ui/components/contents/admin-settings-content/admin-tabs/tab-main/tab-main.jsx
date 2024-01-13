@@ -18,7 +18,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-main.style'
+import { useStyles } from './tab-main.style'
 
 import { fieldNameObject } from '../../admin-settings.constants'
 
@@ -37,7 +37,7 @@ export const TabMain = observer(
     onChangeField,
     onSubmit,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [updatedProxy, setUpdatedProxy] = useState(serverProxy)
 
@@ -67,12 +67,12 @@ export const TabMain = observer(
     return (
       SettingsModel.languageTag && (
         <>
-          <div className={classNames.wrapper}>
-            <div className={classNames.textFileds}>
+          <div className={styles.wrapper}>
+            <div className={styles.textFileds}>
               <Field
                 label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-                labelClasses={classNames.label}
-                classes={{ root: classNames.textField }}
+                labelClasses={styles.label}
+                classes={{ root: styles.textField }}
                 value={formFields.yuanToDollarRate}
                 error={formFields.yuanToDollarRate === ''}
                 onChange={e => onChangeField(fieldNameObject.yuanToDollarRate, e)}
@@ -80,8 +80,8 @@ export const TabMain = observer(
 
               <Field
                 label={t(TranslationKey['Divider for calculating volume weight'])}
-                labelClasses={classNames.label}
-                classes={{ root: classNames.textField }}
+                labelClasses={styles.label}
+                classes={{ root: styles.textField }}
                 value={formFields.volumeWeightCoefficient}
                 error={formFields.volumeWeightCoefficient === ''}
                 onChange={e => onChangeField(fieldNameObject.volumeWeightCoefficient, e)}
@@ -90,29 +90,29 @@ export const TabMain = observer(
               <Field
                 disabled
                 label={t(TranslationKey['Link for financial transactions'])}
-                labelClasses={classNames.label}
-                classes={{ root: classNames.textField }}
+                labelClasses={styles.label}
+                classes={{ root: styles.textField }}
               />
             </div>
 
-            <div className={classNames.proxyContent}>
-              <div className={classNames.proxyAdd}>
-                <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-                <Button className={classNames.buttonAdd} onClick={onClickToggleProxyModal}>
+            <div className={styles.proxyContent}>
+              <div className={styles.proxyAdd}>
+                <Typography className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+                <Button className={styles.buttonAdd} onClick={onClickToggleProxyModal}>
                   {t(TranslationKey['Add proxy'])}
                 </Button>
               </div>
 
-              <div className={classNames.proxyList}>
+              <div className={styles.proxyList}>
                 {updatedProxy?.length !== 0 &&
                   updatedProxy?.map((proxy, index) => (
-                    <div key={index} className={classNames.proxyWrapper}>
-                      <Typography className={classNames.proxy}>{proxy}</Typography>
+                    <div key={index} className={styles.proxyWrapper}>
+                      <Typography className={styles.proxy}>{proxy}</Typography>
 
-                      <div className={classNames.iconsWrapper}>
+                      <div className={styles.iconsWrapper}>
                         <CopyValue text={proxy} />
                         <DeleteOutlineOutlinedIcon
-                          className={classNames.deleteProxy}
+                          className={styles.deleteProxy}
                           onClick={() => handleDeleteProxy(proxy)}
                         />
                       </div>
@@ -122,7 +122,7 @@ export const TabMain = observer(
 
               <Button
                 disabled={disabledSubmitFields}
-                className={classNames.buttonSave}
+                className={styles.buttonSave}
                 onClick={() => onSubmit(updatedProxy)}
               >
                 {t(TranslationKey.Save)}

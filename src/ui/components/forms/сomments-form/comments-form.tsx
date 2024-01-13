@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -9,7 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './comments-form.style'
+import { useStyles } from './comments-form.style'
 
 interface CommentsFormProps {
   comments?: Array<string>
@@ -17,29 +17,29 @@ interface CommentsFormProps {
 }
 
 export const CommentsForm: FC<CommentsFormProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { comments, onCloseModal } = props
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.сommentsTitleWrapper}>
-        <Typography className={classNames.сommentsTitle}>{t(TranslationKey['Comments on order'])}</Typography>
+    <div className={styles.root}>
+      <div className={styles.сommentsTitleWrapper}>
+        <Typography className={styles.сommentsTitle}>{t(TranslationKey['Comments on order'])}</Typography>
       </div>
-      <div className={classNames.сommentsTextWrapper}>
+      <div className={styles.сommentsTextWrapper}>
         {comments?.length ? (
           comments.map(comment => (
-            <Typography key={nanoid()} className={classNames.сommentsText}>
+            <Typography key={nanoid()} className={styles.сommentsText}>
               {comment}
             </Typography>
           ))
         ) : (
-          <Typography className={classNames.сommentsText}>{t(TranslationKey.Missing)}</Typography>
+          <Typography className={styles.сommentsText}>{t(TranslationKey.Missing)}</Typography>
         )}
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <Button className={classNames.okButton} onClick={onCloseModal}>
+      <div className={styles.buttonsWrapper}>
+        <Button className={styles.okButton} onClick={onCloseModal}>
           {t(TranslationKey.Ok)}
         </Button>
       </div>

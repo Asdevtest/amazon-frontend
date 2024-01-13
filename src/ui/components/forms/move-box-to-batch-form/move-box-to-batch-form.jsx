@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
@@ -12,12 +11,12 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './move-box-to-batch-form.style'
+import { useStyles } from './move-box-to-batch-form.style'
 
 import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
 
 export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, box, onSubmitCreateBatch }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [selectedBatch, setSelectedBatch] = useState(null)
 
@@ -35,24 +34,24 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
   return (
     <div>
       {filteredBatches.length ? (
-        <div className={classNames.batchesExistBlock}>
-          <div className={classNames.titleWrapper}>
-            <Typography variant="h5" className={classNames.standartText}>
+        <div className={styles.batchesExistBlock}>
+          <div className={styles.titleWrapper}>
+            <Typography variant="h5" className={styles.standartText}>
               {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
             </Typography>
 
-            <div className={classNames.titleSubWrapper}>
-              <Typography variant="h6" className={classNames.standartText}>{`${t(TranslationKey.Box)}: ${
+            <div className={styles.titleSubWrapper}>
+              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Box)}: ${
                 box.humanFriendlyId
               }`}</Typography>
 
-              <Typography variant="h6" className={classNames.standartText}>{`${t(TranslationKey.Batch)}: ${
+              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
                 box.batch?.humanFriendlyId || t(TranslationKey['Not chosen'])
               }`}</Typography>
             </div>
           </div>
 
-          <div className={classNames.tableWrapper}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               rows={toJS(filteredBatches)}
               columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
@@ -61,7 +60,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             />
           </div>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             <Button
               success
               disableElevation
@@ -72,38 +71,38 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
               {t(TranslationKey['Create new batch'])}
             </Button>
 
-            <div className={classNames.btnsSubWrapper}>
+            <div className={styles.btnsSubWrapper}>
               <Button
                 disabled={!selectedBatch}
                 variant="contained"
-                className={cx(classNames.cancelBtn, classNames.moveBox)}
+                className={cx(styles.cancelBtn, styles.moveBox)}
                 onClick={() => onSubmit(box, selectedBatch)}
               >
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
               </Button>
 
-              <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
+              <Button color="primary" variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
                 {t(TranslationKey.Cancel)}
               </Button>
             </div>
           </div>
         </div>
       ) : (
-        <div className={classNames.batchesNotExistBlock}>
-          <Typography variant="h5" className={classNames.title}>
+        <div className={styles.batchesNotExistBlock}>
+          <Typography variant="h5" className={styles.title}>
             {t(TranslationKey['Add to batch'])}
           </Typography>
 
-          <div className={classNames.messageWrapper}>
-            <Typography className={classNames.standartText}>
+          <div className={styles.messageWrapper}>
+            <Typography className={styles.standartText}>
               {t(TranslationKey['No batch with the parameters of the box.'])}
             </Typography>
-            <Typography className={classNames.standartText}>{`${t(TranslationKey.For)} ${
+            <Typography className={styles.standartText}>{`${t(TranslationKey.For)} ${
               box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
             } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</Typography>
           </div>
 
-          <div className={classNames.btnsSecondWrapper}>
+          <div className={styles.btnsSecondWrapper}>
             <Button
               success
               disableElevation
@@ -114,7 +113,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
               {t(TranslationKey['Create new batch'])}
             </Button>
 
-            <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
+            <Button color="primary" variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

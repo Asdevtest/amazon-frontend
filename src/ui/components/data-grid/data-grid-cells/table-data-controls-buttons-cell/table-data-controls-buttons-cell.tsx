@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 import { CrossIcon, EditOutlineIcon } from '@components/shared/svg-icons'
@@ -12,7 +12,7 @@ interface TableDataControlsButtonsCellProps {
   onClickRemoveButton: () => void
 }
 
-export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps> = React.memo(props => {
+export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const { disableButton, onClickEditButton, onClickRemoveButton } = props

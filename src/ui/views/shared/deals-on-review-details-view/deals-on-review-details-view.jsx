@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,7 +27,7 @@ export const DealsOnReviewDetailsView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <DealDetailsCard
           request={viewModel.request}
@@ -83,6 +83,6 @@ export const DealsOnReviewDetailsView = observer(props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })
