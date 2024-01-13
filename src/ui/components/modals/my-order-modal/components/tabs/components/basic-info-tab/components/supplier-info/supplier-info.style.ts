@@ -13,14 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  card: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-
   field: {
     display: 'flex',
     alignItems: 'center',
@@ -79,5 +71,28 @@ export const useStyles = makeStyles()(theme => ({
     '&:disabled': {
       opacity: 0.5,
     },
+  },
+
+  barCodeValueContainer: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  pencinButton: {
+    width: 18,
+    height: 18,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.8,
+      transform: 'scale(1.1)',
+    },
+  },
+
+  pencilIcon: {
+    width: '18px !important',
+    height: '18px !important',
+    color: theme.palette.primary.main,
   },
 }))

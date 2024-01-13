@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { OrderStatus } from '@typings/enums/order'
 import { IOrder } from '@typings/order'
 import { IPlatformSettings } from '@typings/patform-settings'
 
@@ -29,6 +29,7 @@ interface MyOrderModalProps {
   onClickReorder: (order: IOrderWithAdditionalFields, isPendingOrder: boolean) => void
   onSubmitSaveOrder: (order: IOrderWithAdditionalFields) => void
   isClient?: boolean
+  isPendingOrdering?: boolean
 }
 
 export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
@@ -48,6 +49,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     onClickReorder,
     onSubmitSaveOrder,
     isClient,
+    isPendingOrdering,
   } = props
 
   const { classes: styles } = useStyles()
@@ -61,20 +63,20 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     deadline: order?.deadline || null,
     tmpBarCode: [],
   })
-
   const [formFields, setFormFields] = useState<IOrderWithAdditionalFields>(getInitialOrderState())
 
-  const isOrderEditable = order.status <= 3 // OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
+  const isOrderEditable = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
 
   return (
     <Modal openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
-        <Header order={formFields} />
+        <Header formFields={formFields} />
 
         <Tabs
           isOrderEditable={isOrderEditable}
           isClient={isClient}
-          order={formFields}
+          isPendingOrdering={isPendingOrdering}
+          formFields={formFields}
           destinations={destinations}
           storekeepers={storekeepers}
           platformSettings={platformSettings}
@@ -86,9 +88,9 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
         />
 
         <Footer
-          order={formFields}
           isOrderEditable={isOrderEditable}
           isClient={isClient}
+          formFields={formFields}
           onClickOpenNewTab={onClickOpenNewTab}
           onClickCancelOrder={onClickCancelOrder}
           onClickReorder={onClickReorder}

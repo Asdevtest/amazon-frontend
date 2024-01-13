@@ -16,7 +16,7 @@ import { SwitcherConditions } from './tabs.type'
 
 interface TabsProps {
   isOrderEditable: boolean
-  order: IOrderWithAdditionalFields
+  formFields: IOrderWithAdditionalFields
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
@@ -26,13 +26,15 @@ interface TabsProps {
   setFormFields: SetFormFieldsType
   onClickChangeCondition: () => void
   isClient?: boolean
+  isPendingOrdering?: boolean
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
   const {
     isOrderEditable,
     isClient,
-    order,
+    isPendingOrdering,
+    formFields,
     destinations,
     storekeepers,
     platformSettings,
@@ -59,7 +61,8 @@ export const Tabs: FC<TabsProps> = memo(props => {
         <BasicInfoTab
           isOrderEditable={isOrderEditable}
           isClient={isClient}
-          order={order}
+          isPendingOrdering={isPendingOrdering}
+          formFields={formFields}
           destinations={destinations}
           storekeepers={storekeepers}
           destinationsFavourites={destinationsFavourites}
@@ -69,11 +72,11 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.LIST_O_FSUPPLIERS}>
-        <ListSuppliersTab order={order} storekeepers={storekeepers} platformSettings={platformSettings} />
+        <ListSuppliersTab formFields={formFields} storekeepers={storekeepers} platformSettings={platformSettings} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={SwitcherConditions.BOXES_TO_ORDER}>
-        <BoxesToOrderTab order={order} platformSettings={platformSettings} />
+        <BoxesToOrderTab formFields={formFields} platformSettings={platformSettings} />
       </TabPanel>
     </div>
   )

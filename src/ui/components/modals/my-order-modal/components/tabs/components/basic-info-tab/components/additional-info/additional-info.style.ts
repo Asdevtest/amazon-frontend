@@ -13,14 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  card: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-
   field: {
     display: 'flex',
     alignItems: 'center',

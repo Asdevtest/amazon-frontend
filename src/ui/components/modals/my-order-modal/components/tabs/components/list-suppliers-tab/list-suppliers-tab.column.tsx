@@ -3,14 +3,14 @@ import { GridRowModel } from '@mui/x-data-grid'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  FilesCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   PaymentMethodsCell,
+  PriceVariationsCell,
   SupplierWithIconsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { FilesCell } from '@components/data-grid/data-grid-cells/files-cell/files-cell'
-import { PriceVariationsCell } from '@components/data-grid/data-grid-cells/price-variations-cell/price-variations-cell'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
@@ -42,7 +42,7 @@ export const suppliersOrderColumn = (
     ),
     filterable: false,
     sortable: false,
-    width: 140,
+    width: 150,
   },
 
   {
@@ -131,7 +131,7 @@ export const suppliersOrderColumn = (
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
     filterable: false,
     sortable: false,
-    width: 90,
+    width: 80,
     align: 'center',
   },
 

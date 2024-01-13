@@ -150,18 +150,10 @@ export const useStyles = makeStyles()(theme => ({
   starIcon: {
     width: '18px !important',
     height: '18px !important',
-    color: theme.palette.background.second,
-
-    '&:hover': {
-      color: theme.palette.background.general,
-    },
+    color: '#e4e4e4',
   },
 
   starIconFavorite: {
     color: '#FFDF4E',
-
-    '&:hover': {
-      color: '#FFDF4E',
-    },
   },
 }))

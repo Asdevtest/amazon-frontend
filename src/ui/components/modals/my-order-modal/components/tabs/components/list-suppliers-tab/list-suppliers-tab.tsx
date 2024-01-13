@@ -25,20 +25,20 @@ import { ModalNames } from './list-suppliers-tab.type'
 import { Toolbar } from './toolbar'
 
 interface ListSuppliersTabProps {
-  order: IOrderWithAdditionalFields
+  formFields: IOrderWithAdditionalFields
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
 }
 
 export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
-  const { order, storekeepers, platformSettings } = props
+  const { formFields, storekeepers, platformSettings } = props
 
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ListSuppliersTabModel(order))
+  const [viewModel] = useState(() => new ListSuppliersTabModel(formFields))
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === order?.product?.currentSupplier?._id && styles.currentSupplierBackground
+    id === formFields?.product?.currentSupplier?._id && styles.currentSupplierBackground
   const showVisibilityButton = viewModel.selectionModel.length > 0
 
   return (
@@ -53,7 +53,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}
-          columns={suppliersOrderColumn(order, platformSettings, viewModel.onClickFilesCell)}
+          columns={suppliersOrderColumn(formFields, platformSettings, viewModel.onClickFilesCell)}
           paginationModel={viewModel.paginationModel}
           rowSelectionModel={viewModel.selectionModel}
           sx={{
@@ -93,7 +93,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
             // remove memo from the modal or add types to the modal
             /* @ts-ignore */
             onlyRead
-            product={order?.product}
+            product={formFields?.product}
             supplier={viewModel.currentSupplier}
             storekeepersData={storekeepers}
             sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}

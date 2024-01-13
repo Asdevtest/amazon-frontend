@@ -20,15 +20,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 15,
   },
 
-  card: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-
-  cardComment: {
+  commentCard: {
     gap: 0,
   },
 

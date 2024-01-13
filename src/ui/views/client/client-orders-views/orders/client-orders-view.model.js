@@ -35,7 +35,6 @@ export class ClientOrdersViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
@@ -102,7 +101,6 @@ export class ClientOrdersViewModel {
     () => this.columnMenuSettings,
     () => this.onHover,
   )
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -113,8 +111,6 @@ export class ClientOrdersViewModel {
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
   }
-
-  // НЕ было до создания фильтрации по статусам
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
@@ -142,6 +138,10 @@ export class ClientOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
+
+    this.getDestinations()
+    this.getStorekeepers()
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -307,10 +307,6 @@ export class ClientOrdersViewModel {
 
       await this.getShops()
       await this.getOrders()
-
-      this.getDestinations()
-      this.getStorekeepers()
-      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -817,6 +813,7 @@ export class ClientOrdersViewModel {
         this.onSubmitCancelOrder(orderId)
         this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showMyOrderModal')
+        this.getOrders()
       },
     }
 
@@ -851,7 +848,7 @@ export class ClientOrdersViewModel {
           'priority',
           'expressChinaDelivery',
           'clientComment',
-          // 'destinationId',
+          'destinationId',
           'storekeeperId',
           'logicsTariffId',
           'variationTariffId',
@@ -860,6 +857,8 @@ export class ClientOrdersViewModel {
         undefined,
         true,
       )
+
+      console.log('dataToRequest', dataToRequest)
 
       await OrderModel.changeOrderData(this.order._id, dataToRequest)
 

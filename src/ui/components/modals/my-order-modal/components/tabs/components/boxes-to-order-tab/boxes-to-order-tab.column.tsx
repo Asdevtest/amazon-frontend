@@ -4,11 +4,11 @@ import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  FilesCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { FilesCell } from '@components/data-grid/data-grid-cells/files-cell/files-cell'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'
@@ -120,9 +120,9 @@ export const boxesToOrderColumn = (
           Math.max(
             row.weighGrossKgWarehouse
               ? (row.lengthCmWarehouse * row.widthCmWarehouse * row.heightCmWarehouse) /
-                  platformSettings.volumeWeightCoefficient
+                  (platformSettings?.volumeWeightCoefficient || 0)
               : (row.lengthCmSupplier * row.widthCmSupplier * row.heightCmSupplier) /
-                  platformSettings.volumeWeightCoefficient,
+                  (platformSettings?.volumeWeightCoefficient || 0),
             row.weighGrossKgWarehouse ? row.weighGrossKgWarehouse : row.weighGrossKgSupplier,
           ),
         )}

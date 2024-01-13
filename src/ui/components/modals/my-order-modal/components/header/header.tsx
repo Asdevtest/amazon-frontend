@@ -10,23 +10,23 @@ import { Description } from './description'
 import { Information } from './information'
 
 interface HeaderProps {
-  order: IOrderWithAdditionalFields
+  formFields: IOrderWithAdditionalFields
 }
 
-export const Header: FC<HeaderProps> = memo(({ order }) => {
+export const Header: FC<HeaderProps> = memo(({ formFields }) => {
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.header}>
-      <SlideshowGallery files={order?.product?.images} />
+      <SlideshowGallery files={formFields?.product?.images} />
 
       <Description
-        amazonTitle={order?.product?.amazonTitle}
-        asin={order?.product?.asin}
-        sku={order?.product?.skuByClient}
+        amazonTitle={formFields?.product?.amazonTitle}
+        asin={formFields?.product?.asin}
+        sku={formFields?.product?.skuByClient}
       />
 
-      <Information order={order} />
+      <Information formFields={formFields} />
     </div>
   )
 })

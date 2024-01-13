@@ -6,7 +6,10 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: 12,
     boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.17)',
 
-    maxHeight: 266,
-    overflow: 'hidden',
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 5,
   },
 }))

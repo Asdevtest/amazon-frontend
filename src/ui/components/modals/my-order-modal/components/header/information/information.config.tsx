@@ -19,26 +19,26 @@ export interface IOrderStatus {
   statusCode: number
 }
 
-export const getInfoItems = (order: IOrderWithAdditionalFields, blueBackgroundForIcon?: string): IInfoItem[] => [
+export const getInfoItems = (formFields: IOrderWithAdditionalFields, blueBackgroundForIcon?: string): IInfoItem[] => [
   {
     icon: <DollarIcon />,
     title: t(TranslationKey['Order amount']),
-    value: order?.totalPrice ? `$ ${toFixed(order?.totalPrice, 2)}` : t(TranslationKey['No data']),
+    value: formFields?.totalPrice ? `$ ${toFixed(formFields?.totalPrice, 2)}` : t(TranslationKey['No data']),
   },
   {
     icon: <DiagramIcon className={blueBackgroundForIcon} />,
     title: t(TranslationKey['Order number']),
-    value: order?.id ? `№ ${order?.id}` : t(TranslationKey['No data']),
+    value: formFields?.id ? `№ ${formFields?.id}` : t(TranslationKey['No data']),
   },
   {
     icon: <CalendarIcon className={blueBackgroundForIcon} />,
     title: t(TranslationKey['Payment date']),
-    value: formatShortDateTime(order?.paymentDateToSupplier) || t(TranslationKey['No data']),
+    value: formatShortDateTime(formFields?.paymentDateToSupplier) || t(TranslationKey['No data']),
   },
   {
     icon: <SandglassIcon />,
     title: t(TranslationKey.Created),
-    value: formatShortDateTime(order?.createdAt) || t(TranslationKey['No data']),
+    value: formatShortDateTime(formFields?.createdAt) || t(TranslationKey['No data']),
   },
 ]
 

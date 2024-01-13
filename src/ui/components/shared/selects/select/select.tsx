@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,14 +7,15 @@ import { ArrowDownIcon, RatingStarIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useDebounce } from '@hooks/use-debounce'
-
 import { useStyles } from './select.style'
 
+import { IItem } from './select.type'
+import { useSelect } from './use-select'
+
 interface SelectProps {
-  items: any[]
+  items: IItem[]
+  currentItem?: string
   disabled?: boolean
-  currentItem?: any
   withFaworites?: boolean
   destinationsFavourites?: string[]
   setDestinationsFavouritesItem?: (favourite: string) => void
@@ -25,48 +26,24 @@ export const Select: FC<SelectProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState('')
-  const [searchValue, setSearchValue] = useState('')
-  const [filteredItems, setFilteredItems] = useState<any[]>([])
-  const debouncedSearchValue = useDebounce(searchValue)
-
-  useEffect(() => {
-    if (currentItem) {
-      setSelectedItem(currentItem)
-    } else {
-      setSelectedItem(t(TranslationKey['Not chosen']))
-    }
-  }, [currentItem])
-
-  useEffect(() => {
-    if (items.length) {
-      setFilteredItems(items)
-    }
-  }, [currentItem])
-
-  useEffect(() => {
-    const filtered = items.filter(item => item.name.toLowerCase().includes(debouncedSearchValue.toLowerCase()))
-
-    setFilteredItems(filtered)
-  }, [debouncedSearchValue, items])
-
-  const handleToggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const handleChangeSelectedItem = (item: string) => {
-    setSelectedItem(item)
-    setIsOpen(!isOpen)
-  }
+  const {
+    selectRef,
+    isOpen,
+    onToggleSelect,
+    selectedItem,
+    filteredItems,
+    searchValue,
+    setSearchValue,
+    onChangeSelectedItem,
+  } = useSelect(items, currentItem)
 
   const checkIsFavoriteSelectedItem = (destinationName: string) =>
     !!destinationsFavourites?.find((name: string) => name === destinationName)
 
   return (
-    <div className={styles.wrapper}>
-      <button disabled={disabled} className={styles.button} onClick={handleToggleMenu}>
-        <p className={styles.text}>{selectedItem}</p>
+    <div ref={selectRef} className={styles.wrapper}>
+      <button disabled={disabled} className={styles.button} onClick={onToggleSelect}>
+        <p className={styles.text}>{selectedItem || t(TranslationKey['Not chosen'])}</p>
         <div className={cx(styles.iconButton, { [styles.iconRotate]: isOpen })}>
           <ArrowDownIcon className={styles.icon} />
         </div>
@@ -83,12 +60,12 @@ export const Select: FC<SelectProps> = memo(props => {
         </div>
 
         <ul className={styles.menuItems}>
-          <button className={styles.menuItem} onClick={() => handleChangeSelectedItem(t(TranslationKey['Not chosen']))}>
+          <button className={styles.menuItem} onClick={() => onChangeSelectedItem('')}>
             <p className={styles.menuItemText}>{t(TranslationKey['Not chosen'])}</p>
           </button>
 
           {filteredItems.map((item, index) => (
-            <button key={index} className={styles.menuItem} onClick={() => handleChangeSelectedItem(item.name)}>
+            <button key={index} className={styles.menuItem} onClick={() => onChangeSelectedItem(item.name)}>
               <p className={styles.menuItemText}>{item.name}</p>
               {withFaworites && (
                 <button

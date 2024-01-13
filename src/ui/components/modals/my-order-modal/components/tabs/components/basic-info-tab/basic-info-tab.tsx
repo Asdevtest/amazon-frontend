@@ -10,20 +10,22 @@ import { AdditionalInfo, CommentsInfo, PhotosInfo, SupplierInfo } from './compon
 
 interface BasicInfoTabProps {
   isOrderEditable: boolean
-  order: IOrderWithAdditionalFields
+  formFields: IOrderWithAdditionalFields
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
   isClient?: boolean
+  isPendingOrdering?: boolean
 }
 
 export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
   const {
     isOrderEditable,
     isClient,
-    order,
+    isPendingOrdering,
+    formFields,
     destinations,
     storekeepers,
     destinationsFavourites,
@@ -35,11 +37,16 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      <SupplierInfo isOrderEditable={isOrderEditable} order={order} setFormFields={setFormFields} />
+      <SupplierInfo
+        isOrderEditable={isOrderEditable}
+        isPendingOrdering={isPendingOrdering}
+        formFields={formFields}
+        setFormFields={setFormFields}
+      />
 
       <AdditionalInfo
         isOrderEditable={isOrderEditable}
-        order={order}
+        formFields={formFields}
         destinations={destinations}
         storekeepers={storekeepers}
         destinationsFavourites={destinationsFavourites}
@@ -47,9 +54,14 @@ export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
         setFormFields={setFormFields}
       />
 
-      <PhotosInfo order={order} />
+      <PhotosInfo formFields={formFields} />
 
-      <CommentsInfo isOrderEditable={isOrderEditable} isClient={isClient} order={order} setFormFields={setFormFields} />
+      <CommentsInfo
+        isOrderEditable={isOrderEditable}
+        isClient={isClient}
+        formFields={formFields}
+        setFormFields={setFormFields}
+      />
     </div>
   )
 })

@@ -26,16 +26,14 @@ import { BoxesToOrderTabModel } from './boxes-to-order-tab.model'
 import { ModalNames } from './boxes-to-order-tab.type'
 
 interface BoxesToOrderTabProps {
-  order: IOrderWithAdditionalFields
+  formFields: IOrderWithAdditionalFields
   platformSettings: IPlatformSettings
 }
 
-export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = observer(props => {
-  const { order, platformSettings } = props
-
+export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = observer(({ formFields, platformSettings }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BoxesToOrderTabModel(order))
+  const [viewModel] = useState(() => new BoxesToOrderTabModel(formFields))
 
   return (
     <>

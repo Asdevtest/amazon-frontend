@@ -44,7 +44,7 @@ export const SupplierWithIconsCell: FC<SupplierWithIconsCellProps> = memo(props 
 
         {isOrdered && <p className={cx(styles.text, styles.uppercase)}>{t(TranslationKey.Ordered)}</p>}
 
-        {isMultiplicity && <p className={styles.text}>{`${t(TranslationKey.Multplty)}.: ${supplierAmountInBox}`}</p>}
+        {isMultiplicity && <p className={styles.text}>{`${t(TranslationKey.Multplty)}:${supplierAmountInBox}`}</p>}
       </div>
     </>
   )

@@ -20,14 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 15,
   },
 
-  card: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-
   photosCard: {
     justifyContent: 'center',
   },
@@ -41,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldText: {
     fontSize: 14,
-    lineHeight: '23px',
+    lineHeight: '19px',
     color: theme.palette.text.general,
 
     '&:hover': {
@@ -66,6 +58,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   eyeIcon: {
+    width: '24px !important',
+    height: '24px !important',
     color: theme.palette.primary.main,
   },
 }))

@@ -183,6 +183,7 @@ export const ClientOrdersView = observer(history => {
       {viewModel.showMyOrderModal ? (
         <MyOrderModal
           isClient
+          isPendingOrdering={viewModel.isPendingOrdering}
           order={viewModel.order}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}

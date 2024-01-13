@@ -29,7 +29,7 @@ export const PriceVariationsCell: FC<PriceVariationsCellProps> = memo(
         {variations?.length
           ? variations.map((variation, index) => {
               const variationValue = `${variation.quantity} ${t(TranslationKey['pcs.'])} / ${toFixedWithDollarSign(
-                variation.price / platformSettings?.yuanToDollarRate,
+                variation.price / (platformSettings?.yuanToDollarRate || 0),
                 2,
               )} ${t(TranslationKey.Per).toLowerCase()} ${t(TranslationKey['pcs.'])}`
 

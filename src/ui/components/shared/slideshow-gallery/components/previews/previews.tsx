@@ -42,20 +42,19 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     setIsTransitioning(true)
 
     setTimeout(() => {
-      setCurrentMediaFileIndex((prevIndex: number) => {
-        return direction === Arrows.UP
+      setCurrentMediaFileIndex((prevIndex: number) =>
+        direction === Arrows.UP
           ? prevIndex === FIRST_SLIDE
             ? mediaFiles?.length - 1
             : prevIndex - 1
-          : (prevIndex + 1) % mediaFiles?.length
-      })
+          : (prevIndex + 1) % mediaFiles?.length,
+      )
 
-      // test animation
-      setTimeout(() => {
-        setIsTransitioning(false)
-      }, 0)
+      setIsTransitioning(false)
     }, DEFAULT_ANIMATION_DELAY)
   }
+
+  console.log(isTransitioning, currentMediaFileIndex)
 
   const isDisableArrowDown = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === mediaFiles.length - 1
   const isDisableArrowUp = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === FIRST_SLIDE

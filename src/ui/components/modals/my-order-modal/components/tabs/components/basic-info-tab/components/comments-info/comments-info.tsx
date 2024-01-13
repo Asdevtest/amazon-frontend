@@ -1,81 +1,23 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
 import { Card } from '@components/modals/my-order-modal/components'
-import { IOrderWithAdditionalFields, SetFormFieldsType } from '@components/modals/my-order-modal/my-order-modal.type'
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './comments-info.style'
 
-interface CommentsInfoProps {
-  isOrderEditable: boolean
-  order: IOrderWithAdditionalFields
-  setFormFields: SetFormFieldsType
-  isClient?: boolean
-}
-
-interface IFieldConfig {
-  field: string
-  title: string
-  text: string
-  element?: JSX.Element
-  isEditable?: boolean
-}
+import { CommentsInfoProps } from './comments-info.type'
+import { useCommentsInfo } from './use-comments-info'
 
 export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
-  const { isOrderEditable, isClient, order, setFormFields } = props
-
   const { classes: styles, cx } = useStyles()
 
-  const initialState: IFieldConfig = {
-    text: '',
-    title: '',
-    field: '',
-    isEditable: false,
-  }
-  const [comment, setComment] = useState<IFieldConfig>(initialState)
-  const [showCommentsModal, setShowCommentsModal] = useState(false)
-
-  const handleChangeCommentState = (item: IFieldConfig) => {
-    setComment(prevState => ({
-      ...prevState,
-      title: item.title,
-      text: item.text,
-      field: item.field,
-      isEditable: item.isEditable,
-    }))
-
-    setShowCommentsModal(!showCommentsModal)
-  }
-
-  const commentsConfig: IFieldConfig[] = [
-    {
-      field: 'buyerComment',
-      title: t(TranslationKey.Buyer),
-      text: order?.buyerComment,
-      element: order?.buyerComment.length > 0 ? <CopyValue text={order?.buyerComment} /> : undefined,
-      isEditable: false,
-    },
-    {
-      field: 'clientComment',
-      title: t(TranslationKey.Client),
-      text: order?.clientComment,
-      element: order?.clientComment.length > 0 ? <CopyValue text={order?.clientComment} /> : undefined,
-      isEditable: isClient,
-    },
-  ]
-
-  const handleChangeComment = (fieldName: string) => (text: string) => {
-    setFormFields(prevFormFields => ({
-      ...prevFormFields,
-      [fieldName]: text,
-    }))
-  }
+  const { comment, commentsConfig, onChangeComment, onChangeCommentState, showCommentsModal, oToggleCommentsModal } =
+    useCommentsInfo(props)
 
   return (
     <>
@@ -84,10 +26,10 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
 
         <div className={styles.cardsWrapper}>
           {commentsConfig.map((item, index) => {
-            const showViewMoreButton = item.text || (isOrderEditable && item.isEditable)
+            const showViewMoreButton = item.text || (props.isOrderEditable && item.isEditable)
 
             return (
-              <Card key={index} wrapperClassName={cx(styles.card, styles.cardComment)}>
+              <Card key={index} wrapperClassName={styles.commentCard}>
                 <div className={styles.field}>
                   <p className={cx(styles.fieldText, styles.commentTitle)}>{item.title}</p>
                   {item.element}
@@ -101,10 +43,7 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
 
                 <div className={styles.buttonContainer}>
                   {showViewMoreButton && (
-                    <button
-                      className={cx(styles.commentText, styles.link)}
-                      onClick={() => handleChangeCommentState(item)}
-                    >
+                    <button className={cx(styles.commentText, styles.link)} onClick={() => onChangeCommentState(item)}>
                       {t(TranslationKey['View more'])}
                     </button>
                   )}
@@ -117,12 +56,12 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
 
       {showCommentsModal ? (
         <CommentsModal
-          readOnly={!(isOrderEditable && comment.isEditable)}
+          readOnly={!(props.isOrderEditable && comment.isEditable)}
           title={comment.title}
           text={comment.text}
           isOpenModal={showCommentsModal}
-          onOpenModal={() => setShowCommentsModal(!showCommentsModal)}
-          onChangeField={handleChangeComment(comment.field)}
+          onOpenModal={oToggleCommentsModal}
+          onChangeField={onChangeComment(comment.field)}
         />
       ) : null}
     </>

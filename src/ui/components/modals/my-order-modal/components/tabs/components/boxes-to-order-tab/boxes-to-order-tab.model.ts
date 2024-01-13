@@ -16,6 +16,7 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { IPlatformSettings } from '@typings/patform-settings'
 import { IHSCode } from '@typings/product'
 import { IUploadFile } from '@typings/upload-file'
 
@@ -37,6 +38,7 @@ export class BoxesToOrderTabModel {
   currentBox: InlineResponse20018 | undefined = undefined
   galleryFiles: Array<string | IUploadFile> = []
   hsCodeData: IHSCode | undefined = undefined
+  platformSettings: IPlatformSettings | undefined = undefined
 
   showGalleryModal = false
   showBoxModal = false
@@ -92,6 +94,10 @@ export class BoxesToOrderTabModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
+
+      runInAction(() => {
+        this.boxes = []
+      })
     }
   }
 
@@ -104,6 +110,10 @@ export class BoxesToOrderTabModel {
       })
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.currentBox = undefined
+      })
     }
   }
 
@@ -162,6 +172,10 @@ export class BoxesToOrderTabModel {
       this.onToggleModal(ModalNames.EDIT_HS_CODE)
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.hsCodeData = undefined
+      })
     }
   }
 
