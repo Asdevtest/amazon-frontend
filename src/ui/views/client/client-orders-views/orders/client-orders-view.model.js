@@ -6,6 +6,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { BatchesModel } from '@models/batches-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -14,6 +15,7 @@ import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
+import { AboutProductSwitcher } from '@components/modals/about-product-modal/about-product-switcher'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
@@ -45,8 +47,10 @@ export class ClientOrdersViewModel {
   selectedRowIds = []
 
   showOrderModal = false
+  showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
+  productBatches = undefined
   showCheckPendingOrderFormModal = false
 
   existingProducts = []
@@ -56,7 +60,7 @@ export class ClientOrdersViewModel {
     showAlertShield: false,
     alertShieldMessage: '',
   }
-
+  selectedWarehouseOrderProduct = undefined
   selectedProduct = undefined
   reorderOrdersData = []
   uploadedFiles = []
@@ -76,11 +80,15 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+    onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
   }
 
   rowCount = 0
   startFilterModel = undefined
+  currentBatch = undefined
+  aboutProductSwitcher = AboutProductSwitcher.ORDER_INFORMATION
   sortModel = []
+  activeProductGuid = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
   amountLimit = 1000
@@ -429,6 +437,21 @@ export class ClientOrdersViewModel {
     }
   }
 
+  async getBatches() {
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+
+      runInAction(() => {
+        this.productBatches = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.productBatches = undefined
+      })
+    }
+  }
+
   async onClickReorder(item, isPending) {
     try {
       if (isPending) {
@@ -711,6 +734,49 @@ export class ClientOrdersViewModel {
     )
 
     win.focus()
+  }
+
+  async getCurrBatch(guid) {
+    try {
+      const result = await BatchesModel.getBatchesByGuid(guid)
+
+      runInAction(() => {
+        this.currentBatch = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.currentBatch = undefined
+      })
+    }
+  }
+
+  onClickAboutSwitcherField(field) {
+    this.aboutProductSwitcher = field
+
+    if (field === AboutProductSwitcher.BATCH_DATA) {
+      this.getBatches()
+    }
+  }
+
+  async onClickWarehouseOrderButton(guid) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      const result = await ClientModel.getProductById(guid)
+      this.productBatches = undefined
+      this.onTriggerOpenModal('showProductModal')
+      this.activeProductGuid = guid
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = result
+      })
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (e) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(e)
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = undefined
+      })
+    }
   }
 
   onTriggerOpenModal(modalState) {

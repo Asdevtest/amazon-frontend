@@ -36,7 +36,6 @@ export const useStyles = makeStyles()(theme => ({
       width: '100%!important',
     },
   },
-
   slideMedium: {
     height: '160px !important',
     width: '213px !important',
