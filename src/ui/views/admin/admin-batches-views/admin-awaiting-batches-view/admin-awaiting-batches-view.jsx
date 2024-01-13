@@ -41,6 +41,8 @@ export const AdminAwaitingBatchesViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          sortingMode="client"
+          paginationMode="client"
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{

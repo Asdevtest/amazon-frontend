@@ -35,6 +35,8 @@ export const ClientOrdersNotificationsView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rowCount={viewModel.rowCount}
           rows={viewModel.currentData}
+          sortingMode="client"
+          paginationMode="client"
           rowHeight={140}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}

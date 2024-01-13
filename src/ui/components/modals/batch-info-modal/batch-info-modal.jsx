@@ -348,6 +348,8 @@ export const BatchInfoModal = observer(
             <CustomDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
+              sortingMode="client"
+              paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               slotProps={{

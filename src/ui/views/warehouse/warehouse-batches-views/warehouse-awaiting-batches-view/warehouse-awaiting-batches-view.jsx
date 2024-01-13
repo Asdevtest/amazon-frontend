@@ -99,6 +99,8 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedBatches}
             rowCount={viewModel.rowCount}

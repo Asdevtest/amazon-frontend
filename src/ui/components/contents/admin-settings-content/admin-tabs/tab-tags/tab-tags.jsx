@@ -56,6 +56,8 @@ export const TabTags = observer(() => {
           disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
+          sortingMode="client"
+          paginationMode="client"
           filterModel={viewModel.filterModel}
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

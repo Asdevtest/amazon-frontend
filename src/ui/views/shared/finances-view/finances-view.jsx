@@ -30,6 +30,8 @@ export const FinancesView = observer(props => {
         localeText={getLocalizationByLanguageTag()}
         getRowClassName={getRowClassName}
         sortModel={viewModel.sortModel}
+        sortingMode="client"
+        paginationMode="client"
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}

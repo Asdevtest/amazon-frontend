@@ -37,6 +37,8 @@ export const TabDestinations = observer(() => {
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
+          sortingMode="client"
+          paginationMode="client"
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
