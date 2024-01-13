@@ -15,6 +15,8 @@ interface RequestDetailsItemProps {
 export const RequestDetailsItem: FC<RequestDetailsItemProps> = memo(({ request, showAllDetails }) => {
   const { classes: styles, cx } = useStyles()
 
+  console.log('request', request)
+
   const requestDetailsConfig = [
     { title: t(TranslationKey.Shop), value: request?.product?.shop?.name },
     { title: t(TranslationKey.Announcement), value: request?.announcement?.title },
