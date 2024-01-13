@@ -3,12 +3,16 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
-    width: '375px',
+    flex: '1 0',
+    width: '22%',
     padding: '35px 20px',
     flexDirection: 'column',
     gap: '15px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
+    [theme.breakpoints.down(1500)]: {
+      width: '30%',
+    },
   },
 
   selectedCard: {

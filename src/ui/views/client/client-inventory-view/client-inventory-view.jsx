@@ -462,6 +462,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          // selectedProductsData={viewModel.dataForOrderModal}
           selectedProductsData={viewModel.currentData
             .filter(product => viewModel.selectedRowIds.includes(product.id))
             .map(prod => prod.originalData)}

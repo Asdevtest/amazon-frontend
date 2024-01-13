@@ -8,8 +8,8 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { t } from '@utils/translations'
 
@@ -45,9 +45,9 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
     renderCell: (params: GridRenderCellParams) => (
-      <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={params.row?.sku} />
+      <ProductAsinCell withoutTitle withoutAsin image={params.row?.image} skuByClient={params.row?.sku} />
     ),
-    width: 185,
+    width: 250,
     sortable: false,
 
     table: DataGridFilterTables.INVENTORY_SHIPMENTS,

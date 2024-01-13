@@ -79,4 +79,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
 }))

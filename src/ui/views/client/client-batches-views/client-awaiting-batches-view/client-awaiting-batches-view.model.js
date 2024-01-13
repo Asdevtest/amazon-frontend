@@ -97,7 +97,7 @@ export class ClientAwaitingBatchesViewModel {
     changeViewModeHandler: value => this.changeViewModeHandler(value),
   }
 
-  columnsModel = clientBatchesViewColumns(this.rowHandlers, () => this.productViewMode)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -293,8 +293,6 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      this.uploadedFiles = []
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -461,10 +459,6 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (filesToAdd.length) {
         await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
@@ -519,12 +513,11 @@ export class ClientAwaitingBatchesViewModel {
 
   changeViewModeHandler(value) {
     this.productViewMode = value
+    this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   // * Filtration

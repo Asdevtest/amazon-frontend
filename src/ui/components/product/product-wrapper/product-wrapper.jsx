@@ -199,7 +199,7 @@ export const ProductWrapper = memo(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations modal={modal} productId={product._id} />
+              <Integrations userRole={curUserRole} modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>

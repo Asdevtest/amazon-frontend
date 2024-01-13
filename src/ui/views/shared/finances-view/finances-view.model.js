@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
 import { SettingsModel } from '@models/settings-model'
 
@@ -22,12 +23,16 @@ export class FinancesViewModel {
 
   sortModel = []
   startFilterModel = undefined
-  filterModel = { items: [] }
+  filterModel = filterModelInitialValue
   densityModel = 'compact'
   columnsModel = financesViewColumns()
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
+
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
+  }
 
   constructor({ history, location }) {
     runInAction(() => {
@@ -37,9 +42,6 @@ export class FinancesViewModel {
         this.startFilterModel = location.state.dataGridFilter
       }
     })
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -140,5 +142,9 @@ export class FinancesViewModel {
     runInAction(() => {
       this.rowSelectionModel = model
     })
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
   }
 }

@@ -1,4 +1,4 @@
-import { GridColumnMenuContainer } from '@mui/x-data-grid'
+import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -549,4 +549,6 @@ export const DataGridCustomColumnMenuComponent = props => {
       </GridColumnMenuContainer>
     )
   }
+
+  return <GridColumnMenu {...props} />
 }

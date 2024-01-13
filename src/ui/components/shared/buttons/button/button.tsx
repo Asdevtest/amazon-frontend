@@ -39,6 +39,7 @@ interface Props extends PropsWithChildren {
   defaultButtonTooltip?: string
   startIcon?: ReactElement
   transparent?: boolean
+  casual?: boolean
 }
 
 export const Button: FC<Props> = React.memo(
@@ -58,6 +59,7 @@ export const Button: FC<Props> = React.memo(
     btnWrapperStyle,
     small,
     transparent,
+    casual,
     ...restProps
   }) => {
     const { classes: classNames } = useClassNames()
@@ -87,6 +89,8 @@ export const Button: FC<Props> = React.memo(
                 [classNames.disabled]: disabled,
                 [classNames.small]: small,
                 [classNames.transparent]: transparent,
+                [classNames.casual]: casual,
+                [classNames.outlined]: variant === 'outlined',
               },
               className,
             ),
@@ -128,7 +132,6 @@ export const Button: FC<Props> = React.memo(
                   <Box display="flex" alignItems="center">
                     <TooltipInfoIcon
                       className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                      // fontSize={'small'}
                       viewBox={'0 0 18 18'}
                       onClick={() => setOpenInfoTooltip(true)}
                     />

@@ -253,6 +253,8 @@ export const getTableByColumn = (column, hint) => {
       'childProductSkuByClient',
       'childProductAsin',
       'shopId',
+      'shop',
+      'announcement',
       'strategyStatus',
       'amountInOrders',
       'stockUSA',
@@ -309,6 +311,8 @@ export const getTableByColumn = (column, hint) => {
       return 'ideas'
     } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
       return 'boxes'
+    } else if (['announcement'].includes(column) && hint === 'requests') {
+      return 'requests'
     }
     return 'products'
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {

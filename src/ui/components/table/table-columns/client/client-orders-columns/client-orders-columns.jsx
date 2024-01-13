@@ -3,13 +3,13 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtons,
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
@@ -103,7 +103,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     ),
     width: 160,
     sortable: false,
-
+    filterable: false,
     columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
@@ -111,29 +111,24 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            fullWidthButton
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData, false)
-            }}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData, true)
-            }}
-          />
-        )}
-      </>
-    ),
-    width: 180,
+    renderCell: params =>
+      Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+        <ActionButtons
+          firstButtonText={t(TranslationKey['Repeat order'])}
+          secondButtonText={t(TranslationKey['Warehouse and orders'])}
+          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
+          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+        />
+      ) : (
+        <SuccessActionBtnCell
+          bTnText={t(TranslationKey['To order'])}
+          onClickOkBtn={e => {
+            e.stopPropagation()
+            rowHandlers.onClickReorder(params.row.originalData, true)
+          }}
+        />
+      ),
+    width: 220,
     filterable: false,
     sortable: false,
   },

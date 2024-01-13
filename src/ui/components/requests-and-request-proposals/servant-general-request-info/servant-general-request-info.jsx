@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Divider } from '@mui/material'
 
 import { requestPriority } from '@constants/requests/request-priority'
@@ -15,10 +17,12 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
-import { useClassNames } from './servant-general-request-info.style'
+import { useStyles } from './servant-general-request-info.style'
 
-export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
-  const { classes: classNames, cx } = useClassNames()
+import { RequestDetailsItem } from './request-details-item/request-details-item'
+
+export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals }) => {
+  const { classes: styles, cx } = useStyles()
 
   const buttonDisabled =
     requestProposals.some(
@@ -48,10 +52,10 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
       request?.request?.restrictMoreThanOneProposalFromOneAssignee)
 
   const getMainInfos = () => (
-    <div className={classNames.mainInfosWrapper}>
+    <div className={styles.mainInfosWrapper}>
       {requestProposals.length === 0 ? null : (
-        <div className={classNames.headerWrapper}>
-          <p className={classNames.cardTitle}>{request?.request.title}</p>
+        <div className={styles.headerWrapper}>
+          <p className={styles.cardTitle}>{request?.request.title}</p>
 
           <AsinOrSkuLink
             withCopyValue
@@ -60,14 +64,14 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             textStyles={classNames.linkSpan}
           />
 
-          <div className={classNames.idTitleWrapper}>
+          <div className={styles.idTitleWrapper}>
             {request?.request?.priority === requestPriority.urgentPriority && (
-              <div className={classNames.urgentWrapper}>
-                <img src="/assets/icons/fire.svg" className={classNames.urgentIconSmall} />
+              <div className={styles.urgentWrapper}>
+                <img src="/assets/icons/fire.svg" className={styles.urgentIconSmall} />
               </div>
             )}
-            <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>
-            <p className={cx(classNames.idText, classNames.idTextDark)}>
+            <p className={styles.idText}>{t(TranslationKey.ID) + ':'}</p>
+            <p className={cx(styles.idText, styles.idTextDark)}>
               {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
             </p>
           </div>
@@ -79,9 +83,9 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
   )
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.mainBlockWrapper}>
-        <div className={classNames.mainWrapper}>
+    <div className={styles.root}>
+      <div className={styles.mainBlockWrapper}>
+        <div className={styles.mainWrapper}>
           <UserLink
             blueText
             withAvatar
@@ -94,19 +98,21 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             customRatingClass={{ fontSize: 24, opacity: 1 }}
           />
 
-          <p className={classNames.transactions}>{`${t(
+          <p className={styles.transactions}>{`${t(
             TranslationKey['The number of total successful transactions:'],
           )} 0`}</p>
 
+          {!!requestProposals.length && <RequestDetailsItem request={request} />}
+
           {(request.request.status === RequestStatus.PUBLISHED ||
             request.request.status === RequestStatus.IN_PROCESS) && (
-            <div className={classNames.btnsBlockWrapper}>
+            <div className={styles.btnsBlockWrapper}>
               <Button
                 disabled={buttonDisabled}
                 tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
                 variant="contained"
                 color="primary"
-                className={classNames.actionBtn}
+                className={styles.actionBtn}
                 onClick={onSubmit}
               >
                 {t(TranslationKey['Suggest a deal'])}
@@ -115,20 +121,10 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           )}
         </div>
 
-        {requestProposals.length === 0 ? (
-          <div className={classNames.requestInfoWrapper}>
-            <div className={classNames.titleAndIdWrapper}>
-              <div className={classNames.idTitleWrapper}>
-                <p className={classNames.idText}>{t(TranslationKey.Title) + ':'}</p>
-                <p className={classNames.title}>{request?.request.title}</p>
-              </div>
-
-              <div className={classNames.idTitleWrapper}>
-                <p className={classNames.idText}>{t(TranslationKey.ID) + ':'}</p>
-                <p className={cx(classNames.idText, classNames.idTextDark)}>
-                  {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-                </p>
-              </div>
+        {!requestProposals.length && (
+          <div className={styles.requestInfoWrapper}>
+            <div className={styles.titleAndIdWrapper}>
+              <RequestDetailsItem showAllDetails request={request.request} />
 
               <div>
                 <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
@@ -136,7 +132,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
             </div>
 
             <div>
-              <p className={classNames.standartText}>
+              <p className={styles.standartText}>
                 {translateProposalsLeftMessage(
                   request?.request.maxAmountOfProposals -
                     (requestProposals?.filter(
@@ -150,33 +146,33 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
               </p>
 
               {request?.request?.withoutConfirmation && (
-                <p className={classNames.confirmationToWorkText}>
+                <p className={styles.confirmationToWorkText}>
                   {t(TranslationKey['It is possible to work without confirmation'])}
                 </p>
               )}
 
               {request?.request?.priority === requestPriority.urgentPriority && (
-                <div className={classNames.urgentWrapper}>
-                  <img src="/assets/icons/fire.svg" className={classNames.urgentIcon} />
+                <div className={styles.urgentWrapper}>
+                  <img src="/assets/icons/fire.svg" className={styles.urgentIcon} />
 
-                  <p className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</p>
+                  <p className={styles.urgentText}>{t(TranslationKey['Urgent request'])}</p>
                 </div>
               )}
             </div>
           </div>
-        ) : null}
+        )}
 
         {getMainInfos()}
 
-        {requestProposals.length !== 0 ? (
+        {!!requestProposals.length && (
           <>
             <Divider orientation={'vertical'} />
-            <div className={classNames.proposalsWrapper}>
+            <div className={styles.proposalsWrapper}>
               <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
             </div>
           </>
-        ) : null}
+        )}
       </div>
     </div>
   )
-}
+})

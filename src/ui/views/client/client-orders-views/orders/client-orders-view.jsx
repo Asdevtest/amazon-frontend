@@ -8,6 +8,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductAndBatchModal } from '@components/modals/prodct-and-batch-modal/product-and-batch.modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
@@ -31,7 +32,6 @@ export const ClientOrdersView = observer(history => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
-
   return (
     <React.Fragment>
       <div className={styles.topHeaderBtnsWrapper}>
@@ -122,6 +122,20 @@ export const ClientOrdersView = observer(history => {
             onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
           />
         </Modal>
+      )}
+
+      {viewModel.showProductModal && (
+        <ProductAndBatchModal
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+          openModal={viewModel.showProductModal}
+          changeSwitcher={viewModel.onClickAboutSwitcherField}
+          currentSwitch={viewModel.aboutProductSwitcher}
+          batches={viewModel.productBatches}
+          getCurrentBatch={viewModel.getCurrBatch}
+          currentBatch={viewModel.currentBatch}
+          shops={viewModel.shopsData}
+          selectedProduct={viewModel.selectedWarehouseOrderProduct}
+        />
       )}
 
       {viewModel.showOrderModal && (

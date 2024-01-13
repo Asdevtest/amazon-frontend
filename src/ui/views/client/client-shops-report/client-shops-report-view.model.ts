@@ -9,6 +9,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
+import {
+  filterModelInitialValue,
+  paginationModelInitialValue,
+  sortModelInitialValue,
+} from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
@@ -18,7 +23,7 @@ import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './helpers/observer-config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = ShopReportsTabsValues.STOCK_REPORT
+  _tabKey = ShopReportsTabsValues.PPC
   get tabKey() {
     return this._tabKey
   }
@@ -59,15 +64,50 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   constructor(currentTabsValues: ShopReportsTabsValues) {
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+      getClassParams(currentTabsValues)
+
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch)
+
+    makeObservable(this, observerConfig)
+  }
+
+  changeTabHandler = (key: ShopReportsTabsValues) => {
+    this.tabKey = key
+
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } = getClassParams(key)
+
+    this.getMainDataMethod = getMainDataMethod
+    this.columnsModel = columnsModel()
+    this.filtersFields = filtersFields
+    this.setColumnMenuSettings(filtersFields)
+    this.mainMethodURL = mainMethodURL
+    this.sortModel = sortModelInitialValue
+    this.paginationModel = paginationModelInitialValue
+    this.filterModel = filterModelInitialValue
+    this.fieldsForSearch = fieldsForSearch
+
+    // this.getMainTableData()
+  }
+
+  initUserSettings() {
     const url = new URL(window.location.href)
     const currentReport = url.searchParams.get('currentReport') as ShopReportsTabsValues
     const currentShopId = url.searchParams.get('shopId')
 
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(
-      currentReport || currentTabsValues,
-    )
+    if (!currentReport || !currentShopId) {
+      return
+    }
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, ['asin', 'sku'])
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+      getClassParams(currentReport)
+
+    this.getMainDataMethod = getMainDataMethod
+    this.columnsModel = columnsModel()
+    this.filtersFields = filtersFields
+    this.setColumnMenuSettings(filtersFields)
+    this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
 
     if (currentShopId) {
       this.onChangeFullFieldMenuItem([{ _id: currentShopId }], 'shop')
@@ -77,22 +117,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.tabKey = currentReport
       this.history.push(this.history.location.pathname)
     }
-
-    makeObservable(this, observerConfig)
-  }
-
-  changeTabHandler = (key: ShopReportsTabsValues) => {
-    this.tabKey = key
-
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL } = getClassParams(key)
-
-    this.getMainDataMethod = getMainDataMethod
-    this.columnsModel = columnsModel()
-    this.filtersFields = filtersFields
-    this.setColumnMenuSettings(filtersFields)
-    this.mainMethodURL = mainMethodURL
-
-    this.getMainTableData()
   }
 
   async moveGoodsToInventoryHandler() {

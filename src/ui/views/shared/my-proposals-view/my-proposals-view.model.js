@@ -40,7 +40,7 @@ export class MyProposalsViewModel {
 
   currentSettings = undefined
 
-  columnVisibilityModel = {}
+  columnVisibilityModel = { requestCreatedBy: false }
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
@@ -334,10 +334,11 @@ export class MyProposalsViewModel {
         'requestCreatedBy',
         'taskComplexity',
         'typeTask',
+        'announcement',
       ].includes(column)
     ) {
       return 'requests'
-    } else if (['asin', 'skuByClient', 'amazonTitle'].includes(column)) {
+    } else if (['asin', 'skuByClient', 'amazonTitle', 'shop'].includes(column)) {
       return 'products'
     }
   }

@@ -473,7 +473,9 @@ class ChatModelStatic {
       })
     }
 
-    this.getUnreadMessagesCount(!isCurrentUser ? 1 : 0)
+    const isAddCounter = !isCurrentUser && !newMessage?.crmItemId
+
+    this.getUnreadMessagesCount(isAddCounter ? 1 : 0)
   }
 
   public onChangeChatSelectedId(value: string | undefined) {

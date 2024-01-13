@@ -15,7 +15,7 @@ export const SelectShopsModal = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const [currentShopId, setCurrentShopId] = useState('')
+  const [currentShopId, setCurrentShopId] = useState(null)
 
   const sortingShops = shops?.sort((a, b) => a?.name?.localeCompare(b?.name))
   const selectedItem = shops?.find(shop => shop?._id === currentShopId)
@@ -39,7 +39,7 @@ export const SelectShopsModal = memo(props => {
             data={sortingShops}
             searchFields={['name']}
             selectedItemName={selectedItemName}
-            onClickNotChosen={() => setCurrentShopId('')}
+            onClickNotChosen={() => setCurrentShopId(null)}
             onClickSelect={el => setCurrentShopId(el._id)}
           />
         }

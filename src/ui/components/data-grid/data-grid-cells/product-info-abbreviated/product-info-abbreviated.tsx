@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -31,8 +31,8 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.mem
 
         <div className={styles.abbreviatedBatchProductInfoMainWrapper}>
           {box.items.map((item: any, itemIndex: number) => (
-            <>
-              <div key={itemIndex} className={styles.abbreviatedBatchProductInfoWrapper}>
+            <Fragment key={itemIndex}>
+              <div className={styles.abbreviatedBatchProductInfoWrapper}>
                 <img alt="" src={getAmazonImageUrl(item.image)} className={styles.abbreviatedImg} />
 
                 <div className={styles.div}>
@@ -52,7 +52,7 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.mem
                   )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
                 </p>
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

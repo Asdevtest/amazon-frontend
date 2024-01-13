@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
@@ -25,7 +25,12 @@ import { switcherConfig } from './helpers/switcher-config'
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.STOCK_REPORT))
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC))
+  viewModel.initHistory()
+
+  useEffect(() => {
+    viewModel.initUserSettings()
+  }, [])
 
   return (
     <div className={styles.root}>
