@@ -688,7 +688,7 @@ export const darkTheme = createTheme({
       entryLeftPanel: '#2B2B34',
       disabled: '#a0a0a4',
       activeChat: '#384C68',
-      secondary: 'rgba(200, 200, 200, 1)',
+      secondary: 'rgb(80, 80, 80, 1)',
     },
 
     customSwitcher: {
