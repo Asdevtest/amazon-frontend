@@ -61,7 +61,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             withCopyValue
             withAttributeTitle="asin"
             link={request?.request.product.asin}
-            textStyles={classNames.linkSpan}
+            textStyles={styles.linkSpan}
           />
 
           <div className={styles.idTitleWrapper}>
@@ -102,7 +102,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             TranslationKey['The number of total successful transactions:'],
           )} 0`}</p>
 
-          {!!requestProposals.length && <RequestDetailsItem request={request} />}
+          {!!requestProposals.length && <RequestDetailsItem request={request.request} />}
 
           {(request.request.status === RequestStatus.PUBLISHED ||
             request.request.status === RequestStatus.IN_PROCESS) && (
