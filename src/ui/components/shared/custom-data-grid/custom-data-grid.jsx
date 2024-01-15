@@ -22,7 +22,7 @@ export const CustomDataGrid = ({ ...restProps }) => (
     slots={{
       toolbar: DataGridCustomToolbar,
       columnMenuIcon: FilterAltOutlinedIcon,
-      columnMenu: restProps.paginationMode === 'client' ? DataGridCustomColumnMenuComponent : null,
+      columnMenu: DataGridCustomColumnMenuComponent,
     }}
     {...restProps}
   />
