@@ -223,8 +223,8 @@ class ClientModelStatic {
   }
 
   getProductsInfoForOrders = async productIds => {
-    console.log('productIds', productIds)
     const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet({ productIds })
+    return response.data
   }
 
   getProductById = async guid => {

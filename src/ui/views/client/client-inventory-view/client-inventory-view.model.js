@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeObservable, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -12,6 +12,7 @@ import { creatSupplier } from '@constants/white-list'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { GeneralModel } from '@models/general-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
@@ -41,32 +42,23 @@ import {
   fieldsOfProductAllowedToUpdate,
   filtersFields,
 } from './helpers/client-inventory-view.constants'
+import { observerConfig } from './helpers/model-observer.config'
 
 const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
 
-export class ClientInventoryViewModel {
-  history = undefined
-  requestStatus = undefined
+export class ClientInventoryViewModel extends DataGridFilterTableModel {
   error = undefined
-
   product = undefined
   ordersDataStateToSubmit = undefined
-
-  baseNoConvertedProducts = undefined
-  productsMy = []
-  withoutProduct = false
-  withProduct = false
-  user = undefined
-  orders = []
+  tableData = []
   ideasData = []
-  selectedRowIds = []
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
   shopsData = []
-  dataForOrderModal = []
-  ideaId = ''
+  ideaId = undefined
   isArchive = false
+
   batchesData = []
 
   presetsData = []
@@ -79,15 +71,12 @@ export class ClientInventoryViewModel {
 
   curProduct = undefined
 
-  // isNeedPurchaseFilter = null
-
-  currentSearchValue = ''
-
   productsToLaunch = []
   productVariations = []
   selectedProductToLaunch = undefined
 
   existingProducts = []
+  selectedProduct = undefined
 
   selectedRowId = undefined
   yuanToDollarRate = undefined
@@ -95,12 +84,10 @@ export class ClientInventoryViewModel {
 
   showOrderModal = false
   showSuccessModal = false
-
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showAddOrEditSupplierModal = false
-  selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
   showAddSupplierToIdeaFromInventoryModal = false
@@ -125,7 +112,6 @@ export class ClientInventoryViewModel {
   showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
-  isModalOpen = false
 
   isTransfer = false
 
@@ -180,63 +166,9 @@ export class ClientInventoryViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  barCodeHandlers = {
-    onClickBarcode: item => this.onClickBarcode(item),
-    onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
-    onDeleteBarcode: item => this.onDeleteBarcode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  hsCodeHandlers = {
-    onClickHsCode: item => this.onClickHsCode(item),
-    onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
-    onDeleteHsCode: item => this.onDeleteHsCode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  fourMonthesStockHandlers = {
-    onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
-  }
-
-  stockUsHandlers = {
-    onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
-  }
-
-  otherHandlers = {
-    onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-    onClickInTransfer: productId => this.onClickInTransfer(productId),
-    onClickOrderCell: productId => this.onClickOrderCell(productId),
-    onClickShowProduct: row => this.onClickShowProduct(row),
-    onClickVariationButton: id => this.onClickVariationButton(id),
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
-
-  currentData = []
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
-  rowCount = 0
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = clientInventoryColumns(
-    this.barCodeHandlers,
-    this.hsCodeHandlers,
-    this.fourMonthesStockHandlers,
-    this.stockUsHandlers,
-    this.otherHandlers,
-    () => this.columnMenuSettings,
-  )
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -253,55 +185,62 @@ export class ClientInventoryViewModel {
     )
   }
 
-  constructor({ history, location }) {
-    this.history = history
-
-    const url = new URL(window.location.href)
-    this.isArchive = url.searchParams.get('isArchive')
-
-    if (location.state) {
-      this.isModalOpen = location.state.isModalOpen
-
-      const state = { ...history.location.state }
-      delete state.isModalOpen
-      history.replace({ ...history.location, state })
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () => (this.currentData = this.getCurrentData()),
-    )
-  }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
 
+  constructor() {
+    const barCodeHandlers = {
+      onClickBarcode: item => this.onClickBarcode(item),
+      onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
+      onDeleteBarcode: item => this.onDeleteBarcode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const hsCodeHandlers = {
+      onClickHsCode: item => this.onClickHsCode(item),
+      onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
+      onDeleteHsCode: item => this.onDeleteHsCode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const fourMonthesStockHandlers = {
+      onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+    }
+
+    const stockUsHandlers = {
+      onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
+    }
+
+    const otherHandlers = {
+      onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
+      onClickInTransfer: productId => this.onClickInTransfer(productId),
+      onClickOrderCell: productId => this.onClickOrderCell(productId),
+      onClickShowProduct: row => this.onClickShowProduct(row),
+      onClickVariationButton: id => this.onClickVariationButton(id),
+    }
+
+    super(
+      ClientModel.getProductsMyFilteredByShopIdWithPag,
+      clientInventoryColumns(barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers, stockUsHandlers, otherHandlers),
+      filtersFields,
+      'clients/products/my_with_pag',
+      ['asin', 'amazonTitle', 'skuByClient'],
+      DataGridTablesKeys.CLIENT_INVENTORY,
+    )
+
+    defaultHiddenColumns.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
+
+    const url = new URL(window.location.href)
+    this.isArchive = url.searchParams.get('isArchive')
+
+    makeObservable(this, observerConfig)
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onChangePaginationModel(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
   }
 
   onClickShowProduct(id) {
@@ -349,34 +288,6 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-
-      defaultHiddenColumns.forEach(el => {
-        this.columnVisibilityModel[el] = false
-      })
-    })
-  }
-
   async onClickVariationButton(id) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -393,31 +304,6 @@ export class ClientInventoryViewModel {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onSelectionModel(model) {
-    this.selectedRowIds = model
-  }
-
-  getCurrentData() {
-    return toJS(this.productsMy)
-  }
-
-  onSearchSubmit(searchValue) {
-    this.currentSearchValue = searchValue
-
-    this.getProductsMy()
   }
 
   async uploadTemplateFile(file) {
@@ -449,7 +335,7 @@ export class ClientInventoryViewModel {
 
   checkIsNoEditProductSelected() {
     return this.selectedRowIds.some(prodId => {
-      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+      const findProduct = this.tableData.find(prod => prod._id === prodId)
 
       return [
         ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
@@ -521,12 +407,9 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.getDataGridState()
-
       this.getPresets()
-
       await this.getShops()
       await this.getProductsMy()
-      this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -779,18 +662,16 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result /* , dataForOrder */] = await Promise.all([
+    const [storekeepers, destinations, result] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
       UserModel.getPlatformSettings(),
-      // ClientModel.getProductsInfoForOrders(this.selectedRowIds.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
       this.platformSettings = result
-      // this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -988,26 +869,13 @@ export class ClientInventoryViewModel {
         noCache: true,
       })
       runInAction(() => {
-        this.baseNoConvertedProducts = result
         this.rowCount = result.count
-        this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
+        this.tableData = clientInventoryDataConverter(result.rows, this.shopsData)
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.rowCount = 0
-
-        this.productsMy = []
-        this.baseNoConvertedProducts = []
-      })
-
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -1750,10 +1618,6 @@ export class ClientInventoryViewModel {
     this.curPage = e
 
     this.getProductsMy()
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
   }
 
   setSelectedProduct(item) {

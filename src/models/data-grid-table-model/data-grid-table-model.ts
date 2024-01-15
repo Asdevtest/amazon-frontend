@@ -202,7 +202,7 @@ export class DataGridTableModel extends ModalsModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions)
 
@@ -211,13 +211,19 @@ export class DataGridTableModel extends ModalsModel {
         this.rowCount = result?.count || result.length
       })
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       return result
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
+  }
+
+  setRequestStatus(requestStatus: loadingStatuses) {
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {

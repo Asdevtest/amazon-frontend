@@ -16,7 +16,7 @@ export const observerConfig = {
 
   setColumnMenuSettings: action.bound,
   getFilters: action.bound,
-  onChangeSearchValue: action.bound,
+  onSearchSubmit: action.bound,
   onChangeFullFieldMenuItem: action.bound,
   onClickFilterBtn: action.bound,
   onClickResetFilters: action.bound,

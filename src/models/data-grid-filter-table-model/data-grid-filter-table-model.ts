@@ -98,7 +98,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
-        `${this._mainMethodURL}?filters=${this.getFilters(column)}`,
+        // "?" не нужен, т.к. он должен быть в mainMethodURL
+        `${this.mainMethodURL}filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
@@ -128,7 +129,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     )
   }
 
-  onChangeSearchValue(value: string) {
+  onSearchSubmit(value: string) {
     this.currentSearchValue = value
     this.getMainTableData()
   }
@@ -144,7 +145,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await this.getMainDataMethod(
         options || {
@@ -165,12 +166,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.rowCount = result?.count || result.length
       })
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       this.tableData = []
       this.rowCount = 0
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 }

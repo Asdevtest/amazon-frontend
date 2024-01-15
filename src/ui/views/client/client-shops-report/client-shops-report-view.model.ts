@@ -86,8 +86,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.paginationModel = paginationModelInitialValue
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
-
-    // this.getMainTableData()
   }
 
   initUserSettings() {
@@ -121,7 +119,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async moveGoodsToInventoryHandler() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const requestBody = []
 
@@ -140,7 +138,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       await SellerBoardModel.createAndLinkSkuProducts({ payload: requestBody })
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -153,7 +151,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -177,15 +175,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async submitDeleteReportHandler() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
 
       await this.getMainTableData()
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -196,7 +194,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async getProductsMy(filters?: any, isRecCall?: boolean) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ClientModel.getProductPermissionsData({ filters })
 
@@ -207,15 +205,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       if (!this.inventoryProducts.length && isRecCall) {
         this.getProductsMy()
       }
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       if (isRecCall) {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.setRequestStatus(loadingStatuses.IS_LOADING)
 
         this.getProductsMy()
 
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.setRequestStatus(loadingStatuses.SUCCESS)
       } else {
         runInAction(() => {
           this.inventoryProducts = []
