@@ -41,6 +41,8 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
           rows={viewModel.getCurrentData()}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
+          sortingMode="client"
+          paginationMode="client"
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           slotProps={{

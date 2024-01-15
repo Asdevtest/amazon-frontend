@@ -38,6 +38,8 @@ export const ClientBoxesNotificationsViewRaw = props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.getCurrentData()}
+          sortingMode="client"
+          paginationMode="client"
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}

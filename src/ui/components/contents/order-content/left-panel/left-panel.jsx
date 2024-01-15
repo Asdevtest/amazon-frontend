@@ -1,5 +1,4 @@
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { Button, Divider, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -39,10 +38,6 @@ export const LeftPanel = ({
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={order.product?.skuByClient} />
         </div>
       </div>
-
-      <Button className={classNames.documentsButton} variant="outlined" endIcon={<CloudUploadIcon fontSize="small" />}>
-        {t(TranslationKey.Documents)}
-      </Button>
 
       <ProductParameters
         isCanChange={isCanChange}

@@ -36,22 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
   },
 
-  documentsButton: {
-    border: '1px solid #e0e0e0',
-    borderRadius: '4px',
-    padding: '10px 15px',
-    cursor: 'pointer',
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '19px',
-    textTransform: 'none',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '30px 0 ',
-  },
-
   divider: {
     margin: '10px 0',
   },

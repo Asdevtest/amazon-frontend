@@ -113,6 +113,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
+        sortingMode="client"
+        paginationMode="client"
         filterModel={filterModel}
         paginationModel={paginationModel}
         rows={currentData}

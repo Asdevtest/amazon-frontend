@@ -80,6 +80,8 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
+        sortingMode="client"
+        paginationMode="client"
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
