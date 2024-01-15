@@ -24,6 +24,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   slideTransition: {
+    textAlign: 'center',
     animation: `${fadeOut} 0.3s ease-in-out`,
   },
 

@@ -1,14 +1,16 @@
 import { FC, memo, useEffect, useState } from 'react'
 
-import { OrderStatusTranslate, getOrderStatusByCode, orderColorByStatus } from '@constants/orders/order-status'
+import { OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 
 import { toFixed } from '@utils/text'
+
+import { OrderStatus } from '@typings/enums/order'
 
 import { useStyles } from './status-progress-bar.style'
 
 import { CheckIcon } from '../svg-icons'
 
-import { OPACITY_TO_NEXT_ELEMENT, PERCENT_COMLETE } from './status-progress-bar.constants'
+import { MAX_LENGTH_LONG_STATUS, OPACITY_TO_NEXT_ELEMENT, PERCENT_COMLETE } from './status-progress-bar.constants'
 
 interface IElementWithKey {
   element: JSX.Element
@@ -21,7 +23,7 @@ interface IOrderStatus {
 }
 
 interface StatusProgressBarProps {
-  currentStatus: number
+  currentStatus: OrderStatus
   trackedStatuses: IOrderStatus[]
   negativeTrackedStatuses?: IOrderStatus[]
   wrapperClassName?: string
@@ -61,9 +63,9 @@ export const StatusProgressBar: FC<StatusProgressBarProps> = memo(props => {
     isNegativeCurrentStatus ? PERCENT_COMLETE : ((currentStatusIndex + 1) / trackedStatuses.length) * PERCENT_COMLETE,
     1,
   )
-  const currentStatusColor = orderColorByStatus(getOrderStatusByCode(currentStatus))
-  const currentStatusText = OrderStatusTranslate(getOrderStatusByCode(currentStatus))
-  const longCurrentStatusText = currentStatusText && currentStatusText.length > 30 ? currentStatusText : ''
+  const currentStatusColor = orderColorByStatus(OrderStatus[currentStatus])
+  const currentStatusText = OrderStatusTranslate(OrderStatus[currentStatus])
+  const longCurrentStatusText = currentStatusText?.length > MAX_LENGTH_LONG_STATUS ? currentStatusText : ''
 
   const getProgressBarColor = (statusIndex: number): string =>
     statusIndex <= currentStatusIndex || isNegativeCurrentStatus ? currentStatusColor : 'none'

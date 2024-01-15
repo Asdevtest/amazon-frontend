@@ -10,7 +10,7 @@ import { IPlatformSettings } from '@typings/patform-settings'
 import { useStyles } from './my-order-modal.style'
 
 import { Footer, Header, Tabs } from './components'
-import { SwitcherConditions } from './components/tabs/tabs.type'
+import { MyOrderModalSwitcherConditions } from './components/tabs/tabs.type'
 import { IOrderWithAdditionalFields } from './my-order-modal.type'
 
 interface MyOrderModalProps {
@@ -21,7 +21,7 @@ interface MyOrderModalProps {
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
   onClickOpenNewTab: (id: string) => void
-  switcherCondition: SwitcherConditions
+  switcherCondition: MyOrderModalSwitcherConditions
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   onClickChangeCondition: () => void

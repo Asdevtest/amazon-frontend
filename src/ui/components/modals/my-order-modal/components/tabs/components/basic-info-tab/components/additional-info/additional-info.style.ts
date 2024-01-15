@@ -85,6 +85,7 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 6,
     opacity: 1,
     transition: '.3s ease-in-out',
+    cursor: 'text',
 
     '&:focus': {
       border: `1px solid ${theme.palette.primary.main}`,
@@ -92,10 +93,15 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       opacity: 0.5,
+      cursor: 'auto',
     },
 
     '&:invalid': {
       border: `1px solid ${theme.palette.text.red}`,
+    },
+
+    '&::-webkit-calendar-picker-indicator': {
+      cursor: 'pointer',
     },
   },
 }))

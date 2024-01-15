@@ -2,9 +2,9 @@ import { FC, memo } from 'react'
 
 import { ArrowDownIcon, ArrowUpIcon } from '@components/shared/svg-icons'
 
-import { useStyles } from './arrow.style'
+import { Arrows, ArrowsType } from '@typings/arrow'
 
-import { Arrows, ArrowsType } from './arrows.type'
+import { useStyles } from './arrow.style'
 
 interface ArrowProps {
   direction: string

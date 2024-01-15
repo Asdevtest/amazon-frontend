@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentCard: {
-    gap: 0,
+    gap: 8,
   },
 
   field: {
@@ -42,13 +42,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentEditor: {
-    minHeight: 64,
-    height: '64px !important',
+    minHeight: 48,
+    height: '48px !important',
     fontSize: 12,
     lineHeight: '16px',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 4,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -70,9 +70,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonContainer: {
-    height: 16,
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+
+  button: {
+    height: 16,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
   },
 
   link: {
@@ -83,5 +89,10 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       opacity: 0.8,
     },
+  },
+
+  pencilIcon: {
+    height: '16px !important',
+    width: '16px !important',
   },
 }))

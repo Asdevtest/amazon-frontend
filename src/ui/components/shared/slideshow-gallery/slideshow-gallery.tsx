@@ -16,7 +16,6 @@ interface SlideshowGalleryProps {
   hiddenPreviews?: boolean
   leftPreviews?: boolean
   customGapBetweenSlideAndPreviews?: number
-
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void

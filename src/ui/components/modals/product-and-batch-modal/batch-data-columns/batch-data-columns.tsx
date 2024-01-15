@@ -12,11 +12,7 @@ import {
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-interface IBatchColumnRowHandler {
-  (guid: string): void
-}
-
-export const batchDataColumns = (rowHandler: IBatchColumnRowHandler) => [
+export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
   {
     field: 'id',
     headerName: t(TranslationKey['Batch number']),
@@ -92,7 +88,7 @@ export const batchDataColumns = (rowHandler: IBatchColumnRowHandler) => [
     renderCell: (params: GridRenderCellParams) => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => rowHandler(params.row._id)}
+        onClickOkBtn={() => handleOpenBatchModal(params.row._id)}
       />
     ),
     filterable: false,

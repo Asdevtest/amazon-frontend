@@ -66,7 +66,9 @@ export const boxesToOrderColumn = (
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <FilesCell filesLength={row.images.length} onClickCell={() => onClickFilesCell(row.images)} />
+    ),
     filterable: false,
     sortable: false,
     width: 100,
@@ -76,9 +78,14 @@ export const boxesToOrderColumn = (
   {
     field: 'quantity',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell text={`${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`} />
-    ),
+    renderCell: ({ row }: GridRowModel) => {
+      const totalQuantityText =
+        row.amount > 1
+          ? `${row.amount} x ${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
+          : `${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
+
+      return <MultilineTextCell text={totalQuantityText} />
+    },
     filterable: false,
     sortable: false,
     width: 100,

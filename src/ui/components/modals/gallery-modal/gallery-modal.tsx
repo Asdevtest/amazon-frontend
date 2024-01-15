@@ -30,7 +30,7 @@ export const GalleryModal: FC<GalleryModalProps> = memo(props => {
 
     visibleSlides,
 
-    currentSlideIndex,
+    currentPage,
     totalSlides,
 
     isTransitioning,
@@ -61,7 +61,7 @@ export const GalleryModal: FC<GalleryModalProps> = memo(props => {
         </TabPanel>
 
         <Arrows
-          currentPage={currentSlideIndex + 1}
+          currentPage={currentPage}
           pageСount={totalSlides}
           disableArrows={isTransitioning}
           setIsTransitioning={setIsTransitioning}

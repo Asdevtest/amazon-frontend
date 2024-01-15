@@ -11,14 +11,14 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
+    gap: 0,
   },
 
   status: {
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 600,
-    maxWidth: 280,
+    maxWidth: 260,
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 1,

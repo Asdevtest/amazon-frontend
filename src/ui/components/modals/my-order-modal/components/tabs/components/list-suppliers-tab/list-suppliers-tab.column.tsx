@@ -128,7 +128,9 @@ export const suppliersOrderColumn = (
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} onClickCell={onClickFilesCell} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <FilesCell filesLength={row.images.length} onClickCell={() => onClickFilesCell(row.images)} />
+    ),
     filterable: false,
     sortable: false,
     width: 80,

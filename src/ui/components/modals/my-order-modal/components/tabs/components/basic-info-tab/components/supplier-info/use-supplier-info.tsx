@@ -98,7 +98,9 @@ export const useSupplierInfo = ({
     },
     {
       title: t(TranslationKey['Production time']),
-      text: String(formFields?.orderSupplier?.productionTerm) || t(TranslationKey['No data']),
+      text: formFields?.orderSupplier?.productionTerm
+        ? String(formFields?.orderSupplier?.productionTerm)
+        : t(TranslationKey['No data']),
       element: undefined,
     },
     {

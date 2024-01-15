@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { Card } from '@components/modals/my-order-modal/components'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { Pencil } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -27,6 +28,7 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
         <div className={styles.cardsWrapper}>
           {commentsConfig.map((item, index) => {
             const showViewMoreButton = item.text || (props.isOrderEditable && item.isEditable)
+            const showPencilIcon = props.isOrderEditable && item.isEditable
 
             return (
               <Card key={index} wrapperClassName={styles.commentCard}>
@@ -43,8 +45,12 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
 
                 <div className={styles.buttonContainer}>
                   {showViewMoreButton && (
-                    <button className={cx(styles.commentText, styles.link)} onClick={() => onChangeCommentState(item)}>
+                    <button
+                      className={cx(styles.button, styles.commentText, styles.link)}
+                      onClick={() => onChangeCommentState(item)}
+                    >
                       {t(TranslationKey['View more'])}
+                      {showPencilIcon ? <Pencil className={styles.pencilIcon} /> : null}
                     </button>
                   )}
                 </div>

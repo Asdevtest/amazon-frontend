@@ -8,7 +8,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
-import { ProductAndBatchModal } from '@components/modals/prodct-and-batch-modal/product-and-batch.modal'
+import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
@@ -128,8 +128,8 @@ export const ClientOrdersView = observer(history => {
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
-          changeSwitcher={viewModel.onClickAboutSwitcherField}
-          currentSwitch={viewModel.aboutProductSwitcher}
+          changeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
           getCurrentBatch={viewModel.getCurrBatch}
           currentBatch={viewModel.currentBatch}
@@ -202,13 +202,13 @@ export const ClientOrdersView = observer(history => {
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           platformSettings={viewModel.platformSettings}
-          switcherCondition={viewModel.switcherCondition}
+          switcherCondition={viewModel.myOrderModalSwitcherCondition}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           openModal={viewModel.showMyOrderModal}
           onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
           onClickOpenNewTab={viewModel.onClickOpenNewTab}
-          onClickChangeCondition={viewModel.onClickChangeCondition}
+          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
           onClickCancelOrder={viewModel.onClickCancelOrder}
           onClickReorder={viewModel.onClickReorder}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}

@@ -1,5 +1,6 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
+import { Arrows, ArrowsType } from '@typings/arrow'
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './previews.style'
@@ -12,7 +13,6 @@ import {
 } from '../../slideshow-gallery.constants'
 
 import { Arrow } from './arrow'
-import { Arrows, ArrowsType } from './arrow/arrows.type'
 import { Slides } from './slides'
 
 interface PreviewsProps {
@@ -53,8 +53,6 @@ export const Previews: FC<PreviewsProps> = memo(props => {
       setIsTransitioning(false)
     }, DEFAULT_ANIMATION_DELAY)
   }
-
-  console.log(isTransitioning, currentMediaFileIndex)
 
   const isDisableArrowDown = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === mediaFiles.length - 1
   const isDisableArrowUp = mediaFiles.length <= MIN_FILES_IN_ARRAY || currentMediaFileIndex === FIRST_SLIDE

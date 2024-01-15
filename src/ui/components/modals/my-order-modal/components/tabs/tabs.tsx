@@ -12,7 +12,7 @@ import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-mo
 
 import { BasicInfoTab, BoxesToOrderTab, ListSuppliersTab } from './components'
 import { customSwitcherSettings } from './tabs.config'
-import { SwitcherConditions } from './tabs.type'
+import { MyOrderModalSwitcherConditions } from './tabs.type'
 
 interface TabsProps {
   isOrderEditable: boolean
@@ -20,7 +20,7 @@ interface TabsProps {
   destinations: IDestination[]
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
-  switcherCondition: SwitcherConditions
+  switcherCondition: MyOrderModalSwitcherConditions
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
@@ -57,7 +57,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
         changeConditionHandler={onClickChangeCondition}
       />
 
-      <TabPanel value={switcherCondition} index={SwitcherConditions.BASIC_INFORMATION}>
+      <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BASIC_INFORMATION}>
         <BasicInfoTab
           isOrderEditable={isOrderEditable}
           isClient={isClient}
@@ -71,11 +71,11 @@ export const Tabs: FC<TabsProps> = memo(props => {
         />
       </TabPanel>
 
-      <TabPanel value={switcherCondition} index={SwitcherConditions.LIST_O_FSUPPLIERS}>
+      <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.LIST_O_FSUPPLIERS}>
         <ListSuppliersTab formFields={formFields} storekeepers={storekeepers} platformSettings={platformSettings} />
       </TabPanel>
 
-      <TabPanel value={switcherCondition} index={SwitcherConditions.BOXES_TO_ORDER}>
+      <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BOXES_TO_ORDER}>
         <BoxesToOrderTab formFields={formFields} platformSettings={platformSettings} />
       </TabPanel>
     </div>

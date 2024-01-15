@@ -15,8 +15,8 @@ import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { AboutProductSwitcher } from '@components/modals/about-product-modal/about-product-switcher'
-import { SwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
+import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
+import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
@@ -52,12 +52,13 @@ export class ClientOrdersViewModel {
   showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
-  productBatches = undefined
+  productBatches = []
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
   showWarningInfoModal = false
 
-  switcherCondition = SwitcherConditions.BASIC_INFORMATION
+  myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
+  productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
 
   existingProducts = []
   shopsData = []
@@ -99,7 +100,6 @@ export class ClientOrdersViewModel {
   rowCount = 0
   startFilterModel = undefined
   currentBatch = undefined
-  aboutProductSwitcher = AboutProductSwitcher.ORDER_INFORMATION
   sortModel = []
   activeProductGuid = undefined
   filterModel = { items: [] }
@@ -792,7 +792,7 @@ export class ClientOrdersViewModel {
     this.onTriggerOpenModal('showMyOrderModal')
 
     if (this.showMyOrderModal) {
-      this.switcherCondition = SwitcherConditions.BASIC_INFORMATION
+      this.myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
     }
   }
 
@@ -811,10 +811,10 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onClickAboutSwitcherField(field) {
-    this.aboutProductSwitcher = field
+  onClickChangeProductAndBatchModalCondition(value) {
+    this.productAndBatchModalSwitcherCondition = value
 
-    if (field === AboutProductSwitcher.BATCH_DATA) {
+    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
       this.getBatches()
     }
   }
@@ -839,8 +839,8 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onClickChangeCondition(value) {
-    this.switcherCondition = value
+  onClickChangeMyOrderModalCondition(value) {
+    this.myOrderModalSwitcherCondition = value
   }
 
   async getDestinations() {
@@ -932,8 +932,6 @@ export class ClientOrdersViewModel {
         undefined,
         true,
       )
-
-      console.log('dataToRequest', dataToRequest)
 
       await OrderModel.changeOrderData(this.order._id, dataToRequest)
 

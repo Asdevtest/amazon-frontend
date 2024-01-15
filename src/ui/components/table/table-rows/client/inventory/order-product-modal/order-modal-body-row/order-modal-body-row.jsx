@@ -292,7 +292,7 @@ export const OrderModalBodyRow = ({
           <AsinOrSkuLink
             withCopyValue
             withAttributeTitle="asin"
-            kink={item?.asin}
+            link={item?.asin}
             textStyles={classNames.standartText}
           />
           <AsinOrSkuLink

@@ -2,13 +2,13 @@ import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
+import { Arrows, ArrowsType } from '@typings/arrow'
 import { IUploadFile } from '@typings/upload-file'
 
 import { useStyles } from './slider.style'
 
 import { Arrow, NoSlide, Slides } from './components'
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
-import { Arrows, ArrowsType } from './slider.type'
 
 interface SliderProps {
   slides: Array<string | IUploadFile>

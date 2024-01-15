@@ -86,7 +86,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         />
 
         <div className={styles.body}>
-          {photosTitles?.[mediaFileIndex] && <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p>}
+          {photosTitles?.[mediaFileIndex] ? <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p> : null}
 
           <Slider
             controls

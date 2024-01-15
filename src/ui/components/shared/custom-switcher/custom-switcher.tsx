@@ -13,7 +13,7 @@ export interface ISwitcherSettings {
 
 interface CustomSwitcherProps {
   fullWidth?: boolean
-  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header' | 'circle'
+  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
   condition: string | number | null | undefined
   customCondition?: (vale: string | number | null | undefined | Object) => boolean

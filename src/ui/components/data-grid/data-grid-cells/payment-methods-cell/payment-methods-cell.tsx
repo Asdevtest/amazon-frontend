@@ -18,10 +18,10 @@ export const PaymentMethodsCell: FC<PaymentMethodsCellProps> = memo(({ paymentMe
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.paymentMethods} onClick={onClickCell && onClickCell}>
-      {paymentMethods?.length
+    <div className={styles.paymentMethods} onClick={onClickCell ? onClickCell : undefined}>
+      {paymentMethods?.length > 0
         ? paymentMethods.map(paymentMethod => (
-            <div key={paymentMethod?.title} className={styles.paymentMethod}>
+            <div key={paymentMethod?._id} className={styles.paymentMethod}>
               <img
                 src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
                 alt={paymentMethod?.title}

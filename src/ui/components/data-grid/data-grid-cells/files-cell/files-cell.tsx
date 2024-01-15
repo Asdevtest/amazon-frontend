@@ -6,22 +6,20 @@ import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
-
 import { useStyles } from './files-cell.style'
 
 interface FilesCellProps {
-  files: Array<string | IUploadFile>
-  onClickCell?: (files: Array<string | IUploadFile>) => void
+  filesLength: number
+  onClickCell: () => void
 }
 
-export const FilesCell: FC<FilesCellProps> = memo(({ files, onClickCell }) => {
+export const FilesCell: FC<FilesCellProps> = memo(({ filesLength, onClickCell }) => {
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      {files?.length > 0 ? (
-        <button className={styles.visibilityButton} onClick={() => (onClickCell ? onClickCell(files) : undefined)}>
+      {filesLength > 0 ? (
+        <button className={styles.visibilityButton} onClick={onClickCell}>
           <EyeIcon className={styles.visibilityIcon} />
         </button>
       ) : (

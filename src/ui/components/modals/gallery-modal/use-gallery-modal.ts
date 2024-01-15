@@ -4,7 +4,7 @@ import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/
 
 import { IUploadFile } from '@typings/upload-file'
 
-import { VISIBLE_FILES_COUNT, VISIBLE_MEDIA_FILES_COUNT } from './gallery-modal.constants'
+import { DIFFERENCE_BETWEEN_INDEXES, VISIBLE_FILES_COUNT, VISIBLE_MEDIA_FILES_COUNT } from './gallery-modal.constants'
 import { SwitcherConditions } from './gallery-modal.type'
 
 export const useGalleryModal = (files: Array<string | IUploadFile>) => {
@@ -41,7 +41,7 @@ export const useGalleryModal = (files: Array<string | IUploadFile>) => {
 
     visibleSlides,
 
-    currentSlideIndex,
+    currentPage: currentSlideIndex + DIFFERENCE_BETWEEN_INDEXES,
     totalSlides,
 
     isTransitioning,

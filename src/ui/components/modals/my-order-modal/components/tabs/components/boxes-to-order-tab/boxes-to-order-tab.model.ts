@@ -30,7 +30,7 @@ interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
 }
 
 export class BoxesToOrderTabModel {
-  requestStatus: loadingStatuses | undefined = undefined
+  requestStatus: loadingStatuses = loadingStatuses.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
 
   order: IOrderWithAdditionalFields | undefined = undefined

@@ -37,10 +37,7 @@ export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitionin
               <div className={styles.file}>
                 <CustomFileIcon fileExtension={fileExtension} />
 
-                <div>
-                  <span className={styles.fileName}>{fileName}</span>
-                  <p></p>
-                </div>
+                <p className={styles.fileName}>{fileName}</p>
               </div>
 
               <div className={styles.icons}>

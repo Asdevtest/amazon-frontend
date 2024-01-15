@@ -116,8 +116,14 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         <ActionButtons
           firstButtonText={t(TranslationKey['Repeat order'])}
           secondButtonText={t(TranslationKey['Warehouse and orders'])}
-          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
-          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+          onClickFirstButton={e => {
+            e.stopPropagation()
+            rowHandlers.onClickReorder(params.row.originalData, false)
+          }}
+          onClickSecondButton={e => {
+            e.stopPropagation()
+            rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)
+          }}
         />
       ) : (
         <SuccessActionBtnCell

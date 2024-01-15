@@ -1,4 +1,3 @@
-import { OrderStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
@@ -7,6 +6,8 @@ import { CalendarIcon, DiagramIcon, DollarIcon, SandglassIcon } from '@component
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { OrderStatus } from '@typings/enums/order'
 
 interface IInfoItem {
   icon: JSX.Element
@@ -43,18 +44,21 @@ export const getInfoItems = (formFields: IOrderWithAdditionalFields, blueBackgro
 ]
 
 export const trackedOrderStatuses: IOrderStatus[] = [
-  { status: OrderStatus.READY_TO_PROCESS, statusCode: 10 },
-  { status: OrderStatus.AT_PROCESS, statusCode: 15 },
-  { status: OrderStatus.READY_FOR_PAYMENT, statusCode: 16 },
-  { status: OrderStatus.PARTIALLY_PAID, statusCode: 17 },
-  { status: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE, statusCode: 19 },
-  { status: OrderStatus.PAID_TO_SUPPLIER, statusCode: 20 },
-  { status: OrderStatus.TRACK_NUMBER_ISSUED, statusCode: 25 },
-  { status: OrderStatus.VERIFY_RECEIPT, statusCode: 27 },
-  { status: OrderStatus.IN_STOCK, statusCode: 30 },
+  { status: OrderStatus[OrderStatus.READY_TO_PROCESS], statusCode: OrderStatus.READY_TO_PROCESS },
+  { status: OrderStatus[OrderStatus.AT_PROCESS], statusCode: OrderStatus.AT_PROCESS },
+  { status: OrderStatus[OrderStatus.READY_FOR_PAYMENT], statusCode: OrderStatus.READY_FOR_PAYMENT },
+  { status: OrderStatus[OrderStatus.PARTIALLY_PAID], statusCode: OrderStatus.PARTIALLY_PAID },
+  {
+    status: OrderStatus[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+    statusCode: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+  },
+  { status: OrderStatus[OrderStatus.PAID_TO_SUPPLIER], statusCode: OrderStatus.PAID_TO_SUPPLIER },
+  { status: OrderStatus[OrderStatus.TRACK_NUMBER_ISSUED], statusCode: OrderStatus.TRACK_NUMBER_ISSUED },
+  { status: OrderStatus[OrderStatus.VERIFY_RECEIPT], statusCode: OrderStatus.VERIFY_RECEIPT },
+  { status: OrderStatus[OrderStatus.IN_STOCK], statusCode: OrderStatus.IN_STOCK },
 ]
 
 export const negativeTrackedOrderStatuses: IOrderStatus[] = [
-  { status: OrderStatus.CANCELED_BY_BUYER, statusCode: 35 },
-  { status: OrderStatus.CANCELED_BY_CLIENT, statusCode: 40 },
+  { status: OrderStatus[OrderStatus.CANCELED_BY_BUYER], statusCode: OrderStatus.CANCELED_BY_BUYER },
+  { status: OrderStatus[OrderStatus.CANCELED_BY_CLIENT], statusCode: OrderStatus.CANCELED_BY_CLIENT },
 ]

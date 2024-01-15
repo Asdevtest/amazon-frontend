@@ -87,6 +87,8 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey['Partially paid'])
     case OrderStatus.SHIPPED:
       return t(TranslationKey.Shipped)
+    default:
+      return TranslationKey['No status']
   }
 }
 
@@ -276,7 +278,3 @@ export const OrderStatusText = ({ className, status, isClient }) => {
 
 export const getOrderStatusOptionByCode = statusCode =>
   ORDER_STATUS_OPTIONS.find(statusOption => statusOption.key === OrderStatusByCode[statusCode])
-
-export const getOrderStatusByCode = status => {
-  return OrderStatusByCode[status]
-}

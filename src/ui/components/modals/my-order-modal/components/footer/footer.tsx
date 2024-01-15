@@ -40,7 +40,7 @@ export const Footer: FC<FooterProps> = memo(props => {
   const showCancelButton = showButtons || formFields?.status === OrderStatus.READY_TO_PROCESS
   const showToOrderButton = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const isPendingOrder = formFields?.status > OrderStatus.READY_FOR_BUYOUT
-  const disabledSaveSubmit = (!!formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount
+  const disabledSaveSubmit = (formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount
 
   return (
     <div className={styles.footer}>
