@@ -48,6 +48,8 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
+            sortingMode="client"
+            paginationMode="client"
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.currentData}

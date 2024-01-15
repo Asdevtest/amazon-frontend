@@ -77,6 +77,8 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
+            sortingMode="client"
+            paginationMode="client"
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 'auto'}
             slotProps={{

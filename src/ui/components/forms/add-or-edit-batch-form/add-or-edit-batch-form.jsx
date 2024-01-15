@@ -485,6 +485,8 @@ export const AddOrEditBatchForm = observer(
 
             <CustomDataGrid
               checkboxSelection
+              sortingMode="client"
+              paginationMode="client"
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
@@ -583,6 +585,8 @@ export const AddOrEditBatchForm = observer(
             <CustomDataGrid
               checkboxSelection
               localeText={getLocalizationByLanguageTag()}
+              sortingMode="client"
+              paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               slotProps={{

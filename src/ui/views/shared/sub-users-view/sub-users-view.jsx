@@ -64,6 +64,8 @@ export const SubUsersView = observer(props => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          sortingMode="client"
+          paginationMode="client"
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}

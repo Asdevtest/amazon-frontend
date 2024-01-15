@@ -110,6 +110,8 @@ export const LogisticsTariffs = observer(() => {
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
+        sortingMode="client"
+        paginationMode="client"
         filterModel={filterModel}
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}

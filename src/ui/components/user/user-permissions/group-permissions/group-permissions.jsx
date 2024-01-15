@@ -67,6 +67,8 @@ export const GroupPermissions = observer(() => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={sortModel}
           filterModel={filterModel}
+          sortingMode="client"
+          paginationMode="client"
           columnVisibilityModel={columnVisibilityModel}
           paginationModel={paginationModel}
           rows={getCurrentData()}
