@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,56 +9,58 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './finances-view.style'
+import { useStyles } from './finances-view.style'
 
 import { FinancesViewModel } from './finances-view.model'
 
-export const FinancesViewRaw = props => {
+export const FinancesView = observer(props => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new FinancesViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const getRowClassName = params => (params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow)
+  const getRowClassName = params => (params.row.sum < 0 ? styles.redRow : params.row.sum > 0 && styles.greenRow)
 
   return (
-    <React.Fragment>
-      <div className={classNames.tableWrapper}>
-        <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          getRowClassName={getRowClassName}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
-          rowHeight={75}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+    <div className={styles.tableWrapper}>
+      <CustomDataGrid
+        useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
+        getRowClassName={getRowClassName}
+        sortModel={viewModel.sortModel}
+        sortingMode="client"
+        paginationMode="client"
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.getCurrentData()}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              isSomeFilterOn: viewModel.isSomeFilterOn,
+              onClickResetFilters: viewModel.onClickResetFilters,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
-        />
-      </div>
-    </React.Fragment>
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onChangePaginationModelChange}
+      />
+    </div>
   )
-}
-
-export const FinancesView = withStyles(observer(FinancesViewRaw), styles)
+})

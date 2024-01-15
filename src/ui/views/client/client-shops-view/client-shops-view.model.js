@@ -28,7 +28,7 @@ export class ShopsViewModel extends DataGridTableModel {
   showWarningModal = false
   showConfirmModal = false
 
-  constructor({ history }) {
+  constructor() {
     const rowHandlers = {
       onClickRemoveBtn: row => this.onClickRemoveBtn(row),
       onClickEditBtn: row => this.onClickEditBtn(row),
@@ -36,7 +36,9 @@ export class ShopsViewModel extends DataGridTableModel {
       onClickSeeShopReport: (currentReport, row) => this.onClickSeeShopReport(currentReport, row),
     }
 
-    super(ShopModel.getMyShops, shopsColumns(rowHandlers), history)
+    super(ShopModel.getMyShops, shopsColumns(rowHandlers))
+
+    this.getMainTableData()
 
     makeObservable(this, observerConfig)
   }
@@ -44,7 +46,7 @@ export class ShopsViewModel extends DataGridTableModel {
   async updateShops() {
     try {
       this.requestStatus = loadingStatuses.IS_LOADING
-      await ClientModel.updateShops(this.rowSelectionModel)
+      await ClientModel.updateShops(this.selectedRows)
 
       this.requestStatus = loadingStatuses.SUCCESS
 

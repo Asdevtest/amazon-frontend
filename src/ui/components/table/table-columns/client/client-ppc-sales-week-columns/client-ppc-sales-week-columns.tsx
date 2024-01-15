@@ -45,9 +45,9 @@ export const clientPPCSalesWeekColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
     renderCell: (params: GridRenderCellParams) => (
-      <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
+      <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
     ),
-    width: 185,
+    width: 250,
     sortable: false,
 
     table: DataGridFilterTables.PPC_SALES_WEEKS,

@@ -141,7 +141,7 @@ export const BoxItemCard = ({
 
             <div>
               <div className={classNames.chipWrapper}>
-                {window.innerWidth > 1281 && item.barCode && (
+                {window.innerWidth > 1281 && item?.transparencyFile && (
                   <div
                     className={cx(classNames.barCodeActionsWrapper, {
                       [classNames.successAccent]:
@@ -285,11 +285,15 @@ export const BoxItemCard = ({
 
               {window.innerWidth > 1281 && (
                 <>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
-                    <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
-                    {box.prepId ? <CopyValue text={box.prepId} /> : null}
-                  </div>
+                  {taskType !== TaskOperationType.RECEIVE && (
+                    <div className={classNames.asinWrapper}>
+                      <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
+                      <Typography className={classNames.asinTitle}>
+                        {box.prepId || t(TranslationKey.Missing)}
+                      </Typography>
+                      {box.prepId ? <CopyValue text={box.prepId} /> : null}
+                    </div>
+                  )}
                   <div className={classNames.copyValueWrapper}>
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>

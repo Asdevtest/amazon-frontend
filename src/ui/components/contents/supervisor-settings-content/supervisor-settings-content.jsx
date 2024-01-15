@@ -114,6 +114,8 @@ export const SupervisorSettingsContent = observer(() => {
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
             rows={getCurrentData()}
+            sortingMode="client"
+            paginationMode="client"
             getRowId={row => row._id}
             rowHeight={120}
             slotProps={{

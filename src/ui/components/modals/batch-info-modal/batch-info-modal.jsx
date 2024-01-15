@@ -62,7 +62,6 @@ export const BatchInfoModal = observer(
         }),
     )
     const { classes: classNames } = useClassNames()
-
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
@@ -349,6 +348,8 @@ export const BatchInfoModal = observer(
             <CustomDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
+              sortingMode="client"
+              paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               slotProps={{

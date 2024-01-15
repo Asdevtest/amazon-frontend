@@ -122,3 +122,23 @@ export const createProductByClient = [
   'suppliersIds',
   'tags',
 ]
+
+export const createOrderRequestWhiteList = [
+  'storekeeperId',
+  'buyerId',
+  'transparencyFile',
+  'item',
+  'logicsTariffId',
+  'variationTariffId',
+  'priority',
+  'destinationId',
+  'amount',
+  'deliveryCostToTheWarehouse',
+  'clientComment',
+  'productId',
+  'images',
+  'expressChinaDelivery',
+  'needsResearch',
+  'deadline',
+  'totalPrice',
+]

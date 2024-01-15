@@ -20,10 +20,15 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 400,
     color: theme.palette.text.second,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
 
   confirmationWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    height: '21px',
   },
 
   doneIcon: {
@@ -38,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.background.general,
     borderRadius: 7,
     padding: 20,
-    height: 171,
+    height: 180,
   },
 
   blockInfoWrapper: {

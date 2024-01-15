@@ -35,11 +35,13 @@ class UserModelStatic {
 
   async signOut() {
     await this.logout()
-    this.accessToken = undefined
-    this.refreshToken = undefined
-    this.userInfo = undefined
-    this.userId = undefined
-    this.masterUserId = undefined
+    runInAction(() => {
+      this.accessToken = undefined
+      this.refreshToken = undefined
+      this.userInfo = undefined
+      this.userId = undefined
+      this.masterUserId = undefined
+    })
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)

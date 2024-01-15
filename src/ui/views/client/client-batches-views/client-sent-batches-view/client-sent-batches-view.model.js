@@ -78,7 +78,7 @@ export class ClientSentBatchesViewModel {
     changeViewModeHandler: value => this.changeViewModeHandler(value),
   }
 
-  columnsModel = clientBatchesViewColumns(this.rowHandlers, () => this.productViewMode)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -394,6 +394,7 @@ export class ClientSentBatchesViewModel {
 
   changeViewModeHandler(value) {
     this.productViewMode = value
+    this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
   }
 
   // * Filtration

@@ -123,7 +123,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberBtn: {
-    width: '100%',
+    width: 'max-content',
   },
 
   trackNumberPhoto: {

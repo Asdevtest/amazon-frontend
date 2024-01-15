@@ -520,7 +520,6 @@ export class ClientProductViewModel {
           true,
         ),
       )
-
       this.getProductById()
 
       runInAction(() => {

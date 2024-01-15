@@ -2105,6 +2105,7 @@
   "expires": "истекает",
   "Close idea": "Закрыть идею",
   "Order info": "Информация о заказе",
+  "Orders info": "Информация о заказах",
   "created the idea": "создал идею",
   "changed the status of the idea": "изменил статус идеи",
   "to": "на",
@@ -2161,5 +2162,6 @@
   "Standardized": "Стандартные",
   "Additional": "Дополнительные",
   "Parameters of the table": "Параметры таблицы",
-  "Reset Settings": "Сбросить настройки"
+  "Reset Settings": "Сбросить настройки",
+  "Warehouse and orders": "Склад и заказы"
 }

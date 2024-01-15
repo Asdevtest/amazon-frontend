@@ -68,6 +68,8 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
+        sortingMode="client"
+        paginationMode="client"
         rowHeight={100}
         slotProps={{
           baseTooltip: {

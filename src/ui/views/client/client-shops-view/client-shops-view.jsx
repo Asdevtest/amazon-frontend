@@ -7,55 +7,32 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './client-shops-view.style'
 
 import { ShopsViewModel } from './client-shops-view.model'
+import { Header } from './header/header'
 
-export const ClientShopsView = observer(props => {
+export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(
-    () =>
-      new ShopsViewModel({
-        history: props.history,
-      }),
-  )
+  const [viewModel] = useState(() => new ShopsViewModel())
+  viewModel.initHistory()
 
   return (
     <>
-      <div className={styles.headerWrapper}>
-        <div className={styles.buttonsWrapper}>
-          <Button
-            tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
-            onClick={viewModel.onClickAddBtn}
-          >
-            {t(TranslationKey['Add shop'])}
-          </Button>
-
-          <Button
-            disabled={!viewModel.selectedRows.length || viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            onClick={viewModel.updateShops}
-          >
-            {t(TranslationKey.Update)}
-          </Button>
-        </div>
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}`}
-          value={viewModel.unserverSearchValue}
-          onChange={viewModel.onChangeUnserverSearchValue}
-        />
-
-        <div />
-      </div>
+      <Header
+        requestStatus={viewModel.requestStatus}
+        unserverSearchValue={viewModel.unserverSearchValue}
+        selectedRows={viewModel.selectedRows}
+        updateShops={viewModel.updateShops}
+        onClickAddBtn={viewModel.onClickAddBtn}
+        onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
+      />
 
       <div className={styles.tabledWrapper}>
         <CustomDataGrid
@@ -79,7 +56,8 @@ export const ClientShopsView = observer(props => {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                onColumnVisibilityModelChange: (model, details) =>
+                  viewModel.onColumnVisibilityModelChange(model, details, true),
               },
             },
           }}
@@ -88,10 +66,12 @@ export const ClientShopsView = observer(props => {
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
+          onSortModelChange={(model, details) => viewModel.onChangeSortingModel(model, details, true)}
+          onColumnVisibilityModelChange={(model, details) =>
+            viewModel.onColumnVisibilityModelChange(model, details, true)
+          }
+          onPaginationModelChange={(model, details) => viewModel.onPaginationModelChange(model, details, true)}
+          onFilterModelChange={(model, details) => viewModel.onChangeFilterModel(model, details, true)}
         />
       </div>
 

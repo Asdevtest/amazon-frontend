@@ -64,6 +64,7 @@ export class ClientInventoryViewModel {
   storekeepers = []
   destinations = []
   shopsData = []
+  dataForOrderModal = []
   ideaId = ''
   isArchive = false
   batchesData = []
@@ -778,16 +779,18 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result] = await Promise.all([
+    const [storekeepers, destinations, result /* , dataForOrder */] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
       UserModel.getPlatformSettings(),
+      // ClientModel.getProductsInfoForOrders(this.selectedRowIds.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
       this.platformSettings = result
+      // this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -977,16 +980,13 @@ export class ClientInventoryViewModel {
         shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
 
         purchaseQuantityAboveZero,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
         noCache: true,
       })
-
       runInAction(() => {
         this.baseNoConvertedProducts = result
         this.rowCount = result.count

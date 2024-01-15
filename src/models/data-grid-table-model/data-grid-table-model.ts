@@ -5,6 +5,7 @@ import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 
 import {
+  GridCallbackDetails,
   GridColDef,
   GridColumnVisibilityModel,
   GridFilterModel,
@@ -17,6 +18,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
 
+import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
@@ -30,11 +32,11 @@ export class DataGridTableModel extends ModalsModel {
     this._unserverSearchValue = unserverSearchValue
   }
 
-  _rowCount = 0
-  _sortModel: GridSortModel = [{ field: '', sort: 'desc' }]
   _densityModel = 'compact'
-  _paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
-  _filterModel: GridFilterModel = { items: [] }
+  _rowCount = 0
+  _sortModel: GridSortModel = sortModelInitialValue
+  _paginationModel: GridPaginationModel = paginationModelInitialValue
+  _filterModel: GridFilterModel = filterModelInitialValue
   _columnVisibilityModel: GridColumnVisibilityModel = {}
   _selectedRows: string[] = []
   _tableKey: string | undefined = undefined
@@ -161,9 +163,11 @@ export class DataGridTableModel extends ModalsModel {
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.columnVisibilityModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
@@ -171,21 +175,28 @@ export class DataGridTableModel extends ModalsModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeSortingModel(sortModel: GridSortModel) {
+  onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.sortModel = sortModel
-    this.getMainTableData()
+
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
-  onChangeFilterModel(model: GridFilterModel) {
+  onChangeFilterModel(model: GridFilterModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.filterModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 
-  onPaginationModelChange(model: GridPaginationModel) {
+  onPaginationModelChange(model: GridPaginationModel, details: GridCallbackDetails, isNotServer?: boolean) {
     this.paginationModel = model
-    this.getMainTableData()
+    if (!isNotServer) {
+      this.getMainTableData()
+    }
     this.setDataGridState()
   }
 

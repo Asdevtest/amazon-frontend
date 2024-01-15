@@ -9,7 +9,9 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     padding: '10px 0',
   },
-
+  withoutPadding: {
+    padding: 0,
+  },
   fourMonthesStockLabel: {
     fontSize: '14px',
     lineHeight: '19px',

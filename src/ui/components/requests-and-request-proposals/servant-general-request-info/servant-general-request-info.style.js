@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     padding: 30,
     display: 'flex',
@@ -42,7 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
-    margin: '15px 0 35px',
   },
 
   btnsBlockWrapper: {
@@ -65,11 +64,8 @@ export const useClassNames = makeStyles()(theme => ({
   titleAndIdWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: '255px',
     gap: 5,
-
-    p: {
-      fontSize: 16,
-    },
   },
 
   title: {
@@ -90,17 +86,22 @@ export const useClassNames = makeStyles()(theme => ({
   idTitleWrapper: {
     display: 'flex',
     gap: 5,
+    overflow: 'hidden',
   },
 
   idText: {
-    fontSize: 18,
     lineHeight: '25px',
     color: theme.palette.text.second,
+    fontSize: 16,
   },
 
   idTextDark: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
     color: theme.palette.text.general,
     fontWeight: 600,
+    fontSize: 16,
   },
 
   standartText: {

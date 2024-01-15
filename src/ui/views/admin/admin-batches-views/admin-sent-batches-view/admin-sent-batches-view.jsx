@@ -43,6 +43,8 @@ export const AdminSentBatchesViewRaw = props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
+          sortingMode="client"
+          paginationMode="client"
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {

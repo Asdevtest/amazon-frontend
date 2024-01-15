@@ -2165,5 +2165,7 @@ export enum TranslationKey {
   'Additional' = 'Additional',
   'Parameters of the table' = 'Parameters of the table',
   'Reset Settings' = 'Reset Settings',
+  'Warehouse and orders' = 'Warehouse and orders',
+  'Orders info' = 'Orders info',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

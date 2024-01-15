@@ -69,6 +69,8 @@ export const SinglePermissions = observer(() => {
           paginationModel={paginationModel}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
+          sortingMode="client"
+          paginationMode="client"
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

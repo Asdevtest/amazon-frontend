@@ -70,7 +70,6 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = React
       {isArchive || isArchive === undefined ? (
         <Button
           danger
-          // tooltipInfoContent={isFirstRow && tooltipSecondButton}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
           onClick={() => {

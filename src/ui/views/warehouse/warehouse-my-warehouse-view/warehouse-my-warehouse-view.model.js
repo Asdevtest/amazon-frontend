@@ -1221,6 +1221,11 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
+    this.columnsModel = warehouseBoxesViewColumns(
+      this.rowHandlers,
+      () => this.userInfo,
+      () => this.unitsOption,
+    )
   }
 
   onChangeFullFieldMenuItem(value, field) {
