@@ -1,3 +1,4 @@
+export { ActionButtons } from './action-buttons-cell/action-buttons-cell'
 export { ActiveBarcodeCell } from './active-barcode-cell/active-barcode-cell'
 export { ActualCostWithDeliveryPerUnit } from './actual-cost-with-delivery-per-unit/actual-cost-with-delivery-per-unit'
 export { ActualCostWithDelivery } from './actual-cost-with-delivery/actual-cost-with-delivery'
@@ -89,6 +90,7 @@ export { SuccessActionBtnCell } from './success-action-btn-cell/success-action-b
 export { SuperboxQtyCell } from './superbox-qty-cell/superbox-qty-cell'
 export { SupplierCell } from './supplier-cell/supplier-cell'
 export { SupplierWithIconsCell } from './supplier-with-icons-cell/supplier-with-icons-cell'
+export { TableDataControlsButtonsCell } from './table-data-controls-buttons-cell/table-data-controls-buttons-cell'
 export { TagsCell } from './tags-cell/tags-cell'
 export { TaskDescriptionCell } from './task-description-cell/task-description-cell'
 export { TaskPriorityCell } from './task-priority-cell/task-priority-cell'

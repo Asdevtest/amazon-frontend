@@ -727,14 +727,14 @@ export const darkTheme = createTheme({
       secondary: 'rgb(80, 80, 80, 1)',
     },
 
-      customSwitcher: {
-        background: '#272730',
-        indicator: '#31313A',
-        text: '#5C6A7A',
-        activeText: '#4CA1DE',
-        headerBackground: '#25252D',
-        switch: '#667085',
-      },
+    customSwitcher: {
+      background: '#272730',
+      indicator: '#31313A',
+      text: '#5C6A7A',
+      activeText: '#4CA1DE',
+      headerBackground: '#25252D',
+      switch: '#667085',
+    },
 
     linearGradient: {
       successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
@@ -761,24 +761,23 @@ export const darkTheme = createTheme({
       customDisabled: '#36363F',
     },
 
-      other: {
-        rejected: '#D70D0D',
-        succes: '#0B903E',
-        tableActiveFilterBtn: '5px solid #4CA1DE',
-        ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
-        ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
-        ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
-      },
+    other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
+      tableActiveFilterBtn: '5px solid #4CA1DE',
+      ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
+      ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
+      ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+    },
 
-      fileIcons: {
-        xls: '#02AE44',
-        pdf: '#DD2121',
-        doc: '#4CA1DE',
-        txt: '#E37451',
-        zip: '#8B79F9',
-        file: '#A2ADBD',
-        icon: '#475467',
-      },
+    fileIcons: {
+      xls: '#02AE44',
+      pdf: '#DD2121',
+      doc: '#4CA1DE',
+      txt: '#E37451',
+      zip: '#8B79F9',
+      file: '#A2ADBD',
+      icon: '#475467',
     },
   },
 })

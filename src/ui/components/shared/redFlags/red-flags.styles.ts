@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useRedFlagStyles = makeStyles()(theme => ({
+export const useRedFlagStyles = makeStyles()(() => ({
   flagIcon: {
     display: 'flex',
     justifyContent: 'center',

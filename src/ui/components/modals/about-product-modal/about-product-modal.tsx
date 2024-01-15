@@ -74,8 +74,8 @@ export const AboutProductModal: FC<IAboutProductModal> = memo(props => {
                 <span className={styles.showAttributeName}>{t(TranslationKey.Shop)}:</span> {selectedProductShop.name}
               </p>
             )}
-            <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={selectedProduct.asin} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={selectedProduct.skuByClient} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} link={selectedProduct.asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} link={selectedProduct.skuByClient} />
           </div>
         </div>
         <Divider />

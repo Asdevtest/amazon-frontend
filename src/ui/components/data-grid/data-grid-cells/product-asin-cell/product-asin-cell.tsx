@@ -18,7 +18,7 @@ interface ProductAsinCellProps {
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
-  const { image, amazonTitle, asin, skuByClient, withoutImage = undefined, withoutSku, withoutAsin } = props
+  const { image, amazonTitle, asin, skuByClient, withoutImage, withoutTitle, withoutSku, withoutAsin } = props
 
   const { classes: styles } = useStyles()
 
