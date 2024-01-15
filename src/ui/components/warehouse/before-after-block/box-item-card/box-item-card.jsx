@@ -41,7 +41,7 @@ export const BoxItemCard = ({
             <div className={classNames.countWrapper}>
               <div className={classNames.countSubWrapper}>
                 <Text
-                  tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Number of products in the box'])}
+                  tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
                   className={classNames.subTitle}
                 >
                   {t(TranslationKey.Quantity) + ':'}
@@ -49,37 +49,25 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subValue}>{item.amount}</Typography>
               </div>
             </div>
-            {window.innerWidth > 1281 && superCount > 1 && (
+            {superCount > 1 && (
               <div className={classNames.countSuperBoxWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
                 <Typography className={classNames.subValue}>{`x${superCount}`}</Typography>
               </div>
             )}
 
-            {window.innerWidth > 1281 &&
-            (taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
-              (taskType === TaskOperationType.MERGE && index === 0) ||
-              (taskType === TaskOperationType.SPLIT && index === 0) ||
-              taskType === TaskOperationType.EDIT ||
-              (readOnly && taskType === TaskOperationType.RECEIVE) ||
-              (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0)) ? (
+            {taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
+            (taskType === TaskOperationType.MERGE && index === 0) ||
+            (taskType === TaskOperationType.SPLIT && index === 0) ||
+            taskType === TaskOperationType.EDIT ||
+            (readOnly && taskType === TaskOperationType.RECEIVE) ||
+            (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
               // eslint-disable-next-line react/jsx-indent
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={classNames.subValue}>{boxId}</Typography>
               </div>
             ) : null}
-            {window.innerWidth < 1282 && (
-              <div className={classNames.copyValueMainWrapper}>
-                <div className={classNames.copyValueWrapper}>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
-                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           <div className={classNames.attributeFooterWrapper}>
@@ -141,137 +129,135 @@ export const BoxItemCard = ({
 
             <div>
               <div className={classNames.chipWrapper}>
-                {window.innerWidth > 1281 && item?.transparencyFile && (
-                  <div
-                    className={cx(classNames.barCodeActionsWrapper, {
-                      [classNames.successAccent]:
-                        isNewBox &&
-                        (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
-                      [classNames.warningAccent]:
-                        isNewBox &&
-                        !item.isBarCodeAlreadyAttachedByTheSupplier &&
-                        !item.isBarCodeAttachedByTheStorekeeper,
-                    })}
-                  >
-                    {item.isBarCodeAttachedByTheStorekeeper === false && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['BarCode is glued by supplier'])}
-                        tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={!isNewBox || readOnly}
-                            color="primary"
-                            checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                            onClick={() =>
-                              onChangeBarCode(
-                                !item.isBarCodeAlreadyAttachedByTheSupplier,
-                                'isBarCodeAlreadyAttachedByTheSupplier',
-                                index,
-                              )
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                        labelClasses={classNames.label}
-                        tooltipInfoContent={t(
-                          TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                        )}
-                        inputComponent={
-                          <Checkbox
-                            disabled={!isNewBox || readOnly}
-                            color="primary"
-                            checked={item.isBarCodeAttachedByTheStorekeeper}
-                            onClick={() =>
-                              onChangeBarCode(
-                                !item.isBarCodeAttachedByTheStorekeeper,
-                                'isBarCodeAttachedByTheStorekeeper',
-                                index,
-                              )
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {item.isTransparencyFileAttachedByTheStorekeeper === false && item?.transparencyFile && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        label={t(TranslationKey['Transparency codes glued by the supplier'])}
-                        labelClasses={cx(classNames.label, classNames.redText)}
-                        inputComponent={
-                          <Checkbox
-                            color="primary"
-                            disabled={!isNewBox || readOnly}
-                            checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
-                            onChange={e =>
-                              onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {item.isTransparencyFileAlreadyAttachedByTheSupplier === false && item?.transparencyFile && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
-                        labelClasses={cx(classNames.label, classNames.redText)}
-                        inputComponent={
-                          <Checkbox
-                            color="primary"
-                            disabled={!isNewBox || readOnly}
-                            checked={item.isTransparencyFileAttachedByTheStorekeeper}
-                            onChange={e =>
-                              onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {isNewBox &&
-                      !readOnly &&
-                      boxIndex === 0 &&
-                      index === 0 &&
-                      taskType !== 'merge' &&
-                      taskType !== 'edit' && (
-                        <Field
-                          oneLine
-                          // containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['Apply to all boxes'])}
-                          tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
-                          inputComponent={
-                            <Button
-                              className={classNames.applyButton}
-                              onClick={() =>
-                                onApplyGluedBarcodeToAllBoxes(
-                                  item.isBarCodeAlreadyAttachedByTheSupplier,
-                                  item.isBarCodeAttachedByTheStorekeeper,
-                                  item.isTransparencyFileAlreadyAttachedByTheSupplier,
-                                  item.isTransparencyFileAttachedByTheStorekeeper,
-                                )
-                              }
-                            >
-                              {t(TranslationKey.Apply)}
-                            </Button>
+                <div
+                  className={cx(classNames.barCodeActionsWrapper, {
+                    [classNames.successAccent]:
+                      isNewBox &&
+                      (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
+                    [classNames.warningAccent]:
+                      isNewBox &&
+                      !item.isBarCodeAlreadyAttachedByTheSupplier &&
+                      !item.isBarCodeAttachedByTheStorekeeper,
+                  })}
+                >
+                  {item.isBarCodeAttachedByTheStorekeeper === false && (
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      labelClasses={classNames.label}
+                      label={t(TranslationKey['BarCode is glued by supplier'])}
+                      tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
+                      inputComponent={
+                        <Checkbox
+                          disabled={!isNewBox || readOnly}
+                          color="primary"
+                          checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                          onClick={() =>
+                            onChangeBarCode(
+                              !item.isBarCodeAlreadyAttachedByTheSupplier,
+                              'isBarCodeAlreadyAttachedByTheSupplier',
+                              index,
+                            )
                           }
                         />
+                      }
+                    />
+                  )}
+
+                  {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                      labelClasses={classNames.label}
+                      tooltipInfoContent={t(
+                        TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                       )}
-                  </div>
-                )}
+                      inputComponent={
+                        <Checkbox
+                          disabled={!isNewBox || readOnly}
+                          color="primary"
+                          checked={item.isBarCodeAttachedByTheStorekeeper}
+                          onClick={() =>
+                            onChangeBarCode(
+                              !item.isBarCodeAttachedByTheStorekeeper,
+                              'isBarCodeAttachedByTheStorekeeper',
+                              index,
+                            )
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {item.isTransparencyFileAttachedByTheStorekeeper === false && (
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                      labelClasses={cx(classNames.label, classNames.redText)}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          disabled={!isNewBox || readOnly}
+                          checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                          onChange={e =>
+                            onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {item.isTransparencyFileAlreadyAttachedByTheSupplier === false && (
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                      labelClasses={cx(classNames.label, classNames.redText)}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          disabled={!isNewBox || readOnly}
+                          checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                          onChange={e =>
+                            onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {isNewBox &&
+                    !readOnly &&
+                    boxIndex === 0 &&
+                    index === 0 &&
+                    taskType !== 'merge' &&
+                    taskType !== 'edit' && (
+                      <Field
+                        oneLine
+                        // containerClasses={classNames.checkboxContainer}
+                        labelClasses={classNames.label}
+                        label={t(TranslationKey['Apply to all boxes'])}
+                        tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                        inputComponent={
+                          <Button
+                            className={classNames.applyButton}
+                            onClick={() =>
+                              onApplyGluedBarcodeToAllBoxes(
+                                item.isBarCodeAlreadyAttachedByTheSupplier,
+                                item.isBarCodeAttachedByTheStorekeeper,
+                                item.isTransparencyFileAlreadyAttachedByTheSupplier,
+                                item.isTransparencyFileAttachedByTheStorekeeper,
+                              )
+                            }
+                          >
+                            {t(TranslationKey.Apply)}
+                          </Button>
+                        }
+                      />
+                    )}
+                </div>
               </div>
               {taskType === TaskOperationType.RECEIVE ? (
                 <div className={classNames.copyValueWrapper}>
@@ -283,26 +269,22 @@ export const BoxItemCard = ({
                 </div>
               ) : null}
 
-              {window.innerWidth > 1281 && (
-                <>
-                  {taskType !== TaskOperationType.RECEIVE && (
-                    <div className={classNames.asinWrapper}>
-                      <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
-                      <Typography className={classNames.asinTitle}>
-                        {box.prepId || t(TranslationKey.Missing)}
-                      </Typography>
-                      {box.prepId ? <CopyValue text={box.prepId} /> : null}
-                    </div>
-                  )}
-                  <div className={classNames.copyValueWrapper}>
-                    <div className={classNames.asinWrapper}>
-                      <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                      <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
-                      {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
-                    </div>
+              <>
+                {taskType !== TaskOperationType.RECEIVE && (
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
+                    <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
-                </>
-              )}
+                )}
+                <div className={classNames.copyValueWrapper}>
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
+                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+                  </div>
+                </div>
+              </>
 
               <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
             </div>
