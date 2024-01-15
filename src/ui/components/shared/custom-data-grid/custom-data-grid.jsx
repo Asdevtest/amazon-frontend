@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 // import { DataGrid } from '@mui/x-data-grid'
-import { DataGridPremium } from '@mui/x-data-grid-premium'
+import { DataGridPro } from '@mui/x-data-grid-pro'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -10,7 +10,7 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 export const CustomDataGrid = ({ ...restProps }) => (
-  <DataGridPremium
+  <DataGridPro
     key={SettingsModel.languageTag}
     pagination
     hideFooter
