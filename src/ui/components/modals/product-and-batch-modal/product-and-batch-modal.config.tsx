@@ -48,16 +48,19 @@ export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfi
     },
     {
       title: t(TranslationKey['In stock']),
-      element: (
-        <div className={styles.fieldColumn}>
-          {selectedProduct?.boxAmounts?.map(box => (
-            <div key={box._id} className={styles.flexConainer}>
-              <p className={cx(styles.fieldValue, styles.blueText)}>{box.storekeeper.name}</p>
-              <p className={styles.fieldValue}> {box.amountInBoxes}</p>
-            </div>
-          ))}
-        </div>
-      ),
+      element:
+        selectedProduct?.boxAmounts?.length > 0 ? (
+          <div className={styles.fieldColumn}>
+            {selectedProduct?.boxAmounts?.map(box => (
+              <div key={box._id} className={styles.flexConainer}>
+                <p className={cx(styles.fieldValue, styles.blueText)}>{box.storekeeper.name}</p>
+                <p className={styles.fieldValue}> {box.amountInBoxes}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className={styles.fieldValue}>{t(TranslationKey['No data'])}</p>
+        ),
     },
     {
       title: t(TranslationKey['Stock sum']),
