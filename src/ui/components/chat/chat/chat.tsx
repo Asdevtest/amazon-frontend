@@ -116,8 +116,6 @@ export const Chat: FC<Props> = observer(
       messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
     )
 
-    console.log('files', files)
-
     const [focused, setFocused] = useState(false)
     const [showFiles, setShowFiles] = useState(false)
     const [isShowEmojis, setIsShowEmojis] = useState(false)

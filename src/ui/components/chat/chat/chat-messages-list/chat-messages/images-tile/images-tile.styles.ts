@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'grid',
     width: '100%',
@@ -13,7 +13,15 @@ export const useClassNames = makeStyles()(() => ({
 
     '& div': {
       overflow: 'hidden',
+      width: '100%',
+      height: '100%',
     },
+  },
+
+  imageWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   imageTile2: {

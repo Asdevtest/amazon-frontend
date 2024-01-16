@@ -43,6 +43,7 @@ class ChatModelStatic {
 
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
+  public loadedVideos: string[] = []
 
   public typingUsers: OnTypingMessageResponse[] = []
 
@@ -221,6 +222,8 @@ class ChatModelStatic {
 
       if (fileData.type.startsWith('image')) {
         this.loadedImages.push(fileUrl)
+      } else if (fileData.type.startsWith('video')) {
+        this.loadedVideos.push(fileUrl)
       } else {
         this.loadedFiles.push(fileUrl)
       }
@@ -242,8 +245,14 @@ class ChatModelStatic {
       }
     }
 
-    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles, images: this.loadedImages }
+    const paramsWithLoadedFiles = {
+      ...params,
+      files: this.loadedFiles,
+      images: this.loadedImages,
+      video: this.loadedVideos,
+    }
 
+    this.loadedVideos = []
     this.loadedImages = []
     this.loadedFiles = []
 
