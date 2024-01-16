@@ -13,7 +13,7 @@ export interface ISwitcherSettings {
 
 interface CustomSwitcherProps {
   fullWidth?: boolean
-  switchMode?: 'small' | 'medium' | 'big' | 'header'
+  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
   condition: string | number | null | undefined
   customCondition?: (vale: string | number | null | undefined | Object) => boolean
@@ -23,7 +23,7 @@ interface CustomSwitcherProps {
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
   const { classes: classNames, cx } = useClassNames()
   const {
-    switchMode = 'small',
+    switchMode = 'default',
     condition,
     switcherSettings,
     fullWidth,
@@ -51,12 +51,14 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
           className={cx(classNames.optionWrapper, {
             [classNames.headerOptionWrapper]: switchMode === 'header',
             [classNames.mediumOptionWrapper]: switchMode === 'medium' || switchMode === 'big',
+            [classNames.smallOptionWrapper]: switchMode === 'small',
           })}
         >
           <button
             className={cx(classNames.switcherOption, {
               [classNames.mediumOptionStyles]: switchMode === 'medium',
               [classNames.bigOptionStyles]: switchMode === 'big',
+              [classNames.smallOptionStyles]: switchMode === 'small',
               [classNames.headerOptionStyles]: switchMode === 'header',
               [classNames.activeOption]: condition === option.value || customCondition?.(option.value),
               [classNames.headerActiveOptionStyles]:

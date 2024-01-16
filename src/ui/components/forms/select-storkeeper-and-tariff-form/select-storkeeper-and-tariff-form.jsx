@@ -134,7 +134,6 @@ export const SelectStorekeeperAndTariffForm = observer(
     return (
       <div className={classNames.root}>
         <CustomSwitcher
-          switchMode={'small'}
           condition={curStorekeeper}
           switcherSettings={storekeepers
             .slice()

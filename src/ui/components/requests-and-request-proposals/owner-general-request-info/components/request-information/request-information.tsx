@@ -81,12 +81,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
           </div>
           <div className={styles.moreInformationSection}>
             <p className={styles.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</p>
-            <AsinOrSkuLink
-              withCopyValue
-              asin={asin}
-              textStyles={cx(styles.sectionText, styles.linkSpan)}
-              missingValueTextStyles={cx(styles.sectionText, styles.linkSpan)}
-            />
+            <AsinOrSkuLink withCopyValue link={asin} />
           </div>
           <div className={styles.moreInformationSection}>
             <p className={styles.sectionSubTitle}>{t(TranslationKey.ID) + ':'}</p>

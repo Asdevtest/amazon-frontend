@@ -61,6 +61,8 @@ export const lightTheme = createTheme({
 
         toolbar: {
           color: '#001029',
+          height: 40,
+          minHeight: '40px !important',
         },
       },
     },
@@ -300,6 +302,7 @@ export const lightTheme = createTheme({
       text: '#001029',
       activeText: '#007bff',
       headerBackground: '#F4F4F4',
+      switch: '#E3E3E3',
     },
 
     linearGradient: {
@@ -334,6 +337,16 @@ export const lightTheme = createTheme({
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
+
+    fileIcons: {
+      xls: '#0F8105',
+      pdf: '#D70D0D',
+      doc: '#0A6FE8',
+      txt: '#F17048',
+      zip: '#6D56F8',
+      file: '#475467',
+      icon: '#E9F0FA',
+    },
   },
 })
 
@@ -350,6 +363,8 @@ export const darkTheme = createTheme({
 
         toolbar: {
           color: '#fff',
+          height: 40,
+          minHeight: '40px !important',
         },
       },
     },
@@ -718,6 +733,7 @@ export const darkTheme = createTheme({
       text: '#5C6A7A',
       activeText: '#4CA1DE',
       headerBackground: '#25252D',
+      switch: '#667085',
     },
 
     linearGradient: {
@@ -752,6 +768,16 @@ export const darkTheme = createTheme({
       ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+    },
+
+    fileIcons: {
+      xls: '#02AE44',
+      pdf: '#DD2121',
+      doc: '#4CA1DE',
+      txt: '#E37451',
+      zip: '#8B79F9',
+      file: '#A2ADBD',
+      icon: '#475467',
     },
   },
 })

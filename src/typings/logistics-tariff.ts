@@ -1,6 +1,6 @@
 import { IDestinationVariation } from './destination'
 
-export interface LogisticTariffInterface {
+export interface ILogisticTariff {
   tariffType: number
   name: string
   description: string

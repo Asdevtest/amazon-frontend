@@ -43,9 +43,10 @@ export class AdminOrderViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const [order, boxes, storekeepers, destinations, platformSettings] = await Promise.all([
-        this.getOrderById(),
-        this.getBoxesOfOrder(this.orderId),
+      this.getOrderById()
+      this.getBoxesOfOrder(this.orderId)
+
+      const [storekeepers, destinations, platformSettings] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
         UserModel.getPlatformSettings(),
@@ -106,7 +107,9 @@ export class AdminOrderViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const [result, _] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
+        const result = await UserModel.getPlatformSettings()
+
+        this.getStorekeepers()
 
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate

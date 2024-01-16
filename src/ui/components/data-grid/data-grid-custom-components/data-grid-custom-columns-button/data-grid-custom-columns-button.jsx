@@ -53,7 +53,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
   }
 
   const itemsForRender = filteredColumnsModel.filter(item =>
-    item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
+    item.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
   )
 
   return (

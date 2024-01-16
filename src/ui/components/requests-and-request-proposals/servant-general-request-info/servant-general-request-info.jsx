@@ -60,9 +60,8 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <AsinOrSkuLink
             withCopyValue
             withAttributeTitle="asin"
-            asin={request?.request.product.asin}
+            link={request?.request.product.asin}
             textStyles={styles.linkSpan}
-            missingValueTextStyles={styles.linkSpan}
           />
 
           <div className={styles.idTitleWrapper}>

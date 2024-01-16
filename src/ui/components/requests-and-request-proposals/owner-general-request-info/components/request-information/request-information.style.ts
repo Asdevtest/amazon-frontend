@@ -86,8 +86,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 7,
   },
-
-  linkSpan: {
-    color: theme.palette.primary.main,
-  },
 }))
