@@ -47,10 +47,6 @@ export const useAdditionalInfo = ({
     setFormFields(prevFormFields => {
       const updatedFormFields: IOrderWithAdditionalFields = { ...prevFormFields }
 
-      if (fieldName === 'deadline') {
-        updatedFormFields[fieldName] = event as unknown as string
-      }
-
       if (fieldName === 'expressChinaDelivery' || fieldName === 'needsResearch') {
         updatedFormFields[fieldName] = event.target.checked
       }
@@ -63,6 +59,10 @@ export const useAdditionalInfo = ({
 
       return updatedFormFields
     })
+  }
+
+  const onChangeDeadlineField = (fieldName: string) => (date: string) => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: date }))
   }
 
   const patchDestinationParamsHandler = (
@@ -150,7 +150,7 @@ export const useAdditionalInfo = ({
           minDate={minDate}
           value={formFields.deadline}
           className={styles.inputDeadline}
-          onChange={onChangeField('deadline')}
+          onChange={onChangeDeadlineField('deadline')}
         />
       ),
     },
