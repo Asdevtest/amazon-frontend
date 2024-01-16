@@ -65,8 +65,6 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     updateImagesForLoad,
   } = usePhotoAndFilesSlider(files, onChangeImagesForLoad, currentFileIndex)
 
-  console.log(mediaFiles)
-
   return (
     <Modal
       openModal={isOpenModal}
