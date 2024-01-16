@@ -89,7 +89,7 @@ export const useStyles = makeStyles()(theme => ({
   fields: {
     padding: '15px 0',
     display: 'flex',
-    gap: 5,
+    gap: 10,
   },
 
   field: {
