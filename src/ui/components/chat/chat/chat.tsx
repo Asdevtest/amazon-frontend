@@ -102,25 +102,36 @@ export const Chat: FC<Props> = observer(
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
-    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
-    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
-    const messagesLoadingStatus = useRef(false)
+    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
+      message: '',
+      files: [],
+    }
 
-    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
+    const userContainedInChat = chat.users.some(el => el._id === userId)
 
+    const [message, setMessage] = useState(messageInitialState.message)
+    const [files, setFiles] = useState<IUploadFile[]>(
+      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
+    )
+
+    console.log('files', files)
+
+    const [focused, setFocused] = useState(false)
     const [showFiles, setShowFiles] = useState(false)
-
     const [isShowEmojis, setIsShowEmojis] = useState(false)
-
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
+    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
+    const messagesLoadingStatus = useRef(false)
+    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
+
+    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
+    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
-    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
-
-    const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
 
@@ -160,19 +171,6 @@ export const Chat: FC<Props> = observer(
         }
       }
     }, [chat?._id])
-
-    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
-      message: '',
-      files: [],
-    }
-
-    const [message, setMessage] = useState(messageInitialState.message)
-
-    const [files, setFiles] = useState<IUploadFile[]>(
-      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
-    )
-
-    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     useEffect(() => {
       if (isSendTypingPossible && message) {
@@ -301,8 +299,6 @@ export const Chat: FC<Props> = observer(
     }, [toScrollMesId])
 
     const disabledSubmit = !message.trim() && !files.length
-
-    const userContainedInChat = chat.users.some(el => el._id === userId)
 
     return (
       <>
