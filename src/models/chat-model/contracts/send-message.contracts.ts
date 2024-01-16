@@ -27,5 +27,5 @@ export class SendMessageRequestParamsContract {
 
   @IsOptional()
   @IsString()
-  public crmItem?: string
+  public crmItemId?: string
 }

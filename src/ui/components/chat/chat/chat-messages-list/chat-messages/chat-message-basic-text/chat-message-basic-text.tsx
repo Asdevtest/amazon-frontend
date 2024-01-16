@@ -1,5 +1,5 @@
 import he from 'he'
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo } from 'react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
@@ -20,13 +20,8 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
 
   const { message, isIncomming, unReadMessage, isFound, searchPhrase, showName } = props
 
-  const [photoAndVideoFiles, setPhotoAndVideoFiles] = useState<string[]>([])
-  const [anotherFiles, setAnotherFiles] = useState<string[]>([])
-
-  useEffect(() => {
-    setPhotoAndVideoFiles(message?.images?.concat(message?.video))
-    setAnotherFiles(message.files)
-  }, [message])
+  const photoAndVideoFiles = message?.images?.concat(message?.video)
+  const anotherFiles = message.files
 
   return (
     <div

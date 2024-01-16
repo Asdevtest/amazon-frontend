@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { plainToInstance } from 'class-transformer'
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
@@ -245,22 +244,32 @@ class ChatModelStatic {
       }
     }
 
-    const paramsWithLoadedFiles = {
+    const messageWithoutFiles = {
       ...params,
-      files: this.loadedFiles,
+      files: [],
       images: this.loadedImages,
       video: this.loadedVideos,
+    }
+
+    if (params.text || this.loadedImages.length || this.loadedVideos.length) {
+      await this.websocketChatService.sendMessage(messageWithoutFiles)
+    }
+
+    if (this.loadedFiles.length) {
+      const messageWithFiles = {
+        chatId: params.chatId,
+        crmItemId: params.crmItemId,
+        text: '',
+        files: this.loadedFiles,
+        user: params.user,
+      }
+
+      await this.websocketChatService.sendMessage(messageWithFiles)
     }
 
     this.loadedVideos = []
     this.loadedImages = []
     this.loadedFiles = []
-
-    await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
-
-    const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
-
-    return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
   public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {
