@@ -60,8 +60,8 @@ export const useSupplierInfo = ({
       text: undefined,
       element: (
         <input
-          type="number"
           name="amount"
+          maxLength={8}
           value={formFields?.amount}
           disabled={!isOrderEditable}
           className={styles.inputAmount}
@@ -83,7 +83,7 @@ export const useSupplierInfo = ({
       element: (
         <a
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
           href={checkAndMakeAbsoluteUrl(formFields?.orderSupplier?.link)}
           className={cx(styles.fieldText, { [styles.link]: formFields?.orderSupplier?.link !== 'access denied' })}
           onClick={e => {

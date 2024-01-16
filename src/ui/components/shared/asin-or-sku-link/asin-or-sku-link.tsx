@@ -31,7 +31,12 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
       )}
 
       {link ? (
-        <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${link}`} className={styles.normalizeLink}>
+        <a
+          target="_blank"
+          rel="noreferrer noopener"
+          href={`https://www.amazon.com/dp/${link}`}
+          className={styles.normalizeLink}
+        >
           <p className={cx(styles.valueText, styles.asinValueText, textStyles)}>{shortLink(link)}</p>
         </a>
       ) : (

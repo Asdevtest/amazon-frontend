@@ -205,7 +205,7 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
 
       {openImageModal && (
         <ImageModal
-          files={mediaFiles}
+          files={withAllFiles ? files : mediaFiles}
           currentFileIndex={mediaFileIndex}
           handleCurrentFileIndex={setMediaFileIndex}
           isOpenModal={openImageModal}
@@ -214,6 +214,7 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
           photosComments={photosComments}
           showPreviews={showPreviews}
           isEditable={isEditable}
+          isRequestResult={withAllFiles}
           withoutMakeMainImage={withoutMakeMainImage}
           onChangeImagesForLoad={onChangeImagesForLoad}
         />

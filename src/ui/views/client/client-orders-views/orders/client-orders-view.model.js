@@ -767,27 +767,22 @@ export class ClientOrdersViewModel {
 
   async getOrderById(orderId) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       const resolve = await ClientModel.getOrderById(orderId)
 
       runInAction(() => {
         this.order = resolve
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
-  async onClickMyOrderModal(row) {
+  async onClickMyOrderModal(id) {
     if (window.getSelection().toString()) {
       return
     }
 
-    await this.getOrderById(row.originalData._id)
+    await this.getOrderById(id)
 
     this.onTriggerOpenModal('showMyOrderModal')
 
@@ -821,18 +816,23 @@ export class ClientOrdersViewModel {
 
   async onClickWarehouseOrderButton(guid) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const result = await ClientModel.getProductById(guid)
       this.productBatches = undefined
-      this.onTriggerOpenModal('showProductModal')
       this.activeProductGuid = guid
+
+      const result = await ClientModel.getProductById(guid)
+
       runInAction(() => {
         this.selectedWarehouseOrderProduct = result
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+
+      this.onTriggerOpenModal('showProductModal')
+
+      if (this.showProductModal) {
+        this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
+      }
     } catch (e) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(e)
+
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
       })

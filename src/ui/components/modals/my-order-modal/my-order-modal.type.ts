@@ -7,7 +7,7 @@ export interface IOrderWithAdditionalFields extends IOrder {
   storekeeperId: string | null
   logicsTariffId: string | null
   variationTariffId: string | null
-  deadline: Date | null
+  deadline: string | null
   tmpBarCode: string[]
 }
 

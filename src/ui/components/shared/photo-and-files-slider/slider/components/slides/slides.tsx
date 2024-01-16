@@ -94,14 +94,14 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 )
               ) : (
                 <div className={styles.documentWrapper}>
-                  <a href={documentLink} target="_blank" rel="noreferrer">
+                  <a href={documentLink} target="_blank" rel="noreferrer noopener">
                     <FileIcon fileExtension={elementExtension} className={styles.slide} />
                   </a>
 
                   <a
                     href={documentLink}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noreferrer noopener"
                     className={cx(styles.linkDocument, styles.text, {
                       [styles.smallText]: smallSlider,
                       [styles.mediumText]: mediumSlider,

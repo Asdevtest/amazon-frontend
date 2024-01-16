@@ -2,141 +2,180 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '950px',
+    width: 950,
     padding: 10,
+  },
+
+  header: {
+    marginBottom: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   title: {
     fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
   },
 
-  updated: {
-    fontSize: 14,
+  updatedContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 
-  additionPurchaseWrap: {
-    marginTop: '-10px',
-  },
-
-  toPurchase: {
-    fontSize: 14,
-    fontWeight: 600,
-  },
-
-  inputAdditionPurchase: {
-    width: 95,
-    height: 25,
-  },
-
-  fieldText: {
-    fontSize: 14,
-    fontWeight: 600,
-  },
-
-  infoHeader: {
-    fontSize: 12,
-    fontWeight: 500,
+  updatedText: {
+    fontSize: 16,
+    lineHeight: '22px',
     color: theme.palette.text.second,
   },
 
-  fieldWrapper: {
-    padding: '20px 0',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  inStock: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 5,
-    width: '100%',
-  },
-
-  field: {
-    width: 'auto !important',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: '0 !important',
-  },
-
-  waitOrder: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  amountOrder: {
-    color: theme.palette.primary.main,
-    fontSize: 14,
-    textAlign: 'right',
-  },
-
-  modalHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-
-  shopName: {
-    overflow: 'hidden',
-    textWrap: 'nowrap',
-    textOverflow: 'ellipsis',
-    width: '200px',
-    marginBottom: 8,
-  },
-
-  showAttributeName: {
-    color: theme.palette.text.second,
+  updatedTitle: {
+    fontSize: 16,
+    lineHeight: '22px',
+    color: theme.palette.text.general,
   },
 
   subHeader: {
-    padding: '10px 0',
+    padding: '15px 0',
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 50,
   },
 
   amazonTitle: {
-    maxWidth: 270,
-    minHeight: '50px',
-  },
-
-  infoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  table: {
-    margin: '30px 0px',
-  },
-
-  tableCell: {
-    border: 'none',
-    verticalAlign: 'top',
-  },
-
-  tableWrapper: {
-    marginTop: 10,
     width: '100%',
-    height: '400px',
-    [theme.breakpoints.down(1500)]: {
-      height: 200,
-    },
+    maxHeight: 154,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontSize: 16,
+    lineHeight: '22px',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 7,
+    WebkitBoxOrient: 'vertical',
   },
 
-  amountInPendingOrders: {
-    marginLeft: 5,
+  additionInfo: {
+    maxWidth: 200,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3,
   },
 
-  storekeeperName: {
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    maxWidth: 90,
+  shopContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  shopName: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  shopValue: {
+    fontSize: 14,
+    lineHeight: '19px',
     overflow: 'hidden',
     textWrap: 'nowrap',
     textOverflow: 'ellipsis',
+  },
+
+  fields: {
+    padding: '15px 0',
+    display: 'flex',
+    gap: 5,
+  },
+
+  field: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  fieldTitle: {
+    height: 32,
+    marginBottom: 10,
+    fontSize: 12,
+    lineHeight: '16px',
+    textAlign: 'center',
+    color: theme.palette.text.second,
+  },
+
+  fieldValue: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 500,
+    color: theme.palette.text.general,
+  },
+
+  fieldIcon: {
+    width: '19px !important',
+    height: '19px !important',
+    color: theme.palette.primary.main,
+  },
+
+  blueText: {
+    color: theme.palette.primary.main,
+  },
+
+  fieldColumn: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  flexConainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  stockCostWrapper: {
+    width: 100,
+    textAlign: 'center',
+  },
+
+  additionPurchaseWrapper: {
+    width: 160,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  inputAdditionPurchase: {
+    width: 100,
+    padding: '2px 5px',
+    fontSize: 14,
+    lineHeight: '19px',
+    textAlign: 'center',
+    background: theme.palette.background.general,
+    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
+    border: `1px solid ${theme.palette.background.second}`,
+    borderRadius: 6,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:focus': {
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+    },
+  },
+
+  tableWrapper: {
+    marginTop: 15,
+    width: '100%',
+    height: 380,
   },
 }))

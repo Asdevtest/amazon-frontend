@@ -1,6 +1,5 @@
-import { GridRenderCellParams } from '@mui/x-data-grid'
+import { GridRowModel } from '@mui/x-data-grid'
 
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -9,7 +8,7 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { formatDate } from '@utils/date-time'
+import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
@@ -17,82 +16,69 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     field: 'id',
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.row.humanFriendlyId} />,
-    width: 100,
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
-    filterable: false,
-    sortable: false,
-    disableColumnMenu: true,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.humanFriendlyId} />,
+    width: 90,
   },
+
   {
     field: 'title',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell maxLength={18} text={params.value} />,
-    width: 100,
-    sortable: false,
-    disableColumnMenu: true,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell maxLength={18} text={row.title} />,
+    width: 120,
   },
+
   {
     field: 'amountInBatch',
     headerName: t(TranslationKey['Quantity of the selected item in the batch']),
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
     ),
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.formattedValue} />,
     width: 170,
-    type: 'number',
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
   },
+
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.row.boxes[0].destination.name} />,
-    width: 110,
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.boxes[0].destination.name} />,
+    width: 150,
   },
+
   {
     field: 'etd',
     headerName: t(TranslationKey['ETD (date of shipment)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
-    renderCell: (params: GridRenderCellParams) => (
-      <MultilineTextCell text={formatDate(params.row.boxes[0].logicsTariff.etd)} />
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={formatNormDateTime(row.boxes[0].logicsTariff.etd)} />
     ),
-    width: 120,
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
+    width: 110,
   },
+
   {
     field: 'eta',
     headerName: t(TranslationKey['ETA (arrival date)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
-    renderCell: (params: GridRenderCellParams) => (
-      <MultilineTextCell text={formatDate(params.row.boxes[0].logicsTariff.eta)} />
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={formatNormDateTime(row.boxes[0].logicsTariff.eta)} />
     ),
-    width: 120,
-    sortable: false,
-    filterable: false,
-    disableColumnMenu: true,
+    width: 110,
   },
+
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    width: 180,
-    renderCell: (params: GridRenderCellParams) => (
+    renderCell: ({ row }: GridRowModel) => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => handleOpenBatchModal(params.row._id)}
+        onClickOkBtn={() => handleOpenBatchModal(row._id)}
       />
     ),
-    filterable: false,
+    width: 180,
     sortable: false,
+    filterable: false,
     disableColumnMenu: true,
   },
 ]

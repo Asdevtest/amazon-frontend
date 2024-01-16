@@ -46,6 +46,12 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-main': {
     borderRadius: 20,
   },
+  '.MuiDataGrid-columnSeparator--sideRight': {
+    right: '-3px !important',
+  },
+  '.MuiDataGrid-columnHeader': {
+    padding: '0 5px !important',
+  },
 })
 
 export const lightTheme = createTheme({
@@ -429,7 +435,7 @@ export const darkTheme = createTheme({
 
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
-          paddingRight: 20,
+          paddingRight: 25,
 
           '.MuiDataGrid-columnHeaderTitleContainerContent': {
             width: '100%',
@@ -440,7 +446,7 @@ export const darkTheme = createTheme({
           color: '#fff',
           zIndex: 50,
           position: 'absolute !important',
-          right: -2,
+          right: -3,
           width: '20px !important',
           height: '20px !important',
 
