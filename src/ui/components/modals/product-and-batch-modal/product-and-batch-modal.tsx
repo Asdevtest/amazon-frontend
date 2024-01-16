@@ -7,7 +7,6 @@ import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-// import { DataGrid } from '@mui/x-data-grid'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -152,7 +151,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
       </Modal>
 
       {showBatchModal && (
-        // @ts-ignore */
+        // @ts-ignore
         <BatchInfoModal batch={currentBatch} openModal={showBatchModal} setOpenModal={handleShowModalBatchModal} />
       )}
     </>
