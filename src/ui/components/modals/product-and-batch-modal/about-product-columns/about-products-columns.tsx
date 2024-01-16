@@ -33,7 +33,7 @@ export const aboutProductsColumns = [
         color={orderColorByStatus(OrderStatus[row.status])}
       />
     ),
-    width: 160,
+    width: 240,
   },
 
   {
