@@ -1,10 +1,6 @@
-import { IStatusCreatedBy } from '../shared/created-by'
-import { ILogicTariffs } from '../shared/logic-tariffs'
-import { IOrderDestination } from '../shared/order'
+import { IProduct } from '@typings/product'
 
-import { IProductsChecking } from './products-checking'
-
-export interface IAdminOrders {
+export interface IOrder {
   id?: number
   _id?: string
   asin?: string
@@ -39,11 +35,11 @@ export interface IAdminOrders {
   variationTariff?: IAdminOrderVariationTarif
   destination?: IOrderDestination
   logicsTariff?: ILogicTariffs
-  product?: IProductsChecking
-  storekeeper?: IStatusCreatedBy
-  buyer?: IStatusCreatedBy
+  product?: IProduct
+  storekeeper?: IProductsByStatusCreatedBy
+  buyer?: IProductsByStatusCreatedBy
   orderSupplier?: IProductByStatusSupplier
-  createdBy?: IStatusCreatedBy
+  createdBy?: IProductsByStatusCreatedBy
 }
 
 export interface IAdminOrderVariationTarif {
@@ -51,6 +47,71 @@ export interface IAdminOrderVariationTarif {
   pricePerKgRmb?: number
   pricePerKgUsd?: number
   destinationId?: string
+}
+
+export interface IOrderDestination {
+  _id?: string
+  name?: string
+  country?: string
+  zipCode?: string
+  state?: string
+  city?: string
+  address?: string
+  storekeeper?: IOrderDestinationStorekeeper
+  isActive?: boolean
+  createdById?: string
+  lastModifiedById?: string
+  fontColor?: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export interface IOrderDestinationStorekeeper {
+  _id?: string
+  name?: string
+}
+
+interface ILogicTariffs {
+  tariffType?: number
+  name: string
+  description?: string
+  deliveryTimeInDay?: string
+  cls?: string
+  etd?: string
+  eta?: string
+  minWeightInKg?: number
+  archive?: boolean
+  conditionsByRegion?: ILogicsTariffConditionsByRegion
+  destinationVariations?: Array<ILogicsTariffDestinationVariations>
+  _id?: string
+  storekeeperId?: string
+  updatedAt?: string
+  createdAt?: string
+}
+
+interface ILogicsTariffConditionsByRegion {
+  west: ILogicsTariffByRegionWest
+  central: ILogicsTariffByRegionWest
+  east: ILogicsTariffByRegionWest
+  yuanToDollarRate?: number
+}
+
+interface ILogicsTariffByRegionWest {
+  rate: number
+}
+
+interface ILogicsTariffDestinationVariations {
+  _id?: string
+  minWeight?: number
+  maxWeight?: number
+  pricePerKgRmb?: number
+  pricePerKgUsd?: number
+  destination?: ILogicTariffsDestination
+}
+
+interface ILogicTariffsDestination {
+  _id?: string
+  name?: string
 }
 
 export enum IPriorityEnum {
@@ -79,11 +140,18 @@ export interface IProductByStatusSupplier {
   batchTotalCostInYuan?: number
   boxProperties?: IProductByStatusBoxProperties
   productionTerm?: number
-  createdBy?: IStatusCreatedBy
+  createdBy?: IProductsByStatusCreatedBy
   paymentMethods?: Array<IProductByStatusPaymentMethods>
   priceVariations?: Array<object>
   createdAt?: string
   updatedAt?: string
+}
+
+interface IProductsByStatusCreatedBy {
+  _id?: string
+  name?: string
+  rating?: number
+  lastSeen?: string
 }
 
 interface IProductByStatusBoxProperties {

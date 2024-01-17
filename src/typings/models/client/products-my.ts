@@ -1,13 +1,15 @@
-import { IStatusCreatedBy } from '../shared/created-by'
+import { IRedFlag } from '@typings/product'
+
+import { IProductByStatusSupplier } from '../shared/order'
 import { IStatusTags } from '../shared/status-tags'
 
-import { IProductByStatusSupplier } from './admin-orders'
+import { IStatusCreatedBy } from './../shared/created-by'
 
-export interface IProductsChecking {
+export interface IClientProductsMy {
   _id?: string
   asin?: string
   skuByClient?: string
-  suppliers?: IProductByStatusSupplier[]
+  suppliers?: Array<IProductByStatusSupplier>
   currentSupplier?: IProductByStatusSupplier
   currentSupplierId?: string
   parentProductId?: string
@@ -27,8 +29,8 @@ export interface IProductsChecking {
   status?: number
   icomment?: string
   clientComment?: string
-  images?: string[]
-  latestSeoFiles?: string[]
+  images?: Array<string>
+  latestSeoFiles?: Array<string>
   priceForClient?: number
   checkednotes?: string
   isCreatedByClient?: boolean
@@ -62,7 +64,7 @@ export interface IProductsChecking {
   needCheckBySupervisor?: boolean
   amountInOrders?: number
   amountInPendingOrders?: number
-  boxAmounts?: IProductByStatusBoxAmount
+  boxAmounts?: Array<IProductByStatusBoxAmount>
   archive?: boolean
   hsCode?: string
   niche?: string
@@ -81,27 +83,32 @@ export interface IProductsChecking {
   ideasOnCheck?: number
   ideasFinished?: number
   ideasClosed?: number
-  subUsers?: IStatusCreatedBy
-  redFlags?: IProductdsRedFlag[]
-  tags?: IStatusTags[]
+  subUsers?: Array<IStatusCreatedBy>
+  redFlags?: Array<IRedFlag>
+  tags?: Array<IStatusTags>
+  checkedby?: IProductVacCheckedBy
+  productsInWarehouse?: Array<object>
+  ideasCounter?: number
 }
 
-export interface IProductdsRedFlag {
-  _id?: string
-
-  productCount?: number
-
-  value?: number
-
-  title?: string
-
-  iconImage?: string
+export interface IProductVacCheckedBy {
+  _id: string
+  name: string
+  role: number
+  fba: boolean
+  active: boolean
+  rate: number
+  balance?: number
+  balanceFreeze?: number
+  overdraft?: number
+  permissions?: Array<string>
+  permissionGroups?: Array<string>
+  masterUser?: string
+  allowedRoles?: Array<number>
 }
 
 export interface IProductByStatusBoxAmount {
   _id?: string
-
   storekeeper?: IStatusCreatedBy
-
   amountInBoxes?: number
 }
