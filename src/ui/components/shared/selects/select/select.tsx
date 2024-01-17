@@ -14,7 +14,8 @@ import { useSelect } from './use-select'
 
 interface SelectProps {
   items: IItem[]
-  currentItem?: string
+  onChangeSelectedItem: (id: string | null) => void
+  currentItemName?: string
   disabled?: boolean
   withFaworites?: boolean
   destinationsFavourites?: string[]
@@ -22,28 +23,35 @@ interface SelectProps {
 }
 
 export const Select: FC<SelectProps> = memo(props => {
-  const { items, disabled, currentItem, withFaworites, destinationsFavourites, setDestinationsFavouritesItem } = props
+  const {
+    items,
+    disabled,
+    currentItemName,
+    withFaworites,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+    onChangeSelectedItem,
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const {
-    selectRef,
-    isOpen,
-    onToggleSelect,
-    selectedItem,
-    filteredItems,
-    searchValue,
-    setSearchValue,
-    onChangeSelectedItem,
-  } = useSelect(items, currentItem)
+  const { selectRef, isOpen, onToggleSelect, selectedItemName, filteredItems, searchValue, setSearchValue } = useSelect(
+    items,
+    currentItemName,
+  )
 
   const checkIsFavoriteSelectedItem = (destinationName: string) =>
     !!destinationsFavourites?.find((name: string) => name === destinationName)
 
+  const handleChangeSelectedItem = (id: string | null) => {
+    onChangeSelectedItem(id)
+    onToggleSelect()
+  }
+
   return (
     <div ref={selectRef} className={styles.wrapper}>
       <button disabled={disabled} className={styles.button} onClick={onToggleSelect}>
-        <p className={styles.text}>{selectedItem || t(TranslationKey['Not chosen'])}</p>
+        <p className={styles.text}>{selectedItemName || t(TranslationKey['Not chosen'])}</p>
         <div className={cx(styles.iconButton, { [styles.iconRotate]: isOpen })}>
           <ArrowDownIcon className={styles.icon} />
         </div>
@@ -60,12 +68,12 @@ export const Select: FC<SelectProps> = memo(props => {
         </div>
 
         <ul className={styles.menuItems}>
-          <button className={styles.menuItem} onClick={() => onChangeSelectedItem('')}>
+          <button className={styles.menuItem} onClick={() => handleChangeSelectedItem(null)}>
             <p className={styles.menuItemText}>{t(TranslationKey['Not chosen'])}</p>
           </button>
 
           {filteredItems.map((item, index) => (
-            <button key={index} className={styles.menuItem} onClick={() => onChangeSelectedItem(item.name)}>
+            <button key={index} className={styles.menuItem} onClick={() => handleChangeSelectedItem(item._id)}>
               <p className={styles.menuItemText}>{item.name}</p>
               {withFaworites && (
                 <button
