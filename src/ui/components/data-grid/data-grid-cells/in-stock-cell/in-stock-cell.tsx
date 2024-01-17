@@ -19,7 +19,7 @@ export const InStockCell: FC<InStockCellProps> = React.memo(props => {
 
   return (
     <div className={styles.inStockWrapper}>
-      {!!boxAmounts.length &&
+      {!!boxAmounts?.length &&
         boxAmounts
           ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
           ?.map(el => (

@@ -1,4 +1,4 @@
-import { observable, override } from 'mobx'
+import { action, observable, override } from 'mobx'
 
 export const observerConfig = {
   isArchive: observable,
@@ -8,7 +8,6 @@ export const observerConfig = {
   sellerBoardDailyData: observable,
   storekeepers: observable,
   destinations: observable,
-  shopsData: observable,
   ideaId: observable,
   batchesData: observable,
   presetsData: observable,
@@ -51,8 +50,13 @@ export const observerConfig = {
   showIdeaModal: observable,
   showProductVariationsForm: observable,
 
-  columnMenuSettings: override,
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
+
+  setSelectedProduct: action.bound,
+  onSubmitBindStockGoods: action.bound,
+  getStockGoodsByFilters: action.bound,
+  onDeleteHsCode: action.bound,
+  onDeleteBarcode: action.bound,
 }

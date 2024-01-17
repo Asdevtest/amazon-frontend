@@ -60,6 +60,22 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._currentSearchValue = currentSearchValue
   }
 
+  _additionalPropertiesColumnMenuSettings: any = {}
+  get additionalPropertiesColumnMenuSettings() {
+    return this._additionalPropertiesColumnMenuSettings
+  }
+  set additionalPropertiesColumnMenuSettings(additionalProperties: any) {
+    this._additionalPropertiesColumnMenuSettings = additionalProperties
+  }
+
+  _additionalPropertiesGetFilters: any = {}
+  get additionalPropertiesGetFilters() {
+    return this._additionalPropertiesGetFilters
+  }
+  set additionalPropertiesGetFilters(additionalProperties: any) {
+    this._additionalPropertiesGetFilters = additionalProperties
+  }
+
   constructor(
     getMainDataMethod: (...args: any) => any,
     columnsModel: GridColDef[],
@@ -68,12 +84,15 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     fieldsForSearch?: string[],
     tableKey?: string,
     defaultGetDataMethodOptions?: any,
+    additionalPropertiesColumnMenuSettings?: any,
+    additionalPropertiesGetFilters?: any,
   ) {
     super(getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions)
 
-    this.setColumnMenuSettings(filtersFields)
+    this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
     this._filtersFields = filtersFields
     this._mainMethodURL = mainMethodURL
+    this._additionalPropertiesGetFilters = additionalPropertiesGetFilters
 
     if (fieldsForSearch) {
       this._fieldsForSearch = fieldsForSearch
@@ -82,12 +101,15 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     makeObservable(this, observerConfig)
   }
 
-  setColumnMenuSettings(filtersFields: string[]) {
+  setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
     this.columnMenuSettings = {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
+
       filterRequestStatus: loadingStatuses.SUCCESS,
+
+      ...additionalProperties,
 
       ...dataGridFiltersInitializer(filtersFields),
     }
@@ -98,7 +120,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
-        // "?" не нужен, т.к. он должен быть в mainMethodURL
+        // "?" не нужен, т.к. он должен быть в mainMethodURL, на случай если url должна содержать больше свойств
         `${this.mainMethodURL}filters=${this.getFilters(column)}`,
       )
 
@@ -123,8 +145,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.columnMenuSettings,
         this.currentSearchValue,
         exclusion,
-        this._filtersFields,
-        this._fieldsForSearch,
+        this.filtersFields,
+        this.fieldsForSearch,
+        this.additionalPropertiesGetFilters,
       ),
     )
   }
@@ -139,7 +162,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onClickResetFilters() {
-    this.setColumnMenuSettings(this._filtersFields)
+    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
     this.getMainTableData()
   }
 

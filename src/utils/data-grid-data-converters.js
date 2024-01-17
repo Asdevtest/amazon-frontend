@@ -271,7 +271,7 @@ export const clientProductsDataConverter = data =>
     id: item._id,
   }))
 
-export const clientInventoryDataConverter = (data, shopsData) =>
+export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
 

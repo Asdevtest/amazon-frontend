@@ -52,6 +52,8 @@ export const ClientInventoryView = observer(({ history, location }) => {
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+  viewModel.initHistory()
+
   const [useProductsPermissions] = useState(
     () =>
       new UseProductsPermissions(ClientModel.getProductPermissionsData, {
@@ -80,7 +82,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         onClickProductLotDataBtn={viewModel.onClickProductLotDataBtn}
         onClickParseProductsBtn={viewModel.onClickParseProductsBtn}
         onClickAddSupplierBtn={viewModel.onClickAddSupplierBtn}
-        onClickBindInventoryGoodsToStockBtn={viewModel.onClickBindInventoryGoodsToStockBtn}
+        onClickBindInventoryGoodsToStockBtn={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         onClickProductLaunch={viewModel.onClickProductLaunch}
         onClickOrderBtn={viewModel.onClickOrderBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
@@ -128,7 +130,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
+          onSortModelChange={(a, b) => viewModel.onChangeSortingModel(a, b)}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
@@ -148,7 +150,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         />
       </div>
 
-      {/* <Modal
+      <Modal
         openModal={viewModel.showSendOwnProductModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
       >
@@ -229,9 +231,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         <AddSupplierToIdeaFromInventoryForm
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
-          product={viewModel.tableData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            }
+          product={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product.id))}
           ideas={viewModel.ideasData}
           onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
           onSubmit={viewModel.createSupplierSearchRequest}
@@ -320,8 +320,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
       >
         <SelectionSupplierModal
           product={
-            viewModel.selectedProductToLaunch ||
-            viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
+            viewModel.selectedProductToLaunch || viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
           buttonValue={viewModel.selectedProductToLaunch && SelectedButtonValueConfig.SEND_REQUEST}
@@ -345,9 +344,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           // selectedProductsData={viewModel.dataForOrderModal}
-          selectedProductsData={viewModel.tableData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            }
+          selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product.id))}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
@@ -359,7 +356,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.tableData.find(item => viewModel.selectedRowIds.includes(item.id))}
+          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item.id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
@@ -439,7 +436,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
-      )} */}
+      )}
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
