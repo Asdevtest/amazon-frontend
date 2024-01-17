@@ -74,6 +74,13 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
   const switchCurrentCondition = currentSwitch === ProductAndBatchModalSwitcherConditions.BATCH_DATA
   const columns = switchCurrentCondition ? batchDataColumns(handleOpenBatchModal) : aboutProductsColumns
   const rows = switchCurrentCondition ? batches : selectedProduct?.orders
+  const handleRowClick = (id: string) => {
+    if (switchCurrentCondition) {
+      return
+    }
+
+    onClickMyOrderModal(id)
+  }
 
   return (
     <>
@@ -142,7 +149,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
                   title: t(TranslationKey.Filter),
                 },
               }}
-              onRowClick={({ id }: GridRowModel) => onClickMyOrderModal(id)}
+              onRowClick={({ id }: GridRowModel) => handleRowClick(id)}
             />
           </div>
         </div>
