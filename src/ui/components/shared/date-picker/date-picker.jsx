@@ -286,7 +286,9 @@ export const DatePickerTime = ({ value, onChange, ...restProps }) => {
   )
 }
 
-export const DefaultDatePicker = ({ value, onChange, variant = 'standard', error = false, ...restProps }) => {
+export const DefaultDatePicker = props => {
+  const { value, onChange, variant = 'standard', error = false, ...restProps } = props
+
   const { classes: classNames } = useClassNames()
 
   const [local, setLocal] = useState(enLocale)
