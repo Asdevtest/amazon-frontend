@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
@@ -11,6 +13,7 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
+import { YOUTUBE_LINK } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -104,7 +107,7 @@ export const Chat: FC<Props> = observer(
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
-    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
+    const messageInitialState: MessageStateParams = {
       message: '',
       files: [],
     }
@@ -112,9 +115,7 @@ export const Chat: FC<Props> = observer(
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     const [message, setMessage] = useState(messageInitialState.message)
-    const [files, setFiles] = useState<IUploadFile[]>(
-      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
-    )
+    const [files, setFiles] = useState<IUploadFile[]>(messageInitialState.files)
 
     const [focused, setFocused] = useState(false)
     const [showFiles, setShowFiles] = useState(false)
@@ -216,7 +217,7 @@ export const Chat: FC<Props> = observer(
       }
 
       setMessage(messageInitialState.message)
-      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
+      setFiles(messageInitialState.files)
       setIsShowChatInfo(false)
 
       return () => {
@@ -262,7 +263,12 @@ export const Chat: FC<Props> = observer(
     }
 
     const onPasteFiles = async (evt: React.ClipboardEvent) => {
-      if (evt.clipboardData.files.length === 0) {
+      const сopiedText = evt.clipboardData.getData('Text')
+
+      if (сopiedText.includes(YOUTUBE_LINK)) {
+        setShowFiles(true)
+        changeFilesAndState([...files, сopiedText])
+      } else if (evt.clipboardData.files.length === 0) {
         return
       } else {
         const filesArr = Array.from(evt.clipboardData.files)
@@ -426,7 +432,12 @@ export const Chat: FC<Props> = observer(
               onFocus={!isTabletResolution ? onFocus : undefined}
               onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.includes(YOUTUBE_LINK)) {
+                  return
+                }
+                changeMessageAndState(e.target.value)
+              }}
               onPaste={evt => onPasteFiles(evt)}
             />
 

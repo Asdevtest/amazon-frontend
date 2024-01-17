@@ -1,5 +1,4 @@
 import { FC, memo } from 'react'
-import { ImageType } from 'react-images-uploading-alex76457-version'
 
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -8,7 +7,7 @@ import { IUploadFile } from '@typings/upload-file'
 import { useClassNames } from './chat-files-input.style'
 
 interface ChatFilesInputProps {
-  files: ImageType[]
+  files: IUploadFile[]
   setFiles: (e: IUploadFile[]) => void
 }
 

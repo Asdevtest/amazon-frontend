@@ -237,10 +237,12 @@ class ChatModelStatic {
     }
 
     if (params.files?.length) {
-      for (let i = 0; i < params.files.length; i++) {
-        const file: File = params.files[i]
-
-        await this.onPostFile(file)
+      for (const file of params.files) {
+        if (typeof file === 'string') {
+          this.loadedVideos.push(file)
+        } else {
+          await this.onPostFile(file?.file)
+        }
       }
     }
 
