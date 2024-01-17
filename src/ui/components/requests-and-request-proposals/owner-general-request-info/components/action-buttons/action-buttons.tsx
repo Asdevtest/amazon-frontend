@@ -45,7 +45,11 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
   return (
     <div className={styles.btnsBlockWrapper}>
-      <Button border className={styles.listingButton} onClick={() => onToggleUploadedToListing(id, uploadedToListing)}>
+      <Button
+        outlined
+        className={styles.listingButton}
+        onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
+      >
         <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>

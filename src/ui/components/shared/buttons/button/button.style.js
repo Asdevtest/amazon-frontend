@@ -22,10 +22,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'unset !important',
   },
 
-  outlined: {
-    color: theme.palette.text.general,
-  },
-
   success: {
     backgroundColor: '#009a07 !important',
     '&:hover': {
@@ -58,9 +54,8 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.button.disabledDangerBackground,
     },
   },
-  border: {
+  outlined: {
     background: 'none',
-    borderRadius: 4,
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:hover': {

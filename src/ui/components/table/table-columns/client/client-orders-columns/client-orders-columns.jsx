@@ -3,7 +3,7 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ActionButtons,
+  ActionButtonsCell,
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
@@ -14,7 +14,6 @@ import {
   OrderCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
-  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -24,6 +23,8 @@ import { formatDate, formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { DefaultButtonStyles } from '@typings/enums/default-button-style'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -111,29 +112,24 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params =>
-      Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-        <ActionButtons
-          firstButtonText={t(TranslationKey['Repeat order'])}
+    renderCell: params => {
+      const firstButtonCondition =
+        Number(params.row.originalData.status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+      const firstButtonText = firstButtonCondition ? t(TranslationKey['To order']) : t(TranslationKey['Repeat order'])
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          firstVariantStyle={firstButtonCondition ? DefaultButtonStyles.SUCCESS : undefined}
+          secondVariantStyle={DefaultButtonStyles.OUTLINED}
+          firstButtonText={firstButtonText}
           secondButtonText={t(TranslationKey['Warehouse and orders'])}
-          onClickFirstButton={e => {
-            e.stopPropagation()
-            rowHandlers.onClickReorder(params.row.originalData, false)
-          }}
-          onClickSecondButton={e => {
-            e.stopPropagation()
-            rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)
-          }}
+          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, firstButtonCondition)}
+          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
         />
-      ) : (
-        <SuccessActionBtnCell
-          bTnText={t(TranslationKey['To order'])}
-          onClickOkBtn={e => {
-            e.stopPropagation()
-            rowHandlers.onClickReorder(params.row.originalData, true)
-          }}
-        />
-      ),
+      )
+    },
     width: 220,
     filterable: false,
     sortable: false,
