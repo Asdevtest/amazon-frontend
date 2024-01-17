@@ -286,8 +286,6 @@ export const UploadFilesInput = observer(props => {
                   const currentName = typeof image === 'string' ? image : image?.file.name
                   const isCurrentFileVideoType = isVideoType(image)
 
-                  console.log('isCurrentFileVideoType', isCurrentFileVideoType)
-
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
                       <Tooltip

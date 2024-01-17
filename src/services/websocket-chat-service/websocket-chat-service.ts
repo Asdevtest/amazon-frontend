@@ -44,7 +44,7 @@ export class WebsocketChatService {
       reconnection: true,
       rejectUnauthorized: false,
       reconnectionDelayMax: 10000,
-      transports: ['polling', 'websocket'],
+      transports: ['websocket', 'polling'],
     })
     this.socket = this.manager.socket(`/${websocketChatNamespace}`, {
       auth: {
