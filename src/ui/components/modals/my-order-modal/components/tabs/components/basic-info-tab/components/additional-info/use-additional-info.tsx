@@ -6,11 +6,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserMiniCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
+import { DefaultDatePicker } from '@components/shared/date-picker/date-picker'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Select } from '@components/shared/selects/select'
 import { Switch } from '@components/shared/switch'
 
-import { formatDateToDefaultInputDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -47,10 +47,6 @@ export const useAdditionalInfo = ({
     setFormFields(prevFormFields => {
       const updatedFormFields: IOrderWithAdditionalFields = { ...prevFormFields }
 
-      if (fieldName === 'deadline') {
-        updatedFormFields[fieldName] = new Date(event.target.value)
-      }
-
       if (fieldName === 'expressChinaDelivery' || fieldName === 'needsResearch') {
         updatedFormFields[fieldName] = event.target.checked
       }
@@ -63,6 +59,10 @@ export const useAdditionalInfo = ({
 
       return updatedFormFields
     })
+  }
+
+  const onChangeDeadlineField = (fieldName: string) => (date: string) => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: date }))
   }
 
   const patchDestinationParamsHandler = (
@@ -145,14 +145,12 @@ export const useAdditionalInfo = ({
     {
       title: t(TranslationKey.Deadline),
       element: (
-        <input
-          type="date"
-          name="deadline"
-          value={formatDateToDefaultInputDate(formFields?.deadline)}
-          min={formatDateToDefaultInputDate(minDate)}
+        <DefaultDatePicker
           disabled={!isOrderEditable}
+          minDate={minDate}
+          value={formFields.deadline}
           className={styles.inputDeadline}
-          onChange={onChangeField('deadline')}
+          onChange={onChangeDeadlineField('deadline')}
         />
       ),
     },

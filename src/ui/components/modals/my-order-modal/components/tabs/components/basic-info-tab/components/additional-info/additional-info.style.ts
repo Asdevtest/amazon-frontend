@@ -76,32 +76,21 @@ export const useStyles = makeStyles()(theme => ({
 
   inputDeadline: {
     width: 140,
-    padding: '0 5px',
-    fontSize: 14,
-    lineHeight: '19px',
-    background: theme.palette.background.general,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
-    border: `1px solid ${theme.palette.background.second}`,
     borderRadius: 6,
-    opacity: 1,
-    transition: '.3s ease-in-out',
-    cursor: 'text',
 
-    '&:focus': {
-      border: `1px solid ${theme.palette.primary.main}`,
-    },
+    div: {
+      padding: '2px 5px 2px 10px',
+      borderRadius: 6,
 
-    '&:disabled': {
-      opacity: 0.5,
-      cursor: 'auto',
-    },
-
-    '&:invalid': {
-      border: `1px solid ${theme.palette.text.red}`,
-    },
-
-    '&::-webkit-calendar-picker-indicator': {
-      cursor: 'pointer',
+      input: {
+        height: 19,
+        padding: 0,
+        fontSize: 14,
+        lineHeight: '19px',
+        background: theme.palette.background.general,
+        cursor: 'text',
+      },
     },
   },
 }))

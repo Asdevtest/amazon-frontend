@@ -12,7 +12,7 @@ export interface IOrder {
   createdAt: string
   createdBy: IShortUser
   createdById: string
-  deadline: Date | null
+  deadline: string | null
   deliveryCostToTheWarehouse: number
   destination: IDestination
   expressChinaDelivery: boolean

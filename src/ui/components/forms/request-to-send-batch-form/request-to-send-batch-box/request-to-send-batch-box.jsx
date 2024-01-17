@@ -279,7 +279,13 @@ export const RequestToSendBatchBox = memo(
 
             {box.shippingLabel ? (
               <div className={styles.linkWrapper}>
-                <a download target="_blank" rel="noreferrer" href={box.shippingLabel} className={styles.downloadLink}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href={box.shippingLabel}
+                  className={styles.downloadLink}
+                >
                   {t(TranslationKey.download)}
                 </a>
                 <CopyValue text={box.shippingLabel} />

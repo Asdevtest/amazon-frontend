@@ -79,7 +79,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
               <a
                 href={documentLink}
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
                 className={styles.document}
                 onClick={e => e.preventDefault()} // fix follow the link to the previews
               >

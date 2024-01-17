@@ -107,7 +107,7 @@ export const ClientOrdersView = observer(history => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={params => viewModel.onClickMyOrderModal(params.row)}
+          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
         />
       </div>
 
@@ -135,6 +135,7 @@ export const ClientOrdersView = observer(history => {
           currentBatch={viewModel.currentBatch}
           shops={viewModel.shopsData}
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onClickMyOrderModal={viewModel.onClickMyOrderModal}
         />
       )}
 

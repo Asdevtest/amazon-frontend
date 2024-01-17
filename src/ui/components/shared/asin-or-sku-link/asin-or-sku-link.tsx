@@ -19,7 +19,10 @@ interface AsinOrSkuLinkProps {
 
 export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
   const { link, withCopyValue, withAttributeTitle, textStyles, iconStyles } = props
+
   const { classes: styles, cx } = useStyles()
+
+  const amazonExternalLink = `https://www.amazon.com/dp/${link}`
 
   return (
     <div className={styles.root}>
@@ -31,7 +34,7 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
       )}
 
       {link ? (
-        <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${link}`} className={styles.normalizeLink}>
+        <a target="_blank" rel="noreferrer noopener" href={amazonExternalLink} className={styles.normalizeLink}>
           <p className={cx(styles.valueText, styles.asinValueText, textStyles)}>{shortLink(link)}</p>
         </a>
       ) : (

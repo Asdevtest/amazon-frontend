@@ -18,7 +18,7 @@ export const LinkWithCopy: FC<LinkWithCopyProps> = memo(props => {
     <div className={styles.wrapper}>
       <a
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
         href={url}
         className={cx(styles.normalizeLink, { [styles.mediumSizeLinkText]: linkTextSize === 'medium' })}
       >

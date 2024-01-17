@@ -2,8 +2,6 @@ import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Input } from '@components/shared/input'
-
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -22,61 +20,70 @@ export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfi
   return [
     {
       title: t(TranslationKey.Available),
-      element: <p>{selectedProduct?.fbaFbmStockSum || '-'}</p>,
+      element: <p className={styles.fieldValue}>{selectedProduct?.fbaFbmStockSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Reserved),
-      element: <p className={styles.fieldText}>{selectedProduct?.reservedSum || '-'}</p>,
+      element: <p className={styles.fieldValue}>{selectedProduct?.reservedSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Inbound),
-      element: <p className={styles.fieldText}>{selectedProduct?.sentToFbaSum || '-'}</p>,
+      element: <p className={styles.fieldValue}>{selectedProduct?.sentToFbaSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Order),
       element: (
-        <div>
-          <p className={styles.amountOrder}>{selectedProduct?.amountInOrders}</p>
-          <p className={cx(styles.waitOrder, styles.fieldText)}>
-            <WatchLaterSharpIcon color="primary" />
-            <span className={styles.amountInPendingOrders}>{selectedProduct?.amountInPendingOrders}</span>
-          </p>
+        <div className={styles.fieldColumn}>
+          <p className={cx(styles.fieldValue, styles.blueText)}>{selectedProduct?.amountInOrders}</p>
+          <div className={styles.flexConainer}>
+            <WatchLaterSharpIcon className={styles.fieldIcon} />
+            <p className={styles.fieldValue}>{selectedProduct?.amountInPendingOrders}</p>
+          </div>
         </div>
       ),
     },
     {
       title: 'In Transfer',
-      element: <p className={styles.fieldText}>{selectedProduct?.inTransfer || '-'}</p>,
+      element: <p className={styles.fieldValue}>{selectedProduct?.inTransfer || 0}</p>,
     },
     {
       title: t(TranslationKey['In stock']),
-      element: (
-        <>
-          {selectedProduct?.boxAmounts?.map(box => (
-            <p key={box._id} className={styles.inStock}>
-              <span className={styles.storekeeperName}>{box.storekeeper.name}</span>
-              <span className={styles.fieldText}> {box.amountInBoxes}</span>
-            </p>
-          ))}
-        </>
-      ),
+      element:
+        selectedProduct?.boxAmounts?.length > 0 ? (
+          <div className={styles.fieldColumn}>
+            {selectedProduct?.boxAmounts?.map(box => (
+              <div key={box._id} className={styles.flexConainer}>
+                <p className={cx(styles.fieldValue, styles.blueText)}>{box.storekeeper.name}</p>
+                <p className={styles.fieldValue}> {box.amountInBoxes}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className={styles.fieldValue}>{t(TranslationKey['No data'])}</p>
+        ),
     },
     {
       title: t(TranslationKey['Stock sum']),
-      element: <p className={styles.fieldText}> {selectedProduct?.sumStock}</p>,
+      element: <p className={styles.fieldValue}> {selectedProduct?.sumStock || 0}</p>,
     },
     {
       title: t(TranslationKey['Stock cost']),
-      element: <p className={styles.fieldText}>{toFixed(selectedProduct?.stockCost, 0)}</p>,
+      element: (
+        <p className={cx(styles.stockCostWrapper, styles.fieldValue)}>
+          {selectedProduct?.stockCost ? toFixed(selectedProduct?.stockCost) : 0}
+        </p>
+      ),
     },
     {
       title: t(TranslationKey['Recommendation for additional purchases']),
       element: (
-        <div className={styles.additionPurchaseWrap}>
-          <p className={styles.toPurchase}>{`${t(TranslationKey['To repurchase'])}: ${
-            selectedProduct?.purchaseQuantity
-          }`}</p>
-          <Input className={styles.inputAdditionPurchase} value={selectedProduct?.fourMonthesStock} />
+        <div className={styles.additionPurchaseWrapper}>
+          <div className={styles.flexConainer}>
+            <p className={styles.fieldValue}>{`${t(TranslationKey['To repurchase'])}: `}</p>
+            <p className={styles.fieldValue}>{selectedProduct?.purchaseQuantity || 0}</p>
+          </div>
+
+          <input disabled className={styles.inputAdditionPurchase} value={selectedProduct?.fourMonthesStock} />
         </div>
       ),
     },
