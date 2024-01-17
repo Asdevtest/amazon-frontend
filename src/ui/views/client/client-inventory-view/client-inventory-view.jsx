@@ -66,8 +66,8 @@ export const ClientInventoryView = observer(({ history, location }) => {
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
   const getRowClassName = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && styles.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && styles.ideaRowYellow)
+    (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
+    (!!params.row.ideasOnCheck && styles.ideaRowYellow)
 
   return (
     <>
@@ -99,6 +99,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.tableData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -143,11 +144,11 @@ export const ClientInventoryView = observer(({ history, location }) => {
             }
           }}
           onRowClick={params => viewModel.onClickProductModal(params.row)}
-          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
+          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
         />
       </div>
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showSendOwnProductModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
       >
@@ -230,7 +231,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           progressValue={viewModel.progressValue}
           product={viewModel.tableData
             .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
+            }
           ideas={viewModel.ideasData}
           onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
           onSubmit={viewModel.createSupplierSearchRequest}
@@ -320,7 +321,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         <SelectionSupplierModal
           product={
             viewModel.selectedProductToLaunch ||
-            viewModel.tableData.find(el => el.originalData._id === viewModel.selectedRowId)
+            viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
           buttonValue={viewModel.selectedProductToLaunch && SelectedButtonValueConfig.SEND_REQUEST}
@@ -346,7 +347,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           // selectedProductsData={viewModel.dataForOrderModal}
           selectedProductsData={viewModel.tableData
             .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
+            }
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
@@ -358,7 +359,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.tableData.find(item => viewModel.selectedRowIds.includes(item.id))?.originalData}
+          product={viewModel.tableData.find(item => viewModel.selectedRowIds.includes(item.id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
@@ -438,7 +439,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
-      )}
+      )} */}
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
