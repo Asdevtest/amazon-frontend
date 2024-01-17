@@ -13,8 +13,6 @@ export const useStyles = makeStyles()(() => ({
 
     '& div': {
       overflow: 'hidden',
-      width: '100%',
-      height: '100%',
     },
   },
 
@@ -40,6 +38,10 @@ export const useStyles = makeStyles()(() => ({
         width: '100%',
         height: '100%',
       },
+      '& div': {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
 
@@ -51,6 +53,10 @@ export const useStyles = makeStyles()(() => ({
       gridColumn: '1/3',
       gridRow: '1/4',
       img: {
+        width: '100%',
+        height: '100%',
+      },
+      '& div': {
         width: '100%',
         height: '100%',
       },
@@ -68,6 +74,10 @@ export const useStyles = makeStyles()(() => ({
         width: '100%',
         height: '100%',
       },
+      '& div': {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
 
@@ -79,6 +89,10 @@ export const useStyles = makeStyles()(() => ({
       gridColumn: '1/3',
       gridRow: '1/3',
       img: {
+        width: '100%',
+        height: '100%',
+      },
+      '& div': {
         width: '100%',
         height: '100%',
       },

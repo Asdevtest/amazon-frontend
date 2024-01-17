@@ -49,6 +49,10 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const { users, lastMessage, unread } = chat
 
+  const isLastMessageFile = !!(lastMessage?.files?.length || lastMessage?.images?.length || lastMessage?.video?.length)
+  const isUnredExists = Number(unread) > 0
+  const isAddBoltStyleLastMessage = isUnredExists || isLastMessageFile
+
   // @ts-ignore
   const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
 
@@ -165,7 +169,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
                 <p className={classNames.nickName}>{oponentUser?.name}</p>
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: Number(unread) > 0,
+                    [classNames.lastMessageTextBold]: isUnredExists,
                   })}
                 >
                   {t(TranslationKey.Writes) + '...'}
@@ -180,10 +184,11 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
                 <p
                   className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: Number(unread) > 0,
+                    [classNames.lastMessageTextBold]: isAddBoltStyleLastMessage,
+                    [classNames.lastMessageFile]: isLastMessageFile,
                   })}
                 >
-                  {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
+                  {message + (isLastMessageFile ? t(TranslationKey.Files) : '')}
                 </p>
               </div>
             )}
@@ -191,7 +196,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             <div className={classNames.badgeWrapper}>
               {isMutedChat && <SoundOffIcon className={classNames.soundOffIcon} />}
 
-              {Number(unread) > 0 ? (
+              {isUnredExists ? (
                 <span className={classNames.badge}>{Number(unread)}</span>
               ) : isCurrentUser ? (
                 readingTick
