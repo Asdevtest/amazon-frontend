@@ -24,7 +24,6 @@ interface ImageModalProps {
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   isRequestResult?: boolean
-  isModalOpenedFromSlider?: boolean
   onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
@@ -41,7 +40,6 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     isEditable,
     withoutMakeMainImage,
     isRequestResult = false,
-    isModalOpenedFromSlider = false,
     onChangeImagesForLoad,
   } = props
 
@@ -73,8 +71,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
       setOpenModal={() => {
         onOpenModal()
         onCurrentFileIndex(mediaFileIndex)
-        !isModalOpenedFromSlider && updateImagesForLoad()
-        isModalOpenedFromSlider && onChangeImagesForLoad ? onChangeImagesForLoad(mediaFiles) : undefined
+        updateImagesForLoad()
       }}
       dialogClassName={styles.modalContainer}
     >
