@@ -75,8 +75,6 @@ export const MessagesView = observer(({ history }) => {
       )
     })
 
-  console.log('filteredChats', filteredChats)
-
   const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
