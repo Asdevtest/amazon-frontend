@@ -60,8 +60,6 @@ export const usePhotoAndFilesSlider = (
         setMediaFileIndex(fileIndex - 1) // returns to the previous photo
       }
 
-      console.log(filteringMediaFiles.length)
-
       if (filteringMediaFiles?.length === 0) {
         onOpenImageModal()
       }
