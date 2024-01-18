@@ -15,15 +15,16 @@ import { ButtonControls, Comment, ShowPreviews } from './components'
 interface ImageModalProps {
   files: Array<string | IUploadFile>
   currentFileIndex: number
-  handleCurrentFileIndex: (index: number) => void
+  onCurrentFileIndex: (index: number) => void
   isOpenModal: boolean
-  handleOpenModal: () => void
+  onOpenModal: () => void
   photosTitles?: string[]
   photosComments?: string[]
   showPreviews?: boolean
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   isRequestResult?: boolean
+  isModalOpenedFromSlider?: boolean
   onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
 }
 
@@ -31,15 +32,16 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
     files,
     currentFileIndex,
-    handleCurrentFileIndex,
+    onCurrentFileIndex,
     isOpenModal,
-    handleOpenModal,
+    onOpenModal,
     photosTitles,
     photosComments,
     showPreviews,
     isEditable,
     withoutMakeMainImage,
     isRequestResult = false,
+    isModalOpenedFromSlider = false,
     onChangeImagesForLoad,
   } = props
 
@@ -69,9 +71,10 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     <Modal
       openModal={isOpenModal}
       setOpenModal={() => {
-        handleOpenModal()
-        handleCurrentFileIndex(mediaFileIndex)
-        updateImagesForLoad()
+        onOpenModal()
+        onCurrentFileIndex(mediaFileIndex)
+        !isModalOpenedFromSlider && updateImagesForLoad()
+        isModalOpenedFromSlider && onChangeImagesForLoad ? onChangeImagesForLoad(mediaFiles) : undefined
       }}
       dialogClassName={styles.modalContainer}
     >

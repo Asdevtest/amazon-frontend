@@ -278,14 +278,14 @@ export const PhotoAndFilesCarousel = props => {
         <ImageModal
           showPreviews
           isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          controls={isEditable ? bigImagesModalControls : undefined}
           files={bigImagesOptions.images.map((el, i) => ({
             url: el,
             comment: filteredImagesTitles[i],
           }))}
           currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          controls={isEditable ? bigImagesModalControls : undefined}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </div>

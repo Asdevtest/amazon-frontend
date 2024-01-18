@@ -10,7 +10,9 @@ interface Props {
   unit?: string
 }
 
-export const TwoBarsChart: FC<Props> = ({ data, xRowKey, firstBarKey, secondBarKey, height = 272, unit }) => {
+export const TwoBarsChart: FC<Props> = memo(props => {
+  const { data, xRowKey, firstBarKey, secondBarKey, height = 272, unit } = props
+
   return (
     <div style={{ width: '100%', height }}>
       <ResponsiveContainer width={'100%'} height={height}>
@@ -33,4 +35,4 @@ export const TwoBarsChart: FC<Props> = ({ data, xRowKey, firstBarKey, secondBarK
       </ResponsiveContainer>
     </div>
   )
-}
+})

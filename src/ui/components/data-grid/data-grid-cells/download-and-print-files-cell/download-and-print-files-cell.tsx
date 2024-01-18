@@ -102,10 +102,10 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
       {isOpenModal && (
         <ImageModal
           isOpenModal={isOpenModal}
-          handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
           files={[selectedImage?.fileUrl]}
           currentFileIndex={0}
-          handleCurrentFileIndex={() => null}
+          onOpenModal={() => setIsOpenModal(!isOpenModal)}
+          onCurrentFileIndex={() => null}
         />
       )}
     </>

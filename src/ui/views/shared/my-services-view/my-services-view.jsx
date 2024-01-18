@@ -87,8 +87,7 @@ export const MyServicesView = observer(({ history, location }) => {
           showPreviews
           isOpenModal={viewModel.showImageModal}
           files={viewModel.service?.linksToMediaFiles}
-          openModal={viewModel.showImageModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         />
       )}
 

@@ -13,8 +13,9 @@ interface DataGridSelectAllFiltersProps {
   itemsForRender: string[]
 }
 
-export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props => {
+export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = memo(props => {
   const { choosenItems, setChoosenItems, itemsForRender } = props
+
   const { classes: styles } = useStyles()
 
   const selectAllItemsHandler = (fullList: string[]) => {
@@ -37,4 +38,4 @@ export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props
       </div>
     </div>
   )
-}
+})

@@ -54,14 +54,16 @@ export const MediaFilesTab: FC<MediaFilesTabProps> = memo(({ slides, isTransitio
         )}
       </div>
 
-      <ImageModal
-        showPreviews
-        files={slides}
-        currentFileIndex={currentSlideIndex}
-        handleCurrentFileIndex={setCurrentSlideIndex}
-        isOpenModal={showImageModal}
-        handleOpenModal={() => setShowImageModal(!showImageModal)}
-      />
+      {showImageModal ? (
+        <ImageModal
+          showPreviews
+          files={slides}
+          currentFileIndex={currentSlideIndex}
+          isOpenModal={showImageModal}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={setCurrentSlideIndex}
+        />
+      ) : null}
     </>
   )
 })

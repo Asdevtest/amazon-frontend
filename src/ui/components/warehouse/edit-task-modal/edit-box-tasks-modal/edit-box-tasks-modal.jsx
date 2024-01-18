@@ -24,8 +24,10 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
-  const { classes: styles, cx } = useStyles()
+const AttributesEditBlock = props => {
+  const { box, setNewBoxField, volumeWeightCoefficient, sizeSetting } = props
+
+  const { classes: styles } = useStyles()
 
   const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
 
