@@ -36,7 +36,9 @@ export const DeliveryParameters = ({
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
-  const [currentDestanationId, setCurrentDestanationId] = useState(formFields.destinationId)
+  const [currentDestanationId, setCurrentDestanationId] = useState(
+    formFields.destinationId || order?.variationTariff?.destinationId,
+  )
 
   const minDate = dayjs().add(2, 'day')
 
