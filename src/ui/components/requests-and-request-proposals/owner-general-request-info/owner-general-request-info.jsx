@@ -42,7 +42,9 @@ export const OwnerGeneralRequestInfo = props => {
 
   const isDisplayingMarkAsCompletedButton =
     (request?.request.createdBy?._id === userInfo?._id || request?.request.sub?._id === userInfo?._id) &&
-    (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
+    (request?.request.status === RequestStatus.EXPIRED ||
+      request?.request.status === RequestStatus.IN_PROCESS ||
+      request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS) &&
     requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
   return (

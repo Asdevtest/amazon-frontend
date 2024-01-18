@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -24,8 +24,10 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
-  const { classes: styles, cx } = useStyles()
+const AttributesEditBlock = memo(props => {
+  const { classes: styles } = useStyles()
+
+  const { box, setNewBoxField, volumeWeightCoefficient, sizeSetting } = props
 
   const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
 
@@ -107,19 +109,21 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
       </div>
     </div>
   )
-}
+})
 
-export const EditBoxTasksModal = ({
-  isInStorekeeperWarehouse,
-  setEditModal,
-  box,
-  operationType,
-  setNewBoxes,
-  newBoxes,
-  volumeWeightCoefficient,
-  storekeeperWarehouseSubmit,
-}) => {
+export const EditBoxTasksModal = props => {
   const { classes: styles, cx } = useStyles()
+
+  const {
+    isInStorekeeperWarehouse,
+    setEditModal,
+    box,
+    operationType,
+    setNewBoxes,
+    newBoxes,
+    volumeWeightCoefficient = 0,
+    storekeeperWarehouseSubmit,
+  } = props
 
   const [editingBox, setEditingBox] = useState(isInStorekeeperWarehouse ? { ...box, tmpImages: [] } : box)
 

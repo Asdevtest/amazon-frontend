@@ -8,8 +8,7 @@ interface HighPriorityValueProps {
   value: string | number
 }
 
-export const HighPriorityValue: FC<HighPriorityValueProps> = props => {
-  const { value } = props
+export const HighPriorityValue: FC<HighPriorityValueProps> = memo(({ value }) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -18,4 +17,4 @@ export const HighPriorityValue: FC<HighPriorityValueProps> = props => {
       <img src="/assets/icons/fire.svg" />
     </div>
   )
-}
+})

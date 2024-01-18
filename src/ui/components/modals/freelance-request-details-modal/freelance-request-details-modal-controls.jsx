@@ -36,9 +36,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
   const showMarkAsCompletedButtton =
-    isAcceptedProposals &&
-    request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
-    request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+    isAcceptedProposals && request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
   const showChangeRequestTermsButton =
     request?.status === RequestStatus.IN_PROCESS ||
     request?.status === RequestStatus.EXPIRED ||

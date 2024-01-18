@@ -565,7 +565,7 @@ class ChatModelStatic {
 
     if (findSimpleChatIndexById !== -1) {
       runInAction(() => {
-        this.simpleChats = [...this.simpleChats, chat]
+        this.simpleChats = [chat]
       })
     }
   }
