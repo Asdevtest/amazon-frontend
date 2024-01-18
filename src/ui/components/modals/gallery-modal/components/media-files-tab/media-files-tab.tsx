@@ -10,14 +10,14 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { isString } from '@typings/type-guards'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './media-files-tab.style'
 
 import { DEFAULT_SLIDE_HEIGHT } from '../../gallery-modal.constants'
 
 interface MediaFilesTabProps {
-  slides: Array<string | IUploadFile>
+  slides: UploadFileType[]
   isTransitioning: boolean
 }
 

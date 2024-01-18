@@ -19,12 +19,12 @@ import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/patform-settings'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 export const suppliersOrderColumn = (
   order: IOrderWithAdditionalFields,
   platformSettings: IPlatformSettings,
-  onClickFilesCell: (files?: Array<string | IUploadFile>) => void,
+  onClickFilesCell: (files?: UploadFileType[]) => void,
 ) => [
   {
     field: 'supplier',

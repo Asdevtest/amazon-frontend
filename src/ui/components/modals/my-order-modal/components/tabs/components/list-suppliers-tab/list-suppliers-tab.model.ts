@@ -5,7 +5,7 @@ import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
 import { ISupplier } from '@typings/product'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { ModalNames } from './list-suppliers-tab.type'
 
@@ -15,7 +15,7 @@ export class ListSuppliersTabModel {
 
   suppliers: ISupplier[] = []
   currentSupplier: ISupplier | undefined = undefined
-  galleryFiles: Array<string | IUploadFile> = []
+  galleryFiles: UploadFileType[] = []
 
   showGalleryModal = false
   showAddOrEditSupplierModal = false
@@ -70,7 +70,7 @@ export class ListSuppliersTabModel {
     }
   }
 
-  onClickFilesCell = (files?: Array<string | IUploadFile>) => {
+  onClickFilesCell = (files?: UploadFileType[]) => {
     if (files && files.length > 0) {
       this.galleryFiles = files
     } else {

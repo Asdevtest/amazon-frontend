@@ -30,9 +30,10 @@ export type WebsocketChatServiceHandlersAllValues = {
 
 export interface SendMessageRequestParams {
   chatId: string
-  text: string
-  files: string[]
+  text?: string
+  files?: string[]
   images?: string[]
+  video?: string[]
 
   is_draft?: boolean
   replyMessageId?: string | null
@@ -77,6 +78,7 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
   type: ChatMessageType
   images: string[]
   files: string[]
+  video: string[]
   is_draft?: boolean
   createdAt: string
   updatedAt: string

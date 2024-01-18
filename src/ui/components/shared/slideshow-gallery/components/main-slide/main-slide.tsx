@@ -6,7 +6,7 @@ import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 import { checkIsDocumentLink } from '@utils/checks'
 
 import { isString } from '@typings/type-guards'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './main-slide.style'
 
@@ -14,7 +14,7 @@ import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../slides
 import { GetSlideByType } from '../get-slide-by-type'
 
 interface MainSlideProps {
-  mediaFile: string | IUploadFile
+  mediaFile: UploadFileType
   currentMediaFileIndex: number
   isTransitioning: boolean
   slidesToShow: number

@@ -48,6 +48,9 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const { users, lastMessage, unread } = chat
 
+  const isLastMessageFile = !!(lastMessage?.files?.length || lastMessage?.images?.length || lastMessage?.video?.length)
+  const isUnredExists = Number(unread) > 0
+
   // @ts-ignore
   const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
 
@@ -164,7 +167,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
                 <p className={styles.nickName}>{oponentUser?.name}</p>
                 <p
                   className={cx(styles.lastMessageText, {
-                    [styles.lastMessageTextBold]: Number(unread) > 0,
+                    [styles.lastMessageTextBold]: isUnredExists,
                   })}
                 >
                   {t(TranslationKey.Writes) + '...'}
@@ -179,10 +182,17 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
                 <p
                   className={cx(styles.lastMessageText, {
-                    [styles.lastMessageTextBold]: Number(unread) > 0,
+                    [styles.lastMessageTextBold]: isUnredExists,
                   })}
                 >
-                  {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
+                  {message}
+                  {isLastMessageFile && (
+                    <span
+                      className={cx({
+                        [styles.lastMessageFile]: isLastMessageFile,
+                      })}
+                    >{` ${t(TranslationKey.Files)}`}</span>
+                  )}
                 </p>
               </div>
             )}
@@ -190,7 +200,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
             <div className={styles.badgeWrapper}>
               {isMutedChat && <SoundOffIcon className={styles.soundOffIcon} />}
 
-              {Number(unread) > 0 ? (
+              {isUnredExists ? (
                 <span className={styles.badge}>{Number(unread)}</span>
               ) : isCurrentUser ? (
                 readingTick

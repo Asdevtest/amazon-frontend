@@ -3,7 +3,7 @@ import { Dispatch, FC, SetStateAction, memo } from 'react'
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
 import { Arrows, ArrowsType } from '@typings/arrow'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './slider.style'
 
@@ -11,7 +11,7 @@ import { Arrow, NoSlide, Slides } from './components'
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
 
 interface SliderProps {
-  slides: Array<string | IUploadFile>
+  slides: UploadFileType[]
   currentIndex: number
   setCurrentIndex: Dispatch<SetStateAction<number>>
   smallSlider?: boolean

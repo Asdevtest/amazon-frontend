@@ -1,4 +1,4 @@
-import { IUploadFile } from './upload-file'
+import { UploadFileType } from './upload-file'
 
 export interface IShortUser {
   _id: string
@@ -10,7 +10,7 @@ export interface IShortUser {
 export interface IService {
   createdBy: IShortUser
   createdAt: string
-  linksToMediaFiles: Array<string | IUploadFile>
+  linksToMediaFiles: UploadFileType[]
   requests: Array<Requests>
   type: number
   description: string

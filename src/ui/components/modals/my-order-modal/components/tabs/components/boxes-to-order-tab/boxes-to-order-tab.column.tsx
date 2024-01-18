@@ -16,11 +16,11 @@ import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/patform-settings'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 export const boxesToOrderColumn = (
   platformSettings: IPlatformSettings,
-  onClickFilesCell: (files?: Array<string | IUploadFile>) => void,
+  onClickFilesCell: (files?: UploadFileType[]) => void,
 ) => [
   {
     field: 'status',

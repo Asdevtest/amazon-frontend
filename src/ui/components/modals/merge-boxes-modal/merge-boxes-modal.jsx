@@ -206,7 +206,8 @@ export const MergeBoxesModal = ({
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
     (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length) ||
-    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
+    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
+    !boxBody.logicsTariffId
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -214,7 +215,8 @@ export const MergeBoxesModal = ({
     !boxBody.lengthCmWarehouse ||
     !boxBody.widthCmWarehouse ||
     !boxBody.heightCmWarehouse ||
-    !boxBody.weighGrossKgWarehouse
+    !boxBody.weighGrossKgWarehouse ||
+    !boxBody.logicsTariffId
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
     destinations,
@@ -496,7 +498,6 @@ export const MergeBoxesModal = ({
         <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
-            // Проверка для дизейбла
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={styles.button}
             onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
