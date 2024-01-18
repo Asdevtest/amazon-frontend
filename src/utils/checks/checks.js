@@ -128,6 +128,8 @@ export const checkIsDocumentLink = link =>
   link?.includes('xlsx') ||
   link?.includes('xls') ||
   link?.includes('txt') ||
+  link?.includes('csv') ||
+  link?.includes('djvu') ||
   (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
   link?.includes('drive.google.com') ||
   link?.includes('docs.google.com')

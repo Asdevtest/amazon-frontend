@@ -142,7 +142,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       renderCell: params => (
         <PaymentMethodsCell
-          paymentMethods={params.row.originalData.payments}
+          paymentMethods={params.row.originalData.payments?.map(payment => payment.paymentMethod)}
           onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
         />
       ),

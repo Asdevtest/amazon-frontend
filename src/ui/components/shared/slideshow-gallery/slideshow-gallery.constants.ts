@@ -1,0 +1,11 @@
+export const QUANTITY_SLIDES_INSTEAD_OF_ARROWS = 1
+export const MIN_FILES_IN_ARRAY = 1
+export const FIRST_SLIDE = 0
+export const DEFAULT_QUANTITY_SLIDES = 4
+export const DEFAULT_PREVIEWS_SLIDE_HEIGHT = 46
+export const DEFAULT_PREVIEWS_SLIDE_GAP = 10
+export const PADDING_WITH_ARROWS = 10
+export const DIFFERENCE_BETWEEN_QUANTITY_SLIDES_AND_GAP = 1
+export const NOT_GAP = 0
+export const DEFAULT_ANIMATION_DELAY = 300
+export const NULL_DELAY = 0

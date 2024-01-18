@@ -35,8 +35,8 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
               <Text tooltipInfoContent={isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''}>
                 <a
                   download
-                  target={'_blank'}
-                  rel={'noreferrer'}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   href={validLink}
                   className={styles.downloadLink}
                   onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}

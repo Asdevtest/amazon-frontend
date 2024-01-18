@@ -95,7 +95,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             />
             <div className={styles.category}>
               {request?.product.asin && (
-                <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={request?.product.asin} />
+                <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={request?.product.asin} />
               )}
               {request?.product.amazonTitle && (
                 <Typography>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</Typography>

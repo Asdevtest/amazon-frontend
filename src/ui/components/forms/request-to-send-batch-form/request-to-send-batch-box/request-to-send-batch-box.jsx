@@ -69,10 +69,9 @@ export const RequestToSendBatchBox = memo(
                     <div>
                       <AsinOrSkuLink
                         withCopyValue
-                        withAttributeTitle={'asin'}
+                        withAttributeTitle="asin"
                         textStyles={styles.asinTitle}
-                        attributeTitleTextStyles={styles.asinTitle}
-                        asin={box.items[0].product.asin}
+                        link={box.items[0].product.asin}
                       />
 
                       <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
@@ -153,10 +152,9 @@ export const RequestToSendBatchBox = memo(
                       <div>
                         <AsinOrSkuLink
                           withCopyValue
-                          withAttributeTitle={'asin'}
+                          withAttributeTitle="asin"
                           textStyles={styles.asinTitle}
-                          attributeTitleTextStyles={styles.asinTitle}
-                          asin={box.items[0].product.asin}
+                          link={box.items[0].product.asin}
                         />
 
                         <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
@@ -281,7 +279,13 @@ export const RequestToSendBatchBox = memo(
 
             {box.shippingLabel ? (
               <div className={styles.linkWrapper}>
-                <a download target="_blank" rel="noreferrer" href={box.shippingLabel} className={styles.downloadLink}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href={box.shippingLabel}
+                  className={styles.downloadLink}
+                >
                   {t(TranslationKey.download)}
                 </a>
                 <CopyValue text={box.shippingLabel} />

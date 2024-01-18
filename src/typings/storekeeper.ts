@@ -1,9 +1,9 @@
-import { LogisticTariffInterface } from './logistics-tariff'
+import { ILogisticTariff } from './logistics-tariff'
 
 export interface IStorekeeper {
   _id: string
   name?: string
-  tariffLogistics?: LogisticTariffInterface[]
+  tariffLogistics?: ILogisticTariff[]
   tariffWarehouses?: Array<IStorekeepersTariffWarehouses>
   boxesCount?: number
 }

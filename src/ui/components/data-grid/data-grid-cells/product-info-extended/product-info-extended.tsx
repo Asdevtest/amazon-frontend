@@ -31,7 +31,7 @@ export const ProductInfoExtended: FC<ProductInfoExtendedProps> = memo(({ box, bo
             <div className={styles.batchProductInfoWrapper}>
               <p className={styles.batchProductTitle}>{item.amazonTitle}</p>
 
-              <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={item.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.asin} />
 
               {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
                 <p className={styles.productInfoText}>

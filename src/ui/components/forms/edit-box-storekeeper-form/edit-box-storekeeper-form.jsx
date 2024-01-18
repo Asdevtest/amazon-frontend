@@ -352,7 +352,6 @@ export const EditBoxStorekeeperForm = memo(
       maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
       maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
       maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
-    !imagesOfBox.length
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,

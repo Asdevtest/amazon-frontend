@@ -8,7 +8,6 @@ import {
   ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
-  ChatMessageProposalEditedChatContract,
   ChatMessageRemovePatchInfoGroupChatContract,
   ChatMessageRemoveUsersFromGroupChatContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'

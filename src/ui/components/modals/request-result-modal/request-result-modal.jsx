@@ -117,7 +117,7 @@ export const RequestResultModal = memo(props => {
               <div className={styles.links}>
                 {formFields.publicationLinks.map((el, index) => (
                   <div key={index} className={styles.linkWrapper}>
-                    <a href={el} className={styles.linkText} target="_blank" rel="noreferrer">
+                    <a href={el} className={styles.linkText} target="_blank" rel="noreferrer noopener">
                       {`${index + 1}. ${el}`}
                     </a>
 

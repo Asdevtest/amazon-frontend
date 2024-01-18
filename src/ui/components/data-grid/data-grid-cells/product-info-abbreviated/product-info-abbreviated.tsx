@@ -41,7 +41,7 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = memo(({ b
                   {box.amount > 1 && <p className={styles.amountBoxesText}>{`SBX${box.amount}`}</p>}
                 </div>
 
-                <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={item.asin} />
+                <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.asin} />
 
                 <p className={styles.amountBoxesText}>{`X${item.amount}`}</p>
               </div>

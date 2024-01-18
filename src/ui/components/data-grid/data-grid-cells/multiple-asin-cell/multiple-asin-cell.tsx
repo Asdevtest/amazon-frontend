@@ -14,7 +14,7 @@ export const MultipleAsinCell: FC<MultipleAsinCellProps> = memo(({ asinList }) =
   return (
     <div className={styles.multipleAsinWrapper}>
       {asinList.map((asin, index) => (
-        <AsinOrSkuLink key={index} withCopyValue asin={asin} />
+        <AsinOrSkuLink key={index} withCopyValue link={asin} />
       ))}
     </div>
   )

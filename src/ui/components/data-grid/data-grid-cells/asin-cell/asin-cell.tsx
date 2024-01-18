@@ -7,5 +7,5 @@ interface AsinCellProps {
 }
 
 export const AsinCell: FC<AsinCellProps> = memo(({ asin }) => (
-  <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
+  <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />
 ))

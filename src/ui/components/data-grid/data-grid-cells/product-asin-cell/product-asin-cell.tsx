@@ -18,26 +18,20 @@ interface ProductAsinCellProps {
 }
 
 export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
+  const { image, amazonTitle, asin, skuByClient, withoutImage, withoutTitle, withoutSku, withoutAsin } = props
+
   const { classes: styles } = useStyles()
-  const {
-    image,
-    amazonTitle,
-    asin,
-    skuByClient,
-    withoutImage = undefined,
-    withoutSku,
-    withoutTitle,
-    withoutAsin,
-  } = props
 
   return (
     <div className={styles.asinCellContainer}>
-      {!withoutImage && <img src={getAmazonImageUrl(image)} alt="image" className={styles.img} />}
+      {!withoutImage && (
+        <img src={getAmazonImageUrl(image, false)} alt="preview-product-table" className={styles.img} />
+      )}
 
       <div className={styles.csCodeTypoWrapper}>
         {!withoutTitle && <p className={styles.csCodeTypo}>{amazonTitle}</p>}
-        {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />}
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={skuByClient} />}
+        {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />}
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={skuByClient} />}
       </div>
     </div>
   )

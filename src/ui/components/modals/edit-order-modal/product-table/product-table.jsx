@@ -42,7 +42,7 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
                 ASIN:{' '}
                 <a
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                   href={`https://www.amazon.com/dp/${order.product.asin}`}
                   onClick={e => e.stopPropagation()}
                 >

@@ -11,4 +11,9 @@ export const useStyles = makeStyles()(theme => ({
   error: {
     color: theme.palette.text.red,
   },
+
+  openPickerIcon: {
+    width: '16px !important',
+    height: '16px !important',
+  },
 }))

@@ -10,6 +10,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
@@ -25,6 +26,14 @@ import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+  {
+    renderCell: params => <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenNewTab(params.row.id)} />,
+    width: 50,
+    filterable: false,
+    sortable: false,
+    disableColumnMenu: true,
+  },
+
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -107,8 +116,14 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         <ActionButtons
           firstButtonText={t(TranslationKey['Repeat order'])}
           secondButtonText={t(TranslationKey['Warehouse and orders'])}
-          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, false)}
-          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+          onClickFirstButton={e => {
+            e.stopPropagation()
+            rowHandlers.onClickReorder(params.row.originalData, false)
+          }}
+          onClickSecondButton={e => {
+            e.stopPropagation()
+            rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)
+          }}
         />
       ) : (
         <SuccessActionBtnCell

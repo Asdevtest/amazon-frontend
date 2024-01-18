@@ -118,8 +118,8 @@ export const Box: FC<BoxProps> = memo(props => {
                 }`}</p>
               </div>
 
-              <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={order.product.skuByClient} />
 
               <p className={styles.title}>{order.product.amazonTitle}</p>
 

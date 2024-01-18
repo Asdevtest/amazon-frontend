@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Checkbox, Divider, Grid, Link, Typography } from '@mui/material'
 
@@ -25,7 +24,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
-export const AddOrEditSupplierModalContent = observer(
+export const AddOrEditSupplierModalContent = memo(
   ({
     paymentMethods,
     product,

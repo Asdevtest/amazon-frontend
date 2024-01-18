@@ -43,9 +43,9 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
           <div>
             <p className={styles.manyItemsOrderTitle}>{item.product.amazonTitle}</p>
 
-            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item.product.asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
 
-            {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" sku={item.product.skuByClient} />}
+            {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={item.product.skuByClient} />}
 
             {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
               item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&

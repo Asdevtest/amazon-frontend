@@ -10,6 +10,7 @@ import {
   KeyboardDateTimePicker, // KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers'
+import EventIcon from '@mui/icons-material/Event'
 import TextField from '@mui/material/TextField'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 // import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
@@ -172,7 +173,7 @@ export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
   )
 }
 
-export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) => {
+export const NewDatePicker = ({ value, onChange, variant = 'standard', error = false, ...restProps }) => {
   const { classes: styles, cx } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
@@ -189,8 +190,6 @@ export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) 
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <NewestDatePicker
-          // views={['year', 'month']}
-          // label="Year and Month"
           closeOnSelect
           showToolbar={false}
           componentsProps={{
@@ -205,7 +204,7 @@ export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) 
           }}
           value={value ? value : null}
           renderInput={params => (
-            <TextField {...params} title={t(TranslationKey.Date)} helperText={null} variant="standard" size="small" />
+            <TextField {...params} title={t(TranslationKey.Date)} helperText={null} variant={variant} size="small" />
           )}
           onChange={newValue => {
             onChange(newValue)
@@ -261,7 +260,7 @@ export const DatePickerDate = ({ value, onChange }) => {
   )
 }
 export const DatePickerTime = ({ value, onChange, ...restProps }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -279,6 +278,49 @@ export const DatePickerTime = ({ value, onChange, ...restProps }) => {
           onChange={newValue => {
             onChange(newValue)
           }}
+          {...restProps}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
+  )
+}
+
+export const DefaultDatePicker = props => {
+  const { value, onChange, variant = 'standard', error = false, ...restProps } = props
+
+  const { classes: styles } = useStyles()
+
+  const [local, setLocal] = useState(enLocale)
+
+  const [placeholder, setPlaceholder] = useState('mm/dd/yyyy')
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+
+    setPlaceholder(getPlaceholderByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
+        <NewestDatePicker
+          disablePast
+          closeOnSelect
+          showToolbar={false}
+          value={value}
+          renderInput={params => <TextField {...params} helperText={null} />}
+          components={{
+            OpenPickerIcon: () => <EventIcon className={styles.openPickerIcon} />,
+          }}
+          inputProps={{
+            placeholder,
+          }}
+          componentsProps={{
+            actionBar: {
+              actions: [],
+            },
+          }}
+          onChange={onChange}
           {...restProps}
         />
       </LocalizationProvider>

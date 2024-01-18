@@ -39,8 +39,8 @@ export const SourceProduct: FC<SourceProductProps> = props => {
         />
 
         <div className={styles.attributesProductWrapper}>
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={sku} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={sku} />
         </div>
       </div>
 

@@ -152,7 +152,7 @@ export const Box: FC<BoxProps> = memo(props => {
               <div key={orderIndex} className={styles.order}>
                 <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
 
                   <p className={styles.title}>{order.product.amazonTitle}</p>
                 </div>

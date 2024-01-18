@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
@@ -96,8 +95,6 @@ export class ServicesDetailCustomViewModel {
   }
 
   onClickSuggestDealBtn() {
-    console.log('this.request', this.request)
-
     this.history.push(
       `/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal?requestId=${this.request?.request?._id}`,
     )

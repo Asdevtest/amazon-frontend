@@ -126,7 +126,7 @@ export const UploadFilesInput = observer(props => {
     <div className={styles.tooltipWrapper}>
       {isVideoType(img) ? (
         <div className={cx(styles.preloaderContainer, styles.preloaderContainerTooltip)}>
-          <VideoPlayer videoSource={img} height="200px" />
+          <VideoPlayer videoSource={img} height={200} />
           <div className={styles.preloader}>
             <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
           </div>
@@ -287,7 +287,7 @@ export const UploadFilesInput = observer(props => {
                       >
                         {isVideoType(currentImage) ? (
                           <div className={styles.preloaderContainer}>
-                            <VideoPlayer videoSource={currentImage} height="55px" />
+                            <VideoPlayer videoSource={currentImage} height={55} />
                             <div className={styles.preloader}>
                               <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
                             </div>

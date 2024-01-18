@@ -15,7 +15,8 @@ import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { AboutProductSwitcher } from '@components/modals/about-product-modal/about-product-switcher'
+import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
+import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
@@ -36,7 +37,6 @@ export class ClientOrdersViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
@@ -44,14 +44,21 @@ export class ClientOrdersViewModel {
   get currentData() {
     return this.orders
   }
+
   selectedRowIds = []
+  order = undefined
 
   showOrderModal = false
   showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
-  productBatches = undefined
+  productBatches = []
   showCheckPendingOrderFormModal = false
+  showMyOrderModal = false
+  showWarningInfoModal = false
+
+  myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
+  productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
 
   existingProducts = []
   shopsData = []
@@ -60,6 +67,12 @@ export class ClientOrdersViewModel {
     showAlertShield: false,
     alertShieldMessage: '',
   }
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   selectedWarehouseOrderProduct = undefined
   selectedProduct = undefined
   reorderOrdersData = []
@@ -80,13 +93,13 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+    onClickOpenNewTab: id => this.onClickOpenNewTab(id),
     onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
   }
 
   rowCount = 0
   startFilterModel = undefined
   currentBatch = undefined
-  aboutProductSwitcher = AboutProductSwitcher.ORDER_INFORMATION
   sortModel = []
   activeProductGuid = undefined
   filterModel = { items: [] }
@@ -97,7 +110,6 @@ export class ClientOrdersViewModel {
     () => this.columnMenuSettings,
     () => this.onHover,
   )
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -108,8 +120,6 @@ export class ClientOrdersViewModel {
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
   }
-
-  // НЕ было до создания фильтрации по статусам
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
@@ -137,6 +147,10 @@ export class ClientOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
+
+    this.getDestinations()
+    this.getStorekeepers()
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -635,7 +649,6 @@ export class ClientOrdersViewModel {
       runInAction(() => {
         this.error = undefined
       })
-      this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
@@ -718,6 +731,10 @@ export class ClientOrdersViewModel {
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
+
+      this.onTriggerOpenModal('showOrderModal')
+
+      this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -739,15 +756,39 @@ export class ClientOrdersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickTableRow(order) {
+  onClickOpenNewTab(orderId) {
     const win = window.open(
-      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
-        order.originalData._id
-      }&order-human-friendly-id=${order.originalData.id}`,
+      `/client/my-orders/orders/order?orderId=${orderId}&order-human-friendly-id=${orderId}`,
       '_blank',
     )
 
     win.focus()
+  }
+
+  async getOrderById(orderId) {
+    try {
+      const resolve = await ClientModel.getOrderById(orderId)
+
+      runInAction(() => {
+        this.order = resolve
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickMyOrderModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    await this.getOrderById(id)
+
+    this.onTriggerOpenModal('showMyOrderModal')
+
+    if (this.showMyOrderModal) {
+      this.myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
+    }
   }
 
   async getCurrBatch(guid) {
@@ -765,31 +806,149 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onClickAboutSwitcherField(field) {
-    this.aboutProductSwitcher = field
+  onClickChangeProductAndBatchModalCondition(value) {
+    this.productAndBatchModalSwitcherCondition = value
 
-    if (field === AboutProductSwitcher.BATCH_DATA) {
+    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
       this.getBatches()
     }
   }
 
   async onClickWarehouseOrderButton(guid) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const result = await ClientModel.getProductById(guid)
       this.productBatches = undefined
-      this.onTriggerOpenModal('showProductModal')
       this.activeProductGuid = guid
+
+      const result = await ClientModel.getProductById(guid)
+
       runInAction(() => {
         this.selectedWarehouseOrderProduct = result
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+
+      this.onTriggerOpenModal('showProductModal')
+
+      if (this.showProductModal) {
+        this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
+      }
     } catch (e) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(e)
+
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
       })
+    }
+  }
+
+  onClickChangeMyOrderModalCondition(value) {
+    this.myOrderModalSwitcherCondition = value
+  }
+
+  async getDestinations() {
+    try {
+      const response = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const response = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepers = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickCancelOrder(orderId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => {
+        this.onSubmitCancelOrder(orderId)
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onTriggerOpenModal('showMyOrderModal')
+        this.getOrders()
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitSaveOrder(order) {
+    try {
+      if (order.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: order.tmpBarCode, type: 'uploadedFiles' })
+
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: this.uploadedFiles[0] })
+      } else if (!order.product.barCode) {
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: null })
+      }
+
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...order,
+          totalPrice:
+            order.amount *
+            (order.orderSupplier?.price + order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount),
+        },
+        [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+          'variationTariffId',
+        ],
+        undefined,
+        undefined,
+        true,
+      )
+
+      await OrderModel.changeOrderData(this.order._id, dataToRequest)
+
+      this.loadData()
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
+
+      await this.getOrderById(order._id)
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

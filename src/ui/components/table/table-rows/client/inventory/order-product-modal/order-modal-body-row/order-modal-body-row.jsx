@@ -288,17 +288,12 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <Typography className={styles.amazonTitle}>{item.amazonTitle}</Typography>
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item?.asin} textStyles={styles.standartText} />
           <AsinOrSkuLink
             withCopyValue
-            withAttributeTitle={'asin'}
-            asin={item?.asin}
-            attributeTitleTextStyles={styles.standartText}
-          />
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle={'sku'}
-            sku={item?.skuByClient}
-            attributeTitleTextStyles={styles.standartText}
+            withAttributeTitle="sku"
+            link={item?.skuByClient}
+            textStyles={styles.standartText}
           />
 
           {!item.currentSupplier && (

@@ -1,3 +1,6 @@
+import { PaymentMethod } from './payments'
+import { IUploadFile } from './upload-file'
+
 export interface IProduct {
   amazon: number
   amazonDescription: string
@@ -42,7 +45,7 @@ export interface IProduct {
   ideasClosed: number
   ideasOnCheck: number
   ideasVerified: number
-  images: string[]
+  images: Array<string | IUploadFile>
   inTransfer: number
   isCreatedByClient: boolean
   lamazon: string
@@ -104,7 +107,7 @@ export interface ISupplier {
   minlot: number
   multiplicity: boolean
   name: string
-  paymentMethods: IPaymentMethod[]
+  paymentMethods: PaymentMethod[]
   price: number
   priceInYuan: number
   priceVariations: IPriceVariation[]
@@ -126,13 +129,6 @@ export interface IMember {
   name: string
   rating: number
   _id: string
-}
-
-export interface IPaymentMethod {
-  title: string
-  _id: string
-  iconImage?: string
-  updatedAt?: string
 }
 
 export interface IRedFlag {
@@ -174,4 +170,12 @@ export interface IProductIdeaNotification {
 export enum ProductVariation {
   PARENT = 'PARENT',
   CHILD = 'CHILD',
+}
+
+export interface IHSCode {
+  chinaTitle: string | null
+  hsCode: string | null
+  material: string | null
+  productUsage: string | null
+  _id: string
 }

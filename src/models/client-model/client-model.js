@@ -1,5 +1,3 @@
-// import axios from 'axios'
-// import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
@@ -220,8 +218,8 @@ class ClientModelStatic {
   }
 
   getProductsInfoForOrders = async productIds => {
-    console.log('productIds', productIds)
     const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet({ productIds })
+    return response.data
   }
 
   getProductById = async guid => {

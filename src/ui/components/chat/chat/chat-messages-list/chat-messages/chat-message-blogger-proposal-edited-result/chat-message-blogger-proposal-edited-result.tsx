@@ -92,7 +92,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                           <a
                             href={checkAndMakeAbsoluteUrl(el)}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noreferrer noopener"
                             className={styles.infoItemText}
                           >
                             {el.slice(0, 80)}
