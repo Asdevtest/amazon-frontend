@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 
 import {
   getConversion,
@@ -53,6 +53,13 @@ export const useSupplierInfo = ({
   const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
   const weightSizesType = getWeightSizesType(sizeSetting)
+  const purchasePrice = useMemo(
+    () =>
+      formFields?.totalPrice && formFields?.amount
+        ? `$ ${toFixed(formFields.totalPrice / formFields.amount, 2)}`
+        : t(TranslationKey['No data']),
+    [],
+  )
 
   const supplierInfoFieldsConfig: IFieldConfig[] = [
     {
@@ -71,10 +78,7 @@ export const useSupplierInfo = ({
     },
     {
       title: t(TranslationKey['Purchase price']),
-      text:
-        formFields?.totalPrice && formFields?.amount
-          ? `$ ${toFixed(formFields?.totalPrice / formFields?.amount, 2)}`
-          : t(TranslationKey['No data']),
+      text: purchasePrice,
       element: undefined,
     },
     {
@@ -108,7 +112,7 @@ export const useSupplierInfo = ({
       text: undefined,
       element: (
         <div className={styles.barCodeValueContainer}>
-          <LabelWithCopy labelValue={formFields?.product.barCode} lableLinkTitle={t(TranslationKey.View)} />
+          <LabelWithCopy labelValue={formFields?.product?.barCode} lableLinkTitle={t(TranslationKey.View)} />
           {isPendingOrdering ? (
             <button className={styles.pencinButton} onClick={handleToggleSetBarCodeModal}>
               <Pencil className={styles.pencilIcon} />
@@ -137,21 +141,21 @@ export const useSupplierInfo = ({
     {
       title: t(TranslationKey.Dimensions),
       text:
-        formFields?.product.width && formFields?.product.height && formFields?.product.length
+        formFields?.product?.width && formFields?.product?.height && formFields?.product?.length
           ? `${
-              toFixed(formFields?.product.width / lengthConversion, 2) +
+              toFixed(formFields?.product?.width / lengthConversion, 2) +
               ' x ' +
-              toFixed(formFields?.product.height / lengthConversion, 2) +
+              toFixed(formFields?.product?.height / lengthConversion, 2) +
               ' x ' +
-              toFixed(formFields?.product.length / lengthConversion, 2)
+              toFixed(formFields?.product?.length / lengthConversion, 2)
             }`
           : t(TranslationKey['No data']),
       element: undefined,
     },
     {
       title: t(TranslationKey.Weight),
-      text: formFields?.product.weight
-        ? `${toFixed(formFields?.product.weight / weightConversion, 2)} ${weightSizesType}`
+      text: formFields?.product?.weight
+        ? `${toFixed(formFields?.product?.weight / weightConversion, 2)} ${weightSizesType}`
         : t(TranslationKey['No data']),
       element: undefined,
     },

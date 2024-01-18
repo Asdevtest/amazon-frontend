@@ -119,11 +119,16 @@ export const useStyles = makeStyles()(theme => ({
 
   informationText: {
     minWidth: 150,
-    display: 'flex',
-    alignItems: 'center',
+    maxWidth: 300,
     fontSize: 16,
     lineHeight: '22px',
     color: theme.palette.text.general,
+
+    wordBreak: 'break-all',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
   },
 
   informationUser: {

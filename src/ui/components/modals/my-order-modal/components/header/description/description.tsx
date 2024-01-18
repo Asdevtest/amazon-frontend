@@ -13,7 +13,7 @@ interface DescriptionProps {
 export const Description: FC<DescriptionProps> = memo(({ amazonTitle, asin, sku }) => {
   const { classes: styles } = useStyles()
 
-  const showAmazonTitle = amazonTitle.length > 0
+  const showAmazonTitle = amazonTitle?.length > 0
 
   return (
     <div className={styles.wrapper}>
