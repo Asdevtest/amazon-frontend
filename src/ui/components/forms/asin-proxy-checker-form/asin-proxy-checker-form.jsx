@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Typography } from '@mui/material'
@@ -17,12 +17,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './asin-proxy-checker-form.style'
+import { useStyles } from './asin-proxy-checker-form.style'
 
 import { TableAsinAndReason } from './table-asin-and-reason/table-asin-and-reason'
 
 export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const userRole = UserRoleCodeMap[user.role]
 
@@ -98,34 +98,32 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
   }
 
   return (
-    <div className={classNames.modalMessageWrapper}>
-      <div className={classNames.modalTitle}>
+    <div className={styles.modalMessageWrapper}>
+      <div className={styles.modalTitle}>
         {checkIsAdmin(userRole) ? (
-          <Typography variant="h5" className={classNames.modalMessageTitle}>
+          <Typography variant="h5" className={styles.modalMessageTitle}>
             {t(TranslationKey['Proxy servers for parsing'])}
           </Typography>
         ) : (
-          <Typography variant="h5" className={classNames.modalMessageTitle}>
+          <Typography variant="h5" className={styles.modalMessageTitle}>
             {t(TranslationKey['ASIN list'])}
           </Typography>
         )}
 
         {checkIsAdmin(userRole) ? null : (
-          <Typography className={classNames.standartText}>
-            {humanFriendlyStategyStatus(strategy)?.toUpperCase()}
-          </Typography>
+          <Typography className={styles.standartText}>{humanFriendlyStategyStatus(strategy)?.toUpperCase()}</Typography>
         )}
       </div>
-      <div className={classNames.modalFieldsWrapper}>
+      <div className={styles.modalFieldsWrapper}>
         <Field
           multiline
-          className={classNames.heightFieldAuto}
+          className={styles.heightFieldAuto}
           error={error && t(TranslationKey['Invalid proxy'])}
           minRows={7}
           maxRows={7}
           inputProps={{ maxLength: 35000 }}
-          labelClasses={classNames.commentLabelText}
-          containerClasses={classNames.commentContainer}
+          labelClasses={styles.commentLabelText}
+          containerClasses={styles.commentContainer}
           label={
             checkIsAdmin(userRole)
               ? `${t(TranslationKey['Add a list of proxy'])}*`
@@ -138,12 +136,12 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
         {!checkIsAdmin(userRole) && (
           <Field
             multiline
-            className={classNames.heightFieldAuto}
+            className={styles.heightFieldAuto}
             minRows={7}
             maxRows={7}
             inputProps={{ maxLength: 95000 }}
-            containerClasses={classNames.commentContainer}
-            labelClasses={classNames.commentLabelText}
+            containerClasses={styles.commentContainer}
+            labelClasses={styles.commentLabelText}
             label={t(TranslationKey['Add a list of reasons'])}
             value={reasons}
             onChange={e => setReasons(e.target.value)}
@@ -151,13 +149,11 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
         )}
       </div>
 
-      <div className={classNames.tableWrapper}>
-        <div className={classNames.tableSearchWrapper}>
-          <Typography className={classNames.tableSearchTitle}>
-            {t(TranslationKey['To be added to the list'])}
-          </Typography>
+      <div className={styles.tableWrapper}>
+        <div className={styles.tableSearchWrapper}>
+          <Typography className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</Typography>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={
               checkIsAdmin(userRole)
@@ -175,23 +171,18 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
               onClickRemoveCell={onClickRemoveCell}
             />
             {updatedAsinsAndReasonsData.some(item => item.asin === '') ? (
-              <span className={classNames.error}>{t(TranslationKey['ASIN cannot contain empty values'])}</span>
+              <span className={styles.error}>{t(TranslationKey['ASIN cannot contain empty values'])}</span>
             ) : null}
           </>
         ) : null}
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <Button
-          disabled={error}
-          variant="contained"
-          className={classNames.button}
-          onClick={() => onClickPreviewButton()}
-        >
-          <VisibilityIcon className={classNames.icon} />
+      <div className={styles.buttonsWrapper}>
+        <Button disabled={error} variant="contained" className={styles.button} onClick={() => onClickPreviewButton()}>
+          <VisibilityIcon className={styles.icon} />
         </Button>
 
-        <div className={classNames.actionsButtonsContainer}>
+        <div className={styles.actionsButtonsContainer}>
           <Button
             success
             disabled={
@@ -201,7 +192,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
               error
             }
             variant="contained"
-            className={classNames.button}
+            className={styles.button}
             onClick={() => {
               if (checkIsAdmin(userRole)) {
                 onSubmit(prev => [...new Set([...prev, ...asinsAndReasonsData])])
@@ -216,7 +207,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant="text" className={classNames.buttonCancel} onClick={onClose}>
+          <Button variant="text" className={styles.buttonCancel} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

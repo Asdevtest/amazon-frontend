@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+
 
 import Typography from '@mui/material/Typography'
 
@@ -15,41 +15,39 @@ import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
-import { useClassNames } from './vacant-request-list-card.style'
+import { useStyles } from './vacant-request-list-card.style'
 
 export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const getCardClassName = timeoutAt => {
     if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
-      return classNames.redBackground
+      return styles.redBackground
     } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
-      return classNames.yellowBackground
+      return styles.yellowBackground
     }
   }
 
   /* const getDeadlineColor = timeoutAt => {
     if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
-      return classNames.redColor
+      return styles.redColor
     } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
-      return classNames.yellowColor
+      return styles.yellowColor
     }
   } */
 
   return (
     <div
-      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      className={cx(styles.cardWrapper, getCardClassName(item.timeoutAt))}
       onDoubleClick={() => onDoubleClick(item._id)}
     >
-      <div className={classNames.cardTitleBlockWrapper}>
-        <div className={classNames.cardTitleBlockHeaderWrapper}>
-          <div className={classNames.titleWrapper}>
-            <Typography className={classNames.cardTitle}>{item.title}</Typography>
-            <Typography className={classNames.cardTitle}>{`/ ${t(TranslationKey.ID)} ${
-              item.humanFriendlyId
-            }`}</Typography>
+      <div className={styles.cardTitleBlockWrapper}>
+        <div className={styles.cardTitleBlockHeaderWrapper}>
+          <div className={styles.titleWrapper}>
+            <Typography className={styles.cardTitle}>{item.title}</Typography>
+            <Typography className={styles.cardTitle}>{`/ ${t(TranslationKey.ID)} ${item.humanFriendlyId}`}</Typography>
           </div>
-          <div className={classNames.requestInfoWrapper}>
+          <div className={styles.requestInfoWrapper}>
             <UserLink
               blueText
               withAvatar
@@ -62,40 +60,40 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
               customRatingClass={{ fontSize: 24, opacity: 1 }}
             />
 
-            <div className={classNames.productInfo}>
+            <div className={styles.productInfo}>
               <OrderCell withoutSku imageSize={'small'} product={item.product} />
             </div>
           </div>
         </div>
-        <div className={classNames.cardTitleBlockFooterWrapper}>
-          <Typography className={classNames.cardSubTitle}>
+        <div className={styles.cardTitleBlockFooterWrapper}>
+          <Typography className={styles.cardSubTitle}>
             {translateProposalsLeftMessage(
               item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
               item?.maxAmountOfProposals,
             )}
           </Typography>
-          {/* <Typography className={classNames.cardSubTitle}> */}
+          {/* <Typography className={styles.cardSubTitle}> */}
           {/*   {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span> */}
           {/* </Typography> */}
         </div>
       </div>
 
-      <div className={classNames.requestTermsWrapper}>
+      <div className={styles.requestTermsWrapper}>
         <RequestTermsList request={item} />
       </div>
 
-      <div className={classNames.controls}>
-        <div className={classNames.buttonWrapper}>
-          <div className={classNames.priorityWrapper}>
+      <div className={styles.controls}>
+        <div className={styles.buttonWrapper}>
+          <div className={styles.priorityWrapper}>
             {Number(item?.priority) === requestPriority.urgentPriority && (
-              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+              <img className={styles.priorityIcon} src="/assets/icons/fire.svg" />
             )}
           </div>
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
             variant="contained"
             color="primary"
-            className={classNames.actionButton}
+            className={styles.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >
             {t(TranslationKey.Details)}

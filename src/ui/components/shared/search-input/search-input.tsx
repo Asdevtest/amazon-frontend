@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
@@ -13,7 +12,7 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './search-input.style'
+import { useStyles } from './search-input.style'
 
 interface Props {
   disabled?: boolean
@@ -36,7 +35,7 @@ export const SearchInput: FC<Props> = ({
   onSubmit,
   onKeyDown,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -72,26 +71,22 @@ export const SearchInput: FC<Props> = ({
   return (
     <Input
       disabled={disabled}
-      className={cx(classNames.input, inputClasses)}
+      className={cx(styles.input, inputClasses)}
       value={onSubmit ? internalValue : value}
       title={placeholder}
       placeholder={placeholder}
-      classes={{ input: classNames.inputClass }}
+      classes={{ input: styles.inputClass }}
       endAdornment={
-        <InputAdornment classes={{ root: classNames.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
+        <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (
-            <div className={classNames.searchWrapper}>
-              {internalValue ? <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} /> : null}
-              <Button
-                className={classNames.submit}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                onClick={searchAndClearSpaces}
-              >
+            <div className={styles.searchWrapper}>
+              {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
+              <Button className={styles.submit} btnWrapperStyle={styles.btnWrapperStyle} onClick={searchAndClearSpaces}>
                 {t(TranslationKey.Search)}
               </Button>
             </div>
           ) : (
-            <SearchIcon className={classNames.icon} />
+            <SearchIcon className={styles.icon} />
           )}
         </InputAdornment>
       }

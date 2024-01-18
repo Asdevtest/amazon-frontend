@@ -1,10 +1,9 @@
-import { cx } from '@emotion/css'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
-import { useClassNames } from './layout.styles'
+import { useStyles } from './layout.style'
 
 import { BreadCrumbsLine } from './bread-crumbs-line'
 import { Header } from './header'
@@ -17,7 +16,7 @@ interface CurrentPageInfo {
 }
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [currentPageInfo, setCurrentPageInfo] = useState<CurrentPageInfo>({
     activeCategory: '',
     activeSubCategory: '',
@@ -58,7 +57,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <div className={cx(classNames.wrapper, { [classNames.wrapperShort]: shortNavbar })}>
+    <div className={cx(styles.wrapper, { [styles.wrapperShort]: shortNavbar })}>
       <Navbar
         isOpenModal={isOpenModal}
         shortNavbar={shortNavbar}
@@ -70,10 +69,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 
       <Header title={currentPageInfo.title} onToggleModal={handleToggleModal} />
 
-      <main className={classNames.main}>
+      <main className={styles.main}>
         <BreadCrumbsLine />
 
-        <div className={classNames.content}>{children}</div>
+        <div className={styles.content}>{children}</div>
       </main>
     </div>
   )

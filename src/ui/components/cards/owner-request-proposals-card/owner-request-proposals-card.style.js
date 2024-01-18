@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardMainWrapper: {
     height: '320px',
     display: 'flex',

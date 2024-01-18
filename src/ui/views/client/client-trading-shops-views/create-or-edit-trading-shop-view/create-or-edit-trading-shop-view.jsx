@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,10 +20,10 @@ export const CreateOrEditTradingShopView = observer(props => {
         location: props.location,
       }),
   )
-  // const {classes: classNames} = props
+  // const {classes: styles} = props
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {SettingsModel.languageTag && (
           <CreateOrEditTradingShopContent
@@ -44,6 +44,6 @@ export const CreateOrEditTradingShopView = observer(props => {
         btnText={t(TranslationKey.Close)}
         onClickBtn={viewModel.onClickOkInfoModal}
       />
-    </React.Fragment>
+    </>
   )
 })

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, Grid, IconButton, Link, NativeSelect, Typography } from '@mui/material'
@@ -20,11 +20,11 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-supplier-to-idea-from-inventory-form.style'
+import { useStyles } from './add-supplier-to-idea-from-inventory-form.style'
 
 export const AddSupplierToIdeaFromInventoryForm = observer(
   ({ onSubmit, showProgress, progressValue, onClose, ideas, product }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -132,15 +132,15 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.title}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.title}>
           {t(TranslationKey['Supplier search options'])}
         </Typography>
 
         <Field
           label={t(TranslationKey.Idea)}
-          inputClasses={classNames.nativeSelect}
-          labelClasses={classNames.label}
+          inputClasses={styles.nativeSelect}
+          labelClasses={styles.label}
           inputComponent={
             <WithSearchSelect
               width={400}
@@ -155,30 +155,30 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
         <Field
           inputProps={{ maxLength: 50 }}
           label={t(TranslationKey['Product name'])}
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           value={formFields.title}
           placeholder={t(TranslationKey['Product name'])}
           onChange={onChangeField('title')}
         />
 
         <Field
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           label={t(TranslationKey['Product Link'])}
-          containerClasses={classNames.linksContainer}
+          containerClasses={styles.linksContainer}
           inputComponent={
-            <div className={classNames.linksWrapper}>
-              <div className={classNames.inputWrapper}>
+            <div className={styles.linksWrapper}>
+              <div className={styles.inputWrapper}>
                 <Input
                   placeholder={t(TranslationKey['Product Link'])}
                   inputProps={{ maxLength: 1500 }}
                   value={linkLine}
-                  className={classNames.input}
+                  className={styles.input}
                   onChange={e => setLinkLine(e.target.value)}
                 />
                 <Button
                   disableElevation
                   disabled={!linkLine}
-                  className={classNames.defaultBtn}
+                  className={styles.defaultBtn}
                   variant="contained"
                   color="primary"
                   onClick={onClickLinkBtn}
@@ -186,19 +186,19 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
-              <div className={classNames.linksSubWrapper}>
+              <div className={styles.linksSubWrapper}>
                 {formFields.links.length ? (
                   formFields.links.map((el, index) => (
-                    <div key={index} className={classNames.linkWrapper}>
-                      <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                        <Typography className={classNames.linkText}>{el}</Typography>
+                    <div key={index} className={styles.linkWrapper}>
+                      <Link target="_blank" href={el} className={styles.linkTextWrapper}>
+                        <Typography className={styles.linkText}>{el}</Typography>
                       </Link>
 
-                      <div className={classNames.linksBtnsWrapper}>
+                      <div className={styles.linksBtnsWrapper}>
                         <CopyValue text={el} />
 
-                        <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                          <DeleteIcon className={classNames.deleteBtn} />
+                        <IconButton className={styles.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
+                          <DeleteIcon className={styles.deleteBtn} />
                         </IconButton>
                       </div>
                     </div>
@@ -212,10 +212,10 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
         />
 
         <Field
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           label={t(TranslationKey['Product photo'])}
           inputComponent={
-            <div className={classNames.imageFileInputWrapper}>
+            <div className={styles.imageFileInputWrapper}>
               <PhotoAndFilesCarousel small files={formFields.images} />
 
               <UploadFilesInput
@@ -228,48 +228,48 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           }
         />
 
-        <div className={classNames.bottomFieldsWrapper}>
-          <div className={classNames.bottomFieldsSubWrapper}>
+        <div className={styles.bottomFieldsWrapper}>
+          <div className={styles.bottomFieldsSubWrapper}>
             <Field
               multiline
               minRows={9}
               maxRows={9}
               inputProps={{ maxLength: 200 }}
               label={t(TranslationKey['Important criteria'])}
-              labelClasses={classNames.label}
-              inputClasses={classNames.bigInput}
-              containerClasses={classNames.bigInputContainer}
+              labelClasses={styles.label}
+              inputClasses={styles.bigInput}
+              containerClasses={styles.bigInputContainer}
               value={formFields.criteria}
               placeholder={t(TranslationKey['Important criteria and features, material, color, markings'])}
               onChange={onChangeField('criteria')}
             />
           </div>
 
-          <div className={classNames.bottomFieldsSubWrapper}>
-            <div className={classNames.sizesBottomWrapper}>
+          <div className={styles.bottomFieldsSubWrapper}>
+            <div className={styles.sizesBottomWrapper}>
               <Field
                 inputProps={{ maxLength: 9 }}
-                labelClasses={classNames.label}
-                inputClasses={classNames.sizesInput}
-                containerClasses={classNames.sizesContainer}
+                labelClasses={styles.label}
+                inputClasses={styles.sizesInput}
+                containerClasses={styles.sizesContainer}
                 label={t(TranslationKey.Width)}
                 value={formFields.width}
                 onChange={onChangeField('width')}
               />
               <Field
                 inputProps={{ maxLength: 9 }}
-                labelClasses={classNames.label}
-                inputClasses={classNames.sizesInput}
-                containerClasses={classNames.sizesContainer}
+                labelClasses={styles.label}
+                inputClasses={styles.sizesInput}
+                containerClasses={styles.sizesContainer}
                 label={t(TranslationKey.Height)}
                 value={formFields.height}
                 onChange={onChangeField('height')}
               />
               <Field
                 inputProps={{ maxLength: 9 }}
-                labelClasses={classNames.label}
-                inputClasses={classNames.sizesInput}
-                containerClasses={classNames.sizesContainer}
+                labelClasses={styles.label}
+                inputClasses={styles.sizesInput}
+                containerClasses={styles.sizesContainer}
                 label={t(TranslationKey.Length)}
                 value={formFields.length}
                 onChange={onChangeField('length')}
@@ -279,7 +279,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             <Field
               inputProps={{ maxLength: 9 }}
               label={t(TranslationKey.Quantity)}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               value={formFields.quantity}
               placeholder={t(TranslationKey['Estimated number of order units'])}
               onChange={onChangeField('quantity')}
@@ -287,7 +287,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             <Field
               inputProps={{ maxLength: 9 }}
               label={t(TranslationKey['Desired purchase price']) + ', $'}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               value={formFields.price}
               placeholder={t(TranslationKey['Price per unit'])}
               onChange={onChangeField('price')}
@@ -295,14 +295,14 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           </div>
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             success
             disableElevation
             // disabled={disableSubmitBtn}
             variant="contained"
             color="primary"
-            className={classNames.successBtn}
+            className={styles.successBtn}
             onClick={() => {
               onCreateSearchSupplierRequest()
             }}
@@ -310,7 +310,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             {t(TranslationKey['Create a request'])}
           </Button>
 
-          <Button variant="text" color="primary" className={classNames.cancelBtn} onClick={onClose}>
+          <Button variant="text" color="primary" className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

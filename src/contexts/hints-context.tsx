@@ -1,11 +1,11 @@
-import React, { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, createContext, useState } from 'react'
 
 interface IHintsContext {
   hints: boolean
   setHints: (hints: boolean) => void
 }
 
-export const HintsContext = React.createContext<IHintsContext>({} as IHintsContext)
+export const HintsContext = createContext<IHintsContext>({} as IHintsContext)
 
 export const HintsContextProvider = ({ children }: PropsWithChildren) => {
   const setHints = (hints: boolean) => {

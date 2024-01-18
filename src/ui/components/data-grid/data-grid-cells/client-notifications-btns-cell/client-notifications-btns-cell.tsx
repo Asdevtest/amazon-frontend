@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,32 +18,30 @@ interface ClientNotificationsBtnsCellProps {
   disabled: boolean
 }
 
-export const ClientNotificationsBtnsCell: FC<ClientNotificationsBtnsCellProps> = React.memo(
-  ({ row, handlers, disabled }) => {
-    const { classes: styles } = useStyles()
+export const ClientNotificationsBtnsCell: FC<ClientNotificationsBtnsCellProps> = memo(({ row, handlers, disabled }) => {
+  const { classes: styles } = useStyles()
 
-    return (
-      <div className={styles.notificationBtnsWrapper}>
-        <Button
-          disabled={disabled}
-          variant="contained"
-          color="primary"
-          className={styles.notificationBtn}
-          onClick={() => handlers.onTriggerOpenConfirmModal(row)}
-        >
-          {t(TranslationKey.Confirm)}
-        </Button>
-        <Button
-          danger
-          disabled={disabled}
-          className={styles.notificationBtn}
-          onClick={() => {
-            handlers.onTriggerOpenRejectModal(row)
-          }}
-        >
-          {t(TranslationKey.Reject)}
-        </Button>
-      </div>
-    )
-  },
-)
+  return (
+    <div className={styles.notificationBtnsWrapper}>
+      <Button
+        disabled={disabled}
+        variant="contained"
+        color="primary"
+        className={styles.notificationBtn}
+        onClick={() => handlers.onTriggerOpenConfirmModal(row)}
+      >
+        {t(TranslationKey.Confirm)}
+      </Button>
+      <Button
+        danger
+        disabled={disabled}
+        className={styles.notificationBtn}
+        onClick={() => {
+          handlers.onTriggerOpenRejectModal(row)
+        }}
+      >
+        {t(TranslationKey.Reject)}
+      </Button>
+    </div>
+  )
+})

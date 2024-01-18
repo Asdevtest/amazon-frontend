@@ -23,7 +23,7 @@ import { validationMessagesArray } from '@utils/validation'
 import { styles } from './registration-form.style'
 
 export const RegistrationFormRaw = ({
-  classes: classNames,
+  classes: styles,
   formFields,
   onChangeFormField,
   onSubmit,
@@ -111,16 +111,16 @@ export const RegistrationFormRaw = ({
     (submit && errorMaxLength)
 
   return (
-    <form className={classNames.root} onSubmit={onSubmitForm}>
-      <div className={classNames.formFields}>
+    <form className={styles.root} onSubmit={onSubmitForm}>
+      <div className={styles.formFields}>
         {!isRecoverPassword ? (
           <>
             <Field
               withIcon
               inputProps={{ maxLength: 30 }}
-              inputClasses={classNames.input}
-              containerClasses={classNames.field}
-              labelClasses={classNames.labelField}
+              inputClasses={styles.input}
+              containerClasses={styles.field}
+              labelClasses={styles.labelField}
               label={t(TranslationKey.Name)}
               placeholder={t(TranslationKey.Name)}
               error={
@@ -129,7 +129,7 @@ export const RegistrationFormRaw = ({
               }
               value={formFields.name}
               startAdornment={
-                <InputAdornment position="end" className={classNames.inputAdornment}>
+                <InputAdornment position="end" className={styles.inputAdornment}>
                   <PersonIcon color="primary" />
                 </InputAdornment>
               }
@@ -139,9 +139,9 @@ export const RegistrationFormRaw = ({
               withIcon
               autoComplete="username"
               inputProps={{ maxLength: 30 }}
-              inputClasses={classNames.input}
-              containerClasses={classNames.field}
-              labelClasses={classNames.labelField}
+              inputClasses={styles.input}
+              containerClasses={styles.field}
+              labelClasses={styles.labelField}
               label={t(TranslationKey.Email)}
               placeholder={t(TranslationKey.Email)}
               type="email"
@@ -152,7 +152,7 @@ export const RegistrationFormRaw = ({
               }
               value={formFields.email}
               startAdornment={
-                <InputAdornment position="end" className={classNames.inputAdornment}>
+                <InputAdornment position="end" className={styles.inputAdornment}>
                   <MailOutlineIcon color="primary" />
                 </InputAdornment>
               }
@@ -170,21 +170,21 @@ export const RegistrationFormRaw = ({
           </>
         ) : null}
         {isRecoverPassword && (
-          <div className={classNames.field}>
+          <div className={styles.field}>
             <Field
               disabled={isRecoverPassword}
               withIcon={!isRecoverPassword}
               inputProps={{ maxLength: 128 }}
-              labelClasses={classNames.labelField}
+              labelClasses={styles.labelField}
               error={showError}
-              inputClasses={classNames.input}
+              inputClasses={styles.input}
               label={t(TranslationKey['Old password'])}
               placeholder={t(TranslationKey.Password)}
               type={!visibilityOldPass ? 'password' : 'text'}
               value={formFields.password}
               startAdornment={
                 !isRecoverPassword ? (
-                  <InputAdornment position="end" className={classNames.inputAdornment}>
+                  <InputAdornment position="end" className={styles.inputAdornment}>
                     <LockIcon color="primary" />
                   </InputAdornment>
                 ) : null
@@ -192,13 +192,13 @@ export const RegistrationFormRaw = ({
               endAdornment={
                 <InputAdornment
                   position="start"
-                  className={classNames.inputAdornmentVisibility}
+                  className={styles.inputAdornmentVisibility}
                   onClick={() => setVisibilityOldPass(!visibilityOldPass)}
                 >
                   {visibilityOldPass ? (
-                    <VisibilityIcon className={classNames.visibilityIcon} />
+                    <VisibilityIcon className={styles.visibilityIcon} />
                   ) : (
-                    <VisibilityOffIcon className={classNames.visibilityIcon} />
+                    <VisibilityOffIcon className={styles.visibilityIcon} />
                   )}
                 </InputAdornment>
               }
@@ -207,22 +207,22 @@ export const RegistrationFormRaw = ({
           </div>
         )}
 
-        <div className={classNames.field}>
+        <div className={styles.field}>
           <Field
             autoComplete="new-password"
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
             inputProps={{ maxLength: 128 }}
-            labelClasses={classNames.labelField}
+            labelClasses={styles.labelField}
             error={showError}
-            inputClasses={classNames.input}
+            inputClasses={styles.input}
             label={isRecoverPassword ? t(TranslationKey['New password']) : t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             startAdornment={
               !isRecoverPassword ? (
-                <InputAdornment position="end" className={classNames.inputAdornment}>
+                <InputAdornment position="end" className={styles.inputAdornment}>
                   <LockIcon color="primary" />
                 </InputAdornment>
               ) : null
@@ -230,20 +230,20 @@ export const RegistrationFormRaw = ({
             endAdornment={
               <InputAdornment
                 position="start"
-                className={classNames.inputAdornmentVisibility}
+                className={styles.inputAdornmentVisibility}
                 onClick={() => setVisibilityPass(!visibilityPass)}
               >
                 {visibilityPass ? (
-                  <VisibilityIcon className={classNames.visibilityIcon} />
+                  <VisibilityIcon className={styles.visibilityIcon} />
                 ) : (
-                  <VisibilityOffIcon className={classNames.visibilityIcon} />
+                  <VisibilityOffIcon className={styles.visibilityIcon} />
                 )}
               </InputAdornment>
             }
             onChange={onChangeFormField('password')}
           />
 
-          <div className={classNames.validationMessage}>
+          <div className={styles.validationMessage}>
             {validationMessagesArray(
               errorMinLength,
               errorOneNumber,
@@ -251,32 +251,32 @@ export const RegistrationFormRaw = ({
               errorLowercaseLetter,
               errorNoEngLetter,
             ).map((text, index) => (
-              <span key={index} className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}>
+              <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
                 {text.name}
               </span>
             ))}
           </div>
-          <div className={classNames.validationHiddenMessage}>
+          <div className={styles.validationHiddenMessage}>
             <Typography
               className={cx(
-                classNames.validationHiddenText,
-                { [classNames.red]: submit && errorMaxLength },
-                { [classNames.visibility]: errorMaxLength },
+                styles.validationHiddenText,
+                { [styles.red]: submit && errorMaxLength },
+                { [styles.visibility]: errorMaxLength },
               )}
             >
               {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
             </Typography>
           </div>
         </div>
-        <div className={classNames.field}>
+        <div className={styles.field}>
           <Field
             autoComplete="new-password"
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
             inputProps={{ maxLength: 128 }}
-            labelClasses={classNames.labelField}
+            labelClasses={styles.labelField}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
-            inputClasses={classNames.input}
+            inputClasses={styles.input}
             label={
               isRecoverPassword ? t(TranslationKey['Re-enter the new password']) : t(TranslationKey['Re-type Password'])
             }
@@ -285,7 +285,7 @@ export const RegistrationFormRaw = ({
             value={formFields.confirmPassword}
             startAdornment={
               !isRecoverPassword ? (
-                <InputAdornment position="end" className={classNames.inputAdornment}>
+                <InputAdornment position="end" className={styles.inputAdornment}>
                   <LockIcon color="primary" />
                 </InputAdornment>
               ) : null
@@ -296,12 +296,12 @@ export const RegistrationFormRaw = ({
       </div>
       {!isRecoverPassword ? (
         <>
-          <div className={classNames.formFooter} onClick={onChangeFormField('acceptTerms')}>
-            <Checkbox className={classNames.checkbox} color="primary" checked={formFields.acceptTerms} />
+          <div className={styles.formFooter} onClick={onChangeFormField('acceptTerms')}>
+            <Checkbox className={styles.checkbox} color="primary" checked={formFields.acceptTerms} />
 
-            <div className={classNames.labelWrapper}>
-              <Typography className={classNames.label}>{t(TranslationKey['Agree with']) + ' '}</Typography>
-              <Link href="#" to="/terms" target="_blank" rel="noopener" className={classNames.link}>
+            <div className={styles.labelWrapper}>
+              <Typography className={styles.label}>{t(TranslationKey['Agree with']) + ' '}</Typography>
+              <Link href="#" to="/terms" target="_blank" rel="noopener" className={styles.link}>
                 {t(TranslationKey['Terms & Conditions'])}
               </Link>
             </div>
@@ -316,7 +316,7 @@ export const RegistrationFormRaw = ({
             color="primary"
             type="submit"
             variant="contained"
-            className={classNames.button}
+            className={styles.button}
           >
             {t(TranslationKey.Registration)}
           </Button>

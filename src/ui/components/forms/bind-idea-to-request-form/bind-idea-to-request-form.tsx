@@ -7,7 +7,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './bind-idea-to-request-form.styles'
+import { useStyles } from './bind-idea-to-request-form.style'
 
 import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
 

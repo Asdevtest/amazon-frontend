@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -38,7 +37,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-batch-form.style'
+import { useStyles } from './add-or-edit-batch-form.style'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
@@ -63,7 +62,7 @@ export const AddOrEditBatchForm = observer(
         }),
     )
 
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const isClient = checkIsClient(UserRoleCodeMap[userRole])
 
@@ -355,16 +354,16 @@ export const AddOrEditBatchForm = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <Typography className={classNames.modalTitle}>
+      <div className={styles.root}>
+        <Typography className={styles.modalTitle}>
           {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
         </Typography>
 
-        <div className={classNames.form}>
-          <div className={classNames.filtersWrapper}>
+        <div className={styles.form}>
+          <div className={styles.filtersWrapper}>
             <div>
               <Field
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['Batch title'])}
                 value={batchFields.title}
                 onChange={e => changeBatchFields('title')(e.target.value)}
@@ -374,9 +373,9 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
-                labelClasses={classNames.label}
-                containerClasses={classNames.filterFieldWrapper}
+                className={styles.filterField}
+                labelClasses={styles.label}
+                containerClasses={styles.filterFieldWrapper}
                 label={t(TranslationKey['CLS (batch closing date)'])}
                 value={
                   sourceDataForFilters
@@ -392,7 +391,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['ETD (date of shipment)'])}
                 value={
                   sourceDataForFilters
@@ -408,7 +407,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['ETA (arrival date)'])}
                 value={
                   sourceDataForFilters
@@ -424,7 +423,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
                 label={t(TranslationKey.Tariff)}
                 value={
@@ -439,7 +438,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 label={t(TranslationKey.Destination)}
                 value={
@@ -452,21 +451,21 @@ export const AddOrEditBatchForm = observer(
             </div>
           </div>
 
-          <div className={classNames.searchWrapper}>
-            <Typography className={classNames.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+          <div className={styles.searchWrapper}>
+            <Typography className={styles.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValueBoxesToAddData}
               placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</Typography>
-              <Typography className={classNames.boxCounterCount}>
+          <div className={styles.tableWrapper}>
+            <div className={styles.boxCounterWrapper}>
+              <Typography className={styles.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</Typography>
+              <Typography className={styles.boxCounterCount}>
                 {[
                   ...addOrEditBatchDataConverter(
                     boxesData,
@@ -516,8 +515,8 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.tableSubWrapper}>
-            <div className={classNames.weigthCalcWrapper}>
+          <div className={styles.tableSubWrapper}>
+            <div className={styles.weigthCalcWrapper}>
               <WithSearchSelect
                 withoutSearch
                 width={343}
@@ -534,7 +533,7 @@ export const AddOrEditBatchForm = observer(
                 onClickSelect={item => changeBatchFields('calculationMethod')(item.methodStatus)}
               />
 
-              <Typography className={classNames.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
+              <Typography className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
 
               <RadioGroup
                 row
@@ -555,30 +554,28 @@ export const AddOrEditBatchForm = observer(
               }
               color="primary"
               variant="contained"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickAdd}
             >
               {t(TranslationKey.Add)}
             </Button>
           </div>
 
-          <div className={classNames.searchWrapper}>
-            <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+          <div className={styles.searchWrapper}>
+            <Typography className={styles.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValueChosenBoxes}
               placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>
-                {t(TranslationKey['Quantity of boxes']) + ':'}
-              </Typography>
-              <Typography className={classNames.boxCounterCount}>
+          <div className={styles.tableWrapper}>
+            <div className={styles.boxCounterWrapper}>
+              <Typography className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes']) + ':'}</Typography>
+              <Typography className={styles.boxCounterCount}>
                 {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
               </Typography>
             </div>
@@ -609,11 +606,11 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.sumsWrapper}>
+          <div className={styles.footerWrapper}>
+            <div className={styles.sumsWrapper}>
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
                 label={t(TranslationKey['Volume weight'])}
                 value={toFixed(
@@ -631,7 +628,7 @@ export const AddOrEditBatchForm = observer(
 
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
                 label={t(TranslationKey['Final weight'])}
                 value={
@@ -654,7 +651,7 @@ export const AddOrEditBatchForm = observer(
 
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Cost of shipping boxes in a batch'])}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
@@ -669,15 +666,15 @@ export const AddOrEditBatchForm = observer(
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
               color="primary"
               variant="contained"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickTrash}
             >
               {t(TranslationKey.Remove)}
             </Button>
           </div>
 
-          <div className={classNames.imageFileInputWrapper}>
-            <div className={classNames.uploadFilesWrapper}>
+          <div className={styles.imageFileInputWrapper}>
+            <div className={styles.uploadFilesWrapper}>
               <UploadFilesInput
                 images={filesToAdd}
                 setImages={setfilesToAdd}
@@ -688,9 +685,9 @@ export const AddOrEditBatchForm = observer(
                 }
               />
             </div>
-            <div className={classNames.imageAndFileInputWrapper}>
+            <div className={styles.imageAndFileInputWrapper}>
               <Field
-                containerClasses={classNames.filesWrapper}
+                containerClasses={styles.filesWrapper}
                 label={t(TranslationKey.Files)}
                 inputComponent={
                   <PhotoAndFilesCarousel
@@ -704,25 +701,20 @@ export const AddOrEditBatchForm = observer(
             </div>
           </div>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             <Button
               success
               disableElevation
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               variant="contained"
               color="primary"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              color="primary"
-              variant="text"
-              className={cx(classNames.actionBtn, classNames.cancelBtn)}
-              onClick={onClose}
-            >
+            <Button color="primary" variant="text" className={cx(styles.actionBtn, styles.cancelBtn)} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

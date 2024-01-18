@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -37,7 +36,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './batch-info-modal.style'
+import { useStyles } from './batch-info-modal.style'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
@@ -61,7 +60,7 @@ export const BatchInfoModal = observer(
           location,
         }),
     )
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
@@ -119,19 +118,19 @@ export const BatchInfoModal = observer(
 
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <div className={classNames.form}>
-          <div className={classNames.titleWrapper}>
-            <Typography className={classNames.modalTitle} variant="h5">
+        <div className={styles.form}>
+          <div className={styles.titleWrapper}>
+            <Typography className={styles.modalTitle} variant="h5">
               {t(TranslationKey['Viewing the batch'])}
             </Typography>
 
             <Field
               oneLine
               label={t(TranslationKey['Int warehouse']) + ': '}
-              containerClasses={classNames.storekeeperField}
-              labelClasses={classNames.fieldLabel}
+              containerClasses={styles.storekeeperField}
+              labelClasses={styles.fieldLabel}
               inputComponent={
-                <div className={classNames.userLinkWrapper}>
+                <div className={styles.userLinkWrapper}>
                   <UserLinkCell
                     blackText
                     name={currentBatch?.storekeeper?.name}
@@ -143,12 +142,12 @@ export const BatchInfoModal = observer(
             />
           </div>
 
-          <div className={classNames.infoWrapper}>
+          <div className={styles.infoWrapper}>
             <Field
               disabled
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Batch title'])}
               value={currentBatch?.title}
               placeholder={t(TranslationKey.Missing)}
@@ -156,10 +155,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={currentBatch?.humanFriendlyId}
               placeholder={t(TranslationKey.Missing)}
@@ -167,10 +166,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey.Tariff)}
               value={getNewTariffTextForBoxOrOrder(batch?.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
@@ -178,10 +177,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.destinationField)}
-              inputClasses={cx(classNames.infoField, classNames.destinationField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.destinationField)}
+              inputClasses={cx(styles.infoField, styles.destinationField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={currentBatch?.boxes?.[0].destination?.name}
               placeholder={t(TranslationKey.Missing)}
@@ -189,10 +188,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.volumeWeightField)}
-              inputClasses={cx(classNames.infoField, classNames.volumeWeightField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.volumeWeightField)}
+              inputClasses={cx(styles.infoField, styles.volumeWeightField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
                 currentBatch?.boxes?.reduce(
@@ -206,10 +205,10 @@ export const BatchInfoModal = observer(
 
             {/* <Field
               disabled
-              classes={{disabled: classNames.disabled}}
-              containerClasses={cx(classNames.sumField, classNames.volumeWeightField)}
-              inputClasses={cx(classNames.infoField, classNames.volumeWeightField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{disabled: styles.disabled}}
+              containerClasses={cx(styles.sumField, styles.volumeWeightField)}
+              inputClasses={cx(styles.infoField, styles.volumeWeightField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Gross weight'])}
               value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
               placeholder={'0'}
@@ -217,10 +216,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.volumeWeightField)}
-              inputClasses={cx(classNames.infoField, classNames.volumeWeightField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.volumeWeightField)}
+              inputClasses={cx(styles.infoField, styles.volumeWeightField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Final weight'])}
               value={toFixed(currentBatch?.finalWeight, 4)}
               placeholder={'0'}
@@ -228,22 +227,22 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.methodField)}
-              inputClasses={cx(classNames.infoField, classNames.methodField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.methodField)}
+              inputClasses={cx(styles.infoField, styles.methodField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Method of batch weight calculation'])}
               value={t(BatchWeightCalculationMethodTranslateKey(currentBatch?.calculationMethod))}
             />
           </div>
 
-          <div className={classNames.headerSubWrapper}>
+          <div className={styles.headerSubWrapper}>
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['CLS (batch closing date)'])}
               value={formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.cls)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
@@ -251,10 +250,10 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['ETD (date of shipment)'])}
               value={formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.etd)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
@@ -262,22 +261,22 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.batchTitleField)}
-              inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
-              labelClasses={classNames.subFieldLabel}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.batchTitleField)}
+              inputClasses={cx(styles.infoField, styles.batchTitleField)}
+              labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['ETA (arrival date)'])}
               value={formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.eta)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
-            <div className={classNames.closeFieldsWrapper}>
+            <div className={styles.closeFieldsWrapper}>
               <Field
                 disabled
-                classes={{ disabled: classNames.disabled }}
-                containerClasses={cx(classNames.sumField, classNames.dividerField)}
-                inputClasses={[classNames.infoField, classNames.dividerField]}
-                labelClasses={classNames.subFieldLabel}
+                classes={{ disabled: styles.disabled }}
+                containerClasses={cx(styles.sumField, styles.dividerField)}
+                inputClasses={[styles.infoField, styles.dividerField]}
+                labelClasses={styles.subFieldLabel}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
                   currentBatch?.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
@@ -288,31 +287,31 @@ export const BatchInfoModal = observer(
 
               <Field
                 disabled
-                classes={{ disabled: classNames.disabled }}
-                containerClasses={cx(classNames.sumField, classNames.dividerField)}
-                inputClasses={cx(classNames.infoField, classNames.dividerField)}
+                classes={{ disabled: styles.disabled }}
+                containerClasses={cx(styles.sumField, styles.dividerField)}
+                inputClasses={cx(styles.infoField, styles.dividerField)}
                 label={t(TranslationKey.Divider)}
-                labelClasses={classNames.subFieldLabel}
-                value={currentBatch?.volumeWeightDivide}
+                labelClasses={styles.subFieldLabel}
+                value={currentBatch.volumeWeightDivide}
               />
             </div>
 
             <Field
               disabled
               label={t(TranslationKey['Calculated shipping cost'])}
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
-              inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
-              labelClasses={cx(classNames.subFieldLabel)}
-              value={toFixed(currentBatch?.calculatedShippingCost, 2) || 0}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.shippinCostContainer)}
+              inputClasses={cx(styles.infoField, styles.shippinCostContainer)}
+              labelClasses={cx(styles.subFieldLabel)}
+              value={toFixed(currentBatch.calculatedShippingCost, 2) || 0}
             />
 
             <Field
               label={t(TranslationKey['Actual shipping cost'])}
-              classes={{ disabled: classNames.disabled }}
-              containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
-              inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
-              labelClasses={cx(classNames.subFieldLabel)}
+              classes={{ disabled: styles.disabled }}
+              containerClasses={cx(styles.sumField, styles.shippinCostContainer)}
+              inputClasses={cx(styles.infoField, styles.shippinCostContainer)}
+              labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
                   // disabled={!patchActualShippingCostBatch}
@@ -334,7 +333,7 @@ export const BatchInfoModal = observer(
             />
 
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValue}
               placeholder={getShortenStringIfLongerThanCount(
                 t(TranslationKey['Search by ASIN, Title, Order, item, ID Box']),
@@ -344,7 +343,7 @@ export const BatchInfoModal = observer(
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               disableRowSelectionOnClick
               localeText={getLocalizationByLanguageTag()}
@@ -369,11 +368,11 @@ export const BatchInfoModal = observer(
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
                   children: (
-                    <div className={classNames.boxCounterWrapper}>
-                      <Typography className={classNames.boxCounterText}>
+                    <div className={styles.boxCounterWrapper}>
+                      <Typography className={styles.boxCounterText}>
                         {t(TranslationKey['Quantity of boxes in batch']) + ':'}
                       </Typography>
-                      <Typography className={classNames.boxCounterCount}>
+                      <Typography className={styles.boxCounterCount}>
                         {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
                       </Typography>
                     </div>
@@ -396,21 +395,21 @@ export const BatchInfoModal = observer(
             />
           </div>
 
-          <div className={classNames.filesAndButtonWrapper}>
-            <div className={classNames.filesSubWrapper}>
+          <div className={styles.filesAndButtonWrapper}>
+            <div className={styles.filesSubWrapper}>
               <PhotoAndFilesSlider
                 smallSlider
                 column={window.innerWidth < 768}
                 files={currentBatch?.attachedDocuments}
               />
             </div>
-            <div className={classNames.buttonsWrapper}>
-              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+            <div className={styles.buttonsWrapper}>
+              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
                 <DownloadIcon />
               </Button>
 
-              <Button className={classNames.actionButton} onClick={setOpenModal}>
+              <Button className={styles.actionButton} onClick={setOpenModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

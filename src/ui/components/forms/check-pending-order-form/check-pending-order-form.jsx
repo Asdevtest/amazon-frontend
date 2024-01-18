@@ -9,7 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './check-pending-order-form.style'
+import { useStyles } from './check-pending-order-form.style'
 
 export const CheckPendingOrderForm = ({
   existingProducts,
@@ -17,7 +17,7 @@ export const CheckPendingOrderForm = ({
   onClickContinueBtn,
   onClickCancelBtn,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -27,21 +27,21 @@ export const CheckPendingOrderForm = ({
   }
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.warning}>{t(TranslationKey.Attention)}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.warning}>{t(TranslationKey.Attention)}</Typography>
 
-      <div className={classNames.asinsWrapper}>
-        <Typography className={[classNames.text, classNames.description]}>
+      <div className={styles.asinsWrapper}>
+        <Typography className={[styles.text, styles.description]}>
           {t(TranslationKey['Pending orders already exist']) + ':'}
         </Typography>
 
         {existingProducts?.map((product, productIndex) => (
-          <Typography key={productIndex} className={classNames.text}>
+          <Typography key={productIndex} className={styles.text}>
             {`${t(TranslationKey.ASIN)} ${product.asin}  ${t(TranslationKey.Orders).toLowerCase()}: `}
             {product.orders.map((order, orderIndex) => (
               <Link
                 key={orderIndex}
-                className={[classNames.text, classNames.orderInfo]}
+                className={[styles.text, styles.orderInfo]}
                 onClick={() => onClickPandingOrder(order?._id)}
               >
                 {`№${order?.id}${orderIndex + 1 !== product.orders.length ? ', ' : ''}`}
@@ -50,11 +50,11 @@ export const CheckPendingOrderForm = ({
           </Typography>
         ))}
       </div>
-      <div className={classNames.buttonGroup}>
+      <div className={styles.buttonGroup}>
         <Button success disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant="text" className={classNames.CancelBtn} onClick={onClickCancelBtn}>
+        <Button variant="text" className={styles.CancelBtn} onClick={onClickCancelBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

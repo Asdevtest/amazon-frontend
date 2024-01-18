@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useEffect, useState } from 'react'
 
 import { Chip, Typography } from '@mui/material'
@@ -55,7 +54,7 @@ export const MergeBoxesModal = ({
   setDestinationsFavouritesItem,
   volumeWeightCoefficient,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 

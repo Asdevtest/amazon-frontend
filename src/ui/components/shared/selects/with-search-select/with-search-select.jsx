@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import React, { memo, useEffect, useState } from 'react'
+import { Fragment, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -248,7 +248,7 @@ export const WithSearchSelect = memo(
                           })}
                         >
                           {searchFields?.map((fieldName, index) => (
-                            <React.Fragment key={index}>
+                            <Fragment key={index}>
                               {checkbox && (
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
@@ -263,7 +263,7 @@ export const WithSearchSelect = memo(
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
                               )}
-                            </React.Fragment>
+                            </Fragment>
                           ))}
 
                           {isFlat && !searchFields?.length && (

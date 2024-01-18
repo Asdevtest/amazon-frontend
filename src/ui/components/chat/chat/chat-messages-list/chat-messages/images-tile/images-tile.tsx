@@ -1,9 +1,8 @@
-import { cx } from '@emotion/css'
 import { FC, useState } from 'react'
 
 import { Box } from '@mui/material'
 
-import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
+import { useStyles } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.style'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -16,7 +15,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isShowImagePreview, setIsShowImagePreview] = useState(false)
 
-  const { classes: styles } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const handlePreview = (index: number) => {
     setSelectedImage(index)

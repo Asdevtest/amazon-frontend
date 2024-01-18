@@ -13,12 +13,12 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-destinations.style'
+import { useStyles } from './tab-destinations.style'
 
 import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
 
@@ -27,12 +27,12 @@ export const TabDestinations = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.wrapper}>
-      <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+    <div className={styles.wrapper}>
+      <Button success className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
 
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

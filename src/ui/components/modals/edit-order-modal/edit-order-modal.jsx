@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+
 import { memo, useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
@@ -125,7 +125,7 @@ export const EditOrderModal = memo(
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)

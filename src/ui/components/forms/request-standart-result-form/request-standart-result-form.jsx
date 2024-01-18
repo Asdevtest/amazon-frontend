@@ -5,55 +5,55 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-standart-result-form.style'
+import { useStyles } from './request-standart-result-form.style'
 
 export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposal }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+    <div className={styles.root}>
+      <p className={styles.headerText}>{t(TranslationKey.Result)}</p>
 
-      <p className={classNames.resultText}>{proposal?.details?.result}</p>
+      <p className={styles.resultText}>{proposal?.details?.result}</p>
 
-      <div className={classNames.resultWrapper}>
+      <div className={styles.resultWrapper}>
         <PhotoAndFilesSlider
           smallSlider
           files={proposal?.proposal?.media?.map(el => ('fileLink' in el ? el?.fileLink : el))}
         />
 
-        {/* <div className={classNames.resultRightSide}>
-          <div className={classNames.timeToCheckBlockWrapper}>
-            <Typography className={classNames.timeToCheckBlockLabelText}>
+        {/* <div className={styles.resultRightSide}>
+          <div className={styles.timeToCheckBlockWrapper}>
+            <Typography className={styles.timeToCheckBlockLabelText}>
               {t(TranslationKey['Time to check'])}
             </Typography>
-            <div className={classNames.timeToCheckBlockValueWrapper}>
-              <Typography className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
+            <div className={styles.timeToCheckBlockValueWrapper}>
+              <Typography className={styles.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
                 TranslationKey.minute,
               )}`}</Typography>
             </div>
           </div>
         </div> */}
       </div>
-      <div className={classNames.btnsWrapper}>
-        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+      <div className={styles.btnsWrapper}>
+        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
-      {/* <div className={classNames.footerWrapper}>
+      {/* <div className={styles.footerWrapper}>
         {chatRequestAndRequestProposal &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
           chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
         curUserId &&
         message.data.needApproveBy?.includes(curUserId) ? (
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
               <Button
                 variant="contained"
                 color="primary"
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={cx(classNames.actionButton, classNames.editButton)}
+                btnWrapperStyle={styles.actionBtnWrapperStyle}
+                className={cx(styles.actionButton, styles.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
                 {t(TranslationKey['Send in for rework'])}
@@ -62,8 +62,8 @@ export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposa
             <Button
               variant="contained"
               color="primary"
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-              className={cx(classNames.actionButton, classNames.successBtn)}
+              btnWrapperStyle={cx(styles.actionBtnWrapperStyle, styles.actionBtnWrapperStyleNotFirst)}
+              className={cx(styles.actionButton, styles.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
             >
               {t(TranslationKey.Receive)}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, KeyboardEvent, useEffect, useState } from 'react'
+import { FC, KeyboardEvent, memo, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
@@ -24,7 +24,7 @@ interface ChangeInputCellProps {
   onClickSubmit: (rowId: string, value: string | undefined) => void
 }
 
-export const ChangeInputCell: FC<ChangeInputCellProps> = React.memo(props => {
+export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue } = props
 

@@ -18,7 +18,7 @@ import { styles } from './registration-view.style'
 import { RegistrationViewModel } from './registration-view.model'
 
 export const RegistrationViewRaw = props => {
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   const [viewModel] = useState(() => new RegistrationViewModel({ history: props.history }))
 
@@ -31,7 +31,7 @@ export const RegistrationViewRaw = props => {
   )
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <AuthPageBanner />
 
       <AuthFormWrapper

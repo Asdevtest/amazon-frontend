@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui, Typography } from '@mui/material'
@@ -11,10 +10,10 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './avatar-editor-form.style'
+import { useStyles } from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
-  const { classes: classNames, theme } = useClassNames()
+  const { classes: styles, theme, cx } = useStyles()
   const [showInfoModal, setShowInfoModal] = useState(false)
 
   const [showInfoModalText, setShowInfoModalText] = useState('')
@@ -73,13 +72,13 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
   }
 
   return (
-    <div className={classNames.root}>
-      <Typography variant="h4" className={classNames.mainTitle}>
+    <div className={styles.root}>
+      <Typography variant="h4" className={styles.mainTitle}>
         {t(TranslationKey.Load)}
       </Typography>
 
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.avatarWrapper}>
+      <div className={styles.mainWrapper}>
+        <div className={styles.avatarWrapper}>
           <Avatar
             width={320}
             height={210}
@@ -93,31 +92,30 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
           />
         </div>
 
-        <div className={classNames.imgWrapper}>
-          <AvatarMui className={classNames.img} src={state.preview} />
+        <div className={styles.imgWrapper}>
+          <AvatarMui className={styles.img} src={state.preview} />
         </div>
       </div>
 
-      <div className={classNames.textsWrapper}>
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
-          {t(TranslationKey['The image size should not exceed'])}{' '}
-          {<span className={classNames.spanText}>{'15 mb.'}</span>}
+      <div className={styles.textsWrapper}>
+        <Typography className={cx(styles.standartText, { [styles.successText]: state.preview })}>
+          {t(TranslationKey['The image size should not exceed'])} {<span className={styles.spanText}>{'15 mb.'}</span>}
         </Typography>
 
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <Typography className={cx(styles.standartText, { [styles.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
         </Typography>
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button disabled={!state.preview} onClick={() => onSubmit(state.preview)}>
           {t(TranslationKey.Load)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

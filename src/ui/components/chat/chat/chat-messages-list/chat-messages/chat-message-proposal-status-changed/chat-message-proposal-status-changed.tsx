@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-message-proposal-status-changed.style'
+import { useStyles } from './chat-message-proposal-status-changed.style'
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 
@@ -25,13 +25,13 @@ interface Props {
 }
 
 export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowChatInfo }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
-      <div className={classNames.root}>
-        <p className={classNames.statusTextDesciption}>
+      <div className={styles.root}>
+        <p className={styles.statusTextDesciption}>
           {`${t(TranslationKey['The proposal is accepted by the Client and taken on work'])} ${formatNormDateTime(
             message.createdAt,
           )}`}
@@ -44,14 +44,14 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
     switch (message.data.status) {
       case RequestProposalStatus.TO_CORRECT:
         return (
-          <div className={classNames.detailsWrapper}>
-            <div className={classNames.headerAndTimeWrapper}>
-              <p className={classNames.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
+          <div className={styles.detailsWrapper}>
+            <div className={styles.headerAndTimeWrapper}>
+              <p className={styles.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
 
-              <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+              <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
             </div>
 
-            {message?.data?.reason ? <p className={classNames.reasonText}>{message?.data?.reason}</p> : null}
+            {message?.data?.reason ? <p className={styles.reasonText}>{message?.data?.reason}</p> : null}
 
             {message.data?.linksToMediaFiles?.length > 0 && (
               <PhotoAndFilesSlider
@@ -62,9 +62,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
               />
             )}
 
-            <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
-              <div className={classNames.labelValueBlockWrapper}>
-                <p className={classNames.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
+            <div className={cx(styles.footerWrapper, { [styles.footerWrapperShowChatInfo]: isShowChatInfo })}>
+              <div className={styles.labelValueBlockWrapper}>
+                <p className={styles.reasonText}>{`${t(TranslationKey['Time for rework'])}: `}</p>
 
                 <LabelValuePairBlock
                   label={undefined}
@@ -81,10 +81,10 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
   }
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.statusTextDesciption}>
+    <div className={styles.root}>
+      <div className={styles.statusTextDesciption}>
         {`${t(TranslationKey['New proposal status'])}:`}
-        <span className={classNames.statusText} style={{ color: colorByStatus(message.data.status) }}>
+        <span className={styles.statusText} style={{ color: colorByStatus(message.data.status) }}>
           {MyRequestStatusTranslate(message.data.status)}
         </span>
       </div>

@@ -16,7 +16,7 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './freelance-request-details-modal.styles'
+import { useStyles } from './freelance-request-details-modal.style'
 
 import { FreelanceRequestDetailsModalControls } from './freelance-request-details-modal-controls'
 

@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 
-import { useChatGroupUsersStyles } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users.styles'
+import { useChatGroupUsersStyles } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users.style'
 import { Button } from '@components/shared/buttons/button'
 import { MemberPlus } from '@components/shared/svg-icons'
 

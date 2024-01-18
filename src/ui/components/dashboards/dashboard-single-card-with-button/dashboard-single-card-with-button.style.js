@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     backgroundColor: theme.palette.background.general,
     // boxShadow: '0px 2px 11px 2px #DFDFDF',

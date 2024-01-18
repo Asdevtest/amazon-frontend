@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ interface EditOrRemoveBtnsCellProps {
   isFirstRow?: boolean
 }
 
-export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = React.memo(props => {
+export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { row, handlers, isSubUsersTable, disableActionBtn, tooltipFirstButton, tooltipSecondButton, isFirstRow } =
     props

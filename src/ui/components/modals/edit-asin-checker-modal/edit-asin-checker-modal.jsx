@@ -9,10 +9,10 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-asin-checker-modal.style'
+import { useStyles } from './edit-asin-checker-modal.style'
 
 export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const sourceFormFields = {
     asin: asinsToEdit?.asin || '',
@@ -31,41 +31,41 @@ export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy 
   }
 
   return (
-    <div className={classNames.modalMessageWrapper}>
-      <div className={classNames.modalTitle}>
-        <Typography variant="h5" className={classNames.modalMessageTitle}>
+    <div className={styles.modalMessageWrapper}>
+      <div className={styles.modalTitle}>
+        <Typography variant="h5" className={styles.modalMessageTitle}>
           {t(TranslationKey['Editing ASIN'])}
         </Typography>
       </div>
-      <div className={classNames.modalFieldsWrapper}>
+      <div className={styles.modalFieldsWrapper}>
         <Field
           inputProps={{ maxLength: 15 }}
-          labelClasses={classNames.commentLabelText}
-          containerClasses={classNames.commentContainer}
+          labelClasses={styles.commentLabelText}
+          containerClasses={styles.commentContainer}
           label={t(TranslationKey.ASIN)}
           value={formFields.asin}
           onChange={onChangeField('asin')}
         />
         <Field
           multiline
-          className={classNames.heightFieldAuto}
+          className={styles.heightFieldAuto}
           minRows={7}
           maxRows={7}
           inputProps={{ maxLength: 1024 }}
-          containerClasses={classNames.commentContainer}
-          labelClasses={classNames.commentLabelText}
+          containerClasses={styles.commentContainer}
+          labelClasses={styles.commentLabelText}
           label={t(TranslationKey.Reason)}
           value={formFields.reason}
           onChange={onChangeField('reason')}
         />
       </div>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           success
           // disabled={submitIsClicked}
           variant="contained"
-          className={classNames.buttonOk}
+          className={styles.buttonOk}
           onClick={() => onSubmit(asinsToEdit?._id, formFields, strategy)}
         >
           {t(TranslationKey.Save)}
@@ -75,7 +75,7 @@ export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy 
           // disabled={submitIsClicked}
           color="primary"
           variant="contained"
-          className={classNames.buttonCancel}
+          className={styles.buttonCancel}
           onClick={onClose}
         >
           {t(TranslationKey.Cancel)}

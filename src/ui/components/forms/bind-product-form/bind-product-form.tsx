@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { IProduct, IProductVariation, ProductVariation } from '@typings/product'
 
-import { useClassNames } from './bind-product-form.styles'
+import { useStyles } from './bind-product-form.style'
 
 import { SelectedProduct } from './selected-product/selected-product'
 
@@ -30,7 +30,7 @@ interface BindProductFormProps {
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const {
     sourceProduct,
@@ -86,10 +86,10 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Select product'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Select product'])}</p>
 
-      <div className={classNames.radioButtonsWrapper}>
+      <div className={styles.radioButtonsWrapper}>
         <RadioButtons
           verticalDirection
           radioBottonsSettings={radioBottonsSettings}
@@ -98,7 +98,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         />
       </div>
 
-      <div className={classNames.selectWrapper}>
+      <div className={styles.selectWrapper}>
         {/* @ts-ignore */}
         <WithSearchSelect
           // @ts-ignore
@@ -114,9 +114,9 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           selectedData={selectedProducts}
           width={300}
-          customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
-          customSearchInput={classNames.searchSelectCustomSearchInput}
-          customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
+          customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
+          customSearchInput={styles.searchSelectCustomSearchInput}
+          customItemsWrapper={styles.searchSelectCustomItemsWrapper}
           selectedItemName={t(TranslationKey['Select products'])}
           onScrollItemList={loadMorePermissionsDataHadler}
           onClickSubmitSearch={onClickSubmitSearch}
@@ -129,7 +129,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           }}
         />
 
-        <div className={classNames.selectedVariationsWrapper}>
+        <div className={styles.selectedVariationsWrapper}>
           {!!selectedProducts.length &&
             selectedProducts.map((product: IProductVariation, productIndex: number) => (
               <SelectedProduct key={productIndex} product={product} onClickDeleteButton={onClickDeleteButton} />
@@ -137,7 +137,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         </div>
       </div>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           success
           disabled={!selectedProducts.length}
@@ -147,7 +147,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={classNames.canselButton} onClick={onClickCancelButton}>
+        <Button variant="text" className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

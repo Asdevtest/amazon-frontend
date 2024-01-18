@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -17,20 +17,20 @@ import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-vi
 
 export const BuyerIdeasNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new BuyerIdeasNotificationsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+        <Button variant="outlined" className={styles.archiveHandler} onClick={viewModel.handleArchive}>
           {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
         </Button>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -64,7 +64,7 @@ export const BuyerIdeasNotificationsViewRaw = props => {
           />
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -34,7 +33,7 @@ import { t } from '@utils/translations'
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { useClassNames } from './header.styles'
+import { useStyles } from './header.style'
 
 import { HeaderModel } from './header.model'
 
@@ -46,7 +45,7 @@ interface Props {
 export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   const { hints, setHints } = useContext(HintsContext)
   const history = useHistory()
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const componentModel = useRef(new HeaderModel({ history }))
   const [isEnabledNotifications, setIsEnabledNotifications] = useState(true)
 
@@ -181,38 +180,38 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
     allowedRolesWithoutCandidate?.length > 1 ? allowedRolesWithoutCandidate?.map(roleMapper) : [roleMapper(role)]
 
   return (
-    <div className={classNames.header}>
-      <div className={classNames.menuIconWrapper}>
-        <MenuIcon className={classNames.menuIcon} onClick={onToggleModal} />
+    <div className={styles.header}>
+      <div className={styles.menuIconWrapper}>
+        <MenuIcon className={styles.menuIcon} onClick={onToggleModal} />
       </div>
 
-      <div className={classNames.toolbar}>
-        <div className={classNames.titleWrapper}>
-          <p key={SettingsModel.languageTag} className={classNames.title}>
+      <div className={styles.toolbar}>
+        <div className={styles.titleWrapper}>
+          <p key={SettingsModel.languageTag} className={styles.title}>
             {t(TranslationKey[`${title as TranslationKey}`])}
           </p>
 
-          <div className={classNames.tooltipWrapper} onClick={() => setHints(!hints)}>
+          <div className={styles.tooltipWrapper} onClick={() => setHints(!hints)}>
             {showHints ? (
               <HintsOn
-                className={cx(classNames.hintsIcon, classNames.hintsIconActive)}
+                className={cx(styles.hintsIcon, styles.hintsIconActive)}
                 fontSize={'small'}
                 viewBox={'0 0 18 18'}
               />
             ) : (
-              <HintsOff className={classNames.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
+              <HintsOff className={styles.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
             )}
             {showHints ? (
-              <p className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</p>
+              <p className={styles.hintsTextActive}>{t(TranslationKey['Hints included'])}</p>
             ) : (
-              <p className={classNames.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</p>
+              <p className={styles.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</p>
             )}
           </div>
         </div>
 
-        <p className={classNames.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
+        <p className={styles.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
 
-        <div className={classNames.allowedRolesMainWrapper}>
+        <div className={styles.allowedRolesMainWrapper}>
           <CustomSwitcher
             switchMode={'header'}
             condition={role}
@@ -225,42 +224,37 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
           />
         </div>
 
-        <Divider orientation="vertical" className={classNames.hideOnModile} />
+        <Divider orientation="vertical" className={styles.hideOnModile} />
 
-        <div className={classNames.selectorsWrapper}>
+        <div className={styles.selectorsWrapper}>
           {isEnabledNotifications ? (
-            <NotificationsIcon className={classNames.notificationIcon} onClick={handleNotifications} />
+            <NotificationsIcon className={styles.notificationIcon} onClick={handleNotifications} />
           ) : (
-            <NotificationsOffIcon className={classNames.notificationIcon} onClick={handleNotifications} />
+            <NotificationsOffIcon className={styles.notificationIcon} onClick={handleNotifications} />
           )}
 
-          <LanguageSelector className={classNames.languageSelector} />
+          <LanguageSelector className={styles.languageSelector} />
 
           {SettingsModel.uiTheme === UiTheme.light ? (
-            <WbSunnyRoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
+            <WbSunnyRoundedIcon className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
           ) : (
-            <Brightness3RoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.light)} />
+            <Brightness3RoundedIcon className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.light)} />
           )}
         </div>
 
-        <Divider orientation="vertical" className={classNames.hideOnModile} />
+        <Divider orientation="vertical" className={styles.hideOnModile} />
 
-        <div
-          className={classNames.userInfoWrapper}
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <img className={classNames.avatar} src={getUserAvatarSrc(userId)} />
+        <div className={styles.userInfoWrapper} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+          <img className={styles.avatar} src={getUserAvatarSrc(userId)} />
 
-          <div className={classNames.userNameAndBalanceWrapper}>
-            <p className={classNames.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
+          <div className={styles.userNameAndBalanceWrapper}>
+            <p className={styles.userName}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
             {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-              <p className={classNames.balance}>{toFixedWithDollarSign(balance, 2)}</p>
+              <p className={styles.balance}>{toFixedWithDollarSign(balance, 2)}</p>
             )}
           </div>
-          <ArrowDropDownIcon className={classNames.hideOnModile} />
+          <ArrowDropDownIcon className={styles.hideOnModile} />
         </div>
       </div>
 
@@ -272,31 +266,31 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             anchorEl={anchorEl}
             autoFocus={false}
             open={Boolean(anchorEl)}
-            classes={{ root: classNames.menu, list: classNames.list }}
+            classes={{ root: styles.menu, list: styles.list }}
             onClose={handleClose}
           >
-            <MenuItem className={classNames.menuClientInfoWrapper} onClick={handleClose}>
-              <div className={classNames.menuClientInfo}>
-                <p className={classNames.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
+            <MenuItem className={styles.menuClientInfoWrapper} onClick={handleClose}>
+              <div className={styles.menuClientInfo}>
+                <p className={styles.menuClientInfoText}>{getShortenStringIfLongerThanCount(userName, 10)}</p>
 
                 {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
-                  <p className={classNames.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</p>
+                  <p className={styles.menuClientInfoText}>{toFixedWithDollarSign(balance, 2)}</p>
                 )}
               </div>
 
-              <Avatar className={classNames.avatar} src={getUserAvatarSrc(userId)} />
+              <Avatar className={styles.avatar} src={getUserAvatarSrc(userId)} />
             </MenuItem>
-            <MenuItem className={classNames.mobileAllowedRolesWrapper} onClick={handleClose}>
-              <p className={classNames.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
+            <MenuItem className={styles.mobileAllowedRolesWrapper} onClick={handleClose}>
+              <p className={styles.mobileUserRoleTitle}>{t(TranslationKey['Your role:'])}</p>
               {allowedRolesWithoutCandidate?.length > 1 ? (
-                <div className={classNames.allowedRolesWrapper}>
+                <div className={styles.allowedRolesWrapper}>
                   {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                    <div key={roleCode} className={classNames.userRoleWrapper}>
-                      {roleCode === role ? <span className={classNames.indicator}></span> : null}
+                    <div key={roleCode} className={styles.userRoleWrapper}>
+                      {roleCode === role ? <span className={styles.indicator}></span> : null}
 
                       <p
-                        className={cx(classNames.userRole, {
-                          [classNames.currentAllowedRolesItem]: roleCode === role,
+                        className={cx(styles.userRole, {
+                          [styles.currentAllowedRolesItem]: roleCode === role,
                         })}
                         onClick={() => onChangeUserInfo(roleCode)}
                       >
@@ -306,9 +300,9 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
                   ))}
                 </div>
               ) : (
-                <div className={classNames.userRoleWrapper}>
-                  <span className={classNames.indicator}></span>
-                  <p className={cx(classNames.userRole, classNames.currentAllowedRolesItem)}>
+                <div className={styles.userRoleWrapper}>
+                  <span className={styles.indicator}></span>
+                  <p className={cx(styles.userRole, styles.currentAllowedRolesItem)}>
                     {(UserRoleCodeMap as { [key: number]: string })[role]}
                   </p>
                 </div>
@@ -316,23 +310,23 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             </MenuItem>
 
             <MenuItem
-              className={classNames.menuItem}
+              className={styles.menuItem}
               onClick={() => {
                 onClickProfile()
                 handleClose()
               }}
             >
-              <PersonIcon className={classNames.icon} />
+              <PersonIcon className={styles.icon} />
               {t(TranslationKey.Profile)}
             </MenuItem>
             <MenuItem
-              className={classNames.menuItem}
+              className={styles.menuItem}
               onClick={() => {
                 onClickExit()
                 handleClose()
               }}
             >
-              <ExitIcon className={classNames.icon} />
+              <ExitIcon className={styles.icon} />
               {t(TranslationKey.Exit)}
             </MenuItem>
           </Menu>

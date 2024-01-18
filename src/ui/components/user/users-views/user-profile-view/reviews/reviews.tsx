@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewCard } from '@components/cards/review-card'
-import { useStyles } from '@components/user/users-views/user-profile-view/reviews/reviews.styles'
+import { useStyles } from '@components/user/users-views/user-profile-view/reviews/reviews.style'
 
 import { t } from '@utils/translations'
 

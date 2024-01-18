@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,12 +10,12 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './user-edit.style'
+import { useStyles } from './user-edit.style'
 
 import { UserEditModel } from './user-edit.model'
 
 export const UserEdit = observer(({ user }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const model = useRef(new UserEditModel({ history, user }))
 
@@ -41,7 +41,7 @@ export const UserEdit = observer(({ user }) => {
   } = model.current
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       {singlePermissions ? (
         <AdminUserEditContent
           // wrongPassword={wrongPassword}

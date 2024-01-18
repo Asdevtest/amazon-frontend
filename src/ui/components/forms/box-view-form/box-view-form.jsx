@@ -15,7 +15,7 @@ import { formatShortDateTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-view-form.style'
+import { useStyles } from './box-view-form.style'
 
 import { BoxInfoTab } from './box-info-tab'
 import { switcherSettings, tabs } from './box-view-form.constants'
@@ -33,7 +33,7 @@ export const BoxViewForm = memo(props => {
     onClickHsCode,
     calcFinalWeightForBoxFunction,
   } = props
-  const { classes: styles, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [activeTab, setActiveTab] = useState(tabs.BOX_INFO)
   const [formFields, setFormFields] = useState(box)

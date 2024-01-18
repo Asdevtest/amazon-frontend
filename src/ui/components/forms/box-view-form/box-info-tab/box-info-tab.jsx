@@ -26,7 +26,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-info-tab.style'
+import { useStyles } from './box-info-tab.style'
 
 export const BoxInfoTab = observer(
   ({
@@ -38,7 +38,7 @@ export const BoxInfoTab = observer(
     calcFinalWeightForBoxFunction,
     onChangeField,
   }) => {
-    const { classes: styles, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)

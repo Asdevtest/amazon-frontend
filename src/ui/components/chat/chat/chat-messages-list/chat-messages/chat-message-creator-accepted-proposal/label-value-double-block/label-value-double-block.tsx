@@ -1,7 +1,6 @@
-import { cx } from '@emotion/css'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
-import { useClassNames } from './label-value-double-block.style'
+import { useStyles } from './label-value-double-block.style'
 
 export interface LabelValuePair {
   label: string
@@ -14,23 +13,23 @@ interface Props {
 }
 
 export const LabelValueDoubleBlock: FC<Props> = ({ labelValueDouble, bgColor }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   return (
-    <div className={cx(classNames.root, { [classNames.rootGreen]: bgColor === 'green' })}>
-      <div className={classNames.row}>
-        <div className={classNames.labelWrapper}>
-          <p className={classNames.labelText}>{labelValueDouble[0].label}</p>
+    <div className={cx(styles.root, { [styles.rootGreen]: bgColor === 'green' })}>
+      <div className={styles.row}>
+        <div className={styles.labelWrapper}>
+          <p className={styles.labelText}>{labelValueDouble[0].label}</p>
         </div>
-        <div className={classNames.valueWrapper}>
-          <p className={classNames.valueText}>{labelValueDouble[0].value}</p>
+        <div className={styles.valueWrapper}>
+          <p className={styles.valueText}>{labelValueDouble[0].value}</p>
         </div>
       </div>
-      <div className={cx(classNames.row, classNames.rowNotFirst)}>
-        <div className={classNames.labelWrapper}>
-          <p className={classNames.labelText}>{labelValueDouble[0].label}</p>
+      <div className={cx(styles.row, styles.rowNotFirst)}>
+        <div className={styles.labelWrapper}>
+          <p className={styles.labelText}>{labelValueDouble[0].label}</p>
         </div>
-        <div className={classNames.valueWrapper}>
-          <p className={classNames.valueText}>{labelValueDouble[0].value}</p>
+        <div className={styles.valueWrapper}>
+          <p className={styles.valueText}>{labelValueDouble[0].value}</p>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
 
-import { useStyles } from './announcement-modal.styles'
+import { useStyles } from './announcement-modal.style'
 
 interface AnnouncementModalProps {
   isOpenModal: boolean

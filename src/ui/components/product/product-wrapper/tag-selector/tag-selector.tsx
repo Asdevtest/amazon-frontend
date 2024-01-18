@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
-import { useStyles } from './tag-selector.styles'
+import { useStyles } from './tag-selector.style'
 
 import { Option } from './option'
 

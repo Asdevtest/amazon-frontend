@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
@@ -14,7 +13,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bind-inventory-goods-to-stock-form.style'
+import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
 import { chosenGoodsColumns, sourceColumns } from './bind-stock-goods-to-inventory-columns'
 
@@ -26,7 +25,7 @@ const chipConfigSettings = {
 }
 
 export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockData, product, onSubmit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
@@ -99,29 +98,29 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
   }
 
   return (
-    <div className={classNames.root}>
-      <Typography variant="h6" className={classNames.title}>
+    <div className={styles.root}>
+      <Typography variant="h6" className={styles.title}>
         {t(TranslationKey['Bind an product from Amazon'])}
       </Typography>
 
-      <div className={classNames.form}>
-        <div className={classNames.filtersWrapper}>
+      <div className={styles.form}>
+        <div className={styles.filtersWrapper}>
           <Button
             variant={'text'}
-            className={cx(classNames.chip, {
-              [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
+            className={cx(styles.chip, {
+              [styles.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
             })}
             onClick={() => setRecommendChip()}
           >
             {t(TranslationKey.Recommended)}
           </Button>
 
-          <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
+          <Typography className={styles.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
           <Button
             variant={'text'}
-            className={cx(classNames.chip, classNames.chipLeftMargin, {
-              [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
+            className={cx(styles.chip, styles.chipLeftMargin, {
+              [styles.chipActive]: chipConfig === chipConfigSettings.NAME,
             })}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           >
@@ -130,8 +129,8 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
 
           <Button
             variant={'text'}
-            className={cx(classNames.chip, classNames.chipLeftMargin, {
-              [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
+            className={cx(styles.chip, styles.chipLeftMargin, {
+              [styles.chipActive]: chipConfig === chipConfigSettings.ASIN,
             })}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
           >
@@ -140,8 +139,8 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
 
           <Button
             variant={'text'}
-            className={cx(classNames.chip, classNames.chipLeftMargin, {
-              [classNames.chipActive]: chipConfig === chipConfigSettings.SKU,
+            className={cx(styles.chip, styles.chipLeftMargin, {
+              [styles.chipActive]: chipConfig === chipConfigSettings.SKU,
             })}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
           >
@@ -149,7 +148,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           </Button>
 
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
             value={searchInputValue}
             placeholder={t(TranslationKey.search)}
@@ -157,7 +156,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           />
         </div>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
             sortingMode="client"
@@ -171,7 +170,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
             variant="contained"
@@ -182,11 +181,9 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           </Button>
         </div>
 
-        <Typography className={classNames.chosenGoodsTitle}>
-          {t(TranslationKey['Selected products from stock'])}
-        </Typography>
+        <Typography className={styles.chosenGoodsTitle}>{t(TranslationKey['Selected products from stock'])}</Typography>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             sortingMode="client"
             paginationMode="client"
@@ -196,7 +193,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             success
             disableElevation

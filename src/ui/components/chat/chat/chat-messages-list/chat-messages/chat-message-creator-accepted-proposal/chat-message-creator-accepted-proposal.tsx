@@ -1,36 +1,35 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
-import { useClassNames } from './chat-message-creator-accepted-proposal.style'
+import { useStyles } from './chat-message-creator-accepted-proposal.style'
 
 import { LabelValueDoubleBlock } from './label-value-double-block'
 
 interface Props {}
 
 export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   return (
-    <div className={classNames.root}>
-      <div className={classNames.headerWrapper}>
-        <div className={classNames.avatarWrapper}></div>
-        <div className={classNames.headerTextWrapper}>
-          <p className={classNames.headerText}>ПРЕДЛОЖЕНИЕ ПРИНЯТО КЛИЕНТОМ</p>
+    <div className={styles.root}>
+      <div className={styles.headerWrapper}>
+        <div className={styles.avatarWrapper}></div>
+        <div className={styles.headerTextWrapper}>
+          <p className={styles.headerText}>ПРЕДЛОЖЕНИЕ ПРИНЯТО КЛИЕНТОМ</p>
         </div>
       </div>
       <div>
-        <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>
+        <div className={styles.titleWrapper}>
+          <p className={styles.titleText}>
             Название задачи надо писать вот тут и тут пишется полное название заявки точнее
           </p>
         </div>
-        <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>
+        <div className={styles.descriptionWrapper}>
+          <p className={styles.descriptionText}>
             Нужно организовать приток пользователей на сайт. С последующей регистрацией. Обо всем подробно в личные
             сообщения. Можем работать на постоянной основе.
           </p>
         </div>
       </div>
-      <div className={classNames.otherInfoWrapper}>
+      <div className={styles.otherInfoWrapper}>
         <div>
           <LabelValueDoubleBlock
             bgColor="green"
@@ -40,7 +39,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
             ]}
           />
         </div>
-        <div className={cx(classNames.labelValueDoubleBlockWrapperNotFirst)}>
+        <div className={cx(styles.labelValueDoubleBlockWrapperNotFirst)}>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
@@ -50,9 +49,9 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
           />
         </div>
       </div>
-      <div className={classNames.filesAndLinksWrapper}>
-        <div className={classNames.files}></div>
-        <div className={classNames.links}></div>
+      <div className={styles.filesAndLinksWrapper}>
+        <div className={styles.files}></div>
+        <div className={styles.links}></div>
       </div>
     </div>
   )

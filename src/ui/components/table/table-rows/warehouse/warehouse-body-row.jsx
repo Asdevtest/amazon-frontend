@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material'
@@ -32,7 +32,7 @@ const WarehouseBodyRowRaw = ({
   onClickHsCode,
   ...restProps
 }) => {
-  const classNames = restProps.classes
+  const styles = restProps.classes
   const ordersQty = box.items.length
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
 
@@ -43,14 +43,14 @@ const WarehouseBodyRowRaw = ({
   // const style = colorByBoxStatus(box.status)
 
   const BoxUpdatedAt = ({ product }) => (
-    <Typography className={classNames.shortDateCellTypo}>
+    <Typography className={styles.shortDateCellTypo}>
       {product.updatedAt ? formatShortDateTime(product.updatedAt) : '-'}
     </Typography>
   )
 
   const ProductStatus = ({ product }) => (
-    <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineText} style={colorByBoxStatus(product)}>
+    <div className={styles.multilineTextWrapper}>
+      <Typography className={styles.multilineText} style={colorByBoxStatus(product)}>
         {t(boxStatusTranslateKey(product))}
       </Typography>
     </div>
@@ -61,23 +61,23 @@ const WarehouseBodyRowRaw = ({
   return (
     <>
       {box.items.map((order, orderIndex) => (
-        <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
+        <Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
           <TableRow
-            className={cx(classNames.row, { [classNames.boxLastRow]: orderIndex === ordersQty - 1 })}
+            className={cx(styles.row, { [styles.boxLastRow]: orderIndex === ordersQty - 1 })}
             onDoubleClick={() => restProps.setCurrentOpenedBox(box._id)}
           >
             {orderIndex === 0 && (
-              <React.Fragment>
+              <Fragment>
                 <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
-              </React.Fragment>
+              </Fragment>
             )}
 
             {orderIndex === 0 && (
-              <React.Fragment>
-                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
+              <>
+                <TableCell rowSpan={ordersQty} className={[styles.textEllipsis, styles.cellValueNumber]}>
                   <ProductStatus product={box.status} />
                 </TableCell>
-              </React.Fragment>
+              </>
             )}
 
             <TableCell>
@@ -93,7 +93,7 @@ const WarehouseBodyRowRaw = ({
             </TableCell>
 
             {orderIndex === 0 && (
-              <React.Fragment>
+              <>
                 <TableCell rowSpan={ordersQty}>
                   <Button
                     disableElevation
@@ -102,7 +102,7 @@ const WarehouseBodyRowRaw = ({
                     }
                     disabled={!box.images?.length}
                     color="primary"
-                    className={classNames.button}
+                    className={styles.button}
                     variant="contained"
                     onClick={() => {
                       setCurImages(box.images.filter(img => checkIsMediaFileLink(img)))
@@ -112,33 +112,33 @@ const WarehouseBodyRowRaw = ({
                     {t(TranslationKey.Photos)}
                   </Button>
                 </TableCell>
-              </React.Fragment>
+              </>
             )}
 
-            <TableCell className={classNames.centerCell}>
-              <div className={classNames.amountCell}>
+            <TableCell className={styles.centerCell}>
+              <div className={styles.amountCell}>
                 {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
               </div>
             </TableCell>
 
             {orderIndex === 0 && (
-              <React.Fragment>
-                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
+              <>
+                <TableCell rowSpan={ordersQty} className={[styles.textEllipsis, styles.cellValueNumber]}>
                   {box.destination?.name}
                 </TableCell>
-                <TableCell className={classNames.cellValueNumber} rowSpan={ordersQty}>
+                <TableCell className={styles.cellValueNumber} rowSpan={ordersQty}>
                   {'ID: ' + box.humanFriendlyId}
                 </TableCell>
-              </React.Fragment>
+              </>
             )}
 
             {orderIndex === 0 && (
               <TableCell rowSpan={ordersQty}>
-                <div className={classNames.cellValueNumber}>{toFixedWithDollarSign(calcPriceForBox(box), 2)}</div>
+                <div className={styles.cellValueNumber}>{toFixedWithDollarSign(calcPriceForBox(box), 2)}</div>
               </TableCell>
             )}
 
-            <TableCell className={classNames.centerCell}>
+            <TableCell className={styles.centerCell}>
               {toFixedWithKg(
                 Math.max(
                   parseFloat(
@@ -154,14 +154,14 @@ const WarehouseBodyRowRaw = ({
               )}
             </TableCell>
 
-            <TableCell className={classNames.centerCell}>
+            <TableCell className={styles.centerCell}>
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
             {orderIndex === 0 && !checkIsClient(UserRoleCodeMap[restProps.userInfo?.role]) && (
-              <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
+              <TableCell rowSpan={ordersQty} className={[styles.textEllipsis, styles.cellValueNumber]}>
                 <Tooltip title={box.trackNumberText ? box.trackNumberText : null}>
-                  <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
+                  <div className={styles.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
                 </Tooltip>
               </TableCell>
             )}
@@ -170,7 +170,7 @@ const WarehouseBodyRowRaw = ({
             <TableRow>
               <TableCell colSpan="2" />
               <TableCell colSpan="40">
-                <Table className={classNames.subBoxesTable}>
+                <Table className={styles.subBoxesTable}>
                   <TableBody>
                     {Array(box.amount)
                       .fill(true)
@@ -182,7 +182,7 @@ const WarehouseBodyRowRaw = ({
               </TableCell>
             </TableRow>
           ) : undefined}
-        </React.Fragment>
+        </Fragment>
       ))}
 
       {showPhotosModal && (

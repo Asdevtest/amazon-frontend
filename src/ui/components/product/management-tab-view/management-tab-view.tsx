@@ -9,13 +9,13 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './management-tab-view.style'
+import { useStyles } from './management-tab-view.style'
 
 import { ManagementTabViewModel } from './management-tab-view.model'
 import { MemberSelect } from './member-select'
 
 export const ManagementTabView: FC = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ManagementTabViewModel())
 
@@ -26,10 +26,10 @@ export const ManagementTabView: FC = observer(() => {
   return (
     <>
       {SettingsModel.languageTag && (
-        <div className={classNames.mainWrapper}>
-          <p className={classNames.titleMembers}>{t(TranslationKey.AllMembers)}</p>
+        <div className={styles.mainWrapper}>
+          <p className={styles.titleMembers}>{t(TranslationKey.AllMembers)}</p>
 
-          <div className={classNames.selectsWrapper}>
+          <div className={styles.selectsWrapper}>
             <MemberSelect
               isEmptyMember
               title={t(TranslationKey.Client)}

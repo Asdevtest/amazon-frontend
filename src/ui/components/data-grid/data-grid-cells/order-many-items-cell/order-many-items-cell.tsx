@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -23,7 +23,7 @@ interface OrderManyItemsCellProps {
   imageSize?: 'small' | 'big'
 }
 
-export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = React.memo(props => {
+export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { box, error, withoutSku, imageSize } = props
 

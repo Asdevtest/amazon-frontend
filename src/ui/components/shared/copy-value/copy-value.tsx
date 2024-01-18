@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'

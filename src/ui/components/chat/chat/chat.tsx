@@ -2,7 +2,7 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { observer } from 'mobx-react'
-import React, { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, ClipboardEvent, FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -29,7 +29,7 @@ import { IUploadFile } from '@typings/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat.styles'
+import { useStyles } from './chat.style'
 
 import { CurrentOpponent } from '../multiple-chats'
 
@@ -97,7 +97,7 @@ export const Chat: FC<Props> = observer(
     isFreelanceOwner,
     classNamesWrapper,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
@@ -265,7 +265,7 @@ export const Chat: FC<Props> = observer(
       }
     }
 
-    const onPasteFiles = async (evt: React.ClipboardEvent) => {
+    const onPasteFiles = async (evt: ClipboardEvent) => {
       if (evt.clipboardData.files.length === 0) {
         return
       } else {
@@ -306,7 +306,7 @@ export const Chat: FC<Props> = observer(
 
     return (
       <>
-        <div className={cx(classNames.scrollViewWrapper, classNamesWrapper)}>
+        <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}
@@ -323,26 +323,24 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          <div className={classNames.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+          <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
             {isShowChatInfo ? (
-              <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
+              <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
             ) : (
-              <MoreVertOutlinedIcon className={classNames.arrowIcon} />
+              <MoreVertOutlinedIcon className={styles.arrowIcon} />
             )}
           </div>
 
           {isShowScrollToBottomBtn && (
             <div
-              className={cx(classNames.scrollToBottom, {
-                [classNames.scrollToBottomRight]: isShowChatInfo,
-                [classNames.hideElement]: isShowChatInfo && isTabletResolution,
+              className={cx(styles.scrollToBottom, {
+                [styles.scrollToBottomRight]: isShowChatInfo,
+                [styles.hideElement]: isShowChatInfo && isTabletResolution,
               })}
               onClick={onClickScrollToBottom}
             >
               <KeyboardArrowDownIcon />
-              {!!unreadMessages?.length && (
-                <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>
-              )}
+              {!!unreadMessages?.length && <div className={styles.scrollToBottomBadge}>{unreadMessages?.length}</div>}
             </div>
           )}
 
@@ -369,7 +367,7 @@ export const Chat: FC<Props> = observer(
 
         {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
-        <div className={classNames.bottomPartWrapper}>
+        <div className={styles.bottomPartWrapper}>
           <div key={SettingsModel.languageTag}>
             {isShowEmojis && (
               <ClickAwayListener
@@ -380,7 +378,7 @@ export const Chat: FC<Props> = observer(
                   }
                 }}
               >
-                <div className={classNames.emojisWrapper}>
+                <div className={styles.emojisWrapper}>
                   <Picker
                     data={data}
                     perLine={isTabletResolution ? 7 : 9}
@@ -393,7 +391,7 @@ export const Chat: FC<Props> = observer(
             )}
           </div>
 
-          <div className={classNames.inputWrapper}>
+          <div className={styles.inputWrapper}>
             <TextField
               multiline
               autoFocus={!isTabletResolution}
@@ -402,28 +400,28 @@ export const Chat: FC<Props> = observer(
               type="text"
               id="outlined-multiline-flexible"
               size="small"
-              className={cx(classNames.input, { [classNames.inputFilled]: !!message || !!focused })}
+              className={cx(styles.input, { [styles.inputFilled]: !!message || !!focused })}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end" className={classNames.icons}>
+                  <InputAdornment position="end" className={styles.icons}>
                     <EmojiIcon
                       id="emoji-icon"
-                      className={cx(classNames.inputIcon, {
-                        [classNames.inputIconActive]: isShowEmojis,
+                      className={cx(styles.inputIcon, {
+                        [styles.inputIconActive]: isShowEmojis,
                       })}
                       onClick={() => setIsShowEmojis(!isShowEmojis)}
                     />
-                    <div className={classNames.filesIconWrapper}>
+                    <div className={styles.filesIconWrapper}>
                       <FileIcon
-                        className={cx(classNames.inputIcon, {
-                          [classNames.inputIconActive]: showFiles,
+                        className={cx(styles.inputIcon, {
+                          [styles.inputIconActive]: showFiles,
                         })}
                         onClick={() => setShowFiles(!showFiles)}
                       />
-                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+                      {files.length ? <div className={styles.badge}>{files.length}</div> : undefined}
                     </div>
                   </InputAdornment>
                 ),
@@ -432,14 +430,14 @@ export const Chat: FC<Props> = observer(
               onFocus={!isTabletResolution ? onFocus : undefined}
               onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
-              <div className={classNames.sendBtnTextWrapper}>
-                <p className={classNames.sendBtnText}>{t(TranslationKey.Send)}</p>
-                <SendIcon className={classNames.sendBtnIcon} />
+            <Button disabled={disabledSubmit} className={styles.sendBtn} onClick={() => onSubmitMessageInternal()}>
+              <div className={styles.sendBtnTextWrapper}>
+                <p className={styles.sendBtnText}>{t(TranslationKey.Send)}</p>
+                <SendIcon className={styles.sendBtnIcon} />
               </div>
             </Button>
           </div>

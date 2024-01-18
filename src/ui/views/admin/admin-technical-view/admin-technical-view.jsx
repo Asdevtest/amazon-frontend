@@ -24,7 +24,7 @@ export const AdminTechnicalViewRaw = props => {
         history: props.history,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -33,41 +33,41 @@ export const AdminTechnicalViewRaw = props => {
   return (
     <>
       <div>
-        <div className={classNames.mainWrapper}>
-          <div className={classNames.btnsWrapper}>
-            <Button className={classNames.backBtn} onClick={viewModel.onBackBtn}>
+        <div className={styles.mainWrapper}>
+          <div className={styles.btnsWrapper}>
+            <Button className={styles.backBtn} onClick={viewModel.onBackBtn}>
               {t(TranslationKey.Back)}
             </Button>
           </div>
 
           <Field
             oneLine
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Access for users'])}
             inputComponent={
-              <div className={classNames.selectorMainWrapper}>
-                <div className={classNames.selectorWrapper}>
+              <div className={styles.selectorMainWrapper}>
+                <div className={styles.selectorWrapper}>
                   <OnOffSelector value={viewModel.serverWorkOn} onClick={viewModel.onTriggerTechnicalWorks} />
                 </div>
 
-                <Typography className={classNames.noticeAttention}>
+                <Typography className={styles.noticeAttention}>
                   {t(TranslationKey['Notify users before disconnecting']) + '!'}
                 </Typography>
               </div>
             }
           />
-          <div className={classNames.noticesWrapper}>
-            <Paper className={classNames.noticesPaper}>
+          <div className={styles.noticesWrapper}>
+            <Paper className={styles.noticesPaper}>
               <Field
-                labelClasses={classNames.fieldLabel}
+                labelClasses={styles.fieldLabel}
                 label={t(TranslationKey['Notice of technical work'])}
                 inputComponent={
-                  <div className={classNames.technicalWorkNoticeWrapper}>
-                    <Typography className={classNames.technicalWorkNoticeAttention}>
+                  <div className={styles.technicalWorkNoticeWrapper}>
+                    <Typography className={styles.technicalWorkNoticeAttention}>
                       {t(TranslationKey.Attention).toUpperCase() + '!'}
                     </Typography>
 
-                    <Typography className={classNames.technicalWorkNoticeText}>
+                    <Typography className={styles.technicalWorkNoticeText}>
                       {t(
                         TranslationKey[
                           'We recommend that you save any unsaved changes and finish the work.\n When the technical work begins, all unsaved changes will be lost.\n\nWe apologize for the inconvenience!'
@@ -81,18 +81,18 @@ export const AdminTechnicalViewRaw = props => {
               />
             </Paper>
 
-            <Paper className={classNames.noticesPaper}>
+            <Paper className={styles.noticesPaper}>
               <Field
-                labelClasses={classNames.fieldLabel}
+                labelClasses={styles.fieldLabel}
                 label={t(TranslationKey['Notice to users'])}
                 inputComponent={
-                  <div className={classNames.usersNoticeWrapper}>
+                  <div className={styles.usersNoticeWrapper}>
                     <Input
                       multiline
                       minRows={6}
                       maxRows={6}
                       placeholder={t(TranslationKey['Enter notification text'])}
-                      className={classNames.usersNoticeInput}
+                      className={styles.usersNoticeInput}
                     />
 
                     <Button disabled>{t(TranslationKey.Send)}</Button>

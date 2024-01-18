@@ -1,19 +1,16 @@
-import { cx } from '@emotion/css'
-import React from 'react'
-
 import { Paper, Tab, Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './purchase-history.style'
+import { useStyles } from './purchase-history.style'
 
 export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   return (
-    <React.Fragment>
-      <Typography variant="h6" className={classNames.mainTitle}>
+    <>
+      <Typography variant="h6" className={styles.mainTitle}>
         {t(TranslationKey['The history of your purchases from']) + ((user && user.username) || '')}
       </Typography>
       <Paper>
@@ -21,42 +18,42 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
           value={tabHistory}
           aria-label="label tabs"
           classes={{
-            flexContainer: classNames.tabsHeadContainer,
-            indicator: classNames.tabsIndicator,
+            flexContainer: styles.tabsHeadContainer,
+            indicator: styles.tabsIndicator,
           }}
           onChange={(e, newValue) => setTabHistory(newValue)}
         >
           <Tab
-            className={cx(classNames.text, {
-              [classNames.selected]: tabHistory === 0,
+            className={cx(styles.text, {
+              [styles.selected]: tabHistory === 0,
             })}
             index={0}
             label={t(TranslationKey.All)}
           />
 
           <Tab
-            className={cx(classNames.text, {
-              [classNames.selected]: tabHistory === 1,
+            className={cx(styles.text, {
+              [styles.selected]: tabHistory === 1,
             })}
             index={1}
             label={t(TranslationKey['From buyers'])}
           />
           <Tab
-            className={cx(classNames.text, {
-              [classNames.selected]: tabHistory === 2,
+            className={cx(styles.text, {
+              [styles.selected]: tabHistory === 2,
             })}
             index={2}
             label={t(TranslationKey['From the sellers'])}
           />
         </Tabs>
-        <div className={classNames.tabContent} role="tabpanel">
-          <div className={classNames.subTabWrapper}>
-            <Typography className={cx(classNames.text, classNames.typoNoHistory)}>
+        <div className={styles.tabContent} role="tabpanel">
+          <div className={styles.subTabWrapper}>
+            <Typography className={cx(styles.text, styles.typoNoHistory)}>
               {t(TranslationKey['No transaction history found'])}
             </Typography>
           </div>
         </div>
       </Paper>
-    </React.Fragment>
+    </>
   )
 }

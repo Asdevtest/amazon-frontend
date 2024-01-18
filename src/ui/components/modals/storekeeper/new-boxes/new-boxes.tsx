@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -33,8 +33,8 @@ interface NewBoxesProps {
   onChangeAmountInput: (event: any, guid: string, order: any) => void
 }
 
-export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
-  const { classes: classNames, cx } = useStyles()
+export const NewBoxes: FC<NewBoxesProps> = memo(props => {
+  const { classes: styles, cx } = useStyles()
   const {
     newBoxes,
     isMasterBox,
@@ -58,12 +58,12 @@ export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
 
   return (
     <div>
-      <div className={classNames.currentBoxTitle}>
-        <p className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
+      <div className={styles.currentBoxTitle}>
+        <p className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
       </div>
 
       {newBoxes.map((box: any, boxIndex: number) => (
-        <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
+        <div key={boxIndex} className={cx({ [styles.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
             destinations={destinations}

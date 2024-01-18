@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -11,7 +10,7 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './link-sub-user-form.style'
+import { useStyles } from './link-sub-user-form.style'
 
 interface LinkSubUserFormProps {
   closeModal?: () => void
@@ -19,15 +18,15 @@ interface LinkSubUserFormProps {
 }
 
 export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { closeModal, onSubmit } = props
 
   const [email, setEmail] = useState('')
 
   return (
-    <div data-testid={'mainWrapper'} className={classNames.mainWrapper}>
-      <Typography variant="h4" className={classNames.modalTitle}>
+    <div data-testid={'mainWrapper'} className={styles.mainWrapper}>
+      <Typography variant="h4" className={styles.modalTitle}>
         {t(TranslationKey['Add a sub-user'])}
       </Typography>
 
@@ -35,19 +34,19 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
         // @ts-ignore
         type="email"
         label={t(TranslationKey['Enter the email of the user you want to add'])}
-        labelClasses={classNames.labelField}
+        labelClasses={styles.labelField}
         value={email}
         inputProps={{ 'data-testid': 'input' }}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
       />
 
-      <div className={classNames.buttonWrapper}>
+      <div className={styles.buttonWrapper}>
         <Button
           disableElevation
           data-testid={'add'}
           disabled={email === ''}
           variant="contained"
-          className={classNames.button}
+          className={styles.button}
           onClick={() => !!onSubmit && onSubmit({ email: email.toLowerCase() })}
         >
           {t(TranslationKey.Add)}
@@ -56,7 +55,7 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
         <Button
           data-testid={'cancel'}
           variant="text"
-          className={cx(classNames.button, classNames.cancelButton)}
+          className={cx(styles.button, styles.cancelButton)}
           onClick={() => !!closeModal && closeModal()}
         >
           {t(TranslationKey.Cancel)}

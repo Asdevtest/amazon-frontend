@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
@@ -22,7 +22,7 @@ interface DestinationVariationsSpanningCellProps {
   isRemovedDestinationRestriction?: boolean
 }
 
-export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanningCellProps> = React.memo(props => {
+export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanningCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {

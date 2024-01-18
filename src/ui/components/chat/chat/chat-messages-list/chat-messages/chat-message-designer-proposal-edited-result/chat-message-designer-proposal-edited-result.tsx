@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,7 +15,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chat-message-designer-proposal-edited-result.style'
+import { useStyles } from './chat-message-designer-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
   onClickOpenRequest: (
@@ -36,34 +35,34 @@ interface Props {
 }
 
 export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo, handlers }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const files = message.data.proposal.media.slice(0, 4).map(el => el.fileLink)
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+    <div className={styles.root}>
+      <div className={styles.mainWrapper}>
+        <div className={styles.headerWrapper}>
+          <p className={styles.headerText}>{t(TranslationKey.Result)}</p>
 
-          <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+          <p className={styles.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
         </div>
 
-        <div className={cx(classNames.infosWrapper, { [classNames.infosWrapperIsShowChatInfo]: isShowChatInfo })}>
-          <p className={classNames.descriptionText}>{message.data.proposal?.details?.result}</p>
+        <div className={cx(styles.infosWrapper, { [styles.infosWrapperIsShowChatInfo]: isShowChatInfo })}>
+          <p className={styles.descriptionText}>{message.data.proposal?.details?.result}</p>
 
-          <div className={cx(classNames.imagesWrapper, { [classNames.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
+          <div className={cx(styles.imagesWrapper, { [styles.imagesWrapperIsShowChatInfo]: isShowChatInfo })}>
             {files.map((item, index) => (
-              <div key={index} className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
-                {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+              <div key={index} className={cx(styles.imageWrapper, { [styles.mainImageWrapper]: index === 0 })}>
+                {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
 
                 {index === 3 && message.data.proposal.media.length > 4 && (
-                  <div className={classNames.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
+                  <div className={styles.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
                 )}
 
                 <img
                   src={checkIsMediaFileLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
                   alt={`Image ${index}`}
-                  className={classNames.image}
+                  className={styles.image}
                 />
               </div>
             ))}
@@ -71,30 +70,30 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
         </div>
       </div>
 
-      <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperIsShowChatInfo]: isShowChatInfo })}>
-        <div className={cx(classNames.fieldsContainer, { [classNames.fieldsContainerIsShowChatInfo]: isShowChatInfo })}>
+      <div className={cx(styles.footerWrapper, { [styles.footerWrapperIsShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(styles.fieldsContainer, { [styles.fieldsContainerIsShowChatInfo]: isShowChatInfo })}>
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Time to check'])}
-            containerClasses={classNames.containerField}
-            inputComponent={<p className={classNames.simpleSpan}>{minsToTime(1440)}</p>}
+            containerClasses={styles.containerField}
+            inputComponent={<p className={styles.simpleSpan}>{minsToTime(1440)}</p>}
           />
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Number of illustrations'])}
-            containerClasses={classNames.containerField}
-            inputComponent={<p className={classNames.simpleSpan}>{message.data.proposal.media?.length}</p>}
+            containerClasses={styles.containerField}
+            inputComponent={<p className={styles.simpleSpan}>{message.data.proposal.media?.length}</p>}
           />
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={'ASIN'}
-            containerClasses={classNames.containerField}
+            containerClasses={styles.containerField}
             inputComponent={<AsinOrSkuLink withCopyValue link={message?.data?.request?.asin} />}
           />
         </div>
 
         <Button
-          className={classNames.actionButton}
+          className={styles.actionButton}
           onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
         >
           {t(TranslationKey['Open result'])}

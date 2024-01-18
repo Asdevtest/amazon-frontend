@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -32,7 +31,7 @@ import { Text } from '@components/shared/text'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './before-after-block.style'
+import { useStyles } from './before-after-block.style'
 
 import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
 
@@ -56,7 +55,7 @@ const Box = observer(
     referenceEditingBox,
     onClickApplyAllBtn,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]?._id === box._id ? true : false*/)
 
@@ -119,16 +118,16 @@ const Box = observer(
       (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
 
     return (
-      <div className={classNames.mainPaper}>
-        <div className={classNames.fieldsWrapper}>
+      <div className={styles.mainPaper}>
+        <div className={styles.fieldsWrapper}>
           <div>
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Destination)}
-              labelClasses={classNames.smallLabel}
-              inputClasses={cx(classNames.field, {
-                [classNames.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
+              labelClasses={styles.smallLabel}
+              inputClasses={cx(styles.field, {
+                [styles.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
               })}
               value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
             />
@@ -139,10 +138,10 @@ const Box = observer(
               disabled
               tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
               label={t(TranslationKey.Tariff)}
-              labelClasses={classNames.smallLabel}
+              labelClasses={styles.smallLabel}
               value={getNewTariffTextForBoxOrOrder(box, true)}
-              inputClasses={cx(classNames.field, {
-                [classNames.editAccent]:
+              inputClasses={cx(styles.field, {
+                [styles.editAccent]:
                   needAccent &&
                   getNewTariffTextForBoxOrOrder(box, true) !== getNewTariffTextForBoxOrOrder(referenceEditingBox, true),
               })}
@@ -152,11 +151,11 @@ const Box = observer(
 
         {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
           <Paper
-            className={cx(classNames.boxWrapper, {
-              [classNames.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
+            className={cx(styles.boxWrapper, {
+              [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
             })}
           >
-            <div className={classNames.itemsWrapper}>
+            <div className={styles.itemsWrapper}>
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <ShortBoxItemCard
@@ -173,11 +172,11 @@ const Box = observer(
           </Paper>
         ) : (
           <Paper
-            className={cx(classNames.boxWrapper, {
-              [classNames.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
+            className={cx(styles.boxWrapper, {
+              [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
             })}
           >
-            <div className={classNames.itemsWrapper}>
+            <div className={styles.itemsWrapper}>
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
@@ -198,9 +197,9 @@ const Box = observer(
                 </div>
               ))}
             </div>
-            <div className={cx(classNames.boxInfoWrapper)}>
+            <div className={cx(styles.boxInfoWrapper)}>
               <div>
-                <Typography className={classNames.categoryTitle}>
+                <Typography className={styles.categoryTitle}>
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
@@ -208,7 +207,7 @@ const Box = observer(
                     : `${t(TranslationKey['Sizes from storekeeper'])}:`}
                 </Typography>
 
-                <div className={classNames.sizesSubWrapper}>
+                <div className={styles.sizesSubWrapper}>
                   <CustomSwitcher
                     condition={sizeSetting}
                     switcherSettings={[
@@ -221,28 +220,28 @@ const Box = observer(
 
                 {
                   /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
-                    <div className={classNames.demensionsWrapper}>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                    <div className={styles.demensionsWrapper}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
 
                         {isCurrentBox
                           ? toFixed(box.lengthCmSupplier / lengthConversion, 2)
                           : toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
                         {isCurrentBox
                           ? toFixed(box.widthCmSupplier / lengthConversion, 2)
                           : toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
                         {isCurrentBox
                           ? toFixed(box.heightCmSupplier / lengthConversion, 2)
                           : toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                       </Typography>
 
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
                         {isCurrentBox
                           ? toFixed(box.weighGrossKgSupplier / weightConversion, 2)
@@ -250,7 +249,7 @@ const Box = observer(
                         {' ' + weightSizesType}
                       </Typography>
 
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {isCurrentBox
                           ? toFixed(volumeWeightSupplier / weightConversion, 2)
@@ -258,7 +257,7 @@ const Box = observer(
                         {' ' + weightSizesType}
                       </Typography>
 
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {isCurrentBox
                           ? toFixed(
@@ -278,8 +277,8 @@ const Box = observer(
                     </div>
                   ) : (
                     <div
-                      className={cx(classNames.demensionsWrapper, {
-                        [classNames.editAccent]:
+                      className={cx(styles.demensionsWrapper, {
+                        [styles.editAccent]:
                           isNewBox &&
                           (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) &&
                           (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
@@ -288,30 +287,30 @@ const Box = observer(
                             box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
                       })}
                     >
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
                         {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
                         {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
                         {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                       </Typography>
 
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
                         {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {toFixed(volumeWeightWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
-                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
+                      <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {toFixed(
                           box.weighGrossKgWarehouse > volumeWeightWarehouse
@@ -326,15 +325,15 @@ const Box = observer(
                 }
               </div>
 
-              <Divider flexItem className={classNames.divider} orientation="vertical" />
+              <Divider flexItem className={styles.divider} orientation="vertical" />
 
-              <div className={classNames.imagesWrapper}>
-                <div className={classNames.photoWrapper}>
-                  <Typography className={classNames.photoAndFilesTitle}>{`${t(
+              <div className={styles.imagesWrapper}>
+                <div className={styles.photoWrapper}>
+                  <Typography className={styles.photoAndFilesTitle}>{`${t(
                     TranslationKey['Photos and documents of the box'],
                   )}:`}</Typography>
                   {isNewBox && box.tmpImages?.length ? (
-                    <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
+                    <Typography className={styles.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
                       box.tmpImages?.length - box.images.length
                     })`}</Typography>
                   ) : null}
@@ -344,16 +343,16 @@ const Box = observer(
                   />
                 </div>
 
-                <div className={classNames.photoWrapper}>
-                  <Typography className={classNames.photoAndFilesTitle}>{`${t(
+                <div className={styles.photoWrapper}>
+                  <Typography className={styles.photoAndFilesTitle}>{`${t(
                     TranslationKey['Photos and order documents'],
                   )}:`}</Typography>
                   <PhotoAndFilesSlider smallSlider files={box.items[0].order.images} />
                 </div>
               </div>
             </div>
-            <div className={classNames.footerWrapper}>
-              <div className={classNames.footerSubWrapper}>
+            <div className={styles.footerWrapper}>
+              <div className={styles.footerSubWrapper}>
                 <LabelWithCopy
                   labelTitleFontWeight={'bold'}
                   labelTitle={t(TranslationKey['Shipping label'])}
@@ -364,8 +363,8 @@ const Box = observer(
                 <div>
                   <Field
                     oneLine
-                    containerClasses={classNames.checkboxContainer}
-                    labelClasses={classNames.label}
+                    containerClasses={styles.checkboxContainer}
+                    labelClasses={styles.label}
                     label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                     inputComponent={
                       <Checkbox
@@ -384,15 +383,15 @@ const Box = observer(
                 </div>
               </div>
 
-              <div className={classNames.footerTrackNumberWrapper}>
+              <div className={styles.footerTrackNumberWrapper}>
                 <Field
                   // oneLine
-                  // containerClasses={classNames.countSubWrapper}
+                  // containerClasses={styles.countSubWrapper}
                   label={t(TranslationKey['Track number'])}
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   inputComponent={
                     <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
-                      <Typography className={classNames.trackNum}>
+                      <Typography className={styles.trackNum}>
                         {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
                           t(TranslationKey['Not available'])}
                       </Typography>
@@ -400,11 +399,11 @@ const Box = observer(
                   }
                 />
 
-                <div className={classNames.trackNumberPhotoWrapper}>
+                <div className={styles.trackNumberPhotoWrapper}>
                   {box.trackNumberFile.length ? (
                     <PhotoAndFilesSlider smallSlider files={box.trackNumberFile} />
                   ) : (
-                    <Typography className={classNames.trackNumberNoPhotoText}>
+                    <Typography className={styles.trackNumberNoPhotoText}>
                       {`${t(TranslationKey['no photo track number'])}...`}
                     </Typography>
                   )}
@@ -415,12 +414,12 @@ const Box = observer(
         )}
 
         {isNewBox && (
-          <div className={classNames.bottomBlockWrapper}>
-            <div className={cx(classNames.editBtnWrapper, { [classNames.noEditBtnWrapper]: readOnly })}>
+          <div className={styles.bottomBlockWrapper}>
+            <div className={cx(styles.editBtnWrapper, { [styles.noEditBtnWrapper]: readOnly })}>
               {isEdit && !readOnly && (
-                <div className={classNames.btnsWrapper}>
+                <div className={styles.btnsWrapper}>
                   <Button
-                    className={classNames.editBtn}
+                    className={styles.editBtn}
                     tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                     onClick={() => {
                       setCurBox(box)
@@ -437,7 +436,7 @@ const Box = observer(
                       !box.lengthCmWarehouse ||
                       !box.heightCmWarehouse
                     }
-                    className={classNames.editBtn}
+                    className={styles.editBtn}
                     onClick={() => {
                       onClickApplyAllBtn(box)
                     }}
@@ -446,8 +445,8 @@ const Box = observer(
                   </Button>
                 </div>
               )}
-              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-                <Typography className={classNames.tablePanelViewText}>
+              <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                <Typography className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
@@ -457,10 +456,10 @@ const Box = observer(
           </div>
         )}
         {!isNewBox && taskType === TaskOperationType.MERGE && (
-          <div className={classNames.bottomBlockWrapper}>
-            <div className={classNames.incomingBtnWrapper}>
-              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-                <Typography className={classNames.tablePanelViewText}>
+          <div className={styles.bottomBlockWrapper}>
+            <div className={styles.incomingBtnWrapper}>
+              <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                <Typography className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
@@ -485,23 +484,23 @@ const Box = observer(
 )
 
 const ReceiveBoxes = ({ taskType, onClickOpenModal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={classNames.receiveBoxWrapper}>
-      <div className={classNames.boxImageContainer}>
-        <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-        <BoxArrow className={classNames.boxArrowSvg} />
+    <div className={styles.receiveBoxWrapper}>
+      <div className={styles.boxImageContainer}>
+        <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
+        <BoxArrow className={styles.boxArrowSvg} />
       </div>
 
-      <Typography className={classNames.receiveBoxTitle}>
+      <Typography className={styles.receiveBoxTitle}>
         {t(TranslationKey['Add boxes that have arrived in stock'])}
       </Typography>
 
       {taskType === TaskOperationType.RECEIVE && (
         <Button
           disableElevation
-          className={classNames.button}
+          className={styles.button}
           // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
           color="primary"
           variant="contained"
@@ -529,17 +528,17 @@ const NewBoxes = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [curBox, setCurBox] = useState({})
 
     return (
-      <div className={classNames.newBoxes}>
-        <div className={classNames.titleWrapper}>
+      <div className={styles.newBoxes}>
+        <div className={styles.titleWrapper}>
           <Text
             tooltipInfoContent={t(TranslationKey['New box condition'])}
-            className={classNames.sectionTitle}
-            containerClasses={classNames.sectionTitleWrapper}
+            className={styles.sectionTitle}
+            containerClasses={styles.sectionTitleWrapper}
           >
             {t(TranslationKey['New boxes'])}
           </Text>
@@ -550,7 +549,7 @@ const NewBoxes = observer(
           )}`}</Typography>
         </div>
 
-        <div className={classNames.newBoxesWrapper}>
+        <div className={styles.newBoxesWrapper}>
           {newBoxes.map((box, boxIndex) => (
             <Box
               key={boxIndex}
@@ -607,19 +606,19 @@ export const BeforeAfterBlock = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const onClickEditBox = box => {
       onEditBox(box)
     }
     return (
       <>
-        <div className={classNames.currentBox}>
-          <div className={classNames.titleWrapper}>
+        <div className={styles.currentBox}>
+          <div className={styles.titleWrapper}>
             <Text
               tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
-              className={classNames.sectionTitle}
-              containerClasses={classNames.sectionTitleWrapper}
+              className={styles.sectionTitle}
+              containerClasses={styles.sectionTitleWrapper}
             >
               {t(TranslationKey.Incoming)}
             </Text>
@@ -630,10 +629,10 @@ export const BeforeAfterBlock = observer(
             )}`}</Typography>
           </div>
 
-          <div className={classNames.newBoxesWrapper}>
+          <div className={styles.newBoxesWrapper}>
             {incomingBoxes &&
               incomingBoxes.map((box, boxIndex) => (
-                <React.Fragment key={boxIndex}>
+                <Fragment key={boxIndex}>
                   <Box
                     isCurrentBox
                     readOnly={readOnly}
@@ -641,12 +640,12 @@ export const BeforeAfterBlock = observer(
                     taskType={taskType}
                     volumeWeightCoefficient={volumeWeightCoefficient}
                   />
-                </React.Fragment>
+                </Fragment>
               ))}
           </div>
         </div>
 
-        {desiredBoxes.length > 0 && <Divider flexItem className={classNames.divider} orientation="vertical" />}
+        {desiredBoxes.length > 0 && <Divider flexItem className={styles.divider} orientation="vertical" />}
 
         {desiredBoxes.length > 0 && (
           <NewBoxes

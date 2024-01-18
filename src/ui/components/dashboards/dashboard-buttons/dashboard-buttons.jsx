@@ -7,14 +7,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
 
-import { useClassNames } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
+import { useStyles } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 import { Message, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const DashboardButtons = ({ user, routes }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
 
   const unreadMessages = ChatModel.unreadMessages
@@ -27,44 +27,44 @@ export const DashboardButtons = ({ user, routes }) => {
     (user.notificationCounter || 0)
 
   return (
-    <div className={classNames.buttonsWrapper}>
+    <div className={styles.buttonsWrapper}>
       {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
         <div
-          className={classNames.buttonWrapper}
+          className={styles.buttonWrapper}
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
         >
-          <div className={classNames.iconWrapper}>
-            <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
-            {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
+          <div className={styles.iconWrapper}>
+            <MyNotificationsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
+            {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : undefined}
           </div>
 
-          <Typography className={classNames.title}>{t(TranslationKey.Notifications)}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
         </div>
       )}
       <div
-        className={classNames.buttonWrapper}
+        className={styles.buttonWrapper}
         onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
       >
-        <div className={classNames.iconWrapper}>
-          <Message classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
+        <div className={styles.iconWrapper}>
+          <Message classes={{ root: styles.fontSizeLarge }} fontSize="large" />
 
-          {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
+          {unreadMessages ? <div className={styles.badge}>{unreadMessages}</div> : undefined}
         </div>
 
-        <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>
+        <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
       {checkIsAdmin(UserRoleCodeMap[user.role]) ||
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
       checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
         <div
-          className={classNames.buttonWrapper}
+          className={styles.buttonWrapper}
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
         >
-          <div className={classNames.iconWrapper}>
-            <SettingsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
+          <div className={styles.iconWrapper}>
+            <SettingsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
           </div>
 
-          <Typography className={classNames.title}>
+          <Typography className={styles.title}>
             {checkIsStorekeeper(UserRoleCodeMap[user.role])
               ? t(TranslationKey['Warehouse management'])
               : t(TranslationKey.Settings)}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
 
-import { useClassNames } from './choice-of-performer-modal.style'
+import { useStyles } from './choice-of-performer-modal.style'
 
 import { AnnouncementCard } from './announcement-card'
 
@@ -41,7 +41,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
     onClickResetPerformerBtn,
     onClickCloseBtn,
   } = props
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
@@ -85,16 +85,16 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   }, [nameSearchValue])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.upWrapper}>
-        <Typography variant="h5" className={classNames.title}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.upWrapper}>
+        <Typography variant="h5" className={styles.title}>
           {t(TranslationKey['Choice of Performer'])}
         </Typography>
 
         <Field
           label={t(TranslationKey.Performer)}
-          labelClasses={classNames.label}
-          containerClasses={classNames.executorContainer}
+          labelClasses={styles.label}
+          containerClasses={styles.executorContainer}
           inputComponent={
             // @ts-ignore
             <WithSearchSelect
@@ -107,8 +107,8 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
               width={'100%'}
               data={masterUsersData}
               searchOnlyFields={['name']}
-              customSubMainWrapper={classNames.customSubMainWrapper}
-              customSearchInput={classNames.customSearchInput}
+              customSubMainWrapper={styles.customSubMainWrapper}
+              customSearchInput={styles.customSearchInput}
               selectedItemName={
                 selectedExecutor ? (
                   <MasterUserItem
@@ -133,9 +133,9 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         />
 
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
         />
 
         <Button
@@ -148,7 +148,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           {t(TranslationKey['Reset performer'])}
         </Button>
       </div>
-      <div className={classNames.cardsWrapper}>
+      <div className={styles.cardsWrapper}>
         {dataToRender.map((service, serviceKey) => (
           <AnnouncementCard
             key={serviceKey}
@@ -161,7 +161,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         ))}
       </div>
 
-      <div className={classNames.footerWrapper}>
+      <div className={styles.footerWrapper}>
         <Button
           success
           disabled={!selectedService && !selectedExecutor}
@@ -169,7 +169,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         >
           {t(TranslationKey.Select)}
         </Button>
-        <Button variant="text" className={classNames.cancelButton} onClick={onClickCloseBtn}>
+        <Button variant="text" className={styles.cancelButton} onClick={onClickCloseBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

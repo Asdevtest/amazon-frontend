@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { ProductStatus } from '@constants/product/product-status'
@@ -33,36 +33,36 @@ export const BuyerMyProductsViewRaw = props => {
         location: props.location,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const ideasSheldStyle = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && styles.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && styles.ideaRowYellow)
 
   const getRowClassName = params =>
     cx(ideasSheldStyle(params), {
-      [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
-      [classNames.attentionRowShort]:
+      [styles.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+      [styles.attentionRowShort]:
         (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified) ||
         !!params.row.originalData.ideasOnCheck,
     })
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -115,7 +115,7 @@ export const BuyerMyProductsViewRaw = props => {
           />
         )}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

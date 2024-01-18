@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 
 import {
@@ -26,7 +25,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './table-supplier.style'
+import { useStyles } from './table-supplier.style'
 
 const tableHeaders = [
   () => t(TranslationKey.Name),
@@ -44,10 +43,10 @@ const tableHeaders = [
 
 export const TableSupplier = observer(
   ({ isClient, product, productBaseData, selectedSupplier, onClickSupplier, platformSettings }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const renderHeader = () => (
-      <TableHead className={classNames.tableHead}>
+      <TableHead className={styles.tableHead}>
         <TableRow>
           {tableHeaders.map(title => (
             <TableCell key={title()} align="center">
@@ -59,8 +58,8 @@ export const TableSupplier = observer(
     )
 
     return (
-      <div className={classNames.wrapper}>
-        <TableContainer className={classNames.table}>
+      <div className={styles.wrapper}>
+        <TableContainer className={styles.table}>
           <Table>
             {SettingsModel.languageTag && renderHeader()}
             <TableBody>
@@ -74,55 +73,51 @@ export const TableSupplier = observer(
                 ).map((supplier, index) => (
                   <TableRow
                     key={`supplier_${supplier.id}_${index}`}
-                    className={cx(classNames.tableRow, {
-                      [classNames.tableRowAcceptedSupplier]:
+                    className={cx(styles.tableRow, {
+                      [styles.tableRowAcceptedSupplier]:
                         product.currentSupplierId && product.currentSupplierId === supplier._id,
-                      [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
+                      [styles.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                     })}
                     onClick={() => onClickSupplier(supplier, index)}
                   >
-                    <TableCell align="center" className={classNames.nameCell}>
-                      <div className={classNames.statsWrapper}>
+                    <TableCell align="center" className={styles.nameCell}>
+                      <div className={styles.statsWrapper}>
                         {isClient && new Date(productBaseData.createdAt) < new Date(supplier.createdAt) && (
-                          <NewSupplier classes={{ root: classNames.primary }} className={classNames.newSupplierIcon} />
+                          <NewSupplier classes={{ root: styles.primary }} className={styles.newSupplierIcon} />
                         )}
 
                         {productBaseData?.orderSupplier?._id === supplier?._id && (
-                          <OrderedIcon classes={{ root: classNames.primary }} className={classNames.orderedIcon} />
+                          <OrderedIcon classes={{ root: styles.primary }} className={styles.orderedIcon} />
                         )}
 
                         {supplier?.multiplicity && supplier?.boxProperties?.amountInBox && (
-                          <div className={classNames.multiplicityWrapper}>
-                            <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
-                            <Typography className={classNames.amountInBoxText}>
+                          <div className={styles.multiplicityWrapper}>
+                            <Typography className={styles.multiplicityText}>{'Multiplicity:'}</Typography>
+                            <Typography className={styles.amountInBoxText}>
                               {supplier?.boxProperties?.amountInBox}
                             </Typography>
                           </div>
                         )}
                       </div>
 
-                      <Typography className={classNames.mainText}>{supplier.name}</Typography>
+                      <Typography className={styles.mainText}>{supplier.name}</Typography>
                     </TableCell>
 
                     <TableCell align="center">
                       {supplier.link !== 'access denied' ? (
-                        <div className={classNames.linkWrapper}>
+                        <div className={styles.linkWrapper}>
                           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
-                            <Typography className={classNames.link}>
-                              {t(TranslationKey['Go to supplier site'])}
-                            </Typography>
+                            <Typography className={styles.link}>{t(TranslationKey['Go to supplier site'])}</Typography>
                           </Link>
-                          <CopyValue text={supplier.link} className={classNames.linkIcon} />
+                          <CopyValue text={supplier.link} className={styles.linkIcon} />
                         </div>
                       ) : (
-                        <Typography className={classNames.mainText}>
-                          {t(TranslationKey['Link not available'])}
-                        </Typography>
+                        <Typography className={styles.mainText}>{t(TranslationKey['Link not available'])}</Typography>
                       )}
                     </TableCell>
 
                     <TableCell align="center">
-                      <Typography className={classNames.mainText}>
+                      <Typography className={styles.mainText}>
                         {toFixedWithDollarSign(
                           supplier.price + supplier.batchDeliveryCostInDollar / supplier.amount,
                           2,
@@ -131,22 +126,22 @@ export const TableSupplier = observer(
                     </TableCell>
 
                     <TableCell align="center">
-                      <Typography className={classNames.mainText}>{supplier.minlot}</Typography>
+                      <Typography className={styles.mainText}>{supplier.minlot}</Typography>
                     </TableCell>
 
                     <TableCell align="center">
-                      <Typography className={classNames.mainText}>
+                      <Typography className={styles.mainText}>
                         {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                       </Typography>
                     </TableCell>
 
                     <TableCell align="center">
-                      <Typography className={classNames.mainText}>{supplier.productionTerm}</Typography>
+                      <Typography className={styles.mainText}>{supplier.productionTerm}</Typography>
                     </TableCell>
 
                     <TableCell align="center">
                       {platformSettings && (
-                        <div className={classNames.priceVariationsCell}>
+                        <div className={styles.priceVariationsCell}>
                           {supplier?.priceVariations?.map((el, index) => (
                             <div key={index}>
                               {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
@@ -158,9 +153,9 @@ export const TableSupplier = observer(
                       )}
                     </TableCell>
 
-                    <TableCell align="center" className={classNames.commentCell}>
-                      <Tooltip title={supplier.comment} classes={{ tooltip: classNames.tooltip }}>
-                        <div className={classNames.commentWrapper}>{supplier.comment}</div>
+                    <TableCell align="center" className={styles.commentCell}>
+                      <Tooltip title={supplier.comment} classes={{ tooltip: styles.tooltip }}>
+                        <div className={styles.commentWrapper}>{supplier.comment}</div>
                       </Tooltip>
                     </TableCell>
 
@@ -170,7 +165,7 @@ export const TableSupplier = observer(
                         e.stopPropagation()
                       }}
                     >
-                      <div className={classNames.filesWrapper}>
+                      <div className={styles.filesWrapper}>
                         <PhotoAndFilesSlider smallSlider showPreviews files={supplier.images} />
                       </div>
                     </TableCell>
@@ -180,7 +175,7 @@ export const TableSupplier = observer(
                     </TableCell>
 
                     <TableCell align="center">
-                      <Typography className={classNames.mainText}>
+                      <Typography className={styles.mainText}>
                         {!(supplier && supplier.updatedAt) ? '-' : formatNormDateTime(supplier.updatedAt)}
                       </Typography>
                     </TableCell>

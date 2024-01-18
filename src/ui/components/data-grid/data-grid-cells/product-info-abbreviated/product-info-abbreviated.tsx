@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, Fragment } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,7 +17,7 @@ interface ProductInfoAbbreviatedProps {
   boxesLength: number
 }
 
-export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.memo(({ box, boxesLength }) => {
+export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = memo(({ box, boxesLength }) => {
   const { classes: styles, cx } = useStyles()
 
   return (

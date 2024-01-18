@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
 import he from 'he'
 import { observer } from 'mobx-react'
 import { FC, useContext } from 'react'
@@ -27,7 +26,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { useClassNames } from './chat-list-item.styles'
+import { useStyles } from './chat-list-item.style'
 
 interface Props {
   chat: ChatContract
@@ -39,7 +38,7 @@ interface Props {
 }
 
 export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -131,56 +130,56 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const readingTick =
     isCurrentUser && lastMessage.isRead ? (
-      <IsReadIcon className={classNames.isReadIcon} />
+      <IsReadIcon className={styles.isReadIcon} />
     ) : (
-      <NoReadIcon className={classNames.noReadIcon} />
+      <NoReadIcon className={styles.noReadIcon} />
     )
 
   return (
-    <div className={classNames.root} onClick={() => onClick(chat)}>
+    <div className={styles.root} onClick={() => onClick(chat)}>
       <Avatar
         src={
           isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
             ? getAmazonImageUrl(chat.info?.image)
             : getUserAvatarSrc(oponentUser?._id)
         }
-        className={classNames.avatar}
+        className={styles.avatar}
       />
 
-      <div className={classNames.rightSide}>
-        <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>
+      <div className={styles.rightSide}>
+        <div className={styles.titleWrapper}>
+          <p className={styles.titleText}>
             {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? chat.info?.title : title}
           </p>
 
           {lastMessage?.updatedAt ? (
-            <p className={classNames.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
+            <p className={styles.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
           ) : null}
         </div>
 
         {lastMessage && (
-          <div className={classNames.lastMessageWrapper}>
+          <div className={styles.lastMessageWrapper}>
             {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
-              <div className={classNames.lastMessageSubWrapper}>
-                <p className={classNames.nickName}>{oponentUser?.name}</p>
+              <div className={styles.lastMessageSubWrapper}>
+                <p className={styles.nickName}>{oponentUser?.name}</p>
                 <p
-                  className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: Number(unread) > 0,
+                  className={cx(styles.lastMessageText, {
+                    [styles.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {t(TranslationKey.Writes) + '...'}
                 </p>
               </div>
             ) : (
-              <div className={classNames.lastMessageSubWrapper}>
-                {isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${t(TranslationKey.You)}:`}</p>}
+              <div className={styles.lastMessageSubWrapper}>
+                {isCurrentUser && isGroupChat && <p className={styles.nickName}>{`${t(TranslationKey.You)}:`}</p>}
                 {!isCurrentUser && isGroupChat && (
-                  <p className={classNames.nickName}>{lastMessage.user && `${lastMessage.user?.name}:`}</p>
+                  <p className={styles.nickName}>{lastMessage.user && `${lastMessage.user?.name}:`}</p>
                 )}
 
                 <p
-                  className={cx(classNames.lastMessageText, {
-                    [classNames.lastMessageTextBold]: Number(unread) > 0,
+                  className={cx(styles.lastMessageText, {
+                    [styles.lastMessageTextBold]: Number(unread) > 0,
                   })}
                 >
                   {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
@@ -188,11 +187,11 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
               </div>
             )}
 
-            <div className={classNames.badgeWrapper}>
-              {isMutedChat && <SoundOffIcon className={classNames.soundOffIcon} />}
+            <div className={styles.badgeWrapper}>
+              {isMutedChat && <SoundOffIcon className={styles.soundOffIcon} />}
 
               {Number(unread) > 0 ? (
-                <span className={classNames.badge}>{Number(unread)}</span>
+                <span className={styles.badge}>{Number(unread)}</span>
               ) : isCurrentUser ? (
                 readingTick
               ) : null}

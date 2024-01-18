@@ -17,33 +17,33 @@ import { ModalTableBodyRow } from '@components/table/table-rows/user-profile-vie
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './content-modal.style'
+import { useStyles } from './content-modal.style'
 
 export const ContentModal = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   return (
     <Container disableGutters>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
-      <Divider className={classNames.divider} />
-      <TableContainer className={classNames.tableWrapper}>
-        <Table className={classNames.table}>
+      <Typography className={styles.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
+      <Divider className={styles.divider} />
+      <TableContainer className={styles.tableWrapper}>
+        <Table className={styles.table}>
           <TableHead>
             <TableRow>
-              <TableCell className={(classNames.tableCell, classNames.imgCell)}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Category)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Price)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Quantity)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Average Price'])}</TableCell>
+              <TableCell className={(styles.tableCell, styles.imgCell)}>{t(TranslationKey.Image)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Category)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Price)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Quantity)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Average Price'])}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Recommended batch'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Recommended batch'])}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Weight)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Average BSR'])}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Average Review'])}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Average revenue'])}</TableCell>
-              <TableCell className={classNames.tableCell}>{'Стоимость запуска'}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey.Weight)}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Average BSR'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Average Review'])}</TableCell>
+              <TableCell className={styles.tableCell}>{t(TranslationKey['Average revenue'])}</TableCell>
+              <TableCell className={styles.tableCell}>{'Стоимость запуска'}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{'Аккаунт менеджер'}</TableCell>
+              <TableCell className={styles.tableCell}>{'Аккаунт менеджер'}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -51,11 +51,11 @@ export const ContentModal = props => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           disableElevation
           variant="contained"
-          className={(classNames.modalButton, classNames.buyNowBtn)}
+          className={(styles.modalButton, styles.buyNowBtn)}
           onClick={() => props.setOpenModal(false)}
         >
           {'Заказать сразу'}
@@ -64,7 +64,7 @@ export const ContentModal = props => {
         <Button
           disableElevation
           variant="contained"
-          className={(classNames.modalButton, classNames.cancelBtn)}
+          className={(styles.modalButton, styles.cancelBtn)}
           onClick={() => props.setOpenModal(false)}
         >
           {'Отменить'}

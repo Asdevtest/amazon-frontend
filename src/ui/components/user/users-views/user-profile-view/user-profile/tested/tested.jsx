@@ -6,30 +6,30 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tested.style'
+import { useStyles } from './tested.style'
 
 export const Tested = ({ user }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const CheckedStrategyRow = ({ label, icon }) => (
     <>
-      <Box className={classNames.checkedStrategyRow} mb={1}>
-        {icon ? icon : <CheckIcon className={classNames.acUnitIcon} />}
-        <Typography className={classNames.text}>{label}</Typography>
+      <Box className={styles.checkedStrategyRow} mb={1}>
+        {icon ? icon : <CheckIcon className={styles.acUnitIcon} />}
+        <Typography className={styles.text}>{label}</Typography>
       </Box>
     </>
   )
 
   return (
-    <Paper elevation={0} className={classNames.paper}>
-      <Typography className={classNames.title}>{t(TranslationKey['Passed the strategy test'])}</Typography>
+    <Paper elevation={0} className={styles.paper}>
+      <Typography className={styles.title}>{t(TranslationKey['Passed the strategy test'])}</Typography>
 
       {user.allowedStrategies.length ? (
         user.allowedStrategies?.map((strategy, i) => (
           <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
         ))
       ) : (
-        <Typography className={classNames.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
+        <Typography className={styles.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
       )}
     </Paper>
   )

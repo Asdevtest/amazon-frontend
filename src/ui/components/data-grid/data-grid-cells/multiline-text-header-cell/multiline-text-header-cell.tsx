@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Tooltip } from '@mui/material'
@@ -18,7 +18,7 @@ interface MultilineTextHeaderCellProps {
   tooltipText?: string
 }
 
-export const MultilineTextHeaderCell: FC<MultilineTextHeaderCellProps> = React.memo(props => {
+export const MultilineTextHeaderCell: FC<MultilineTextHeaderCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     text = '',

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Chip } from '@mui/material'
 
@@ -21,7 +21,7 @@ interface BarcodeCellProps {
   disabled?: boolean
 }
 
-export const BarcodeCell: FC<BarcodeCellProps> = React.memo(props => {
+export const BarcodeCell: FC<BarcodeCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { product, handlers, disabled } = props
 
