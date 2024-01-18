@@ -704,10 +704,10 @@ export const SelectFields = ({
         <ImageModal
           showPreviews
           isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </Grid>

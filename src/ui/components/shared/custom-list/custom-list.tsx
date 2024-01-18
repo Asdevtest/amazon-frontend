@@ -12,6 +12,7 @@ interface Props {
 
 export const CustomList: FC<Props> = memo(({ dataList, title }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div>
       <Typography className={styles.listTitle}>{title}</Typography>

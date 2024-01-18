@@ -4,7 +4,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './gallery-modal.style'
 
@@ -14,7 +14,7 @@ import { SwitcherConditions } from './gallery-modal.type'
 import { useGalleryModal } from './use-gallery-modal'
 
 interface GalleryModalProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   isOpenModal: boolean
   onOpenModal: () => void
 }

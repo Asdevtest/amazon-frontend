@@ -7,7 +7,7 @@ import {
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './slides.style'
 
@@ -16,7 +16,7 @@ import { GetSlideByType } from '../../get-slide-by-type'
 import { getCustomHeightSubjectToQuantitySlides } from './slides.helper'
 
 interface SlidesProps {
-  mediaFiles: Array<string | IUploadFile>
+  mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isSlidesFitOnScreenWithoutArrows: boolean

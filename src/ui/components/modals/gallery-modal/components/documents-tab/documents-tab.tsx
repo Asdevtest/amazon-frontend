@@ -9,19 +9,19 @@ import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { isString } from '@typings/type-guards'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './documents-tab.style'
 
 interface DocumentsTabProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   isTransitioning: boolean
 }
 
 export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitioning }) => {
   const { classes: styles, cx } = useStyles()
 
-  const onDownloadFile = (file: string | IUploadFile) =>
+  const onDownloadFile = (file: UploadFileType) =>
     isString(file) ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return (

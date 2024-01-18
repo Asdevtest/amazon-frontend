@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { Arrows, ArrowsType } from '@typings/arrow'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './previews.style'
 
@@ -16,7 +16,7 @@ import { Arrow } from './arrow'
 import { Slides } from './slides'
 
 interface PreviewsProps {
-  mediaFiles: Array<string | IUploadFile>
+  mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isTransitioning: boolean

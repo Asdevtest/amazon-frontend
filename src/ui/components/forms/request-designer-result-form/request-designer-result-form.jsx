@@ -480,12 +480,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           showPreviews
           isRequestResult
           isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
           files={fileLinks}
           photosTitles={photosTitles}
           photosComments={photosComments}
           currentFileIndex={curImageIndex}
-          handleCurrentFileIndex={index => setCurImageIndex(index)}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </div>

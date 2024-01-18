@@ -113,6 +113,7 @@ export const usePhotoAndFilesSlider = (
     onOpenImageZoomModal,
 
     mediaFiles,
+    setMediaFiles,
     mediaFileIndex,
     setMediaFileIndex,
 

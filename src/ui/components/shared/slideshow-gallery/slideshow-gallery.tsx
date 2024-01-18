@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './slideshow-gallery.style'
 
@@ -11,14 +11,14 @@ import { DEFAULT_QUANTITY_SLIDES, MIN_FILES_IN_ARRAY, NOT_GAP } from './slidesho
 import { useSlideshowGallery } from './use-slideshow-gallery'
 
 interface SlideshowGalleryProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   slidesToShow?: number
   hiddenPreviews?: boolean
   leftPreviews?: boolean
   customGapBetweenSlideAndPreviews?: number
   isEditable?: boolean
   withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
@@ -90,11 +90,11 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
           isRequestResult
           files={mediaFiles}
           currentFileIndex={currentMediaFileIndex}
-          handleCurrentFileIndex={setCurrentMediaFileIndex}
           isOpenModal={openImageModal}
-          handleOpenModal={onOpenImageModal}
           isEditable={isEditable}
           withoutMakeMainImage={withoutMakeMainImage}
+          onOpenModal={onOpenImageModal}
+          onCurrentFileIndex={setCurrentMediaFileIndex}
           onChangeImagesForLoad={onChangeImagesForLoad}
         />
       )}

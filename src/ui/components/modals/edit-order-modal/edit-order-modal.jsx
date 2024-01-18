@@ -1,4 +1,3 @@
-
 import { memo, useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
@@ -1088,9 +1087,9 @@ export const EditOrderModal = memo(
           <ImageModal
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             isOpenModal={showPhotosModal}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 
