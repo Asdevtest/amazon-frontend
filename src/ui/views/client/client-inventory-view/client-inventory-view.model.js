@@ -13,7 +13,6 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { GeneralModel } from '@models/general-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -28,11 +27,10 @@ import { clientInventoryColumns } from '@components/table/table-columns/client/c
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -118,19 +116,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     alertShieldMessage: '',
   }
 
-  // columnMenuSettings = {
-  //   onClickFilterBtn: field => this.onClickFilterBtn(field),
-  //   onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-  //   onClickAccept: () => {
-  //     this.getProductsMy()
-  //     this.getDataGridState()
-  //   },
-
-  //   filterRequestStatus: undefined,
-
-  //   ...dataGridFiltersInitializer(filtersFields),
-  // }
-
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -140,13 +125,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(
-      el =>
-        this.columnMenuSettings[el]?.currentFilterData.length ||
-        !(
-          this.columnMenuSettings?.transparencyYesNoFilterData.yes &&
-          this.columnMenuSettings?.transparencyYesNoFilterData.no
-        ),
+    return (
+      this.filtersFields.some(el => this.columnMenuSettings?.[el]?.currentFilterData?.length) ||
+      !(
+        this.columnMenuSettings?.transparencyYesNoFilterData?.yes &&
+        this.columnMenuSettings?.transparencyYesNoFilterData?.no
+      )
     )
   }
 
@@ -177,12 +161,33 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       isNeedPurchaseFilterData: {
         isNeedPurchaseFilter: true,
         isNotNeedPurchaseFilter: true,
-        onChangeIsNeedPurchaseFilter: (value, value2) => this.onChangeIsNeedPurchaseFilter(value, value2),
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedPurchaseFilterData: {
+              ...this.columnMenuSettings.isNeedPurchaseFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
       },
 
       isHaveBarCodeFilterData: {
         isHaveBarCodeFilter: null,
-        onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
+        onChangeIsHaveBarCodeFilter: value => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isHaveBarCodeFilterData: {
+              ...this.columnMenuSettings.isHaveBarCodeFilterData,
+              isHaveBarCodeFilter: value,
+            },
+          }
+
+          this.getMainTableData()
+        },
       },
     }
 
@@ -220,7 +225,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       ClientModel.getProductsMyFilteredByShopIdWithPag,
       clientInventoryColumns(barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers, stockUsHandlers, otherHandlers),
       filtersFields,
-      'clients/products/my_with_pag',
+      'clients/products/my_with_pag?',
       ['asin', 'amazonTitle', 'skuByClient'],
       DataGridTablesKeys.CLIENT_INVENTORY,
       {},
@@ -333,7 +338,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   checkIsNoEditProductSelected() {
-    return this.selectedRowIds.some(prodId => {
+    return this.selectedRows.some(prodId => {
       const findProduct = this.tableData.find(prod => prod._id === prodId)
 
       return [
@@ -369,8 +374,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onSubmitTriggerArchOrResetProducts() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const productId = this.selectedRowIds[i]
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const productId = this.selectedRows[i]
 
         await ClientModel.updateProduct(productId, { archive: this.isArchive ? false : true })
       }
@@ -383,7 +388,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   onTriggerArchive() {
-    this.selectedRowIds = []
+    this.selectedRows = []
 
     this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
     this.isArchive = this.isArchive ? false : true
@@ -404,6 +409,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async loadData() {
+    // TODO
     try {
       this.getDataGridState()
       this.getPresets()
@@ -487,7 +493,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async getCurrentPresets() {
     try {
       const result = await UserModel.getUsersPresets()
-
       return result
     } catch (error) {
       console.log(error)
@@ -561,6 +566,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
 
       await this.getProductsMy()
+      // TO DO
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -585,7 +591,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickProductLaunch() {
     try {
       const result = this.tableData?.find(
-        product => product?._id === this.selectedRowIds?.[0] && !product?.parentProductId,
+        product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
       )
       runInAction(() => (this.selectedProductToLaunch = result))
 
@@ -626,7 +632,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       const resultArray = []
 
-      for await (const id of this.selectedRowIds) {
+      for await (const id of this.selectedRows) {
         await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
           if (result?.length) {
             const currentProduct = this.tableData.find(product => product?._id === id)
@@ -686,45 +692,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async getIdeas() {
     try {
-      const result = await IdeaModel.getIdeas(this.selectedRowIds.slice()[0])
+      const result = await IdeaModel.getIdeas(this.selectedRows?.[0])
 
       runInAction(() => {
-        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
+        this.ideasData = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      isNeedPurchaseFilterData: {
-        ...this.columnMenuSettings.isNeedPurchaseFilterData,
-        isNeedPurchaseFilter,
-        isNotNeedPurchaseFilter,
-      },
-    }
-
-    this.getMainTableData()
-  }
-
-  onChangeIsHaveBarCodeFilter(value) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      isHaveBarCodeFilterData: {
-        ...this.columnMenuSettings.isHaveBarCodeFilterData,
-        isHaveBarCodeFilter: value,
-      },
-    }
-
-    this.getMainTableData()
-  }
-
-  setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
     }
   }
 
@@ -1042,8 +1016,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       } else {
         await ClientModel.createOrder(requestData)
       }
-
-      await this.updateUserInfo()
     } catch (error) {
       console.log(error)
 
@@ -1164,7 +1136,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showCircularProgressModal = true
       })
 
-      await SellerBoardModel.refreshProducts(this.selectedRowIds)
+      await SellerBoardModel.refreshProducts(this.selectedRows)
 
       await this.loadData()
 
@@ -1199,8 +1171,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         return
       }
 
-      if (this.selectedRowIds.length > 1) {
-        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
+      if (this.selectedRows.length > 1) {
+        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRows)
         runInAction(() => {
           this.confirmMessage = this.confirmModalSettings = {
             isWarning: false,
@@ -1216,7 +1188,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         runInAction(() => {
-          this.selectedRowId = this.selectedRowIds[0]
+          this.selectedRowId = this.selectedRows[0]
         })
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
@@ -1244,12 +1216,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickProductLotDataBtn() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], false)
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], false)
       runInAction(() => {
         this.isTransfer = false
         this.batchesData = result
 
-        this.curProduct = this.tableData.filter(product => this.selectedRowIds.includes(product.id))
+        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product.id))
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
@@ -1259,7 +1231,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickToggleArchiveProductLotData(isArchive) {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], isArchive)
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], isArchive)
       runInAction(() => {
         this.batchesData = result
       })
@@ -1300,9 +1272,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onSubmitSeekSomeSuppliers() {
     try {
-      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
+      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRows)
 
-      await this.loadData()
+      await this.getMainTableData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -1317,7 +1289,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         priceForClient: priceForSeekSupplier,
       })
 
-      await this.loadData()
+      await this.getMainTableData()
 
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -1460,8 +1432,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showSuccessModal')
       const noProductBaseUpdate = true
       await this.getProductsMy(noProductBaseUpdate)
-
-      // this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
@@ -1471,10 +1441,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.error = error
       })
     }
-  }
-
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
   }
 
   onDoubleClickBarcode = item => {

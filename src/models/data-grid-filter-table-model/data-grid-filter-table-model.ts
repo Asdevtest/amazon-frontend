@@ -92,6 +92,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
     this._filtersFields = filtersFields
     this._mainMethodURL = mainMethodURL
+    this._additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
     this._additionalPropertiesGetFilters = additionalPropertiesGetFilters
 
     if (fieldsForSearch) {
@@ -102,6 +103,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
+    console.log('additionalProperties', additionalProperties)
+
     this.columnMenuSettings = {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
@@ -117,6 +120,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   async onClickFilterBtn(column: string, table: string) {
     try {
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
@@ -134,7 +139,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
           }
         })
       }
+
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -196,5 +204,14 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.rowCount = 0
       this.setRequestStatus(loadingStatuses.FAILED)
     }
+  }
+
+  setFilterRequestStatus(requestStatus: loadingStatuses) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
   }
 }

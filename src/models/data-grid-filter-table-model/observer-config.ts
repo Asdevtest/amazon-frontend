@@ -24,6 +24,7 @@ export const observerConfig = {
   onChangeFullFieldMenuItem: action.bound,
   onClickFilterBtn: action.bound,
   onClickResetFilters: action.bound,
+  setFilterRequestStatus: action.bound,
 
   getMainTableData: override,
 }

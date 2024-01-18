@@ -68,6 +68,8 @@ export const clientInventoryColumns = (
       )
     },
     width: 295,
+
+    table: 'products',
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 

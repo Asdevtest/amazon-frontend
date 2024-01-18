@@ -54,6 +54,8 @@ export const ClientInventoryView = observer(({ history, location }) => {
   const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
   viewModel.initHistory()
 
+  console.log('columnMenuSettings', viewModel.columnMenuSettings)
+
   const [useProductsPermissions] = useState(
     () =>
       new UseProductsPermissions(ClientModel.getProductPermissionsData, {
@@ -130,7 +132,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={(a, b) => viewModel.onChangeSortingModel(a, b)}
+          onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
