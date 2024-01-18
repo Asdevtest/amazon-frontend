@@ -10,8 +10,9 @@ interface Props {
   title: string
 }
 
-export const CustomList: FC<Props> = ({ dataList, title }) => {
+export const CustomList: FC<Props> = memo(({ dataList, title }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div>
       <Typography className={styles.listTitle}>{title}</Typography>
@@ -29,4 +30,4 @@ export const CustomList: FC<Props> = ({ dataList, title }) => {
       </List>
     </div>
   )
-}
+})

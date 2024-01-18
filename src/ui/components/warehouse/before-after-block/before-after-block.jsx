@@ -472,10 +472,10 @@ const Box = observer(
         {showPhotosModal && (
           <ImageModal
             isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
       </div>
@@ -484,7 +484,7 @@ const Box = observer(
 )
 
 const ReceiveBoxes = ({ taskType, onClickOpenModal }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.receiveBoxWrapper}>
@@ -528,7 +528,7 @@ const NewBoxes = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const { classes: styles, cx } = useStyles()
+    const { classes: styles } = useStyles()
 
     const [curBox, setCurBox] = useState({})
 
@@ -606,7 +606,7 @@ export const BeforeAfterBlock = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const { classes: styles, cx } = useStyles()
+    const { classes: styles } = useStyles()
 
     const onClickEditBox = box => {
       onEditBox(box)

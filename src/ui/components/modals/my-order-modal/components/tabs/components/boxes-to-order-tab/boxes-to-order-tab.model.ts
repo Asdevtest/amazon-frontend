@@ -18,14 +18,14 @@ import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/patform-settings'
 import { IHSCode } from '@typings/product'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { ModalNames } from './boxes-to-order-tab.type'
 
 interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
   asin: string
   amazonTitle: string
-  boxProductPreview: string | IUploadFile
+  boxProductPreview: UploadFileType
   skuByClient: string
 }
 
@@ -36,7 +36,7 @@ export class BoxesToOrderTabModel {
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
   currentBox: InlineResponse20018 | undefined = undefined
-  galleryFiles: Array<string | IUploadFile> = []
+  galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
 
@@ -151,7 +151,7 @@ export class BoxesToOrderTabModel {
     }
   }
 
-  onClickFilesCell = (files?: Array<string | IUploadFile>) => {
+  onClickFilesCell = (files?: UploadFileType[]) => {
     if (files && files.length > 0) {
       this.galleryFiles = files
     } else {

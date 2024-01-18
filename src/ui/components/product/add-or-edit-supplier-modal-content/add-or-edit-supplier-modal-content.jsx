@@ -907,10 +907,10 @@ export const AddOrEditSupplierModalContent = memo(
         {showPhotosModal && (
           <ImageModal
             isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             files={tmpSupplier.images}
             currentFileIndex={curImageIndex}
-            handleCurrentFileIndex={index => setCurImageIndex(index)}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={index => setCurImageIndex(index)}
           />
         )}
 

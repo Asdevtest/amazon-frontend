@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { DIFFERENCE_BETWEEN_INDEXES, VISIBLE_FILES_COUNT, VISIBLE_MEDIA_FILES_COUNT } from './gallery-modal.constants'
 import { SwitcherConditions } from './gallery-modal.type'
 
-export const useGalleryModal = (files: Array<string | IUploadFile>) => {
+export const useGalleryModal = (files: UploadFileType[]) => {
   const [tabValue, setTabValue] = useState<SwitcherConditions>(SwitcherConditions.MEDIA_FILES)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [mediaFiles, setMediaFiles] = useState<Array<string | IUploadFile>>([])
-  const [documents, setDocuments] = useState<Array<string | IUploadFile>>([])
+  const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
+  const [documents, setDocuments] = useState<UploadFileType[]>([])
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
 
   useEffect(() => {

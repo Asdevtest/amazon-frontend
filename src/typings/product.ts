@@ -1,5 +1,5 @@
 import { PaymentMethod } from './payments'
-import { IUploadFile } from './upload-file'
+import { UploadFileType } from './upload-file'
 
 export interface IProduct {
   amazon: number
@@ -45,7 +45,7 @@ export interface IProduct {
   ideasClosed: number
   ideasOnCheck: number
   ideasVerified: number
-  images: Array<string | IUploadFile>
+  images: UploadFileType[]
   inTransfer: number
   isCreatedByClient: boolean
   lamazon: string

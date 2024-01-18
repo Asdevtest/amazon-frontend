@@ -1,5 +1,5 @@
-import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, memo, useEffect, useState } from 'react'
 
 import Tooltip from '@mui/material/Tooltip'
 
@@ -22,9 +22,10 @@ interface IProgressBarSettings {
   intervalName: string
 }
 
-export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
-  const { classes: styles, cx } = useStyles()
+export const IdeaProgressBar: FC<IdeaProgressBarProps> = memo(props => {
   const { showStatusDuration, currentStatus, ideaData } = props
+
+  const { classes: styles, cx } = useStyles()
 
   const getInterval = (settingItem: IProgressBarSettings) =>
     settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'

@@ -12,13 +12,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { checkIsClient, checkIsMediaFileLink } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './warehouse-body-row.style'
@@ -188,10 +186,10 @@ const WarehouseBodyRowRaw = ({
       {showPhotosModal && (
         <ImageModal
           isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           files={curImages}
-          handleCurrentFileIndex={index => setCurImageIndex(index)}
           currentFileIndex={curImageIndex}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </>

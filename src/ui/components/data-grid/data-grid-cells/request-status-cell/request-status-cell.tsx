@@ -18,7 +18,7 @@ export const RequestStatusCell: FC<RequestStatusCellProps> = memo(({ status, isC
     <div className={style.statusWrapper}>
       <p
         className={cx(style.statusText, { [style.statusTextChat]: isChat })}
-        style={{ ...style, color: colorByStatus(status) }}
+        style={{ ...styles, color: colorByStatus(status) }}
       >
         {MyRequestStatusTranslate(status)}
       </p>

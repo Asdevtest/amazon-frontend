@@ -438,10 +438,10 @@ export const BatchInfoModal = observer(
           {showPhotosModal && (
             <ImageModal
               isOpenModal={showPhotosModal}
-              handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
               files={currentBatch?.attachedDocuments}
               currentFileIndex={curImageIndex}
-              handleCurrentFileIndex={index => setCurImageIndex(index)}
+              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+              onCurrentFileIndex={index => setCurImageIndex(index)}
             />
           )}
         </div>

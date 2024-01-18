@@ -12,14 +12,12 @@ import { t } from '@utils/translations'
 import { useStyles } from './comments-form.style'
 
 interface CommentsFormProps {
-  comments?: Array<string>
   onCloseModal: () => void
+  comments?: string[]
 }
 
-export const CommentsForm: FC<CommentsFormProps> = props => {
+export const CommentsForm: FC<CommentsFormProps> = memo(({ comments, onCloseModal }) => {
   const { classes: styles } = useStyles()
-
-  const { comments, onCloseModal } = props
 
   return (
     <div className={styles.root}>
@@ -45,4 +43,4 @@ export const CommentsForm: FC<CommentsFormProps> = props => {
       </div>
     </div>
   )
-}
+})

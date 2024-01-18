@@ -92,8 +92,8 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
           isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          handleCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
         />
       )}
     </div>

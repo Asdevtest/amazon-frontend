@@ -81,10 +81,8 @@ export const ServiceExchangeView = observer(({ history }) => {
           files={viewModel.bigImagesOptions.images}
           currentFileIndex={viewModel.bigImagesOptions.imgIndex}
           isOpenModal={viewModel.showImageModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          handleCurrentFileIndex={imgIndex =>
-            viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })
-          }
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
         />
       )}
     </>

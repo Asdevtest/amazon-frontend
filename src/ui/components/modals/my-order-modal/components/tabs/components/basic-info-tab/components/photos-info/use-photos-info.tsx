@@ -6,7 +6,7 @@ import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './photos-info.style'
 
@@ -18,11 +18,11 @@ export const usePhotosInfo = ({ formFields }: PhotosInfoProps) => {
   const { classes: styles } = useStyles()
 
   const [showGalleryModal, setShowGalleryModal] = useState(false)
-  const [galleryFiles, setGalleryFiles] = useState<Array<string | IUploadFile>>([])
+  const [galleryFiles, setGalleryFiles] = useState<UploadFileType[]>([])
 
   const handleToggleGalleryModal = () => setShowGalleryModal(!showGalleryModal)
 
-  const handleOpenGalleryModal = (files?: Array<string | IUploadFile>) => {
+  const handleOpenGalleryModal = (files?: UploadFileType[]) => {
     if (files && files.length > 0) {
       setGalleryFiles(files)
     } else {
