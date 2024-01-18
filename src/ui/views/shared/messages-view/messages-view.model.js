@@ -299,7 +299,7 @@ export class MessagesViewModel {
         chatId,
         crmItemId: null,
         text: message,
-        files: files?.map(item => item?.file),
+        files,
         user: {
           name: UserModel.userInfo.name,
           _id: UserModel.userInfo._id,

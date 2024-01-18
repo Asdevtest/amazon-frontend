@@ -128,6 +128,10 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
+  lastMessageFile: {
+    color: theme.palette.primary.main,
+  },
+
   badge: {
     height: 18,
     width: 18,

@@ -12,12 +12,12 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './announcement-card.style'
 
 interface onClickThumbnailArguments {
-  images: Array<string | IUploadFile>
+  images: UploadFileType[]
   imgIndex: number
 }
 

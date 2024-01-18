@@ -6,14 +6,14 @@ import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './image-modal.style'
 
 import { ButtonControls, Comment, ShowPreviews } from './components'
 
 interface ImageModalProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   currentFileIndex: number
   handleCurrentFileIndex: (index: number) => void
   isOpenModal: boolean
@@ -24,7 +24,7 @@ interface ImageModalProps {
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   isRequestResult?: boolean
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 export const ImageModal: FC<ImageModalProps> = memo(props => {

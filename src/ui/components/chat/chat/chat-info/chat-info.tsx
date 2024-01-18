@@ -1,44 +1,26 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react'
-
-import { Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
-import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
-import { ChatInfoHeader } from '@components/chat/chat/chat-info/chat-info-header/chat-info-header'
-import { useChatInfoStyles } from '@components/chat/chat/chat-info/chat-info.style'
+import { ChatGroupUsers } from '@components/chat/chat/chat-info/components/chat-group-users/chat-group-users'
+import { ChatInfoHeader } from '@components/chat/chat/chat-info/components/chat-info-header/chat-info-header'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { ITab } from '@components/shared/i-tab'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
+import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-interface ChatAttachmentItemTypes {
-  files?: string[]
-  images?: string[]
-  _id: string
-}
+import { useStyles } from './chat-info.style'
 
-interface ChatAttachmentsType {
-  allFiles: ChatAttachmentItemTypes[]
-  allImages: ChatAttachmentItemTypes[]
-}
-
-interface ChatFileType {
-  file: string
-  _id: string
-  isVideo?: boolean
-}
+import { ChatAttachmentsType, ChatFileType, FilesType, ImagesType, TabValue, VideoType } from './helpers/chat-into.type'
+import { getCustomSwitcherConfig } from './helpers/custom-switcher.config'
 
 interface ChatInfoProps {
   chat: ChatContract
@@ -50,16 +32,9 @@ interface ChatInfoProps {
   onClickEditGroupChatInfo: () => void
 }
 
-const tab = {
-  groupChatUsers: 'groupChatUsers',
-  media: 'media',
-  links: 'links',
-  photos: 'photos',
-  videos: 'videos',
-  files: 'files',
-}
-
 export const ChatInfo = (props: ChatInfoProps) => {
+  const { classes: styles } = useStyles()
+
   const {
     chat,
     currentOpponent,
@@ -69,40 +44,38 @@ export const ChatInfo = (props: ChatInfoProps) => {
     userId,
     onClickAddUsersToGroupChat,
   } = props
-  const { classes: styles } = useChatInfoStyles()
+
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
-  const [currentTab, setCurrentTab] = useState(isGroupChat ? tab.groupChatUsers : tab.media)
-  const [images, setImages] = useState<ChatFileType[]>()
+  const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.MEDIA)
+  const [ImagesAndVideos, setImagesAndVideos] = useState<ChatFileType[]>([])
   const [files, setFiles] = useState<ChatFileType[]>()
-  const [isFilesLoading, setIsFilesLoading] = useState(true)
+  const [isFilesLoading, setIsFilesLoading] = useState(false)
 
-  const getChatMediaFiles = () => {
-    ChatsModel.getChatMedia(chat._id)
-      // @ts-ignore
-      .then((res: ChatAttachmentsType) => {
-        const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
-          file.images?.forEach(el => {
-            if (!checkIsMediaFileLink(el)) {
-              res.allFiles.push({ files: [el], _id: file._id })
-              return
-            } else {
-              acc.push({ file: el, _id: file._id })
-            }
-          })
+  const getChatMediaFiles = async () => {
+    setIsFilesLoading(true)
 
-          return acc
-        }, [])
+    const res: ChatAttachmentsType = (await ChatsModel.getChatMedia(chat._id)) as ChatAttachmentsType
 
-        const fileList: ChatFileType[] = res.allFiles.reduce((acc: ChatFileType[], file) => {
-          file.files?.forEach(el => acc.push({ file: el, _id: file._id }))
-          return acc
-        }, [])
+    const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file: ImagesType) => {
+      file.images?.forEach(el => acc.push({ file: el, _id: file._id }))
+      return acc
+    }, [])
 
-        setFiles(fileList)
-        setImages(imagesList)
-      })
-      .finally(() => setIsFilesLoading(false))
+    const videoList: ChatFileType[] = res.allVideo.reduce((acc: ChatFileType[], file: VideoType) => {
+      file.video?.forEach(el => acc.push({ file: el, _id: file._id, isVideo: true }))
+      return acc
+    }, [])
+
+    const fileList: ChatFileType[] = res.allFiles.reduce((acc: ChatFileType[], file: FilesType) => {
+      file.files?.forEach(el => acc.push({ file: el, _id: file._id }))
+      return acc
+    }, [])
+
+    setFiles(fileList)
+    setImagesAndVideos(imagesList.concat(videoList))
+
+    setIsFilesLoading(false)
   }
 
   useEffect(() => {
@@ -110,10 +83,10 @@ export const ChatInfo = (props: ChatInfoProps) => {
   }, [])
 
   useEffect(() => {
-    if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length) {
+    if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length || chat.lastMessage?.video?.length) {
       getChatMediaFiles()
     }
-  }, [chat.lastMessage?.images, chat.lastMessage?.files])
+  }, [chat.lastMessage?.images, chat.lastMessage?.files, chat.lastMessage?.video])
 
   return (
     <div className={styles.wrapper}>
@@ -124,40 +97,16 @@ export const ChatInfo = (props: ChatInfoProps) => {
         userId={userId}
         onClickEditGroupChatInfo={onClickEditGroupChatInfo}
       />
-      <Tabs
-        classes={{
-          root: styles.tabs,
-          indicator: styles.indicator,
-        }}
-        value={currentTab}
-        onChange={(e, value) => setCurrentTab(value)}
-      >
-        {isGroupChat && (
-          <ITab
-            tooltipInfoContent={''}
-            value={tab.groupChatUsers}
-            label={t(TranslationKey.Members)}
-            tooltipAttentionContent={''}
-            withIcon={false}
-          />
-        )}
-        <ITab
-          tooltipInfoContent={''}
-          value={tab.media}
-          label={t(TranslationKey['Photo and Video'])}
-          tooltipAttentionContent={''}
-          withIcon={false}
-        />
-        <ITab
-          tooltipInfoContent={''}
-          value={tab.files}
-          label={t(TranslationKey.Files)}
-          tooltipAttentionContent={''}
-          withIcon={false}
-        />
-      </Tabs>
 
-      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.groupChatUsers}>
+      <CustomSwitcher
+        fullWidth
+        switchMode={'medium'}
+        condition={currentTab}
+        switcherSettings={getCustomSwitcherConfig(isGroupChat)}
+        changeConditionHandler={value => setCurrentTab(value as TabValue)}
+      />
+
+      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.GROUP_CHAT_USERS}>
         <ChatGroupUsers
           chat={chat}
           userId={userId}
@@ -167,43 +116,50 @@ export const ChatInfo = (props: ChatInfoProps) => {
         />
       </TabPanel>
 
-      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.media}>
-        {!!images?.length && (
+      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.MEDIA}>
+        {!!ImagesAndVideos?.length && (
           <div className={styles.imageList}>
-            {images?.map((el, index) => {
+            {ImagesAndVideos?.map((el, index) => {
               const validLink = getAmazonImageUrl(el.file)
 
-              return (
+              const clickHandler = () => {
+                setCurrentImageIndex(index)
+                setIsImageModalOpen(true)
+              }
+
+              return el.isVideo ? (
+                <VideoPreloader
+                  key={index}
+                  wrapperClassName={styles.videoWrapper}
+                  videoSource={validLink}
+                  onClick={clickHandler}
+                />
+              ) : (
                 <img
                   key={index}
                   src={validLink}
                   alt={el._id}
                   onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
-                  onClick={() => {
-                    setCurrentImageIndex(index)
-                    setIsImageModalOpen(true)
-                  }}
+                  onClick={clickHandler}
                 />
               )
             })}
           </div>
         )}
 
-        {!images?.length && !isFilesLoading && (
-          <Typography className={styles.noData}>{t(TranslationKey['No files'])}</Typography>
+        {!ImagesAndVideos?.length && !isFilesLoading && (
+          <p className={styles.noData}>{t(TranslationKey['No files'])}</p>
         )}
 
-        {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
+        {isFilesLoading && <p className={styles.noData}>{t(TranslationKey['Loading data'])}...</p>}
       </TabPanel>
 
-      <TabPanel value={currentTab} className={styles.tabPanel} index={tab.files}>
+      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.FILES}>
         <div>{!!files?.length && <ChatMessageFiles files={files?.map(el => el.file)} />}</div>
 
-        {!files?.length && !isFilesLoading && (
-          <Typography className={styles.noData}>{t(TranslationKey['No files'])}</Typography>
-        )}
+        {!files?.length && !isFilesLoading && <p className={styles.noData}>{t(TranslationKey['No files'])}</p>}
 
-        {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
+        {isFilesLoading && <p className={styles.noData}>{t(TranslationKey['Loading data'])}...</p>}
       </TabPanel>
 
       {isImageModalOpen && (
@@ -211,7 +167,7 @@ export const ChatInfo = (props: ChatInfoProps) => {
           showPreviews
           isOpenModal={isImageModalOpen}
           handleOpenModal={() => setIsImageModalOpen(prevState => !prevState)}
-          files={images?.map(el => el.file.replace('.preview.webp', '')) || []}
+          files={ImagesAndVideos?.map(el => el?.file?.replace('.preview.webp', '')) || []}
           currentFileIndex={currentImageIndex}
           handleCurrentFileIndex={index => setCurrentImageIndex(index)}
         />

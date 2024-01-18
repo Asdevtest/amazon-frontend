@@ -16,6 +16,12 @@ export const useStyles = makeStyles()(() => ({
     },
   },
 
+  imageWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   imageTile2: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'repeat(1, 1fr)',
@@ -29,6 +35,10 @@ export const useStyles = makeStyles()(() => ({
       gridColumn: '1/3',
       gridRow: '1/3',
       img: {
+        width: '100%',
+        height: '100%',
+      },
+      '& div': {
         width: '100%',
         height: '100%',
       },
@@ -46,6 +56,10 @@ export const useStyles = makeStyles()(() => ({
         width: '100%',
         height: '100%',
       },
+      '& div': {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
 
@@ -60,6 +74,10 @@ export const useStyles = makeStyles()(() => ({
         width: '100%',
         height: '100%',
       },
+      '& div': {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
 
@@ -71,6 +89,10 @@ export const useStyles = makeStyles()(() => ({
       gridColumn: '1/3',
       gridRow: '1/3',
       img: {
+        width: '100%',
+        height: '100%',
+      },
+      '& div': {
         width: '100%',
         height: '100%',
       },

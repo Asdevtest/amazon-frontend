@@ -1,4 +1,4 @@
-import { IUploadFile } from './upload-file'
+import { UploadFileType } from './upload-file'
 
 export interface PaymentMethod {
   _id?: string
@@ -8,7 +8,7 @@ export interface PaymentMethod {
 
 export interface Payment {
   paymentDetails: string
-  paymentImages: Array<string | IUploadFile>
+  paymentImages: UploadFileType[]
   paymentMethod: PaymentMethod
   isChecked?: boolean
 }
