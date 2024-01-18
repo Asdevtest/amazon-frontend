@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
+import { Box, Checkbox, Grid, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +12,6 @@ import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-ce
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -26,13 +25,7 @@ import {
 } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import {
-  checkAndMakeAbsoluteUrl,
-  getNewTariffTextForBoxOrOrder,
-  toFixed,
-  toFixedWithDollarSign,
-  toFixedWithYuanSign,
-} from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './select-fields.style'
