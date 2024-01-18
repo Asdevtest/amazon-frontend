@@ -6,7 +6,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './photo-and-files-slider.style'
 
@@ -17,7 +17,7 @@ import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 import { usePhotoAndFilesSlider } from './use-photo-and-files-slider'
 
 interface PhotoAndFilesSliderProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   column?: boolean
   withoutPhotos?: boolean
   withoutFiles?: boolean
@@ -37,7 +37,7 @@ interface PhotoAndFilesSliderProps {
   photosComments?: string[]
   withoutMakeMainImage?: boolean
   mainClasses?: string
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 /**

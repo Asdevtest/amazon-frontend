@@ -2,13 +2,13 @@ import { FC, memo } from 'react'
 
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useClassNames } from './chat-files-input.style'
 
 interface ChatFilesInputProps {
-  files: IUploadFile[]
-  setFiles: (e: IUploadFile[]) => void
+  files: UploadFileType[]
+  setFiles: (e: UploadFileType[]) => void
 }
 
 export const ChatFilesInput: FC<ChatFilesInputProps> = memo(({ files, setFiles }) => {

@@ -28,7 +28,7 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -43,7 +43,7 @@ import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-m
 
 export interface RenderAdditionalButtonsParams {
   message: string
-  files: IUploadFile[]
+  files: UploadFileType[]
 }
 
 export interface OnEmojiSelectEvent {
@@ -57,7 +57,7 @@ export interface OnEmojiSelectEvent {
 
 export interface MessageStateParams {
   message: string
-  files: IUploadFile[]
+  files: UploadFileType[]
 }
 
 interface Props {
@@ -72,7 +72,7 @@ interface Props {
   searchPhrase?: string
   classNamesWrapper?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IUploadFile[], replyMessageId: string | null) => void
+  onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
@@ -115,7 +115,7 @@ export const Chat: FC<Props> = observer(
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     const [message, setMessage] = useState(messageInitialState.message)
-    const [files, setFiles] = useState<IUploadFile[]>(messageInitialState.files)
+    const [files, setFiles] = useState<UploadFileType[]>(messageInitialState.files)
 
     const [focused, setFocused] = useState(false)
     const [showFiles, setShowFiles] = useState(false)
@@ -237,7 +237,7 @@ export const Chat: FC<Props> = observer(
       setMessage(value)
       SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
-    const changeFilesAndState = (value: IUploadFile[]) => {
+    const changeFilesAndState = (value: UploadFileType[]) => {
       setFiles(value)
       SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
@@ -277,7 +277,7 @@ export const Chat: FC<Props> = observer(
 
         evt.preventDefault()
 
-        const readyFilesArr: IUploadFile[] = filesArr.map((el: File) => ({
+        const readyFilesArr: UploadFileType[] = filesArr.map((el: File) => ({
           data_url: URL.createObjectURL(el),
           file: new File([el], el.name?.replace(/ /g, ''), {
             type: el.type,

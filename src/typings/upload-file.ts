@@ -1,6 +1,6 @@
-export type IUploadFile = IUploadFiles | string
+export type UploadFileType = IUploadFile | string
 
-export interface IUploadFiles {
+export interface IUploadFile {
   file: File
   data_url: string
 }
