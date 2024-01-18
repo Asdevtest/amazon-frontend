@@ -9,7 +9,7 @@ import { t } from '@utils/translations'
 
 import { IProductVariation } from '@typings/product'
 
-import { useClassNames } from './product-variations-form.styles'
+import { useStyles } from './product-variations-form.style'
 
 interface ProductVariationsFormProps {
   product: {
@@ -27,15 +27,15 @@ interface ProductVariationsFormProps {
 }
 
 export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { product, onClickShowProduct } = props
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Interconnected products'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Interconnected products'])}</p>
 
-      <div className={classNames.interconnectedProductsBodyWrapper}>
+      <div className={styles.interconnectedProductsBodyWrapper}>
         {product?.parentProduct ? (
           <InterconnectedProducts
             isParent

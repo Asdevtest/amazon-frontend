@@ -9,20 +9,20 @@ import { UserLink } from '@components/user/user-link'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './appeal-details-card.style'
+import { useStyles } from './appeal-details-card.style'
 
 export const AppealDetailsCard = () => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <Grid item className={classNames.mainWrapper}>
-      <div className={classNames.cardWrapper}>
-        <div className={classNames.leftBlockWrapper}>
+    <Grid item className={styles.mainWrapper}>
+      <div className={styles.cardWrapper}>
+        <div className={styles.leftBlockWrapper}>
           <div>
             <Typography>{'Обращение от клиента Вася'}</Typography>
-            <div className={classNames.cardTitleBlockHeaderWrapper}>
-              <Typography className={classNames.cardTitle}>{'Причина обращения'}</Typography>
-              <Typography className={classNames.cardDescription}>{'Текст обращения'}</Typography>
+            <div className={styles.cardTitleBlockHeaderWrapper}>
+              <Typography className={styles.cardTitle}>{'Причина обращения'}</Typography>
+              <Typography className={styles.cardDescription}>{'Текст обращения'}</Typography>
             </div>
           </div>
           <div>
@@ -34,60 +34,60 @@ export const AppealDetailsCard = () => {
               width="400px"
             />
           </div>
-          <div className={classNames.timeOnReviewWrapper}>
-            <Typography className={classNames.timeOnReviewTitle}>
+          <div className={styles.timeOnReviewWrapper}>
+            <Typography className={styles.timeOnReviewTitle}>
               {'Жалоба должна быть принята к рассмотрению в течение 48 часов'}
             </Typography>
-            <Typography className={classNames.timeOnReview}>{'24ч 00мин'}</Typography>
+            <Typography className={styles.timeOnReview}>{'24ч 00мин'}</Typography>
           </div>
         </div>
 
-        <div className={classNames.middleBlockWrapper}>
-          <div className={classNames.subBlockWrapper}>
-            <div className={classNames.leftSubBlockWrapper}>
-              <div className={classNames.timeItemInfoWrapper}>
+        <div className={styles.middleBlockWrapper}>
+          <div className={styles.subBlockWrapper}>
+            <div className={styles.leftSubBlockWrapper}>
+              <div className={styles.timeItemInfoWrapper}>
                 <Typography>{'Дата обращения'}</Typography>
 
                 <Typography>{'2.08.22'}</Typography>
               </div>
-              <div className={classNames.timeItemInfoWrapper}>
+              <div className={styles.timeItemInfoWrapper}>
                 <Typography>{'Срок'}</Typography>
 
                 <Typography>{'3.08.22'}</Typography>
               </div>
             </div>
-            <div className={classNames.rightSubBlockWrapper}>
-              <div className={classNames.timeItemInfoWrapper}>
+            <div className={styles.rightSubBlockWrapper}>
+              <div className={styles.timeItemInfoWrapper}>
                 <Typography>{'Статус'}</Typography>
 
                 <Typography>{'На проверке'}</Typography>
               </div>
-              <div className={classNames.timeItemInfoWrapper}>
+              <div className={styles.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Total price'])}</Typography>
 
-                <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(22, 2)}</Typography>
+                <Typography className={styles.cardPrice}>{toFixedWithDollarSign(22, 2)}</Typography>
               </div>
             </div>
           </div>
 
-          <div className={classNames.usersInfoBlockWrapper}>
-            <div className={classNames.userInfoWrapper}>
-              <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
-              <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+          <div className={styles.usersInfoBlockWrapper}>
+            <div className={styles.userInfoWrapper}>
+              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <div className={styles.userInfo}>
+                <Avatar src={''} className={styles.cardImg} />
 
-                <div className={classNames.nameWrapper}>
+                <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Вася'} userId={''} />
                   <Rating readOnly value={'5'} />
                 </div>
               </div>
             </div>
-            <div className={classNames.userInfoWrapper}>
-              <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
-              <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+            <div className={styles.userInfoWrapper}>
+              <Typography className={styles.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <div className={styles.userInfo}>
+                <Avatar src={''} className={styles.cardImg} />
 
-                <div className={classNames.nameWrapper}>
+                <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Исполнитель'} userId={''} />
                   <Rating readOnly value={'5'} />
                 </div>
@@ -95,8 +95,8 @@ export const AppealDetailsCard = () => {
             </div>
           </div>
 
-          <div className={classNames.footerWrapper}>
-            <Typography className={classNames.timeOnReviewTitle}>
+          <div className={styles.footerWrapper}>
+            <Typography className={styles.timeOnReviewTitle}>
               {'Время на рассмотрение с момента принятия 48 часов'}
             </Typography>
             <Button
@@ -104,7 +104,7 @@ export const AppealDetailsCard = () => {
               // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
               variant="contained"
               color="primary"
-              className={classNames.actionButton}
+              className={styles.actionButton}
               // onClick={() => onClickViewMore(item.requestId)}
             >
               {'Принять к рассмотрению'}
@@ -112,8 +112,8 @@ export const AppealDetailsCard = () => {
           </div>
         </div>
       </div>
-      <div className={classNames.chatWrapper}>
-        <Typography className={classNames.inProcess}>{'Тут будет чат'}</Typography>
+      <div className={styles.chatWrapper}>
+        <Typography className={styles.inProcess}>{'Тут будет чат'}</Typography>
       </div>
     </Grid>
   )

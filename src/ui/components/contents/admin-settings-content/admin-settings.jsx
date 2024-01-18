@@ -13,7 +13,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './admin-settings.style'
+import { useStyles } from './admin-settings.style'
 
 import { tabIndexes, tabLabels } from './admin-settings.constants'
 import { AdminSettingsModel } from './admin-settings.model'
@@ -29,7 +29,7 @@ import {
 } from './admin-tabs'
 
 export const AdminSettings = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsModel())
 
@@ -44,19 +44,19 @@ export const AdminSettings = observer(() => {
           value={viewModel.tabIndex}
           variant="scrollable"
           classes={{
-            root: classNames.rootTabs,
-            indicator: classNames.indicator,
-            flexContainer: classNames.flexContainerTabs,
+            root: styles.rootTabs,
+            indicator: styles.indicator,
+            flexContainer: styles.flexContainerTabs,
           }}
           onChange={viewModel.onChangeTab}
         >
           {tabLabels.map(label => (
-            <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
+            <Tab key={label} label={t(label)} classes={{ root: styles.rootTab }} />
           ))}
         </Tabs>
 
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.main}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabMain
               user={viewModel.user}
               serverProxy={viewModel.serverProxy}
@@ -74,7 +74,7 @@ export const AdminSettings = observer(() => {
           </div>
         </TabPanel>
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.freelance}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabFreelance
               formFields={viewModel.formFields}
               isFormFieldsChanged={viewModel.isFormFieldsChanged}
@@ -84,7 +84,7 @@ export const AdminSettings = observer(() => {
           </div>
         </TabPanel>
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.supplierSearch}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabSearchSupplier
               formFields={viewModel.formFields}
               isFormFieldsChanged={viewModel.isFormFieldsChanged}
@@ -94,7 +94,7 @@ export const AdminSettings = observer(() => {
           </div>
         </TabPanel>
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.orders}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabOrders
               formFields={viewModel.formFields}
               isFormFieldsChanged={viewModel.isFormFieldsChanged}
@@ -107,12 +107,12 @@ export const AdminSettings = observer(() => {
           <TabDestinations />
         </TabPanel>
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.redFlags}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabRedFlags />
           </div>
         </TabPanel>
         <TabPanel value={viewModel.tabIndex} index={tabIndexes.paymentMethods}>
-          <div className={classNames.contentWrapper}>
+          <div className={styles.contentWrapper}>
             <TabPaymentMethods />
           </div>
         </TabPanel>

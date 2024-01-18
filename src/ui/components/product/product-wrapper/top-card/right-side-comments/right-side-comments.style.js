@@ -12,7 +12,7 @@ const ani = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,7 @@ export const SupervisorProductView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {viewModel.product ? (
         <ProductWrapper
           imagesForLoad={viewModel.imagesForLoad}
@@ -87,6 +87,6 @@ export const SupervisorProductView = observer(({ history }) => {
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

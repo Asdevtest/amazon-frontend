@@ -53,7 +53,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
           <SelectStorekeeperAndTariffForm
             showCheckbox
             RemoveDestinationRestriction
-            storekeepers={props.storekeepers?.filter(el => el?._id === props.formFields?.storekeeper?._id)}
+            storekeepers={props.storekeepers}
             curStorekeeperId={props.formFields?.storekeeperId}
             currentDestinationId={props.formFields?.destinationId}
             curTariffId={props.formFields?.logicsTariffId}

@@ -63,6 +63,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsNotEmpty()
   @IsString({ each: true })
   public files!: string[]
+  public video!: string[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean

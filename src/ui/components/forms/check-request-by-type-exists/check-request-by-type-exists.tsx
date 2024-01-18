@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { Link, Typography } from '@mui/material'
@@ -11,7 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './check-request-by-type-exists.styles'
+import { useStyles } from './check-request-by-type-exists.style'
 
 interface RequestsDataInterface {
   humanFriendlyId: number
@@ -35,26 +34,26 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
   onClickContinue,
   onClickCancel,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.attentionText}>{t(TranslationKey.Attention)}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.attentionText}>{t(TranslationKey.Attention)}</Typography>
 
-      <div className={classNames.requestsInfoWrapper}>
-        <Typography className={classNames.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
+      <div className={styles.requestsInfoWrapper}>
+        <Typography className={styles.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
           asin || t(TranslationKey.Missing)
         },`}</Typography>
 
-        <Typography className={classNames.text}>{`${t(
+        <Typography className={styles.text}>{`${t(
           TranslationKey['there are already requests of the type'],
         )} ${freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(type)])}`}</Typography>
 
-        <div className={classNames.requestsTextWrapper}>
+        <div className={styles.requestsTextWrapper}>
           {requestsData.map((request, requestIndex: number) => (
             <Link
               key={requestIndex}
-              className={cx(classNames.text, classNames.requestInfo)}
+              className={cx(styles.text, styles.requestInfo)}
               onClick={() => onClickRequest(request)}
             >
               {`№${request?.humanFriendlyId}${
@@ -64,11 +63,11 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
           ))}
         </div>
       </div>
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button success /* disabled={submitIsClicked} */ variant="contained" onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant="text" className={classNames.cancelBtn} onClick={onClickCancel}>
+        <Button variant="text" className={styles.cancelBtn} onClick={onClickCancel}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

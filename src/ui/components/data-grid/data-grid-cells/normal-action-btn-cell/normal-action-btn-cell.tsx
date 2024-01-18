@@ -53,7 +53,13 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
         variant="contained"
         color="primary"
         className={buttonStyle}
-        onClick={onClickOkBtn}
+        onClick={(e: MouseEvent) => {
+          e.stopPropagation()
+
+          if (onClickOkBtn) {
+            onClickOkBtn()
+          }
+        }}
       >
         {bTnText}
       </Button>
@@ -65,7 +71,13 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
           className={buttonStyle}
-          onClick={() => (onClickCancelTask ? onClickCancelTask(boxId, rowId, operationType) : undefined)}
+          onClick={(e: MouseEvent) => {
+            e.stopPropagation()
+
+            if (onClickCancelTask) {
+              onClickCancelTask(boxId, rowId, operationType)
+            }
+          }}
         >
           {t(TranslationKey.Cancel)}
         </Button>

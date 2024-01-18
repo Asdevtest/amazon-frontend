@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-message-create-new-designer-proposal.style'
+import { useStyles } from './chat-message-create-new-designer-proposal.style'
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 
@@ -26,25 +26,25 @@ interface Props {
 }
 
 export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   return (
-    <div className={classNames.root}>
-      <div className={cx(classNames.mainWrapper, { [classNames.mainWrapperShowChatInfo]: isShowChatInfo })}>
-        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
-          <div className={classNames.header}>
-            <p className={classNames.headerText}>{t(TranslationKey.Request)}</p>
+    <div className={styles.root}>
+      <div className={cx(styles.mainWrapper, { [styles.mainWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(styles.mainSubWrapper, { [styles.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={styles.header}>
+            <p className={styles.headerText}>{t(TranslationKey.Request)}</p>
 
             {message.humanFriendlyId ? (
-              <div className={classNames.idWrapper}>
-                <p className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</p>
-                <p className={classNames.idText}>{message.humanFriendlyId}</p>
+              <div className={styles.idWrapper}>
+                <p className={cx(styles.idText, styles.idTitle)}>{t(TranslationKey.ID)}</p>
+                <p className={styles.idText}>{message.humanFriendlyId}</p>
               </div>
             ) : null}
           </div>
 
-          <p className={classNames.descriptionText}>{message.data.request?.title}</p>
+          <p className={styles.descriptionText}>{message.data.request?.title}</p>
 
           {/* <CustomTextEditor
                 readOnly
@@ -55,23 +55,23 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
                 textToCheck={undefined}
               /> */}
 
-          <div className={classNames.infosWrapper}>
+          <div className={styles.infosWrapper}>
             <LabelValuePairBlock
               label={t(TranslationKey.Deadline)}
               value={formatNormDateTime(message.data.request?.timeoutAt)}
               bgColor="green"
-              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+              rootClasses={cx(styles.labelValueBlock, { [styles.labelValueBlockShowChatInfo]: isShowChatInfo })}
             />
 
             <LabelValuePairBlock
               label={t(TranslationKey['Request price'])}
-              value={<p className={classNames.accentText}>{toFixedWithDollarSign(message.data.request?.price, 2)}</p>}
+              value={<p className={styles.accentText}>{toFixedWithDollarSign(message.data.request?.price, 2)}</p>}
               bgColor="green"
-              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+              rootClasses={cx(styles.labelValueBlock, { [styles.labelValueBlockShowChatInfo]: isShowChatInfo })}
             />
           </div>
 
-          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
+          <p className={styles.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
@@ -82,27 +82,27 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
         <Divider
           orientation={isShowChatInfo ? 'horizontal' : 'vertical'}
-          className={cx(classNames.divider, { [classNames.dividerShowChatInfo]: isShowChatInfo })}
+          className={cx(styles.divider, { [styles.dividerShowChatInfo]: isShowChatInfo })}
         />
 
-        <div className={cx(classNames.mainSubWrapper, { [classNames.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
-          <div className={classNames.header}>
-            <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
-            <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+        <div className={cx(styles.mainSubWrapper, { [styles.mainSubWrapperShowChatInfo]: isShowChatInfo })}>
+          <div className={styles.header}>
+            <p className={styles.headerText}>{t(TranslationKey.Proposal)}</p>
+            <p className={styles.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
           </div>
 
-          <p className={classNames.descriptionText}>{message.data.proposal?.comment}</p>
+          <p className={styles.descriptionText}>{message.data.proposal?.comment}</p>
 
-          <div className={classNames.infosWrapper}>
+          <div className={styles.infosWrapper}>
             <LabelValuePairBlock
               label={t(TranslationKey['Time to complete'])}
-              value={<p className={classNames.accentText}>{minsToTime(message.data.proposal?.execution_time)}</p>}
+              value={<p className={styles.accentText}>{minsToTime(message.data.proposal?.execution_time)}</p>}
               bgColor="green"
-              rootClasses={cx(classNames.labelValueBlock, { [classNames.labelValueBlockShowChatInfo]: isShowChatInfo })}
+              rootClasses={cx(styles.labelValueBlock, { [styles.labelValueBlockShowChatInfo]: isShowChatInfo })}
             />
           </div>
 
-          <p className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
+          <p className={styles.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}

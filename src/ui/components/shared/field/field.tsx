@@ -1,7 +1,6 @@
-import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import React, { FC, InputHTMLAttributes, ReactElement, useContext, useState } from 'react'
+import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -12,7 +11,7 @@ import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { useClassNames } from './field.style'
+import { useStyles } from './field.style'
 
 import { CopyValue } from '../copy-value'
 
@@ -23,7 +22,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   containerClasses?: ClassNamesArg | undefined
   labelClasses?: ClassNamesArg | undefined
   inputClasses?: ClassNamesArg | undefined
-  inputComponent?: React.ComponentType | ReactElement
+  inputComponent?: ComponentType | ReactElement
   error?: string | boolean
   successText?: string
   oneLine?: boolean
@@ -54,7 +53,7 @@ export const Field: FC<Props> = observer(
 
     ...restProps
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
@@ -62,16 +61,16 @@ export const Field: FC<Props> = observer(
     const { hints } = useContext(HintsContext)
 
     return (
-      <div className={cx(classNames.root, { [classNames.rootOneLine]: oneLine }, containerClasses)}>
-        <div className={classNames.labelWrapper}>
+      <div className={cx(styles.root, { [styles.rootOneLine]: oneLine }, containerClasses)}>
+        <div className={styles.labelWrapper}>
           {label ? (
-            <Typography className={cx(classNames.label, labelClasses, { [classNames.labelOneLine]: oneLine })}>
+            <Typography className={cx(styles.label, labelClasses, { [styles.labelOneLine]: oneLine })}>
               {label}
             </Typography>
           ) : null}
 
           {(tooltipAttentionContent || tooltipInfoContent) && label ? (
-            <div className={classNames.tooltipsWrapper}>
+            <div className={styles.tooltipsWrapper}>
               {tooltipAttentionContent ? (
                 <Tooltip
                   arrow
@@ -82,10 +81,7 @@ export const Field: FC<Props> = observer(
                   onOpen={() => setOpenAttentionTooltip(true)}
                 >
                   <div>
-                    <TooltipAttention
-                      className={cx(classNames.tooltip)}
-                      onClick={() => setOpenAttentionTooltip(true)}
-                    />
+                    <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                   </div>
                 </Tooltip>
               ) : null}
@@ -101,7 +97,7 @@ export const Field: FC<Props> = observer(
                 >
                   <div>
                     <TooltipInfoIcon
-                      className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                      className={cx(styles.tooltip, styles.tooltipInfo)}
                       onClick={() => setOpenInfoTooltip(true)}
                     />
                   </div>
@@ -113,17 +109,17 @@ export const Field: FC<Props> = observer(
         <>
           {inputComponent ||
             (withIcon ? (
-              <InputWithIcon className={cx(inputClasses, { [classNames.errorActive]: !!error })} {...restProps} />
+              <InputWithIcon className={cx(inputClasses, { [styles.errorActive]: !!error })} {...restProps} />
             ) : (
-              <div className={classNames.inputWrapper}>
-                <Input className={cx(inputClasses, { [classNames.errorActive]: !!error })} {...restProps} />
+              <div className={styles.inputWrapper}>
+                <Input className={cx(inputClasses, { [styles.errorActive]: !!error })} {...restProps} />
 
                 {withCopy && restProps.value && <CopyValue text={restProps.value as string} />}
               </div>
             ))}
         </>
-        {error && typeof error === 'string' && <Typography className={classNames.errorText}>{error}</Typography>}
-        {successText && <Typography className={classNames.successText}>{successText}</Typography>}
+        {error && typeof error === 'string' && <Typography className={styles.errorText}>{error}</Typography>}
+        {successText && <Typography className={styles.successText}>{successText}</Typography>}
       </div>
     )
   },

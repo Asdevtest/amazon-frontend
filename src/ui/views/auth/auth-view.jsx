@@ -20,7 +20,7 @@ import { AuthViewModel } from './auth-view.model'
 
 export const AuthViewRaw = props => {
   const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.onLoadPage()
@@ -35,7 +35,7 @@ export const AuthViewRaw = props => {
   }
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <AuthPageBanner />
 
       <AuthFormWrapper
@@ -58,7 +58,7 @@ export const AuthViewRaw = props => {
           onSubmit={viewModel.onSubmitForm}
         />
         {SettingsModel.languageTag && (
-          <Typography className={classNames.error}>
+          <Typography className={styles.error}>
             {viewModel.error &&
               ((viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
                 (viewModel.error.body?.message === 'User blocked by administrator' &&

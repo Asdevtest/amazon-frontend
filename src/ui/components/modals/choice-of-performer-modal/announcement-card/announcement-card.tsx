@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC, useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
@@ -13,12 +12,12 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
-import { useClassNames } from './announcement-card.styles'
+import { useStyles } from './announcement-card.style'
 
 interface onClickThumbnailArguments {
-  images: Array<string | IUploadFile>
+  images: UploadFileType[]
   imgIndex: number
 }
 
@@ -31,7 +30,7 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
 
@@ -55,15 +54,15 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   return (
     <>
       <div
-        className={cx(classNames.root, { [classNames.selectedCard]: selectedCard?._id === announcementData?._id })}
+        className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}
         onClick={e => {
           e.stopPropagation()
           onClickSelectCard(announcementData)
         }}
       >
-        <div className={classNames.header}>
-          <div className={classNames.titleWrapper}>
-            <p className={classNames.title}>{announcementData?.title}</p>
+        <div className={styles.header}>
+          <div className={styles.titleWrapper}>
+            <p className={styles.title}>{announcementData?.title}</p>
             <RadioButtons
               currentValue={selectedCard?._id}
               radioBottonsSettings={radioBottonsSettings}
@@ -71,36 +70,36 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
             />
           </div>
 
-          <p className={classNames.description}>{announcementData?.description}</p>
+          <p className={styles.description}>{announcementData?.description}</p>
         </div>
 
-        <div className={classNames.detailedDescriptionWrapper}>
-          <button className={classNames.detailedDescription} onClick={handleToggleModal}>
+        <div className={styles.detailedDescriptionWrapper}>
+          <button className={styles.detailedDescription} onClick={handleToggleModal}>
             {t(TranslationKey.Details)}
           </button>
         </div>
 
         <PhotoAndFilesSlider showPreviews isHideCounter withoutFiles mediumSlider files={imagesForRender} />
 
-        <div className={classNames.detailsWrapper}>
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={classNames.detailDescription}>
+        <div className={styles.detailsWrapper}>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+            <p className={styles.detailDescription}>
               {announcementData.type === 0
                 ? t(TranslationKey.Universal)
                 : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.type])}
             </p>
           </div>
 
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
 
             <UserLink
               withAvatar
               name={announcementData?.createdBy?.name}
               userId={announcementData?.createdBy?._id}
               rating={announcementData?.createdBy?.rating || 5}
-              customClassNames={classNames.userLinkCustomClassNames}
+              customClassNames={styles.userLinkCustomClassNames}
               ratingSize="small"
               customRatingClass={{ fontSize: 13, opacity: 1 }}
             />

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 
@@ -10,11 +9,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './search-result.style'
+import { useStyles } from './search-result.style'
 
 export const SearchResult = observer(
   ({ curFoundedMessageIndex, messagesFound, onClose, onChangeCurFoundedMessage }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     useEffect(() => {
       const listener = event => {
@@ -33,22 +32,22 @@ export const SearchResult = observer(
     }, [curFoundedMessageIndex, messagesFound.length])
 
     return (
-      <div className={classNames.searchResultWrapper}>
-        <p className={classNames.searchResult}>
+      <div className={styles.searchResultWrapper}>
+        <p className={styles.searchResult}>
           {t(TranslationKey['Search results']) + ': ' + (curFoundedMessageIndex + 1) + ' / ' + messagesFound.length}
         </p>
 
-        <div className={classNames.dropUpOrDownWrapper}>
+        <div className={styles.dropUpOrDownWrapper}>
           <ArrowDropUpIcon
-            className={cx(classNames.searchIconBtn, {
-              [classNames.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
+            className={cx(styles.searchIconBtn, {
+              [styles.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
             })}
             onClick={() => curFoundedMessageIndex !== 0 && onChangeCurFoundedMessage(curFoundedMessageIndex - 1)}
           />
 
           <ArrowDropDownIcon
-            className={cx(classNames.searchIconBtn, {
-              [classNames.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
+            className={cx(styles.searchIconBtn, {
+              [styles.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
             })}
             onClick={() =>
               curFoundedMessageIndex + 1 !== messagesFound.length &&
@@ -57,7 +56,7 @@ export const SearchResult = observer(
           />
         </div>
 
-        <CloseOutlinedIcon className={classNames.searchIconBtn} onClick={onClose} />
+        <CloseOutlinedIcon className={styles.searchIconBtn} onClick={onClose} />
       </div>
     )
   },

@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -9,16 +9,16 @@ import { SettingsModel } from '@models/settings-model'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './auth-page-banner.style'
+import { useStyles } from './auth-page-banner.style'
 
-export const AuthPageBanner = React.memo(() => {
-  const { classes: classNames } = useClassNames()
+export const AuthPageBanner = memo(() => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.leftPanel}>
-      <div className={classNames.header}>
+    <div className={styles.leftPanel}>
+      <div className={styles.header}>
         <img
-          className={classNames.logo}
+          className={styles.logo}
           alt="company logo"
           src={
             SettingsModel.uiTheme === UiTheme.light
@@ -27,11 +27,11 @@ export const AuthPageBanner = React.memo(() => {
           }
         />
       </div>
-      <div className={classNames.main}>
-        <Typography className={classNames.title}>{t(TranslationKey['Hello, nice to meet you'])}</Typography>
-        <Typography className={classNames.subtitle}>{t(TranslationKey['Just register to join with us'])}</Typography>
+      <div className={styles.main}>
+        <Typography className={styles.title}>{t(TranslationKey['Hello, nice to meet you'])}</Typography>
+        <Typography className={styles.subtitle}>{t(TranslationKey['Just register to join with us'])}</Typography>
       </div>
-      <div className={classNames.footer}></div>
+      <div className={styles.footer}></div>
     </div>
   )
 })

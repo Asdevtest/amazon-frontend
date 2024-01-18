@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Divider, InputBase, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,33 +8,33 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './private-label-card.style'
+import { useStyles } from './private-label-card.style'
 
 export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const InfoRow = ({ label, value }) => (
-    <div className={classNames.textWrapper}>
-      <Typography className={cx(classNames.text, classNames.label)}>{label}</Typography>
-      <Typography className={cx(classNames.text, classNames.value)}>{value}</Typography>
+    <div className={styles.textWrapper}>
+      <Typography className={cx(styles.text, styles.label)}>{label}</Typography>
+      <Typography className={cx(styles.text, styles.value)}>{value}</Typography>
     </div>
   )
 
   return (
-    <Paper className={classNames.root}>
-      <div className={classNames.imgWrapper}>
-        <img alt="item image" className={classNames.img} src={getAmazonImageUrl(item.images[0], true)} />
+    <Paper className={styles.root}>
+      <div className={styles.imgWrapper}>
+        <img alt="item image" className={styles.img} src={getAmazonImageUrl(item.images[0], true)} />
       </div>
-      <div className={classNames.wrapper}>
-        <Typography className={classNames.category}>{item.category}</Typography>
+      <div className={styles.wrapper}>
+        <Typography className={styles.category}>{item.category}</Typography>
 
         <InfoRow label={t(TranslationKey.Price)} value={toFixedWithDollarSign(item.amazon, 2)} />
-        <div className={classNames.textWrapper}>
-          <Typography className={cx(classNames.text, classNames.label)}>{t(TranslationKey.Quantity)}</Typography>
-          <InputBase classes={{ root: classNames.inputWrapper, input: classNames.input }} defaultValue={100} />
+        <div className={styles.textWrapper}>
+          <Typography className={cx(styles.text, styles.label)}>{t(TranslationKey.Quantity)}</Typography>
+          <InputBase classes={{ root: styles.inputWrapper, input: styles.input }} defaultValue={100} />
         </div>
 
-        <Divider className={classNames.divider} />
+        <Divider className={styles.divider} />
 
         <InfoRow label={t(TranslationKey['Average Price'])} value={toFixedWithDollarSign(item.avgPrice, 2)} />
 
@@ -49,7 +47,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
           value={toFixedWithKg(item.weight * item.fbaamount, 2)}
         />
 
-        <Divider className={classNames.divider} />
+        <Divider className={styles.divider} />
 
         <InfoRow label={t(TranslationKey['Average BSR'])} value={item.avgBSR || item.bsr} />
 
@@ -59,7 +57,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
           value={item.avgRevenue ? toFixedWithDollarSign(item.avgRevenue, 2) : toFixedWithDollarSign(item.profit, 2)}
         />
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             success
             disableElevation
@@ -74,7 +72,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
           {/* <Button  // может пригодится
             disableElevation
             color="primary"
-            className={classNames.priceButton}
+            className={styles.priceButton}
             variant="contained"
             onClick={() => {
               setProductToPay(item)

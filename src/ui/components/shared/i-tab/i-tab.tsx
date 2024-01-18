@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC, ReactElement, useContext, useState } from 'react'
 
@@ -10,7 +9,7 @@ import { BulbIcon, TooltipAttention, TooltipInfoIcon } from '@components/shared/
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { useClassNames } from './i-tab.style'
+import { useStyles } from './i-tab.style'
 
 interface Props {
   label: string
@@ -23,9 +22,9 @@ interface Props {
 
 export const ITab: FC<Props> = observer(
   ({ tooltipAttentionContent, tooltipInfoContent, value, label, withIcon, classes, ...restProps }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
-    const tabIcon = withIcon ? <BulbIcon className={classNames.icon} /> : undefined
+    const tabIcon = withIcon ? <BulbIcon className={styles.icon} /> : undefined
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
@@ -33,17 +32,17 @@ export const ITab: FC<Props> = observer(
     const { hints } = useContext(HintsContext)
 
     return (
-      <div className={classNames.tabWrapper}>
+      <div className={styles.tabWrapper}>
         <Tab
           label={label}
           value={value}
           icon={tabIcon}
           iconPosition="end"
-          classes={classes ?? { root: classNames.root }}
+          classes={classes ?? { root: styles.root }}
           {...restProps}
         />
 
-        <div className={classNames.tooltipsWrapper}>
+        <div className={styles.tooltipsWrapper}>
           {tooltipAttentionContent && (
             <Tooltip
               arrow
@@ -54,7 +53,7 @@ export const ITab: FC<Props> = observer(
               onOpen={() => setOpenAttentionTooltip(true)}
             >
               <div>
-                <TooltipAttention className={classNames.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
+                <TooltipAttention className={styles.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
               </div>
             </Tooltip>
           )}
@@ -70,7 +69,7 @@ export const ITab: FC<Props> = observer(
             >
               <div>
                 <TooltipInfoIcon
-                  className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                  className={cx(styles.tooltip, styles.tooltipInfo)}
                   onClick={() => setOpenInfoTooltip(true)}
                 />
               </div>

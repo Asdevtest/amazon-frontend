@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import { cx } from '@emotion/css'
 import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -16,10 +15,10 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-request-details.style'
+import { useStyles } from './custom-request-details.style'
 
 export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showDetails, setShowDetails] = useState(isOpen)
 
@@ -36,19 +35,19 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
   const requestDocuments = request?.request?.media.map(el => el.fileLink)
 
   return (
-    <div className={classNames.root}>
-      <Accordion classes={{ root: classNames.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
+    <div className={styles.root}>
+      <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey['Detailed application description'])}</Typography>
         </AccordionSummary>
 
-        <AccordionDetails classes={{ root: classNames.details }} style={{ padding: 0 }}>
-          <div className={classNames.mainWrapper}>
-            <div className={classNames.filesWrapper}>
-              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
+        <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
+          <div className={styles.mainWrapper}>
+            <div className={styles.filesWrapper}>
+              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
 
-              <div className={classNames.conditionsPhotosWraper}>
-                <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
+              <div className={styles.conditionsPhotosWraper}>
+                <Typography className={styles.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
                 <PhotoAndFilesSlider
                   withoutFiles
                   showPreviews
@@ -59,21 +58,21 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
               </div>
 
               <div>
-                <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
+                <Typography className={cx(styles.conditionsSubLabel, styles.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
                 <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
               </div>
             </div>
 
-            <div className={classNames.conditionsFieldWrapper}>
-              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
+            <div className={styles.conditionsFieldWrapper}>
+              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
 
               <CustomTextEditor
                 readOnly
                 conditions={request?.details?.conditions}
                 changeConditions={undefined}
-                editorMaxHeight={classNames.textEditor}
+                editorMaxHeight={styles.textEditor}
               />
             </div>
           </div>

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
-import React, { FC, PropsWithChildren, ReactElement, useContext, useState } from 'react'
+import { FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
 
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -12,7 +11,7 @@ import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { useClassNames } from './button.style'
+import { useStyles } from './button.style'
 
 import { StyledButton } from './styled-button'
 
@@ -42,7 +41,7 @@ interface Props extends PropsWithChildren {
   casual?: boolean
 }
 
-export const Button: FC<Props> = React.memo(
+export const Button: FC<Props> = memo(
   ({
     defaultButtonTooltip,
     tooltipAttentionContent,
@@ -62,14 +61,14 @@ export const Button: FC<Props> = React.memo(
     casual,
     ...restProps
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const { hints } = useContext(HintsContext)
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
     return (
-      <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
+      <div className={cx(styles.btnWrapper, btnWrapperStyle)}>
         {/* @ts-ignore */}
         <StyledButton
           disableElevation
@@ -80,16 +79,16 @@ export const Button: FC<Props> = React.memo(
           variant={variant || 'contained'}
           classes={{
             root: cx(
-              classNames.root,
+              styles.root,
               {
-                [classNames.success]: success,
-                [classNames.danger]: danger,
-                [classNames.outlined]: outlined,
-                [classNames.defaultButton]: !success && !danger && !variant,
-                [classNames.disabled]: disabled,
-                [classNames.small]: small,
-                [classNames.transparent]: transparent,
-                [classNames.casual]: casual,
+                [styles.success]: success,
+                [styles.danger]: danger,
+                [styles.outlined]: outlined,
+                [styles.defaultButton]: !success && !danger && !variant,
+                [styles.disabled]: disabled,
+                [styles.small]: small,
+                [styles.transparent]: transparent,
+                [styles.casual]: casual,
               },
               className,
             ),
@@ -98,9 +97,7 @@ export const Button: FC<Props> = React.memo(
         >
           {children}
           {tooltipAttentionContent || tooltipInfoContent ? (
-            <div
-              className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}
-            >
+            <div className={tooltipPosition === 'center' ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper}>
               {tooltipAttentionContent ? (
                 <Tooltip
                   arrow
@@ -111,10 +108,7 @@ export const Button: FC<Props> = React.memo(
                   onOpen={() => setOpenAttentionTooltip(true)}
                 >
                   <div>
-                    <TooltipAttention
-                      className={cx(classNames.tooltip)}
-                      onClick={() => setOpenAttentionTooltip(true)}
-                    />
+                    <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                   </div>
                 </Tooltip>
               ) : null}
@@ -130,7 +124,7 @@ export const Button: FC<Props> = React.memo(
                 >
                   <Box display="flex" alignItems="center">
                     <TooltipInfoIcon
-                      className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                      className={cx(styles.tooltip, styles.tooltipInfo)}
                       viewBox={'0 0 18 18'}
                       onClick={() => setOpenInfoTooltip(true)}
                     />

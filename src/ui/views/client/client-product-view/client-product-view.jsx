@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,7 +29,7 @@ export const ClientProductView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {viewModel.product ? (
         <ProductWrapper
           showTab={viewModel.showTab}
@@ -125,6 +125,6 @@ export const ClientProductView = observer(({ history }) => {
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

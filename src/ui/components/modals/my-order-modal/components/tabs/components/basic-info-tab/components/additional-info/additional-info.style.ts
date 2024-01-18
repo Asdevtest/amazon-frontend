@@ -91,6 +91,10 @@ export const useStyles = makeStyles()(theme => ({
         background: theme.palette.background.general,
         cursor: 'text',
       },
+
+      fieldset: {
+        border: 'none',
+      },
     },
   },
 }))

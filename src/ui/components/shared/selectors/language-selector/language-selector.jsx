@@ -10,10 +10,10 @@ import { SettingsModel } from '@models/settings-model'
 
 import { setI18nConfig } from '@utils/translations'
 
-import { useClassNames } from './language-selector.style'
+import { useStyles } from './language-selector.style'
 
 export const LanguageSelector = ({ className }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [anchorEl, setAnchorEl] = useState(false)
 
@@ -27,10 +27,10 @@ export const LanguageSelector = ({ className }) => {
 
   return (
     <div>
-      <div className={classNames.languageTagWrapper} onClick={handleClick}>
+      <div className={styles.languageTagWrapper} onClick={handleClick}>
         <img src={`/assets/icons/${SettingsModel.languageTag}.svg`} className={className} />
 
-        <Typography className={classNames.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x =>
+        <Typography className={styles.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x =>
           x.toUpperCase(),
         )}`}</Typography>
       </div>
@@ -43,14 +43,14 @@ export const LanguageSelector = ({ className }) => {
               <MenuItem
                 key={languageOption.key}
                 style={{ cursor: 'pointer' }}
-                className={classNames.option}
+                className={styles.option}
                 onClick={() => {
                   SettingsModel.setLanguageTag(languageOption.key)
                   setI18nConfig()
                   handleClose()
                 }}
               >
-                <div className={classNames.languageOptionWrapper}>
+                <div className={styles.languageOptionWrapper}>
                   <img src={`/assets/icons/${languageOption.key}.svg`} />
                   {languageOption.key.replace(/(^)[a-z]/g, x => x.toUpperCase())}
                 </div>

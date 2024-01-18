@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import { Grid, Typography } from '@mui/material'
@@ -12,7 +11,7 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './selection-supplier-modal.style'
+import { useStyles } from './selection-supplier-modal.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
@@ -37,17 +36,17 @@ export const SelectionSupplierModal = ({
 
   const [comment, setComment] = useState(product?.originalData?.clientComment || '')
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
-  /* const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
-    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS,
+  /* const buttonSearchSupplierForIdeaClsx = cx(styles.modalButton, styles.searchSupplierForIdeaBtn, {
+    [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS,
   }) */
 
-  const buttonSendRequestClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST,
+  const buttonSendRequestClsx = cx(styles.modalButton, {
+    [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST,
   })
-  const buttonAddSupplierClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER,
+  const buttonAddSupplierClsx = cx(styles.modalButton, {
+    [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
 
   /* const onClickSearchSupplierForIdeaButton = () => {
@@ -85,8 +84,8 @@ export const SelectionSupplierModal = ({
   }
 
   return (
-    <div className={classNames.modalWrapper}>
-      <Typography className={cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })}>
+    <div className={styles.modalWrapper}>
+      <Typography className={cx(styles.modalTitle, { [styles.modalTitleChange]: clickNextOrPrevButton })}>
         {title || t(TranslationKey['Find a supplier'])}
       </Typography>
 
@@ -95,19 +94,19 @@ export const SelectionSupplierModal = ({
           <Field
             multiline
             label={t(TranslationKey['Update product comment:'])}
-            labelClasses={classNames.modalLabel}
+            labelClasses={styles.modalLabel}
             minRows={6}
             maxRows={6}
             value={comment}
             placeholder={t(TranslationKey.Comment) + '...'}
-            className={classNames.modalTextArea}
+            className={styles.modalTextArea}
             onChange={e => setComment(e.target.value)}
           />
         </div>
       ) : (
-        <div className={classNames.btnsWrapper}>
-          {/* <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
-          <div className={classNames.searchSupplierForIdeaButtonsWrapper}>
+        <div className={styles.btnsWrapper}>
+          {/* <Typography className={styles.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
+          <div className={styles.searchSupplierForIdeaButtonsWrapper}>
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
               className={buttonSearchSupplierForIdeaClsx}
@@ -117,11 +116,11 @@ export const SelectionSupplierModal = ({
             </Button>
           </div>
 
-          <Divider orientation="horizontal" className={classNames.divider} /> */}
+          <Divider orientation="horizontal" className={styles.divider} /> */}
 
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
+          <Typography className={styles.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
 
-          <div className={classNames.modalButtonsWrapper}>
+          <div className={styles.modalButtonsWrapper}>
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
               disabled={product && !clientToEditStatuses.includes(product?.originalData?.status)}
@@ -146,8 +145,8 @@ export const SelectionSupplierModal = ({
       <Grid
         container
         spacing={2}
-        className={cx(classNames.modalButtonWrapper, {
-          [classNames.modalButtonNextStepWrapper]:
+        className={cx(styles.modalButtonWrapper, {
+          [styles.modalButtonNextStepWrapper]:
             selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
         })}
       >
@@ -155,7 +154,7 @@ export const SelectionSupplierModal = ({
           <Grid item>
             <Button
               variant="contained"
-              className={classNames.modalButtonBack}
+              className={styles.modalButtonBack}
               onClick={() => (buttonValue ? onCloseModal() : setClickNextOrPrevButton(false))}
             >
               {buttonValue ? t(TranslationKey.Cancel) : t(TranslationKey.Back)}
@@ -170,7 +169,7 @@ export const SelectionSupplierModal = ({
               clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
             }
             disabled={!selectedButtonValue}
-            className={classNames.modalButtonNext}
+            className={styles.modalButtonNext}
             onClick={() => onClickNextButton()}
           >
             {t(TranslationKey.Next)}

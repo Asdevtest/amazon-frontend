@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -22,12 +21,12 @@ import { UploadIcon } from '@components/shared/svg-icons'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-payment-methods.style'
+import { useStyles } from './tab-payment-methods.style'
 
 import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
 export const TabPaymentMethods = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel())
 
@@ -44,39 +43,34 @@ export const TabPaymentMethods = observer(() => {
   return (
     <>
       {SettingsModel.languageTag && (
-        <div className={classNames.wrapper}>
-          <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
+        <div className={styles.wrapper}>
+          <p className={styles.title}>{t(TranslationKey['Adding a payment method'])}</p>
 
-          <div className={classNames.container}>
+          <div className={styles.container}>
             <Field
               label={t(TranslationKey['Add a payment method icon']) + '*'}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
+              labelClasses={styles.label}
+              classes={{ root: styles.textField }}
               value={viewModel.method.iconImage?.data_url ?? viewModel.method.iconImage}
               placeholder={t(TranslationKey.Link)}
               onChange={viewModel.onChangeIconImage}
             />
 
-            <label htmlFor="image-upload" className={classNames.inputContainer}>
-              <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
-              <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
-              <UploadIcon className={classNames.icon} />
+            <label htmlFor="image-upload" className={styles.inputContainer}>
+              <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
+              <span className={styles.text}>{t(TranslationKey['Add photo'])}</span>
+              <UploadIcon className={styles.icon} />
             </label>
           </div>
 
           {viewModel.method.iconImage && (
-            <div className={classNames.container}>
-              <div className={cx(classNames.containerImage, { [classNames.error]: !viewModel.isValidUrl })}>
+            <div className={styles.container}>
+              <div className={cx(styles.containerImage, { [styles.error]: !viewModel.isValidUrl })}>
                 <img src={viewModel.method.iconImage?.data_url ?? viewModel.method.iconImage} alt="payment method" />
-                <span className={classNames.paymentMethodLabel}>{viewModel.currentImageName}</span>
-                <div className={classNames.actionIconWrapper}>
-                  <div className={classNames.actionIcon}>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className={classNames.input}
-                      onChange={viewModel.onImageUpload}
-                    />
+                <span className={styles.paymentMethodLabel}>{viewModel.currentImageName}</span>
+                <div className={styles.actionIconWrapper}>
+                  <div className={styles.actionIcon}>
+                    <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
                     <AutorenewIcon fontSize="small" />
                   </div>
 
@@ -86,40 +80,36 @@ export const TabPaymentMethods = observer(() => {
             </div>
           )}
 
-          <div className={classNames.container}>
+          <div className={styles.container}>
             <Field
               label={t(TranslationKey['Payment method name']) + '*'}
-              labelClasses={classNames.label}
-              classes={{ root: classNames.textField }}
+              labelClasses={styles.label}
+              classes={{ root: styles.textField }}
               value={viewModel.method.title}
               placeholder={t(TranslationKey.Add)}
               onChange={viewModel.onChangeTitle}
             />
           </div>
 
-          <div className={classNames.paymentMethods}>
+          <div className={styles.paymentMethods}>
             {viewModel.paymentMethods.length !== 0 &&
               viewModel.paymentMethods.map(method => (
-                <div key={method._id} className={classNames.paymentMethodWrapper}>
-                  <div className={classNames.iconContainer}>
-                    <img
-                      src={getAmazonImageUrl(method.iconImage)}
-                      alt={method.title}
-                      className={classNames.iconImage}
-                    />
-                    <Typography className={classNames.paymentMethod}>{method.title}</Typography>
+                <div key={method._id} className={styles.paymentMethodWrapper}>
+                  <div className={styles.iconContainer}>
+                    <img src={getAmazonImageUrl(method.iconImage)} alt={method.title} className={styles.iconImage} />
+                    <Typography className={styles.paymentMethod}>{method.title}</Typography>
                   </div>
 
-                  <div className={classNames.iconsWrapper}>
+                  <div className={styles.iconsWrapper}>
                     <CopyValue text={method.title} />
 
                     <EditOutlinedIcon
-                      className={classNames.iconAction}
+                      className={styles.iconAction}
                       onClick={() => viewModel.onClickEditPaymentMethod(method._id)}
                     />
 
                     <DeleteOutlineOutlinedIcon
-                      className={classNames.iconAction}
+                      className={styles.iconAction}
                       onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
                     />
                   </div>
@@ -127,7 +117,7 @@ export const TabPaymentMethods = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={classNames.button} onClick={viewModel.onSubmitPaymentMethod}>
+          <Button disabled={!isDisableButton} className={styles.button} onClick={viewModel.onSubmitPaymentMethod}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

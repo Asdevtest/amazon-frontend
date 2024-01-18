@@ -1,11 +1,10 @@
-import { cx } from '@emotion/css'
 import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useSupplierPriceVariationSelectorStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.styles'
+import { useStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.style'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -23,7 +22,7 @@ interface SupplierPriceVariationSelectorProps {
 }
 
 export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = props => {
-  const { classes: styles } = useSupplierPriceVariationSelectorStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [variationList, setVariationList] = useState<VariationType[]>(props.currentVariations || [])
   const [quantity, setQuantity] = useState<string>('')

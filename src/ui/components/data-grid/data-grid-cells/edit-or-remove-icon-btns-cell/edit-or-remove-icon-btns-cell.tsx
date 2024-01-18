@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -28,7 +28,7 @@ interface EditOrRemoveIconBtnsCellProps {
   tooltipArchiveButton?: string
 }
 
-export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = React.memo(props => {
+export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     row,

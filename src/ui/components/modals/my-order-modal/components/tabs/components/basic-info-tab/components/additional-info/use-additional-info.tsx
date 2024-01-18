@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -37,6 +37,11 @@ export const useAdditionalInfo = ({
   const [confirmModalSettings, setConfirmModalSettings] = useState<InitialConfirmModalSettingsState | undefined>(
     undefined,
   )
+  const [currentDestinationId, setCurrnetDestinationId] = useState<string | null>(null)
+
+  useEffect(() => {
+    setCurrnetDestinationId(formFields?.destinationId)
+  }, [formFields?.destinationId])
 
   const handleToggleConfirmModal = () => setShowConfirmModal(!showConfirmModal)
 
@@ -61,64 +66,107 @@ export const useAdditionalInfo = ({
     })
   }
 
-  const onChangeDeadlineField = (fieldName: string) => (date: string) => {
-    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: date }))
-  }
-
-  const patchDestinationParamsHandler = (
-    storekeeperId: string,
-    tariffId: string,
-    variationTariffId: string | null,
-    destinationId: string | null,
-    isCancel: boolean,
-    notCloseConfirmModal: boolean,
-  ) => {
-    setFormFields(prevFormFields => ({
-      ...prevFormFields,
-      storekeeperId,
-      logicsTariffId: tariffId,
-      variationTariffId,
-      destinationId: isCancel ? '' : destinationId,
-    }))
-
-    !notCloseConfirmModal && setShowConfirmModal(false)
-    handleToggleSelectionStorekeeperAndTariffModal()
+  const onChangeStringField = (fieldName: string) => (value: string | null) => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: value }))
   }
 
   const onSubmitSelectStorekeeperAndTariff = (
     storekeeperId: string,
     tariffId: string,
-    variationTariffId: string | null,
-    destinationId: string | null,
+    variationTariffId: string,
+    destinationId: string,
     isSelectedDestinationNotValid: boolean,
-    isSetCurrentDestination: boolean,
+    isReset: boolean,
   ) => {
-    const onClickConfirmButton = () =>
-      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, false, false)
-    const onClickCancelButton = () =>
-      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, false)
-
     if (isSelectedDestinationNotValid) {
       setConfirmModalSettings({
         isWarning: false,
         title: t(TranslationKey.Attention),
         confirmMessage: t(TranslationKey['Wish to change a destination?']),
-        onClickConfirm: () => onClickConfirmButton(),
-        onClickCancelBtn: () => onClickCancelButton(),
+        onClickConfirm: () => {
+          setFormFields(prevFormFields => ({
+            ...prevFormFields,
+            storekeeperId,
+            logicsTariffId: tariffId,
+            variationTariffId,
+            destinationId,
+          }))
+
+          setCurrnetDestinationId(destinationId)
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(false)
+        },
+        onClickCancelBtn: () => {
+          setFormFields(prevFormFields => ({
+            ...prevFormFields,
+            storekeeperId,
+            destinationId: null,
+            logicsTariffId: tariffId,
+            variationTariffId,
+          }))
+
+          setCurrnetDestinationId(null)
+          setShowConfirmModal(false)
+          setShowSelectionStorekeeperAndTariffModal(false)
+        },
       })
+
       setShowConfirmModal(true)
     } else {
-      if (!isSetCurrentDestination) {
+      if (formFields?.destinationId || isReset) {
+        setCurrnetDestinationId(destinationId)
+
+        setFormFields(prevFormFields => ({
+          ...prevFormFields,
+          storekeeperId,
+          logicsTariffId: tariffId,
+          variationTariffId,
+        }))
+
+        setShowSelectionStorekeeperAndTariffModal(false)
+      } else {
         setConfirmModalSettings({
           isWarning: false,
           title: t(TranslationKey.Attention),
           confirmMessage: t(TranslationKey['Wish to set a destination?']),
-          onClickConfirm: () => onClickConfirmButton(),
-          onClickCancelBtn: () => onClickCancelButton(),
+          onClickConfirm: () => {
+            const validDestinationId =
+              destinationId ||
+              storekeepers
+                ?.find(storekeeper => storekeeper?._id === storekeeperId)
+                ?.tariffLogistics?.find(tariff => tariff?._id === tariffId)
+                ?.destinationVariations?.find(destinationVariation => destinationVariation?._id === variationTariffId)
+                ?.destination?._id
+
+            setCurrnetDestinationId(validDestinationId || null)
+
+            setFormFields(prevFormFields => ({
+              ...prevFormFields,
+              storekeeperId,
+              logicsTariffId: tariffId,
+              variationTariffId,
+              destinationId: validDestinationId || null,
+            }))
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
+          onClickCancelBtn: () => {
+            setCurrnetDestinationId(destinationId)
+
+            setFormFields(prevFormFields => ({
+              ...prevFormFields,
+              storekeeperId,
+              logicsTariffId: tariffId,
+              variationTariffId,
+            }))
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(false)
+          },
         })
+
         setShowConfirmModal(true)
-      } else {
-        patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, true)
       }
     }
   }
@@ -131,11 +179,11 @@ export const useAdditionalInfo = ({
     formFields.logicsTariffId,
     formFields.variationTariffId,
   )
-  const currentItem = destinations?.find(el => el?._id === formFields?.destinationId)?.name
-  const currentItems =
-    formFields?.variationTariffId && formFields?.destinationId
-      ? destinations.filter(el => el?._id === formFields?.destinationId)
-      : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeper?._id)
+  const currentItemName = destinations?.find(el => el?._id === formFields?.destinationId)?.name
+  const currentItems = formFields?.logicsTariffId
+    ? destinations.filter(el => el?._id === currentDestinationId)
+    : destinations
+
   const currentTariffName = tariffName ? `${tariffName}` : ''
   const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
   const shoWcurrentTariff = formFields.storekeeperId && (currentTariffName || currentTariffRate)
@@ -150,7 +198,7 @@ export const useAdditionalInfo = ({
           minDate={minDate}
           value={formFields.deadline}
           className={styles.inputDeadline}
-          onChange={onChangeDeadlineField('deadline')}
+          onChange={onChangeStringField('deadline')}
         />
       ),
     },
@@ -160,10 +208,11 @@ export const useAdditionalInfo = ({
         <Select
           withFaworites
           disabled={!isOrderEditable}
-          currentItem={currentItem}
+          currentItemName={currentItemName}
           items={currentItems}
           destinationsFavourites={destinationsFavourites}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+          onChangeSelectedItem={onChangeStringField('destinationId')}
         />
       ),
     },

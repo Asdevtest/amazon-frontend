@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useRef, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useReactToPrint } from 'react-to-print'
 
@@ -21,7 +21,7 @@ interface DownloadAndPrintFilesCellProps {
   files: any
 }
 
-export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = React.memo(({ files }) => {
+export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
   const imageRef = useRef(null)

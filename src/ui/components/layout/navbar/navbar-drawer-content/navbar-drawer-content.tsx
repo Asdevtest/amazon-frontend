@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, Fragment, memo, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
@@ -27,7 +27,7 @@ import { t } from '@utils/translations'
 import { NavbarConfigTypes } from '@typings/navbar-config'
 import { IUser } from '@typings/user'
 
-import { useStyles } from './navbar-drawer-content.styles'
+import { useStyles } from './navbar-drawer-content.style'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
@@ -104,7 +104,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <List className={styles.categoriesWrapper}>
         {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
                 classes=""
@@ -127,7 +127,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                   userInfo={userInfo}
                 />
               )}
-            </React.Fragment>
+            </Fragment>
           ) : null,
         )}
       </List>
@@ -135,7 +135,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
                 classes=""
@@ -146,7 +146,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                 badge={category.route?.includes('/messages') && unreadMessages}
                 onToggleModal={onToggleModal}
               />
-            </React.Fragment>
+            </Fragment>
           ) : null,
         )}
 

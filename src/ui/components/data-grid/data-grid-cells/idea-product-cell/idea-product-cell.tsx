@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ interface IdeaProductCellProps {
   onClickCreateCard: (data: any) => void
 }
 
-export const IdeaProductCell: FC<IdeaProductCellProps> = React.memo(({ onClickCreateCard, rowData }) => {
+export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCard, rowData }) => {
   const { classes: styles } = useStyles()
 
   return (

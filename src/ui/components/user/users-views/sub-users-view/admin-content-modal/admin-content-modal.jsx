@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button, Checkbox, Container, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
@@ -15,7 +15,7 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './admin-content-modal.style'
+import { useStyles } from './admin-content-modal.style'
 
 const activeOptions = [
   { value: true, label: t(TranslationKey.Active) },
@@ -34,7 +34,7 @@ export const AdminContentModal = observer(
     checkValidationNameOrEmail,
     changeNameAndEmail,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
@@ -152,7 +152,7 @@ export const AdminContentModal = observer(
       JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
     return (
-      <Container disableGutters className={classNames.modalContainer}>
+      <Container disableGutters className={styles.modalContainer}>
         <Typography paragraph variant="h3">
           {`${title} ${editUserFormFields.name}`}
         </Typography>
@@ -161,15 +161,15 @@ export const AdminContentModal = observer(
           <Field
             label={t(TranslationKey['Master user'])}
             inputComponent={
-              <div className={classNames.ratingWrapper}>
+              <div className={styles.ratingWrapper}>
                 <UserLink
                   blackText
                   name={editUserFormFields.masterUserInfo?.name}
                   userId={editUserFormFields.masterUserInfo?._id}
                 />
 
-                <div className={classNames.ratingSubWrapper}>
-                  <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                <div className={styles.ratingSubWrapper}>
+                  <Typography className={styles.rating}>{t(TranslationKey.Rating)}</Typography>
 
                   <Rating readOnly value={editUserFormFields.masterUserInfo?.rating} />
                 </div>
@@ -182,13 +182,13 @@ export const AdminContentModal = observer(
           <Field
             label={t(TranslationKey['Sub users'])}
             inputComponent={
-              <div className={classNames.subUsersWrapper}>
+              <div className={styles.subUsersWrapper}>
                 {editUserFormFields.subUsers.map(subUser => (
-                  <div key={subUser._id} className={classNames.ratingWrapper}>
+                  <div key={subUser._id} className={styles.ratingWrapper}>
                     <UserLink blackText name={subUser.name} userId={subUser._id} />
 
-                    <div className={classNames.ratingSubWrapper}>
-                      <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                    <div className={styles.ratingSubWrapper}>
+                      <Typography className={styles.rating}>{t(TranslationKey.Rating)}</Typography>
 
                       <Rating readOnly value={subUser.rating} />
                     </div>
@@ -251,7 +251,7 @@ export const AdminContentModal = observer(
                 <MenuItem
                   key={userRoleCode}
                   value={userRoleCode}
-                  className={classNames.userRoleSelect}
+                  className={styles.userRoleSelect}
                   disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                 >
                   {UserRoleCodeMap[userRoleCode]}
@@ -308,55 +308,55 @@ export const AdminContentModal = observer(
             </Select>
           }
         />
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
             disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.fba}
             onChange={onChangeFormField('fba')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
             disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
             disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.hideSuppliers}
             onChange={onChangeFormField('hideSuppliers')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
             disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
             checked={formFields.isUserPreprocessingCenterUSA}
             onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
         </div>
 
         <Field label={t(TranslationKey['Security/Sharing options'])} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (
-          <Typography className={classNames.isWrongPermissionsSelectError}>
+          <Typography className={styles.isWrongPermissionsSelectError}>
             {t(TranslationKey['The selected permissions and the current role do not match!'])}
           </Typography>
         )}
 
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <Button
             disableElevation
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
@@ -372,7 +372,7 @@ export const AdminContentModal = observer(
 
           <Button
             disableElevation
-            className={classNames.rightBtn}
+            className={styles.rightBtn}
             variant="contained"
             color="primary"
             onClick={() => {

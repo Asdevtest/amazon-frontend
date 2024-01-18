@@ -6,7 +6,7 @@ import { tableViewMode } from '@constants/table/table-view-modes'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
 
-import { useClassNames } from './view-cards-select.styles'
+import { useStyles } from './view-cards-select.style'
 
 interface FreelanceTypeTaskSelectProps {
   withTabelView?: boolean
@@ -17,7 +17,7 @@ interface FreelanceTypeTaskSelectProps {
 
 export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
   const { withTabelView, withoutBlockCardView, viewMode, onChangeViewMode } = props
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <CustomSwitcher
@@ -28,8 +28,8 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
         withTabelView && {
           icon: (
             <ViewCartsTable
-              className={cx(classNames.viewCart, {
-                [classNames.viewCartSelected]: viewMode === tableViewMode.TABLE,
+              className={cx(styles.viewCart, {
+                [styles.viewCartSelected]: viewMode === tableViewMode.TABLE,
               })}
             />
           ),
@@ -38,8 +38,8 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
         !withoutBlockCardView && {
           icon: (
             <ViewCartsBlock
-              className={cx(classNames.viewCart, {
-                [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+              className={cx(styles.viewCart, {
+                [styles.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
               })}
             />
           ),
@@ -48,8 +48,8 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
         {
           icon: (
             <ViewCartsLine
-              className={cx(classNames.viewCart, {
-                [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
+              className={cx(styles.viewCart, {
+                [styles.viewCartSelected]: viewMode === tableViewMode.LIST,
               })}
             />
           ),

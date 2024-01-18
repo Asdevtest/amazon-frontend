@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ interface WarehouseDemensionsProps {
   sizeSetting: string
 }
 
-export const WarehouseDemensions: FC<WarehouseDemensionsProps> = React.memo(
+export const WarehouseDemensions: FC<WarehouseDemensionsProps> = memo(
   ({ orderBox, volumeWeightCoefficient, setFormField, sizeSetting }) => {
     const { classes: styles } = useStyles()
 

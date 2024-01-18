@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ interface OnCheckingIdeaActionsProps {
   onClickReject: () => void
 }
 
-export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = React.memo(
+export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = memo(
   ({ onClickAccept, onClickReject, isAcceptDisabled }) => {
     const { classes: styles } = useStyles()
 

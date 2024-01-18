@@ -7,6 +7,7 @@ import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
+import { YOUTUBE_LINK } from '@constants/text'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -102,7 +103,8 @@ export const checkIsVideoLink = link =>
   link?.includes('.webm') ||
   link?.includes('.wm') ||
   link?.includes('.wmv') ||
-  link?.includes('.yuv')
+  link?.includes('.yuv') ||
+  link?.includes(YOUTUBE_LINK)
 
 export const checkIsImageLink = link =>
   link?.includes('png') ||

@@ -13,7 +13,7 @@ import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useStyles } from './freelance-request-details-modal.styles'
+import { useStyles } from './freelance-request-details-modal.style'
 
 export const FreelanceRequestDetailsModalControls = memo(props => {
   const {

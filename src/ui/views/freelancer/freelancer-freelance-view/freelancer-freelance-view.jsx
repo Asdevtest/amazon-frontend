@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
@@ -13,7 +13,7 @@ import { useStyles } from './freelancer-freelance-view.style'
 
 import { renderData } from './render-data'
 
-export const FreelancerFreelanceView = React.memo(() => {
+export const FreelancerFreelanceView = memo(() => {
   const { classes: styles } = useStyles()
 
   return (

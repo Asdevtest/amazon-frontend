@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 
 import { CategoryRootViewModel } from '@views/shared/category-root-view/category-root-view.model'
-import { useCategoryRootViewStyles } from '@views/shared/category-root-view/category-root-view.styles'
+import { useCategoryRootViewStyles } from '@views/shared/category-root-view/category-root-view.style'
 
 import { t } from '@utils/translations'
 

@@ -3,11 +3,11 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 export const usePhotoAndFilesSlider = (
-  files: Array<string | IUploadFile>,
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void,
+  files: UploadFileType[],
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void,
   startMediaFileIndex?: number,
 ) => {
   const [openImageModal, setOpenImageModal] = useState(false)
@@ -20,7 +20,7 @@ export const usePhotoAndFilesSlider = (
   const documents = files?.filter(el => checkIsDocumentLink(typeof el === 'string' ? el : el?.file?.name))
   const [documentIndex, setDocumentIndex] = useState(0)
 
-  const [mediaFiles, setMediaFiles] = useState<Array<string | IUploadFile>>([])
+  const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
   const [mediaFileIndex, setMediaFileIndex] = useState(startMediaFileIndex ?? 0)
 
   const [isPlaying, setIsPlaying] = useState(false) // to turn off the video when transitioning between slides
@@ -91,7 +91,7 @@ export const usePhotoAndFilesSlider = (
     )
   }
 
-  const onMakeMainFile = (file: string | IUploadFile, fileIndex: number) => {
+  const onMakeMainFile = (file: string | UploadFileType, fileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
       const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
       const editingMediaFiles = [file, ...filteringMediaFiles]
@@ -101,7 +101,7 @@ export const usePhotoAndFilesSlider = (
     setMediaFileIndex(0)
   }
 
-  const onDownloadFile = (file: string | IUploadFile) =>
+  const onDownloadFile = (file: string | UploadFileType) =>
     typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {

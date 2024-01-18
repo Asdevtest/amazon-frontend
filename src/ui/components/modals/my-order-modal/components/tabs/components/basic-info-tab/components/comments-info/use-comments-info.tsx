@@ -44,14 +44,14 @@ export const useCommentsInfo = ({ formFields, setFormFields, isClient }: Comment
       field: 'buyerComment',
       title: t(TranslationKey.Buyer),
       text: formFields?.buyerComment,
-      element: formFields?.buyerComment.length > 0 ? <CopyValue text={formFields?.buyerComment} /> : undefined,
+      element: formFields?.buyerComment?.length > 0 ? <CopyValue text={formFields?.buyerComment} /> : undefined,
       isEditable: false,
     },
     {
       field: 'clientComment',
       title: t(TranslationKey.Client),
       text: formFields?.clientComment,
-      element: formFields?.clientComment.length > 0 ? <CopyValue text={formFields?.clientComment} /> : undefined,
+      element: formFields?.clientComment?.length > 0 ? <CopyValue text={formFields?.clientComment} /> : undefined,
       isEditable: isClient,
     },
   ]

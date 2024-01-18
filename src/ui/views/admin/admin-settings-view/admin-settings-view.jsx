@@ -20,11 +20,11 @@ export const AdminSettingsViewRaw = props => {
         history: props.history,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
+    <div className={styles.mainWrapper}>
+      <Button className={styles.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
         {t(TranslationKey['Technical work and notices'])}
       </Button>
 

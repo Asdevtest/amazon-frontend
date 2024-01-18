@@ -14,12 +14,12 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './group-permissions.style'
+import { useStyles } from './group-permissions.style'
 
 import { GroupPermissionsModel } from './group-permissions.model'
 
 export const GroupPermissions = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const gpModel = useRef(new GroupPermissionsModel({ history }))
 
@@ -55,13 +55,13 @@ export const GroupPermissions = observer(() => {
   } = gpModel.current
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button success className={classNames.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <Button success className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}

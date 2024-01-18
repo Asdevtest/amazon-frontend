@@ -9,24 +9,24 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chat-message-add-users-to-group-chat.style'
+import { useStyles } from './chat-message-add-users-to-group-chat.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataAddUsersToGroupChatContract>
 }
 
 export const ChatMessageAddUsersToGroupChat: FC<Props> = ({ message }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <UserLink name={message.user?.name} userId={message.user?._id} />
 
-      <p className={classNames.groupText}>{t(TranslationKey['added to the group chat'])}</p>
+      <p className={styles.groupText}>{t(TranslationKey['added to the group chat'])}</p>
 
-      <p className={classNames.groupTitle}>{`${message.data?.title} :`}</p>
+      <p className={styles.groupTitle}>{`${message.data?.title} :`}</p>
 
-      <div className={classNames.usersWrapper}>
+      <div className={styles.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (
           <UserLink key={index} name={el.name} userId={el._id} />
         ))}

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
@@ -11,7 +11,7 @@ interface SuccessActionBtnCellProps {
   isFirstRow: boolean
 }
 
-export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = React.memo(props => {
+export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { onClickOkBtn, bTnText, tooltipText, isFirstRow } = props
 

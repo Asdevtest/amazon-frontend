@@ -16,11 +16,11 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-single-permission-form.style'
+import { useStyles } from './add-or-edit-single-permission-form.style'
 
 export const AddOrEditSinglePermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
 
@@ -89,12 +89,12 @@ export const AddOrEditSinglePermissionForm = observer(
       isDoubleKey
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.mainTitle}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.mainTitle}>
           {isEdit ? t(TranslationKey['Change permission']) : t(TranslationKey['New Permission'])}
         </Typography>
 
-        <div className={classNames.form}>
+        <div className={styles.form}>
           <Field
             label={t(TranslationKey.Role)}
             inputComponent={
@@ -104,11 +104,11 @@ export const AddOrEditSinglePermissionForm = observer(
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <MenuItem value={'None'} className={classNames.selectOption}>
+                <MenuItem value={'None'} className={styles.selectOption}>
                   {'none'}
                 </MenuItem>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <MenuItem key={index} value={roleCode} className={classNames.selectOption}>
+                  <MenuItem key={index} value={roleCode} className={styles.selectOption}>
                     {UserRoleCodeMap[roleCode]}
                   </MenuItem>
                 ))}
@@ -141,7 +141,7 @@ export const AddOrEditSinglePermissionForm = observer(
             multiline
             minRows={4}
             maxRows={4}
-            className={classNames.descriptionField}
+            className={styles.descriptionField}
             label={t(TranslationKey.Description)}
             placeholder={t(TranslationKey.Description) + '...'}
             value={formFields.description}
@@ -156,17 +156,17 @@ export const AddOrEditSinglePermissionForm = observer(
           />
 
           <Field
-            containerClasses={classNames.field}
+            containerClasses={styles.field}
             label={t(TranslationKey['Allowed Endpoints'])}
             inputComponent={
-              <div className={classNames.allowUrlsWrapper}>
+              <div className={styles.allowUrlsWrapper}>
                 {formFields.allowedUrls.map((obj, index) => (
-                  <div key={index} className={classNames.urlInputWrapper}>
+                  <div key={index} className={styles.urlInputWrapper}>
                     <Input
                       multiline
                       minRows={1}
                       maxRows={3}
-                      className={classNames.urlInput}
+                      className={styles.urlInput}
                       value={formFields.allowedUrls[index].url}
                       placeholder={'example/example/example/:guid'}
                       onChange={onChangeField('allowedUrls', index, 'url')}
@@ -175,21 +175,21 @@ export const AddOrEditSinglePermissionForm = observer(
                       variant="filled"
                       value={formFields.allowedUrls[index].httpMethod}
                       input={<Input fullWidth />}
-                      className={classNames.httpMethodSelect}
+                      className={styles.httpMethodSelect}
                       onChange={onChangeField('allowedUrls', index, 'httpMethod')}
                     >
-                      <MenuItem value={'None'} className={classNames.selectOption}>
+                      <MenuItem value={'None'} className={styles.selectOption}>
                         {'none'}
                       </MenuItem>
                       {Object.keys(HttpMethod).map((http, idx) => (
-                        <MenuItem key={idx} value={http} className={classNames.selectOption}>
+                        <MenuItem key={idx} value={http} className={styles.selectOption}>
                           {HttpMethod[http]}
                         </MenuItem>
                       ))}
                     </Select>
 
                     <IconButton onClick={() => onRemovePermission(index)}>
-                      <DeleteIcon className={classNames.deleteBtn} />
+                      <DeleteIcon className={styles.deleteBtn} />
                     </IconButton>
                   </div>
                 ))}
@@ -202,7 +202,7 @@ export const AddOrEditSinglePermissionForm = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             disableElevation
             disabled={disableSubmitBtn}
@@ -215,7 +215,7 @@ export const AddOrEditSinglePermissionForm = observer(
 
           <Button
             disableElevation
-            className={classNames.button}
+            className={styles.button}
             color="primary"
             variant="contained"
             onClick={() => onCloseModal()}

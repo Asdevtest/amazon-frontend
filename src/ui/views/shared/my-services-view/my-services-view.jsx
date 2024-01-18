@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -30,7 +30,7 @@ export const MyServicesView = observer(({ history, location }) => {
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.tablePanelWrapper}>
         <div className={styles.toggleBtnAndtaskTypeWrapper}>
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
@@ -99,6 +99,6 @@ export const MyServicesView = observer(({ history, location }) => {
           error={viewModel?.alertShieldSettings.error}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

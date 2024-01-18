@@ -8,36 +8,36 @@ import { UserLink } from '@components/user/user-link'
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './reply-feedback-form.style'
+import { useStyles } from './reply-feedback-form.style'
 
 export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.modalText}>{t(TranslationKey['Reply to a User Feedback'])}</p>
+    <div className={styles.root}>
+      <p className={styles.modalText}>{t(TranslationKey['Reply to a User Feedback'])}</p>
 
-      <div className={classNames.userWrapper}>
+      <div className={styles.userWrapper}>
         <UserLink withAvatar name={feedback.user?.name} userId={feedback.user?._id} />
 
-        <p className={classNames.date}>{formatNormDateTime(feedback.updatedAt)}</p>
+        <p className={styles.date}>{formatNormDateTime(feedback.updatedAt)}</p>
       </div>
 
-      <p className={classNames.feedbackText}>{feedback.text}</p>
+      <p className={styles.feedbackText}>{feedback.text}</p>
 
       <Field
-        containerClasses={classNames.filesWrapper}
-        labelClasses={classNames.label}
+        containerClasses={styles.filesWrapper}
+        labelClasses={styles.label}
         label={t(TranslationKey.Files)}
         inputComponent={<PhotoAndFilesSlider alignLeft smallSlider showPreviews files={feedback.media} />}
       />
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button success onClick={() => onSubmit(feedback.user._id)}>
           {t(TranslationKey.Reply)}
         </Button>
 
-        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { toFixedWithKg } from '@utils/text'
 
@@ -9,7 +9,7 @@ interface ToFixedWithKgSignCellProps {
   fix?: number
 }
 
-export const ToFixedWithKgSignCell: FC<ToFixedWithKgSignCellProps> = React.memo(({ value, fix }) => {
+export const ToFixedWithKgSignCell: FC<ToFixedWithKgSignCellProps> = memo(({ value, fix }) => {
   const { classes: styles } = useStyles()
 
   return (

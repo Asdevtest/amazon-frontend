@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
-import { cx } from '@emotion/css'
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 import zhLocale from 'date-fns/locale/zh-CN'
@@ -28,7 +27,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './date-picker.style'
+import { useStyles } from './date-picker.style'
 
 const getLocalByLanguageTag = languageTag => {
   switch (languageTag) {
@@ -143,7 +142,7 @@ const darkTheme = createTheme({
 })
 
 export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -160,7 +159,7 @@ export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
           views={['year', 'month']}
           // label="Year and Month"
           inputProps={{
-            className: classNames.root,
+            className: styles.root,
           }}
           value={value}
           renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
@@ -175,7 +174,7 @@ export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
 }
 
 export const NewDatePicker = ({ value, onChange, variant = 'standard', error = false, ...restProps }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -201,7 +200,7 @@ export const NewDatePicker = ({ value, onChange, variant = 'standard', error = f
           inputProps={{
             title: placeholder,
             placeholder,
-            className: cx(classNames.root, { [classNames.error]: error }),
+            className: cx(styles.root, { [styles.error]: error }),
           }}
           value={value ? value : null}
           renderInput={params => (
@@ -261,7 +260,7 @@ export const DatePickerDate = ({ value, onChange }) => {
   )
 }
 export const DatePickerTime = ({ value, onChange, ...restProps }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -273,7 +272,7 @@ export const DatePickerTime = ({ value, onChange, ...restProps }) => {
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <TimePicker
-          inputProps={{ placeholder: '10:00', className: classNames.root }}
+          inputProps={{ placeholder: '10:00', className: styles.root }}
           value={value}
           renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
           onChange={newValue => {
@@ -289,7 +288,7 @@ export const DatePickerTime = ({ value, onChange, ...restProps }) => {
 export const DefaultDatePicker = props => {
   const { value, onChange, variant = 'standard', error = false, ...restProps } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -311,7 +310,7 @@ export const DefaultDatePicker = props => {
           value={value}
           renderInput={params => <TextField {...params} helperText={null} />}
           components={{
-            OpenPickerIcon: () => <EventIcon className={classNames.openPickerIcon} />,
+            OpenPickerIcon: () => <EventIcon className={styles.openPickerIcon} />,
           }}
           inputProps={{
             placeholder,

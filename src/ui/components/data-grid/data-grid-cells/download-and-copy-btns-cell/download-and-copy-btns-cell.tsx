@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ interface DownloadAndCopyBtnsCellProps {
   showViewTooltip?: boolean
 }
 
-export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(
+export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
   ({ value, isFirstRow, showViewTooltip = true }) => {
     const { classes: styles, cx } = useStyles()
 

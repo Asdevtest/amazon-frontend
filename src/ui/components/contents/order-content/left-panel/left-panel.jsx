@@ -8,7 +8,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './left-panel.style'
+import { useStyles } from './left-panel.style'
 
 import { ProductParameters } from './product-parameters'
 
@@ -23,15 +23,15 @@ export const LeftPanel = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.orderContainer}>
-      <div className={classNames.product}>
-        <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
+    <div className={styles.orderContainer}>
+      <div className={styles.product}>
+        <img alt="" className={styles.productImg} src={getAmazonImageUrl(order.product.images[0])} />
 
-        <div className={classNames.productInfoWrapper}>
-          <Typography className={classNames.amazonTitle}>
+        <div className={styles.productInfoWrapper}>
+          <Typography className={styles.amazonTitle}>
             {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
           </Typography>
           <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order?.product?.asin} />
@@ -49,13 +49,13 @@ export const LeftPanel = ({
         onDeleteBarcode={onDeleteBarcode}
       />
 
-      <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
-        <Typography className={classNames.containerTitle}>
+      <div className={styles.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
+        <Typography className={styles.containerTitle}>
           {!collapsed ? t(TranslationKey['All product parameters']) : t(TranslationKey.Collapse)}
         </Typography>
       </div>
-      <Divider orientation={'horizontal'} className={classNames.divider} />
-      {narrow && <Divider orientation={'horizontal'} className={classNames.lastDivider} />}
+      <Divider orientation={'horizontal'} className={styles.divider} />
+      {narrow && <Divider orientation={'horizontal'} className={styles.lastDivider} />}
     </div>
   )
 }

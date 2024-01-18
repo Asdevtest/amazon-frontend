@@ -112,7 +112,8 @@ export const useStyles = makeStyles()(theme => ({
 
   menuItems: {
     maxHeight: 204,
-    overflowX: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -136,9 +137,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItemText: {
+    maxWidth: 190,
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
+    wordBreak: 'break-all',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
   },
 
   starButton: {

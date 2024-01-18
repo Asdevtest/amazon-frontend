@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -17,7 +17,7 @@ interface MultilineTextAlignLeftCellProps {
   fourLines?: boolean
 }
 
-export const MultilineTextAlignLeftCell: FC<MultilineTextAlignLeftCellProps> = React.memo(props => {
+export const MultilineTextAlignLeftCell: FC<MultilineTextAlignLeftCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { text, withTooltip, isAsin, pointer, fourLines } = props
 

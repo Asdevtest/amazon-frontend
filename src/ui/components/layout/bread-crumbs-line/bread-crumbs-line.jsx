@@ -13,7 +13,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bread-crumbs-line.style'
+import { useStyles } from './bread-crumbs-line.style'
 
 const exclusionWords = [
   '/client',
@@ -27,7 +27,7 @@ const exclusionWords = [
 ]
 
 export const BreadCrumbsLine = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const location = useLocation()
   const history = useHistory()
   const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
@@ -65,11 +65,11 @@ export const BreadCrumbsLine = observer(() => {
   }
 
   return (
-    <div className={classNames.breadCrumbsWrapper}>
+    <div className={styles.breadCrumbsWrapper}>
       {pathnames.length > 2 || location.pathname === '/profile' ? (
         <Breadcrumbs
           aria-label="breadcrumb"
-          separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+          separator={<NavigateNextIcon fontSize="small" className={styles.seporatorIcon} />}
         >
           {pathnames.map((value, index) => {
             const last = index === pathnames.length - 1
@@ -83,7 +83,7 @@ export const BreadCrumbsLine = observer(() => {
             }
 
             return last ? (
-              <Typography key={to} className={classNames.lastCrumb}>
+              <Typography key={to} className={styles.lastCrumb}>
                 {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
               </Typography>
             ) : (
@@ -91,7 +91,7 @@ export const BreadCrumbsLine = observer(() => {
               //   {t(getCrumbNameKey(to))}
               // </LinkRouter>
 
-              <Typography key={to} className={classNames.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+              <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {getCrumbNameKey(to) === 'Order'
                   ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
                   : t(getCrumbNameKey(to))}

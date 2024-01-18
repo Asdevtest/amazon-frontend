@@ -109,7 +109,7 @@ export const ChatMessagesList: FC<Props> = observer(
     }
 
     useEffect(() => {
-      chatBottomRef.current?.scrollIntoView({})
+      chatBottomRef.current?.scrollIntoView()
     }, [chatId])
 
     useEffect(() => {

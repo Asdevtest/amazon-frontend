@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -53,7 +53,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
+  const [tabIndex, setTabIndex] = useState(tabsValues.ASSIGN_PERMISSIONS)
 
   const [selectedShop, setSelectedShop] = useState(null)
   const [showPermissions, setShowPermissions] = useState(false)

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { t } from 'i18n-js'
 import { useState } from 'react'
 
@@ -9,10 +8,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 
-import { useClassNames } from './data-grid-custom-filter-button.style'
+import { useStyles } from './data-grid-custom-filter-button.style'
 
 export const DataGridCustomFilterButton = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { className } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
@@ -27,11 +26,11 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant="text" className={cx(className, classNames.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, classNames.mainFilterBtnInsert)}>
+      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+        <div className={cx(className, styles.mainFilterBtnInsert)}>
           <FilterAltOutlinedIcon />
 
-          <Typography className={classNames.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
+          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
         </div>
       </Button>
 

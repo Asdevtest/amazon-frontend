@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 import { Line, LineChart } from 'recharts'
 
 interface Props {

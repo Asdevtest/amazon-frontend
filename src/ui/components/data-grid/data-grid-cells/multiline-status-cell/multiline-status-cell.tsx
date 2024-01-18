@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './multiline-status-cell.style'
 
@@ -7,7 +7,7 @@ interface MultilineStatusCellProps {
   leftAlign?: boolean
 }
 
-export const MultilineStatusCell: FC<MultilineStatusCellProps> = React.memo(({ status, leftAlign }) => {
+export const MultilineStatusCell: FC<MultilineStatusCellProps> = memo(({ status, leftAlign }) => {
   const { classes: styles, cx } = useStyles()
 
   return (

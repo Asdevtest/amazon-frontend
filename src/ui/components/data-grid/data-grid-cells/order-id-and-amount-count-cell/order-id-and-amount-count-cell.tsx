@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 
@@ -10,7 +10,7 @@ interface OrderIdAndAmountCountCellProps {
   onClickOrderId: () => void
 }
 
-export const OrderIdAndAmountCountCell: FC<OrderIdAndAmountCountCellProps> = React.memo(
+export const OrderIdAndAmountCountCell: FC<OrderIdAndAmountCountCellProps> = memo(
   ({ orderId, amount, onClickOrderId }) => {
     const { classes: styles } = useStyles()
 

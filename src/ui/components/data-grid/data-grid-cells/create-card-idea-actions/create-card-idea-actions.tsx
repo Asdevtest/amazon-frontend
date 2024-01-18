@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ interface CreateCardIdeaActionsProps {
   }
 }
 
-export const CreateCardIdeaActionsCell: FC<CreateCardIdeaActionsProps> = React.memo(({ rowHandlers, row }) => {
+export const CreateCardIdeaActionsCell: FC<CreateCardIdeaActionsProps> = memo(({ rowHandlers, row }) => {
   return (
     <Button
       small

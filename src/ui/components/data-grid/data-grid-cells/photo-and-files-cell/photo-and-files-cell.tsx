@@ -1,16 +1,16 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './photo-and-files-cell.style'
 
 interface PhotoAndFilesCellProps {
-  files: IUploadFile[]
+  files: UploadFileType[]
 }
 
-export const PhotoAndFilesCell: FC<PhotoAndFilesCellProps> = React.memo(({ files }) => {
+export const PhotoAndFilesCell: FC<PhotoAndFilesCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
   return (

@@ -17,7 +17,7 @@ import { t } from '@utils/translations'
 
 import { styles } from './auth-form.style'
 
-const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSubmit }) => {
+const AuthFormRaw = ({ classes: styles, formFields, onChangeFormField, onSubmit }) => {
   const onSubmitForm = event => {
     event.preventDefault()
     setIsSubmit(true)
@@ -37,52 +37,52 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
   const [isSubmit, setIsSubmit] = useState(false)
 
   return (
-    <div className={classNames.root}>
-      <form className={classNames.formFields} onSubmit={onSubmitForm}>
+    <div className={styles.root}>
+      <form className={styles.formFields} onSubmit={onSubmitForm}>
         <Field
           withIcon
           autoComplete="username"
           error={isSubmit && formFields.email === '' && t(TranslationKey['The field must be filled in'])}
-          containerClasses={classNames.field}
-          inputClasses={classNames.input}
+          containerClasses={styles.field}
+          inputClasses={styles.input}
           label={t(TranslationKey.Email)}
-          labelClasses={classNames.labelField}
+          labelClasses={styles.labelField}
           placeholder={t(TranslationKey.Email)}
           type="email"
           value={formFields.email}
           startAdornment={
-            <InputAdornment position="end" className={classNames.inputAdornment}>
+            <InputAdornment position="end" className={styles.inputAdornment}>
               <MailOutlineIcon color="primary" />
             </InputAdornment>
           }
           onChange={onChangeFormField('email')}
         />
-        <div className={classNames.field}>
+        <div className={styles.field}>
           <Field
             withIcon
             autoComplete="current-password"
             error={isSubmit && formFields.password === '' && t(TranslationKey['The field must be filled in'])}
             label={t(TranslationKey.Password)}
-            labelClasses={classNames.labelField}
-            inputClasses={classNames.input}
+            labelClasses={styles.labelField}
+            inputClasses={styles.input}
             placeholder={t(TranslationKey.Password)}
             type={visibilityPass ? 'text' : 'password'}
             value={formFields.password}
             startAdornment={
-              <InputAdornment position="end" className={classNames.inputAdornment}>
+              <InputAdornment position="end" className={styles.inputAdornment}>
                 <LockIcon color="primary" />
               </InputAdornment>
             }
             endAdornment={
               <InputAdornment
                 position="start"
-                className={classNames.inputAdornmentVisibility}
+                className={styles.inputAdornmentVisibility}
                 onClick={() => setVisibilityPass(!visibilityPass)}
               >
                 {visibilityPass ? (
-                  <VisibilityIcon className={classNames.visibilityIcon} />
+                  <VisibilityIcon className={styles.visibilityIcon} />
                 ) : (
-                  <VisibilityOffIcon className={classNames.visibilityIcon} />
+                  <VisibilityOffIcon className={styles.visibilityIcon} />
                 )}
               </InputAdornment>
             }
@@ -90,14 +90,14 @@ const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSub
           />
         </div>
 
-        <div className={classNames.formFooter}>
-          <div className={classNames.checkboxWrapper} onClick={onChangeFormField('remember')}>
-            <Checkbox className={classNames.checkbox} color="primary" checked={formFields.remember} />
-            <Typography className={classNames.label}>{t(TranslationKey['Remember me'])}</Typography>
+        <div className={styles.formFooter}>
+          <div className={styles.checkboxWrapper} onClick={onChangeFormField('remember')}>
+            <Checkbox className={styles.checkbox} color="primary" checked={formFields.remember} />
+            <Typography className={styles.label}>{t(TranslationKey['Remember me'])}</Typography>
           </div>
-          <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
+          <Typography className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
         </div>
-        <Button type="submit" className={classNames.loginBtn}>
+        <Button type="submit" className={styles.loginBtn}>
           {t(TranslationKey.Login)}
         </Button>
       </form>

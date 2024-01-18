@@ -12,7 +12,7 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './my-services.style'
+import { useStyles } from './my-services.style'
 
 export const MyServicesInfo = ({
   announcementData,
@@ -21,7 +21,7 @@ export const MyServicesInfo = ({
   onClickCloseAnnouncementBtn,
   onClickReview,
 }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const descriptionRef = useRef()
 
   const [showFullDescription, setShowFullDescription] = useState(false)
@@ -37,25 +37,25 @@ export const MyServicesInfo = ({
   }, [announcementData])
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.userWrapper}>
-        <div className={classNames.userInfoAndFooterWrapper}>
-          <div className={classNames.userInfoWrapper}>
+    <div className={styles.root}>
+      <div className={styles.userWrapper}>
+        <div className={styles.userInfoAndFooterWrapper}>
+          <div className={styles.userInfoWrapper}>
             {announcementData?.createdBy?._id && (
-              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
+              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={styles.userAvatar} />
             )}
 
-            <div className={classNames.userInfoSubWrapper}>
+            <div className={styles.userInfoSubWrapper}>
               <UserLink
                 blackText
                 customStyles={{ maxWidth: 500, fontSize: 18 }}
                 name={announcementData?.createdBy?.name}
                 userId={announcementData?.createdBy?._id}
               />
-              <div className={classNames.userRatingWrapper}>
+              <div className={styles.userRatingWrapper}>
                 <Button
                   variant="text"
-                  className={classNames.reviewText}
+                  className={styles.reviewText}
                   onClick={() => onClickReview(announcementData?.createdBy)}
                 >
                   {t(TranslationKey.Reviews)}
@@ -65,37 +65,37 @@ export const MyServicesInfo = ({
             </div>
           </div>
 
-          <div className={classNames.userMoreInfoWrapper}>
-            <div className={classNames.titleAndTaksTypeWrapper}>
-              <Typography className={classNames.announcementText}>{announcementData?.title}</Typography>
-              <div className={classNames.descriptionWrapper}>
-                <Typography className={classNames.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
-                <Typography className={classNames.announcementText}>
+          <div className={styles.userMoreInfoWrapper}>
+            <div className={styles.titleAndTaksTypeWrapper}>
+              <Typography className={styles.announcementText}>{announcementData?.title}</Typography>
+              <div className={styles.descriptionWrapper}>
+                <Typography className={styles.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
+                <Typography className={styles.announcementText}>
                   {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
                 </Typography>
               </div>
             </div>
             <div
-              className={cx(classNames.descriptionTextWrapper, {
-                [classNames.showFullDescription]: showFullDescription,
+              className={cx(styles.descriptionTextWrapper, {
+                [styles.showFullDescription]: showFullDescription,
               })}
             >
-              <p ref={descriptionRef} className={cx(classNames.regularText, classNames.description)}>
+              <p ref={descriptionRef} className={cx(styles.regularText, styles.description)}>
                 {announcementData?.description}
               </p>
             </div>
           </div>
         </div>
-        <div className={classNames.photosWrapper}>
+        <div className={styles.photosWrapper}>
           <PhotoAndFilesSlider withoutFiles customSlideHeight={150} files={announcementData?.linksToMediaFiles} />
         </div>
       </div>
 
-      <div className={classNames.footerWrapper}>
+      <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
           <Button
             variant={'text'}
-            className={classNames.detailsButton}
+            className={styles.detailsButton}
             onClick={() => setShowFullDescription(prev => !prev)}
           >
             {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
@@ -104,16 +104,16 @@ export const MyServicesInfo = ({
           <div />
         )}
 
-        <div className={classNames.buttonsWrapper}>
-          <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+        <div className={styles.buttonsWrapper}>
+          <Button danger className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 
-          <Button className={classNames.editButton} onClick={onClickEditBtn}>
+          <Button className={styles.editButton} onClick={onClickEditBtn}>
             {t(TranslationKey.Edit)}
           </Button>
 
-          <Button className={classNames.backButton} onClick={onClickBackBtn}>
+          <Button className={styles.backButton} onClick={onClickBackBtn}>
             {t(TranslationKey.Back)}
           </Button>
         </div>

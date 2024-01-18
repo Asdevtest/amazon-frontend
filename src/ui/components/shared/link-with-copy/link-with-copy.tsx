@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 
 import { CopyValue } from '@components/shared/copy-value'
-import { useStyles } from '@components/shared/link-with-copy/link-with-copy.styles'
+import { useStyles } from '@components/shared/link-with-copy/link-with-copy.style'
 
 interface LinkWithCopyProps {
   url: string

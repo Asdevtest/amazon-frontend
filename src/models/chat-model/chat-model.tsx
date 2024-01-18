@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { plainToInstance } from 'class-transformer'
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
@@ -43,6 +42,7 @@ class ChatModelStatic {
 
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
+  public loadedVideos: string[] = []
 
   public typingUsers: OnTypingMessageResponse[] = []
 
@@ -221,6 +221,8 @@ class ChatModelStatic {
 
       if (fileData.type.startsWith('image')) {
         this.loadedImages.push(fileUrl)
+      } else if (fileData.type.startsWith('video')) {
+        this.loadedVideos.push(fileUrl)
       } else {
         this.loadedFiles.push(fileUrl)
       }
@@ -235,23 +237,41 @@ class ChatModelStatic {
     }
 
     if (params.files?.length) {
-      for (let i = 0; i < params.files.length; i++) {
-        const file: File = params.files[i]
-
-        await this.onPostFile(file)
+      for (const file of params.files) {
+        if (typeof file === 'string') {
+          this.loadedVideos.push(file)
+        } else {
+          await this.onPostFile(file?.file)
+        }
       }
     }
 
-    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles, images: this.loadedImages }
+    const messageWithoutFiles = {
+      ...params,
+      files: [],
+      images: this.loadedImages,
+      video: this.loadedVideos,
+    }
 
+    if (params.text || this.loadedImages.length || this.loadedVideos.length) {
+      await this.websocketChatService.sendMessage(messageWithoutFiles)
+    }
+
+    if (this.loadedFiles.length) {
+      const messageWithFiles = {
+        chatId: params.chatId,
+        crmItemId: params.crmItemId,
+        text: '',
+        files: this.loadedFiles,
+        user: params.user,
+      }
+
+      await this.websocketChatService.sendMessage(messageWithFiles)
+    }
+
+    this.loadedVideos = []
     this.loadedImages = []
     this.loadedFiles = []
-
-    await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
-
-    const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
-
-    return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
   public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {

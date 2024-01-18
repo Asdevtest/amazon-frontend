@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -7,7 +6,7 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useClassNames } from './interconnected-products.styles'
+import { useStyles } from './interconnected-products.style'
 
 import { Button } from '../buttons/button'
 import { MinusIcon, ParentProductIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
@@ -29,36 +28,36 @@ interface InterconnectedProductsProps {
 }
 
 export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { variationProduct, isParent, showRemoveButton, productId, unbindProductHandler, navigateToProduct } = props
   const { asin, skuByClient, images, _id } = variationProduct
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       {isParent ? (
         // @ts-ignore
-        <ParentProductIcon className={classNames.parentVariationIcon} />
+        <ParentProductIcon className={styles.parentVariationIcon} />
       ) : (
-        <VariationIcon className={classNames.variationIcon} />
+        <VariationIcon className={styles.variationIcon} />
       )}
 
-      <div className={classNames.sourceProductWrapper}>
+      <div className={styles.sourceProductWrapper}>
         <SourceProduct img={getAmazonImageUrl(images?.[0])} asin={asin || ''} sku={skuByClient} />
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <Button variant="text" className={classNames.button} onClick={() => navigateToProduct(_id)}>
-          <ShareLinkIcon className={cx(classNames.icon, classNames.shareLinkIcon)} />
+      <div className={styles.buttonsWrapper}>
+        <Button variant="text" className={styles.button} onClick={() => navigateToProduct(_id)}>
+          <ShareLinkIcon className={cx(styles.icon, styles.shareLinkIcon)} />
         </Button>
 
         {showRemoveButton && (
           <Button
             danger
-            className={cx(classNames.button, classNames.removeButton)}
+            className={cx(styles.button, styles.removeButton)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >
-            <MinusIcon className={cx(classNames.icon, classNames.removeIcon)} />
+            <MinusIcon className={cx(styles.icon, styles.removeIcon)} />
           </Button>
         )}
       </div>
