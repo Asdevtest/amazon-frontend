@@ -40,7 +40,7 @@ export const useAdditionalInfo = ({
   const [currentDestinationId, setCurrnetDestinationId] = useState<string | null>(null)
 
   useEffect(() => {
-    setCurrnetDestinationId(formFields?.destinationId)
+    setCurrnetDestinationId(formFields?.variationTariff?.destinationId)
   }, [formFields?.destinationId])
 
   const handleToggleConfirmModal = () => setShowConfirmModal(!showConfirmModal)

@@ -39,7 +39,7 @@ export interface IOrder {
   trackingNumberChina: string
   transparencyFile: string
   updatedAt: string
-  variationTariff: IDestinationVariationApproximateCalculations | null
+  variationTariff: IDestinationVariationApproximateCalculations
   variationTariffId: string | null
   yuanToDollarRate: number
   _id: string
