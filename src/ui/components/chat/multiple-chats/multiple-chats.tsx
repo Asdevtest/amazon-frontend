@@ -17,7 +17,7 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -58,7 +58,7 @@ interface Props {
   searchPhrase?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, files: IUploadFile[], chat: string, replyMessageId: string | null) => void
+  onSubmitMessage: (message: string, files: UploadFileType[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -188,7 +188,7 @@ export const MultipleChats = observer(
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
                 currentOpponent={currentOpponent}
-                onSubmitMessage={(message: string, files: IUploadFile[], replyMessageId: string | null) =>
+                onSubmitMessage={(message: string, files: UploadFileType[], replyMessageId: string | null) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                 }

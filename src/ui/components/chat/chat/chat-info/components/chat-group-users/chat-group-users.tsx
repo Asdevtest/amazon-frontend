@@ -1,11 +1,13 @@
+import { FC, memo } from 'react'
+
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 
-import { useChatGroupUsersStyles } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users.styles'
+import { useStyles } from '@components/chat/chat/chat-info/components/chat-group-users/chat-group-users.styles'
 import { Button } from '@components/shared/buttons/button'
 import { MemberPlus } from '@components/shared/svg-icons'
 
@@ -20,16 +22,16 @@ interface ChatGroupUsersProps {
   onClickEditGroupChatInfo: () => void
 }
 
-export const ChatGroupUsers = (props: ChatGroupUsersProps) => {
+export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
   const { chat, userId, onRemoveUsersFromGroupChat, onClickAddUsersToGroupChat } = props
-  const { classes: styles } = useChatGroupUsersStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.groupSettingsWrapper}>
       {userId === chat.info?.createdBy ? (
         <Button onClick={onClickAddUsersToGroupChat}>
           <div className={styles.addMemberBtnWrapper}>
-            <Typography className={styles.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
+            <p className={styles.addMemberBtnText}>{t(TranslationKey['Add member'])}</p>
 
             <MemberPlus className={styles.arrowIcon} />
           </div>
@@ -44,9 +46,9 @@ export const ChatGroupUsers = (props: ChatGroupUsersProps) => {
             <div key={el._id} className={styles.memberWrapper}>
               <div className={styles.memberInfo}>
                 <Avatar src={getUserAvatarSrc(el._id)} className={styles.avatarWrapper} />
-                <Typography className={styles.opponentName}>{el?.name}</Typography>
+                <p className={styles.opponentName}>{el?.name}</p>
                 {el._id === chat.info?.createdBy ? (
-                  <Typography className={styles.ownerSign}>{`(${t(TranslationKey.Owner)})`}</Typography>
+                  <p className={styles.ownerSign}>{`(${t(TranslationKey.Owner)})`}</p>
                 ) : null}
               </div>
 
@@ -62,4 +64,4 @@ export const ChatGroupUsers = (props: ChatGroupUsersProps) => {
       </div>
     </div>
   )
-}
+})

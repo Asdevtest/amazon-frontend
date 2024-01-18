@@ -1,11 +1,10 @@
-import { cx } from '@emotion/css'
 import { FC, useState } from 'react'
 
-import { Box } from '@mui/material'
-
-import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
+import { useStyles } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
+import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 interface ImagesTileProps {
@@ -16,7 +15,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isShowImagePreview, setIsShowImagePreview] = useState(false)
 
-  const { classes: styles } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const handlePreview = (index: number) => {
     setSelectedImage(index)
@@ -25,13 +24,17 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
 
   return (
     <>
-      <Box
+      <div
         className={cx(styles.root, styles[`imageTile${images.length > 6 ? 6 : images.length}` as keyof typeof styles])}
       >
         {images.slice(0, 6).map((el, index) => (
-          <Box key={index} onClick={() => handlePreview(index)}>
-            <img className={styles.image} src={getAmazonImageUrl(el, true)} alt={index.toString()} loading="lazy" />
-          </Box>
+          <div key={index} className={styles.imageWrapper} onClick={() => handlePreview(index)}>
+            {checkIsVideoLink(el) ? (
+              <VideoPreloader wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
+            ) : (
+              <img className={styles.image} src={getAmazonImageUrl(el, true)} alt={index.toString()} loading="lazy" />
+            )}
+          </div>
         ))}
 
         {images.length > 6 && (
@@ -39,7 +42,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
             <p>+{images.length - 6}</p>
           </button>
         )}
-      </Box>
+      </div>
 
       {isShowImagePreview && (
         <ImageModal

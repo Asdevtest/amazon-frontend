@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useChatGroupUsersStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   groupSettingsWrapper: {
     height: '100%',
     width: '100%',

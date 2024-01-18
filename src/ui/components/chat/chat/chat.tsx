@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
@@ -11,6 +13,7 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
+import { YOUTUBE_LINK } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -25,7 +28,7 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -40,7 +43,7 @@ import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-m
 
 export interface RenderAdditionalButtonsParams {
   message: string
-  files: IUploadFile[]
+  files: UploadFileType[]
 }
 
 export interface OnEmojiSelectEvent {
@@ -54,7 +57,7 @@ export interface OnEmojiSelectEvent {
 
 export interface MessageStateParams {
   message: string
-  files: IUploadFile[]
+  files: UploadFileType[]
 }
 
 interface Props {
@@ -69,7 +72,7 @@ interface Props {
   searchPhrase?: string
   classNamesWrapper?: string
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IUploadFile[], replyMessageId: string | null) => void
+  onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
@@ -102,25 +105,32 @@ export const Chat: FC<Props> = observer(
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
 
-    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
-    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
-    const messagesLoadingStatus = useRef(false)
+    const messageInitialState: MessageStateParams = {
+      message: '',
+      files: [],
+    }
 
-    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
+    const userContainedInChat = chat.users.some(el => el._id === userId)
 
+    const [message, setMessage] = useState(messageInitialState.message)
+    const [files, setFiles] = useState<UploadFileType[]>(messageInitialState.files)
+
+    const [focused, setFocused] = useState(false)
     const [showFiles, setShowFiles] = useState(false)
-
     const [isShowEmojis, setIsShowEmojis] = useState(false)
-
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
+    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
+    const messagesLoadingStatus = useRef(false)
+    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
+
+    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
+    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
-    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
-
-    const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
 
@@ -160,19 +170,6 @@ export const Chat: FC<Props> = observer(
         }
       }
     }, [chat?._id])
-
-    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
-      message: '',
-      files: [],
-    }
-
-    const [message, setMessage] = useState(messageInitialState.message)
-
-    const [files, setFiles] = useState<IUploadFile[]>(
-      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
-    )
-
-    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     useEffect(() => {
       if (isSendTypingPossible && message) {
@@ -220,7 +217,7 @@ export const Chat: FC<Props> = observer(
       }
 
       setMessage(messageInitialState.message)
-      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
+      setFiles(messageInitialState.files)
       setIsShowChatInfo(false)
 
       return () => {
@@ -240,7 +237,7 @@ export const Chat: FC<Props> = observer(
       setMessage(value)
       SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
-    const changeFilesAndState = (value: IUploadFile[]) => {
+    const changeFilesAndState = (value: UploadFileType[]) => {
       setFiles(value)
       SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
@@ -266,7 +263,12 @@ export const Chat: FC<Props> = observer(
     }
 
     const onPasteFiles = async (evt: React.ClipboardEvent) => {
-      if (evt.clipboardData.files.length === 0) {
+      const сopiedText = evt.clipboardData.getData('Text')
+
+      if (сopiedText.includes(YOUTUBE_LINK)) {
+        setShowFiles(true)
+        changeFilesAndState([...files, сopiedText])
+      } else if (evt.clipboardData.files.length === 0) {
         return
       } else {
         const filesArr = Array.from(evt.clipboardData.files)
@@ -275,7 +277,7 @@ export const Chat: FC<Props> = observer(
 
         evt.preventDefault()
 
-        const readyFilesArr: IUploadFile[] = filesArr.map((el: File) => ({
+        const readyFilesArr: UploadFileType[] = filesArr.map((el: File) => ({
           data_url: URL.createObjectURL(el),
           file: new File([el], el.name?.replace(/ /g, ''), {
             type: el.type,
@@ -301,8 +303,6 @@ export const Chat: FC<Props> = observer(
     }, [toScrollMesId])
 
     const disabledSubmit = !message.trim() && !files.length
-
-    const userContainedInChat = chat.users.some(el => el._id === userId)
 
     return (
       <>
@@ -432,7 +432,12 @@ export const Chat: FC<Props> = observer(
               onFocus={!isTabletResolution ? onFocus : undefined}
               onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.includes(YOUTUBE_LINK)) {
+                  return
+                }
+                changeMessageAndState(e.target.value)
+              }}
               onPaste={evt => onPasteFiles(evt)}
             />
 

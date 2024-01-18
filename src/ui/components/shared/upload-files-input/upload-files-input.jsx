@@ -122,9 +122,9 @@ export const UploadFilesInput = observer(props => {
     }
   }
 
-  const renderImageInfo = (img, imgName) => (
+  const renderImageInfo = (img, imgName, isCurrentFileVideoType) => (
     <div className={styles.tooltipWrapper}>
-      {isVideoType(img) ? (
+      {isCurrentFileVideoType ? (
         <div className={cx(styles.preloaderContainer, styles.preloaderContainerTooltip)}>
           <VideoPlayer videoSource={img} height="200px" />
           <div className={styles.preloader}>
@@ -156,7 +156,13 @@ export const UploadFilesInput = observer(props => {
 
   const [showImages, setShowImages] = useState(true)
 
-  const isVideoType = slide => checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
+  const isVideoType = slide => {
+    if (typeof slide === 'string') {
+      return checkIsVideoLink(slide)
+    } else {
+      return checkIsVideoLink(slide?.file?.name) || checkIsVideoLink(slide?.file?.type)
+    }
+  }
 
   return (
     SettingsModel.languageTag && (
@@ -278,14 +284,15 @@ export const UploadFilesInput = observer(props => {
                 {imageList.map((image, index) => {
                   const currentImage = typeof image === 'string' ? getAmazonImageUrl(image, true) : image?.data_url
                   const currentName = typeof image === 'string' ? image : image?.file.name
+                  const isCurrentFileVideoType = isVideoType(image)
 
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
                       <Tooltip
-                        title={renderImageInfo(currentImage, currentName)}
+                        title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}
                         classes={{ popper: styles.imgTooltip }}
                       >
-                        {isVideoType(currentImage) ? (
+                        {isCurrentFileVideoType ? (
                           <div className={styles.preloaderContainer}>
                             <VideoPlayer videoSource={currentImage} height="55px" />
                             <div className={styles.preloader}>

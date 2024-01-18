@@ -1,9 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useChatInfoStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
+    gap: '5px',
     width: '100%',
     flex: 1,
     height: '100%',
@@ -61,5 +62,9 @@ export const useChatInfoStyles = makeStyles()(theme => ({
 
   noData: {
     textAlign: 'center',
+  },
+
+  videoWrapper: {
+    cursor: 'pointer',
   },
 }))
