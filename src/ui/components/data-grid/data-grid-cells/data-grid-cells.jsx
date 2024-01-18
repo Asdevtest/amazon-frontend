@@ -1,4 +1,4 @@
-export { ActionButtons } from './action-buttons-cell/action-buttons-cell'
+export { ActionButtonsCell } from './action-buttons-cell/action-buttons-cell'
 export { ActiveBarcodeCell } from './active-barcode-cell/active-barcode-cell'
 export { ActualCostWithDeliveryPerUnit } from './actual-cost-with-delivery-per-unit/actual-cost-with-delivery-per-unit'
 export { ActualCostWithDelivery } from './actual-cost-with-delivery/actual-cost-with-delivery'

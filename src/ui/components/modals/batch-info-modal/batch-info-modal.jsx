@@ -292,7 +292,7 @@ export const BatchInfoModal = observer(
                 inputClasses={cx(styles.infoField, styles.dividerField)}
                 label={t(TranslationKey.Divider)}
                 labelClasses={styles.subFieldLabel}
-                value={currentBatch.volumeWeightDivide}
+                value={currentBatch?.volumeWeightDivide}
               />
             </div>
 
@@ -303,7 +303,7 @@ export const BatchInfoModal = observer(
               containerClasses={cx(styles.sumField, styles.shippinCostContainer)}
               inputClasses={cx(styles.infoField, styles.shippinCostContainer)}
               labelClasses={cx(styles.subFieldLabel)}
-              value={toFixed(currentBatch.calculatedShippingCost, 2) || 0}
+              value={toFixed(currentBatch?.calculatedShippingCost, 2) || 0}
             />
 
             <Field

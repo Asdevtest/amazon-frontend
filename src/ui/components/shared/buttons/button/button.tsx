@@ -28,7 +28,7 @@ interface Props extends PropsWithChildren {
   color?: string
   success?: boolean
   danger?: boolean
-  border?: boolean
+  outlined?: boolean
   className?: string
   disabled?: boolean
   onClick?: (target?: any) => void
@@ -52,7 +52,7 @@ export const Button: FC<Props> = memo(
     children,
     success,
     danger,
-    border,
+    outlined,
     className,
     disabled,
     btnWrapperStyle,
@@ -83,13 +83,12 @@ export const Button: FC<Props> = memo(
               {
                 [styles.success]: success,
                 [styles.danger]: danger,
-                [styles.border]: border,
+                [styles.outlined]: outlined,
                 [styles.defaultButton]: !success && !danger && !variant,
                 [styles.disabled]: disabled,
                 [styles.small]: small,
                 [styles.transparent]: transparent,
                 [styles.casual]: casual,
-                [styles.outlined]: variant === 'outlined',
               },
               className,
             ),
