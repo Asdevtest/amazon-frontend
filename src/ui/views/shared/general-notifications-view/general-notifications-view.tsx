@@ -122,11 +122,9 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
+            rows={viewModel.notificationsData}
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
-            sortingMode="client"
-            paginationMode="client"
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{

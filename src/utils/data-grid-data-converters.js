@@ -1069,7 +1069,7 @@ export const notificationDataConverter = data =>
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
           },
-
+    sub: item.type === NotificationType.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
 
