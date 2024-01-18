@@ -8,7 +8,7 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { formatNormDateTime } from '@utils/date-time'
+import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
@@ -50,9 +50,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     field: 'etd',
     headerName: t(TranslationKey['ETD (date of shipment)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell text={formatNormDateTime(row.boxes[0].logicsTariff.etd)} />
-    ),
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row.boxes[0].logicsTariff.etd)} />,
     width: 110,
   },
 
@@ -60,9 +58,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     field: 'eta',
     headerName: t(TranslationKey['ETA (arrival date)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell text={formatNormDateTime(row.boxes[0].logicsTariff.eta)} />
-    ),
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row.boxes[0].logicsTariff.eta)} />,
     width: 110,
   },
 

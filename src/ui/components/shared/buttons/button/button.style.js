@@ -56,6 +56,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   outlined: {
     background: 'none',
+    color: theme.palette.text.general,
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:hover': {
