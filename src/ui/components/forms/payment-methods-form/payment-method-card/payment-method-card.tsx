@@ -91,7 +91,6 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
             dragAndDropBtnHeight={40}
             maxHeight={90}
             imageListWrapperStyles={styles.imageListWrapperStyles}
-            filesLength={payment.paymentImages.length}
             сontainerStyles={styles.containerClasses}
             images={payment.paymentImages}
             setImages={handleChangeImagesForLoad}
