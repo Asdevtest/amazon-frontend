@@ -76,8 +76,6 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            sortingMode="client"
-            paginationMode="client"
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}

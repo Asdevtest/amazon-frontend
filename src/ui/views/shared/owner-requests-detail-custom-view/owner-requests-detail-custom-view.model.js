@@ -257,7 +257,7 @@ export class OwnerRequestDetailCustomViewModel {
         crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
-        files: files?.map(item => item?.file),
+        files,
         user: {
           name: UserModel.userInfo.name,
           _id: UserModel.userInfo._id,

@@ -114,14 +114,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   listingCheckbox: {
-    color: theme.palette.primary.main,
+    color: '#fff',
   },
 
   listingText: {
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.primary.main,
   },
 
   listingButton: {
