@@ -30,7 +30,7 @@ export const useAdditionalInfo = ({
   setDestinationsFavouritesItem,
   setFormFields,
 }: AdditionalInfoProps) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -188,6 +188,7 @@ export const useAdditionalInfo = ({
   const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
   const shoWcurrentTariff = formFields.storekeeperId && (currentTariffName || currentTariffRate)
   const minDate = dayjs().add(2, 'day')
+  const isNotValidDate = new Date(formFields.deadline as string) < new Date(minDate.toString())
 
   const additionalInfoFieldsConfig: IFieldConfig[] = [
     {
@@ -197,7 +198,7 @@ export const useAdditionalInfo = ({
           disabled={!isOrderEditable}
           minDate={minDate}
           value={formFields.deadline}
-          className={styles.inputDeadline}
+          className={cx(styles.inputDeadline, { [styles.notValidDeadline]: isNotValidDate })}
           onChange={onChangeStringField('deadline')}
         />
       ),

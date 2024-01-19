@@ -77,10 +77,11 @@ export const useStyles = makeStyles()(theme => ({
   inputDeadline: {
     width: 140,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
+    border: `1px solid ${theme.palette.background.general}`,
     borderRadius: 6,
 
     div: {
-      padding: '2px 5px 2px 10px',
+      padding: '1px 5px 1px 10px',
       borderRadius: 6,
 
       input: {
@@ -96,5 +97,9 @@ export const useStyles = makeStyles()(theme => ({
         border: 'none',
       },
     },
+  },
+
+  notValidDeadline: {
+    border: `1px solid ${theme.palette.text.red}`,
   },
 }))
