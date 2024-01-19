@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { CSSProperties, FC, memo } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
@@ -8,17 +8,17 @@ import { useStyles } from './request-status-cell.style'
 interface RequestStatusCellProps {
   status: string
   isChat?: boolean
-  styles?: React.CSSProperties
+  textStyle?: CSSProperties
 }
 
-export const RequestStatusCell: FC<RequestStatusCellProps> = memo(({ status, isChat, styles }) => {
-  const { classes: style, cx } = useStyles()
+export const RequestStatusCell: FC<RequestStatusCellProps> = memo(({ status, isChat, textStyle }) => {
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={style.statusWrapper}>
+    <div className={styles.statusWrapper}>
       <p
-        className={cx(style.statusText, { [style.statusTextChat]: isChat })}
-        style={{ ...styles, color: colorByStatus(status) }}
+        className={cx(styles.statusText, { [styles.statusTextChat]: isChat })}
+        style={{ ...textStyle, color: colorByStatus(status) }}
       >
         {MyRequestStatusTranslate(status)}
       </p>

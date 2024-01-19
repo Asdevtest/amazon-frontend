@@ -78,7 +78,7 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
         >
           {checkIsString(textForRender) && !withLineBreaks
             ? textForRender.replace(/\n/g, ' ')
-            : textForRender || noText || '-'}
+            : textForRender || noText || '0'}
         </p>
       </Tooltip>
     </div>

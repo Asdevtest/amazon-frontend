@@ -10,7 +10,7 @@ import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime } from '@utils/date-time'
-import { checkAndMakeAbsoluteUrl } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
@@ -59,7 +59,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                 inputComponent={
                   <div className={styles.infoItemWrapper}>
                     <p className={styles.infoItemText}>
-                      {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
+                      {getShortenStringIfLongerThanCount(message.data.proposal.details.amazonOrderId, 30) ||
+                        t(TranslationKey.Missing)}
                     </p>
 
                     {message.data.proposal.details.amazonOrderId && (

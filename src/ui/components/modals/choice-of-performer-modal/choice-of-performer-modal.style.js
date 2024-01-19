@@ -78,9 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: '25px',
-    right: '25px',
   },
 
   cancelButton: {

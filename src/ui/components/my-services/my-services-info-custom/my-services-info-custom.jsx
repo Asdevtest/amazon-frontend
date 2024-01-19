@@ -110,7 +110,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
                 <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
                 <RequestStatusCell
                   status={request?.request.status}
-                  styles={{ fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left' }}
+                  textStyle={{ fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left' }}
                 />
               </div>
             </div>
