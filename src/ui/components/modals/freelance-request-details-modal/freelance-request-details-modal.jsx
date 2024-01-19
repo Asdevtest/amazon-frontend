@@ -7,6 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -22,6 +24,7 @@ import { FreelanceRequestDetailsModalControls } from './freelance-request-detail
 
 export const FreelanceRequestDetailsModal = memo(props => {
   const {
+    userInfo,
     request,
     details,
     requestProposals,
@@ -123,35 +126,54 @@ export const FreelanceRequestDetailsModal = memo(props => {
           </div>
 
           <div className={styles.requestInfo}>
-            <div className={styles.category}>
-              <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
-              <RequestTermsList request={request} />
+            <div className={styles.requestInfoWrapper}>
+              <div className={styles.category}>
+                <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+                <RequestTermsList request={request} />
+              </div>
+
+              {details?.conditions && (
+                <div className={styles.category}>
+                  <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
+                  <CustomTextEditor readOnly editorMaxHeight={styles.editorWrapper} conditions={details?.conditions} />
+                </div>
+              )}
             </div>
 
-            {details?.conditions && (
-              <div className={styles.category}>
-                <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
-                <CustomTextEditor readOnly editorClassName={styles.editorWrapper} conditions={details?.conditions} />
-              </div>
-            )}
+            <div className={styles.buttonsWrapper}>
+              <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+                {t(TranslationKey.Result)}
+              </Button>
+
+              {isRequestOwner && (
+                <Button
+                  border
+                  outlined
+                  className={styles.listingButton}
+                  onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
+                >
+                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton}>
+                    <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
+                  </Checkbox>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
         <FreelanceRequestDetailsModalControls
+          userInfo={userInfo}
           isRequestOwner={isRequestOwner}
           isAcceptedProposals={isAcceptedProposals}
           request={request}
-          requestProposals={requestProposals}
           onClickSuggest={onClickSuggest}
           onClickOpenNewTab={onClickOpenNewTab}
           onClickPublishBtn={onClickPublishBtn}
           onClickEditBtn={onClickEditBtn}
           onClickCancelBtn={onClickCancelBtn}
-          onToggleUploadedToListing={onToggleUploadedToListing}
           onRecoverRequest={onRecoverRequest}
           onClickAbortBtn={onClickAbortBtn}
           onClickMarkAsCompletedBtn={onClickMarkAsCompletedBtn}
-          onClickResultBtn={onClickResultBtn}
         />
       </div>
     </Modal>

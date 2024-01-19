@@ -182,6 +182,7 @@ export const MyRequestsView = observer(({ history }) => {
 
       <FreelanceRequestDetailsModal
         isRequestOwner
+        userInfo={viewModel.userInfo}
         isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
         requestProposals={viewModel.curProposal}

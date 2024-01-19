@@ -174,13 +174,7 @@ export const clientInventoryColumns = (
   {
     field: 'amountInOrders',
     headerName: 'Order',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'Order'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
     renderCell: params => (
       <OrderIdAndAmountCountCell
