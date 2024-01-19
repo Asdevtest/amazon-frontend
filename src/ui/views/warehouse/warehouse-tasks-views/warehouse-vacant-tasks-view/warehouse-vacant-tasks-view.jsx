@@ -109,8 +109,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            sortingMode="client"
-            paginationMode="client"
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}

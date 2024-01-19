@@ -79,8 +79,6 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
             localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
-            sortingMode="client"
-            paginationMode="client"
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}

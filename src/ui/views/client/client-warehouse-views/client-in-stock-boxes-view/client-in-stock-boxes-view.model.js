@@ -12,12 +12,15 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
+import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
+import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
+import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
 import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
 import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
@@ -55,6 +58,24 @@ export class ClientInStockBoxesViewModel {
   destinations = []
   clientDestinations = []
 
+  productBatches = undefined
+  activeProductGuid = undefined
+
+  myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
+  productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
+
+  currentBatch = undefined
+  selectedWarehouseOrderProduct = undefined
+  order = undefined
+  batchesData = undefined
+  existingProducts = undefined
+  reorderOrdersData = undefined
+  platformSettings = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   curDestinationId = undefined
 
   boxesIdsToTask = []
@@ -89,6 +110,11 @@ export class ClientInStockBoxesViewModel {
   showEditBoxModal = false
   showConfirmModal = false
   showRedistributeBoxModal = false
+
+  showProductModal = false
+  showMyOrderModal = false
+  showCheckPendingOrderFormModal = false
+  showOrderModal = false
 
   showRequestToSendBatchModal = false
 
@@ -916,7 +942,6 @@ export class ClientInStockBoxesViewModel {
 
       runInAction(() => {
         this.destinations = destinations
-
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -1868,6 +1893,427 @@ export class ClientInStockBoxesViewModel {
       })
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickWarehouseOrderButton(guid) {
+    const selectedBox = this.currentData?.find(el => el._id === guid)
+    const selectedBoxItems = selectedBox?.originalData?.items
+
+    if (selectedBoxItems?.length > 1) {
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['A box contains more than one product']),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      return
+    }
+
+    const selectedBoxProductId = selectedBoxItems?.[0]?.product?._id
+
+    try {
+      runInAction(() => {
+        this.productBatches = undefined
+        this.activeProductGuid = selectedBoxProductId
+      })
+
+      const result = await ClientModel.getProductById(selectedBoxProductId)
+
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = { ...result, _id: selectedBoxProductId }
+      })
+
+      this.onTriggerOpenModal('showProductModal')
+
+      if (this.showProductModal) {
+        this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
+      }
+    } catch (e) {
+      console.log(e)
+
+      runInAction(() => {
+        this.selectedWarehouseOrderProduct = undefined
+      })
+    }
+  }
+
+  onClickChangeProductAndBatchModalCondition(value) {
+    this.productAndBatchModalSwitcherCondition = value
+
+    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
+      this.getBatches()
+    }
+  }
+
+  async getCurrBatch(guid) {
+    try {
+      const result = await BatchesModel.getBatchesByGuid(guid)
+
+      runInAction(() => {
+        this.currentBatch = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.currentBatch = undefined
+      })
+    }
+  }
+
+  async onClickMyOrderModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    await this.getOrderById(id)
+
+    this.onTriggerOpenModal('showMyOrderModal')
+
+    if (this.showMyOrderModal) {
+      this.myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
+    }
+  }
+
+  async getOrderById(orderId) {
+    try {
+      const resolve = await ClientModel.getOrderById(orderId)
+
+      runInAction(() => {
+        this.order = resolve
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getBatches() {
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+
+      runInAction(() => {
+        this.productBatches = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.productBatches = undefined
+      })
+    }
+  }
+
+  async onClickInTransfer(productId) {
+    try {
+      const result = await BoxesModel.getBoxesInTransfer(productId)
+
+      runInAction(() => {
+        this.batchesData = result
+      })
+
+      this.onTriggerOpenModal('showProductLotDataModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickOpenNewTab(orderId) {
+    window
+      .open(`/client/my-orders/orders/order?orderId=${orderId}&order-human-friendly-id=${orderId}`, '_blank')
+      .focus()
+  }
+
+  onClickChangeMyOrderModalCondition(value) {
+    this.myOrderModalSwitcherCondition = value
+  }
+
+  onClickCancelOrder(orderId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => {
+        this.onSubmitCancelOrder(orderId)
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onTriggerOpenModal('showMyOrderModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitCancelOrder(orderId) {
+    try {
+      await ClientModel.cancelOrder(orderId)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickReorder(item, isPending) {
+    try {
+      if (isPending) {
+        await this.onClickContinueBtn(item)
+        return
+      }
+
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
+
+      const resultWithoutCurrentOrder = res?.filter(order => order?._id !== item?._id)
+
+      if (resultWithoutCurrentOrder?.length) {
+        runInAction(() => {
+          this.existingProducts = [
+            {
+              _id: item?._id,
+              asin: item?.product?.asin,
+              orders: resultWithoutCurrentOrder,
+            },
+          ]
+        })
+
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      } else {
+        await this.onClickContinueBtn(item)
+      }
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async onClickContinueBtn(item) {
+    try {
+      const [storekeepers, destinations, result, order] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+        ClientModel.getOrderById(item._id),
+      ])
+
+      runInAction(() => {
+        this.storekeepersData = storekeepers
+
+        this.destinations = destinations
+
+        this.platformSettings = result
+
+        this.reorderOrdersData = [order]
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+
+      if (this.showCheckPendingOrderFormModal) {
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onDoubleClickBarcode = item => {
+    this.selectedProduct = item
+
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitOrderProductModal(ordersDataState) {
+    try {
+      runInAction(() => {
+        this.error = undefined
+      })
+
+      for (let i = 0; i < ordersDataState.length; i++) {
+        let orderObject = ordersDataState[i]
+        let uploadedTransparencyFiles = []
+
+        runInAction(() => {
+          this.uploadedFiles = []
+        })
+
+        if (orderObject.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
+
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
+        } else if (!orderObject.barCode) {
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
+        }
+
+        if (orderObject.tmpTransparencyFile.length) {
+          uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
+            images: orderObject.tmpTransparencyFile,
+            type: 'uploadedFiles',
+          })
+
+          orderObject = {
+            ...orderObject,
+            transparencyFile: uploadedTransparencyFiles[0],
+          }
+        }
+
+        if (this.isPendingOrdering) {
+          const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
+            'amount',
+            'orderSupplierId',
+            'images',
+            'totalPrice',
+            'item',
+            'needsResearch',
+            'deadline',
+            'priority',
+            'expressChinaDelivery',
+            'clientComment',
+
+            'destinationId',
+            'storekeeperId',
+            'logicsTariffId',
+            'transparencyFile',
+          ])
+
+          await OrderModel.changeOrderData(orderObject._id, dataToRequest)
+
+          await ClientModel.updateOrderStatusToReadyToProcess(orderObject._id)
+        } else {
+          await this.createOrder(orderObject)
+        }
+      }
+
+      if (!this.error) {
+        runInAction(() => {
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
+        })
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.onTriggerOpenModal('showOrderModal')
+
+      this.onTriggerOpenModal('showMyOrderModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async createOrder(orderObject) {
+    try {
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+        '_id',
+        'tmpTransparencyFile',
+        'transparency',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
+
+      await this.updateUserInfo()
+    } catch (error) {
+      console.log(error)
+
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onClickPandingOrder(id) {
+    window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank').focus()
+  }
+
+  async onSubmitSaveOrder(order) {
+    try {
+      if (order.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: order.tmpBarCode, type: 'uploadedFiles' })
+
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: this.uploadedFiles[0] })
+      } else if (!order.product.barCode) {
+        await ClientModel.updateProductBarCode(order.product._id, { barCode: null })
+      }
+
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...order,
+          totalPrice:
+            order.amount *
+            (order.orderSupplier?.price + order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount),
+        },
+        [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+          'variationTariffId',
+        ],
+        undefined,
+        undefined,
+        true,
+      )
+
+      await OrderModel.changeOrderData(this.order._id, dataToRequest)
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
+
+      await this.getOrderById(order._id)
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.log(error)
     }

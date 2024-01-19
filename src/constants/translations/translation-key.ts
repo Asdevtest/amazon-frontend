@@ -2171,5 +2171,6 @@ export enum TranslationKey {
   'Multplty' = 'Multplty',
   'Warehouse and orders' = 'Warehouse and orders',
   'Orders info' = 'Orders info',
+  'A box contains more than one product' = 'A box contains more than one product',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

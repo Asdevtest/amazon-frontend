@@ -25,6 +25,7 @@ interface ActionButtonsProps {
   onClickGroupingBtn: () => void
   onClickReturnBoxesToStockBtn: () => void
   onClickCurrentTariffsBtn: () => void
+  onClickWarehouseOrderButton: () => void
 }
 
 export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
@@ -42,6 +43,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     onClickCurrentTariffsBtn,
     onClickRequestToSendBatch,
     onClickReturnBoxesToStockBtn,
+    onClickWarehouseOrderButton,
   } = props
 
   const disable = selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -89,6 +91,10 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           onClick={onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
+        </Button>
+
+        <Button disabled={selectedBoxes.length !== 1} onClick={onClickWarehouseOrderButton}>
+          {t(TranslationKey['Warehouse and orders'])}
         </Button>
       </div>
 
