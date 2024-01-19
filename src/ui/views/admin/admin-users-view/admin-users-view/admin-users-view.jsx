@@ -39,6 +39,8 @@ export const AdminUsersViewRaw = ({ classes: styles, history }) => {
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
+          sortingMode="client"
+          paginationMode="client"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

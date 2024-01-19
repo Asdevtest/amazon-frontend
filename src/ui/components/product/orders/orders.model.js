@@ -18,6 +18,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { getActiveStatuses } from './helpers/get-active-statuses'
 import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
@@ -64,12 +65,14 @@ export class OrdersModel {
   columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  constructor({ history, productId }) {
-    runInAction(() => {
-      this.history = history
+  isCheckedStatusByFilter = {}
 
-      this.productId = productId
-    })
+  constructor({ history, productId, showAtProcessOrders }) {
+    this.history = history
+
+    this.productId = productId
+
+    this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -82,13 +85,6 @@ export class OrdersModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-  }
-
-  isCheckedStatusByFilter = {
-    [chosenStatusesByFilter.ALL]: true,
-    [chosenStatusesByFilter.AT_PROCESS]: true,
-    [chosenStatusesByFilter.CANCELED]: true,
-    [chosenStatusesByFilter.COMPLETED]: true,
   }
 
   get orderStatusData() {

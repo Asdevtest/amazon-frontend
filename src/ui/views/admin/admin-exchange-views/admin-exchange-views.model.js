@@ -127,10 +127,7 @@ export class AdminExchangeViewModel {
   }
 
   onClickTableRow(id) {
-    this.history.push({
-      pathname: '/admin/exchange/product',
-      search: `product-id=${id}`,
-    })
+    window.open(`/admin/exchange/product?product-id=${id}`, '_blank').focus()
   }
 
   setActiveSubCategoryState(state) {
