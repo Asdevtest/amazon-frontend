@@ -6,6 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
+import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
@@ -14,10 +15,14 @@ import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkee
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
+import { MyOrderModal } from '@components/modals/my-order-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -69,6 +74,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickStorekeeperBtn={viewModel.onClickStorekeeperBtn}
         onClickDestinationBtn={viewModel.onClickDestinationBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
+        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedBoxes?.[0])}
         onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
@@ -336,6 +342,83 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           }
         />
       </Modal>
+
+      {viewModel.showProductModal && (
+        <ProductAndBatchModal
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+          openModal={viewModel.showProductModal}
+          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
+          batches={viewModel.productBatches}
+          getCurrentBatch={viewModel.getCurrBatch}
+          currentBatch={viewModel.currentBatch}
+          shops={viewModel.shopsData}
+          selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+          onClickMyOrderModal={viewModel.onClickMyOrderModal}
+          onClickInTransferModal={viewModel.onClickInTransfer}
+        />
+      )}
+
+      {viewModel.showMyOrderModal ? (
+        <MyOrderModal
+          isClient
+          order={viewModel.order}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          platformSettings={viewModel.platformSettings}
+          switcherCondition={viewModel.myOrderModalSwitcherCondition}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          openModal={viewModel.showMyOrderModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          onClickOpenNewTab={viewModel.onClickOpenNewTab}
+          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+        />
+      ) : null}
+
+      {viewModel.showCheckPendingOrderFormModal && (
+        <Modal
+          openModal={viewModel.showCheckPendingOrderFormModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+        >
+          <CheckPendingOrderForm
+            existingProducts={viewModel.existingProducts}
+            onClickPandingOrder={viewModel.onClickPandingOrder}
+            onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
+            onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+          />
+        </Modal>
+      )}
+
+      {viewModel.showOrderModal && (
+        <Modal
+          missClickModalOn
+          openModal={viewModel.showOrderModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+        >
+          <OrderProductModal
+            reorderOrdersData={viewModel.reorderOrdersData}
+            platformSettings={viewModel.platformSettings}
+            destinations={viewModel.destinations}
+            storekeepers={viewModel.storekeepersData}
+            destinationsFavourites={viewModel.destinationsFavourites}
+            setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
+            onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+            onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+          />
+        </Modal>
+      )}
+
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
 
       <SuccessInfoModal
         openModal={viewModel.showSuccessInfoModal}
