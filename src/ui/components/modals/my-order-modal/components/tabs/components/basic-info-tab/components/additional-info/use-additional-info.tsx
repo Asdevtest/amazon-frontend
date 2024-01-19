@@ -187,7 +187,7 @@ export const useAdditionalInfo = ({
   const currentTariffName = tariffName ? `${tariffName}` : ''
   const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
   const shoWcurrentTariff = formFields.storekeeperId && (currentTariffName || currentTariffRate)
-  const minDate = dayjs().add(2, 'day')
+  const minDate = dayjs().startOf('day').add(2, 'day')
   const isNotValidDate = new Date(formFields.deadline as string) < new Date(minDate.toString())
 
   const additionalInfoFieldsConfig: IFieldConfig[] = [

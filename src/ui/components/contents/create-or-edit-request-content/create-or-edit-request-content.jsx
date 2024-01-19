@@ -99,8 +99,6 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
-  const [clearСonditionsText, setСonditionsClearText] = useState('')
-
   const handleScroll = () => {
     const scrollTop = mainContentRefElement.scrollTop
     const scrollHeight = mainContentRefElement.scrollHeight
@@ -379,8 +377,8 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
     !formFields.details.conditions ||
-    clearСonditionsText.length >= 6000 ||
-    !clearСonditionsText.length ||
+    formFields.details.conditions >= 6000 ||
+    !formFields.details.conditions.length ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -584,8 +582,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   <CustomTextEditor
                     verticalResize
                     conditions={formFields.details.conditions}
-                    textToCheck={setСonditionsClearText}
-                    changeConditions={onChangeField('details')('conditions')}
+                    onChangeConditions={onChangeField('details')('conditions')}
                   />
                 </div>
               </div>
@@ -1081,7 +1078,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     <CustomTextEditor
                       readOnly
                       conditions={formFields.details.conditions}
-                      editorMaxHeight={styles.editorMaxHeight}
+                      editorClassName={styles.editorClassName}
                     />
                   </div>
                 </div>

@@ -135,12 +135,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
               {details?.conditions && (
                 <div className={styles.category}>
                   <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
-                  <CustomTextEditor
-                    readOnly
-                    editorMaxHeight={styles.editorWrapper}
-                    conditions={details?.conditions}
-                    changeConditions={undefined}
-                  />
+                  <CustomTextEditor readOnly editorMaxHeight={styles.editorWrapper} conditions={details?.conditions} />
                 </div>
               )}
             </div>

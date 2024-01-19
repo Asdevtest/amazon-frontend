@@ -3,14 +3,15 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   richTextEditorWrapper: {
     position: 'relative',
-
     width: '100%',
     height: '100%',
   },
+
   richTextEditorSubWrapper: {
     width: '100%',
     height: '100%',
   },
+
   richTextEditorTitle: {
     position: 'absolute',
     top: 10,
@@ -20,30 +21,41 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
+
   root: {
     width: '100%',
     height: '100%',
   },
+
   editor: {
     minHeight: 184,
     maxHeight: 1550,
     overflowY: 'auto',
   },
+
   verticalResize: {
     resize: 'vertical',
   },
+
   editorBorder: {
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
   },
+
+  editorBorderError: {
+    border: `1px solid ${theme.palette.text.red}`,
+  },
+
   editorContainer: {
     padding: '10px 16px !important',
     margin: '0px !important',
     width: '100% !important',
   },
+
   editorContainerReadOnly: {
     padding: '0 !important',
   },
+
   container: {
     width: '100%',
     height: '100%',

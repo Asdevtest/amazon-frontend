@@ -310,7 +310,7 @@ export const useStyles = makeStyles()(theme => ({
     minWidth: 100,
   },
 
-  editorMaxHeight: {
+  editorClassName: {
     maxHeight: '340px !important',
   },
 }))

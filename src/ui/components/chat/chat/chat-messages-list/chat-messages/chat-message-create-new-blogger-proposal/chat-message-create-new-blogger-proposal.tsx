@@ -45,17 +45,6 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, isShow
 
           <p className={styles.descriptionText}>{message.data.request?.title}</p>
 
-          {/* <Typography className={styles.descriptionText}>{message.data.request.details.conditions}</Typography> */}
-
-          {/* <CustomTextEditor
-                readOnly
-                conditions={message.data.request?.details?.conditions}
-                changeConditions={undefined}
-                editorMaxHeight={undefined}
-                verticalResize={undefined}
-                textToCheck={undefined}
-              /> */}
-
           <div className={styles.infosWrapper}>
             <LabelValuePairBlock
               label={t(TranslationKey.Deadline)}

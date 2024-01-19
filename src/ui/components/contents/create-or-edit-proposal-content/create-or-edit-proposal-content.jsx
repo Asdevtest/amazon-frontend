@@ -176,7 +176,7 @@ export const CreateOrEditProposalContent = memo(props => {
               <CustomTextEditor
                 readOnly
                 conditions={request?.details.conditions}
-                editorMaxHeight={styles.editorMaxHeight}
+                editorClassName={styles.editorClassName}
               />
             </>
           )}

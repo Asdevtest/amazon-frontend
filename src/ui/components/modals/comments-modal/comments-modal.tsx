@@ -24,9 +24,9 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const [comment, setComment] = useState(text)
+  const [comment, setComment] = useState(text || '')
 
-  const hasCommentChanged = isEqual(comment, text)
+  const hasCommentChanged = isEqual(comment, text) || comment.length > 2000
 
   const handleSaveComment = () => {
     if (!hasCommentChanged) {
@@ -43,9 +43,10 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
         <CustomTextEditor
           readOnly={readOnly}
-          conditions={text}
-          editorMaxHeight={styles.editorWrapper}
-          changeConditions={setComment}
+          conditions={comment}
+          maxLength={2000}
+          editorClassName={styles.editorWrapper}
+          onChangeConditions={setComment}
         />
 
         {!readOnly ? (

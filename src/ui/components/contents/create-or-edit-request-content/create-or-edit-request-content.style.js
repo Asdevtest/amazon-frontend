@@ -641,7 +641,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
   },
 
-  editorMaxHeight: {
+  editorClassName: {
     maxHeight: '138px !important',
   },
   selectedCheckbox: {
