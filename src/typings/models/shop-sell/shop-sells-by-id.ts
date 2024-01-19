@@ -1,0 +1,31 @@
+import { IStatusCreatedBy } from '../shared/created-by'
+
+import { IShopSellStatistics } from './shop-sells'
+
+export interface InlineResponse20078 {
+  _id?: string
+  owner?: IStatusCreatedBy
+  bidderId?: string
+  moderatorId?: string
+  chatId?: string
+  title?: string
+  status?: string
+  files?: Array<string>
+  price?: number
+  monthlyProfit?: number
+  monthlyPureProfit?: number
+  monthlyMultiplier?: number
+  statistics?: Array<IShopSellStatistics>
+  businessStartDate?: string
+  shopDetails?: string
+  shopLink?: string
+  shopAssets?: Array<string>
+  opportunities?: Array<string>
+  risks?: Array<string>
+  requiredSkills?: Array<string>
+  sellIncludes?: Array<string>
+  reasonForSale?: Array<string>
+  additionalInfo?: Array<string>
+  createdAt?: string
+  updatedAt?: string
+}
