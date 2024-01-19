@@ -44,13 +44,20 @@ export const globalStyles = theme => ({
     visibility: 'visible !important',
   },
   '.MuiDataGrid-main': {
-    borderRadius: 20,
+    borderRadius: '0 0 20px 20px',
   },
   '.MuiDataGrid-columnSeparator--sideRight': {
     right: '-3px !important',
   },
   '.MuiDataGrid-columnHeader': {
     padding: '0 5px !important',
+  },
+  '.MuiDataGrid-columnHeaderCheckbox': {
+    '.MuiDataGrid-columnHeaderDraggableContainer': {
+      '.MuiDataGrid-columnHeaderTitleContainer': {
+        paddingRight: '0 !important',
+      },
+    },
   },
 })
 
@@ -94,13 +101,13 @@ export const lightTheme = createTheme({
         },
 
         columnHeaderDraggableContainer: {
-          position: 'relative',
-          paddingRight: 20,
           flexDirection: 'row !important',
+          position: 'relative',
         },
 
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
+          paddingRight: 25,
 
           '.MuiDataGrid-columnHeaderTitleContainerContent': {
             width: '100%',
