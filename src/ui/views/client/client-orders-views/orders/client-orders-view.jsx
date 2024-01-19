@@ -5,6 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -128,14 +129,15 @@ export const ClientOrdersView = observer(history => {
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
-          changeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
           getCurrentBatch={viewModel.getCurrBatch}
           currentBatch={viewModel.currentBatch}
           shops={viewModel.shopsData}
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
+          onClickInTransferModal={viewModel.onClickInTransfer}
         />
       )}
 
@@ -227,6 +229,20 @@ export const ClientOrdersView = observer(history => {
             viewModel.onTriggerOpenModal('showWarningInfoModal')
           }}
         />
+      ) : null}
+
+      {viewModel.showProductLotDataModal ? (
+        <Modal
+          openModal={viewModel.showProductLotDataModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        >
+          <ProductLotDataForm
+            isTransfer
+            userInfo={viewModel.userInfo}
+            product={[viewModel.selectedWarehouseOrderProduct]}
+            batchesData={viewModel.batchesData}
+          />
+        </Modal>
       ) : null}
     </>
   )

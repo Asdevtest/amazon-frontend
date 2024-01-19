@@ -1,4 +1,4 @@
-interface IUserByRole {
+export interface IUserByRole {
   _id?: string
   name?: string
 }

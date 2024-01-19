@@ -47,9 +47,10 @@ import { useStyles } from './client-inventory-view.style'
 import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 
-export const ClientInventoryView = observer(({ history, location }) => {
+export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new ClientInventoryViewModel({ history }))
   const [useProductsPermissions] = useState(
     () =>
       new UseProductsPermissions(ClientModel.getProductPermissionsData, {

@@ -15,5 +15,6 @@ export interface IProductWithOrder extends IProduct {
 
 export interface IModalConfig {
   title: string
-  element: JSX.Element
+  element: () => JSX.Element
+  onClick?: () => void
 }

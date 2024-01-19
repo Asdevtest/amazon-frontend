@@ -31,7 +31,6 @@ import { infoModalConfig, switcherSettings } from './product-and-batch-modal.con
 import { IProductWithOrder, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export interface ProductAndBatchModalProps {
-  changeSwitcher: () => void
   currentSwitch: ProductAndBatchModalSwitcherConditions
   shops: IShop[]
   selectedProduct: IProductWithOrder
@@ -39,8 +38,10 @@ export interface ProductAndBatchModalProps {
   openModal: boolean
   setOpenModal: () => void
   currentBatch?: IOrderBoxBatch
-  getCurrentBatch: (guid: string) => void
+  getCurrentBatch: (id: string) => void
+  onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void
+  onClickInTransferModal: (id: string) => void
 }
 
 export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
@@ -53,8 +54,9 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     currentBatch,
     getCurrentBatch,
     currentSwitch,
-    changeSwitcher,
+    onChangeSwitcher,
     onClickMyOrderModal,
+    onClickInTransferModal,
   } = props
 
   const { classes: styles } = useStyles()
@@ -115,10 +117,10 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           <Divider />
 
           <div className={styles.fields}>
-            {infoModalConfig(selectedProduct).map((field, index) => (
+            {infoModalConfig(selectedProduct, onClickInTransferModal).map((field, index) => (
               <div key={index} className={styles.field}>
                 <p className={styles.fieldTitle}>{field.title}</p>
-                {field.element}
+                {field.element()}
               </div>
             ))}
           </div>
@@ -128,7 +130,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
             switcherSettings={switcherSettings}
             condition={currentSwitch}
             switchMode="medium"
-            changeConditionHandler={changeSwitcher}
+            changeConditionHandler={onChangeSwitcher}
           />
 
           <div className={styles.tableWrapper}>
