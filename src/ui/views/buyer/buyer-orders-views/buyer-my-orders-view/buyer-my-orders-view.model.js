@@ -185,7 +185,7 @@ export class BuyerMyOrdersViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
@@ -204,9 +204,9 @@ export class BuyerMyOrdersViewModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }
