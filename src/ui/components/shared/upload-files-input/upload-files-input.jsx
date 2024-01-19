@@ -42,7 +42,6 @@ export const UploadFilesInput = observer(props => {
     withComment = false,
     maxHeight = undefined,
     сontainerStyles = '',
-    filesLength = undefined,
     imageListWrapperStyles = undefined,
     minimized = false,
     isNotShowActionsBtns = false,
@@ -261,9 +260,7 @@ export const UploadFilesInput = observer(props => {
                     {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
                   </Button>
                   <p className={styles.imagesCount}>
-                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${
-                      maxNumber - ((filesLength && filesLength) || 0)
-                    }`}</span>
+                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${maxNumber || 0}`}</span>
 
                     {t(TranslationKey.files)}
                   </p>
