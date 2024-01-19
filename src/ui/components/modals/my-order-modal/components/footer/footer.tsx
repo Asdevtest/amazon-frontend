@@ -7,7 +7,7 @@ import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { OrderStatus } from '@typings/enums/order'
+import { OrderStatus } from '@typings/enums/order-status'
 
 import { useStyles } from './footer.style'
 

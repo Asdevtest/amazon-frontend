@@ -7,7 +7,6 @@ import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
-import { YOUTUBE_LINK } from '@constants/text'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -65,6 +64,12 @@ export const isHaveMasterUser = user => !!user.masterUser
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
+export const checkIsExternalVideoLink = url => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+
+  return youtubeRegex.test(url)
+}
+
 export const checkIsVideoLink = link =>
   link?.includes('.3g2') ||
   link?.includes('.3gp') ||
@@ -104,7 +109,7 @@ export const checkIsVideoLink = link =>
   link?.includes('.wm') ||
   link?.includes('.wmv') ||
   link?.includes('.yuv') ||
-  link?.includes(YOUTUBE_LINK)
+  checkIsExternalVideoLink(link)
 
 export const checkIsImageLink = link =>
   link?.includes('png') ||
