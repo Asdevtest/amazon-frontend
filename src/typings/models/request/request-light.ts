@@ -1,4 +1,4 @@
-interface IRequestLight {
+export interface IRequestLight {
   _id?: string
 
   humanFriendlyId?: number

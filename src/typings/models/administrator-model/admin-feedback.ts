@@ -1,4 +1,4 @@
-interface IFeedback {
+export interface IFeedback {
   _id?: string
   text?: string
   media?: object[]

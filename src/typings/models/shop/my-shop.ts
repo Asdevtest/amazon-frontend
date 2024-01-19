@@ -1,4 +1,4 @@
-interface IMyShop {
+export interface IMyShop {
   _id?: string
   name?: string
   sellerBoardWarehouseReportUrlDaily?: string
