@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -98,7 +99,7 @@ export const EditOrderSuppliersTable = observer(
                   </TableCell>
 
                   <TableCell className={styles.alignCenter}>
-                    {supplier.link !== 'access denied' ? (
+                    {supplier.link !== ACCESS_DENIED ? (
                       <div className={styles.linkWrapper}>
                         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                           <Typography className={styles.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>

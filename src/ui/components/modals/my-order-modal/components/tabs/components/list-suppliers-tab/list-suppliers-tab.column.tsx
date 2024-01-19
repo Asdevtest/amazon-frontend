@@ -1,5 +1,6 @@
 import { GridRowModel } from '@mui/x-data-grid'
 
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -49,7 +50,7 @@ export const suppliersOrderColumn = (
     field: 'link',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     renderCell: ({ row }: GridRowModel) =>
-      row.link !== 'access denied' ? (
+      row.link !== ACCESS_DENIED ? (
         <LinkWithCopy
           url={checkAndMakeAbsoluteUrl(row.link)}
           title={t(TranslationKey['Go to supplier site'])}
@@ -80,7 +81,7 @@ export const suppliersOrderColumn = (
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
-    width: 105,
+    width: 100,
   },
 
   {
@@ -100,7 +101,7 @@ export const suppliersOrderColumn = (
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.productionTerm)} />,
     filterable: false,
     sortable: false,
-    width: 105,
+    width: 100,
   },
 
   {
@@ -111,7 +112,7 @@ export const suppliersOrderColumn = (
     ),
     filterable: false,
     sortable: false,
-    width: 190,
+    width: 200,
     align: 'center',
   },
 
@@ -129,7 +130,7 @@ export const suppliersOrderColumn = (
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <FilesCell filesLength={row.images.length} onClickCell={() => onClickFilesCell(row.images)} />
+      <FilesCell filesLength={row.images?.length} onClickCell={() => onClickFilesCell(row.images)} />
     ),
     filterable: false,
     sortable: false,

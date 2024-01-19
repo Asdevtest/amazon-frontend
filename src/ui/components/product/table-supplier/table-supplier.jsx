@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -104,7 +105,7 @@ export const TableSupplier = observer(
                     </TableCell>
 
                     <TableCell align="center">
-                      {supplier.link !== 'access denied' ? (
+                      {supplier.link !== ACCESS_DENIED ? (
                         <div className={styles.linkWrapper}>
                           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                             <Typography className={styles.link}>{t(TranslationKey['Go to supplier site'])}</Typography>

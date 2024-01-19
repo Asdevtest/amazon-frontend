@@ -7,6 +7,7 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -89,9 +90,9 @@ export const useSupplierInfo = ({
           target="_blank"
           rel="noreferrer noopener"
           href={checkAndMakeAbsoluteUrl(formFields?.orderSupplier?.link)}
-          className={cx(styles.fieldText, { [styles.link]: formFields?.orderSupplier?.link !== 'access denied' })}
+          className={cx(styles.fieldText, { [styles.link]: formFields?.orderSupplier?.link !== ACCESS_DENIED })}
           onClick={e => {
-            if (formFields?.orderSupplier?.link === 'access denied') {
+            if (formFields?.orderSupplier?.link === ACCESS_DENIED) {
               e.preventDefault()
             }
           }}
