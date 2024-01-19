@@ -71,8 +71,7 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
               <CustomTextEditor
                 readOnly
                 conditions={request?.details?.conditions}
-                changeConditions={undefined}
-                editorMaxHeight={styles.textEditor}
+                editorClassName={styles.textEditor}
               />
             </div>
           </div>

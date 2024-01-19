@@ -50,20 +50,6 @@ export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
               {condition}
             </p>
           ))}
-
-          {/* <TextareaAutosize
-              disabled
-              value={message?.data?.details?.conditions}
-              className={styles.conditionsField}
-            /> */}
-          {/* <CustomTextEditor
-              readOnly
-              conditions={message?.data?.details?.conditions}
-              changeConditions={undefined}
-              editorMaxHeight={undefined}
-              verticalResize={undefined}
-              textToCheck={undefined}
-            /> */}
         </div>
 
         <div className={cx(isMobileResolution && styles.photosWrapper)}>
