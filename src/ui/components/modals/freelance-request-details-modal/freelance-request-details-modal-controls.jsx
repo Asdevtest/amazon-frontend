@@ -1,12 +1,11 @@
 import { memo, useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
-
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
 import { Button } from '@components/shared/buttons/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
@@ -73,8 +72,9 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
               className={styles.listingButton}
               onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
             >
-              <Checkbox color="primary" checked={request?.uploadedToListing} className={styles.listingCheckbox} />
-              <Typography className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
+              <Checkbox checked={request?.uploadedToListing} className={styles.listingCheckbox}>
+                <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
+              </Checkbox>
             </Button>
 
             {showMainActionsButton && (

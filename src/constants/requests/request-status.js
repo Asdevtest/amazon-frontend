@@ -36,26 +36,6 @@ export const RequestStatus = {
   ACCEPTED_BY_CREATOR_OF_REQUEST: 'ACCEPTED_BY_CREATOR_OF_REQUEST',
 }
 
-export const colorByRequestStatus = status => {
-  if ([RequestStatus.DRAFT].includes(status)) {
-    return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
-  } else if (
-    [RequestStatus.CANCELED_BY_CREATOR, RequestStatus.FORBID_NEW_PROPOSALS, RequestStatus.CANCELED_BY_ADMIN].includes(
-      status,
-    )
-  ) {
-    return '#FF1616'
-  } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
-    return '#00B746'
-  } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
-    return '#F3AF00'
-  } else if ([RequestStatus.EXPIRED].includes(status)) {
-    return '#C4C4C4'
-  } else {
-    return SettingsModel.uiTheme === UiTheme.dark ? '#fff' : '#001029'
-  }
-}
-
 export const colorByStatus = status => {
   if ([RequestStatus.DRAFT].includes(status)) {
     return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
@@ -73,7 +53,6 @@ export const colorByStatus = status => {
   } else if (
     [
       RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
-      RequestStatus.IN_PROCESS,
       RequestStatus.VERIFYING_BY_SUPERVISOR,
       RequestStatus.ACCEPTED_BY_SUPERVISOR,
       RequestStatus.ACCEPTED_BY_CLIENT,
@@ -86,6 +65,7 @@ export const colorByStatus = status => {
     return '#00B746'
   } else if (
     [
+      RequestStatus.IN_PROCESS,
       RequestStatus.PUBLISHED,
       RequestStatus.TO_CORRECT_BY_ADMIN,
       RequestStatus.READY_TO_VERIFY,

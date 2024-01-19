@@ -1,3 +1,4 @@
+export interface AnyType {}
 // apiV1AnnouncementsGuidGet - [key: string]: object;
 // apiV1BuyersOrdersGuidGet - [key: string]: object
 // apiV1ClientsOrdersGuidGet - [key: string]: object

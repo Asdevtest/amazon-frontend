@@ -76,6 +76,7 @@ export const useStyles = makeStyles()(theme => ({
   boxLabelWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    width: 'calc(100% / 2 - 5px)',
     gap: 5,
   },
 

@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByRequestStatus } from '@constants/requests/request-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -74,7 +74,7 @@ export const RequestTermsList = props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Status)}
           inputComponent={
-            <p className={styles.accentText} style={{ color: colorByRequestStatus(request?.status) }}>
+            <p className={styles.accentText} style={{ color: colorByStatus(request?.status) }}>
               {MyRequestStatusTranslate(request?.status)}
             </p>
           }
