@@ -19,7 +19,13 @@ export const FilesCell: FC<FilesCellProps> = memo(({ filesLength, onClickCell })
   return (
     <div className={styles.wrapper}>
       {filesLength > 0 ? (
-        <button className={styles.visibilityButton} onClick={onClickCell}>
+        <button
+          className={styles.visibilityButton}
+          onClick={e => {
+            e.stopPropagation()
+            onClickCell()
+          }}
+        >
           <EyeIcon className={styles.visibilityIcon} />
         </button>
       ) : (

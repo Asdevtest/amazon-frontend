@@ -10,6 +10,7 @@ import { Alert, Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
@@ -234,7 +235,7 @@ export const TopCard = memo(
                           {((user?._id === selectedSupplier?.createdBy?._id ||
                             user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
                             checkIsBuyer(curUserRole)) ||
-                          selectedSupplier.name !== 'access denied' ? (
+                          selectedSupplier.name !== ACCESS_DENIED ? (
                             <>
                               {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                                 <div className={styles.supplierButtonWrapper}>
@@ -322,7 +323,7 @@ export const TopCard = memo(
                       {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
                         <div className={styles.supplierButtonWrapper}>
                           <Button
-                            disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
+                            disabled={!selectedSupplier /* || selectedSupplier.name === ACCESS_DENIED*/}
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                             className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('view')}
@@ -339,7 +340,7 @@ export const TopCard = memo(
                       checkIsBuyer(curUserRole) ? (
                         <div className={styles.supplierButtonWrapper}>
                           <Button
-                            disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                            disabled={!selectedSupplier || selectedSupplier.name === ACCESS_DENIED}
                             tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
                             className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('edit')}

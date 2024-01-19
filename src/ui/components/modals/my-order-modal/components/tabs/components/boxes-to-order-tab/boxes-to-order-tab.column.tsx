@@ -67,7 +67,7 @@ export const boxesToOrderColumn = (
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <FilesCell filesLength={row.images.length} onClickCell={() => onClickFilesCell(row.images)} />
+      <FilesCell filesLength={row.images?.length} onClickCell={() => onClickFilesCell(row.images)} />
     ),
     filterable: false,
     sortable: false,

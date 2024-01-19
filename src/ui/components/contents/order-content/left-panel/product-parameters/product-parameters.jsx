@@ -9,6 +9,7 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -16,7 +17,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
-// import { calcMaxDeliveryForProduct } from '@utils/calculation'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -76,7 +76,7 @@ export const ProductParameters = ({
         labelClasses={styles.fieldLabel}
         inputComponent={
           <div>
-            {order.orderSupplier?.link === 'access denied' ? (
+            {order.orderSupplier?.link === ACCESS_DENIED ? (
               <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
             ) : (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
