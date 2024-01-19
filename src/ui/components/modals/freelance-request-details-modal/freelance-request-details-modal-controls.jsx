@@ -17,6 +17,7 @@ import { useStyles } from './freelance-request-details-modal.style'
 export const FreelanceRequestDetailsModalControls = memo(props => {
   const {
     request,
+    userInfo,
     isAcceptedProposals,
     requestProposals,
     onClickSuggest,
@@ -48,6 +49,8 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
     request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED)
   const showPublishButton = request?.status === RequestStatus.DRAFT
 
+  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id
+
   return (
     <div className={styles.suggestDeal}>
       <div className={styles.controlsWrapper}>
@@ -60,7 +63,12 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
-          <Button success className={styles.publishBtn} onClick={() => onClickMarkAsCompletedBtn(request?._id)}>
+          <Button
+            success
+            disabled={disableMarkAsCompletedButton}
+            className={styles.publishBtn}
+            onClick={() => onClickMarkAsCompletedBtn(request?._id)}
+          >
             {t(TranslationKey['Mark as completed'])}
           </Button>
         )}

@@ -22,6 +22,7 @@ import { FreelanceRequestDetailsModalControls } from './freelance-request-detail
 
 export const FreelanceRequestDetailsModal = memo(props => {
   const {
+    userInfo,
     request,
     details,
     requestProposals,
@@ -143,6 +144,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
         </div>
 
         <FreelanceRequestDetailsModalControls
+          userInfo={userInfo}
           isRequestOwner={isRequestOwner}
           isAcceptedProposals={isAcceptedProposals}
           request={request}
