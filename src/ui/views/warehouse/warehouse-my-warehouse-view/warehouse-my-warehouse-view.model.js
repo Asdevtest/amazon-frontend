@@ -516,7 +516,7 @@ export class WarehouseMyWarehouseViewModel {
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
           ...boxData,
-          images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
+          images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
