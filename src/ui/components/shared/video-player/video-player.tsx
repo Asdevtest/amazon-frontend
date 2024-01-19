@@ -1,6 +1,8 @@
 import { FC, memo } from 'react'
 import ReactPlayer from 'react-player'
 
+import { checkIsExternalVideoLink } from '@utils/checks'
+
 import { useStyles } from './video-player.style'
 
 interface VideoPlayerProps {
@@ -14,7 +16,7 @@ interface VideoPlayerProps {
 }
 
 /**
- * A React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, DailyMotion and Kaltura.
+ * The React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, DailyMotion and Kaltura.
  *
  * @param {String} videoSource - The url of a video or song to play.
  * @param {Boolean} controls - Set to true or false to display native player controls.
@@ -29,6 +31,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
   const { videoSource, controls, isPlaying, height, wrapperClass, videoPlayerClass, setIsPlaying } = props
 
   const { classes: styles, cx } = useStyles()
+  const currentVideoHeight = height ? `${height}px` : checkIsExternalVideoLink(videoSource) ? '100%' : 'auto' // if an external link comes (for example YouTube), then the iframe tag is used inside the ReactPlayer and not the video tag
 
   return (
     <div className={cx(styles.wrapper, wrapperClass)}>
@@ -39,7 +42,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
         controls={controls}
         url={videoSource}
         width="100%"
-        height={`${height}px` || 'auto'}
+        height={currentVideoHeight}
         className={cx(styles.videoPlayer, videoPlayerClass)}
         onPlay={() => (setIsPlaying ? setIsPlaying(true) : undefined)} // fix a bug when changing focus from video to photo
       />

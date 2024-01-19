@@ -4,7 +4,7 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { observer } from 'mobx-react'
-import { FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -13,7 +13,6 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
-import { YOUTUBE_LINK } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -25,6 +24,7 @@ import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
 import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
+import { checkIsExternalVideoLink } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -265,7 +265,7 @@ export const Chat: FC<Props> = observer(
     const onPasteFiles = async (evt: React.ClipboardEvent) => {
       const сopiedText = evt.clipboardData.getData('Text')
 
-      if (сopiedText.includes(YOUTUBE_LINK)) {
+      if (checkIsExternalVideoLink(сopiedText)) {
         setShowFiles(true)
         changeFilesAndState([...files, сopiedText])
       } else if (evt.clipboardData.files.length === 0) {
@@ -430,8 +430,8 @@ export const Chat: FC<Props> = observer(
               onFocus={!isTabletResolution ? onFocus : undefined}
               onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                if (e.target.value.includes(YOUTUBE_LINK)) {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                if (checkIsExternalVideoLink(e.target.value)) {
                   return
                 }
                 changeMessageAndState(e.target.value)

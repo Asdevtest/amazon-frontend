@@ -11,7 +11,7 @@ import {
 
 import { t } from '@utils/translations'
 
-import { OrderStatus } from '@typings/enums/order'
+import { OrderStatus } from '@typings/enums/order-status'
 
 export const aboutProductsColumns = [
   {

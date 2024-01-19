@@ -7,7 +7,7 @@ import { formatShortDateTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { OrderStatus } from '@typings/enums/order'
+import { OrderStatus } from '@typings/enums/order-status'
 
 interface IInfoItem {
   icon: JSX.Element
