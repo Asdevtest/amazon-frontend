@@ -34,7 +34,7 @@ export interface IDestinationVariationApproximateCalculations extends IDestinati
   _id: string
   roi: number
   costDeliveryToUsa: number
-  destinationId?: string | null
+  destinationId: string | null
 }
 
 export interface IDestinationStorekeeper {
