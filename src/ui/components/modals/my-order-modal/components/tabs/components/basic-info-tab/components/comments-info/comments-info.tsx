@@ -20,6 +20,8 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
   const { comment, commentsConfig, onChangeComment, onChangeCommentState, showCommentsModal, oToggleCommentsModal } =
     useCommentsInfo(props)
 
+  console.log('comment', comment.text.length)
+
   return (
     <>
       <div className={styles.wrapper}>

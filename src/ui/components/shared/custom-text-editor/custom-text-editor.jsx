@@ -22,29 +22,25 @@ export const CustomTextEditor = observer(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const richTextEditorRef = useRef(null)
+
   const isJSON = text => {
     try {
       const res = JSON.parse(text)
       if (typeof res === 'number') {
         throw new Error()
       }
-      return text // setValue(text)
+
+      return text
     } catch (error) {
       const editorState = EditorState.createWithText(text)
       const serializedEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
 
-      // setValue(serializedEditorState)
       return serializedEditorState
     }
   }
 
   const [value, setValue] = useState(() => isJSON(conditions) || '')
-
-  const richTextEditorRef = useRef(null)
-
-  const handleSave = () => {
-    richTextEditorRef.current.save()
-  }
 
   useEffect(() => {
     handleSave()
@@ -53,6 +49,10 @@ export const CustomTextEditor = observer(props => {
   useEffect(() => {
     setValue(isJSON(conditions))
   }, [conditions])
+
+  const handleSave = () => {
+    richTextEditorRef.current.save()
+  }
 
   return (
     <div className={styles.richTextEditorWrapper}>
@@ -63,7 +63,7 @@ export const CustomTextEditor = observer(props => {
       <div className={styles.richTextEditorSubWrapper} onClick={() => richTextEditorRef.current.focus()}>
         <MUIRichTextEditor
           ref={richTextEditorRef}
-          maxLength={6000}
+          maxLength={1000}
           readOnly={readOnly}
           defaultValue={value}
           label={!readOnly && t(TranslationKey['Task description'])}
@@ -117,6 +117,7 @@ export const CustomTextEditor = observer(props => {
             editor: cx(styles.editor, editorMaxHeight, {
               [styles.verticalResize]: verticalResize,
               [styles.editorBorder]: !readOnly,
+              [styles.editorBorderError]: value.length > 2048 && !readOnly,
             }),
             editorContainer: cx(styles.editorContainer, { [styles.editorContainerReadOnly]: readOnly }),
             placeHolder: styles.placeHolder,
