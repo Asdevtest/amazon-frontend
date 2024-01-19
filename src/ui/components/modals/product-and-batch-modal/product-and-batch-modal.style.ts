@@ -113,6 +113,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 500,
     color: theme.palette.text.general,
+    cursor: 'text',
   },
 
   fieldIcon: {
@@ -177,5 +178,9 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 15,
     width: '100%',
     height: 380,
+  },
+
+  button: {
+    cursor: 'pointer',
   },
 }))

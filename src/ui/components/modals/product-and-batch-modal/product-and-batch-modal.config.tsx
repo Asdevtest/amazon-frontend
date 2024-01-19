@@ -14,25 +14,28 @@ export const switcherSettings = [
   { label: () => t(TranslationKey['Batch data']), value: ProductAndBatchModalSwitcherConditions.BATCH_DATA },
 ]
 
-export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfig[] => {
+export const infoModalConfig = (
+  selectedProduct: IProductWithOrder,
+  onClickInTransferModal: (id: string) => void,
+): IModalConfig[] => {
   const { classes: styles, cx } = useStyles()
 
   return [
     {
       title: t(TranslationKey.Available),
-      element: <p className={styles.fieldValue}>{selectedProduct?.fbaFbmStockSum || 0}</p>,
+      element: () => <p className={styles.fieldValue}>{selectedProduct?.fbaFbmStockSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Reserved),
-      element: <p className={styles.fieldValue}>{selectedProduct?.reservedSum || 0}</p>,
+      element: () => <p className={styles.fieldValue}>{selectedProduct?.reservedSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Inbound),
-      element: <p className={styles.fieldValue}>{selectedProduct?.sentToFbaSum || 0}</p>,
+      element: () => <p className={styles.fieldValue}>{selectedProduct?.sentToFbaSum || 0}</p>,
     },
     {
       title: t(TranslationKey.Order),
-      element: (
+      element: () => (
         <div className={styles.fieldColumn}>
           <p className={cx(styles.fieldValue, styles.blueText)}>{selectedProduct?.amountInOrders}</p>
           <div className={styles.flexConainer}>
@@ -44,12 +47,28 @@ export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfi
     },
     {
       title: 'In Transfer',
-      element: <p className={styles.fieldValue}>{selectedProduct?.inTransfer || 0}</p>,
+      element: () => {
+        const isActiveButton = selectedProduct?.inTransfer !== 0
+
+        return (
+          <button
+            className={cx(styles.fieldValue, {
+              [styles.blueText]: isActiveButton,
+              [styles.button]: isActiveButton,
+            })}
+            onClick={() => (isActiveButton ? onClickInTransferModal(selectedProduct._id) : undefined)}
+          >
+            {selectedProduct?.inTransfer || 0}
+          </button>
+        )
+      },
     },
     {
       title: t(TranslationKey['In stock']),
-      element:
-        selectedProduct?.boxAmounts?.length > 0 ? (
+      element: () => {
+        const showBoxAmounts = selectedProduct?.boxAmounts?.length > 0
+
+        return showBoxAmounts ? (
           <div className={styles.fieldColumn}>
             {selectedProduct?.boxAmounts?.map(box => (
               <div key={box._id} className={styles.flexConainer}>
@@ -60,15 +79,16 @@ export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfi
           </div>
         ) : (
           <p className={styles.fieldValue}>{t(TranslationKey['No data'])}</p>
-        ),
+        )
+      },
     },
     {
       title: t(TranslationKey['Stock sum']),
-      element: <p className={styles.fieldValue}> {selectedProduct?.sumStock || 0}</p>,
+      element: () => <p className={styles.fieldValue}> {selectedProduct?.sumStock || 0}</p>,
     },
     {
       title: t(TranslationKey['Stock cost']),
-      element: (
+      element: () => (
         <p className={cx(styles.stockCostWrapper, styles.fieldValue)}>
           {selectedProduct?.stockCost ? toFixed(selectedProduct?.stockCost) : 0}
         </p>
@@ -76,16 +96,17 @@ export const infoModalConfig = (selectedProduct: IProductWithOrder): IModalConfi
     },
     {
       title: t(TranslationKey['Recommendation for additional purchases']),
-      element: (
-        <div className={styles.additionPurchaseWrapper}>
-          <div className={styles.flexConainer}>
-            <p className={styles.fieldValue}>{`${t(TranslationKey['To repurchase'])}: `}</p>
-            <p className={styles.fieldValue}>{selectedProduct?.purchaseQuantity || 0}</p>
-          </div>
+      element: () => {
+        const purchaseQuantityText = `${t(TranslationKey['To repurchase'])}: ${selectedProduct?.purchaseQuantity || 0}`
 
-          <input disabled className={styles.inputAdditionPurchase} value={selectedProduct?.fourMonthesStock} />
-        </div>
-      ),
+        return (
+          <div className={styles.additionPurchaseWrapper}>
+            <p className={styles.fieldValue}>{purchaseQuantityText}</p>
+
+            <input disabled className={styles.inputAdditionPurchase} value={selectedProduct?.fourMonthesStock} />
+          </div>
+        )
+      },
     },
   ]
 }

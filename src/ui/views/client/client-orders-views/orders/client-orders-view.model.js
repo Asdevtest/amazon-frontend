@@ -7,6 +7,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -41,6 +42,8 @@ export class ClientOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
 
+  batchesData = []
+
   get currentData() {
     return this.orders
   }
@@ -56,6 +59,7 @@ export class ClientOrdersViewModel {
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
   showWarningInfoModal = false
+  showProductLotDataModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
@@ -123,6 +127,10 @@ export class ClientOrdersViewModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   columnMenuSettings = {
@@ -822,7 +830,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getProductById(guid)
 
       runInAction(() => {
-        this.selectedWarehouseOrderProduct = result
+        this.selectedWarehouseOrderProduct = { ...result, _id: guid }
       })
 
       this.onTriggerOpenModal('showProductModal')
@@ -947,6 +955,20 @@ export class ClientOrdersViewModel {
       await this.getOrderById(order._id)
 
       this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickInTransfer(productId) {
+    try {
+      const result = await BoxesModel.getBoxesInTransfer(productId)
+
+      runInAction(() => {
+        this.batchesData = result
+      })
+
+      this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
       console.log(error)
     }

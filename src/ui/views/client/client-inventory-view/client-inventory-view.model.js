@@ -251,14 +251,14 @@ export class ClientInventoryViewModel {
     )
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     this.history = history
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
 
-    if (location.state) {
-      this.isModalOpen = location.state.isModalOpen
+    if (history.location.state) {
+      this.isModalOpen = history.location.state.isModalOpen
 
       const state = { ...history.location.state }
       delete state.isModalOpen

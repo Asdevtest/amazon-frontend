@@ -69,7 +69,7 @@ export const useSupplierInfo = ({
         <input
           name="amount"
           maxLength={8}
-          value={formFields?.amount}
+          value={formFields?.amount || 0}
           disabled={!isOrderEditable}
           className={styles.inputAmount}
           onChange={onChangeField('amount')}

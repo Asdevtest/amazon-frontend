@@ -9,3 +9,7 @@
 // apiV1ProductsVariationsGuidGet - - [key: string]: object
 // apiV1StorekeepersTasksLightPagMyGet
 // apiV1StorekeepersTaskLightGuidGet
+
+export interface IAnyTypes {
+  [key: string]: object
+}
