@@ -75,8 +75,6 @@ export class OrdersModel {
     this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    console.log(this.isCheckedStatusByFilter)
   }
 
   setRequestStatus(requestStatus) {

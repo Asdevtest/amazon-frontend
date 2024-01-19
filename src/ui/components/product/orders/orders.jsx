@@ -25,8 +25,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
 
-  console.log('showAtProcessOrders', showAtProcessOrders)
-
   const {
     orderStatusData,
     platformSettings,
