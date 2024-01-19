@@ -18,7 +18,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   wrapper: {
-    width: '100%',
     display: 'flex',
     alignItems: 'center',
     gap: 5,

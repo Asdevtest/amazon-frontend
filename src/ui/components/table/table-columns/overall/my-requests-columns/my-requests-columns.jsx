@@ -158,15 +158,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Status)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 120,
     filterable: false,
     sortable: false,

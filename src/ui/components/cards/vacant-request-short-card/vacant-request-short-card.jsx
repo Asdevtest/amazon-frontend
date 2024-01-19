@@ -1,10 +1,8 @@
-
-
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByRequestStatus } from '@constants/requests/request-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -152,7 +150,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               inputComponent={
                 <Typography
                   className={cx(styles.accentText, styles.rightText)}
-                  style={{ color: colorByRequestStatus(item.status) }}
+                  style={{ color: colorByStatus(item.status) }}
                 >
                   {MyRequestStatusTranslate(item.status)}
                 </Typography>
