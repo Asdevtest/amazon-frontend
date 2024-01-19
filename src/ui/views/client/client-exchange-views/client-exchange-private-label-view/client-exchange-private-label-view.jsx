@@ -6,9 +6,9 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { PrivateLabelCard } from '@components/cards/private-label-card'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { PrivateLabelCard } from '@components/private-label-card'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'

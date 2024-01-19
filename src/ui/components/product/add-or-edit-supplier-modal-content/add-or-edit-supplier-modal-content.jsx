@@ -6,12 +6,12 @@ import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
