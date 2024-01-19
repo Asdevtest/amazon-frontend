@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
 import { Button } from '@components/shared/buttons/button'
-import { Checkbox } from '@components/shared/checkbox'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
@@ -19,18 +18,15 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
     request,
     userInfo,
     isAcceptedProposals,
-    requestProposals,
     onClickSuggest,
     onClickOpenNewTab,
     onClickPublishBtn,
     onClickEditBtn,
     onClickCancelBtn,
-    onToggleUploadedToListing,
     isRequestOwner,
     onRecoverRequest,
     onClickAbortBtn,
     onClickMarkAsCompletedBtn,
-    onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
@@ -55,10 +51,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
     <div className={styles.suggestDeal}>
       <div className={styles.controlsWrapper}>
         <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(request?._id)} />
-
-        <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
-          {t(TranslationKey.Result)}
-        </Button>
       </div>
 
       <div className={styles.controlsWrapper}>
@@ -75,16 +67,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
         {isRequestOwner && (
           <>
-            <Button
-              border
-              className={styles.listingButton}
-              onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
-            >
-              <Checkbox checked={request?.uploadedToListing} className={styles.listingCheckbox}>
-                <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-              </Checkbox>
-            </Button>
-
             {showMainActionsButton && (
               <>
                 <Button

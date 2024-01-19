@@ -83,9 +83,18 @@ export const useStyles = makeStyles()(theme => ({
   requestInfo: {
     width: '100%',
     flexDirection: 'column',
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: '20px',
+  },
+
+  requestInfoWrapper: {
+    width: '100%',
+    flexDirection: 'column',
     gap: '20px',
     display: 'flex',
   },
+
   suggestDeal: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -113,18 +122,10 @@ export const useStyles = makeStyles()(theme => ({
     marginRight: 5,
   },
 
-  listingCheckbox: {
-    color: '#fff',
-  },
-
   listingText: {
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-  },
-
-  listingButton: {
-    width: '100%',
   },
 
   stopBtn: {
@@ -140,5 +141,15 @@ export const useStyles = makeStyles()(theme => ({
   publishBtn: {
     width: '100%',
     height: 40,
+  },
+
+  listingButton: {
+    color: theme.palette.primary.main,
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '10px',
+    justifyContent: 'flex-end',
   },
 }))
