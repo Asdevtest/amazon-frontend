@@ -4,11 +4,9 @@ import { makeStyles } from 'tss-react/mui'
 const fadeOut = keyframes`
   0% {
     opacity: 1;
-		display: block;
   }
   100% {
     opacity: 0;
-		display: none;
   }
 `
 
@@ -24,7 +22,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   slideTransition: {
-    textAlign: 'center',
     animation: `${fadeOut} 0.3s ease-in-out`,
   },
 
