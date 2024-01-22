@@ -1,7 +1,5 @@
-import { cx } from '@emotion/css'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { withStyles } from 'tss-react/mui'
 
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
@@ -20,16 +18,19 @@ import { Field } from '@components/shared/field'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { styles } from './registration-form.style'
+import { useStyles } from './registration-form.style'
 
-export const RegistrationFormRaw = ({
-  classes: styles,
-  formFields,
-  onChangeFormField,
-  onSubmit,
-  checkValidationNameOrEmail,
-  isRecoverPassword,
-}) => {
+export const RegistrationForm = memo(props => {
+  const {
+    formFields,
+    disableRegisterButton,
+    onChangeFormField,
+    onSubmit,
+    checkValidationNameOrEmail,
+    isRecoverPassword,
+  } = props
+  const { classes: styles, cx } = useStyles()
+
   const [visibilityPass, setVisibilityPass] = useState(false)
   const [visibilityOldPass, setVisibilityOldPass] = useState(false)
   const [errorOneNumber, setErrorOneNumber] = useState(false)
@@ -109,6 +110,13 @@ export const RegistrationFormRaw = ({
     (submit && errorOneNumber) ||
     (submit && errorUppercaseLetter) ||
     (submit && errorMaxLength)
+
+  const disabledButton =
+    formFields.name === '' ||
+    formFields.email === '' ||
+    formFields.password === '' ||
+    !formFields.acceptTerms ||
+    disableRegisterButton
 
   return (
     <form className={styles.root} onSubmit={onSubmitForm}>
@@ -306,23 +314,11 @@ export const RegistrationFormRaw = ({
               </Link>
             </div>
           </div>
-          <Button
-            disabled={
-              formFields.name === '' ||
-              formFields.email === '' ||
-              formFields.password === '' ||
-              formFields.acceptTerms === false
-            }
-            color="primary"
-            type="submit"
-            variant="contained"
-            className={styles.button}
-          >
+          <Button disabled={disabledButton} color="primary" type="submit" variant="contained" className={styles.button}>
             {t(TranslationKey.Registration)}
           </Button>
         </>
       ) : null}
     </form>
   )
-}
-export const RegistrationForm = withStyles(RegistrationFormRaw, styles)
+})

@@ -1,12 +1,10 @@
-import { observer } from 'mobx-react'
-import { useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { memo, useState } from 'react'
 
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { Checkbox, InputAdornment, Typography } from '@mui/material'
+import { Checkbox, InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,9 +13,16 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { styles } from './auth-form.style'
+import { useStyles } from './auth-form.style'
 
-const AuthFormRaw = ({ classes: styles, formFields, onChangeFormField, onSubmit }) => {
+export const AuthForm = memo(props => {
+  const { formFields, disableLoginButton, onChangeFormField, onSubmit } = props
+
+  const { classes: styles } = useStyles()
+
+  const [visibilityPass, setVisibilityPass] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
+
   const onSubmitForm = event => {
     event.preventDefault()
     setIsSubmit(true)
@@ -32,9 +37,6 @@ const AuthFormRaw = ({ classes: styles, formFields, onChangeFormField, onSubmit 
 
     onSubmit()
   }
-
-  const [visibilityPass, setVisibilityPass] = useState(false)
-  const [isSubmit, setIsSubmit] = useState(false)
 
   return (
     <div className={styles.root}>
@@ -93,15 +95,16 @@ const AuthFormRaw = ({ classes: styles, formFields, onChangeFormField, onSubmit 
         <div className={styles.formFooter}>
           <div className={styles.checkboxWrapper} onClick={onChangeFormField('remember')}>
             <Checkbox className={styles.checkbox} color="primary" checked={formFields.remember} />
-            <Typography className={styles.label}>{t(TranslationKey['Remember me'])}</Typography>
+            <p className={styles.label}>{t(TranslationKey['Remember me'])}</p>
           </div>
-          <Typography className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
+
+          <p className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</p>
         </div>
-        <Button type="submit" className={styles.loginBtn}>
+
+        <Button disabled={disableLoginButton} type="submit" className={styles.loginBtn}>
           {t(TranslationKey.Login)}
         </Button>
       </form>
     </div>
   )
-}
-export const AuthForm = withStyles(observer(AuthFormRaw), styles)
+})
