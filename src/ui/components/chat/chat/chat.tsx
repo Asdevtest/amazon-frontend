@@ -134,30 +134,30 @@ export const Chat: FC<Props> = observer(
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
 
-    const handleScrollToBottomButtonVisibility = (e: Event) => {
-      const target = e.target as HTMLDivElement
-      if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
-        setIsShowScrollToBottomBtn(true)
-      } else {
-        setIsShowScrollToBottomBtn(false)
-      }
-    }
+    // const handleScrollToBottomButtonVisibility = (e: Event) => {
+    //   const target = e.target as HTMLDivElement
+    //   if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
+    //     setIsShowScrollToBottomBtn(true)
+    //   } else {
+    //     setIsShowScrollToBottomBtn(false)
+    //   }
+    // }
 
-    const handleLoadMoreMessages = (e: Event) => {
-      const target = e.target as HTMLDivElement
+    // const handleLoadMoreMessages = (e: Event) => {
+    //   const target = e.target as HTMLDivElement
 
-      if (target.scrollTop && target.scrollTop < 350 && !messagesLoadingStatus.current) {
-        messagesLoadingStatus.current = true
-        ChatModel.getChatMessages?.(chat?._id).finally(() => {
-          messagesLoadingStatus.current = false
-        })
-      }
-    }
+    //   if (target.scrollTop && target.scrollTop < 350 && !messagesLoadingStatus.current) {
+    //     messagesLoadingStatus.current = true
+    //     ChatModel.getChatMessages?.(chat?._id).finally(() => {
+    //       messagesLoadingStatus.current = false
+    //     })
+    //   }
+    // }
 
     useEffect(() => {
       const handleScroll = (e: Event) => {
-        handleLoadMoreMessages(e)
-        handleScrollToBottomButtonVisibility(e)
+        // handleLoadMoreMessages(e)
+        // handleScrollToBottomButtonVisibility(e)
       }
 
       if (messagesWrapperRef.current) {
@@ -235,17 +235,14 @@ export const Chat: FC<Props> = observer(
 
     const changeMessageAndState = (value: string) => {
       setMessage(value)
-      SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
     const changeFilesAndState = (value: UploadFileType[]) => {
       setFiles(value)
-      SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
 
     const resetAllInputs = () => {
       setMessage('')
       setFiles(() => [])
-      SettingsModel.setChatMessageState({ message: '', files: [] }, chat._id)
     }
 
     const onSubmitMessageInternal = () => {
@@ -309,6 +306,7 @@ export const Chat: FC<Props> = observer(
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
+            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
