@@ -44,14 +44,17 @@ export const RequestDetailCustomView = observer(({ history }) => {
   const findRequestProposalForCurChat =
     viewModel.chatSelectedId &&
     viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
-  const isResultButton =
+  const showActionsButton =
     ((findRequestProposalForCurChat?.proposal?.sub &&
       findRequestProposalForCurChat?.proposal?.sub?._id === viewModel.userInfo?._id) ||
-      (!findRequestProposalForCurChat?.proposal?.sub &&
-        findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
-    (findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT)
+      findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id) &&
+    [RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED, RequestProposalStatus.TO_CORRECT].includes(
+      findRequestProposalForCurChat?.proposal?.status,
+    )
   const isRefine = viewModel.requestProposals?.[0]?.proposal?.status === RequestProposalStatus.TO_CORRECT
+  const showRejectTheDealButton =
+    findRequestProposalForCurChat &&
+    requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status)
 
   return (
     <>
@@ -95,15 +98,14 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 }}
                 renderAdditionalButtons={() => (
                   <div className={styles.additionalButtonsWrapper}>
-                    {findRequestProposalForCurChat &&
-                    requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
+                    {showRejectTheDealButton ? (
                       <Button danger onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}>
                         {t(TranslationKey['Reject the deal'])}
                       </Button>
                     ) : (
                       <div />
                     )}
-                    {isResultButton ? (
+                    {showActionsButton ? (
                       <Button
                         onClick={() => (isRefine ? viewModel.onClickReworkProposal() : viewModel.onClickResultBtn())}
                       >
