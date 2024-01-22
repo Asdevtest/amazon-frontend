@@ -256,15 +256,12 @@ export class ClientProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
+
       if (
         [
-          'icomment',
           'category',
           'lamazon',
-          'clientComment',
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
@@ -278,6 +275,10 @@ export class ClientProductViewModel {
       ) {
         this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
+        if (['icomment', 'checkednotes', 'buyersComment', 'clientComment'].includes(fieldName)) {
+          return (this.product = { ...this.product, [fieldName]: e })
+        }
+
         if (fieldName === 'transparency') {
           this.product = { ...this.product, [fieldName]: e }
           this.patchProductTransparencyHandler()

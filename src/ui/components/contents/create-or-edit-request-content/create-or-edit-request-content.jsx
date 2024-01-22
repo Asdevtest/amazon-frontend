@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@mui/material'
 
+import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
@@ -581,6 +582,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
                     verticalResize
+                    maxlength={MAX_COMMENT_LEGTH}
                     conditions={formFields.details.conditions}
                     onChangeConditions={onChangeField('details')('conditions')}
                   />

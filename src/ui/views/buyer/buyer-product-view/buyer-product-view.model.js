@@ -194,7 +194,12 @@ export class BuyerProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldsName]: '' }
 
-      this.product = { ...this.product, [fieldsName]: e.target.value }
+      if (['icomment', 'checkednotes', 'buyersComment', 'clientComment'].includes(fieldsName)) {
+        this.product = { ...this.product, [fieldsName]: e }
+      } else {
+        this.product = { ...this.product, [fieldsName]: e.target.value }
+      }
+
       updateProductAutoCalculatedFields.call(this)
     })
 
