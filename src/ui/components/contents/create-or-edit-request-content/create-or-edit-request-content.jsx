@@ -582,7 +582,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
                     verticalResize
-                    maxlength={MAX_COMMENT_LEGTH}
+                    maxLength={MAX_COMMENT_LEGTH}
                     conditions={formFields.details.conditions}
                     onChangeConditions={onChangeField('details')('conditions')}
                   />

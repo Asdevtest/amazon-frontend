@@ -14,7 +14,7 @@ import { useStyles } from './custom-text-editor.style'
 import { controls, customControls } from './custom-text-editor.config'
 
 export const CustomTextEditor = observer(props => {
-  const { conditions = '', onChangeConditions, readOnly, editorClassName, verticalResize, maxlength, notStyles } = props
+  const { conditions, onChangeConditions, readOnly, editorClassName, verticalResize, maxLength, notStyles } = props
 
   const isJSON = text => {
     try {
@@ -53,7 +53,7 @@ export const CustomTextEditor = observer(props => {
     }
   }, [text])
 
-  const showErrorBorder = conditions.length > maxlength && !readOnly
+  const showErrorBorder = conditions.length > maxLength && !readOnly
 
   return (
     <div className={styles.wrapper}>
@@ -62,7 +62,7 @@ export const CustomTextEditor = observer(props => {
       )}
 
       <MUIRichTextEditor
-        maxLength={maxlength}
+        maxLength={maxLength}
         readOnly={readOnly}
         defaultValue={defaultValue}
         label={!readOnly && t(TranslationKey['Task description'])}
