@@ -1,66 +1,63 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  richTextEditorWrapper: {
+  wrapper: {
     position: 'relative',
     width: '100%',
     height: '100%',
   },
 
-  richTextEditorSubWrapper: {
-    width: '100%',
-    height: '100%',
-  },
-
-  richTextEditorTitle: {
+  editorTitle: {
     position: 'absolute',
     top: 10,
     left: 0,
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
-  root: {
-    width: '100%',
-    height: '100%',
-  },
-
   editor: {
+    width: '100%',
     minHeight: 184,
     maxHeight: 1550,
     overflowY: 'auto',
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 7,
   },
 
   verticalResize: {
     resize: 'vertical',
   },
 
-  editorBorder: {
-    border: `1px solid ${theme.palette.input.customBorder}`,
-    borderRadius: 4,
-  },
-
   editorBorderError: {
     border: `1px solid ${theme.palette.text.red}`,
   },
 
-  editorContainer: {
-    padding: '10px 16px !important',
-    margin: '0px !important',
-    width: '100% !important',
-  },
-
-  editorContainerReadOnly: {
-    padding: '0 !important',
+  noneBorder: {
+    border: 'none',
+    borderRadius: 0,
   },
 
   container: {
-    width: '100%',
-    height: '100%',
     margin: '0 !important',
-    padding: 0,
+  },
+
+  editorContainer: {
+    padding: '10px 16px !important',
+    margin: '0 !important',
+    width: '100% !important',
+    height: '100% !important',
+    borderRadius: 7,
+  },
+
+  editorContainerReadOnly: {
+    background: theme.palette.input.customBorder,
+  },
+
+  editorContainerNotStyles: {
+    background: 'none',
+    padding: '0 !important',
+    borderRadius: 0,
   },
 
   toolbar: {
@@ -70,14 +67,5 @@ export const useStyles = makeStyles()(theme => ({
     '.MuiIconButton-colorPrimary': {
       color: theme.palette.primary.main,
     },
-  },
-
-  placeHolder: {
-    margin: 0,
-    padding: 0,
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    color: `${theme.palette.text.gray} !important`,
   },
 }))

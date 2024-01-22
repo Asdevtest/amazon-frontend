@@ -175,27 +175,19 @@ export class SupervisorProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
 
       if (
-        [
-          'checkednotes',
-          'niche',
-          'asins',
-          'amazonTitle',
-          'amazonDescription',
-          'amazonDetail',
-          'category',
-          'redFlags',
-          'tags',
-        ].includes(fieldName)
+        ['niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category', 'redFlags', 'tags'].includes(
+          fieldName,
+        )
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
+        if (['icomment', 'checkednotes', 'buyersComment', 'clientComment'].includes(fieldName)) {
+          return (this.product = { ...this.product, [fieldName]: e })
+        }
+
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
         }
@@ -209,13 +201,9 @@ export class SupervisorProductViewModel {
           return
         }
         if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
-          })
+          this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
         } else {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: e.target.value }
-          })
+          this.product = { ...this.product, [fieldName]: e.target.value }
         }
       }
 

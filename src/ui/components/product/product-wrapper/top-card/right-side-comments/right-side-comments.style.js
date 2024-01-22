@@ -30,17 +30,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   rightBoxComments: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
-    width: '100%',
     justifyContent: 'flex-start',
+    gap: 20,
   },
-  heightFieldAuto: {
-    height: 'auto',
-    width: '100%',
-    padding: 0,
-  },
+
   buttonsWrapper: {
     position: 'fixed',
     bottom: 50,
@@ -94,9 +90,6 @@ export const useStyles = makeStyles()(theme => ({
       backgroundColor: 'rgba(210, 35, 35, 0.5)',
     },
   },
-  errorActive: {
-    borderColor: 'red',
-  },
 
   restoreBtn: {
     flexGrow: 1,
@@ -146,5 +139,10 @@ export const useStyles = makeStyles()(theme => ({
 
   alertShieldWrapperStyle: {
     left: '44% !important',
+  },
+
+  editorWrapper: {
+    minHeight: '120px !important',
+    height: '120px !important',
   },
 }))

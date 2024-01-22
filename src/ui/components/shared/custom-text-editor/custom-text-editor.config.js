@@ -37,7 +37,7 @@ export const customControls = [
 export const controls = [
   'bold',
   'italic',
-  'underline',
+  // 'underline',
   'strikethrough',
   'numberList',
   'bulletList',

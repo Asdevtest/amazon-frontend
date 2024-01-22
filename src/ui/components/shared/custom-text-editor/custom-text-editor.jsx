@@ -14,7 +14,7 @@ import { useStyles } from './custom-text-editor.style'
 import { controls, customControls } from './custom-text-editor.config'
 
 export const CustomTextEditor = observer(props => {
-  const { conditions = '', onChangeConditions, readOnly, editorClassName, verticalResize, maxlength = 2000 } = props
+  const { conditions = '', onChangeConditions, readOnly, editorClassName, verticalResize, maxlength, notStyles } = props
 
   const isJSON = text => {
     try {
@@ -53,35 +53,40 @@ export const CustomTextEditor = observer(props => {
     }
   }, [text])
 
+  const showErrorBorder = conditions.length > maxlength && !readOnly
+
   return (
-    <div className={styles.richTextEditorWrapper}>
+    <div className={styles.wrapper}>
       {!readOnly && (
-        <Typography className={styles.richTextEditorTitle}>{t(TranslationKey['Describe your task']) + '*'}</Typography>
+        <Typography className={styles.editorTitle}>{t(TranslationKey['Describe your task']) + '*'}</Typography>
       )}
 
-      <div className={styles.richTextEditorSubWrapper}>
-        <MUIRichTextEditor
-          maxLength={maxlength}
-          readOnly={readOnly}
-          defaultValue={defaultValue}
-          label={!readOnly && t(TranslationKey['Task description'])}
-          controls={readOnly ? [] : controls}
-          customControls={customControls}
-          classes={{
-            root: styles.root,
-            container: styles.container,
-            editor: cx(styles.editor, editorClassName, {
+      <MUIRichTextEditor
+        maxLength={maxlength}
+        readOnly={readOnly}
+        defaultValue={defaultValue}
+        label={!readOnly && t(TranslationKey['Task description'])}
+        controls={readOnly ? [] : controls}
+        customControls={customControls}
+        classes={{
+          editor: cx(
+            styles.editor,
+            {
               [styles.verticalResize]: verticalResize,
-              [styles.editorBorder]: !readOnly,
-              [styles.editorBorderError]: conditions.length > maxlength && !readOnly,
-            }),
-            editorContainer: cx(styles.editorContainer, { [styles.editorContainerReadOnly]: readOnly }),
-            placeHolder: styles.placeHolder,
-            toolbar: styles.toolbar,
-          }}
-          onChange={onChange}
-        />
-      </div>
+              [styles.editorBorderError]: showErrorBorder,
+              [styles.noneBorder]: notStyles,
+            },
+            editorClassName,
+          ),
+          container: cx({ [styles.container]: !readOnly }),
+          editorContainer: cx(styles.editorContainer, {
+            [styles.editorContainerReadOnly]: readOnly,
+            [styles.editorContainerNotStyles]: notStyles,
+          }),
+          toolbar: styles.toolbar,
+        }}
+        onChange={onChange}
+      />
     </div>
   )
 })
