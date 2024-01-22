@@ -71,5 +71,6 @@ export const useStyles = makeStyles()(theme => ({
   editorWrapper: {
     minHeight: '150px !important',
     height: '150px !important',
+    width: 480,
   },
 }))
