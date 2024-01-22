@@ -3,8 +3,6 @@ import { observer } from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
 import { useEffect, useMemo, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -57,9 +55,7 @@ export const CustomTextEditor = observer(props => {
 
   return (
     <div className={styles.wrapper}>
-      {!readOnly && (
-        <Typography className={styles.editorTitle}>{t(TranslationKey['Describe your task']) + '*'}</Typography>
-      )}
+      {/* {!readOnly && !notStyles && <p className={styles.editorTitle}>{t(TranslationKey['Describe your task']) + '*'}</p>} */}
 
       <MUIRichTextEditor
         maxLength={maxLength}
