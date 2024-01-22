@@ -37,7 +37,8 @@ export const infoModalConfig = (
       title: t(TranslationKey.Order),
       element: () => (
         <div className={styles.fieldColumn}>
-          <p className={cx(styles.fieldValue, styles.blueText)}>{selectedProduct?.amountInOrders}</p>
+          <p className={styles.fieldValue}>{selectedProduct?.amountInOrders}</p>
+
           <div className={styles.flexConainer}>
             <WatchLaterSharpIcon className={styles.fieldIcon} />
             <p className={styles.fieldValue}>{selectedProduct?.amountInPendingOrders}</p>
@@ -72,7 +73,7 @@ export const infoModalConfig = (
           <div className={styles.fieldColumn}>
             {selectedProduct?.boxAmounts?.map(box => (
               <div key={box._id} className={styles.flexConainer}>
-                <p className={cx(styles.fieldValue, styles.blueText)}>{box.storekeeper.name}</p>
+                <p className={styles.fieldValue}>{box.storekeeper.name}</p>
                 <p className={styles.fieldValue}> {box.amountInBoxes}</p>
               </div>
             ))}
