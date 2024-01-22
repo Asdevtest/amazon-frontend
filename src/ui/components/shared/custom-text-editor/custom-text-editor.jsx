@@ -14,7 +14,7 @@ import { useStyles } from './custom-text-editor.style'
 import { controls, customControls } from './custom-text-editor.config'
 
 export const CustomTextEditor = observer(props => {
-  const { conditions, onChangeConditions, readOnly, editorClassName, verticalResize, maxlength = 2000 } = props
+  const { conditions = '', onChangeConditions, readOnly, editorClassName, verticalResize, maxlength = 2000 } = props
 
   const isJSON = text => {
     try {
