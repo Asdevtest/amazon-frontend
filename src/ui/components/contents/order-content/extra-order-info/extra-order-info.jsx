@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Field } from '@components/shared/field'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { Text } from '@components/shared/text'
 
@@ -47,28 +47,26 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
       <div className={styles.commentsWrapper}>
         <Typography className={styles.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
 
-        <Field
-          disabled
-          multiline
-          minRows={6}
-          maxRows={6}
-          value={order.buyerComment}
-          inputClasses={styles.input}
-          containerClasses={styles.textField}
-          label={t(TranslationKey.Buyer)}
-        />
+        <div>
+          <p>{t(TranslationKey.Buyer)}</p>
+          <CustomTextEditor
+            readOnly
+            conditions={order.buyerComment}
+            maxLength={2000}
+            editorClassName={styles.editorWrapper}
+          />
+        </div>
 
-        <Field
-          multiline
-          disabled={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-          minRows={6}
-          maxRows={6}
-          value={formFields.clientComment}
-          containerClasses={styles.textField}
-          inputClasses={styles.input}
-          label={t(TranslationKey.Client)}
-          onChange={onChangeField('clientComment')}
-        />
+        <div>
+          <p>{t(TranslationKey.Client)}</p>
+          <CustomTextEditor
+            readOnly={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
+            conditions={formFields.clientComment}
+            maxLength={2000}
+            editorClassName={styles.editorWrapper}
+            onChangeConditions={onChangeField('clientComment')}
+          />
+        </div>
       </div>
     </div>
   )

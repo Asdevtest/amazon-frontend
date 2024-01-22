@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
-import { Field } from '@components/shared/field'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import {
@@ -18,7 +18,6 @@ import {
   translateTooltipSaveBtnMessage,
 } from '@utils/translate-tooltip-message'
 import { t } from '@utils/translations'
-import { errorMessagesTranslate } from '@utils/validation'
 
 import { useStyles } from './right-side-comments.style'
 
@@ -44,7 +43,7 @@ export const RightSideComments = memo(
     productBase,
     onClickSetProductStatusBtn,
     handleProductActionButtons,
-    formFieldsValidationErrors,
+    // formFieldsValidationErrors,
     acceptMessage,
     showAcceptMessage,
   }) => {
@@ -57,66 +56,51 @@ export const RightSideComments = memo(
         <div className={styles.rightBoxComments}>
           <Typography className={styles.title}>{t(TranslationKey.Comments)}</Typography>
 
-          <Field
-            multiline
-            disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
-            error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
-            className={cx(styles.heightFieldAuto, {
-              [styles.errorActive]: formFieldsValidationErrors.icomment,
-            })}
-            inputProps={{ maxLength: 1000 }}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Researcher)}
-            value={product.icomment}
-            onChange={onChangeField('icomment')}
-          />
+          <div>
+            <p>{t(TranslationKey.Researcher)}</p>
+            <CustomTextEditor
+              readOnly={!checkIsResearcher(curUserRole) || !showActionBtns}
+              conditions={product.icomment}
+              maxLength={1000}
+              editorClassName={styles.editorWrapper}
+              onChangeConditions={onChangeField('icomment')}
+            />
+          </div>
 
-          <Field
-            multiline
-            disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
-            error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
-            className={cx(styles.heightFieldAuto, {
-              [styles.errorActive]: formFieldsValidationErrors.checkednotes,
-            })}
-            inputProps={{ maxLength: 1000 }}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Supervisor)}
-            value={product.checkednotes}
-            onChange={onChangeField('checkednotes')}
-          />
+          <div>
+            <p>{t(TranslationKey.Supervisor)}</p>
+            <CustomTextEditor
+              readOnly={!checkIsSupervisor(curUserRole) || !showActionBtns}
+              conditions={product.checkednotes}
+              maxLength={1000}
+              editorClassName={styles.editorWrapper}
+              onChangeConditions={onChangeField('checkednotes')}
+            />
+          </div>
 
           {!checkIsResearcher(curUserRole) && (
             <>
-              <Field
-                multiline
-                disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
-                error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
-                className={cx(styles.heightFieldAuto, {
-                  [styles.errorActive]: formFieldsValidationErrors.buyersComment,
-                })}
-                inputProps={{ maxLength: 1000 }}
-                minRows={4}
-                maxRows={6}
-                label={t(TranslationKey.Buyer)}
-                value={product.buyersComment}
-                onChange={onChangeField('buyersComment')}
-              />
+              <div>
+                <p>{t(TranslationKey.Buyer)}</p>
+                <CustomTextEditor
+                  readOnly={!checkIsBuyer(curUserRole) || !showActionBtns}
+                  conditions={product.buyersComment}
+                  maxLength={1000}
+                  editorClassName={styles.editorWrapper}
+                  onChangeConditions={onChangeField('buyersComment')}
+                />
+              </div>
 
-              <Field
-                multiline
-                disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-                className={cx(styles.heightFieldAuto, {
-                  // [styles.errorActive]: formFieldsValidationErrors.icomment,
-                })}
-                inputProps={{ maxLength: 1000 }}
-                minRows={4}
-                maxRows={6}
-                label={t(TranslationKey.Client)}
-                value={product.clientComment}
-                onChange={onChangeField('clientComment')}
-              />
+              <div>
+                <p>{t(TranslationKey.Client)}</p>
+                <CustomTextEditor
+                  readOnly={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
+                  conditions={product.clientComment}
+                  maxLength={1000}
+                  editorClassName={styles.editorWrapper}
+                  onChangeConditions={onChangeField('clientComment')}
+                />
+              </div>
             </>
           )}
 

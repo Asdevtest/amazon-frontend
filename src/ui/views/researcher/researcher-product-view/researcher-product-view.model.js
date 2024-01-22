@@ -155,26 +155,19 @@ export class ResearcherProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
+
       if (
-        [
-          'icomment',
-          'niche',
-          'asins',
-          'amazonTitle',
-          'amazonDescription',
-          'amazonDetail',
-          'category',
-          'redFlags',
-          'tags',
-        ].includes(fieldName)
+        ['niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category', 'redFlags', 'tags'].includes(
+          fieldName,
+        )
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
+        if (['icomment', 'checkednotes', 'buyersComment', 'clientComment'].includes(fieldName)) {
+          return (this.product = { ...this.product, [fieldName]: e })
+        }
+
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
         }
@@ -190,19 +183,15 @@ export class ResearcherProductViewModel {
           return
         }
 
-        runInAction(() => {
-          if (['strategyStatus'].includes(fieldName)) {
-            this.product = { ...this.product, [fieldName]: e.target.value, status: this.productBase.status }
-          }
-        })
+        if (['strategyStatus'].includes(fieldName)) {
+          this.product = { ...this.product, [fieldName]: e.target.value, status: this.productBase.status }
+        }
 
-        runInAction(() => {
-          if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
-          } else {
-            this.product = { ...this.product, [fieldName]: e.target.value }
-          }
-        })
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
+          this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
+        } else {
+          this.product = { ...this.product, [fieldName]: e.target.value }
+        }
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {

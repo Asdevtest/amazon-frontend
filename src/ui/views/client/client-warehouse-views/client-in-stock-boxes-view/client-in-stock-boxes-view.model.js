@@ -110,6 +110,7 @@ export class ClientInStockBoxesViewModel {
   showEditBoxModal = false
   showConfirmModal = false
   showRedistributeBoxModal = false
+  showProductLotDataModal = false
 
   showProductModal = false
   showMyOrderModal = false
