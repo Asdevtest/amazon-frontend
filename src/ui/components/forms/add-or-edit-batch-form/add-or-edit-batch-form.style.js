@@ -131,15 +131,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  filesWrapper: {
-    width: '450px',
-    overflow: 'auto',
-    [theme.breakpoints.down(768)]: {
-      overflow: 'hidden',
-      margin: 0,
-    },
-  },
-
   actionBtn: {
     width: '144px',
     height: '40px',

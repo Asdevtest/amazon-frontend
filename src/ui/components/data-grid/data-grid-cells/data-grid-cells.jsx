@@ -66,7 +66,6 @@ export { OrderManyItemsCell } from './order-many-items-cell/order-many-items-cel
 export { OrderNotificationMessageCell } from './order-notification-message-cell/order-notification-message-cell'
 export { OrdersIdsItemsCell } from './orders-ids-items-cell/orders-ids-items-cell'
 export { PaymentMethodsCell } from './payment-methods-cell/payment-methods-cell'
-export { PhotoAndFilesCell } from './photo-and-files-cell/photo-and-files-cell'
 export { PricePerUnitCell } from './price-per-unit-cell/price-per-unit-cell'
 export { PriceVariationsCell } from './price-variations-cell/price-variations-cell'
 export { PriorityAndChinaDeliverCell } from './priority-and-china-deliver-cell/priority-and-china-deliver-cell'
