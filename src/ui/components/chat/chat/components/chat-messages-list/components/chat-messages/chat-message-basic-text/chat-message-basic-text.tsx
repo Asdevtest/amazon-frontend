@@ -3,14 +3,15 @@ import { FC, memo } from 'react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
-import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
-import { ImagesTile } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 
 import { useStyles } from './chat-message-basic-text.style'
+
+import { ChatMessageFiles } from '../chat-message-files/chat-message-files'
+import { ImagesTile } from '../images-tile/images-tile'
 
 import { ChatMessageBasicTextProps, HighlightTag } from './helpers/chat-message.type'
 import { findChunks } from './helpers/find-chunks'

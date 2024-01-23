@@ -1,11 +1,15 @@
+import { FC, memo } from 'react'
+
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Typography } from '@mui/material'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { useStyles } from '@components/chat/chat/chat-current-reply-message/chat-current-reply-message.style'
-import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { ReplyIcon } from '@components/shared/svg-icons'
+
+import { useStyles } from './chat-current-reply-message.style'
+
+import { ChatMessageFiles } from '../chat-messages-list/components/chat-messages/chat-message-files/chat-message-files'
 
 interface ChatCurrentReplyMessageProps {
   message: ChatMessageContract
@@ -13,7 +17,7 @@ interface ChatCurrentReplyMessageProps {
   setMessageToScroll: (msg: ChatMessageContract) => void
 }
 
-export const ChatCurrentReplyMessage = (props: ChatCurrentReplyMessageProps) => {
+export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -40,4 +44,4 @@ export const ChatCurrentReplyMessage = (props: ChatCurrentReplyMessageProps) => 
       </div>
     </div>
   )
-}
+})

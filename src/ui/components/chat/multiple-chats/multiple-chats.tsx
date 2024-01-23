@@ -22,8 +22,9 @@ import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-res
 
 import { useStyles } from './multiple-chats.style'
 
-import { Chat, RenderAdditionalButtonsParams } from '../chat'
-import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
+import { Chat } from '../chat'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat/components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
+import { RenderAdditionalButtonsParams } from '../chat/helpers/chat.interface'
 import { ChatsList } from '../chats-list'
 import { SearchResult } from '../search-result'
 

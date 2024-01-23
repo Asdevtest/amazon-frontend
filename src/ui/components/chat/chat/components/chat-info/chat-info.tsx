@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
-import { ChatGroupUsers } from '@components/chat/chat/chat-info/components/chat-group-users/chat-group-users'
-import { ChatInfoHeader } from '@components/chat/chat/chat-info/components/chat-info-header/chat-info-header'
-import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -19,6 +16,9 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './chat-info.style'
 
+import { ChatMessageFiles } from '../chat-messages-list/components/chat-messages/chat-message-files/chat-message-files'
+
+import { ChatGroupUsers, ChatInfoHeader } from './components'
 import { ChatAttachmentsType, ChatFileType, FilesType, ImagesType, TabValue, VideoType } from './helpers/chat-into.type'
 import { getCustomSwitcherConfig } from './helpers/custom-switcher.config'
 
@@ -32,7 +32,7 @@ interface ChatInfoProps {
   onClickEditGroupChatInfo: () => void
 }
 
-export const ChatInfo = (props: ChatInfoProps) => {
+export const ChatInfo: FC<ChatInfoProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
@@ -174,4 +174,4 @@ export const ChatInfo = (props: ChatInfoProps) => {
       )}
     </div>
   )
-}
+})

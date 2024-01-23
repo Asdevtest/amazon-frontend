@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { observer } from 'mobx-react'
-import { ChangeEvent, FC, KeyboardEvent, ReactElement, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, Ref, memo, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
+import { ListRange, VirtuosoHandle } from 'react-virtuoso'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
@@ -20,12 +20,10 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
-import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 import { Button } from '@components/shared/buttons/button'
 import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { UploadFileType } from '@typings/upload-file'
@@ -36,31 +34,12 @@ import { useStyles } from './chat.style'
 
 import { CurrentOpponent } from '../multiple-chats'
 
-import { ChatCurrentReplyMessage } from './chat-current-reply-message'
-import { ChatFilesInput } from './chat-files-input'
-import { ChatMessagesList } from './chat-messages-list'
-import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages-list/chat-messages/chat-message-designer-proposal-edited-result'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
+import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
+import { MessageStateParams, OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { usePrevious } from './hooks/use-previous'
 
-export interface RenderAdditionalButtonsParams {
-  message: string
-  files: UploadFileType[]
-}
-
-export interface OnEmojiSelectEvent {
-  id: string
-  keywords: string[]
-  name: string
-  native: string
-  shortcodes: string
-  unified: string
-}
-
-export interface MessageStateParams {
-  message: string
-  files: UploadFileType[]
-}
-
-interface Props {
+interface ChatProps {
   chat: ChatContract
   messages: ChatMessageContract[]
   userId: string
@@ -80,7 +59,7 @@ interface Props {
   onClickEditGroupChatInfo: () => void
 }
 
-export const Chat: FC<Props> = observer(
+export const Chat: FC<ChatProps> = memo(
   ({
     searchPhrase,
     toScrollMesId,
@@ -104,15 +83,16 @@ export const Chat: FC<Props> = observer(
     const { isTabletResolution } = useCreateBreakpointResolutions()
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
-    const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
-    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
+    const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
+
+    console.log('messagesWrapperRef', messagesWrapperRef)
+
+    const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
     const messageInitialState: MessageStateParams = {
       message: '',
       files: [],
     }
-
-    const userContainedInChat = chat.users.some(el => el._id === userId)
 
     const [message, setMessage] = useState(messageInitialState.message)
     const [files, setFiles] = useState<UploadFileType[]>(messageInitialState.files)
@@ -122,7 +102,6 @@ export const Chat: FC<Props> = observer(
     const [isShowEmojis, setIsShowEmojis] = useState(false)
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
-    const messagesLoadingStatus = useRef(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
@@ -131,17 +110,24 @@ export const Chat: FC<Props> = observer(
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
+    const prevChatId = usePrevious(chat?._id)
+
+    const disabledSubmit = !message.trim() && !files.length
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
+    const userContainedInChat = chat.users.some(el => el._id === userId)
+
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
 
-    // const handleScrollToBottomButtonVisibility = (e: Event) => {
-    //   const target = e.target as HTMLDivElement
-    //   if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
-    //     setIsShowScrollToBottomBtn(true)
-    //   } else {
-    //     setIsShowScrollToBottomBtn(false)
-    //   }
-    // }
+    //
+
+    const handleScrollToBottomButtonVisibility = (range: ListRange) => {
+      if (range && range.endIndex + 1 !== 1000) {
+        chatBottomRef?.current?.style.setProperty('display', 'flex')
+      } else {
+        chatBottomRef?.current?.style.setProperty('display', 'none')
+      }
+    }
 
     // const handleLoadMoreMessages = (e: Event) => {
     //   const target = e.target as HTMLDivElement
@@ -157,17 +143,6 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       const handleScroll = (e: Event) => {
         // handleLoadMoreMessages(e)
-        // handleScrollToBottomButtonVisibility(e)
-      }
-
-      if (messagesWrapperRef.current) {
-        messagesWrapperRef.current.onscroll = handleScroll
-      }
-
-      return () => {
-        if (messagesWrapperRef.current) {
-          messagesWrapperRef.current.onscroll = null
-        }
       }
     }, [chat?._id])
 
@@ -190,25 +165,25 @@ export const Chat: FC<Props> = observer(
         updateData()
       }
 
-      if (messages?.length > 0 && messagesWrapperRef.current) {
-        const currentScrollPosition = toFixed(
-          messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
-        )
-        const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
+      // if (messages?.length > 0 && messagesWrapperRef.current) {
+      //   const currentScrollPosition = toFixed(
+      //     messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
+      //   )
+      //   const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
 
-        if (
-          scrolledFromBottom > messagesWrapperRef.current.clientHeight &&
-          messages.at(-1)?._id !== lastReadedMessage?._id
-        ) {
-          const lastReadedMessageIndex = messages.findIndex(el => el._id === lastReadedMessage?._id)
-          setUnreadMessages(
-            messages.slice(lastReadedMessageIndex + 1, messages.length).filter(el => el.user?._id !== userId),
-          )
-        } else {
-          setUnreadMessages([])
-          setLastReadedMessage(messages[messages.length - 1])
-        }
-      }
+      //   if (
+      //     scrolledFromBottom > messagesWrapperRef.current.clientHeight &&
+      //     messages.at(-1)?._id !== lastReadedMessage?._id
+      //   ) {
+      //     const lastReadedMessageIndex = messages.findIndex(el => el._id === lastReadedMessage?._id)
+      //     setUnreadMessages(
+      //       messages.slice(lastReadedMessageIndex + 1, messages.length).filter(el => el.user?._id !== userId),
+      //     )
+      //   } else {
+      //     setUnreadMessages([])
+      //     setLastReadedMessage(messages[messages.length - 1])
+      //   }
+      // }
     }, [messages?.length])
 
     useEffect(() => {
@@ -287,19 +262,23 @@ export const Chat: FC<Props> = observer(
     }
 
     const onClickScrollToBottom = () => {
-      if (unreadMessages?.length) {
-        setMessageToScroll({ ...unreadMessages[0] })
-      } else {
-        setMessageToScroll({ ...messages.at(-1)! })
-      }
-      setUnreadMessages([])
+      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
+
+      // if (unreadMessages?.length) {
+      //   setMessageToScroll({ ...unreadMessages[0] })
+      // } else {
+      //   setMessageToScroll({ ...messages.at(-1)! })
+      // }
+      // setUnreadMessages([])
     }
 
     useEffect(() => {
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
     }, [toScrollMesId])
 
-    const disabledSubmit = !message.trim() && !files.length
+    if (prevChatId !== chat?._id) {
+      return null
+    }
 
     return (
       <>
@@ -319,6 +298,7 @@ export const Chat: FC<Props> = observer(
             isFreelanceOwner={isFreelanceOwner}
             setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
+            handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
           />
 
           <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
@@ -329,18 +309,19 @@ export const Chat: FC<Props> = observer(
             )}
           </div>
 
-          {isShowScrollToBottomBtn && (
-            <div
-              className={cx(styles.scrollToBottom, {
-                [styles.scrollToBottomRight]: isShowChatInfo,
-                [styles.hideElement]: isShowChatInfo && isTabletResolution,
-              })}
-              onClick={onClickScrollToBottom}
-            >
-              <KeyboardArrowDownIcon />
-              {!!unreadMessages?.length && <div className={styles.scrollToBottomBadge}>{unreadMessages?.length}</div>}
-            </div>
-          )}
+          {/* {isShowScrollToBottomBtn && ( */}
+          <div
+            ref={chatBottomRef}
+            className={cx(styles.scrollToBottom, {
+              [styles.scrollToBottomRight]: isShowChatInfo,
+              [styles.hideElement]: isShowChatInfo && isTabletResolution,
+            })}
+            onClick={onClickScrollToBottom}
+          >
+            <KeyboardArrowDownIcon />
+            {!!unreadMessages?.length && <div className={styles.scrollToBottomBadge}>{unreadMessages?.length}</div>}
+          </div>
+          {/* )} */}
 
           {isShowChatInfo && (
             <ChatInfo
