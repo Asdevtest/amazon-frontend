@@ -15,39 +15,44 @@ interface AsinOrSkuLinkProps {
   withCopyValue?: boolean
   textStyles?: string
   iconStyles?: string
+  notLink?: boolean
 }
 
 export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
-  const { link, withCopyValue, withAttributeTitle, textStyles, iconStyles } = props
+  const { link, withCopyValue, withAttributeTitle, textStyles, iconStyles, notLink } = props
 
   const { classes: styles, cx } = useStyles()
 
   const amazonExternalLink = `https://www.amazon.com/dp/${link}`
+  const title =
+    (withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
+    (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)
 
   return (
     <div className={styles.root}>
-      {withAttributeTitle && (
-        <p className={cx(styles.attributeTitle, textStyles)}>
-          {(withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
-            (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)}
-        </p>
-      )}
+      {withAttributeTitle && <p className={cx(styles.text, styles.title, textStyles)}>{title}</p>}
 
       {link ? (
         <a
           target="_blank"
           rel="noreferrer noopener"
           href={amazonExternalLink}
-          className={styles.normalizeLink}
-          onClick={e => e.stopPropagation()}
+          className={cx(styles.text, styles.link, { [styles.missingText]: notLink }, textStyles)}
+          onClick={e => {
+            if (notLink) {
+              e.preventDefault()
+            }
+
+            e.stopPropagation()
+          }}
         >
-          <p className={cx(styles.valueText, styles.asinValueText, textStyles)}>{shortLink(link)}</p>
+          {shortLink(link)}
         </a>
       ) : (
-        <p className={cx(styles.valueText, textStyles)}>{t(TranslationKey.Missing)}</p>
+        <p className={cx(styles.text, styles.missingText, textStyles)}>{t(TranslationKey.Missing)}</p>
       )}
 
-      {link && withCopyValue && <CopyValue text={link} iconStyles={iconStyles} />}
+      {link && withCopyValue ? <CopyValue text={link} iconStyles={iconStyles} /> : null}
     </div>
   )
 })

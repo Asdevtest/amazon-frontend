@@ -8,31 +8,34 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
   },
 
-  normalizeLink: {
-    textDecoration: 'none',
-    transition: '.3s ease',
-
-    '&:hover': {
-      opacity: '.7',
-    },
+  title: {
+    color: theme.palette.text.second,
   },
 
-  valueText: {
+  text: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
 
-  asinValueText: {
+  link: {
+    textDecoration: 'none',
     color: theme.palette.primary.main,
+    transition: '.3s ease',
+    opacity: 1,
+
+    '&:hover': {
+      opacity: 0.8,
+    },
   },
 
-  attributeTitle: {
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.text.second,
+  missingText: {
+    color: theme.palette.text.general,
+
+    '&:hover': {
+      opacity: 1,
+    },
   },
 }))
