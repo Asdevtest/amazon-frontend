@@ -48,7 +48,7 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
         </div>
       </div>
 
-      <CustomTextEditor readOnly conditions={review.comment} editorClassName={styles.editor} />
+      <CustomTextEditor readOnly value={review.comment} />
     </div>
   )
 })

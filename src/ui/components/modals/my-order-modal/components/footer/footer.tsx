@@ -16,6 +16,7 @@ import { IOrderWithAdditionalFields } from '../../my-order-modal.type'
 interface FooterProps {
   formFields: IOrderWithAdditionalFields
   isOrderEditable: boolean
+  stateComparison: boolean
   onClickOpenNewTab: (id: string) => void
   onClickCancelOrder: (id: string) => void
   onClickReorder: (order: IOrderWithAdditionalFields, isPendingOrder: boolean) => void
@@ -27,6 +28,7 @@ export const Footer: FC<FooterProps> = memo(props => {
   const {
     formFields,
     isOrderEditable,
+    stateComparison,
     onClickOpenNewTab,
     onClickCancelOrder,
     onClickReorder,
@@ -40,7 +42,8 @@ export const Footer: FC<FooterProps> = memo(props => {
   const showCancelButton = showButtons || formFields?.status === OrderStatus.READY_TO_PROCESS
   const showToOrderButton = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const isPendingOrder = formFields?.status > OrderStatus.READY_FOR_BUYOUT
-  const disabledSaveSubmit = (formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount
+  const disabledSaveSubmit =
+    (formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount || stateComparison
 
   return (
     <div className={styles.footer}>

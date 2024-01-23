@@ -61,10 +61,10 @@ export const RightSideComments = memo(
             <p>{t(TranslationKey.Researcher)}</p>
             <CustomTextEditor
               readOnly={!checkIsResearcher(curUserRole) || !showActionBtns}
-              conditions={product.icomment}
+              value={product.icomment}
               maxLength={MAX_DEFAULT_COMMENT_LEGTH}
               editorClassName={styles.editorWrapper}
-              onChangeConditions={onChangeField('icomment')}
+              onChange={onChangeField('icomment')}
             />
           </div>
 
@@ -72,10 +72,10 @@ export const RightSideComments = memo(
             <p>{t(TranslationKey.Supervisor)}</p>
             <CustomTextEditor
               readOnly={!checkIsSupervisor(curUserRole) || !showActionBtns}
-              conditions={product.checkednotes}
+              value={product.checkednotes}
               maxLength={MAX_DEFAULT_COMMENT_LEGTH}
               editorClassName={styles.editorWrapper}
-              onChangeConditions={onChangeField('checkednotes')}
+              onChange={onChangeField('checkednotes')}
             />
           </div>
 
@@ -85,10 +85,10 @@ export const RightSideComments = memo(
                 <p>{t(TranslationKey.Buyer)}</p>
                 <CustomTextEditor
                   readOnly={!checkIsBuyer(curUserRole) || !showActionBtns}
-                  conditions={product.buyersComment}
+                  value={product.buyersComment}
                   maxLength={MAX_DEFAULT_COMMENT_LEGTH}
                   editorClassName={styles.editorWrapper}
-                  onChangeConditions={onChangeField('buyersComment')}
+                  onChange={onChangeField('buyersComment')}
                 />
               </div>
 
@@ -96,10 +96,10 @@ export const RightSideComments = memo(
                 <p>{t(TranslationKey.Client)}</p>
                 <CustomTextEditor
                   readOnly={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-                  conditions={product.clientComment}
+                  value={product.clientComment}
                   maxLength={MAX_DEFAULT_COMMENT_LEGTH}
                   editorClassName={styles.editorWrapper}
-                  onChangeConditions={onChangeField('clientComment')}
+                  onChange={onChangeField('clientComment')}
                 />
               </div>
             </>

@@ -14,10 +14,17 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  editorWrapper: {
+  editor: {
     minHeight: '200px !important',
-    height: '200px !important',
+    maxHeight: '200px !important',
     width: 600,
+  },
+
+  editorReadOnly: {
+    padding: 0,
+    border: 'none',
+    borderRadius: 0,
+    background: 'none !important',
   },
 
   buttons: {

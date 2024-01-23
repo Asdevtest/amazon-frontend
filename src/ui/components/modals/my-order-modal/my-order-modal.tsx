@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { FC, memo, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
@@ -66,6 +67,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
   const [formFields, setFormFields] = useState<IOrderWithAdditionalFields>(getInitialOrderState())
 
   const isOrderEditable = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
+  const stateComparison = isEqual(getInitialOrderState(), formFields)
 
   return (
     <Modal openModal={openModal} setOpenModal={onOpenModal}>
@@ -91,6 +93,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
           isOrderEditable={isOrderEditable}
           isClient={isClient}
           formFields={formFields}
+          stateComparison={stateComparison}
           onClickOpenNewTab={onClickOpenNewTab}
           onClickCancelOrder={onClickCancelOrder}
           onClickReorder={onClickReorder}

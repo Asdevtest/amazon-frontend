@@ -23,7 +23,7 @@ interface CommentsModalProps {
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
   const { readOnly = true, title, text, isOpenModal, onOpenModal, onChangeField } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState(text || '')
 
@@ -44,10 +44,10 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
         <CustomTextEditor
           readOnly={readOnly}
-          conditions={comment}
+          value={comment}
           maxLength={MAX_DEFAULT_COMMENT_LEGTH}
-          editorClassName={styles.editorWrapper}
-          onChangeConditions={setComment}
+          editorClassName={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
+          onChange={setComment}
         />
 
         {!readOnly ? (
