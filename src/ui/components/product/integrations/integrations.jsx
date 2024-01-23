@@ -54,17 +54,17 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
   } = model.current
 
   const isAdmin = checkIsAdmin(userRole)
-  const isDisabledButton = isAdmin || !selectedRowIds.length
+  const isDisabledUnlinkButton = isAdmin || !selectedRowIds.length
 
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
         <div className={styles.addProductBtnsWrapper}>
-          <Button disabled={isDisabledButton} onClick={onClickBindInventoryGoodsToStockBtn}>
+          <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled={isDisabledButton} onClick={onUnlinkSkuSProduct}>
+          <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
