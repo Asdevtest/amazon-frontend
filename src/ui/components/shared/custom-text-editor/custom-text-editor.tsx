@@ -12,6 +12,7 @@ interface CustomTextEditorProps {
   readOnly?: boolean
   maxLength?: number
   placeholder?: string
+  disableToolbar?: boolean
   wrapperClassName?: string
   editorWrapperClassName?: string
   editorToolbarClassName?: string
@@ -25,6 +26,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
     readOnly,
     maxLength,
     placeholder,
+    disableToolbar,
     wrapperClassName,
     editorWrapperClassName,
     editorToolbarClassName,
@@ -86,7 +88,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
           },
           editorClassName,
         )}
-        toolbar={toolbar(readOnly)}
+        toolbar={toolbar(readOnly || disableToolbar)}
         onEditorStateChange={handleEditorStateChange}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
