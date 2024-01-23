@@ -21,26 +21,26 @@ import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './compon
 interface Props {
   isGroupChat: boolean
   userId: string
+  firstItemIndex: number
   messages?: ChatMessageContract[]
   handlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   chatId?: string
-  chat: ChatContract
   isShowChatInfo?: boolean
   isFreelanceOwner?: boolean
   messageToScroll: ChatMessageContract | null
   setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
   messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
-  handleScrollToBottomButtonVisibility: (range: ListRange) => void
+  handleScrollToBottomButtonVisibility: (bottomState: boolean) => void
+  prependItems: () => void
 }
 
 export const ChatMessagesList: FC<Props> = observer(
   ({
     messages = [],
     userId,
-    chat,
     handlers,
     messagesFound,
     searchPhrase,
@@ -52,20 +52,12 @@ export const ChatMessagesList: FC<Props> = observer(
     messagesWrapperRef,
     chatId,
     isFreelanceOwner,
+    firstItemIndex,
+    prependItems,
     handleScrollToBottomButtonVisibility,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isMobileResolution } = useCreateBreakpointResolutions()
-
-    const START_INDEX = 1000
-
-    const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
-
-    console.log('firstItemIndex', firstItemIndex)
-
-    const prependItems = () => {
-      ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length - 1))
-    }
 
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
     const chatBottomRef = useRef<HTMLDivElement | null>(null)
@@ -87,20 +79,22 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }
 
+    console.log('messageToScroll', messageToScroll)
+
     const scrollToMessage = () => {
-      // if (messageToScrollRef.current && messagesWrapperRef.current) {
-      //   const messageContainerHeight = messagesWrapperRef.current.clientHeight
-      //   const messageTop = messageToScrollRef.current.offsetTop
-      //   const messageHeight = messageToScrollRef.current.offsetHeight
-      //   const messageCenter = messageTop + messageHeight / 2
-      //   const scrollToPosition = messageCenter - messageContainerHeight / 2
-      //   messagesWrapperRef.current.scrollTo({
-      //     top: scrollToPosition,
-      //     behavior: 'smooth',
-      //   })
-      //   highlightMessageHandler(messageToScrollRef.current)
-      //   setMessageToScroll(null)
-      // }
+      if (messageToScrollRef.current && messagesWrapperRef.current) {
+        // const messageContainerHeight = messagesWrapperRef.current.clientHeight
+        const messageTop = messageToScrollRef.current.offsetTop
+        const messageHeight = messageToScrollRef.current.offsetHeight
+        const messageCenter = messageTop + messageHeight / 2
+        const scrollToPosition = messageCenter
+        console.log('scrollToPosition', scrollToPosition)
+        messagesWrapperRef.current.scrollTo({
+          top: scrollToPosition,
+        })
+        highlightMessageHandler(messageToScrollRef.current)
+        setMessageToScroll(null)
+      }
     }
 
     const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
@@ -274,15 +268,15 @@ export const ChatMessagesList: FC<Props> = observer(
     return (
       <Virtuoso
         ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
-        rangeChanged={range => {
-          handleScrollToBottomButtonVisibility(range)
-        }}
         style={{ height: '100%', width: '100%' }}
         firstItemIndex={firstItemIndex}
         initialTopMostItemIndex={messages?.length - 1}
         startReached={prependItems}
+        atBottomStateChange={handleScrollToBottomButtonVisibility}
+        atBottomThreshold={350}
         data={messages}
         itemContent={(index, props) => renderItem(props, index)}
+        followOutput={isAtBottom => (isAtBottom ? 'smooth' : false)}
       />
     )
   },

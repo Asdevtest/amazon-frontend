@@ -86,8 +86,7 @@ export const Chat: FC<ChatProps> = memo(
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
 
     console.log('messagesWrapperRef', messagesWrapperRef)
-
-    const chatBottomRef = useRef<HTMLDivElement | null>(null)
+    console.log('chat', chat)
 
     const messageInitialState: MessageStateParams = {
       message: '',
@@ -104,9 +103,6 @@ export const Chat: FC<ChatProps> = memo(
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
-    const [lastReadedMessage, setLastReadedMessage] = useState<ChatMessageContract>()
-    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
-
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
@@ -121,30 +117,25 @@ export const Chat: FC<ChatProps> = memo(
 
     //
 
-    const handleScrollToBottomButtonVisibility = (range: ListRange) => {
-      if (range && range.endIndex + 1 !== 1000) {
-        chatBottomRef?.current?.style.setProperty('display', 'flex')
-      } else {
-        chatBottomRef?.current?.style.setProperty('display', 'none')
-      }
+    const START_INDEX = chat?.messagesCount || 10000
+
+    const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
+
+    console.log('firstItemIndex', firstItemIndex)
+    console.log('START_INDEX', START_INDEX)
+    console.log('chat?.messagesCount', chat?.messagesCount)
+
+    const handleLoadMoreMessages = () => {
+      ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length))
     }
 
-    // const handleLoadMoreMessages = (e: Event) => {
-    //   const target = e.target as HTMLDivElement
-
-    //   if (target.scrollTop && target.scrollTop < 350 && !messagesLoadingStatus.current) {
-    //     messagesLoadingStatus.current = true
-    //     ChatModel.getChatMessages?.(chat?._id).finally(() => {
-    //       messagesLoadingStatus.current = false
-    //     })
-    //   }
-    // }
-
-    useEffect(() => {
-      const handleScroll = (e: Event) => {
-        // handleLoadMoreMessages(e)
+    const handleScrollToBottomButtonVisibility = (bottomState: boolean) => {
+      if (!bottomState) {
+        setIsShowScrollToBottomBtn(true)
+      } else {
+        setIsShowScrollToBottomBtn(false)
       }
-    }, [chat?._id])
+    }
 
     useEffect(() => {
       if (isSendTypingPossible && message) {
@@ -164,26 +155,6 @@ export const Chat: FC<ChatProps> = memo(
       if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
         updateData()
       }
-
-      // if (messages?.length > 0 && messagesWrapperRef.current) {
-      //   const currentScrollPosition = toFixed(
-      //     messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
-      //   )
-      //   const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
-
-      //   if (
-      //     scrolledFromBottom > messagesWrapperRef.current.clientHeight &&
-      //     messages.at(-1)?._id !== lastReadedMessage?._id
-      //   ) {
-      //     const lastReadedMessageIndex = messages.findIndex(el => el._id === lastReadedMessage?._id)
-      //     setUnreadMessages(
-      //       messages.slice(lastReadedMessageIndex + 1, messages.length).filter(el => el.user?._id !== userId),
-      //     )
-      //   } else {
-      //     setUnreadMessages([])
-      //     setLastReadedMessage(messages[messages.length - 1])
-      //   }
-      // }
     }, [messages?.length])
 
     useEffect(() => {
@@ -211,6 +182,7 @@ export const Chat: FC<ChatProps> = memo(
     const changeMessageAndState = (value: string) => {
       setMessage(value)
     }
+
     const changeFilesAndState = (value: UploadFileType[]) => {
       setFiles(value)
     }
@@ -263,13 +235,6 @@ export const Chat: FC<ChatProps> = memo(
 
     const onClickScrollToBottom = () => {
       messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
-
-      // if (unreadMessages?.length) {
-      //   setMessageToScroll({ ...unreadMessages[0] })
-      // } else {
-      //   setMessageToScroll({ ...messages.at(-1)! })
-      // }
-      // setUnreadMessages([])
     }
 
     useEffect(() => {
@@ -285,7 +250,6 @@ export const Chat: FC<ChatProps> = memo(
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
-            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
@@ -298,6 +262,8 @@ export const Chat: FC<ChatProps> = memo(
             isFreelanceOwner={isFreelanceOwner}
             setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
+            firstItemIndex={firstItemIndex}
+            prependItems={handleLoadMoreMessages}
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
           />
 
@@ -309,19 +275,17 @@ export const Chat: FC<ChatProps> = memo(
             )}
           </div>
 
-          {/* {isShowScrollToBottomBtn && ( */}
-          <div
-            ref={chatBottomRef}
-            className={cx(styles.scrollToBottom, {
-              [styles.scrollToBottomRight]: isShowChatInfo,
-              [styles.hideElement]: isShowChatInfo && isTabletResolution,
-            })}
-            onClick={onClickScrollToBottom}
-          >
-            <KeyboardArrowDownIcon />
-            {!!unreadMessages?.length && <div className={styles.scrollToBottomBadge}>{unreadMessages?.length}</div>}
-          </div>
-          {/* )} */}
+          {isShowScrollToBottomBtn && (
+            <div
+              className={cx(styles.scrollToBottom, {
+                [styles.scrollToBottomRight]: isShowChatInfo,
+                [styles.hideElement]: isShowChatInfo && isTabletResolution,
+              })}
+              onClick={onClickScrollToBottom}
+            >
+              <KeyboardArrowDownIcon />
+            </div>
+          )}
 
           {isShowChatInfo && (
             <ChatInfo
