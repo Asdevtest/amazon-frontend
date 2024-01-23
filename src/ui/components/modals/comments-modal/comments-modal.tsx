@@ -1,6 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { FC, memo, useState } from 'react'
 
+import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
@@ -44,7 +45,7 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
         <CustomTextEditor
           readOnly={readOnly}
           conditions={comment}
-          maxLength={2000}
+          maxLength={MAX_DEFAULT_COMMENT_LEGTH}
           editorClassName={styles.editorWrapper}
           onChangeConditions={setComment}
         />

@@ -3,8 +3,6 @@ import { observer } from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
 import { useEffect, useMemo, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -14,7 +12,7 @@ import { useStyles } from './custom-text-editor.style'
 import { controls, customControls } from './custom-text-editor.config'
 
 export const CustomTextEditor = observer(props => {
-  const { conditions = '', onChangeConditions, readOnly, editorClassName, verticalResize, maxlength, notStyles } = props
+  const { conditions, onChangeConditions, readOnly, editorClassName, verticalResize, maxLength, notStyles } = props
 
   const isJSON = text => {
     try {
@@ -53,16 +51,14 @@ export const CustomTextEditor = observer(props => {
     }
   }, [text])
 
-  const showErrorBorder = conditions.length > maxlength && !readOnly
+  const showErrorBorder = conditions.length > maxLength && !readOnly
 
   return (
     <div className={styles.wrapper}>
-      {!readOnly && (
-        <Typography className={styles.editorTitle}>{t(TranslationKey['Describe your task']) + '*'}</Typography>
-      )}
+      {/* {!readOnly && !notStyles && <p className={styles.editorTitle}>{t(TranslationKey['Describe your task']) + '*'}</p>} */}
 
       <MUIRichTextEditor
-        maxLength={maxlength}
+        maxLength={maxLength}
         readOnly={readOnly}
         defaultValue={defaultValue}
         label={!readOnly && t(TranslationKey['Task description'])}

@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
@@ -52,7 +53,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           <CustomTextEditor
             readOnly
             conditions={order.buyerComment}
-            maxLength={2000}
+            maxLength={MAX_DEFAULT_COMMENT_LEGTH}
             editorClassName={styles.editorWrapper}
           />
         </div>
@@ -62,7 +63,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           <CustomTextEditor
             readOnly={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
             conditions={formFields.clientComment}
-            maxLength={2000}
+            maxLength={MAX_DEFAULT_COMMENT_LEGTH}
             editorClassName={styles.editorWrapper}
             onChangeConditions={onChangeField('clientComment')}
           />

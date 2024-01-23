@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
+import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AlertShield } from '@components/shared/alert-shield'
@@ -61,7 +62,7 @@ export const RightSideComments = memo(
             <CustomTextEditor
               readOnly={!checkIsResearcher(curUserRole) || !showActionBtns}
               conditions={product.icomment}
-              maxLength={1000}
+              maxLength={MAX_DEFAULT_COMMENT_LEGTH}
               editorClassName={styles.editorWrapper}
               onChangeConditions={onChangeField('icomment')}
             />
@@ -72,7 +73,7 @@ export const RightSideComments = memo(
             <CustomTextEditor
               readOnly={!checkIsSupervisor(curUserRole) || !showActionBtns}
               conditions={product.checkednotes}
-              maxLength={1000}
+              maxLength={MAX_DEFAULT_COMMENT_LEGTH}
               editorClassName={styles.editorWrapper}
               onChangeConditions={onChangeField('checkednotes')}
             />
@@ -85,7 +86,7 @@ export const RightSideComments = memo(
                 <CustomTextEditor
                   readOnly={!checkIsBuyer(curUserRole) || !showActionBtns}
                   conditions={product.buyersComment}
-                  maxLength={1000}
+                  maxLength={MAX_DEFAULT_COMMENT_LEGTH}
                   editorClassName={styles.editorWrapper}
                   onChangeConditions={onChangeField('buyersComment')}
                 />
@@ -96,7 +97,7 @@ export const RightSideComments = memo(
                 <CustomTextEditor
                   readOnly={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
                   conditions={product.clientComment}
-                  maxLength={1000}
+                  maxLength={MAX_DEFAULT_COMMENT_LEGTH}
                   editorClassName={styles.editorWrapper}
                   onChangeConditions={onChangeField('clientComment')}
                 />
