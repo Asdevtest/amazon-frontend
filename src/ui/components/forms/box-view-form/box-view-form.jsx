@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { memo, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -48,6 +49,7 @@ export const BoxViewForm = memo(props => {
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
   const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
   const isEdit = isClient || isStorekeeper || isBuyer
+  const disableSaveButton = isEqual(box, formFields)
 
   const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
 
@@ -185,7 +187,7 @@ export const BoxViewForm = memo(props => {
 
         <div className={styles.buttonsWrapper}>
           {isEdit && (
-            <Button success onClick={() => onSubmitChangeFields(formFields)}>
+            <Button success disabled={disableSaveButton} onClick={() => onSubmitChangeFields(formFields)}>
               {t(TranslationKey.Save)}
             </Button>
           )}
