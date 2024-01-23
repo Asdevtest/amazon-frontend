@@ -60,7 +60,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   datePickerWrapper: {
-    width: 100,
+    width: '100%',
   },
 
   commentInput: {
