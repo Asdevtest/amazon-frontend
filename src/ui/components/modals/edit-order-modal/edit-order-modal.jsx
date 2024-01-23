@@ -406,6 +406,8 @@ export const EditOrderModal = memo(
         }
 
         return
+      } else if (['clientComment', 'buyerComment'].includes(filedName)) {
+        newOrderFieldsState[filedName] = e
       } else if (filedName === 'amount') {
         newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
 

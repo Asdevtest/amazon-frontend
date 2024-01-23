@@ -583,8 +583,8 @@ export const CreateOrEditRequestContent = memo(props => {
                   <CustomTextEditor
                     verticalResize
                     maxLength={MAX_COMMENT_LEGTH}
-                    conditions={formFields.details.conditions}
-                    onChangeConditions={onChangeField('details')('conditions')}
+                    value={formFields.details.conditions}
+                    onChange={onChangeField('details')('conditions')}
                   />
                 </div>
               </div>
@@ -1079,7 +1079,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
                     <CustomTextEditor
                       readOnly
-                      conditions={formFields.details.conditions}
+                      value={formFields.details.conditions}
                       editorClassName={styles.editorClassName}
                     />
                   </div>

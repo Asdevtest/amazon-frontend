@@ -173,11 +173,7 @@ export const CreateOrEditProposalContent = memo(props => {
             <>
               <Typography className={styles.requestTitleName}>{t(TranslationKey['Request description'])}</Typography>
               {/* <Typography className={styles.requestTitle}>{request?.details.conditions}</Typography> */}
-              <CustomTextEditor
-                readOnly
-                conditions={request?.details.conditions}
-                editorClassName={styles.editorClassName}
-              />
+              <CustomTextEditor readOnly value={request?.details.conditions} editorClassName={styles.editorClassName} />
             </>
           )}
 

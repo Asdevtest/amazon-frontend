@@ -52,7 +52,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           <p>{t(TranslationKey.Buyer)}</p>
           <CustomTextEditor
             readOnly
-            conditions={order.buyerComment}
+            value={order.buyerComment}
             maxLength={MAX_DEFAULT_COMMENT_LEGTH}
             editorClassName={styles.editorWrapper}
           />
@@ -62,10 +62,10 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
           <p>{t(TranslationKey.Client)}</p>
           <CustomTextEditor
             readOnly={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-            conditions={formFields.clientComment}
+            value={formFields.clientComment}
             maxLength={MAX_DEFAULT_COMMENT_LEGTH}
             editorClassName={styles.editorWrapper}
-            onChangeConditions={onChangeField('clientComment')}
+            onChangeC={onChangeField('clientComment')}
           />
         </div>
       </div>

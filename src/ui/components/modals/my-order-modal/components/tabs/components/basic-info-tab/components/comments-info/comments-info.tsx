@@ -38,7 +38,12 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
                 </div>
 
                 {item.text ? (
-                  <CustomTextEditor readOnly notStyles conditions={item.text} editorClassName={styles.commentEditor} />
+                  <CustomTextEditor
+                    readOnly
+                    value={item.text}
+                    wrapperClassName={styles.editorWrapper}
+                    editorClassName={styles.editor}
+                  />
                 ) : (
                   <p className={cx(styles.commentText, styles.empty)}>{t(TranslationKey.Empty)}</p>
                 )}
