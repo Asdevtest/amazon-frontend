@@ -111,7 +111,7 @@ export const useStyles = makeStyles()(theme => ({
 
   editorWrapper: {
     maxHeight: '400px !important',
-    maxWidth: '780px',
+    maxWidth: '920px',
   },
 
   controlsWrapper: {
