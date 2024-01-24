@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
+    marginTop: 20,
     width: '100%',
     height: '100%',
   },
@@ -38,10 +39,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   toolbar: {
+    position: 'relative',
     padding: '0 !important',
     margin: '0 !important',
     justifyContent: 'flex-end !important',
-    fontSize: '0 !important',
+    fontSize: '16px !important',
     background: 'none !important',
     border: 'none !important',
     borderRadius: '0 !important',
@@ -73,5 +75,15 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       opacity: '0.5 !important',
     },
+  },
+
+  title: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 30,
+    width: 300,
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

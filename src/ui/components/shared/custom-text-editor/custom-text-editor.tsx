@@ -11,6 +11,7 @@ interface CustomTextEditorProps {
   value: string
   readOnly?: boolean
   maxLength?: number
+  title?: string
   placeholder?: string
   disableToolbar?: boolean
   wrapperClassName?: string
@@ -25,6 +26,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
     value,
     readOnly,
     maxLength,
+    title,
     placeholder,
     disableToolbar,
     wrapperClassName,
@@ -69,6 +71,10 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
   const showErrorBorder =
     !!maxLength && JSON.stringify(convertToRaw(editorState.getCurrentContent())).length > maxLength
 
+  const CustomOptionTitle = () => {
+    return <p className={styles.title}>{title}</p>
+  }
+
   return (
     <div className={cx(styles.wrapper, wrapperClassName)}>
       <Editor
@@ -88,6 +94,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
           },
           editorClassName,
         )}
+        toolbarCustomButtons={[<CustomOptionTitle key="custom-title" />]}
         toolbar={toolbar(readOnly || disableToolbar)}
         onEditorStateChange={handleEditorStateChange}
         onFocus={() => setFocus(true)}

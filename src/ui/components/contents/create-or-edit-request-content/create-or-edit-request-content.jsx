@@ -47,7 +47,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { replaceCommaByDot, toFixed } from '@utils/text'
+import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -377,9 +377,8 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeLimitInMinutes ||
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
-    !formFields.details.conditions ||
-    formFields.details.conditions >= 6000 ||
-    !formFields.details.conditions.length ||
+    parseTextString(formFields.details.conditions).length >= 6000 ||
+    !parseTextString(formFields.details.conditions).length ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -581,7 +580,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
-                    placeholder={t(TranslationKey['Describe your task']) + '*'}
+                    title={t(TranslationKey['Describe your task']) + '*'}
+                    placeholder={t(TranslationKey['Task description'])}
                     maxLength={MAX_COMMENT_LEGTH}
                     value={formFields.details.conditions}
                     onChange={onChangeField('details')('conditions')}
