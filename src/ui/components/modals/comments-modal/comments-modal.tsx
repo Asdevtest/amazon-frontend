@@ -1,10 +1,10 @@
 import isEqual from 'lodash.isequal'
-import { FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
 import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -27,7 +27,10 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   const [comment, setComment] = useState(text || '')
 
-  const hasCommentChanged = isEqual(comment, text) || comment.length > 2000
+  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
+
+  const isNotValidCommentLength = comment.length > MAX_DEFAULT_COMMENT_LEGTH
+  const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength
 
   const handleSaveComment = () => {
     if (!hasCommentChanged) {
@@ -40,14 +43,19 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
   return (
     <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
-        <p className={styles.title}>{title}</p>
-
-        <CustomTextEditor
-          readOnly={readOnly}
+        <Field
+          multiline
+          disabled={readOnly}
+          error={isNotValidCommentLength}
+          containerClasses={styles.editorContainer}
+          inputClasses={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
+          inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
+          minRows={8}
+          maxRows={8}
+          labelClasses={styles.title}
+          label={title}
           value={comment}
-          maxLength={MAX_DEFAULT_COMMENT_LEGTH}
-          editorClassName={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
-          onChange={setComment}
+          onChange={handleChangeComment}
         />
 
         {!readOnly ? (

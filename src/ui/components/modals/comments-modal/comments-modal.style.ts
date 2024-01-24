@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 20,
   },
 
   title: {
@@ -14,17 +14,26 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  editorContainer: {
+    marginBottom: '0 !important',
+  },
+
   editor: {
-    minHeight: '200px !important',
-    maxHeight: '200px !important',
+    height: 170,
     width: 600,
+    fontSize: 16,
+    lineHeight: '19px',
   },
 
   editorReadOnly: {
-    padding: 0,
-    border: 'none',
-    borderRadius: 0,
-    background: 'none !important',
+    height: 152,
+    padding: '0 !important',
+    background: `${theme.palette.background.general} !important`,
+
+    textarea: {
+      padding: '0 !important',
+      background: `${theme.palette.background.general} !important`,
+    },
   },
 
   buttons: {

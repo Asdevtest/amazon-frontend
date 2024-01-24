@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
 import { Card } from '@components/modals/my-order-modal/components'
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { Field } from '@components/shared/field'
 import { Pencil } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -38,11 +38,14 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
                 </div>
 
                 {item.text ? (
-                  <CustomTextEditor
-                    readOnly
+                  <Field
+                    multiline
+                    disabled
+                    containerClasses={styles.editorWrapper}
+                    inputClasses={styles.editor}
+                    minRows={3}
+                    maxRows={3}
                     value={item.text}
-                    wrapperClassName={styles.editorWrapper}
-                    editorClassName={styles.editor}
                   />
                 ) : (
                   <p className={cx(styles.commentText, styles.empty)}>{t(TranslationKey.Empty)}</p>
