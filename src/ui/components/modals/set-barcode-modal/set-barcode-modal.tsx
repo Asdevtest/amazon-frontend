@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
