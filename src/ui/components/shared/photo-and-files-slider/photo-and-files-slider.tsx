@@ -108,8 +108,6 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
   const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
   const imageModalFiles = withAllFiles ? files : [...mediaFiles, ...documents]
 
-  console.log('mediaFileIndex', mediaFileIndex)
-
   return (
     <>
       {files?.length ? (
