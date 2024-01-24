@@ -40,6 +40,7 @@ interface Props {
 export const ChatMessagesList: FC<Props> = observer(
   ({
     messages = [],
+    chat,
     userId,
     handlers,
     messagesFound,
@@ -60,7 +61,6 @@ export const ChatMessagesList: FC<Props> = observer(
     const { isMobileResolution } = useCreateBreakpointResolutions()
 
     const messageToScrollRef = useRef<HTMLDivElement | null>(null)
-    const chatBottomRef = useRef<HTMLDivElement | null>(null)
 
     const [_, setChoosenMessageState] = useState<{
       message: ChatMessageContract | null
@@ -79,22 +79,27 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }
 
-    console.log('messageToScroll', messageToScroll)
-
     const scrollToMessage = () => {
-      if (messageToScrollRef.current && messagesWrapperRef.current) {
-        // const messageContainerHeight = messagesWrapperRef.current.clientHeight
-        const messageTop = messageToScrollRef.current.offsetTop
-        const messageHeight = messageToScrollRef.current.offsetHeight
-        const messageCenter = messageTop + messageHeight / 2
-        const scrollToPosition = messageCenter
-        console.log('scrollToPosition', scrollToPosition)
-        messagesWrapperRef.current.scrollTo({
-          top: scrollToPosition,
-        })
-        highlightMessageHandler(messageToScrollRef.current)
-        setMessageToScroll(null)
+      console.log('messageToScroll', messageToScroll)
+
+      if (messagesWrapperRef?.current) {
+        messagesWrapperRef.current.scrollToIndex({ index: messageToScroll })
       }
+
+      // if (messageToScrollRef.current && messagesWrapperRef.current) {
+      //   // const messageContainerHeight = messagesWrapperRef.current.clientHeight
+
+      //   const messageTop = messageToScrollRef.current.offsetTop
+      //   const messageHeight = messageToScrollRef.current.offsetHeight
+      //   const messageCenter = messageTop + messageHeight / 2
+      //   const scrollToPosition = messageCenter
+      //   console.log('scrollToPosition', scrollToPosition)
+      //   messagesWrapperRef.current.scrollTo({
+      //     top: scrollToPosition,
+      //   })
+      //   highlightMessageHandler(messageToScrollRef.current)
+      //   setMessageToScroll(null)
+      // }
     }
 
     const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
@@ -111,10 +116,6 @@ export const ChatMessagesList: FC<Props> = observer(
         }
       }
     }
-
-    useEffect(() => {
-      chatBottomRef.current?.scrollIntoView()
-    }, [chatId])
 
     useEffect(() => {
       scrollToMessage()
@@ -177,9 +178,17 @@ export const ChatMessagesList: FC<Props> = observer(
 
       const isRequestOrProposal = !!messageItem.data
 
+      // console.log('index', index)
+      // console.log('count index', index - firstItemIndex)
+      // console.log('firstItemIndex', firstItemIndex)
+      // console.log(
+      //   'index of message',
+      //   messages?.findIndex(el => el._id === messageItem._id),
+      // )
+
       return (
         <div
-          ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : undefined}
+          ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : null}
           key={`chatMessage_${messageItem._id}`}
           className={cx(styles.message, {
             [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
@@ -230,7 +239,9 @@ export const ChatMessagesList: FC<Props> = observer(
                       className={styles.repleyWrapper}
                       onClick={e => {
                         e.stopPropagation()
-                        setMessageToScroll(repleyMessage)
+                        const messageIndex = messages?.findIndex(el => el._id === repleyMessage._id)
+
+                        setMessageToScroll(firstItemIndex + messageIndex)
                       }}
                     >
                       <div className={styles.repleyDivider} />

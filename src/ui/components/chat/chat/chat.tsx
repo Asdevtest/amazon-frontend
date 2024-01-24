@@ -85,9 +85,6 @@ export const Chat: FC<ChatProps> = memo(
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
 
-    console.log('messagesWrapperRef', messagesWrapperRef)
-    console.log('chat', chat)
-
     const messageInitialState: MessageStateParams = {
       message: '',
       files: [],
@@ -117,13 +114,9 @@ export const Chat: FC<ChatProps> = memo(
 
     //
 
-    const START_INDEX = chat?.messagesCount || 10000
+    const START_INDEX = 10000
 
     const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
-
-    console.log('firstItemIndex', firstItemIndex)
-    console.log('START_INDEX', START_INDEX)
-    console.log('chat?.messagesCount', chat?.messagesCount)
 
     const handleLoadMoreMessages = () => {
       ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length))
@@ -234,6 +227,9 @@ export const Chat: FC<ChatProps> = memo(
     }
 
     const onClickScrollToBottom = () => {
+      if (!messagesWrapperRef.current) {
+        return
+      }
       messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
     }
 
@@ -241,7 +237,7 @@ export const Chat: FC<ChatProps> = memo(
       setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
     }, [toScrollMesId])
 
-    if (prevChatId !== chat?._id) {
+    if (prevChatId !== chat?._id && prevChatId !== undefined) {
       return null
     }
 
@@ -250,6 +246,7 @@ export const Chat: FC<ChatProps> = memo(
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
+            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
