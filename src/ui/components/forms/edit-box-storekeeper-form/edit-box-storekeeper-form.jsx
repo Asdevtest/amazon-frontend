@@ -30,7 +30,7 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { toFixed } from '@utils/text'
+import { parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -150,7 +150,7 @@ export const EditBoxStorekeeperForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel || '',
-      clientComment: formItem?.clientComment || '',
+      clientComment: parseTextString(formItem?.clientComment) || '',
       storekeeperTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',

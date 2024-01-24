@@ -18,7 +18,7 @@ import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/
 import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
-import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
+import { getShortenStringIfLongerThanCount, minsToTime, parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './request-designer-result-form.style'
@@ -205,7 +205,7 @@ const Slot = ({
 
         <div className={styles.imageObjSubWrapper}>
           <Typography className={cx(styles.clientComment)}>
-            {getShortenStringIfLongerThanCount(slot.commentByClient, 30)}
+            {getShortenStringIfLongerThanCount(parseTextString(slot.commentByClient), 30)}
           </Typography>
         </div>
       </div>

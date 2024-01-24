@@ -30,6 +30,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -111,7 +112,7 @@ export const EditBoxForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
-      clientComment: formItem?.clientComment || '',
+      clientComment: parseTextString(formItem?.clientComment) || '',
       clientTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',

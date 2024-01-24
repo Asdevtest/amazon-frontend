@@ -12,7 +12,6 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -398,28 +397,31 @@ export const SelectFields = ({
       </Grid>
 
       <Grid item className={styles.gridItem}>
-        <div className={styles.trackAndHsCodeAndComments}>
-          <div className={styles.trackAndHsCodeAndComment}>
-            <p className={styles.label}>{t(TranslationKey['Client comment'])}</p>
-            <CustomTextEditor
-              readOnly
-              value={orderFields.clientComment}
-              wrapperClassName={styles.wrapperEditor}
-              onChange={setOrderField('clientComment')}
-            />
-          </div>
+        <Box my={3} className={styles.trackAndHsCodeAndComments}>
+          <Field
+            disabled
+            multiline
+            minRows={4}
+            maxRows={4}
+            inputClasses={styles.commentInput}
+            labelClasses={styles.label}
+            value={orderFields.clientComment}
+            label={t(TranslationKey['Client comment'])}
+            onChange={setOrderField('clientComment')}
+          />
 
-          <div className={styles.trackAndHsCodeAndComment}>
-            <p className={styles.label}>{t(TranslationKey['Buyer comments to the order'])}</p>
-            <CustomTextEditor
-              disableToolbar
-              maxLength={500}
-              value={orderFields.buyerComment}
-              wrapperClassName={styles.wrapperEditor}
-              onChange={setOrderField('buyerComment')}
-            />
-          </div>
-        </div>
+          <Field
+            multiline
+            minRows={4}
+            maxRows={4}
+            inputProps={{ maxLength: 500 }}
+            inputClasses={styles.commentInput}
+            value={orderFields.buyerComment}
+            labelClasses={styles.label}
+            label={t(TranslationKey['Buyer comments to the order'])}
+            onChange={setOrderField('buyerComment')}
+          />
+        </Box>
 
         <Box my={3} className={styles.trackAndHsCodeAndComments}>
           <Box display="flex" width="100%">

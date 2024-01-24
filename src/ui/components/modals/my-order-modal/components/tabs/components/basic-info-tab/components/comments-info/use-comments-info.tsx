@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value'
 
+import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { CommentsInfoProps, IFieldConfig } from './comments-info.type'
@@ -43,15 +44,21 @@ export const useCommentsInfo = ({ formFields, setFormFields, isClient }: Comment
     {
       field: 'buyerComment',
       title: t(TranslationKey.Buyer),
-      text: formFields?.buyerComment,
-      element: formFields?.buyerComment?.length > 0 ? <CopyValue text={formFields?.buyerComment} /> : undefined,
+      text: parseTextString(formFields?.buyerComment),
+      element:
+        formFields?.buyerComment?.length > 0 ? (
+          <CopyValue text={parseTextString(formFields?.buyerComment)} />
+        ) : undefined,
       isEditable: false,
     },
     {
       field: 'clientComment',
       title: t(TranslationKey.Client),
-      text: formFields?.clientComment,
-      element: formFields?.clientComment?.length > 0 ? <CopyValue text={formFields?.clientComment} /> : undefined,
+      text: parseTextString(formFields?.clientComment),
+      element:
+        formFields?.clientComment?.length > 0 ? (
+          <CopyValue text={parseTextString(formFields?.clientComment)} />
+        ) : undefined,
       isEditable: isClient,
     },
   ]

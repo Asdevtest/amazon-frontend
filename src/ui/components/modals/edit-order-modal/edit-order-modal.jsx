@@ -52,6 +52,7 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
   getShortenStringIfLongerThanCount,
+  parseTextString,
   timeToDeadlineInHoursAndMins,
   toFixed,
 } from '@utils/text'
@@ -166,8 +167,8 @@ export const EditOrderModal = memo(
     const initialState = {
       ...order,
       status: order?.status || undefined,
-      clientComment: order?.clientComment || '',
-      buyerComment: order?.buyerComment || '',
+      clientComment: parseTextString(order?.clientComment) || '',
+      buyerComment: parseTextString(order?.buyerComment) || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
@@ -406,8 +407,6 @@ export const EditOrderModal = memo(
         }
 
         return
-      } else if (['clientComment', 'buyerComment'].includes(filedName)) {
-        newOrderFieldsState[filedName] = e
       } else if (filedName === 'amount') {
         newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
 

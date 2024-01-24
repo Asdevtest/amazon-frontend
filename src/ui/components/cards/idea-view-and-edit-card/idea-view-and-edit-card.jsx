@@ -1,4 +1,3 @@
-
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -39,7 +38,7 @@ import {
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
+import { clearEverythingExceptNumbers, parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './idea-view-and-edit-card.style'
@@ -137,8 +136,8 @@ export const IdeaViewAndEditCard = observer(
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
-      comments: idea?.comments || '',
-      buyerComment: idea?.buyerComment || '',
+      comments: parseTextString(idea?.comments) || '',
+      buyerComment: parseTextString(idea?.buyerComment) || '',
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
       criteria: idea?.criteria || '',
@@ -153,8 +152,8 @@ export const IdeaViewAndEditCard = observer(
       ...curIdea,
       status: curIdea?.status,
       media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
-      comments: curIdea?.comments || '',
-      buyerComment: curIdea?.buyerComment || '',
+      comments: parseTextString(curIdea?.comments) || '',
+      buyerComment: parseTextString(curIdea?.buyerComment) || '',
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',
