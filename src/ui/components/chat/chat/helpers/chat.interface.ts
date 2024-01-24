@@ -14,7 +14,7 @@ export interface OnEmojiSelectEvent {
   unified: string
 }
 
-export interface MessageStateParams {
+export interface IMessageState {
   message: string
   files: UploadFileType[]
 }

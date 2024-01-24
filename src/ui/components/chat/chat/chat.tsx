@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { ChangeEvent, FC, KeyboardEvent, ReactElement, Ref, memo, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useEffect, useRef, useState } from 'react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
-import { ListRange, VirtuosoHandle } from 'react-virtuoso'
+import { VirtuosoHandle } from 'react-virtuoso'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
@@ -36,7 +36,8 @@ import { CurrentOpponent } from '../multiple-chats'
 
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
-import { MessageStateParams, OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { useChatInputControl } from './hooks/use-chat-area'
 import { usePrevious } from './hooks/use-previous'
 
 interface ChatProps {
@@ -82,39 +83,53 @@ export const Chat: FC<ChatProps> = memo(
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
 
-    const messageInput = useRef<HTMLTextAreaElement | null>(null)
-    const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
-
-    const messageInitialState: MessageStateParams = {
+    const messageInitialState = {
       message: '',
       files: [],
     }
 
-    const [message, setMessage] = useState(messageInitialState.message)
-    const [files, setFiles] = useState<UploadFileType[]>(messageInitialState.files)
+    const {
+      showFiles,
+      setShowFiles,
 
-    const [focused, setFocused] = useState(false)
-    const [showFiles, setShowFiles] = useState(false)
-    const [isShowEmojis, setIsShowEmojis] = useState(false)
+      message,
+      setMessage,
+
+      files,
+      setFiles,
+
+      isShowEmojis,
+      setIsShowEmojis,
+
+      focused,
+
+      onPasteFiles,
+
+      onFocus,
+      onBlur,
+      changeMessageAndState,
+      resetAllInputs,
+      changeFilesAndState,
+    } = useChatInputControl(messageInitialState)
+
+    const prevChatId = usePrevious(chat?._id)
+
+    const messageInput = useRef<HTMLTextAreaElement | null>(null)
+    const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
+    const highlightRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
-    const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
-
-    const prevChatId = usePrevious(chat?._id)
+    const [messageToScroll, setMessageToScroll] = useState<number | undefined>(undefined)
 
     const disabledSubmit = !message.trim() && !files.length
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
-    const onFocus = () => setFocused(true)
-    const onBlur = () => setFocused(false)
-
-    //
-
-    const START_INDEX = 10000
+    const START_INDEX = chat?.messagesCount || 1000000
 
     const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
 
@@ -172,19 +187,6 @@ export const Chat: FC<ChatProps> = memo(
       }
     }, [files?.length])
 
-    const changeMessageAndState = (value: string) => {
-      setMessage(value)
-    }
-
-    const changeFilesAndState = (value: UploadFileType[]) => {
-      setFiles(value)
-    }
-
-    const resetAllInputs = () => {
-      setMessage('')
-      setFiles(() => [])
-    }
-
     const onSubmitMessageInternal = () => {
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
@@ -199,33 +201,6 @@ export const Chat: FC<ChatProps> = memo(
       }
     }
 
-    const onPasteFiles = async (evt: React.ClipboardEvent) => {
-      const сopiedText = evt.clipboardData.getData('Text')
-
-      if (checkIsExternalVideoLink(сopiedText)) {
-        setShowFiles(true)
-        changeFilesAndState([...files, сopiedText])
-      } else if (evt.clipboardData.files.length === 0) {
-        return
-      } else {
-        const filesArr = Array.from(evt.clipboardData.files)
-
-        const filesAlowLength = 50 - files.length
-
-        evt.preventDefault()
-
-        const readyFilesArr: UploadFileType[] = filesArr.map((el: File) => ({
-          data_url: URL.createObjectURL(el),
-          file: new File([el], el.name?.replace(/ /g, ''), {
-            type: el.type,
-            lastModified: el.lastModified,
-          }),
-        }))
-
-        changeFilesAndState([...files, ...readyFilesArr.slice(0, filesAlowLength)])
-      }
-    }
-
     const onClickScrollToBottom = () => {
       if (!messagesWrapperRef.current) {
         return
@@ -234,8 +209,25 @@ export const Chat: FC<ChatProps> = memo(
     }
 
     useEffect(() => {
-      setMessageToScroll(toScrollMesId ? messages.find(el => el._id === toScrollMesId) || null : null)
+      if (toScrollMesId) {
+        scrollToMessage(messages.findIndex(el => el._id === toScrollMesId))
+      }
     }, [toScrollMesId])
+
+    const scrollToMessage = (messageIndex: number) => {
+      if (messagesWrapperRef?.current) {
+        if (highlightRef.current) {
+          clearTimeout(highlightRef.current)
+        }
+
+        messagesWrapperRef.current.scrollToIndex({ index: messageIndex })
+        setMessageToScroll(messageIndex)
+
+        highlightRef.current = setTimeout(() => {
+          setMessageToScroll(undefined)
+        }, 1000)
+      }
+    }
 
     if (prevChatId !== chat?._id && prevChatId !== undefined) {
       return null
@@ -246,7 +238,6 @@ export const Chat: FC<ChatProps> = memo(
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           <ChatMessagesList
             chatId={chat._id}
-            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
@@ -256,8 +247,8 @@ export const Chat: FC<ChatProps> = memo(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
+            scrollToMessage={scrollToMessage}
             isFreelanceOwner={isFreelanceOwner}
-            setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
             firstItemIndex={firstItemIndex}
             prependItems={handleLoadMoreMessages}
@@ -301,7 +292,7 @@ export const Chat: FC<ChatProps> = memo(
           <ChatCurrentReplyMessage
             message={messageToReply}
             setMessageToReply={setMessageToReply}
-            setMessageToScroll={setMessageToScroll}
+            scrollToMessage={() => scrollToMessage(messages.findIndex(el => el._id === messageToReply?._id))}
           />
         ) : null}
 

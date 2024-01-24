@@ -1,11 +1,9 @@
-import { observer } from 'mobx-react'
-import { FC, MutableRefObject, Ref, RefObject, useEffect, useRef, useState } from 'react'
-import { ListRange, Virtuoso, VirtuosoHandle } from 'react-virtuoso'
+import { FC, Ref, RefObject, memo, useEffect } from 'react'
+import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 
 import { Avatar, Link } from '@mui/material'
 
 import { ChatModel } from '@models/chat-model'
-import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -18,7 +16,7 @@ import { useStyles } from './chat-messages-list.style'
 import { ChatMessageByType, ChatMessageControlsOverlay } from './components'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages/chat-message-designer-proposal-edited-result'
 
-interface Props {
+interface ChatMessagesListProps {
   isGroupChat: boolean
   userId: string
   firstItemIndex: number
@@ -29,18 +27,19 @@ interface Props {
   chatId?: string
   isShowChatInfo?: boolean
   isFreelanceOwner?: boolean
-  messageToScroll: ChatMessageContract | null
-  setMessageToScroll: (mes: ChatMessageContract | null) => void
+  messageToScroll: number | undefined
   setMessageToReply: (mes: ChatMessageContract | null) => void
   messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
   handleScrollToBottomButtonVisibility: (bottomState: boolean) => void
   prependItems: () => void
+  scrollToMessage: (messageIndex: number) => void
 }
 
-export const ChatMessagesList: FC<Props> = observer(
-  ({
+export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
+  const { classes: styles, cx } = useStyles()
+
+  const {
     messages = [],
-    chat,
     userId,
     handlers,
     messagesFound,
@@ -48,7 +47,6 @@ export const ChatMessagesList: FC<Props> = observer(
     isGroupChat,
     messageToScroll,
     isShowChatInfo,
-    setMessageToScroll,
     setMessageToReply,
     messagesWrapperRef,
     chatId,
@@ -56,239 +54,170 @@ export const ChatMessagesList: FC<Props> = observer(
     firstItemIndex,
     prependItems,
     handleScrollToBottomButtonVisibility,
-  }) => {
-    const { classes: styles, cx } = useStyles()
-    const { isMobileResolution } = useCreateBreakpointResolutions()
+    scrollToMessage,
+  } = props
 
-    const messageToScrollRef = useRef<HTMLDivElement | null>(null)
+  const { isMobileResolution } = useCreateBreakpointResolutions()
 
-    const [_, setChoosenMessageState] = useState<{
-      message: ChatMessageContract | null
-      isIncomming: boolean
-    }>({ message: null, isIncomming: false })
+  const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
-    const messagesFoundIds = messagesFound?.map(el => el._id) || []
+  const onClickReply = (messageItem: ChatMessageContract) => {
+    setMessageToReply(messageItem)
+  }
 
-    const highlightMessageHandler = (message: HTMLDivElement) => {
-      if (message) {
-        message.classList.add(styles.highlightMessage)
-
-        setTimeout(() => {
-          message?.classList.remove(styles.highlightMessage)
-        }, 1000)
-      }
-    }
-
-    const scrollToMessage = () => {
-      console.log('messageToScroll', messageToScroll)
-
-      if (messagesWrapperRef?.current) {
-        messagesWrapperRef.current.scrollToIndex({ index: messageToScroll })
-      }
-
-      // if (messageToScrollRef.current && messagesWrapperRef.current) {
-      //   // const messageContainerHeight = messagesWrapperRef.current.clientHeight
-
-      //   const messageTop = messageToScrollRef.current.offsetTop
-      //   const messageHeight = messageToScrollRef.current.offsetHeight
-      //   const messageCenter = messageTop + messageHeight / 2
-      //   const scrollToPosition = messageCenter
-      //   console.log('scrollToPosition', scrollToPosition)
-      //   messagesWrapperRef.current.scrollTo({
-      //     top: scrollToPosition,
-      //   })
-      //   highlightMessageHandler(messageToScrollRef.current)
-      //   setMessageToScroll(null)
-      // }
-    }
-
-    const onClickReply = (messageItem: ChatMessageContract, isIncomming: boolean) => {
-      setChoosenMessageState({ message: messageItem, isIncomming })
-      setMessageToReply(messageItem)
-    }
-
-    const getReplyedMessages = async () => {
-      if (messages?.length) {
-        for (const message of messages) {
-          if (chatId && message.replyMessageId) {
-            await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
-          }
+  const getReplyedMessages = async () => {
+    if (messages?.length) {
+      for (const message of messages) {
+        if (chatId && message.replyMessageId) {
+          await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
         }
       }
     }
+  }
 
-    useEffect(() => {
-      scrollToMessage()
-    }, [messageToScroll])
+  useEffect(() => {
+    getReplyedMessages()
 
-    useEffect(() => {
-      const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
+    const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
 
-      if (unReadMessages?.length && chatId) {
-        ChatModel.readMessages(
-          chatId,
-          unReadMessages.map(el => el._id),
-        )
-      }
-    }, [messages])
-
-    useEffect(() => {
-      getReplyedMessages()
-    }, [messages?.length])
-
-    useEffect(() => {
-      // if (messagesWrapperRef.current) {
-      //   const currentScrollPosition = toFixed(
-      //     messagesWrapperRef.current.scrollTop + messagesWrapperRef.current.clientHeight,
-      //   )
-      //   const scrolledFromBottom = messagesWrapperRef.current.scrollHeight - currentScrollPosition
-      //   if (
-      //     scrolledFromBottom < messagesWrapperRef.current.clientHeight ||
-      //     messagesWrapperRef.current?.scrollTop < 20
-      //   ) {
-      //     chatBottomRef.current?.scrollIntoView({})
-      //   }
-      // }
-    }, [messages?.length])
-
-    const renderItem = (messageItem: ChatMessageContract, index: number) => {
-      const isIncomming = userId !== messageItem.user?._id
-
-      const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
-
-      const isLastMessage = index === messages.length - 1
-
-      const isNextMessageSameAuthor =
-        !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
-
-      const isBeforeMessageAnotherAuthor = messages[index - 1]?.user?._id !== messageItem.user?._id
-
-      const unReadMessage = !messageItem.isRead
-
-      const showName =
-        (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
-
-      const isReply = messageItem?.replyMessageId
-
-      const repleyMessage = messages.find(
-        el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
-      )
-
-      const isDisabledControls = messageItem.type !== ChatMessageType.USER
-
-      const isRequestOrProposal = !!messageItem.data
-
-      // console.log('index', index)
-      // console.log('count index', index - firstItemIndex)
-      // console.log('firstItemIndex', firstItemIndex)
-      // console.log(
-      //   'index of message',
-      //   messages?.findIndex(el => el._id === messageItem._id),
-      // )
-
-      return (
-        <div
-          ref={messageToScroll?._id === messageItem._id ? messageToScrollRef : null}
-          key={`chatMessage_${messageItem._id}`}
-          className={cx(styles.message, {
-            [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
-          })}
-        >
-          {index === 0 ||
-          formatDateWithoutTime(messages[index - 1]?.createdAt) !== formatDateWithoutTime(messageItem?.createdAt) ? (
-            <div className={styles.timeTextWrapper}>
-              <p className={styles.timeText}>{formatDateWithoutTime(messageItem?.createdAt)}</p>
-            </div>
-          ) : null}
-
-          <div className={styles.messageContent}>
-            <div
-              className={cx(styles.messageWrapper, {
-                [styles.messageWrapperIsIncomming]: isIncomming,
-                [styles.messageWrapperisNotPersonal]: isNotPersonal,
-              })}
-            >
-              {!isMobileResolution && !isNextMessageSameAuthor && !isNotPersonal ? (
-                <Link
-                  target="_blank"
-                  href={
-                    userId === messageItem.user?._id
-                      ? `${window.location.origin}/profile`
-                      : `${window.location.origin}/another-user?${messageItem.user?._id}`
-                  }
-                >
-                  <Avatar
-                    src={getUserAvatarSrc(messageItem.user?._id)}
-                    className={cx(styles.messageAvatarWrapper, {
-                      [styles.messageAvatarWrapperIsIncomming]: isIncomming,
-                    })}
-                  />
-                </Link>
-              ) : null}
-
-              <div
-                className={cx({
-                  [styles.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
-                  [styles.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
-                  [styles.messageInnerIsNextMessageSameAuthorIsInclomming]: isNextMessageSameAuthor && isIncomming,
-                })}
-              >
-                <div className={styles.messageInnerContentWrapper}>
-                  {isReply && repleyMessage && (
-                    <div
-                      className={styles.repleyWrapper}
-                      onClick={e => {
-                        e.stopPropagation()
-                        const messageIndex = messages?.findIndex(el => el._id === repleyMessage._id)
-
-                        setMessageToScroll(firstItemIndex + messageIndex)
-                      }}
-                    >
-                      <div className={styles.repleyDivider} />
-                      <ChatMessageByType
-                        showName
-                        isIncomming={isIncomming}
-                        messageItem={repleyMessage}
-                        isShowChatInfo={isShowChatInfo}
-                        unReadMessage={false}
-                      />
-                    </div>
-                  )}
-                  <ChatMessageByType
-                    isIncomming={isIncomming}
-                    messageItem={messageItem}
-                    isShowChatInfo={isShowChatInfo}
-                    unReadMessage={unReadMessage}
-                    showName={showName}
-                    handlers={handlers}
-                    messagesFoundIds={messagesFoundIds}
-                    searchPhrase={searchPhrase}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {!isDisabledControls && (
-              <ChatMessageControlsOverlay onClickReply={() => onClickReply(messageItem, isIncomming)} />
-            )}
-          </div>
-        </div>
+    if (unReadMessages?.length && chatId) {
+      ChatModel.readMessages(
+        chatId,
+        unReadMessages.map(el => el._id),
       )
     }
+  }, [messages?.length])
+
+  const renderItem = (messageItem: ChatMessageContract, indexFromTable: number) => {
+    const index = indexFromTable - firstItemIndex
+
+    const isHighlighted = messageToScroll === index
+
+    const isIncomming = userId !== messageItem.user?._id
+
+    const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
+
+    const isLastMessage = index === messages.length - 1
+
+    const isNextMessageSameAuthor =
+      !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
+
+    const isBeforeMessageAnotherAuthor = messages[index - 1]?.user?._id !== messageItem.user?._id
+
+    const unReadMessage = !messageItem.isRead
+
+    const showName =
+      (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+
+    const isReply = messageItem?.replyMessageId
+
+    const repleyMessage = messages.find(
+      el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
+    )
+
+    const isDisabledControls = messageItem.type !== ChatMessageType.USER
+
+    const isRequestOrProposal = !!messageItem.data
 
     return (
-      <Virtuoso
-        ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
-        style={{ height: '100%', width: '100%' }}
-        firstItemIndex={firstItemIndex}
-        initialTopMostItemIndex={messages?.length - 1}
-        startReached={prependItems}
-        atBottomStateChange={handleScrollToBottomButtonVisibility}
-        atBottomThreshold={350}
-        data={messages}
-        itemContent={(index, props) => renderItem(props, index)}
-        followOutput={isAtBottom => (isAtBottom ? 'smooth' : false)}
-      />
+      <div
+        className={cx(styles.message, {
+          [styles.highlightMessage]: isHighlighted,
+          [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
+        })}
+      >
+        {index === 0 ||
+        formatDateWithoutTime(messages[index - 1]?.createdAt) !== formatDateWithoutTime(messageItem?.createdAt) ? (
+          <div className={styles.timeTextWrapper}>
+            <p className={styles.timeText}>{formatDateWithoutTime(messageItem?.createdAt)}</p>
+          </div>
+        ) : null}
+
+        <div className={styles.messageContent}>
+          <div
+            className={cx(styles.messageWrapper, {
+              [styles.messageWrapperIsIncomming]: isIncomming,
+              [styles.messageWrapperisNotPersonal]: isNotPersonal,
+            })}
+          >
+            {!isMobileResolution && !isNextMessageSameAuthor && !isNotPersonal ? (
+              <Link
+                target="_blank"
+                href={
+                  userId === messageItem.user?._id
+                    ? `${window.location.origin}/profile`
+                    : `${window.location.origin}/another-user?${messageItem.user?._id}`
+                }
+              >
+                <Avatar
+                  src={getUserAvatarSrc(messageItem.user?._id)}
+                  className={cx(styles.messageAvatarWrapper, {
+                    [styles.messageAvatarWrapperIsIncomming]: isIncomming,
+                  })}
+                />
+              </Link>
+            ) : null}
+
+            <div
+              className={cx({
+                [styles.messageInnerWrapper]: isFreelanceOwner && isRequestOrProposal,
+                [styles.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
+                [styles.messageInnerIsNextMessageSameAuthorIsInclomming]: isNextMessageSameAuthor && isIncomming,
+              })}
+            >
+              <div className={styles.messageInnerContentWrapper}>
+                {isReply && repleyMessage && (
+                  <div
+                    className={styles.repleyWrapper}
+                    onClick={e => {
+                      e.stopPropagation()
+                      const messageIndex = messages?.findIndex(el => el._id === repleyMessage._id)
+
+                      scrollToMessage(messageIndex)
+                    }}
+                  >
+                    <div className={styles.repleyDivider} />
+                    <ChatMessageByType
+                      showName
+                      isIncomming={isIncomming}
+                      messageItem={repleyMessage}
+                      isShowChatInfo={isShowChatInfo}
+                      unReadMessage={false}
+                    />
+                  </div>
+                )}
+                <ChatMessageByType
+                  isIncomming={isIncomming}
+                  messageItem={messageItem}
+                  isShowChatInfo={isShowChatInfo}
+                  unReadMessage={unReadMessage}
+                  showName={showName}
+                  handlers={handlers}
+                  messagesFoundIds={messagesFoundIds}
+                  searchPhrase={searchPhrase}
+                />
+              </div>
+            </div>
+          </div>
+
+          {!isDisabledControls && <ChatMessageControlsOverlay onClickReply={() => onClickReply(messageItem)} />}
+        </div>
+      </div>
     )
-  },
-)
+  }
+
+  return (
+    <Virtuoso
+      ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
+      className={styles.listClassName}
+      firstItemIndex={firstItemIndex}
+      initialTopMostItemIndex={messages?.length - 1}
+      startReached={prependItems}
+      atBottomStateChange={handleScrollToBottomButtonVisibility}
+      atBottomThreshold={350}
+      data={messages}
+      itemContent={(index, message) => renderItem(message, index)}
+      followOutput={isAtBottom => (isAtBottom ? 'smooth' : false)}
+    />
+  )
+})

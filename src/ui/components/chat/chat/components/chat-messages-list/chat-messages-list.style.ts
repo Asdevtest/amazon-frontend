@@ -22,7 +22,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  message: {},
+  message: {
+    margin: '10px 0',
+  },
 
   unReadMessage: {
     backgroundColor: 'rgba(0,0,0, .07)',
@@ -138,5 +140,13 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       margin: 5,
     },
+  },
+
+  listClassName: {
+    flex: 1,
+  },
+
+  listClassName2: {
+    padding: '20px',
   },
 }))

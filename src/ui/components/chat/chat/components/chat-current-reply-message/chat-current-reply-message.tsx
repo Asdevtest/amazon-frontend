@@ -14,34 +14,33 @@ import { ChatMessageFiles } from '../chat-messages-list/components/chat-messages
 interface ChatCurrentReplyMessageProps {
   message: ChatMessageContract
   setMessageToReply: (msg: ChatMessageContract | null) => void
-  setMessageToScroll: (msg: ChatMessageContract) => void
+  scrollToMessage: () => void
 }
 
-export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
+  ({ message, setMessageToReply, scrollToMessage }) => {
+    const { classes: styles, cx } = useStyles()
 
-  return (
-    <div className={styles.body}>
-      <div className={styles.content}>
-        {props.message.text && (
-          <div>
-            <Typography className={styles.message}>{props.message.text}</Typography>
-          </div>
-        )}
+    return (
+      <div className={styles.body}>
+        <div className={styles.content}>
+          {message.text && (
+            <div>
+              <Typography className={styles.message}>{message.text}</Typography>
+            </div>
+          )}
 
-        {(!!props.message.files?.length || !!props.message.images?.length) && (
-          <div className={styles.fileList}>
-            <ChatMessageFiles files={[...props.message.files, ...props.message.images]} />
-          </div>
-        )}
+          {(!!message.files?.length || !!message.images?.length) && (
+            <div className={styles.fileList}>
+              <ChatMessageFiles files={[...message.files, ...message.images]} />
+            </div>
+          )}
+        </div>
+        <div className={styles.controls}>
+          <ReplyIcon className={cx(styles.icon, styles.replyIcon)} onClick={scrollToMessage} />
+          <CloseOutlinedIcon className={styles.icon} onClick={() => setMessageToReply(null)} />
+        </div>
       </div>
-      <div className={styles.controls}>
-        <ReplyIcon
-          className={cx(styles.icon, styles.replyIcon)}
-          onClick={() => props.setMessageToScroll({ ...props.message })}
-        />
-        <CloseOutlinedIcon className={styles.icon} onClick={() => props.setMessageToReply(null)} />
-      </div>
-    </div>
-  )
-})
+    )
+  },
+)
