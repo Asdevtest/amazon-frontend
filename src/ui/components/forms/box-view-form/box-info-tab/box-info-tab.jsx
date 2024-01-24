@@ -236,6 +236,7 @@ export const BoxInfoTab = observer(
                 labelClasses={cx(styles.text, styles.label)}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={formFields?.fbaShipment || ''}
+                onChange={onChangeField('fbaShipment')}
               />
             </div>
           </div>

@@ -248,17 +248,18 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        // fbaShipment: data.fbaShipment, (метод не принимает)
       })
 
       this.getBoxesMy()
-
-      this.onTriggerOpenModal('showBoxViewModal')
 
       runInAction(() => {
         this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
       })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
     }

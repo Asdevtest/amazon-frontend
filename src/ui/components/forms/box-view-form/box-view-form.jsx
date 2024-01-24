@@ -40,9 +40,7 @@ export const BoxViewForm = memo(props => {
   const [formFields, setFormFields] = useState(box)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = { ...formFields }
-    newFormFields[fieldName] = event.target.value
-    setFormFields(newFormFields)
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: event.target.value }))
   }
 
   const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])

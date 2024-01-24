@@ -215,15 +215,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  descriptionFieldWrapper: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
-
-    marginTop: 20,
-  },
-
   pricesWrapper: {
     display: 'flex',
     gap: 5,
