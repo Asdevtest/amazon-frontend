@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { Text } from '@components/shared/text'
 
@@ -48,26 +47,28 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
       <div className={styles.commentsWrapper}>
         <Typography className={styles.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
 
-        <div>
-          <p>{t(TranslationKey.Buyer)}</p>
-          <CustomTextEditor
-            readOnly
-            value={order.buyerComment}
-            maxLength={MAX_DEFAULT_COMMENT_LEGTH}
-            editorClassName={styles.editorWrapper}
-          />
-        </div>
+        <Field
+          disabled
+          multiline
+          minRows={6}
+          maxRows={6}
+          value={order.buyerComment}
+          inputClasses={styles.input}
+          containerClasses={styles.textField}
+          label={t(TranslationKey.Buyer)}
+        />
 
-        <div>
-          <p>{t(TranslationKey.Client)}</p>
-          <CustomTextEditor
-            readOnly={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-            value={formFields.clientComment}
-            maxLength={MAX_DEFAULT_COMMENT_LEGTH}
-            editorClassName={styles.editorWrapper}
-            onChangeC={onChangeField('clientComment')}
-          />
-        </div>
+        <Field
+          multiline
+          disabled={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
+          minRows={6}
+          maxRows={6}
+          value={formFields.clientComment}
+          containerClasses={styles.textField}
+          inputClasses={styles.input}
+          label={t(TranslationKey.Client)}
+          onChange={onChangeField('clientComment')}
+        />
       </div>
     </div>
   )

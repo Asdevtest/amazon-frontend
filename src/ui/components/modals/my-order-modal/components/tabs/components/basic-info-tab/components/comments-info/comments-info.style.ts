@@ -42,22 +42,24 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorWrapper: {
-    margin: 0,
+    marginBottom: '0 !important',
   },
 
   editor: {
-    padding: 0,
-    border: 'none',
-    borderRadius: 0,
-    background: 'none !important',
-    minHeight: 48,
     height: 48,
+    padding: '0 !important',
     fontSize: 12,
     lineHeight: '16px',
-    overflow: 'hidden !important',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
+    background: `${theme.palette.background.general} !important`,
+
+    textarea: {
+      padding: '0 !important',
+      overflow: 'hidden',
+      display: '-webkit-box',
+      WebkitLineClamp: 3,
+      WebkitBoxOrient: 'vertical',
+      background: `${theme.palette.background.general} !important`,
+    },
   },
 
   commentTitle: {
