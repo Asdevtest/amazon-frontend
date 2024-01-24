@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Input } from '@components/shared/input'
-import { Pencil, PlusIcon } from '@components/shared/svg-icons'
+import { PencilIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -121,7 +121,7 @@ export const Slot: FC<SlotProps> = memo(props => {
             {t(TranslationKey.Comment)}
 
             {item.commentByClient ? (
-              <Pencil className={styles.commentIcon} />
+              <PencilIcon className={styles.commentIcon} />
             ) : (
               <PlusIcon className={styles.commentIcon} />
             )}
