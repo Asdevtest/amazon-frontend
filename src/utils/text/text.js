@@ -465,3 +465,19 @@ export const getHumanFriendlyNotificationType = type => {
       break
   }
 }
+
+export const parseTextString = textValue => {
+  try {
+    if (textValue.startsWith('{"blocks":')) {
+      const parsedData = JSON.parse(textValue)
+
+      const texts = parsedData?.blocks?.map(block => block?.text)
+
+      return texts.join(' ')
+    } else {
+      return textValue
+    }
+  } catch (error) {
+    return textValue
+  }
+}

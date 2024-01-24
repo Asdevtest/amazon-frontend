@@ -212,16 +212,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 20,
-    gap: 10,
-  },
-
-  trackAndHsCodeAndComment: {
-    width: '100%',
-  },
-
-  wrapperEditor: {
-    marginTop: 20,
+    margin: 0,
+    gap: 30,
   },
 
   trackAndHsCodeAndCommentsSumWrapper: {

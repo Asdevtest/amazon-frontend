@@ -581,7 +581,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
-                    verticalResize
+                    placeholder={t(TranslationKey['Describe your task']) + '*'}
                     maxLength={MAX_COMMENT_LEGTH}
                     value={formFields.details.conditions}
                     onChange={onChangeField('details')('conditions')}

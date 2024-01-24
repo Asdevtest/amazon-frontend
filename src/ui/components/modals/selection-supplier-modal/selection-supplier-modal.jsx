@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
+import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './selection-supplier-modal.style'
@@ -34,7 +35,7 @@ export const SelectionSupplierModal = ({
   const [selectedButtonValue, setSelectedButtonValue] = useState(buttonValue || '')
   const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(!!buttonValue || false)
 
-  const [comment, setComment] = useState(product?.originalData?.clientComment || '')
+  const [comment, setComment] = useState(parseTextString(product?.originalData?.clientComment) || '')
 
   const { classes: styles, cx } = useStyles()
 
