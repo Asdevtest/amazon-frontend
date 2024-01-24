@@ -31,7 +31,7 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
       <div className={styles.csCodeTypoWrapper}>
         {!withoutTitle && <p className={styles.csCodeTypo}>{amazonTitle}</p>}
         {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />}
-        {!withoutSku && <AsinOrSkuLink withCopyValue notLink withAttributeTitle="sku" link={skuByClient} />}
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={skuByClient} />}
       </div>
     </div>
   )
