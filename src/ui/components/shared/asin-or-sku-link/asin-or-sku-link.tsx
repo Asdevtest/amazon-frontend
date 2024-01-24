@@ -15,11 +15,10 @@ interface AsinOrSkuLinkProps {
   withCopyValue?: boolean
   textStyles?: string
   iconStyles?: string
-  notLink?: boolean
 }
 
 export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
-  const { link, withCopyValue, withAttributeTitle, textStyles, iconStyles, notLink } = props
+  const { link, withCopyValue, withAttributeTitle, textStyles, iconStyles } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -27,6 +26,7 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
   const title =
     (withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
     (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)
+  const isSku = withAttributeTitle === 'sku'
 
   return (
     <div className={styles.root}>
@@ -37,9 +37,9 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
           target="_blank"
           rel="noreferrer noopener"
           href={amazonExternalLink}
-          className={cx(styles.text, styles.link, { [styles.missingText]: notLink }, textStyles)}
+          className={cx(styles.text, styles.link, { [styles.missingText]: isSku }, textStyles)}
           onClick={e => {
-            if (notLink) {
+            if (isSku) {
               e.preventDefault()
             }
 

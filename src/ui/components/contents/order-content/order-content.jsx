@@ -98,7 +98,7 @@ export const OrderContent = ({
     } else if ('barCode' === fieldName) {
       newFormFields.product[fieldName] = event
       newFormFields.tmpBarCode = []
-    } else if (['tmpBarCode', 'clientComment', 'buyersComment'].includes(fieldName)) {
+    } else if ('tmpBarCode' === fieldName) {
       newFormFields[fieldName] = event
     } else {
       newFormFields[fieldName] = event.target.value

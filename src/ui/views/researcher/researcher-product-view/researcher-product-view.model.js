@@ -158,16 +158,20 @@ export class ResearcherProductViewModel {
       this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
 
       if (
-        ['niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category', 'redFlags', 'tags'].includes(
-          fieldName,
-        )
+        [
+          'icomment',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+          'tags',
+        ].includes(fieldName)
       ) {
         this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
-        if (['icomment', 'checkednotes', 'buyersComment', 'clientComment'].includes(fieldName)) {
-          return (this.product = { ...this.product, [fieldName]: e })
-        }
-
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
         }

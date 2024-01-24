@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
- 0% {
+  0% {
     transform: translateY(-150%);
     opacity: 0;
   }
@@ -31,10 +31,20 @@ export const useStyles = makeStyles()(theme => ({
 
   rightBoxComments: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    gap: 20,
+  },
+
+  heightFieldAuto: {
+    height: 'auto',
+    width: '100%',
+    padding: 0,
+  },
+
+  errorActive: {
+    borderColor: 'red',
   },
 
   buttonsWrapper: {
@@ -139,10 +149,5 @@ export const useStyles = makeStyles()(theme => ({
 
   alertShieldWrapperStyle: {
     left: '44% !important',
-  },
-
-  editorWrapper: {
-    minHeight: '120px !important',
-    maxHeight: '120px !important',
   },
 }))

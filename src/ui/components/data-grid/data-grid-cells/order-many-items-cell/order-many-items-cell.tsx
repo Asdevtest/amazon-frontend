@@ -45,9 +45,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
 
             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
 
-            {!withoutSku && (
-              <AsinOrSkuLink notLink withCopyValue withAttributeTitle="sku" link={item.product.skuByClient} />
-            )}
+            {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={item.product.skuByClient} />}
 
             {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
               item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
