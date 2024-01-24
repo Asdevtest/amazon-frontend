@@ -39,11 +39,8 @@ export const SupplierInfo: FC<SupplierInfoProps> = memo(props => {
         <Modal openModal={showSetBarCodeModal} setOpenModal={onToggleSetBarCodeModal}>
           <SetBarcodeModal
             tmpCode={props.formFields.tmpBarCode}
-            item={props.formFields.product}
-            onClickSaveBarcode={barCode => {
-              onChangeBarCode('tmpBarCode')(barCode)
-              onToggleSetBarCodeModal()
-            }}
+            barCode={props.formFields.product?.barCode}
+            onClickSaveBarcode={barCode => onChangeBarCode('tmpBarCode')(barCode)}
             onCloseModal={onToggleSetBarCodeModal}
           />
         </Modal>

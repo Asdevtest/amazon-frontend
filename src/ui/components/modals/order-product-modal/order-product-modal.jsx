@@ -461,10 +461,9 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
           tmpCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex].tmpBarCode}
-          item={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          barCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]?.barCode}
           onClickSaveBarcode={barCode => {
             setOrderStateFiled(tmpOrderIndex)('tmpBarCode')(barCode)
-            triggerBarcodeModal()
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}

@@ -12,21 +12,20 @@ import { t } from '@utils/translations'
 import { useStyles } from './set-barcode-modal.style'
 
 interface SetBarcodeModalProps {
+  tmpCode: string[]
   onClickSaveBarcode: (files: string[]) => void
   onCloseModal: () => void
-  tmpCode: string[]
-  item: any
+  barCode?: string
   title?: string
   maxNumber?: number
 }
 
 export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
-  const { onClickSaveBarcode, onCloseModal, tmpCode, item, title, maxNumber } = props
-  const { classes: styles } = useStyles()
+  const { onClickSaveBarcode, onCloseModal, tmpCode, barCode = '', title = '', maxNumber = 1 } = props
 
-  const [files, setFiles] = useState(tmpCode?.length ? tmpCode : [])
+  const { classes: styles, cx } = useStyles()
 
-  const barCode = item?.barCode || ''
+  const [files, setFiles] = useState<string[]>(tmpCode?.length ? tmpCode : [])
 
   return (
     <div className={styles.modalWrapper}>
@@ -43,18 +42,22 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
         />
       )}
 
-      <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
+      <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber} />
 
-      <div className={styles.saveBox}>
+      <div className={styles.buttons}>
         <Button
           success
           disabled={!files.length && !tmpCode?.length}
-          className={styles.saveBtn}
-          onClick={() => onClickSaveBarcode(files)}
+          className={styles.button}
+          onClick={() => {
+            onClickSaveBarcode(files)
+            onCloseModal()
+          }}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+
+        <Button variant="text" className={cx(styles.button, styles.closeButton)} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

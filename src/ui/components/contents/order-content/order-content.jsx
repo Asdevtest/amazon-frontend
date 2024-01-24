@@ -322,11 +322,8 @@ export const OrderContent = ({
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
           <SetBarcodeModal
             tmpCode={formFields.tmpBarCode}
-            item={formFields.product}
-            onClickSaveBarcode={barCode => {
-              onChangeField('tmpBarCode')(barCode)
-              triggerBarcodeModal()
-            }}
+            barCode={formFields.product?.barCode}
+            onClickSaveBarcode={barCode => onChangeField('tmpBarCode')(barCode)}
             onCloseModal={triggerBarcodeModal}
           />
         </Modal>

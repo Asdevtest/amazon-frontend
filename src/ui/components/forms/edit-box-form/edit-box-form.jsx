@@ -801,7 +801,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={curProductToEditBarcode?.tmpBarCode}
-            item={curProductToEditBarcode}
+            barCode={curProductToEditBarcode?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />

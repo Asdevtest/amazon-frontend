@@ -118,7 +118,7 @@ export const ClientOrdersView = observer(history => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         >
           <SetBarcodeModal
-            item={viewModel.selectedProduct}
+            barCode={viewModel.selectedProduct?.barCode}
             onClickSaveBarcode={viewModel.onClickSaveBarcode}
             onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
           />

@@ -68,7 +68,7 @@ export const Box: FC<BoxProps> = memo(props => {
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState<any>(null)
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmModalSettings, setConfirmModalSettings] = useState<any | undefined>(undefined)
@@ -581,7 +581,7 @@ export const Box: FC<BoxProps> = memo(props => {
         <SetBarcodeModal
           // @ts-ignore
           tmpCode={curProductToEditBarcode?.tmpBarCode}
-          item={curProductToEditBarcode}
+          barCode={curProductToEditBarcode?.barCode}
           onClickSaveBarcode={(data: any) => onClickSaveBarcode(curProductToEditBarcode)(data)}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
         />

@@ -376,7 +376,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
         <SetBarcodeModal
-          item={selectedProduct}
+          barCode={selectedProduct?.barCode}
           onClickSaveBarcode={onClickSaveBarcode}
           onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
         />
