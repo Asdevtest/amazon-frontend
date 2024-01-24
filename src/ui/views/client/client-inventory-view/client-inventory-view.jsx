@@ -35,7 +35,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { ArchiveIcon } from '@components/shared/svg-icons'
+import { ArchiveIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -98,7 +98,7 @@ export const ClientInventoryView = observer(({ history }) => {
                 className={styles.actionButtonWithPlus}
                 onClick={viewModel.onClickProductLaunch}
               >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+                <PlusIcon className={styles.icon} />
                 {t(TranslationKey['Product launch'])}
               </Button>
 
@@ -153,7 +153,7 @@ export const ClientInventoryView = observer(({ history }) => {
                 className={styles.actionButtonWithPlus}
                 onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
               >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+                <PlusIcon className={styles.icon} />
                 {t(TranslationKey['Add product'])}
               </Button>
             </div>
@@ -179,7 +179,7 @@ export const ClientInventoryView = observer(({ history }) => {
                 className={styles.actionButtonWithPlus}
                 onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
               >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+                <PlusIcon className={styles.icon} />
                 {t(TranslationKey['Add a supplier list'])}
               </Button>
             </div>

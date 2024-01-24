@@ -90,8 +90,8 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: '11px',
     right: '15px',
-    width: 15,
-    height: 15,
+    width: '16px !important',
+    height: '16px !important',
   },
 
   commentBtnWrapper: {

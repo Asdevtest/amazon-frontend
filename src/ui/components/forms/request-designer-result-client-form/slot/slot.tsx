@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Input } from '@components/shared/input'
+import { Pencil, PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -118,10 +119,12 @@ export const Slot: FC<SlotProps> = memo(props => {
         {!item.isEditCommentOpen && !noShowActions && (
           <Button className={styles.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
             {t(TranslationKey.Comment)}
-            <img
-              src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
-              className={styles.commentIcon}
-            />
+
+            {item.commentByClient ? (
+              <Pencil className={styles.commentIcon} />
+            ) : (
+              <PlusIcon className={styles.commentIcon} />
+            )}
           </Button>
         )}
 
