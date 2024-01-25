@@ -142,11 +142,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  listClassName: {
+  list: {
     flex: 1,
-  },
-
-  listClassName2: {
-    padding: '20px',
+    '& > div': {
+      padding: '10px',
+    },
   },
 }))

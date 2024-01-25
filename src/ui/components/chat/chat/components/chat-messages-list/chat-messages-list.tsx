@@ -209,7 +209,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
   return (
     <Virtuoso
       ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
-      className={styles.listClassName}
+      className={styles.list}
       firstItemIndex={firstItemIndex}
       initialTopMostItemIndex={messages?.length - 1}
       startReached={prependItems}

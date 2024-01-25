@@ -104,7 +104,6 @@ export const Chat: FC<ChatProps> = memo(
       focused,
 
       onPasteFiles,
-
       onFocus,
       onBlur,
       changeMessageAndState,
@@ -112,11 +111,12 @@ export const Chat: FC<ChatProps> = memo(
       changeFilesAndState,
     } = useChatInputControl(messageInitialState)
 
+    const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
     const prevChatId = usePrevious(chat?._id)
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
-    const highlightRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
@@ -129,19 +129,47 @@ export const Chat: FC<ChatProps> = memo(
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
-    const START_INDEX = chat?.messagesCount || 1000000
-
     const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
 
     const handleLoadMoreMessages = () => {
       ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length))
     }
 
-    const handleScrollToBottomButtonVisibility = (bottomState: boolean) => {
-      if (!bottomState) {
-        setIsShowScrollToBottomBtn(true)
-      } else {
-        setIsShowScrollToBottomBtn(false)
+    const handleScrollToBottomButtonVisibility = (bottomState: boolean) => setIsShowScrollToBottomBtn(!bottomState)
+
+    const onSubmitMessageInternal = () => {
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
+      setMessageToReply(null)
+      resetAllInputs()
+      onClickScrollToBottom()
+    }
+
+    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
+      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
+        onSubmitMessageInternal()
+        event.preventDefault()
+      }
+    }
+
+    const onClickScrollToBottom = () => {
+      if (!messagesWrapperRef.current) {
+        return
+      }
+      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
+    }
+
+    const scrollToMessage = (messageIndex: number) => {
+      if (messagesWrapperRef?.current) {
+        if (highlightTimerRef.current) {
+          clearTimeout(highlightTimerRef.current)
+        }
+
+        messagesWrapperRef.current.scrollToIndex({ index: messageIndex })
+        setMessageToScroll(messageIndex)
+
+        highlightTimerRef.current = setTimeout(() => {
+          setMessageToScroll(undefined)
+        }, 1000)
       }
     }
 
@@ -180,54 +208,10 @@ export const Chat: FC<ChatProps> = memo(
     }, [chat?._id])
 
     useEffect(() => {
-      if (files?.length) {
-        setShowFiles(true)
-      } else {
-        setShowFiles(false)
-      }
-    }, [files?.length])
-
-    const onSubmitMessageInternal = () => {
-      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
-      setMessageToReply(null)
-      resetAllInputs()
-      onClickScrollToBottom()
-    }
-
-    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
-        onSubmitMessageInternal()
-        event.preventDefault()
-      }
-    }
-
-    const onClickScrollToBottom = () => {
-      if (!messagesWrapperRef.current) {
-        return
-      }
-      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
-    }
-
-    useEffect(() => {
       if (toScrollMesId) {
         scrollToMessage(messages.findIndex(el => el._id === toScrollMesId))
       }
     }, [toScrollMesId])
-
-    const scrollToMessage = (messageIndex: number) => {
-      if (messagesWrapperRef?.current) {
-        if (highlightRef.current) {
-          clearTimeout(highlightRef.current)
-        }
-
-        messagesWrapperRef.current.scrollToIndex({ index: messageIndex })
-        setMessageToScroll(messageIndex)
-
-        highlightRef.current = setTimeout(() => {
-          setMessageToScroll(undefined)
-        }, 1000)
-      }
-    }
 
     if (prevChatId !== chat?._id && prevChatId !== undefined) {
       return null

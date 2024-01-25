@@ -1,4 +1,4 @@
-import { ClipboardEvent, useState } from 'react'
+import { ClipboardEvent, useEffect, useState } from 'react'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
 
@@ -56,6 +56,14 @@ export const useChatInputControl = (messageInitialState: IMessageState) => {
     setMessage('')
     setFiles(() => [])
   }
+
+  useEffect(() => {
+    if (files?.length) {
+      setShowFiles(true)
+    } else {
+      setShowFiles(false)
+    }
+  }, [files?.length])
 
   return {
     showFiles,
