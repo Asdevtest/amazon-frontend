@@ -107,7 +107,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   const submitDisabled =
     JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
     JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender) &&
-    deepArrayCompare(sourceData.allowedSpec, currentSpec)
+    deepArrayCompare(sourceData?.allowedSpec, currentSpec)
 
   const onClickToShowDetails = value => {
     setSelectedShop(value)

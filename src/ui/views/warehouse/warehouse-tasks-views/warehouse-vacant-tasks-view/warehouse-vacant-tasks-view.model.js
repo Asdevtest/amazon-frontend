@@ -57,7 +57,7 @@ export class WarehouseVacantViewModel {
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
-    onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
+    onClickCancelTask: (boxid, id, specType) => this.onClickCancelTask(boxid, id, specType),
     updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
@@ -311,7 +311,7 @@ export class WarehouseVacantViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        operationType: this.curTaskType,
+        specType: this.curTaskType,
         priority: this.curTaskPriority,
       })
 

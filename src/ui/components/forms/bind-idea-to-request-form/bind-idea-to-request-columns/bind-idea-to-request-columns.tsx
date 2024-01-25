@@ -45,13 +45,13 @@ export const bindIdeaToRequestColumns = [
   },
 
   {
-    field: 'typeTask',
+    field: 'specType',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell
         leftAlign
-        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.typeTask])}
+        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])}
       />
     ),
     filterable: false,

@@ -17,7 +17,7 @@ interface ClientTasksActionBtnsCellProps {
   row: any
   handlers: {
     onClickTaskInfo: (row: any) => void
-    onClickCancelBtn: (boxId: string, taskId: string, operationType: string) => void
+    onClickCancelBtn: (boxId: string, taskId: string, specType: string) => void
   }
 }
 
@@ -45,7 +45,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
 
   const renderHistoryItem = () => {
     // @ts-ignore
-    switch (mapTaskOperationTypeKeyToEnum[row.operationType]) {
+    switch (mapTaskOperationTypeKeyToEnum[row.specType]) {
       case TaskOperationType.MERGE:
         return (
           <>

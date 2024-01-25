@@ -201,12 +201,12 @@ export class MyProposalsViewModel {
     }
   }
 
-  onClickTaskType(taskType) {
-    this.selectedTaskType = taskType
+  onClickTaskType(specType) {
+    this.selectedTaskType = specType
 
-    const isAllTasks = taskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+    const isAllTasks = specType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
-    this.onChangeFullFieldMenuItem(isAllTasks ? [] : [taskType], 'typeTask', true)
+    this.onChangeFullFieldMenuItem(isAllTasks ? [] : [specType], 'specType', true)
 
     this.getRequestsProposalsPagMy()
   }
@@ -297,9 +297,9 @@ export class MyProposalsViewModel {
     await this.getRequestById(requestId)
     await this.getProposalById(proposalId)
 
-    if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.DESIGNER) {
+    if (freelanceRequestTypeByCode[this.currentRequest?.request.specType] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (freelanceRequestTypeByCode[this.currentRequest?.request.typeTask] === freelanceRequestType.BLOGGER) {
+    } else if (freelanceRequestTypeByCode[this.currentRequest?.request.specType] === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')
@@ -333,7 +333,7 @@ export class MyProposalsViewModel {
         'timeoutAt',
         'requestCreatedBy',
         'taskComplexity',
-        'typeTask',
+        'specType',
         'announcement',
       ].includes(column)
     ) {

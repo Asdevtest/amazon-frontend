@@ -141,13 +141,13 @@ export const UserProfile = observer(
                 </div>
               )}
 
-              {!!user?.allowedSpec?.length && (
+              {!!user?.specType?.length && (
                 <div className={styles.rolesWrapper}>
                   <Typography variant="h6" className={styles.standartText}>
                     {t(TranslationKey.Specialties)}
                   </Typography>
                   <div className={styles.roles}>
-                    {user?.allowedSpec?.map((el, index) => (
+                    {user?.specType?.map((el, index) => (
                       <Typography key={index} className={styles.role}>
                         {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[el])}
                       </Typography>

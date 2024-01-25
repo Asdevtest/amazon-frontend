@@ -14,12 +14,12 @@ import { t } from '@utils/translations'
 
 export const adminTasksViewColumns = handlers => [
   {
-    field: 'operationType',
+    field: 'specType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell operationType={params.value} />,
+    renderCell: params => <TaskTypeCell specType={params.row.specType} />,
   },
 
   {

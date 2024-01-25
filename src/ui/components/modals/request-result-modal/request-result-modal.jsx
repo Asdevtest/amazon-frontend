@@ -58,7 +58,7 @@ export const RequestResultModal = memo(props => {
   }
 
   const isBloggerTypeTask =
-    (request?.typeTask || request?.request?.typeTask) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+    (request?.specType || request?.request?.specType) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledSendButton =
     (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
     (!isBloggerTypeTask && !formFields.result)

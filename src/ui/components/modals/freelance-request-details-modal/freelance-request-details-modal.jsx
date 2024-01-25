@@ -66,7 +66,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <div className={styles.flexContainer}>
               <Typography className={styles.headerText}>{t(TranslationKey['Request type'])}</Typography>
               <Typography className={cx(styles.headerText, styles.textBold)}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.specType])}
               </Typography>
             </div>
 

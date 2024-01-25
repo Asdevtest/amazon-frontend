@@ -59,7 +59,7 @@ export class WarehouseMyTasksViewModel {
 
   rowHandlers = {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
-    onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
+    onClickCancelTask: (boxid, id, specType) => this.onClickCancelTask(boxid, id, specType),
     updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
@@ -244,7 +244,7 @@ export class WarehouseMyTasksViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        operationType: this.curTaskType,
+        specType: this.curTaskType,
         priority: this.curTaskPriority,
       })
 
@@ -351,7 +351,7 @@ export class WarehouseMyTasksViewModel {
     }
   }
 
-  async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
+  async onClickSolveTask({ task, newBoxes, specType, comment, photos }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -370,7 +370,7 @@ export class WarehouseMyTasksViewModel {
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
       }
 
-      if (operationType === TaskOperationType.RECEIVE) {
+      if (specType === TaskOperationType.RECEIVE) {
         const requestBoxes = []
         for (let i = 0; i < newBoxes.length; i++) {
           const box = newBoxes[i]

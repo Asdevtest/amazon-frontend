@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,25 +10,24 @@ import { IProductVariation } from '@typings/product'
 
 import { useStyles } from './product-variations-form.style'
 
-interface ProductVariationsFormProps {
-  product: {
-    childProducts: Array<IProductVariation>
-    parentProduct: IProductVariation
+interface IProduct {
+  childProducts: IProductVariation[]
+  parentProduct: IProductVariation
+  _id: string
+  asin: string
+  skuByClient: string
+  images: string[]
+  shopId: string
+  amazonTitle: string
+}
 
-    _id: string
-    asin: string
-    skuByClient: string
-    images: string[]
-    shopId: string
-    amazonTitle: string
-  }
+interface ProductVariationsFormProps {
+  product: IProduct
   onClickShowProduct: () => void
 }
 
-export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(props => {
+export const ProductVariationsForm: FC<ProductVariationsFormProps> = memo(({ product, onClickShowProduct }) => {
   const { classes: styles } = useStyles()
-
-  const { product, onClickShowProduct } = props
 
   return (
     <div className={styles.root}>

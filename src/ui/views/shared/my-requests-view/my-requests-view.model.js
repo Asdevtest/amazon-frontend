@@ -575,7 +575,7 @@ export class MyRequestsViewModel {
 
   async handleClickResultBtn(request) {
     try {
-      switch (freelanceRequestTypeByCode[request.typeTask]) {
+      switch (freelanceRequestTypeByCode[request.specType]) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break

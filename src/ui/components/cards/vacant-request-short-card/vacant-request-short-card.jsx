@@ -82,7 +82,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
       <div className={styles.cardActionBlockWrapper}>
         <div className={styles.mainInfosWrapper}>
           <div>
-            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+            {item.specType === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={styles.fieldLabel}
                 containerClasses={styles.fieldContainer}
@@ -130,7 +130,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
           </div>
 
           <div>
-            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+            {item.specType === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
                 containerClasses={styles.fieldContainer}
@@ -163,7 +163,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               label={t(TranslationKey['Request type'])}
               inputComponent={
                 <Typography className={cx(styles.accentText, styles.rightText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.specType])}
                 </Typography>
               }
             />

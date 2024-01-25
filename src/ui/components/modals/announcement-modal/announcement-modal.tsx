@@ -31,9 +31,9 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const { classes: styles, cx } = useStyles()
 
   const serviceType =
-    service.type === 0
+    service.specType === 0
       ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.specType])
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]

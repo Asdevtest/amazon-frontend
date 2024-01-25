@@ -285,8 +285,8 @@ export class CreateOrEditRequestViewModel {
     this.onTriggerOpenModal('showImageModal')
   }
 
-  async onClickChoosePerformer(typeTask) {
-    this.announcements = await AnnouncementsModel.getVacAnnouncements(typeTask)
+  async onClickChoosePerformer(specType) {
+    this.announcements = await AnnouncementsModel.getVacAnnouncements(specType)
   }
 
   async getCustomRequestCur() {
@@ -317,8 +317,8 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async checkRequestByTypeExists(typeTask, id) {
-    const result = await RequestModel.getExistingRequestsTypeRequests(typeTask, id)
+  async checkRequestByTypeExists(specType, id) {
+    const result = await RequestModel.getExistingRequestsTypeRequests(specType, id)
 
     return result
   }

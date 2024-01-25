@@ -51,7 +51,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         viewModel.tasksMy
           .filter(el => viewModel.selectedBoxes.includes(el.id))
           .some(box => {
-            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
+            return box.specType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
           }),
     )
   }, [viewModel.selectedBoxes])
