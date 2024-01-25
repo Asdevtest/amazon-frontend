@@ -22,6 +22,12 @@ export const useStyles = makeStyles()(theme => ({
 
     '.public-DraftStyleDefault-block': {
       margin: '0 !important',
+
+      span: {
+        color: `${theme.palette.text.general} !important`,
+        background: 'none !important',
+        fontSize: 'inherit !important',
+      },
     },
   },
 
