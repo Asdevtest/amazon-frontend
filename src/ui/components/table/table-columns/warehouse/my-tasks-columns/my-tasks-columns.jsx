@@ -28,7 +28,7 @@ export const warehouseMyTasksViewColumns = handlers => [
         handlers={handlers}
         boxId={params.row.originalData.boxes[0]?._id}
         rowId={params.row.originalData._id}
-        operationType={params.row.originalData.operationType}
+        specType={params.row.originalData.specType}
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
       />
     ),
@@ -71,12 +71,12 @@ export const warehouseMyTasksViewColumns = handlers => [
   },
 
   {
-    field: 'operationType',
+    field: 'specType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: window.innerWidth < 1282 ? 140 : 180,
-    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
+    renderCell: params => <TaskTypeCell specType={params.row.originalData.specType} />,
   },
 
   {

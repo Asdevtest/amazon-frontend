@@ -18,7 +18,7 @@ export const filtersFields = [
   'skuByClient',
   'amazonTitle',
   'taskComplexity',
-  'typeTask',
+  'specType',
   'reworkCounter',
   'shop',
   'announcement',

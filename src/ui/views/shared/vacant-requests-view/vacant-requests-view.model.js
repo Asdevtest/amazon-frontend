@@ -151,7 +151,7 @@ export class VacantRequestsViewModel {
       const result = await RequestModel.getRequests({
         kind: RequestSubType.VACANT,
         filters: this.getFilter(),
-        typeTask:
+        specType:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
             ? undefined
             : this.selectedTaskType,

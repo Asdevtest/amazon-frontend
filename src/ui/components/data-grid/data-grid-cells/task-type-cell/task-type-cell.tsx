@@ -8,10 +8,10 @@ import { t } from '@utils/translations'
 import { useStyles } from './task-type-cell.style'
 
 interface TaskTypeCellProps {
-  operationType: string
+  specType: string
 }
 
-export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ operationType }) => {
+export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ specType }) => {
   const { classes: styles } = useStyles()
   const renderTaskDescription = (type: string) => {
     switch (type) {
@@ -30,7 +30,7 @@ export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ operationType }) => {
 
   return (
     <div className={styles.taskDescriptionScrollWrapper}>
-      <p className={styles.operationTypeText}>{renderTaskDescription(operationType)}</p>
+      <p className={styles.operationTypeText}>{renderTaskDescription(specType)}</p>
     </div>
   )
 })

@@ -276,6 +276,7 @@ export class SubUsersViewModel {
   async onClickEditBtn(row) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       runInAction(() => {
         this.selectedSubUser = row
       })
@@ -343,7 +344,7 @@ export class SubUsersViewModel {
       await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
 
       if (currentSpec) {
-        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
+        await UserModel.changeSubUserSpec(id, { specType: currentSpec })
       }
 
       runInAction(() => {

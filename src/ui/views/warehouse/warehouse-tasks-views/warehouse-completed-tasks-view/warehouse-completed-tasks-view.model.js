@@ -188,7 +188,7 @@ export class WarehouseCompletedViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        operationType: this.curTaskType,
+        specType: this.curTaskType,
         priority: this.curTaskPriority,
       })
 

@@ -432,9 +432,9 @@ export class SuppliersAndIdeasModel {
         this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
+      if (freelanceRequestTypeByCode[request?.specType] === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
+      } else if (freelanceRequestTypeByCode[request?.specType] === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')

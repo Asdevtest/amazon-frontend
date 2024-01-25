@@ -27,9 +27,9 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
-    service.type === 0
+    service.specType === 0
       ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.specType])
   const buttonContent = choose
     ? t(TranslationKey.Choose)
     : order

@@ -80,7 +80,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
   },
 
   {
-    field: 'typeTask',
+    field: 'specType',
     headerName: t(TranslationKey['Request type']),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -90,7 +90,10 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => (
-      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
+      <MultilineTextCell
+        leftAlign
+        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])}
+      />
     ),
     width: 140,
 

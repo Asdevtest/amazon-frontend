@@ -292,7 +292,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickProposalResultToCorrect() {
-    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+    if (this.request.request.specType === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
     } else {
       this.triggerShowResultToCorrectFormModal()
