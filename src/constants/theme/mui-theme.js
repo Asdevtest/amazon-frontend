@@ -392,7 +392,7 @@ export const darkTheme = createTheme({
           borderRadius: 20,
         },
         overlay: {
-          backgroundColor: '#1E1E1E !important',
+          backgroundColor: 'rgba(0, 0, 0, 0.25) !important',
         },
 
         row: {
