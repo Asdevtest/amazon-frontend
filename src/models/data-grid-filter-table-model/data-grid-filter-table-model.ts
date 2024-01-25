@@ -103,8 +103,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
-    console.log('additionalProperties', additionalProperties)
-
     this.columnMenuSettings = {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),

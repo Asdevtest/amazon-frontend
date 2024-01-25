@@ -1531,4 +1531,29 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.selectedProduct = item
     })
   }
+
+  async getFilters() {
+    const transparency =
+      this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
+        ? null
+        : this.columnMenuSettings.transparencyYesNoFilterData.yes
+
+    this.additionalPropertiesGetFilters = {
+      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+        barCode: {
+          [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+        },
+      }),
+
+      ...(transparency !== null && {
+        transparency: { $eq: transparency },
+      }),
+
+      ...(this.isArchive && {
+        archive: { $eq: true },
+      }),
+    }
+
+    super.getFilters()
+  }
 }

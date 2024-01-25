@@ -35,7 +35,7 @@ export class BoxesToOrderTabModel {
 
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
-  currentBox: InlineResponse20018 | undefined = undefined
+  currentBox: ApiV1BatchesBoxes | undefined = undefined
   galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
@@ -106,7 +106,7 @@ export class BoxesToOrderTabModel {
       const box = await BoxesModel.getBoxById(id)
 
       runInAction(() => {
-        this.currentBox = box
+        this.currentBox = box as ApiV1BatchesBoxes
       })
     } catch (error) {
       console.log(error)
@@ -127,7 +127,7 @@ export class BoxesToOrderTabModel {
     }
   }
 
-  async onSubmitChangeBoxFields(box: InlineResponse20018) {
+  async onSubmitChangeBoxFields(box: ApiV1BatchesBoxes) {
     try {
       await BoxesModel.editAdditionalInfo(box._id, {
         clientComment: box.clientComment,
