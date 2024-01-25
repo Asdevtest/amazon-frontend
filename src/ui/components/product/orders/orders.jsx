@@ -96,7 +96,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
 
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
         <SetBarcodeModal
-          item={selectedProduct}
+          barCode={selectedProduct?.barCode}
           onClickSaveBarcode={onClickSaveBarcode}
           onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
         />

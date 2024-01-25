@@ -965,7 +965,7 @@ export const EditBoxStorekeeperForm = memo(
             title={barcodeModalSetting.title}
             maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
-            item={barcodeModalSetting.item}
+            barCode={barcodeModalSetting.item?.barCode}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />

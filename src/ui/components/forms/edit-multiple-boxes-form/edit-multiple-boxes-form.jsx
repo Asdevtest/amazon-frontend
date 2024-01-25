@@ -734,7 +734,7 @@ export const EditMultipleBoxesForm = observer(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={sharedFields?.tmpBarCode}
-            item={sharedFields}
+            barCode={sharedFields?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(sharedFields)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
