@@ -419,10 +419,7 @@ export const EditMultipleBoxesForm = observer(
                   labelClasses={styles.label}
                   inputComponent={
                     <Button
-                      className={cx({
-                        [styles.storekeeperBtn]: !sharedFields.logicsTariffId,
-                        [styles.storekeeperBtnDefault]: sharedFields.logicsTariffId,
-                      })}
+                      className={styles.button}
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId

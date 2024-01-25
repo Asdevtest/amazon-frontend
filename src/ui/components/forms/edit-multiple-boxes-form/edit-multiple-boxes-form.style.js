@@ -115,10 +115,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '5px',
   },
 
-  storekeeperBtn: {
-    height: '40px',
-  },
-
   fieldInput: {
     height: '40px',
   },
@@ -153,9 +149,5 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
-  },
-
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
   },
 }))
