@@ -68,7 +68,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
         <div className={styles.requestTitleAndInfo}>
           <Typography className={styles.requestTitle}>{request?.request.title}</Typography>
           <div className={styles.requestInfoWrapper}>
-            {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+            {`${request?.request?.specType}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
             request?.request?.priceAmazon ? (
               <div className={styles.blockInfoWrapper}>
                 <div className={styles.blockInfoCell}>
@@ -126,7 +126,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               <div className={styles.blockInfoCell}>
                 <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
                 <Typography className={cx(styles.blockInfoCellText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.specType])}
                 </Typography>
               </div>
             </div>

@@ -1004,7 +1004,7 @@ export class BuyerMyOrdersViewModel {
         taskId: 0,
         boxes: [],
         boxesBefore: [...this.createBoxesResult],
-        operationType: 'receive',
+        specType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:

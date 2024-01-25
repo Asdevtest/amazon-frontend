@@ -146,7 +146,7 @@ export const EditTaskModal = memo(
 
     const isSomeBoxHasntImageToRecive =
       newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) &&
-      task.operationType === TaskOperationType.RECEIVE
+      task.specType === TaskOperationType.RECEIVE
 
     const disableSaveButton =
       !newBoxes.length ||
@@ -161,20 +161,20 @@ export const EditTaskModal = memo(
 
           <div className={styles.modalSubHeader}>
             <div className={styles.typeTaskWrapper}>
-              {task.operationType === TaskOperationType.RECEIVE ? (
+              {task.specType === TaskOperationType.RECEIVE ? (
                 <div className={styles.boxSvgContainer}>
                   <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
                   <BoxArrow className={styles.boxArrowSvg} />
                 </div>
               ) : (
-                renderTypeTaskBoxes(task.operationType)
+                renderTypeTaskBoxes(task.specType)
               )}
 
               <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.specType)}</Typography>
             </div>
 
-            {task.operationType === TaskOperationType.RECEIVE && (
+            {task.specType === TaskOperationType.RECEIVE && (
               <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
@@ -248,7 +248,7 @@ export const EditTaskModal = memo(
             volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
-            taskType={task.operationType}
+            taskType={task.specType}
             setNewBoxes={setNewBoxes}
             showEditBoxModal={showEditBoxModal}
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
@@ -261,7 +261,7 @@ export const EditTaskModal = memo(
         <div className={styles.buttonsMainWrapper}>
           {!readOnly ? (
             <div className={styles.buttonsWrapperMobile}>
-              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
+              {task.specType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
                   className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
@@ -277,7 +277,7 @@ export const EditTaskModal = memo(
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
-              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
+              {task.specType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button
                     className={styles.button}
@@ -301,7 +301,7 @@ export const EditTaskModal = memo(
                     onClickSolveTask({
                       task,
                       newBoxes,
-                      operationType: task.operationType,
+                      specType: task.specType,
                       comment: storekeeperComment,
                       photos: photosOfTask,
                     })

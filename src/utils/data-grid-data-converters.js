@@ -82,7 +82,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
-    typeTask: item?.typeTask,
+    specType: item?.specType,
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
@@ -619,7 +619,7 @@ export const warehouseTasksDataConverter = data =>
     originalData: item,
 
     id: item?._id,
-    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.operationType]],
+    specType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.specType]],
     status: mapTaskStatusKeyToEnum[item?.status],
 
     priority: item?.priority,
@@ -754,7 +754,7 @@ export const adminTasksDataConverter = data =>
     originalData: item,
 
     id: item._id,
-    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
+    specType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.specType]],
     status: mapTaskStatusKeyToEnum[item.status],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -910,7 +910,7 @@ export const SourceFilesDataConverter = data =>
     sourceFile: item?.sourceFile,
     comments: item?.comments,
     proposal: item?.proposal,
-    typeTask: item?.typeTask,
+    specType: item?.specType,
     productId: item?.productId,
 
     performer: item?.createdBy,
@@ -1079,7 +1079,7 @@ export const myProposalsDataConverter = data =>
     title: item.request.title,
     product: item.request.product,
     priority: item.request.priority,
-    typeTask: item.request.typeTask,
+    specType: item.request.specType,
     timeoutAt: item.request.timeoutAt,
     taskComplexity: item.request.taskComplexity,
     status: item.status,

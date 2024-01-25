@@ -12,7 +12,7 @@ export interface IService {
   createdAt: string
   linksToMediaFiles: UploadFileType[]
   requests: Array<Requests>
-  type: number
+  specType: number
   description: string
   title: string
   updatedAt: string

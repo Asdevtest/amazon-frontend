@@ -21,7 +21,7 @@ import { useStyles } from './request-terms.style'
 
 interface RequestTermsProps {
   withoutConfirmation: boolean
-  typeTask: number
+  specType: number
   timeoutAt: string
   newProductPrice: number
   priceAmazon: number
@@ -36,7 +36,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
 
   const {
     withoutConfirmation,
-    typeTask,
+    specType,
     timeoutAt,
     newProductPrice,
     priceAmazon,
@@ -72,7 +72,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
             <p className={cx(styles.blockInfoCellText)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[typeTask])}
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[specType])}
             </p>
           </div>
 
@@ -84,7 +84,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           </div>
         </div>
 
-        {`${typeTask}` ===
+        {`${specType}` ===
         `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey]}` ? (
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>

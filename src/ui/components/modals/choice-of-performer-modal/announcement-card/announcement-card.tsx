@@ -85,9 +85,9 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           <div className={styles.detailsSubWrapper}>
             <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
             <p className={styles.detailDescription}>
-              {announcementData.type === 0
+              {announcementData.specType === 0
                 ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.type])}
+                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.specType])}
             </p>
           </div>
 

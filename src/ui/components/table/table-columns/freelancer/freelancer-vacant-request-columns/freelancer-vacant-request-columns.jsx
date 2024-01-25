@@ -123,12 +123,12 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'typeTask',
+    field: 'specType',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
 
     renderCell: params => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
+      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])} />
     ),
     type: 'number',
     width: 95,

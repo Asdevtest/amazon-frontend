@@ -171,7 +171,7 @@ export class FreelanceModel {
         kind: RequestSubType.MY,
         filters: this.getFilter(),
         productId: this.productId,
-        typeTask:
+        specType:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
             ? undefined
             : this.selectedTaskType,
@@ -304,7 +304,7 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      switch (freelanceRequestTypeByCode[item.typeTask]) {
+      switch (freelanceRequestTypeByCode[item.specType]) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break
