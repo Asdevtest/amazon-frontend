@@ -2,13 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   root: {
-    width: '404px',
-    height: '372px',
+    width: '100%',
+    padding: 10,
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    gap: '30px',
-    padding: '40px',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   title: {
@@ -20,7 +19,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    maxHeight: '205px',
+    maxHeight: 240,
     overflowY: 'auto',
     paddingRight: '10px',
   },
