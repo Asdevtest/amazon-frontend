@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +24,6 @@ export const AdminOrderViewRaw = props => {
       }),
   )
 
-
   useEffect(() => {
     viewModel.loadData()
 
@@ -34,7 +33,7 @@ export const AdminOrderViewRaw = props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {viewModel.order ? (
           <OrderContent
@@ -63,7 +62,7 @@ export const AdminOrderViewRaw = props => {
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 }
 

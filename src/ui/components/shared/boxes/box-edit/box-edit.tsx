@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { useStyles } from './box-edit.style'
 
-import { Pencil } from '../../svg-icons'
+import { PencilIcon } from '../../svg-icons'
 
 export const BoxEdit: FC = memo(() => {
   const { classes: styles } = useStyles()
@@ -11,7 +11,7 @@ export const BoxEdit: FC = memo(() => {
     <div className={styles.flexContainer}>
       <img className={styles.boxIcon} src="/assets/img/box.png" />
 
-      <Pencil className={styles.penIcon} />
+      <PencilIcon className={styles.penIcon} />
     </div>
   )
 })

@@ -6,34 +6,34 @@ import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './image-modal.style'
 
 import { ButtonControls, Comment, ShowPreviews } from './components'
 
 interface ImageModalProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   currentFileIndex: number
-  handleCurrentFileIndex: (index: number) => void
+  onCurrentFileIndex: (index: number) => void
   isOpenModal: boolean
-  handleOpenModal: () => void
+  onOpenModal: () => void
   photosTitles?: string[]
   photosComments?: string[]
   showPreviews?: boolean
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   isRequestResult?: boolean
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
     files,
     currentFileIndex,
-    handleCurrentFileIndex,
+    onCurrentFileIndex,
     isOpenModal,
-    handleOpenModal,
+    onOpenModal,
     photosTitles,
     photosComments,
     showPreviews,
@@ -69,8 +69,8 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     <Modal
       openModal={isOpenModal}
       setOpenModal={() => {
-        handleOpenModal()
-        handleCurrentFileIndex(mediaFileIndex)
+        onOpenModal()
+        onCurrentFileIndex(mediaFileIndex)
         updateImagesForLoad()
       }}
       dialogClassName={styles.modalContainer}
@@ -86,7 +86,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         />
 
         <div className={styles.body}>
-          {photosTitles?.[mediaFileIndex] && <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p>}
+          {photosTitles?.[mediaFileIndex] ? <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p> : null}
 
           <Slider
             controls

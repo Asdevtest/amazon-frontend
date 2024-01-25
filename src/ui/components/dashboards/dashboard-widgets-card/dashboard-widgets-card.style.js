@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   sectionWrapper: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 326px)',

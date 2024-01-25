@@ -8,7 +8,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supplier-payment-form.style'
+import { useStyles } from './supplier-payment-form.style'
 
 export const SupplierPaymentForm = ({
   onClickSaveButton,
@@ -17,13 +17,13 @@ export const SupplierPaymentForm = ({
   editPaymentDetailsPhotos,
   setEditPaymentDetailsPhotos,
 }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [files, setFiles] = useState(uploadedFiles || [])
 
   return (
-    <div className={classNames.modalWrapper}>
-      <p className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
+    <div className={styles.modalWrapper}>
+      <p className={styles.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
 
       <UploadFilesInput
         fullWidth
@@ -43,10 +43,10 @@ export const SupplierPaymentForm = ({
         />
       ) : null}
 
-      <diiv className={classNames.saveBox}>
+      <diiv className={styles.saveBox}>
         <Button
           success
-          className={classNames.actionButton}
+          className={styles.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPaymentDetailsPhotos)
             onCloseModal()
@@ -54,11 +54,7 @@ export const SupplierPaymentForm = ({
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button
-          className={cx(classNames.actionButton, classNames.cancelButton)}
-          variant={'text'}
-          onClick={onCloseModal}
-        >
+        <Button className={cx(styles.actionButton, styles.cancelButton)} variant={'text'} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </diiv>

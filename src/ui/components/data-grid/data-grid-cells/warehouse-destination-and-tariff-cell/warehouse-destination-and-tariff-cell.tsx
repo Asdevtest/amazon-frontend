@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -29,7 +29,7 @@ interface WarehouseDestinationAndTariffCellProps {
   disabled: boolean
 }
 
-export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariffCellProps> = React.memo(props => {
+export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariffCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     boxesMy,

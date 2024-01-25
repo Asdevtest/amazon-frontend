@@ -14,6 +14,11 @@ export const useStyles = makeStyles()(() => ({
     gap: 30,
   },
 
+  fullWidth: {
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
   text: {
     fontSize: 16,
     lineHeight: '22px',

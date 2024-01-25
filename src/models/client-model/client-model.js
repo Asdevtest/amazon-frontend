@@ -1,5 +1,3 @@
-// import axios from 'axios'
-// import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'

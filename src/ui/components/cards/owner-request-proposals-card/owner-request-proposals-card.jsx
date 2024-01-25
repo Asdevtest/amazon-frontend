@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+
 import { useState } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
@@ -25,7 +25,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './owner-request-proposals-card.style'
+import { useStyles } from './owner-request-proposals-card.style'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -36,7 +36,7 @@ export const OwnerRequestProposalsCard = ({
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
@@ -67,70 +67,68 @@ export const OwnerRequestProposalsCard = ({
   ]
 
   return (
-    <div className={classNames.cardMainWrapper}>
-      <div className={classNames.cardWrapper}>
-        <div className={classNames.userInfoMainWrapper}>
-          <div className={classNames.cardContentWrapper}>
-            <div className={classNames.cardSubContentWrapper}>
-              <div className={classNames.userWrapper}>
-                <div className={classNames.userInfoWrapper}>
-                  <Avatar src={getUserAvatarSrc(item?.proposal?.createdBy?._id)} className={classNames.cardImg} />
+    <div className={styles.cardMainWrapper}>
+      <div className={styles.cardWrapper}>
+        <div className={styles.userInfoMainWrapper}>
+          <div className={styles.cardContentWrapper}>
+            <div className={styles.cardSubContentWrapper}>
+              <div className={styles.userWrapper}>
+                <div className={styles.userInfoWrapper}>
+                  <Avatar src={getUserAvatarSrc(item?.proposal?.createdBy?._id)} className={styles.cardImg} />
 
-                  <div className={classNames.userNameWrapper}>
+                  <div className={styles.userNameWrapper}>
                     <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
-                    <div className={classNames.reviewWrapper}>
-                      <Typography className={classNames.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
+                    <div className={styles.reviewWrapper}>
+                      <Typography className={styles.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
                         {t(TranslationKey.Reviews)}
                       </Typography>
 
-                      <Rating readOnly className={classNames.userRating} value={item.proposal.createdBy?.rating} />
+                      <Rating readOnly className={styles.userRating} value={item.proposal.createdBy?.rating} />
                     </div>
                   </div>
                 </div>
 
-                <Typography className={classNames.successDeals}>
+                <Typography className={styles.successDeals}>
                   {t(TranslationKey['The number of total successful transactions:']) + ' '}
                   {item?.proposal?.createdBy?.proposalsCompleted ?? t(TranslationKey.Missing)}
                 </Typography>
 
-                <div className={classNames.timeInfoWrapper}>
-                  <div className={classNames.timeItemInfoWrapper}>
-                    <Typography className={classNames.cardTime}>
-                      {t(TranslationKey['Time to complete']) + ':'}
-                    </Typography>
+                <div className={styles.timeInfoWrapper}>
+                  <div className={styles.timeItemInfoWrapper}>
+                    <Typography className={styles.cardTime}>{t(TranslationKey['Time to complete']) + ':'}</Typography>
 
-                    <Typography className={classNames.cardTimeValue}>
+                    <Typography className={styles.cardTimeValue}>
                       {minsToTime(item?.proposal?.execution_time)}
                     </Typography>
                   </div>
 
-                  <div className={classNames.timeItemInfoWrapper}>
-                    <Typography className={classNames.cardPrice}>{t(TranslationKey['Total price']) + ':'}</Typography>
+                  <div className={styles.timeItemInfoWrapper}>
+                    <Typography className={styles.cardPrice}>{t(TranslationKey['Total price']) + ':'}</Typography>
 
-                    <Typography className={classNames.cardPriceValue}>
+                    <Typography className={styles.cardPriceValue}>
                       {toFixedWithDollarSign(item.proposal.price, 2)}
                     </Typography>
                   </div>
                 </div>
               </div>
-              <Typography className={classNames.proposalTitle}>{item.proposal.title}</Typography>
-              <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
+              <Typography className={styles.proposalTitle}>{item.proposal.title}</Typography>
+              <Typography className={styles.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
 
-            <div className={classNames.photoWrapper}>
+            <div className={styles.photoWrapper}>
               <PhotoAndFilesSlider withoutFiles files={item.proposal.linksToMediaFiles} />
             </div>
           </div>
         </div>
       </div>
 
-      <div className={classNames.cardFooter}>
-        <div className={classNames.statusField}>
+      <div className={styles.cardFooter}>
+        <div className={styles.statusField}>
           <span
-            className={classNames.circleIndicator}
+            className={styles.circleIndicator}
             style={{ backgroundColor: RequestProposalStatusColor(item.proposal.status) }}
           />
-          <Typography className={classNames.standartText}>
+          <Typography className={styles.standartText}>
             {RequestProposalStatusTranslate(item.proposal.status)}
           </Typography>
         </div>
@@ -139,13 +137,13 @@ export const OwnerRequestProposalsCard = ({
           disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
           variant="contained"
           color="primary"
-          className={cx(classNames.actionButton)}
+          className={cx(styles.actionButton)}
           onClick={onClickOpenResult}
         >
           {t(TranslationKey.Result)}
         </Button>
 
-        <div className={classNames.actionButtonWrapper}>
+        <div className={styles.actionButtonWrapper}>
           {(item.proposal.status === RequestProposalStatus.CREATED ||
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
@@ -183,7 +181,7 @@ export const OwnerRequestProposalsCard = ({
                 success
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
-                className={classNames.actionButton}
+                className={styles.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
@@ -193,7 +191,7 @@ export const OwnerRequestProposalsCard = ({
             tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
             variant="contained"
             color="primary"
-            className={classNames.actionButton}
+            className={styles.actionButton}
             onClick={() => onClickContactWithExecutor(item.proposal)}
           >
             {t(TranslationKey['Contact the performer'])}

@@ -186,7 +186,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             inputComponent={
               <AsinOrSkuLink
                 withCopyValue
-                asin={request?.request?.product?.asin || proposal?.request?.asin}
+                link={request?.request?.product?.asin || proposal?.request?.asin}
                 textStyles={styles.simpleSpan}
               />
             }
@@ -301,12 +301,12 @@ export const RequestDesignerResultClientForm = memo(props => {
           showPreviews
           isRequestResult
           isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
           files={fileLinks}
           photosTitles={photosTitles}
           photosComments={photosComments}
           currentFileIndex={curImageIndex}
-          handleCurrentFileIndex={index => setCurImageIndex(index)}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
         />
       )}
     </div>

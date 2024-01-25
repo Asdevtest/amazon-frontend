@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { UserLink } from '@components/user/user-link'
 
@@ -9,7 +9,7 @@ interface UserLinkCellProps {
   customStyles?: object
 }
 
-export const UserLinkCell: FC<UserLinkCellProps> = React.memo(props => {
+export const UserLinkCell: FC<UserLinkCellProps> = memo(props => {
   const { name, userId, blackText, customStyles } = props
 
   return (

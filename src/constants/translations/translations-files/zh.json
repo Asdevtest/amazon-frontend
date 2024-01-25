@@ -74,7 +74,7 @@
   "Box photos:": "箱子的照片:",
   "Photos of current supplier": "当前的供货方照片",
   "No photos yet...": "没有照片...",
-  "Order photos:": "订单照片:",
+  "Order photos": "订单照片:",
   "Shipping label": "运输标签",
   "Shipping label was glued to the warehouse": "运输标签由仓库贴上",
   "New boxes": "新箱子",
@@ -2153,6 +2153,13 @@
   "A photo of the Transperensy Code sticker": "A photo of the Transperensy Code sticker",
   "Be sure to add a photo to the box": "Be sure to add a photo to the box",
   "Total quantity": "Total quantity",
+  "currency": "currency",
+  "total amount": "total amount",
+  "Supplier information": "Supplier information",
+  "Additional order information": "Additional order information",
+  "Supplier details": "Supplier details",
+  "All files": "All files",
+  "Page": "Page",
   "Account report": "Account report",
   "Reports": "Reports",
   "FBA fee": "FBA fee",
@@ -2160,5 +2167,7 @@
   "Standardized": "Standardized",
   "Additional": "Additional",
   "Parameters of the table": "Parameters of the table",
-  "Reset Settings": "Reset Settings"
+  "Reset Settings": "Reset Settings",
+  "Multplty": "Multplty",
+  "A box contains more than one product": "A box contains more than one product"
 }

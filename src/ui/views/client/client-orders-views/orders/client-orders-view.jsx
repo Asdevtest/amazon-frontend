@@ -1,14 +1,17 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
-import { ProductAndBatchModal } from '@components/modals/prodct-and-batch-modal/product-and-batch.modal'
+import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -31,7 +34,7 @@ export const ClientOrdersView = observer(history => {
     viewModel.loadData()
   }, [])
   return (
-    <React.Fragment>
+    <>
       <div className={styles.topHeaderBtnsWrapper}>
         {viewModel.isPendingOrdering ? (
           <div className={styles.topHeaderBtnsSubWrapper}>
@@ -65,6 +68,7 @@ export const ClientOrdersView = observer(history => {
 
         <div className={cx({ [styles.invis]: viewModel.isPendingOrdering })} />
       </div>
+
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
@@ -103,8 +107,8 @@ export const ClientOrdersView = observer(history => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
         />
       </div>
 
@@ -114,7 +118,7 @@ export const ClientOrdersView = observer(history => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         >
           <SetBarcodeModal
-            item={viewModel.selectedProduct}
+            barCode={viewModel.selectedProduct?.barCode}
             onClickSaveBarcode={viewModel.onClickSaveBarcode}
             onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
           />
@@ -125,13 +129,15 @@ export const ClientOrdersView = observer(history => {
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
-          changeSwitcher={viewModel.onClickAboutSwitcherField}
-          currentSwitch={viewModel.aboutProductSwitcher}
+          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
           getCurrentBatch={viewModel.getCurrBatch}
           currentBatch={viewModel.currentBatch}
           shops={viewModel.shopsData}
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+          onClickMyOrderModal={viewModel.onClickMyOrderModal}
+          onClickInTransferModal={viewModel.onClickInTransfer}
         />
       )}
 
@@ -190,6 +196,54 @@ export const ClientOrdersView = observer(history => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
-    </React.Fragment>
+
+      {viewModel.showMyOrderModal ? (
+        <MyOrderModal
+          isClient
+          isPendingOrdering={viewModel.isPendingOrdering}
+          order={viewModel.order}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          platformSettings={viewModel.platformSettings}
+          switcherCondition={viewModel.myOrderModalSwitcherCondition}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          openModal={viewModel.showMyOrderModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          onClickOpenNewTab={viewModel.onClickOpenNewTab}
+          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+        />
+      ) : null}
+
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            viewModel.onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
+      ) : null}
+
+      {viewModel.showProductLotDataModal ? (
+        <Modal
+          openModal={viewModel.showProductLotDataModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        >
+          <ProductLotDataForm
+            isTransfer
+            userInfo={viewModel.userInfo}
+            product={[viewModel.selectedWarehouseOrderProduct]}
+            batchesData={viewModel.batchesData}
+          />
+        </Modal>
+      ) : null}
+    </>
   )
 })

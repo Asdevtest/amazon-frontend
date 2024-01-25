@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -11,10 +10,10 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-shop-form.style'
+import { useStyles } from './add-or-edit-shop-form.style'
 
 export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const sourceFormFields = {
     name: shopToEdit?.name || '',
@@ -40,15 +39,15 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
     !formFields?.sellerBoardWarehouseReportUrlMonthly
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.title}>{t(TranslationKey['Add shop'])}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.title}>{t(TranslationKey['Add shop'])}</Typography>
 
       <Field
         withCopy
-        labelClasses={classNames.label}
-        containerClasses={classNames.containerField}
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
         tooltipInfoContent={t(TranslationKey['Enter store name'])}
-        className={classNames.descriptionField}
+        className={styles.descriptionField}
         label={t(TranslationKey.Title) + '*'}
         value={formFields.name}
         placeholder={t(TranslationKey['Store name'])}
@@ -57,10 +56,10 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
       <Field
         withCopy
-        labelClasses={classNames.label}
-        containerClasses={classNames.containerField}
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
         tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
-        className={classNames.descriptionField}
+        className={styles.descriptionField}
         placeholder={t(TranslationKey.Link)}
         label={t(TranslationKey['Warehouse report']) + '*'}
         value={formFields.sellerBoardWarehouseReportUrlDaily}
@@ -69,9 +68,9 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
       <Field
         withCopy
-        labelClasses={classNames.label}
-        containerClasses={classNames.containerField}
-        className={classNames.descriptionField}
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        className={styles.descriptionField}
         tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
         label={t(TranslationKey['Dashboard by goods/days']) + '*'}
         placeholder={t(TranslationKey.Link)}
@@ -81,20 +80,20 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
       <Field
         withCopy
-        labelClasses={classNames.label}
-        containerClasses={classNames.containerField}
-        className={classNames.descriptionField}
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        className={styles.descriptionField}
         label={t(TranslationKey['Account report'])}
         placeholder={t(TranslationKey.Link)}
         value={formFields.reportAccountUrl}
         onChange={onChangeField('reportAccountUrl')}
       />
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
           tooltipInfoContent={t(TranslationKey['Create/edit a store based on the data you entered'])}
           disabled={disableSubmitBtn}
-          className={classNames.button}
+          className={styles.button}
           color="primary"
           variant="contained"
           onClick={() => onSubmit(formFields, shopToEdit && shopToEdit._id)}
@@ -105,7 +104,7 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
         <Button
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
           variant="text"
-          className={cx(classNames.button, classNames.cancelBtn)}
+          className={cx(styles.button, styles.cancelBtn)}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

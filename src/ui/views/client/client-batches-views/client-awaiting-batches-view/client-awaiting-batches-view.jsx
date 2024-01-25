@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,7 +29,7 @@ export const ClientAwaitingBatchesView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <HeaderTable viewModel={viewModel} />
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
@@ -135,6 +135,6 @@ export const ClientAwaitingBatchesView = observer(props => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 })

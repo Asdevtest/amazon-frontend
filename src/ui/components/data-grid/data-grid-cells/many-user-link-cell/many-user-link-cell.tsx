@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { UserLink } from '@components/user/user-link'
 
@@ -10,7 +10,7 @@ interface ManyUserLinkCellProps {
   usersData: IUser[]
 }
 
-export const ManyUserLinkCell: FC<ManyUserLinkCellProps> = React.memo(props => {
+export const ManyUserLinkCell: FC<ManyUserLinkCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { usersData } = props
 

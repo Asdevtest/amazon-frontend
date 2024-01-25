@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
@@ -31,7 +31,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <SearchInput
@@ -179,6 +179,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

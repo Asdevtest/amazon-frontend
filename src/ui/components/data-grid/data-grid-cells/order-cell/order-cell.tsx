@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +25,7 @@ interface OrderCellProps {
   imageSize?: 'small' | 'big'
 }
 
-export const OrderCell: FC<OrderCellProps> = React.memo(props => {
+export const OrderCell: FC<OrderCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize } = props
 
@@ -42,8 +42,8 @@ export const OrderCell: FC<OrderCellProps> = React.memo(props => {
       <div>
         <p className={styles.orderTitle}>{product?.amazonTitle}</p>
 
-        <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={product.asin} />
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={product?.skuByClient} />}
+        <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} />
+        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />}
 
         {withQuantity ? (
           <div className={styles.copyAsin}>

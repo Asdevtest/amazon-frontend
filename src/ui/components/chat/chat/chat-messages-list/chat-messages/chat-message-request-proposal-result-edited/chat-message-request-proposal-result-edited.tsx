@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-message-request-proposal-result-edited.style'
+import { useStyles } from './chat-message-request-proposal-result-edited.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
@@ -22,35 +21,35 @@ interface Props {
 }
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isShowChatInfo }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.headerAndTimeWrapper}>
-        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+    <div className={styles.root}>
+      <div className={styles.headerAndTimeWrapper}>
+        <p className={styles.headerText}>{t(TranslationKey.Result)}</p>
 
-        <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+        <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
 
-      <p className={classNames.descriptionText}>{message.data.edited.result}</p>
+      <p className={styles.descriptionText}>{message.data.edited.result}</p>
 
-      <div className={cx(classNames.resultWrapper, { [classNames.resultWrapperShowChatInfo]: isShowChatInfo })}>
+      <div className={cx(styles.resultWrapper, { [styles.resultWrapperShowChatInfo]: isShowChatInfo })}>
         <PhotoAndFilesSlider
           smallSlider={!isMobileResolution}
           column={isShowChatInfo || isMobileResolution}
           files={files || []}
         />
 
-        <div className={cx(classNames.infoWrapper, { [classNames.infoWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(styles.infoWrapper, { [styles.infoWrapperShowChatInfo]: isShowChatInfo })}>
           <Field
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.fieldContainer}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.fieldContainer}
             label={t(TranslationKey['Time to check'])}
             inputComponent={
-              <p className={classNames.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
+              <p className={styles.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
             }
           />
         </div>

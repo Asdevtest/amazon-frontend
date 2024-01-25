@@ -19,7 +19,7 @@ import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useStyles } from './general-notifications-view.styles'
+import { useStyles } from './general-notifications-view.style'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
 
@@ -122,11 +122,9 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
+            rows={viewModel.notificationsData}
             columns={viewModel.columnsModel}
             getRowHeight={() => 'auto'}
-            sortingMode="client"
-            paginationMode="client"
             density="compact"
             loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{

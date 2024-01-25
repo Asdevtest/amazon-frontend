@@ -13,6 +13,7 @@ import { setI18nConfig } from '@utils/translations'
 const delayRedirectToAuthTime = 1000
 
 export class RegistrationViewModel {
+  requestStatus = undefined
   history = undefined
 
   name = ''
@@ -23,8 +24,6 @@ export class RegistrationViewModel {
   checkValidationNameOrEmail = {}
   language = ''
 
-  requestStatus = undefined
-  error = undefined
   showErrorRegistrationModal = false
   showSuccessRegistrationModal = false
 
@@ -34,11 +33,15 @@ export class RegistrationViewModel {
     confirmPassword: null,
   }
 
+  get disableRegisterButton() {
+    return this.requestStatus === loadingStatuses.IS_LOADING
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -57,10 +60,8 @@ export class RegistrationViewModel {
 
   async onSubmitForm() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const result = await UserModel.isCheckUniqueUser({ name: this.name, email: this.email.toLowerCase() })
 
       runInAction(() => {
@@ -75,32 +76,25 @@ export class RegistrationViewModel {
 
       this.onTriggerOpenModal('showSuccessRegistrationModal')
 
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
-      })
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
-      })
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   onLoadPage() {
-    runInAction(() => {
-      this.language = SettingsModel.languageTag
-    })
+    this.language = SettingsModel.languageTag
+
     SettingsModel.setLanguageTag(this.language)
     setI18nConfig()
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   onClickRedirect = () => {
@@ -124,5 +118,9 @@ export class RegistrationViewModel {
 
   onClickThemeIcon = theme => {
     SettingsModel.setUiTheme(theme)
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

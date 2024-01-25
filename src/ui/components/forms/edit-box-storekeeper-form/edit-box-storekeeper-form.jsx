@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
@@ -30,8 +30,7 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { toFixed } from '@utils/text'
+import { parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -53,24 +52,17 @@ export const EditBoxStorekeeperForm = memo(
     setDestinationsFavouritesItem,
     onClickHsCode,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [imagesOfBox, setImagesOfBox] = useState([])
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
-
-    useEffect(() => {
-      if (formItem.images.length > 0) {
-        setImagesOfBox(formItem.images)
-      }
-    }, [formItem])
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
@@ -158,9 +150,9 @@ export const EditBoxStorekeeperForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel || '',
-      clientComment: formItem?.clientComment || '',
+      clientComment: parseTextString(formItem?.clientComment) || '',
       storekeeperTaskComment: '',
-      // images: formItem?.images || [],
+      images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items ? formItem.items.map(el => ({ ...el, tmpBarCode: [], tmpTransparencyFile: [] })) : [],
@@ -245,6 +237,12 @@ export const EditBoxStorekeeperForm = memo(
         setSizeSetting(newAlignment)
       }
     }
+
+    const handleChangeImages = files =>
+      setBoxFields({
+        ...boxFields,
+        images: files,
+      })
 
     const getBoxDataToSubmit = () => {
       if (sizeSetting === unitsOfChangeOptions.US) {
@@ -347,13 +345,11 @@ export const EditBoxStorekeeperForm = memo(
     }
 
     const disableSubmit =
-      JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
-        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
+      isEqual(boxInitialState, boxFields) ||
       boxFields.storekeeperId === '' ||
       maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
       maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
       maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
-    !imagesOfBox.length
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -838,9 +834,9 @@ export const EditBoxStorekeeperForm = memo(
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput
                     fullWidth
-                    images={imagesOfBox}
-                    setImages={setImagesOfBox}
-                    maxNumber={50 - imagesOfBox.length}
+                    images={boxFields.images}
+                    setImages={handleChangeImages}
+                    maxNumber={50 - boxFields.images.length}
                   />
                 </div>
 
@@ -848,7 +844,7 @@ export const EditBoxStorekeeperForm = memo(
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider smallSlider showPreviews files={imagesOfBox} />
+                  <PhotoAndFilesSlider smallSlider showPreviews files={boxFields.images} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
@@ -902,7 +898,7 @@ export const EditBoxStorekeeperForm = memo(
                 id: formItem?._id,
                 boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
-                imagesOfBox,
+                imagesOfBox: boxFields.images,
                 dataToSubmitHsCode: boxFields.items.map(el => ({
                   productId: el.product._id,
                   hsCode: el.product.hsCode,
@@ -926,10 +922,10 @@ export const EditBoxStorekeeperForm = memo(
         {showPhotosModal && (
           <ImageModal
             isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 
@@ -969,7 +965,7 @@ export const EditBoxStorekeeperForm = memo(
             title={barcodeModalSetting.title}
             maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
-            item={barcodeModalSetting.item}
+            barCode={barcodeModalSetting.item?.barCode}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />

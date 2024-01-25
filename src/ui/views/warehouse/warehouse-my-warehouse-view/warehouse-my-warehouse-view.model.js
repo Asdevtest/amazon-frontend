@@ -252,13 +252,13 @@ export class WarehouseMyWarehouseViewModel {
 
       this.getBoxesMy()
 
-      this.onTriggerOpenModal('showBoxViewModal')
-
       runInAction(() => {
         this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
       })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
     }
@@ -516,7 +516,7 @@ export class WarehouseMyWarehouseViewModel {
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
           ...boxData,
-          images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
+          images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]

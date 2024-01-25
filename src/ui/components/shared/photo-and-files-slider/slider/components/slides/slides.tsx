@@ -7,12 +7,13 @@ import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { IUploadFile } from '@typings/upload-file'
+import { isString } from '@typings/type-guards'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './slides.style'
 
 interface SlidesProps {
-  slides: Array<string | IUploadFile>
+  slides: UploadFileType[]
   currentIndex: number
   smallSlider?: boolean
   mediumSlider?: boolean
@@ -59,12 +60,12 @@ export const Slides: FC<SlidesProps> = memo(props => {
         }}
       >
         {slides?.map((slide, index) => {
-          const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
-          const slideToCheck = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.file.name
-          const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, !smallPhotos) : slide?.data_url // '!smallPhotos' - the function's second argument takes isBig
+          const elementExtension = (isString(slide) ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
+          const slideToCheck = isString(slide) ? getAmazonImageUrl(slide, true) : slide?.file.name
+          const currentSlide = isString(slide) ? getAmazonImageUrl(slide, !smallPhotos) : slide?.data_url // '!smallPhotos' - the function's second argument takes isBig
           const isActiveSlide = currentIndex === index
-          const documentName = typeof slide === 'string' ? slide : slide?.file?.name
-          const documentLink = typeof slide === 'string' ? getAmazonImageUrl(slide) : '/'
+          const documentName = isString(slide) ? slide : slide?.file?.name
+          const documentLink = isString(slide) ? getAmazonImageUrl(slide) : slide?.data_url
 
           return (
             <div key={index} className={styles.slideWrapper}>
@@ -94,14 +95,14 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 )
               ) : (
                 <div className={styles.documentWrapper}>
-                  <a href={documentLink} target="_blank" rel="noreferrer">
+                  <a href={documentLink} target="_blank" rel="noreferrer noopener">
                     <FileIcon fileExtension={elementExtension} className={styles.slide} />
                   </a>
 
                   <a
                     href={documentLink}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noreferrer noopener"
                     className={cx(styles.linkDocument, styles.text, {
                       [styles.smallText]: smallSlider,
                       [styles.mediumText]: mediumSlider,

@@ -17,5 +17,16 @@ export const useStyles = makeStyles()(() => ({
     video: {
       maxHeight: '400px !important',
     },
+
+    // if an external link comes (for example YouTube), then the iframe tag is used inside the ReactPlayer and not the video tag
+    div: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      iframe: {
+        maxHeight: '400px !important',
+      },
+    },
   },
 }))

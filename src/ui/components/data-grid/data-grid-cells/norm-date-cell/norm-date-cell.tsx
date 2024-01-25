@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { formatDateWithoutTime, formatNormDateTime } from '@utils/date-time'
 
@@ -9,7 +9,7 @@ interface NormDateCellProps {
   dateWithoutTime?: boolean
 }
 
-export const NormDateCell: FC<NormDateCellProps> = React.memo(({ value, dateWithoutTime }) => {
+export const NormDateCell: FC<NormDateCellProps> = memo(({ value, dateWithoutTime }) => {
   const { classes: styles } = useStyles()
 
   const validDate = value ? (dateWithoutTime ? formatDateWithoutTime(value) : formatNormDateTime(value)) : '-'

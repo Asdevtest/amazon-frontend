@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,7 +32,7 @@ export const CreateOrEditRequestView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div ref={mainContentRef}>
         <CreateOrEditRequestContent
           mainContentRef={mainContentRef}
@@ -63,15 +63,15 @@ export const CreateOrEditRequestView = observer(props => {
         <ImageModal
           showPreviews
           files={viewModel.bigImagesOptions.images}
-          handleCurrentFileIndex={index =>
+          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+          isOpenModal={viewModel.showImageModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={index =>
             viewModel.setBigImagesOptions({
               ...viewModel.bigImagesOptions,
               imgIndex: index,
             })
           }
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          isOpenModal={viewModel.showImageModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         />
       )}
 
@@ -87,6 +87,6 @@ export const CreateOrEditRequestView = observer(props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
         onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
       />
-    </React.Fragment>
+    </>
   )
 })

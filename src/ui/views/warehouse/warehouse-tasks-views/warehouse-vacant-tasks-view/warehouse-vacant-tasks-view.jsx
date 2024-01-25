@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -27,7 +26,7 @@ import { useStyles } from './warehouse-vacant-tasks-view.style'
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 
 export const WarehouseVacantTasksView = observer(({ history }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history }))
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       TaskOperationType.RECEIVE
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <TaskPrioritySelector
@@ -110,8 +109,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            sortingMode="client"
-            paginationMode="client"
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
@@ -197,6 +194,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

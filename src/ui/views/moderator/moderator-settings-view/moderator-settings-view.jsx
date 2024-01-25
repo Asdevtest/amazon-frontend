@@ -5,12 +5,12 @@ import { Typography } from '@mui/material'
 import { styles } from './moderator-settings-view.style'
 
 export const ModeratorSettingsViewRaw = props => {
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
     <>
       <div>
-        <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+        <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
       </div>
     </>
   )

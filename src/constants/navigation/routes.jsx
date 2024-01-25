@@ -2813,7 +2813,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
       title: () => t(TranslationKey.Request),
     },
   },

@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,14 +12,14 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { t } from '@utils/translations'
 import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
 
-import { styles } from './registration-view.style'
+import { useStyles } from './registration-view.style'
 
 import { RegistrationViewModel } from './registration-view.model'
 
-export const RegistrationViewRaw = props => {
-  const { classes: classNames } = props
+export const RegistrationView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new RegistrationViewModel({ history: props.history }))
+  const [viewModel] = useState(() => new RegistrationViewModel({ history }))
 
   useEffect(() => {
     viewModel.onLoadPage()
@@ -31,7 +30,7 @@ export const RegistrationViewRaw = props => {
   )
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <AuthPageBanner />
 
       <AuthFormWrapper
@@ -51,6 +50,7 @@ export const RegistrationViewRaw = props => {
             confirmPassword: viewModel.confirmPassword,
             acceptTerms: viewModel.acceptTerms,
           }}
+          disableRegisterButton={viewModel.disableRegisterButton}
           onChangeFormField={viewModel.onChangeFormField}
           onSubmit={viewModel.onSubmitForm}
         />
@@ -62,9 +62,7 @@ export const RegistrationViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
         title={t(TranslationKey['Successful registration'])}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessRegistrationModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
       />
 
       <WarningInfoModal
@@ -72,12 +70,8 @@ export const RegistrationViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
         title={t(TranslationKey['Registration error'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showErrorRegistrationModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
       />
     </div>
   )
-}
-
-export const RegistrationView = withStyles(observer(RegistrationViewRaw), styles)
+})

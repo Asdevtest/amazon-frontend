@@ -284,12 +284,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   onClickOrderCell(productId) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=orders`,
-      '_blank',
-    )
+    if (productId) {
+      this.isArchive
+        ? this.history.push(`/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders`)
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders`)
+    }
 
-    win.focus()
+    this.onTriggerOpenModal('productCardModal')
   }
 
   async onClickVariationButton(id) {

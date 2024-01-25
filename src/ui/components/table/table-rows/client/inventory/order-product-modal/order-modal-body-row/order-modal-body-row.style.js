@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   img: {
     height: '64px',
     width: '64px',
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   datePickerWrapper: {
-    width: 100,
+    width: '100%',
   },
 
   commentInput: {

@@ -6,46 +6,46 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './exchange-product-item.style'
+import { useStyles } from './exchange-product-item.style'
 
 export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   return (
     <TableRow>
       <TableCell>
-        <img alt="" src={product.categoryImg} className={classNames.img} />
+        <img alt="" src={product.categoryImg} className={styles.img} />
       </TableCell>
       <TableCell>
-        <Typography className={(classNames.text, classNames.typoCategory)}>{product.category}</Typography>
+        <Typography className={(styles.text, styles.typoCategory)}>{product.category}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={(classNames.text, classNames.typoPrice)}>
+        <Typography className={(styles.text, styles.typoPrice)}>
           {'$ ' + (product.price + product.deliveryPrice).toFixed(2)}
         </Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.qty}</Typography>
+        <Typography className={styles.text}>{product.qty}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{'$ ' + product.avgPrice}</Typography>
+        <Typography className={styles.text}>{'$ ' + product.avgPrice}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.recConsignmentQty}</Typography>
+        <Typography className={styles.text}>{product.recConsignmentQty}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.recConsignmentWeight}</Typography>
+        <Typography className={styles.text}>{product.recConsignmentWeight}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.avgBSR}</Typography>
+        <Typography className={styles.text}>{product.avgBSR}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.avgReviews}</Typography>
+        <Typography className={styles.text}>{product.avgReviews}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.text}>{product.avgRevenue}</Typography>
+        <Typography className={styles.text}>{product.avgRevenue}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={(classNames.text, classNames.standartPrice)}>{'$ 499'}</Typography>
+        <Typography className={(styles.text, styles.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
         <Button success onClick={() => handlerPrivateLabel(index)}>

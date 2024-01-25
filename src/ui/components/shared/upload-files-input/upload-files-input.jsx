@@ -20,6 +20,8 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { isString } from '@typings/type-guards'
+
 import { useStyles } from './upload-files-input.style'
 
 import { VideoPlayer } from '../video-player'
@@ -42,7 +44,6 @@ export const UploadFilesInput = observer(props => {
     withComment = false,
     maxHeight = undefined,
     сontainerStyles = '',
-    filesLength = undefined,
     imageListWrapperStyles = undefined,
     minimized = false,
     isNotShowActionsBtns = false,
@@ -122,11 +123,11 @@ export const UploadFilesInput = observer(props => {
     }
   }
 
-  const renderImageInfo = (img, imgName) => (
+  const renderImageInfo = (img, imgName, isCurrentFileVideoType) => (
     <div className={styles.tooltipWrapper}>
-      {isVideoType(img) ? (
+      {isCurrentFileVideoType ? (
         <div className={cx(styles.preloaderContainer, styles.preloaderContainerTooltip)}>
-          <VideoPlayer videoSource={img} height="200px" />
+          <VideoPlayer videoSource={img} height={200} />
           <div className={styles.preloader}>
             <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
           </div>
@@ -156,7 +157,13 @@ export const UploadFilesInput = observer(props => {
 
   const [showImages, setShowImages] = useState(true)
 
-  const isVideoType = slide => checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
+  const isVideoType = slide => {
+    if (isString(slide)) {
+      return checkIsVideoLink(slide)
+    } else {
+      return checkIsVideoLink(slide?.file?.name) || checkIsVideoLink(slide?.file?.type)
+    }
+  }
 
   return (
     SettingsModel.languageTag && (
@@ -255,9 +262,7 @@ export const UploadFilesInput = observer(props => {
                     {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
                   </Button>
                   <p className={styles.imagesCount}>
-                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${
-                      maxNumber - ((filesLength && filesLength) || 0)
-                    }`}</span>
+                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${maxNumber || 0}`}</span>
 
                     {t(TranslationKey.files)}
                   </p>
@@ -278,16 +283,17 @@ export const UploadFilesInput = observer(props => {
                 {imageList.map((image, index) => {
                   const currentImage = typeof image === 'string' ? getAmazonImageUrl(image, true) : image?.data_url
                   const currentName = typeof image === 'string' ? image : image?.file.name
+                  const isCurrentFileVideoType = isVideoType(image)
 
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
                       <Tooltip
-                        title={renderImageInfo(currentImage, currentName)}
+                        title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}
                         classes={{ popper: styles.imgTooltip }}
                       >
-                        {isVideoType(currentImage) ? (
+                        {isCurrentFileVideoType ? (
                           <div className={styles.preloaderContainer}>
-                            <VideoPlayer videoSource={currentImage} height="55px" />
+                            <VideoPlayer videoSource={currentImage} height={55} />
                             <div className={styles.preloader}>
                               <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
                             </div>

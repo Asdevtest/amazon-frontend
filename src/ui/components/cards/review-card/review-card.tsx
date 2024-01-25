@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { FeedbackType } from '@typings/feedback'
 
-import { useStyles } from './review-card.styles'
+import { useStyles } from './review-card.style'
 
 interface ReviewCardProps {
   review: FeedbackType
@@ -48,7 +48,7 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
         </div>
       </div>
 
-      <CustomTextEditor readOnly conditions={review.comment} editorMaxHeight={styles.editor} />
+      <CustomTextEditor readOnly value={review.comment} />
     </div>
   )
 })

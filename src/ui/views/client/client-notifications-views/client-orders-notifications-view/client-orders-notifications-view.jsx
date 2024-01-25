@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +24,7 @@ export const ClientOrdersNotificationsView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
@@ -72,6 +72,6 @@ export const ClientOrdersNotificationsView = observer(({ history }) => {
         onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

@@ -1,19 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
+import { Box, Checkbox, Grid, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -27,16 +25,10 @@ import {
 } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import {
-  checkAndMakeAbsoluteUrl,
-  getNewTariffTextForBoxOrOrder,
-  toFixed,
-  toFixedWithDollarSign,
-  toFixedWithYuanSign,
-} from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './select-fields.style'
+import { useStyles } from './select-fields.style'
 
 export const SelectFields = ({
   userInfo,
@@ -65,7 +57,7 @@ export const SelectFields = ({
   setPaymentMethodsModal,
   orderPayments,
 }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = { ...hsCode }
@@ -81,12 +73,12 @@ export const SelectFields = ({
   const countIncomingImage = order.images?.length ?? 0
 
   return (
-    <Grid container justifyContent="space-between" className={classNames.container}>
+    <Grid container justifyContent="space-between" className={styles.container}>
       <Grid item>
-        <div className={classNames.photoAndFieldsWrapper}>
-          <div className={classNames.photoWrapper}>
+        <div className={styles.photoAndFieldsWrapper}>
+          <div className={styles.photoWrapper}>
             {!!order.product.images.length && (
-              <div className={classNames.carouselWrapper}>
+              <div className={styles.carouselWrapper}>
                 <PhotoAndFilesSlider mediumSlider withoutFiles showPreviews files={order.product.images} />
               </div>
             )}
@@ -96,27 +88,25 @@ export const SelectFields = ({
             {Number(orderFields.status) >= Number(OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) && (
               <Field
                 label={t(TranslationKey['Quantity of goods delivered'])}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 inputComponent={
                   <div
-                    className={cx(classNames.deliveredGoodsWrapper, {
-                      [classNames.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
+                    className={cx(styles.deliveredGoodsWrapper, {
+                      [styles.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
                     })}
                   >
-                    <div className={classNames.deliveredGoodsSubWrapper}>
+                    <div className={styles.deliveredGoodsSubWrapper}>
                       <Typography
-                        className={cx(classNames.deliveredGoodsLeftText, {
-                          [classNames.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                        className={cx(styles.deliveredGoodsLeftText, {
+                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
                         })}
                       >
                         {deliveredGoodsCount}
                       </Typography>
-                      <Typography className={classNames.deliveredGoodsMiddleText}>
-                        {t(TranslationKey['out of'])}
-                      </Typography>
+                      <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
                       <Typography
-                        className={cx(classNames.deliveredGoodsRightText, {
-                          [classNames.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                        className={cx(styles.deliveredGoodsRightText, {
+                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
                         })}
                       >
                         {order.amount}
@@ -133,16 +123,16 @@ export const SelectFields = ({
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
               value={order.destination?.name ? order.destination.name : t(TranslationKey['Not available'])}
-              inputClasses={classNames.nativeSelect}
-              labelClasses={classNames.label}
+              inputClasses={styles.nativeSelect}
+              labelClasses={styles.label}
             />
 
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
               label={t(TranslationKey['Int warehouse'])}
-              inputClasses={classNames.nativeSelect}
-              labelClasses={classNames.label}
+              inputClasses={styles.nativeSelect}
+              labelClasses={styles.label}
               value={order.storekeeper?.name}
             />
 
@@ -151,25 +141,25 @@ export const SelectFields = ({
               tooltipInfoContent={t(TranslationKey["Client's chosen rate, region of shipment and its cost"])}
               label={t(TranslationKey.Tariff)}
               value={getNewTariffTextForBoxOrOrder(order, true)}
-              inputClasses={classNames.nativeSelect}
-              labelClasses={classNames.label}
+              inputClasses={styles.nativeSelect}
+              labelClasses={styles.label}
             />
           </div>
         </div>
 
         <div
-          className={cx(classNames.priceOptionsWrapper, {
-            [classNames.disabledPriceOptionsWrapper]: checkIsPlanningPrice,
+          className={cx(styles.priceOptionsWrapper, {
+            [styles.disabledPriceOptionsWrapper]: checkIsPlanningPrice,
           })}
         >
-          <Box className={classNames.noFlexElement}>
-            <div className={classNames.onLineWrapper}>
+          <Box className={styles.noFlexElement}>
+            <div className={styles.onLineWrapper}>
               <div>
                 <Field
                   disabled={usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{ maxLength: 10 }}
-                  labelClasses={classNames.blueLabel}
-                  inputClasses={classNames.input}
+                  labelClasses={styles.blueLabel}
+                  inputClasses={styles.input}
                   // value={orderFields.priceInYuan}
                   // Убрать если что
 
@@ -188,8 +178,8 @@ export const SelectFields = ({
                 <Field
                   disabled={usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{ maxLength: 10 }}
-                  labelClasses={classNames.label}
-                  inputClasses={classNames.input}
+                  labelClasses={styles.label}
+                  inputClasses={styles.input}
                   value={toFixed(orderFields.priceBatchDeliveryInYuan, 2)}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', ¥'}
                   onChange={e => {
@@ -203,13 +193,13 @@ export const SelectFields = ({
                 />
               </div>
             </div>
-            <Box className={classNames.noFlexElement}>
+            <Box className={styles.noFlexElement}>
               <Field
                 // disabled={!usePriceInDollars || checkIsPlanningPrice}
                 disabled
                 inputProps={{ maxLength: 10 }}
-                inputClasses={classNames.input}
-                labelClasses={classNames.label}
+                inputClasses={styles.input}
+                labelClasses={styles.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
                 value={toFixedWithYuanSign(calcPriceForItem(orderFields.priceInYuan, orderFields.amount), 2) || ''}
               />
@@ -219,23 +209,23 @@ export const SelectFields = ({
               <Field
                 disabled
                 label={t(TranslationKey['Planned cost in yuan']) + ', ¥'}
-                inputClasses={classNames.input}
-                labelClasses={classNames.blueLabel}
+                inputClasses={styles.input}
+                labelClasses={styles.blueLabel}
                 value={toFixedWithYuanSign(
                   calcExchangeDollarsInYuansPrice(order.totalPrice, order?.yuanToDollarRate),
                   2,
                 )}
               />
             </div>
-            <div className={classNames.yuanToDollarRate}>
+            <div className={styles.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
                 error={`${yuanToDollarRate}` !== `${orderFields?.yuanToDollarRate}`}
                 inputProps={{ maxLength: 10 }}
-                inputClasses={classNames.input}
+                inputClasses={styles.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                 label={t(TranslationKey['Current order course'])}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 value={orderFields?.yuanToDollarRate || ''}
                 onChange={e => {
                   setOrderField('yuanToDollarRate')(e)
@@ -244,18 +234,18 @@ export const SelectFields = ({
 
               <Field
                 disabled
-                inputClasses={classNames.input}
+                inputClasses={styles.input}
                 label={t(TranslationKey['Actual course'])}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 value={yuanToDollarRate}
               />
 
               {/* <Field
                 oneLine
                 label={t(TranslationKey['Use the price in dollars'])}
-                // labelClasses={classNames.checkboxLabel}
-                labelClasses={classNames.label}
-                containerClasses={classNames.checkboxContainer}
+                // labelClasses={styles.checkboxLabel}
+                labelClasses={styles.label}
+                containerClasses={styles.checkboxContainer}
                 inputComponent={
                   <Checkbox
                     disabled={checkIsPlanningPrice}
@@ -273,14 +263,14 @@ export const SelectFields = ({
             </div>
           </Box>
 
-          <Box className={classNames.noFlexElement}>
-            <div className={classNames.onLineWrapper}>
+          <Box className={styles.noFlexElement}>
+            <div className={styles.onLineWrapper}>
               <div>
                 <Field
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{ maxLength: 10 }}
-                  inputClasses={classNames.input}
-                  labelClasses={classNames.greenLabel}
+                  inputClasses={styles.input}
+                  labelClasses={styles.greenLabel}
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
                   value={
                     isPendingOrder
@@ -295,8 +285,8 @@ export const SelectFields = ({
                 <Field
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{ maxLength: 10 }}
-                  inputClasses={classNames.input}
-                  labelClasses={classNames.label}
+                  inputClasses={styles.input}
+                  labelClasses={styles.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
                   value={toFixed(orderFields.deliveryCostToTheWarehouse, 2) || '0'}
                   onChange={e => {
@@ -313,13 +303,13 @@ export const SelectFields = ({
               </div>
             </div>
           </Box>
-          <Box className={classNames.noFlexElement}>
+          <Box className={styles.noFlexElement}>
             <Field
               // disabled={!usePriceInDollars || checkIsPlanningPrice}
               disabled
               inputProps={{ maxLength: 10 }}
-              inputClasses={classNames.input}
-              labelClasses={classNames.label}
+              inputClasses={styles.input}
+              labelClasses={styles.label}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
               value={
                 toFixedWithDollarSign(
@@ -338,13 +328,13 @@ export const SelectFields = ({
             <Field
               disabled
               inputProps={{ maxLength: 10 }}
-              labelClasses={classNames.greenLabel}
-              inputClasses={classNames.input}
+              labelClasses={styles.greenLabel}
+              inputClasses={styles.input}
               label={t(TranslationKey['Planned cost in dollars']) + ', $'}
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>
-          <div className={classNames.checkboxWithButton}>
+          <div className={styles.checkboxWithButton}>
             <Field
               oneLine
               tooltipInfoContent={t(
@@ -353,10 +343,10 @@ export const SelectFields = ({
                 ],
               )}
               label={t(TranslationKey['The actual cost is the same as the planned'])}
-              labelClasses={classNames.label}
-              containerClasses={classNames.checkboxContainer}
+              labelClasses={styles.label}
+              containerClasses={styles.checkboxContainer}
               inputComponent={
-                <div className={classNames.checkboxWithLabelWrapper}>
+                <div className={styles.checkboxWithLabelWrapper}>
                   <Checkbox
                     disabled={
                       ![
@@ -367,7 +357,7 @@ export const SelectFields = ({
                     }
                     checked={checkIsPlanningPrice}
                     color="primary"
-                    className={classNames.checkbox}
+                    className={styles.checkbox}
                     onChange={() => {
                       setCheckIsPlanningPrice(!checkIsPlanningPrice)
                       // setOrderField('totalPriceChanged')({
@@ -383,7 +373,7 @@ export const SelectFields = ({
             />
             <Button
               disabled={checkIsPlanningPrice}
-              className={classNames.button}
+              className={styles.button}
               variant="contained"
               // color="primary"
               onClick={onClickUpdateButton}
@@ -393,12 +383,12 @@ export const SelectFields = ({
           </div>
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
-            <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
+            <div className={styles.paymentsBlock} onClick={setPaymentMethodsModal}>
               <CustomSelectPaymentDetails
                 disabled
                 cursorPointer
                 generalText
-                labelClass={classNames.labelClass}
+                labelClass={styles.labelClass}
                 orderPayments={orderPayments.map(orderPayment => orderPayment.paymentMethod)}
               />
             </div>
@@ -406,15 +396,15 @@ export const SelectFields = ({
         </div>
       </Grid>
 
-      <Grid item className={classNames.gridItem}>
-        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
+      <Grid item className={styles.gridItem}>
+        <Box my={3} className={styles.trackAndHsCodeAndComments}>
           <Field
             disabled
             multiline
             minRows={4}
             maxRows={4}
-            inputClasses={classNames.commentInput}
-            labelClasses={classNames.label}
+            inputClasses={styles.commentInput}
+            labelClasses={styles.label}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}
             onChange={setOrderField('clientComment')}
@@ -425,20 +415,20 @@ export const SelectFields = ({
             minRows={4}
             maxRows={4}
             inputProps={{ maxLength: 500 }}
-            inputClasses={classNames.commentInput}
+            inputClasses={styles.commentInput}
             value={orderFields.buyerComment}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             label={t(TranslationKey['Buyer comments to the order'])}
             onChange={setOrderField('buyerComment')}
           />
         </Box>
 
-        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
+        <Box my={3} className={styles.trackAndHsCodeAndComments}>
           <Box display="flex" width="100%">
-            <Box className={classNames.trackAndHsCodeAndComments}>
-              <div className={classNames.trackAndHsCodeAndCommentsSumWrapper}>
-                <div className={classNames.barCodeWrapper}>
-                  <div className={classNames.barCodeLinkWrapper}>
+            <Box className={styles.trackAndHsCodeAndComments}>
+              <div className={styles.trackAndHsCodeAndCommentsSumWrapper}>
+                <div className={styles.barCodeWrapper}>
+                  <div className={styles.barCodeLinkWrapper}>
                     <LabelWithCopy
                       direction="column"
                       labelTitleColor="gray"
@@ -448,35 +438,33 @@ export const SelectFields = ({
                     />
                   </div>
 
-                  <div className={classNames.researchWrapper}>
+                  <div className={styles.researchWrapper}>
                     <Checkbox
                       disabled
-                      className={classNames.checkbox}
+                      className={styles.checkbox}
                       checked={orderFields.needsResearch}
                       color="primary"
                     />
-                    <Typography className={classNames.researchLabel}>
-                      {t(TranslationKey['Re-search supplier'])}
-                    </Typography>
+                    <Typography className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
                   </div>
                 </div>
               </div>
             </Box>
           </Box>
-          <div className={classNames.supplierPaymentButtonWrapper}>
+          <div className={styles.supplierPaymentButtonWrapper}>
             <Button
-              className={cx(classNames.supplierPaymentButton, {
-                [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+              className={cx(styles.supplierPaymentButton, {
+                [styles.noPaymentButton]: orderFields?.paymentDetails.length,
               })}
               variant={
                 !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
               }
-              btnWrapperStyle={classNames.supplierPaymentButtonBtnWrapperStyle}
+              btnWrapperStyle={styles.supplierPaymentButtonBtnWrapperStyle}
               onClick={onClickSupplierPaymentButton}
             >
               <Typography
-                className={cx(classNames.normalPaymentText, {
-                  [classNames.whiteNormalPaymentText]:
+                className={cx(styles.normalPaymentText, {
+                  [styles.whiteNormalPaymentText]:
                     orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
                 })}
               >
@@ -492,21 +480,21 @@ export const SelectFields = ({
               </Typography>
 
               {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
-                <AddIcon className={classNames.addIcon} />
+                <AddIcon className={styles.addIcon} />
               )}
 
               {!!orderFields?.paymentDetails.length && (
                 <Typography
-                  className={cx(classNames.normalPaymentText, {
-                    [classNames.whiteNormalPaymentText]:
+                  className={cx(styles.normalPaymentText, {
+                    [styles.whiteNormalPaymentText]:
                       orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
                   })}
                 >{`(${orderFields?.paymentDetails.length})`}</Typography>
               )}
               {!!paymentDetailsPhotosToLoad.length && (
                 <Typography
-                  className={cx(classNames.normalPaymentText, {
-                    [classNames.whiteNormalPaymentText]:
+                  className={cx(styles.normalPaymentText, {
+                    [styles.whiteNormalPaymentText]:
                       orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
                   })}
                 >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
@@ -517,24 +505,24 @@ export const SelectFields = ({
 
         {/** Hs code fields */}
 
-        <Box my={3} className={cx(classNames.formItem, classNames.noFlex)} alignItems="flex-end">
-          <div className={classNames.partialPaymentWrapper}>
-            <div className={classNames.partialPaymentCheckbox}>
+        <Box my={3} className={cx(styles.formItem, styles.noFlex)} alignItems="flex-end">
+          <div className={styles.partialPaymentWrapper}>
+            <div className={styles.partialPaymentCheckbox}>
               <Checkbox
-                className={classNames.checkbox}
+                className={styles.checkbox}
                 checked={orderFields.partialPayment}
                 color="primary"
                 onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
               />
-              <Typography className={classNames.label}>{t(TranslationKey['Partial payment'])}</Typography>
+              <Typography className={styles.label}>{t(TranslationKey['Partial payment'])}</Typography>
             </div>
 
-            <div className={classNames.partialPaymentFields}>
+            <div className={styles.partialPaymentFields}>
               <Field
                 disabled={!orderFields.partialPayment}
                 label={t(TranslationKey['To pay']) + ', Ұ'}
-                labelClasses={classNames.label}
-                inputClasses={classNames.input}
+                labelClasses={styles.label}
+                inputClasses={styles.input}
                 inputProps={{ maxLength: 10 }}
                 value={orderFields.partialPaymentAmountRmb}
                 onChange={event => {
@@ -547,8 +535,8 @@ export const SelectFields = ({
               <Field
                 disabled={!orderFields.partialPayment}
                 label={t(TranslationKey['Paid for']) + ', Ұ'}
-                labelClasses={classNames.label}
-                inputClasses={classNames.input}
+                labelClasses={styles.label}
+                inputClasses={styles.input}
                 inputProps={{ maxLength: 10 }}
                 value={orderFields.partiallyPaid}
                 onChange={event => {
@@ -563,8 +551,8 @@ export const SelectFields = ({
           </div>
           {/* <Field */}
           {/*   label={t(TranslationKey['Paid for']) + ', Ұ'} */}
-          {/*   labelClasses={classNames.label} */}
-          {/*   inputClasses={classNames.input} */}
+          {/*   labelClasses={styles.label} */}
+          {/*   inputClasses={styles.input} */}
           {/*   inputProps={{ maxLength: 10 }} */}
           {/*   value={orderFields.partialPaymentAmountRmb} */}
           {/*   onChange={event => { */}
@@ -579,8 +567,8 @@ export const SelectFields = ({
               disabled={disableSubmit}
               value={orderFields.tmpRefundToClient}
               label={t(TranslationKey['Return to Client']) + ', $'}
-              labelClasses={classNames.label}
-              inputClasses={classNames.input}
+              labelClasses={styles.label}
+              inputClasses={styles.input}
               inputProps={{ maxLength: 50 }}
               onChange={setOrderField('tmpRefundToClient')}
             />
@@ -589,14 +577,14 @@ export const SelectFields = ({
           )}
         </Box>
 
-        <Box my={3} className={classNames.formItem}>
+        <Box my={3} className={styles.formItem}>
           <Field
             multiline
             minRows={2}
             maxRows={2}
             label={'产品中文品名'}
-            labelClasses={classNames.label}
-            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            labelClasses={styles.label}
+            inputClasses={cx(styles.input, styles.inputFullHeight)}
             inputProps={{ maxLength: 255 }}
             value={hsCode.chinaTitle}
             onChange={onChangeHsField('chinaTitle')}
@@ -607,8 +595,8 @@ export const SelectFields = ({
             minRows={2}
             maxRows={2}
             label={t(TranslationKey.Material)}
-            labelClasses={classNames.label}
-            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            labelClasses={styles.label}
+            inputClasses={cx(styles.input, styles.inputFullHeight)}
             inputProps={{ maxLength: 255 }}
             value={hsCode.material}
             onChange={onChangeHsField('material')}
@@ -621,33 +609,33 @@ export const SelectFields = ({
             minRows={2}
             maxRows={2}
             label={t(TranslationKey['Product usage'])}
-            labelClasses={classNames.label}
-            inputClasses={classNames.inputFullHeight}
+            labelClasses={styles.label}
+            inputClasses={styles.inputFullHeight}
             inputProps={{ maxLength: 255 }}
             value={hsCode.productUsage}
             onChange={onChangeHsField('productUsage')}
           />
         </Box>
 
-        <Box my={3} className={classNames.formItem}>
+        <Box my={3} className={styles.formItem}>
           <Field
             label={'HS Code'}
-            labelClasses={classNames.label}
-            inputClasses={classNames.input}
+            labelClasses={styles.label}
+            inputClasses={styles.input}
             inputProps={{ maxLength: 255 }}
             value={hsCode.hsCode}
             onChange={onChangeHsField('hsCode')}
           />
 
           {order.product.subUsers?.length ? (
-            <div className={classNames.subUsersWrapper}>
-              <div className={classNames.subUsersTitleWrapper}>
-                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+            <div className={styles.subUsersWrapper}>
+              <div className={styles.subUsersTitleWrapper}>
+                <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
               </div>
-              <div className={classNames.subUsersBodyWrapper}>
-                <div className={classNames.subUsersBody}>
+              <div className={styles.subUsersBodyWrapper}>
+                <div className={styles.subUsersBody}>
                   {order.product.subUsers?.map((subUser, index) => (
-                    <div key={index} className={classNames.subUserBodyWrapper}>
+                    <div key={index} className={styles.subUserBodyWrapper}>
                       <UserLinkCell
                         withAvatar
                         name={subUser?.name}
@@ -663,16 +651,16 @@ export const SelectFields = ({
           ) : null}
         </Box>
 
-        <div className={classNames.researchPaymentDateWrapper}>
+        <div className={styles.researchPaymentDateWrapper}>
           {orderFields.status >= 20 ? (
             <div>
               <Field
                 disabled
                 value={formatDateWithoutTime(orderFields.paymentDateToSupplier) || t(TranslationKey.Missing)}
                 label={t(TranslationKey['Payment date'])}
-                labelClasses={classNames.label}
-                inputClasses={cx(classNames.input, {
-                  [classNames.inputError]:
+                labelClasses={styles.label}
+                inputClasses={cx(styles.input, {
+                  [styles.inputError]:
                     orderFields.paymentDateToSupplier &&
                     orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
                     !!orderFields.orderSupplier.productionTerm &&
@@ -688,7 +676,7 @@ export const SelectFields = ({
           {
             /* !disableSubmit &&  */ Number(order.status) !==
               Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
-              <div className={classNames.imageFileInputWrapper}>
+              <div className={styles.imageFileInputWrapper}>
                 <UploadFilesInput
                   fullWidth
                   images={photosToLoad}
@@ -716,10 +704,10 @@ export const SelectFields = ({
         <ImageModal
           showPreviews
           isOpenModal={showImageModal}
-          handleOpenModal={() => setShowImageModal(!showImageModal)}
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </Grid>

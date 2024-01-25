@@ -87,6 +87,8 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey['Partially paid'])
     case OrderStatus.SHIPPED:
       return t(TranslationKey.Shipped)
+    default:
+      return TranslationKey['No status']
   }
 }
 

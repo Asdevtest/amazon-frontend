@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -11,7 +11,7 @@ interface TagsCellProps {
   tags: string[]
 }
 
-export const TagsCell: FC<TagsCellProps> = React.memo(({ tags }) => {
+export const TagsCell: FC<TagsCellProps> = memo(({ tags }) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -21,14 +21,14 @@ export const TagsCell: FC<TagsCellProps> = React.memo(({ tags }) => {
         const isValidTextLength = createTagText?.length <= MAX_LENGTH_TITLE
 
         return (
-          <React.Fragment key={el._id}>
+          <Fragment key={el._id}>
             <Tooltip title={!isValidTextLength ? createTagText : ''}>
               <p className={styles.tagItem}>
                 {createTagText}
                 {index !== tags.length - 1 && ', '}
               </p>
             </Tooltip>
-          </React.Fragment>
+          </Fragment>
         )
       })}
     </div>

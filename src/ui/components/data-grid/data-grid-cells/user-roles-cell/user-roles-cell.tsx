@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 
@@ -10,7 +10,7 @@ interface UserRolesCellProps {
   user: IUser
 }
 
-export const UserRolesCell: FC<UserRolesCellProps> = React.memo(({ user }) => {
+export const UserRolesCell: FC<UserRolesCellProps> = memo(({ user }) => {
   const { classes: styles } = useStyles()
 
   return (

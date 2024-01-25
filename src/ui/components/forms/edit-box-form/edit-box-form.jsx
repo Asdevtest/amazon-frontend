@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
@@ -31,6 +30,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -54,7 +54,7 @@ export const EditBoxForm = memo(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -112,7 +112,7 @@ export const EditBoxForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
-      clientComment: formItem?.clientComment || '',
+      clientComment: parseTextString(formItem?.clientComment) || '',
       clientTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
@@ -123,8 +123,6 @@ export const EditBoxForm = memo(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
-
-    console.log('boxFields', boxFields)
 
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
@@ -762,10 +760,10 @@ export const EditBoxForm = memo(
         {showPhotosModal && (
           <ImageModal
             isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 
@@ -804,7 +802,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={curProductToEditBarcode?.tmpBarCode}
-            item={curProductToEditBarcode}
+            barCode={curProductToEditBarcode?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />

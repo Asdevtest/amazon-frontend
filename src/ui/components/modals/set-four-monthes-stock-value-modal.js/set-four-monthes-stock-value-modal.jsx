@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import { Box, Container, Typography } from '@mui/material'
@@ -11,40 +10,40 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './set-four-monthes-stock-value-modal.style'
+import { useStyles } from './set-four-monthes-stock-value-modal.style'
 
 export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, selectedProduct }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock || 0)
 
   return (
-    <Container disableGutters className={classNames.root}>
-      <Typography className={classNames.modalTitle}>{title}</Typography>
+    <Container disableGutters className={styles.root}>
+      <Typography className={styles.modalTitle}>{title}</Typography>
 
       <Field
-        containerClasses={classNames.field}
+        containerClasses={styles.field}
         // error={error && t(TranslationKey['The number entered must not exceed the " Stock sum" field'])}
         inputProps={{ maxLength: 64 }}
         value={newValue}
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
-      <div className={classNames.errorWrapper}>
-        <span className={cx(classNames.standartText, { [classNames.error]: newValue > 99999 })}>{`${t(
+      <div className={styles.errorWrapper}>
+        <span className={cx(styles.standartText, { [styles.error]: newValue > 99999 })}>{`${t(
           TranslationKey['Maximum value'],
         )} 99999`}</span>
       </div>
 
-      <Box className={classNames.saveBox}>
+      <Box className={styles.saveBox}>
         <Button
           success
           disabled={/* error || */ !newValue || newValue > 99999}
-          className={classNames.saveBtn}
+          className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

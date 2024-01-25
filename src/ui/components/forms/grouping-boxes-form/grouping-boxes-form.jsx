@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -17,7 +16,7 @@ import { useStyles } from './grouping-boxes-form.style'
 import { Box } from './box/box'
 
 export const GroupingBoxesForm = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const { destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes } = props
 

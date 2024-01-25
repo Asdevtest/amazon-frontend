@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Paper, Typography } from '@mui/material'
 
@@ -13,7 +12,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './first-step.style'
+import { useStyles } from './first-step.style'
 
 export const FirstStep = ({
   formFields,
@@ -24,7 +23,7 @@ export const FirstStep = ({
   setImages,
   deadlineError,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [assetLine, setAssetLine] = useState('')
 
@@ -47,44 +46,44 @@ export const FirstStep = ({
   }
 
   return (
-    <div className={classNames.mainSubRightWrapper}>
-      <div className={classNames.middleWrapper}>
-        <div className={classNames.nameFieldWrapper}>
+    <div className={styles.mainSubRightWrapper}>
+      <div className={styles.middleWrapper}>
+        <div className={styles.nameFieldWrapper}>
           <Field
             inputProps={{ maxLength: 100 }}
             label={`${t(TranslationKey['Store name'])} *`}
-            className={classNames.nameField}
-            labelClasses={classNames.spanLabelSmall}
+            className={styles.nameField}
+            labelClasses={styles.spanLabelSmall}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
-          <span className={cx(classNames.charactersHints, { [classNames.error]: formFields.title.length > 80 })}>{`${
+          <span className={cx(styles.charactersHints, { [styles.error]: formFields.title.length > 80 })}>{`${
             formFields.title.length
           } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
         </div>
 
-        <div className={classNames.descriptionFieldWrapper}>
+        <div className={styles.descriptionFieldWrapper}>
           <Field
             multiline
             inputProps={{ maxLength: 1100 }}
-            className={classNames.descriptionField}
-            labelClasses={classNames.spanLabelSmall}
+            className={styles.descriptionField}
+            labelClasses={styles.spanLabelSmall}
             minRows={11}
             maxRows={11}
             label={`${t(TranslationKey['Store Details'])} *`}
             value={formFields.shopDetails}
             onChange={onChangeField('shopDetails')}
           />
-          <span
-            className={cx(classNames.charactersHints, { [classNames.error]: formFields.shopDetails.length > 1000 })}
-          >{`${formFields.shopDetails.length} ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
+          <span className={cx(styles.charactersHints, { [styles.error]: formFields.shopDetails.length > 1000 })}>{`${
+            formFields.shopDetails.length
+          } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
         </div>
 
-        <div className={classNames.descriptionFieldWrapper}>
+        <div className={styles.descriptionFieldWrapper}>
           <Field
             inputProps={{ maxLength: 1900 }}
-            className={classNames.nameField}
-            labelClasses={classNames.spanLabelSmall}
+            className={styles.nameField}
+            labelClasses={styles.spanLabelSmall}
             label={`${t(TranslationKey['Store link'])} *`}
             value={formFields.shopLink}
             onChange={onChangeField('shopLink')}
@@ -92,27 +91,27 @@ export const FirstStep = ({
         </div>
       </div>
 
-      <div className={classNames.rightWrapper}>
+      <div className={styles.rightWrapper}>
         <div>
-          <div className={classNames.dateAndTimeWrapper}>
+          <div className={styles.dateAndTimeWrapper}>
             <Field
               inputProps={{ maxLength: 100 }}
               label={`${t(TranslationKey['Enter store cost'])}, $ *`}
-              className={classNames.nameField}
-              labelClasses={classNames.spanLabelSmall}
+              className={styles.nameField}
+              labelClasses={styles.spanLabelSmall}
               value={formFields.price}
               onChange={onChangeField('price')}
             />
 
             <Field
               label={`${t(TranslationKey['When did business start?'])} *`}
-              labelClasses={classNames.spanLabelSmall}
+              labelClasses={styles.spanLabelSmall}
               inputComponent={
-                <div className={cx({ [classNames.deadlineError]: deadlineError })}>
+                <div className={cx({ [styles.deadlineError]: deadlineError })}>
                   <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
                   {deadlineError && (
-                    <p className={classNames.deadlineErrorText}>
+                    <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['The deadline date cannot be later than the current date'])}
                     </p>
                   )}
@@ -121,27 +120,27 @@ export const FirstStep = ({
             />
           </div>
 
-          <div className={classNames.assetsAndFilesWrapper}>
+          <div className={styles.assetsAndFilesWrapper}>
             <Field
               multiline
               inputProps={{ maxLength: 100 }}
-              labelClasses={classNames.spanLabelSmall}
+              labelClasses={styles.spanLabelSmall}
               label={`${t(TranslationKey['Assets included in sale'])} *`}
               inputComponent={
-                <Paper className={classNames.assetsPaper}>
-                  <div className={classNames.assetInputWrapper}>
-                    <div className={classNames.leftContentWrapper}>
+                <Paper className={styles.assetsPaper}>
+                  <div className={styles.assetInputWrapper}>
+                    <div className={styles.leftContentWrapper}>
                       <Input
                         value={assetLine}
                         placeholder={t(TranslationKey['Add assets'])}
-                        className={classNames.assetInput}
+                        className={styles.assetInput}
                         onChange={e => setAssetLine(e.target.value)}
                       />
                     </div>
 
                     <div
-                      className={cx(classNames.actionDelButton, {
-                        [classNames.disabledActionButton]: !assetLine,
+                      className={cx(styles.actionDelButton, {
+                        [styles.disabledActionButton]: !assetLine,
                       })}
                       onClick={() => assetLine && addAsset()}
                     >
@@ -150,12 +149,12 @@ export const FirstStep = ({
                   </div>
 
                   {formFields.shopAssets.map((asset, index) => (
-                    <div key={index} className={classNames.selectedRoleWrapper}>
-                      <div className={classNames.leftContentWrapper}>
-                        <Typography className={classNames.selectedRole}>{asset}</Typography>
+                    <div key={index} className={styles.selectedRoleWrapper}>
+                      <div className={styles.leftContentWrapper}>
+                        <Typography className={styles.selectedRole}>{asset}</Typography>
                       </div>
 
-                      <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                      <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                         {'-'}
                       </div>
                     </div>
@@ -167,10 +166,10 @@ export const FirstStep = ({
             <Field
               multiline
               inputProps={{ maxLength: 100 }}
-              labelClasses={classNames.spanLabelSmall}
+              labelClasses={styles.spanLabelSmall}
               label={`${t(TranslationKey['Attach files'])} *`}
               inputComponent={
-                <div className={classNames.imageFileInputWrapper}>
+                <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />
                   {formFields.files?.length ? <PhotoAndFilesCarousel files={formFields.files} width="400px" /> : null}
                 </div>

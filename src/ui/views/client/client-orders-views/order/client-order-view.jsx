@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,7 +32,7 @@ export const ClientOrderView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {viewModel.order ? (
         <OrderContent
           isClient
@@ -92,7 +92,7 @@ export const ClientOrderView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />
@@ -147,6 +147,6 @@ export const ClientOrderView = observer(({ history }) => {
           onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

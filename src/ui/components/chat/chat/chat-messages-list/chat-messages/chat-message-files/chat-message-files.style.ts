@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fileWrapper: {
+    height: '40px',
     display: 'flex',
     alignItems: 'center',
     gap: '10px',

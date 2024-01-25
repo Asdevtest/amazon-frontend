@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './text-with-copy.style'
 
@@ -8,7 +8,7 @@ interface TextWithCopyProps {
   text: string
 }
 
-export const TextWithCopy: FC<TextWithCopyProps> = React.memo(({ text }) => {
+export const TextWithCopy: FC<TextWithCopyProps> = memo(({ text }) => {
   const { classes: styles } = useStyles()
 
   return (

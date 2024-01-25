@@ -11,10 +11,10 @@ import { Button } from '@components/shared/buttons/button'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './image-edit-form.style'
+import { useStyles } from './image-edit-form.style'
 
 export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const currentItem = typeof item === 'string' ? getAmazonImageUrl(item, true) : item?.data_url
 
   const [rotation, setRotation] = useState(0)
@@ -68,18 +68,18 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
   }
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.imageWrapper}>
+    <div className={styles.root}>
+      <div className={styles.imageWrapper}>
         <img
           src={currentItem}
           alt="rotate-image"
           style={{ transform: `rotate(${rotation}deg)` }}
-          className={classNames.image}
+          className={styles.image}
         />
       </div>
 
-      <div className={classNames.btnsWrapper}>
-        <div className={classNames.btnsSubWrapper}>
+      <div className={styles.btnsWrapper}>
+        <div className={styles.btnsSubWrapper}>
           <Button onClick={handleRotateLeft}>
             <RotateLeftOutlinedIcon />
           </Button>
@@ -88,11 +88,11 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
           </Button>
         </div>
 
-        <div className={classNames.btnsSubWrapper}>
+        <div className={styles.btnsSubWrapper}>
           <Button disabled={!rotation} onClick={handleSave}>
             {t(TranslationKey.Save)}
           </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
+          <Button variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

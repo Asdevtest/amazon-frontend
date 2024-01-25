@@ -118,7 +118,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</p>
             <RequestStatusCell
               status={status}
-              styles={{
+              textStyle={{
                 fontWeight: 600,
                 fontSize: 14,
                 lineHeight: '19px',

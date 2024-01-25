@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '30px',
-    width: '100%',
+    width: '1720px',
     height: 770,
     padding: 20,
   },
@@ -78,9 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '20px',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: '25px',
-    right: '25px',
   },
 
   cancelButton: {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
@@ -66,7 +66,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
   const priceForCurrentChat = findRequestProposalForCurChat?.proposal?.price
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
@@ -269,6 +269,6 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

@@ -31,7 +31,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
 import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
-import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.styles'
+import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -178,7 +178,7 @@ export const ClientIdeasView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />

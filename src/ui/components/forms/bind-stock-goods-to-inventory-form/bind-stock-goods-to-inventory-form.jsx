@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
@@ -13,7 +12,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bind-stock-goods-to-inventory-form.style'
+import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
 import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
 
@@ -25,7 +24,7 @@ const chipConfigSettings = {
 
 export const BindStockGoodsToInventoryForm = observer(
   ({ goodsToSelect, inventoryData, updateInventoryData, onSubmit }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
@@ -101,29 +100,29 @@ export const BindStockGoodsToInventoryForm = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.title}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.title}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Typography>
 
-        <div className={classNames.form}>
-          <div className={classNames.filtersWrapper}>
+        <div className={styles.form}>
+          <div className={styles.filtersWrapper}>
             <Button
               variant={'text'}
-              className={cx(classNames.chip, {
-                [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
+              className={cx(styles.chip, {
+                [styles.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
               })}
               onClick={() => setRecommendChip()}
             >
               {t(TranslationKey.Recommended)}
             </Button>
 
-            <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
+            <Typography className={styles.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
             <Button
               variant={'text'}
-              className={cx(classNames.chip, classNames.chipLeftMargin, {
-                [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
+              className={cx(styles.chip, styles.chipLeftMargin, {
+                [styles.chipActive]: chipConfig === chipConfigSettings.NAME,
               })}
               onClick={() => setChipConfig(chipConfigSettings.NAME)}
             >
@@ -132,8 +131,8 @@ export const BindStockGoodsToInventoryForm = observer(
 
             <Button
               variant={'text'}
-              className={cx(classNames.chip, classNames.chipLeftMargin, {
-                [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
+              className={cx(styles.chip, styles.chipLeftMargin, {
+                [styles.chipActive]: chipConfig === chipConfigSettings.ASIN,
               })}
               onClick={() => setChipConfig(chipConfigSettings.ASIN)}
             >
@@ -148,7 +147,7 @@ export const BindStockGoodsToInventoryForm = observer(
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               sortingMode="client"
               paginationMode="client"
@@ -158,11 +157,11 @@ export const BindStockGoodsToInventoryForm = observer(
             />
           </div>
 
-          <Typography className={classNames.chosenGoodsTitle}>
+          <Typography className={styles.chosenGoodsTitle}>
             {t(TranslationKey['Selected products from stock']) + ':'}
           </Typography>
 
-          <div className={classNames.tableWrapper}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               sortingMode="client"
               paginationMode="client"
@@ -172,7 +171,7 @@ export const BindStockGoodsToInventoryForm = observer(
             />
           </div>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             <Button
               success
               disableElevation

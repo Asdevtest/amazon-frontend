@@ -10,14 +10,14 @@ import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime } from '@utils/date-time'
-import { checkAndMakeAbsoluteUrl } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
+import { useStyles } from './chat-message-blogger-proposal-edited-result.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataBloggerProposalResultEditedContract>
@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -34,32 +34,33 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
   const links = message.data.proposal.details.publicationLinks
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.header}>
-        <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
-        <p className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
+    <div className={styles.root}>
+      <div className={styles.header}>
+        <p className={styles.headerText}>{t(TranslationKey.Result)}</p>
+        <p className={styles.timeText}>{formatDateOnlyTime(message.createdAt)}</p>
       </div>
 
-      <div className={classNames.mainWrapper}>
-        <p className={classNames.descriptionText}>{message.data.proposal.details.result}</p>
+      <div className={styles.mainWrapper}>
+        <p className={styles.descriptionText}>{message.data.proposal.details.result}</p>
 
-        <div className={cx(classNames.infosWrapper, { [classNames.infosWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={cx(styles.infosWrapper, { [styles.infosWrapperShowChatInfo]: isShowChatInfo })}>
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
             files={files || []}
           />
 
-          <div className={classNames.infosSubWrapper}>
-            <div className={cx(classNames.fieldsRow, { [classNames.fieldsRowShowChatInfo]: isShowChatInfo })}>
+          <div className={styles.infosSubWrapper}>
+            <div className={cx(styles.fieldsRow, { [styles.fieldsRowShowChatInfo]: isShowChatInfo })}>
               <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
+                labelClasses={styles.fieldLabel}
+                containerClasses={styles.fieldContainer}
                 label={'Amazon order ID'}
                 inputComponent={
-                  <div className={classNames.infoItemWrapper}>
-                    <p className={classNames.infoItemText}>
-                      {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
+                  <div className={styles.infoItemWrapper}>
+                    <p className={styles.infoItemText}>
+                      {getShortenStringIfLongerThanCount(message.data.proposal.details.amazonOrderId, 30) ||
+                        t(TranslationKey.Missing)}
                     </p>
 
                     {message.data.proposal.details.amazonOrderId && (
@@ -70,30 +71,30 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
               />
 
               <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
+                labelClasses={styles.fieldLabel}
+                containerClasses={styles.fieldContainer}
                 label={t(TranslationKey['Time to check'])}
                 inputComponent={
-                  <p className={classNames.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
+                  <p className={styles.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
                 }
               />
             </div>
 
             <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Link to publication'])}
               inputComponent={
                 <>
                   {links.length ? (
-                    <div className={classNames.infoItemList}>
+                    <div className={styles.infoItemList}>
                       {links.map((el, index) => (
-                        <div key={index} className={classNames.infoItemWrapper}>
+                        <div key={index} className={styles.infoItemWrapper}>
                           <a
                             href={checkAndMakeAbsoluteUrl(el)}
                             target="_blank"
-                            rel="noreferrer"
-                            className={classNames.infoItemText}
+                            rel="noreferrer noopener"
+                            className={styles.infoItemText}
                           >
                             {el.slice(0, 80)}
                           </a>
@@ -103,8 +104,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                       ))}
                     </div>
                   ) : (
-                    <div className={classNames.infoItemWrapper}>
-                      <p className={classNames.infoItemText}>{t(TranslationKey.Missing)}</p>
+                    <div className={styles.infoItemWrapper}>
+                      <p className={styles.infoItemText}>{t(TranslationKey.Missing)}</p>
                     </div>
                   )}
                 </>

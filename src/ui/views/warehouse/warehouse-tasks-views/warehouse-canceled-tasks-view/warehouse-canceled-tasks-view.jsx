@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
@@ -31,7 +31,7 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <TaskPrioritySelector
@@ -76,8 +76,6 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
             localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            sortingMode="client"
-            paginationMode="client"
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
@@ -118,6 +116,6 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

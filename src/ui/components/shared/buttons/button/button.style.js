@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: 'unset !important',
     cursor: 'pointer',
@@ -20,10 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   disabled: {
     cursor: 'unset !important',
-  },
-
-  outlined: {
-    color: theme.palette.text.general,
   },
 
   success: {
@@ -58,9 +54,9 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.button.disabledDangerBackground,
     },
   },
-  border: {
+  outlined: {
     background: 'none',
-    borderRadius: 4,
+    color: theme.palette.text.general,
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:hover': {

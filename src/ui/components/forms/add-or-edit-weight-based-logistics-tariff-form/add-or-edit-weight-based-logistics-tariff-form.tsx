@@ -1,9 +1,8 @@
 /* eslint-disable no-prototype-builtins */
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -24,10 +23,10 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-weight-based-logistics-tariff-form.style'
+import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
 import { IDestination, IDestinationVariation } from '../../../../typings/destination'
-import { LogisticTariffInterface } from '../../../../typings/logistics-tariff'
+import { ILogisticTariff } from '../../../../typings/logistics-tariff'
 
 interface FormFields {
   tariffType: number
@@ -55,9 +54,9 @@ interface DestinationVariationsContentProps {
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: LogisticTariffInterface
+  tariffToEdit: ILogisticTariff
   sourceYuanToDollarRate: number
-  logisticsTariffsData: Array<LogisticTariffInterface>
+  logisticsTariffsData: Array<ILogisticTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -68,7 +67,7 @@ interface AddOrEditWeightBasedLogisticsTariffFormProps {
 
 export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLogisticsTariffFormProps> = observer(
   props => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const {
       tariffToEdit,
@@ -137,9 +136,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       ) ||
       !isWeightRangeValid
 
-    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<LogisticTariffInterface | undefined>(undefined)
+    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogisticTariff | undefined>(undefined)
 
-    const onSetDataFromTariff = (tariff: LogisticTariffInterface) => {
+    const onSetDataFromTariff = (tariff: ILogisticTariff) => {
       setSelectedLogisticTariff(tariff)
       // @ts-ignore
       setFormFields(prevState => ({
@@ -295,11 +294,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     return (
-      <div className={classNames.root}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Adding tariff'])}</Typography>
+      <div className={styles.root}>
+        <Typography className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</Typography>
 
-        <div className={classNames.nameWrapper}>
-          <div className={classNames.fieldsWrapper}>
+        <div className={styles.nameWrapper}>
+          <div className={styles.fieldsWrapper}>
             <Field
               label={t(TranslationKey.Title) + '*'}
               // @ts-ignore
@@ -307,22 +306,22 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               value={formFields.name}
               // @ts-ignore
               inputProps={{ maxLength: 50 }}
-              inputClasses={classNames.fieldInput}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeField('name')(e.target.value)}
+              inputClasses={styles.fieldInput}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeField('name')(e.target.value)}
             />
 
             <Field
-              inputClasses={classNames.fieldInput}
-              labelClasses={classNames.fieldLabel}
+              inputClasses={styles.fieldInput}
+              labelClasses={styles.fieldLabel}
               // @ts-ignore
               inputProps={{ maxLength: 10 }}
-              containerClasses={classNames.fieldContainer}
+              containerClasses={styles.fieldContainer}
               value={formFields.deliveryTimeInDay}
               placeholder={t(TranslationKey['Amount of days'])}
               label={t(TranslationKey['Delivery time, days']) + '*'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (regex.test(e.target.value) || e.target.value === '') {
                   onChangeField('deliveryTimeInDay')(e.target.value)
                 }
@@ -330,13 +329,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             />
           </div>
 
-          <div className={classNames.fieldsWrapper}>
+          <div className={styles.fieldsWrapper}>
             {/* <Field
-              inputClasses={classNames.fieldInput}
-              labelClasses={classNames.fieldLabel}
+              inputClasses={styles.fieldInput}
+              labelClasses={styles.fieldLabel}
               // @ts-ignore
               inputProps={{ maxLength: 50 }}
-              containerClasses={classNames.fieldContainer}
+              containerClasses={styles.fieldContainer}
               value={formFields.deliveryTimeInDay}
               placeholder={t(TranslationKey['Amount of days'])}
               label={t(TranslationKey['Minimum weight']) + ', ' + t(TranslationKey.kg)}
@@ -345,9 +344,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
             <Field
               label={t(TranslationKey['Add data from tariff'])}
-              inputClasses={classNames.fieldInput}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
+              inputClasses={styles.fieldInput}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
@@ -359,16 +358,16 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                   data={logisticsTariffsData}
                   width={'100%'}
                   searchFields={['name']}
-                  fieldNamesWrapperStyles={classNames.fieldNamesWrapperStyles}
-                  buttonStyles={classNames.buttonStyles}
-                  fieldNameStyles={classNames.fieldNameStyles}
-                  customItemsWrapper={classNames.customItemsWrapper}
-                  customSubMainWrapper={classNames.customSubMainWrapper}
-                  customSearchInput={classNames.customSearchInput}
+                  fieldNamesWrapperStyles={styles.fieldNamesWrapperStyles}
+                  buttonStyles={styles.buttonStyles}
+                  fieldNameStyles={styles.fieldNameStyles}
+                  customItemsWrapper={styles.customItemsWrapper}
+                  customSubMainWrapper={styles.customSubMainWrapper}
+                  customSearchInput={styles.customSearchInput}
                   selectedItemName={
                     (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
                   }
-                  onClickSelect={(el: LogisticTariffInterface) => onSetDataFromTariff(el)}
+                  onClickSelect={(el: ILogisticTariff) => onSetDataFromTariff(el)}
                 />
               }
             />
@@ -376,10 +375,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         </div>
 
         <div>
-          <div className={classNames.rateWrapper}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey.Rates)}</Typography>
+          <div className={styles.rateWrapper}>
+            <Typography className={styles.modalTitle}>{t(TranslationKey.Rates)}</Typography>
 
-            <div className={classNames.customSwitcherWrapper}>
+            <div className={styles.customSwitcherWrapper}>
               <CustomSwitcher
                 condition={currentCurrency}
                 switcherSettings={[
@@ -400,20 +399,20 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               />
             </div>
 
-            <div className={classNames.currentRateWrapper}>
-              <Typography className={classNames.currentRate}>{t(TranslationKey['Current exchange rate'])}</Typography>
-              <Typography className={classNames.currentRateText}>{sourceYuanToDollarRate}</Typography>
+            <div className={styles.currentRateWrapper}>
+              <Typography className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</Typography>
+              <Typography className={styles.currentRateText}>{sourceYuanToDollarRate}</Typography>
             </div>
 
             <Field
               error={Number(formFields.yuanToDollarRate) !== Number(sourceYuanToDollarRate)}
-              inputClasses={classNames.rateFieldInput}
-              labelClasses={classNames.currentRate}
-              containerClasses={classNames.rateFieldContainer}
+              inputClasses={styles.rateFieldInput}
+              labelClasses={styles.currentRate}
+              containerClasses={styles.rateFieldContainer}
               inputProps={{ maxLength: 6 }}
               value={formFields.yuanToDollarRate}
               label={t(TranslationKey['Yuan to USD exchange rate'])}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                   onChangeField('yuanToDollarRate')(e.target.value)
                 }
@@ -433,29 +432,29 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           />
 
           {formFields.destinationVariations.length > 1 && !isWeightRangeValid && (
-            <p className={classNames.deadlineErrorText}>
+            <p className={styles.deadlineErrorText}>
               {t(TranslationKey['The intersections of the weights are found'])}
             </p>
           )}
         </div>
 
-        <div className={classNames.shippingDateWrapper}>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Shipping dates'])}</Typography>
+        <div className={styles.shippingDateWrapper}>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Shipping dates'])}</Typography>
 
-          <div className={classNames.dateBlockWrapper}>
+          <div className={styles.dateBlockWrapper}>
             <Field
               label={t(TranslationKey['CLS (batch closing date)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.blockItemContainer}
               inputComponent={
                 <div
                   className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                    [styles.deadlineError]: checkDateByDeadline(formFields.cls),
                   })}
                 >
                   <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
                   {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
-                    <p className={classNames.deadlineErrorText}>
+                    <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
                   )}
@@ -465,18 +464,18 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
             <Field
               label={t(TranslationKey['ETD (date of shipment)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.blockItemContainer}
               inputComponent={
                 <div
                   className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
+                    [styles.deadlineError]: checkDateByDeadline(formFields.etd),
                   })}
                 >
                   <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
 
                   {!!formFields.etd && checkDateByDeadline(formFields.etd) && (
-                    <p className={classNames.deadlineErrorText}>
+                    <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
                   )}
@@ -486,17 +485,17 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
             <Field
               label={t(TranslationKey['ETA (arrival date)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.blockItemContainer}
               inputComponent={
                 <div
                   className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
+                    [styles.deadlineError]: checkDateByDeadline(formFields.eta),
                   })}
                 >
                   <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
-                    <p className={classNames.deadlineErrorText}>
+                    <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
                   )}
@@ -512,22 +511,22 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           maxRows={4}
           value={formFields.description}
           label={t(TranslationKey.Description)}
-          labelClasses={classNames.fieldLabel}
-          classes={{ root: classNames.inputClass }}
+          labelClasses={styles.fieldLabel}
+          classes={{ root: styles.inputClass }}
           // @ts-ignore
           inputProps={{ maxLength: 255, padding: '10px' }}
-          className={classNames.descriptionField}
+          className={styles.descriptionField}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           placeholder={t(TranslationKey['Service description'])}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeField('description')(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeField('description')(e.target.value)}
         />
 
-        <div className={classNames.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} className={classNames.button} onClick={() => onSubmit()}>
+        <div className={styles.btnsWrapper}>
+          <Button success disabled={disableSubmitBtn} className={styles.button} onClick={() => onSubmit()}>
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button className={cx(classNames.button, classNames.cancelBtn)} variant="text" onClick={() => onClickClose()}>
+          <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onClickClose()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -536,7 +535,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
   },
 )
 
-const DestinationVariationsContent: FC<DestinationVariationsContentProps> = React.memo(
+const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo(
   ({
     destinationVariations,
     destinationData,
@@ -547,17 +546,17 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
     onClickAddDestinationVariation,
     onClickRemoveDestinationVariation,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     return (
       <>
         {destinationVariations?.map((variant: IDestinationVariation, variantIndex: number) => (
-          <div key={variantIndex} className={classNames.optionsWrapper}>
+          <div key={variantIndex} className={styles.optionsWrapper}>
             <Field
               label={t(TranslationKey.Destination)}
-              inputClasses={classNames.fieldInput}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.destinationContainer}
+              inputClasses={styles.fieldInput}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.destinationContainer}
               inputComponent={
                 /* @ts-ignore */
                 <WithSearchSelect
@@ -570,12 +569,12 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                   favourites={destinationsFavourites}
                   width={'100%'}
                   searchFields={['name']}
-                  fieldNamesWrapperStyles={classNames.fieldNamesWrapperStyles}
-                  buttonStyles={classNames.buttonStyles}
-                  fieldNameStyles={classNames.fieldNameStyles}
-                  customItemsWrapper={classNames.customItemsWrapper}
-                  customSubMainWrapper={classNames.destinationWrapper}
-                  customSearchInput={classNames.destinationSearchInput}
+                  fieldNamesWrapperStyles={styles.fieldNamesWrapperStyles}
+                  buttonStyles={styles.buttonStyles}
+                  fieldNameStyles={styles.fieldNameStyles}
+                  customItemsWrapper={styles.customItemsWrapper}
+                  customSubMainWrapper={styles.destinationWrapper}
+                  customSearchInput={styles.destinationSearchInput}
                   selectedItemName={
                     variant.destination?._id
                       ? destinationData?.find(obj => obj?._id === variant?.destination?._id)?.name
@@ -591,20 +590,20 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
 
             <Field
               label={t(TranslationKey['Weight, kg'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.weightContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.weightContainer}
               inputComponent={
-                <div className={classNames.weightMainWrapper}>
-                  <div className={classNames.weightItemWrapper}>
-                    <Typography className={classNames.weightText}>{t(TranslationKey.From)}</Typography>
+                <div className={styles.weightMainWrapper}>
+                  <div className={styles.weightItemWrapper}>
+                    <Typography className={styles.weightText}>{t(TranslationKey.From)}</Typography>
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.minWeight, 2) || ''}
                       inputProps={{ maxLength: 7 }}
-                      className={cx(classNames.weightInput, {
-                        [classNames.error]: !!variant.minWeight && Number(variant.minWeight) < 1,
+                      className={cx(styles.weightInput, {
+                        [styles.error]: !!variant.minWeight && Number(variant.minWeight) < 1,
                       })}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                           onChangeDestinationVariations('minWeight')(variantIndex)(e.target.value)
                         }
@@ -612,19 +611,19 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                     />
                   </div>
 
-                  <div className={classNames.weightItemWrapper}>
-                    <Typography className={classNames.weightText}>{t(TranslationKey.To)}</Typography>
+                  <div className={styles.weightItemWrapper}>
+                    <Typography className={styles.weightText}>{t(TranslationKey.To)}</Typography>
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.maxWeight, 2) || ''}
                       inputProps={{ maxLength: 7 }}
-                      className={cx(classNames.weightInput, {
-                        [classNames.error]:
+                      className={cx(styles.weightInput, {
+                        [styles.error]:
                           !!variant.minWeight &&
                           !!variant.maxWeight &&
                           Number(variant.maxWeight) < Number(variant.minWeight),
                       })}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                           onChangeDestinationVariations('maxWeight')(variantIndex)(e.target.value)
                         }
@@ -637,11 +636,11 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
 
             <Field
               label={t(TranslationKey['Price per kg'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.regionContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.regionContainer}
               inputComponent={
-                <div className={classNames.regionMainWrapper}>
-                  <div className={classNames.regionWrapper}>
+                <div className={styles.regionMainWrapper}>
+                  <div className={styles.regionWrapper}>
                     <Input
                       placeholder={'0.00'}
                       value={
@@ -652,8 +651,8 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                           : ''
                       }
                       inputProps={{ maxLength: 7 }}
-                      className={classNames.regionFieldInput}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      className={styles.regionFieldInput}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
                         if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
@@ -664,26 +663,23 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                         }
                       }}
                     />
-                    <Typography className={classNames.currencyStyle}>
+                    <Typography className={styles.currencyStyle}>
                       {currencyTypesToHumanFriendlyValue(currentCurrency)}
                     </Typography>
                   </div>
 
-                  <div className={classNames.controlOptionsButtons}>
+                  <div className={styles.controlOptionsButtons}>
                     {destinationVariations.length > 1 && (
                       <Button
-                        className={classNames.plusButton}
+                        className={styles.plusButton}
                         onClick={() => onClickRemoveDestinationVariation(variantIndex)}
                       >
-                        <RemoveIcon className={classNames.plusIcon} />
+                        <RemoveIcon className={styles.plusIcon} />
                       </Button>
                     )}
 
-                    <Button
-                      className={classNames.plusButton}
-                      onClick={() => onClickAddDestinationVariation(variantIndex)}
-                    >
-                      <AddIcon className={classNames.plusIcon} />
+                    <Button className={styles.plusButton} onClick={() => onClickAddDestinationVariation(variantIndex)}>
+                      <AddIcon className={styles.plusIcon} />
                     </Button>
                   </div>
                 </div>

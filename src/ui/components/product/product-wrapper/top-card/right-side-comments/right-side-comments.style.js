@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
- 0% {
+  0% {
     transform: translateY(-150%);
     opacity: 0;
   }
@@ -12,7 +12,7 @@ const ani = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
@@ -30,17 +30,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rightBoxComments: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
-    width: '100%',
     justifyContent: 'flex-start',
   },
+
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
     padding: 0,
   },
+
+  errorActive: {
+    borderColor: 'red',
+  },
+
   buttonsWrapper: {
     position: 'fixed',
     bottom: 50,
@@ -93,9 +99,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&$disabled': {
       backgroundColor: 'rgba(210, 35, 35, 0.5)',
     },
-  },
-  errorActive: {
-    borderColor: 'red',
   },
 
   restoreBtn: {

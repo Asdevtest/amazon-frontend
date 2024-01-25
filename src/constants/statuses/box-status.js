@@ -30,6 +30,8 @@ export const boxStatusTranslateKey = status => {
       return TranslationKey['Accepted in processing']
     case BoxStatus.NEED_TO_UPDATE_THE_TARIFF:
       return TranslationKey['Need to update the tariff']
+    default:
+      return TranslationKey['No status']
   }
 }
 

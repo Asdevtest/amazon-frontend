@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ShopWrapper } from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 

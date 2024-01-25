@@ -1,11 +1,9 @@
-import { cx } from '@emotion/css'
-
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Typography } from '@mui/material'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { useChatCurrentReplyMessageStyles } from '@components/chat/chat/chat-current-reply-message/chat-current-reply-message.styles'
+import { useStyles } from '@components/chat/chat/chat-current-reply-message/chat-current-reply-message.style'
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { ReplyIcon } from '@components/shared/svg-icons'
 
@@ -16,7 +14,7 @@ interface ChatCurrentReplyMessageProps {
 }
 
 export const ChatCurrentReplyMessage = (props: ChatCurrentReplyMessageProps) => {
-  const { classes: styles } = useChatCurrentReplyMessageStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.body}>

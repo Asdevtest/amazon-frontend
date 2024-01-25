@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -48,7 +48,7 @@ import {
   disableSelectionCells,
 } from './helpers/client-inventory-view.constants'
 
-export const ClientInventoryView = observer(({ history, location }) => {
+export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
@@ -245,7 +245,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />

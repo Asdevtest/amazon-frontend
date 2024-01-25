@@ -18,12 +18,12 @@ import { UserBalanceHistory } from '@components/user/user-balance-history'
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './listing.style'
+import { useStyles } from './listing.style'
 
 import { ListingModel } from './listing.model'
 
 export const Listing = observer(({ productId, onClickBack }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const listingModel = useRef(new ListingModel({ history, productId }))
 
@@ -53,16 +53,16 @@ export const Listing = observer(({ productId, onClickBack }) => {
   const emptyArray = [1, 2, 3, 4, 5]
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Paper className={classNames.productBlockWrapper}>
-        <Typography className={classNames.title}>{t(TranslationKey['Details about the product:'])}</Typography>
+    <div className={styles.mainWrapper}>
+      <Paper className={styles.productBlockWrapper}>
+        <Typography className={styles.title}>{t(TranslationKey['Details about the product:'])}</Typography>
 
-        <div className={classNames.productSubBlockWrapper}>
-          <div className={classNames.sideBlockWrapper}>
+        <div className={styles.productSubBlockWrapper}>
+          <div className={styles.sideBlockWrapper}>
             <Field
               multiline
               disabled={!userCanEdit}
-              className={classNames.listingTitle}
+              className={styles.listingTitle}
               minRows={4}
               inputProps={{ maxLength: 1000 }}
               label={t(TranslationKey['Listing title'])}
@@ -82,9 +82,9 @@ export const Listing = observer(({ productId, onClickBack }) => {
                     ? false
                     : !listingProduct.listingBulletPoints?.slice()[index - 1]) || !userCanEdit
                 }
-                className={classNames.descriptionProduct}
+                className={styles.descriptionProduct}
                 inputProps={{ maxLength: 1000 }}
-                labelClasses={classNames.label}
+                labelClasses={styles.label}
                 label={`Bullet Point #${el}: `}
                 value={listingProduct.listingBulletPoints?.slice()[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
@@ -100,17 +100,17 @@ export const Listing = observer(({ productId, onClickBack }) => {
               inputProps={{ maxLength: 1000 }}
               value={listingProduct.listingProductDetails}
               placeholder={t(TranslationKey['Enter a description'])}
-              className={classNames.modalTextArea}
+              className={styles.modalTextArea}
               onChange={e => onChangeField(e, 'listingProductDetails')}
             />
           </div>
 
           <Divider orientation="vertical" />
 
-          <div className={classNames.sideBlockWrapper}>
+          <div className={styles.sideBlockWrapper}>
             <Field
               // multiline
-              className={classNames.listingSearchTerms}
+              className={styles.listingSearchTerms}
               disabled={!userCanEdit}
               inputProps={{ maxLength: 1000 }}
               label={t(TranslationKey['Search terms:'])}
@@ -131,29 +131,29 @@ export const Listing = observer(({ productId, onClickBack }) => {
                     : !listingProduct.listingSubjectMatters?.slice()[index - 1]) || !userCanEdit
                 }
                 inputProps={{ maxLength: 1000 }}
-                className={classNames.descriptionSecondProduct}
-                labelClasses={classNames.secondLabel}
+                className={styles.descriptionSecondProduct}
+                labelClasses={styles.secondLabel}
                 label={`Subject Matter #${el}: `}
                 value={listingProduct.listingSubjectMatters?.slice()[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
               />
             ))}
 
-            <div className={classNames.photosWrapper}>
-              <div className={classNames.photosLeftSubWrapper}>
-                <Typography className={classNames.subTitle}>
+            <div className={styles.photosWrapper}>
+              <div className={styles.photosLeftSubWrapper}>
+                <Typography className={styles.subTitle}>
                   {t(TranslationKey['Photos of the product in boxes:'])}
                 </Typography>
 
-                <div className={classNames.carouselWrapper}>
+                <div className={styles.carouselWrapper}>
                   <PhotoAndFilesSlider withoutFiles smallSlider files={imagesFromBoxes} />
                 </div>
               </div>
 
               <div>
-                <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
+                <Typography className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
-                <div className={classNames.carouselWrapper}>
+                <div className={styles.carouselWrapper}>
                   <PhotoAndFilesSlider withoutFiles smallSlider files={listingProduct.listingImages} />
                 </div>
               </div>
@@ -161,17 +161,17 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             {userCanEdit && (
               <div>
-                <div className={classNames.imageFileInputWrapper}>
+                <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
                 </div>
               </div>
             )}
 
             {userCanEdit ? (
-              <div className={classNames.buttonsWrapper}>
+              <div className={styles.buttonsWrapper}>
                 <Button
                   disableElevation
-                  className={classNames.button}
+                  className={styles.button}
                   color="primary"
                   variant="contained"
                   onClick={onSaveSubmit}
@@ -181,7 +181,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
                 <Button
                   disableElevation
-                  className={classNames.button}
+                  className={styles.button}
                   color="primary"
                   variant="contained"
                   onClick={onCancel}
@@ -191,7 +191,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
                 <Button
                   disableElevation
-                  className={classNames.button}
+                  className={styles.button}
                   color="primary"
                   variant="contained"
                   onClick={onClickBack}
@@ -200,10 +200,10 @@ export const Listing = observer(({ productId, onClickBack }) => {
                 </Button>
               </div>
             ) : (
-              <div className={classNames.buttonsWrapper}>
+              <div className={styles.buttonsWrapper}>
                 <Button
                   disableElevation
-                  className={classNames.button}
+                  className={styles.button}
                   color="primary"
                   variant="contained"
                   onClick={onClickBack ? onClickBack : onCancel}

@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   asinCellContainer: {
     width: '100%',
-    padding: '10px 0px',
+    padding: '5px 0px',
     display: 'flex',
     alignItems: 'flex-start',
   },

@@ -64,6 +64,12 @@ export const isHaveMasterUser = user => !!user.masterUser
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
+export const checkIsExternalVideoLink = url => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+
+  return youtubeRegex.test(url)
+}
+
 export const checkIsVideoLink = link =>
   link?.includes('.3g2') ||
   link?.includes('.3gp') ||
@@ -102,7 +108,8 @@ export const checkIsVideoLink = link =>
   link?.includes('.webm') ||
   link?.includes('.wm') ||
   link?.includes('.wmv') ||
-  link?.includes('.yuv')
+  link?.includes('.yuv') ||
+  checkIsExternalVideoLink(link)
 
 export const checkIsImageLink = link =>
   link?.includes('png') ||
@@ -128,6 +135,8 @@ export const checkIsDocumentLink = link =>
   link?.includes('xlsx') ||
   link?.includes('xls') ||
   link?.includes('txt') ||
+  link?.includes('csv') ||
+  link?.includes('djvu') ||
   (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
   link?.includes('drive.google.com') ||
   link?.includes('docs.google.com')

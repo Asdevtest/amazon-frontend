@@ -1,0 +1,2 @@
+export const MAX_COMMENT_LEGTH = 65535
+export const MAX_DEFAULT_COMMENT_LEGTH = 2048

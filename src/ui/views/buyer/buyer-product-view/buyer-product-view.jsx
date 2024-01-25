@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ export const BuyerProductView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {viewModel.product ? (
         <ProductWrapper
           platformSettings={viewModel.platformSettings}
@@ -111,6 +111,6 @@ export const BuyerProductView = observer(({ history }) => {
         successBtnText={t(TranslationKey.Ok)}
         onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

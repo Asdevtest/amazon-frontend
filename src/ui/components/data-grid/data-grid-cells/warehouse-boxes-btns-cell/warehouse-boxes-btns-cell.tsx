@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,7 +17,7 @@ interface WarehouseBoxesBtnsCellProps {
   }
 }
 
-export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = React.memo(({ row, handlers }) => {
+export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ row, handlers }) => {
   const { classes: styles } = useStyles()
 
   return (

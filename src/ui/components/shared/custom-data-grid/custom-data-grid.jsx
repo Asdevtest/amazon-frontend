@@ -9,6 +9,8 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
+import { SeparatorIcon } from '../svg-icons'
+
 export const CustomDataGrid = ({ ...restProps }) => (
   <DataGridPro
     key={SettingsModel.languageTag}
@@ -23,6 +25,7 @@ export const CustomDataGrid = ({ ...restProps }) => (
       toolbar: DataGridCustomToolbar,
       columnMenuIcon: FilterAltOutlinedIcon,
       columnMenu: DataGridCustomColumnMenuComponent,
+      columnResizeIcon: SeparatorIcon,
     }}
     {...restProps}
   />

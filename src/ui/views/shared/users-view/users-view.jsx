@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
@@ -17,23 +17,23 @@ import { UsersViewModel } from './users-view.model'
 
 export const UsersViewRaw = props => {
   const [viewModel] = useState(() => new UsersViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
+        <Typography className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
-        <div className={classNames.btnsWrapper}>
-          <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickSubUsers}>
-            <div className={classNames.btnTextWrapper}>
-              <Typography className={classNames.btnText}>{t(TranslationKey['My users'])}</Typography>
+        <div className={styles.btnsWrapper}>
+          <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickSubUsers}>
+            <div className={styles.btnTextWrapper}>
+              <Typography className={styles.btnText}>{t(TranslationKey['My users'])}</Typography>
               <ArrowRightAltIcon color="primary" />
             </div>
           </Button>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

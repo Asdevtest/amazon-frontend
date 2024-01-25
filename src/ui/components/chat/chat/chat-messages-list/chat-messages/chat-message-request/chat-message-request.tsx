@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -16,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-import { useClassNames } from './chat-message-request.style'
+import { useStyles } from './chat-message-request.style'
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 
@@ -30,44 +29,30 @@ interface Props {
 }
 
 export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const jsonConditions = JSON.parse(message?.data?.details?.conditions)
   const conditions: string[] = jsonConditions.blocks.map((block: BlockType) => block.text)
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.headerAndTimeWrapper}>
-        <p className={classNames.headerText}>{message.data?.title}</p>
+    <div className={styles.root}>
+      <div className={styles.headerAndTimeWrapper}>
+        <p className={styles.headerText}>{message.data?.title}</p>
 
-        <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+        <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
       </div>
 
-      <div className={cx(classNames.mainInfoWrapper, { [classNames.mainInfoWrapperShowChatInfo]: isShowChatInfo })}>
-        <div className={classNames.descriptionWrapper}>
+      <div className={cx(styles.mainInfoWrapper, { [styles.mainInfoWrapperShowChatInfo]: isShowChatInfo })}>
+        <div className={styles.descriptionWrapper}>
           {conditions?.map((condition, index) => (
-            <p key={index} className={classNames.description}>
+            <p key={index} className={styles.description}>
               {condition}
             </p>
           ))}
-
-          {/* <TextareaAutosize
-              disabled
-              value={message?.data?.details?.conditions}
-              className={classNames.conditionsField}
-            /> */}
-          {/* <CustomTextEditor
-              readOnly
-              conditions={message?.data?.details?.conditions}
-              changeConditions={undefined}
-              editorMaxHeight={undefined}
-              verticalResize={undefined}
-              textToCheck={undefined}
-            /> */}
         </div>
 
-        <div className={cx(isMobileResolution && classNames.photosWrapper)}>
+        <div className={cx(isMobileResolution && styles.photosWrapper)}>
           <PhotoAndFilesSlider
             smallSlider={!isMobileResolution}
             column={isShowChatInfo || isMobileResolution}
@@ -76,18 +61,18 @@ export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
         </div>
       </div>
 
-      <div className={cx(classNames.footerWrapper, { [classNames.footerWrapperShowChatInfo]: isShowChatInfo })}>
+      <div className={cx(styles.footerWrapper, { [styles.footerWrapperShowChatInfo]: isShowChatInfo })}>
         <LabelValuePairBlock
           label={t(TranslationKey.Deadline)}
           value={formatNormDateTime(message.data?.timeoutAt)}
           bgColor="green"
-          rootClasses={classNames.labelValueBlock}
+          rootClasses={styles.labelValueBlock}
         />
         <LabelValuePairBlock
           label={t(TranslationKey.Status)}
           value={MyRequestStatusTranslate(message.data?.status)}
           bgColor="green"
-          rootClasses={classNames.labelValueBlock}
+          rootClasses={styles.labelValueBlock}
           valueStyle={{
             color: `${colorByStatus(message.data?.status)}`,
           }}
@@ -96,7 +81,7 @@ export const ChatMessageRequest: FC<Props> = ({ message, isShowChatInfo }) => {
           label={t(TranslationKey['Total price'])}
           value={toFixedWithDollarSign(message.data?.price, 2)}
           bgColor="green"
-          rootClasses={classNames.labelValueBlock}
+          rootClasses={styles.labelValueBlock}
         />
       </div>
     </div>

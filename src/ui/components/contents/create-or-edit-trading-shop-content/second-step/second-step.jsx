@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -18,12 +17,12 @@ import { formatDateMonthYear, sortObjectsArrayByFiledDate } from '@utils/date-ti
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './second-step.style'
+import { useStyles } from './second-step.style'
 
 import { ChartsForm } from './charts-form/charts-form'
 
 export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onChangeStatisticsField }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showBarChat, setShowBarChat] = useState(false)
 
@@ -112,21 +111,21 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
   return (
     <>
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.chartsMainWrapper}>
+      <div className={styles.mainWrapper}>
+        <div className={styles.chartsMainWrapper}>
           <Field
-            labelClasses={classNames.chartLabel}
-            containerClasses={classNames.chartContainer}
+            labelClasses={styles.chartLabel}
+            containerClasses={styles.chartContainer}
             label={t(TranslationKey.Month)}
             inputComponent={
-              <div className={classNames.chartSharedWrapper}>
-                <div className={classNames.dateChartWrapper}>
-                  <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['Add month'])}</Typography>
+              <div className={styles.chartSharedWrapper}>
+                <div className={styles.dateChartWrapper}>
+                  <div className={styles.subLabelWrapper}>
+                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['Add month'])}</Typography>
                   </div>
 
-                  <div className={classNames.indicatorPaper}>
-                    <div className={classNames.dateIndicatorWrapper}>
+                  <div className={styles.indicatorPaper}>
+                    <div className={styles.dateIndicatorWrapper}>
                       <DateMonthYearPicker
                         disabled={formFields.statistics.length >= 12}
                         value={dateLine}
@@ -136,13 +135,13 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                       {!disableFirstRow ? (
                         <CheckBoxIcon
                           fontSize="medium"
-                          classes={{ root: classNames.actionButton }}
+                          classes={{ root: styles.actionButton }}
                           onClick={() => addIndicator()}
                         />
                       ) : (
                         <div
-                          className={cx(classNames.actionDelButton, {
-                            [classNames.disabledActionButton]: dateLine === null,
+                          className={cx(styles.actionDelButton, {
+                            [styles.disabledActionButton]: dateLine === null,
                           })}
                           onClick={() => dateLine !== null && addIndicator()}
                         >
@@ -152,13 +151,13 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     </div>
 
                     {formFields.statistics.map((indicator, index) => (
-                      <div key={index} className={classNames.dateIndicatorWrapper}>
+                      <div key={index} className={styles.dateIndicatorWrapper}>
                         <DateMonthYearPicker
                           value={indicator.month}
                           onChange={onChangeStatisticsField(index, 'month')}
                         />
 
-                        <div className={classNames.actionDelButton} onClick={() => removeIndicator(index)}>
+                        <div className={styles.actionDelButton} onClick={() => removeIndicator(index)}>
                           {'-'}
                         </div>
                       </div>
@@ -169,22 +168,22 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
             }
           />
 
-          <Divider orientation="vertical" className={classNames.divider} />
+          <Divider orientation="vertical" className={styles.divider} />
 
           <Field
-            labelClasses={classNames.chartLabel}
-            containerClasses={classNames.chartContainer}
+            labelClasses={styles.chartLabel}
+            containerClasses={styles.chartContainer}
             label={`${t(TranslationKey['Income Indicators'])}, $*`}
             inputComponent={
-              <div className={classNames.chartSharedWrapper}>
-                <div className={classNames.chartWrapper}>
-                  <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.chartSubLabel}>{`${t(
+              <div className={styles.chartSharedWrapper}>
+                <div className={styles.chartWrapper}>
+                  <div className={styles.subLabelWrapper}>
+                    <Typography className={styles.chartSubLabel}>{`${t(
                       TranslationKey['Gross income'],
                     )}, $`}</Typography>
                     <img
                       src="/assets/icons/chart.svg"
-                      className={classNames.chartIcon}
+                      className={styles.chartIcon}
                       onClick={() => {
                         setShowBarChat(!showBarChat)
                         setIsRevenueBeggin(true)
@@ -192,12 +191,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     />
                   </div>
 
-                  <div className={classNames.indicatorPaper}>
-                    <div className={classNames.indicatorWrapper}>
+                  <div className={styles.indicatorPaper}>
+                    <div className={styles.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
                         value={grossIncomeValue}
-                        className={classNames.indicatorInput}
+                        className={styles.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
                           setGrossIncomeValue(Number(e.target.value))
@@ -206,10 +205,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     </div>
 
                     {formFields.statistics.map((indicator, index) => (
-                      <div key={index} className={classNames.indicatorWrapper}>
+                      <div key={index} className={styles.indicatorWrapper}>
                         <Input
                           value={indicator.grossIncome}
-                          className={classNames.indicatorInput}
+                          className={styles.indicatorInput}
                           onChange={onChangeStatisticsField(index, 'grossIncome')}
                         />
                       </div>
@@ -217,14 +216,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                   </div>
                 </div>
 
-                <div className={classNames.chartWrapper}>
-                  <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.chartSubLabel}>{`${t(
-                      TranslationKey['Pure profit'],
-                    )}, $`}</Typography>
+                <div className={styles.chartWrapper}>
+                  <div className={styles.subLabelWrapper}>
+                    <Typography className={styles.chartSubLabel}>{`${t(TranslationKey['Pure profit'])}, $`}</Typography>
                     <img
                       src="/assets/icons/chart.svg"
-                      className={classNames.chartIcon}
+                      className={styles.chartIcon}
                       onClick={() => {
                         setShowBarChat(!showBarChat)
                         setIsRevenueBeggin(true)
@@ -232,12 +229,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     />
                   </div>
 
-                  <div className={classNames.indicatorPaper}>
-                    <div className={classNames.indicatorWrapper}>
+                  <div className={styles.indicatorPaper}>
+                    <div className={styles.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
                         value={pureIncomeValue}
-                        className={classNames.indicatorInput}
+                        className={styles.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
                           setPureIncomeValue(Number(e.target.value))
@@ -246,10 +243,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     </div>
 
                     {formFields.statistics.map((indicator, index) => (
-                      <div key={index} className={classNames.indicatorWrapper}>
+                      <div key={index} className={styles.indicatorWrapper}>
                         <Input
                           value={indicator.pureIncome}
-                          className={classNames.indicatorInput}
+                          className={styles.indicatorInput}
                           onChange={onChangeStatisticsField(index, 'pureIncome')}
                         />
                       </div>
@@ -259,19 +256,19 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
               </div>
             }
           />
-          <Divider orientation="vertical" className={classNames.divider} />
+          <Divider orientation="vertical" className={styles.divider} />
           <Field
-            labelClasses={classNames.chartLabel}
-            containerClasses={classNames.chartContainer}
+            labelClasses={styles.chartLabel}
+            containerClasses={styles.chartContainer}
             label={`${t(TranslationKey['Traffic Indicators'])}*`}
             inputComponent={
-              <div className={classNames.chartSharedWrapper}>
-                <div className={classNames.chartWrapper}>
-                  <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['Unique visitors'])}</Typography>
+              <div className={styles.chartSharedWrapper}>
+                <div className={styles.chartWrapper}>
+                  <div className={styles.subLabelWrapper}>
+                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['Unique visitors'])}</Typography>
                     <img
                       src="/assets/icons/chart.svg"
-                      className={classNames.chartIcon}
+                      className={styles.chartIcon}
                       onClick={() => {
                         setShowBarChat(!showBarChat)
                         setIsRevenueBeggin(false)
@@ -279,12 +276,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     />
                   </div>
 
-                  <div className={classNames.indicatorPaper}>
-                    <div className={classNames.indicatorWrapper}>
+                  <div className={styles.indicatorPaper}>
+                    <div className={styles.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
                         value={uniqueCustomersValue}
-                        className={classNames.indicatorInput}
+                        className={styles.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
                           setUniqueCustomersValue(Number(e.target.value))
@@ -293,10 +290,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     </div>
 
                     {formFields.statistics.map((indicator, index) => (
-                      <div key={index} className={classNames.indicatorWrapper}>
+                      <div key={index} className={styles.indicatorWrapper}>
                         <Input
                           value={indicator.uniqueCustomers}
-                          className={classNames.indicatorInput}
+                          className={styles.indicatorInput}
                           onChange={onChangeStatisticsField(index, 'uniqueCustomers')}
                         />
                       </div>
@@ -304,12 +301,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                   </div>
                 </div>
 
-                <div className={classNames.chartWrapper}>
-                  <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['View page'])}</Typography>
+                <div className={styles.chartWrapper}>
+                  <div className={styles.subLabelWrapper}>
+                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['View page'])}</Typography>
                     <img
                       src="/assets/icons/chart.svg"
-                      className={classNames.chartIcon}
+                      className={styles.chartIcon}
                       onClick={() => {
                         setShowBarChat(!showBarChat)
                         setIsRevenueBeggin(false)
@@ -317,12 +314,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     />
                   </div>
 
-                  <div className={classNames.indicatorPaper}>
-                    <div className={classNames.indicatorWrapper}>
+                  <div className={styles.indicatorPaper}>
+                    <div className={styles.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
                         value={webpageVisitsValue}
-                        className={classNames.indicatorInput}
+                        className={styles.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
                           setWebpageVisitsValue(Number(e.target.value))
@@ -331,10 +328,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     </div>
 
                     {formFields.statistics.map((indicator, index) => (
-                      <div key={index} className={classNames.indicatorWrapper}>
+                      <div key={index} className={styles.indicatorWrapper}>
                         <Input
                           value={indicator.webpageVisits}
-                          className={classNames.indicatorInput}
+                          className={styles.indicatorInput}
                           onChange={onChangeStatisticsField(index, 'webpageVisits')}
                         />
                       </div>
@@ -347,70 +344,70 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
         </div>
 
         <Field
-          labelClasses={classNames.chartLabel}
+          labelClasses={styles.chartLabel}
           label={t(TranslationKey['The totals'])}
-          containerClasses={classNames.totalsContainer}
+          containerClasses={styles.totalsContainer}
           inputComponent={
-            <div className={classNames.totalsWrapper}>
-              <div className={classNames.totalsSubMainWrapper}>
-                <div className={classNames.totalsSubWrapper}>
+            <div className={styles.totalsWrapper}>
+              <div className={styles.totalsSubMainWrapper}>
+                <div className={styles.totalsSubWrapper}>
                   <Field
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Average. Monthly net profit'])}
                     inputComponent={
-                      <Typography className={classNames.totalText}>
+                      <Typography className={styles.totalText}>
                         {toFixedWithDollarSign(averagePureIncome, 2)}
                       </Typography>
                     }
                   />
                   <Field
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalContainer}
                     label={t(TranslationKey.Profitability)}
                     inputComponent={
-                      <Typography className={classNames.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
+                      <Typography className={styles.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
                     }
                   />
                 </div>
 
-                <div className={classNames.totalsSubWrapper}>
+                <div className={styles.totalsSubWrapper}>
                   <Field
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Average. Monthly income'])}
                     inputComponent={
-                      <Typography className={classNames.totalText}>
+                      <Typography className={styles.totalText}>
                         {toFixedWithDollarSign(averageGrossIncome, 2)}
                       </Typography>
                     }
                   />
 
                   <Field
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Monthly multiplier'])}
                     inputComponent={
-                      <Typography className={classNames.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
+                      <Typography className={styles.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
                     }
                   />
                 </div>
               </div>
 
-              <div className={classNames.totalsPercentsWrapper}>
+              <div className={styles.totalsPercentsWrapper}>
                 <Field
                   oneLine
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalsPercentsContainer}
+                  labelClasses={styles.totalLabel}
+                  containerClasses={styles.totalsPercentsContainer}
                   label={t(TranslationKey['Traffic (12 months)'])}
                   inputComponent={
-                    <div className={classNames.percentWrapper}>
+                    <div className={styles.percentWrapper}>
                       {trafficСhange < 0 ? (
                         <ArrowDropDownIcon color="error" />
                       ) : (
-                        <ArrowDropUpIcon color="success" className={classNames.green} />
+                        <ArrowDropUpIcon color="success" className={styles.green} />
                       )}
-                      <Typography className={cx(classNames.green, { [classNames.red]: trafficСhange < 0 })}>{`${toFixed(
+                      <Typography className={cx(styles.green, { [styles.red]: trafficСhange < 0 })}>{`${toFixed(
                         isNaN(trafficСhange) ? 0 : trafficСhange,
                         2,
                       )} %`}</Typography>
@@ -418,48 +415,50 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                   }
                 />
 
-                <div className={classNames.profitWrapper}>
+                <div className={styles.profitWrapper}>
                   <Field
                     oneLine
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalsPercentsContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalsPercentsContainer}
                     label={t(TranslationKey['Income (12 months)'])}
                     inputComponent={
-                      <div className={classNames.percentWrapper}>
+                      <div className={styles.percentWrapper}>
                         {grossIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
-                          <ArrowDropUpIcon color="success" className={classNames.green} />
+                          <ArrowDropUpIcon color="success" className={styles.green} />
                         )}
-                        <Typography
-                          className={cx(classNames.green, { [classNames.red]: grossIncomeСhange < 0 })}
-                        >{`${toFixed(isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange, 2)} %`}</Typography>
+                        <Typography className={cx(styles.green, { [styles.red]: grossIncomeСhange < 0 })}>{`${toFixed(
+                          isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange,
+                          2,
+                        )} %`}</Typography>
                       </div>
                     }
                   />
 
                   <Field
                     oneLine
-                    labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalsPercentsContainer}
+                    labelClasses={styles.totalLabel}
+                    containerClasses={styles.totalsPercentsContainer}
                     label={t(TranslationKey['Profit (12 months)'])}
                     inputComponent={
-                      <div className={classNames.percentWrapper}>
+                      <div className={styles.percentWrapper}>
                         {pureIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
-                          <ArrowDropUpIcon color="success" className={classNames.green} />
+                          <ArrowDropUpIcon color="success" className={styles.green} />
                         )}
-                        <Typography
-                          className={cx(classNames.green, { [classNames.red]: pureIncomeСhange < 0 })}
-                        >{`${toFixed(isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange, 2)} %`}</Typography>
+                        <Typography className={cx(styles.green, { [styles.red]: pureIncomeСhange < 0 })}>{`${toFixed(
+                          isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange,
+                          2,
+                        )} %`}</Typography>
                       </div>
                     }
                   />
                 </div>
               </div>
 
-              <div className={classNames.btnsWrapper}>{renderBackNextBtns()}</div>
+              <div className={styles.btnsWrapper}>{renderBackNextBtns()}</div>
             </div>
           }
         />

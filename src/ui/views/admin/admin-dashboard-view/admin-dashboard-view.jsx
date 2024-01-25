@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper } from '@mui/material'
@@ -20,7 +20,7 @@ import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 
 export const AdminDashboardViewRaw = props => {
   const [viewModel] = useState(() => new AdminDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -33,11 +33,11 @@ export const AdminDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
           </div>
@@ -55,7 +55,7 @@ export const AdminDashboardViewRaw = props => {
           />
         ))}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

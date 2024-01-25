@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
@@ -55,7 +54,7 @@ export const OrderContent = ({
   onClickHsCode,
   setCurrentOpenedBox,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
@@ -69,7 +68,7 @@ export const OrderContent = ({
   const [formFields, setFormFields] = useState({
     ...order,
 
-    destinationId: order?.destination?._id || order?.variationTariff?.destinationId || null,
+    destinationId: order?.destination?._id || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
     variationTariffId: order?.variationTariff?._id || null,
@@ -323,11 +322,8 @@ export const OrderContent = ({
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
           <SetBarcodeModal
             tmpCode={formFields.tmpBarCode}
-            item={formFields.product}
-            onClickSaveBarcode={barCode => {
-              onChangeField('tmpBarCode')(barCode)
-              triggerBarcodeModal()
-            }}
+            barCode={formFields.product?.barCode}
+            onClickSaveBarcode={barCode => onChangeField('tmpBarCode')(barCode)}
             onCloseModal={triggerBarcodeModal}
           />
         </Modal>

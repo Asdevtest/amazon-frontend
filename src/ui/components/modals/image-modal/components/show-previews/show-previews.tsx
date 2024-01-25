@@ -6,12 +6,13 @@ import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { IUploadFile } from '@typings/upload-file'
+import { isString } from '@typings/type-guards'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './show-previews.style'
 
 interface ShowPreviewsProps {
-  slides: Array<string | IUploadFile>
+  slides: UploadFileType[]
   currentIndex: number
   setCurrentIndex: (index: number) => void
   setIsPlaying: (flag: boolean) => void
@@ -41,9 +42,9 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
   return showPreviews ? (
     <div className={styles.slides}>
       {slides?.map((slide, index) => {
-        const elementExtension = (typeof slide === 'string' ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
-        const slideToCheck = typeof slide === 'string' ? getAmazonImageUrl(slide, true) : slide?.file.name
-        const currentSlide = typeof slide === 'string' ? getAmazonImageUrl(slide, false) : slide?.data_url
+        const elementExtension = (isString(slide) ? slide : slide?.file?.name)?.split('.')?.slice(-1)?.[0]
+        const slideToCheck = isString(slide) ? getAmazonImageUrl(slide, true) : slide?.file.name
+        const currentSlide = isString(slide) ? getAmazonImageUrl(slide, false) : slide?.data_url
         const isActiveSlide = index === currentIndex
 
         return (
@@ -60,7 +61,7 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
           >
             {checkIsMediaFileLink(slideToCheck) ? (
               checkIsVideoLink(slideToCheck) ? (
-                <VideoPreloader videoSource={currentSlide} height="74px" />
+                <VideoPreloader videoSource={currentSlide} height={74} />
               ) : (
                 <img src={currentSlide} alt={`Photo-${index}`} />
               )
@@ -68,7 +69,9 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
               <FileIcon fileExtension={elementExtension} className={styles.fileIcon} />
             )}
 
-            {photosTitles?.[index] && <p className={cx(styles.text, styles.shortText)}>{photosTitles?.[index]}</p>}
+            {photosTitles?.[index] ? (
+              <p className={cx(styles.text, styles.shortText)}>{photosTitles?.[index]}</p>
+            ) : null}
           </div>
         )
       })}

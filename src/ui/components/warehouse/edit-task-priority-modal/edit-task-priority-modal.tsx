@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -15,7 +15,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
-import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
+import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.style'
 
 import { t } from '@utils/translations'
 
@@ -79,7 +79,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
             className={styles.reasonInput}
             value={reason}
             inputProps={{ maxLength: 250 }}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
           />
         }
       />

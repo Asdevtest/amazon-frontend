@@ -71,7 +71,7 @@
   "Final weight": "Final weight",
   "Box photos:": "Box photos:",
   "No photos yet...": "No photos yet...",
-  "Order photos:": "Order photos:",
+  "Order photos": "Order photos",
   "Shipping label": "Shipping label",
   "Shipping label was glued to the warehouse": "Shipping label was glued to the warehouse",
   "New boxes": "New boxes",
@@ -2155,6 +2155,13 @@
   "A photo of the Transperensy Code sticker": "A photo of the Transperensy Code sticker",
   "Be sure to add a photo to the box": "Be sure to add a photo to the box",
   "Total quantity": "Total quantity",
+  "currency": "currency",
+  "total amount": "total amount",
+  "Supplier information": "Supplier information",
+  "Additional order information": "Additional order information",
+  "Supplier details": "Supplier details",
+  "All files": "All files",
+  "Page": "Page",
   "Account report": "Account report",
   "Reports": "Reports",
   "FBA fee": "FBA fee",
@@ -2163,6 +2170,8 @@
   "Additional": "Additional",
   "Parameters of the table": "Parameters of the table",
   "Reset Settings": "Reset Settings",
+  "Multplty": "Multplty",
   "Warehouse and orders": "Warehouse and orders",
-  "Orders info": "Orders info"
+  "Orders info": "Orders info",
+  "A box contains more than one product": "A box contains more than one product"
 }

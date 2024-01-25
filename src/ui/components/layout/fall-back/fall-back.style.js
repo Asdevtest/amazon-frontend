@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     background: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
     color: '#354256',

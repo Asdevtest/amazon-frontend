@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '1360px',
     padding: 10,
@@ -128,15 +128,6 @@ export const useClassNames = makeStyles()(theme => ({
       gap: '10px',
       width: '280px',
       marginBottom: '15px',
-    },
-  },
-
-  filesWrapper: {
-    width: '450px',
-    overflow: 'auto',
-    [theme.breakpoints.down(768)]: {
-      overflow: 'hidden',
-      margin: 0,
     },
   },
 

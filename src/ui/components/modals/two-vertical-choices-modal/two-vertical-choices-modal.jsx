@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './two-vertical-choices-modal.style'
+import { useStyles } from './two-vertical-choices-modal.style'
 
 export const TwoVerticalChoicesModal = ({
   openModal,
@@ -19,19 +19,19 @@ export const TwoVerticalChoicesModal = ({
   thirdBtnText,
   onClickThirdBtn,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5" className={classNames.title}>
+      <div className={styles.modalMessageWrapper}>
+        <Typography variant="h5" className={styles.title}>
           {title}
         </Typography>
 
-        <div className={classNames.resultButtonsWrapper}>
+        <div className={styles.resultButtonsWrapper}>
           <Button
             tooltipInfoContent={tooltipFirstButton}
-            className={classNames.button}
+            className={styles.button}
             color="primary"
             variant="contained"
             onClick={onClickTopBtn}
@@ -42,7 +42,7 @@ export const TwoVerticalChoicesModal = ({
             tooltipInfoContent={tooltipSecondButton}
             color="primary"
             variant="text"
-            className={classNames.bottomBtnText}
+            className={styles.bottomBtnText}
             onClick={onClickBottomBtn}
           >
             {bottomBtnText}
@@ -52,7 +52,7 @@ export const TwoVerticalChoicesModal = ({
               tooltipInfoContent={tooltipThirdButton}
               color="primary"
               variant="text"
-              className={classNames.bottomBtnText}
+              className={styles.bottomBtnText}
               onClick={onClickThirdBtn}
             >
               {thirdBtnText}

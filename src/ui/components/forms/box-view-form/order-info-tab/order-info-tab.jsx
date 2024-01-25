@@ -1,6 +1,6 @@
-import React from 'react'
+import { memo } from 'react'
 
-import { orderPriority } from '@constants/orders/order-priority'
+import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-info-tab.style'
 
-export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
+export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -31,7 +31,7 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
           ? t(TranslationKey['BarCode is glued by supplier'])
           : t(TranslationKey['BarCode is glued by storekeeper'])
 
-        const isRushOrder = Number(item.order.priority) === orderPriority.urgentPriority
+        const isRushOrder = Number(item.order.priority) === OrderPriority.URGENT_PRIORITY
 
         return (
           <div key={index} className={styles.product}>
@@ -46,8 +46,8 @@ export const OrderInfoTab = React.memo(({ formFields, onClickHsCode }) => {
                 {getShortenStringIfLongerThanCount(item.product.amazonTitle, 110)}
               </p>
 
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={item?.product?.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={item?.product?.skuByClient} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item?.product?.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={item?.product?.skuByClient} />
             </div>
 
             <div className={styles.parametersWrapper}>

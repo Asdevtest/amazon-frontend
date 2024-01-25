@@ -11,7 +11,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { Payment } from '@typings/payments'
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './payment-method-card.style'
 
@@ -24,7 +24,7 @@ interface PaymentMethodCardProps {
 export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
   const { classes: styles, cx } = useStyles()
 
-  const handleFieldChange = (field: string, value: string | Array<string | IUploadFile> | boolean) => {
+  const handleFieldChange = (field: string, value: string | UploadFileType[] | boolean) => {
     setSelectedPayments((prevSelectedPayments: Payment[]) => {
       const findPaymentIndex = prevSelectedPayments.findIndex(
         prevSelectedPayment => prevSelectedPayment.paymentMethod?._id === payment.paymentMethod?._id,
@@ -46,7 +46,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
   const handleChangePaymentDetails = (event: ChangeEvent<HTMLInputElement>) => {
     handleFieldChange('paymentDetails', event.target.value)
   }
-  const handleChangeImagesForLoad = (files: Array<string | IUploadFile>) => {
+  const handleChangeImagesForLoad = (files: UploadFileType[]) => {
     handleFieldChange('paymentImages', files)
   }
   const handleChangeIsChecked = (event: ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +91,6 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
             dragAndDropBtnHeight={40}
             maxHeight={90}
             imageListWrapperStyles={styles.imageListWrapperStyles}
-            filesLength={payment.paymentImages.length}
             сontainerStyles={styles.containerClasses}
             images={payment.paymentImages}
             setImages={handleChangeImagesForLoad}

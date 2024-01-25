@@ -11,7 +11,7 @@ import {
 } from '@constants/task/task-priority-status'
 
 import { Input } from '@components/shared/input'
-import { usePrioritySelectStyles } from '@components/shared/priority-select/priority-select.styles'
+import { useStyles } from '@components/shared/priority-select/priority-select.style'
 
 interface PrioritySelectProps {
   currentPriority: number
@@ -20,7 +20,7 @@ interface PrioritySelectProps {
 }
 
 export const PrioritySelect = observer((props: PrioritySelectProps) => {
-  const { classes: styles, cx } = usePrioritySelectStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <>

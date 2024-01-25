@@ -1,6 +1,4 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Checkbox, Divider, Grid, Link, Typography } from '@mui/material'
 
@@ -8,12 +6,12 @@ import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
@@ -24,9 +22,9 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-supplier-modal-content.style'
+import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
-export const AddOrEditSupplierModalContent = observer(
+export const AddOrEditSupplierModalContent = memo(
   ({
     paymentMethods,
     product,
@@ -44,7 +42,7 @@ export const AddOrEditSupplierModalContent = observer(
     outsideProduct,
     onClickPrevButton,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
@@ -162,8 +160,8 @@ export const AddOrEditSupplierModalContent = observer(
     const renderFooterModalButtons = () => {
       if (outsideProduct) {
         return (
-          <div className={classNames.buttonsWrapperClient}>
-            <Button className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
+          <div className={styles.buttonsWrapperClient}>
+            <Button className={styles.prevBtnClient} onClick={() => onClickPrevButton()}>
               {t(TranslationKey.Back)}
             </Button>
             <div>
@@ -171,7 +169,7 @@ export const AddOrEditSupplierModalContent = observer(
                 success
                 tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
                 disabled={diasabledSubmit}
-                className={classNames.saveBtnClient}
+                className={styles.saveBtnClient}
                 variant="contained"
                 onClick={() => {
                   onClickSaveBtn({
@@ -189,7 +187,7 @@ export const AddOrEditSupplierModalContent = observer(
                 success
                 tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
                 disabled={diasabledSubmit}
-                className={classNames.saveBtnClient}
+                className={styles.saveBtnClient}
                 onClick={() => {
                   onClickSaveBtn({
                     supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
@@ -208,19 +206,19 @@ export const AddOrEditSupplierModalContent = observer(
         )
       } else if (onlyRead) {
         return (
-          <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.cancelBtn} variant="text" onClick={onTriggerShowModal}>
+          <div className={styles.buttonsWrapper}>
+            <Button className={styles.cancelBtn} variant="text" onClick={onTriggerShowModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
         )
       } else {
         return (
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
               disabled={diasabledSubmit}
-              className={classNames.saveBtn}
+              className={styles.saveBtn}
               color="primary"
               variant="contained"
               onClick={() => {
@@ -238,7 +236,7 @@ export const AddOrEditSupplierModalContent = observer(
             <Button
               disableElevation
               tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
-              className={classNames.cancelBtn}
+              className={styles.cancelBtn}
               variant="text"
               onClick={onTriggerShowModal}
             >
@@ -393,25 +391,25 @@ export const AddOrEditSupplierModalContent = observer(
         !boxPropertiesIsFullAndMainsValues)
 
     return (
-      <div className={classNames.modalContainer}>
+      <div className={styles.modalContainer}>
         {onlyRead ? (
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
         ) : (
-          <Typography className={classNames.modalTitle}>{title}</Typography>
+          <Typography className={styles.modalTitle}>{title}</Typography>
         )}
-        <Divider className={classNames.titleDivider} />
+        <Divider className={styles.titleDivider} />
 
         <div>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
 
-          <div className={classNames.nameBlock}>
+          <div className={styles.nameBlock}>
             <Field
               disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Enter the name of the supplier'])}
               inputProps={{ maxLength: 100 }}
               label={t(TranslationKey.Title) + '*'}
-              containerClasses={classNames.nameContainer}
-              labelClasses={classNames.normalLabel}
+              containerClasses={styles.nameContainer}
+              labelClasses={styles.normalLabel}
               value={tmpSupplier.name}
               onChange={onChangeField('name')}
             />
@@ -421,8 +419,8 @@ export const AddOrEditSupplierModalContent = observer(
               tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
               label={t(TranslationKey['Purchase quantity for the current price']) + '*'}
               inputProps={{ maxLength: 10 }}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
+              containerClasses={styles.middleContainer}
+              labelClasses={styles.normalLabel}
               value={tmpSupplier.amount}
               error={parseInt(tmpSupplier.amount) === 0 && t(TranslationKey["can't be zero"])}
               onChange={onChangeField('amount')}
@@ -432,25 +430,25 @@ export const AddOrEditSupplierModalContent = observer(
               tooltipInfoContent={t(TranslationKey['Minimum quantity of goods needed to order'])}
               label={t(TranslationKey['Minimum batch']) + '*'}
               inputProps={{ maxLength: 10 }}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
+              containerClasses={styles.middleContainer}
+              labelClasses={styles.normalLabel}
               value={tmpSupplier.minlot}
               error={parseInt(tmpSupplier.minlot) === 0 && t(TranslationKey["can't be zero"])}
               onChange={onChangeField('minlot')}
             />
           </div>
 
-          <div className={cx(classNames.nameBlock, classNames.nameBlockFlexStart)}>
+          <div className={cx(styles.nameBlock, styles.nameBlockFlexStart)}>
             {onlyRead ? (
               <Field
                 tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
                 label={t(TranslationKey.Link) + '*'}
                 inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainer}
-                labelClasses={classNames.normalLabel}
+                containerClasses={styles.linkContainer}
+                labelClasses={styles.normalLabel}
                 inputComponent={
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
-                    <Typography disabled className={classNames.link}>
+                    <Typography disabled className={styles.link}>
                       {tmpSupplier.link}
                     </Typography>
                   </Link>
@@ -461,8 +459,8 @@ export const AddOrEditSupplierModalContent = observer(
                 tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
                 label={t(TranslationKey.Link) + '*'}
                 inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainer}
-                labelClasses={classNames.normalLabel}
+                containerClasses={styles.linkContainer}
+                labelClasses={styles.normalLabel}
                 value={tmpSupplier.link}
                 onChange={onChangeField('link')}
               />
@@ -472,8 +470,8 @@ export const AddOrEditSupplierModalContent = observer(
               disabled={onlyRead}
               inputProps={{ maxLength: 10 }}
               label={t(TranslationKey['Production time'])}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
+              containerClasses={styles.middleContainer}
+              labelClasses={styles.normalLabel}
               value={tmpSupplier?.productionTerm}
               onChange={onChangeField('productionTerm')}
             />
@@ -481,17 +479,17 @@ export const AddOrEditSupplierModalContent = observer(
         </div>
 
         <div>
-          <div className={classNames.costBlock}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
+          <div className={styles.costBlock}>
+            <Typography className={styles.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
 
             <Field
               oneLine
               disabled
               label={t(TranslationKey['Actual course'])}
               inputProps={{ maxLength: 8 }}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel)}
-              inputClasses={classNames.courseInput}
+              containerClasses={styles.rateContainer}
+              labelClasses={cx(styles.rateLabel)}
+              inputClasses={styles.courseInput}
               value={sourceYuanToDollarRate}
             />
 
@@ -502,17 +500,17 @@ export const AddOrEditSupplierModalContent = observer(
               tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
               label={t(TranslationKey['Current supplier course'])}
               inputProps={{ maxLength: 8 }}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel)}
-              inputClasses={classNames.courseInput}
+              containerClasses={styles.rateContainer}
+              labelClasses={cx(styles.rateLabel)}
+              inputClasses={styles.courseInput}
               value={tmpSupplier?.yuanRate}
               onChange={onChangeYuanToDollarRate}
             />
           </div>
 
-          <div className={classNames.calculationMainWrapper}>
+          <div className={styles.calculationMainWrapper}>
             <div>
-              <Typography className={classNames.modalTitle}>{'¥'}</Typography>
+              <Typography className={styles.modalTitle}>{'¥'}</Typography>
 
               <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
@@ -522,8 +520,8 @@ export const AddOrEditSupplierModalContent = observer(
                     tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', ¥*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(tmpSupplier.priceInYuan, 2)}
                     onChange={onChangeField('priceInYuan')}
                   />
@@ -541,8 +539,8 @@ export const AddOrEditSupplierModalContent = observer(
                     )}
                     label={t(TranslationKey['Batch price']) + ', ¥*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(
                       +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
                       2,
@@ -555,8 +553,8 @@ export const AddOrEditSupplierModalContent = observer(
                     disabled
                     label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={
                       tmpSupplier.amount
                         ? toFixed(
@@ -581,8 +579,8 @@ export const AddOrEditSupplierModalContent = observer(
                     )}
                     label={t(TranslationKey['Batch delivery']) + ', ¥*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
                     onChange={onChangeField('batchDeliveryCostInYuan')}
                   />
@@ -590,10 +588,10 @@ export const AddOrEditSupplierModalContent = observer(
               </Grid>
             </div>
 
-            <Divider flexItem orientation="vertical" className={classNames.divider} />
+            <Divider flexItem orientation="vertical" className={styles.divider} />
 
             <div>
-              <Typography className={classNames.modalTitle}>{'$'}</Typography>
+              <Typography className={styles.modalTitle}>{'$'}</Typography>
 
               <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
@@ -602,8 +600,8 @@ export const AddOrEditSupplierModalContent = observer(
                     tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', $*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(tmpSupplier.price, 2)}
                     onChange={onChangeField('price')}
                   />
@@ -621,8 +619,8 @@ export const AddOrEditSupplierModalContent = observer(
                     )}
                     label={t(TranslationKey['Batch price']) + ', $*'}
                     inputProps={{ maxLength: 15 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(
                       +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
                       2,
@@ -635,8 +633,8 @@ export const AddOrEditSupplierModalContent = observer(
                     disabled
                     label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={
                       tmpSupplier.amount
                         ? toFixed(
@@ -659,8 +657,8 @@ export const AddOrEditSupplierModalContent = observer(
                     )}
                     label={t(TranslationKey['Batch delivery']) + ', $*'}
                     inputProps={{ maxLength: 15 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.middleContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
                     onChange={onChangeField('batchDeliveryCostInDollar')}
                   />
@@ -682,7 +680,7 @@ export const AddOrEditSupplierModalContent = observer(
             />
           )}
 
-          <div className={classNames.paymentsBlock}>
+          <div className={styles.paymentsBlock}>
             <CustomSelectPaymentDetails
               orderPayments={tmpSupplier?.paymentMethods}
               allPayments={paymentMethods}
@@ -692,12 +690,12 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
+            <Typography className={styles.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
 
-            <div className={classNames.boxInfoWrapper}>
-              <div className={classNames.sizesWrapper}>
-                <div className={classNames.sizesSubWrapper}>
-                  <Typography className={classNames.standartText}>{t(TranslationKey.Dimensions)}</Typography>
+            <div className={styles.boxInfoWrapper}>
+              <div className={styles.sizesWrapper}>
+                <div className={styles.sizesSubWrapper}>
+                  <Typography className={styles.standartText}>{t(TranslationKey.Dimensions)}</Typography>
 
                   <CustomSwitcher
                     condition={sizeSetting}
@@ -709,14 +707,14 @@ export const AddOrEditSupplierModalContent = observer(
                   />
                 </div>
 
-                <div className={classNames.sizesBottomWrapper}>
+                <div className={styles.sizesBottomWrapper}>
                   <Field
                     disabled={onlyRead}
                     label={t(TranslationKey.H)}
                     inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
+                    containerClasses={styles.sizeContainer}
+                    labelClasses={cx(styles.rateLabel)}
+                    inputClasses={styles.sizeInput}
                     value={tmpSupplier.boxProperties.boxHeightCm}
                     onChange={onChangeField('boxHeightCm')}
                   />
@@ -725,9 +723,9 @@ export const AddOrEditSupplierModalContent = observer(
                     disabled={onlyRead}
                     label={t(TranslationKey.W)}
                     inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
+                    containerClasses={styles.sizeContainer}
+                    labelClasses={cx(styles.rateLabel)}
+                    inputClasses={styles.sizeInput}
                     value={tmpSupplier.boxProperties.boxWidthCm}
                     onChange={onChangeField('boxWidthCm')}
                   />
@@ -736,23 +734,23 @@ export const AddOrEditSupplierModalContent = observer(
                     disabled={onlyRead}
                     label={t(TranslationKey.L)}
                     inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
+                    containerClasses={styles.sizeContainer}
+                    labelClasses={cx(styles.rateLabel)}
+                    inputClasses={styles.sizeInput}
                     value={tmpSupplier.boxProperties.boxLengthCm}
                     onChange={onChangeField('boxLengthCm')}
                   />
                 </div>
               </div>
 
-              <div className={classNames.boxInfoSubWrapper}>
+              <div className={styles.boxInfoSubWrapper}>
                 <div>
                   <Field
                     disabled
                     label={t(TranslationKey['Weight, Lbs'])}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.shortContainer}
+                    labelClasses={styles.normalLabel}
                     value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient, 2) || ''}
                   />
 
@@ -760,8 +758,8 @@ export const AddOrEditSupplierModalContent = observer(
                     disabled={onlyRead}
                     label={t(TranslationKey['Weight, kg'])}
                     inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortContainer}
-                    labelClasses={classNames.normalLabel}
+                    containerClasses={styles.shortContainer}
+                    labelClasses={styles.normalLabel}
                     value={tmpSupplier.boxProperties.boxWeighGrossKg}
                     onChange={onChangeField('boxWeighGrossKg')}
                   />
@@ -769,29 +767,29 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <div>
                   <div
-                    className={cx(classNames.checkboxWrapper, {
-                      [classNames.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
+                    className={cx(styles.checkboxWrapper, {
+                      [styles.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
                     })}
                     onClick={!onlyRead && boxPropertiesIsFull && onChangeField('multiplicity')}
                   >
                     <Checkbox
                       disabled={onlyRead || !boxPropertiesIsFull}
-                      className={classNames.checkbox}
+                      className={styles.checkbox}
                       checked={tmpSupplier.multiplicity}
                       color="primary"
                     />
-                    <Typography className={classNames.normalLabel}>
+                    <Typography className={styles.normalLabel}>
                       {t(TranslationKey['Use multiples of items when creating boxes'])}
                     </Typography>
                   </div>
 
-                  <div className={classNames.boxInfoExtraSubWrapper}>
+                  <div className={styles.boxInfoExtraSubWrapper}>
                     <Field
                       disabled={onlyRead}
                       label={t(TranslationKey['Number of units in box'])}
                       inputProps={{ maxLength: 10 }}
-                      containerClasses={classNames.shortContainer}
-                      labelClasses={classNames.normalLabel}
+                      containerClasses={styles.shortContainer}
+                      labelClasses={styles.normalLabel}
                       value={tmpSupplier.boxProperties.amountInBox}
                       onChange={onChangeField('amountInBox')}
                     />
@@ -801,8 +799,8 @@ export const AddOrEditSupplierModalContent = observer(
                       tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
                       label={t(TranslationKey['Volume weight, kg'])}
                       inputProps={{ maxLength: 15 }}
-                      containerClasses={classNames.shortContainer}
-                      labelClasses={classNames.normalLabel}
+                      containerClasses={styles.shortContainer}
+                      labelClasses={styles.normalLabel}
                       value={toFixed(
                         (sizeSetting === unitsOfChangeOptions.US
                           ? tmpSupplier.boxProperties.boxHeightCm *
@@ -825,7 +823,7 @@ export const AddOrEditSupplierModalContent = observer(
         </div>
 
         {product && storekeepersData.length ? (
-          <div className={classNames.calculationBtnWrapper}>
+          <div className={styles.calculationBtnWrapper}>
             <Button
               tooltipAttentionContent={
                 !product ||
@@ -846,8 +844,8 @@ export const AddOrEditSupplierModalContent = observer(
           multiline
           disabled={onlyRead}
           tooltipInfoContent={t(TranslationKey['The comment indicated for this supplier'])}
-          className={classNames.commentField}
-          labelClasses={classNames.normalLabel}
+          className={styles.commentField}
+          labelClasses={styles.normalLabel}
           inputProps={{ maxLength: 2000 }}
           minRows={4}
           maxRows={6}
@@ -862,7 +860,7 @@ export const AddOrEditSupplierModalContent = observer(
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
             label={t(TranslationKey['Make the main supplier'])}
-            containerClasses={classNames.makeMainSupplierСheckboxWrapper}
+            containerClasses={styles.makeMainSupplierСheckboxWrapper}
             inputComponent={
               <Checkbox
                 color="primary"
@@ -873,19 +871,19 @@ export const AddOrEditSupplierModalContent = observer(
           />
         )}
 
-        <div className={classNames.bottomWrapper}>
+        <div className={styles.bottomWrapper}>
           <div>
             {!onlyRead ? (
-              <div className={classNames.imageFileInputWrapper}>
+              <div className={styles.imageFileInputWrapper}>
                 <UploadFilesInput
                   images={photosOfSupplier}
                   setImages={setPhotosOfSupplier}
                   maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
-                  className={classNames.imageFileInput}
+                  className={styles.imageFileInput}
                 />
               </div>
             ) : null}
-            <div className={classNames.photoAndFilesWrapper}>
+            <div className={styles.photoAndFilesWrapper}>
               <PhotoAndFilesSlider
                 smallSlider
                 showPreviews
@@ -898,7 +896,7 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
         </div>
 
-        <Divider className={classNames.fieldsDivider} />
+        <Divider className={styles.fieldsDivider} />
 
         {renderFooterModalButtons()}
 
@@ -909,10 +907,10 @@ export const AddOrEditSupplierModalContent = observer(
         {showPhotosModal && (
           <ImageModal
             isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             files={tmpSupplier.images}
             currentFileIndex={curImageIndex}
-            handleCurrentFileIndex={index => setCurImageIndex(index)}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={index => setCurImageIndex(index)}
           />
         )}
 

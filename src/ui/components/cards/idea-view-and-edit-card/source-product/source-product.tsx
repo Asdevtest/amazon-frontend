@@ -10,7 +10,7 @@ import { ShareLinkIcon } from '@components/shared/svg-icons'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './source-product.styles'
+import { useStyles } from './source-product.style'
 
 interface SourceProductProps {
   showOpenInNewTabIcon?: boolean
@@ -22,25 +22,25 @@ interface SourceProductProps {
 }
 
 export const SourceProduct: FC<SourceProductProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { title, img, asin, sku, showOpenInNewTabIcon, onClickShareIcon } = props
 
   return (
-    <div className={classNames.root}>
-      {title && <p className={classNames.sourceProductTitle}>{`${title}:`}</p>}
+    <div className={styles.root}>
+      {title && <p className={styles.sourceProductTitle}>{`${title}:`}</p>}
 
-      <div className={classNames.sourceProductWrapper}>
+      <div className={styles.sourceProductWrapper}>
         <img
-          className={classNames.sourceProductImg}
+          className={styles.sourceProductImg}
           src={getAmazonImageUrl(img)}
           alt={''}
           onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
         />
 
-        <div className={classNames.attributesProductWrapper}>
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={asin} />
-          <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} sku={sku} />
+        <div className={styles.attributesProductWrapper}>
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={sku} />
         </div>
       </div>
 
@@ -49,9 +49,9 @@ export const SourceProduct: FC<SourceProductProps> = props => {
           arrow
           title={t(TranslationKey['Open in a new tab'])}
           placement="top"
-          classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+          classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
         >
-          <ShareLinkIcon className={classNames.shareLinkIcon} onClick={onClickShareIcon} />
+          <ShareLinkIcon className={styles.shareLinkIcon} onClick={onClickShareIcon} />
         </Tooltip>
       )}
     </div>

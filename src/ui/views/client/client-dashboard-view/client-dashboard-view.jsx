@@ -1,7 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
 import { Paper, Typography } from '@mui/material'
 
@@ -13,18 +11,20 @@ import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
 import { Button } from '@components/shared/buttons/button'
+import { PlusIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './client-dashboard-view.style'
+import { useStyles } from './client-dashboard-view.style'
 
 import { ClientDashboardViewModel } from './client-dashboard-view.model'
 
-export const ClientDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))
-  const { classes } = props
+export const ClientDashboardView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const [viewModel] = useState(() => new ClientDashboardViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -36,26 +36,26 @@ export const ClientDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Paper className={classes.userInfoWrapper}>
-          <div className={classes.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classes.cardImg} />
-            <div className={classes.balanceWrapper}>
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
+            <div className={styles.balanceWrapper}>
               <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
 
-              <div className={classes.buttonWrapper}>
+              <div className={styles.buttonWrapper}>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                  className={classes.button}
+                  className={styles.button}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                  <PlusIcon className={styles.icon} />
                   {t(TranslationKey.Deposit)}
                 </Button>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                  className={cx(classes.button, classes.withdrawBtn)}
+                  className={cx(styles.button, styles.withdrawBtn)}
                   variant="text"
                   onClick={viewModel.onClickAddMoney}
                 >
@@ -68,7 +68,7 @@ export const ClientDashboardViewRaw = props => {
           <DashboardButtons user={viewModel.userInfo} routes={clientButtonsRoutes} />
 
           {viewModel.userInfo.masterUser && (
-            <div className={classes.masterUserWrapper}>
+            <div className={styles.masterUserWrapper}>
               <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
               <UserLink
@@ -91,8 +91,6 @@ export const ClientDashboardViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
         isWithdraw={viewModel.transferModalSettings.isWithdraw}
       />
-    </React.Fragment>
+    </>
   )
-}
-
-export const ClientDashboardView = withStyles(observer(ClientDashboardViewRaw), styles)
+})

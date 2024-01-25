@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   switcherWrapper: {
     padding: 3,
     display: 'flex',
@@ -38,6 +38,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   mediumOptionWrapper: {
     height: 40,
+  },
+
+  smallOptionWrapper: {
+    height: 16,
   },
 
   switcherOption: {
@@ -86,6 +90,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   mediumOptionStyles: {
     padding: '0 15px',
+  },
+
+  smallOptionStyles: {
+    minWidth: 20,
+    width: 25,
+    fontSize: 12,
+    lineHeight: '16px',
   },
 
   headerActiveOptionStyles: {

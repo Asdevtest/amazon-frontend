@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
@@ -53,6 +52,7 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
   getShortenStringIfLongerThanCount,
+  parseTextString,
   timeToDeadlineInHoursAndMins,
   toFixed,
 } from '@utils/text'
@@ -125,7 +125,7 @@ export const EditOrderModal = memo(
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
@@ -167,8 +167,8 @@ export const EditOrderModal = memo(
     const initialState = {
       ...order,
       status: order?.status || undefined,
-      clientComment: order?.clientComment || '',
-      buyerComment: order?.buyerComment || '',
+      clientComment: parseTextString(order?.clientComment) || '',
+      buyerComment: parseTextString(order?.buyerComment) || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
@@ -1066,20 +1066,15 @@ export const EditOrderModal = memo(
           setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
           title={t(TranslationKey['PAY ATTENTION!!!'])}
           btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            setShowWarningInfoModal(!showWarningInfoModal)
-          }}
+          onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
         />
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={t(TranslationKey['Track number'])}
             tmpCode={trackNumber.files}
-            maxNumber={50 - trackNumber.files.length}
-            onClickSaveBarcode={value => {
-              setTrackNumber({ ...trackNumber, files: value })
-              setShowSetBarcodeModal(!showSetBarcodeModal)
-            }}
+            maxNumber={50}
+            onClickSaveBarcode={value => setTrackNumber({ ...trackNumber, files: value })}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
@@ -1088,9 +1083,9 @@ export const EditOrderModal = memo(
           <ImageModal
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             isOpenModal={showPhotosModal}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 

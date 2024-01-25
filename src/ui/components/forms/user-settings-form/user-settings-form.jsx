@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TextareaAutosize, Typography } from '@mui/material'
@@ -13,12 +13,12 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './user-settings-form.style'
+import { useStyles } from './user-settings-form.style'
 
 import { UserSettingsModel } from './user-settings-form.model'
 
 export const UserSettingsForm = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const asModel = useRef(new UserSettingsModel({ history }))
 
@@ -46,9 +46,9 @@ export const UserSettingsForm = observer(() => {
   }
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       {!sourceUserSettings && (
-        <Typography className={classNames.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
+        <Typography className={styles.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
       )}
 
       {userSettingsAvailable.map((item, i) => (
@@ -57,7 +57,7 @@ export const UserSettingsForm = observer(() => {
           label={renderSettingsRuLabelByKey(item.key)}
           inputComponent={
             <TextareaAutosize
-              className={classNames.textField}
+              className={styles.textField}
               value={userSettings?.[item.key] || ''}
               onChange={onChangeField([item.key])}
             />
@@ -65,7 +65,7 @@ export const UserSettingsForm = observer(() => {
         />
       ))}
 
-      <div className={classNames.placeAddBtnWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
         <Button
           success
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}

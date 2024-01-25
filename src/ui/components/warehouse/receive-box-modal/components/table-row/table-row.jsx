@@ -36,7 +36,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
                   {el?.product?.asin ? (
                     <a
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noreferrer noopener"
                       href={`https://www.amazon.com/dp/${el?.product?.asin}`}
                       className={styles.normalizeLink}
                     >

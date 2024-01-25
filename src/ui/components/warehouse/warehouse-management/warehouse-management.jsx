@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,14 +15,14 @@ import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 
 export const WarehouseManagement = observer(() => {
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
     setTabIndex(() => tabIndex)
   }, [SettingsModel.languageTag])
 
   return (
-    <React.Fragment>
+    <>
       <CustomSwitcher
         switchMode={'medium'}
         condition={tabIndex}
@@ -44,6 +44,6 @@ export const WarehouseManagement = observer(() => {
       <TabPanel value={tabIndex} index={2}>
         <WarehouseTariffs />
       </TabPanel>
-    </React.Fragment>
+    </>
   )
 })

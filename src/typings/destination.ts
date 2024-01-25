@@ -1,4 +1,4 @@
-import { LogisticTariffInterface } from './logistics-tariff'
+import { ILogisticTariff } from './logistics-tariff'
 import { IShortUser } from './master-user'
 
 export interface IDestination {
@@ -18,8 +18,6 @@ export interface IDestination {
   updatedAt: string
 }
 
-export interface IRequestProposal {}
-
 export interface IDestinationVariation {
   _id: string
   minWeight: number
@@ -36,12 +34,13 @@ export interface IDestinationVariationApproximateCalculations extends IDestinati
   _id: string
   roi: number
   costDeliveryToUsa: number
+  destinationId: string | null
 }
 
 export interface IDestinationStorekeeper {
   _id: string
   name: string
-  tariffLogistics: LogisticTariffInterface[]
+  tariffLogistics: ILogisticTariff[]
   tariffWarehouses: []
   boxesCount: 0
 }

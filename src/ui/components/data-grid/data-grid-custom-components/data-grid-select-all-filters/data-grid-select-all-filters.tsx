@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useClassNames } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters.style'
+import { useStyles } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters.style'
 import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
@@ -13,9 +13,10 @@ interface DataGridSelectAllFiltersProps {
   itemsForRender: string[]
 }
 
-export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props => {
+export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = memo(props => {
   const { choosenItems, setChoosenItems, itemsForRender } = props
-  const { classes: classNames } = useClassNames()
+
+  const { classes: styles } = useStyles()
 
   const selectAllItemsHandler = (fullList: string[]) => {
     if (fullList.length === choosenItems.length) {
@@ -26,15 +27,15 @@ export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props
   }
 
   return (
-    <div className={classNames.body}>
+    <div className={styles.body}>
       <Checkbox
         color="primary"
         checked={itemsForRender.length === choosenItems.length}
         onClick={() => selectAllItemsHandler(itemsForRender)}
       />
-      <div title={t(TranslationKey.All)} className={classNames.title}>
+      <div title={t(TranslationKey.All)} className={styles.title}>
         {t(TranslationKey.All)}
       </div>
     </div>
   )
-}
+})

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -39,10 +38,10 @@ import {
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
+import { clearEverythingExceptNumbers, parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-view-and-edit-card.style'
+import { useStyles } from './idea-view-and-edit-card.style'
 
 import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
@@ -81,7 +80,7 @@ export const IdeaViewAndEditCard = observer(
     onClickRequestId,
     onClickUnbindButton,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const linkListRef = useRef(null)
 
@@ -137,8 +136,8 @@ export const IdeaViewAndEditCard = observer(
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
-      comments: idea?.comments || '',
-      buyerComment: idea?.buyerComment || '',
+      comments: parseTextString(idea?.comments) || '',
+      buyerComment: parseTextString(idea?.buyerComment) || '',
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
       criteria: idea?.criteria || '',
@@ -153,8 +152,8 @@ export const IdeaViewAndEditCard = observer(
       ...curIdea,
       status: curIdea?.status,
       media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
-      comments: curIdea?.comments || '',
-      buyerComment: curIdea?.buyerComment || '',
+      comments: parseTextString(curIdea?.comments) || '',
+      buyerComment: parseTextString(curIdea?.buyerComment) || '',
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',
@@ -335,15 +334,15 @@ export const IdeaViewAndEditCard = observer(
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
-      <div className={cx(classNames.root, isModalView && classNames.rootModal)}>
-        <div className={classNames.headerWrapper}>
+      <div className={cx(styles.root, isModalView && styles.rootModal)}>
+        <div className={styles.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
             currentStatus={formFields?.status}
             ideaData={formFields}
           />
 
-          <div className={classNames.sourcesProductWraper}>
+          <div className={styles.sourcesProductWraper}>
             {formFields.childProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
@@ -367,11 +366,11 @@ export const IdeaViewAndEditCard = observer(
           </div>
         </div>
 
-        <div className={cx(classNames.contentWrapper, { [classNames.modalContentWrapper]: isModalView })}>
-          <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-            <div className={classNames.mediaBlock}>
+        <div className={cx(styles.contentWrapper, { [styles.modalContentWrapper]: isModalView })}>
+          <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
+            <div className={styles.mediaBlock}>
               {!inCreate && (
-                <div className={classNames.photoCarouselWrapper}>
+                <div className={styles.photoCarouselWrapper}>
                   <PhotoAndFilesSlider
                     showPreviews
                     withoutFiles
@@ -395,12 +394,12 @@ export const IdeaViewAndEditCard = observer(
               )}
 
               {showFullCard && currentUserIsClient && (
-                <div className={classNames.requestsBlockWrapper}>
-                  <div className={classNames.requestsControlWrapper}>
-                    <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
+                <div className={styles.requestsBlockWrapper}>
+                  <div className={styles.requestsControlWrapper}>
+                    <p className={styles.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
-                    <div className={classNames.requestsControlButtonsWrapper}>
-                      <div className={classNames.switcherWrapper}>
+                    <div className={styles.requestsControlButtonsWrapper}>
+                      <div className={styles.switcherWrapper}>
                         <CustomSwitcher
                           switchMode={'medium'}
                           condition={showRequestType}
@@ -419,7 +418,7 @@ export const IdeaViewAndEditCard = observer(
                   </div>
 
                   {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
-                    <div className={classNames.requestsWrapper}>
+                    <div className={styles.requestsWrapper}>
                       {requestsToRender?.map((request, requestIndex) => (
                         <IdeaRequestCard
                           key={requestIndex}
@@ -444,13 +443,13 @@ export const IdeaViewAndEditCard = observer(
               )}
             </div>
 
-            <div className={classNames.commentsWrapper}>
+            <div className={styles.commentsWrapper}>
               <Field
                 multiline
                 disabled={disableFields || currentUserIsBuyer}
-                className={classNames.сlientСomment}
-                containerClasses={classNames.noMarginContainer}
-                labelClasses={classNames.spanLabel}
+                className={styles.сlientСomment}
+                containerClasses={styles.noMarginContainer}
+                labelClasses={styles.spanLabel}
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client comments'])}
                 value={formFields.comments}
@@ -467,9 +466,9 @@ export const IdeaViewAndEditCard = observer(
                 multiline
                 disabled={disableFields || currentUserIsClient}
                 label={t(TranslationKey['Buyer comments'])}
-                labelClasses={classNames.spanLabel}
-                className={classNames.buyerComment}
-                containerClasses={classNames.noMarginContainer}
+                labelClasses={styles.spanLabel}
+                className={styles.buyerComment}
+                containerClasses={styles.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
                 value={formFields.buyerComment}
                 sx={{
@@ -485,21 +484,21 @@ export const IdeaViewAndEditCard = observer(
 
           {showFullCard && (
             <>
-              <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
-                <Typography className={classNames.supplierSearchTitle}>
+              <div className={cx(styles.middleBlock, { [styles.fullMiddleBlock]: showFullCard })}>
+                <Typography className={styles.supplierSearchTitle}>
                   {t(TranslationKey['Supplier search options'])}
                 </Typography>
 
-                <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-                  <div className={classNames.nameAndInfoProductWrapper}>
+                <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
+                  <div className={styles.nameAndInfoProductWrapper}>
                     <Field
                       disabled={disableFields}
                       label={`${t(TranslationKey['Product name'])}*`}
                       inputProps={{ maxLength: 130 }}
                       value={formFields.productName}
-                      labelClasses={classNames.spanLabel}
-                      containerClasses={classNames.noMarginContainer}
-                      className={classNames.oneLineField}
+                      labelClasses={styles.spanLabel}
+                      containerClasses={styles.noMarginContainer}
+                      className={styles.oneLineField}
                       onChange={onChangeField('productName')}
                     />
 
@@ -508,9 +507,9 @@ export const IdeaViewAndEditCard = observer(
                       minRows={10}
                       maxRows={10}
                       disabled={disableFields}
-                      labelClasses={classNames.spanLabel}
-                      className={classNames.criterionsField}
-                      containerClasses={classNames.noMarginContainer}
+                      labelClasses={styles.spanLabel}
+                      className={styles.criterionsField}
+                      containerClasses={styles.noMarginContainer}
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
                       value={formFields.criteria}
@@ -518,28 +517,28 @@ export const IdeaViewAndEditCard = observer(
                     />
                   </div>
 
-                  <div className={classNames.linksAndDimensionsWrapper}>
+                  <div className={styles.linksAndDimensionsWrapper}>
                     <Field
-                      labelClasses={classNames.spanLabel}
+                      labelClasses={styles.spanLabel}
                       label={t(TranslationKey.Links)}
-                      containerClasses={classNames.noMarginContainer}
-                      className={classNames.oneLineField}
+                      containerClasses={styles.noMarginContainer}
+                      className={styles.oneLineField}
                       inputComponent={
-                        <div className={classNames.linksWrapper}>
+                        <div className={styles.linksWrapper}>
                           {(inEdit || inCreate) && (
-                            <div className={classNames.inputWrapper}>
+                            <div className={styles.inputWrapper}>
                               <Input
                                 disabled={disableFields}
                                 placeholder={t(TranslationKey['Link to the product'])}
                                 inputProps={{ maxLength: 510 }}
                                 value={linkLine}
-                                className={classNames.input}
+                                className={styles.input}
                                 onChange={e => setLinkLine(e.target.value)}
                               />
                               <Button
                                 disableElevation
                                 disabled={!linkLine || disableFields}
-                                className={classNames.defaultBtn}
+                                className={styles.defaultBtn}
                                 variant="contained"
                                 color="primary"
                                 onClick={onClickLinkBtn}
@@ -548,43 +547,43 @@ export const IdeaViewAndEditCard = observer(
                               </Button>
                             </div>
                           )}
-                          <div ref={linkListRef} className={classNames.linksSubWrapper}>
+                          <div ref={linkListRef} className={styles.linksSubWrapper}>
                             {formFields?.productLinks?.length ? (
                               formFields?.productLinks?.map((el, index) => (
-                                <div key={index} className={classNames.linkWrapper}>
-                                  <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                                    <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                <div key={index} className={styles.linkWrapper}>
+                                  <Link target="_blank" href={el} className={styles.linkTextWrapper}>
+                                    <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
                                   </Link>
 
-                                  <div className={classNames.linksBtnsWrapper}>
+                                  <div className={styles.linksBtnsWrapper}>
                                     <CopyValue text={el} />
                                     {!disableFields && (
                                       <IconButton
-                                        className={classNames.deleteBtnWrapper}
+                                        className={styles.deleteBtnWrapper}
                                         onClick={() => onRemoveLink(index)}
                                       >
-                                        <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+                                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
                                       </IconButton>
                                     )}
                                   </div>
                                 </div>
                               ))
                             ) : (
-                              <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                              <Typography className={styles.noDataText}>{t(TranslationKey['No data'])}</Typography>
                             )}
                           </div>
                         </div>
                       }
                     />
 
-                    <div className={classNames.shortFieldsSubWrapper}>
+                    <div className={styles.shortFieldsSubWrapper}>
                       <Field
                         disabled={disableFields}
                         inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.shortInput}
-                        className={classNames.oneLineField}
-                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        labelClasses={styles.spanLabel}
+                        inputClasses={styles.shortInput}
+                        className={styles.oneLineField}
+                        containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey.Quantity)}
                         value={formFields.quantity}
                         onChange={onChangeField('quantity')}
@@ -592,20 +591,20 @@ export const IdeaViewAndEditCard = observer(
                       <Field
                         disabled={disableFields}
                         inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.shortInput}
-                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        labelClasses={styles.spanLabel}
+                        inputClasses={styles.shortInput}
+                        containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey['Desired purchase price']) + ', $'}
                         value={formFields.price}
-                        className={classNames.oneLineField}
+                        className={styles.oneLineField}
                         onChange={onChangeField('price')}
                       />
                     </div>
 
-                    <div className={classNames.shortFieldsSubWrapper}>
-                      <div className={classNames.sizesWrapper}>
-                        <div className={classNames.sizesSubWrapper}>
-                          <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+                    <div className={styles.shortFieldsSubWrapper}>
+                      <div className={styles.sizesWrapper}>
+                        <div className={styles.sizesSubWrapper}>
+                          <p className={styles.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
                           <div>
                             <CustomSwitcher
@@ -619,14 +618,14 @@ export const IdeaViewAndEditCard = observer(
                           </div>
                         </div>
 
-                        <div className={classNames.sizesBottomWrapper}>
+                        <div className={styles.sizesBottomWrapper}>
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Width)}
                             value={formFields.width}
                             onChange={onChangeField('width')}
@@ -634,10 +633,10 @@ export const IdeaViewAndEditCard = observer(
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Height)}
                             value={formFields.height}
                             onChange={onChangeField('height')}
@@ -645,10 +644,10 @@ export const IdeaViewAndEditCard = observer(
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Length)}
                             value={formFields.length}
                             onChange={onChangeField('length')}
@@ -656,15 +655,15 @@ export const IdeaViewAndEditCard = observer(
                         </div>
                       </div>
 
-                      <div className={classNames.approximateCalculationFieldsWrapper}>
+                      <div className={styles.approximateCalculationFieldsWrapper}>
                         <Field
                           label={t(TranslationKey['Referral fee, $'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.approximateCalculationInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          labelClasses={styles.spanLabel}
+                          inputClasses={styles.approximateCalculationInput}
+                          className={styles.oneLineField}
+                          containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
                           value={formFields.fbaFee}
                           onChange={onChangeField('fbaFee')}
                         />
@@ -673,10 +672,10 @@ export const IdeaViewAndEditCard = observer(
                           label={t(TranslationKey['Approximate price'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.approximateCalculationInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
+                          labelClasses={styles.spanLabel}
+                          inputClasses={styles.approximateCalculationInput}
+                          className={styles.oneLineField}
+                          containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
                           value={formFields.approximatePrice}
                           onChange={onChangeField('approximatePrice')}
                         />
@@ -688,33 +687,33 @@ export const IdeaViewAndEditCard = observer(
             </>
           )}
 
-          <div className={classNames.fullMiddleBlock}>
+          <div className={styles.fullMiddleBlock}>
             <Field
-              labelClasses={cx(classNames.spanLabel, classNames.labelWithMargin)}
+              labelClasses={cx(styles.spanLabel, styles.labelWithMargin)}
               label={t(TranslationKey.Suppliers)}
-              containerClasses={classNames.noMarginContainer}
+              containerClasses={styles.noMarginContainer}
               inputComponent={
-                <div className={classNames.supplierActionsWrapper}>
+                <div className={styles.supplierActionsWrapper}>
                   {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
-                    <div className={classNames.supplierButtonWrapper}>
+                    <div className={styles.supplierButtonWrapper}>
                       <Button
                         disabled={!selectedSupplier}
                         tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                        className={classNames.iconBtn}
+                        className={styles.iconBtn}
                         onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
                       >
                         <VisibilityOutlinedIcon />
                       </Button>
-                      <Typography className={classNames.supplierButtonText}>
+                      <Typography className={styles.supplierButtonText}>
                         {t(TranslationKey['Open the parameters supplier'])}
                       </Typography>
                     </div>
                   )}
 
-                  <div className={classNames.supplierButtonWrapper}>
+                  <div className={styles.supplierButtonWrapper}>
                     <Button
                       disabled={!formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer}
-                      className={classNames.iconBtn}
+                      className={styles.iconBtn}
                       onClick={() =>
                         onClickSupplierBtns(
                           'add',
@@ -725,17 +724,15 @@ export const IdeaViewAndEditCard = observer(
                     >
                       <AddIcon />
                     </Button>
-                    <Typography className={classNames.supplierButtonText}>
-                      {t(TranslationKey['Add supplier'])}
-                    </Typography>
+                    <Typography className={styles.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
                   </div>
                   {selectedSupplier && (
                     <>
-                      <div className={classNames.supplierButtonWrapper}>
+                      <div className={styles.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
                           disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          className={classNames.iconBtn}
+                          className={styles.iconBtn}
                           onClick={() =>
                             onClickSupplierBtns(
                               'edit',
@@ -746,14 +743,14 @@ export const IdeaViewAndEditCard = observer(
                         >
                           <EditOutlinedIcon />
                         </Button>
-                        <Typography className={classNames.supplierButtonText}>
+                        <Typography className={styles.supplierButtonText}>
                           {t(TranslationKey['Edit a supplier'])}
                         </Typography>
                       </div>
-                      <div className={classNames.supplierButtonWrapper}>
+                      <div className={styles.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                          className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                          className={cx(styles.iconBtn, styles.iconBtnRemove)}
                           disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
                           onClick={() =>
                             onClickSupplierBtns(
@@ -765,7 +762,7 @@ export const IdeaViewAndEditCard = observer(
                         >
                           <DeleteOutlineOutlinedIcon />
                         </Button>
-                        <Typography className={classNames.supplierButtonText}>
+                        <Typography className={styles.supplierButtonText}>
                           {t(TranslationKey['Delete supplier'])}
                         </Typography>
                       </div>
@@ -785,10 +782,10 @@ export const IdeaViewAndEditCard = observer(
         </div>
 
         {!!idea && disableFields ? (
-          <div className={classNames.existedIdeaBtnsWrapper}>
+          <div className={styles.existedIdeaBtnsWrapper}>
             {!isModalView ? (
-              <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-                <Typography className={classNames.tablePanelViewText}>
+              <div className={styles.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
+                <Typography className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
@@ -803,9 +800,9 @@ export const IdeaViewAndEditCard = observer(
             )}
 
             {!checkIsAdmin(userRole) && (
-              <div className={classNames.existedIdeaBtnsSubWrapper}>
+              <div className={styles.existedIdeaBtnsSubWrapper}>
                 {currentUserIsBuyer && isSupplierSearch && (
-                  <div className={classNames.supplierFoundWrapper}>
+                  <div className={styles.supplierFoundWrapper}>
                     <RadioButtons
                       radioBottonsSettings={radioBottonsSettings}
                       currentValue={supplierFound}
@@ -817,7 +814,7 @@ export const IdeaViewAndEditCard = observer(
                       disabled={!supplierFound}
                       variant="contained"
                       color="primary"
-                      className={classNames.actionButton}
+                      className={styles.actionButton}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
                       {t(TranslationKey.Save)}
@@ -826,7 +823,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {(isSupplierFound || isSupplierNotFound) && (
-                  <p className={cx(classNames.statusText, { [classNames.supplierNotFoundText]: isSupplierNotFound })}>
+                  <p className={cx(styles.statusText, { [styles.supplierNotFoundText]: isSupplierNotFound })}>
                     {isSupplierFound ? t(TranslationKey['Supplier found']) : t(TranslationKey['Supplier not found'])}
                   </p>
                 )}
@@ -838,7 +835,7 @@ export const IdeaViewAndEditCard = observer(
                     variant="contained"
                     color="primary"
                     disabled={idea.childProduct}
-                    className={[classNames.actionButton]}
+                    className={[styles.actionButton]}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
@@ -849,10 +846,10 @@ export const IdeaViewAndEditCard = observer(
                   <Button
                     success
                     variant="contained"
-                    className={classNames.actionButton}
+                    className={styles.actionButton}
                     onClick={() => onClickCreateRequestButton(formFields)}
                   >
-                    <PlusIcon className={classNames.plusIcon} />
+                    <PlusIcon className={styles.plusIcon} />
                     {t(TranslationKey['Create a request'])}
                   </Button>
                 )}
@@ -913,7 +910,7 @@ export const IdeaViewAndEditCard = observer(
                 {isModalView && (
                   <Button
                     variant="text"
-                    className={cx(classNames.actionButton, classNames.cancelBtn)}
+                    className={cx(styles.actionButton, styles.cancelBtn)}
                     onClick={() => onClickCancelBtn()}
                   >
                     {t(TranslationKey.Close)}
@@ -923,7 +920,7 @@ export const IdeaViewAndEditCard = observer(
             )}
           </div>
         ) : (
-          <div className={classNames.addOrEditBtnsWrapper}>
+          <div className={styles.addOrEditBtnsWrapper}>
             <Button
               success
               disabled={disabledSubmit}
@@ -936,7 +933,7 @@ export const IdeaViewAndEditCard = observer(
 
             <Button
               variant="text"
-              className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
+              className={cx(styles.actionButton, styles.btnLeftMargin, styles.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >
               {t(TranslationKey.Close)}

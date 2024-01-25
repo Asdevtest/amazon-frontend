@@ -12,6 +12,8 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { GeneralNotificationsColumns } from '@components/table/table-columns/general-notifications-columns/general-notifications-columns'
+
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
@@ -20,8 +22,6 @@ import { objectToUrlQs } from '@utils/text'
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
 import { IProductIdeaNotification } from '@typings/product'
 import { IUser } from '@typings/user'
-
-import { GeneralNotificationsColumns } from '../../../components/table/table-columns/general-notifications-columns/general-notifications-columns'
 
 interface IVariations {
   isArchive: boolean
@@ -124,7 +124,6 @@ export class GeneralNotificationsViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-        // storekeeperId: opts.storekeeperId,
         filters: this.getFilter(),
       })
 

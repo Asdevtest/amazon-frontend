@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './comment-users-cell.style'
 
@@ -10,7 +10,7 @@ interface CommentUsersCellProps {
   maxLength?: number
 }
 
-export const CommentUsersCell: FC<CommentUsersCellProps> = React.memo(({ handler, comment, maxLength }) => {
+export const CommentUsersCell: FC<CommentUsersCellProps> = memo(({ handler, comment, maxLength }) => {
   const { classes: styles } = useStyles()
 
   return (

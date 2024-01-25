@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
 
-import { useStyles } from './announcement-modal.styles'
+import { useStyles } from './announcement-modal.style'
 
 interface AnnouncementModalProps {
   isOpenModal: boolean
@@ -89,7 +89,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             <div className={styles.descriptionContainer}>
               <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
               <div className={styles.description}>
-                <CustomTextEditor readOnly conditions={service.description} />
+                <CustomTextEditor readOnly value={service.description} />
               </div>
             </div>
 
