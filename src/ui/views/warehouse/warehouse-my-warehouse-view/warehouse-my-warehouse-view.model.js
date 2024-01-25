@@ -248,7 +248,6 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
-        // fbaShipment: data.fbaShipment, (метод не принимает)
       })
 
       this.getBoxesMy()
