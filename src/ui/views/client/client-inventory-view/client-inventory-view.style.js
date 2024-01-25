@@ -40,8 +40,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   icon: {
-    width: 16,
-    height: 16,
+    width: '16px !important',
+    height: '16px !important',
   },
 
   archiveAddBtn: {

@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { Pencil } from '@components/shared/svg-icons'
+import { PencilIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -116,7 +116,7 @@ export const useSupplierInfo = ({
           <LabelWithCopy labelValue={formFields?.product?.barCode} lableLinkTitle={t(TranslationKey.View)} />
           {isPendingOrdering ? (
             <button className={styles.pencinButton} onClick={handleToggleSetBarCodeModal}>
-              <Pencil className={styles.pencilIcon} />
+              <PencilIcon className={styles.pencilIcon} />
             </button>
           ) : null}
         </div>

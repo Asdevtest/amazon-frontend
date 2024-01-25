@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatContract } from '@models/chat-model/contracts'
 
 import { CurrentOpponent } from '@components/chat/multiple-chats'
-import { Pencil } from '@components/shared/svg-icons'
+import { PencilIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -39,7 +39,7 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
           {isGroupChat && `${chat?.users?.length} ${t(TranslationKey.Participants).toLocaleLowerCase()}`}
         </p>
         {isGroupChat && userId === chat.info?.createdBy && (
-          <Pencil className={styles.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
+          <PencilIcon className={styles.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
         )}
       </div>
     </div>
