@@ -1065,20 +1065,15 @@ export const EditOrderModal = memo(
           setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
           title={t(TranslationKey['PAY ATTENTION!!!'])}
           btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            setShowWarningInfoModal(!showWarningInfoModal)
-          }}
+          onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
         />
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={t(TranslationKey['Track number'])}
             tmpCode={trackNumber.files}
-            maxNumber={50 - trackNumber.files.length}
-            onClickSaveBarcode={value => {
-              setTrackNumber({ ...trackNumber, files: value })
-              setShowSetBarcodeModal(!showSetBarcodeModal)
-            }}
+            maxNumber={50}
+            onClickSaveBarcode={value => setTrackNumber({ ...trackNumber, files: value })}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>

@@ -240,13 +240,10 @@ export const BoxInfoTab = observer(
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
-            title={'Track number'}
-            maxNumber={50 - trackNumbers.length}
+            title={t(TranslationKey['Track number'])}
+            maxNumber={50}
             tmpCode={formFields?.tmpTrackNumberFile}
-            onClickSaveBarcode={value => {
-              setTmpTrackNumberFile(value)
-              setShowSetBarcodeModal(!showSetBarcodeModal)
-            }}
+            onClickSaveBarcode={value => setTmpTrackNumberFile(value)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
