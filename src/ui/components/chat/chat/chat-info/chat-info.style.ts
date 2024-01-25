@@ -65,6 +65,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   videoWrapper: {
+    width: '100%',
+    height: '100px',
+    objectFit: 'cover',
     cursor: 'pointer',
+    overflow: 'hidden',
   },
 }))

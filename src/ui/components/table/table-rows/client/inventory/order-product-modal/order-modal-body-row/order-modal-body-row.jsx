@@ -455,7 +455,7 @@ export const OrderModalBodyRow = ({
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
-            onClickNotChosen={() => onChangeInput({ target: { value: '' } }, 'destinationId')}
+            onClickNotChosen={() => onChangeInput({ target: { value: item?.destinationId } }, 'destinationId')}
             onClickSelect={el => onChangeInput({ target: { value: el._id } }, 'destinationId')}
           />
         </TableCell>
