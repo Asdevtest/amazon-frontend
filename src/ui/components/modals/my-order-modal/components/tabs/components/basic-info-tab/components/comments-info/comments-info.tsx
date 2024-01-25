@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { Card } from '@components/modals/my-order-modal/components'
 import { Field } from '@components/shared/field'
-import { Pencil } from '@components/shared/svg-icons'
+import { PencilIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -58,7 +58,7 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
                       onClick={() => onChangeCommentState(item)}
                     >
                       {t(TranslationKey['View more'])}
-                      {showPencilIcon ? <Pencil className={styles.pencilIcon} /> : null}
+                      {showPencilIcon ? <PencilIcon className={styles.pencilIcon} /> : null}
                     </button>
                   )}
                 </div>

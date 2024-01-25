@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -9,12 +8,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { useStyles } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
 import { Button } from '@components/shared/buttons/button'
-import { InventoryIcon } from '@components/shared/svg-icons'
+import { InventoryIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore, onClickAddProduct, isClient }) => {
+export const DashboardOneLineCardsList = props => {
+  const { config, valuesData, onClickViewMore, onClickAddProduct, isClient } = props
+
   const { classes: styles, cx } = useStyles()
+
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore,
         </div>
         {isClient ? (
           <Button success className={styles.addButton} onClick={() => onClickAddProduct(config.route)}>
-            <img src="/assets/icons/white-plus.svg" className={styles.iconBtn} />
+            <PlusIcon className={styles.iconBtn} />
             {t(TranslationKey['Add product'])}
           </Button>
         ) : null}
