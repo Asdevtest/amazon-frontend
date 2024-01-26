@@ -20,6 +20,7 @@ interface Props {
   placeholder?: string
   startText?: string
   inputClasses?: ClassNamesArg
+  tab?: string
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
   onKeyDown?: () => void
@@ -31,6 +32,7 @@ export const SearchInput: FC<Props> = ({
   placeholder,
   inputClasses,
   startText,
+  tab,
   onChange,
   onSubmit,
   onKeyDown,
@@ -67,6 +69,10 @@ export const SearchInput: FC<Props> = ({
       setInternalValue(valueWitchoutSpaces)
     }
   }
+
+  useEffect(() => {
+    onClickCloseIcon()
+  }, [tab])
 
   return (
     <Input

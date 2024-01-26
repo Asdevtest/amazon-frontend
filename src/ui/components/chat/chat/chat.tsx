@@ -136,11 +136,18 @@ export const Chat: FC<ChatProps> = memo(
 
     const handleScrollToBottomButtonVisibility = (bottomState: boolean) => setIsShowScrollToBottomBtn(!bottomState)
 
+    const onClickScrollToBottom = () => {
+      if (!messagesWrapperRef.current) {
+        return
+      }
+      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
+    }
+
     const onSubmitMessageInternal = () => {
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
-      onClickScrollToBottom()
+      // onClickScrollToBottom()
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -148,13 +155,6 @@ export const Chat: FC<ChatProps> = memo(
         onSubmitMessageInternal()
         event.preventDefault()
       }
-    }
-
-    const onClickScrollToBottom = () => {
-      if (!messagesWrapperRef.current) {
-        return
-      }
-      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
     }
 
     const scrollToMessage = (messageIndex: number) => {

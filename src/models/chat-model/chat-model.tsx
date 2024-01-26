@@ -387,7 +387,7 @@ class ChatModelStatic {
     }
 
     try {
-      await this.websocketChatService.removeUsersFromGroupChat(params)
+      this.websocketChatService.removeUsersFromGroupChat(params)
       const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
       if (!chatTypeAndIndex) {
         return

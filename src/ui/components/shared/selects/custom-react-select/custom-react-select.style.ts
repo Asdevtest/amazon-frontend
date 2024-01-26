@@ -26,9 +26,10 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease',
     overflowX: 'hidden',
     overflowY: 'auto',
+    maxHeight: 250,
 
     [theme.breakpoints.down(768)]: {
-      maxHeight: 300,
+      maxHeight: 250,
     },
   },
 

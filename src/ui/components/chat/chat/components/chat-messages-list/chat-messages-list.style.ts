@@ -22,9 +22,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  message: {
-    margin: '10px 0',
-  },
+  message: {},
 
   unReadMessage: {
     backgroundColor: 'rgba(0,0,0, .07)',
@@ -146,6 +144,11 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
     '& > div': {
       padding: '10px',
+      '& > div': {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+      },
     },
   },
 }))

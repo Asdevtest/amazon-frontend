@@ -29,7 +29,6 @@ export const useStyles = makeStyles()(theme => ({
   membersWrapper: {
     padding: 10,
     overflowY: 'auto',
-    maxHeight: 470,
     width: '100%',
 
     [theme.breakpoints.down(768)]: {

@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 85,
     background: theme.palette.background.general,
     borderBottom: `1px solid ${theme.palette.background.second}`,
 
