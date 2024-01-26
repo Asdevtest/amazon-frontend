@@ -18,7 +18,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -262,15 +262,6 @@ export const AddOrEditBatchForm = observer(
         ),
       ])
     }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
-
-    // useEffect(() => {
-    //   setIsActualGreaterTheVolume(
-    //     checkActualBatchWeightGreaterVolumeBatchWeight(
-    //       chosenBoxes.map(el => el.originalData),
-    //       batchFields.volumeWeightDivide,
-    //     ),
-    //   )
-    // }, [chosenBoxes.length, batchFields.volumeWeightDivide, batchFields.calculationMethod]) // новое
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxesBase].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -686,18 +677,8 @@ export const AddOrEditBatchForm = observer(
               />
             </div>
             <div className={styles.imageAndFileInputWrapper}>
-              <Field
-                containerClasses={styles.filesWrapper}
-                label={t(TranslationKey.Files)}
-                inputComponent={
-                  <PhotoAndFilesCarousel
-                    small
-                    direction={window.screen.width < 768 ? 'column' : 'row'}
-                    files={batchToEdit?.originalData.attachedDocuments}
-                    width={window.screen.width < 768 ? '100%' : '400px'}
-                  />
-                }
-              />
+              <p>{t(TranslationKey.Files)}</p>
+              <PhotoAndFilesSlider smallSlider showPreviews files={batchToEdit?.originalData.attachedDocuments} />
             </div>
           </div>
 

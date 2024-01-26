@@ -10,6 +10,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
+import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -343,7 +344,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showProductModal && (
+      {viewModel.showProductModal ? (
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
@@ -357,7 +358,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
           onClickInTransferModal={viewModel.onClickInTransfer}
         />
-      )}
+      ) : null}
 
       {viewModel.showMyOrderModal ? (
         <MyOrderModal
@@ -377,6 +378,20 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onClickReorder={viewModel.onClickReorder}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
         />
+      ) : null}
+
+      {viewModel.showProductLotDataModal ? (
+        <Modal
+          openModal={viewModel.showProductLotDataModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        >
+          <ProductLotDataForm
+            isTransfer
+            userInfo={viewModel.userInfo}
+            product={[viewModel.selectedWarehouseOrderProduct]}
+            batchesData={viewModel.batchesData}
+          />
+        </Modal>
       ) : null}
 
       {viewModel.showCheckPendingOrderFormModal && (

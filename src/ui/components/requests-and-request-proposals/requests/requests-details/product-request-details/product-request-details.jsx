@@ -2,7 +2,7 @@ import { Paper, Typography } from '@mui/material'
 
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { parseTextString, toFixedWithDollarSign } from '@utils/text'
 
 import { useStyles } from './product-request-details.style'
 
@@ -157,7 +157,7 @@ export const ProductSearchRequestDetails = ({ request }) => {
                 <Typography>{'tableNotesField'}</Typography>
               </div>
               <div className={cx(styles.rightColumn, styles.clientComment)}>
-                <Typography>{request.clientComment}</Typography>
+                <Typography>{parseTextString(request.clientComment)}</Typography>
               </div>
             </div>
 

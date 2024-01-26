@@ -195,6 +195,7 @@ export class BuyerProductViewModel {
       this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldsName]: '' }
 
       this.product = { ...this.product, [fieldsName]: e.target.value }
+
       updateProductAutoCalculatedFields.call(this)
     })
 

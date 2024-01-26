@@ -41,15 +41,25 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  commentEditor: {
-    minHeight: 48,
-    height: '48px !important',
+  editorWrapper: {
+    marginBottom: '0 !important',
+  },
+
+  editor: {
+    height: 48,
+    padding: '0 !important',
     fontSize: 12,
     lineHeight: '16px',
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
+    background: `${theme.palette.background.general} !important`,
+
+    textarea: {
+      padding: '0 !important',
+      overflow: 'hidden',
+      display: '-webkit-box',
+      WebkitLineClamp: 3,
+      WebkitBoxOrient: 'vertical',
+      background: `${theme.palette.background.general} !important`,
+    },
   },
 
   commentTitle: {

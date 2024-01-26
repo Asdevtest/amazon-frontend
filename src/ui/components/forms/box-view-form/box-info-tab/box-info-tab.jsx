@@ -187,6 +187,7 @@ export const BoxInfoTab = observer(
                 <div className={styles.trackNumberFields}>
                   <Field
                     disabled={!isEdit}
+                    placeholder={t(TranslationKey['Not available'])}
                     inputClasses={styles.input}
                     // containerClasses={styles.field}
                     labelClasses={cx(styles.text, styles.label)}
@@ -218,21 +219,23 @@ export const BoxInfoTab = observer(
             <div className={styles.flexContainer}>
               <Field
                 disabled={isClient || isBuyer}
+                placeholder={t(TranslationKey['Not available'])}
                 inputClasses={styles.input}
                 containerClasses={cx(styles.field, styles.bigField)}
                 labelClasses={cx(styles.text, styles.label)}
                 inputProps={{ maxLength: 250 }}
                 label={'UPS Track number'}
-                value={formFields?.upsTrackNumber || t(TranslationKey['Not available'])}
+                value={formFields?.upsTrackNumber || ''}
                 onChange={onChangeField('upsTrackNumber')}
               />
               <Field
                 disabled
+                placeholder={t(TranslationKey['Not available'])}
                 inputClasses={styles.input}
                 containerClasses={cx(styles.field, styles.bigField)}
                 labelClasses={cx(styles.text, styles.label)}
                 label={t(TranslationKey['FBA Shipment'])}
-                value={formFields?.fbaShipment || t(TranslationKey['Not available'])}
+                value={formFields?.fbaShipment || ''}
               />
             </div>
           </div>

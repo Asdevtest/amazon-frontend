@@ -215,15 +215,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  descriptionFieldWrapper: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
-
-    marginTop: 20,
-  },
-
   pricesWrapper: {
     display: 'flex',
     gap: 5,
@@ -642,7 +633,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorClassName: {
-    maxHeight: '138px !important',
+    minHeight: '140px !important',
+    maxHeight: '140px !important',
   },
   selectedCheckbox: {
     display: 'flex',

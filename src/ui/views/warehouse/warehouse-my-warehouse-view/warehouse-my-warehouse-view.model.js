@@ -252,13 +252,13 @@ export class WarehouseMyWarehouseViewModel {
 
       this.getBoxesMy()
 
-      this.onTriggerOpenModal('showBoxViewModal')
-
       runInAction(() => {
         this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
       })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
     }

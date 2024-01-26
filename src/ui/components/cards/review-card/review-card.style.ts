@@ -43,8 +43,4 @@ export const useStyles = makeStyles()(theme => ({
   rating: {
     fontSize: 16,
   },
-
-  editor: {
-    minHeight: 'auto',
-  },
 }))
