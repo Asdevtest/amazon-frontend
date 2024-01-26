@@ -13,6 +13,8 @@ export const useChatInputControl = (messageInitialState: IMessageState) => {
   const [message, setMessage] = useState(messageInitialState.message)
   const [files, setFiles] = useState<UploadFileType[]>(messageInitialState.files)
 
+  const disabledSubmit = !message.trim() && !files.length
+
   const changeFilesAndState = (value: UploadFileType[]) => {
     setFiles(value)
   }
@@ -79,6 +81,7 @@ export const useChatInputControl = (messageInitialState: IMessageState) => {
     setIsShowEmojis,
 
     focused,
+    disabledSubmit,
 
     onPasteFiles,
 

@@ -47,12 +47,12 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     isGroupChat,
     messageToScroll,
     isShowChatInfo,
-    setMessageToReply,
     messagesWrapperRef,
     chatId,
     isFreelanceOwner,
     firstItemIndex,
     prependItems,
+    setMessageToReply,
     handleScrollToBottomButtonVisibility,
     scrollToMessage,
   } = props
@@ -109,11 +109,9 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     const showName =
       (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
-    const isReply = messageItem?.replyMessageId
+    const replyMessageId = messageItem?.replyMessageId
 
-    const repleyMessage = messages.find(
-      el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
-    )
+    const repleyMessage = messages.find(el => typeof replyMessageId === 'string' && el._id === replyMessageId)
 
     const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
@@ -166,7 +164,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
               })}
             >
               <div className={styles.messageInnerContentWrapper}>
-                {isReply && repleyMessage && (
+                {repleyMessage && (
                   <div
                     className={styles.repleyWrapper}
                     onClick={e => {

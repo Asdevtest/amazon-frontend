@@ -102,6 +102,7 @@ export const Chat: FC<ChatProps> = memo(
       setIsShowEmojis,
 
       focused,
+      disabledSubmit,
 
       onPasteFiles,
       onFocus,
@@ -124,12 +125,10 @@ export const Chat: FC<ChatProps> = memo(
 
     const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
     const [messageToScroll, setMessageToScroll] = useState<number | undefined>(undefined)
+    const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
 
-    const disabledSubmit = !message.trim() && !files.length
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
-
-    const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
 
     const handleLoadMoreMessages = () => {
       ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length))
