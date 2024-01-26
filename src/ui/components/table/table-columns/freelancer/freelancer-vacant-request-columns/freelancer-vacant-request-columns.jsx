@@ -134,7 +134,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     width: 95,
     sortable: false,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

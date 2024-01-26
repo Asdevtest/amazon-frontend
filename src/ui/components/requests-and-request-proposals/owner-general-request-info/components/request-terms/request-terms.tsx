@@ -86,8 +86,8 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           </div>
         </div>
 
-        {`${spec?.type}` ===
-        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey]}` ? (
+        {spec?.type ===
+        freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey] ? (
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>
               <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</p>

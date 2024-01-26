@@ -97,7 +97,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     width: 140,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
