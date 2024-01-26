@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import {
   getConversion,
@@ -41,13 +41,6 @@ export const BoxInfoTab = memo(props => {
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-  const [trackNumbers, setTrackNumbers] = useState(formFields?.trackNumberFile)
-
-  useEffect(() => {
-    if (formFields?.tmpTrackNumberFile && formFields?.trackNumberFile) {
-      setTrackNumbers([...formFields.trackNumberFile, ...formFields.tmpTrackNumberFile])
-    }
-  }, [formFields?.trackNumberFile, formFields?.tmpTrackNumberFile])
 
   const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
@@ -57,8 +50,6 @@ export const BoxInfoTab = memo(props => {
   const finalWeightForBox = calcFinalWeightForBoxFunction
     ? calcFinalWeightForBoxFunction(formFields, volumeWeightCoefficient)
     : calcFinalWeightForBox(formFields, volumeWeightCoefficient)
-
-  const setTmpTrackNumberFile = value => onChangeField('tmpTrackNumberFile')({ target: { value } })
 
   return (
     <>
@@ -201,13 +192,20 @@ export const BoxInfoTab = memo(props => {
                   className={styles.trackNumberBtn}
                   onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                 >
-                  {trackNumbers.length ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
+                  {formFields?.trackNumberFile?.length
+                    ? t(TranslationKey['File added'])
+                    : t(TranslationKey['Photo track numbers'])}
                 </Button>
               </div>
 
               <div className={styles.trackNumberPhoto}>
-                {trackNumbers.length ? (
-                  <PhotoAndFilesSlider showPreviews withAllFiles customSlideHeight={76} files={trackNumbers} />
+                {formFields?.trackNumberFile?.length ? (
+                  <PhotoAndFilesSlider
+                    showPreviews
+                    withAllFiles
+                    customSlideHeight={76}
+                    files={formFields?.trackNumberFile}
+                  />
                 ) : (
                   <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}
@@ -244,8 +242,8 @@ export const BoxInfoTab = memo(props => {
         <SetBarcodeModal
           title={t(TranslationKey['Track number'])}
           maxNumber={50}
-          tmpCode={formFields?.tmpTrackNumberFile}
-          onClickSaveBarcode={value => setTmpTrackNumberFile(value)}
+          tmpCode={formFields?.trackNumberFile}
+          onClickSaveBarcode={value => onChangeField('trackNumberFile')({ target: { value } })}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
         />
       </Modal>
