@@ -105,7 +105,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
 
   const submitDisabled =
-    JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
+    JSON.stringify(formFields.toSorted()) === JSON.stringify(sourceData?.permissions.toSorted()) &&
     JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender) &&
     deepArrayCompare(sourceData?.allowedSpec, currentSpec)
 
@@ -174,8 +174,8 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   }
 
   useEffect(() => {
-    setCurrentSpec(sourceData.allowedSpec)
-  }, [sourceData.allowedSpec?.length])
+    setCurrentSpec(sourceData?.allowedSpec)
+  }, [sourceData?.allowedSpec?.length])
 
   const isResearcher = checkIsResearcher(UserRoleCodeMap[sourceData?.role])
 

@@ -278,7 +278,7 @@ export class SubUsersViewModel {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       runInAction(() => {
-        this.selectedSubUser = row
+        this.selectedSubUser = { ...row, allowedSpec: row?.allowedSpec || [] } // 'allowedSpec: row?.allowedSpec || []' - remove after backend add field allowedSpec, but stay only 'row'
       })
 
       const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
