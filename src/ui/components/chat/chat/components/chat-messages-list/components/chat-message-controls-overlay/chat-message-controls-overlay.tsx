@@ -5,10 +5,11 @@ import { Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useStyles } from '@components/chat/chat/chat-messages-list/chat-message-controls-overlay/chat-message-controls-overlay.style'
 import { CheckInCircleIcon, ReplyIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { useStyles } from './chat-message-controls-overlay.style'
 
 interface ChatMessageControlsOverlayProps {
   onClickReply: () => void

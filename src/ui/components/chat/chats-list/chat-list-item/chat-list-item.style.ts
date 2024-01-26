@@ -133,10 +133,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   badge: {
-    height: 18,
-    width: 18,
     backgroundColor: theme.palette.primary.main,
-    borderRadius: '50%',
+    padding: '1px 5px',
+    borderRadius: '22px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

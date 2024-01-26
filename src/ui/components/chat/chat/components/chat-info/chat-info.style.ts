@@ -5,10 +5,8 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    width: '100%',
-    flex: 1,
     height: '100%',
-    minWidth: 366,
+    width: '366px',
 
     [theme.breakpoints.down(768)]: {
       minWidth: 280,

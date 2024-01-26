@@ -156,6 +156,32 @@ class ChatModelStatic {
     }
   }
 
+  public async resetChat(chatId: string) {
+    if (!this.websocketChatService) {
+      return
+    }
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
+
+    if (!chatTypeAndIndex) {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: [],
+        pagination: {
+          limit: 20,
+          offset: 0,
+        },
+        isAllMessagesLoaded: false,
+      }
+    })
+  }
+
   public disconnect() {
     if (!this.websocketChatService) {
       return
@@ -359,7 +385,7 @@ class ChatModelStatic {
     }
 
     try {
-      await this.websocketChatService.removeUsersFromGroupChat(params)
+      this.websocketChatService.removeUsersFromGroupChat(params)
       const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
       if (!chatTypeAndIndex) {
         return

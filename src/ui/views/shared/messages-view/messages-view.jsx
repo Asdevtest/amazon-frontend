@@ -191,6 +191,8 @@ export const MessagesView = observer(({ history }) => {
 
                 <div className={styles.searchMessageContainer}>
                   <SearchInput
+                    tab={findChatByChatId?._id}
+                    value={viewModel.mesSearchValue}
                     inputClasses={cx(styles.searchInput, {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}

@@ -58,7 +58,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           menuIsOpen
           isMulti
           closeMenuOnSelect={false}
-          classes={{ option: styles.option }}
+          classes={{ option: styles.option, menuList: styles.menuList }}
           value={formFields.chosenUsers}
           options={userDataForRender}
           components={{ Option, MultiValueContainer }}

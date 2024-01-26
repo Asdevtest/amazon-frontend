@@ -139,4 +139,16 @@ export const useStyles = makeStyles()(theme => ({
       margin: 5,
     },
   },
+
+  list: {
+    flex: 1,
+    '& > div': {
+      padding: '10px',
+      '& > div': {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+      },
+    },
+  },
 }))

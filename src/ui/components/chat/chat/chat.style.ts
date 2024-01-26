@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'auto',
-    padding: '4px 4px 0 0',
     background: theme.palette.background.general,
     borderRadius: '0 7px 0 0',
 

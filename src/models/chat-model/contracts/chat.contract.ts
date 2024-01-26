@@ -57,4 +57,5 @@ export class ChatContract implements TWebsocketChatService.Chat {
   @IsBoolean()
   public isAllMessagesLoaded!: boolean
   public lastMessage?: ChatMessageContract
+  public messagesCount?: number
 }
