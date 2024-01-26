@@ -619,7 +619,7 @@ export const warehouseTasksDataConverter = data =>
     originalData: item,
 
     id: item?._id,
-    specType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.specType]],
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.operationType]],
     status: mapTaskStatusKeyToEnum[item?.status],
 
     priority: item?.priority,
@@ -752,9 +752,8 @@ export const adminOrdersDataConverter = data =>
 export const adminTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
-
     id: item._id,
-    specType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.specType]],
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

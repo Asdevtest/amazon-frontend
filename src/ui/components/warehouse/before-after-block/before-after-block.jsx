@@ -578,7 +578,7 @@ const NewBoxes = memo(props => {
           box={curBox}
           newBoxes={newBoxes}
           setNewBoxes={setNewBoxes}
-          specType={taskType}
+          operationType={taskType}
         />
       </Modal>
     </div>

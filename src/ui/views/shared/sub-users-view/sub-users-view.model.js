@@ -344,7 +344,7 @@ export class SubUsersViewModel {
       await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
 
       if (currentSpec) {
-        await UserModel.changeSubUserSpec(id, { specType: currentSpec })
+        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
       }
 
       runInAction(() => {

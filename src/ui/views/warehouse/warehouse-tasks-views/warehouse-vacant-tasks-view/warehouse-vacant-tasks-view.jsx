@@ -34,12 +34,12 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
   }, [])
 
   const getRowClassName = params =>
-    params.row.originalData.specType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   const isDisableDowloadButton =
     !viewModel.selectedTasks.length ||
     viewModel.selectedTasks.length > 1 ||
-    viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData.specType !==
+    viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData.operationType !==
       TaskOperationType.RECEIVE
 
   return (

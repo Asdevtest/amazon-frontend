@@ -136,5 +136,5 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
     }
   }
 
-  return <div className={styles.taskDescriptionScrollWrapper}>{renderTaskDescription(task.specType)}</div>
+  return <div className={styles.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
 })
