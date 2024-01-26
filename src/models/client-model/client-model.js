@@ -27,6 +27,8 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
+    console.log('data', data)
+
     const response =
       await restApiService.clientApi./* apiV1ClientsProductsMyWithPagGet */ apiV1ClientsProductsMyWithPagV2Get(
         filterNullValues(data),

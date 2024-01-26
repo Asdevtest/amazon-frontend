@@ -55,6 +55,7 @@ export const observerConfig = {
   showProgress: observable,
 
   isSomeFilterOn: override,
+
   userInfo: computed,
   destinationsFavourites: computed,
 

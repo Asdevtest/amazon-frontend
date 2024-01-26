@@ -68,7 +68,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._additionalPropertiesColumnMenuSettings = additionalProperties
   }
 
-  _additionalPropertiesGetFilters: any = {}
+  _additionalPropertiesGetFilters: any = undefined
   get additionalPropertiesGetFilters() {
     return this._additionalPropertiesGetFilters
   }
@@ -146,6 +146,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   getFilters(exclusion?: string) {
+    console.log('this.additionalPropertiesGetFilters', this.additionalPropertiesGetFilters)
+
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
@@ -153,7 +155,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         exclusion,
         this.filtersFields,
         this.fieldsForSearch,
-        this.additionalPropertiesGetFilters,
+        this.additionalPropertiesGetFilters?.(),
       ),
     )
   }

@@ -48,13 +48,11 @@ import {
   disableSelectionCells,
 } from './helpers/client-inventory-view.constants'
 
-export const ClientInventoryView = observer(({ history }) => {
+export const ClientInventoryView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+  const [viewModel] = useState(() => new ClientInventoryViewModel())
   viewModel.initHistory()
-
-  console.log('columnMenuSettings', viewModel.columnMenuSettings)
 
   const [useProductsPermissions] = useState(
     () =>
@@ -233,7 +231,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <AddSupplierToIdeaFromInventoryForm
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
-          product={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product.id))}
+          product={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
           ideas={viewModel.ideasData}
           onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
           onSubmit={viewModel.createSupplierSearchRequest}
@@ -346,7 +344,7 @@ export const ClientInventoryView = observer(({ history }) => {
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           // selectedProductsData={viewModel.dataForOrderModal}
-          selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product.id))}
+          selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
@@ -358,7 +356,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item.id))}
+          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item._id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
