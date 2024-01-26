@@ -69,12 +69,12 @@ export const clientTasksViewColumns = handlers => [
   },
 
   {
-    field: 'specType',
+    field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell specType={params.row.originalData.specType} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {

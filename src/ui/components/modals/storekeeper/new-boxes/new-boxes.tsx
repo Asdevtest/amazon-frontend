@@ -91,7 +91,7 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
           newBoxes={newBoxes}
           setNewBoxes={setNewBoxes}
           isInStorekeeperWarehouse={undefined}
-          specType={undefined}
+          operationType={undefined}
           storekeeperWarehouseSubmit={undefined}
         />
       </Modal>

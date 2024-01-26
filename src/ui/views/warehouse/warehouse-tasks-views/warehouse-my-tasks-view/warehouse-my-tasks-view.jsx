@@ -34,7 +34,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
   }, [])
 
   const getRowClassName = params =>
-    params.row.originalData.specType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
     <>
@@ -50,7 +50,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
               viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
-                .specType !== TaskOperationType.RECEIVE
+                .operationType !== TaskOperationType.RECEIVE
             }
             onClick={viewModel.onClickReportBtn}
           >

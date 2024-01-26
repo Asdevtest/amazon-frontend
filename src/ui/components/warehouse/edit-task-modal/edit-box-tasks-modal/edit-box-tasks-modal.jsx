@@ -118,7 +118,7 @@ export const EditBoxTasksModal = props => {
     isInStorekeeperWarehouse,
     setEditModal,
     box,
-    specType,
+    operationType,
     setNewBoxes,
     newBoxes,
     volumeWeightCoefficient = 0,
@@ -255,7 +255,7 @@ export const EditBoxTasksModal = props => {
       <AttributesEditBlock
         weightConversion={weightConversion}
         box={editingBox}
-        specType={specType}
+        operationType={operationType}
         setNewBoxField={setNewBoxField}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}

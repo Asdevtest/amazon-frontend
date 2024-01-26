@@ -38,12 +38,12 @@ export const warehouseCompletedTasksViewColumns = handlers => [
   },
 
   {
-    field: 'specType',
+    field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: window.innerWidth < 1282 ? 125 : 170,
-    renderCell: params => <TaskTypeCell specType={params.row.originalData.specType} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
