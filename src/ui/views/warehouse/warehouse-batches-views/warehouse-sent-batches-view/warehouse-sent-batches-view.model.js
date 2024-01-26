@@ -211,27 +211,17 @@ export class WarehouseSentBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         storekeeperComment: data.storekeeperComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
-
+        trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
       })
-
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       await this.loadData()
 
