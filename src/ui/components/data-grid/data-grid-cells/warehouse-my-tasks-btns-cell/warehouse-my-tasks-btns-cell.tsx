@@ -10,19 +10,19 @@ import { t } from '@utils/translations'
 import { useStyles } from './warehouse-my-tasks-btns-cell.style'
 
 interface WarehouseMyTasksBtnsCellProps {
-  specType: string
+  operationType: string
   rowId: string
   boxId: string
   handlers: {
     onClickResolveBtn: (rowId: string) => void
-    onClickCancelTask: (boxId: string, rowId: string, specType: string) => void
+    onClickCancelTask: (boxId: string, rowId: string, operationType: string) => void
   }
   isFirstRow?: boolean
 }
 
 export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(props => {
   const { classes: styles } = useStyles()
-  const { handlers, isFirstRow, specType, rowId, boxId } = props
+  const { handlers, isFirstRow, operationType, rowId, boxId } = props
 
   return (
     <div className={styles.warehouseMyTasksBtnsWrapper}>
@@ -35,14 +35,14 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(
         {t(TranslationKey.Resolve)}
       </Button>
 
-      {specType !== TaskOperationType.RECEIVE && (
+      {operationType !== TaskOperationType.RECEIVE && (
         <Button
           danger
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
           className={styles.button}
-          onClick={() => handlers.onClickCancelTask(boxId, rowId, specType)}
+          onClick={() => handlers.onClickCancelTask(boxId, rowId, operationType)}
         >
           {t(TranslationKey.Cancel)}
         </Button>

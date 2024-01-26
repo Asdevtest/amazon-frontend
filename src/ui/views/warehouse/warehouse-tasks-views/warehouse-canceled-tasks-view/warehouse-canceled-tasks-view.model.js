@@ -203,7 +203,7 @@ export class WarehouseCanceledTasksViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        specType: this.curTaskType,
+        operationType: this.curTaskType,
         priority: this.curTaskPriority,
       })
 

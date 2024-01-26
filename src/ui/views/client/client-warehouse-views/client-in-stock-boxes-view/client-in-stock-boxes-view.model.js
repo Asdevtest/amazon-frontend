@@ -1539,7 +1539,7 @@ export class ClientInStockBoxesViewModel {
         taskId: 0,
         boxes: [...idsData],
         boxesBefore: [...idsBeforeData],
-        specType: type,
+        operationType: type,
         clientComment: clientComment || '',
         priority,
         reason,
