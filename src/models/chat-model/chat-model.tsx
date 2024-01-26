@@ -140,8 +140,6 @@ class ChatModelStatic {
 
       const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit, messageId)
 
-      console.log('chatMessages', chatMessages)
-
       runInAction(() => {
         this[chatType][index] = {
           ...this[chatType][index],
