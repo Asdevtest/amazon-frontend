@@ -17,11 +17,13 @@ import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ISpec } from '@typings/spec'
+
 import { useStyles } from './request-terms.style'
 
 interface RequestTermsProps {
   withoutConfirmation: boolean
-  specType: number
+  spec: ISpec
   timeoutAt: string
   newProductPrice: number
   priceAmazon: number
@@ -36,7 +38,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
 
   const {
     withoutConfirmation,
-    specType,
+    spec,
     timeoutAt,
     newProductPrice,
     priceAmazon,
@@ -72,7 +74,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
             <p className={cx(styles.blockInfoCellText)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[specType])}
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[spec?.type])}
             </p>
           </div>
 
@@ -84,7 +86,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           </div>
         </div>
 
-        {`${specType}` ===
+        {`${spec?.type}` ===
         `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey]}` ? (
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>

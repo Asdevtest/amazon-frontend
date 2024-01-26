@@ -304,7 +304,7 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      switch (freelanceRequestTypeByCode[item.specType]) {
+      switch (freelanceRequestTypeByCode[item.spec?.type]) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break

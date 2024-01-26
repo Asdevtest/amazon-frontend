@@ -52,7 +52,7 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
         return (
           <IdeaRequestCard
             key={requestIndex}
-            requestType={request.specType}
+            requestType={request.spec?.type}
             requestId={request.humanFriendlyId}
             requestStatus={request.status}
             executor={request.executor}

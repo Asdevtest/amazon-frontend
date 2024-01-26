@@ -43,12 +43,12 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   },
 
   {
-    field: 'specType',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridRowParams) => {
       const stringForRender = params.row.allowedSpec
-        ?.map((spec: number) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[spec]))
+        ?.map((spec: number) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(spec)]))
         .join('\n')
 
       return <MultilineTextCell leftAlign text={stringForRender} />

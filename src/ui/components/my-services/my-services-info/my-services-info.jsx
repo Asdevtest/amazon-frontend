@@ -71,7 +71,7 @@ export const MyServicesInfo = ({
               <div className={styles.descriptionWrapper}>
                 <Typography className={styles.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
                 <Typography className={styles.announcementText}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.specType])}
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.spec?.type])}
                 </Typography>
               </div>
             </div>

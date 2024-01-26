@@ -38,7 +38,7 @@ export const RequestTermsList = props => {
         [wrapperClassName]: !!wrapperClassName,
       })}
     >
-      {request?.specType === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+      {request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
         <div>
           <Field
             labelClasses={styles.fieldLabel}
@@ -98,7 +98,7 @@ export const RequestTermsList = props => {
           label={t(TranslationKey['Request type'])}
           inputComponent={
             <p className={styles.accentText}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.specType])}
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.spec?.type])}
             </p>
           }
         />
