@@ -51,10 +51,9 @@ export const AdminUserEditContent = observer(
 
     const sourceFormFields = {
       active: editUserFormFields?.active || false,
-      allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
-      allowedStrategies:
-        (editUserFormFields?.allowedStrategies === null ? [] : editUserFormFields?.allowedStrategies) || [],
-      allowedSpec: (editUserFormFields?.allowedSpec === null ? [] : editUserFormFields?.allowedSpec) || [],
+      allowedRoles: editUserFormFields?.allowedRoles || [],
+      allowedStrategies: editUserFormFields?.allowedStrategies || [],
+      allowedSpec: editUserFormFields?.allowedSpec || [],
       email: editUserFormFields?.email || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,
