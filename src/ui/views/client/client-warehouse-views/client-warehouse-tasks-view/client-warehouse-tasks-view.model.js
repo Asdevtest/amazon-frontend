@@ -21,7 +21,7 @@ import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
-const filtersFields = ['specType', 'status', 'storekeeper', 'priority']
+const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
 export class ClientWarehouseTasksViewModel {
   history = undefined
@@ -338,7 +338,7 @@ export class ClientWarehouseTasksViewModel {
         storekeeperId: this.activeFilters.storekeeper.map(el => el._id).join(',') || undefined,
         priority: this.activeFilters.priority.join(','),
         status: this.activeFilters.status.join(','),
-        specType: this.activeFilters.type.join(','),
+        operationType: this.activeFilters.type.join(','),
       })
 
       runInAction(() => {
@@ -377,7 +377,8 @@ export class ClientWarehouseTasksViewModel {
 
   getFilter(exclusion) {
     // const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
-    const typeFilter = exclusion !== 'specType' && this.columnMenuSettings.specType.currentFilterData.join(',')
+    const typeFilter =
+      exclusion !== 'operationType' && this.columnMenuSettings.operationType.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
     const storekeeperFilter =
       exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.join(',')
@@ -404,7 +405,7 @@ export class ClientWarehouseTasksViewModel {
       // }),
 
       ...(typeFilter && {
-        ospecType: { $eq: typeFilter },
+        operationType: { $eq: typeFilter },
       }),
 
       ...(statusFilter && {

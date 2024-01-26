@@ -16,12 +16,12 @@ interface NormalActionBtnCellProps {
   isShowCancelButton?: boolean
   disabled?: boolean
   isFirstRow?: boolean
-  specType?: string
+  operationType?: string
   rowId?: string
   boxId?: string
   fullWidthButton?: boolean
   casual?: boolean
-  onClickCancelTask?: (boxId?: string, rowId?: string, specType?: string) => void
+  onClickCancelTask?: (boxId?: string, rowId?: string, operationType?: string) => void
 }
 
 export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
@@ -32,7 +32,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
     disabled,
     isFirstRow,
     isShowCancelButton,
-    specType,
+    operationType,
     rowId,
     boxId,
     fullWidthButton,
@@ -42,7 +42,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const buttonStyle = cx(styles.button, { [styles.fullWidthButton]: fullWidthButton })
-  const showCancelButton = isShowCancelButton && specType !== TaskOperationType.RECEIVE
+  const showCancelButton = isShowCancelButton && operationType !== TaskOperationType.RECEIVE
 
   return (
     <div className={styles.wrapper}>
@@ -75,7 +75,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
             e.stopPropagation()
 
             if (onClickCancelTask) {
-              onClickCancelTask(boxId, rowId, specType)
+              onClickCancelTask(boxId, rowId, operationType)
             }
           }}
         >

@@ -30,7 +30,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         boxId={params.row.originalData.boxes[0]?._id}
         rowId={params.row.originalData._id}
-        specType={params.row.originalData.specType}
+        operationType={params.row.originalData.operationType}
         onClickCancelTask={handlers.onClickCancelTask}
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
@@ -75,12 +75,12 @@ export const warehouseVacantTasksViewColumns = handlers => [
   },
 
   {
-    field: 'specType',
+    field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
 
     width: 165,
-    renderCell: params => <TaskTypeCell specType={params.row.originalData.specType} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {

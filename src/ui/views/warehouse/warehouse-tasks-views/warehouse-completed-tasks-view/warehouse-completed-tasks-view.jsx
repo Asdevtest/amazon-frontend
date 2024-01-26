@@ -45,7 +45,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
               viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
-                .specType !== TaskOperationType.RECEIVE
+                .operationType !== TaskOperationType.RECEIVE
             }
             onClick={viewModel.onClickReportBtn}
           >
