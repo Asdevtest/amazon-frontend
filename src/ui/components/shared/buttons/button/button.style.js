@@ -52,7 +52,7 @@ export const useStyles = makeStyles()(theme => ({
     },
 
     '&:disabled': {
-      backgroundColor: `${theme.palette.button.disabledSuccessBackground} !important`,
+      backgroundColor: `${theme.palette.button.disabledDangerBackground} !important`,
     },
   },
   outlined: {

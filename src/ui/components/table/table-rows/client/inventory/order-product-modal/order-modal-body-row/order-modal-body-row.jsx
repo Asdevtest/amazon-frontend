@@ -447,7 +447,7 @@ export const OrderModalBodyRow = ({
             }
             data={
               // destinations
-              item.logicsTariffId ? destinations.filter(el => el?._id === destinationId) : destinations
+              item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
               // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
 
               /* .filter(el => !el.storekeeperId)*/
@@ -455,7 +455,7 @@ export const OrderModalBodyRow = ({
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
-            onClickNotChosen={() => onChangeInput({ target: { value: item?.destinationId } }, 'destinationId')}
+            onClickNotChosen={() => onChangeInput({ target: { value: '' } }, 'destinationId')}
             onClickSelect={el => onChangeInput({ target: { value: el._id } }, 'destinationId')}
           />
         </TableCell>
