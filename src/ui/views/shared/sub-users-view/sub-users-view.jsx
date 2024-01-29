@@ -24,9 +24,10 @@ import { useStyles } from './sub-users-view.style'
 
 import { SubUsersViewModel } from './sub-users-view.model'
 
-export const SubUsersView = observer(props => {
-  const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))
+export const SubUsersView = observer(({ history }) => {
   const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new SubUsersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -106,7 +107,6 @@ export const SubUsersView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
-          masterUserData={viewModel.userInfo}
           isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
@@ -114,6 +114,7 @@ export const SubUsersView = observer(props => {
           permissionGroupsToSelect={viewModel.groupPermissions}
           sourceData={viewModel.selectedSubUser}
           shops={viewModel.shopsData}
+          specs={viewModel.specs}
           productPermissionsData={viewModel.productPermissionsData}
           onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
           onSubmit={viewModel.onSubmitUserPermissionsForm}

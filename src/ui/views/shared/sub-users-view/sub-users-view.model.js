@@ -24,7 +24,6 @@ import { t } from '@utils/translations'
 export class SubUsersViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
 
@@ -32,8 +31,8 @@ export class SubUsersViewModel {
   singlePermissions = []
   groupPermissions = []
   shopsData = []
-
   currentData = []
+  specs = []
 
   curUserProductPermissions = []
   productPermissionsData = []
@@ -70,27 +69,19 @@ export class SubUsersViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-      this.setColumnsModel()
-    })
+    this.history = history
+    this.setColumnsModel()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.subUsersData,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
 
     reaction(
       () => this.nameSearchValue,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+      () => (this.currentData = this.getCurrentData()),
     )
   }
 
@@ -102,31 +93,27 @@ export class SubUsersViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   async onClickSaveComment(id, comment) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
@@ -151,50 +138,40 @@ export class SubUsersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_SUB_USERS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.subUsersData).filter(
+      return this.subUsersData.filter(
         el =>
           el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
           el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {
-      return toJS(this.subUsersData)
+      return this.subUsersData
     }
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
@@ -208,6 +185,8 @@ export class SubUsersViewModel {
       this.getUsers()
       this.getGroupPermissions()
       this.getSinglePermissions()
+      this.getSpecs()
+
       UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -220,14 +199,12 @@ export class SubUsersViewModel {
   async getShops() {
     try {
       const result = await ShopModel.getMyShops()
+
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -235,10 +212,10 @@ export class SubUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      await UserModel.getMySubUsers().then(result => {
-        runInAction(() => {
-          this.subUsersData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-        })
+      const response = await UserModel.getMySubUsers()
+
+      runInAction(() => {
+        this.subUsersData = addIdDataConverter(response).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -274,6 +251,7 @@ export class SubUsersViewModel {
   }
 
   async onClickEditBtn(row) {
+    console.log('row', row)
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -323,17 +301,14 @@ export class SubUsersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.selectedSubUser = row
-    })
+    this.selectedSubUser = row
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -366,9 +341,6 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showWarningModal')
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -384,9 +356,6 @@ export class SubUsersViewModel {
       await this.getUsers()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -405,8 +374,6 @@ export class SubUsersViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
-
         this.warningInfoModalSettings = {
           isWarning: true,
           title: error.body.message || t(TranslationKey['Sub-user not added!']),
@@ -431,9 +398,6 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -444,9 +408,6 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showAddSubUserModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -457,27 +418,30 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeModalEditSubUser() {
-    runInAction(() => {
-      this.modalEditSubUser = !this.modalEditSubUser
-    })
+    this.modalEditSubUser = !this.modalEditSubUser
   }
 
   onChangeModalPermission() {
-    runInAction(() => {
-      this.modalPermission = !this.modalPermission
-    })
+    this.modalPermission = !this.modalPermission
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

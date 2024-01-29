@@ -15,15 +15,9 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
-export const CreateOrEditRequestView = observer(props => {
+export const CreateOrEditRequestView = observer(({ history }) => {
   const mainContentRef = useRef()
-  const [viewModel] = useState(
-    () =>
-      new CreateOrEditRequestViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+  const [viewModel] = useState(() => new CreateOrEditRequestViewModel({ history }))
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
@@ -36,6 +30,7 @@ export const CreateOrEditRequestView = observer(props => {
       <div ref={mainContentRef}>
         <CreateOrEditRequestContent
           mainContentRef={mainContentRef}
+          specs={viewModel.specs}
           executor={viewModel.executor}
           choosenAnnouncements={viewModel.choosenAnnouncements}
           permissionsData={useProductsPermissions.permissionsData}
@@ -45,7 +40,6 @@ export const CreateOrEditRequestView = observer(props => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           requestToEdit={viewModel.requestToEdit}
-          history={props.history}
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
           getMasterUsersData={viewModel.getMasterUsersData}

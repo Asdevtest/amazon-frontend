@@ -244,6 +244,11 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: {} })
     return response.data
   }
+
+  async getSpecs(archive) {
+    const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()
