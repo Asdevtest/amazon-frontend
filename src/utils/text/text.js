@@ -332,7 +332,7 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'title',
-      'specType',
+      'spec',
       'price',
       'timeoutAt',
       // 'createdBy',

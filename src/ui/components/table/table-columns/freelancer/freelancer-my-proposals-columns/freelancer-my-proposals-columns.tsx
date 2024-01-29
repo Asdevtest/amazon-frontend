@@ -158,17 +158,17 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'specType',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])} />
+      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.spec?.type])} />
     ),
     type: 'number',
     width: 85,
     sortable: false,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

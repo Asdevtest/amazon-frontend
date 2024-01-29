@@ -164,7 +164,7 @@ export const CreateOrEditProposalContent = memo(props => {
             <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
               <Typography className={styles.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
               <Typography className={styles.requestTitle}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.specType])}
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.spec?.type])}
               </Typography>
             </div>
           </div>

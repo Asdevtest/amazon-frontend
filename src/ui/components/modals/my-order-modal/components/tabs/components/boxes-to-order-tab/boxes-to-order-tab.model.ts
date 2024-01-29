@@ -9,7 +9,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
-import { ApiV1BatchesBoxes, InlineResponse20017, InlineResponse20019 } from '@services/rest-api-service/codegen'
+import { ApiV1BatchesBoxes, InlineResponse20026 } from '@services/rest-api-service/codegen'
 
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
@@ -35,7 +35,7 @@ export class BoxesToOrderTabModel {
 
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
-  currentBox: InlineResponse20017 | undefined = undefined
+  currentBox: InlineResponse20026 | undefined = undefined
   galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
@@ -127,7 +127,7 @@ export class BoxesToOrderTabModel {
     }
   }
 
-  async onSubmitChangeBoxFields(box: InlineResponse20019) {
+  async onSubmitChangeBoxFields(box: InlineResponse20026) {
     try {
       await BoxesModel.editAdditionalInfo(box._id, {
         clientComment: box.clientComment,

@@ -63,7 +63,7 @@ export const OwnerGeneralRequestInfo = props => {
       {request?.request && (
         <RequestTerms
           withoutConfirmation={request?.request?.withoutConfirmation}
-          specType={request?.request?.specType}
+          spec={request?.request?.spec}
           timeoutAt={request?.request?.timeoutAt}
           newProductPrice={newProductPrice}
           priceAmazon={request?.request?.priceAmazon}

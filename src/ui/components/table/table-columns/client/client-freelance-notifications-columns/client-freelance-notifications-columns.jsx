@@ -28,11 +28,11 @@ export const clientFreelanceNotificationsColumns = handlers => [
   },
 
   {
-    field: 'specType',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: params => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])} />
+      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.spec?.type])} />
     ),
     width: 200,
   },

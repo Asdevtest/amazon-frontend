@@ -263,7 +263,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   },
 
   {
-    field: 'specType',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -275,11 +275,11 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => (
       <MultilineTextCell
         leftAlign
-        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.specType])}
+        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.spec?.type])}
       />
     ),
     width: 90,
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

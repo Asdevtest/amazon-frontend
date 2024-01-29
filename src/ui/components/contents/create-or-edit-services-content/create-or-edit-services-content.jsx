@@ -23,7 +23,7 @@ export const CreateOrEditServiceContent = memo(
     const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
 
     const sourceFormFields = {
-      specType: data?.specType || '',
+      spec: data?.spec || undefined,
       title: data?.title || '',
       description: data?.description || '',
       linksToMediaFiles: data?.linksToMediaFiles || [],
@@ -52,7 +52,7 @@ export const CreateOrEditServiceContent = memo(
     const disabledSubmitButton =
       !formFields.title ||
       !formFields.description ||
-      !formFields.specType ||
+      !formFields.spec ||
       (objectDeepCompare(formFields, sourceFormFields) && !images.length)
 
     const onChangeField = fieldName => event => {
@@ -86,9 +86,9 @@ export const CreateOrEditServiceContent = memo(
             inputComponent={
               <Select
                 displayEmpty
-                value={formFields.specType}
+                value={formFields.spec?.type}
                 className={styles.requestTypeField}
-                onChange={onChangeField('specType')}
+                onChange={onChangeField('spec')}
               >
                 <MenuItem disabled value={''}>
                   {t(TranslationKey['Select from the list'])}

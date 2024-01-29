@@ -3,7 +3,7 @@ export const filtersFields = [
   'updatedAt',
   'status',
   'title',
-  'specType',
+  'spec',
   'price',
   'timeoutAt',
   'asin',
