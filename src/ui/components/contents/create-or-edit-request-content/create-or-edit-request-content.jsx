@@ -230,10 +230,19 @@ export const CreateOrEditRequestContent = memo(props => {
   useEffect(() => {
     setAnnouncement(choosenAnnouncements)
 
-    const newFormFields = { ...formFields }
-    newFormFields.request.spec.type = choosenAnnouncements?.type || null
-    setFormFields(newFormFields)
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      request: {
+        ...prevFormFields.request,
+        spec: {
+          ...prevFormFields.request?.spec,
+          type: choosenAnnouncements?.type || null,
+        },
+      },
+    }))
   }, [choosenAnnouncements])
+
+  console.log('formFields.request.spec?.type', formFields.request.spec?.type)
 
   useEffect(() => {
     if (!requestToEdit) {
@@ -303,14 +312,22 @@ export const CreateOrEditRequestContent = memo(props => {
         setAnnouncement('')
         setChosenExecutor(undefined)
 
-        newFormFields[section][fieldName] = event.target.value
-        // getMasterUsersData(event.target.value)
-
         if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
         }
+
+        return setFormFields(prevFormFields => ({
+          ...prevFormFields,
+          request: {
+            ...prevFormFields.request,
+            spec: {
+              ...prevFormFields.request?.spec,
+              type: event.target.value,
+            },
+          },
+        }))
       } else if (['executorId'].includes(fieldName)) {
         setChosenExecutor(event)
         newFormFields[section][fieldName] = event?._id
@@ -498,7 +515,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     inputComponent={
                       <Select
                         displayEmpty
-                        value={formFields.request.spec?.type + '' ?? null}
+                        value={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[formFields.request.spec?.type])}
                         className={styles.requestTypeField}
                         input={<Input startAdornment={<InputAdornment position="start" />} />}
                         onChange={onChangeField('request')('spec')}
