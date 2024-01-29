@@ -18,6 +18,8 @@ interface Props {
 export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
   const { classes: styles } = useStyles()
 
+  console.log('message', message)
+
   return (
     <div className={styles.root}>
       <UserLink name={message.user?.name} userId={message.user?._id} />

@@ -12,6 +12,7 @@ import { UserModel } from '@models/user-model'
 import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
+  ChatMessageTextType,
   ChatMessageType,
   EChatInfoType,
   FindChatMessageRequestParams,
@@ -501,6 +502,8 @@ class ChatModelStatic {
       this.getSimpleChats()
     }
 
+    console.log('newMessage', newMessage)
+
     const message = plainToInstance<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
       ChatMessageContract,
       newMessage,
@@ -548,7 +551,13 @@ class ChatModelStatic {
       })
     }
 
-    const isAddCounter = !isCurrentUser && !newMessage?.crmItemId
+    const isSystemNotification = [
+      ChatMessageTextType.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN,
+      ChatMessageTextType.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN,
+      ChatMessageTextType.PATCH_INFO,
+    ].some(messageTextType => message.text === messageTextType)
+
+    const isAddCounter = !isCurrentUser && !newMessage?.crmItemId && !isSystemNotification
 
     this.getUnreadMessagesCount(isAddCounter ? 1 : 0)
   }

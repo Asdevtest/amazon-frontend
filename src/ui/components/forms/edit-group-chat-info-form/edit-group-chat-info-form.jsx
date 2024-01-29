@@ -70,6 +70,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
       <p className={styles.title}>{t(TranslationKey['Change group chat info'])}</p>
 
       <Field
+        maxLength={254}
         label={t(TranslationKey['Name of group chat']) + '*'}
         labelClasses={styles.label}
         value={state.title}
