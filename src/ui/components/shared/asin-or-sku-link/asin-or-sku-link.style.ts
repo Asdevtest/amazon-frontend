@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   link: {
@@ -28,14 +29,6 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       opacity: 0.8,
-    },
-  },
-
-  missingText: {
-    color: theme.palette.text.general,
-
-    '&:hover': {
-      opacity: 1,
     },
   },
 }))
