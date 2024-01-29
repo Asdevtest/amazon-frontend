@@ -202,7 +202,10 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       box.widthCmWarehouse > maxLengthInputInSizeBox,
   )
 
-  const disableSubmit = newBoxes.some(box => box.amount === '') || isSomeBoxHasntImage || isSomeBoxesHasCorrectSizes
+  const disableSubmit =
+    newBoxes.some(box => box.amount === '') ||
+    (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
+    isSomeBoxesHasCorrectSizes
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>
