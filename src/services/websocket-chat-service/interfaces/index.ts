@@ -88,6 +88,7 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
     type: ChatInfoType
   }
   data: T
+  replyMessage: ChatMessage
 }
 
 export interface FindChatMessageRequestParams {

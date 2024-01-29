@@ -40,6 +40,8 @@ class ChatModelStatic {
 
   public simpleChats: ChatContract[] = []
 
+  public messages: ChatContract[] = []
+
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
   public loadedVideos: string[] = []
@@ -300,7 +302,14 @@ class ChatModelStatic {
     this.loadedFiles = []
   }
 
-  public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {
+  public async getChatMessage(
+    chatId: string,
+    messageId?: string,
+    messageData?: ChatMessageContract,
+  ): Promise<void | {
+    isExist: boolean
+    messageIndex: number
+  }> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
@@ -316,7 +325,14 @@ class ChatModelStatic {
     const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
 
     if (this[chatType][index].pagination.offset >= chatMessageOffset) {
-      return
+      if (messageId) {
+        return {
+          isExist: true,
+          messageIndex: this.findMessageIndex(this[chatType][index].messages, messageId),
+        }
+      } else {
+        return
+      }
     }
 
     const { limit, offset } = this[chatType][index].pagination
@@ -337,6 +353,19 @@ class ChatModelStatic {
         },
       }
     })
+
+    if (messageId) {
+      return {
+        isExist: false,
+        messageIndex: this.findMessageIndex(this[chatType][index].messages, messageId),
+      }
+    } else {
+      return
+    }
+  }
+
+  private findMessageIndex(messages: ChatMessageContract[], messageId: string) {
+    return messages?.findIndex(el => el._id === messageId)
   }
 
   private async getMessageOffset(
