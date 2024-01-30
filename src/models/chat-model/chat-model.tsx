@@ -293,6 +293,7 @@ class ChatModelStatic {
         text: '',
         files: this.loadedFiles,
         user: params.user,
+        replyMessageId: params.replyMessageId,
       }
 
       await this.websocketChatService.sendMessage(messageWithFiles)

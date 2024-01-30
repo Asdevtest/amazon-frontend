@@ -156,7 +156,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
                   >
                     <div className={styles.repleyDivider} />
                     <ChatMessageByType
-                      showName
+                      showName={false}
                       isIncomming={isIncomming}
                       messageItem={messageItem?.replyMessage}
                       isShowChatInfo={isShowChatInfo}
