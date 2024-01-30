@@ -131,10 +131,10 @@ export class AdminSettingsModel {
 
   async getServerProxy() {
     try {
-      const result = await AdministratorModel.getProxy()
+      const resolve = await AdministratorModel.getProxy()
 
       runInAction(() => {
-        this.serverProxy = result
+        this.serverProxy = resolve
       })
     } catch (error) {
       console.log(error)

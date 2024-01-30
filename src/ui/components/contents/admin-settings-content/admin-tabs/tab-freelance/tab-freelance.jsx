@@ -1,3 +1,5 @@
+import { observer } from 'mobx-react'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -9,7 +11,9 @@ import { useStyles } from './tab-freelance.style'
 
 import { fieldNameObject } from '../../admin-settings.constants'
 
-export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
+export const TabFreelance = observer(props => {
+  const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
+
   const { classes: styles } = useStyles()
 
   const disabledSubmit =
@@ -69,7 +73,11 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
         </Button>
       </div>
 
-      <div className={styles.tableWrapper}></div>
+      <div className={styles.tableContainer}>
+        <p className={styles.tableTitle}>table name</p>
+
+        <div className={styles.tableWrapper}>table</div>
+      </div>
     </div>
   )
-}
+})

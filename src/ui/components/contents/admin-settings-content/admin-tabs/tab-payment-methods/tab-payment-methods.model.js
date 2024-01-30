@@ -142,12 +142,12 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onSubmitPaymentMethod() {
-    const result = isString(this.method.iconImage)
+    const resolve = isString(this.method.iconImage)
       ? await uploadFileByUrl(this.method.iconImage)
       : await onPostImage(this.method.iconImage)
 
     runInAction(() => {
-      this.method.iconImage = result
+      this.method.iconImage = resolve
     })
 
     this.isEdit ? this.editPaymentMethod(this.editPaymentMethodId, this.method) : this.createPaymentMethod(this.method)

@@ -72,10 +72,10 @@ export class AdminSettingsTagsModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const result = await GeneralModel.getTagList()
+      const resolve = await GeneralModel.getTagList()
 
       runInAction(() => {
-        this.tags = addIdDataConverter(result)
+        this.tags = addIdDataConverter(resolve)
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)

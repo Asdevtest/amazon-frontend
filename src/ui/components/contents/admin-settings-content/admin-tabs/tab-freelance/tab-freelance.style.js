@@ -38,4 +38,10 @@ export const useStyles = makeStyles()(theme => ({
     width: 123,
     height: 40,
   },
+
+  tableContainer: {},
+
+  tableTitle: {},
+
+  tableWrapper: {},
 }))

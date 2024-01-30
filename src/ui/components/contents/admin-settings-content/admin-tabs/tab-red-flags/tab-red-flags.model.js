@@ -142,12 +142,12 @@ export class AdminSettingsRedFlagsModel {
   }
 
   async onSubmitRedFlag() {
-    const result = isString(this.flag.iconImage)
+    const resolve = isString(this.flag.iconImage)
       ? await uploadFileByUrl(this.flag.iconImage)
       : await onPostImage(this.flag.iconImage)
 
     runInAction(() => {
-      this.flag.iconImage = result
+      this.flag.iconImage = resolve
     })
 
     this.isEdit ? this.onEditRedFlag(this.editRedFlagId, this.flag) : this.onCreateRedFlag(this.flag)
