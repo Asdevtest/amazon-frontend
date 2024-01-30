@@ -1,4 +1,4 @@
-import { makeObservable, runInAction, toJS } from 'mobx'
+import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -265,6 +265,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.isArchive = url.searchParams.get('isArchive')
 
     makeObservable(this, observerConfig)
+
+    reaction(
+      () => this.presetsData,
+      () => {
+        console.log('get', this.presetsData)
+
+        this.presetsData.reduce((acc, el) => {}, {})
+      },
+    )
   }
 
   setDestinationsFavouritesItem(item) {
