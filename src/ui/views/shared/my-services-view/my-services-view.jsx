@@ -37,7 +37,7 @@ export const MyServicesView = observer(({ history }) => {
 
           <FreelanceTypeTaskSelect
             selectedSpec={viewModel.selectedSpec}
-            specs={viewModel.specs}
+            specs={viewModel.userInfo?.allowedSpec}
             onClickSpec={viewModel.onClickSpec}
           />
         </div>
