@@ -18,13 +18,9 @@ export class AdminSettingsFreelanceModel {
     }
   }
 
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
   async getSpecs() {
     try {
-      const response = await UserModel.getSpecs(false)
+      const response = await UserModel.getSpecs()
 
       runInAction(() => {
         this.specs = response
@@ -44,9 +40,9 @@ export class AdminSettingsFreelanceModel {
     }
   }
 
-  async editSpec(id, spec) {
+  async editSpec(id, specTitle) {
     try {
-      await AdministratorModel.editSpec(id, spec)
+      await AdministratorModel.editSpec(id, specTitle)
 
       this.loadData()
     } catch (error) {
