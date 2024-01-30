@@ -1,31 +1,37 @@
 import { FC, memo } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
+import { Specs } from '@typings/enums/specs'
+import { ISpec } from '@typings/spec'
+
 interface FreelanceTypeTaskSelectProps {
-  selectedTaskType: number
-  onClickTaskType: (value: number) => void
+  selectedSpec: number
+  specs: ISpec[]
+  onClickSpec: (value: number) => void
 }
 
 export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = memo(
-  ({ selectedTaskType, onClickTaskType }) => {
+  ({ selectedSpec, specs, onClickSpec }) => {
+    const customSwitcherSettings = [
+      {
+        label: () => freelanceRequestTypeTranslate(Specs[Specs.DEFAULT], true) || '',
+        value: Specs.DEFAULT,
+      },
+      ...(specs || []).map(spec => ({
+        label: () => freelanceRequestTypeTranslate(spec?.title) || '',
+        value: spec?.type,
+      })),
+    ]
+
     return (
       <CustomSwitcher
-        switchMode={'medium'}
-        condition={selectedTaskType}
-        switcherSettings={[
-          ...Object.keys(freelanceRequestTypeByCode).map(taskType => ({
-            label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(taskType)], true) || '',
-            value: Number(taskType),
-          })),
-        ]}
-        changeConditionHandler={value => {
-          if (typeof value === 'number') {
-            onClickTaskType(value)
-          }
-        }}
+        switchMode="medium"
+        condition={selectedSpec}
+        switcherSettings={customSwitcherSettings}
+        changeConditionHandler={value => onClickSpec(value as number)} // bugs with  CustomSwitcher types
       />
     )
   },

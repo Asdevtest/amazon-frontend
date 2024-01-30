@@ -3,11 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,6 +20,8 @@ import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { Specs } from '@typings/enums/specs'
 
 import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
 
@@ -70,7 +68,7 @@ export class MyProposalsViewModel {
 
   currentProposal = null
   currentRequest = null
-
+  specs = []
   searchMyRequestsIds = []
   requests = []
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
@@ -78,7 +76,7 @@ export class MyProposalsViewModel {
     _id: el,
   }))
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
 
   showRequestDetailModal = false
   showConfirmModal = false
@@ -201,12 +199,11 @@ export class MyProposalsViewModel {
     }
   }
 
-  onClickTaskType(spec) {
-    this.selectedTaskType = spec
+  onClickSpec(specType) {
+    this.selectedSpec = specType
 
-    const isAllTasks = spec === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-
-    this.onChangeFullFieldMenuItem(isAllTasks ? [] : [spec], 'spec', true)
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
 
     this.getRequestsProposalsPagMy()
   }
@@ -235,6 +232,8 @@ export class MyProposalsViewModel {
       this.getDataGridState()
 
       this.getRequestsProposalsPagMy()
+
+      this.getSpecs()
     } catch (error) {
       console.log(error)
     }
@@ -379,11 +378,7 @@ export class MyProposalsViewModel {
     }
   }
 
-  onChangeFullFieldMenuItem(value, field, notResetTask) {
-    if (!notResetTask) {
-      this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-    }
-
+  onChangeFullFieldMenuItem(value, field) {
     this.columnMenuSettings[field].currentFilterData = value
   }
 
@@ -419,7 +414,7 @@ export class MyProposalsViewModel {
   }
 
   onClickResetFilters() {
-    this.selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+    this.selectedSpec = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -468,5 +463,17 @@ export class MyProposalsViewModel {
     this.setDefaultStatuses()
 
     this.getRequestsProposalsPagMy()
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

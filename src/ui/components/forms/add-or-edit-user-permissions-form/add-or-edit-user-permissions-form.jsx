@@ -60,8 +60,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
     }
   }, [sourceData])
 
-  console.log('currentSpecs', currentSpecs)
-
   const [formFields, setFormFields] = useState(sourceData?.permissions || [])
 
   const isFreelancer = checkIsFreelancer(UserRoleCodeMap[sourceData?.role])

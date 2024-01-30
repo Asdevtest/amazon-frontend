@@ -22,6 +22,7 @@ export const filtersFields = [
   'reworkCounter',
   'shop',
   'announcement',
+  'specType',
 ]
 
 export const switcherConditions = {

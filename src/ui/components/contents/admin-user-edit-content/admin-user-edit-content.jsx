@@ -280,8 +280,6 @@ export const AdminUserEditContent = observer(
       (submit && errorUppercaseLetter) ||
       (submit && errorMaxLength)
 
-    console.log('formFields', formFields)
-
     return (
       <div className={styles.root}>
         <div className={styles.mainWrapper}>
