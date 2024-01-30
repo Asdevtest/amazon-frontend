@@ -93,9 +93,7 @@ export const CreateOrEditRequestContent = memo(props => {
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
   const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
-
   const [announcementsData, setAnnouncementsData] = useState([])
-
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
   const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
@@ -358,9 +356,9 @@ export const CreateOrEditRequestContent = memo(props => {
   const onClickCreate = async ({ withPublish }) => {
     await setWithPublish(withPublish)
 
-    const result = await checkRequestByTypeExists(currentSpec?.type, formFields.request.productId)
+    const result = await checkRequestByTypeExists(formFields.request.productId, currentSpec?.type)
 
-    if (result.length) {
+    if (result?.length) {
       setRequestIds(result)
       setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
     } else {
