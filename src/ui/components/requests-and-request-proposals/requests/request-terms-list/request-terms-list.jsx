@@ -4,7 +4,6 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
-  freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
@@ -96,11 +95,7 @@ export const RequestTermsList = props => {
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Request type'])}
-          inputComponent={
-            <p className={styles.accentText}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.spec?.type])}
-            </p>
-          }
+          inputComponent={<p className={styles.accentText}>{freelanceRequestTypeTranslate(request?.spec?.title)}</p>}
         />
       </div>
 

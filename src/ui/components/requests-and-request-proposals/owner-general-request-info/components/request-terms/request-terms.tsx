@@ -4,7 +4,6 @@ import DoneIcon from '@mui/icons-material/Done'
 
 import {
   freelanceRequestType,
-  freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
@@ -73,9 +72,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
-            <p className={cx(styles.blockInfoCellText)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[spec?.type])}
-            </p>
+            <p className={cx(styles.blockInfoCellText)}>{freelanceRequestTypeTranslate(spec?.title)}</p>
           </div>
 
           <div className={styles.blockInfoCell}>

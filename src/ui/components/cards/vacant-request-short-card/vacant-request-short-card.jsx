@@ -5,7 +5,6 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
-  freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
@@ -163,7 +162,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               label={t(TranslationKey['Request type'])}
               inputComponent={
                 <Typography className={cx(styles.accentText, styles.rightText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.spec?.type])}
+                  {freelanceRequestTypeTranslate(item.spec?.title)}
                 </Typography>
               }
             />
