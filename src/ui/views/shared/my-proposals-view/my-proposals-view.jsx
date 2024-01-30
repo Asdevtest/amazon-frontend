@@ -38,7 +38,7 @@ export const MyProposalsView = observer(({ history }) => {
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
             selectedSpec={viewModel.selectedSpec}
-            specs={viewModel.specs}
+            specs={viewModel.userInfo?.allowedSpec}
             onClickSpec={viewModel.onClickSpec}
           />
 

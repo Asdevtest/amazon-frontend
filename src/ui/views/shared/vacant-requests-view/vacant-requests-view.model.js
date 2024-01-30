@@ -34,7 +34,6 @@ export class VacantRequestsViewModel {
     return this.requests
   }
   currentRequestDetails = undefined
-  specs = []
 
   rowCount = 0
   sortModel = []
@@ -50,7 +49,7 @@ export class VacantRequestsViewModel {
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -140,8 +139,8 @@ export class VacantRequestsViewModel {
   loadData() {
     try {
       this.getTableModeState()
+
       this.getRequestsVacant()
-      this.getSpecs()
     } catch (error) {
       console.log(error)
     }
@@ -264,7 +263,9 @@ export class VacantRequestsViewModel {
 
   onClickViewMore(id) {
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.user?.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
     )
 
@@ -348,7 +349,7 @@ export class VacantRequestsViewModel {
   onClickSuggest() {
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.user?.role]
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
       }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${
         this.currentRequestDetails.request._id
       }`,
@@ -358,23 +359,11 @@ export class VacantRequestsViewModel {
   onClickOpenInNewTab(id) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user?.role]
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
       }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
     )
 
     win.focus()
-  }
-
-  async getSpecs() {
-    try {
-      const response = await UserModel.getSpecs(false)
-
-      runInAction(() => {
-        this.specs = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

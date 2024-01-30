@@ -68,7 +68,6 @@ export class MyProposalsViewModel {
 
   currentProposal = null
   currentRequest = null
-  specs = []
   searchMyRequestsIds = []
   requests = []
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
@@ -232,8 +231,6 @@ export class MyProposalsViewModel {
       this.getDataGridState()
 
       this.getRequestsProposalsPagMy()
-
-      this.getSpecs()
     } catch (error) {
       console.log(error)
     }
@@ -463,17 +460,5 @@ export class MyProposalsViewModel {
     this.setDefaultStatuses()
 
     this.getRequestsProposalsPagMy()
-  }
-
-  async getSpecs() {
-    try {
-      const response = await UserModel.getSpecs(false)
-
-      runInAction(() => {
-        this.specs = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

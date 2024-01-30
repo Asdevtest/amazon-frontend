@@ -29,8 +29,6 @@ export class MyServicesViewModel {
   }
 
   selectedSpec = Specs.DEFAULT
-
-  specs = []
   announcements = []
 
   nameSearchValue = undefined
@@ -113,7 +111,6 @@ export class MyServicesViewModel {
   loadData() {
     try {
       this.getMyAnnouncementsData()
-      this.getSpecs()
     } catch (error) {
       console.log(error)
     }
@@ -178,17 +175,5 @@ export class MyServicesViewModel {
 
   onSearchSubmit(e) {
     this.nameSearchValue = e.target.value
-  }
-
-  async getSpecs() {
-    try {
-      const response = await UserModel.getSpecs(false)
-
-      runInAction(() => {
-        this.specs = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
