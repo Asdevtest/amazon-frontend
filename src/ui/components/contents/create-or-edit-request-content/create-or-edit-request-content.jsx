@@ -20,7 +20,6 @@ import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
-  freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
@@ -973,7 +972,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             labelClasses={styles.spanLabel}
                             inputComponent={
                               <Typography className={styles.twoStepFieldResult}>
-                                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[currentSpec?.type])}
+                                {freelanceRequestTypeTranslate(currentSpec?.title)}
                               </Typography>
                             }
                           />

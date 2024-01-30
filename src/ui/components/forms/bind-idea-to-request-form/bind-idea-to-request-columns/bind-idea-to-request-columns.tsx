@@ -1,6 +1,6 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -49,10 +49,7 @@ export const bindIdeaToRequestColumns = [
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell
-        leftAlign
-        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.spec?.type])}
-      />
+      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(params.row.spec?.title)} />
     ),
     filterable: false,
     sortable: false,
