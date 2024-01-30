@@ -256,13 +256,7 @@ export class MyRequestsViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
@@ -302,6 +296,7 @@ export class MyRequestsViewModel {
   async getShops() {
     try {
       const response = await ShopModel.getMyShopNames()
+
       runInAction(() => {
         this.shopsData = response
       })
