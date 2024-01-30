@@ -23,8 +23,6 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { clientInventoryColumns } from '@components/table/table-columns/client/client-inventory-columns'
-
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
@@ -34,6 +32,7 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { clientInventoryColumns } from './components'
 import {
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
@@ -269,9 +268,27 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     reaction(
       () => this.presetsData,
       () => {
-        console.log('get', this.presetsData)
+        const activeFields = this.presetsData.reduce((acc, el) => {
+          if (el?._id) {
+            acc[el.table] = []
+            for (const field of el.fields) {
+              if (field?.checked) {
+                acc[el.table].push(field?.field)
+              }
+            }
+          }
 
-        this.presetsData.reduce((acc, el) => {}, {})
+          return acc
+        }, {})
+
+        this.columnsModel = clientInventoryColumns(
+          barCodeHandlers,
+          hsCodeHandlers,
+          fourMonthesStockHandlers,
+          stockUsHandlers,
+          otherHandlers,
+          activeFields,
+        )
       },
     )
   }

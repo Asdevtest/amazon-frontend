@@ -34,7 +34,10 @@ export const clientInventoryColumns = (
   fourMonthesStockHandlers,
   stockUsHandlers,
   otherHandlers,
+  additionalFields,
 ) => {
+  console.log('additionalFields', additionalFields)
+
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
