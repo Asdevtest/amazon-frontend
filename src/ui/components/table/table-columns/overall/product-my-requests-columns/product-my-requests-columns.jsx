@@ -1,5 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -89,12 +89,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => (
-      <MultilineTextCell
-        leftAlign
-        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.row.spec?.type])}
-      />
-    ),
+    renderCell: params => <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(params.row.spec?.title)} />,
     width: 140,
 
     columnKey: columnnsKeys.shared.OBJECT,

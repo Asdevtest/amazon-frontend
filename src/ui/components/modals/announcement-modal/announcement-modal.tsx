@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -31,9 +31,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const { classes: styles, cx } = useStyles()
 
   const serviceType =
-    service.spec?.type === 0
-      ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.spec?.type])
+    service.spec?.type === 0 ? t(TranslationKey.Universal) : freelanceRequestTypeTranslate(service.spec?.title)
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]

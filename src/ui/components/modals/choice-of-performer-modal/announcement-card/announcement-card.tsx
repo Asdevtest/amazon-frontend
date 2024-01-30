@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -87,7 +87,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
             <p className={styles.detailDescription}>
               {announcementData.spec?.type === 0
                 ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.spec?.type])}
+                : freelanceRequestTypeTranslate(announcementData.spec?.title)}
             </p>
           </div>
 

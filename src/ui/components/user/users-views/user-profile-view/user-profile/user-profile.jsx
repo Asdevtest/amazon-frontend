@@ -4,7 +4,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -129,9 +129,9 @@ export const UserProfile = observer(
 
                   {user?.allowedRoles.length && !user?.masterUser ? (
                     <div className={styles.roles}>
-                      {user?.allowedRoles.map((el, index) => (
-                        <Typography key={index} className={styles.role}>
-                          {UserRoleCodeMap[el]}
+                      {user?.allowedRoles.map(spec => (
+                        <Typography key={spec?._id} className={styles.role}>
+                          {UserRoleCodeMap[spec]}
                         </Typography>
                       ))}
                     </div>
@@ -147,9 +147,9 @@ export const UserProfile = observer(
                     {t(TranslationKey.Specialties)}
                   </Typography>
                   <div className={styles.roles}>
-                    {user?.allowedSpec?.map((el, index) => (
-                      <Typography key={index} className={styles.role}>
-                        {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[el])}
+                    {user?.allowedSpec?.map(spec => (
+                      <Typography key={spec?._id} className={styles.role}>
+                        {freelanceRequestTypeTranslate(spec?.title)}
                       </Typography>
                     ))}
                   </div>
