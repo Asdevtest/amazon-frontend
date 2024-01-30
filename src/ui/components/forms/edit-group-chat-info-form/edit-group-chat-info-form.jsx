@@ -32,7 +32,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   const [state, setState] = useState(sourceState)
 
   const onClose = () => {
-    setState({ ...state, preview: null })
+    setState({ ...state, preview: sourceState?.preview })
   }
 
   const onCrop = preview => {

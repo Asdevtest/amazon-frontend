@@ -24,8 +24,6 @@ export const ChatMessageRemoveUsersFromGroupChat: FC<Props> = ({ message }) => {
 
       <p className={styles.groupText}>{t(TranslationKey['deleted from group chat'])}</p>
 
-      <p className={styles.groupTitle}>{`${message.data?.title} :`}</p>
-
       <div className={styles.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (
           <UserLink key={index} name={el.name} userId={el._id} />
