@@ -523,8 +523,6 @@ class ChatModelStatic {
       this.getSimpleChats()
     }
 
-    console.log('newMessage', newMessage)
-
     const message = plainToInstance<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
       ChatMessageContract,
       newMessage,
