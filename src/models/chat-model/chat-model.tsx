@@ -435,7 +435,28 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    await this.websocketChatService.patchInfoGroupChat(params)
+    try {
+      const newInfo = await this.websocketChatService.patchInfoGroupChat(params)
+
+      const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
+      if (!chatTypeAndIndex) {
+        return
+      }
+      const { chatType, index } = chatTypeAndIndex
+
+      runInAction(() => {
+        // @ts-ignore
+        this[chatType][index] = {
+          ...this[chatType][index],
+          info: {
+            ...this[chatType][index].info,
+            ...newInfo,
+          },
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public async typingMessage(params: TypingMessageRequestParams) {
