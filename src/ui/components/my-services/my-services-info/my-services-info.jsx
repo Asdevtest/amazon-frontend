@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Avatar, Rating, Typography } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -71,7 +71,7 @@ export const MyServicesInfo = ({
               <div className={styles.descriptionWrapper}>
                 <Typography className={styles.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
                 <Typography className={styles.announcementText}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.spec?.type])}
+                  {freelanceRequestTypeTranslate(announcementData?.spec?.title)}
                 </Typography>
               </div>
             </div>
