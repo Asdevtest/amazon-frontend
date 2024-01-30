@@ -42,7 +42,7 @@ export const TabDestinations = observer(() => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={70}
           slotProps={{
             baseTooltip: {

@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -10,9 +9,9 @@ import { checkIsImageUrlValid } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
-export class AdminSettingsPaymentMethodsModel {
-  requestStatus = undefined
+import { isString } from '@typings/type-guards'
 
+export class AdminSettingsPaymentMethodsModel {
   infoModalText = undefined
   showInfoModal = false
   showConfirmModal = false
@@ -34,42 +33,28 @@ export class AdminSettingsPaymentMethodsModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await this.getPaymentMethods()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getPaymentMethods()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 
   async getPaymentMethods() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const result = await SupplierModel.getSuppliersPaymentMethods()
+      const response = await SupplierModel.getSuppliersPaymentMethods()
 
       runInAction(() => {
-        this.paymentMethods = result
+        this.paymentMethods = response
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async createPaymentMethod(paymentMethod) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
 
       runInAction(() => {
@@ -78,24 +63,20 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
       })
 
       this.onClickToggleInfoModal()
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async editPaymentMethod(id, paymentMethod) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await SupplierModel.editSuppliersPaymentMethod(id, paymentMethod)
 
       runInAction(() => {
@@ -104,33 +85,27 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.onClickToggleInfoModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
       })
 
       this.onClickToggleInfoModal()
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemovePaymentMethod(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.removePaymentMethod(id)
 
       this.onClickToggleConfirmModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
@@ -145,14 +120,18 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onClickEditPaymentMethod(id) {
-    this.isEdit = true
-    this.editPaymentMethodId = id
+    runInAction(() => {
+      this.isEdit = true
+      this.editPaymentMethodId = id
+    })
 
     const findPaymentMethod = this.paymentMethods.find(method => method._id === id)
 
     if (findPaymentMethod) {
-      this.method = { title: findPaymentMethod.title, iconImage: findPaymentMethod.iconImage }
-      this.currentImageName = findPaymentMethod.title
+      runInAction(() => {
+        this.method = { title: findPaymentMethod.title, iconImage: findPaymentMethod.iconImage }
+        this.currentImageName = findPaymentMethod.title
+      })
 
       const isValidImageUrl = await checkIsImageUrlValid(findPaymentMethod.iconImage)
 
@@ -163,10 +142,9 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onSubmitPaymentMethod() {
-    const result =
-      typeof this.method.iconImage === 'string'
-        ? await uploadFileByUrl(this.method.iconImage)
-        : await onPostImage(this.method.iconImage)
+    const result = isString(this.method.iconImage)
+      ? await uploadFileByUrl(this.method.iconImage)
+      : await onPostImage(this.method.iconImage)
 
     runInAction(() => {
       this.method.iconImage = result
@@ -176,9 +154,9 @@ export class AdminSettingsPaymentMethodsModel {
 
     runInAction(() => {
       this.method = { title: '', iconImage: '' }
+      this.isEdit = false
+      this.editPaymentMethodId = undefined
     })
-    this.isEdit = false
-    this.editPaymentMethodId = undefined
   }
 
   onChangeTitle(event) {
@@ -186,8 +164,10 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onChangeIconImage(event) {
-    this.currentImageName = this.method.title
-    this.method.iconImage = event.target.value
+    runInAction(() => {
+      this.currentImageName = this.method.title
+      this.method.iconImage = event.target.value
+    })
 
     const isValidImageUrl = await checkIsImageUrlValid(event.target.value)
 

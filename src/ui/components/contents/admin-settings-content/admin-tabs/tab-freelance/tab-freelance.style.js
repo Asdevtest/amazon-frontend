@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  textFileds: {
+  textFields: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
     color: theme.palette.text.general,
     outline: 'none',
-    border: '1px solid var(--light-thin-lines, #E0E0E0)',
+    border: '1px solid #E0E0E0',
     borderRadius: 4,
   },
 

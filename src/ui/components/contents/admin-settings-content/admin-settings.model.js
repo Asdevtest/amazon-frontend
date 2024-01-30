@@ -1,7 +1,6 @@
 import isEqual from 'lodash.isequal'
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -16,11 +15,8 @@ export class AdminSettingsModel {
   requestStatus = undefined
 
   serverProxy = []
-  get user() {
-    return UserModel.userInfo
-  }
-  showAsinCheckerModal = false
 
+  showAsinCheckerModal = false
   infoModalText = ''
   showInfoModal = false
   showConfirmModal = false
@@ -32,27 +28,25 @@ export class AdminSettingsModel {
 
   formFields = startValueFields
   prevFormFields = {}
-
   tabIndex = 0
-
   isFormFieldsChanged = false
   isProxyServersChanged = false
+
+  get user() {
+    return UserModel.userInfo
+  }
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.getAdminSettings()
 
-      await this.getAdminSettings()
-
-      await this.getServerProxy()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getServerProxy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
@@ -62,25 +56,19 @@ export class AdminSettingsModel {
 
   async getAdminSettings() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const result = await AdministratorModel.getSettings()
+      const response = await AdministratorModel.getSettings()
 
       runInAction(() => {
-        this.formFields = result?.dynamicSettings
-        this.prevFormFields = result?.dynamicSettings
+        this.formFields = response?.dynamicSettings
+        this.prevFormFields = response?.dynamicSettings
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async onCreateAdminSettings() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.setSettings(this.formFields)
 
       runInAction(() => {
@@ -94,16 +82,14 @@ export class AdminSettingsModel {
       runInAction(() => {
         this.isFormFieldsChanged = false
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The settings are not saved.'])
       })
 
       this.onClickToggleInfoModal()
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -117,14 +103,9 @@ export class AdminSettingsModel {
       return
     }
 
-    this.formFields = {
-      ...this.formFields,
-      [fieldName]: event.target.value,
-    }
+    this.formFields[fieldName] = event.target.value
 
-    runInAction(() => {
-      this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
-    })
+    this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
   }
 
   onChangeTab(_, selectedTab) {
@@ -150,24 +131,18 @@ export class AdminSettingsModel {
 
   async getServerProxy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       const result = await AdministratorModel.getProxy()
 
       runInAction(() => {
         this.serverProxy = result
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async onCreateProxy(proxy) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.createProxy(proxy)
 
       runInAction(() => {
@@ -177,16 +152,14 @@ export class AdminSettingsModel {
       this.onClickToggleInfoModal()
 
       this.getServerProxy()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])
       })
 
       this.onClickToggleInfoModal()
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

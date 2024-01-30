@@ -40,20 +40,21 @@ export class AdminSettingsDestinationsModel {
 
   columnsModel = destinationsColumns(this.rowHandlers)
 
+  get currentData() {
+    return this.destinations
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
-      await this.getDestinations()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getDestinations()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
@@ -65,35 +66,29 @@ export class AdminSettingsDestinationsModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      await ClientModel.getDestinations().then(result => {
-        runInAction(() => {
-          this.destinations = addIdDataConverter(result)
-        })
+      const response = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = addIdDataConverter(response)
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.destinations = []
-
+      console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
+      this.destinations = []
     }
-  }
-
-  getCurrentData() {
-    return toJS(this.destinations)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setDataGridState() {
@@ -169,49 +164,37 @@ export class AdminSettingsDestinationsModel {
 
   async onCreateDestination(data) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.createDestination(data)
 
       this.onClickToggleAddOrEditModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async onEditDestination(data, destinationId) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.editDestination(destinationId, data)
 
       this.onClickToggleAddOrEditModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async onRemoveDestination() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.removeDestination(this.destinationIdToRemove)
 
       this.onClickToggleConfirmModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 

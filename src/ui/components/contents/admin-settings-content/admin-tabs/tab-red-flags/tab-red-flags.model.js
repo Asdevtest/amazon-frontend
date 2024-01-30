@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -10,9 +9,9 @@ import { checkIsImageUrlValid } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
-export class AdminSettingsRedFlagsModel {
-  requestStatus = undefined
+import { isString } from '@typings/type-guards'
 
+export class AdminSettingsRedFlagsModel {
   infoModalText = undefined
   showInfoModal = false
   showConfirmModal = false
@@ -34,42 +33,28 @@ export class AdminSettingsRedFlagsModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await this.getRedFlags()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getRedFlags()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 
   async getRedFlags() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const result = await ProductModel.getProductRedFlags()
+      const response = await ProductModel.getProductRedFlags()
 
       runInAction(() => {
-        this.redFlags = result
+        this.redFlags = response
       })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
   async onCreateRedFlag(redFlag) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.createRedFlag(redFlag)
 
       runInAction(() => {
@@ -78,24 +63,20 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Red flag is not saved'])
       })
 
       this.onTriggerOpenModal('showInfoModal')
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onEditRedFlag(id, redFlag) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.editRedFlag(id, redFlag)
 
       runInAction(() => {
@@ -104,33 +85,27 @@ export class AdminSettingsRedFlagsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Red flag is not saved'])
       })
 
       this.onTriggerOpenModal('showInfoModal')
-
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onRemoveRedFlag(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       await AdministratorModel.removeRedFlag(id)
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
     }
   }
 
@@ -145,14 +120,18 @@ export class AdminSettingsRedFlagsModel {
   }
 
   async onClickEditRedFlag(id) {
-    this.isEdit = true
-    this.editRedFlagId = id
+    runInAction(() => {
+      this.isEdit = true
+      this.editRedFlagId = id
+    })
 
     const findRedFlag = this.redFlags.find(flag => flag._id === id)
 
     if (findRedFlag) {
-      this.flag = { title: findRedFlag.title, iconImage: findRedFlag.iconImage }
-      this.currentImageName = findRedFlag.title
+      runInAction(() => {
+        this.flag = { title: findRedFlag.title, iconImage: findRedFlag.iconImage }
+        this.currentImageName = findRedFlag.title
+      })
 
       const isValidImageUrl = await checkIsImageUrlValid(findRedFlag.iconImage)
 
@@ -163,10 +142,9 @@ export class AdminSettingsRedFlagsModel {
   }
 
   async onSubmitRedFlag() {
-    const result =
-      typeof this.flag.iconImage === 'string'
-        ? await uploadFileByUrl(this.flag.iconImage)
-        : await onPostImage(this.flag.iconImage)
+    const result = isString(this.flag.iconImage)
+      ? await uploadFileByUrl(this.flag.iconImage)
+      : await onPostImage(this.flag.iconImage)
 
     runInAction(() => {
       this.flag.iconImage = result
@@ -176,9 +154,9 @@ export class AdminSettingsRedFlagsModel {
 
     runInAction(() => {
       this.flag = { title: '', iconImage: '' }
+      this.isEdit = false
+      this.editRedFlagId = undefined
     })
-    this.isEdit = false
-    this.editRedFlagId = undefined
   }
 
   onChangeTitle(event) {
@@ -186,8 +164,10 @@ export class AdminSettingsRedFlagsModel {
   }
 
   async onChangeIconImage(event) {
-    this.currentImageName = this.flag.title
-    this.flag.iconImage = event.target.value
+    runInAction(() => {
+      this.currentImageName = this.flag.title
+      this.flag.iconImage = event.target.value
+    })
 
     const isValidImageUrl = await checkIsImageUrlValid(event.target.value)
 

@@ -22,7 +22,7 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.textFileds}>
+      <div className={styles.textFields}>
         <Field
           labelClasses={styles.label}
           label={t(TranslationKey['Percentage of each proposal']) + ', %'}
@@ -47,33 +47,29 @@ export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChan
           error={formFields.requestMinAmountPriceOfProposal === ''}
           onChange={e => onChangeField(fieldNameObject.requestMinAmountPriceOfProposal, e)}
         />
-      </div>
-
-      <div className={styles.textFileds}>
-        <div>
-          <Field
-            labelClasses={styles.label}
-            label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
-            classes={{ root: styles.textField }}
-            value={formFields.requestSupervisorFeeInPercent}
-            error={formFields.requestSupervisorFeeInPercent === ''}
-            onChange={e => onChangeField(fieldNameObject.requestSupervisorFeeInPercent, e)}
-          />
-
-          <Field
-            labelClasses={styles.label}
-            label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
-            classes={{ root: styles.textField }}
-            value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
-            error={formFields.requestTimeLimitInHourForCheckingProposalBySuper === ''}
-            onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
-          />
-        </div>
+        <Field
+          labelClasses={styles.label}
+          label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
+          classes={{ root: styles.textField }}
+          value={formFields.requestSupervisorFeeInPercent}
+          error={formFields.requestSupervisorFeeInPercent === ''}
+          onChange={e => onChangeField(fieldNameObject.requestSupervisorFeeInPercent, e)}
+        />
+        <Field
+          labelClasses={styles.label}
+          label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
+          classes={{ root: styles.textField }}
+          value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
+          error={formFields.requestTimeLimitInHourForCheckingProposalBySuper === ''}
+          onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
+        />
 
         <Button disabled={disabledSubmit} className={styles.saveButton} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
       </div>
+
+      <div className={styles.tableWrapper}></div>
     </div>
   )
 }
