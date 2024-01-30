@@ -20,17 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  groupTitle: {
-    fontWeight: 600,
-    maxWidth: 200,
-
-    [theme.breakpoints.down(768)]: {
-      maxWidth: 160,
-      fontSize: 14,
-      wordWrap: 'break-word',
-    },
-  },
-
   usersWrapper: {
     display: 'flex',
     gap: 5,

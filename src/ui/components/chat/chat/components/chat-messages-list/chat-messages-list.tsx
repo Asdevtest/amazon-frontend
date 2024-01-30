@@ -31,8 +31,7 @@ interface ChatMessagesListProps {
   setMessageToReply: (mes: ChatMessageContract | null) => void
   messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
   handleScrollToBottomButtonVisibility: (bottomState: boolean) => void
-  prependItems: () => void
-  scrollToMessage: (messageIndex: number) => void
+  handleLoadMoreMessages: (message?: ChatMessageContract) => void
 }
 
 export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
@@ -51,10 +50,9 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     chatId,
     isFreelanceOwner,
     firstItemIndex,
-    prependItems,
+    handleLoadMoreMessages,
     setMessageToReply,
     handleScrollToBottomButtonVisibility,
-    scrollToMessage,
   } = props
 
   const { isMobileResolution } = useCreateBreakpointResolutions()
@@ -65,19 +63,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     setMessageToReply(messageItem)
   }
 
-  const getReplyedMessages = async () => {
-    if (messages?.length) {
-      for (const message of messages) {
-        if (chatId && message.replyMessageId) {
-          await ChatModel.getChatMessage(chatId, String(message.replyMessageId))
-        }
-      }
-    }
-  }
-
   useEffect(() => {
-    getReplyedMessages()
-
     const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
 
     if (unReadMessages?.length && chatId) {
@@ -108,10 +94,6 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
 
     const showName =
       (isGroupChat || !!isFreelanceOwner) && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
-
-    const replyMessageId = messageItem?.replyMessageId
-
-    const repleyMessage = messages.find(el => typeof replyMessageId === 'string' && el._id === replyMessageId)
 
     const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
@@ -164,21 +146,19 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
               })}
             >
               <div className={styles.messageInnerContentWrapper}>
-                {repleyMessage && (
+                {!!messageItem?.replyMessage && (
                   <div
                     className={styles.repleyWrapper}
                     onClick={e => {
                       e.stopPropagation()
-                      const messageIndex = messages?.findIndex(el => el._id === repleyMessage._id)
-
-                      scrollToMessage(messageIndex)
+                      handleLoadMoreMessages(messageItem?.replyMessage)
                     }}
                   >
                     <div className={styles.repleyDivider} />
                     <ChatMessageByType
-                      showName
+                      showName={false}
                       isIncomming={isIncomming}
-                      messageItem={repleyMessage}
+                      messageItem={messageItem?.replyMessage}
                       isShowChatInfo={isShowChatInfo}
                       unReadMessage={false}
                     />
@@ -210,7 +190,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
       className={styles.list}
       firstItemIndex={firstItemIndex}
       initialTopMostItemIndex={messages?.length - 1}
-      startReached={prependItems}
+      startReached={() => handleLoadMoreMessages()}
       atBottomStateChange={handleScrollToBottomButtonVisibility}
       atBottomThreshold={350}
       data={messages}

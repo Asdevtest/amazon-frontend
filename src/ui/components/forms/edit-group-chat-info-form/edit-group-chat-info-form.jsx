@@ -32,7 +32,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   const [state, setState] = useState(sourceState)
 
   const onClose = () => {
-    setState({ ...state, preview: null })
+    setState({ ...state, preview: sourceState?.preview })
   }
 
   const onCrop = preview => {
@@ -70,6 +70,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
       <p className={styles.title}>{t(TranslationKey['Change group chat info'])}</p>
 
       <Field
+        inputProps={{ maxLength: 254 }}
         label={t(TranslationKey['Name of group chat']) + '*'}
         labelClasses={styles.label}
         value={state.title}

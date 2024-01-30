@@ -24,11 +24,12 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({ message }) => {
 
       <p className={styles.groupText}>{t(TranslationKey['added to the group chat'])}</p>
 
-      <p className={styles.groupTitle}>{`${message.data?.title} :`}</p>
-
       <div className={styles.usersWrapper}>
         {message.data.users.map((el: { _id: string; name: string }, index: number) => (
-          <UserLink key={index} name={el.name} userId={el._id} />
+          <div key={index} className={styles.user}>
+            <UserLink name={el.name} userId={el._id} />
+            {index < message.data.users.length - 1 ? <span>, </span> : null}
+          </div>
         ))}
       </div>
     </div>

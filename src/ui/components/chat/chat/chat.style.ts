@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flex: '1 1 auto',
-    overflow: 'auto',
+    overflowY: 'auto',
     background: theme.palette.background.general,
     borderRadius: '0 7px 0 0',
 
@@ -283,5 +283,17 @@ export const useStyles = makeStyles()(theme => ({
 
   hideElement: {
     display: 'none',
+  },
+
+  spinnerContainer: {
+    position: 'absolute',
+    width: '30px',
+    height: '30px',
+    top: '10px',
+    left: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
   },
 }))

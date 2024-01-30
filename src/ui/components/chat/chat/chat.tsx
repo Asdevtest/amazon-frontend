@@ -21,6 +21,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
+import { CircleSpinner } from '@components/shared/circle-spinner'
 import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
@@ -119,6 +120,7 @@ export const Chat: FC<ChatProps> = memo(
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
     const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+    const [isLoading, setIsLoading] = useState(false)
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
@@ -127,12 +129,45 @@ export const Chat: FC<ChatProps> = memo(
     const [messageToScroll, setMessageToScroll] = useState<number | undefined>(undefined)
     const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
 
+    const [messageToFind, setMessageToFind] = useState<number | undefined>(undefined)
+
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
-    const handleLoadMoreMessages = () => {
-      ChatModel.getChatMessages?.(chat?._id)?.finally(() => setFirstItemIndex(START_INDEX - messages.length))
+    // FIXME
+    // Описание костыля: если в чате нет выбранного replyMessage, фронт делает запрос, оно загружается, но массив сообщений не успевает обновится => messageIndex === -1
+    // Чтобы избегать, был создан стейт messageToFind, в котором хранится индекс выбранного сообщения, когда массив сообщений обновляется
+    // Только тогда происходит проскролл к нужному сообщению
+    // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
+    const handleLoadMoreMessages = async (selectedMessage?: ChatMessageContract) => {
+      if (isLoading) {
+        return
+      }
+
+      setIsLoading(true)
+      if (selectedMessage?._id) {
+        const result = await ChatModel.getChatMessage(chat?._id, selectedMessage?._id)
+
+        if (result?.isExist) {
+          scrollToMessage(result?.messageIndex)
+        } else if (!result?.isExist) {
+          setMessageToFind(result?.messageIndex)
+        }
+      } else {
+        await ChatModel.getChatMessages?.(chat?._id)
+        setFirstItemIndex(START_INDEX - messages.length)
+      }
+      setIsLoading(false)
     }
+
+    // FIXME
+    useEffect(() => {
+      if (messageToFind !== undefined && messageToFind !== -1) {
+        scrollToMessage(messageToFind)
+        setMessageToFind(undefined)
+        setFirstItemIndex(START_INDEX - messages.length)
+      }
+    }, [messages?.length])
 
     const handleScrollToBottomButtonVisibility = (bottomState: boolean) => setIsShowScrollToBottomBtn(!bottomState)
 
@@ -147,7 +182,6 @@ export const Chat: FC<ChatProps> = memo(
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
-      // onClickScrollToBottom()
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -219,6 +253,12 @@ export const Chat: FC<ChatProps> = memo(
     return (
       <>
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
+          {isLoading && (
+            <div className={styles.spinnerContainer}>
+              <CircleSpinner />
+            </div>
+          )}
+
           <ChatMessagesList
             chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}
@@ -230,11 +270,10 @@ export const Chat: FC<ChatProps> = memo(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
-            scrollToMessage={scrollToMessage}
             isFreelanceOwner={isFreelanceOwner}
             setMessageToReply={setMessageToReply}
             firstItemIndex={firstItemIndex}
-            prependItems={handleLoadMoreMessages}
+            handleLoadMoreMessages={handleLoadMoreMessages}
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
           />
 

@@ -23,6 +23,9 @@ export const useStyles = makeStyles()(theme => ({
   groupTitle: {
     fontWeight: 600,
     maxWidth: 200,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
 
     [theme.breakpoints.down(768)]: {
       maxWidth: 160,

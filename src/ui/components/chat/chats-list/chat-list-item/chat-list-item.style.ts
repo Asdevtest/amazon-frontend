@@ -117,6 +117,7 @@ export const useStyles = makeStyles()(theme => ({
     margin: 0,
     fontSize: 14,
     lineHeight: '19px',
+    flex: 1,
     color: theme.palette.text.second,
     wordWrap: 'break-word',
     overflow: 'hidden',
