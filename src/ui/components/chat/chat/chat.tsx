@@ -21,6 +21,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
+import { CircleSpinner } from '@components/shared/circle-spinner'
 import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
@@ -119,6 +120,7 @@ export const Chat: FC<ChatProps> = memo(
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
     const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+    const [isLoading, setIsLoading] = useState(false)
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
@@ -138,6 +140,11 @@ export const Chat: FC<ChatProps> = memo(
     // Только тогда происходит проскролл к нужному сообщению
     // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
     const handleLoadMoreMessages = async (selectedMessage?: ChatMessageContract) => {
+      if (isLoading) {
+        return
+      }
+
+      setIsLoading(true)
       if (selectedMessage?._id) {
         const result = await ChatModel.getChatMessage(chat?._id, selectedMessage?._id)
 
@@ -150,6 +157,7 @@ export const Chat: FC<ChatProps> = memo(
         await ChatModel.getChatMessages?.(chat?._id)
         setFirstItemIndex(START_INDEX - messages.length)
       }
+      setIsLoading(false)
     }
 
     // FIXME
@@ -174,7 +182,6 @@ export const Chat: FC<ChatProps> = memo(
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
-      // onClickScrollToBottom()
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -246,6 +253,12 @@ export const Chat: FC<ChatProps> = memo(
     return (
       <>
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
+          {isLoading && (
+            <div className={styles.spinnerContainer}>
+              <CircleSpinner />
+            </div>
+          )}
+
           <ChatMessagesList
             chatId={chat._id}
             messagesWrapperRef={messagesWrapperRef}

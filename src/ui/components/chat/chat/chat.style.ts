@@ -284,4 +284,16 @@ export const useStyles = makeStyles()(theme => ({
   hideElement: {
     display: 'none',
   },
+
+  spinnerContainer: {
+    position: 'absolute',
+    width: '30px',
+    height: '30px',
+    top: '10px',
+    left: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
 }))
