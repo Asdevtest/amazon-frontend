@@ -37,8 +37,9 @@ export const MyProposalsView = observer(({ history }) => {
       <div className={styles.root}>
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.specs}
+            onClickSpec={viewModel.onClickSpec}
           />
 
           <SearchInput
@@ -112,7 +113,7 @@ export const MyProposalsView = observer(({ history }) => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestDesignerResultClientModal && (
+      {viewModel.showRequestDesignerResultClientModal && (
         <Modal
           openModal={viewModel.showRequestDesignerResultClientModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
@@ -126,7 +127,7 @@ export const MyProposalsView = observer(({ history }) => {
         </Modal>
       )}
 
-      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestStandartResultModal && (
+      {viewModel.showRequestStandartResultModal && (
         <Modal
           openModal={viewModel.showRequestStandartResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
@@ -139,7 +140,7 @@ export const MyProposalsView = observer(({ history }) => {
         </Modal>
       )}
 
-      {viewModel.currentRequest && viewModel.currentProposal && viewModel.showRequestResultModal && (
+      {viewModel.showRequestResultModal && (
         <RequestResultModal
           request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}

@@ -11,4 +11,5 @@ export const filtersFields = [
   'amazonTitle',
   'createdBy',
   'subUsers',
+  'specType',
 ]

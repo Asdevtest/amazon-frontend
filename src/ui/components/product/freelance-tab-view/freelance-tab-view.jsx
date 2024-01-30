@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,9 +8,9 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -23,8 +21,8 @@ import { FreelanceModel } from './freelance-tab-view.model'
 
 export const Freelance = observer(({ productId, modal }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const [viewModel] = useState(() => new FreelanceModel({ history, productId }))
+
+  const [viewModel] = useState(() => new FreelanceModel(productId))
 
   useEffect(() => {
     viewModel.loadData()
@@ -33,14 +31,10 @@ export const Freelance = observer(({ productId, modal }) => {
   return (
     <>
       <div className={styles.header}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={Number(viewModel.selectedTaskType)}
-          switcherSettings={Object.keys(freelanceRequestTypeByCode).map(taskType => ({
-            value: Number(taskType),
-            label: () => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType], true),
-          }))}
-          changeConditionHandler={viewModel.onClickTaskType}
+        <FreelanceTypeTaskSelect
+          selectedSpec={viewModel.selectedSpec}
+          specs={viewModel.specs}
+          onClickSpec={viewModel.onClickSpec}
         />
 
         <SearchInput
@@ -56,7 +50,7 @@ export const Freelance = observer(({ productId, modal }) => {
           localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={100}
           slotProps={{
             baseTooltip: {

@@ -1,13 +1,19 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
+
+import { Specs } from '@typings/enums/specs'
+
+import { filterFields } from './my-services-view.constants'
 
 export class MyServicesViewModel {
   history = undefined
@@ -22,14 +28,10 @@ export class MyServicesViewModel {
     error: false,
   }
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
 
-  userInfo = []
-  userRole = undefined
-
+  specs = []
   announcements = []
-
-  currentData = []
 
   nameSearchValue = undefined
 
@@ -41,14 +43,44 @@ export class MyServicesViewModel {
 
   showImageModal = false
 
-  constructor({ history, location }) {
+  columnMenuSettings = {
+    onClickFilterBtn: () => {},
+    onChangeFullFieldMenuItem: () => {},
+    onClickAccept: () => {},
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filterFields),
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
+  get userRole() {
+    return UserRoleCodeMap[this.userInfo.role]
+  }
+
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.announcements.filter(
+        el =>
+          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.announcements
+    }
+  }
+
+  constructor({ history }) {
     this.history = history
 
-    if (location.state) {
+    if (history.location.state) {
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
-        error: location?.state?.error,
+        showAlertShield: history.location?.state?.showAcceptMessage,
+        alertShieldMessage: history.location?.state?.acceptMessage,
+        error: history.location?.state?.error,
       }
 
       const state = { ...history.location.state }
@@ -60,77 +92,50 @@ export class MyServicesViewModel {
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
-    reaction(
-      () => this.announcements,
-      () => (this.currentData = this.getCurrentData()),
-    )
+    if (this.alertShieldSettings.showAlertShield) {
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
 
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    runInAction(() => {
-      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
           this.alertShieldSettings = {
-            ...this.alertShieldSettings,
             showAlertShield: false,
+            alertShieldMessage: '',
+            error: false,
           }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-              error: false,
-            }
-          }, 1000)
-        }, 3000)
-      }
-    })
+        }, 1000)
+      }, 3000)
+    }
   }
 
-  async getUserInfo() {
-    const result = await UserModel.userInfo
-
-    runInAction(() => {
-      this.userInfo = result
-      this.userRole = UserRoleCodeMap[result.role]
-    })
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      await Promise.all([this.getUserInfo(), this.getMyAnnouncementsData()])
+      this.getMyAnnouncementsData()
+      this.getSpecs()
     } catch (error) {
       console.log(error)
     }
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
+    )
   }
 
   async getMyAnnouncementsData() {
     try {
-      const result = await AnnouncementsModel.getMyAnnouncements(
-        Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-          ? null
-          : this.selectedTaskType,
-      )
+      const response = await AnnouncementsModel.getMyAnnouncements({
+        filters: this.getFilter(),
+      })
+
       runInAction(() => {
-        this.announcements = result
+        this.announcements = response
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.announcements).filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.announcements)
     }
   }
 
@@ -138,11 +143,17 @@ export class MyServicesViewModel {
     this.history.push(`/freelancer/freelance/my-services/create-service`)
   }
 
-  async onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
-    await this.getMyAnnouncementsData()
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings[field].currentFilterData = value
+  }
+
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+
+    this.getMyAnnouncementsData()
   }
 
   onChangeViewMode(value) {
@@ -167,5 +178,17 @@ export class MyServicesViewModel {
 
   onSearchSubmit(e) {
     this.nameSearchValue = e.target.value
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

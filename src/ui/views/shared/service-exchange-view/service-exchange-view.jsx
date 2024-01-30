@@ -19,6 +19,7 @@ import { ServiceExchangeViewModel } from './service-exchange-view.model'
 
 export const ServiceExchangeView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
+
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
 
   useEffect(() => {
@@ -34,8 +35,9 @@ export const ServiceExchangeView = observer(({ history }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.specs}
+            onClickSpec={viewModel.onClickSpec}
           />
         </div>
 

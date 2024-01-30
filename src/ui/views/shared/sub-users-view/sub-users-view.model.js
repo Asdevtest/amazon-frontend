@@ -251,7 +251,6 @@ export class SubUsersViewModel {
   }
 
   async onClickEditBtn(row) {
-    console.log('row', row)
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
