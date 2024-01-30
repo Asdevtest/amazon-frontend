@@ -358,9 +358,9 @@ export const CreateOrEditRequestContent = memo(props => {
   const onClickCreate = async ({ withPublish }) => {
     await setWithPublish(withPublish)
 
-    const result = await checkRequestByTypeExists(currentSpec?.type, formFields.request.productId)
+    const result = await checkRequestByTypeExists(formFields.request.productId, currentSpec?.type)
 
-    if (result.length) {
+    if (result?.length) {
       setRequestIds(result)
       setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
     } else {

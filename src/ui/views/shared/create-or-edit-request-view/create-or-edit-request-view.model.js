@@ -299,9 +299,9 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async checkRequestByTypeExists(spec, id) {
+  async checkRequestByTypeExists(id, specType) {
     try {
-      const result = await RequestModel.getExistingRequestsTypeRequests(spec, id)
+      const result = await RequestModel.getExistingRequestsTypeRequests(id, specType)
 
       return result
     } catch (error) {
