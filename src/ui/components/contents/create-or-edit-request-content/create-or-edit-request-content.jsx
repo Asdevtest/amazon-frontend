@@ -93,9 +93,7 @@ export const CreateOrEditRequestContent = memo(props => {
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
   const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
-
   const [announcementsData, setAnnouncementsData] = useState([])
-
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
   const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
