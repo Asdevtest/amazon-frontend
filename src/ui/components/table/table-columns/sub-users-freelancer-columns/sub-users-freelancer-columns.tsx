@@ -16,6 +16,8 @@ import {
 
 import { t } from '@utils/translations'
 
+import { ISpec } from '@typings/spec'
+
 interface SubUsersFreelancerColumnsProps {
   onClickRemoveBtn: (row: GridRowParams) => void
   onClickEditBtn: (row: GridRowParams) => void
@@ -48,7 +50,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridRowParams) => {
       const stringForRender = params.row.allowedSpec
-        ?.map((spec: number) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(spec)]))
+        ?.map((spec: ISpec) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(spec?.type)]))
         .join('\n')
 
       return <MultilineTextCell leftAlign text={stringForRender} />
@@ -56,6 +58,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     type: 'number',
     width: 95,
     sortable: false,
+    disableColumnMenu: true,
   },
 
   {
@@ -76,7 +79,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         isFirstRow={params?.api?.getSortedRowIds()?.[0] === params.row.id}
       />
     ),
-    filterable: false,
+    disableColumnMenu: true,
     sortable: false,
   },
 

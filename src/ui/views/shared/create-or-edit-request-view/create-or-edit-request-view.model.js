@@ -14,8 +14,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
 
   acceptMessage = null
   showAcceptMessage = false
@@ -26,8 +24,7 @@ export class CreateOrEditRequestViewModel {
   createRequestForIdeaData = undefined
 
   uploadedFiles = []
-
-  permissionsData = []
+  specs = []
   masterUsersData = []
 
   announcementId = undefined
@@ -56,68 +53,59 @@ export class CreateOrEditRequestViewModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
-    runInAction(() => {
-      this.history = history
 
-      this.createRequestForIdeaData = {
-        productId: url.searchParams.get('parentProduct'),
-        asin: url.searchParams.get('asin'),
-      }
+    this.history = history
 
-      const announcementId = url.searchParams.get('announcementId')
-      if (announcementId) {
-        this.announcementId = announcementId
-      }
+    this.createRequestForIdeaData = {
+      productId: url.searchParams.get('parentProduct'),
+      asin: url.searchParams.get('asin'),
+    }
 
-      if (location.state) {
-        this.requestId = location.state.requestId
-      }
-    })
+    const announcementId = url.searchParams.get('announcementId')
+    if (announcementId) {
+      this.announcementId = announcementId
+    }
+
+    if (history.location.state) {
+      this.requestId = history.location.state.requestId
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getPlatformSettingsData() {
-    this.platformSettingsData = await UserModel.getPlatformSettings()
-  }
-
-  async loadData() {
     try {
-      await Promise.all([this.getCustomRequestCur(), this.getProductPermissionsData(), this.getPlatformSettingsData()])
+      const response = await UserModel.getPlatformSettings()
 
-      await this.getAnnouncementData()
-    } catch (error) {
       runInAction(() => {
-        this.error = error
+        this.platformSettingsData = response
       })
+    } catch (error) {
       console.log(error)
     }
   }
 
-  async getProductPermissionsData() {
+  async loadData() {
     try {
-      // await ClientModel.getProductPermissionsData().then(result => {
-      //   runInAction(() => {
-      //     this.permissionsData = result.rows
-      //   })
-      // })
+      await Promise.all([this.getCustomRequestCur(), this.getPlatformSettingsData()])
+
+      await this.getAnnouncementData()
+      this.getSpecs()
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
       console.log(error)
     }
   }
 
   async getMasterUsersData(specsType, guid = '') {
     try {
-      this.masterUsersData = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
-    } catch (error) {
+      const response = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
+
       runInAction(() => {
-        this.error = error
+        this.masterUsersData = response
       })
+    } catch (error) {
       console.log(error)
     }
   }
@@ -129,17 +117,12 @@ export class CreateOrEditRequestViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   pushSuccess() {
-    runInAction(() => {
-      this.showAcceptMessage = true
-      this.acceptMessage = t(TranslationKey['An request has been created'])
-    })
+    this.showAcceptMessage = true
+    this.acceptMessage = t(TranslationKey['An request has been created'])
 
     this.history.push('/client/freelance/my-requests', {
       showAcceptMessage: this.showAcceptMessage,
@@ -149,10 +132,6 @@ export class CreateOrEditRequestViewModel {
 
   async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
       }
@@ -215,10 +194,6 @@ export class CreateOrEditRequestViewModel {
           error: true,
         })
       }
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -273,10 +248,6 @@ export class CreateOrEditRequestViewModel {
         acceptMessage: this.acceptMessage,
         error: true,
       })
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -286,7 +257,15 @@ export class CreateOrEditRequestViewModel {
   }
 
   async onClickChoosePerformer(spec) {
-    this.announcements = await AnnouncementsModel.getVacAnnouncements(spec)
+    try {
+      const response = await AnnouncementsModel.getVacAnnouncements(spec)
+
+      runInAction(() => {
+        this.announcements = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getCustomRequestCur() {
@@ -299,28 +278,35 @@ export class CreateOrEditRequestViewModel {
         })
       } catch (error) {
         console.log(error)
-        runInAction(() => {
-          this.error = error
-        })
       }
     }
   }
 
   async getAnnouncementData() {
     const guid = this.announcementId || this.requestToEdit?.request?.announcementId
+
     if (guid) {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
-      runInAction(() => {
-        this.choosenAnnouncements = result
-        this.executor = result?.createdBy
-      })
+      try {
+        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+
+        runInAction(() => {
+          this.choosenAnnouncements = result
+          this.executor = result?.createdBy
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
   async checkRequestByTypeExists(spec, id) {
-    const result = await RequestModel.getExistingRequestsTypeRequests(spec, id)
+    try {
+      const result = await RequestModel.getExistingRequestsTypeRequests(spec, id)
 
-    return result
+      return result
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onClickExistingRequest(item) {
@@ -330,14 +316,22 @@ export class CreateOrEditRequestViewModel {
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   setBigImagesOptions(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
+    this.bigImagesOptions = data
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

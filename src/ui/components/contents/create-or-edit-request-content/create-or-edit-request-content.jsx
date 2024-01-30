@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import {
@@ -60,12 +61,12 @@ const stepVariant = {
 export const CreateOrEditRequestContent = memo(props => {
   const {
     announcements,
+    specs,
     permissionsData,
     masterUsersData,
     choosenAnnouncements,
     executor,
     requestToEdit,
-    history,
     platformSettingsData,
     showProgress,
     progressValue,
@@ -82,6 +83,8 @@ export const CreateOrEditRequestContent = memo(props => {
     onEditSubmit,
   } = props
   const { classes: styles, cx } = useStyles()
+
+  const history = useHistory()
 
   const mainContentRefElement = mainContentRef.current
 
@@ -187,7 +190,7 @@ export const CreateOrEditRequestContent = memo(props => {
       needCheckBySupervisor: requestToEdit?.request?.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
-      spec: requestToEdit?.request?.spec || choosenAnnouncements?.type || null,
+      specId: requestToEdit?.request?.spec?._id || choosenAnnouncements?.spec?._id || '',
       asin: requestToEdit
         ? requestToEdit?.request?.asin
         : createRequestForIdeaData
@@ -221,11 +224,22 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  const [requestIds, setRequestIds] = useState([])
-
   useEffect(() => {
     setFormFields(getSourceFormFields())
-  }, [])
+  }, [requestToEdit])
+
+  const [currentSpec, setCurrentSpec] = useState(null)
+
+  useEffect(() => {
+    const findCurrentSpec = specs?.find(spec => spec?._id === formFields.request.specId)
+
+    if (findCurrentSpec) {
+      getMasterUsersData(findCurrentSpec.type)
+      setCurrentSpec(findCurrentSpec)
+    }
+  }, [formFields.request.specId, specs])
+
+  const [requestIds, setRequestIds] = useState([])
 
   useEffect(() => {
     setAnnouncement(choosenAnnouncements)
@@ -234,15 +248,10 @@ export const CreateOrEditRequestContent = memo(props => {
       ...prevFormFields,
       request: {
         ...prevFormFields.request,
-        spec: {
-          ...prevFormFields.request?.spec,
-          type: choosenAnnouncements?.type || null,
-        },
+        specId: choosenAnnouncements?.spec?._id || '',
       },
     }))
   }, [choosenAnnouncements])
-
-  console.log('formFields.request.spec?.type', formFields.request.spec?.type)
 
   useEffect(() => {
     if (!requestToEdit) {
@@ -250,12 +259,6 @@ export const CreateOrEditRequestContent = memo(props => {
     }
     setFormFields(getSourceFormFields())
   }, [choosenAnnouncements, requestToEdit])
-
-  useEffect(() => {
-    if (formFields.request?.spec?.type) {
-      getMasterUsersData(formFields.request?.spec?.type)
-    }
-  }, [formFields.request.spec])
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -304,7 +307,7 @@ export const CreateOrEditRequestContent = memo(props => {
       } else if (['announcementId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
         setOpenModal(false)
-      } else if (['spec'].includes(fieldName)) {
+      } else if (['specId'].includes(fieldName)) {
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
@@ -312,22 +315,14 @@ export const CreateOrEditRequestContent = memo(props => {
         setAnnouncement('')
         setChosenExecutor(undefined)
 
+        newFormFields[section][fieldName] = event.target.value
+        // getMasterUsersData(event.target.value)
+
         if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
         }
-
-        return setFormFields(prevFormFields => ({
-          ...prevFormFields,
-          request: {
-            ...prevFormFields.request,
-            spec: {
-              ...prevFormFields.request?.spec,
-              type: event.target.value,
-            },
-          },
-        }))
       } else if (['executorId'].includes(fieldName)) {
         setChosenExecutor(event)
         newFormFields[section][fieldName] = event?._id
@@ -362,7 +357,9 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const onClickCreate = async ({ withPublish }) => {
     await setWithPublish(withPublish)
-    const result = await checkRequestByTypeExists(formFields.request?.spec?.type, formFields.request.productId)
+
+    const result = await checkRequestByTypeExists(currentSpec?.type, formFields.request.productId)
+
     if (result.length) {
       setRequestIds(result)
       setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
@@ -396,7 +393,7 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeoutAt ||
     parseTextString(formFields.details.conditions).length >= 6000 ||
     !parseTextString(formFields.details.conditions).length ||
-    !formFields.request.spec ||
+    !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
@@ -447,7 +444,6 @@ export const CreateOrEditRequestContent = memo(props => {
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
-
                 <div className={styles.nameFieldWrapper}>
                   <Field
                     label={t(TranslationKey['Difficulty level'])}
@@ -515,28 +511,25 @@ export const CreateOrEditRequestContent = memo(props => {
                     inputComponent={
                       <Select
                         displayEmpty
-                        value={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[formFields.request.spec?.type])}
+                        value={formFields.request.specId || ''}
                         className={styles.requestTypeField}
-                        input={<Input startAdornment={<InputAdornment position="start" />} />}
-                        onChange={onChangeField('request')('spec')}
+                        onChange={onChangeField('request')('specId')}
                       >
-                        <MenuItem disabled value={null}>
+                        <MenuItem disabled value="">
                           {t(TranslationKey['Select from the list'])}
                         </MenuItem>
 
-                        {Object.keys(freelanceRequestTypeByCode)
-                          .filter(el => String(el) !== String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
-                          .map((taskType, taskIndex) => (
-                            <MenuItem key={taskIndex} value={taskType}>
-                              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                            </MenuItem>
-                          ))}
+                        {specs.map(spec => (
+                          <MenuItem key={spec._id} value={spec?._id}>
+                            {freelanceRequestTypeTranslate(spec?.title)}
+                          </MenuItem>
+                        ))}
                       </Select>
                     }
                   />
                 </div>
 
-                {formFields?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] && (
+                {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] && (
                   <div className={styles.bloggerFieldsWrapper}>
                     <Field
                       className={styles.nameField}
@@ -580,7 +573,6 @@ export const CreateOrEditRequestContent = memo(props => {
                     />
                   </div>
                 )}
-
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput
                     minimized
@@ -593,7 +585,6 @@ export const CreateOrEditRequestContent = memo(props => {
                     addFilesButtonTitle={t(TranslationKey['Add file'])}
                   />
                 </div>
-
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
                     title={t(TranslationKey['Describe your task']) + '*'}
@@ -756,11 +747,11 @@ export const CreateOrEditRequestContent = memo(props => {
                             />
 
                             <Button
-                              disabled={!formFields?.request?.spec?.type}
+                              disabled={!formFields.request.specId}
                               variant={'contained'}
                               className={styles.changePerformerBtn}
                               onClick={async () => {
-                                await onClickChoosePerformer(formFields?.request?.spec?.type)
+                                await onClickChoosePerformer(currentSpec?.type)
                                 setOpenModal(true)
                               }}
                             >
@@ -775,7 +766,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             blackSelectedItem
                             chosenItemNoHover
                             width={'100%'}
-                            disabled={!formFields?.request?.spec?.type}
+                            disabled={!formFields.request.specId}
                             data={masterUsersData}
                             searchOnlyFields={['name']}
                             customSubMainWrapper={styles.customSubMainWrapper}
@@ -816,11 +807,11 @@ export const CreateOrEditRequestContent = memo(props => {
 
                           {!announcement?._id && (
                             <Button
-                              disabled={!formFields?.request?.spec?.type}
+                              disabled={!formFields?.request?.specId}
                               variant={'contained'}
                               className={styles.changePerformerBtn}
                               onClick={async () => {
-                                await onClickChoosePerformer(formFields.request?.spec?.type)
+                                await onClickChoosePerformer(currentSpec?.type)
                                 setOpenModal(true)
                               }}
                             >
@@ -923,12 +914,11 @@ export const CreateOrEditRequestContent = memo(props => {
 
                     <div className={styles.rightTwoStepMainWrapper}>
                       <div className={styles.rightTwoStepWrapper}>
-                        {formFields?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                        {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
                         formFields.request.priceAmazon &&
                         formFields.request.priceAmazon !== '0' ? (
                           <div className={styles.infoColumn}>
-                            {formFields?.request?.spec?.type ===
-                              freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                            {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
                             formFields?.request?.priceAmazon &&
                             formFields?.request?.priceAmazon !== '0' ? (
                               <Field
@@ -961,8 +951,7 @@ export const CreateOrEditRequestContent = memo(props => {
                               />
                             ) : null}
 
-                            {formFields?.request?.spec?.type ===
-                              freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                            {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
                             formFields.request.cashBackInPercent &&
                             formFields?.request?.cashBackInPercent ? (
                               <Field
@@ -986,9 +975,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             labelClasses={styles.spanLabel}
                             inputComponent={
                               <Typography className={styles.twoStepFieldResult}>
-                                {freelanceRequestTypeTranslate(
-                                  freelanceRequestTypeByCode[formFields.request?.spec?.type],
-                                )}
+                                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[currentSpec?.type])}
                               </Typography>
                             }
                           />
@@ -1280,7 +1267,7 @@ export const CreateOrEditRequestContent = memo(props => {
         <CheckRequestByTypeExists
           requestsData={requestIds}
           asin={formFields?.request?.asin}
-          type={formFields.request?.spec?.type}
+          type={currentSpec?.type}
           onClickRequest={onClickExistingRequest}
           onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
