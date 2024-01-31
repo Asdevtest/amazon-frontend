@@ -144,15 +144,22 @@ export const EditTaskModal = memo(
       setIsFileDownloading(false)
     }
 
+    const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
+
+    const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
+
+    const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
+
+    const receiveNotFromBuyer = (isManyItemsInSomeBox || noTariffInSomeBox) && isReciveTypeTask
+
     const isSomeBoxHasntImageToRecive =
-      newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) &&
-      task.operationType === TaskOperationType.RECEIVE
+      newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) && isReciveTypeTask
 
     const disableSaveButton =
       !newBoxes.length ||
       requestStatus === loadingStatuses.IS_LOADING ||
       !isFilledNewBoxesDimensions ||
-      isSomeBoxHasntImageToRecive
+      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer)
 
     return (
       <div className={styles.root}>
@@ -161,7 +168,7 @@ export const EditTaskModal = memo(
 
           <div className={styles.modalSubHeader}>
             <div className={styles.typeTaskWrapper}>
-              {task.operationType === TaskOperationType.RECEIVE ? (
+              {isReciveTypeTask ? (
                 <div className={styles.boxSvgContainer}>
                   <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
                   <BoxArrow className={styles.boxArrowSvg} />

@@ -55,6 +55,10 @@ export interface patchInfoGroupChatParams {
   image: string
 }
 
+export interface NewInfoGroupChatParams {
+  updatedData: patchInfoGroupChatParams
+}
+
 export interface TypingMessageRequestParams {
   chatId: string
 }
@@ -88,6 +92,7 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
     type: ChatInfoType
   }
   data: T
+  replyMessage: ChatMessage
 }
 
 export interface FindChatMessageRequestParams {
