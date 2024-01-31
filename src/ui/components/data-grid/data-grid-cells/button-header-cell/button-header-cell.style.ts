@@ -2,18 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
-    padding: '10px 0',
+    width: '98%',
     display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
-
-  wrapperRow: {
-    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 
   button: {
-    width: '100%',
     height: 30,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 }))

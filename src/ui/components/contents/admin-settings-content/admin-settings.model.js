@@ -27,7 +27,7 @@ export class AdminSettingsModel {
   }
 
   formFields = startValueFields
-  prevFormFields = {}
+  prevFormFields = undefined
   tabIndex = 0
   isFormFieldsChanged = false
   isProxyServersChanged = false

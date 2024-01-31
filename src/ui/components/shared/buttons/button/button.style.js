@@ -113,6 +113,8 @@ export const useStyles = makeStyles()(theme => ({
 
   transparent: {
     padding: 0,
+    width: 'max-content',
+    height: 'max-content',
     color: theme.palette.text.general,
     background: 'transparent',
 

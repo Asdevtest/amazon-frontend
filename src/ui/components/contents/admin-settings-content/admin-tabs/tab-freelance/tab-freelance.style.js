@@ -31,17 +31,72 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: 410,
     marginBottom: 10,
     fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
-  saveButton: {
-    width: 123,
-    height: 40,
+  button: {
+    padding: '0 25px',
+
+    '&:disabled': {
+      opacity: 0.5,
+    },
   },
 
-  tableContainer: {},
+  tableContainer: {
+    height: 523,
+  },
 
-  tableTitle: {},
+  tableTitle: {
+    marginBottom: 10,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
 
-  tableWrapper: {},
+  tableWrapper: {
+    height: 'calc(100% - 29px)',
+    width: 700,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  columnHeaderTitleContainer: {
+    padding: '0 !important',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  buttonContent: {
+    padding: 3,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+  },
+
+  saveIcon: {
+    color: theme.palette.primary.main,
+  },
+
+  saveText: {
+    color: theme.palette.primary.main,
+  },
+
+  editIcon: {
+    color: theme.palette.text.second,
+  },
+
+  archiveIcon: {
+    color: theme.palette.text.red,
+  },
 }))

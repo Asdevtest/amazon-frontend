@@ -2165,5 +2165,8 @@
   "FBA fee": "FBA fee",
   "Ref fee": "Ref fee",
   "Multplty": "Multplty",
-  "A box contains more than one product": "A box contains more than one product"
+  "A box contains more than one product": "A box contains more than one product",
+  "Title of specialty": "Title of specialty",
+  "Delete selected": "Delete selected",
+  "New specialty": "New specialty"
 }
