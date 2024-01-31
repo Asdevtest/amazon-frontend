@@ -176,10 +176,6 @@ export class DataGridTableModel extends ModalsModel {
   }
 
   onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    console.log('sortModel', sortModel)
-    console.log('details', details)
-    console.log('isNotServer', isNotServer)
-
     this.sortModel = sortModel
 
     if (!isNotServer) {
