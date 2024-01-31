@@ -272,7 +272,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(params.row.spec?.title)} />,
+    renderCell: params => <MultilineTextCell text={freelanceRequestTypeTranslate(params.row.spec?.title)} />,
     width: 90,
     columnKey: columnnsKeys.shared.OBJECT,
   },
