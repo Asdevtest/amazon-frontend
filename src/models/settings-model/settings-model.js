@@ -209,10 +209,6 @@ class SettingsModelStatic {
     this.viewTableModeState = { ...this.viewTableModeState, [tableKey]: state }
   }
 
-  setChatMessageState(state, tableKey) {
-    this.chatMessageState = { ...this.chatMessageState, [tableKey]: state }
-  }
-
   setLanguageTag(languageKey) {
     this.languageTag = languageKey
   }

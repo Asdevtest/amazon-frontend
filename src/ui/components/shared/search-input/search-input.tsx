@@ -20,6 +20,7 @@ interface Props {
   placeholder?: string
   startText?: string
   inputClasses?: ClassNamesArg
+  tab?: string
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
   onKeyDown?: () => void
@@ -31,11 +32,14 @@ export const SearchInput: FC<Props> = ({
   placeholder,
   inputClasses,
   startText,
+  tab,
   onChange,
   onSubmit,
   onKeyDown,
 }) => {
   const { classes: styles, cx } = useStyles()
+
+  const defaultPlaceholder = t(TranslationKey.Search)
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -68,7 +72,9 @@ export const SearchInput: FC<Props> = ({
     }
   }
 
-  const defaultPlaceholder = t(TranslationKey.Search)
+  useEffect(() => {
+    onClickCloseIcon()
+  }, [tab])
 
   return (
     <Input

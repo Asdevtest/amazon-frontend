@@ -9,7 +9,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
-import { ApiV1BatchesBoxes, InlineResponse20018 } from '@services/rest-api-service/codegen'
+import { ApiV1BatchesBoxes } from '@services/rest-api-service/codegen'
 
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
