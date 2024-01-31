@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { SearchInput } from '@components/shared/search-input'
-import { ArchiveIcon } from '@components/shared/svg-icons'
+import { ArchiveIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -74,7 +74,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               className={styles.actionButtonWithPlus}
               onClick={onClickProductLaunch}
             >
-              <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+              <PlusIcon className={styles.icon} />
               {t(TranslationKey['Product launch'])}
             </Button>
 
@@ -129,7 +129,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
             >
-              <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+              <PlusIcon className={styles.icon} />
               {t(TranslationKey['Add product'])}
             </Button>
           </div>
@@ -155,7 +155,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
             >
-              <img src="/assets/icons/white-plus.svg" className={styles.icon} />
+              <PlusIcon className={styles.icon} />
               {t(TranslationKey['Add a supplier list'])}
             </Button>
           </div>

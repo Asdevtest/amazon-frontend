@@ -25,7 +25,7 @@ import {
   ToFixedCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { complexCells } from '../../helpers/cell-types'
@@ -471,10 +471,12 @@ export const clientInventoryColumns = (
         const columns = additionalFields[table]
 
         if (columns?.some(column => complexCells?.includes(column))) {
+          const formedTableName = formatCamelCaseString(table)
+
           const complexCell = {
-            field: `${table} product`,
-            headerName: `${table} product`,
-            renderHeader: () => <MultilineTextHeaderCell text={`${table} product`} />,
+            field: `${formedTableName} product`,
+            headerName: `${formedTableName} product`,
+            renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
 
             renderCell: ({ row }) => {
               const image = row?.[table]?.[0]?.image

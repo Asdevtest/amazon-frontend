@@ -270,8 +270,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     reaction(
       () => this.presetsData,
       () => {
-        console.log('this.presetsData', this.presetsData)
-
         const activeFields = this.presetsData.reduce((acc, el) => {
           if (el?._id) {
             acc[el.table] = []
