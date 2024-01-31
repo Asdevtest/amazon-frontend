@@ -42,8 +42,6 @@ export const AdditionalTableSettings: FC<AdditionalTableSettingsProps> = memo(({
     setDataForRender(presetsData)
   }, [presetsData])
 
-  console.log('dataForRender', dataForRender)
-
   return (
     <>
       <div className={styles.parametersWrapper}>

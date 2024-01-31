@@ -70,6 +70,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   productVariations = []
   selectedProductToLaunch = undefined
 
+  dataForOrderModal = []
+
   existingProducts = []
   selectedProduct = undefined
 
@@ -268,6 +270,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     reaction(
       () => this.presetsData,
       () => {
+        console.log('this.presetsData', this.presetsData)
+
         const activeFields = this.presetsData.reduce((acc, el) => {
           if (el?._id) {
             acc[el.table] = []
@@ -567,6 +571,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
 
       await this.getMainTableData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -615,6 +622,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
 
       await this.getMainTableData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -710,19 +720,19 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result] = await Promise.all([
+    const [storekeepers, destinations, result, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
       UserModel.getPlatformSettings(),
+      ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
       this.platformSettings = result
+      this.dataForOrderModal = dataForOrder
     })
-
-    console.log('21')
 
     this.onTriggerOpenModal('showOrderModal')
 

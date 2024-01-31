@@ -146,8 +146,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   getFilters(exclusion?: string) {
-    console.log('this.additionalPropertiesGetFilters', this.additionalPropertiesGetFilters)
-
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,

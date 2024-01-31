@@ -343,8 +343,8 @@ export const ClientInventoryView = observer(() => {
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          // selectedProductsData={viewModel.dataForOrderModal}
-          selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
+          selectedProductsData={viewModel.dataForOrderModal}
+          // selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}

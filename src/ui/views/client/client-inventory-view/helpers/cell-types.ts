@@ -36,18 +36,15 @@ export const numberCells = [
   'available',
   'inbound',
   'reserved',
-  'categoryAbc',
-  'shipmentId',
-  'referenceId',
-  'shipTo',
   'unitsExpected',
+
+  'timeDataUpdate',
+  'timeUpdated',
+
+  'status',
 ]
 
-export const textCells = []
-
-export const objectCells = ['shop']
-
-export const statusCells = ['status']
+export const textCells = ['categoryAbc', 'shipmentId', 'referenceId', 'shipTo']
 
 export const dateCells = [
   'periodStart',
@@ -55,20 +52,11 @@ export const dateCells = [
   'createdAt',
   'updatedAt',
   'dateUpdated',
-  'timeUpdated',
   'dateDataUpdate',
-  'timeDataUpdate',
   'dateCreated',
   'scheduledCarrierDeliveryDate',
   'deliveryWindowStart',
   'deliveryWindowEnd',
 ]
 
-export const complexCells = [
-  // 'product',
-  // 'asin',
-  // 'sku',
-  // 'image',
-  // 'createdBy',
-  // 'client',
-]
+export const complexCells = ['product', 'asin', 'sku', 'image']

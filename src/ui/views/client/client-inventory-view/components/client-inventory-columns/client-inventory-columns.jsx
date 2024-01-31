@@ -28,6 +28,9 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { complexCells } from '../../helpers/cell-types'
+import { getCellType } from '../../helpers/get-cell-type'
+
 export const clientInventoryColumns = (
   barCodeHandlers,
   hsCodeHandlers,
@@ -36,8 +39,6 @@ export const clientInventoryColumns = (
   otherHandlers,
   additionalFields,
 ) => {
-  console.log('additionalFields', additionalFields)
-
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
@@ -81,7 +82,7 @@ export const clientInventoryColumns = (
       field: 'shopId',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: params => <MultilineTextCell twoLines text={params.value} />,
+      renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
       width: 90,
       sortable: false,
 
@@ -462,6 +463,41 @@ export const clientInventoryColumns = (
 
   for (const column of defaultColumns) {
     column.table = DataGridFilterTables.PRODUCTS
+  }
+
+  if (additionalFields) {
+    for (const table in additionalFields) {
+      if (additionalFields[table]) {
+        const columns = additionalFields[table]
+
+        if (columns?.some(column => complexCells?.includes(column))) {
+          const complexCell = {
+            field: `${table} product`,
+            headerName: `${table} product`,
+            renderHeader: () => <MultilineTextHeaderCell text={`${table} product`} />,
+
+            renderCell: ({ row }) => {
+              const image = row?.[table]?.[0]?.image
+              const asin = row?.[table]?.[0]?.asin
+              const skuByClient = row?.[table]?.[0]?.sku
+
+              return <ProductAsinCell withoutTitle image={image} asin={asin} skuByClient={skuByClient} />
+            },
+            width: 295,
+          }
+
+          defaultColumns.push(complexCell)
+        }
+
+        for (const column of columns) {
+          const cell = getCellType(column, table)
+
+          if (cell) {
+            defaultColumns.push(cell)
+          }
+        }
+      }
+    }
   }
 
   return defaultColumns
