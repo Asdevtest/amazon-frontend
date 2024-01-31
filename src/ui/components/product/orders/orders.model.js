@@ -311,7 +311,18 @@ export class OrdersModel {
           }
         }
 
-        if (this.isPendingOrdering) {
+        if (product.tmpIsPendingOrder) {
+          const requestData = getObjectFilteredByKeyArrayBlackList(product, [
+            'barCode',
+            'tmpBarCode',
+            'tmpIsPendingOrder',
+            '_id',
+            'tmpTransparencyFile',
+            'transparency',
+          ])
+
+          await ClientModel.createFormedOrder(requestData)
+        } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',
             'orderSupplierId',
