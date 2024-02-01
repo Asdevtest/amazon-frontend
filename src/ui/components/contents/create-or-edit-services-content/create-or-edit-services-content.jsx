@@ -2,147 +2,125 @@ import { memo, useEffect, useState } from 'react'
 
 import { MenuItem, Select } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { getObjectFilteredByKeyArrayWhiteList, objectDeepCompare } from '@utils/object'
+import { objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useStyles } from './create-or-edit-services-content.style'
 
-export const CreateOrEditServiceContent = memo(
-  ({ data, pathname, onClickCreateBtn, onClickEditBtn, onClickBackBtn, userInfo }) => {
-    const { classes: styles } = useStyles()
+export const CreateOrEditServiceContent = memo(props => {
+  const { data, pathname, specs, onClickCreateBtn, onClickEditBtn, onClickBackBtn } = props
 
-    const isEdit = pathname?.includes('edit-service')
+  const { classes: styles } = useStyles()
 
-    const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
+  const isEdit = pathname?.includes('edit-service')
+  const sourceFormFields = {
+    specId: data?.spec?._id || '',
+    title: data?.title || '',
+    description: data?.description || '',
+    linksToMediaFiles: data?.linksToMediaFiles || [],
+  }
+  const [formFields, setFormFields] = useState(sourceFormFields)
 
-    const sourceFormFields = {
-      type: data?.type || '',
-      title: data?.title || '',
-      description: data?.description || '',
-      linksToMediaFiles: data?.linksToMediaFiles || [],
-    }
-    const [formFields, setFormFields] = useState(sourceFormFields)
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [data])
 
-    useEffect(() => {
-      setFormFields(sourceFormFields)
-    }, [data])
+  const onChangeField = fieldName => event => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: event.target.value }))
+  }
+  const onChangeImages = fieldName => files => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: files }))
+  }
 
-    const [images, setImages] = useState([])
+  const disabledSubmitButton =
+    !formFields.title ||
+    !formFields.description ||
+    !formFields.specId ||
+    (objectDeepCompare(formFields, sourceFormFields) && !formFields.linksToMediaFiles.length)
 
-    useEffect(() => {
-      if (formFields.linksToMediaFiles.length > 0) {
-        setImages(formFields.linksToMediaFiles)
-      }
-    }, [formFields.linksToMediaFiles])
+  return (
+    <div className={styles.root}>
+      <p className={styles.announcementTitle}>{t(TranslationKey['Service announcement'])}</p>
 
-    useEffect(() => {
-      setFormFields(prevFormFields => ({
-        ...prevFormFields,
-        linksToMediaFiles: images,
-      }))
-    }, [images])
-
-    const disabledSubmitButton =
-      !formFields.title ||
-      !formFields.description ||
-      !formFields.type ||
-      (objectDeepCompare(formFields, sourceFormFields) && !images.length)
-
-    const onChangeField = fieldName => event => {
-      const newFormFields = { ...formFields }
-
-      newFormFields[fieldName] = event.target.value
-
-      setFormFields(newFormFields)
-    }
-
-    return (
-      <div className={styles.root}>
-        <p className={styles.announcementTitle}>{t(TranslationKey['Service announcement'])}</p>
-
-        <div className={styles.fieldsWrapper}>
-          <Field
-            inputProps={{ maxLength: 100 }}
-            label={t(TranslationKey['Service name']) + '*'}
-            className={styles.nameField}
-            containerClasses={styles.nameFieldContainer}
-            labelClasses={styles.labelClass}
-            value={formFields.title}
-            onChange={onChangeField('title')}
-          />
-
-          <Field
-            label={t(TranslationKey['Request type']) + '*'}
-            className={styles.nameField}
-            labelClasses={styles.labelClass}
-            containerClasses={styles.requestTypeContainer}
-            inputComponent={
-              <Select
-                displayEmpty
-                value={formFields.type}
-                className={styles.requestTypeField}
-                onChange={onChangeField('type')}
-              >
-                <MenuItem disabled value={''}>
-                  {t(TranslationKey['Select from the list'])}
-                </MenuItem>
-
-                {Object.keys(getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList)).map(
-                  (taskType, taskIndex) => (
-                    <MenuItem key={taskIndex} value={taskType}>
-                      {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                    </MenuItem>
-                  ),
-                )}
-              </Select>
-            }
-          />
-        </div>
+      <div className={styles.fieldsWrapper}>
+        <Field
+          inputProps={{ maxLength: 100 }}
+          label={t(TranslationKey['Service name']) + '*'}
+          className={styles.nameField}
+          containerClasses={styles.nameFieldContainer}
+          labelClasses={styles.labelClass}
+          value={formFields.title}
+          onChange={onChangeField('title')}
+        />
 
         <Field
-          multiline
-          inputProps={{ maxLength: 1100 }}
-          className={styles.descriptionField}
-          containerClasses={styles.descriptionContainer}
+          label={t(TranslationKey['Request type']) + '*'}
+          className={styles.nameField}
           labelClasses={styles.labelClass}
-          minRows={4}
-          maxRows={4}
-          label={`${t(TranslationKey['Service description'])}*`}
-          value={formFields.description}
-          onChange={onChangeField('description')}
+          containerClasses={styles.requestTypeContainer}
+          inputComponent={
+            <Select
+              displayEmpty
+              value={formFields.specId || ''}
+              className={styles.requestTypeField}
+              onChange={onChangeField('specId')}
+            >
+              <MenuItem disabled value="">
+                {t(TranslationKey['Select from the list'])}
+              </MenuItem>
+
+              {specs.map(spec => (
+                <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                  {spec?.title}
+                </MenuItem>
+              ))}
+            </Select>
+          }
         />
-
-        <UploadFilesInput
-          fullWidth
-          minimized
-          images={images}
-          setImages={setImages}
-          maxNumber={50}
-          isNotShowActionsBtns={!images.length}
-        />
-
-        <div className={styles.buttonsWrapper}>
-          <Button variant={'text'} className={styles.cancelBtn} onClick={onClickBackBtn}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-
-          <Button
-            success
-            disabled={disabledSubmitButton}
-            className={styles.successBtn}
-            onClick={() => (isEdit ? onClickEditBtn(formFields, images) : onClickCreateBtn(formFields, images))}
-          >
-            {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
-          </Button>
-        </div>
       </div>
-    )
-  },
-)
+
+      <Field
+        multiline
+        inputProps={{ maxLength: 1100 }}
+        className={styles.descriptionField}
+        containerClasses={styles.descriptionContainer}
+        labelClasses={styles.labelClass}
+        minRows={4}
+        maxRows={4}
+        label={`${t(TranslationKey['Service description'])}*`}
+        value={formFields.description}
+        onChange={onChangeField('description')}
+      />
+
+      <UploadFilesInput
+        fullWidth
+        minimized
+        images={formFields.linksToMediaFiles}
+        setImages={onChangeImages('linksToMediaFiles')}
+        maxNumber={50}
+        isNotShowActionsBtns={!formFields.linksToMediaFiles}
+      />
+
+      <div className={styles.buttonsWrapper}>
+        <Button variant={'text'} className={styles.cancelBtn} onClick={onClickBackBtn}>
+          {t(TranslationKey.Cancel)}
+        </Button>
+
+        <Button
+          success
+          disabled={disabledSubmitButton}
+          className={styles.successBtn}
+          onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
+        >
+          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
+        </Button>
+      </div>
+    </div>
+  )
+})

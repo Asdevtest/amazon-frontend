@@ -97,4 +97,8 @@ export const useStyles = makeStyles()(theme => ({
   blockInfoWrapperLast: {
     width: 'fit-content',
   },
+
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

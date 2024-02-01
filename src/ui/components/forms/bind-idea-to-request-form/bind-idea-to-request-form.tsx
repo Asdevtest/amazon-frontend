@@ -7,6 +7,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
+import { ISpec } from '@typings/spec'
+
 import { useStyles } from './bind-idea-to-request-form.style'
 
 import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
@@ -14,7 +16,7 @@ import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-id
 interface IRequest {
   _id: string
   humanFriendlyId: number
-  typeTask: number
+  spec: ISpec
   title: string
   status: string
 }

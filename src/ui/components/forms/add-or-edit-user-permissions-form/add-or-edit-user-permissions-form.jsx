@@ -2,18 +2,13 @@ import { memo, useEffect, useMemo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Box, Divider, Input, InputAdornment, ListItemText, MenuItem, Select, Tabs, Typography } from '@mui/material'
+import { Box, Divider, ListItemText, MenuItem, Select, Tabs, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -38,7 +33,6 @@ const PRODUCTS_WITHOUT_SHOPS_ID = 'PRODUCTS_WITHOUT_SHOPS_ID'
 
 export const AddOrEditUserPermissionsForm = memo(props => {
   const {
-    masterUserData,
     curUserProductPermissions,
     onCloseModal,
     onSubmit,
@@ -46,6 +40,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
     permissionGroupsToSelect,
     sourceData,
     shops,
+    specs,
     isWithoutShopsDepends,
     isWithoutProductPermissions,
     productPermissionsData,
@@ -57,11 +52,17 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
   const [selectedShop, setSelectedShop] = useState(null)
   const [showPermissions, setShowPermissions] = useState(false)
-  const [currentSpec, setCurrentSpec] = useState([])
+  const [currentSpecs, setCurrentSpecs] = useState([])
+
+  useEffect(() => {
+    if (sourceData.allowedSpec?.length > 0) {
+      setCurrentSpecs(sourceData.allowedSpec.map(spec => (spec.type ? spec.type : spec)))
+    }
+  }, [sourceData])
 
   const [formFields, setFormFields] = useState(sourceData?.permissions || [])
 
-  const isFreelancer = checkIsFreelancer(UserRoleCodeMap[masterUserData?.role])
+  const isFreelancer = checkIsFreelancer(UserRoleCodeMap[sourceData?.role])
 
   const permissionsIdsFromGroups = permissionGroupsToSelect.reduce(
     (ac, cur) => (ac = [...ac, ...cur.permissions.map(el => el._id)]),
@@ -105,15 +106,15 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
 
   const submitDisabled =
-    JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
+    JSON.stringify(formFields.toSorted()) === JSON.stringify(sourceData?.permissions.toSorted()) &&
     JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender) &&
-    deepArrayCompare(sourceData.allowedSpec, currentSpec)
+    deepArrayCompare(sourceData?.allowedSpec, currentSpecs)
 
   const onClickToShowDetails = value => {
     setSelectedShop(value)
   }
 
-  const selectSpecHandler = value => setCurrentSpec(value)
+  const selectSpecHandler = value => setCurrentSpecs(value)
 
   const onChangePermissionCheckbox = id => {
     if (!formFields.includes(id)) {
@@ -172,10 +173,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
       )
     }
   }
-
-  useEffect(() => {
-    setCurrentSpec(sourceData.allowedSpec)
-  }, [sourceData.allowedSpec?.length])
 
   const isResearcher = checkIsResearcher(UserRoleCodeMap[sourceData?.role])
 
@@ -410,13 +407,12 @@ export const AddOrEditUserPermissionsForm = memo(props => {
             <Select
               multiple
               displayEmpty
-              value={currentSpec}
-              className={styles.requestTypeField}
-              input={<Input startAdornment={<InputAdornment position="start" />} />}
+              value={currentSpecs}
+              className={cx(styles.requestTypeField, styles.capitalize)}
               renderValue={selected =>
                 !selected?.length
                   ? t(TranslationKey['Select from the list'])
-                  : selected?.map(item => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item]))?.join(', ')
+                  : selected?.map(item => freelanceRequestTypeByCode[item])?.join(', ')
               }
               onChange={e => selectSpecHandler(e.target.value)}
             >
@@ -424,14 +420,12 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                 {t(TranslationKey['Select from the list'])}
               </MenuItem>
 
-              {masterUserData?.allowedSpec
-                .filter(el => String(el) !== String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
-                .map((taskType, taskIndex) => (
-                  <MenuItem key={taskIndex} value={taskType}>
-                    <Checkbox checked={currentSpec.includes(Number(taskType))} />
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                  </MenuItem>
-                ))}
+              {specs?.map(spec => (
+                <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
+                  <Checkbox checked={currentSpecs.includes(spec?.type)} />
+                  {spec?.title}
+                </MenuItem>
+              ))}
             </Select>
           </div>
         ) : (
@@ -450,7 +444,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                 formFields,
                 sourceData._id,
                 Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
-                isFreelancer && currentSpec,
+                isFreelancer && currentSpecs,
               )
               onCloseModal()
             }}

@@ -1,12 +1,7 @@
 import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
 
 import { RequestStatus } from '@constants/requests/request-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -68,7 +63,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
         <div className={styles.requestTitleAndInfo}>
           <Typography className={styles.requestTitle}>{request?.request.title}</Typography>
           <div className={styles.requestInfoWrapper}>
-            {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+            {request?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
             request?.request?.priceAmazon ? (
               <div className={styles.blockInfoWrapper}>
                 <div className={styles.blockInfoCell}>
@@ -125,8 +120,8 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
 
               <div className={styles.blockInfoCell}>
                 <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
-                <Typography className={cx(styles.blockInfoCellText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
+                <Typography className={cx(styles.blockInfoCellText, styles.announcementTitle)}>
+                  {request?.request?.spec?.title}
                 </Typography>
               </div>
             </div>
@@ -155,7 +150,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
           <Typography className={styles.requestTitle}>{t(TranslationKey.Announcement)}</Typography>
           <div className={cx(styles.announcementTitleWrapper)}>
             <Typography className={cx(styles.requestTitle, styles.announcementTitle)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
+              {announcementData?.title}
             </Typography>
             <Typography className={cx(styles.announcementDecription)}>{announcementData?.description}</Typography>
           </div>

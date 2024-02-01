@@ -178,7 +178,7 @@ export const EditTaskModal = memo(
               )}
 
               <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (

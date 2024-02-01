@@ -21,7 +21,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
 
   return (
     <CustomSwitcher
-      switchMode={'medium'}
+      switchMode="medium"
       condition={viewMode}
       // @ts-ignore
       switcherSettings={[

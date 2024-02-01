@@ -382,19 +382,14 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      let uploadedFiles = []
-
-      if (data.tmpTrackNumberFile?.length) {
-        uploadedFiles = await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...uploadedFiles],
-
+        trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
       })
 

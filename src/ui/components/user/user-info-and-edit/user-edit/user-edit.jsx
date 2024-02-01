@@ -37,6 +37,7 @@ export const UserEdit = observer(({ user }) => {
     submitEditUserForm,
     goToUsers,
     userData,
+    specs,
     onClickBottomBtn,
   } = model.current
 
@@ -47,6 +48,7 @@ export const UserEdit = observer(({ user }) => {
           // wrongPassword={wrongPassword}
           checkValidationNameOrEmail={checkValidationNameOrEmail}
           changeFields={changeFields}
+          specs={specs}
           singlePermissions={singlePermissions}
           groupPermissions={groupPermissions}
           editUserFormFields={userData}

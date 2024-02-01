@@ -143,7 +143,7 @@ export class RequestDetailCustomViewModel {
       return
     }
 
-    if (+this.request.request.typeTask === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+    if (+this.request.request.spec?.type === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
     } else {
       this.onTriggerOpenModal('showRequestResultModal')
@@ -243,7 +243,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onClickReworkProposal() {
-    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+    if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
     } else {
       this.onTriggerOpenModal('showRequestResultModal')

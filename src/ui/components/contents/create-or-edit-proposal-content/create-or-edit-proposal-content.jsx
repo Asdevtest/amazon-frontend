@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from 'react'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -163,23 +162,17 @@ export const CreateOrEditProposalContent = memo(props => {
 
             <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
               <Typography className={styles.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={styles.requestTitle}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
-              </Typography>
+              <Typography className={styles.requestTitle}>{request?.request?.spec?.title}</Typography>
             </div>
           </div>
 
           {request?.details.conditions && (
             <>
               <Typography className={styles.requestTitleName}>{t(TranslationKey['Request description'])}</Typography>
-              {/* <Typography className={styles.requestTitle}>{request?.details.conditions}</Typography> */}
               <CustomTextEditor readOnly value={request?.details.conditions} editorClassName={styles.editorClassName} />
             </>
           )}
 
-          {/* <Typography className={styles.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${*/}
-          {/*  request?.request?.maxAmountOfProposals || request?.maxAmountOfProposals*/}
-          {/* } ${t(TranslationKey['suggestions left'])}`}</Typography>*/}
           <Typography className={styles.subTitle} />
 
           <div className={styles.requestTitleAndInfo}>
@@ -253,9 +246,6 @@ export const CreateOrEditProposalContent = memo(props => {
                 value={formFields.title}
                 onChange={onChangeField('title')}
               />
-              {/* <span className={cx(styles.standartText, {[styles.error]: formFields.title.length > 80})}>{`${
-                formFields.title.length
-              } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span> */}
             </div>
 
             <div className={styles.descriptionWrapper}>

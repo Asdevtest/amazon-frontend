@@ -2172,5 +2172,8 @@
   "Reset Settings": "Сбросить настройки",
   "Warehouse and orders": "Склад и заказы",
   "Multplty": "Кратн-ть",
-  "A box contains more than one product": "Коробка содержит больше одного продукта"
+  "A box contains more than one product": "Коробка содержит больше одного продукта",
+  "Title of specialty": "Название специальности",
+  "Delete selected": "Удалить выбранные",
+  "New specialty": "Новая специальность"
 }

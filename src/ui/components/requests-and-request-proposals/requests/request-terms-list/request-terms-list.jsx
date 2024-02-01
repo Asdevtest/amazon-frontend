@@ -2,12 +2,7 @@ import { Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,7 +33,7 @@ export const RequestTermsList = props => {
         [wrapperClassName]: !!wrapperClassName,
       })}
     >
-      {request?.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+      {request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
         <div>
           <Field
             labelClasses={styles.fieldLabel}
@@ -96,11 +91,7 @@ export const RequestTermsList = props => {
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Request type'])}
-          inputComponent={
-            <p className={styles.accentText}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.typeTask])}
-            </p>
-          }
+          inputComponent={<p className={styles.accentText}>{request?.spec?.title}</p>}
         />
       </div>
 

@@ -1,6 +1,5 @@
 import { FC, memo, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -26,10 +25,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   const { classes: styles, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
-  const detailDescription =
-    service.type === 0
-      ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+  const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
   const buttonContent = choose
     ? t(TranslationKey.Choose)
     : order

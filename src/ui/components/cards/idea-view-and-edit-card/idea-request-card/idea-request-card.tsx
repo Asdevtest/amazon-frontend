@@ -4,7 +4,6 @@ import ClearIcon from '@mui/icons-material/Clear'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -15,7 +14,7 @@ import { t } from '@utils/translations'
 import { useStyles } from './idea-request-card.style'
 
 interface IdeaRequestCardProps {
-  requestType: number
+  requestTitle: string
   requestId: string
   requestStatus: string
   proposals: Array<{ _id: string }>
@@ -35,7 +34,8 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
 
   const {
     // proposals,
-    requestType,
+
+    requestTitle,
     requestId,
     requestStatus,
     executor,
@@ -50,10 +50,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
       <div className={styles.requestWrapper}>
         <div className={styles.categoresWrapper}>
           <p className={styles.categoryTitle}>
-            {`${t(TranslationKey['Request type'])}:`}{' '}
-            <span className={styles.categoryText}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[requestType])}
-            </span>
+            {`${t(TranslationKey['Request type'])}:`} <span className={styles.categoryText}>{requestTitle}</span>
           </p>
           <p className={styles.categoryTitle}>
             {`${t(TranslationKey.ID)}:`}{' '}

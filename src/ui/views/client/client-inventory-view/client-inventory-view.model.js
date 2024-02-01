@@ -347,18 +347,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickVariationButton(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       const result = await ProductModel.getProductsVariationsByGuid(id)
+
       runInAction(() => {
         this.productVariations = result
       })
 
       this.onTriggerOpenModal('showProductVariationsForm')
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

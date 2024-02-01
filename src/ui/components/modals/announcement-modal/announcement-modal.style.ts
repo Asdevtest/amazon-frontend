@@ -86,4 +86,8 @@ export const useStyles = makeStyles()(() => ({
   button: {
     padding: '0 75px',
   },
+
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

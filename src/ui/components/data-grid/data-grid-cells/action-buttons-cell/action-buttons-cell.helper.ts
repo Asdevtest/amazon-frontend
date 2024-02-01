@@ -20,9 +20,9 @@ export const getDefaultButtonStyle = (style?: DefaultButtonStyles): Record<Defau
 
 export const getButtonActionsConfig = ({
   isFirstRow = false,
-  firstButtonText,
-  secondButtonText,
-  thirdButtonText,
+  firstButtonElement,
+  secondButtonElement,
+  thirdButtonElement,
   firstButtonTooltipText,
   secondButtonTooltipText,
   thirdButtonTooltipText,
@@ -38,21 +38,21 @@ export const getButtonActionsConfig = ({
 }: ActionButtonsCellProps) => [
   {
     showButton: isFirstButton,
-    buttonText: firstButtonText,
+    buttonElement: firstButtonElement,
     tooltipText: isFirstRow ? firstButtonTooltipText : '',
     style: getDefaultButtonStyle(firstVariantStyle),
     onclick: handleClickButton(onClickFirstButton),
   },
   {
     showButton: isSecondButton,
-    buttonText: secondButtonText,
+    buttonElement: secondButtonElement,
     tooltipText: isFirstRow ? secondButtonTooltipText : '',
     style: getDefaultButtonStyle(secondVariantStyle),
     onclick: handleClickButton(onClickSecondButton),
   },
   {
     showButton: isThirdButton,
-    buttonText: thirdButtonText,
+    buttonElement: thirdButtonElement,
     tooltipText: isFirstRow ? thirdButtonTooltipText : '',
     style: getDefaultButtonStyle(thirdVariantStyle),
     onclick: handleClickButton(onClickThirdButton),

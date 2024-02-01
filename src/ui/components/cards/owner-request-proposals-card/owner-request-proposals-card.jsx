@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
@@ -43,9 +42,9 @@ export const OwnerRequestProposalsCard = ({
   const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
-    if (freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER) {
+    if (freelanceRequestTypeByCode[request.request?.spec?.type] === freelanceRequestType.DESIGNER) {
       setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
-    } else if (freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.BLOGGER) {
+    } else if (freelanceRequestTypeByCode[request.request?.spec?.type] === freelanceRequestType.BLOGGER) {
       setShowRequestResultModal(!showRequestResultModal)
     } else {
       setShowRequestStandartResultModal(!showRequestStandartResultModal)

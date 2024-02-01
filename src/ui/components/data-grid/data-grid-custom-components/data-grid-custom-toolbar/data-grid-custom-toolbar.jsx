@@ -16,21 +16,21 @@ export const DataGridCustomToolbar = ({
 
   return (
     <GridToolbarContainer className={styles.toolbar} {...other}>
-      <div className={styles.buttons}>
-        {!!columsBtnSettings && (
+      {(!!columsBtnSettings || !!presetsSettings) && (
+        <div className={styles.buttons}>
           <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
-        )}
 
-        <GridToolbarExport size={'large'} className={styles.text} />
+          <GridToolbarExport size={'large'} className={styles.text} />
 
-        {!!resetFiltersBtnSettings?.isSomeFilterOn && (
-          <DataGridResetFilterButton
-            size={'large'}
-            className={styles.text}
-            resetFiltersBtnSettings={resetFiltersBtnSettings}
-          />
-        )}
-      </div>
+          {!!resetFiltersBtnSettings?.isSomeFilterOn && (
+            <DataGridResetFilterButton
+              size={'large'}
+              className={styles.text}
+              resetFiltersBtnSettings={resetFiltersBtnSettings}
+            />
+          )}
+        </div>
+      )}
 
       <div className={styles.buttons}>
         {children}

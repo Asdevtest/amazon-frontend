@@ -48,8 +48,9 @@ export const VacantRequestsView = observer(({ history }) => {
       <div>
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.userInfo?.allowedSpec}
+            onClickSpec={viewModel.onClickSpec}
           />
 
           <SearchInput

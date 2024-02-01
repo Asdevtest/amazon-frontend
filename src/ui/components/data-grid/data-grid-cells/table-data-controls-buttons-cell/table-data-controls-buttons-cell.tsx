@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
-import { CrossIcon, EditOutlineIcon } from '@components/shared/svg-icons'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './table-data-controls-buttons-cell.style'
 
@@ -20,7 +19,7 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
   return (
     <div className={styles.buttonsWrapper}>
       <Button disabled={disableButton} className={cx(styles.button, styles.editButton)} onClick={onClickEditButton}>
-        <EditOutlineIcon />
+        <EditIcon />
       </Button>
 
       <Button disabled={disableButton} className={cx(styles.button, styles.removeButton)} onClick={onClickRemoveButton}>

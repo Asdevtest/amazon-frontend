@@ -3,12 +3,7 @@ import Typography from '@mui/material/Typography'
 import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -82,7 +77,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
       <div className={styles.cardActionBlockWrapper}>
         <div className={styles.mainInfosWrapper}>
           <div>
-            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+            {item.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={styles.fieldLabel}
                 containerClasses={styles.fieldContainer}
@@ -130,7 +125,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
           </div>
 
           <div>
-            {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+            {item.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
                 containerClasses={styles.fieldContainer}
@@ -162,8 +157,8 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Request type'])}
               inputComponent={
-                <Typography className={cx(styles.accentText, styles.rightText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+                <Typography className={cx(styles.accentText, styles.rightText, styles.capitalize)}>
+                  {item.spec?.title}
                 </Typography>
               }
             />

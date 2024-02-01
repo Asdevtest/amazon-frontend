@@ -64,10 +64,10 @@ class RequestModelStatic {
     return response.data
   }
 
-  getExistingRequestsTypeRequests = async (typeTask, guid) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsTypeTaskGuidGet({
+  getExistingRequestsTypeRequests = async (guid, specType) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsSpecTypeGuidGet({
       guid,
-      typeTask,
+      specType,
     })
     return response.data
   }

@@ -11,9 +11,13 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * Renders a table cell with action buttons.
  *
  * @param {boolean} isFirstRow - Indicates if the cell is in the first row.
- * @param {string} firstButtonText - The text for the first button.
- * @param {string} secondButtonText - The text for the second button.
- * @param {string} thirdButtonText - The text for the third button.
+ * @param {boolean} row - Arrangement of buttons in a row (flex-direction: 'row).
+ * @param {string} buttonWrapperClassName - Custom styles for the button wrapper.
+ * @param {string} buttonClassName - Custom styles for the button.
+ * @param {boolean} resetStyles - Reset button styles.
+ * @param {string | JSX.Element} firstButtonElement - The text or element for the first button.
+ * @param {string | JSX.Element} secondButtonElement - The text or element for the second button.
+ * @param {string | JSX.Element} thirdButtonElement - The text or element for the third button.
  * @param {string} firstButtonTooltipText - The tooltip text for the first button.
  * @param {string} secondButtonTooltipText - The tooltip text for the second button.
  * @param {string} thirdButtonTooltipText - The tooltip text for the third button.
@@ -29,20 +33,21 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * @returns {HTMLElement} Return table cell with action buttons.
  */
 export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cx(styles.wrapper, { [styles.wrapperRow]: props.row }, props.buttonWrapperClassName)}>
       {getButtonActionsConfig(props).map((button, index) =>
         button.showButton ? (
           <Button
             key={index}
             {...button.style}
+            transparent={props.resetStyles}
             tooltipInfoContent={button.tooltipText}
-            className={styles.button}
+            className={cx({ [styles.button]: !props.resetStyles }, props.buttonClassName)}
             onClick={button.onclick}
           >
-            {button.buttonText}
+            {button.buttonElement}
           </Button>
         ) : null,
       )}

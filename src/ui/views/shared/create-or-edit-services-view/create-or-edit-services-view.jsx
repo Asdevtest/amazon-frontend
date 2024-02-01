@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
@@ -6,9 +7,10 @@ import { useStyles } from './create-or-edit-services-view.style'
 
 import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.model'
 
-export const CreateOrEditServicesView = ({ history, location }) => {
+export const CreateOrEditServicesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new CreateOrEditServicesViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new CreateOrEditServicesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -17,13 +19,13 @@ export const CreateOrEditServicesView = ({ history, location }) => {
   return (
     <div className={styles.root}>
       <CreateOrEditServiceContent
-        pathname={viewModel.pathname}
-        userInfo={viewModel.userInfo}
+        pathname={history.location.pathname}
         data={viewModel.requestToEdit}
+        specs={viewModel.specs}
         onClickCreateBtn={viewModel.onClickCreateBtn}
         onClickEditBtn={viewModel.onClickEditBtn}
         onClickBackBtn={viewModel.onClickBackBtn}
       />
     </div>
   )
-}
+})

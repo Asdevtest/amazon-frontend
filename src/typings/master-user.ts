@@ -1,3 +1,4 @@
+import { ISpec } from './spec'
 import { UploadFileType } from './upload-file'
 
 export interface IShortUser {
@@ -12,7 +13,7 @@ export interface IService {
   createdAt: string
   linksToMediaFiles: UploadFileType[]
   requests: Array<Requests>
-  type: number
+  spec: ISpec
   description: string
   title: string
   updatedAt: string

@@ -16,6 +16,7 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { IBox } from '@typings/box'
 import { IPlatformSettings } from '@typings/patform-settings'
 import { IHSCode } from '@typings/product'
 import { UploadFileType } from '@typings/upload-file'
@@ -35,7 +36,7 @@ export class BoxesToOrderTabModel {
 
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
-  currentBox: ApiV1BatchesBoxes | undefined = undefined
+  currentBox: IBox | undefined = undefined
   galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
@@ -106,7 +107,7 @@ export class BoxesToOrderTabModel {
       const box = await BoxesModel.getBoxById(id)
 
       runInAction(() => {
-        this.currentBox = box as ApiV1BatchesBoxes
+        this.currentBox = box as unknown as IBox
       })
     } catch (error) {
       console.log(error)
@@ -127,7 +128,7 @@ export class BoxesToOrderTabModel {
     }
   }
 
-  async onSubmitChangeBoxFields(box: ApiV1BatchesBoxes) {
+  async onSubmitChangeBoxFields(box: IBox) {
     try {
       await BoxesModel.editAdditionalInfo(box._id, {
         clientComment: box.clientComment,

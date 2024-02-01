@@ -19,7 +19,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
-import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -484,9 +484,7 @@ export const FreelanceRequestType = memo(
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = filterData?.filter(item =>
-          freelanceRequestTypeTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
-        )
+        const filter = filterData?.filter(item => item.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setItemsForRender(filter)
       } else {
         setItemsForRender(filterData)
@@ -516,7 +514,7 @@ export const FreelanceRequestType = memo(
                     setChoosenItems={setChoosenItems}
                   />
                   {itemsForRender.map((el, index) => {
-                    const value = freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)
+                    const value = el || t(TranslationKey.Empty)
                     const valueChecked = choosenItems.some(item => item === el)
 
                     return (
@@ -757,11 +755,12 @@ export const ObJectFieldMenuItem = memo(
 
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+          setChoosenItems(choosenItems.filter(item => item._id !== obj._id))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
       }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
@@ -774,23 +773,34 @@ export const ObJectFieldMenuItem = memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(
-          [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
-            ?.filter(el => el)
-            ?.sort(
-              (a, b) =>
-                Number(b._id === 'null') - Number(a._id === 'null') ||
-                Number(choosenItems?.some(item => item._id === b._id)) -
-                  Number(choosenItems?.some(item => item._id === a._id)),
-            ),
-        )
+        const filteredDataWithNull = addNullObj
+          ? [{ name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
+          : filterData
+
+        const sortedData = filteredDataWithNull
+          .filter(el => el)
+          .sort((a, b) => {
+            const isBNull = b._id === 'null'
+            const isANull = a._id === 'null'
+
+            return (
+              Number(isBNull) - Number(isANull) ||
+              Number(choosenItems?.some(item => item._id === b._id)) -
+                Number(choosenItems?.some(item => item._id === a._id))
+            )
+          })
+
+        setItemsForRender(sortedData)
       }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
           const filter = filterData?.filter(obj => {
-            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+            const title = obj.title || obj.name
+
+            return title.toLowerCase().includes(nameSearchValue.toLowerCase())
           })
+
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -807,9 +817,7 @@ export const ObJectFieldMenuItem = memo(
               key={'client_warehouse_search_input'}
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
           <div className={styles.shopsWrapper}>

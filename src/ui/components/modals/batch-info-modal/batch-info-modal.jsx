@@ -45,7 +45,6 @@ export const BatchInfoModal = observer(
     openModal,
     setOpenModal,
     batch,
-    // volumeWeightCoefficient,
     userInfo,
     onSubmitChangeBoxFields,
     onClickHsCode,

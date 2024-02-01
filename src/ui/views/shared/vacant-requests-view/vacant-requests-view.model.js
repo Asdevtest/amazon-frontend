@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
@@ -18,6 +17,8 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
+import { Specs } from '@typings/enums/specs'
+
 import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'
 
 export class VacantRequestsViewModel {
@@ -26,7 +27,7 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
   showRequestDetailModal = false
 
   get currentData() {
@@ -48,7 +49,7 @@ export class VacantRequestsViewModel {
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -122,8 +123,11 @@ export class VacantRequestsViewModel {
     this.setTableModeState()
   }
 
-  onClickTaskType(taskType) {
-    this.selectedTaskType = taskType
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
 
     this.getRequestsVacant()
   }
@@ -132,14 +136,12 @@ export class VacantRequestsViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getTableModeState()
-      await this.getRequestsVacant()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+
+      this.getRequestsVacant()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -151,10 +153,6 @@ export class VacantRequestsViewModel {
       const result = await RequestModel.getRequests({
         kind: RequestSubType.VACANT,
         filters: this.getFilter(),
-        typeTask:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? undefined
-            : this.selectedTaskType,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         sortField: this.sortModel.length
@@ -252,6 +250,8 @@ export class VacantRequestsViewModel {
   }
 
   onClickResetFilters() {
+    this.selectedSpec = Specs.DEFAULT
+
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
 
@@ -263,7 +263,9 @@ export class VacantRequestsViewModel {
 
   onClickViewMore(id) {
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.user?.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
     )
 
@@ -347,7 +349,7 @@ export class VacantRequestsViewModel {
   onClickSuggest() {
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.user?.role]
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
       }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${
         this.currentRequestDetails.request._id
       }`,
@@ -357,7 +359,7 @@ export class VacantRequestsViewModel {
   onClickOpenInNewTab(id) {
     const win = window.open(
       `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.user?.role]
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
       }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       '_blank',
     )

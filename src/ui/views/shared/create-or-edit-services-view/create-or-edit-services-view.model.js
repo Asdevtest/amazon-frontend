@@ -10,28 +10,19 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditServicesViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
-
-  requestToEdit = {}
-
   pathname = null
 
-  uploadedFiles = []
-
   requestId = undefined
+  requestToEdit = undefined
+  uploadedFiles = []
+  specs = []
 
-  userInfo = undefined
+  constructor({ history }) {
+    this.history = history
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      this.pathname = location.pathname
-
-      if (location.state) {
-        this.requestId = location.state.requestId
-      }
-    })
+    if (history.location.state) {
+      this.requestId = history.location.state.requestId
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -39,10 +30,10 @@ export class CreateOrEditServicesViewModel {
   async getAnnouncementsDataByGuid() {
     try {
       if (this.requestId) {
-        const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+        const response = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
 
         runInAction(() => {
-          this.requestToEdit = result
+          this.requestToEdit = response
         })
       }
     } catch (error) {
@@ -54,22 +45,16 @@ export class CreateOrEditServicesViewModel {
     try {
       await this.getAnnouncementsDataByGuid()
 
-      runInAction(() => {
-        this.userInfo = UserModel.userInfo
-      })
+      await this.getSpecs()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onClickCreateBtn(data, files) {
+  async onClickCreateBtn(data) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (files.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      if (data.linksToMediaFiles?.length) {
+        await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -94,15 +79,15 @@ export class CreateOrEditServicesViewModel {
     }
   }
 
-  async onClickEditBtn(data, files) {
+  async onClickEditBtn(data) {
     try {
-      if (files?.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      if (data.linksToMediaFiles?.length) {
+        await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
         ...data,
-        linksToMediaFiles: [...this.uploadedFiles],
+        linksToMediaFiles: this.uploadedFiles,
       }
 
       await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)
@@ -124,5 +109,17 @@ export class CreateOrEditServicesViewModel {
 
   onClickBackBtn() {
     this.history.goBack()
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

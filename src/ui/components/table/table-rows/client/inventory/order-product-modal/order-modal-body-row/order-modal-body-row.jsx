@@ -447,7 +447,7 @@ export const OrderModalBodyRow = ({
             }
             data={
               // destinations
-              item.logicsTariffId ? destinations.filter(el => el?._id === destinationId) : destinations
+              item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
               // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
 
               /* .filter(el => !el.storekeeperId)*/
