@@ -44,10 +44,10 @@ import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { Header } from './components'
 
-export const ClientInventoryView = observer(() => {
+export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  const [viewModel] = useState(() => new ClientInventoryViewModel(history))
   viewModel.initHistory()
 
   const [useProductsPermissions] = useState(

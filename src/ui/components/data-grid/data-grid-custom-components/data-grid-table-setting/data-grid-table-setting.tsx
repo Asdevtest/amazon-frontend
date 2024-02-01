@@ -69,7 +69,11 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
           <SearchInput inputClasses={styles.searchInput} onChange={e => setNameSearchValue(e.target.value)} />
 
           {isAdditionalMode ? (
-            <AdditionalTableSettings presetsSettings={presetsSettings} handleClose={handleClose} />
+            <AdditionalTableSettings
+              presetsSettings={presetsSettings}
+              nameSearchValue={nameSearchValue}
+              handleClose={handleClose}
+            />
           ) : (
             <DefaultTableSettings nameSearchValue={nameSearchValue} columsBtnSettings={columsBtnSettings} />
           )}

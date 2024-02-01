@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { FC, PropsWithChildren, memo, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
@@ -15,7 +15,7 @@ interface CurrentPageInfo {
   title: string
 }
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = memo(({ children }) => {
   const { classes: styles, cx } = useStyles()
   const [currentPageInfo, setCurrentPageInfo] = useState<CurrentPageInfo>({
     activeCategory: '',
@@ -76,4 +76,4 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
       </main>
     </div>
   )
-}
+})

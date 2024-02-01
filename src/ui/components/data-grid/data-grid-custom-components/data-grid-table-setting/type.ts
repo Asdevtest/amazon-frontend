@@ -32,4 +32,5 @@ export interface IPresets {
 export interface IPresetsFields {
   field: string
   checked: boolean
+  name: string
 }

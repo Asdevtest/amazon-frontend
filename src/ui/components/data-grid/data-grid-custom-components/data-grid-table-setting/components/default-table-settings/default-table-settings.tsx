@@ -46,7 +46,7 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
       {itemsForRender.map((el, index) => (
         <Checkbox
           key={index}
-          checked={!columnVisibilityModel || columnVisibilityModel?.[el?.field]}
+          checked={columnVisibilityModel?.[el?.field] !== false}
           onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
         >
           {el.headerName}

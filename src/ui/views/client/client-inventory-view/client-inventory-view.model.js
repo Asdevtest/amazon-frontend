@@ -28,7 +28,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -486,6 +486,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             const existFields = existPreset?.fields?.map(field => ({
               field,
               checked: true,
+              name: formatCamelCaseString(field),
             }))
 
             const notExistFields = preset?.fields
@@ -493,6 +494,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               ?.map(field => ({
                 field,
                 checked: false,
+                name: formatCamelCaseString(field),
               }))
 
             presetData.fields = [...existFields, ...notExistFields]
@@ -502,6 +504,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             presetData.fields = preset?.fields?.map(field => ({
               field,
               checked: false,
+              name: formatCamelCaseString(field),
             }))
           }
 
@@ -511,7 +514,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         for (const preset of allPresets) {
           const presetData = {}
 
-          presetData.fields = preset?.fields?.map(field => ({ field, checked: false }))
+          presetData.fields = preset?.fields?.map(field => ({
+            field,
+            checked: false,
+            name: formatCamelCaseString(field),
+          }))
           presetData.table = preset?.table
           presetData._id = undefined
 
@@ -603,6 +610,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         } else {
           if (!fields?.length) {
             await UserModel.deleteUsersPresetsByGuid(presetId)
+            preset._id = undefined
           } else {
             const body = {
               endpoint: presetEndpoint,
@@ -1254,7 +1262,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
         this.batchesData = result
 
-        this.curProduct = this.tableData.filter(product => productId === product.id)
+        this.curProduct = this.tableData.filter(product => productId === product._id)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
@@ -1269,7 +1277,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.isTransfer = false
         this.batchesData = result
 
-        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product.id))
+        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
