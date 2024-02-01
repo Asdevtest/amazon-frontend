@@ -3,25 +3,29 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => {
   const primaryMain = theme.palette.primary.main
   const redMain = theme.palette.text.red
+  const successMain = theme.palette.text.green
   const backgroundGeneral = theme.palette.background.general
 
-  const outlineEditHoverColor = theme.palette.button.outlineEditHoverColor
-  const outlineEditHoverBackground = theme.palette.button.outlineEditHoverBackground
-  const outlineEditBoxShadow = theme.palette.button.outlineEditBoxShadow
-  const outlineEditDisabled = theme.palette.button.outlineEditDisabledColor
+  const defaultBoxShadow = theme.palette.button.defaultBoxShadow
+  const primaryHoverColor = theme.palette.button.primaryHoverColor
+  const primaryHoverBackground = theme.palette.button.primaryHoverBackground
+  const primaryDisabledColor = theme.palette.button.primaryDisabledColor
 
-  const crossHoverColor = theme.palette.button.deleteHoverColor
-  const crossHoverBackground = theme.palette.button.deleteHoverBackground
-  const crossDisabledColor = theme.palette.button.deleteDisabledColor
+  const errorHoverColor = theme.palette.button.errorHoverColor
+  const errorHoverBackground = theme.palette.button.errorHoverBackground
+  const errorDisabledColor = theme.palette.button.errorDisabledColor
+
+  const successHoverColor = theme.palette.button.successHoverColor
+  const successHoverBackground = theme.palette.button.successHoverBackground
+  const successDisabledColor = theme.palette.button.successDisabledColor
 
   return {
     buttonsWrapper: {
-      width: '100%',
-      height: '100%',
+      padding: '10px 0',
       display: 'flex',
-      gap: '10px',
       alignItems: 'center',
       justifyContent: 'center',
+      gap: '10px',
     },
 
     button: {
@@ -31,10 +35,10 @@ export const useStyles = makeStyles()(theme => {
       padding: 0,
     },
 
-    editButton: {
+    primaryButton: {
       border: `1px solid ${primaryMain}`,
       backgroundColor: backgroundGeneral,
-      boxShadow: outlineEditBoxShadow,
+      boxShadow: defaultBoxShadow,
 
       '> svg': {
         stroke: primaryMain,
@@ -43,30 +47,28 @@ export const useStyles = makeStyles()(theme => {
       },
 
       '&:hover': {
-        border: `1px solid ${outlineEditHoverColor}`,
-        backgroundColor: outlineEditHoverBackground,
-        boxShadow: outlineEditBoxShadow,
+        border: `1px solid ${primaryHoverColor}`,
+        backgroundColor: primaryHoverBackground,
 
         '> svg': {
-          stroke: outlineEditHoverColor,
+          stroke: primaryHoverColor,
         },
       },
 
       '&:disabled': {
-        border: `1px solid ${outlineEditDisabled}`,
+        border: `1px solid ${primaryDisabledColor}`,
         backgroundColor: backgroundGeneral,
-        boxShadow: outlineEditBoxShadow,
 
         '> svg': {
-          stroke: outlineEditDisabled,
+          stroke: primaryDisabledColor,
         },
       },
     },
 
-    removeButton: {
+    errorButton: {
       border: `1px solid ${redMain}`,
       backgroundColor: backgroundGeneral,
-      boxShadow: outlineEditBoxShadow,
+      boxShadow: defaultBoxShadow,
 
       '> svg': {
         color: redMain,
@@ -75,22 +77,50 @@ export const useStyles = makeStyles()(theme => {
       },
 
       '&:hover': {
-        border: `1px solid ${crossHoverColor}`,
-        backgroundColor: crossHoverBackground,
-        boxShadow: outlineEditBoxShadow,
+        border: `1px solid ${errorHoverColor}`,
+        backgroundColor: errorHoverBackground,
 
         '> svg': {
-          color: crossHoverColor,
+          color: errorHoverColor,
         },
       },
 
       '&:disabled': {
-        border: `1px solid ${crossDisabledColor}`,
+        border: `1px solid ${errorDisabledColor}`,
         backgroundColor: backgroundGeneral,
-        boxShadow: outlineEditBoxShadow,
 
         '> svg': {
-          color: crossDisabledColor,
+          color: errorDisabledColor,
+        },
+      },
+    },
+
+    successButton: {
+      border: `1px solid ${successMain}`,
+      backgroundColor: backgroundGeneral,
+      boxShadow: defaultBoxShadow,
+
+      '> svg': {
+        color: successMain,
+        width: '13px',
+        height: '13px',
+      },
+
+      '&:hover': {
+        border: `1px solid ${successHoverColor}`,
+        backgroundColor: successHoverBackground,
+
+        '> svg': {
+          color: successHoverColor,
+        },
+      },
+
+      '&:disabled': {
+        border: `1px solid ${successDisabledColor}`,
+        backgroundColor: backgroundGeneral,
+
+        '> svg': {
+          color: successDisabledColor,
         },
       },
     },

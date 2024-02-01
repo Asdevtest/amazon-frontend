@@ -62,7 +62,6 @@ export const BoxItemCard = ({
             taskType === TaskOperationType.EDIT ||
             (readOnly && taskType === TaskOperationType.RECEIVE) ||
             (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
-              // eslint-disable-next-line react/jsx-indent
               <div className={styles.countSubWrapper}>
                 <Typography className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={styles.subValue}>{boxId}</Typography>

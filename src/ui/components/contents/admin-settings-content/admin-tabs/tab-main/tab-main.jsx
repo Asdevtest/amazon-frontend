@@ -37,7 +37,7 @@ export const TabMain = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const [updatedProxy, setUpdatedProxy] = useState(serverProxy)
+  const [updatedProxy, setUpdatedProxy] = useState([])
 
   useEffect(() => {
     if (serverProxy.length > 0) {
@@ -61,6 +61,7 @@ export const TabMain = memo(props => {
       Number(formFields.yuanToDollarRate) === 0 ||
       Number(formFields.volumeWeightCoefficient) === 0) &&
     disabledSubmitProxy
+  const showProxies = updatedProxy?.length !== 0
 
   return (
     <>
@@ -101,20 +102,21 @@ export const TabMain = memo(props => {
           </div>
 
           <div className={styles.proxyList}>
-            {updatedProxy?.length !== 0 &&
-              updatedProxy?.map((proxy, index) => (
-                <div key={index} className={styles.proxyWrapper}>
-                  <Typography className={styles.proxy}>{proxy}</Typography>
+            {showProxies
+              ? updatedProxy?.map((proxy, index) => (
+                  <div key={index} className={styles.proxyWrapper}>
+                    <Typography className={styles.proxy}>{proxy}</Typography>
 
-                  <div className={styles.iconsWrapper}>
-                    <CopyValue text={proxy} />
-                    <DeleteOutlineOutlinedIcon
-                      className={styles.deleteProxy}
-                      onClick={() => handleDeleteProxy(proxy)}
-                    />
+                    <div className={styles.iconsWrapper}>
+                      <CopyValue text={proxy} />
+                      <DeleteOutlineOutlinedIcon
+                        className={styles.deleteProxy}
+                        onClick={() => handleDeleteProxy(proxy)}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              : null}
           </div>
 
           <Button disabled={disabledSubmitFields} className={styles.buttonSave} onClick={() => onSubmit(updatedProxy)}>

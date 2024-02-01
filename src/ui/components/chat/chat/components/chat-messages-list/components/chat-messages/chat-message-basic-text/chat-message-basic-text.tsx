@@ -24,8 +24,6 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
   const photoAndVideoFiles = message?.images?.concat(message?.video)
   const anotherFiles = message.files
 
-  console.log('he.decode(message.text)', he.decode(message.text))
-
   return (
     <div
       className={cx(
@@ -52,21 +50,17 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
             textToHighlight={he.decode(message.text)}
             className={styles.messageText}
             findChunks={findChunks}
-            highlightTag={({ children }: HighlightTag) => {
-              console.log('children', children)
-
-              return (
-                <Linkify>
-                  <span
-                    className={cx({
-                      [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
-                    })}
-                  >
-                    {children}
-                  </span>
-                </Linkify>
-              )
-            }}
+            highlightTag={({ children }: HighlightTag) => (
+              <Linkify>
+                <span
+                  className={cx({
+                    [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                  })}
+                >
+                  {children}
+                </span>
+              </Linkify>
+            )}
           />
         )}
 

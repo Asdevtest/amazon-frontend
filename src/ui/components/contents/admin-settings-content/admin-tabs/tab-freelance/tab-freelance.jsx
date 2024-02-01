@@ -5,6 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TextForm } from '@components/forms/text-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
@@ -138,6 +139,20 @@ export const TabFreelance = observer(props => {
             onSubmit={viewModel.onCreateSpec}
           />
         </Modal>
+      ) : null}
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+        />
       ) : null}
     </>
   )

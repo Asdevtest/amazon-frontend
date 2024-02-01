@@ -1,34 +1,26 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ActionButtonsCell,
   ButtonHeaderCell,
   InputOrTextCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
+  TableDataControlsButtonsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ArchiveContent, EditContent, SaveContent } from './button-contents'
-
 export const tabFreelanceColumns = ({
   onEditSpec,
-  moveSpecToArchive,
+  onMoveSpecToArchive,
   onChangeSpecTitle,
   onClickToggleAddOrEditTextModal,
 }) => [
   {
     field: 'spec',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Title of specialty'])} />,
-    renderCell: ({ row }) => (
-      <InputOrTextCell
-        isEdit={row.isEditSpec}
-        text={row.title}
-        onChange={onChangeSpecTitle}
-        onCancel={() => onEditSpec(row._id, false)}
-      />
-    ),
+    renderCell: ({ row }) => <InputOrTextCell text={row.title} isEdit={row.isEditSpec} onChange={onChangeSpecTitle} />,
     filterable: false,
     sortable: false,
     width: 200,
@@ -38,25 +30,41 @@ export const tabFreelanceColumns = ({
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: ({ row }) => (
-      <ActionButtonsCell
-        row
-        resetStyles
-        isFirstButton={row.isEditSpec}
-        isSecondButton={!row.isEditSpec}
-        isThirdButton={!row.isEditSpec}
-        firstButtonElement={<SaveContent />}
-        secondButtonElement={<EditContent />}
-        thirdButtonElement={<ArchiveContent />}
-        firstButtonTooltipText={t(TranslationKey.Save)}
-        onClickFirstButton={() => onEditSpec(row._id, row.isEditSpec)}
-        onClickSecondButton={() => onEditSpec(row._id, row.isEditSpec)}
-        onClickThirdButton={() => moveSpecToArchive(row._id, row.title)}
-      />
-    ),
+    renderCell: ({ row }) => {
+      const onClickSaveButton = row.isEditSpec ? () => onEditSpec(row) : undefined
+      const onClickEditButton = !row.isEditSpec ? () => onEditSpec(row) : undefined
+      const onClickCancelButton = row.isEditSpec ? () => onEditSpec({ ...row, isEditSpec: !row.isEditSpec }) : undefined
+      const onClickSendButton =
+        !row.isEditSpec && !row.archive
+          ? () => onMoveSpecToArchive({ ...row, isEditSpec: !row.isEditSpec, archive: !row.archive })
+          : undefined
+      const onClickReturnButton =
+        !row.isEditSpec && row.archive
+          ? () => onEditSpec({ ...row, isEditSpec: !row.isEditSpec, archive: !row.archive })
+          : undefined
+
+      return (
+        <TableDataControlsButtonsCell
+          onClickSaveButton={onClickSaveButton}
+          onClickEditButton={onClickEditButton}
+          onClickCancelButton={onClickCancelButton}
+          onClickSendButton={onClickSendButton}
+          onClickReturnButton={onClickReturnButton}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
-    width: 140,
+    width: 100,
+  },
+
+  {
+    field: 'archive',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Archive)} />,
+    renderCell: ({ row }) => <MultilineTextCell leftAlign text={row.archive ? t(TranslationKey.Archive) : ''} />,
+    filterable: false,
+    sortable: false,
+    width: 80,
   },
 
   {

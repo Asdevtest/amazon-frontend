@@ -122,7 +122,7 @@ export const shopsColumns = handlers => [
     renderCell: params => (
       <TableDataControlsButtonsCell
         onClickEditButton={() => handlers.onClickEditBtn(params.row)}
-        onClickRemoveButton={() => handlers.onClickRemoveBtn(params.row)}
+        onClickCancelButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
 
