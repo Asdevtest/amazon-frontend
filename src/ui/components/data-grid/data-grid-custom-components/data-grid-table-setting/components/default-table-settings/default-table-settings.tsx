@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './default-table-settings.style'
 
-import { IColumsBtnSettings } from '../../helpers/interfaces'
+import { IColumsBtnSettings } from '../../type'
 
 interface DefaultTableSettingsProps {
   columsBtnSettings: IColumsBtnSettings

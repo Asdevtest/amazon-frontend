@@ -17,8 +17,8 @@ import { t } from '@utils/translations'
 import { useStyles } from './data-grid-table-setting.style'
 
 import { AdditionalTableSettings, DefaultTableSettings } from './components'
-import { DataGridTableSettingProps } from './helpers/interfaces'
-import { SwitcherSetting, switcherConfig } from './helpers/switcher-setting'
+import { SwitcherSetting, switcherConfig } from './switcher-setting'
+import { DataGridTableSettingProps } from './type'
 
 export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ columsBtnSettings, presetsSettings }) => {
   const { classes: styles } = useStyles()

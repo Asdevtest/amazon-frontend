@@ -8,7 +8,7 @@ import {
 
 import { formatCamelCaseString } from '@utils/text'
 
-import { dateCells, numberCells, textCells } from './cell-types'
+import { dateCells, numberCells, textCells } from '../cell-types'
 
 export const getCellType = (column: string, table: string) => {
   const formedColumnName = formatCamelCaseString(column)

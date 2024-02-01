@@ -221,9 +221,7 @@ export class DataGridTableModel extends ModalsModel {
   }
 
   setRequestStatus(requestStatus: loadingStatuses) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {

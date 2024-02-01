@@ -32,13 +32,13 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { clientInventoryColumns } from './components'
 import {
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
   filtersFields,
-} from './helpers/client-inventory-view.constants'
-import { observerConfig } from './helpers/model-observer.config'
+} from './client-inventory-view.constants'
+import { clientInventoryColumns } from './components'
+import { observerConfig } from './model-observer.config'
 
 const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
 

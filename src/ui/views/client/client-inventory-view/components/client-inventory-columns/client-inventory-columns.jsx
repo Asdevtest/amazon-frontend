@@ -28,7 +28,7 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { complexCells } from '../../helpers/cell-types'
+import { complexCells } from '../../cell-types'
 import { getCellType } from '../../helpers/get-cell-type'
 
 export const clientInventoryColumns = (

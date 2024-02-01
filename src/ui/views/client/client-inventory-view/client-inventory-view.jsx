@@ -40,13 +40,9 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useStyles } from './client-inventory-view.style'
 
+import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { Header } from './components'
-import {
-  clickableCells,
-  disableDoubleClickOnCells,
-  disableSelectionCells,
-} from './helpers/client-inventory-view.constants'
 
 export const ClientInventoryView = observer(() => {
   const { classes: styles } = useStyles()

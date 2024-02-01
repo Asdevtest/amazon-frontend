@@ -4,7 +4,7 @@ import { Checkbox } from '@components/shared/checkbox'
 
 import { useStyles } from './additional-table-settings.style'
 
-import { IPresets, IPresetsSettings } from '../../helpers/interfaces'
+import { IPresets, IPresetsSettings } from '../../type'
 import { PresetsControlButtons } from '../presets-control-buttons/presets-control-buttons'
 
 interface AdditionalTableSettingsProps {
@@ -17,12 +17,10 @@ export const AdditionalTableSettings: FC<AdditionalTableSettingsProps> = memo(({
 
   const { presetsData } = presetsSettings
 
-  const [dataForRender, setDataForRender] = useState<IPresets[] | undefined>([])
+  const [dataForRender, setDataForRender] = useState<IPresets[]>([])
 
   const onClickItem = (presetIndex: number, fieldIndex: number, value: boolean) =>
     setDataForRender(prev => {
-      if (!prev) return
-
       const newDataForRender = [...prev]
       newDataForRender[presetIndex].fields[fieldIndex].checked = value
       return newDataForRender
