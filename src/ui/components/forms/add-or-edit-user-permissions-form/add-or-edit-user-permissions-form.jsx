@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -408,11 +408,11 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               multiple
               displayEmpty
               value={currentSpecs}
-              className={styles.requestTypeField}
+              className={cx(styles.requestTypeField, styles.capitalize)}
               renderValue={selected =>
                 !selected?.length
                   ? t(TranslationKey['Select from the list'])
-                  : selected?.map(item => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item]))?.join(', ')
+                  : selected?.map(item => freelanceRequestTypeByCode[item])?.join(', ')
               }
               onChange={e => selectSpecHandler(e.target.value)}
             >
@@ -421,9 +421,9 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               </MenuItem>
 
               {specs?.map(spec => (
-                <MenuItem key={spec?._id} value={spec?.type}>
+                <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
                   <Checkbox checked={currentSpecs.includes(spec?.type)} />
-                  {freelanceRequestTypeTranslate(spec?.title)}
+                  {spec?.title}
                 </MenuItem>
               ))}
             </Select>

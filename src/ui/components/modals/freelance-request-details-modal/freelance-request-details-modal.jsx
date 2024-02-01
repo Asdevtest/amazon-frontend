@@ -2,7 +2,6 @@ import { memo } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
@@ -65,9 +64,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
               <Typography className={styles.headerText}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(styles.headerText, styles.textBold)}>
-                {freelanceRequestTypeTranslate(request?.spec?.title)}
-              </Typography>
+              <Typography className={cx(styles.headerText, styles.textBold)}>{request?.spec?.title}</Typography>
             </div>
 
             <div className={styles.flexContainer}>

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridRowParams } from '@mui/x-data-grid'
 
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -49,9 +48,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridRowParams) => {
-      const stringForRender = params.row.allowedSpec
-        ?.map((spec: ISpec) => freelanceRequestTypeTranslate(spec?.title))
-        .join('\n')
+      const stringForRender = params.row.allowedSpec?.map((spec: ISpec) => spec?.title).join('\n')
 
       return <MultilineTextCell leftAlign text={stringForRender} />
     },

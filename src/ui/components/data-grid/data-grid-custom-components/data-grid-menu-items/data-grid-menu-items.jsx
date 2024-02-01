@@ -19,7 +19,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
-import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -37,8 +37,6 @@ import { formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { Specs } from '@typings/enums/specs'
 
 import { styles } from './data-grid-menu-items.style'
 
@@ -486,9 +484,7 @@ export const FreelanceRequestType = memo(
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = filterData?.filter(item =>
-          freelanceRequestTypeTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
-        )
+        const filter = filterData?.filter(item => item.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setItemsForRender(filter)
       } else {
         setItemsForRender(filterData)
@@ -518,7 +514,7 @@ export const FreelanceRequestType = memo(
                     setChoosenItems={setChoosenItems}
                   />
                   {itemsForRender.map((el, index) => {
-                    const value = freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)
+                    const value = el || t(TranslationKey.Empty)
                     const valueChecked = choosenItems.some(item => item === el)
 
                     return (
@@ -800,9 +796,7 @@ export const ObJectFieldMenuItem = memo(
       useEffect(() => {
         if (nameSearchValue) {
           const filter = filterData?.filter(obj => {
-            const title = Object.keys(Specs).includes(obj?.title)
-              ? freelanceRequestTypeTranslate(obj?.title)
-              : obj.title || obj.name
+            const title = obj.title || obj.name
 
             return title.toLowerCase().includes(nameSearchValue.toLowerCase())
           })
@@ -840,9 +834,7 @@ export const ObJectFieldMenuItem = memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => {
-                        const value = Object.keys(Specs).includes(obj?.title)
-                          ? freelanceRequestTypeTranslate(obj?.title)
-                          : obj?.title || obj?.name || t(TranslationKey.Empty)
+                        const value = obj?.title || obj?.name || t(TranslationKey.Empty)
                         const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (

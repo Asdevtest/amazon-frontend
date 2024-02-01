@@ -78,4 +78,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
     padding: '0 64px',
   },
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

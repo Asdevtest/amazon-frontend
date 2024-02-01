@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from 'react'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -163,9 +162,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
             <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
               <Typography className={styles.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={styles.requestTitle}>
-                {freelanceRequestTypeTranslate(request?.request?.spec?.title)}
-              </Typography>
+              <Typography className={styles.requestTitle}>{request?.request?.spec?.title}</Typography>
             </div>
           </div>
 

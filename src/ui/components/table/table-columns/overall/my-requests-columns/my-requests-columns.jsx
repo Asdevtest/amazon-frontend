@@ -4,7 +4,6 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -272,7 +271,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={freelanceRequestTypeTranslate(params.row.spec?.title)} />,
+    renderCell: params => <MultilineTextCell text={params.row.spec?.title} />,
     width: 90,
     columnKey: columnnsKeys.shared.OBJECT,
   },

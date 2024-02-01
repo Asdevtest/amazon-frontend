@@ -159,6 +159,26 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsOrdersPagGet(data)
     return response.data
   }
+
+  createSpec = async title => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsPost({ body: { title } })
+    return response.data
+  }
+
+  editSpec = async (guid, title, archive = false) => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidPatch({
+      guid,
+      body: { title, archive },
+    })
+    return response.data
+  }
+
+  removeSpec = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidDelete({
+      guid,
+    })
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

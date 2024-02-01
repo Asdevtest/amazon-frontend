@@ -62,7 +62,7 @@ export const TabTags = observer(() => {
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={70}
           slotProps={{
             baseTooltip: {

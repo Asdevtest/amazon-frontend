@@ -2,7 +2,6 @@ import { memo, useEffect, useState } from 'react'
 
 import { MenuItem, Select } from '@mui/material'
 
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -77,8 +76,8 @@ export const CreateOrEditServiceContent = memo(props => {
               </MenuItem>
 
               {specs.map(spec => (
-                <MenuItem key={spec._id} value={spec?._id}>
-                  {freelanceRequestTypeTranslate(spec?.title)}
+                <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                  {spec?.title}
                 </MenuItem>
               ))}
             </Select>

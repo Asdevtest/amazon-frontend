@@ -123,8 +123,8 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
           isSecondButton
           firstVariantStyle={firstButtonCondition ? DefaultButtonStyles.SUCCESS : undefined}
           secondVariantStyle={DefaultButtonStyles.OUTLINED}
-          firstButtonText={firstButtonText}
-          secondButtonText={t(TranslationKey['Warehouse and orders'])}
+          firstButtonElement={firstButtonText}
+          secondButtonElement={t(TranslationKey['Warehouse and orders'])}
           onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, firstButtonCondition)}
           onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
         />

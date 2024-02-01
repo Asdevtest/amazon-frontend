@@ -2,11 +2,7 @@ import { FC, memo } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -72,7 +68,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
-            <p className={cx(styles.blockInfoCellText)}>{freelanceRequestTypeTranslate(spec?.title)}</p>
+            <p className={cx(styles.blockInfoCellText, styles.capitalize)}>{spec?.title}</p>
           </div>
 
           <div className={styles.blockInfoCell}>
