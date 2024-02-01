@@ -11,7 +11,6 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -161,9 +160,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(params.row.spec?.title)} />
-    ),
+    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.spec?.title} />,
     type: 'number',
     width: 85,
     sortable: false,

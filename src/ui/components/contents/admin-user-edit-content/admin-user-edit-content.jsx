@@ -8,10 +8,9 @@ import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@m
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-// import {RegistrationForm} from '@components/forms/registration-form'
 import { SettingsModel } from '@models/settings-model'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
@@ -585,21 +584,19 @@ export const AdminUserEditContent = observer(
                 inputComponent={
                   <Select
                     multiple
-                    className={styles.standartText}
+                    className={cx(styles.standartText, styles.capitalize)}
                     value={formFields?.allowedSpec}
                     renderValue={selected =>
                       !selected?.length
                         ? t(TranslationKey['Select from the list'])
-                        : selected
-                            ?.map(item => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item]))
-                            ?.join(', ')
+                        : selected?.map(item => freelanceRequestTypeByCode[item])?.join(', ')
                     }
                     onChange={onChangeFormField('allowedSpec')}
                   >
                     {specs?.map(spec => (
-                      <MenuItem key={spec?._id} value={spec?.type}>
+                      <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
                         <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
-                        {freelanceRequestTypeTranslate(spec?.title)}
+                        {spec?.title}
                       </MenuItem>
                     ))}
                   </Select>

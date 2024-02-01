@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(theme => ({
 
   categoryText: {
     color: theme.palette.text.general,
+    textTransform: 'capitalize',
   },
 
   categoresWrapper: {

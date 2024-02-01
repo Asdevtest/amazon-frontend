@@ -4,7 +4,6 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -149,7 +148,7 @@ export const UserProfile = observer(
                   <div className={styles.roles}>
                     {user?.allowedSpec?.map(spec => (
                       <Typography key={spec?._id} className={styles.role}>
-                        {freelanceRequestTypeTranslate(spec?.title)}
+                        {spec?.title}
                       </Typography>
                     ))}
                   </div>

@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -85,9 +84,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           <div className={styles.detailsSubWrapper}>
             <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
             <p className={styles.detailDescription}>
-              {announcementData.spec?.type === 0
-                ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(announcementData.spec?.title)}
+              {announcementData.spec?.type === 0 ? t(TranslationKey.Universal) : announcementData.spec?.title}
             </p>
           </div>
 

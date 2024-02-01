@@ -74,6 +74,7 @@ export const useStyles = makeStyles()(theme => ({
   detailDescription: {
     fontSize: '14px',
     fontWeight: 600,
+    textTransform: 'capitalize',
   },
 
   userLinkCustomClassNames: {

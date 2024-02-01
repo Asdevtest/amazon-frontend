@@ -1,4 +1,3 @@
-import { freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -31,7 +30,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: params => <MultilineTextCell text={freelanceRequestTypeTranslate(params.row.spec?.title)} />,
+    renderCell: params => <MultilineTextCell text={params.row.spec?.title} />,
     width: 200,
   },
 

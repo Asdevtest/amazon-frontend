@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { Link, Typography } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -18,7 +17,7 @@ interface RequestsDataInterface {
 
 interface CheckRequestByTypeExistsProps {
   asin: string
-  type: number | string
+  specTitle: string
   requestsData: Array<RequestsDataInterface>
   onClickRequest: (request: RequestsDataInterface) => void
   onClickContinue: () => void
@@ -27,7 +26,7 @@ interface CheckRequestByTypeExistsProps {
 
 export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
   asin,
-  type,
+  specTitle,
   requestsData,
   onClickRequest,
   onClickContinue,
@@ -46,7 +45,7 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
 
         <Typography className={styles.text}>{`${t(
           TranslationKey['there are already requests of the type'],
-        )} ${freelanceRequestTypeTranslate(freelanceRequestTypeByCode[Number(type)])}`}</Typography>
+        )} ${specTitle}`}</Typography>
 
         <div className={styles.requestsTextWrapper}>
           {requestsData.map((request, requestIndex: number) => (

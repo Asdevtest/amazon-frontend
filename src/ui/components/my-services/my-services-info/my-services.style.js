@@ -60,6 +60,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
+    textTransform: 'capitalize',
   },
   regularText: {
     fontWeight: 400,

@@ -297,5 +297,7 @@ export const useStyles = makeStyles()(theme => ({
   visibility: {
     visibility: 'visible',
   },
-  //
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

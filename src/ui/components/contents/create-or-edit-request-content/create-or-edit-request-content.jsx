@@ -18,11 +18,7 @@ import {
 
 import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -517,8 +513,8 @@ export const CreateOrEditRequestContent = memo(props => {
                         </MenuItem>
 
                         {specs.map(spec => (
-                          <MenuItem key={spec._id} value={spec?._id}>
-                            {freelanceRequestTypeTranslate(spec?.title)}
+                          <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                            {spec?.title}
                           </MenuItem>
                         ))}
                       </Select>
@@ -971,8 +967,8 @@ export const CreateOrEditRequestContent = memo(props => {
                             containerClasses={styles.fitContentContainer}
                             labelClasses={styles.spanLabel}
                             inputComponent={
-                              <Typography className={styles.twoStepFieldResult}>
-                                {freelanceRequestTypeTranslate(currentSpec?.title)}
+                              <Typography className={cx(styles.twoStepFieldResult, styles.capitalize)}>
+                                {currentSpec?.title}
                               </Typography>
                             }
                           />
@@ -1264,7 +1260,7 @@ export const CreateOrEditRequestContent = memo(props => {
         <CheckRequestByTypeExists
           requestsData={requestIds}
           asin={formFields?.request?.asin}
-          type={currentSpec?.type}
+          specTitle={currentSpec?.title}
           onClickRequest={onClickExistingRequest}
           onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
