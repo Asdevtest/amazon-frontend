@@ -1,7 +1,7 @@
 import { compareDesc, parseISO } from 'date-fns'
-import { observer } from 'mobx-react'
-import { ReactElement, forwardRef } from 'react'
+import { ReactElement, forwardRef, memo } from 'react'
 
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -42,7 +42,7 @@ export interface CurrentOpponent {
   _id: string
 }
 
-interface Props {
+interface MultipleChatsProps {
   isFreelanceOwner: boolean
   searchFilter: string
   chats: ChatContract[]
@@ -56,6 +56,8 @@ interface Props {
   typingUsers?: OnTypingMessageResponse[]
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
+  requestStatus: loadingStatuses
+  onChangeRequestStatus: (status: loadingStatuses) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, files: UploadFileType[], chat: string, replyMessageId: string | null) => void
@@ -71,8 +73,8 @@ interface Props {
   onCloseMesSearchValue: () => void
 }
 
-export const MultipleChats = observer(
-  forwardRef<HTMLDivElement, Props>(
+export const MultipleChats = memo(
+  forwardRef<HTMLDivElement, MultipleChatsProps>(
     (
       {
         isFreelanceOwner,
@@ -100,6 +102,8 @@ export const MultipleChats = observer(
         onChangeMesSearchValue,
         onChangeCurFoundedMessage,
         onCloseMesSearchValue,
+        requestStatus,
+        onChangeRequestStatus,
       },
       ref,
     ) => {
@@ -188,6 +192,8 @@ export const MultipleChats = observer(
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
                 currentOpponent={currentOpponent}
+                requestStatus={requestStatus}
+                onChangeRequestStatus={onChangeRequestStatus}
                 onSubmitMessage={(message: string, files: UploadFileType[], replyMessageId: string | null) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, files, chatSelectedId!, replyMessageId)

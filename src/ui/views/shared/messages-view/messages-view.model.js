@@ -279,6 +279,7 @@ export class MessagesViewModel {
     runInAction(() => {
       this.mesSearchValue = value
     })
+
     if (!value) {
       runInAction(() => {
         this.messagesFound = []
@@ -287,11 +288,17 @@ export class MessagesViewModel {
       })
       return
     }
+
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
+
     const res = await ChatModel.FindChatMessage({ chatId, text: value })
     runInAction(() => {
       this.messagesFound = res
     })
+
     this.onChangeCurFoundedMessage(res?.length - 1)
+
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
