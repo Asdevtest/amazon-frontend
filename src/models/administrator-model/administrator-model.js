@@ -165,7 +165,7 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  editSpec = async (guid, title, archive = false) => {
+  editSpec = async (guid, title, archive) => {
     const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidPatch({
       guid,
       body: { title, archive },

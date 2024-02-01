@@ -3,40 +3,45 @@ import { FC, memo, useEffect, useState } from 'react'
 import { useStyles } from './input-or-text-cell.style'
 
 interface InputOrTextCellProps {
-  isEdit: boolean
   text: string
   onChange: (specTitle: string) => void
-  onCancel: () => void
+  isEdit?: boolean
 }
 
 export const InputOrTextCell: FC<InputOrTextCellProps> = memo(props => {
-  const { isEdit, text, onChange, onCancel } = props
+  const { isEdit, text, onChange } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const [inputValue, setInputValue] = useState(text || '')
+  const [inputValue, setInputValue] = useState('')
 
   useEffect(() => {
-    onChange(inputValue)
+    if (text.length > 0) {
+      setInputValue(text)
+    }
+  }, [text, isEdit]) // isEdit - return text value when canceling change
+
+  useEffect(() => {
+    if (isEdit) {
+      onChange(inputValue)
+    }
   }, [inputValue])
 
-  const handleCancel = () => {
-    setInputValue(text)
-    onCancel()
-  }
+  const showError = isEdit && inputValue.length === 0
+  const showButton = isEdit && inputValue.length !== 0
 
   return (
-    <div className={cx(styles.wrapper, { [styles.wrapperDisabled]: !isEdit })}>
+    <div className={cx(styles.wrapper, { [styles.wrapperDisabled]: !isEdit, [styles.wrapperError]: showError })}>
       <input
         type="text"
         disabled={!isEdit}
         value={inputValue}
-        className={styles.input}
+        className={cx(styles.input, { [styles.inputError]: showError })}
         onChange={e => setInputValue(e.target.value)}
       />
 
-      {isEdit ? (
-        <button className={styles.button} onClick={handleCancel}>
+      {showButton ? (
+        <button className={styles.button} onClick={() => setInputValue('')}>
           ✕
         </button>
       ) : null}

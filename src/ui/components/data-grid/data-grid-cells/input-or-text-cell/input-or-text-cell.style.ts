@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
+    width: '100%',
     padding: 5,
     display: 'flex',
     alignItems: 'center',
@@ -15,14 +16,22 @@ export const useStyles = makeStyles()(theme => ({
     border: `none`,
   },
 
+  wrapperError: {
+    border: `1px solid ${theme.palette.text.red}`,
+  },
+
   input: {
     width: 140,
 
     '&:disabled': {
-      width: 160,
+      width: '100%',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
+  },
+
+  inputError: {
+    width: '100%',
   },
 
   button: {
