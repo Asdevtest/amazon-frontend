@@ -368,4 +368,14 @@ export const useStyles = makeStyles()(theme => ({
       alignItems: 'center',
     },
   },
+
+  toastContainer: {
+    background: `${theme.palette.background.general} !important`,
+
+    button: {
+      svg: {
+        color: theme.palette.text.general,
+      },
+    },
+  },
 }))

@@ -12,7 +12,7 @@ import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ToastifyProvder } from '@components/layout/navigation/toastify/toastify-provder'
+import { ToastifyProvider } from '@components/layout/navigation/toastify/toastify-provider'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { HintsContextProvider } from '@contexts/hints-context'
@@ -42,7 +42,7 @@ export const MainNav = observer(() => {
   return (
     <ThemeProvider theme={{ ...theme, lang }}>
       <HintsContextProvider hints>
-        <ToastifyProvder theme={SettingsModel.uiTheme} />
+        <ToastifyProvider theme={SettingsModel.uiTheme} />
         <GlobalStyles styles={globalStyles} />
         <CssBaseline />
         <Router>
