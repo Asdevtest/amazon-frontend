@@ -43,6 +43,8 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     onClickAbortBtn,
   } = props
 
+  console.log('status', status)
+
   return (
     <div className={styles.btnsBlockWrapper}>
       <Button
@@ -144,7 +146,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                 className={cx(styles.button, {
                   [styles.stopBtn]: status !== RequestStatus.FORBID_NEW_PROPOSALS,
                 })}
-                onClick={status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+                onClick={status !== RequestStatus.FORBID_NEW_PROPOSALS ? onClickAbortBtn : onClickPublishBtn}
               >
                 {status === RequestStatus.FORBID_NEW_PROPOSALS
                   ? t(TranslationKey['Resume accepting proposals'])
