@@ -43,8 +43,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     onClickAbortBtn,
   } = props
 
-  console.log('status', status)
-
   return (
     <div className={styles.btnsBlockWrapper}>
       <Button
