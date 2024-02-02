@@ -467,8 +467,6 @@ export const clientInventoryColumns = (
     column.table = DataGridFilterTables.PRODUCTS
   }
 
-  console.log('defaultColumns', defaultColumns)
-
   if (additionalFields) {
     for (const table in additionalFields) {
       if (additionalFields[table]) {
