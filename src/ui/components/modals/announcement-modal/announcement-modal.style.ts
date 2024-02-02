@@ -78,6 +78,10 @@ export const useStyles = makeStyles()(() => ({
     overflow: 'auto',
   },
 
+  editorWrapper: {
+    marginTop: 0,
+  },
+
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

@@ -24,7 +24,7 @@ class RequestModelStatic {
   }
 
   getCustomRequestById = async guid => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet({ guid })
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomGuidGet({ guid, noCache: true })
     return response.data
   }
 

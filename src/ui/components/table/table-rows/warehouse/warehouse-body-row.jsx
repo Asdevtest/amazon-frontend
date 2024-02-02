@@ -81,7 +81,7 @@ const WarehouseBodyRowRaw = ({
             <TableCell>
               <BoxUpdatedAt product={box} />
             </TableCell>
-            <TableCell>
+            <TableCell className={styles.tableCellProduct}>
               <ProductAsinCell
                 image={order?.product?.images?.[0]}
                 amazonTitle={order?.product?.amazonTitle}
