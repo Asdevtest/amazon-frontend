@@ -45,7 +45,7 @@ export class DataGridTableModel extends ModalsModel {
   _columnsModel: GridColDef[]
   _tableData: any[] = []
 
-  _defaultGetDataMethodOptions: any = {}
+  _defaultGetDataMethodOptions: any
 
   get requestStatus() {
     return this._requestStatus
@@ -149,7 +149,6 @@ export class DataGridTableModel extends ModalsModel {
 
   getDataGridState() {
     if (!this._tableKey) return
-
     const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
     if (state) {
       // @ts-ignore
@@ -204,7 +203,7 @@ export class DataGridTableModel extends ModalsModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions)
+      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions())
 
       runInAction(() => {
         this.tableData = result?.rows || result
@@ -212,8 +211,6 @@ export class DataGridTableModel extends ModalsModel {
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
-
-      return result
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)

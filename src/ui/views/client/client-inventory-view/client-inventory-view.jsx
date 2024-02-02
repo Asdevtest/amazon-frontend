@@ -180,7 +180,7 @@ export const ClientInventoryView = observer(({ history }) => {
           product={viewModel.selectedProductToLaunch}
           productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getProductsMy}
+          updateData={viewModel.getMainTableData}
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
         />
       )}
@@ -190,7 +190,7 @@ export const ClientInventoryView = observer(({ history }) => {
           history={viewModel.history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.getProductsMy()}
+          updateDataHandler={() => viewModel.getMainTableData()}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}

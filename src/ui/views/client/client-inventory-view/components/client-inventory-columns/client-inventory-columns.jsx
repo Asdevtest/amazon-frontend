@@ -315,6 +315,7 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       renderCell: params => <TagsCell tags={params.row?.tags} />,
       width: 160,
+
       sortable: false,
       columnKey: columnnsKeys.shared.TAGS,
     },
@@ -326,6 +327,7 @@ export const clientInventoryColumns = (
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
       width: 130,
       sortable: false,
+
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
 
@@ -464,6 +466,8 @@ export const clientInventoryColumns = (
   for (const column of defaultColumns) {
     column.table = DataGridFilterTables.PRODUCTS
   }
+
+  console.log('defaultColumns', defaultColumns)
 
   if (additionalFields) {
     for (const table in additionalFields) {

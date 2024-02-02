@@ -120,6 +120,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
+      console.log('column :>> ', column)
+      console.log('table :>> ', table)
+
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
@@ -186,7 +189,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
           sortField: this.sortModel.length ? this.sortModel?.[0]?.field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
 
-          ...this.defaultGetDataMethodOptions,
+          ...this.defaultGetDataMethodOptions(),
         },
       )
 

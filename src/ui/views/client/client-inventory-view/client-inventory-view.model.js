@@ -222,6 +222,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickVariationButton: id => this.onClickVariationButton(id),
     }
 
+    const defaultGetDataMethodOptions = () => ({
+      preset: true,
+      noCache: true,
+    })
+
     const additionalPropertiesGetFilters = () => {
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
@@ -250,13 +255,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       'clients/products/my_with_pag?',
       ['asin', 'amazonTitle', 'skuByClient'],
       DataGridTablesKeys.CLIENT_INVENTORY,
-      {
-        preset: true,
-        noCache: true,
-      },
+      defaultGetDataMethodOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
     )
+
+    this.onChangeSortingModel([{ field: 'sumStock', sort: 'desc' }], undefined, true)
 
     defaultHiddenColumns.forEach(el => {
       this.columnVisibilityModel[el] = false
@@ -565,7 +569,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         await UserModel.deleteUsersPresetsByGuid(preset?._id)
 
         preset.fields = preset?.fields?.map(field => ({
-          field: field?.field,
+          ...field,
           checked: false,
         }))
         preset._id = undefined
@@ -758,108 +762,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  // async onClickFilterBtn(column) {
-  //   try {
-  //     this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
-
-  //     const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-  //     const shopFilter =
-  //       this.columnMenuSettings.shopId.currentFilterData.length > 0 && column !== 'shopId' ? curShops : null
-
-  //     const purchaseQuantityAboveZero =
-  //       this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
-  //       this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-  //         ? ''
-  //         : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-
-  //     const data = await GeneralModel.getDataForColumn(
-  //       getTableByColumn(column, 'products'),
-  //       column,
-
-  //       `clients/products/my_with_pag?filters=${this.getFilters(column)}${
-  //         shopFilter ? `;&[shopId][$eq]=${shopFilter}` : ''
-  //       }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
-  //     )
-
-  //     if (this.columnMenuSettings[column]) {
-  //       runInAction(() => {
-  //         this.columnMenuSettings = {
-  //           ...this.columnMenuSettings,
-  //           [column]: { ...this.columnMenuSettings[column], filterData: data },
-  //         }
-  //       })
-  //     }
-  //     this.setFilterRequestStatus(loadingStatuses.SUCCESS)
-  //   } catch (error) {
-  //     this.setFilterRequestStatus(loadingStatuses.FAILED)
-
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
-  // getFilters(exclusion) {
-  //   const transparency =
-  //     this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
-  //       ? null
-  //       : this.columnMenuSettings.transparencyYesNoFilterData.yes
-
-  //   return objectToUrlQs(
-  //     dataGridFiltersConverter(
-  //       this.columnMenuSettings,
-  //       this.currentSearchValue,
-  //       exclusion,
-  //       filtersFields,
-  //       ['asin', 'amazonTitle', 'skuByClient'],
-  //       {
-  //         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-  //           barCode: {
-  //             [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
-  //           },
-  //         }),
-  //         ...(transparency !== null && {
-  //           transparency: { $eq: transparency },
-  //         }),
-
-  //         ...(this.isArchive && {
-  //           archive: { $eq: true },
-  //         }),
-  //       },
-  //     ),
-  //   )
-  // }
-
-  async getProductsMy() {
-    // try {
-    //   this.setRequestStatus(loadingStatuses.IS_LOADING)
-    //   const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-    //   const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-    //   const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-    //   const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
-    //   const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-    //     preset: true,
-    //     noCache: true,
-    //     filters: this.getFilters(),
-    //     shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
-    //     purchaseQuantityAboveZero,
-    //     limit: this.paginationModel.pageSize,
-    //     offset: this.paginationModel.page * this.paginationModel.pageSize,
-    //     sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
-    //     sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-    //   })
-    //   runInAction(() => {
-    //     this.rowCount = result.count
-    //     this.tableData = clientInventoryDataConverter(result.rows, this.shopsData)
-    //   })
-    //   this.setRequestStatus(loadingStatuses.SUCCESS)
-    // } catch (error) {
-    //   this.setRequestStatus(loadingStatuses.FAILED)
-    //   console.log(error)
-    // }
   }
 
   async onClickSaveHsCode(hsCode) {
