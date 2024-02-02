@@ -113,6 +113,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.volumeWeightDivide,
             ),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
       : sourceBox
       ? [
@@ -123,6 +125,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.calculationMethod,
               checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
             ),
+            getBatchWeightCalculationMethodForBox,
+            batchFields.calculationMethod,
           ),
         ]
       : []
@@ -215,6 +219,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -259,6 +265,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
       ])
     }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
@@ -278,6 +286,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -316,6 +326,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
         ...sourceChosenBoxesBase,
       ].filter(el => newRowIds.includes(el.id))
@@ -489,6 +501,8 @@ export const AddOrEditBatchForm = observer(
                               batchFields.calculationMethod,
                               getCheckActualBatchWeightGreaterVolumeBatchWeight(),
                             ),
+                            getBatchWeightCalculationMethodForBox,
+                            batchFields.calculationMethod,
                           ),
                           ...sourceChosenBoxesBase,
                         ]
