@@ -98,19 +98,21 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
-      <>
+      <div style={{ width: '100%' }}>
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
           <NormalActionBtnCell
+            fullWidthButton
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
           />
         ) : (
           <SuccessActionBtnCell
+            fullWidthButton
             bTnText={t(TranslationKey['To order'])}
             onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
           />
         )}
-      </>
+      </div>
     ),
     filterable: false,
     sortable: false,

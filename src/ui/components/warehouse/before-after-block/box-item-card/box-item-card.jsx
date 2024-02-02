@@ -31,6 +31,10 @@ export const BoxItemCard = ({
 }) => {
   const { classes: styles, cx } = useStyles()
 
+  const disableGlueCheckbox = !isNewBox || readOnly
+  const disableBarCodeCheckbox = disableGlueCheckbox || !item.barCode
+  const disableTransparencyCheckbox = disableGlueCheckbox || !item.transparencyFile
+
   return (
     <div className={styles.root}>
       <div className={styles.mainWrapper}>
@@ -149,7 +153,7 @@ export const BoxItemCard = ({
                       tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                       inputComponent={
                         <Checkbox
-                          disabled={!isNewBox || readOnly}
+                          disabled={disableBarCodeCheckbox}
                           color="primary"
                           checked={item.isBarCodeAlreadyAttachedByTheSupplier}
                           onClick={() =>
@@ -175,7 +179,7 @@ export const BoxItemCard = ({
                       )}
                       inputComponent={
                         <Checkbox
-                          disabled={!isNewBox || readOnly}
+                          disabled={disableBarCodeCheckbox}
                           color="primary"
                           checked={item.isBarCodeAttachedByTheStorekeeper}
                           onClick={() =>
@@ -199,7 +203,7 @@ export const BoxItemCard = ({
                       inputComponent={
                         <Checkbox
                           color="primary"
-                          disabled={!isNewBox || readOnly}
+                          disabled={disableTransparencyCheckbox}
                           checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
                           onChange={e =>
                             onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
@@ -218,7 +222,7 @@ export const BoxItemCard = ({
                       inputComponent={
                         <Checkbox
                           color="primary"
-                          disabled={!isNewBox || readOnly}
+                          disabled={disableTransparencyCheckbox}
                           checked={item.isTransparencyFileAttachedByTheStorekeeper}
                           onChange={e =>
                             onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
@@ -242,6 +246,7 @@ export const BoxItemCard = ({
                         tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                         inputComponent={
                           <Button
+                            disabled={disableBarCodeCheckbox}
                             className={styles.applyButton}
                             onClick={() =>
                               onApplyGluedBarcodeToAllBoxes(
@@ -398,6 +403,7 @@ export const BoxItemCard = ({
                       tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                       inputComponent={
                         <Button
+                          disabled={disableBarCodeCheckbox}
                           className={styles.applyButton}
                           onClick={() =>
                             onApplyGluedBarcodeToAllBoxes(

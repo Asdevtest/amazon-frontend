@@ -46,15 +46,7 @@ export class FreelanceModel {
   }
 
   get currentData() {
-    if (this.nameSearchValue) {
-      return this.searchRequests.filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.humanFriendlyId.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return this.searchRequests
-    }
+    return this.searchRequests
   }
 
   columnMenuSettings = {
