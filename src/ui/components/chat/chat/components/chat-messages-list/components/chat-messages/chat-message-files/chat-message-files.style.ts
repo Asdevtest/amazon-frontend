@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '30px',
     height: '40px',
 
-    img: {
+    'img, > div': {
       width: '100%',
       height: '100%',
       objectFit: 'cover',
