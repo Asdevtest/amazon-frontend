@@ -20,12 +20,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menu: {
+    borderRadius: '12px',
     display: 'flex',
     width: '420px',
     height: '630px',
     padding: '12px',
 
-    boxShadow: '0px 2px 11px 2px #DFDFDF',
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.general}`,
     overflow: 'hidden',
   },
 
