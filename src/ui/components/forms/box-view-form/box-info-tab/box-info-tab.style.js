@@ -71,14 +71,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fields: {
-    width: 234,
+    width: 280,
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
   },
 
   field: {
-    width: '100px !important',
+    width: '130px !important',
     margin: '0 !important',
   },
 
