@@ -49,11 +49,8 @@ export const MessagesView = observer(({ history }) => {
     }
   }, [])
 
-  const currentOpponent = viewModel.simpleChats
-    .find(el => el._id === viewModel.chatSelectedId)
-    ?.users.find(el => el._id !== viewModel.user._id)
-
   const currentChat = viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)
+  const currentOpponent = currentChat?.users.find(el => el._id !== viewModel.user._id)
 
   const filteredChats = viewModel.simpleChats
     .filter(el => {
@@ -75,11 +72,8 @@ export const MessagesView = observer(({ history }) => {
       )
     })
 
-  const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)
-
-  const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && findChatByChatId
-
-  const isMuteCurrentChat = viewModel.mutedChats.includes(currentChat?._id)
+  const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat
+  const isMuteCurrentChat = viewModel.mutedChats.includes(viewModel.chatSelectedId)
 
   return (
     viewModel.languageTag && (
@@ -191,13 +185,13 @@ export const MessagesView = observer(({ history }) => {
 
                 <div className={styles.searchMessageContainer}>
                   <SearchInput
-                    tab={findChatByChatId?._id}
+                    tab={currentChat?._id}
                     value={viewModel.mesSearchValue}
                     inputClasses={cx(styles.searchInput, {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}
                     placeholder={t(TranslationKey['Message Search'])}
-                    onSubmit={value => viewModel.onChangeMesSearchValue(value, findChatByChatId._id)}
+                    onSubmit={value => viewModel.onChangeMesSearchValue(value, currentChat._id)}
                   />
 
                   {viewModel.messagesFound.length ? (
@@ -248,13 +242,15 @@ export const MessagesView = observer(({ history }) => {
           {isChatSelectedAndFound ? (
             <Chat
               userId={viewModel.user._id}
-              chat={findChatByChatId}
-              messages={findChatByChatId.messages}
+              chat={currentChat}
+              messages={currentChat.messages}
               toScrollMesId={viewModel.curFoundedMessage?._id}
               messagesFound={viewModel.messagesFound}
               searchPhrase={viewModel.mesSearchValue}
               updateData={viewModel.loadData}
               currentOpponent={currentOpponent}
+              requestStatus={viewModel.requestStatus}
+              onChangeRequestStatus={viewModel.setRequestStatus}
               onSubmitMessage={(message, files, replyMessageId) =>
                 viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
               }

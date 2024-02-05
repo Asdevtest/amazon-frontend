@@ -1,6 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { chatsType } from '@constants/keys/chats'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -13,7 +14,7 @@ import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
 export class MessagesViewModel {
   history = undefined
-  requestStatus = undefined
+  requestStatus = loadingStatuses.SUCCESS
 
   showConfirmModal = false
   showAddNewChatByEmailModal = false
@@ -278,6 +279,7 @@ export class MessagesViewModel {
     runInAction(() => {
       this.mesSearchValue = value
     })
+
     if (!value) {
       runInAction(() => {
         this.messagesFound = []
@@ -286,11 +288,17 @@ export class MessagesViewModel {
       })
       return
     }
+
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
+
     const res = await ChatModel.FindChatMessage({ chatId, text: value })
     runInAction(() => {
       this.messagesFound = res
     })
+
     this.onChangeCurFoundedMessage(res?.length - 1)
+
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {

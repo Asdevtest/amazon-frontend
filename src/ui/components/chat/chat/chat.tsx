@@ -13,6 +13,7 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -52,6 +53,8 @@ interface ChatProps {
   isFreelanceOwner?: boolean
   searchPhrase?: string
   classNamesWrapper?: string
+  requestStatus: loadingStatuses
+  onChangeRequestStatus: (status: loadingStatuses) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
   updateData: () => void
@@ -80,6 +83,8 @@ export const Chat: FC<ChatProps> = memo(
     onClickEditGroupChatInfo,
     isFreelanceOwner,
     classNamesWrapper,
+    requestStatus,
+    onChangeRequestStatus,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -120,7 +125,6 @@ export const Chat: FC<ChatProps> = memo(
     const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
     const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-    const [isLoading, setIsLoading] = useState(false)
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)
     const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
@@ -140,11 +144,11 @@ export const Chat: FC<ChatProps> = memo(
     // Только тогда происходит проскролл к нужному сообщению
     // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
     const handleLoadMoreMessages = async (selectedMessage?: ChatMessageContract) => {
-      if (isLoading) {
+      if (requestStatus === loadingStatuses.IS_LOADING) {
         return
       }
 
-      setIsLoading(true)
+      onChangeRequestStatus(loadingStatuses.IS_LOADING)
       if (selectedMessage?._id) {
         const result = await ChatModel.getChatMessage(chat?._id, selectedMessage?._id)
 
@@ -157,7 +161,7 @@ export const Chat: FC<ChatProps> = memo(
         await ChatModel.getChatMessages?.(chat?._id)
         setFirstItemIndex(START_INDEX - messages.length)
       }
-      setIsLoading(false)
+      onChangeRequestStatus(loadingStatuses.SUCCESS)
     }
 
     // FIXME
@@ -208,7 +212,7 @@ export const Chat: FC<ChatProps> = memo(
 
     useEffect(() => {
       if (isSendTypingPossible && message) {
-        onTypingMessage(chat._id)
+        onTypingMessage(chat?._id)
         setIsSendTypingPossible(false)
         setTimeout(() => setIsSendTypingPossible(true), 10000)
       }
@@ -253,14 +257,14 @@ export const Chat: FC<ChatProps> = memo(
     return (
       <>
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
-          {isLoading && (
+          {requestStatus === loadingStatuses.IS_LOADING && (
             <div className={styles.spinnerContainer}>
               <CircleSpinner />
             </div>
           )}
 
           <ChatMessagesList
-            chatId={chat._id}
+            chatId={chat?._id}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
