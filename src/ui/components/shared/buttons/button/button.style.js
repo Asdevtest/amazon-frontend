@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
     color: '#fff',
     height: 40,
-    borderRadius: 7,
+    borderRadius: '7px',
     fontSize: 14,
     fontWeight: 600,
   },
