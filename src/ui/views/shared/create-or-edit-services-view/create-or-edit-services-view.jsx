@@ -21,7 +21,7 @@ export const CreateOrEditServicesView = observer(({ history }) => {
       <CreateOrEditServiceContent
         pathname={history.location.pathname}
         data={viewModel.requestToEdit}
-        specs={viewModel.specs}
+        specs={viewModel.userInfo?.allowedSpec}
         onClickCreateBtn={viewModel.onClickCreateBtn}
         onClickEditBtn={viewModel.onClickEditBtn}
         onClickBackBtn={viewModel.onClickBackBtn}
