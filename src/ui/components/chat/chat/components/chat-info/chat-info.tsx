@@ -1,9 +1,8 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
-import { ChatsModel } from '@models/chats-model'
 
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
@@ -11,16 +10,16 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useStyles } from './chat-info.style'
 
 import { ChatMessageFiles } from '../chat-messages-list/components/chat-messages/chat-message-files/chat-message-files'
 
+import { TabValue } from './chat-into.type'
 import { ChatGroupUsers, ChatInfoHeader } from './components'
-import { ChatAttachmentsType, ChatFileType, FilesType, ImagesType, TabValue, VideoType } from './helpers/chat-into.type'
-import { getCustomSwitcherConfig } from './helpers/custom-switcher.config'
+import { getCustomSwitcherConfig } from './custom-switcher.config'
+import { useChatMediaFiles } from './hooks/use-chat-media-files'
 
 interface ChatInfoProps {
   chat: ChatContract
@@ -47,46 +46,9 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
-  const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.MEDIA)
-  const [ImagesAndVideos, setImagesAndVideos] = useState<ChatFileType[]>([])
-  const [files, setFiles] = useState<ChatFileType[]>()
-  const [isFilesLoading, setIsFilesLoading] = useState(false)
+  const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.PHOTOS)
 
-  const getChatMediaFiles = async () => {
-    setIsFilesLoading(true)
-
-    const res: ChatAttachmentsType = (await ChatsModel.getChatMedia(chat._id)) as ChatAttachmentsType
-
-    const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file: ImagesType) => {
-      file.images?.forEach(el => acc.push({ file: el, _id: file._id }))
-      return acc
-    }, [])
-
-    const videoList: ChatFileType[] = res.allVideo.reduce((acc: ChatFileType[], file: VideoType) => {
-      file.video?.forEach(el => acc.push({ file: el, _id: file._id, isVideo: true }))
-      return acc
-    }, [])
-
-    const fileList: ChatFileType[] = res.allFiles.reduce((acc: ChatFileType[], file: FilesType) => {
-      file.files?.forEach(el => acc.push({ file: el, _id: file._id }))
-      return acc
-    }, [])
-
-    setFiles(fileList)
-    setImagesAndVideos(imagesList.concat(videoList))
-
-    setIsFilesLoading(false)
-  }
-
-  useEffect(() => {
-    getChatMediaFiles()
-  }, [])
-
-  useEffect(() => {
-    if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length || chat.lastMessage?.video?.length) {
-      getChatMediaFiles()
-    }
-  }, [chat.lastMessage?.images, chat.lastMessage?.files, chat.lastMessage?.video])
+  const { images, files, videos, isFilesLoading } = useChatMediaFiles(chat, currentTab)
 
   return (
     <div className={styles.wrapper}>
@@ -116,28 +78,19 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         />
       </TabPanel>
 
-      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.MEDIA}>
-        {!!ImagesAndVideos?.length && (
+      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.PHOTOS}>
+        {!!images?.length && (
           <div className={styles.imageList}>
-            {ImagesAndVideos?.map((el, index) => {
-              const validLink = getAmazonImageUrl(el.file)
-
+            {images?.map((el, index) => {
               const clickHandler = () => {
                 setCurrentImageIndex(index)
                 setIsImageModalOpen(true)
               }
 
-              return el.isVideo ? (
-                <VideoPreloader
-                  key={index}
-                  wrapperClassName={styles.videoWrapper}
-                  videoSource={validLink}
-                  onClick={clickHandler}
-                />
-              ) : (
+              return (
                 <img
                   key={index}
-                  src={validLink}
+                  src={el.file}
                   alt={el._id}
                   onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                   onClick={clickHandler}
@@ -147,9 +100,33 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
           </div>
         )}
 
-        {!ImagesAndVideos?.length && !isFilesLoading && (
-          <p className={styles.noData}>{t(TranslationKey['No files'])}</p>
+        {!images?.length && !isFilesLoading && <p className={styles.noData}>{t(TranslationKey['No files'])}</p>}
+
+        {isFilesLoading && <p className={styles.noData}>{t(TranslationKey['Loading data'])}...</p>}
+      </TabPanel>
+
+      <TabPanel value={currentTab} className={styles.tabPanel} index={TabValue.VIDEOS}>
+        {!!videos?.length && (
+          <div className={styles.imageList}>
+            {videos?.map((el, index) => {
+              const clickHandler = () => {
+                setCurrentImageIndex(index)
+                setIsImageModalOpen(true)
+              }
+
+              return (
+                <VideoPreloader
+                  key={index}
+                  wrapperClassName={styles.videoWrapper}
+                  videoSource={el.file}
+                  onClick={clickHandler}
+                />
+              )
+            })}
+          </div>
         )}
+
+        {!images?.length && !isFilesLoading && <p className={styles.noData}>{t(TranslationKey['No files'])}</p>}
 
         {isFilesLoading && <p className={styles.noData}>{t(TranslationKey['Loading data'])}...</p>}
       </TabPanel>
@@ -166,7 +143,11 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         <ImageModal
           showPreviews
           isOpenModal={isImageModalOpen}
-          files={ImagesAndVideos?.map(el => el?.file?.replace('.preview.webp', '')) || []}
+          files={
+            currentTab === TabValue.MEDIA
+              ? images?.map(el => el?.file?.replace('.preview.webp', '')) || []
+              : videos?.map(el => el?.file) || []
+          }
           currentFileIndex={currentImageIndex}
           onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
           onCurrentFileIndex={index => setCurrentImageIndex(index)}
