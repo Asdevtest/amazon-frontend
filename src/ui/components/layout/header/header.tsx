@@ -78,49 +78,10 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
           noticeItem={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
           onClickMessage={onClickMessage}
         />,
-        { autoClose: 3000 },
+        { className: styles.toastContainer },
       )
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
-
-    // if (isEnabledNotifications) {
-    //   if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-    //     toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
-    //       autoClose: 5000,
-    //     })
-    //     markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
-    //   }
-
-    //   if (snackNotifications[snackNoticeKey.IDEAS]) {
-    //     toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
-    //       autoClose: 5000,
-    //     })
-    //     markNotificationAsReaded(snackNoticeKey.IDEAS)
-    //   }
-
-    //   if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
-    //     toast(
-    //       <OrdersUpdatesNotification
-    //         noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]}
-    //         history={history}
-    //       />,
-    //       {
-    //         autoClose: 5000,
-    //       },
-    //     )
-    //     markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
-    //   }
-
-    //   if (snackNotifications[snackNoticeKey.BOXES_UPDATES]) {
-    //     toast(
-    //       <BoxesUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.BOXES_UPDATES]} history={history} />,
-    //       {
-    //         autoClose: 5000,
-    //       },
-    //     )
-    //     markNotificationAsReaded(snackNoticeKey.BOXES_UPDATES)
-    //   }
-    // }
   }, [snackNotifications])
 
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
@@ -136,6 +97,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   const onClickExit = () => {
     handleClose()
     toast.dismiss()
+    toast.clearWaitingQueue()
     onExitFromRole()
     history.push('/auth')
   }

@@ -159,6 +159,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                       </>
                     )}
                     updateData={viewModel.loadData}
+                    requestStatus={viewModel.requestStatus}
+                    onChangeRequestStatus={viewModel.setRequestStatus}
                     onSubmitMessage={viewModel.onSubmitMessage}
                     onClickChat={viewModel.onClickChat}
                     onTypingMessage={viewModel.onTypingMessage}

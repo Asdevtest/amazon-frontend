@@ -67,7 +67,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
       <div className={styles.requestInfoWrapper}>
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
-            <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
+            <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</p>
             <p className={cx(styles.blockInfoCellText, styles.capitalize)}>{spec?.title}</p>
           </div>
 

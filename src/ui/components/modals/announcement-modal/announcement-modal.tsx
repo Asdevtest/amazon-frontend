@@ -85,7 +85,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             <div className={styles.descriptionContainer}>
               <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
               <div className={styles.description}>
-                <CustomTextEditor readOnly value={service.description} />
+                <CustomTextEditor readOnly value={service.description} wrapperClassName={styles.editorWrapper} />
               </div>
             </div>
 

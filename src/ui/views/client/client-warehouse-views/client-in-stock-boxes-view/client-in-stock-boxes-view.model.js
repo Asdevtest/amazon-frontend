@@ -240,6 +240,13 @@ export class ClientInStockBoxesViewModel {
     const url = new URL(window.location.href)
 
     this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+
+    const boxId = url.searchParams.get('box-id')
+
+    if (boxId) {
+      this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
+    }
+
     this.nameSearchValue = url.searchParams.get('search-text')
 
     if (history.location.state?.dataGridFilter) {
@@ -367,11 +374,14 @@ export class ClientInStockBoxesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeperId = this.currentStorekeeperId
-          ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
-          : result
-              .filter(storekeeper => storekeeper.boxesCount !== 0)
-              .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
+        this.currentStorekeeperId =
+          this.currentStorekeeperId === null
+            ? undefined
+            : this.currentStorekeeperId
+            ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
+            : result
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
       })
 
       this.getDataGridState()

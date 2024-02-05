@@ -30,9 +30,9 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
             </div>
           )}
 
-          {(!!message.files?.length || !!message.images?.length) && (
+          {(!!message.files?.length || !!message.images?.length || !!message.video?.length) && (
             <div className={styles.fileList}>
-              <ChatMessageFiles files={[...message.files, ...message.images]} />
+              <ChatMessageFiles files={[...message.files, ...message.images, ...message.video]} />
             </div>
           )}
         </div>

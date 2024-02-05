@@ -266,7 +266,7 @@ class UserModelStatic {
   }
 
   async getSpecs(archive) {
-    const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive })
+    const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive, noCache: true }) // archive = undefined - all elements, archive = false - only not archive elements, archive = true - only archive elements
     return response.data
   }
 }

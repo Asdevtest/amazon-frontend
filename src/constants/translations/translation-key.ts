@@ -2179,5 +2179,11 @@ export enum TranslationKey {
   'Title of specialty' = 'Title of specialty',
   'Delete selected' = 'Delete selected',
   'New specialty' = 'New specialty',
+  'Are you sure you want to move this specialty to the archives?' = 'Are you sure you want to move this specialty to the archives?',
+  'Specialty successfully created.' = 'Specialty successfully created.',
+  'Specialty not created, something went wrong ...' = 'Specialty not created, something went wrong ...',
+  'Specialty successfully changed.' = 'Specialty successfully changed.',
+  'Specialty not changed, something went wrong ...' = 'Specialty not changed, something went wrong ...',
+  'Specialty successfully added to the archive.' = 'Specialty successfully added to the archive.',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

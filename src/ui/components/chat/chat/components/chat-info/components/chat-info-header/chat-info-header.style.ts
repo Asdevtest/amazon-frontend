@@ -33,6 +33,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   chatTitle: {
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     color: '#fff',
     fontSize: 18,
     lineHeight: '25px',

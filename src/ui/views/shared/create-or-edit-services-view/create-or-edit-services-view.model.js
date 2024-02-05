@@ -10,12 +10,14 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditServicesViewModel {
   history = undefined
-  pathname = null
 
   requestId = undefined
   requestToEdit = undefined
   uploadedFiles = []
-  specs = []
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({ history }) {
     this.history = history
@@ -41,11 +43,9 @@ export class CreateOrEditServicesViewModel {
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getAnnouncementsDataByGuid()
-
-      await this.getSpecs()
+      this.getAnnouncementsDataByGuid()
     } catch (error) {
       console.log(error)
     }
@@ -109,17 +109,5 @@ export class CreateOrEditServicesViewModel {
 
   onClickBackBtn() {
     this.history.goBack()
-  }
-
-  async getSpecs() {
-    try {
-      const response = await UserModel.getSpecs(false)
-
-      runInAction(() => {
-        this.specs = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

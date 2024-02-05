@@ -1,13 +1,11 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  // OrderCell,
-  // OrderManyItemsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderBoxesCell,
-  OrdersIdsItemsCell, // SuperboxQtyCell,
+  OrdersIdsItemsCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -20,7 +18,6 @@ export const addOrEditBatchFormColumns = isClient => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 65,
   },
@@ -29,7 +26,6 @@ export const addOrEditBatchFormColumns = isClient => [
     field: 'orderIdsItems',
     headerName: t(TranslationKey['№ Order/ № Item']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
     width: 150,
   },
@@ -107,17 +103,13 @@ export const addOrEditBatchFormColumns = isClient => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    // type: 'date',
   },
 
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => (
-      <ToFixedWithKgSignCell amount={params.row.originalData.amount} value={params.value} fix={2} />
-    ),
-    // type: 'number',
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     width: 120,
   },
 
@@ -127,6 +119,5 @@ export const addOrEditBatchFormColumns = isClient => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
-    // type: 'number',
   },
 ]

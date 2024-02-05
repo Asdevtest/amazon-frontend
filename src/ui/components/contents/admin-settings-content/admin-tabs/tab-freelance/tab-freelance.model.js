@@ -1,9 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { UserModel } from '@models/user-model'
+
+import { t } from '@utils/translations'
 
 import { tabFreelanceColumns } from './tab-freelance.column'
 
@@ -12,13 +16,20 @@ export class AdminSettingsFreelanceModel {
   requestStatus = undefined
 
   showAddOrEditTextModal = false
+  showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: true,
+    message: '',
+    onClickSuccess: () => {},
+  }
+
   editedSpecTitle = ''
   specs = []
 
   rowSelectionModel = []
   rowHandlers = {
-    onEditSpec: (id, isEditSpec) => this.onEditSpec(id, isEditSpec),
-    moveSpecToArchive: (id, specTitle) => this.onMoveSpecToArchive(id, specTitle),
+    onEditSpec: row => this.onEditSpec(row),
+    onMoveSpecToArchive: row => this.onMoveSpecToArchive(row),
     onChangeSpecTitle: specTitle => this.onChangeSpecTitle(specTitle),
     onClickToggleAddOrEditTextModal: () => this.onClickToggleAddOrEditTextModal(),
   }
@@ -50,10 +61,10 @@ export class AdminSettingsFreelanceModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const response = await UserModel.getSpecs()
+      const response = await UserModel.getSpecs() // there is a request body(archive?:boolean)
 
       runInAction(() => {
-        this.specs = response.map(spec => ({ ...spec, isEditSpec: false }))
+        this.specs = response.map(spec => ({ ...spec, isEditSpec: false })).toSorted((a, b) => a.archive - b.archive)
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -71,32 +82,43 @@ export class AdminSettingsFreelanceModel {
     try {
       await AdministratorModel.createSpec(specTitle)
       this.getSpecs()
+
+      toast.success(t(TranslationKey['Specialty successfully created.']))
     } catch (error) {
       console.log(error)
+
+      toast.error(t(TranslationKey['Specialty not created, something went wrong ...']))
     }
   }
 
-  async onEditSpec(id, isEditSpec) {
+  async onEditSpec({ _id, title, isEditSpec, archive }) {
     try {
       if (isEditSpec) {
-        await AdministratorModel.editSpec(id, this.editedSpecTitle)
+        await AdministratorModel.editSpec(_id, this.editedSpecTitle || title, archive)
         this.getSpecs()
-        this.onChangeSpecById(id)
+
+        toast.success(t(TranslationKey['Specialty successfully changed.']))
       } else {
-        this.onChangeSpecById(id)
+        this.onChangeSpecById(_id)
       }
     } catch (error) {
       console.log(error)
+
+      toast.error(t(TranslationKey['Specialty not changed, something went wrong ...']))
     }
   }
 
-  async onMoveSpecToArchive(id, specTitle) {
-    try {
-      await AdministratorModel.editSpec(id, specTitle, true) // third parameter - "archive"
-      this.getSpecs()
-    } catch (error) {
-      console.log(error)
+  onMoveSpecToArchive(row) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to move this specialty to the archives?']),
+      onClickSuccess: () => {
+        this.onEditSpec(row)
+        this.onClickToggleConfirmModal()
+      },
     }
+
+    this.onClickToggleConfirmModal()
   }
 
   /* async onRemoveSpecs() {
@@ -115,5 +137,9 @@ export class AdminSettingsFreelanceModel {
 
   onClickToggleAddOrEditTextModal() {
     this.showAddOrEditTextModal = !this.showAddOrEditTextModal
+  }
+
+  onClickToggleConfirmModal() {
+    this.showConfirmModal = !this.showConfirmModal
   }
 }

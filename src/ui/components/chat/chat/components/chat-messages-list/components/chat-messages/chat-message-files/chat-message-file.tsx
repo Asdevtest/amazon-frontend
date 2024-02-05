@@ -1,8 +1,9 @@
 import { FC, memo, useEffect, useState } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
+import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { checkIsImageLink } from '@utils/checks'
+import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { downloadFileByLink, getFileWeight } from '@utils/upload-files'
@@ -27,7 +28,9 @@ export const ChatMessageFile: FC<ChatMessageFileProps> = memo(({ src }) => {
   return (
     <div className={styles.fileWrapper} onClick={() => downloadFileByLink(src, recreatedFile?.name)}>
       <div className={styles.logo}>
-        {checkIsImageLink(src) ? (
+        {checkIsVideoLink(src) ? (
+          <VideoPreloader videoSource={getAmazonImageUrl(src)} />
+        ) : checkIsImageLink(src) ? (
           <img src={getAmazonImageUrl(src)} alt="message_file_icon" />
         ) : (
           recreatedFile.type && <FileIcon fileExtension={recreatedFile.type} className={styles.fileIcon} />

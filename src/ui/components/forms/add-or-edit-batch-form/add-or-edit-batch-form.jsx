@@ -113,6 +113,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.volumeWeightDivide,
             ),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
       : sourceBox
       ? [
@@ -123,6 +125,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.calculationMethod,
               checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
             ),
+            getBatchWeightCalculationMethodForBox,
+            batchFields.calculationMethod,
           ),
         ]
       : []
@@ -215,6 +219,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -259,6 +265,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
       ])
     }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
@@ -278,6 +286,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -316,6 +326,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
         ...sourceChosenBoxesBase,
       ].filter(el => newRowIds.includes(el.id))
@@ -454,25 +466,6 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={styles.tableWrapper}>
-            <div className={styles.boxCounterWrapper}>
-              <Typography className={styles.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</Typography>
-              <Typography className={styles.boxCounterCount}>
-                {[
-                  ...addOrEditBatchDataConverter(
-                    boxesData,
-                    batchFields.volumeWeightDivide,
-                    getBatchWeightCalculationMethodForBox(
-                      batchFields.calculationMethod,
-                      getCheckActualBatchWeightGreaterVolumeBatchWeight(),
-                    ),
-                  ),
-                  ...sourceChosenBoxesBase,
-                ]
-                  .filter(el => boxesToAddIds.includes(el._id))
-                  .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-              </Typography>
-            </div>
-
             <CustomDataGrid
               checkboxSelection
               sortingMode="client"
@@ -494,6 +487,30 @@ export const AddOrEditBatchForm = observer(
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={styles.boxCounterWrapper}>
+                      <Typography className={styles.boxCounterText}>
+                        {t(TranslationKey['Selected boxes']) + ':'}
+                      </Typography>
+                      <Typography className={styles.boxCounterCount}>
+                        {[
+                          ...addOrEditBatchDataConverter(
+                            boxesData,
+                            batchFields.volumeWeightDivide,
+                            getBatchWeightCalculationMethodForBox(
+                              batchFields.calculationMethod,
+                              getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+                            ),
+                            getBatchWeightCalculationMethodForBox,
+                            batchFields.calculationMethod,
+                          ),
+                          ...sourceChosenBoxesBase,
+                        ]
+                          .filter(el => boxesToAddIds.includes(el._id))
+                          .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
               }}
               columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -564,12 +581,6 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={styles.tableWrapper}>
-            <div className={styles.boxCounterWrapper}>
-              <Typography className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes']) + ':'}</Typography>
-              <Typography className={styles.boxCounterCount}>
-                {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-              </Typography>
-            </div>
             <CustomDataGrid
               checkboxSelection
               localeText={getLocalizationByLanguageTag()}
@@ -587,6 +598,16 @@ export const AddOrEditBatchForm = observer(
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={styles.boxCounterWrapper}>
+                      <Typography className={styles.boxCounterText}>
+                        {t(TranslationKey['Quantity of boxes']) + ':'}
+                      </Typography>
+                      <Typography className={styles.boxCounterCount}>
+                        {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
               }}
               rows={chosenBoxes || []}
@@ -655,8 +676,6 @@ export const AddOrEditBatchForm = observer(
             <Button
               danger
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
-              color="primary"
-              variant="contained"
               className={styles.actionBtn}
               onClick={onClickTrash}
             >
