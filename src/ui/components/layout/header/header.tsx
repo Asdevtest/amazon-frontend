@@ -78,7 +78,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
           noticeItem={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
           onClickMessage={onClickMessage}
         />,
-        { autoClose: 3000 },
+        { className: styles.toastContainer },
       )
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }

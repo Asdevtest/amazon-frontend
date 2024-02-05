@@ -2,15 +2,13 @@ import { FC } from 'react'
 import { Theme, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import CloseIcon from '@mui/icons-material/Close'
-
 import { useStyles } from '@components/layout/navigation/toastify/toastify.style'
 
-interface ToastiyProvderProps {
+interface ToastifyProviderProps {
   theme: Theme
 }
 
-export const ToastifyProvder: FC<ToastiyProvderProps> = ({ theme }) => {
+export const ToastifyProvider: FC<ToastifyProviderProps> = (/* { theme } */) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -19,15 +17,11 @@ export const ToastifyProvder: FC<ToastiyProvderProps> = ({ theme }) => {
       pauseOnFocusLoss
       draggable
       limit={2}
-      theme={theme}
+      autoClose={3000}
+      theme="colored" // {theme}
       closeOnClick={false}
-      className={styles.toast}
+      className={styles.toastContainer}
       position="bottom-right"
-      closeButton={({ closeToast }) => (
-        <div onClick={e => closeToast(e)}>
-          <CloseIcon fontSize="small" className={styles.closeIcon} />
-        </div>
-      )}
     />
   )
 }

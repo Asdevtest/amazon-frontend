@@ -2172,5 +2172,10 @@
   "Title of specialty": "Название специальности",
   "Delete selected": "Удалить выбранные",
   "New specialty": "Новая специальность",
-  "Are you sure you want to move this specialty to the archives?": "Вы уверены, что хотите переместить специальность в архив?"
+  "Are you sure you want to move this specialty to the archives?": "Вы уверены, что хотите переместить специальность в архив?",
+  "Specialty successfully created.": "Специальность успешно создана.",
+  "Specialty not created, something went wrong ...": "Специальность не создана, что-то пошло не так ...",
+  "Specialty successfully changed.": "Специальность успешно изменена.",
+  "Specialty not changed, something went wrong ...": "Специальность не изменена, что-то пошло не так ...",
+  "Specialty successfully added to the archive.": "Специальность успешно добавлена в архив."
 }
