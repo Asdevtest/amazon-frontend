@@ -20,9 +20,9 @@ import { useStyles } from './client-awaiting-batches-view.style'
 
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
-export const ClientAwaitingBatchesView = observer(props => {
+export const ClientAwaitingBatchesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history: props.history }))
+  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
