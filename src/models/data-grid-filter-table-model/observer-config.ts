@@ -6,6 +6,8 @@ export const observerConfig = {
   _columnMenuSettings: observable,
   _currentSearchValue: observable,
   _fieldsForSearch: observable,
+  _additionalPropertiesColumnMenuSettings: observable,
+  _additionalPropertiesGetFilters: observable,
 
   filtersFields: computed,
   columnMenuSettings: computed,
@@ -13,13 +15,16 @@ export const observerConfig = {
   currentSearchValue: computed,
   fieldsForSearch: computed,
   mainMethodURL: computed,
+  additionalPropertiesColumnMenuSettings: computed,
+  additionalPropertiesGetFilters: computed,
 
   setColumnMenuSettings: action.bound,
   getFilters: action.bound,
-  onChangeSearchValue: action.bound,
+  onSearchSubmit: action.bound,
   onChangeFullFieldMenuItem: action.bound,
   onClickFilterBtn: action.bound,
   onClickResetFilters: action.bound,
+  setFilterRequestStatus: action.bound,
 
   getMainTableData: override,
 }

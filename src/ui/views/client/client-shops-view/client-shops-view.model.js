@@ -45,10 +45,10 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async updateShops() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await ClientModel.updateShops(this.selectedRows)
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -68,7 +68,7 @@ export class ShopsViewModel extends DataGridTableModel {
         }
       })
       this.onTriggerOpenModal('showWarningModal')
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -79,7 +79,7 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async createShop(data, shopId) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       if (!data.reportAccountUrl) {
         delete data.reportAccountUrl
@@ -109,9 +109,9 @@ export class ShopsViewModel extends DataGridTableModel {
       }
 
       this.getMainTableData()
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -126,13 +126,13 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async removeShopById() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ShopModel.removeShopById(this.selectedShop._id)
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

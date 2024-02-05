@@ -49,7 +49,7 @@ export const ClientShopsReportView = observer(() => {
         onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
         onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
         onClickDeleteBtn={viewModel.deleteReportHandler}
-        onChangeSearchValue={viewModel.onChangeSearchValue}
+        onChangeSearchValue={viewModel.onSearchSubmit}
       />
 
       <div className={styles.tabledWrapper}>

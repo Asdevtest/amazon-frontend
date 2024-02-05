@@ -37,4 +37,5 @@ export const observerConfig = {
   onChangeFilterModel: action.bound,
   getMainTableData: action.bound,
   onChangeUnserverSearchValue: action.bound,
+  setRequestStatus: action.bound,
 }

@@ -247,6 +247,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <RedFlagsCellMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}

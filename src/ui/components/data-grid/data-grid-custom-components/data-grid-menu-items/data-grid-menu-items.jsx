@@ -2636,6 +2636,7 @@ export const RedFlagsCellMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -2647,6 +2648,7 @@ export const RedFlagsCellMenuItem = memo(
         addNullObj
         data={data}
         field={field}
+        table={table}
         filterRequestStatus={filterRequestStatus}
         columnKey={columnnsKeys}
         rowContent={obj => (
