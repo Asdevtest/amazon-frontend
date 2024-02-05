@@ -641,6 +641,12 @@ class ChatModelStatic {
   }
 
   private onNewChat(newChat: ChatContract) {
+    const path = window?.location?.pathname
+
+    if (!path.includes('/messages')) {
+      return
+    }
+
     this.getSimpleChats()
 
     const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)
