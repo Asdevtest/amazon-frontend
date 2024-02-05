@@ -308,8 +308,6 @@ export class CreateOrEditRequestViewModel {
       try {
         const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
 
-        console.log('result', result)
-
         runInAction(() => {
           this.choosenAnnouncements = result
           this.executor = result?.createdBy

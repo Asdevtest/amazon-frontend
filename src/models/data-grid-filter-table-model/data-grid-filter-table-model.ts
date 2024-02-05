@@ -120,9 +120,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
-      console.log('column :>> ', column)
-      console.log('table :>> ', table)
-
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
