@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
@@ -261,7 +261,7 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      switch (freelanceRequestTypeByCode[item.spec?.type]) {
+      switch (item.spec?.title) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break
