@@ -40,7 +40,7 @@ const AttributesEditBlock = memo(props => {
         <Field
           error={isNormalLength}
           inputProps={{ maxLength: 6 }}
-          containerClasses={styles.numberInputField}
+          className={styles.numberInputField}
           labelClasses={styles.label}
           label={t(TranslationKey.Length) + ': '}
           value={toFixed(box.lengthCmWarehouse, 2)}
@@ -50,8 +50,8 @@ const AttributesEditBlock = memo(props => {
         <Field
           inputProps={{ maxLength: 6 }}
           error={isNormalHeight}
+          className={styles.numberInputField}
           labelClasses={styles.label}
-          containerClasses={styles.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={toFixed(box.heightCmWarehouse, 2)}
           onChange={setNewBoxField('heightCmWarehouse')}
@@ -60,9 +60,8 @@ const AttributesEditBlock = memo(props => {
         <Field
           disabled
           className={styles.numberInputField}
-          containerClasses={styles.numberInputField}
-          label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={styles.label}
+          label={t(TranslationKey['Volume weight']) + ': '}
           value={toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
         />
       </div>
@@ -70,7 +69,7 @@ const AttributesEditBlock = memo(props => {
         <Field
           inputProps={{ maxLength: 6 }}
           error={isNormalWidth}
-          containerClasses={styles.numberInputField}
+          className={styles.numberInputField}
           labelClasses={styles.label}
           label={t(TranslationKey.Width) + ': '}
           value={toFixed(box.widthCmWarehouse, 2)}
@@ -81,7 +80,6 @@ const AttributesEditBlock = memo(props => {
           inputProps={{ maxLength: 6 }}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
           className={styles.numberInputField}
-          containerClasses={styles.numberInputField}
           labelClasses={styles.label}
           label={t(TranslationKey.Weight) + ': '}
           value={toFixed(box.weighGrossKgWarehouse, 2)}
@@ -95,9 +93,8 @@ const AttributesEditBlock = memo(props => {
         <Field
           disabled
           className={styles.numberInputField}
-          containerClasses={styles.numberInputField}
-          label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={styles.label}
+          label={t(TranslationKey['Final weight']) + ': '}
           value={toFixed(
             Math.max(
               (box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,

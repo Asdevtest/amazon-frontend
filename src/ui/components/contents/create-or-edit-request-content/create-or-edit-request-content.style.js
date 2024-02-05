@@ -124,7 +124,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   textInCheckbox: {
-    fontSize: 18,
     [theme.breakpoints.down(1500)]: {
       fontSize: 14,
     },
@@ -584,7 +583,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '250px !important',
   },
   asinContainerStapTwo: {
-    width: '130px !important',
+    width: '140px !important',
   },
   fitContentContainer: {
     width: 'fit-content',
