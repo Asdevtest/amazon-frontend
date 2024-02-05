@@ -81,6 +81,8 @@ export const ProductLotDataForm = memo(props => {
     }
   }
 
+  console.log('product', product)
+
   return (
     <div className={styles.productLotDataBlock}>
       <div className={styles.title}>

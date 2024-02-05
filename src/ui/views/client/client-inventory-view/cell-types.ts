@@ -1,0 +1,62 @@
+export const numberCells = [
+  'week',
+  'acos',
+  'ppcImpressions',
+  'clicks',
+  'spend',
+  'ppcOrders',
+  'ppcUnits',
+  'ppcSales',
+  'orderSalesCost',
+  'unitSalesCost',
+  'organicSessions',
+  'organicOrders',
+  'organicUnits',
+  'organicSales',
+  'organicAvgOrderPrice',
+  'organicAvgUnitPrice',
+  'impressions',
+  'sessions',
+  'ctr',
+  'orders',
+  'units',
+  'avgUnitsInPerOrder',
+  'sales',
+  'avgPriceOrder',
+  'avgUnitPrice',
+  'buyBox',
+  'ppcSale',
+  'organicSale',
+  'conversion',
+  'conversionPpc',
+  'conversionOrganic',
+  'price',
+  'fbaFee',
+  'refFee',
+  'available',
+  'inbound',
+  'reserved',
+  'unitsExpected',
+
+  'timeDataUpdate',
+  'timeUpdated',
+
+  'status',
+]
+
+export const textCells = ['categoryAbc', 'shipmentId', 'referenceId', 'shipTo']
+
+export const dateCells = [
+  'periodStart',
+  'periodEnd',
+  'createdAt',
+  'updatedAt',
+  'dateUpdated',
+  'dateDataUpdate',
+  'dateCreated',
+  'scheduledCarrierDeliveryDate',
+  'deliveryWindowStart',
+  'deliveryWindowEnd',
+]
+
+export const complexCells = ['product', 'asin', 'sku', 'image']

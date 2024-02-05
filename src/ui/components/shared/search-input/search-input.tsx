@@ -39,6 +39,8 @@ export const SearchInput: FC<Props> = ({
 }) => {
   const { classes: styles, cx } = useStyles()
 
+  const defaultPlaceholder = t(TranslationKey.Search)
+
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
   const [internalValue, setInternalValue] = useState(startText ? startText : '')
@@ -79,8 +81,8 @@ export const SearchInput: FC<Props> = ({
       disabled={disabled}
       className={cx(styles.input, inputClasses)}
       value={onSubmit ? internalValue : value}
-      title={placeholder}
-      placeholder={placeholder}
+      title={placeholder || defaultPlaceholder}
+      placeholder={placeholder || defaultPlaceholder}
       classes={{ input: styles.inputClass }}
       endAdornment={
         <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
@@ -88,7 +90,7 @@ export const SearchInput: FC<Props> = ({
             <div className={styles.searchWrapper}>
               {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
               <Button className={styles.submit} btnWrapperStyle={styles.btnWrapperStyle} onClick={searchAndClearSpaces}>
-                {t(TranslationKey.Search)}
+                {defaultPlaceholder}
               </Button>
             </div>
           ) : (

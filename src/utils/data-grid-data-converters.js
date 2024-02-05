@@ -271,7 +271,7 @@ export const clientProductsDataConverter = data =>
     id: item._id,
   }))
 
-export const clientInventoryDataConverter = (data, shopsData) =>
+export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
@@ -316,8 +316,6 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     ideasOnCheck: item.ideasOnCheck,
     ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
-
-    shopId: shopsData?.find(el => el._id === item.shopId)?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
