@@ -9,19 +9,17 @@ interface SuccessActionBtnCellProps {
   bTnText: string
   tooltipText: string
   isFirstRow: boolean
+  fullWidthButton?: boolean
 }
 
 export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = memo(props => {
-  const { classes: styles } = useStyles()
-  const { onClickOkBtn, bTnText, tooltipText, isFirstRow } = props
+  const { classes: styles, cx } = useStyles()
+  const { onClickOkBtn, bTnText, tooltipText, isFirstRow, fullWidthButton } = props
+
+  const buttonStyle = cx(styles.actionBtn, { [styles.fullWidthButton]: fullWidthButton })
 
   return (
-    <Button
-      success
-      tooltipInfoContent={isFirstRow ? tooltipText : ''}
-      className={styles.actionBtn}
-      onClick={onClickOkBtn}
-    >
+    <Button success tooltipInfoContent={isFirstRow ? tooltipText : ''} className={buttonStyle} onClick={onClickOkBtn}>
       {bTnText}
     </Button>
   )

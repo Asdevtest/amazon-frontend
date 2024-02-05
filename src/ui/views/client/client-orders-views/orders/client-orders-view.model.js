@@ -156,6 +156,7 @@ export class ClientOrdersViewModel {
       this.startFilterModel = history.location.state.dataGridFilter
     }
 
+    this.setDefaultStatuses()
     this.getDestinations()
     this.getStorekeepers()
     this.getPlatformSettings()
@@ -313,7 +314,6 @@ export class ClientOrdersViewModel {
 
   async loadData() {
     try {
-      this.setDefaultStatuses()
       this.getDataGridState()
 
       await this.getShops()
