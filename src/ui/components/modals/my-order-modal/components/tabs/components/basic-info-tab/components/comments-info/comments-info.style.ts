@@ -9,8 +9,19 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
   title: {
     fontWeight: 600,
+  },
+
+  titleIcon: {
+    height: '16px !important',
+    width: '16px !important',
   },
 
   cardsWrapper: {
@@ -59,6 +70,10 @@ export const useStyles = makeStyles()(theme => ({
       WebkitLineClamp: 3,
       WebkitBoxOrient: 'vertical',
       background: `${theme.palette.background.general} !important`,
+
+      '&:disabled': {
+        '-webkit-text-fill-color': theme.palette.text.general,
+      },
     },
   },
 

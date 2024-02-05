@@ -146,34 +146,30 @@ export const clientBoxesViewColumns = (
 
     width: 300,
     renderCell: params => {
-      return params.row.originalData ? (
-        params.row.originalData?.items.length > 1 ? (
-          <OrderManyItemsCell
-            box={params.row.originalData}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.originalData.storekeeper?._id,
-                params.row.originalData.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        ) : (
-          <OrderCell
-            box={params.row.originalData}
-            product={params.row.originalData?.items[0]?.product}
-            superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.originalData?.storekeeper?._id,
-                params.row.originalData?.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        )
+      return params.row.originalData?.items.length > 1 ? (
+        <OrderManyItemsCell
+          box={params.row.originalData}
+          error={
+            !findTariffInStorekeepersData(
+              getStorekeepersData(),
+              params.row.originalData.storekeeper?._id,
+              params.row.originalData.logicsTariff?._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+        />
       ) : (
-        ''
+        <OrderCell
+          box={params.row.originalData}
+          product={params.row.originalData?.items[0]?.product}
+          superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
+          error={
+            !findTariffInStorekeepersData(
+              getStorekeepersData(),
+              params.row.originalData?.storekeeper?._id,
+              params.row.originalData?.logicsTariff?._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+        />
       )
     },
     valueGetter: params =>
