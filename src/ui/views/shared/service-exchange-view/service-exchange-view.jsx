@@ -45,7 +45,7 @@ export const ServiceExchangeView = observer(({ history }) => {
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
           value={viewModel.nameSearchValue}
-          onSubmit={value => viewModel.onSearchSubmit(value)}
+          onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 

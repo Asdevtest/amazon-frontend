@@ -104,7 +104,7 @@ export class ServiceExchangeViewModel {
   }
 
   async loadMoreDataHadler() {
-    if (this.requestStatus !== loadingStatuses.SUCCESS) {
+    if (this.requestStatus === loadingStatuses.IS_LOADING) {
       return
     }
 
