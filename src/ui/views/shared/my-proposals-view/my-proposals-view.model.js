@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -293,9 +293,9 @@ export class MyProposalsViewModel {
     await this.getRequestById(requestId)
     await this.getProposalById(proposalId)
 
-    if (freelanceRequestTypeByCode[this.currentRequest?.request.spec?.type] === freelanceRequestType.DESIGNER) {
+    if (this.currentRequest?.request.spec?.title === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (freelanceRequestTypeByCode[this.currentRequest?.request.spec?.type] === freelanceRequestType.BLOGGER) {
+    } else if (this.currentRequest?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')

@@ -9,7 +9,7 @@ import {
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
@@ -42,9 +42,9 @@ export const OwnerRequestProposalsCard = ({
   const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
-    if (freelanceRequestTypeByCode[request.request?.spec?.type] === freelanceRequestType.DESIGNER) {
+    if (request.request?.spec?.title === freelanceRequestType.DESIGNER) {
       setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
-    } else if (freelanceRequestTypeByCode[request.request?.spec?.type] === freelanceRequestType.BLOGGER) {
+    } else if (request.request?.spec?.title === freelanceRequestType.BLOGGER) {
       setShowRequestResultModal(!showRequestResultModal)
     } else {
       setShowRequestStandartResultModal(!showRequestStandartResultModal)

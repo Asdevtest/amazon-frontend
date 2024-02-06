@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -432,9 +432,9 @@ export class SuppliersAndIdeasModel {
         this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[request?.spec?.type] === freelanceRequestType.DESIGNER) {
+      if (request?.spec?.title === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[request?.spec?.type] === freelanceRequestType.BLOGGER) {
+      } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')
