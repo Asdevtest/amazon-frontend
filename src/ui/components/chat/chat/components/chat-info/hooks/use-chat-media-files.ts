@@ -1,79 +1,87 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SyntheticEvent, useEffect, useState } from 'react'
 
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ChatAttachmentsType, ChatFileType, FilesType, ImagesType, TabValue, VideoType } from '../chat-into.type'
+import { TabValue } from '../chat-into.type'
 
-export const useChatMediaFiles = (chat: ChatContract, currentTab: TabValue) => {
+export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
+  const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.PHOTOS)
+  const [files, setFiles] = useState<string[]>()
+
   const [isFilesLoading, setIsFilesLoading] = useState(false)
+  const [isAllMediaLoaded, setIsAllMediaLoaded] = useState(false)
+  const [offset, setOffset] = useState(0)
 
-  const [files, setFiles] = useState<ChatFileType[]>()
+  const limit = 30
 
-  const paginationToTabs = {
-    offset: 0,
-    limit: 40,
+  const resetSettings = () => {
+    setOffset(0)
+    setFiles([])
+    setIsAllMediaLoaded(false)
   }
 
   const getChatMediaFiles = async () => {
-    if (currentTab === TabValue.GROUP_CHAT_USERS) return
+    if (currentTab === TabValue.GROUP_CHAT_USERS || isFilesLoading || isAllMediaLoaded) return
 
     setIsFilesLoading(true)
 
-    const res = await ChatsModel.getPagChatMedia({
+    const arrayOfMedia = await ChatsModel.getPagChatMedia({
       type: currentTab,
       guid: chat._id,
-      offset: paginationToTabs.offset,
-      limit: paginationToTabs.limit,
+      offset,
+      limit,
     })
 
-    console.log('res', res)
+    setIsAllMediaLoaded(arrayOfMedia?.length < limit)
 
-    // if ()
+    const allMedia = arrayOfMedia?.reduce((acc, mediaItem: any) => {
+      const validMedia = mediaItem?.allMedia?.map((el: string) => getAmazonImageUrl(el))
+      return acc?.concat?.(validMedia || [])
+    }, [])
 
-    // const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file: ImagesType) => {
-    //   file.images?.forEach(el => acc.push({ file: getAmazonImageUrl(el), _id: file._id }))
-    //   return acc
-    // }, [])
+    setFiles(prev => prev?.concat?.(allMedia || []))
 
-    // const videoList: ChatFileType[] = res.allVideo.reduce((acc: ChatFileType[], file: VideoType) => {
-    //   file.video?.forEach(el => acc.push({ file: getAmazonImageUrl(el), _id: file._id }))
-    //   return acc
-    // }, [])
-
-    // const fileList: ChatFileType[] = res.allFiles.reduce((acc: ChatFileType[], file: FilesType) => {
-    //   file.files?.forEach(el => acc.push({ file: el, _id: file._id }))
-    //   return acc
-    // }, [])
-
-    // setFiles(fileList)
-    // setImages(imagesList)
-    // setVideos(videoList)
+    setOffset(prev => prev + limit)
 
     setIsFilesLoading(false)
   }
 
-  // useEffect(() => {
-  //   if (chat.lastMessage?.images?.length || chat.lastMessage?.files?.length || chat.lastMessage?.video?.length) {
-  //     getChatMediaFiles()
-  //   }
-  // }, [chat.lastMessage?.images, chat.lastMessage?.files, chat.lastMessage?.video])
+  const loadMoreMediaFilesHandler = (ref: SyntheticEvent<EventTarget>) => {
+    if (ref) {
+      const element = ref.target as HTMLDivElement
+      const scrollTop = element?.scrollTop
+      const containerHeight = element?.clientHeight
+      const contentHeight = element?.scrollHeight
+      const scrollBottom = contentHeight - (scrollTop + containerHeight)
+
+      if (scrollBottom && scrollBottom < 200) {
+        getChatMediaFiles()
+      }
+    }
+  }
 
   useEffect(() => {
-    getChatMediaFiles()
+    setOffset(0)
+    setFiles([])
+    setIsAllMediaLoaded(false)
 
-    return () => {
-      setFiles([])
-    }
+    getChatMediaFiles()
   }, [currentTab])
 
   return {
+    currentTab,
+    setCurrentTab,
+
     isFilesLoading,
 
     files,
 
     getChatMediaFiles,
+    loadMoreMediaFilesHandler,
+    resetSettings,
   }
 }

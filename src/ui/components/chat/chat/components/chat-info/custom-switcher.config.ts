@@ -6,7 +6,7 @@ import { TabValue } from './chat-into.type'
 
 export const getCustomSwitcherConfig = (isGroupChat?: boolean) => {
   const config = [
-    { label: () => t(TranslationKey.Photos), value: TabValue.MEDIA },
+    { label: () => t(TranslationKey.Photos), value: TabValue.PHOTOS },
     { label: () => t(TranslationKey.Videos), value: TabValue.VIDEOS },
     { label: () => t(TranslationKey.Files), value: TabValue.FILES },
   ]

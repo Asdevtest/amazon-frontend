@@ -190,6 +190,7 @@ models/inline-object143.ts
 models/inline-object144.ts
 models/inline-object145.ts
 models/inline-object146.ts
+models/inline-object147.ts
 models/inline-object15.ts
 models/inline-object16.ts
 models/inline-object17.ts
@@ -336,6 +337,7 @@ models/inline-response20038.ts
 models/inline-response20039-supplier-image.ts
 models/inline-response20039.ts
 models/inline-response2004.ts
+models/inline-response20040-inventory-shop.ts
 models/inline-response20040-inventory.ts
 models/inline-response20040-rows.ts
 models/inline-response20040-shop.ts
@@ -387,7 +389,6 @@ models/inline-response20055-suppliers.ts
 models/inline-response20055.ts
 models/inline-response20056.ts
 models/inline-response20057-rows.ts
-models/inline-response20057-shop.ts
 models/inline-response20057.ts
 models/inline-response20058-rows.ts
 models/inline-response20058.ts
