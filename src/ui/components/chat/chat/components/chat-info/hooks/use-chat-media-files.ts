@@ -4,8 +4,6 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-
 import { TabValue } from '../chat-into.type'
 
 export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
@@ -39,8 +37,7 @@ export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
     setIsAllMediaLoaded(arrayOfMedia?.length < limit)
 
     const allMedia = arrayOfMedia?.reduce((acc, mediaItem: any) => {
-      const validMedia = mediaItem?.allMedia?.map((el: string) => getAmazonImageUrl(el))
-      return acc?.concat?.(validMedia || [])
+      return acc?.concat?.(mediaItem?.allMedia || [])
     }, [])
 
     setFiles(prev => prev?.concat?.(allMedia || []))

@@ -10,6 +10,7 @@ import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useStyles } from './chat-info.style'
@@ -98,12 +99,14 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
                 setIsImageModalOpen(true)
               }
 
+              const validFile = getAmazonImageUrl(el)
+
               return (
                 <>
                   {currentTab === TabValue.PHOTOS ? (
                     <img
                       key={index}
-                      src={el}
+                      src={validFile}
                       alt={el}
                       onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                       onClick={clickHandler}
@@ -112,7 +115,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
                     <VideoPreloader
                       key={index}
                       wrapperClassName={styles.videoWrapper}
-                      videoSource={el}
+                      videoSource={validFile}
                       onClick={clickHandler}
                     />
                   )}
@@ -127,7 +130,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         <ImageModal
           showPreviews
           isOpenModal={isImageModalOpen}
-          files={files || []}
+          files={files?.map(el => getAmazonImageUrl(el, true)) || []}
           currentFileIndex={currentImageIndex}
           onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
           onCurrentFileIndex={index => setCurrentImageIndex(index)}
