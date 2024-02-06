@@ -60,10 +60,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
+    maxWidth: 95,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
     textTransform: 'capitalize',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 
   detailsAndButtonWrapper: {
@@ -102,6 +106,7 @@ export const useStyles = makeStyles()(theme => ({
   detailsSubWrapperAll: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 5,
   },
 
   serviceTypeWrapper: {
