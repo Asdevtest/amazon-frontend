@@ -586,9 +586,7 @@ export const AdminUserEditContent = observer(
                     renderValue={selected =>
                       !selected?.length
                         ? t(TranslationKey['Select from the list'])
-                        : selected
-                            ?.map(item => editUserFormFields?.allowedSpec?.find(({ type }) => type === item)?.title)
-                            ?.join(', ')
+                        : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
                     }
                     onChange={onChangeFormField('allowedSpec')}
                   >
