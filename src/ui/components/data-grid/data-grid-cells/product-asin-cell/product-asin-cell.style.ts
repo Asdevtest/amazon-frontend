@@ -1,24 +1,24 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
-  asinCellContainer: {
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
     width: '100%',
     padding: '5px 0px',
     display: 'flex',
     alignItems: 'flex-start',
   },
 
-  csCodeTypoWrapper: {
+  fields: {
     width: '100%',
   },
 
-  csCodeTypo: {
+  amazonTitle: {
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 500,
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
     maxWidth: '165px',
-
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

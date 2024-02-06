@@ -25,7 +25,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalButton: {
-    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
     fontSize: '16px',
     fontWeight: 500,
@@ -36,14 +35,12 @@ export const useStyles = makeStyles()(theme => ({
     '& td': {
       flexShrink: 0,
       color: '#070707',
-      // border: '1px solid #fff',
     },
     '& th': {
       color: theme.palette.text.general,
       fontWeight: 600,
       lineHeight: '16px',
       fontSize: '14px',
-      // borderBottom: '1px solid #fff',
       height: '32px',
     },
 
@@ -54,12 +51,6 @@ export const useStyles = makeStyles()(theme => ({
 
   tableWrapper: {
     width: '100%',
-  },
-  imgCell: {
-    width: '96px',
-    padding: '0 46px 0 20px',
-    borderRight: '1px solid #e0e0e0',
-    margin: 0,
   },
 
   productCell: {
@@ -247,8 +238,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cellText: {
-    fontWeight: 400,
-    lineHeight: 1.75,
+    fontSize: 16,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
   },
 
   commentCellBtn: {

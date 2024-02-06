@@ -20,7 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     wordBreak: 'break-word',
     overflowWrap: 'anywhere',
-    textTransform: 'capitalize',
   },
 
   multilineLeftAlignText: {

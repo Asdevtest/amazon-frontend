@@ -279,9 +279,6 @@ export const OrderProductModal = memo(props => {
         <Table className={styles.table}>
           <TableHead>
             <TableRow className={styles.tableRow}>
-              <TableCell className={styles.imgCell}>
-                <p className={styles.cellText}>{t(TranslationKey.Image)}</p>
-              </TableCell>
               <TableCell className={styles.productCell}>
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
