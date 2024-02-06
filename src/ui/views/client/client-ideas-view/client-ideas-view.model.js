@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -38,7 +39,6 @@ import { settingsByUrl } from './settings-by-url'
 export class ClientIdeasViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   progressValue = 0
   showProgress = false
@@ -165,7 +165,7 @@ export class ClientIdeasViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  get curUser() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -316,10 +316,7 @@ export class ClientIdeasViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onLeaveColumnField() {
@@ -349,28 +346,23 @@ export class ClientIdeasViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   // * Data getters
 
-  async loadData() {
-    this.getDataGridState()
-    await this.getIdeaList()
-    await this.getShopList()
+  loadData() {
+    try {
+      this.getDataGridState()
+      this.getIdeaList()
+      this.getShopList()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getIdeaList() {
@@ -398,10 +390,6 @@ export class ClientIdeasViewModel {
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.error = error
-      })
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -423,9 +411,6 @@ export class ClientIdeasViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.setRequestStatus(loadingStatuses.FAILED)
     }
@@ -544,9 +529,7 @@ export class ClientIdeasViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -651,7 +634,7 @@ export class ClientIdeasViewModel {
 
   onClickRequestId(id) {
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
 
@@ -688,10 +671,6 @@ export class ClientIdeasViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -816,8 +795,6 @@ export class ClientIdeasViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      this.clearReadyImages()
-
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
@@ -869,11 +846,6 @@ export class ClientIdeasViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -910,7 +882,7 @@ export class ClientIdeasViewModel {
     const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
 
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
         isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
       }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
       '_blank',
@@ -978,9 +950,6 @@ export class ClientIdeasViewModel {
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1110,17 +1079,11 @@ export class ClientIdeasViewModel {
   async onSubmitOrderProductModal() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
+
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -1133,36 +1096,14 @@ export class ClientIdeasViewModel {
         await this.createOrder(orderObject)
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
+      toast.success(t(TranslationKey['The order has been created']))
 
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1185,14 +1126,9 @@ export class ClientIdeasViewModel {
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
       })
       this.onTriggerOpenModal('showInfoModal')
     }
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
   }
 
   setRequestStatus(requestStatus) {
