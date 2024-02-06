@@ -62,10 +62,6 @@ export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
   }
 
   useEffect(() => {
-    setOffset(0)
-    setFiles([])
-    setIsAllMediaLoaded(false)
-
     getChatMediaFiles()
   }, [currentTab])
 
