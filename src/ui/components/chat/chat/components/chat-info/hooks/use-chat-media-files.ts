@@ -4,11 +4,13 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
+import { InlineResponse20036 } from '@services/rest-api-service/codegen'
+
 import { TabValue } from '../chat-into.type'
 
 export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
   const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.PHOTOS)
-  const [files, setFiles] = useState<string[]>()
+  const [files, setFiles] = useState<string[]>([])
 
   const [isFilesLoading, setIsFilesLoading] = useState(false)
   const [isAllMediaLoaded, setIsAllMediaLoaded] = useState(false)
@@ -36,7 +38,7 @@ export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
 
     setIsAllMediaLoaded(arrayOfMedia?.length < limit)
 
-    const allMedia = arrayOfMedia?.reduce((acc, mediaItem: any) => {
+    const allMedia = arrayOfMedia?.reduce<string[]>((acc, mediaItem: InlineResponse20036) => {
       return acc?.concat?.(mediaItem?.allMedia || [])
     }, [])
 
