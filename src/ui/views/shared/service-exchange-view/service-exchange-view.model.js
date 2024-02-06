@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -27,30 +28,20 @@ export class ServiceExchangeViewModel {
   sortMode = tableSortMode.DESK
 
   bigImagesOptions = {}
-
   nameSearchValue = ''
 
   columnMenuSettings = {
-    onClickFilterBtn: () => {},
-    onChangeFullFieldMenuItem: () => {},
-    onClickAccept: () => {},
-
-    filterRequestStatus: undefined,
-
     ...dataGridFiltersInitializer(filterFields),
   }
 
+  options = {
+    offset: 0,
+    limit: 16,
+    filters: this.getFilter(),
+  }
+
   get currentData() {
-    if (this.nameSearchValue) {
-      return this.announcements.filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.createdBy.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return this.announcements
-    }
+    return this.announcements
   }
 
   constructor({ history }) {
@@ -61,15 +52,27 @@ export class ServiceExchangeViewModel {
 
   loadData() {
     try {
-      this.getVacAnnouncementsData()
-
       this.getSpecs()
+
+      this.getNotYoursAnnouncements()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getVacAnnouncementsData() {
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  /* async getVacAnnouncementsData() {
     try {
       const result = await AnnouncementsModel.getVacAnnouncements({
         filters: this.getFilter(),
@@ -81,22 +84,59 @@ export class ServiceExchangeViewModel {
     } catch (error) {
       console.log(error)
     }
+  } */
+
+  async getNotYoursAnnouncements() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
+      runInAction(() => {
+        this.announcements = result.rows
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
   }
 
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
-    )
-  }
+  async loadMoreDataHadler() {
+    if (this.requestStatus !== loadingStatuses.SUCCESS) {
+      return
+    }
 
-  onClickOrderBtn(data) {
-    this.history.push(
-      `/client/freelance/my-requests/create-request?announcementId=${data?._id}&executorId=${data?.createdBy?._id}`,
-    )
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      this.options.offset += this.options.limit
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
+      runInAction(() => {
+        this.announcements = [...this.announcements, ...result.rows]
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
   }
 
   onChangeFullFieldMenuItem(value, field) {
     this.columnMenuSettings[field].currentFilterData = value
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, [
+        'title',
+        'description',
+      ]),
+    )
   }
 
   onClickSpec(specType) {
@@ -105,7 +145,28 @@ export class ServiceExchangeViewModel {
     // spec - for "_id:string", specType - for "type:number"
     this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
 
-    this.getVacAnnouncementsData()
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  onClickOrderBtn(data) {
+    this.history.push(
+      `/client/freelance/my-requests/create-request?announcementId=${data?._id}&executorId=${data?.createdBy?._id}`,
+    )
   }
 
   onChangeViewMode(value) {
@@ -132,21 +193,5 @@ export class ServiceExchangeViewModel {
 
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
-  }
-
-  onSearchChange(e) {
-    this.nameSearchValue = e.target.value
-  }
-
-  async getSpecs() {
-    try {
-      const response = await UserModel.getSpecs(false)
-
-      runInAction(() => {
-        this.specs = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

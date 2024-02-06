@@ -47,7 +47,7 @@ export const SearchInput: FC<Props> = ({
 
   const onClickCloseIcon = () => {
     setInternalValue('')
-    !!onSubmit && onSubmit('')
+    !!onSubmit && !!tab ? onSubmit('') : undefined
   }
 
   useEffect(() => {
