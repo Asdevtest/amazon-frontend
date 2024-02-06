@@ -25,8 +25,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 120,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -42,7 +40,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineTextCell text={String(params.value)} />,
     width: 65,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -58,7 +55,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 140,
-
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -74,7 +70,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 390,
-
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -90,7 +85,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineTextCell leftAlign text={params.row.spec?.title} />,
     width: 140,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -105,10 +99,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
     width: 115,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -118,18 +109,15 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.DATE,
   },
 
   {
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
-    headerAlign: 'center',
   },
 
   {
@@ -138,7 +126,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
-    headerAlign: 'center',
   },
 
   {
@@ -146,7 +133,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => <ProductMyRequestsBtnsCell data={params.row.originalData} handlers={handlers} />,
-    filterable: false,
+    disableColumnMenu: true,
     sortable: false,
     flex: 1,
   },
