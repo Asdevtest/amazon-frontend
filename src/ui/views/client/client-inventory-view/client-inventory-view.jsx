@@ -47,7 +47,7 @@ import { Header } from './components'
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientInventoryViewModel(history))
+  const [viewModel] = useState(() => new ClientInventoryViewModel())
   viewModel.initHistory()
 
   const [useProductsPermissions] = useState(
@@ -187,10 +187,10 @@ export const ClientInventoryView = observer(({ history }) => {
 
       {viewModel.productCardModal && (
         <ProductCardModal
-          history={viewModel.history}
+          history={history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.getMainTableData()}
+          updateDataHandler={viewModel.getMainTableData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
