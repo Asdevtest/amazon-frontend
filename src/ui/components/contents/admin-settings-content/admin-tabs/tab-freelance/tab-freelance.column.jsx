@@ -20,7 +20,15 @@ export const tabFreelanceColumns = ({
   {
     field: 'spec',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Title of specialty'])} />,
-    renderCell: ({ row }) => <InputOrTextCell text={row.title} isEdit={row.isEditSpec} onChange={onChangeSpecTitle} />,
+    renderCell: ({ row }) => (
+      <InputOrTextCell
+        text={row.title}
+        isEdit={row.isEditSpec}
+        tooltipTextLength={20}
+        maxInputValueLength={64}
+        onChange={onChangeSpecTitle}
+      />
+    ),
     filterable: false,
     sortable: false,
     width: 200,
