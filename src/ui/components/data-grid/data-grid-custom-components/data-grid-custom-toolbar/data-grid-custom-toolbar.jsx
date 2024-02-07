@@ -5,17 +5,13 @@ import { useStyles } from './data-grid-custom-toolbar.style'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 import { DataGridTableSetting } from '../data-grid-table-setting'
 
-export const DataGridCustomToolbar = ({
-  resetFiltersBtnSettings,
-  columsBtnSettings,
-  children,
-  presetsSettings,
-  ...other
-}) => {
-  const { classes: styles } = useStyles()
+export const DataGridCustomToolbar = props => {
+  const { resetFiltersBtnSettings, columsBtnSettings, children, presetsSettings, ...restProps } = props
+
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <GridToolbarContainer className={styles.toolbar} {...other}>
+    <GridToolbarContainer className={styles.toolbar} {...restProps}>
       {(!!columsBtnSettings || !!presetsSettings) && (
         <div className={styles.buttons}>
           <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
@@ -32,7 +28,7 @@ export const DataGridCustomToolbar = ({
         </div>
       )}
 
-      <div className={styles.buttons}>
+      <div className={cx(styles.buttons, { [styles.fullWidth]: !columsBtnSettings })}>
         {children}
         <GridPagination />
       </div>
