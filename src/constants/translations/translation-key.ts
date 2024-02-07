@@ -2185,5 +2185,9 @@ export enum TranslationKey {
   'Specialty successfully changed.' = 'Specialty successfully changed.',
   'Specialty not changed, something went wrong ...' = 'Specialty not changed, something went wrong ...',
   'Specialty successfully added to the archive.' = 'Specialty successfully added to the archive.',
+  'Choose a store for integration' = 'Choose a store for integration',
+  'Integration for' = 'Integration for',
+  'has been created' = 'has been created',
+  'Something went wrong' = 'Something went wrong',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

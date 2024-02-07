@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,13 +15,13 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './client-exchange-view.style'
+import { useStyles } from './client-exchange-view.style'
 
 import { ClientExchangeViewModel } from './client-exchange-view.model'
 
-export const ClientExchangeViewRaw = props => {
+export const ClientExchangeView = observer(props => {
   const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
-  const { classes: styles } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
@@ -66,7 +65,6 @@ export const ClientExchangeViewRaw = props => {
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -127,6 +125,4 @@ export const ClientExchangeViewRaw = props => {
       />
     </>
   )
-}
-
-export const ClientExchangeView = withStyles(observer(ClientExchangeViewRaw), styles)
+})

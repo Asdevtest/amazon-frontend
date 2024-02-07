@@ -2,6 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
@@ -15,12 +16,13 @@ import {
   sortModelInitialValue,
 } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
+import { ShopModel } from '@models/shop-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { getClassParams } from './helpers/get-class-params'
-import { observerConfig } from './helpers/observer-config'
+import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
   _tabKey = ShopReportsTabsValues.PPC
@@ -62,6 +64,9 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   set showConfirmModal(showConfirmModal) {
     this._showConfirmModal = showConfirmModal
   }
+
+  showSelectShopsModal = false
+  shopsData: any = []
 
   constructor(currentTabsValues: ShopReportsTabsValues) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
@@ -189,7 +194,13 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   async bindStockGoodsToInventoryHandler() {
-    this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
+    if (this.tabKey === ShopReportsTabsValues.INVENTORY) {
+      await this.getShopsData()
+
+      this.onTriggerOpenModal('showSelectShopsModal')
+    } else {
+      this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
+    }
   }
 
   async getProductsMy(filters?: any, isRecCall?: boolean) {
@@ -247,6 +258,41 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
         }
       })
       this.onTriggerOpenModal('showWarningInfoModal')
+      console.log(error)
+    }
+  }
+
+  async getShopsData() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const result = await ShopModel.getMyShopNames()
+      runInAction(() => {
+        this.shopsData = result
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async bindReportInventoryHandler(shop: { _id: string; name: string }) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      await SellerBoardModel.patchReportInventoryProductsLinkSku({ shopIds: [shop._id] })
+
+      this.onTriggerOpenModal('showSelectShopsModal')
+
+      toast.success(`${t(TranslationKey['Integration for'])} ${shop.name} ${t(TranslationKey['has been created'])}`)
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.onTriggerOpenModal('showSelectShopsModal')
+      toast.error(t(TranslationKey['Something went wrong']))
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
