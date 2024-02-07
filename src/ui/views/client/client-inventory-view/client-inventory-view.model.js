@@ -25,6 +25,7 @@ import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
@@ -32,15 +33,14 @@ import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { clientInventoryColumns } from './client-inventory-columns'
 import {
+  additionalFilterFields,
+  defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
-  filtersFields,
 } from './client-inventory-view.constants'
-import { clientInventoryColumns } from './components'
 import { observerConfig } from './model-observer.config'
-
-const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
 
 export class ClientInventoryViewModel extends DataGridFilterTableModel {
   error = undefined
@@ -248,11 +248,20 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
     }
 
+    const columns = clientInventoryColumns(
+      barCodeHandlers,
+      hsCodeHandlers,
+      fourMonthesStockHandlers,
+      stockUsHandlers,
+      otherHandlers,
+    )
+    const filtersFields = getFilterFields(columns, additionalFilterFields)
+
     super(
       ClientModel.getProductsMyFilteredByShopIdWithPag,
-      clientInventoryColumns(barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers, stockUsHandlers, otherHandlers),
+      columns,
       filtersFields,
-      'clients/products/my_with_pag?',
+      'clients/products/my_with_pag_v2?',
       ['asin', 'amazonTitle', 'skuByClient'],
       DataGridTablesKeys.CLIENT_INVENTORY,
       defaultGetDataMethodOptions,
@@ -287,7 +296,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           return acc
         }, {})
 
-        this.columnsModel = clientInventoryColumns(
+        const newColumns = clientInventoryColumns(
           barCodeHandlers,
           hsCodeHandlers,
           fourMonthesStockHandlers,
@@ -295,6 +304,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           otherHandlers,
           activeFields,
         )
+        const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+
+        this.columnsModel = newColumns
+        this.filtersFields = newFiltersFields
+        this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
       },
     )
   }
@@ -465,6 +479,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       this.getDataGridState()
       this.getPresets()
+      this.getMainTableData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
