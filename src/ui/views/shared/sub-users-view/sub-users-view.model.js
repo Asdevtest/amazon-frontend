@@ -185,7 +185,6 @@ export class SubUsersViewModel {
       this.getUsers()
       this.getGroupPermissions()
       this.getSinglePermissions()
-      this.getSpecs()
 
       UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
 
@@ -295,6 +294,8 @@ export class SubUsersViewModel {
           .filter(el => !el.originalData.archive)
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
+
+      UserRoleCodeMap[this.userInfo.role] === UserRole.FREELANCER && this.getSpecs()
 
       this.onTriggerOpenModal('showPermissionModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
