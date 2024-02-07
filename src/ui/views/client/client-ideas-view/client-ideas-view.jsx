@@ -232,7 +232,7 @@ export const ClientIdeasView = observer(({ history }) => {
         >
           <RequestDesignerResultClientForm
             onlyRead
-            userInfo={viewModel.curUser}
+            userInfo={viewModel.userInfo}
             request={{ request: viewModel.currentRequest }}
             // request={viewModel.currentProposal}
             proposal={viewModel.currentProposal}

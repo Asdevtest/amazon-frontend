@@ -278,8 +278,8 @@ export const getTableByColumn = (column, hint) => {
       'fbaamount',
       'client',
       'buyer',
-      'childProductShopId',
-      'parentProductShopId',
+      'childProductShop',
+      'parentProductShop',
       'supervisor',
       'margin',
       'checkedBy',
@@ -293,7 +293,7 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
-    } else if (['childProductShopId', 'parentProductShopId'].includes(column) && hint === 'ideas') {
+    } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
       return 'products'
     } else if (
       [
