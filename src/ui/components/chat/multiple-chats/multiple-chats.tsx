@@ -1,5 +1,6 @@
 import { compareDesc, parseISO } from 'date-fns'
-import { ReactElement, forwardRef, memo } from 'react'
+import { observer } from 'mobx-react'
+import { ReactElement, forwardRef } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -73,7 +74,7 @@ interface MultipleChatsProps {
   onCloseMesSearchValue: () => void
 }
 
-export const MultipleChats = memo(
+export const MultipleChats = observer(
   forwardRef<HTMLDivElement, MultipleChatsProps>(
     (
       {
