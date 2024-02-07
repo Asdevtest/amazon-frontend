@@ -57,7 +57,6 @@ export const Freelance = observer(({ productId, modal }) => {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
