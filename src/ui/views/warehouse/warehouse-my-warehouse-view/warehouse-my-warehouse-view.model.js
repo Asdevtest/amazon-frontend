@@ -659,16 +659,20 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickMergeBtn() {
     try {
-      const isMasterBoxSelected = this.selectedBoxes.some(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
-        return findBox?.originalData?.amount && findBox.originalData?.amount > 1
-      })
+      const selectedBoxes = this.boxesMy
+        .filter(box => this.selectedBoxes.includes(box._id))
+        ?.map(box => box.originalData)
 
-      if (isMasterBoxSelected) {
+      const isMasterBoxSelected = selectedBoxes.some(box => box?.amount > 1)
+      const isDifferentClient = selectedBoxes.some(box => box?.client?._id !== selectedBoxes[0]?.client?._id)
+
+      if (isMasterBoxSelected || isDifferentClient) {
         runInAction(() => {
           this.warningInfoModalSettings = {
             isWarning: false,
-            title: t(TranslationKey['Cannot be merged with a Superbox']),
+            title:
+              (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
+              (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
           }
         })
 

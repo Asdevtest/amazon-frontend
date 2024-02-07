@@ -2431,6 +2431,7 @@ export const InStockMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -2440,7 +2441,7 @@ export const InStockMenuItem = memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const newData = {

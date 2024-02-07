@@ -23,7 +23,7 @@ export const getCellType = (column: string, table: string) => {
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
       renderCell: (params: GridRenderCellParams) => {
-        return <MultilineTextCell text={params.row?.[table]?.[0]?.[column]} />
+        return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
       minWidth: 80,
 
@@ -37,7 +37,7 @@ export const getCellType = (column: string, table: string) => {
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
       renderCell: (params: GridRenderCellParams) => {
-        return <MultilineTextCell text={params.row?.[table]?.[0]?.[column]} />
+        return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
       minWidth: 80,
 
@@ -50,7 +50,7 @@ export const getCellType = (column: string, table: string) => {
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
       renderCell: (params: GridRenderCellParams) => (
-        <NormDateCell dateWithoutTime value={params.row?.[table]?.[0]?.[column]} />
+        <NormDateCell dateWithoutTime value={params.row?.[table]?.[column]} />
       ),
       width: 118,
 
