@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -17,6 +17,7 @@ import { UserModel } from '@models/user-model'
 import { subUsersColumns } from '@components/table/table-columns/sub-users-columns'
 import { subUsersFreelancerColumns } from '@components/table/table-columns/sub-users-freelancer-columns'
 
+import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -31,7 +32,6 @@ export class SubUsersViewModel {
   singlePermissions = []
   groupPermissions = []
   shopsData = []
-  currentData = []
   specs = []
 
   curUserProductPermissions = []
@@ -68,21 +68,23 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.subUsersData.filter(
+        el =>
+          el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.subUsersData
+    }
+  }
+
   constructor({ history }) {
     this.history = history
     this.setColumnsModel()
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.subUsersData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   setColumnsModel() {
@@ -150,18 +152,6 @@ export class SubUsersViewModel {
     this.requestStatus = requestStatus
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return this.subUsersData.filter(
-        el =>
-          el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return this.subUsersData
-    }
-  }
-
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
   }
@@ -178,19 +168,14 @@ export class SubUsersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       this.getDataGridState()
 
       this.getUsers()
       this.getGroupPermissions()
       this.getSinglePermissions()
 
-      UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      checkIsClient(UserRoleCodeMap[this.userInfo.role]) && this.getShops()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -220,7 +205,6 @@ export class SubUsersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -295,13 +279,13 @@ export class SubUsersViewModel {
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
-      UserRoleCodeMap[this.userInfo.role] === UserRole.FREELANCER && this.getSpecs()
+      checkIsFreelancer(UserRoleCodeMap[this.userInfo.role]) && this.getSpecs()
 
       this.onTriggerOpenModal('showPermissionModal')
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
