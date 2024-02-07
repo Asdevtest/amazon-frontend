@@ -11,15 +11,6 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  asinCell: {
-    padding: '12px 0px',
-    height: '88px',
-    scope: 'row',
-  },
-  asinCellContainer: {
-    display: 'inline-flex',
-  },
-
   barcodeChip: {
     backgroundColor: theme.palette.primary.main,
     color: 'white',
