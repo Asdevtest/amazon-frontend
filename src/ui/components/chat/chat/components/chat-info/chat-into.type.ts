@@ -2,9 +2,9 @@ export enum TabValue {
   GROUP_CHAT_USERS = 'GROUP_CHAT_USERS',
   MEDIA = 'MEDIA',
   LINKS = 'LINKS',
-  PHOTOS = 'PHOTOS',
-  VIDEOS = 'VIDEOS',
-  FILES = 'FILES',
+  PHOTOS = 'allImages',
+  VIDEOS = 'allVideo',
+  FILES = 'allFiles',
 }
 
 export interface ChatAttachmentsType {
