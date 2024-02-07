@@ -204,6 +204,9 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 120,
+
+      type: 'number',
+
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -413,9 +416,9 @@ export const clientInventoryColumns = (
             renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
 
             renderCell: ({ row }) => {
-              const image = row?.[table]?.[0]?.image
-              const asin = row?.[table]?.[0]?.asin
-              const skuByClient = row?.[table]?.[0]?.sku
+              const image = row?.[table]?.image
+              const asin = row?.[table]?.asin
+              const skuByClient = row?.[table]?.sku
 
               return <ProductAsinCell withoutTitle image={image} asin={asin} skuByClient={skuByClient} />
             },

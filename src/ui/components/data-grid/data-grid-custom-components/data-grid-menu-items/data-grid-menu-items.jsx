@@ -919,11 +919,11 @@ export const IdeaShopsFieldMenuItem = memo(
       // НУжно переделать
       useEffect(() => {
         setFilterData(getData('filterData'))
-      }, [data?.childProductShopId?.filterData?.length, data?.parentProductShopId?.filterData?.length])
+      }, [data?.childProductShop?.filterData?.length, data?.parentProductShop?.filterData?.length])
       // НУжно переделать
       useEffect(() => {
         setCurrentFilterData(getData('currentFilterData'))
-      }, [data?.childProductShopId?.currentFilterData?.length, data?.parentProductShopId?.currentFilterData?.length])
+      }, [data?.childProductShop?.currentFilterData?.length, data?.parentProductShop?.currentFilterData?.length])
 
       useEffect(() => {
         setChoosenItems(currentFilterData)
@@ -931,7 +931,7 @@ export const IdeaShopsFieldMenuItem = memo(
 
       useEffect(() => {
         for (const item of field) {
-          onClickFilterBtn(`${item}`)
+          onClickFilterBtn(item)
         }
       }, [])
 
@@ -1024,17 +1024,17 @@ export const IdeaShopsFieldMenuItem = memo(
 
                 // НУжно переделать
                 const parentShops = choosenItems.filter(item =>
-                  data?.parentProductShopId?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.parentProductShop?.filterData?.some(obj => obj?._id === item?._id),
                 )
                 const childShops = choosenItems.filter(item =>
-                  data?.childProductShopId?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.childProductShop?.filterData?.some(obj => obj?._id === item?._id),
                 )
 
                 if (parentShops?.length) {
-                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopId')
+                  onChangeFullFieldMenuItem(parentShops, 'parentProductShop')
                 }
                 if (childShops?.length) {
-                  onChangeFullFieldMenuItem(childShops, 'childProductShopId')
+                  onChangeFullFieldMenuItem(childShops, 'childProductShop')
                 }
 
                 onClickAccept()
@@ -2431,6 +2431,7 @@ export const InStockMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -2440,7 +2441,7 @@ export const InStockMenuItem = memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const newData = {

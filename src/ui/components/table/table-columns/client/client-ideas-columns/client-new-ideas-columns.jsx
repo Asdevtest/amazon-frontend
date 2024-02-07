@@ -51,7 +51,7 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShopId', 'childProductShopId'],
+    field: ['parentProductShop', 'childProductShop'],
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 

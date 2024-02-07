@@ -411,7 +411,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               renderValue={selected =>
                 !selected?.length
                   ? t(TranslationKey['Select from the list'])
-                  : selected?.map(item => sourceData.allowedSpec?.find(({ type }) => type === item)?.title)?.join(', ')
+                  : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
               }
               onChange={e => selectSpecHandler(e.target.value)}
             >

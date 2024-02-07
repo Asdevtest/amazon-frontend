@@ -153,8 +153,8 @@ export const OrderProductModal = memo(props => {
 
           destinationId: null,
 
-          storekeeperId: '',
-          logicsTariffId: '',
+          storekeeperId: null,
+          logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
           buyerId: product.buyer?._id || null,
