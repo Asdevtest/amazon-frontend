@@ -39,19 +39,30 @@ export const SearchResult = observer(
 
         <div className={styles.dropUpOrDownWrapper}>
           <ArrowDropUpIcon
-            className={cx(styles.searchIconBtn, {
-              [styles.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
-            })}
-            onClick={() => curFoundedMessageIndex !== 0 && onChangeCurFoundedMessage(curFoundedMessageIndex - 1)}
+            className={cx(
+              styles.searchIconBtn,
+              // , {
+              //   [styles.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
+              // }
+            )}
+            onClick={() =>
+              curFoundedMessageIndex !== 0
+                ? onChangeCurFoundedMessage(curFoundedMessageIndex - 1)
+                : onChangeCurFoundedMessage(0)
+            }
           />
 
           <ArrowDropDownIcon
-            className={cx(styles.searchIconBtn, {
-              [styles.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
-            })}
+            className={cx(
+              styles.searchIconBtn,
+              // , {
+              //   [styles.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
+              // }
+            )}
             onClick={() =>
-              curFoundedMessageIndex + 1 !== messagesFound.length &&
-              onChangeCurFoundedMessage(curFoundedMessageIndex + 1)
+              curFoundedMessageIndex + 1 !== messagesFound.length
+                ? onChangeCurFoundedMessage(curFoundedMessageIndex + 1)
+                : onChangeCurFoundedMessage(messagesFound.length - 1)
             }
           />
         </div>
