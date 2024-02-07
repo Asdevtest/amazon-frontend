@@ -814,10 +814,7 @@ export const EditBoxForm = memo(
             LabelTitle={t(TranslationKey['Transparency codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
-            onClickSave={value => {
-              onClickSaveTransparencyFile(value, filesConditions.index)
-              setShowSetFilesModal(false)
-            }}
+            onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}
             onCloseModal={setShowSetFilesModal}
           />
         </Modal>
