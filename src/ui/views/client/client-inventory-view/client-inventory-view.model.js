@@ -465,6 +465,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       this.getDataGridState()
       this.getPresets()
+      this.getMainTableData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
