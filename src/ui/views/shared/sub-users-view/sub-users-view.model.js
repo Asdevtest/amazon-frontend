@@ -27,13 +27,11 @@ export class SubUsersViewModel {
   requestStatus = undefined
 
   nameSearchValue = ''
-
   subUsersData = []
   singlePermissions = []
   groupPermissions = []
   shopsData = []
   specs = []
-
   curUserProductPermissions = []
   productPermissionsData = []
 
@@ -43,19 +41,16 @@ export class SubUsersViewModel {
   showPermissionModal = false
   showConfirmModal = false
 
-  rowSelectionModel = undefined
-
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
     onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
-
+  rowSelectionModel = undefined
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = subUsersColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -119,6 +114,7 @@ export class SubUsersViewModel {
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -142,7 +138,7 @@ export class SubUsersViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -166,7 +162,7 @@ export class SubUsersViewModel {
     this.setDataGridState()
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
 
@@ -174,7 +170,9 @@ export class SubUsersViewModel {
       this.getGroupPermissions()
       this.getSinglePermissions()
 
-      checkIsClient(UserRoleCodeMap[this.userInfo.role]) && this.getShops()
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
+        this.getShops()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -279,7 +277,9 @@ export class SubUsersViewModel {
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
-      checkIsFreelancer(UserRoleCodeMap[this.userInfo.role]) && this.getSpecs()
+      if (checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
+        this.getSpecs()
+      }
 
       this.onTriggerOpenModal('showPermissionModal')
 
@@ -300,7 +300,9 @@ export class SubUsersViewModel {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
-      await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+      if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
+        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+      }
 
       if (currentSpec) {
         await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
@@ -337,7 +339,7 @@ export class SubUsersViewModel {
         currentSpec,
       )
 
-      await this.getUsers()
+      this.getUsers()
     } catch (error) {
       console.log(error)
     }
@@ -388,7 +390,8 @@ export class SubUsersViewModel {
   async onSubmitlinkSubUser(data) {
     try {
       await this.linkSubUser(data)
-      await this.getUsers()
+      this.getUsers()
+
       this.onTriggerOpenModal('showAddSubUserModal')
     } catch (error) {
       console.log(error)
@@ -398,7 +401,8 @@ export class SubUsersViewModel {
   async onSubmitUnlinkSubUser() {
     try {
       await this.unlinkSubUser()
-      await this.getUsers()
+      this.getUsers()
+
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
