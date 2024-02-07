@@ -2187,5 +2187,6 @@ export enum TranslationKey {
   'Specialty successfully added to the archive.' = 'Specialty successfully added to the archive.',
   'Cannot be merged with different clients' = 'Cannot be merged with different clients',
   'Videos' = 'Videos',
+  'Add from product' = 'Add from product',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

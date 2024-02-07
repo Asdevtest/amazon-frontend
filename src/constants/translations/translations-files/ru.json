@@ -2183,5 +2183,6 @@
   "Specialty not changed, something went wrong ...": "Специальность не изменена, что-то пошло не так ...",
   "Specialty successfully added to the archive.": "Специальность успешно добавлена в архив.",
   "Cannot be merged with different clients": "Невозможно соединить с разными клиентами",
-  "Videos": "Видео"
+  "Videos": "Видео",
+  "Add from product": "Добавить из продукта"
 }
