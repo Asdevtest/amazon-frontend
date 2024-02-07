@@ -31,7 +31,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-
+  const showDetailDescriptionToolip = detailDescription.length > 12
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -65,7 +65,9 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
           <div className={styles.detailsWrapper}>
             <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
               <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription}>{detailDescription}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
             </div>
 
             <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
@@ -91,7 +93,9 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
             </div>
             <div className={styles.detailsSubWrapperAll}>
               <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription}>{detailDescription}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
             </div>
           </div>
         )}
