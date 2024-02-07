@@ -2182,5 +2182,7 @@
   "Choose a store for integration": "Choose a store for integration",
   "Integration for": "Integration for",
   "has been created": "has been created",
-  "Something went wrong": "Something went wrong"
+  "Something went wrong": "Something went wrong",
+  "Cannot be merged with different clients": "Cannot be merged with different clients",
+  "Videos": "Videos"
 }

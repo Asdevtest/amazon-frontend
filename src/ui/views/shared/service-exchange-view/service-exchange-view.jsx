@@ -45,11 +45,23 @@ export const ServiceExchangeView = observer(({ history }) => {
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
           value={viewModel.nameSearchValue}
-          onChange={viewModel.onSearchChange}
+          onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+      <div
+        className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}
+        onScroll={e => {
+          const element = e.target
+          const scrollTop = element?.scrollTop
+          const containerHeight = element?.clientHeight
+          const contentHeight = element?.scrollHeight
+
+          if (contentHeight - (scrollTop + containerHeight) < 200) {
+            viewModel.loadMoreDataHadler()
+          }
+        }}
+      >
         {viewModel.currentData.map(service =>
           isListPosition ? (
             <ServiceExchangeCardList

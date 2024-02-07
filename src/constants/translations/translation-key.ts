@@ -2189,5 +2189,7 @@ export enum TranslationKey {
   'Integration for' = 'Integration for',
   'has been created' = 'has been created',
   'Something went wrong' = 'Something went wrong',
+  'Cannot be merged with different clients' = 'Cannot be merged with different clients',
+  'Videos' = 'Videos',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

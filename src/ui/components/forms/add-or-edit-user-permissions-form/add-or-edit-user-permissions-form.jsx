@@ -8,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -412,7 +411,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               renderValue={selected =>
                 !selected?.length
                   ? t(TranslationKey['Select from the list'])
-                  : selected?.map(item => freelanceRequestTypeByCode[item])?.join(', ')
+                  : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
               }
               onChange={e => selectSpecHandler(e.target.value)}
             >

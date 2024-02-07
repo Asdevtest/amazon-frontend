@@ -23,13 +23,13 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.asinCellContainer}>
+    <div className={styles.wrapper}>
       {!withoutImage && (
         <img src={getAmazonImageUrl(image, false)} alt="preview-product-table" className={styles.img} />
       )}
 
-      <div className={styles.csCodeTypoWrapper}>
-        {!withoutTitle && <p className={styles.csCodeTypo}>{amazonTitle}</p>}
+      <div className={styles.fields}>
+        {!withoutTitle && <p className={styles.amazonTitle}>{amazonTitle}</p>}
         {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />}
         {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={skuByClient} />}
       </div>

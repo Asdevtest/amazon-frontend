@@ -54,7 +54,6 @@ export const clientInventoryColumns = (
         />
       ),
       width: 120,
-
       hide: true,
     },
 
@@ -62,7 +61,6 @@ export const clientInventoryColumns = (
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-
       renderCell: ({ row }) => {
         return (
           <ProductAsinCell
@@ -73,8 +71,7 @@ export const clientInventoryColumns = (
           />
         )
       },
-      width: 295,
-
+      width: 280,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
@@ -85,7 +82,6 @@ export const clientInventoryColumns = (
       renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
       width: 90,
       sortable: false,
-
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
 
@@ -93,10 +89,8 @@ export const clientInventoryColumns = (
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-
       renderCell: params => <MultilineStatusCell status={mapProductStrategyStatusEnum[params.value]} />,
       width: 140,
-
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
 
@@ -104,9 +98,7 @@ export const clientInventoryColumns = (
       field: 'fbaFbmStockSum',
       headerName: 'Available',
       renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
-
       renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
-      type: 'number',
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -115,9 +107,7 @@ export const clientInventoryColumns = (
       field: 'reservedSum',
       headerName: t(TranslationKey.Reserved),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
-
       renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
-      type: 'number',
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -126,11 +116,8 @@ export const clientInventoryColumns = (
       field: 'sentToFbaSum',
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
-
       renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
-      type: 'number',
       width: 85,
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -138,21 +125,17 @@ export const clientInventoryColumns = (
       field: 'amountInOrders',
       headerName: 'Order',
       renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
-
       renderCell: params => (
         <OrderIdAndAmountCountCell
           orderId={params.value}
           amount={params.row?.amountInPendingOrders}
           onClickOrderId={e => {
             e.stopPropagation()
-
             otherHandlers.onClickOrderCell(params.row?._id)
           }}
         />
       ),
-      type: 'number',
       width: 85,
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -162,7 +145,6 @@ export const clientInventoryColumns = (
       renderHeader: () => (
         <MultilineTextHeaderCell text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />
       ),
-
       renderCell: params => (
         <ChangeInputCell
           isInts
@@ -172,7 +154,6 @@ export const clientInventoryColumns = (
         />
       ),
       width: 150,
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -180,7 +161,6 @@ export const clientInventoryColumns = (
       field: 'inTransfer',
       headerName: 'in Transfer',
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
-
       renderCell: params => {
         return (
           <MultilineTextCell
@@ -192,9 +172,7 @@ export const clientInventoryColumns = (
           />
         )
       },
-      type: 'number',
       width: 85,
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -202,7 +180,6 @@ export const clientInventoryColumns = (
       field: 'boxAmounts',
       headerName: 'In stock',
       renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
-
       renderCell: params => (
         <InStockCell
           boxAmounts={params.row?.boxAmounts}
@@ -217,7 +194,6 @@ export const clientInventoryColumns = (
           .join(', ')
       },
       width: 145,
-
       sortable: false,
       columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
     },
@@ -227,7 +203,8 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 75,
+      width: 120,
+
       type: 'number',
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -239,8 +216,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock cost'])} />,
       renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
       width: 120,
-      type: 'number',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -264,22 +239,15 @@ export const clientInventoryColumns = (
       ),
 
       width: 150,
-      type: 'number',
-      headerAlign: 'center',
-      filterable: false,
-
-      columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
+      disableColumnMenu: true,
     },
 
     {
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-      type: 'number',
       width: 80,
-      headerAlign: 'center',
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -287,11 +255,8 @@ export const clientInventoryColumns = (
       field: 'profit',
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-      type: 'number',
       width: 90,
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -299,13 +264,8 @@ export const clientInventoryColumns = (
       field: 'fbafee',
       headerName: t(TranslationKey.FBA),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
-
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-
       width: 70,
-      type: 'number',
-      headerAlign: 'center',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -315,7 +275,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       renderCell: params => <TagsCell tags={params.row?.tags} />,
       width: 160,
-
       sortable: false,
       columnKey: columnnsKeys.shared.TAGS,
     },
@@ -327,7 +286,6 @@ export const clientInventoryColumns = (
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
       width: 130,
       sortable: false,
-
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
 
@@ -336,7 +294,6 @@ export const clientInventoryColumns = (
       headerName: 'Transparency codes',
       renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      type: 'boolean',
       width: 135,
       columnKey: columnnsKeys.shared.YES_NO,
     },
@@ -345,27 +302,20 @@ export const clientInventoryColumns = (
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
-
       renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
-      minWidth: 100,
-      headerAlign: 'center',
-      filterable: false,
+      width: 120,
+      disableColumnMenu: true,
       sortable: false,
-
-      columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
     {
       field: 'hsCode',
       headerName: 'HS code',
       renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
-
       renderCell: params => <HsCodeCell product={params.row} handlers={hsCodeHandlers} />,
-      minWidth: 100,
-      headerAlign: 'center',
-      type: 'actions',
+      width: 120,
+      disableColumnMenu: true,
       sortable: false,
-      filterable: false,
     },
 
     {
@@ -379,7 +329,6 @@ export const clientInventoryColumns = (
         />
       ),
       width: 100,
-
       columnKey: columnnsKeys.client.INVENTORY_STATUS,
     },
 
@@ -387,11 +336,8 @@ export const clientInventoryColumns = (
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
       renderCell: params => <ShortDateCell value={params.value} />,
-      minWidth: 90,
-      // type: 'date',
-
+      width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -399,11 +345,8 @@ export const clientInventoryColumns = (
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
       renderCell: params => <ShortDateCell value={params.value} />,
-      minWidth: 90,
-      // type: 'date',
-
+      width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -413,8 +356,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 100,
-      type: 'number',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -424,8 +365,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 100,
-      type: 'number',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -435,8 +374,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Verified ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 120,
-      type: 'number',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -444,10 +381,9 @@ export const clientInventoryColumns = (
       field: 'commentSb',
       headerName: t(TranslationKey['Comment of SB']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comment of SB'])} />,
-
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       width: 400,
-      filterable: false,
+      disableColumnMenu: true,
       sortable: false,
     },
 
@@ -455,11 +391,10 @@ export const clientInventoryColumns = (
       field: 'clientComment',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
-      filterable: false,
       sortable: false,
+      disableColumnMenu: true,
     },
   ]
 
@@ -481,9 +416,9 @@ export const clientInventoryColumns = (
             renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
 
             renderCell: ({ row }) => {
-              const image = row?.[table]?.[0]?.image
-              const asin = row?.[table]?.[0]?.asin
-              const skuByClient = row?.[table]?.[0]?.sku
+              const image = row?.[table]?.image
+              const asin = row?.[table]?.asin
+              const skuByClient = row?.[table]?.sku
 
               return <ProductAsinCell withoutTitle image={image} asin={asin} skuByClient={skuByClient} />
             },

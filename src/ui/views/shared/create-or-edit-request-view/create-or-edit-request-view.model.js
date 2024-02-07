@@ -7,10 +7,13 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { RequestModel } from '@models/request-model'
 import { UserModel } from '@models/user-model'
 
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { toFixed } from '@utils/text'
+import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -53,6 +56,16 @@ export class CreateOrEditRequestViewModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
+  columnMenuSettings = {
+    onClickFilterBtn: () => {},
+    onChangeFullFieldMenuItem: () => {},
+    onClickAccept: () => {},
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(['specType']),
+  }
+
   constructor({ history }) {
     const url = new URL(window.location.href)
 
@@ -87,11 +100,11 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await Promise.all([this.getCustomRequestCur(), this.getPlatformSettingsData()])
-
-      await this.getAnnouncementData()
+      this.getCustomRequestCur()
+      this.getPlatformSettingsData()
+      this.getAnnouncementData()
       this.getSpecs()
     } catch (error) {
       console.log(error)
@@ -256,9 +269,15 @@ export class CreateOrEditRequestViewModel {
     this.onTriggerOpenModal('showImageModal')
   }
 
-  async onClickChoosePerformer(spec) {
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings[field].currentFilterData = value
+  }
+
+  async onClickChoosePerformer(specType) {
     try {
-      const response = await AnnouncementsModel.getVacAnnouncements(spec)
+      this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+
+      const response = await AnnouncementsModel.getVacAnnouncements({ filters: this.getFilter() })
 
       runInAction(() => {
         this.announcements = response
@@ -333,5 +352,11 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, ['specType'], []),
+    )
   }
 }

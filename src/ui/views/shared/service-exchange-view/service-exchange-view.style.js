@@ -37,7 +37,11 @@ export const useStyles = makeStyles()(theme => ({
   dashboardCardWrapper: {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 390px)',
+    alignContent: 'start',
     gap: 30,
+    height: '78vh',
+    overflow: 'auto',
+    paddingRight: 10,
   },
 
   dashboardCardWrapperList: {

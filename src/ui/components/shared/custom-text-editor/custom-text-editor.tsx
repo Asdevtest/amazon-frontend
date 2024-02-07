@@ -48,12 +48,14 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
     }
 
     try {
-      // ContentState.createFromText(value) - this is a just text, so value.startsWith('{"blocks":') - that other requests do not break (leave only convertFromRaw(JSON.parse(value)) - right solution)
-      const contentState = value?.startsWith('{"blocks":')
-        ? convertFromRaw(JSON?.parse(value))
-        : ContentState?.createFromText(value)
-      const newEditorState = EditorState?.createWithContent(contentState)
-      setEditorState(newEditorState)
+      if (value) {
+        // ContentState.createFromText(value) - this is a just text, so value.startsWith('{"blocks":') - that other requests do not break (leave only convertFromRaw(JSON.parse(value)) - right solution)
+        const contentState = value?.startsWith('{"blocks":')
+          ? convertFromRaw(JSON?.parse(value))
+          : ContentState?.createFromText(value)
+        const newEditorState = EditorState?.createWithContent(contentState)
+        setEditorState(newEditorState)
+      }
     } catch (error) {
       console.error('Error parsing JSON:', error)
     }
