@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
@@ -107,9 +107,7 @@ export class FreelanceModel {
   loadData() {
     try {
       this.getDataGridState()
-
       this.getCustomRequests()
-
       this.getSpecs()
     } catch (error) {
       console.log(error)
@@ -139,7 +137,6 @@ export class FreelanceModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-
         this.rowCount = result.count
       })
     } catch (error) {
@@ -182,7 +179,6 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-
       console.log(error)
     }
   }
@@ -194,7 +190,10 @@ export class FreelanceModel {
   onClickResetFilters() {
     this.selectedSpec = Specs.DEFAULT
 
-    this.columnMenuSettings = { ...dataGridFiltersInitializer(filtersFields) }
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getCustomRequests()
   }
@@ -215,7 +214,7 @@ export class FreelanceModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -261,7 +260,7 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      switch (freelanceRequestTypeByCode[item.spec?.type]) {
+      switch (item.spec?.title) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break

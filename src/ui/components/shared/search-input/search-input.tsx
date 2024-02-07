@@ -73,7 +73,9 @@ export const SearchInput: FC<Props> = ({
   }
 
   useEffect(() => {
-    onClickCloseIcon()
+    if (tab) {
+      onClickCloseIcon()
+    }
   }, [tab])
 
   return (

@@ -8,7 +8,6 @@ import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@m
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -344,7 +343,6 @@ export const AdminUserEditContent = observer(
               />
             </div>
 
-            {/* Новое */}
             <div className={styles.field}>
               <Field
                 disabled
@@ -419,7 +417,6 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('confirmPassword')}
               />
             </div>
-            {/* Новое */}
           </div>
 
           <div className={styles.middleWrapper}>
@@ -575,9 +572,9 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {(formFields.allowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
-              selectedAllowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
-              `${formFields.role}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
+            {(formFields.allowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
+              selectedAllowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
+              formFields.role === mapUserRoleEnumToKey[UserRole.FREELANCER]) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
                 containerClasses={styles.allowedStrategiesContainer}
@@ -589,7 +586,7 @@ export const AdminUserEditContent = observer(
                     renderValue={selected =>
                       !selected?.length
                         ? t(TranslationKey['Select from the list'])
-                        : selected?.map(item => freelanceRequestTypeByCode[item])?.join(', ')
+                        : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
                     }
                     onChange={onChangeFormField('allowedSpec')}
                   >
@@ -682,7 +679,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={`${formFields.role}` !== `${mapUserRoleEnumToKey[UserRole.STOREKEEPER]}`}
+                disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />
@@ -711,6 +708,7 @@ export const AdminUserEditContent = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <AddOrEditUserPermissionsForm
             isWithoutProductPermissions

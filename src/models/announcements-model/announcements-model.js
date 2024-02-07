@@ -38,6 +38,11 @@ export class AnnouncementsModelStatic {
     })
     return response.data
   }
+
+  getNotYoursAnnouncements = async body => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsPagVacGet(body)
+    return response.data
+  }
 }
 
 export const AnnouncementsModel = new AnnouncementsModelStatic()
