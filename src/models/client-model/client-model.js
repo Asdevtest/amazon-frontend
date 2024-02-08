@@ -1,5 +1,3 @@
-// import axios from 'axios'
-// import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
@@ -216,6 +214,16 @@ class ClientModelStatic {
 
   patchProductTransparency = async (guid, body) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidTransparencyPatch({ guid, body })
+    return response.data
+  }
+
+  getProductsInfoForOrders = async productIds => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet({ productIds })
+    return response.data
+  }
+
+  getProductById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsDataGuidGet({ guid })
     return response.data
   }
 }

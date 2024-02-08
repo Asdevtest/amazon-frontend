@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '30px',
-    width: 1700,
+    width: '1720px',
     height: 770,
     padding: 20,
   },
@@ -24,7 +24,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 410,
+    width: 375,
+    [theme.breakpoints.down(1500)]: {
+      margin: '0px 35px',
+    },
   },
 
   upWrapper: {
@@ -50,8 +53,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    width: 'fit-content',
+    width: '370px',
     margin: '0 !important',
+    [theme.breakpoints.down(1500)]: {
+      width: '320px',
+    },
   },
 
   customSubMainWrapper: {

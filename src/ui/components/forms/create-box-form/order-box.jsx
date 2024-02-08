@@ -9,10 +9,11 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-box-form.style'
+import { useStyles } from './create-box-form.style'
 
 export const OrderBox = observer(
   ({
@@ -25,18 +26,28 @@ export const OrderBox = observer(
     onRemoveBox,
     volumeWeightCoefficient,
     currentSupplier,
+    sizeSetting,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
+
+    const isNormalLength =
+      !Number(orderBox.lengthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
+
+    const isNormalWidth =
+      !Number(orderBox.widthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
+
+    const isNormalHeight =
+      !Number(orderBox.heightCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
 
     return (
-      <div className={classNames.numberInputFieldsBlocksWrapper}>
-        <div className={classNames.numberInputFieldsBlocksSubWrapper}>
-          <div className={classNames.numberInputFieldsWrapper}>
+      <div className={styles.numberInputFieldsBlocksWrapper}>
+        <div className={styles.numberInputFieldsBlocksSubWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box length'])}
-              error={Number(orderBox.lengthCmSupplier) === 0}
+              error={isNormalLength}
               value={orderBox.lengthCmSupplier}
               onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
             />
@@ -45,18 +56,18 @@ export const OrderBox = observer(
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box width'])}
-              error={Number(orderBox.widthCmSupplier) === 0}
+              error={isNormalWidth}
               value={orderBox.widthCmSupplier}
               onChange={setFormField('widthCmSupplier', orderBoxIndex)}
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               type="number"
               inputProps={{ maxLength: 6 }}
               label={t(TranslationKey['Box height'])}
-              error={Number(orderBox.heightCmSupplier) === 0}
+              error={isNormalHeight}
               value={orderBox.heightCmSupplier}
               onChange={setFormField('heightCmSupplier', orderBoxIndex)}
             />
@@ -71,7 +82,7 @@ export const OrderBox = observer(
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               disabled
               label={t(TranslationKey['Volume weight'])}
@@ -92,7 +103,7 @@ export const OrderBox = observer(
             />
           </div>
 
-          <div className={classNames.numberInputFieldsWrapper}>
+          <div className={styles.numberInputFieldsWrapper}>
             <Field
               error={orderBox.amount < 1}
               inputProps={{ maxLength: 3 }}
@@ -115,7 +126,7 @@ export const OrderBox = observer(
           </div>
         </div>
 
-        <div className={classNames.checkboxWithLabelWrapper}>
+        <div className={styles.checkboxWithLabelWrapper}>
           <Checkbox
             color="primary"
             disabled={!order.orderSupplier?.boxProperties}
@@ -127,18 +138,18 @@ export const OrderBox = observer(
               TranslationKey['Allows you to use the box parameters specified when creating a supplier'],
             )}
             label={t(TranslationKey['Use the supplier standard'])}
-            containerClasses={classNames.checkboxLabelContainer}
-            inputClasses={classNames.hidden}
-            labelClasses={classNames.checkboxLabel}
+            containerClasses={styles.checkboxLabelContainer}
+            inputClasses={styles.hidden}
+            labelClasses={styles.checkboxLabel}
           />
         </div>
 
         <Button
           tooltipInfoContent={t(TranslationKey['Remove box'])}
-          className={classNames.iconBtn}
+          className={styles.iconBtn}
           onClick={() => onRemoveBox(orderBoxIndex)}
         >
-          <DeleteIcon className={classNames.deleteBtn} />
+          <DeleteIcon className={styles.deleteBtn} />
         </Button>
       </div>
     )

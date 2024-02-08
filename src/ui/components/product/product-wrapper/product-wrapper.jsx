@@ -11,7 +11,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-wrapper.style'
+import { useStyles } from './product-wrapper.style'
 
 import { Freelance } from '../freelance-tab-view'
 import { Integrations } from '../integrations'
@@ -84,7 +84,7 @@ export const ProductWrapper = memo(
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
@@ -99,7 +99,7 @@ export const ProductWrapper = memo(
     return (
       <>
         {SettingsModel.languageTag && (
-          <div className={classNames.mainWrapper}>
+          <div className={styles.mainWrapper}>
             <CustomSwitcher
               fullWidth
               switchMode="medium"
@@ -199,7 +199,7 @@ export const ProductWrapper = memo(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations modal={modal} productId={product._id} />
+              <Integrations userRole={curUserRole} modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>

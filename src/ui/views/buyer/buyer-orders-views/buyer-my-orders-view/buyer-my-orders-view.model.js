@@ -185,7 +185,7 @@ export class BuyerMyOrdersViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
@@ -204,9 +204,9 @@ export class BuyerMyOrdersViewModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }
@@ -728,7 +728,7 @@ export class BuyerMyOrdersViewModel {
         this.loadData()
       } catch (error) {
         console.log(error)
-        this.setRequestStatus(loadingStatuses.failed)
+        this.setRequestStatus(loadingStatuses.FAILED)
       }
     }
   }
@@ -746,7 +746,7 @@ export class BuyerMyOrdersViewModel {
     orderPayments,
   }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
@@ -897,9 +897,9 @@ export class BuyerMyOrdersViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
     }

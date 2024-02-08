@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     top: 0,
     left: 0,
@@ -12,6 +12,9 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  background: {
+    background: theme.palette.background.general,
+  },
   progressContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -21,11 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: '7px solid rgb(255, 255, 255, .2)',
     borderRadius: '20px',
     padding: '10px',
-    background: 'rgb(200, 200, 200, 1)',
-  },
-
-  progressContainerDark: {
-    background: 'rgb(80, 80, 80, 1)',
+    background: theme.palette.background.secondary,
   },
 
   subWrapper: {

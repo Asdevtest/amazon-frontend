@@ -1,16 +1,16 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { Typography } from '@mui/material'
 
-import { useClassNames } from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
+import { useStyles } from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
 
 export const DashboardListOfAnyCard = ({ config, configSubTitle, valuesData, onClickViewMore }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const CardItem = ({ item }) => (
-    <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route, item.dataGridFilter)}>
-      <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
-      <div className={classNames.cardValueWrapper}>
-        <Typography className={classNames.cardValueTitle}>
+    <div className={styles.cardWrapper} onClick={() => onClickViewMore(item.route, item.dataGridFilter)}>
+      <Typography className={styles.cardSubTitle}>{item.title}</Typography>
+      <div className={styles.cardValueWrapper}>
+        <Typography className={styles.cardValueTitle}>
           {valuesData[item.dataKey] && valuesData[item.dataKey]}
         </Typography>
 
@@ -20,10 +20,10 @@ export const DashboardListOfAnyCard = ({ config, configSubTitle, valuesData, onC
   )
 
   return (
-    <div className={classNames.cardListWrapper}>
-      <Typography className={classNames.cardListTitle}>{config.title}</Typography>
-      <Typography className={classNames.cardListSubTitle}>{configSubTitle}</Typography>
-      <div className={classNames.cardsWrapper}>
+    <div className={styles.cardListWrapper}>
+      <Typography className={styles.cardListTitle}>{config.title}</Typography>
+      <Typography className={styles.cardListSubTitle}>{configSubTitle}</Typography>
+      <div className={styles.cardsWrapper}>
         {config.items.map(item => (
           <CardItem key={item.dataKey} item={item} />
         ))}

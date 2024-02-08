@@ -1,6 +1,6 @@
-import React from 'react'
+import { memo } from 'react'
 
-export const WarehouseTariffDestinationCell = React.memo(() => (
+export const WarehouseTariffDestinationCell = memo(() => (
   <>
     <p>{'US West Coast'}</p>
     <p>{'US Central '}</p>

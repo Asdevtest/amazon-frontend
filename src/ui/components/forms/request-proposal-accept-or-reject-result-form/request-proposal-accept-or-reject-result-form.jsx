@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
 import { Typography } from '@mui/material'
@@ -14,7 +13,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-proposal-accept-or-reject-result-form.style'
+import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
 export const RequestProposalAcceptOrRejectResultForm = observer(
   ({
@@ -32,7 +31,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
   }) => {
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -43,16 +42,16 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
 
     return (
       <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
-        <div className={classNames.root}>
-          <Typography className={classNames.modalTitle}>{title}</Typography>
-          <div className={classNames.ratingWrapper}>
+        <div className={styles.root}>
+          <Typography className={styles.modalTitle}>{title}</Typography>
+          <div className={styles.ratingWrapper}>
             <Field
               label={rateLabel + '*'}
               inputComponent={
-                <div className={classNames.rating}>
+                <div className={styles.rating}>
                   <Rating
                     value={formFields.rating}
-                    classes={{ icon: classNames.icon }}
+                    classes={{ icon: styles.icon }}
                     size="large"
                     onChange={onChangeField('rating')}
                   />
@@ -68,24 +67,24 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             minRows={6}
             maxRows={6}
             value={formFields.reason}
-            className={classNames.heightFieldAuto}
+            className={styles.heightFieldAuto}
             onChange={onChangeField('review')}
           />
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             <Button
               disabled={!formFields.rating}
               success={!isReject}
               danger={isReject}
               color="primary"
-              className={cx(classNames.btnSubmit, { [classNames.btnLargeSubmit]: isSupervisor })}
+              className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
               onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>
             <Button
               variant="text"
-              className={cx(classNames.btnSubmit, classNames.cancelSubmit)}
+              className={cx(styles.btnSubmit, styles.cancelSubmit)}
               onClick={() => setIsShowConfirmationModal(true)}
             >
               {cancelBtnText}

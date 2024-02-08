@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { FC } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
@@ -13,7 +12,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-request-card.styles'
+import { useStyles } from './idea-request-card.style'
 
 interface IdeaRequestCardProps {
   requestType: number
@@ -32,7 +31,7 @@ interface IdeaRequestCardProps {
 }
 
 export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const {
     // proposals,
@@ -47,26 +46,26 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   } = props
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.requestWrapper}>
-        <div className={classNames.categoresWrapper}>
-          <p className={classNames.categoryTitle}>
+    <div className={styles.root}>
+      <div className={styles.requestWrapper}>
+        <div className={styles.categoresWrapper}>
+          <p className={styles.categoryTitle}>
             {`${t(TranslationKey['Request type'])}:`}{' '}
-            <span className={classNames.categoryText}>
+            <span className={styles.categoryText}>
               {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[requestType])}
             </span>
           </p>
-          <p className={classNames.categoryTitle}>
+          <p className={styles.categoryTitle}>
             {`${t(TranslationKey.ID)}:`}{' '}
-            <button className={cx(classNames.categoryText, classNames.linkStyles)} onClick={onClickRequestId}>
+            <button className={cx(styles.categoryText, styles.linkStyles)} onClick={onClickRequestId}>
               {requestId}
             </button>
           </p>
-          <p className={classNames.categoryTitle}>
+          <p className={styles.categoryTitle}>
             {`${t(TranslationKey.Status)}: `}
             <span
-              className={cx(classNames.categoryText, {
-                [classNames.draftStatus]: requestStatus === RequestStatus.DRAFT,
+              className={cx(styles.categoryText, {
+                [styles.draftStatus]: requestStatus === RequestStatus.DRAFT,
               })}
               style={{ color: colorByStatus(requestStatus) }}
             >
@@ -75,10 +74,10 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           </p>
         </div>
 
-        <ClearIcon className={classNames.clearIcon} onClick={onClickUnbindButton} />
+        <ClearIcon className={styles.clearIcon} onClick={onClickUnbindButton} />
       </div>
 
-      <div className={classNames.resultWrapper}>
+      <div className={styles.resultWrapper}>
         {executor && (
           <UserLink
             blackText
@@ -93,7 +92,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
 
         <Button
           disabled={disableSeeResultButton /* || !proposals?.length */}
-          className={classNames.resultButton}
+          className={styles.resultButton}
           onClick={onClickResultButton}
         >
           {t(TranslationKey['See result'])}

@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -27,7 +26,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { useClassNames } from './admin-user-edit-content.style'
+import { useStyles } from './admin-user-edit-content.style'
 
 const activeOptions = [
   { value: true, label: t(TranslationKey.Active) },
@@ -46,7 +45,7 @@ export const AdminUserEditContent = observer(
     changeFields,
     wrongPassword,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
@@ -297,24 +296,22 @@ export const AdminUserEditContent = observer(
 
     //
     return (
-      <div className={classNames.root}>
-        <div className={classNames.mainWrapper}>
-          <div className={classNames.leftWrapper}>
+      <div className={styles.root}>
+        <div className={styles.mainWrapper}>
+          <div className={styles.leftWrapper}>
             {editUserFormFields?.masterUser ? (
               <Field
                 label={t(TranslationKey['Master user'])}
                 inputComponent={
-                  <div className={classNames.ratingWrapper}>
+                  <div className={styles.ratingWrapper}>
                     <UserLink
                       name={editUserFormFields?.masterUserInfo?.name}
                       userId={editUserFormFields?.masterUserInfo?._id}
                     />
 
-                    <Typography className={classNames.standartText}>
-                      {editUserFormFields?.masterUserInfo.email}
-                    </Typography>
-                    <div className={classNames.ratingSubWrapper}>
-                      <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                    <Typography className={styles.standartText}>{editUserFormFields?.masterUserInfo.email}</Typography>
+                    <div className={styles.ratingSubWrapper}>
+                      <Typography className={styles.rating}>{t(TranslationKey.Rating)}</Typography>
 
                       <Rating readOnly value={editUserFormFields?.masterUserInfo?.rating} />
                     </div>
@@ -327,12 +324,12 @@ export const AdminUserEditContent = observer(
               <Field
                 label={t(TranslationKey['Sub users'])}
                 inputComponent={
-                  <div className={classNames.subUsersWrapper}>
+                  <div className={styles.subUsersWrapper}>
                     {editUserFormFields?.subUsers.map(subUser => (
-                      <div key={subUser?._id} className={classNames.ratingWrapper}>
+                      <div key={subUser?._id} className={styles.ratingWrapper}>
                         <UserLink name={subUser?.name} userId={subUser?._id} />
 
-                        <Typography className={classNames.standartText}>{subUser?.email}</Typography>
+                        <Typography className={styles.standartText}>{subUser?.email}</Typography>
                       </div>
                     ))}
                   </div>
@@ -340,7 +337,7 @@ export const AdminUserEditContent = observer(
               />
             ) : null}
 
-            <div className={classNames.nameEmailWrapper}>
+            <div className={styles.nameEmailWrapper}>
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Name)}
@@ -364,41 +361,41 @@ export const AdminUserEditContent = observer(
             </div>
 
             {/* Новое */}
-            <div className={classNames.field}>
+            <div className={styles.field}>
               <Field
                 disabled
                 inputProps={{ maxLength: 128 }}
-                labelClasses={classNames.labelField}
+                labelClasses={styles.labelField}
                 error={wrongPassword && t(TranslationKey['Old password'])}
-                inputClasses={classNames.input}
+                inputClasses={styles.input}
                 label={t(TranslationKey['Old password'])}
                 placeholder={t(TranslationKey['Old password'])}
                 type={!visibilityOldPass ? 'password' : 'text'}
                 value={formFields.oldPassword}
                 onChange={onChangeFormField('oldPassword')}
               />
-              <div className={classNames.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-                {!visibilityOldPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+              <div className={styles.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
+                {!visibilityOldPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </div>
             </div>
 
-            <div className={classNames.field}>
+            <div className={styles.field}>
               <Field
                 disabled
                 inputProps={{ maxLength: 128 }}
-                labelClasses={classNames.labelField}
+                labelClasses={styles.labelField}
                 error={showError}
-                inputClasses={classNames.input}
+                inputClasses={styles.input}
                 label={t(TranslationKey['New password'])}
                 placeholder={t(TranslationKey.Password)}
                 type={!visibilityPass ? 'password' : 'text'}
                 value={formFields.password}
                 onChange={onChangeFormField('password')}
               />
-              <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-                {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+              <div className={styles.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
+                {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </div>
-              <div className={classNames.validationMessage}>
+              <div className={styles.validationMessage}>
                 {validationMessagesArray(
                   errorMinLength,
                   errorOneNumber,
@@ -406,20 +403,17 @@ export const AdminUserEditContent = observer(
                   errorLowercaseLetter,
                   errorNoEngLetter,
                 ).map((text, index) => (
-                  <span
-                    key={index}
-                    className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}
-                  >
+                  <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
                     {text.name}
                   </span>
                 ))}
               </div>
-              <div className={classNames.validationHiddenMessage}>
+              <div className={styles.validationHiddenMessage}>
                 <Typography
                   className={cx(
-                    classNames.validationHiddenText,
-                    { [classNames.red]: submit && errorMaxLength },
-                    { [classNames.visibility]: errorMaxLength },
+                    styles.validationHiddenText,
+                    { [styles.red]: submit && errorMaxLength },
+                    { [styles.visibility]: errorMaxLength },
                   )}
                 >
                   {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
@@ -427,13 +421,13 @@ export const AdminUserEditContent = observer(
               </div>
             </div>
 
-            <div className={classNames.field}>
+            <div className={styles.field}>
               <Field
                 disabled
                 inputProps={{ maxLength: 128 }}
-                labelClasses={classNames.labelField}
+                labelClasses={styles.labelField}
                 error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
-                inputClasses={classNames.input}
+                inputClasses={styles.input}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}
                 type={!visibilityPass ? 'password' : 'text'}
@@ -444,16 +438,16 @@ export const AdminUserEditContent = observer(
             {/* Новое */}
           </div>
 
-          <div className={classNames.middleWrapper}>
+          <div className={styles.middleWrapper}>
             <Field
               inputProps={{ maxLength: 10 }}
               label={t(TranslationKey.Overdraft)}
-              containerClasses={classNames.overdraftContainer}
+              containerClasses={styles.overdraftContainer}
               value={formFields.overdraft}
               onChange={onChangeFormField('overdraft')}
             />
 
-            <div className={classNames.roleRateWrapper}>
+            <div className={styles.roleRateWrapper}>
               <Field
                 label={t(TranslationKey.Role)}
                 tooltipInfoContent={'Роль будет автоматически добавлена в разрешеннные'}
@@ -461,7 +455,7 @@ export const AdminUserEditContent = observer(
                   isWrongPermissionsSelect &&
                   t(TranslationKey['The selected permissions and the current role do not match!'])
                 }
-                containerClasses={classNames.roleContainer}
+                containerClasses={styles.roleContainer}
                 inputComponent={
                   <Select
                     displayEmpty
@@ -474,7 +468,7 @@ export const AdminUserEditContent = observer(
                       <MenuItem
                         key={userRoleCode}
                         value={userRoleCode}
-                        className={classNames.userRoleSelect}
+                        className={styles.userRoleSelect}
                         disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                       >
                         {UserRoleCodeMap[userRoleCode]}
@@ -487,53 +481,53 @@ export const AdminUserEditContent = observer(
               {!editUserFormFields?.masterUser ? (
                 <Field
                   inputProps={{ maxLength: 8 }}
-                  containerClasses={classNames.rateContainer}
+                  containerClasses={styles.rateContainer}
                   label={t(TranslationKey.Rate)}
                   value={formFields.rate}
                   onChange={onChangeFormField('rate')}
                 />
               ) : null}
             </div>
-            <Typography className={classNames.allowedRoleWrapperTitle}>{t(TranslationKey['Allowed Roles'])}</Typography>
+            <Typography className={styles.allowedRoleWrapperTitle}>{t(TranslationKey['Allowed Roles'])}</Typography>
             {selectedAllowedRoles.map((role, index) => (
-              <div key={index} className={classNames.selectedRoleWrapper}>
-                <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
+              <div key={index} className={styles.selectedRoleWrapper}>
+                <Typography className={styles.selectedRole}>{UserRoleCodeMap[role]}</Typography>
 
                 <Field
                   oneLine
                   disabled
                   inputProps={{ maxLength: 8 }}
-                  inputClasses={classNames.allowedRoleRateInput}
-                  containerClasses={classNames.allowedRoleRateContainer}
+                  inputClasses={styles.allowedRoleRateInput}
+                  containerClasses={styles.allowedRoleRateContainer}
                   label={t(TranslationKey.Rate)}
                 />
 
-                <div className={classNames.actionDelButton} onClick={() => removeAllowedRole(role)}>
+                <div className={styles.actionDelButton} onClick={() => removeAllowedRole(role)}>
                   {'-'}
                 </div>
               </div>
             ))}
-            <div className={classNames.allowedRoleWrapper}>
-              <div className={classNames.leftContentWrapper}>
+            <div className={styles.allowedRoleWrapper}>
+              <div className={styles.leftContentWrapper}>
                 <Field
-                  containerClasses={classNames.allowedRoleContainer}
+                  containerClasses={styles.allowedRoleContainer}
                   inputComponent={
                     <Select
                       size="small"
                       variant="standard"
                       input={<Input fullWidth />}
-                      classes={{ select: classNames.selectRoot }}
+                      classes={{ select: styles.selectRoot }}
                       value={selectedRole ? selectedRole : 'Роль'}
                       renderValue={selected =>
                         clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
                       }
-                      className={classNames.standartTextRole}
+                      className={styles.standartTextRole}
                       onChange={e => setSelectedRole(e.target.value)}
                     >
                       {Object.keys(UserRoleCodeMap).map((role, index) => (
                         <MenuItem
                           key={index}
-                          className={classNames.standartText}
+                          className={styles.standartText}
                           value={Number(role)}
                           disabled={
                             [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
@@ -557,8 +551,8 @@ export const AdminUserEditContent = observer(
                     oneLine
                     disabled
                     inputProps={{ maxLength: 8 }}
-                    inputClasses={classNames.allowedRoleRateInput}
-                    containerClasses={classNames.allowedRoleRateContainer}
+                    inputClasses={styles.allowedRoleRateInput}
+                    containerClasses={styles.allowedRoleRateContainer}
                     label={t(TranslationKey.Rate)}
                     // value={formFields.rate}
                     // onChange={onChangeFormField('rate')}
@@ -568,7 +562,7 @@ export const AdminUserEditContent = observer(
               {selectedRole ? (
                 <CheckBoxIcon
                   fontSize="medium"
-                  classes={{ root: classNames.actionButton }}
+                  classes={{ root: styles.actionButton }}
                   onClick={() => addAllowedRole()}
                 />
               ) : null}
@@ -576,11 +570,11 @@ export const AdminUserEditContent = observer(
 
             <Field
               label={t(TranslationKey['Allowed Strategies'])}
-              containerClasses={classNames.allowedStrategiesContainer}
+              containerClasses={styles.allowedStrategiesContainer}
               inputComponent={
                 <Select
                   multiple
-                  className={classNames.standartText}
+                  className={styles.standartText}
                   value={formFields.allowedStrategies}
                   renderValue={selected =>
                     selected.map(el => humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el])).join(', ')
@@ -588,7 +582,7 @@ export const AdminUserEditContent = observer(
                   onChange={onChangeFormField('allowedStrategies')}
                 >
                   {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
-                    <MenuItem key={index} className={classNames.standartText} value={Number(strategy)}>
+                    <MenuItem key={index} className={styles.standartText} value={Number(strategy)}>
                       <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
                       <ListItemText primary={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
                     </MenuItem>
@@ -602,18 +596,18 @@ export const AdminUserEditContent = observer(
               `${formFields.role}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
-                containerClasses={classNames.allowedStrategiesContainer}
+                containerClasses={styles.allowedStrategiesContainer}
                 inputComponent={
                   <Select
                     multiple
-                    className={classNames.standartText}
+                    className={styles.standartText}
                     value={formFields?.allowedSpec}
                     renderValue={selected => selected.map(el => freelanceRequestTypeByCode[el]).join(', ')}
                     onChange={onChangeFormField('allowedSpec')}
                   >
                     {Object.keys(getObjectFilteredByKeyArrayBlackList(freelanceRequestTypeByCode, ['0'])).map(
                       (type, index) => (
-                        <MenuItem key={index} className={classNames.standartText} value={Number(type)}>
+                        <MenuItem key={index} className={styles.standartText} value={Number(type)}>
                           <Checkbox color="primary" checked={formFields?.allowedSpec?.includes(Number(type))} />
                           <ListItemText primary={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[type])} />
                         </MenuItem>
@@ -625,7 +619,7 @@ export const AdminUserEditContent = observer(
             )}
           </div>
 
-          <div className={classNames.rightWrapper}>
+          <div className={styles.rightWrapper}>
             <Field
               label={t(TranslationKey['User status'])}
               inputComponent={
@@ -650,7 +644,7 @@ export const AdminUserEditContent = observer(
                 <Button
                   variant="contained"
                   color="primary"
-                  className={classNames.securityButton}
+                  className={styles.securityButton}
                   onClick={() => setShowPermissionModal(!showPermissionModal)}
                 >
                   {t(TranslationKey['Manage permissions'])}
@@ -659,11 +653,11 @@ export const AdminUserEditContent = observer(
             />
 
             {isWrongPermissionsSelect && (
-              <Typography className={classNames.isWrongPermissionsSelectError}>
+              <Typography className={styles.isWrongPermissionsSelectError}>
                 {t(TranslationKey['The selected permissions and the current role do not match!'])}
               </Typography>
             )}
-            <div className={classNames.checkboxWrapper}>
+            <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
                 disabled={
@@ -672,10 +666,10 @@ export const AdminUserEditContent = observer(
                 checked={formFields.fba}
                 onChange={onChangeFormField('fba')}
               />
-              <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
+              <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
             </div>
 
-            <div className={classNames.checkboxWrapper}>
+            <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
                 disabled={
@@ -686,45 +680,43 @@ export const AdminUserEditContent = observer(
                 checked={formFields.canByMasterUser}
                 onChange={onChangeFormField('canByMasterUser')}
               />
-              <Typography className={classNames.checkboxLabel}>
-                {t(TranslationKey['Can be the master user'])}
-              </Typography>
+              <Typography className={styles.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
             </div>
 
-            <div className={classNames.checkboxWrapper}>
+            <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
                 disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
                 checked={formFields.hideSuppliers}
                 onChange={onChangeFormField('hideSuppliers')}
               />
-              <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
+              <Typography className={styles.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
             </div>
 
-            <div className={classNames.checkboxWrapper}>
+            <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
                 disabled={`${formFields.role}` !== `${mapUserRoleEnumToKey[UserRole.STOREKEEPER]}`}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />
-              <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
+              <Typography className={styles.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
             </div>
           </div>
         </div>
 
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <Button
             success
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
-            className={[classNames.button, classNames.rightBtn]}
+            className={[styles.button, styles.rightBtn]}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
           <Button
-            className={[classNames.button, classNames.rightBtn, classNames.cancelBtn]}
+            className={[styles.button, styles.rightBtn, styles.cancelBtn]}
             variant="text"
             onClick={() => {
               onClickCancelBtn()

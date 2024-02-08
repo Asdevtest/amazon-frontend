@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
+    width: '100%',
   },
 
   preloader: {

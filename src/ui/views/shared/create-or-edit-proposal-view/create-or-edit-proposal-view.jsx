@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
   const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history, location }))
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CreateOrEditProposalContent
         progressValue={viewModel.progressValue}
         showProgress={viewModel.showProgress}
@@ -48,6 +48,6 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
         btnText={t(TranslationKey.Ok)}
         onClickBtn={viewModel.onClickOkInfoModal}
       />
-    </React.Fragment>
+    </Fragment>
   )
 })

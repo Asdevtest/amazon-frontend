@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
@@ -19,7 +19,7 @@ export const WarehouseTasksView = observer(({ history }) => {
   const [viewModel] = useState(() => new WarehouseTasksViewModel({ history }))
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div>
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
@@ -65,6 +65,6 @@ export const WarehouseTasksView = observer(({ history }) => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 })

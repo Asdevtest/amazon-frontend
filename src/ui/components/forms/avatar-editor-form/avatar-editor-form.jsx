@@ -1,24 +1,19 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './avatar-editor-form.style'
+import { useStyles } from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
-  const { classes: classNames } = useClassNames()
-
+  const { classes: styles, theme, cx } = useStyles()
   const [showInfoModal, setShowInfoModal] = useState(false)
 
   const [showInfoModalText, setShowInfoModalText] = useState('')
@@ -58,66 +53,69 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
     }
   }
 
+  const labelStyle = {
+    width: '100%',
+    backgroundColor: theme.palette.background.chatIncomeMessage,
+    textAlign: 'center',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    color: theme.palette.text.general,
+  }
+
+  const borderStyle = {
+    border: `3px dashed ${theme.palette.primary.main}`,
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+  }
+
   return (
-    <div className={classNames.root}>
-      <Typography variant="h4" className={classNames.mainTitle}>
+    <div className={styles.root}>
+      <Typography variant="h4" className={styles.mainTitle}>
         {t(TranslationKey.Load)}
       </Typography>
 
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.avatarWrapper}>
+      <div className={styles.mainWrapper}>
+        <div className={styles.avatarWrapper}>
           <Avatar
             width={320}
             height={210}
             imageWidth={320}
             // imageHeight={210}
-            labelStyle={{
-              width: '100%',
-              backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
-              textAlign: 'center',
-              transition: '0.3s ease',
-              cursor: 'pointer',
-              color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-            }}
-            borderStyle={{
-              border: ' 3px dashed rgba(0,123, 255, .7)',
-              transition: '0.3s ease',
-              cursor: 'pointer',
-              borderRadius: '10px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
+            labelStyle={labelStyle}
+            borderStyle={borderStyle}
             onCrop={onCrop}
             onClose={onClose}
             onBeforeFileLoad={onBeforeFileLoad}
           />
         </div>
 
-        <div className={classNames.imgWrapper}>
-          <AvatarMui className={classNames.img} src={state.preview} />
+        <div className={styles.imgWrapper}>
+          <AvatarMui className={styles.img} src={state.preview} />
         </div>
       </div>
 
-      <div className={classNames.textsWrapper}>
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
-          {t(TranslationKey['The image size should not exceed'])}{' '}
-          {<span className={classNames.spanText}>{'15 mb.'}</span>}
+      <div className={styles.textsWrapper}>
+        <Typography className={cx(styles.standartText, { [styles.successText]: state.preview })}>
+          {t(TranslationKey['The image size should not exceed'])} {<span className={styles.spanText}>{'15 mb.'}</span>}
         </Typography>
 
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <Typography className={cx(styles.standartText, { [styles.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
         </Typography>
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button disabled={!state.preview} onClick={() => onSubmit(state.preview)}>
           {t(TranslationKey.Load)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

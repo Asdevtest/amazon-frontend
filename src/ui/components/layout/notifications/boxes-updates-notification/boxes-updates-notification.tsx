@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { History } from 'history'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Avatar, Link, Typography } from '@mui/material'
 
@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { useBoxNotificationStyles } from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.styles'
+import { useBoxNotificationStyles } from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.style'
 
 import { t } from '@utils/translations'
 

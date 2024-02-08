@@ -1,19 +1,18 @@
-import { cx } from '@emotion/css'
-
 import { Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByRequestStatus } from '@constants/requests/request-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { useRequestTermsListStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.styles'
+import { useStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.style'
 import { Field } from '@components/shared/field'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -22,12 +21,12 @@ import { t } from '@utils/translations'
 
 export const RequestTermsList = props => {
   const { request, wrapperClassName, withBorder } = props
-  const { classes: styles } = useRequestTermsListStyles()
+  const { classes: styles, cx } = useStyles()
 
   const getDeadlineColor = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return styles.redColor
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return styles.yellowColor
     }
   }
@@ -75,7 +74,7 @@ export const RequestTermsList = props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Status)}
           inputComponent={
-            <p className={styles.accentText} style={{ color: colorByRequestStatus(request?.status) }}>
+            <p className={styles.accentText} style={{ color: colorByStatus(request?.status) }}>
               {MyRequestStatusTranslate(request?.status)}
             </p>
           }

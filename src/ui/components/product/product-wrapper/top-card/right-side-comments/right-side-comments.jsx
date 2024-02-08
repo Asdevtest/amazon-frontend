@@ -20,7 +20,7 @@ import {
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { useClassNames } from './right-side-comments.style'
+import { useStyles } from './right-side-comments.style'
 
 import { ProductStatusButtons } from './product-status-buttons'
 
@@ -48,21 +48,21 @@ export const RightSideComments = memo(
     acceptMessage,
     showAcceptMessage,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
     return (
-      <div className={classNames.rightBoxCommentsWrapper}>
-        <div className={classNames.rightBoxComments}>
-          <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
+      <div className={styles.rightBoxCommentsWrapper}>
+        <div className={styles.rightBoxComments}>
+          <Typography className={styles.title}>{t(TranslationKey.Comments)}</Typography>
 
           <Field
             multiline
             disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
             error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
-            className={cx(classNames.heightFieldAuto, {
-              [classNames.errorActive]: formFieldsValidationErrors.icomment,
+            className={cx(styles.heightFieldAuto, {
+              [styles.errorActive]: formFieldsValidationErrors.icomment,
             })}
             inputProps={{ maxLength: 1000 }}
             minRows={4}
@@ -76,8 +76,8 @@ export const RightSideComments = memo(
             multiline
             disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
             error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
-            className={cx(classNames.heightFieldAuto, {
-              [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
+            className={cx(styles.heightFieldAuto, {
+              [styles.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
             inputProps={{ maxLength: 1000 }}
             minRows={4}
@@ -93,8 +93,8 @@ export const RightSideComments = memo(
                 multiline
                 disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
                 error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
-                className={cx(classNames.heightFieldAuto, {
-                  [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
+                className={cx(styles.heightFieldAuto, {
+                  [styles.errorActive]: formFieldsValidationErrors.buyersComment,
                 })}
                 inputProps={{ maxLength: 1000 }}
                 minRows={4}
@@ -107,8 +107,8 @@ export const RightSideComments = memo(
               <Field
                 multiline
                 disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-                className={cx(classNames.heightFieldAuto, {
-                  // [classNames.errorActive]: formFieldsValidationErrors.icomment,
+                className={cx(styles.heightFieldAuto, {
+                  // [styles.errorActive]: formFieldsValidationErrors.icomment,
                 })}
                 inputProps={{ maxLength: 1000 }}
                 minRows={4}
@@ -132,11 +132,11 @@ export const RightSideComments = memo(
               )}
 
               {showActionBtns ? (
-                <div className={classNames.buttonsWrapper}>
+                <div className={styles.buttonsWrapper}>
                   {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
                     <Button
                       tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
-                      className={classNames.buttonDelete}
+                      className={styles.buttonDelete}
                       variant="contained"
                       onClick={() => handleProductActionButtons('delete')}
                     >
@@ -149,7 +149,7 @@ export const RightSideComments = memo(
                   checkIsBuyer(curUserRole) ? null : (
                     <Button
                       tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
-                      className={cx(classNames.buttonNormal, classNames.buttonAccept)}
+                      className={cx(styles.buttonNormal, styles.buttonAccept)}
                       color="primary"
                       variant="contained"
                       onClick={() => handleProductActionButtons('accept', false)}
@@ -165,7 +165,7 @@ export const RightSideComments = memo(
                         curUserRole,
                       )}
                       disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-                      className={classNames.buttonNormal}
+                      className={styles.buttonNormal}
                       variant="contained"
                       onClick={
                         checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
@@ -179,8 +179,8 @@ export const RightSideComments = memo(
 
                   <Button
                     tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
-                    className={cx(classNames.buttonClose, {
-                      [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                    className={cx(styles.buttonClose, {
+                      [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                     })}
                     variant="contained"
                     onClick={() => handleProductActionButtons('cancel')}
@@ -190,7 +190,7 @@ export const RightSideComments = memo(
 
                   {checkIsClient(curUserRole) && product.archive && (
                     <Button
-                      className={classNames.restoreBtn}
+                      className={styles.restoreBtn}
                       color="primary"
                       variant="contained"
                       onClick={() => handleProductActionButtons('restore')}
@@ -200,11 +200,11 @@ export const RightSideComments = memo(
                   )}
                 </div>
               ) : (
-                <div className={classNames.buttonWrapper}>
+                <div className={styles.buttonWrapper}>
                   <Button
                     tooltipInfoContent={t(TranslationKey['Close product card'])}
-                    className={cx(classNames.buttonClose, {
-                      [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                    className={cx(styles.buttonClose, {
+                      [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                     })}
                     variant="contained"
                     onClick={() => handleProductActionButtons('cancel')}
@@ -220,7 +220,7 @@ export const RightSideComments = memo(
             <AlertShield
               showAcceptMessage={showAcceptMessage}
               acceptMessage={acceptMessage}
-              alertShieldWrapperStyle={classNames.alertShieldWrapperStyle}
+              alertShieldWrapperStyle={styles.alertShieldWrapperStyle}
             />
           )}
         </div>

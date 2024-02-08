@@ -1,16 +1,15 @@
-import { cx } from '@emotion/css'
-
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { colorByRequestStatus } from '@constants/requests/request-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -23,33 +22,33 @@ import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
-import { useClassNames } from './vacant-request-short-card.style'
+import { useStyles } from './vacant-request-short-card.style'
 
 export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, isFirst }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const getCardClassName = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
-      return classNames.redBackground
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
-      return classNames.yellowBackground
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
+      return styles.redBackground
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
+      return styles.yellowBackground
     }
   }
 
   const getDeadlineColor = timeoutAt => {
-    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 86400) {
-      return classNames.redColor
-    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= 172800) {
-      return classNames.yellowColor
+    if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS) {
+      return styles.redColor
+    } else if (getDistanceBetweenDatesInSeconds(timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
+      return styles.yellowColor
     }
   }
 
   return (
     <div
-      className={cx(classNames.cardWrapper, getCardClassName(item.timeoutAt))}
+      className={cx(styles.cardWrapper, getCardClassName(item.timeoutAt))}
       onDoubleClick={() => onDoubleClick(item._id)}
     >
-      <div className={classNames.cardHeader}>
+      <div className={styles.cardHeader}>
         <UserLink
           blueText
           withAvatar
@@ -62,34 +61,34 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
           customRatingClass={{ fontSize: 20, opacity: 1 }}
         />
 
-        <div className={classNames.idAndPriorityWrapper}>
-          <div className={classNames.idWrapper}>
-            <Typography className={classNames.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
-            <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
+        <div className={styles.idAndPriorityWrapper}>
+          <div className={styles.idWrapper}>
+            <Typography className={styles.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
+            <Typography className={cx(styles.idTitle, styles.idText)}>{item.humanFriendlyId}</Typography>
           </div>
 
           {Number(item?.priority) === requestPriority.urgentPriority && (
-            <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            <img className={styles.priorityIcon} src="/assets/icons/fire.svg" />
           )}
         </div>
       </div>
 
       <OrderCell withoutSku imageSize={'small'} product={item.product} />
 
-      <div className={classNames.cardTitleBlockWrapper}>
-        <Typography className={classNames.cardTitle}>{item.title}</Typography>
+      <div className={styles.cardTitleBlockWrapper}>
+        <Typography className={styles.cardTitle}>{item.title}</Typography>
       </div>
 
-      <div className={classNames.cardActionBlockWrapper}>
-        <div className={classNames.mainInfosWrapper}>
+      <div className={styles.cardActionBlockWrapper}>
+        <div className={styles.mainInfosWrapper}>
           <div>
             {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
+                labelClasses={styles.fieldLabel}
+                containerClasses={styles.fieldContainer}
                 label={t(TranslationKey['Product price'])}
                 inputComponent={
-                  <div className={classNames.priceAmazonWrapper}>
+                  <div className={styles.priceAmazonWrapper}>
                     <VacantRequestPriceCell
                       AlignLeft
                       price={item.priceAmazon}
@@ -101,33 +100,31 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
             ) : null}
 
             <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Request price'])}
               inputComponent={
-                <Typography className={classNames.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+                <Typography className={styles.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
               }
             />
 
             <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey.Time)}
               inputComponent={
-                <Typography className={cx(classNames.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
+                <Typography className={cx(styles.accentText, getDeadlineColor(item?.timeoutAt))}>{`${Math.round(
                   getDistanceBetweenDatesInSeconds(item?.timeoutAt) / 3600,
                 )} ${t(TranslationKey.hour)} `}</Typography>
               }
             />
 
             <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey.Updated)}
               inputComponent={
-                <Typography className={classNames.accentText}>
-                  {formatNormDateTimeWithParseISO(item.updatedAt)}
-                </Typography>
+                <Typography className={styles.accentText}>{formatNormDateTimeWithParseISO(item.updatedAt)}</Typography>
               }
             />
           </div>
@@ -135,11 +132,11 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
           <div>
             {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
-                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-                containerClasses={classNames.fieldContainer}
+                labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
+                containerClasses={styles.fieldContainer}
                 label={'CashBack'}
                 inputComponent={
-                  <Typography className={cx(classNames.accentText, classNames.rightText)}>
+                  <Typography className={cx(styles.accentText, styles.rightText)}>
                     {toFixed(item.cashBackInPercent, 2) + '%'}
                   </Typography>
                 }
@@ -147,13 +144,13 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
             ) : null}
 
             <Field
-              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey.Status)}
               inputComponent={
                 <Typography
-                  className={cx(classNames.accentText, classNames.rightText)}
-                  style={{ color: colorByRequestStatus(item.status) }}
+                  className={cx(styles.accentText, styles.rightText)}
+                  style={{ color: colorByStatus(item.status) }}
                 >
                   {MyRequestStatusTranslate(item.status)}
                 </Typography>
@@ -161,22 +158,22 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
             />
 
             <Field
-              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Request type'])}
               inputComponent={
-                <Typography className={cx(classNames.accentText, classNames.rightText)}>
+                <Typography className={cx(styles.accentText, styles.rightText)}>
                   {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
                 </Typography>
               }
             />
             <Field
-              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-              containerClasses={classNames.fieldContainer}
+              labelClasses={cx(styles.fieldLabel, styles.rightLieldLabel)}
+              containerClasses={styles.fieldContainer}
               label={t(TranslationKey.Deadline)}
               inputComponent={
                 <Typography
-                  className={cx(classNames.accentText, classNames.rightText, classNames.dontWrapText)}
+                  className={cx(styles.accentText, styles.rightText, styles.dontWrapText)}
                 >{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
               }
             />
@@ -187,12 +184,12 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
           tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
           variant="contained"
           color="primary"
-          className={classNames.actionButton}
+          className={styles.actionButton}
           onClick={() => onClickViewMore(item._id)}
         >
           {t(TranslationKey.Details)}
         </Button>
-        <Typography className={classNames.cardSubTitle}>
+        <Typography className={styles.cardSubTitle}>
           {translateProposalsLeftMessage(
             item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
             item?.maxAmountOfProposals,

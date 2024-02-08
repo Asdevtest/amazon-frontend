@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,42 +16,47 @@ import { useStyles } from './download-and-copy-btns-cell.style'
 interface DownloadAndCopyBtnsCellProps {
   value: string
   isFirstRow?: boolean
+  showViewTooltip?: boolean
 }
 
-export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = React.memo(({ value, isFirstRow }) => {
-  const { classes: styles, cx } = useStyles()
+export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
+  ({ value, isFirstRow, showViewTooltip = true }) => {
+    const { classes: styles, cx } = useStyles()
 
-  const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
+    const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
 
-  return (
-    <>
-      {value ? (
-        <div className={styles.shopsReportBtnsWrapper}>
-          <div className={cx({ [styles.tooltipWrapperMargin]: isFirstRow })}>
-            <Text tooltipInfoContent={isFirstRow ? t(TranslationKey['Download the file to your device']) : ''}>
-              <a
-                download
-                target={'_blank'}
-                rel={'noreferrer'}
-                href={validLink}
-                className={styles.downloadLink}
-                onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
-              >
-                {t(TranslationKey.View)}
-              </a>
-            </Text>
+    const isShowViewTooltip = isFirstRow && showViewTooltip
+
+    return (
+      <>
+        {value ? (
+          <div className={styles.shopsReportBtnsWrapper}>
+            <div className={cx({ [styles.tooltipWrapperMargin]: isShowViewTooltip })}>
+              <Text tooltipInfoContent={isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href={validLink}
+                  className={styles.downloadLink}
+                  onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
+                >
+                  {t(TranslationKey.View)}
+                </a>
+              </Text>
+            </div>
+
+            <Button
+              tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
+              className={styles.copyImgButton}
+            >
+              <CopyValue text={validLink} />
+            </Button>
           </div>
-
-          <Button
-            tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
-            className={styles.copyImgButton}
-          >
-            <CopyValue text={validLink} />
-          </Button>
-        </div>
-      ) : (
-        <p>{'-'}</p>
-      )}
-    </>
-  )
-})
+        ) : (
+          <p>{'-'}</p>
+        )}
+      </>
+    )
+  },
+)

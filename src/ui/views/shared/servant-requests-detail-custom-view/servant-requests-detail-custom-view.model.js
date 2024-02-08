@@ -164,14 +164,14 @@ export class RequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.getCustomRequestById()
       this.getRequestProposals()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -200,7 +200,7 @@ export class RequestDetailCustomViewModel {
         crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
-        files: files?.map(item => item?.file),
+        files,
         user: {
           name: UserModel.userInfo.name,
           _id: UserModel.userInfo._id,

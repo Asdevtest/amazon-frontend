@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -22,11 +21,11 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-logistic-tariff-form.style'
+import { useStyles } from './add-or-edit-logistic-tariff-form.style'
 
 export const AddOrEditLogisticTariffForm = observer(
   ({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [currencyType, setCurrencyType] = useState(currencyTypes.YUAN)
 
@@ -202,19 +201,19 @@ export const AddOrEditLogisticTariffForm = observer(
       submitIsClicked
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.modalTitle}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.modalTitle}>
           {t(TranslationKey['Adding tariff'])}
         </Typography>
 
-        <div className={classNames.form}>
-          <div className={classNames.nameDeliveryWrapper}>
+        <div className={styles.form}>
+          <div className={styles.nameDeliveryWrapper}>
             <Field
               label={t(TranslationKey.Title) + '*'}
               tooltipInfoContent={t(TranslationKey['Rate name'])}
               inputProps={{ maxLength: 50 }}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.longContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.longContainer}
               value={formFields.name}
               placeholder={t(TranslationKey.Title)}
               onChange={onChangeField('name')}
@@ -225,8 +224,8 @@ export const AddOrEditLogisticTariffForm = observer(
               error={!formFields.deliveryTimeInDay}
               tooltipInfoContent={t(TranslationKey['Approximate delivery time'])}
               inputProps={{ maxLength: 20 }}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.longContainer}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.longContainer}
               value={formFields.deliveryTimeInDay}
               onChange={onChangeField('deliveryTimeInDay')}
             />
@@ -236,18 +235,18 @@ export const AddOrEditLogisticTariffForm = observer(
             label={t(TranslationKey['Min. weight, kg']) + '*'}
             tooltipInfoContent={t(TranslationKey['Minimum box weight available for this rate'])}
             inputProps={{ maxLength: 12 }}
-            labelClasses={classNames.fieldLabel}
-            containerClasses={classNames.longContainer}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.longContainer}
             value={formFields.minWeightInKg}
             onChange={onChangeField('minWeightInKg')}
           />
 
-          <div className={classNames.costBlock}>
-            <div className={classNames.costSubBlock}>
-              <div className={classNames.ratesTitleWrapper}>
+          <div className={styles.costBlock}>
+            <div className={styles.costSubBlock}>
+              <div className={styles.ratesTitleWrapper}>
                 <Text
                   tooltipInfoContent={t(TranslationKey['Shipping cost per kilogram to the region'])}
-                  className={classNames.rateTitle}
+                  className={styles.rateTitle}
                 >
                   {t(TranslationKey.Rates)}
                 </Text>
@@ -270,15 +269,15 @@ export const AddOrEditLogisticTariffForm = observer(
                 </div>
               </div>
 
-              <div className={classNames.courseWrapper}>
+              <div className={styles.courseWrapper}>
                 <Field
                   oneLine
                   disabled
                   label={t(TranslationKey['Current exchange rate'])}
                   tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
-                  containerClasses={classNames.rateContainer}
-                  labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-                  inputClasses={classNames.middleInput}
+                  containerClasses={styles.rateContainer}
+                  labelClasses={cx(styles.rateLabel, styles.rightMargin)}
+                  inputClasses={styles.middleInput}
                   value={sourceYuanToDollarRate}
                 />
 
@@ -287,22 +286,22 @@ export const AddOrEditLogisticTariffForm = observer(
                   label={t(TranslationKey['Yuan to USD exchange rate'])}
                   inputProps={{ maxLength: 8 }}
                   tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-                  containerClasses={classNames.rateContainer}
-                  labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-                  inputClasses={classNames.middleInput}
+                  containerClasses={styles.rateContainer}
+                  labelClasses={cx(styles.rateLabel, styles.rightMargin)}
+                  inputClasses={styles.middleInput}
                   value={formFields.conditionsByRegion.yuanToDollarRate}
                   onChange={onChangeField('yuanToDollarRate')}
                 />
               </div>
             </div>
 
-            <div className={classNames.blockWrapper}>
-              <div className={classNames.blockItem}>
+            <div className={styles.blockWrapper}>
+              <div className={styles.blockItem}>
                 <Field
                   label={`US West Coast ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.west.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
-                  labelClasses={classNames.fieldLabel}
+                  labelClasses={styles.fieldLabel}
                   value={formFields.conditionsByRegion.west.rate}
                   onChange={e => {
                     if (
@@ -315,12 +314,12 @@ export const AddOrEditLogisticTariffForm = observer(
                 />
               </div>
 
-              <div className={classNames.blockItem}>
+              <div className={styles.blockItem}>
                 <Field
                   label={`US Central ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.central.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
-                  labelClasses={classNames.fieldLabel}
+                  labelClasses={styles.fieldLabel}
                   value={formFields.conditionsByRegion.central.rate}
                   onChange={e => {
                     if (
@@ -333,12 +332,12 @@ export const AddOrEditLogisticTariffForm = observer(
                 />
               </div>
 
-              <div className={classNames.blockItem}>
+              <div className={styles.blockItem}>
                 <Field
                   label={`US East Coast ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.east.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
-                  labelClasses={classNames.fieldLabel}
+                  labelClasses={styles.fieldLabel}
                   value={formFields.conditionsByRegion.east.rate}
                   onChange={e => {
                     if (
@@ -352,25 +351,25 @@ export const AddOrEditLogisticTariffForm = observer(
               </div>
             </div>
 
-            <Typography variant="h5" className={classNames.modalSubTitle}>
+            <Typography variant="h5" className={styles.modalSubTitle}>
               {t(TranslationKey['Shipping dates'])}
             </Typography>
 
-            <div className={classNames.blockWrapper}>
-              <div className={classNames.blockItem}>
+            <div className={styles.blockWrapper}>
+              <div className={styles.blockItem}>
                 <Field
                   label={t(TranslationKey['CLS (batch closing date)'])}
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.blockItemContainer}
+                  labelClasses={styles.fieldLabel}
+                  containerClasses={styles.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({
-                        [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                        [styles.deadlineError]: checkDateByDeadline(formFields.cls),
                       })}
                     >
                       <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
                       {checkDateByDeadline(formFields.cls) && (
-                        <p className={classNames.deadlineErrorText}>
+                        <p className={styles.deadlineErrorText}>
                           {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                         </p>
                       )}
@@ -379,21 +378,21 @@ export const AddOrEditLogisticTariffForm = observer(
                 />
               </div>
 
-              <div className={classNames.blockItem}>
+              <div className={styles.blockItem}>
                 <Field
                   label={t(TranslationKey['ETD (date of shipment)'])}
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.blockItemContainer}
+                  labelClasses={styles.fieldLabel}
+                  containerClasses={styles.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({
-                        [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
+                        [styles.deadlineError]: checkDateByDeadline(formFields.etd),
                       })}
                     >
                       <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
 
                       {checkDateByDeadline(formFields.etd) && (
-                        <p className={classNames.deadlineErrorText}>
+                        <p className={styles.deadlineErrorText}>
                           {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                         </p>
                       )}
@@ -402,20 +401,20 @@ export const AddOrEditLogisticTariffForm = observer(
                 />
               </div>
 
-              <div className={classNames.blockItem}>
+              <div className={styles.blockItem}>
                 <Field
                   label={t(TranslationKey['ETA (arrival date)'])}
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.blockItemContainer}
+                  labelClasses={styles.fieldLabel}
+                  containerClasses={styles.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({
-                        [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
+                        [styles.deadlineError]: checkDateByDeadline(formFields.eta),
                       })}
                     >
                       <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                       {checkDateByDeadline(formFields.eta) && (
-                        <p className={classNames.deadlineErrorText}>
+                        <p className={styles.deadlineErrorText}>
                           {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                         </p>
                       )}
@@ -424,36 +423,32 @@ export const AddOrEditLogisticTariffForm = observer(
                 />
               </div>
             </div>
-            <div className={classNames.descriptionFieldWrapper}>
+            <div className={styles.descriptionFieldWrapper}>
               <Field
                 multiline
                 minRows={4}
                 maxRows={4}
-                labelClasses={classNames.fieldLabel}
-                inputProps={{ maxLength: 320 }}
-                className={classNames.descriptionField}
+                labelClasses={styles.fieldLabel}
+                inputProps={{ maxLength: 255 }}
+                className={styles.descriptionField}
                 tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
                 placeholder={t(TranslationKey.Description)}
                 label={t(TranslationKey.Description)}
                 value={formFields.description}
                 onChange={onChangeField('description')}
               />
-              <span
-                className={cx(classNames.standartText, { [classNames.error]: formFields.description.length > 255 })}
-              >{`${formFields.description.length} ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
+              <span className={cx(styles.standartText, { [styles.error]: formFields.description.length > 255 })}>{`${
+                formFields.description.length
+              } ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
             </div>
           </div>
 
-          <div className={classNames.btnsWrapper}>
-            <Button success disabled={disableSubmitBtn} className={classNames.button} onClick={onSubmit}>
+          <div className={styles.btnsWrapper}>
+            <Button success disabled={disableSubmitBtn} className={styles.button} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              className={cx(classNames.button, classNames.cancelBtn)}
-              variant="text"
-              onClick={() => onCloseModal()}
-            >
+            <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onCloseModal()}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

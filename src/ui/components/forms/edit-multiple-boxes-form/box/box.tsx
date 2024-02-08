@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -49,7 +49,7 @@ interface BoxProps {
   onChangeField: (e: any, field: string, boxId: string, itemIndex?: number) => void
 }
 
-export const Box: FC<BoxProps> = React.memo(props => {
+export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     userInfo,
@@ -265,8 +265,8 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     <p className={styles.asinValue}>{box.humanFriendlyId}</p>
                   </div>
 
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={order.product.skuByClient} />
 
                   <p className={styles.title}>{order.product.amazonTitle}</p>
 

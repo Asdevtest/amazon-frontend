@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -26,21 +26,21 @@ export const AdminDestinationsViewRaw = props => {
         location: props.location,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div className={classNames.placeAddBtnWrapper}>
+    <>
+      <div className={styles.placeAddBtnWrapper}>
         <Button success onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add a destination'])}
         </Button>
       </div>
 
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -52,7 +52,7 @@ export const AdminDestinationsViewRaw = props => {
           rowHeight={120}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
@@ -83,7 +83,7 @@ export const AdminDestinationsViewRaw = props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 }
 

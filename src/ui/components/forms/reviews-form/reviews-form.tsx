@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 import { FeedbackType } from '@typings/feedback'
 import { IShortUser } from '@typings/master-user'
 
-import { useStyles } from './reviews-form.styles'
+import { useStyles } from './reviews-form.style'
 
 interface ReviewsFormProps {
   reviews: FeedbackType[]

@@ -14,12 +14,12 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './single-permissions.style'
+import { useStyles } from './single-permissions.style'
 
 import { SinglePermissionsModel } from './single-permissions.model'
 
 export const SinglePermissions = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const spModel = useRef(new SinglePermissionsModel({ history }))
 
@@ -53,13 +53,13 @@ export const SinglePermissions = observer(() => {
   } = spModel.current
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button success className={classNames.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <Button success className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -69,6 +69,8 @@ export const SinglePermissions = observer(() => {
           paginationModel={paginationModel}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
+          sortingMode="client"
+          paginationMode="client"
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -83,7 +85,7 @@ export const SinglePermissions = observer(() => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.isLoading}
+          loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={onChangePaginationModelChange}
           onFilterModelChange={onChangeFilterModel}

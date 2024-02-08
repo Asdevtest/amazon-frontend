@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
@@ -37,7 +37,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
     params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <TaskPrioritySelector
@@ -99,7 +99,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -167,6 +167,6 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
         onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

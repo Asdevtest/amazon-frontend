@@ -17,7 +17,7 @@ import { useStyles } from './admin-orders-views.style'
 import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 
 export const AdminOrdersViews = observer(({ history }) => {
-  const { classes: classNames } = useStyles()
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new AdminOrdersAllViewModel({ history }))
 
   useEffect(() => {
@@ -26,22 +26,22 @@ export const AdminOrdersViews = observer(({ history }) => {
 
   return (
     <div>
-      <div className={classNames.searchContainer}>
+      <div className={styles.searchContainer}>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />
       </div>
-      <div className={classNames.filterBtnWrapper}>
+      <div className={styles.filterBtnWrapper}>
         <CustomSwitcher
           switchMode={'medium'}
           condition={viewModel.activeSubCategory}
-          switcherSettings={adminOrdersBtnsConfig}
+          switcherSettings={[...adminOrdersBtnsConfig]}
           changeConditionHandler={viewModel.onChangeSubCategory}
         />
       </div>
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -72,7 +72,7 @@ export const AdminOrdersViews = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection[0])}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

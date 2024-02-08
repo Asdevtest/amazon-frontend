@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 
@@ -10,7 +10,7 @@ interface RedFlagsCellProps {
   flags: Flag[]
 }
 
-export const RedFlagsCell: FC<RedFlagsCellProps> = React.memo(({ flags }) => {
+export const RedFlagsCell: FC<RedFlagsCellProps> = memo(({ flags }) => {
   const { classes: styles } = useStyles()
 
   return (

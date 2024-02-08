@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 
 import { CopyValue } from '@components/shared/copy-value'
-import { useStyles } from '@components/shared/link-with-copy/link-with-copy.styles'
+import { useStyles } from '@components/shared/link-with-copy/link-with-copy.style'
 
 interface LinkWithCopyProps {
   url: string
@@ -18,7 +18,7 @@ export const LinkWithCopy: FC<LinkWithCopyProps> = memo(props => {
     <div className={styles.wrapper}>
       <a
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
         href={url}
         className={cx(styles.normalizeLink, { [styles.mediumSizeLinkText]: linkTextSize === 'medium' })}
       >

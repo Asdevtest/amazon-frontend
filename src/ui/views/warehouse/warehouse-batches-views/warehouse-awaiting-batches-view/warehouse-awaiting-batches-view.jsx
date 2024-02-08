@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
@@ -27,7 +27,7 @@ import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -41,10 +41,10 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
       .join(', ')
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.btnsWrapper}>
-          <div className={classNames.leftBtnsWrapper}>
+        <div className={styles.btnsWrapper}>
+          <div className={styles.leftBtnsWrapper}>
             <Button
               disabled={
                 !viewModel.selectedBatches.length ||
@@ -60,7 +60,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
               tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
               color="primary"
               variant="contained"
-              className={classNames.batchBtn}
+              className={styles.batchBtn}
               onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
             >
               {t(TranslationKey['Confirm send to batch'])}
@@ -68,7 +68,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
 
             <Button
               disabled={viewModel.selectedBatches.length !== 1}
-              className={classNames.editBtn}
+              className={styles.editBtn}
               tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
               color="primary"
               variant="contained"
@@ -78,7 +78,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             </Button>
           </div>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])} // В ОТРАВЛ
             onSubmit={viewModel.onSearchSubmit}
@@ -87,18 +87,20 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
           <Button
             success
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
-            className={classNames.createBtn}
+            className={styles.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
             <AddIcon />
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedBatches}
             rowCount={viewModel.rowCount}
@@ -110,7 +112,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -196,7 +198,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
       />
 
       {viewModel.showCircularProgress ? <CircularProgressWithLabel /> : null}
-    </React.Fragment>
+    </>
   )
 }
 

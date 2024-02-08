@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     marginTop: 29,
     padding: '20px 0',
@@ -99,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 30,
+    gap: 10,
   },
 
   checkboxContainer: {
@@ -123,7 +123,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberBtn: {
-    width: '100%',
+    width: 'max-content',
   },
 
   trackNumberPhoto: {

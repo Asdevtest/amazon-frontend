@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -18,7 +18,7 @@ import { AdminInventoryViewModel } from './admin-inventory-view.model'
 
 export const AdminInventoryViewRaw = props => {
   const [viewModel] = useState(() => new AdminInventoryViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.getProducts()
@@ -26,16 +26,16 @@ export const AdminInventoryViewRaw = props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.topHeaderBtnsWrapper}>
+        <div className={styles.topHeaderBtnsWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             useResizeContainer
             sortingMode="server"
@@ -48,7 +48,7 @@ export const AdminInventoryViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rowHeight={100}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -90,7 +90,7 @@ export const AdminInventoryViewRaw = props => {
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
-    </React.Fragment>
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { useStyles } from './tag-selector.styles'
+import { useStyles } from './tag-selector.style'
 
 interface OptionProps {
   option: string

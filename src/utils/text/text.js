@@ -11,6 +11,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUTES_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
@@ -26,7 +27,7 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
+export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 
@@ -88,11 +89,11 @@ export const minsToTime = mins => {
 }
 
 export const secondsToTime = secs => {
-  if (secs >= 60) {
-    const days = Math.floor(secs / 86400)
-    const hours = Math.floor((secs % 86400) / 3600)
-    const minutes = Math.floor((secs % 3600) / 60)
-    const seconds = Math.floor(secs % 60)
+  if (secs >= ONE_MINUTES_IN_SECONDS) {
+    const days = Math.floor(secs / ONE_DAY_IN_SECONDS)
+    const hours = Math.floor((secs % ONE_DAY_IN_SECONDS) / ONE_HOUR_IN_SECONDS)
+    const minutes = Math.floor((secs % ONE_HOUR_IN_SECONDS) / ONE_HOUR_IN_MINUTES)
+    const seconds = Math.floor(secs % ONE_MINUTES_IN_SECONDS)
 
     return {
       days,
@@ -144,6 +145,7 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
+export const shortLink = value => getShortenStringIfLongerThanCount(value, 12)
 
 export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
@@ -251,6 +253,8 @@ export const getTableByColumn = (column, hint) => {
       'childProductSkuByClient',
       'childProductAsin',
       'shopId',
+      'shop',
+      'announcement',
       'strategyStatus',
       'amountInOrders',
       'stockUSA',
@@ -307,6 +311,8 @@ export const getTableByColumn = (column, hint) => {
       return 'ideas'
     } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
       return 'boxes'
+    } else if (['announcement'].includes(column) && hint === 'requests') {
+      return 'requests'
     }
     return 'products'
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
@@ -457,5 +463,21 @@ export const getHumanFriendlyNotificationType = type => {
 
     default:
       break
+  }
+}
+
+export const parseTextString = textValue => {
+  try {
+    if (textValue.startsWith('{"blocks":')) {
+      const parsedData = JSON.parse(textValue)
+
+      const texts = parsedData?.blocks?.map(block => block?.text)
+
+      return texts.join(' ')
+    } else {
+      return textValue
+    }
+  } catch (error) {
+    return textValue
   }
 }

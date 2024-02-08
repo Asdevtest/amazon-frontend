@@ -3,6 +3,7 @@ import {
   amazonImageUrlMiddlePostfix,
   amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
@@ -29,6 +30,8 @@ export const checkIsNumberWithDot = str => {
   return /^\d*\.?\d*$/.test(str)
 }
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
+export const checkIsPositiveOrNegativeDigit = str => /^-?\d*\.?\d+$/.test(Number(str)) || '-' === str
+
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''
   const indexOfDot = str.indexOf('.')
@@ -60,6 +63,12 @@ export const isHaveMasterUser = user => !!user.masterUser
 
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
+
+export const checkIsExternalVideoLink = url => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+
+  return youtubeRegex.test(url)
+}
 
 export const checkIsVideoLink = link =>
   link?.includes('.3g2') ||
@@ -99,7 +108,8 @@ export const checkIsVideoLink = link =>
   link?.includes('.webm') ||
   link?.includes('.wm') ||
   link?.includes('.wmv') ||
-  link?.includes('.yuv')
+  link?.includes('.yuv') ||
+  checkIsExternalVideoLink(link)
 
 export const checkIsImageLink = link =>
   link?.includes('png') ||
@@ -125,6 +135,8 @@ export const checkIsDocumentLink = link =>
   link?.includes('xlsx') ||
   link?.includes('xls') ||
   link?.includes('txt') ||
+  link?.includes('csv') ||
+  link?.includes('djvu') ||
   (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
   link?.includes('drive.google.com') ||
   link?.includes('docs.google.com')
@@ -185,3 +197,5 @@ export const checkIsImageInludesPostfixes = str =>
   [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64', 'placeimg.com'].some(
     item => str.includes(item),
   )
+
+export const checkIsValidBoxSize = field => !Number(field) || Number(field) > maxLengthInputInSizeBox

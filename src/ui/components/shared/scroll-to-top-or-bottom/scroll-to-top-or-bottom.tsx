@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { CSSProperties, FC } from 'react'
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-import { useClassNames } from './scroll-to-top-or-bottom.style'
+import { useStyles } from './scroll-to-top-or-bottom.style'
 
 interface ScrollToTopOrBottomProps {
   customStyles?: CSSProperties
@@ -16,7 +15,7 @@ interface ScrollToTopOrBottomProps {
 // сomponentWillScroll - компонент к границам которого будет происходить скролл
 
 export const ScrollToTopOrBottom: FC<ScrollToTopOrBottomProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const { customStyles, showScrollUp, showScrollDown, сomponentWillScroll } = props
 
   const scrollTo = (block: ScrollLogicalPosition): void => {
@@ -24,15 +23,15 @@ export const ScrollToTopOrBottom: FC<ScrollToTopOrBottomProps> = props => {
   }
 
   return (
-    <div className={classNames.root} style={customStyles}>
+    <div className={styles.root} style={customStyles}>
       {showScrollUp && (
-        <div className={classNames.arrowWrapper} onClick={() => scrollTo('start')}>
-          <KeyboardArrowUpIcon className={classNames.arrowIcon} />
+        <div className={styles.arrowWrapper} onClick={() => scrollTo('start')}>
+          <KeyboardArrowUpIcon className={styles.arrowIcon} />
         </div>
       )}
       {showScrollDown && (
-        <div className={classNames.arrowWrapper} onClick={() => scrollTo('end')}>
-          <KeyboardArrowUpIcon className={cx(classNames.arrowIcon, classNames.arrowIconRoteta)} />
+        <div className={styles.arrowWrapper} onClick={() => scrollTo('end')}>
+          <KeyboardArrowUpIcon className={cx(styles.arrowIcon, styles.arrowIconRoteta)} />
         </div>
       )}
     </div>

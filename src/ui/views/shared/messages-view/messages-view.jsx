@@ -69,7 +69,10 @@ export const MessagesView = observer(({ history }) => {
       }
     })
     .sort((a, b) => {
-      return compareDesc(parseISO(a.lastMessage?.createdAt), parseISO(b.lastMessage?.createdAt))
+      return compareDesc(
+        parseISO(a.lastMessage?.createdAt || a.createdAt),
+        parseISO(b.lastMessage?.createdAt || b.createdAt),
+      )
     })
 
   const findChatByChatId = filteredChats.find(chat => chat._id === viewModel.chatSelectedId)
@@ -171,8 +174,8 @@ export const MessagesView = observer(({ history }) => {
                       <div className={styles.opponentWrapper}>
                         <img src={getAmazonImageUrl(currentChat?.info?.image)} className={styles.avatar} />
                         <div>
-                          <p className={styles.opponentName}>{currentChat?.info.title}</p>
-                          <p className={styles.usersCount}>{`${currentChat?.users.length} ${t(
+                          <p className={styles.opponentName}>{currentChat?.info?.title}</p>
+                          <p className={styles.usersCount}>{`${currentChat?.users?.length} ${t(
                             TranslationKey.Members,
                           ).toLocaleLowerCase()}`}</p>
                         </div>
@@ -188,6 +191,8 @@ export const MessagesView = observer(({ history }) => {
 
                 <div className={styles.searchMessageContainer}>
                   <SearchInput
+                    tab={findChatByChatId?._id}
+                    value={viewModel.mesSearchValue}
                     inputClasses={cx(styles.searchInput, {
                       [styles.searchInputShort]: isTabletResolution && viewModel.mesSearchValue,
                     })}

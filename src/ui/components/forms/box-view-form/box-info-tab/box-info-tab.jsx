@@ -26,7 +26,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-info-tab.style'
+import { useStyles } from './box-info-tab.style'
 
 export const BoxInfoTab = observer(
   ({
@@ -38,7 +38,7 @@ export const BoxInfoTab = observer(
     calcFinalWeightForBoxFunction,
     onChangeField,
   }) => {
-    const { classes: styles, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
@@ -187,6 +187,7 @@ export const BoxInfoTab = observer(
                 <div className={styles.trackNumberFields}>
                   <Field
                     disabled={!isEdit}
+                    placeholder={t(TranslationKey['Not available'])}
                     inputClasses={styles.input}
                     // containerClasses={styles.field}
                     labelClasses={cx(styles.text, styles.label)}
@@ -207,7 +208,7 @@ export const BoxInfoTab = observer(
 
                 <div className={styles.trackNumberPhoto}>
                   {trackNumbers.length ? (
-                    <PhotoAndFilesSlider withoutFiles customSlideHeight={76} files={trackNumbers} />
+                    <PhotoAndFilesSlider showPreviews withAllFiles customSlideHeight={76} files={trackNumbers} />
                   ) : (
                     <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                   )}
@@ -218,21 +219,23 @@ export const BoxInfoTab = observer(
             <div className={styles.flexContainer}>
               <Field
                 disabled={isClient || isBuyer}
+                placeholder={t(TranslationKey['Not available'])}
                 inputClasses={styles.input}
                 containerClasses={cx(styles.field, styles.bigField)}
                 labelClasses={cx(styles.text, styles.label)}
                 inputProps={{ maxLength: 250 }}
                 label={'UPS Track number'}
-                value={formFields?.upsTrackNumber || t(TranslationKey['Not available'])}
+                value={formFields?.upsTrackNumber || ''}
                 onChange={onChangeField('upsTrackNumber')}
               />
               <Field
                 disabled
+                placeholder={t(TranslationKey['Not available'])}
                 inputClasses={styles.input}
                 containerClasses={cx(styles.field, styles.bigField)}
                 labelClasses={cx(styles.text, styles.label)}
                 label={t(TranslationKey['FBA Shipment'])}
-                value={formFields?.fbaShipment || t(TranslationKey['Not available'])}
+                value={formFields?.fbaShipment || ''}
               />
             </div>
           </div>

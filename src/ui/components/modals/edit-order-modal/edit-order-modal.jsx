@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
@@ -22,6 +21,7 @@ import {
 } from '@constants/orders/order-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -52,6 +52,7 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
   getShortenStringIfLongerThanCount,
+  parseTextString,
   timeToDeadlineInHoursAndMins,
   toFixed,
 } from '@utils/text'
@@ -124,7 +125,7 @@ export const EditOrderModal = memo(
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
@@ -166,8 +167,8 @@ export const EditOrderModal = memo(
     const initialState = {
       ...order,
       status: order?.status || undefined,
-      clientComment: order?.clientComment || '',
-      buyerComment: order?.buyerComment || '',
+      clientComment: parseTextString(order?.clientComment) || '',
+      buyerComment: parseTextString(order?.buyerComment) || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
@@ -473,7 +474,7 @@ export const EditOrderModal = memo(
     }
 
     const disableSubmit =
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields?.yuanToDollarRate ||
@@ -541,7 +542,7 @@ export const EditOrderModal = memo(
 
                     <Typography
                       className={cx(styles.deadlineText, {
-                        [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
+                        [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < ONE_DAY_IN_SECONDS,
                       })}
                     >
                       {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
@@ -1087,9 +1088,9 @@ export const EditOrderModal = memo(
           <ImageModal
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             isOpenModal={showPhotosModal}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
         )}
 

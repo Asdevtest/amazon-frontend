@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import { Fragment, useState } from 'react'
 
 import { Tabs } from '@mui/material'
 
@@ -12,24 +12,24 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './client-buy-shops-content.style'
+import { useStyles } from './client-buy-shops-content.style'
 
 import { ClientBuyShopsAds } from './client-buy-shops-ads'
 import { ClientBuyShopsDeals } from './client-buy-shops-deals'
 
 export const ClientBuyShopsContent = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
 
   return (
-    <React.Fragment>
+    <Fragment>
       {SettingsModel.languageTag && (
         <Tabs
           variant={'fullWidth'}
           classes={{
-            root: classNames.row,
-            indicator: classNames.indicator,
+            root: styles.row,
+            indicator: styles.indicator,
           }}
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
@@ -45,6 +45,6 @@ export const ClientBuyShopsContent = observer(() => {
       <TabPanel value={tabIndex} index={1}>
         <ClientBuyShopsDeals />
       </TabPanel>
-    </React.Fragment>
+    </Fragment>
   )
 })

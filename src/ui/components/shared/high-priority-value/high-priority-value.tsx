@@ -1,21 +1,20 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { useClassNames } from './high-priority-value.style'
+import { useStyles } from './high-priority-value.style'
 
 interface HighPriorityValueProps {
   value: string | number
 }
 
-export const HighPriorityValue: FC<HighPriorityValueProps> = props => {
-  const { value } = props
-  const { classes: classNames } = useClassNames()
+export const HighPriorityValue: FC<HighPriorityValueProps> = memo(({ value }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.body}>
-      <Typography className={classNames.value}>{value}</Typography>
+    <div className={styles.body}>
+      <Typography className={styles.value}>{value}</Typography>
       <img src="/assets/icons/fire.svg" />
     </div>
   )
-}
+})

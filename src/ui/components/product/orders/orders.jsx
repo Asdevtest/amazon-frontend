@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -16,12 +15,13 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './orders.style'
+import { useStyles } from './orders.style'
 
+import { statusesForChecking } from './orders.constant'
 import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
 
@@ -60,13 +60,15 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   }, [])
 
   return (
-    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
+    <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <CustomDataGrid
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
+        sortingMode="client"
+        paginationMode="client"
         rowHeight={100}
         slotProps={{
           baseTooltip: {
@@ -86,7 +88,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onPaginationModelChange={onChangePaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
@@ -103,6 +105,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           isSetDeadline
+          statusesForChecking={statusesForChecking}
           reorderOrdersData={[reorderOrder]}
           platformSettings={platformSettings}
           destinations={destinations}

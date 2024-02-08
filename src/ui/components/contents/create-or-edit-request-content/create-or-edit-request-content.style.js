@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
     gap: 20,
   },
 
@@ -33,6 +32,9 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   mainSubRightTwoStepWrapper: {
@@ -47,6 +49,9 @@ export const useStyles = makeStyles()(theme => ({
   middleStepTwoMainWrapper: {
     width: '70%',
     marginLeft: 'auto',
+    [theme.breakpoints.down(1500)]: {
+      width: '100%',
+    },
   },
 
   middleStepTwoWrapper: {
@@ -69,6 +74,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '140%',
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   mainTitleStapTwo: {
@@ -80,6 +88,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
 
     marginBottom: 20,
+    [theme.breakpoints.down(1500)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
 
   mainSubTitle: {
@@ -89,6 +101,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
 
     color: theme.palette.text.second,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   mainSubStepTwoTitle: {
@@ -101,14 +116,29 @@ export const useStyles = makeStyles()(theme => ({
 
   middleWrapper: {
     width: '50%',
+    [theme.breakpoints.down(1500)]: {
+      width: '55%',
+    },
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
-
+  textInCheckbox: {
+    fontSize: 18,
+    [theme.breakpoints.down(1500)]: {
+      fontSize: 14,
+    },
+  },
   rightWrapper: {
     width: '50%',
     marginLeft: '30px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+      marginLeft: 0,
+    },
   },
 
   rightTwoStepWrapper: {
@@ -185,15 +215,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  descriptionFieldWrapper: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
-
-    marginTop: 20,
-  },
-
   pricesWrapper: {
     display: 'flex',
     gap: 5,
@@ -226,8 +247,11 @@ export const useStyles = makeStyles()(theme => ({
 
   nameFieldWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   nameField: {
@@ -271,6 +295,9 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
 
     marginBottom: 5,
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
   priceAndAmountWrapper: {
     width: '100%',
@@ -279,6 +306,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'start',
     gap: '30px',
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+      height: 'auto',
+    },
   },
 
   checkboxAndButtonWrapper: {
@@ -286,6 +317,12 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '30px',
     alignItems: 'flex-start',
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down(1500)]: {
+      flexDirection: 'column',
+    },
   },
 
   checkboxAndButtonWrapperMarginTop: {
@@ -428,18 +465,33 @@ export const useStyles = makeStyles()(theme => ({
   },
   requestTypeContainer: {
     width: '215px !important',
+    [theme.breakpoints.down(480)]: {
+      width: '100% !important',
+    },
   },
 
   difficultylevelContainer: {
     width: '224px !important',
+    [theme.breakpoints.down(480)]: {
+      width: '100% !important',
+    },
   },
 
   asinContainer: {
     width: '305px !important',
+    margin: '0px 15px',
+    [theme.breakpoints.down(480)]: {
+      width: '100% !important',
+      margin: '10px 0px',
+    },
   },
 
   executorContainer: {
     width: '100% !important',
+
+    [theme.breakpoints.down(1500)]: {
+      width: '50% !important',
+    },
   },
 
   requestTypeField: {
@@ -580,8 +632,9 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
   },
 
-  editorMaxHeight: {
-    maxHeight: '138px !important',
+  editorClassName: {
+    minHeight: '140px !important',
+    maxHeight: '140px !important',
   },
   selectedCheckbox: {
     display: 'flex',
@@ -597,6 +650,9 @@ export const useStyles = makeStyles()(theme => ({
   priorityText: {
     display: 'flex',
     gap: 15,
+    [theme.breakpoints.down(1500)]: {
+      fontSize: 14,
+    },
   },
 
   copyAsinlinkSpan: {

@@ -27,7 +27,7 @@ import { AnotherProfileViewModel } from './another-user-profile-view.model'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -37,9 +37,9 @@ export const AnotherUserProfileViewRaw = props => {
     <>
       <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.success ||
-            viewModel.requestStatus === loadingStatuses.failed) && (
-            <Typography variant="h4" className={classNames.noDataText}>
+          (viewModel.requestStatus === loadingStatuses.SUCCESS ||
+            viewModel.requestStatus === loadingStatuses.FAILED) && (
+            <Typography variant="h4" className={styles.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
           )}
@@ -65,7 +65,7 @@ export const AnotherUserProfileViewRaw = props => {
           mapUserRoleEnumToKey[UserRole.BUYER],
         ].includes(viewModel.user.role) ? (
           <>
-            <Typography variant="h6" className={classNames.title}>
+            <Typography variant="h6" className={styles.title}>
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
@@ -92,7 +92,7 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onChangePaginationModelChange}

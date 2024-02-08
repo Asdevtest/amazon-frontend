@@ -10,28 +10,28 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './dashboard-info-card.style'
+import { useStyles } from './dashboard-info-card.style'
 
 export const DashboardInfoCard = observer(
   ({ color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex, dataGridFilter }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     return (
       SettingsModel.languageTag && (
-        <Paper className={classNames.root}>
-          <div className={classNames.circle} style={{ borderColor: color }}>
-            <Typography className={classNames.circleTitle}>{value || 0}</Typography>
+        <Paper className={styles.root}>
+          <div className={styles.circle} style={{ borderColor: color }}>
+            <Typography className={styles.circleTitle}>{value || 0}</Typography>
           </div>
-          <div className={classNames.titleWrapper}>
-            <Typography className={classNames.title}>{title}</Typography>
+          <div className={styles.titleWrapper}>
+            <Typography className={styles.title}>{title}</Typography>
           </div>
           {route ? (
-            <div className={classNames.subTitleWrapper}>
+            <div className={styles.subTitleWrapper}>
               <Button
                 tooltipInfoContent={
                   sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
                 }
-                className={classNames.subTitle}
+                className={styles.subTitle}
                 onClick={() => onClickViewMore(route, dataGridFilter)}
               >
                 {t(TranslationKey['View more'])}

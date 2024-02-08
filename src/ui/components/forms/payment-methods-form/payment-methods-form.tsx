@@ -15,8 +15,8 @@ import { PaymentMethodCard } from './payment-method-card'
 interface PaymentMethodsFormProps {
   orderPayments: Payment[]
   allPayments: Payment[]
-  onClickSaveButton: (payments: Payment[]) => void
   onClickCancelButton: () => void
+  onClickSaveButton?: (payments: Payment[]) => void
   readOnly?: boolean
 }
 
@@ -28,7 +28,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
   const [selectedPayments, setSelectedPayments] = useState<Payment[]>(allPayments || [])
 
   useEffect(() => {
-    if (orderPayments.length) {
+    if (orderPayments?.length) {
       const updatedPayments = allPayments
         .map(payment => {
           const foundPayment = orderPayments.find(
@@ -48,7 +48,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
   const handleSaveButton = () => {
     const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
 
-    onClickSaveButton(filteringSelectedPayments)
+    onClickSaveButton ? onClickSaveButton(filteringSelectedPayments) : undefined
     onClickCancelButton()
   }
 

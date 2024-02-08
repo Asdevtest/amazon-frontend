@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -21,15 +21,15 @@ import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-
 
 export const ClientBoxesNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div className={classNames.tableWrapper}>
+    <>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -38,10 +38,12 @@ export const ClientBoxesNotificationsViewRaw = props => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.getCurrentData()}
+          sortingMode="client"
+          paginationMode="client"
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -111,7 +113,7 @@ export const ClientBoxesNotificationsViewRaw = props => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 }
 

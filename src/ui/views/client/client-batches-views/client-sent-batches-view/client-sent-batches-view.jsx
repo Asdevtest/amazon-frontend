@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -31,7 +31,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
           <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
@@ -111,7 +111,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -166,6 +166,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 })

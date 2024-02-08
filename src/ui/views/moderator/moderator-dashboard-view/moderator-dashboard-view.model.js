@@ -62,11 +62,11 @@ export class ModeratorDashboardViewModel {
 
   // async loadData() {
   //   try {
-  //     this.setRequestStatus(loadingStatuses.isLoading)
+  //     this.setRequestStatus(loadingStatuses.IS_LOADING)
   //     await this.getPayments()
-  //     await this.setRequestStatus(loadingStatuses.success)
+  //     await this.setRequestStatus(loadingStatuses.SUCCESS)
   //   } catch (error) {
-  //     this.setRequestStatus(loadingStatuses.failed)
+  //     this.setRequestStatus(loadingStatuses.FAILED)
   //     console.log(error)
   //   }
   // }

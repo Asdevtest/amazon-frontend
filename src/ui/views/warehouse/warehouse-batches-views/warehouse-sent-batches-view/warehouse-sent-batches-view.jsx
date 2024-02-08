@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,7 +29,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
@@ -61,7 +61,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -134,6 +134,6 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
           viewModel.onTriggerOpenModal('showWarningInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 })

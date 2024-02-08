@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 
 import { IProductVariation } from '@typings/product'
 
-import { useClassNames } from './selected-product.styles'
+import { useStyles } from './selected-product.style'
 
 interface SelectedProductProps {
   product: IProductVariation
@@ -19,18 +19,18 @@ interface SelectedProductProps {
 }
 
 export const SelectedProduct: FC<SelectedProductProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { product, onClickDeleteButton } = props
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.text}>
+    <div className={styles.root}>
+      <p className={styles.text}>
         {t(TranslationKey.ASIN) + ': '}
-        <span className={classNames.asin}>{product.asin || t(TranslationKey.Missing)}</span>
+        <span className={styles.asin}>{product.asin || t(TranslationKey.Missing)}</span>
       </p>
-      <Button danger className={classNames.removeButton} onClick={() => onClickDeleteButton(product)}>
-        <MinusIcon className={classNames.removeIcon} />
+      <Button danger className={styles.removeButton} onClick={() => onClickDeleteButton(product)}>
+        <MinusIcon className={styles.removeIcon} />
       </Button>
     </div>
   )

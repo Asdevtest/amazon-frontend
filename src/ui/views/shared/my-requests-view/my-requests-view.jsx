@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
@@ -42,10 +43,13 @@ export const MyRequestsView = observer(({ history }) => {
     styles.waitingCheckedBacklighting
 
   const getRowClassName = params => {
-    if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && viewModel.isRequestsAtWork) {
+    if (
+      getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= ONE_DAY_IN_SECONDS &&
+      viewModel.isRequestsAtWork
+    ) {
       return [styles.deadlineBorder, styles.redBorder]
     } else if (
-      getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 172800 &&
+      getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= ONE_DAY_IN_SECONDS * 2 &&
       viewModel.isRequestsAtWork
     ) {
       return [styles.deadlineBorder, styles.yellowBorder]
@@ -53,7 +57,7 @@ export const MyRequestsView = observer(({ history }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.header}>
           <div />
@@ -120,7 +124,7 @@ export const MyRequestsView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onSortModelChange={viewModel.onChangeSortingModel}
@@ -178,6 +182,7 @@ export const MyRequestsView = observer(({ history }) => {
 
       <FreelanceRequestDetailsModal
         isRequestOwner
+        userInfo={viewModel.userInfo}
         isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
         requestProposals={viewModel.curProposal}
@@ -228,6 +233,6 @@ export const MyRequestsView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

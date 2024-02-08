@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -18,16 +18,16 @@ import { BuyerSearchSupplierForIdeaModel } from './buyer-search-supplier-for-ide
 
 export const BuyerSearchSupplierForIdeaViewRaw = props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierForIdeaModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             color="primary"
             variant="contained"
@@ -37,7 +37,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -60,7 +60,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
@@ -77,7 +77,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
           viewModel.onTriggerOpenModal('showInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 }
 

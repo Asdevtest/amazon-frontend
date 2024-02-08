@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, Fragment } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 
@@ -18,7 +18,7 @@ interface BatchBoxesCellProps {
   productViewMode: keyof typeof tableProductViewMode
 }
 
-export const BatchBoxesCell: FC<BatchBoxesCellProps> = React.memo(({ boxes, productViewMode }) => {
+export const BatchBoxesCell: FC<BatchBoxesCellProps> = memo(({ boxes, productViewMode }) => {
   const { classes: styles, cx } = useStyles()
 
   const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED

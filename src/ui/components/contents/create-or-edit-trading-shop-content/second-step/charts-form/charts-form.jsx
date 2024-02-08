@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Typography } from '@mui/material'
@@ -12,7 +11,7 @@ import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './charts-form.style'
+import { useStyles } from './charts-form.style'
 
 const filterSettings = {
   SIX_MONTHS: 'SIX_MONTHS',
@@ -21,7 +20,7 @@ const filterSettings = {
 }
 
 export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [isRevenue, setIsRevenue] = useState(isRevenueBeggin)
 
@@ -46,12 +45,12 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
   }, [curFilterSetting])
 
   return (
-    <div className={classNames.cardWrapper}>
-      <div className={classNames.cardHeaderWrapper}>
-        <div className={classNames.selectionBtns}>
+    <div className={styles.cardWrapper}>
+      <div className={styles.cardHeaderWrapper}>
+        <div className={styles.selectionBtns}>
           <Button
-            className={cx(classNames.selectionBtn, {
-              [classNames.curSelectionBtn]: isRevenue,
+            className={cx(styles.selectionBtn, {
+              [styles.curSelectionBtn]: isRevenue,
             })}
             variant="text"
             color="primary"
@@ -60,8 +59,8 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             {t(TranslationKey.Revenue)}
           </Button>
           <Button
-            className={cx(classNames.selectionBtn, {
-              [classNames.curSelectionBtn]: !isRevenue,
+            className={cx(styles.selectionBtn, {
+              [styles.curSelectionBtn]: !isRevenue,
             })}
             variant="text"
             color="primary"
@@ -71,18 +70,18 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
           </Button>
         </div>
 
-        <div className={classNames.barStatusesWrapper}>
-          <div className={classNames.barStatusWrapper}>
+        <div className={styles.barStatusesWrapper}>
+          <div className={styles.barStatusWrapper}>
             <FiberManualRecordRoundedIcon color="primary" />
-            <Typography className={classNames.cardTitle}>
+            <Typography className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Gross income']).toLowerCase()
                 : t(TranslationKey['View page']).toLowerCase()}
             </Typography>
           </div>
-          <div className={classNames.barStatusWrapper}>
-            <FiberManualRecordRoundedIcon classes={{ root: classNames.indicator }} />
-            <Typography className={classNames.cardTitle}>
+          <div className={styles.barStatusWrapper}>
+            <FiberManualRecordRoundedIcon classes={{ root: styles.indicator }} />
+            <Typography className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Pure profit']).toLowerCase()
                 : t(TranslationKey['Unique visitors']).toLowerCase()}
@@ -99,33 +98,30 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
         unit={isRevenue && ' $'}
       />
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
-          className={cx(classNames.button, {
-            [classNames.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
+          className={cx(styles.button, {
+            [styles.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}
         >
           {`6 ${t(TranslationKey.months)}`}
         </Button>
         <Button
-          className={cx(classNames.button, {
-            [classNames.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
+          className={cx(styles.button, {
+            [styles.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}
         >
           {`12 ${t(TranslationKey.months)}`}
         </Button>
         <Button
-          className={cx(classNames.button, {
-            [classNames.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
+          className={cx(styles.button, {
+            [styles.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
           })}
           variant="text"
-          color="primary"
           onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}
         >
           {t(TranslationKey['All time'])}

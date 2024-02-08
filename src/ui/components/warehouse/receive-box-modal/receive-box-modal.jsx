@@ -3,6 +3,7 @@ import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Divider, Typography } from '@mui/material'
 
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddFilesForm } from '@components/forms/add-files-form'
@@ -194,8 +195,17 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
   const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
 
-  const disableSubmit = newBoxes.some(box => box.amount === '') || (isSomeBoxHasntImage && !receiveNotFromBuyer)
+  const isSomeBoxesHasCorrectSizes = newBoxes.some(
+    box =>
+      box.heightCmWarehouse > maxLengthInputInSizeBox ||
+      box.lengthCmWarehouse > maxLengthInputInSizeBox ||
+      box.widthCmWarehouse > maxLengthInputInSizeBox,
+  )
 
+  const disableSubmit =
+    newBoxes.some(box => box.amount === '') ||
+    (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
+    isSomeBoxesHasCorrectSizes
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>

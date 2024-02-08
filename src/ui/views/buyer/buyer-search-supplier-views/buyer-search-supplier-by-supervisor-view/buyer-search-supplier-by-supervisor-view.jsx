@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +24,7 @@ export const BuyerSearchSupplierBySupervisorView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
           <Button
@@ -62,7 +62,7 @@ export const BuyerSearchSupplierBySupervisorView = observer(props => {
             rows={viewModel.getCurrentData()}
             rowHeight={80}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
@@ -79,6 +79,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(props => {
           viewModel.onTriggerOpenModal('showInfoModal')
         }}
       />
-    </React.Fragment>
+    </>
   )
 })

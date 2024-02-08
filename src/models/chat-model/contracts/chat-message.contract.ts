@@ -63,6 +63,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsNotEmpty()
   @IsString({ each: true })
   public files!: string[]
+  public video!: string[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean
@@ -80,6 +81,8 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
     type: ChatInfoType
   }
 
+  public crmItemId?: string
+
   @IsOptional()
   public user?: ChatUserContract
   public humanFriendlyId?: string
@@ -89,4 +92,5 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
 
   @IsOptional()
   public offset?: number
+  public replyMessage!: ChatMessageContract
 }

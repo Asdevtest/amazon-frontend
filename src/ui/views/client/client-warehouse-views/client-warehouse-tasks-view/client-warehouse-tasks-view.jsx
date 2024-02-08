@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Checkbox, Typography } from '@mui/material'
 
@@ -36,7 +35,7 @@ import { useStyles } from './client-warehouse-tasks-view.style'
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 
 export const ClientWarehouseTasksView = observer(({ history }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history }))
 
   const [isDisabledDownload, setIsDisabledDownload] = useState(true)
@@ -58,7 +57,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
   }, [viewModel.selectedBoxes])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <SearchInput
@@ -256,7 +255,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
                 },
               },
             }}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             columns={viewModel.columnsModel}
             rowCount={viewModel.rowsCount}
             onRowHover={viewModel.onHover}
@@ -330,6 +329,6 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
       />
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </React.Fragment>
+    </>
   )
 })

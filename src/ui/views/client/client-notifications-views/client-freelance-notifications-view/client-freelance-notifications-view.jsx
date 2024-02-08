@@ -11,7 +11,7 @@ import { ClientFreelanceNotificationsViewModel } from '@views/client/client-noti
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useStyles } from './client-freelance-notifications-view.styles'
+import { useStyles } from './client-freelance-notifications-view.style'
 
 export const ClientFreelanceNotificationsView = observer(({ history }) => {
   const { classes: styles } = useStyles()
@@ -51,7 +51,7 @@ export const ClientFreelanceNotificationsView = observer(({ history }) => {
         }}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
-        loading={viewModel.requestStatus === loadingStatuses.isLoading}
+        loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
         onRowSelectionModelChange={viewModel.onSelectionModel}
         onSortModelChange={viewModel.onChangeSortingModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

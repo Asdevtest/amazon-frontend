@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
@@ -34,16 +35,16 @@ export const VacantRequestsView = observer(({ history }) => {
   }, [])
 
   const getRowClassName = params => {
-    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
+    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS) {
       return [styles.deadlineBorder, styles.redBorder]
-    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
+    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
       return [styles.deadlineBorder, styles.yellowBorder]
     }
   }
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.tablePanelWrapper}>
           <FreelanceTypeTaskSelect
@@ -141,7 +142,7 @@ export const VacantRequestsView = observer(({ history }) => {
                 },
               }}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               getRowClassName={getRowClassName}
               onSortModelChange={viewModel.onChangeSortingModel}
               onFilterModelChange={viewModel.onChangeFilterModel}
@@ -152,7 +153,7 @@ export const VacantRequestsView = observer(({ history }) => {
           </div>
         ) : (
           !viewModel.currentData?.length &&
-          loadingStatuses.success && (
+          loadingStatuses.SUCCESS && (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
               <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>
@@ -169,6 +170,6 @@ export const VacantRequestsView = observer(({ history }) => {
         onClickSuggest={viewModel.onClickSuggest}
         onClickOpenNewTab={viewModel.onClickOpenInNewTab}
       />
-    </React.Fragment>
+    </>
   )
 })

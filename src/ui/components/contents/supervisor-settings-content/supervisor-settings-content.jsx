@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,7 +18,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supervisor-settings-content.style'
+import { useStyles } from './supervisor-settings-content.style'
 
 import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
 
@@ -30,7 +30,7 @@ const tabsValues = {
 }
 
 export const SupervisorSettingsContent = observer(() => {
-  const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
+  const [tabIndex, setTabIndex] = useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
   const gpModel = useRef(new SupervisorSettingsContentModel({ history, tabIndex }))
 
   const {
@@ -65,10 +65,10 @@ export const SupervisorSettingsContent = observer(() => {
     gpModel.current.loadData(tabIndex)
   }, [tabIndex])
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CustomSwitcher
         switchMode={'medium'}
         condition={tabIndex}
@@ -82,28 +82,28 @@ export const SupervisorSettingsContent = observer(() => {
       />
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               danger
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -114,6 +114,8 @@ export const SupervisorSettingsContent = observer(() => {
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
             rows={getCurrentData()}
+            sortingMode="client"
+            paginationMode="client"
             getRowId={row => row._id}
             rowHeight={120}
             slotProps={{
@@ -130,7 +132,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -140,28 +142,28 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.DROPSHIPPING}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               danger
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -188,7 +190,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -198,28 +200,28 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.PRIVATE_LABEL}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               danger
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -246,7 +248,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -256,28 +258,28 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.WHOLE_SALE_USA}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               danger
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -304,7 +306,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -361,6 +363,6 @@ export const SupervisorSettingsContent = observer(() => {
           onClickSuccessBtn={() => onTriggerOpenModal('showFailedAsinsModal')}
         />
       </Modal>
-    </React.Fragment>
+    </Fragment>
   )
 })

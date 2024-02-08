@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
 
@@ -16,10 +15,10 @@ import { Field } from '@components/shared/field'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-group-chat-info-form.style'
+import { useStyles } from './edit-group-chat-info-form.style'
 
 export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [showInfoModal, setShowInfoModal] = useState(false)
 
@@ -33,7 +32,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   const [state, setState] = useState(sourceState)
 
   const onClose = () => {
-    setState({ ...state, preview: null })
+    setState({ ...state, preview: sourceState?.preview })
   }
 
   const onCrop = preview => {
@@ -67,21 +66,22 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   const currentChatAvatar = state?.preview?.includes('data') ? state?.preview : getAmazonImageUrl(state?.preview, true)
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Change group chat info'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Change group chat info'])}</p>
 
       <Field
+        inputProps={{ maxLength: 254 }}
         label={t(TranslationKey['Name of group chat']) + '*'}
-        labelClasses={classNames.label}
+        labelClasses={styles.label}
         value={state.title}
         onChange={e => setState({ ...state, title: e.target.value })}
       />
 
       <Field
         label={t(TranslationKey.Image)}
-        labelClasses={classNames.label}
+        labelClasses={styles.label}
         inputComponent={
-          <div className={classNames.mainWrapper}>
+          <div className={styles.mainWrapper}>
             <Avatar
               exportAsSquare
               height={180}
@@ -105,31 +105,30 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
               onClose={onClose}
               onBeforeFileLoad={onBeforeFileLoad}
             />
-            <AvatarMui className={classNames.avatar} src={currentChatAvatar} />
+            <AvatarMui className={styles.avatar} src={currentChatAvatar} />
           </div>
         }
       />
 
-      <div className={classNames.textsWrapper}>
-        <p className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
-          {t(TranslationKey['The image size should not exceed'])}{' '}
-          {<span className={classNames.spanText}>{'15 mb.'}</span>}
+      <div className={styles.textsWrapper}>
+        <p className={cx(styles.standartText, { [styles.successText]: state.preview })}>
+          {t(TranslationKey['The image size should not exceed'])} {<span className={styles.spanText}>{'15 mb.'}</span>}
         </p>
 
-        <p className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <p className={cx(styles.standartText, { [styles.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
         </p>
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button disabled={disanledSubmit} onClick={() => onSubmit(state, sourceState)}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

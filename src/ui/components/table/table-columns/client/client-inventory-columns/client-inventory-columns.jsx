@@ -1,7 +1,7 @@
 import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { ProductStatusByCode, colorByProductStatus } from '@constants/product/product-status'
+import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -174,13 +174,7 @@ export const clientInventoryColumns = (
   {
     field: 'amountInOrders',
     headerName: 'Order',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'Order'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
     renderCell: params => (
       <OrderIdAndAmountCountCell
@@ -246,16 +240,6 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'transparency',
-    headerName: 'Transparency codes',
-    renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
-    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-    type: 'boolean',
-    width: 135,
-    columnKey: columnnsKeys.shared.YES_NO,
-  },
-
-  {
     field: 'boxAmounts',
     headerName: 'In stock',
     renderHeader: params => (
@@ -317,38 +301,6 @@ export const clientInventoryColumns = (
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'tags',
-    headerName: t(TranslationKey.Tags),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Tags)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
-    width: 160,
-    sortable: false,
-    columnKey: columnnsKeys.shared.TAGS,
-  },
-
-  {
-    field: 'redFlags',
-    headerName: t(TranslationKey['Red flags']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Red flags'])}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
-    width: 130,
-    sortable: false,
-    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {
@@ -435,6 +387,48 @@ export const clientInventoryColumns = (
   },
 
   {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Tags)}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    width: 160,
+    sortable: false,
+    columnKey: columnnsKeys.shared.TAGS,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Red flags'])}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    width: 130,
+    sortable: false,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
+  },
+
+  {
+    field: 'transparency',
+    headerName: 'Transparency codes',
+    renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    type: 'boolean',
+    width: 135,
+    columnKey: columnnsKeys.shared.YES_NO,
+  },
+
+  {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
@@ -473,7 +467,7 @@ export const clientInventoryColumns = (
     ),
     renderCell: params => (
       <MultilineTextCell
-        text={params.value}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.row.originalData.status]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),

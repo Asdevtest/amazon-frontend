@@ -5,7 +5,7 @@ import { Box, Checkbox, FormControlLabel } from '@mui/material'
 
 import { ProductModel } from '@models/product-model'
 
-import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.styles'
+import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -30,6 +30,10 @@ export const RedFlags: FC<RedFlagsProps> = props => {
       ProductModel.getProductRedFlags().then(value => setFlags(value))
     }
   }, [])
+
+  useEffect(() => {
+    setSelectedFlags(activeFlags)
+  }, [activeFlags])
 
   const handleFlag = (flag: Flag) => {
     let newSelectedFlags = []

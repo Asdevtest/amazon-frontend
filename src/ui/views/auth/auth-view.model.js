@@ -17,6 +17,7 @@ export class AuthViewModel {
   error = undefined
 
   showConfirmModal = false
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -34,11 +35,15 @@ export class AuthViewModel {
     password: null,
   }
 
+  get disableLoginButton() {
+    return this.requestStatus === loadingStatuses.IS_LOADING
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -46,9 +51,7 @@ export class AuthViewModel {
   }
 
   onLoadPage() {
-    runInAction(() => {
-      this.language = SettingsModel.languageTag
-    })
+    this.language = SettingsModel.languageTag
 
     SettingsModel.setLanguageTag(this.language)
 
@@ -61,49 +64,46 @@ export class AuthViewModel {
 
   setField = fieldName =>
     action(value => {
-      runInAction(() => {
-        this.formValidationErrors[fieldName] = null
-      })
+      this.formValidationErrors[fieldName] = null
 
       if (fieldName === 'remember') {
-        runInAction(() => {
-          this[fieldName] = !this.remember
-        })
+        this[fieldName] = !this.remember
       } else {
-        runInAction(() => {
-          this[fieldName] = value
-        })
+        this[fieldName] = value
       }
     })
 
   async onSubmitForm() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
         this.error = undefined
       })
+
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
       await UserModel.getUsersInfoCounters()
+
       if (UserModel.accessToken) {
-        runInAction(() => {
-          this.requestStatus = loadingStatuses.success
-        })
         const allowedRoutes = privateRoutesConfigs.filter(route =>
           route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
         )
+
         this.history.push(allowedRoutes[0].routePath)
       } else {
         runInAction(() => {
-          this.requestStatus = loadingStatuses.failed
           this.error = new Error('The user is waiting for confirmation by the Administrator')
         })
       }
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
         this.error = error
       })
+
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -127,5 +127,9 @@ export class AuthViewModel {
 
   onToggleModal() {
     this.showConfirmModal = !this.showConfirmModal
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +25,7 @@ export const SupervisorReadyToCheckForIdeaView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
           <Button
@@ -61,7 +61,7 @@ export const SupervisorReadyToCheckForIdeaView = observer(({ history }) => {
             rows={viewModel.currentData}
             rowHeight={100}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
@@ -75,6 +75,6 @@ export const SupervisorReadyToCheckForIdeaView = observer(({ history }) => {
         btnText={t(TranslationKey.Ok)}
         onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

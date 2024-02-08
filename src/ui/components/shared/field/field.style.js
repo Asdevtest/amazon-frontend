@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',
 
     [theme.breakpoints.down(768)]: {
-      marginBottom: 0,
+      marginBottom: 30,
     },
   },
   rootOneLine: {
@@ -20,6 +20,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '12px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      marginBottom: 5,
+    },
   },
 
   labelOneLine: {
@@ -74,5 +78,11 @@ export const useClassNames = makeStyles()(theme => ({
   labelWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
   },
 }))

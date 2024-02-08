@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, memo } from 'react'
 import Select from 'react-select'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './custom-react-select.styles'
+import { useStyles } from './custom-react-select.style'
 
 interface CustomReactSelect extends PropsWithChildren {
   hideDropdownIndicator?: boolean
 }
 
-export const CustomReactSelect: FC<CustomReactSelect> = React.memo(({ hideDropdownIndicator, ...restProps }) => {
+export const CustomReactSelect: FC<CustomReactSelect> = memo(({ hideDropdownIndicator, ...restProps }) => {
   const { classes: styles } = useStyles()
 
   return (

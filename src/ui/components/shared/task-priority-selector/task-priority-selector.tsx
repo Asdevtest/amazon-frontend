@@ -7,7 +7,7 @@ import {
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useTaskPrioritySelectorStyles } from '@components/shared/task-priority-selector/task-priority-selector.styles'
+import { useTaskPrioritySelectorStyles } from '@components/shared/task-priority-selector/task-priority-selector.style'
 
 import { t } from '@utils/translations'
 

@@ -1,35 +1,34 @@
+import { memo } from 'react'
+
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
+import { useStyles } from './circular-progress-with-label.style'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { useClassNames } from './circular-progress-with-label.style'
-
-export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) => {
-  const { classes: classNames, cx } = useClassNames()
-  const isDarkTheme = SettingsModel.uiTheme === UiTheme.dark
+export const CircularProgressWithLabel = memo(props => {
+  const { classes: styles, cx } = useStyles()
+  const { value, title, wrapperClassName, showBackground = false } = props
 
   return (
     <div
-      className={cx(classNames.mainWrapper, {
+      className={cx(styles.mainWrapper, {
         [wrapperClassName]: !!wrapperClassName,
+        [styles.background]: showBackground,
       })}
     >
-      <div className={cx(classNames.progressContainer, { [classNames.progressContainerDark]: isDarkTheme })}>
+      <div className={styles.progressContainer}>
         {title ? (
-          <Typography variant="h4" className={classNames.standartText}>
+          <Typography variant="h4" className={styles.standartText}>
             {title}
           </Typography>
         ) : null}
 
         {value ? (
-          <div className={classNames.progressWrapper}>
+          <div className={styles.progressWrapper}>
             <CircularProgress variant="determinate" value={value} size={85} />
             {title ? (
-              <div className={classNames.subWrapper}>
-                <Typography className={classNames.text}>{`${Math.round(value)}%`}</Typography>
+              <div className={styles.subWrapper}>
+                <Typography className={styles.text}>{`${Math.round(value)}%`}</Typography>
               </div>
             ) : null}
           </div>
@@ -39,4 +38,4 @@ export const CircularProgressWithLabel = ({ value, title, wrapperClassName }) =>
       </div>
     </div>
   )
-}
+})

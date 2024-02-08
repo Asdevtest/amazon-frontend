@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Chip } from '@mui/material'
 
@@ -20,7 +20,7 @@ interface IHsCodeCellProps {
   }
 }
 
-export const HsCodeCell: FC<IHsCodeCellProps> = React.memo(props => {
+export const HsCodeCell: FC<IHsCodeCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { product, handlers } = props
 

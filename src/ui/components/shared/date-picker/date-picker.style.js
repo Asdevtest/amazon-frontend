@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     color: theme.palette.text.general,
     padding: '5px',
@@ -10,5 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   error: {
     color: theme.palette.text.red,
+  },
+
+  openPickerIcon: {
+    width: '16px !important',
+    height: '16px !important',
   },
 }))

@@ -23,6 +23,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     renderCell: params => (
       <NormalActionBtnCell
+        fullWidthButton
         isShowCancelButton
         tooltipText={t(TranslationKey['Take the task to work'])}
         bTnText={t(TranslationKey['Get to work'])}

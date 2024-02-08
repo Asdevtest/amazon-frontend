@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Typography } from '@mui/material'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
@@ -13,7 +11,7 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-to-send-batch-group-boxes.style'
+import { useStyles } from './request-to-send-batch-group-boxes.style'
 
 import { RequestToSendBatchBox } from '../request-to-send-batch-box'
 
@@ -26,7 +24,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   onClickRemoveBoxFromBatch,
   setCurrentOpenedBox,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const totalPrice = selectedGroup.boxes.reduce(
     (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.deliveryCost),
@@ -65,40 +63,40 @@ export const RequestToSendBatchesGroupBoxes = ({
     selectedGroup?.variationTariff?.pricePerKgUsd
 
   return (
-    <div className={cx(classNames.tableWrapper, { [classNames.tableAlertWrapper]: tariffIsInvalid })}>
+    <div className={cx(styles.tableWrapper, { [styles.tableAlertWrapper]: tariffIsInvalid })}>
       {selectedGroup.price !== 0 && (
-        <div className={classNames.headerWrapper}>
-          <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{t(TranslationKey.Destination)}</Typography>
+        <div className={styles.headerWrapper}>
+          <div className={styles.headerSubWrapper}>
+            <Typography className={styles.headerTitle}>{t(TranslationKey.Destination)}</Typography>
 
-            <Typography className={cx(classNames.headerSpanText, classNames.textEllipsis)}>
+            <Typography className={cx(styles.headerSpanText, styles.textEllipsis)}>
               {selectedGroup.destination?.name}
             </Typography>
           </div>
 
-          <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{t(TranslationKey['Int warehouse'])}</Typography>
+          <div className={styles.headerSubWrapper}>
+            <Typography className={styles.headerTitle}>{t(TranslationKey['Int warehouse'])}</Typography>
 
-            <div className={classNames.userLinkWrapper}>
+            <div className={styles.userLinkWrapper}>
               <UserLink blackText name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />
             </div>
           </div>
 
-          <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{t(TranslationKey.Tariff)}</Typography>
+          <div className={styles.headerSubWrapper}>
+            <Typography className={styles.headerTitle}>{t(TranslationKey.Tariff)}</Typography>
 
-            <Typography className={classNames.headerSpanText}>{selectedGroup.logicsTariff?.name}</Typography>
+            <Typography className={styles.headerSpanText}>{selectedGroup.logicsTariff?.name}</Typography>
           </div>
 
-          <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{t(TranslationKey.Rate) + ', $'}</Typography>
+          <div className={styles.headerSubWrapper}>
+            <Typography className={styles.headerTitle}>{t(TranslationKey.Rate) + ', $'}</Typography>
 
-            <Typography className={classNames.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
+            <Typography className={styles.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
           </div>
         </div>
       )}
 
-      <table className={classNames.table}>
+      <table className={styles.table}>
         {selectedGroup.boxes.map((boxId, index) => {
           const findBox = boxesMy.find(box => box._id === boxId._id)
           const findRequestToSendBatchPriceForCurBox = boxesDeliveryCosts.find(
@@ -106,7 +104,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           )
 
           return (
-            <tbody key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
+            <tbody key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={styles.boxWrapper}>
               <RequestToSendBatchBox
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 box={findBox}
@@ -120,49 +118,49 @@ export const RequestToSendBatchesGroupBoxes = ({
         })}
       </table>
       {selectedGroup.price !== 0 && (
-        <div className={classNames.footerWrapper}>
+        <div className={styles.footerWrapper}>
           <div>
-            <div className={classNames.footerSubWrapper}>
-              <div className={classNames.footerSubWrapper}>
-                <Text className={classNames.footerTitle}>{t(TranslationKey['Total volume weight'])}</Text>
+            <div className={styles.footerSubWrapper}>
+              <div className={styles.footerSubWrapper}>
+                <Text className={styles.footerTitle}>{t(TranslationKey['Total volume weight'])}</Text>
 
-                <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</Typography>
+                <Typography className={styles.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</Typography>
               </div>
 
-              <div className={classNames.footerSubWrapper}>
-                <Text className={classNames.footerTitle}>{t(TranslationKey['Total CBM'])}</Text>
+              <div className={styles.footerSubWrapper}>
+                <Text className={styles.footerTitle}>{t(TranslationKey['Total CBM'])}</Text>
 
-                <Typography className={classNames.footerSpanText}>{toFixed(totalCubicMeters, 6)}</Typography>
+                <Typography className={styles.footerSpanText}>{toFixed(totalCubicMeters, 6)}</Typography>
               </div>
             </div>
 
             {tariffIsInvalid ? (
-              <Typography className={classNames.footerAlertSpanText}>
+              <Typography className={styles.footerAlertSpanText}>
                 {t(TranslationKey['The tariff is invalid or has been removed!'])}
               </Typography>
             ) : null}
           </div>
 
-          <div className={classNames.footerSubWrapper}>
+          <div className={styles.footerSubWrapper}>
             <Text
               tooltipInfoContent={t(TranslationKey['Total weight of the selected boxes'])}
-              className={classNames.footerTitle}
+              className={styles.footerTitle}
             >
               {t(TranslationKey['Total weight'])}
             </Text>
 
-            <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
+            <Typography className={styles.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
           </div>
 
-          <div className={classNames.footerSubWrapper}>
+          <div className={styles.footerSubWrapper}>
             <Text
               tooltipInfoContent={t(TranslationKey['The cost depends on the total weight and the rate you choose'])}
-              className={classNames.footerTitle}
+              className={styles.footerTitle}
             >
               {t(TranslationKey['Total cost of shipment'])}
             </Text>
 
-            <Typography className={classNames.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
+            <Typography className={styles.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
           </div>
         </div>
       )}

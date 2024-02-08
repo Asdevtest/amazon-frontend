@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,7 +17,7 @@ interface ProductInfoAbbreviatedProps {
   boxesLength: number
 }
 
-export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.memo(({ box, boxesLength }) => {
+export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = memo(({ box, boxesLength }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -31,8 +31,8 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.mem
 
         <div className={styles.abbreviatedBatchProductInfoMainWrapper}>
           {box.items.map((item: any, itemIndex: number) => (
-            <>
-              <div key={itemIndex} className={styles.abbreviatedBatchProductInfoWrapper}>
+            <Fragment key={itemIndex}>
+              <div className={styles.abbreviatedBatchProductInfoWrapper}>
                 <img alt="" src={getAmazonImageUrl(item.image)} className={styles.abbreviatedImg} />
 
                 <div className={styles.div}>
@@ -41,7 +41,7 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.mem
                   {box.amount > 1 && <p className={styles.amountBoxesText}>{`SBX${box.amount}`}</p>}
                 </div>
 
-                <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={item.asin} />
+                <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.asin} />
 
                 <p className={styles.amountBoxesText}>{`X${item.amount}`}</p>
               </div>
@@ -52,7 +52,7 @@ export const ProductInfoAbbreviated: FC<ProductInfoAbbreviatedProps> = React.mem
                   )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
                 </p>
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

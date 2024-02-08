@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
@@ -23,11 +22,11 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-or-edit-proposal-content.style'
+import { useStyles } from './create-or-edit-proposal-content.style'
 
 export const CreateOrEditProposalContent = memo(props => {
   const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [images, setImages] = useState([])
 
@@ -89,31 +88,29 @@ export const CreateOrEditProposalContent = memo(props => {
     (JSON.stringify(getSourceFormFields()) === JSON.stringify(formFields) && !images.length)
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.adviceWrapper}>
-        <Typography className={classNames.adviceTitle}>
-          {t(TranslationKey['Offering a Service to the Client:'])}
-        </Typography>
+    <div className={styles.mainWrapper}>
+      <div className={styles.adviceWrapper}>
+        <Typography className={styles.adviceTitle}>{t(TranslationKey['Offering a Service to the Client:'])}</Typography>
 
         <List>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
             </ListItemText>
           </ListItem>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
             </ListItemText>
           </ListItem>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(
                 TranslationKey[
                   'Try to research market prices and make your offer based on the amount of work and your skills.'
@@ -122,20 +119,20 @@ export const CreateOrEditProposalContent = memo(props => {
             </ListItemText>
           </ListItem>
         </List>
-        <div className={classNames.trainingTextWrapper}>
-          <Typography className={classNames.trainingText}>
+        <div className={styles.trainingTextWrapper}>
+          <Typography className={styles.trainingText}>
             {t(TranslationKey['You can also take a free'])}
-            <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
+            <Link className={styles.trainingLink}>{t(TranslationKey.Training)}</Link>
             {t(TranslationKey['on our freelance exchange.'])}
           </Typography>
         </div>
       </div>
-      <div className={classNames.mainLeftWrapper}>
-        <div className={classNames.clientInfoWrapper}>
-          <div className={classNames.clientInfo}>
+      <div className={styles.mainLeftWrapper}>
+        <div className={styles.clientInfoWrapper}>
+          <div className={styles.clientInfo}>
             <Avatar
               src={getUserAvatarSrc(request?.request?.createdById || request?.createdById)}
-              className={classNames.userPhoto}
+              className={styles.userPhoto}
             />
             <div>
               <UserLink
@@ -143,30 +140,30 @@ export const CreateOrEditProposalContent = memo(props => {
                 name={request?.request?.createdBy?.name || request?.createdBy?.name}
                 userId={request?.request?.createdBy?._id}
               />
-              <div className={classNames.ratingWrapper}>
+              <div className={styles.ratingWrapper}>
                 <Rating readOnly value={request?.request?.createdBy?.rating || request?.createdBy?.rating || 0} />
               </div>
             </div>
           </div>
 
-          <Typography className={classNames.subTitle}>
+          <Typography className={styles.subTitle}>
             {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
           </Typography>
 
-          <div className={classNames.infoBlockWrapper}>
-            <div className={classNames.infoCellWrapper}>
-              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
-              <Typography className={classNames.requestTitle}>{request?.request?.title}</Typography>
+          <div className={styles.infoBlockWrapper}>
+            <div className={styles.infoCellWrapper}>
+              <Typography className={styles.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
+              <Typography className={styles.requestTitle}>{request?.request?.title}</Typography>
             </div>
 
-            <div className={classNames.infoCellWrapper}>
-              <Typography className={cx(classNames.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
-              <Typography className={classNames.requestTitle}>{request?.request?.humanFriendlyId}</Typography>
+            <div className={styles.infoCellWrapper}>
+              <Typography className={cx(styles.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
+              <Typography className={styles.requestTitle}>{request?.request?.humanFriendlyId}</Typography>
             </div>
 
-            <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
-              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={classNames.requestTitle}>
+            <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
+              <Typography className={styles.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
+              <Typography className={styles.requestTitle}>
                 {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
               </Typography>
             </div>
@@ -174,49 +171,39 @@ export const CreateOrEditProposalContent = memo(props => {
 
           {request?.details.conditions && (
             <>
-              <Typography className={classNames.requestTitleName}>
-                {t(TranslationKey['Request description'])}
-              </Typography>
-              {/* <Typography className={classNames.requestTitle}>{request?.details.conditions}</Typography> */}
-              <CustomTextEditor
-                readOnly
-                conditions={request?.details.conditions}
-                editorMaxHeight={classNames.editorMaxHeight}
-              />
+              <Typography className={styles.requestTitleName}>{t(TranslationKey['Request description'])}</Typography>
+              {/* <Typography className={styles.requestTitle}>{request?.details.conditions}</Typography> */}
+              <CustomTextEditor readOnly value={request?.details.conditions} editorClassName={styles.editorClassName} />
             </>
           )}
 
-          {/* <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${*/}
+          {/* <Typography className={styles.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${*/}
           {/*  request?.request?.maxAmountOfProposals || request?.maxAmountOfProposals*/}
           {/* } ${t(TranslationKey['suggestions left'])}`}</Typography>*/}
-          <Typography className={classNames.subTitle} />
+          <Typography className={styles.subTitle} />
 
-          <div className={classNames.requestTitleAndInfo}>
-            <div className={cx(classNames.blockInfoWrapper)}>
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-                <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+          <div className={styles.requestTitleAndInfo}>
+            <div className={cx(styles.blockInfoWrapper)}>
+              <div className={styles.blockInfoCell}>
+                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+                <Typography className={cx(styles.price, styles.blockInfoCellText)}>
                   {toFixed(request?.request?.price, 2) + '$'}
                 </Typography>
               </div>
 
               {newProductPrice || request?.request?.priceAmazon ? (
-                <div className={classNames.blockInfoCell}>
-                  <Typography className={classNames.blockInfoCellTitle}>
-                    {t(TranslationKey['Product price'])}
-                  </Typography>
-                  <div className={classNames.pricesWrapper}>
+                <div className={styles.blockInfoCell}>
+                  <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
+                  <div className={styles.pricesWrapper}>
                     {newProductPrice && (
-                      <Typography
-                        className={cx(classNames.blockInfoCellText, { [classNames.newPrice]: newProductPrice })}
-                      >
+                      <Typography className={cx(styles.blockInfoCellText, { [styles.newPrice]: newProductPrice })}>
                         {'$ ' + toFixed(newProductPrice, 2)}
                       </Typography>
                     )}
 
                     <Typography
-                      className={cx(classNames.blockInfoCellText, {
-                        [classNames.oldPrice]: newProductPrice,
+                      className={cx(styles.blockInfoCellText, {
+                        [styles.oldPrice]: newProductPrice,
                       })}
                     >
                       {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
@@ -226,20 +213,18 @@ export const CreateOrEditProposalContent = memo(props => {
               ) : null}
             </div>
 
-            <div className={cx(classNames.blockInfoWrapper)}>
-              <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
-                <Typography className={classNames.blockInfoCellTitle}>
-                  {t(TranslationKey['Performance time'])}
-                </Typography>
-                <Typography className={cx(classNames.blockInfoCellText)}>
+            <div className={cx(styles.blockInfoWrapper)}>
+              <div className={cx(styles.blockInfoCell, styles.blockInfoWrapperlast)}>
+                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Performance time'])}</Typography>
+                <Typography className={cx(styles.blockInfoCellText)}>
                   {formatNormDateTime(request?.request?.timeoutAt)}
                 </Typography>
               </div>
 
               {request?.request?.cashBackInPercent ? (
-                <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
-                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
-                  <Typography className={cx(classNames.blockInfoCellText)}>
+                <div className={cx(styles.blockInfoCell, styles.blockInfoWrapperlast)}>
+                  <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                  <Typography className={cx(styles.blockInfoCellText)}>
                     {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
                   </Typography>
                 </div>
@@ -256,29 +241,29 @@ export const CreateOrEditProposalContent = memo(props => {
         ) : null}
       </div>
 
-      <div className={classNames.mainRightWrapper}>
-        <div className={classNames.middleWrapper}>
-          <div className={classNames.descriptionFieldWrapper}>
-            <div className={classNames.nameFieldWrapper}>
+      <div className={styles.mainRightWrapper}>
+        <div className={styles.middleWrapper}>
+          <div className={styles.descriptionFieldWrapper}>
+            <div className={styles.nameFieldWrapper}>
               <Field
-                className={classNames.nameField}
-                labelClasses={classNames.spanLabel}
+                className={styles.nameField}
+                labelClasses={styles.spanLabel}
                 inputProps={{ maxLength: 100 }}
                 label={t(TranslationKey['Proposal Name*'])}
                 value={formFields.title}
                 onChange={onChangeField('title')}
               />
-              {/* <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 80})}>{`${
+              {/* <span className={cx(styles.standartText, {[styles.error]: formFields.title.length > 80})}>{`${
                 formFields.title.length
               } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span> */}
             </div>
 
-            <div className={classNames.descriptionWrapper}>
+            <div className={styles.descriptionWrapper}>
               <Field
                 multiline
-                className={classNames.descriptionField}
-                containerClasses={classNames.conrainer}
-                labelClasses={classNames.spanLabel}
+                className={styles.descriptionField}
+                containerClasses={styles.conrainer}
+                labelClasses={styles.spanLabel}
                 inputProps={{ maxLength: 2100 }}
                 minRows={9}
                 maxRows={9}
@@ -286,16 +271,16 @@ export const CreateOrEditProposalContent = memo(props => {
                 value={formFields.comment}
                 onChange={onChangeField('comment')}
               />
-              <span
-                className={cx(classNames.standartText, { [classNames.error]: formFields.comment.length > 2000 })}
-              >{`${formFields.comment.length} ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
+              <span className={cx(styles.standartText, { [styles.error]: formFields.comment.length > 2000 })}>{`${
+                formFields.comment.length
+              } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
             </div>
 
-            <div className={classNames.imageFileInputWrapper}>
-              <div className={classNames.inputTitleWrapper}>
-                <Typography className={classNames.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
+            <div className={styles.imageFileInputWrapper}>
+              <div className={styles.inputTitleWrapper}>
+                <Typography className={styles.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
 
-                <Typography className={classNames.imageFileInputSubTitle}>
+                <Typography className={styles.imageFileInputSubTitle}>
                   {`(${t(TranslationKey['link to your portfolio, examples of work'])})`}
                 </Typography>
               </div>
@@ -305,25 +290,25 @@ export const CreateOrEditProposalContent = memo(props => {
           </div>
         </div>
 
-        <div className={classNames.footerWrapper}>
+        <div className={styles.footerWrapper}>
           <SetDuration
             title={t(TranslationKey['Time to complete']) + '*'}
             duration={formFields.execution_time}
-            titleStyle={classNames.titleStyle}
+            titleStyle={styles.titleStyle}
             setTotalTimeInMinute={onChangeField('execution_time')}
           />
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
               success
               disabled={disableSubmit}
-              className={classNames.successBtn}
+              className={styles.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
             >
               {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
             </Button>
 
-            <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
+            <Button variant="contained" color="primary" className={styles.backBtn} onClick={onClickBackBtn}>
               {t(TranslationKey.Back)}
             </Button>
           </div>

@@ -11,8 +11,8 @@ import { useStyles } from './normal-action-btn-cell.style'
 
 interface NormalActionBtnCellProps {
   bTnText: string
-  tooltipText: string
-  onClickOkBtn: () => void
+  tooltipText?: string
+  onClickOkBtn?: () => void
   isShowCancelButton?: boolean
   disabled?: boolean
   isFirstRow?: boolean
@@ -20,6 +20,7 @@ interface NormalActionBtnCellProps {
   rowId?: string
   boxId?: string
   fullWidthButton?: boolean
+  casual?: boolean
   onClickCancelTask?: (boxId?: string, rowId?: string, operationType?: string) => void
 }
 
@@ -35,21 +36,30 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
     rowId,
     boxId,
     fullWidthButton,
+    casual,
     onClickCancelTask,
   } = props
   const { classes: styles, cx } = useStyles()
 
+  const buttonStyle = cx(styles.button, { [styles.fullWidthButton]: fullWidthButton })
   const showCancelButton = isShowCancelButton && operationType !== TaskOperationType.RECEIVE
 
   return (
     <div className={styles.wrapper}>
       <Button
+        casual={casual}
         disabled={disabled}
         tooltipInfoContent={isFirstRow ? tooltipText : ''}
         variant="contained"
         color="primary"
-        className={cx(styles.button, { [styles.fullWidthButton]: fullWidthButton })}
-        onClick={onClickOkBtn}
+        className={buttonStyle}
+        onClick={(e: MouseEvent) => {
+          e.stopPropagation()
+
+          if (onClickOkBtn) {
+            onClickOkBtn()
+          }
+        }}
       >
         {bTnText}
       </Button>
@@ -60,8 +70,14 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
-          className={styles.button}
-          onClick={() => (onClickCancelTask ? onClickCancelTask(boxId, rowId, operationType) : undefined)}
+          className={buttonStyle}
+          onClick={(e: MouseEvent) => {
+            e.stopPropagation()
+
+            if (onClickCancelTask) {
+              onClickCancelTask(boxId, rowId, operationType)
+            }
+          }}
         >
           {t(TranslationKey.Cancel)}
         </Button>

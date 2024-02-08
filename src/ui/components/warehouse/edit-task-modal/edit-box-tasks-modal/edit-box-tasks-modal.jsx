@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -19,23 +18,30 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-box-tasks-modal.style'
+import { useStyles } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) => {
-  const { classes: classNames } = useClassNames()
+const AttributesEditBlock = memo(props => {
+  const { classes: styles } = useStyles()
 
+  const { box, setNewBoxField, volumeWeightCoefficient, sizeSetting } = props
+
+  const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
+
+  const isNormalWidth = !Number(box.widthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.widthCmWarehouse)
+
+  const isNormalHeight = !Number(box.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.heightCmWarehouse)
   return (
-    <div className={classNames.numberInputFieldsBlocksWrapper}>
-      <div className={classNames.numberInputFieldsWrapper}>
+    <div className={styles.numberInputFieldsBlocksWrapper}>
+      <div className={styles.numberInputFieldsWrapper}>
         <Field
+          error={isNormalLength}
           inputProps={{ maxLength: 6 }}
-          error={Number(box.lengthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
+          containerClasses={styles.numberInputField}
+          labelClasses={styles.label}
           label={t(TranslationKey.Length) + ': '}
           value={toFixed(box.lengthCmWarehouse, 2)}
           onChange={setNewBoxField('lengthCmWarehouse')}
@@ -43,10 +49,9 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
 
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.heightCmWarehouse) === 0 && true}
-          labelClasses={classNames.label}
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
+          error={isNormalHeight}
+          labelClasses={styles.label}
+          containerClasses={styles.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={toFixed(box.heightCmWarehouse, 2)}
           onChange={setNewBoxField('heightCmWarehouse')}
@@ -54,20 +59,19 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
 
         <Field
           disabled
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
+          className={styles.numberInputField}
+          containerClasses={styles.numberInputField}
           label={t(TranslationKey['Volume weight']) + ': '}
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           value={toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
         />
       </div>
-      <div className={classNames.numberInputFieldsWrapper}>
+      <div className={styles.numberInputFieldsWrapper}>
         <Field
           inputProps={{ maxLength: 6 }}
-          error={Number(box.widthCmWarehouse) === 0 && true}
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
+          error={isNormalWidth}
+          containerClasses={styles.numberInputField}
+          labelClasses={styles.label}
           label={t(TranslationKey.Width) + ': '}
           value={toFixed(box.widthCmWarehouse, 2)}
           onChange={setNewBoxField('widthCmWarehouse')}
@@ -76,9 +80,9 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
         <Field
           inputProps={{ maxLength: 6 }}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
+          className={styles.numberInputField}
+          containerClasses={styles.numberInputField}
+          labelClasses={styles.label}
           label={t(TranslationKey.Weight) + ': '}
           value={toFixed(box.weighGrossKgWarehouse, 2)}
           onChange={e => {
@@ -90,10 +94,10 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
 
         <Field
           disabled
-          className={classNames.numberInputField}
-          containerClasses={classNames.numberInputField}
+          className={styles.numberInputField}
+          containerClasses={styles.numberInputField}
           label={t(TranslationKey['Final weight']) + ': '}
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           value={toFixed(
             Math.max(
               (box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
@@ -105,19 +109,21 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient }) =
       </div>
     </div>
   )
-}
+})
 
-export const EditBoxTasksModal = ({
-  isInStorekeeperWarehouse,
-  setEditModal,
-  box,
-  operationType,
-  setNewBoxes,
-  newBoxes,
-  volumeWeightCoefficient,
-  storekeeperWarehouseSubmit,
-}) => {
-  const { classes: classNames } = useClassNames()
+export const EditBoxTasksModal = props => {
+  const { classes: styles, cx } = useStyles()
+
+  const {
+    isInStorekeeperWarehouse,
+    setEditModal,
+    box,
+    operationType,
+    setNewBoxes,
+    newBoxes,
+    volumeWeightCoefficient = 0,
+    storekeeperWarehouseSubmit,
+  } = props
 
   const [editingBox, setEditingBox] = useState(isInStorekeeperWarehouse ? { ...box, tmpImages: [] } : box)
 
@@ -227,12 +233,14 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.lengthCmWarehouse) ||
     !Number(editingBox.widthCmWarehouse) ||
     !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse)
-
+    !Number(editingBox.weighGrossKgWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
   return (
-    <div className={classNames.modalWrapper}>
-      <div className={classNames.modalHeaderWrapper}>
-        <p className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</p>
+    <div className={styles.modalWrapper}>
+      <div className={styles.modalHeaderWrapper}>
+        <p className={styles.modalTitle}>{t(TranslationKey['Editing the box'])}</p>
 
         <CustomSwitcher
           condition={sizeSetting}
@@ -262,8 +270,8 @@ export const EditBoxTasksModal = ({
         maxNumber={50}
       />
 
-      <div className={classNames.photoWrapper}>
-        <Typography className={classNames.photoAndFilesTitle}>
+      <div className={styles.photoWrapper}>
+        <Typography className={styles.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
         <PhotoAndFilesSlider
@@ -272,16 +280,12 @@ export const EditBoxTasksModal = ({
         />
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <Button success disabled={disabledSubmit} className={classNames.button} onClick={onSubmit}>
+      <div className={styles.buttonsWrapper}>
+        <Button success disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          variant="text"
-          className={cx(classNames.button, classNames.cancelButton)}
-          onClick={() => setEditModal()}
-        >
+        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={() => setEditModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -24,24 +24,24 @@ import { ClientReadyBoxesViewModel } from './client-ready-boxes-view.model'
 
 export const ClientReadyBoxesViewRaw = props => {
   const [viewModel] = useState(() => new ClientReadyBoxesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
+  const getRowClassName = params => params.row.isDraft && styles.isDraftRow
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.boxesFiltersWrapper}>
           {viewModel.storekeepersData.slice().map(storekeeper => (
             <Button
               key={storekeeper._id}
               disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-              className={cx(classNames.button, {
-                [classNames.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
+              className={cx(styles.button, {
+                [styles.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
               })}
               variant="text"
               color="primary"
@@ -53,7 +53,7 @@ export const ClientReadyBoxesViewRaw = props => {
 
           <Button
             disabled={!viewModel.currentStorekeeper?._id}
-            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
+            className={cx(styles.button, { [styles.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
             variant="text"
             color="primary"
             onClick={viewModel.onClickStorekeeperBtn}
@@ -62,7 +62,7 @@ export const ClientReadyBoxesViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.boxesFiltersWrapper}>
+        <div className={styles.boxesFiltersWrapper}>
           {viewModel.clientDestinations
             .slice()
             .sort((a, b) => a.name?.localeCompare(b.name))
@@ -71,8 +71,8 @@ export const ClientReadyBoxesViewRaw = props => {
                 <Button
                   key={destination._id}
                   disabled={viewModel.curDestination?._id === destination._id}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === destination._id,
+                  className={cx(styles.button, {
+                    [styles.selectedBoxesBtn]: viewModel.curDestination?._id === destination._id,
                   })}
                   variant="text"
                   onClick={() => viewModel.onClickDestinationBtn(destination)}
@@ -85,7 +85,7 @@ export const ClientReadyBoxesViewRaw = props => {
           <Button
             disabled={!viewModel.curDestination?._id}
             tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestination?._id })}
+            className={cx(styles.button, { [styles.selectedBoxesBtn]: !viewModel.curDestination?._id })}
             variant="text"
             onClick={viewModel.onClickDestinationBtn}
           >
@@ -104,7 +104,7 @@ export const ClientReadyBoxesViewRaw = props => {
                 firstItems={
                   <>
                     {!!curDestination?._id && (
-                      <Button className={classNames.button} variant="text" onClick={viewModel.onClickDestinationBtn}>
+                      <Button className={styles.button} variant="text" onClick={viewModel.onClickDestinationBtn}>
                         {t(TranslationKey['All destinations'])}
                       </Button>
                     )}
@@ -114,14 +114,14 @@ export const ClientReadyBoxesViewRaw = props => {
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
               /> */}
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
           <Button
             disabled={!viewModel.selectedBoxes.length}
             tooltipInfoContent={t(
               TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
             )}
             color="primary"
-            className={classNames.returnButton}
+            className={styles.returnButton}
             variant="contained"
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
@@ -129,7 +129,7 @@ export const ClientReadyBoxesViewRaw = props => {
           </Button>
 
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
             onChange={viewModel.onChangeNameSearchValue}
@@ -137,7 +137,7 @@ export const ClientReadyBoxesViewRaw = props => {
 
           <div />
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             disableRowSelectionOnClick
@@ -164,7 +164,7 @@ export const ClientReadyBoxesViewRaw = props => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
@@ -222,7 +222,7 @@ export const ClientReadyBoxesViewRaw = props => {
         onClickSuccessBtn={viewModel.returnBoxesToStock}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 }
 

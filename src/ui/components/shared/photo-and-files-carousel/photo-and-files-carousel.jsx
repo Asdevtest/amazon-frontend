@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useState } from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -21,12 +20,12 @@ import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './photo-and-files-carousel.styles'
+import { useStyles } from './photo-and-files-carousel.style'
 
 import { CustomSlider } from '../custom-slider'
 
 export const PhotoAndFilesCarousel = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [imageEditOpen, setImageEditOpen] = useState(false)
 
   const {
@@ -123,13 +122,13 @@ export const PhotoAndFilesCarousel = props => {
         {!withoutMakeMainImage && (
           <>
             {imageIndex === 0 ? (
-              <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+              <div className={cx(styles.imagesModalBtn, styles.activeMainIcon)}>
                 <StarOutlinedIcon />
               </div>
             ) : (
               <Button
                 disabled={imageIndex === 0}
-                className={cx(classNames.imagesModalBtn)}
+                className={cx(styles.imagesModalBtn)}
                 onClick={() => onMakeMainFile(imageIndex, image)}
               >
                 <StarOutlinedIcon />
@@ -138,21 +137,16 @@ export const PhotoAndFilesCarousel = props => {
           </>
         )}
 
-        <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+        <Button className={cx(styles.imagesModalBtn)} onClick={() => onClickEditImage()}>
           <ModeOutlinedIcon />
         </Button>
 
-        <Button className={cx(classNames.imagesModalBtn)}>
+        <Button className={cx(styles.imagesModalBtn)}>
           <AutorenewIcon />
-          <input
-            type={'file'}
-            className={classNames.pasteInput}
-            defaultValue={''}
-            onChange={onUploadFile(imageIndex)}
-          />
+          <input type={'file'} className={styles.pasteInput} defaultValue={''} onChange={onUploadFile(imageIndex)} />
         </Button>
 
-        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onRemoveFile(imageIndex)}>
+        <Button danger className={cx(styles.imagesModalBtn)} onClick={() => onRemoveFile(imageIndex)}>
           <DeleteOutlineOutlinedIcon />
         </Button>
       </>
@@ -161,7 +155,7 @@ export const PhotoAndFilesCarousel = props => {
 
   return files?.length ? (
     <div
-      className={direction === 'column' ? classNames.imagesAndFilesWrapperColumn : classNames.imagesAndFilesWrapper}
+      className={direction === 'column' ? styles.imagesAndFilesWrapperColumn : styles.imagesAndFilesWrapper}
       style={{
         width,
         flexDirection: direction === 'column' ? 'column' : 'row',
@@ -170,21 +164,21 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={cx(classNames.imagesWrapper, { [classNames.fullImagesWrapper]: withoutFiles })}>
+            <div className={cx(styles.imagesWrapper, { [styles.fullImagesWrapper]: withoutFiles })}>
               {notEmptyPhotos?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {(isEditable
                     ? imagesForLoad.filter(el => checkIsMediaFileLink(el?.file?.name || el))
                     : notEmptyPhotos
                   )?.map((photo, index) => (
-                    <div key={index} className={classNames.imageSubWrapper}>
+                    <div key={index} className={styles.imageSubWrapper}>
                       <>
                         <Avatar
                           key={index}
                           variant="square"
                           alt={'!'}
                           src={photo?.data_url || photo}
-                          classes={{ img: small ? classNames.smallImage : classNames.image }}
+                          classes={{ img: small ? styles.smallImage : styles.image }}
                           imgProps={{ style: customImgStyles }}
                           sx={customAvatarStyles}
                           onClick={() => {
@@ -200,20 +194,20 @@ export const PhotoAndFilesCarousel = props => {
                         />
 
                         {filteredImagesTitles[index] && (
-                          <Typography className={classNames.imageTitle}>{filteredImagesTitles[index]}</Typography>
+                          <Typography className={styles.imageTitle}>{filteredImagesTitles[index]}</Typography>
                         )}
                       </>
                     </div>
                   ))}
                 </CustomSlider>
               ) : (
-                <div className={classNames.emptyIconWrapper}>
-                  <div className={classNames.emptyWrapper}>
-                    <div className={classNames.emptyIcon}>
-                      <NoPhotoIcon className={cx(classNames.noPhotoIcon, { [classNames.noIconSmall]: small })} />
+                <div className={styles.emptyIconWrapper}>
+                  <div className={styles.emptyWrapper}>
+                    <div className={styles.emptyIcon}>
+                      <NoPhotoIcon className={cx(styles.noPhotoIcon, { [styles.noIconSmall]: small })} />
                     </div>
 
-                    <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
+                    <Typography className={styles.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
                   </div>
                 </div>
               )}
@@ -225,45 +219,45 @@ export const PhotoAndFilesCarousel = props => {
       {!withoutFiles && (
         <>
           {((notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty) && (
-            <div className={cx(classNames.documentsWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
+            <div className={cx(styles.documentsWrapper, { [styles.notToShowEmptyWrapper]: notToShowEmpty })}>
               {notEmptyFiles?.length ? (
                 <CustomSlider isHideCounter={isHideCounter}>
                   {notEmptyFiles.map((file, index) =>
                     file?.data_url ? (
                       <div
                         key={index}
-                        className={classNames.documentWrapper}
+                        className={styles.documentWrapper}
                         onClick={() => file.data_url && openPdfFile(file.data_url)}
                       >
                         <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
-                        <Typography className={classNames.documentTitle}>
+                        <Typography className={styles.documentTitle}>
                           {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                         </Typography>
-                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                        <span className={styles.documentHover}>{file?.file?.name || file}</span>
                       </div>
                     ) : (
                       <Link
                         key={index}
                         href={checkAndMakeAbsoluteUrl(file)}
-                        className={classNames.documentWrapper}
+                        className={styles.documentWrapper}
                         target="__blank"
                       >
                         <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
-                        <Typography className={classNames.documentTitle}>
+                        <Typography className={styles.documentTitle}>
                           {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                         </Typography>
-                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                        <span className={styles.documentHover}>{file?.file?.name || file}</span>
                       </Link>
                     ),
                   )}
                 </CustomSlider>
               ) : (
-                <div className={classNames.emptyIconWrapper}>
-                  <div className={classNames.emptyWrapper}>
-                    <div className={classNames.emptyIcon}>
-                      <NoDocumentIcon className={cx(classNames.noDocumentIcon, { [classNames.noIconSmall]: small })} />
+                <div className={styles.emptyIconWrapper}>
+                  <div className={styles.emptyWrapper}>
+                    <div className={styles.emptyIcon}>
+                      <NoDocumentIcon className={cx(styles.noDocumentIcon, { [styles.noIconSmall]: small })} />
                     </div>
-                    <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
+                    <Typography className={styles.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
                   </div>
                 </div>
               )}
@@ -284,24 +278,24 @@ export const PhotoAndFilesCarousel = props => {
         <ImageModal
           showPreviews
           isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          controls={isEditable ? bigImagesModalControls : undefined}
           files={bigImagesOptions.images.map((el, i) => ({
             url: el,
             comment: filteredImagesTitles[i],
           }))}
           currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          controls={isEditable ? bigImagesModalControls : undefined}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </div>
   ) : (
-    <div className={classNames.emptyIconWrapper}>
-      <div className={classNames.emptyWrapper}>
-        <div className={classNames.emptyIcon}>
-          <NoDocumentIcon className={cx(classNames.noDocumentIcon, { [classNames.noIconSmall]: small })} />
+    <div className={styles.emptyIconWrapper}>
+      <div className={styles.emptyWrapper}>
+        <div className={styles.emptyIcon}>
+          <NoDocumentIcon className={cx(styles.noDocumentIcon, { [styles.noIconSmall]: small })} />
         </div>
-        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
+        <Typography className={styles.noPhotoText}>{t(TranslationKey['No files'])}</Typography>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -47,9 +47,10 @@ import { useStyles } from './client-inventory-view.style'
 import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 
-export const ClientInventoryView = observer(({ history, location }) => {
+export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new ClientInventoryViewModel({ history }))
   const [useProductsPermissions] = useState(
     () =>
       new UseProductsPermissions(ClientModel.getProductPermissionsData, {
@@ -244,7 +245,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           rowSelectionModel={viewModel.selectedRowIds}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -462,6 +463,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          // selectedProductsData={viewModel.dataForOrderModal}
           selectedProductsData={viewModel.currentData
             .filter(product => viewModel.selectedRowIds.includes(product.id))
             .map(prod => prod.originalData)}

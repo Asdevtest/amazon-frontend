@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
-import { useStyles } from './select-product-button.styles'
+import { useStyles } from './select-product-button.style'
 
 interface SelectProductButtonProps {
   [x: string]: any
@@ -15,7 +15,7 @@ interface SelectProductButtonProps {
 }
 
 // ** Нужно доделывать **
-export const SelectProductButton: FC<SelectProductButtonProps> = React.memo(props => {
+export const SelectProductButton: FC<SelectProductButtonProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { data, onClickCustomButton, checkbox, checkboxChecked } = props
 

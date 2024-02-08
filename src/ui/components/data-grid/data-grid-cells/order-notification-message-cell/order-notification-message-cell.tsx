@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { NotificationType } from '@constants/keys/notifications'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ interface OrderNotificationMessageCellProps {
   navigateToHandler: (notification: any, notificationType: NotificationType) => void
 }
 
-export const OrderNotificationMessageCell: FC<OrderNotificationMessageCellProps> = React.memo(
+export const OrderNotificationMessageCell: FC<OrderNotificationMessageCellProps> = memo(
   ({ navigateToHandler, notification }) => {
     const { classes: styles } = useStyles()
 

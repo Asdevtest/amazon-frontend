@@ -126,13 +126,13 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -201,7 +201,7 @@ export class SubUsersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.getDataGridState()
 
@@ -210,9 +210,9 @@ export class SubUsersViewModel {
       this.getSinglePermissions()
       UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -233,7 +233,7 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await UserModel.getMySubUsers().then(result => {
         runInAction(() => {
@@ -241,11 +241,11 @@ export class SubUsersViewModel {
         })
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -275,7 +275,7 @@ export class SubUsersViewModel {
 
   async onClickEditBtn(row) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedSubUser = row
       })
@@ -300,6 +300,9 @@ export class SubUsersViewModel {
           case UserRole.RESEARCHER:
             return ResearcherModel.getProductsVacant()
 
+          case UserRole.FREELANCER:
+            return []
+
           default:
             return ClientModel.getProductPermissionsData()
         }
@@ -316,13 +319,13 @@ export class SubUsersViewModel {
       })
 
       this.onTriggerOpenModal('showPermissionModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ interface IdeaActionsProps {
   onClickToCheck: () => void
 }
 
-export const IdeaActionsCell: FC<IdeaActionsProps> = React.memo(({ onClickReject, onClickToCheck }) => {
+export const IdeaActionsCell: FC<IdeaActionsProps> = memo(({ onClickReject, onClickToCheck }) => {
   const { classes: styles } = useStyles()
 
   return (

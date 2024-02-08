@@ -31,7 +31,6 @@ export const SupplierApproximateCalculationsForm = memo(props => {
 
       <CustomSwitcher
         fullWidth
-        switchMode={'small'}
         condition={curStorekeeper?._id}
         switcherSettings={[...storekeepers]
           .sort((a, b) => a.name.localeCompare(b.name))

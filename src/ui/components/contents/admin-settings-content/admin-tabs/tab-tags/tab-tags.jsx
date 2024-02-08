@@ -14,12 +14,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-tags.style'
+import { useStyles } from './tab-tags.style'
 
 import { AdminSettingsTagsModel } from './tab-tags.model'
 
 export const TabTags = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsTagsModel())
 
@@ -28,34 +28,36 @@ export const TabTags = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.wrapper}>
-      <div className={classNames.buttons}>
+    <div className={styles.wrapper}>
+      <div className={styles.buttons}>
         <Button
           danger
           disabled={!viewModel.rowSelectionModel.length}
-          className={classNames.deleteButton}
+          className={styles.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
         </Button>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button success className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>
 
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           useResizeContainer
           disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
+          sortingMode="client"
+          paginationMode="client"
           filterModel={viewModel.filterModel}
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -75,7 +77,7 @@ export const TabTags = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onPaginationModelChange={viewModel.onChangePaginationModel}

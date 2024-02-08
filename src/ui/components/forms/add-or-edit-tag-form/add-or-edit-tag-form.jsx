@@ -10,10 +10,10 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-tag-form.style'
+import { useStyles } from './add-or-edit-tag-form.style'
 
 export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCreateSubmit, onEditSubmit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const startValue = {
     title: tagToEdit?.title ?? '',
@@ -37,15 +37,15 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
   const disabledButton = formField.title.length === 0 || isExistsTag
 
   return (
-    <div className={classNames.wrapper}>
-      <Typography variant="h5" className={classNames.standartText}>
+    <div className={styles.wrapper}>
+      <Typography variant="h5" className={styles.standartText}>
         {tagToEdit ? t(TranslationKey['Edit tag']) : t(TranslationKey['Add a new tag'])}
       </Typography>
 
-      <div className={classNames.form}>
+      <div className={styles.form}>
         <Field
           label={t(TranslationKey.Title)}
-          labelClasses={classNames.label}
+          labelClasses={styles.label}
           inputProps={{ maxLength: 255 }}
           value={formField.title}
           placeholder={t(TranslationKey.Title) + '...'}
@@ -53,12 +53,12 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
         />
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button success color="primary" disabled={disabledButton} variant="contained" onClick={handleClick}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
+        <Button className={styles.button} variant="text" onClick={() => onCloseModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

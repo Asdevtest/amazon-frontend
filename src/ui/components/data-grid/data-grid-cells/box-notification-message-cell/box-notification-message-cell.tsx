@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +12,7 @@ interface BoxNotificationMessageCellProps {
   notification: any
 }
 
-export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = React.memo(({ notification }) => {
+export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = memo(({ notification }) => {
   const { classes: styles } = useStyles()
   const history = useHistory()
 

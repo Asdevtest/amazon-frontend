@@ -27,7 +27,7 @@ export const AdminWarehouseBoxesView = observer(() => {
 
   return (
     <>
-      <div className={styles.topHeaderBtnsWrapper}>
+      <div className={styles.header}>
         <SearchInput
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
@@ -65,7 +65,7 @@ export const AdminWarehouseBoxesView = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}

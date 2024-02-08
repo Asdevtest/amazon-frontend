@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,7 +26,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
           <Button
@@ -58,6 +58,10 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
                 title: t(TranslationKey.Filter),
               },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -67,7 +71,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -96,6 +100,6 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
         btnText={t(TranslationKey.Ok)}
         onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
-    </React.Fragment>
+    </>
   )
 })

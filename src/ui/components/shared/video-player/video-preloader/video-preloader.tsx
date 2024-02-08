@@ -8,7 +8,7 @@ import { VideoPlayer } from '../video-player'
 
 interface VideoPreloaderProps {
   videoSource: string
-  height?: string
+  height?: number
   wrapperClassName?: string
   preloaderClassName?: string
   iconPlayClassName?: string
@@ -19,7 +19,7 @@ interface VideoPreloaderProps {
  * A React component for preloading video without the ability to view them.
  *
  * @param {String} videoSource - The url of a video or song to play.
- * @param {String} height - Сustom video preloader height.
+ * @param {Number} height - Сustom video preloader height.
  * @param {String} wrapperClassName - Custom styles for the main wrapper.
  * @param {String} preloaderClassName - Custom styles for the play icon.
  * @param {String} iconPlayClassName - Custom styles for the play icon.

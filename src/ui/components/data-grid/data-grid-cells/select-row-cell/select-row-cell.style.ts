@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    gap: '20px',
+    gap: 15,
   },
 
   formedCell: {

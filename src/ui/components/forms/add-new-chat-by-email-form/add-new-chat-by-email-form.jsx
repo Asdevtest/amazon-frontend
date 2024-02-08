@@ -58,7 +58,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           menuIsOpen
           isMulti
           closeMenuOnSelect={false}
-          classes={{ option: styles.option }}
+          classes={{ option: styles.option, menuList: styles.menuList }}
           value={formFields.chosenUsers}
           options={userDataForRender}
           components={{ Option, MultiValueContainer }}
@@ -71,6 +71,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
       {formFields.chosenUsers.length > 1 ? (
         <>
           <Field
+            inputProps={{ maxLength: 254 }}
             label={t(TranslationKey['Name of group chat']) + '*'}
             labelClasses={styles.label}
             containerClasses={styles.selectContainer}

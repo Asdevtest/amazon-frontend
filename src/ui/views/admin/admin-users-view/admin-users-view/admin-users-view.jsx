@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -18,7 +18,7 @@ import { styles } from './admin-users-view.style'
 
 import { AdminUsersViewModel } from './admin-users-view.model'
 
-export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
+export const AdminUsersViewRaw = ({ classes: styles, history }) => {
   const [viewModel] = useState(() => new AdminUsersViewModel({ history }))
 
   useEffect(() => {
@@ -26,19 +26,21 @@ export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
   }, [])
 
   return (
-    <React.Fragment>
-      <div className={classNames.searchWrapper}>
+    <>
+      <div className={styles.searchWrapper}>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           placeholder={t(TranslationKey.search)}
           onChange={viewModel.onChangeNameSearchValue}
         />
       </div>
 
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
+          sortingMode="client"
+          paginationMode="client"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -49,7 +51,7 @@ export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
           rows={viewModel.getCurrentData()}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -100,7 +102,7 @@ export const AdminUsersViewRaw = ({ classes: classNames, history }) => {
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-    </React.Fragment>
+    </>
   )
 }
 

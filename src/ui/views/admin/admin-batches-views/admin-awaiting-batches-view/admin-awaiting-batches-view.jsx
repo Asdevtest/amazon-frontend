@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -18,22 +18,22 @@ import { AdminAwaitingBatchesViewModel } from './admin-awaiting-batches-view.mod
 
 export const AdminAwaitingBatchesViewRaw = props => {
   const [viewModel] = useState(() => new AdminAwaitingBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div className={classNames.topHeaderBtnsWrapper}>
+    <>
+      <div className={styles.topHeaderBtnsWrapper}>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />
       </div>
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
@@ -41,6 +41,8 @@ export const AdminAwaitingBatchesViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          sortingMode="client"
+          paginationMode="client"
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
@@ -57,7 +59,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
@@ -72,7 +74,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
       />
-    </React.Fragment>
+    </>
   )
 }
 

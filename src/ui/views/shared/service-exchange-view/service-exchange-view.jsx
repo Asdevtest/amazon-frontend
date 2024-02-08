@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,7 +28,7 @@ export const ServiceExchangeView = observer(({ history }) => {
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
+    <>
       <div className={styles.tablePanelWrapper}>
         <div className={styles.toggleBtnAndtaskTypeWrapper}>
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
@@ -81,12 +81,10 @@ export const ServiceExchangeView = observer(({ history }) => {
           files={viewModel.bigImagesOptions.images}
           currentFileIndex={viewModel.bigImagesOptions.imgIndex}
           isOpenModal={viewModel.showImageModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          handleCurrentFileIndex={imgIndex =>
-            viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })
-          }
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
         />
       )}
-    </React.Fragment>
+    </>
   )
 })

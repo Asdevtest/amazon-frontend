@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Checkbox, Paper, Typography } from '@mui/material'
 
@@ -10,10 +9,10 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './third-step.style'
+import { useStyles } from './third-step.style'
 
 export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeEstimate, setMakeEstimate }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [opportunities, setOpportunities] = useState('')
   const [risks, setRisks] = useState('')
@@ -66,25 +65,25 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
   return (
     <>
-      <div className={classNames.infosWrapper}>
+      <div className={styles.infosWrapper}>
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey.Opportunities)}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={opportunities}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setOpportunities(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !opportunities,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !opportunities,
                   })}
                   onClick={() => opportunities && addAsset('opportunities')}
                 >
@@ -93,10 +92,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.opportunities.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -108,21 +107,21 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey.Risks)}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={risks}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setRisks(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !risks,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !risks,
                   })}
                   onClick={() => risks && addAsset('risks')}
                 >
@@ -131,10 +130,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.risks.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -146,21 +145,21 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Work and skills required'])}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={requiredSkills}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setrequiredSkills(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !requiredSkills,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !requiredSkills,
                   })}
                   onClick={() => requiredSkills && addAsset('requiredSkills')}
                 >
@@ -169,10 +168,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.requiredSkills.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -182,25 +181,25 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         />
       </div>
 
-      <div className={cx(classNames.infosWrapper, classNames.infosWrapperMarginTop)}>
+      <div className={cx(styles.infosWrapper, styles.infosWrapperMarginTop)}>
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Seller support includes'])}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={sellIncludes}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setSellIncludes(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !sellIncludes,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !sellIncludes,
                   })}
                   onClick={() => sellIncludes && addAsset('sellIncludes')}
                 >
@@ -209,10 +208,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.sellIncludes.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -224,21 +223,21 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Reasons for sale'])}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={reasonForSale}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setReasonForSale(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !reasonForSale,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !reasonForSale,
                   })}
                   onClick={() => reasonForSale && addAsset('reasonForSale')}
                 >
@@ -247,10 +246,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.reasonForSale.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -262,21 +261,21 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         <Field
           multiline
           inputProps={{ maxLength: 100 }}
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Additional Information'])}
           inputComponent={
-            <Paper className={classNames.assetsPaper}>
-              <div className={classNames.assetInputWrapper}>
+            <Paper className={styles.assetsPaper}>
+              <div className={styles.assetInputWrapper}>
                 <Input
                   value={additionalInfo}
                   placeholder={t(TranslationKey.Add)}
-                  className={classNames.assetInput}
+                  className={styles.assetInput}
                   onChange={e => setAdditionalInfo(e.target.value)}
                 />
 
                 <div
-                  className={cx(classNames.actionDelButton, {
-                    [classNames.disabledActionButton]: !additionalInfo,
+                  className={cx(styles.actionDelButton, {
+                    [styles.disabledActionButton]: !additionalInfo,
                   })}
                   onClick={() => additionalInfo && addAsset('additionalInfo')}
                 >
@@ -285,10 +284,10 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
               </div>
 
               {formFields.additionalInfo.map((asset, index) => (
-                <div key={index} className={classNames.selectedAssetWrapper}>
-                  <Typography className={classNames.selectedAsset}>{asset}</Typography>
+                <div key={index} className={styles.selectedAssetWrapper}>
+                  <Typography className={styles.selectedAsset}>{asset}</Typography>
 
-                  <div className={classNames.actionDelButton} onClick={() => removeAsset(index)}>
+                  <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
                   </div>
                 </div>
@@ -300,8 +299,8 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
       <Field
         oneLine
         label={t(TranslationKey['Make an estimate of the cost?'])}
-        labelClasses={classNames.spanLabelSmall}
-        containerClasses={classNames.checkboxWrapper}
+        labelClasses={styles.spanLabelSmall}
+        containerClasses={styles.checkboxWrapper}
         inputComponent={
           <Checkbox color="primary" checked={makeEstimate} onChange={() => setMakeEstimate(!makeEstimate)} />
         }

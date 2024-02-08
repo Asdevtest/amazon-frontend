@@ -135,7 +135,7 @@ export class SupervisorProductViewModel {
 
   async getProductsVariations() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
@@ -143,16 +143,16 @@ export class SupervisorProductViewModel {
         this.productVariations = result
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async getProductById() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
@@ -162,9 +162,9 @@ export class SupervisorProductViewModel {
 
         updateProductAutoCalculatedFields.call(this)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -175,9 +175,7 @@ export class SupervisorProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
 
       if (
         [
@@ -192,9 +190,7 @@ export class SupervisorProductViewModel {
           'tags',
         ].includes(fieldName)
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -209,13 +205,9 @@ export class SupervisorProductViewModel {
           return
         }
         if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
-          })
+          this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
         } else {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: e.target.value }
-          })
+          this.product = { ...this.product, [fieldName]: e.target.value }
         }
       }
 
@@ -344,7 +336,7 @@ export class SupervisorProductViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -360,7 +352,7 @@ export class SupervisorProductViewModel {
 
   async onSaveProductData(updateDataHandler) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       runInAction(() => {
         this.uploadedImages = []
@@ -402,9 +394,9 @@ export class SupervisorProductViewModel {
       this.showSuccesAlert()
       updateDataHandler && (await updateDataHandler())
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -502,7 +494,7 @@ export class SupervisorProductViewModel {
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -579,10 +571,10 @@ export class SupervisorProductViewModel {
         this.warningModalTitle = t(TranslationKey['Success parse'])
       })
       this.onTriggerOpenModal('showWarningModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)

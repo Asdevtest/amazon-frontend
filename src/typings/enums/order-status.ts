@@ -1,0 +1,23 @@
+// OrderStatus.FORMED = 0 - type number
+// OrderStatus[OrderStatus.FORMED] = "FORMED" - type string
+export enum OrderStatus {
+  FORMED = 0,
+  NEW = 1,
+  PENDING = 2,
+  READY_FOR_BUYOUT = 3,
+  READY_TO_PROCESS = 10,
+  AT_PROCESS = 15,
+  READY_FOR_PAYMENT = 16,
+  PARTIALLY_PAID = 17,
+  NEED_CONFIRMING_TO_PRICE_CHANGE = 19,
+
+  PAID_TO_SUPPLIER = 20,
+  TRACK_NUMBER_ISSUED = 25,
+  VERIFY_RECEIPT = 27,
+  IN_STOCK = 30,
+
+  CANCELED_BY_BUYER = 35,
+  CANCELED_BY_CLIENT = 40,
+  AWAITING_SHIPMENT = 45,
+  SHIPPED = 50,
+}

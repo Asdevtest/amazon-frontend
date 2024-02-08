@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ interface IdeaRequestsProps {
   onClickUnbindButton: (requestId: string) => void
 }
 
-export const IdeaRequestsCell: FC<IdeaRequestsProps> = React.memo(props => {
+export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
   const {
     onFinishedOnly,
     onClickCreateRequest,

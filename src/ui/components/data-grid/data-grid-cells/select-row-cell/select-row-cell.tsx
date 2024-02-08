@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -20,9 +20,9 @@ interface SelectRowCellProps {
   onClickVariationButton: () => void
 }
 
-export const SelectRowCell: FC<SelectRowCellProps> = React.memo(props => {
-  const { classes: styles } = useStyles()
+export const SelectRowCell: FC<SelectRowCellProps> = memo(props => {
   const { checkboxComponent, showVariationButton, isParentProduct, onClickShareIcon, onClickVariationButton } = props
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.selectRowCellWrapper}>

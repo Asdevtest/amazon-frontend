@@ -2,16 +2,16 @@ import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
-import { IUploadFile } from '@typings/upload-file'
+import { Arrows, ArrowsType } from '@typings/arrow'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './slider.style'
 
 import { Arrow, NoSlide, Slides } from './components'
 import { MIN_FILES_IN_ARRAY, WIDTH_INCREASE_FACTOR } from './slider.constants'
-import { Arrows, ArrowsType } from './slider.type'
 
 interface SliderProps {
-  slides: Array<string | IUploadFile>
+  slides: UploadFileType[]
   currentIndex: number
   setCurrentIndex: Dispatch<SetStateAction<number>>
   smallSlider?: boolean
@@ -24,6 +24,7 @@ interface SliderProps {
   customSlideHeight?: number
   controls?: boolean
   isPlaying?: boolean
+  smallPhotos?: boolean
   setIsPlaying?: (isPlaying: boolean) => void
   onPhotosModalToggle?: () => void
 }
@@ -34,18 +35,20 @@ export const Slider: FC<SliderProps> = memo(props => {
     currentIndex,
     setCurrentIndex,
     onPhotosModalToggle,
-    smallSlider = false,
-    mediumSlider = false,
-    bigSlider = false,
-    alignLeft = false,
-    alignRight = false,
-    isHideCounter = false,
+    smallSlider,
+    mediumSlider,
+    bigSlider,
+    alignLeft,
+    alignRight,
+    isHideCounter,
+    smallPhotos,
     customSlideHeight,
     withoutFiles,
     controls = false,
     isPlaying,
     setIsPlaying,
   } = props
+
   const { classes: styles, cx } = useStyles()
 
   const handleArrowClick = (direction: ArrowsType) => {
@@ -107,6 +110,7 @@ export const Slider: FC<SliderProps> = memo(props => {
               customSlideHeight={customSlideHeight}
               customSlideWidth={customSlideWidth}
               isPlaying={isPlaying}
+              smallPhotos={smallPhotos}
               setIsPlaying={setIsPlaying}
               onPhotosModalToggle={onPhotosModalToggle}
             />

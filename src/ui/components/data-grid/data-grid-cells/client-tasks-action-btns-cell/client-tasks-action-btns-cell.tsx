@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
@@ -21,7 +21,7 @@ interface ClientTasksActionBtnsCellProps {
   }
 }
 
-export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = React.memo(({ row, handlers }) => {
+export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = memo(({ row, handlers }) => {
   const { classes: styles } = useStyles()
 
   const checkIfTaskCouldBeCanceled = (status: string) => {
@@ -77,11 +77,11 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
           </>
         )
       case TaskOperationType.RECEIVE:
-        return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+        return <>{renderTaskInfoBtn()}</>
       case TaskOperationType.EDIT_BY_STOREKEEPER:
       case TaskOperationType.EDIT:
         return (
-          <React.Fragment>
+          <>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
@@ -94,7 +94,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
                 {t(TranslationKey.Cancel)}
               </Button>
             )}
-          </React.Fragment>
+          </>
         )
     }
   }

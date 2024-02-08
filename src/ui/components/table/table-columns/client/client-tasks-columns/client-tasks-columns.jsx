@@ -152,7 +152,7 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 130,
-    renderCell: params => <TaskStatusCell status={params.value} />,
+    renderCell: params => <TaskStatusCell usedStatusFromProps status={params.value} />,
   },
 
   {

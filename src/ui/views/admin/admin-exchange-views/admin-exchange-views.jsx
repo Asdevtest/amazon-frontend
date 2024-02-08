@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -19,16 +19,16 @@ import { AdminExchangeViewModel } from './admin-exchange-views.model'
 
 export const AdminExchangeViewsRaw = props => {
   const [viewModel] = useState(() => new AdminExchangeViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.filterBtnWrapper}>
+        <div className={styles.filterBtnWrapper}>
           <CustomSwitcher
             switchMode={'medium'}
             condition={viewModel.activeCategory}
@@ -40,7 +40,7 @@ export const AdminExchangeViewsRaw = props => {
           />
         </div>
 
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
@@ -71,7 +71,7 @@ export const AdminExchangeViewsRaw = props => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
@@ -91,7 +91,7 @@ export const AdminExchangeViewsRaw = props => {
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
-    </React.Fragment>
+    </>
   )
 }
 

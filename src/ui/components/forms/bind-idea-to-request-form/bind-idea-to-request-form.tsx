@@ -1,52 +1,55 @@
-import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bind-idea-to-request-form.styles'
+import { useStyles } from './bind-idea-to-request-form.style'
 
 import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-idea-to-request-columns'
 
-interface BindIdeaToRequestFormProps {
-  requests: {
-    _id: string
-    humanFriendlyId: number
-    typeTask: number
-    title: string
-    status: string
-  }
-  onClickBindButton: (selectedRequests: Array<string>) => void
+interface IRequest {
+  _id: string
+  humanFriendlyId: number
+  typeTask: number
+  title: string
+  status: string
 }
 
-export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+interface BindIdeaToRequestFormProps {
+  requests: IRequest[]
+  onClickBindButton: (selectedRequests: string[]) => void
+}
 
-  const { requests, onClickBindButton } = props
+export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ requests, onClickBindButton }) => {
+  const { classes: styles } = useStyles()
+
   const [selectedRequests, setSelectedRequests] = useState([])
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Link requests'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Link requests'])}</p>
 
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
+          disableColumnMenu
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           rows={requests}
-          columns={bindIdeaToRequestColumns()}
+          rowCount={requests.length}
+          columns={bindIdeaToRequestColumns}
           getRowHeight={() => 'auto'}
+          sx={{
+            '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
+          }}
           onRowSelectionModelChange={setSelectedRequests}
         />
       </div>
 
-      <div className={classNames.buttonWrapper}>
+      <div className={styles.buttonWrapper}>
         <Button disabled={!selectedRequests.length} onClick={() => onClickBindButton(selectedRequests)}>
           {t(TranslationKey['Link request'])}
         </Button>

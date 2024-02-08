@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
@@ -31,7 +31,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <SearchInput
@@ -48,6 +48,8 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
+            sortingMode="client"
+            paginationMode="client"
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.currentData}
@@ -68,7 +70,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -177,6 +179,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

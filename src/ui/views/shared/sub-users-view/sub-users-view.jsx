@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 
@@ -64,6 +64,8 @@ export const SubUsersView = observer(props => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          sortingMode="client"
+          paginationMode="client"
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
@@ -82,7 +84,7 @@ export const SubUsersView = observer(props => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}

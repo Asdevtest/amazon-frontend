@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
@@ -17,43 +17,43 @@ import { BuyerNotificationsViewModel } from './buyer-notifications-view.model'
 
 export const BuyerNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new BuyerNotificationsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Notifications'])}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Notifications'])}</Typography>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             {/*
                   <Button
-                    className={classNames.button}
+                    className={styles.button}
                     color="primary"
                     variant="outlined"
                     onClick={onClickTariffsNotifications}
                   >
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
+                    <div className={styles.btnTextWrapper}>
+                      <Typography className={styles.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button> */}
 
             <Button
-              className={classNames.button}
+              className={styles.button}
               color="primary"
               variant="outlined"
               onClick={viewModel.onClickIdeasNotifications}
             >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['On ideas'])}</Typography>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['On ideas'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

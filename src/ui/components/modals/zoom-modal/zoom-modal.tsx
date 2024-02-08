@@ -8,12 +8,12 @@ import { VideoPlayer } from '@components/shared/video-player'
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './zoom-modal.style'
 
 interface ZoomModalProps {
-  mediaFiles: Array<string | IUploadFile>
+  mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
   isOpenModal: boolean
   setIsOpenModal: Dispatch<SetStateAction<boolean>>

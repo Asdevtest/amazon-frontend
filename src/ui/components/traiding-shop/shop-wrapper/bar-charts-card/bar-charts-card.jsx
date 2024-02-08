@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Paper, Typography } from '@mui/material'
@@ -14,7 +13,7 @@ import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './bar-charts-card.style'
+import { useStyles } from './bar-charts-card.style'
 
 const filterSettings = {
   SIX_MONTHS: 'SIX_MONTHS',
@@ -23,7 +22,7 @@ const filterSettings = {
 }
 
 export const BarChartsCard = observer(({ isRevenue, data }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [curFilterSetting, setCurFilterSetting] = useState(filterSettings.ALL_MONTHS)
 
@@ -47,20 +46,20 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
   }, [curFilterSetting, SettingsModel.languageTag])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Paper className={classNames.cardWrapper}>
-        <div className={classNames.cardHeaderWrapper}>
+    <div className={styles.mainWrapper}>
+      <Paper className={styles.cardWrapper}>
+        <div className={styles.cardHeaderWrapper}>
           <Typography>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</Typography>
-          <div className={classNames.barStatusesWrapper}>
-            <div className={classNames.barStatusWrapper}>
+          <div className={styles.barStatusesWrapper}>
+            <div className={styles.barStatusWrapper}>
               <FiberManualRecordRoundedIcon color="primary" />
-              <Typography className={classNames.cardTitle}>
+              <Typography className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['gross profit']) : t(TranslationKey['page view'])}
               </Typography>
             </div>
-            <div className={classNames.barStatusWrapper}>
-              <FiberManualRecordRoundedIcon classes={{ root: classNames.indicator }} />
-              <Typography className={classNames.cardTitle}>
+            <div className={styles.barStatusWrapper}>
+              <FiberManualRecordRoundedIcon classes={{ root: styles.indicator }} />
+              <Typography className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['net income']) : t(TranslationKey['unique users'])}
               </Typography>
             </div>
@@ -74,10 +73,10 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
           secondBarKey={isRevenue ? 'pureIncome' : 'uniqueCustomers'}
         />
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            className={cx(classNames.button, {
-              [classNames.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
+            className={cx(styles.button, {
+              [styles.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
             })}
             variant="text"
             color="primary"
@@ -86,8 +85,8 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             {`6 ${t(TranslationKey.months)}`}
           </Button>
           <Button
-            className={cx(classNames.button, {
-              [classNames.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
+            className={cx(styles.button, {
+              [styles.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
             })}
             variant="text"
             color="primary"
@@ -96,8 +95,8 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             {`12 ${t(TranslationKey.months)}`}
           </Button>
           <Button
-            className={cx(classNames.button, {
-              [classNames.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
+            className={cx(styles.button, {
+              [styles.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
             })}
             variant="text"
             color="primary"

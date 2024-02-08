@@ -9,6 +9,7 @@ import {
   poundsWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -16,11 +17,10 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
-// import { calcMaxDeliveryForProduct } from '@utils/calculation'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-parameters.style'
+import { useStyles } from './product-parameters.style'
 
 export const ProductParameters = ({
   order,
@@ -31,7 +31,7 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
@@ -44,23 +44,23 @@ export const ProductParameters = ({
     <Field
       oneLine
       label={label}
-      containerClasses={classNames.parameterTableCellWrapper}
-      labelClasses={classNames.fieldLabel}
-      inputComponent={<Typography className={classNames.text}>{value}</Typography>}
+      containerClasses={styles.parameterTableCellWrapper}
+      labelClasses={styles.fieldLabel}
+      inputComponent={<Typography className={styles.text}>{value}</Typography>}
     />
   )
 
   return (
-    <div className={classNames.container}>
+    <div className={styles.container}>
       <Field
         oneLine
         disabled={!isCanChange}
         inputProps={{ maxLength: 8 }}
         label={t(TranslationKey['Quantity (pcs.)'])}
-        inputClasses={classNames.amountInput}
-        classes={{ input: classNames.amountInput }}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        inputClasses={styles.amountInput}
+        classes={{ input: styles.amountInput }}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
@@ -72,15 +72,15 @@ export const ProductParameters = ({
       <Field
         oneLine
         label={t(TranslationKey.Supplier)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <div>
-            {order.orderSupplier?.link === 'access denied' ? (
-              <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
+            {order.orderSupplier?.link === ACCESS_DENIED ? (
+              <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
             ) : (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
+                <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
               </Link>
             )}
           </div>
@@ -91,10 +91,10 @@ export const ProductParameters = ({
       <Field
         oneLine
         label={t(TranslationKey.Dimensions)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
-          <div className={classNames.sizesWrapper}>
+          <div className={styles.sizesWrapper}>
             <CustomSwitcher
               condition={sizeSetting}
               switcherSettings={[
@@ -104,7 +104,7 @@ export const ProductParameters = ({
               changeConditionHandler={condition => setSizeSetting(condition)}
             />
 
-            <Typography className={classNames.text}>{`
+            <Typography className={styles.text}>{`
             ${
               order.product.width && order.product.height && order.product.length
                 ? toFixed(order.product.width / lengthConversion, 2) +
@@ -124,8 +124,8 @@ export const ProductParameters = ({
       <Field
         oneLine
         label={t(TranslationKey.BarCode)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <>
             {isCanChange ? (
@@ -152,8 +152,8 @@ export const ProductParameters = ({
       <Field
         oneLine
         label={t(TranslationKey['Transparency codes'])}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <>
             <LabelWithCopy

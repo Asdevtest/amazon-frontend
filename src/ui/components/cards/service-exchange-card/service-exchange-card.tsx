@@ -23,7 +23,7 @@ interface ServiceExchangeCardProps {
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
-  const { classes: classNames, cx } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription =
@@ -45,26 +45,26 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   }
 
   return (
-    <div className={classNames.cardWrapper}>
-      <p className={classNames.cardTitle}>{service.title}</p>
+    <div className={styles.cardWrapper}>
+      <p className={styles.cardTitle}>{service.title}</p>
 
-      <p className={classNames.cardDescription}>{service.description}</p>
+      <p className={styles.cardDescription}>{service.description}</p>
 
-      <button className={classNames.detailedDescription} onClick={handleToggleModal}>
+      <button className={styles.detailedDescription} onClick={handleToggleModal}>
         {t(TranslationKey.Details)}
       </button>
 
-      <PhotoAndFilesSlider withoutFiles showPreviews mediumSlider files={service?.linksToMediaFiles} />
+      <PhotoAndFilesSlider withoutFiles smallPhotos showPreviews mediumSlider files={service?.linksToMediaFiles} />
 
       {isNotMyServices ? (
-        <div className={classNames.detailsWrapper}>
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={classNames.detailDescription}>{detailDescription}</p>
+        <div className={styles.detailsWrapper}>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+            <p className={styles.detailDescription}>{detailDescription}</p>
           </div>
 
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
             <UserLink
               blackText
               withAvatar
@@ -79,20 +79,20 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
           </div>
         </div>
       ) : (
-        <div className={cx(classNames.detailsWrapper, classNames.detailsWrapperAll)}>
-          <div className={classNames.detailsSubWrapperAll}>
-            <p className={classNames.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
-            <p className={classNames.detailDescription}>{service.requests.length}</p>
+        <div className={cx(styles.detailsWrapper, styles.detailsWrapperAll)}>
+          <div className={styles.detailsSubWrapperAll}>
+            <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
+            <p className={styles.detailDescription}>{service.requests.length}</p>
           </div>
-          <div className={classNames.detailsSubWrapperAll}>
-            <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={classNames.detailDescription}>{detailDescription}</p>
+          <div className={styles.detailsSubWrapperAll}>
+            <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+            <p className={styles.detailDescription}>{detailDescription}</p>
           </div>
         </div>
       )}
 
-      <div className={classNames.buttonWrapper}>
-        <Button success={choose || order} className={classNames.openBtn} onClick={() => onClickButton(service)}>
+      <div className={styles.buttonWrapper}>
+        <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
           {buttonContent}
         </Button>
       </div>

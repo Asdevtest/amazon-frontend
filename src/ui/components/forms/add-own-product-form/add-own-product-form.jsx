@@ -15,10 +15,10 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-own-product-form.style'
+import { useStyles } from './add-own-product-form.style'
 
 export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressValue }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [skuLine, setSkuLine] = useState('')
 
@@ -64,24 +64,24 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
     submitIsClicked
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Add your product'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Add your product'])}</p>
 
       <Field
         label={t(TranslationKey['Amazon product link'])}
         tooltipInfoContent={t(TranslationKey['Provide a link to the product you want to add to Amazon'])}
-        labelClasses={classNames.fieldLabel}
+        labelClasses={styles.fieldLabel}
         inputComponent={
-          <div className={classNames.inputWrapper}>
+          <div className={styles.inputWrapper}>
             <Input
               placeholder={t(TranslationKey.Link)}
               value={formFields.lamazon}
-              className={classNames.input}
+              className={styles.input}
               onChange={onChangeField('lamazon')}
             />
             <Button
               tooltipInfoContent={t(TranslationKey['Fills in the ASIN field from the added Amazon link'])}
-              className={classNames.defaultBtn}
+              className={styles.defaultBtn}
               onClick={onClickParseBtn}
             >
               Parse
@@ -93,8 +93,8 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
       <Field
         inputProps={{ maxLength: 50 }}
         label={t(TranslationKey.ASIN)}
-        labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.fieldContainer}
+        labelClasses={styles.fieldLabel}
+        containerClasses={styles.fieldContainer}
         value={formFields.asin}
         placeholder={t(TranslationKey.ASIN)}
         onChange={onChangeField('asin')}
@@ -104,12 +104,12 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         oneLine
         tooltipInfoContent={t(TranslationKey['Opens additional fields to be filled in when adding a product'])}
         label={t(TranslationKey.No) + ' ASIN'}
-        labelClasses={classNames.fieldLabel}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <Checkbox
             color="primary"
             checked={isNoAsin}
-            className={classNames.checkbox}
+            className={styles.checkbox}
             onClick={() => setIsNoAsin(!isNoAsin)}
           />
         }
@@ -119,34 +119,34 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         <div>
           <Field
             label={t(TranslationKey.SKU)}
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             inputComponent={
               <div>
                 {!!formFields.skuByClient && (
-                  <div className={classNames.skuItemsWrapper}>
-                    <div className={classNames.skuItemWrapper}>
-                      <p className={classNames.skuItemTitle}>{formFields.skuByClient}</p>
+                  <div className={styles.skuItemsWrapper}>
+                    <div className={styles.skuItemWrapper}>
+                      <p className={styles.skuItemTitle}>{formFields.skuByClient}</p>
 
-                      <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku()}>
-                        <DeleteIcon className={classNames.deleteBtn} />
+                      <IconButton className={styles.deleteBtnWrapper} onClick={() => onRemoveSku()}>
+                        <DeleteIcon className={styles.deleteBtn} />
                       </IconButton>
                     </div>
                   </div>
                 )}
 
-                <div className={classNames.inputWrapper}>
+                <div className={styles.inputWrapper}>
                   <Input
                     placeholder={t(TranslationKey.SKU)}
                     inputProps={{ maxLength: 256 }}
                     value={skuLine}
-                    className={classNames.input}
+                    className={styles.input}
                     onChange={e => setSkuLine(e.target.value)}
                   />
 
                   <Button
                     disableElevation
                     disabled={skuLine === '' || !!formFields.skuByClient}
-                    className={classNames.defaultBtn}
+                    className={styles.defaultBtn}
                     variant="contained"
                     color="primary"
                     onClick={onClickSkuBtn}
@@ -160,7 +160,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
           <Field
             label={t(TranslationKey.Title)}
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             value={formFields.amazonTitle}
             placeholder={t(TranslationKey.Title)}
             onChange={onChangeField('amazonTitle')}
@@ -176,7 +176,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         </div>
       )}
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button
           success
           disableElevation

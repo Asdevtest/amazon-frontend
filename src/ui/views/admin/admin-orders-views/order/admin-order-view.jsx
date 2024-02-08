@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,7 +8,6 @@ import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -24,7 +23,6 @@ export const AdminOrderViewRaw = props => {
         history: props.history,
       }),
   )
-  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -34,18 +32,9 @@ export const AdminOrderViewRaw = props => {
     }
   }, [])
 
-  const goBack = () => {
-    viewModel.history.goBack()
-  }
-
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.backButtonWrapper}>
-          <Button className={classNames.backButton} onClick={goBack}>
-            {t(TranslationKey.Back)}
-          </Button>
-        </div>
         {viewModel.order ? (
           <OrderContent
             platformSettings={viewModel.platformSettings}
@@ -73,7 +62,7 @@ export const AdminOrderViewRaw = props => {
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 }
 

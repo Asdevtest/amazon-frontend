@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
@@ -17,6 +18,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { getActiveStatuses } from './helpers/get-active-statuses'
 import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
@@ -63,12 +65,14 @@ export class OrdersModel {
   columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  constructor({ history, productId }) {
-    runInAction(() => {
-      this.history = history
+  isCheckedStatusByFilter = {}
 
-      this.productId = productId
-    })
+  constructor({ history, productId, showAtProcessOrders }) {
+    this.history = history
+
+    this.productId = productId
+
+    this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -81,13 +85,6 @@ export class OrdersModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-  }
-
-  isCheckedStatusByFilter = {
-    [chosenStatusesByFilter.ALL]: true,
-    [chosenStatusesByFilter.AT_PROCESS]: true,
-    [chosenStatusesByFilter.CANCELED]: true,
-    [chosenStatusesByFilter.COMPLETED]: true,
   }
 
   get orderStatusData() {
@@ -179,12 +176,12 @@ export class OrdersModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await this.getOrdersByProductId()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -289,7 +286,8 @@ export class OrdersModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const product = this.ordersDataStateToSubmit[i]
+        let product = this.ordersDataStateToSubmit[i]
+        let uploadedTransparencyFiles = []
 
         this.uploadedFiles = []
 
@@ -301,7 +299,30 @@ export class OrdersModel {
           await ClientModel.updateProductBarCode(product.productId, { barCode: null })
         }
 
-        if (this.isPendingOrdering) {
+        if (product.tmpTransparencyFile.length) {
+          uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
+            images: product.tmpTransparencyFile,
+            type: 'uploadedFiles',
+          })
+
+          product = {
+            ...product,
+            transparencyFile: uploadedTransparencyFiles[0],
+          }
+        }
+
+        if (product.tmpIsPendingOrder) {
+          const requestData = getObjectFilteredByKeyArrayBlackList(product, [
+            'barCode',
+            'tmpBarCode',
+            'tmpIsPendingOrder',
+            '_id',
+            'tmpTransparencyFile',
+            'transparency',
+          ])
+
+          await ClientModel.createFormedOrder(requestData)
+        } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',
             'orderSupplierId',
@@ -316,14 +337,13 @@ export class OrdersModel {
             'destinationId',
             'storekeeperId',
             'logicsTariffId',
+            'transparencyFile',
           ])
           await OrderModel.changeOrderData(product._id, dataToRequest)
           await ClientModel.updateOrderStatusToReadyToProcess(product._id)
         } else {
-          await this.createOrder(product)
+          await this.createOrder(getObjectFilteredByKeyArrayWhiteList(product, createOrderRequestWhiteList))
         }
-
-        // await this.createOrder(product)
       }
 
       if (!this.error) {

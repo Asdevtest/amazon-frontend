@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ interface BatchTrackingCellProps {
   disableMultilineForTrack?: boolean
 }
 
-export const BatchTrackingCell: FC<BatchTrackingCellProps> = React.memo(
+export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
   ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => {
     const { classes: styles } = useStyles()
 

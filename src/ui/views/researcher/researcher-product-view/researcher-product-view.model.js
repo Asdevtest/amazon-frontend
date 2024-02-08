@@ -155,9 +155,8 @@ export class ResearcherProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
+
       if (
         [
           'icomment',
@@ -171,9 +170,7 @@ export class ResearcherProductViewModel {
           'tags',
         ].includes(fieldName)
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -190,19 +187,15 @@ export class ResearcherProductViewModel {
           return
         }
 
-        runInAction(() => {
-          if (['strategyStatus'].includes(fieldName)) {
-            this.product = { ...this.product, [fieldName]: e.target.value, status: this.productBase.status }
-          }
-        })
+        if (['strategyStatus'].includes(fieldName)) {
+          this.product = { ...this.product, [fieldName]: e.target.value, status: this.productBase.status }
+        }
 
-        runInAction(() => {
-          if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
-          } else {
-            this.product = { ...this.product, [fieldName]: e.target.value }
-          }
-        })
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
+          this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
+        } else {
+          this.product = { ...this.product, [fieldName]: e.target.value }
+        }
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
@@ -270,7 +263,7 @@ export class ResearcherProductViewModel {
 
   async onRemoveSupplier() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
 
@@ -289,10 +282,10 @@ export class ResearcherProductViewModel {
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -401,7 +394,7 @@ export class ResearcherProductViewModel {
       }
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -418,7 +411,7 @@ export class ResearcherProductViewModel {
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.clearReadyImages()
 
@@ -463,17 +456,17 @@ export class ResearcherProductViewModel {
       }
 
       this.onSaveForceProductData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -544,10 +537,10 @@ export class ResearcherProductViewModel {
 
       this.warningModalTitle = t(TranslationKey['Success parse'])
       this.onTriggerOpenModal('showWarningModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
@@ -560,7 +553,7 @@ export class ResearcherProductViewModel {
 
   async onSaveProductData(editingСontinues) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       runInAction(() => {
         this.uploadedImages = []
@@ -581,11 +574,11 @@ export class ResearcherProductViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -633,13 +626,13 @@ export class ResearcherProductViewModel {
 
   async onDeleteProduct() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       await ResearcherModel.removeProduct(this.product._id)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.history.goBack()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

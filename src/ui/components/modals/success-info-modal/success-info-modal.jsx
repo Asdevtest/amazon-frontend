@@ -5,10 +5,10 @@ import { Typography } from '@mui/material'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './success-info-modal.style'
+import { useStyles } from './success-info-modal.style'
 
 export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnText, onClickSuccessBtn }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     const listener = event => {
@@ -25,8 +25,8 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph className={classNames.title}>
+      <div className={styles.modalMessageWrapper}>
+        <Typography paragraph className={styles.title}>
           {title}
         </Typography>
 
@@ -35,7 +35,7 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
           disableElevation
           disabled={!openModal}
           variant="contained"
-          className={classNames.button}
+          className={styles.button}
           onClick={onClickSuccessBtn}
         >
           {successBtnText}

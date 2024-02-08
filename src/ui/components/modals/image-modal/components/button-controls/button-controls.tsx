@@ -12,19 +12,19 @@ import { Button } from '@components/shared/buttons/button'
 
 import { checkIsVideoLink } from '@utils/checks'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './button-controls.style'
 
 interface ButtonControlsProps {
-  mediaFile: string | IUploadFile
+  mediaFile: string | UploadFileType
   mediaFileIndex: number
   withoutMakeMainImage?: boolean
   isEditable?: boolean
   onRemoveFile: (mediaFileIndex: number) => void
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => void
-  onMakeMainFile: (mediaFile: string | IUploadFile, mediaFileIndex: number) => void
-  onDownloadFile: (mediaFile: string | IUploadFile) => void
+  onMakeMainFile: (mediaFile: string | UploadFileType, mediaFileIndex: number) => void
+  onDownloadFile: (mediaFile: string | UploadFileType) => void
   onOpenImageZoomModal: () => void
   onImageEditToggle?: () => void
 }

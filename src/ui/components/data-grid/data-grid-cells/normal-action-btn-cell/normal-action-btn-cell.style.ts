@@ -10,12 +10,11 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     gap: 10,
   },
-
   button: {
     height: 30,
-    width: 140,
+    width: 'auto',
+    maxWidth: '100%',
   },
-
   fullWidthButton: {
     width: '100%',
   },

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,7 +32,7 @@ export const ClientOrderView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {viewModel.order ? (
         <OrderContent
           isClient
@@ -141,12 +141,12 @@ export const ClientOrderView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })

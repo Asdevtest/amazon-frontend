@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { ChangeEvent, FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useStyles } from './restore-request-modal.styles'
+import { useStyles } from './restore-request-modal.style'
 
 interface RestoreRequestModalProps {
   currentRequestsCount: number
@@ -22,7 +21,7 @@ interface RestoreRequestModalProps {
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
   const { currentRequestsCount = 1, minDate, handleCloseModal, handleSubmit } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [date, setDate] = useState<string>()
   const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount + 1)

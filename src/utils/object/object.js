@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+
 /* eslint-disable no-prototype-builtins */
 import { isNull, isUndefined } from '@utils/checks'
 
@@ -12,7 +14,10 @@ export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined,
   Object.keys(obj)
     .filter(key => keyArr.includes(key))
     .reduce((acc, key) => {
-      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]) && key !== 'deadline')) {
+      if (
+        (skipUndefined && isUndefined(obj[key])) ||
+        (!keepNull && isNull(obj[key]) && key !== 'deadline' && key !== 'shopId')
+      ) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]

@@ -1,15 +1,14 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import { FC, PropsWithChildren, ReactElement, useContext, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './text.style'
+import { HintsContext } from '@contexts/hints-context'
+
+import { useStyles } from './text.style'
 
 enum tooltipPositions {
   Corner = 'corner',
@@ -28,23 +27,18 @@ interface Props extends PropsWithChildren {
 
 export const Text: FC<Props> = observer(
   ({ tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
-
+    const { hints } = useContext(HintsContext)
     return (
       <div
         className={cx(
           tooltipPosition && ['corner', 'baseLine'].includes(tooltipPosition)
-            ? classNames.noFlextextWrapper
-            : classNames.textWrapper,
+            ? styles.noFlextextWrapper
+            : styles.textWrapper,
           containerClasses,
         )}
       >
@@ -56,10 +50,10 @@ export const Text: FC<Props> = observer(
           <div
             className={
               tooltipPosition === 'corner'
-                ? classNames.cornerTooltipsWrapper
+                ? styles.cornerTooltipsWrapper
                 : tooltipPosition === 'baseLine'
-                ? classNames.baseLineTooltipsWrapper
-                : classNames.tooltipsWrapper
+                ? styles.baseLineTooltipsWrapper
+                : styles.tooltipsWrapper
             }
           >
             {tooltipAttentionContent ? (
@@ -72,18 +66,18 @@ export const Text: FC<Props> = observer(
                 onOpen={() => setOpenAttentionTooltip(true)}
               >
                 {/* <img
-                  className={classNames.tooltip}
+                  className={styles.tooltip}
                   src="/assets/icons/attention.svg"
                   onClick={() => setOpenAttentionTooltip(true)}
                 /> */}
 
                 <div>
-                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                  <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                 </div>
               </Tooltip>
             ) : null}
 
-            {tooltipInfoContent && showHints ? (
+            {tooltipInfoContent && hints ? (
               <Tooltip
                 arrow
                 open={openInfoTooltip}
@@ -94,7 +88,7 @@ export const Text: FC<Props> = observer(
               >
                 <div>
                   <TooltipInfoIcon
-                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                    className={cx(styles.tooltip, styles.tooltipInfo)}
                     onClick={() => setOpenInfoTooltip(true)}
                   />
                 </div>

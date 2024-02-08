@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@mui/material'
 
+import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import {
   freelanceRequestType,
@@ -46,7 +47,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { replaceCommaByDot, toFixed } from '@utils/text'
+import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -98,8 +99,6 @@ export const CreateOrEditRequestContent = memo(props => {
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [clearСonditionsText, setСonditionsClearText] = useState('')
 
   const handleScroll = () => {
     const scrollTop = mainContentRefElement.scrollTop
@@ -378,9 +377,8 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeLimitInMinutes ||
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
-    !formFields.details.conditions ||
-    clearСonditionsText.length >= 6000 ||
-    !clearСonditionsText.length ||
+    parseTextString(formFields.details.conditions).length >= 6000 ||
+    !parseTextString(formFields.details.conditions).length ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -582,10 +580,11 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.descriptionFieldWrapper}>
                   <CustomTextEditor
-                    verticalResize
-                    conditions={formFields.details.conditions}
-                    textToCheck={setСonditionsClearText}
-                    changeConditions={onChangeField('details')('conditions')}
+                    title={t(TranslationKey['Describe your task']) + '*'}
+                    placeholder={t(TranslationKey['Task description'])}
+                    maxLength={MAX_COMMENT_LEGTH}
+                    value={formFields.details.conditions}
+                    onChange={onChangeField('details')('conditions')}
                   />
                 </div>
               </div>
@@ -672,6 +671,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         <Checkbox color="primary" checked={formFields.request.withoutConfirmation} />
                         <Text
                           tooltipPosition={'corner'}
+                          className={styles.textInCheckbox}
                           tooltipInfoContent={t(
                             TranslationKey['Allow the performer to take the request for work without confirmation'],
                           )}
@@ -692,6 +692,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         />
                         <Text
                           tooltipPosition={'corner'}
+                          className={styles.textInCheckbox}
                           tooltipInfoContent={t(
                             TranslationKey['After providing the result, the same performer may make a new proposal'],
                           )}
@@ -757,7 +758,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             masterUserSelect
                             blackSelectedItem
                             chosenItemNoHover
-                            width={372}
+                            width={'100%'}
                             disabled={!formFields?.request?.typeTask}
                             data={masterUsersData}
                             searchOnlyFields={['name']}
@@ -887,9 +888,8 @@ export const CreateOrEditRequestContent = memo(props => {
                             inputComponent={
                               <AsinOrSkuLink
                                 withCopyValue
-                                asin={formFields?.request?.asin}
+                                link={formFields?.request?.asin}
                                 textStyles={styles.copyAsinlinkSpan}
-                                missingValueTextStyles={styles.copyAsinlinkSpan}
                               />
                             }
                           />
@@ -898,8 +898,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                       <Typography className={styles.imagesTitle}>{t(TranslationKey.Files)}</Typography>
                       <PhotoAndFilesSlider
-                        column
                         smallSlider
+                        customSlideHeight={98}
                         files={images.map(el => el.file)}
                         imagesTitles={images.map(el => el.comment)}
                       />
@@ -1079,8 +1079,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                     <CustomTextEditor
                       readOnly
-                      conditions={formFields.details.conditions}
-                      editorMaxHeight={styles.editorMaxHeight}
+                      value={formFields.details.conditions}
+                      editorClassName={styles.editorClassName}
                     />
                   </div>
                 </div>

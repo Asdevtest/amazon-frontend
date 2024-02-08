@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,7 +18,7 @@ interface ClosedIdeaActionsCellProps {
   }
 }
 
-export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = React.memo(({ rowHandlers, row }) => {
+export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ rowHandlers, row }) => {
   const { classes: styles } = useStyles()
 
   return (

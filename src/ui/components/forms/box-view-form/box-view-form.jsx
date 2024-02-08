@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { memo, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -15,7 +16,7 @@ import { formatShortDateTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-view-form.style'
+import { useStyles } from './box-view-form.style'
 
 import { BoxInfoTab } from './box-info-tab'
 import { switcherSettings, tabs } from './box-view-form.constants'
@@ -33,21 +34,20 @@ export const BoxViewForm = memo(props => {
     onClickHsCode,
     calcFinalWeightForBoxFunction,
   } = props
-  const { classes: styles, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [activeTab, setActiveTab] = useState(tabs.BOX_INFO)
   const [formFields, setFormFields] = useState(box)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = { ...formFields }
-    newFormFields[fieldName] = event.target.value
-    setFormFields(newFormFields)
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: event.target.value }))
   }
 
   const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
   const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
   const isEdit = isClient || isStorekeeper || isBuyer
+  const disableSaveButton = isEqual(box, formFields)
 
   const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
 
@@ -185,7 +185,7 @@ export const BoxViewForm = memo(props => {
 
         <div className={styles.buttonsWrapper}>
           {isEdit && (
-            <Button success onClick={() => onSubmitChangeFields(formFields)}>
+            <Button success disabled={disableSaveButton} onClick={() => onSubmitChangeFields(formFields)}>
               {t(TranslationKey.Save)}
             </Button>
           )}

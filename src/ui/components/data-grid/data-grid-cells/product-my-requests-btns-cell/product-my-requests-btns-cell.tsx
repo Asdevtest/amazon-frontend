@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ interface ProductMyRequestsBtnsCellProps {
   }
 }
 
-export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = React.memo(({ data, handlers }) => {
+export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = memo(({ data, handlers }) => {
   const { classes: styles } = useStyles()
 
   const disableOpenResultBtn =

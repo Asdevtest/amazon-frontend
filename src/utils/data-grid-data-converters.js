@@ -24,7 +24,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixed } from './text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, parseTextString, toFixed } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -118,7 +118,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
-    supervisorComment: item.checkednotes,
+    supervisorComment: parseTextString(item.checkednotes),
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -208,8 +208,8 @@ export const buyerMyOrdersDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
-    clientComment: item.clientComment,
-    buyerComment: item.buyerComment,
+    clientComment: parseTextString(item.clientComment),
+    buyerComment: parseTextString(item.buyerComment),
     idAndItem: `${item.id} / ${item.item ? item.item : '-'}`,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
@@ -232,8 +232,8 @@ export const buyerVacantOrdersDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
-    clientComment: item.clientComment,
-    buyerComment: item.buyerComment,
+    clientComment: parseTextString(item.clientComment),
+    buyerComment: parseTextString(item.buyerComment),
 
     ID: item.id,
 
@@ -310,7 +310,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     transparency: item.transparency,
 
     fourMonthesStock: item.fourMonthesStock,
-    clientComment: item.clientComment,
+    clientComment: parseTextString(item.clientComment),
     stockUSA: item.stockUSA,
 
     ideasOnCheck: item.ideasOnCheck,
@@ -353,7 +353,7 @@ export const depersonalizedPickDataConverter = data =>
 
     number: index + 1,
     checkednotes: item.checkednotes,
-    clientComment: item.clientComment,
+    clientComment: parseTextString(item.clientComment),
     updatedAt: item.updatedAt,
   }))
 
@@ -380,8 +380,8 @@ export const clientOrdersDataConverter = (data, shopsData) =>
     storekeeper: item.storekeeper?.name,
     deadline: item.deadline,
     needsResearch: item.needsResearch,
-    buyerComment: item.buyerComment,
-    clientComment: item.clientComment,
+    buyerComment: parseTextString(item.buyerComment),
+    clientComment: parseTextString(item.clientComment),
     shopId: shopsData?.find(el => el._id === item.product.shopId)?.name || '',
   }))
 
@@ -562,7 +562,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
     totalPriceChanged: item.totalPriceChanged,
     deliveryCostToTheWarehouse: item.deliveryCostToTheWarehouse,
-    buyerComment: item.buyerComment,
+    buyerComment: parseTextString(item.buyerComment),
     asin: item.product.asin,
   }))
 
@@ -1069,7 +1069,7 @@ export const notificationDataConverter = data =>
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
           },
-
+    sub: item.type === NotificationType.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
 

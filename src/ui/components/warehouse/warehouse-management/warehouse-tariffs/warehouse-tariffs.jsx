@@ -14,12 +14,12 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './warehouse-tariffs.style'
+import { useStyles } from './warehouse-tariffs.style'
 
 import { WarehouseTariffModel } from './warehouse-tariffs.model'
 
 export const WarehouseTariffs = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const spModel = useRef(new WarehouseTariffModel({ history }))
 
@@ -54,9 +54,9 @@ export const WarehouseTariffs = observer(() => {
   } = spModel.current
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button success className={classNames.placeAddBtn} onClick={() => onClickAddBtn()}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <Button success className={styles.placeAddBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
@@ -69,6 +69,8 @@ export const WarehouseTariffs = observer(() => {
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
+        sortingMode="client"
+        paginationMode="client"
         getRowHeight={() => 'auto'}
         slotProps={{
           baseTooltip: {
@@ -84,7 +86,7 @@ export const WarehouseTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onChangePaginationModelChange}
         onFilterModelChange={onChangeFilterModel}

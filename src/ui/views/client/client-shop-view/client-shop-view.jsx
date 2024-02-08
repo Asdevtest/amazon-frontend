@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ShopWrapper } from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 
@@ -19,16 +19,14 @@ export const ClientShopView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        {viewModel.shopInfo ? (
-          <ShopWrapper
-            userInfo={viewModel.userInfo}
-            shopInfo={viewModel.shopInfo}
-            onClickEditBtn={viewModel.onClickEditBtn}
-          />
-        ) : null}
-      </div>
-    </React.Fragment>
+    <>
+      {viewModel.shopInfo ? (
+        <ShopWrapper
+          userInfo={viewModel.userInfo}
+          shopInfo={viewModel.shopInfo}
+          onClickEditBtn={viewModel.onClickEditBtn}
+        />
+      ) : null}
+    </>
   )
 })

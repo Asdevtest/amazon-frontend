@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  DeadlineCell,
   FormedCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -19,8 +20,8 @@ import {
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
-import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientBoxesViewColumns = (
@@ -86,7 +87,7 @@ export const clientBoxesViewColumns = (
         customTextStyles={colorByBoxStatus(params.value)}
       />
     ),
-
+    valueFormatter: params => t(boxStatusTranslateKey(params.value)),
     columnKey: columnnsKeys.shared.BOXES_STATUS,
   },
 
@@ -175,6 +176,14 @@ export const clientBoxesViewColumns = (
         ''
       )
     },
+    valueGetter: params =>
+      params.row.originalData.items
+        ?.filter(item => Boolean(item.product.asin))
+        .map(item => {
+          return `Asin ${item.product.asin}`
+        })
+        .join('\n'),
+
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
@@ -202,7 +211,7 @@ export const clientBoxesViewColumns = (
     width: 120,
     sortable: false,
     filterable: false,
-
+    valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
   },
 
@@ -283,24 +292,17 @@ export const clientBoxesViewColumns = (
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
+    headerName: t(TranslationKey.Deadline),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        text={'Deadline'}
+        text={t(TranslationKey.Deadline)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
       />
     ),
-
-    renderCell: params => (
-      <MultilineTextCell
-        withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDate(params.value) : ''}
-      />
-    ),
-    width: 120,
+    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
+    valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
+    width: 100,
   },
 
   {
@@ -343,6 +345,10 @@ export const clientBoxesViewColumns = (
         ''
       )
     },
+    valueGetter: params =>
+      `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
+        params.row.fbaShipment || ''
+      }`,
     minWidth: 150,
     headerAlign: 'center',
     sortable: false,
@@ -424,6 +430,7 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => <NormDateCell value={params.value} />,
+    valueFormatter: params => formatNormDateTime(params.value),
     width: 120,
     // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
@@ -439,7 +446,7 @@ export const clientBoxesViewColumns = (
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
+    valueFormatter: params => formatNormDateTime(params.value),
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     // type: 'date',

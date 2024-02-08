@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     gap: 30,
@@ -256,6 +256,7 @@ export const useClassNames = makeStyles()(theme => ({
     right: 10,
     top: 35,
     cursor: 'pointer',
+    color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
       top: 35,
     },

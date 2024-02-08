@@ -127,10 +127,7 @@ export class AdminExchangeViewModel {
   }
 
   onClickTableRow(id) {
-    this.history.push({
-      pathname: '/admin/exchange/product',
-      search: `product-id=${id}`,
-    })
+    window.open(`/admin/exchange/product?product-id=${id}`, '_blank').focus()
   }
 
   setActiveSubCategoryState(state) {
@@ -176,19 +173,19 @@ export class AdminExchangeViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
       await this.getProductsByStatus()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   async getProductsByStatus() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await AdministratorModel.getProductsPag({
         status: adminExchangeStatusesByCategory[this.activeCategory].join(),
 
@@ -207,9 +204,9 @@ export class AdminExchangeViewModel {
         this.rowsCount = result.count
         this.currentProductsData = result.rows
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -303,7 +300,7 @@ export class AdminExchangeViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -320,9 +317,9 @@ export class AdminExchangeViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

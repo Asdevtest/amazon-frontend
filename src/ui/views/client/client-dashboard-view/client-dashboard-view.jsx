@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -36,7 +36,7 @@ export const ClientDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <Paper className={classes.userInfoWrapper}>
           <div className={classes.userInfoLeftWrapper}>
@@ -91,7 +91,7 @@ export const ClientDashboardViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
         isWithdraw={viewModel.transferModalSettings.isWithdraw}
       />
-    </React.Fragment>
+    </>
   )
 }
 

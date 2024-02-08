@@ -90,7 +90,7 @@ export const MyProposalsView = observer(({ history }) => {
               },
             }}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

@@ -10,10 +10,10 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './data-grid-custom-columns-button.style'
+import { useStyles } from './data-grid-custom-columns-button.style'
 
 export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { columnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
@@ -53,16 +53,16 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
   }
 
   const itemsForRender = filteredColumnsModel.filter(item =>
-    item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()),
+    item.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
   )
 
   return (
     <div>
-      <Button variant="text" className={cx(className, classNames.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, classNames.mainFilterBtnInsert)}>
+      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+        <div className={cx(className, styles.mainFilterBtnInsert)}>
           <SettingsOutlinedIcon fontSize="small" />
 
-          <Typography className={classNames.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
+          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
         </div>
       </Button>
 
@@ -72,34 +72,34 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
           anchorEl={menuAnchor}
           autoFocus={false}
           open={Boolean(menuAnchor)}
-          classes={{ paper: classNames.menu, list: classNames.list }}
+          classes={{ paper: styles.menu, list: styles.list }}
           onClose={handleClose}
         >
-          <div className={classNames.mainWrapper}>
-            <Typography className={classNames.titleText}>{t(TranslationKey.Columns)}</Typography>
-            <div className={classNames.searchInputWrapper}>
+          <div className={styles.mainWrapper}>
+            <Typography className={styles.titleText}>{t(TranslationKey.Columns)}</Typography>
+            <div className={styles.searchInputWrapper}>
               <SearchInput
-                inputClasses={classNames.searchInput}
+                inputClasses={styles.searchInput}
                 placeholder={t(TranslationKey.Search)}
                 onChange={e => setNameSearchValue(e.target.value)}
                 onKeyDown={e => e.stopPropagation()}
               />
             </div>
 
-            <div className={classNames.shopsBody}>
-              <div className={classNames.shop}>
+            <div className={styles.shopsBody}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
                   checked={!columnVisibilityModel || !isSomeItemChecked}
                   onClick={onClickAllItemBtn}
                 />
-                <div title={t(TranslationKey.All)} className={classNames.shopName}>
+                <div title={t(TranslationKey.All)} className={styles.shopName}>
                   {t(TranslationKey.All)}
                 </div>
               </div>
 
               {itemsForRender.map((el, index) => (
-                <div key={index} className={classNames.shop}>
+                <div key={index} className={styles.shop}>
                   <Checkbox
                     color="primary"
                     checked={
@@ -107,7 +107,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
                     }
                     onClick={() => onClickItem(el.field)}
                   />
-                  <div title={el.headerName} className={classNames.shopName}>
+                  <div title={el.headerName} className={styles.shopName}>
                     {el.headerName}
                   </div>
                 </div>

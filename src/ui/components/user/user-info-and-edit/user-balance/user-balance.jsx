@@ -13,12 +13,12 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './user-balance.style'
+import { useStyles } from './user-balance.style'
 
 import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const model = useRef(new UserBalanceModel({ history, userId }))
 
@@ -45,16 +45,16 @@ export const UserBalance = observer(({ userId }) => {
     onChangeFilterModel,
   } = model.current
 
-  const getRowClassName = params => (params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow)
+  const getRowClassName = params => (params.row.sum < 0 ? styles.redRow : params.row.sum > 0 && styles.greenRow)
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       <DashboardBalance user={user} title={t(TranslationKey.Balance) + ', $'} />
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button
           disableElevation
-          className={[classNames.button, classNames.depositBtn]}
+          className={[styles.button, styles.depositBtn]}
           color="primary"
           variant="contained"
           onClick={onTriggerReplenishModal}
@@ -63,7 +63,7 @@ export const UserBalance = observer(({ userId }) => {
         </Button>
         <Button
           disableElevation
-          className={[classNames.button, classNames.cancelBtn]}
+          className={[styles.button, styles.cancelBtn]}
           color="primary"
           variant="text"
           onClick={onTriggerWithdrawModal}
@@ -71,7 +71,7 @@ export const UserBalance = observer(({ userId }) => {
           {t(TranslationKey.Withdraw)}
         </Button>
       </div>
-      <div className={classNames.tableWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
           getRowClassName={getRowClassName}
@@ -95,7 +95,7 @@ export const UserBalance = observer(({ userId }) => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.isLoading}
+          loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={model.current.onChangePaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
