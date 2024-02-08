@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 
 import { Box, FormControlLabel, Grid, Radio, RadioGroup } from '@mui/material'

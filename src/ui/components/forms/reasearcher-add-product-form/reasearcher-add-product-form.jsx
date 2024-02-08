@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
-import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Alert, Box, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'

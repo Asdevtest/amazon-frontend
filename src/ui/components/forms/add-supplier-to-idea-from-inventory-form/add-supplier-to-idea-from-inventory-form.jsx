@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -24,8 +23,6 @@ import { useStyles } from './add-supplier-to-idea-from-inventory-form.style'
 export const AddSupplierToIdeaFromInventoryForm = observer(
   ({ onSubmit, showProgress, progressValue, onClose, ideas, product }) => {
     const { classes: styles } = useStyles()
-
-    const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
     const [images, setImages] = useState([])
 
