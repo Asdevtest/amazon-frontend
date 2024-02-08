@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import AddIcon from '@mui/icons-material/Add'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,6 +13,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -35,7 +34,7 @@ export const SubUsersView = observer(({ history }) => {
 
   return (
     <>
-      <div className={styles.subUserHeader}>
+      <div className={styles.header}>
         <div />
 
         <SearchInput
@@ -44,20 +43,19 @@ export const SubUsersView = observer(({ history }) => {
           value={viewModel.nameSearchValue}
           onChange={viewModel.onChangeNameSearchValue}
         />
-        <div className={styles.buttonWrapper}>
-          <Button
-            success
-            tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-            className={styles.addUserButton}
-            onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
-          >
-            <AddIcon />
-            {t(TranslationKey['Add a user'])}
-          </Button>
-        </div>
+
+        <Button
+          success
+          tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
+          className={styles.addUserButton}
+          onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+        >
+          <CustomPlusIcon />
+          {t(TranslationKey['Add a user'])}
+        </Button>
       </div>
 
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           disableEnforceFocus
           useResizeContainer
@@ -102,6 +100,7 @@ export const SubUsersView = observer(({ history }) => {
           onSubmit={viewModel.onSubmitlinkSubUser}
         />
       </Modal>
+
       <Modal
         openModal={viewModel.showPermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
@@ -127,9 +126,7 @@ export const SubUsersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

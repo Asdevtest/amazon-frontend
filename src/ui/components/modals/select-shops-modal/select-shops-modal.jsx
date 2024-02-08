@@ -34,6 +34,8 @@ export const SelectShopsModal = memo(props => {
             blackSelectedItem
             darkIcon
             chosenItemNoHover
+            customItemsWrapper={styles.customItemsWrapper}
+            customSubMainWrapper={styles.customSubMainWrapper}
             width={340}
             disabled={!shops.length}
             data={sortingShops}
@@ -51,9 +53,10 @@ export const SelectShopsModal = memo(props => {
         <Button
           success
           disableElevation
+          disabled={!currentShopId}
           className={styles.button}
           variant="contained"
-          onClick={() => onClickSuccessBtn(currentShopId)}
+          onClick={() => onClickSuccessBtn(selectedItem)}
         >
           {t(TranslationKey.Yes)}
         </Button>

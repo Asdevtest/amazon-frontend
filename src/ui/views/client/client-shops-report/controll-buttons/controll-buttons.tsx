@@ -35,7 +35,12 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
 
   const noSelectedRows = !selectedRows?.length
   const isInventoryShipments = currentTabKey === ShopReportsTabsValues.INVENTORY_SHIPMENTS
+
   const disableButton = currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows
+
+  const disableBindButton =
+    currentTabKey !== ShopReportsTabsValues.INVENTORY &&
+    (currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows)
 
   return (
     <div className={styles.root}>
@@ -44,7 +49,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button disabled={disableButton} variant="contained" onClick={onClickBindStockGoodsToInventory}>
+        <Button disabled={disableBindButton} variant="contained" onClick={onClickBindStockGoodsToInventory}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>

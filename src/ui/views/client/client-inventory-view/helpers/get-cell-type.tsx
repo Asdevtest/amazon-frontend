@@ -1,5 +1,7 @@
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -10,15 +12,18 @@ import { formatCamelCaseString } from '@utils/text'
 
 import { dateCells, numberCells, textCells } from '../cell-types'
 
+import { getValidFieldName } from './get-valid-field-name'
+
 export const getCellType = (column: string, table: string) => {
   const formedColumnName = formatCamelCaseString(column)
   const formedTableName = formatCamelCaseString(table)
+  const validFieldName = getValidFieldName(table, column)
 
   const headerName = `${formedTableName} ${formedColumnName}`
 
   if (numberCells.includes(column)) {
     return {
-      field: `${table} ${column}`,
+      field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
@@ -27,12 +32,11 @@ export const getCellType = (column: string, table: string) => {
       },
       minWidth: 80,
 
-      // table,
-      // columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.QUANTITY,
     }
   } else if (textCells.includes(column)) {
     return {
-      field: `${table} ${column}`,
+      field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
@@ -41,12 +45,11 @@ export const getCellType = (column: string, table: string) => {
       },
       minWidth: 80,
 
-      // table,
-      // columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING,
     }
   } else if (dateCells.includes(column)) {
     return {
-      field: `${table} ${column}`,
+      field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
       renderCell: (params: GridRenderCellParams) => (
@@ -54,8 +57,7 @@ export const getCellType = (column: string, table: string) => {
       ),
       width: 118,
 
-      // table,
-      // columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE,
     }
   }
 }

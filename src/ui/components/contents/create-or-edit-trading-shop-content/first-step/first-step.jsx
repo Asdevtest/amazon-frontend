@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -171,7 +171,9 @@ export const FirstStep = ({
               inputComponent={
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />
-                  {formFields.files?.length ? <PhotoAndFilesCarousel files={formFields.files} width="400px" /> : null}
+                  {formFields.files?.length ? (
+                    <PhotoAndFilesSlider smallSlider showPreviews files={formFields.files} />
+                  ) : null}
                 </div>
               }
             />

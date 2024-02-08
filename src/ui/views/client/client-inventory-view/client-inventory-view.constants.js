@@ -37,6 +37,18 @@ export const fieldsOfProductAllowedToCreate = [
   'asin',
 ]
 
+export const defaultHiddenColumns = [
+  'stockUSA',
+  'strategyStatus',
+  'fbafee',
+  'profit',
+  'amazon',
+  'createdAt',
+  'updatedAt',
+]
+
+export const additionalFilterFields = ['inventoryAsin', 'inventorySku', 'asin', 'skuByClient', 'amazonTitle']
+
 export const filtersFields = [
   'shopId',
   'asin',
@@ -66,8 +78,6 @@ export const filtersFields = [
   'redFlags',
   'transparency',
 ]
-
-export const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
 
 export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
 

@@ -130,11 +130,11 @@ export class ClientExchangePrivateLabelViewModel {
     await UserModel.getUserInfo()
   }
 
-  async onClickBuyProductBtn(shopId) {
+  async onClickBuyProductBtn(shop) {
     try {
       await ClientModel.makePayments([this.productToPay._id])
       runInAction(() => {
-        this.selectedShopId = shopId
+        this.selectedShopId = shop?._id
       })
 
       await this.onSaveProductData()

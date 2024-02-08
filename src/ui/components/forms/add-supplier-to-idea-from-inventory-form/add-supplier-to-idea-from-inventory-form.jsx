@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { Checkbox, Grid, IconButton, Link, NativeSelect, Typography } from '@mui/material'
+import { IconButton, Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,12 +12,11 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
-import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
 import { useStyles } from './add-supplier-to-idea-from-inventory-form.style'
@@ -216,7 +215,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           label={t(TranslationKey['Product photo'])}
           inputComponent={
             <div className={styles.imageFileInputWrapper}>
-              <PhotoAndFilesCarousel small files={formFields.images} />
+              <PhotoAndFilesSlider smallSlider showPreviews files={formFields.images} />
 
               <UploadFilesInput
                 images={images}
