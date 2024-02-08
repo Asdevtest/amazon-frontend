@@ -8,7 +8,7 @@ import { DownloadRoundIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './documents-tab.style'

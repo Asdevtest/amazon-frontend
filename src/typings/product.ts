@@ -1,4 +1,4 @@
-import { PaymentMethod } from './payments'
+import { IPaymentMethod } from './models/shared/payment-method'
 import { UploadFileType } from './upload-file'
 
 export interface IProduct {
@@ -107,7 +107,7 @@ export interface ISupplier {
   minlot: number
   multiplicity: boolean
   name: string
-  paymentMethods: PaymentMethod[]
+  paymentMethods: IPaymentMethod[]
   price: number
   priceInYuan: number
   priceVariations: IPriceVariation[]

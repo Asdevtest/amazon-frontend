@@ -9,7 +9,7 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './media-files-tab.style'

@@ -5,7 +5,7 @@ import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
 import { checkIsDocumentLink } from '@utils/checks'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './main-slide.style'

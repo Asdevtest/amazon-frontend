@@ -13,13 +13,13 @@ import { Field } from '@components/shared/field'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { PaymentMethod } from '@typings/payments'
+import { IPaymentMethod } from '@typings/models/shared/payment-method'
 
 import { useStyles } from './custom-select-payment-details.style'
 
 interface CustomSelectPaymentDetailsProps {
-  orderPayments: PaymentMethod[]
-  allPayments: PaymentMethod[]
+  orderPayments: IPaymentMethod[]
+  allPayments: IPaymentMethod[]
   onlyRead?: boolean
   column?: boolean
   disabled?: boolean
@@ -27,7 +27,7 @@ interface CustomSelectPaymentDetailsProps {
   cursorPointer?: boolean
   labelClass?: ClassNamesArg
   selectWrapper?: ClassNamesArg
-  onChangePaymentMethod?: (paymentMethod: PaymentMethod) => void
+  onChangePaymentMethod?: (paymentMethod: IPaymentMethod) => void
   onClickButton?: () => void
 }
 
@@ -63,7 +63,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
 
   const EditIconToRender = () => <EditIcon className={styles.editIcon} />
 
-  const selectContentToRender = (valuesToRender: PaymentMethod[], isReadOnly: boolean): JSX.Element => {
+  const selectContentToRender = (valuesToRender: IPaymentMethod[], isReadOnly: boolean): JSX.Element => {
     if (valuesToRender.length) {
       setIsEmpty(false)
 

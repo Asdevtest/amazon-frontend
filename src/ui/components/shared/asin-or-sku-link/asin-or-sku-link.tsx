@@ -7,7 +7,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { shortLink } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { AsinOrSkuType } from '@typings/asin-sku'
+import { AsinOrSkuType } from '@typings/types/asin-sku'
 
 import { useStyles } from './asin-or-sku-link.style'
 

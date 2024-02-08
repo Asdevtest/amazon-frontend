@@ -10,14 +10,14 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { Payment } from '@typings/payments'
+import { IPayment } from '@typings/payment'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './payment-method-card.style'
 
 interface PaymentMethodCardProps {
-  payment: Payment
-  setSelectedPayments: (state: (prevState: Payment[]) => Payment[]) => void
+  payment: IPayment
+  setSelectedPayments: (state: (prevState: IPayment[]) => IPayment[]) => void
   readOnly?: boolean
 }
 
@@ -25,7 +25,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
   const { classes: styles, cx } = useStyles()
 
   const handleFieldChange = (field: string, value: string | UploadFileType[] | boolean) => {
-    setSelectedPayments((prevSelectedPayments: Payment[]) => {
+    setSelectedPayments((prevSelectedPayments: IPayment[]) => {
       const findPaymentIndex = prevSelectedPayments.findIndex(
         prevSelectedPayment => prevSelectedPayment.paymentMethod?._id === payment.paymentMethod?._id,
       )

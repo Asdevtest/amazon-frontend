@@ -3,7 +3,8 @@ import { FC, memo } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { Arrows, ArrowsType } from '@typings/arrow'
+import { Arrows } from '@typings/enums/arrows'
+import { ArrowsType } from '@typings/types/arrows'
 
 import { useStyles } from './arrow.style'
 
