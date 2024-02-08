@@ -258,13 +258,7 @@ export const useAdditionalInfo = ({
     },
     {
       title: t(TranslationKey['Re-search supplier']),
-      element: (
-        <Switch
-          isChecked={formFields?.needsResearch}
-          disabled={!isOrderEditable}
-          onChange={onChangeField('needsResearch')}
-        />
-      ),
+      element: <Switch disabled isChecked={formFields?.needsResearch} onChange={onChangeField('needsResearch')} />,
     },
     {
       title: t(TranslationKey['Transparency codes']),
