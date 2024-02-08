@@ -3,6 +3,7 @@ import { plainToInstance } from 'class-transformer'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { noticeSound } from '@constants/sounds.js'
 
 import { OtherModel } from '@models/other-model'
@@ -113,8 +114,10 @@ class ChatModelStatic {
           pagination: {
             limit: 20,
             offset: 0,
+            offsetBottom: 0,
           },
-          isAllMessagesLoaded: false,
+          isAllNextMessagesLoaded: false,
+          isAllPreviousMessagesLoaded: true,
         }))
       })
     } catch (error) {
@@ -122,7 +125,7 @@ class ChatModelStatic {
     }
   }
 
-  public async getChatMessages(chatId: string, messageId?: string): Promise<void> {
+  public async getChatMessages(chatId: string, direction?: PaginationDirection): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
@@ -135,25 +138,83 @@ class ChatModelStatic {
 
       const { chatType, index } = chatTypeAndIndex
 
-      if (this[chatType][index].isAllMessagesLoaded) {
-        return
-      }
+      const { limit, offset, offsetBottom } = this[chatType][index].pagination
 
-      const { offset, limit } = this[chatType][index].pagination
+      if (direction === PaginationDirection.START) {
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, 0, limit)
 
-      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit, messageId)
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: chatMessages.rows,
+            pagination: {
+              ...this[chatType][index].pagination,
+              offset: limit,
+              offsetBottom: 0,
+            },
+            isAllNextMessagesLoaded: chatMessages.rows.length < limit,
+            isAllPreviousMessagesLoaded: true,
+          }
+        })
+      } else if (direction === PaginationDirection.NEXT) {
+        if (this[chatType][index].isAllNextMessagesLoaded) return
 
-      runInAction(() => {
-        this[chatType][index] = {
-          ...this[chatType][index],
-          messages: [...chatMessages.rows, ...this[chatType][index].messages],
-          pagination: {
-            ...this[chatType][index].pagination,
-            offset: offset + limit,
-          },
-          isAllMessagesLoaded: chatMessages.rows.length < limit,
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit)
+
+        const newMessages = chatMessages.rows
+
+        if (!newMessages?.length) {
+          runInAction(() => {
+            this[chatType][index].isAllNextMessagesLoaded = true
+          })
+          return
         }
-      })
+
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: [...chatMessages.rows, ...this[chatType][index].messages],
+            pagination: {
+              ...this[chatType][index].pagination,
+              offset: offset + limit,
+            },
+            isAllNextMessagesLoaded: chatMessages.rows.length < limit,
+          }
+        })
+      } else if (direction === PaginationDirection.PREV) {
+        if (this[chatType][index].isAllPreviousMessagesLoaded) return
+
+        let validOffset = offsetBottom - limit
+        let validLimit = limit
+
+        if (validOffset < 0) {
+          validLimit = limit + validOffset
+          validOffset = 0
+        }
+
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, validOffset, validLimit)
+
+        const newMessages = chatMessages.rows
+
+        if (!newMessages?.length) {
+          runInAction(() => {
+            this[chatType][index].isAllPreviousMessagesLoaded = true
+          })
+          return
+        }
+
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: [...this[chatType][index].messages, ...chatMessages.rows],
+            pagination: {
+              ...this[chatType][index].pagination,
+              offsetBottom: validOffset,
+            },
+            isAllPreviousMessagesLoaded: chatMessages.rows.length < limit,
+          }
+        })
+      }
     } catch (error) {
       console.warn(error)
     }
@@ -179,8 +240,10 @@ class ChatModelStatic {
         pagination: {
           limit: 20,
           offset: 0,
+          offsetBottom: 0,
         },
-        isAllMessagesLoaded: false,
+        isAllNextMessagesLoaded: false,
+        isAllPreviousMessagesLoaded: true,
       }
     })
   }
@@ -205,8 +268,10 @@ class ChatModelStatic {
           pagination: {
             limit: 20,
             offset: 0,
+            offsetBottom: 0,
           },
-          isAllMessagesLoaded: false,
+          isAllNextMessagesLoaded: false,
+          isAllPreviousMessagesLoaded: true,
         }))
       })
     } catch (error) {
@@ -307,7 +372,6 @@ class ChatModelStatic {
   public async getChatMessage(
     chatId: string,
     messageId?: string,
-    messageData?: ChatMessageContract,
   ): Promise<void | {
     isExist: boolean
     messageIndex: number
@@ -324,45 +388,42 @@ class ChatModelStatic {
 
     const { chatType, index } = chatTypeAndIndex
 
-    const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
+    if (!messageId) return
+    const messageIndex = this.findMessageIndex(this[chatType][index].messages, messageId)
 
-    if (this[chatType][index].pagination.offset >= chatMessageOffset) {
-      if (messageId) {
-        return {
-          isExist: true,
-          messageIndex: this.findMessageIndex(this[chatType][index].messages, messageId),
-        }
-      } else {
-        return
-      }
-    }
-
-    const { limit, offset } = this[chatType][index].pagination
-
-    const chatMessages = await this.websocketChatService.getChatMessages(
-      chatId,
-      offset,
-      chatMessageOffset - offset + limit,
-    )
-
-    runInAction(() => {
-      this[chatType][index] = {
-        ...this[chatType][index],
-        messages: [...chatMessages.rows, ...this[chatType][index].messages],
-        pagination: {
-          ...this[chatType][index].pagination,
-          offset: chatMessageOffset + limit,
-        },
-      }
-    })
-
-    if (messageId) {
+    if (messageIndex !== -1) {
       return {
-        isExist: false,
-        messageIndex: this.findMessageIndex(this[chatType][index].messages, messageId),
+        isExist: true,
+        messageIndex,
       }
     } else {
-      return
+      const chatMessageOffset = await this.getMessageOffset(chatId, messageId)
+      const limit = 40
+
+      const chatMessages = await this.websocketChatService.getChatMessages(chatId, chatMessageOffset - limit / 2, limit)
+
+      runInAction(() => {
+        this[chatType][index] = {
+          ...this[chatType][index],
+          messages: chatMessages.rows,
+          pagination: {
+            ...this[chatType][index].pagination,
+            offset: chatMessageOffset + limit / 2,
+            offsetBottom: chatMessageOffset - limit / 2,
+          },
+          isAllNextMessagesLoaded: chatMessages.rows?.length < limit,
+          isAllPreviousMessagesLoaded: false,
+        }
+      })
+
+      const newMessageIndex = this.findMessageIndex(chatMessages.rows, messageId)
+
+      if (newMessageIndex !== -1) {
+        return {
+          isExist: false,
+          messageIndex: newMessageIndex,
+        }
+      }
     }
   }
 
@@ -370,23 +431,15 @@ class ChatModelStatic {
     return messages?.findIndex(el => el._id === messageId)
   }
 
-  private async getMessageOffset(
-    chatId: string,
-    messageId?: string,
-    messageData?: ChatMessageContract,
-  ): Promise<number> {
+  private async getMessageOffset(chatId: string, messageId: string): Promise<number> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    if (messageData?.offset) {
-      return messageData.offset
-    } else {
-      const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
-      const chatMessageOffset = chatMessage.offset
+    const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+    const chatMessageOffset = chatMessage.offset
 
-      return chatMessageOffset
-    }
+    return chatMessageOffset
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {

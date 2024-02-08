@@ -124,7 +124,7 @@ export class MessagesViewModel {
 
   async onChangeCurFoundedMessage(index) {
     const curFoundedMessage = this.messagesFound[index]
-    await ChatModel.getChatMessage(this.chatSelectedId, undefined, curFoundedMessage)
+    await ChatModel.getChatMessage(this.chatSelectedId, curFoundedMessage?._id)
 
     runInAction(() => {
       this.curFoundedMessage = curFoundedMessage
@@ -292,6 +292,7 @@ export class MessagesViewModel {
     this.setRequestStatus(loadingStatuses.IS_LOADING)
 
     const res = await ChatModel.FindChatMessage({ chatId, text: value })
+
     runInAction(() => {
       this.messagesFound = res
     })

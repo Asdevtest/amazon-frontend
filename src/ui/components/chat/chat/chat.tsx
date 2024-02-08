@@ -13,6 +13,7 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
+import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -118,6 +119,8 @@ export const Chat: FC<ChatProps> = memo(
       changeFilesAndState,
     } = useChatInputControl(messageInitialState)
 
+    console.log('toScrollMesId', toScrollMesId)
+
     const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
     const prevChatId = usePrevious(chat?._id)
 
@@ -138,19 +141,19 @@ export const Chat: FC<ChatProps> = memo(
     const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
-    // FIXME
+    // FIXME: Костыль
     // Описание костыля: если в чате нет выбранного replyMessage, фронт делает запрос, оно загружается, но массив сообщений не успевает обновится => messageIndex === -1
     // Чтобы избегать, был создан стейт messageToFind, в котором хранится индекс выбранного сообщения, когда массив сообщений обновляется
     // Только тогда происходит проскролл к нужному сообщению
     // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
-    const handleLoadMoreMessages = async (selectedMessage?: ChatMessageContract) => {
+    const handleLoadMoreMessages = async (direction?: PaginationDirection, selectedMessageId?: string) => {
       if (requestStatus === loadingStatuses.IS_LOADING) {
         return
       }
 
       onChangeRequestStatus(loadingStatuses.IS_LOADING)
-      if (selectedMessage?._id) {
-        const result = await ChatModel.getChatMessage(chat?._id, selectedMessage?._id)
+      if (selectedMessageId) {
+        const result = await ChatModel.getChatMessage(chat?._id, selectedMessageId)
 
         if (result?.isExist) {
           scrollToMessage(result?.messageIndex)
@@ -158,8 +161,11 @@ export const Chat: FC<ChatProps> = memo(
           setMessageToFind(result?.messageIndex)
         }
       } else {
-        await ChatModel.getChatMessages?.(chat?._id)
-        setFirstItemIndex(START_INDEX - messages.length)
+        await ChatModel.getChatMessages?.(chat?._id, direction)
+
+        if (direction === PaginationDirection.NEXT) {
+          setFirstItemIndex(START_INDEX - messages.length)
+        }
       }
       onChangeRequestStatus(loadingStatuses.SUCCESS)
     }
@@ -168,16 +174,22 @@ export const Chat: FC<ChatProps> = memo(
     useEffect(() => {
       if (messageToFind !== undefined && messageToFind !== -1) {
         scrollToMessage(messageToFind)
-        setMessageToFind(undefined)
         setFirstItemIndex(START_INDEX - messages.length)
       }
-    }, [messages?.length])
+    }, [messages])
 
     const handleScrollToBottomButtonVisibility = (bottomState: boolean) => setIsShowScrollToBottomBtn(!bottomState)
 
-    const onClickScrollToBottom = () => {
-      if (!messagesWrapperRef.current) {
-        return
+    const onClickScrollToBottom = async () => {
+      if (!messagesWrapperRef.current) return
+
+      if (!chat.isAllPreviousMessagesLoaded) {
+        onChangeRequestStatus(loadingStatuses.IS_LOADING)
+
+        await ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
+        setFirstItemIndex(START_INDEX - messages.length)
+
+        onChangeRequestStatus(loadingStatuses.SUCCESS)
       }
       messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
     }
@@ -203,6 +215,7 @@ export const Chat: FC<ChatProps> = memo(
 
         messagesWrapperRef.current.scrollToIndex({ index: messageIndex })
         setMessageToScroll(messageIndex)
+        setMessageToFind(undefined)
 
         highlightTimerRef.current = setTimeout(() => {
           setMessageToScroll(undefined)
@@ -232,7 +245,7 @@ export const Chat: FC<ChatProps> = memo(
 
     useEffect(() => {
       if (!messages.length) {
-        ChatModel.getChatMessages?.(chat?._id)
+        ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
       }
 
       setMessage(messageInitialState.message)
@@ -246,7 +259,7 @@ export const Chat: FC<ChatProps> = memo(
 
     useEffect(() => {
       if (toScrollMesId) {
-        scrollToMessage(messages.findIndex(el => el._id === toScrollMesId))
+        handleLoadMoreMessages(undefined, toScrollMesId)
       }
     }, [toScrollMesId])
 
@@ -264,7 +277,7 @@ export const Chat: FC<ChatProps> = memo(
           )}
 
           <ChatMessagesList
-            chatId={chat?._id}
+            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
