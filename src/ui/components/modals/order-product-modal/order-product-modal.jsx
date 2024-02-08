@@ -254,8 +254,8 @@ export const OrderProductModal = memo(props => {
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
-        order.storekeeperId === '' ||
-        order.logicsTariffId === '' ||
+        !order.storekeeperId ||
+        !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
