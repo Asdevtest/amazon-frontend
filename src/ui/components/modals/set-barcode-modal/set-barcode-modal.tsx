@@ -48,7 +48,10 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
           success
           disabled={!files.length && !tmpCode?.length}
           className={styles.button}
-          onClick={() => onClickSaveBarcode(files)}
+          onClick={() => {
+            onClickSaveBarcode(files)
+            onCloseModal()
+          }}
         >
           {t(TranslationKey.Save)}
         </Button>
