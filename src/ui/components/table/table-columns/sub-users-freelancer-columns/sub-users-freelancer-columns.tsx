@@ -52,9 +52,9 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
 
       return <MultilineTextCell leftAlign text={stringForRender} />
     },
-    type: 'number',
     width: 95,
     sortable: false,
+    filterable: false,
     disableColumnMenu: true,
   },
 
@@ -77,6 +77,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       />
     ),
     disableColumnMenu: true,
+    filterable: false,
     sortable: false,
   },
 

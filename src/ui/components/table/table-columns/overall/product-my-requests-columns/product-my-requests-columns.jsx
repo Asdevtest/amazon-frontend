@@ -134,6 +134,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => <ProductMyRequestsBtnsCell data={params.row.originalData} handlers={handlers} />,
     disableColumnMenu: true,
+    filterable: false,
     sortable: false,
     flex: 1,
   },
