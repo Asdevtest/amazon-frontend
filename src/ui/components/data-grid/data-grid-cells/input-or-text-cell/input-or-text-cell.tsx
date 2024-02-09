@@ -39,12 +39,14 @@ export const InputOrTextCell: FC<InputOrTextCellProps> = memo(props => {
     <div className={cx(styles.wrapper, { [styles.wrapperDisabled]: !isEdit, [styles.wrapperError]: showError })}>
       <input
         type="text"
+        name="specTitle"
         title={showTooltipInputText ? inputValue : ''}
         disabled={!isEdit}
         value={inputValue}
         maxLength={maxInputValueLength || MAX_DEFAULT_INPUT_VALUE}
         className={cx(styles.input, { [styles.inputError]: showError })}
         onChange={e => setInputValue(e.target.value)}
+        onKeyDown={e => e.stopPropagation()}
       />
 
       {showButton ? (
