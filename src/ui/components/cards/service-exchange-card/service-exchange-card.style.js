@@ -62,7 +62,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
-    maxWidth: 200,
+    maxWidth: 120,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,

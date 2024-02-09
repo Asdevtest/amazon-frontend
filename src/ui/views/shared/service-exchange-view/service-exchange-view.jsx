@@ -83,14 +83,14 @@ export const ServiceExchangeView = observer(({ history }) => {
         )}
       </div>
 
-      {!viewModel.currentData.length && (
+      {!viewModel.currentData.length ? (
         <div className={styles.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />
           <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
-      )}
+      ) : null}
 
-      {viewModel.showImageModal && (
+      {viewModel.showImageModal ? (
         <ImageModal
           files={viewModel.bigImagesOptions.images}
           currentFileIndex={viewModel.bigImagesOptions.imgIndex}
@@ -98,7 +98,7 @@ export const ServiceExchangeView = observer(({ history }) => {
           onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
           onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
         />
-      )}
+      ) : null}
     </>
   )
 })

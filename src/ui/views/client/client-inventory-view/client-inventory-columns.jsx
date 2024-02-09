@@ -239,7 +239,7 @@ export const clientInventoryColumns = (
       ),
 
       width: 150,
-      disableColumnMenu: true,
+      filterable: false,
     },
 
     {
@@ -305,6 +305,7 @@ export const clientInventoryColumns = (
       renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
       width: 120,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -315,6 +316,7 @@ export const clientInventoryColumns = (
       renderCell: params => <HsCodeCell product={params.row} handlers={hsCodeHandlers} />,
       width: 120,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -384,6 +386,7 @@ export const clientInventoryColumns = (
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       width: 400,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -394,6 +397,7 @@ export const clientInventoryColumns = (
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
+      filterable: false,
       disableColumnMenu: true,
     },
   ]

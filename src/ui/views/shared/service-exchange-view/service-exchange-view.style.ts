@@ -41,7 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
     height: '78vh',
     overflow: 'auto',
-    paddingRight: 10,
   },
 
   dashboardCardWrapperList: {
