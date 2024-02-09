@@ -7,20 +7,26 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { useStyles } from './gallery-request-modal.style'
 
 import { Header } from '../gallery-modal/components'
+import { customSwitcherSettings } from '../gallery-modal/gallery-modal.config'
+import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
-import { customSwitcherSettings } from './gallery-request-modal.config'
-import { IData, SwitcherConditions } from './gallery-request-modal.type'
-import { MediaFilesTab } from './media-files-tab'
+import { Buttons, ReqestMediaFilesTab, RequestDocumentsTab } from './components'
+import { IData, IMediaFileWithCommentFromRequest } from './gallery-request-modal.type'
 import { useGalleryRequestModal } from './use-gallery-request-modal'
 
 interface GalleryRequestModalProps {
   data: IData
   isOpenModal: boolean
+  mediaFiles: IMediaFileWithCommentFromRequest[] // correct data type - string[] (solution for creating a request)
+  onChangeMediaFiles: (mediaFiles: IMediaFileWithCommentFromRequest[]) => void // correct data type - string[] (solution for creating a request)
   onOpenModal: () => void
 }
 
+/**
+ * The component copies Header, CustomSwitcher with its settings from GalleryModal, but adds its own functionality, tabs and footer.
+ */
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
-  const { data, isOpenModal, onOpenModal } = props
+  const { data, isOpenModal, mediaFiles, onChangeMediaFiles, onOpenModal } = props
 
   const { classes: styles } = useStyles()
 
@@ -30,13 +36,21 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
 
     mediaFilesStates,
     documentsStates,
-
     allFilesToAdd,
-    setAllFilesToAdd,
-  } = useGalleryRequestModal(data)
+
+    onToggleFile,
+    onResetAllFilesToAdd,
+    getCheckboxState,
+  } = useGalleryRequestModal(data, mediaFiles)
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal
+      openModal={isOpenModal}
+      setOpenModal={() => {
+        onOpenModal()
+        onResetAllFilesToAdd()
+      }}
+    >
       <div className={styles.wrapper}>
         <Header />
 
@@ -49,13 +63,25 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
         />
 
         <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
-          <MediaFilesTab data={mediaFilesStates} />
+          <ReqestMediaFilesTab
+            data={mediaFilesStates}
+            getCheckboxState={getCheckboxState}
+            onToggleFile={onToggleFile}
+          />
         </TabPanel>
 
         <TabPanel value={tabValue} index={SwitcherConditions.DOCUMENTS}>
-          {/* <DocumentsTab files={documents} /> */}
+          <RequestDocumentsTab data={documentsStates} getCheckboxState={getCheckboxState} onToggleFile={onToggleFile} />
         </TabPanel>
       </div>
+
+      <Buttons
+        disabled={!allFilesToAdd.length}
+        onClick={() => {
+          onChangeMediaFiles(allFilesToAdd)
+          onOpenModal()
+        }}
+      />
     </Modal>
   )
 })

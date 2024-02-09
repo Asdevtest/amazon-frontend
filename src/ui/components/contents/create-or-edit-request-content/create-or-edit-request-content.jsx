@@ -13,6 +13,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -57,6 +58,8 @@ export const CreateOrEditRequestContent = memo(props => {
     showProgress,
     progressValue,
     mainContentRef,
+    showGalleryModal,
+    productMedia,
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
@@ -68,6 +71,7 @@ export const CreateOrEditRequestContent = memo(props => {
     onCreateSubmit,
     onEditSubmit,
     onClickAddMediaFromProduct,
+    onTriggerGalleryModal,
   } = props
   const { classes: styles, cx } = useStyles()
   const history = useHistory()
@@ -559,6 +563,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
               <div className={styles.defaultMarginTop}>
                 <Button
+                  disabled={!formFields.request?.productId}
                   className={styles.button}
                   onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                 >
@@ -1191,6 +1196,16 @@ export const CreateOrEditRequestContent = memo(props => {
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
+
+      {showGalleryModal ? (
+        <GalleryRequestModal
+          data={productMedia}
+          isOpenModal={showGalleryModal}
+          mediaFiles={images}
+          onChangeMediaFiles={setImages}
+          onOpenModal={onTriggerGalleryModal}
+        />
+      ) : null}
     </div>
   )
 })

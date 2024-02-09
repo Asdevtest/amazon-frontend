@@ -2193,5 +2193,6 @@ export enum TranslationKey {
   'Add from product' = 'Add from product',
   'Product not selected!' = 'Product not selected!',
   'Current supplier' = 'Current supplier',
+  'Add to request' = 'Add to request',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

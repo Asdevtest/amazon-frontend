@@ -7,7 +7,6 @@ import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
@@ -41,6 +40,8 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           requestToEdit={viewModel.requestToEdit}
+          showGalleryModal={viewModel.showGalleryModal}
+          productMedia={viewModel.productMedia}
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
           getMasterUsersData={viewModel.getMasterUsersData}
@@ -52,6 +53,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           onClickChoosePerformer={viewModel.onClickChoosePerformer}
           onClickThumbnail={viewModel.onClickThumbnail}
           onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
+          onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       </div>
 
@@ -68,14 +70,6 @@ export const CreateOrEditRequestView = observer(({ history }) => {
               imgIndex: index,
             })
           }
-        />
-      ) : null}
-
-      {viewModel.showGalleryModal ? (
-        <GalleryRequestModal
-          data={viewModel.productMedia}
-          isOpenModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       ) : null}
 

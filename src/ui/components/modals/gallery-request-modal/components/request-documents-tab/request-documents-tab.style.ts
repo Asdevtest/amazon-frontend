@@ -1,17 +1,26 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  files: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 305px)',
-    gridTemplateRows: 'repeat(5, 50px)',
-    gap: 15,
-    opacity: 1,
-    transition: 'opacity 0.3s ease-in-out',
+  wrapper: {
+    height: 445,
+    padding: '0 5px 5px',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
-  slidesTransition: {
-    opacity: 0,
+  title: {
+    marginBottom: 10,
+    color: theme.palette.text.general,
+    textTransform: 'capitalize',
+  },
+
+  files: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateRows: 'repeat(auto-fill), 50px)',
+    gap: 15,
   },
 
   fileWrapper: {
@@ -31,20 +40,24 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fileName: {
-    maxWidth: 170,
+    maxWidth: 140,
     height: 19,
     fontSize: 14,
     lineHeight: '19px',
     overflow: 'hidden',
-    wordBreak: 'break-all',
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
-    WebkitBoxOrient: 'vertical',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+
+  checkbox: {
+    padding: 0,
+    borderRadius: 0,
   },
 
   icons: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
 
   buttonIcon: {
@@ -66,10 +79,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   downloadIcon: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.general,
   },
 
   noDocuments: {
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
