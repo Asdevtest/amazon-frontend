@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { IDestinationVariationApproximateCalculations } from '../../typings/destination'
 
 export const getGroupDataByDestinationId = (

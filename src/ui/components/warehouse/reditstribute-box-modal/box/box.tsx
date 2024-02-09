@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-/* eslint-disable prettier/prettier */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
 

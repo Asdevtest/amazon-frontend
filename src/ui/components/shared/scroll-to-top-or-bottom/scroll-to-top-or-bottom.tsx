@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { CSSProperties, FC } from 'react'
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
