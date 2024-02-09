@@ -67,6 +67,7 @@ export const CreateOrEditRequestContent = memo(props => {
     onClickThumbnail,
     onCreateSubmit,
     onEditSubmit,
+    onClickAddMediaFromProduct,
   } = props
   const { classes: styles, cx } = useStyles()
   const history = useHistory()
@@ -557,7 +558,10 @@ export const CreateOrEditRequestContent = memo(props => {
               />
 
               <div className={styles.defaultMarginTop}>
-                <Button className={styles.button}>
+                <Button
+                  className={styles.button}
+                  onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
+                >
                   <CustomPlusIcon />
                   {t(TranslationKey['Add from product'])}
                 </Button>

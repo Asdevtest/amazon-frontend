@@ -7,6 +7,7 @@ import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
@@ -50,10 +51,11 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           onEditSubmit={viewModel.onSubmitEditRequest}
           onClickChoosePerformer={viewModel.onClickChoosePerformer}
           onClickThumbnail={viewModel.onClickThumbnail}
+          onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
         />
       </div>
 
-      {viewModel.showImageModal && (
+      {viewModel.showImageModal ? (
         <ImageModal
           showPreviews
           files={viewModel.bigImagesOptions.images}
@@ -67,20 +69,30 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             })
           }
         />
-      )}
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        smallMessage={viewModel.confirmModalSettings.smallMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-      />
+      {viewModel.showGalleryModal ? (
+        <GalleryRequestModal
+          data={viewModel.productMedia}
+          isOpenModal={viewModel.showGalleryModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
+        />
+      ) : null}
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          smallMessage={viewModel.confirmModalSettings.smallMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      ) : null}
     </>
   )
 })

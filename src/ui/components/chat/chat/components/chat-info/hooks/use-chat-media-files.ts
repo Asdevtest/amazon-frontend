@@ -4,7 +4,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatsModel } from '@models/chats-model'
 
-import { InlineResponse20036 } from '@services/rest-api-service/codegen'
+import { InlineResponse20029 } from '@services/rest-api-service/codegen'
 
 import { TabValue } from '../chat-into.type'
 
@@ -38,7 +38,7 @@ export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
 
     setIsAllMediaLoaded(arrayOfMedia?.length < limit)
 
-    const allMedia = arrayOfMedia?.reduce<string[]>((acc, mediaItem: InlineResponse20036) => {
+    const allMedia = arrayOfMedia?.reduce<string[]>((acc, mediaItem: InlineResponse20029) => {
       return acc?.concat?.(mediaItem?.allMedia || [])
     }, [])
 
