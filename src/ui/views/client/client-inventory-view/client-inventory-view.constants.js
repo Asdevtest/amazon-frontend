@@ -47,7 +47,14 @@ export const defaultHiddenColumns = [
   'updatedAt',
 ]
 
-export const additionalFilterFields = ['inventoryAsin', 'inventorySku', 'asin', 'skuByClient', 'amazonTitle']
+export const additionalFilterFields = [
+  'inventoryAsin',
+  'inventorySku',
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'purchaseQuantity',
+]
 
 export const filtersFields = [
   'shopId',

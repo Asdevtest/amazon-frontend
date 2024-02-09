@@ -1113,6 +1113,8 @@ export class ClientIdeasViewModel {
         'barCode',
         'tmpBarCode',
         'tmpIsPendingOrder',
+        'tmpTransparencyFile',
+        'transparency',
         '_id',
       ])
 

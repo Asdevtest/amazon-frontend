@@ -240,6 +240,7 @@ export const clientInventoryColumns = (
 
       width: 150,
       filterable: false,
+      columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
     },
 
     {
@@ -304,9 +305,8 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
       renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
       width: 120,
-      disableColumnMenu: true,
-      filterable: false,
-      sortable: false,
+
+      columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
     {

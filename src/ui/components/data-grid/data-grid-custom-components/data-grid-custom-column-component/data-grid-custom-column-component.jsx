@@ -78,6 +78,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IsNeedPurchaseFilterMenuItem
           isNeedPurchaseFilterData={isNeedPurchaseFilterData}
           data={props}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
