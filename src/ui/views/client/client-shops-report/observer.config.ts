@@ -6,6 +6,8 @@ export const observerConfig = {
   _showBindStockGoodsToInventoryModal: observable,
   _showWarningInfoModal: observable,
   _showConfirmModal: observable,
+  showSelectShopsModal: observable,
+  shopsData: observable,
 
   tabKey: computed,
   inventoryProducts: computed,
@@ -22,4 +24,6 @@ export const observerConfig = {
   getProductsMy: action.bound,
   submitBindStockGoodsHandler: action.bound,
   initUserSettings: action.bound,
+  getShopsData: action.bound,
+  bindReportInventoryHandler: action.bound,
 }

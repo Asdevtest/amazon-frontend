@@ -51,6 +51,8 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
   const { currentTab, setCurrentTab, files, isFilesLoading, loadMoreMediaFilesHandler, resetSettings } =
     useChatMediaFiles(chat, !!isGroupChat)
 
+  const isCurrentTabGroup = currentTab === TabValue.GROUP_CHAT_USERS
+
   return (
     <div className={styles.wrapper}>
       <ChatInfoHeader
@@ -79,9 +81,11 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
           </div>
         )}
 
-        {!files?.length && !isFilesLoading && <p className={styles.noData}>{t(TranslationKey['No files'])}</p>}
+        {!files?.length && !isFilesLoading && !isCurrentTabGroup && (
+          <p className={styles.noData}>{t(TranslationKey['No files'])}</p>
+        )}
 
-        {currentTab === TabValue.GROUP_CHAT_USERS ? (
+        {isCurrentTabGroup ? (
           <ChatGroupUsers
             chat={chat}
             userId={userId}

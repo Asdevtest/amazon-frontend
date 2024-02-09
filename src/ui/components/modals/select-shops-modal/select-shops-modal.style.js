@@ -42,4 +42,13 @@ export const useStyles = makeStyles()(theme => ({
   cancelButton: {
     color: theme.palette.text.general,
   },
+
+  customSubMainWrapper: {
+    width: '340px !important',
+  },
+
+  customItemsWrapper: {
+    padding: '10px',
+    maxHeight: '200px !important',
+  },
 }))

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 

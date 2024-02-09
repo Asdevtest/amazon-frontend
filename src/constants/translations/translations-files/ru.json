@@ -2182,6 +2182,10 @@
   "Specialty successfully changed.": "Специальность успешно изменена.",
   "Specialty not changed, something went wrong ...": "Специальность не изменена, что-то пошло не так ...",
   "Specialty successfully added to the archive.": "Специальность успешно добавлена в архив.",
+  "Choose a store for integration": "Выберите магазин для интеграции",
+  "Integration for": "Интеграция для",
+  "has been created": "has been created",
+  "Something went wrong": "Что-то пошло не так",
   "Cannot be merged with different clients": "Невозможно соединить с разными клиентами",
   "Videos": "Видео"
 }

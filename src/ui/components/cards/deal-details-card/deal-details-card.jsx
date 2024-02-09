@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -90,7 +90,7 @@ export const DealDetailsCard = ({
             </div>
           </div>
           <div className={styles.filesWrapper}>
-            <PhotoAndFilesCarousel small files={curProposal?.proposal.linksToMediaFiles} />
+            <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.proposal.linksToMediaFiles} />
           </div>
           {!dealsOnReview &&
           [
@@ -146,7 +146,7 @@ export const DealDetailsCard = ({
           </div>
           <div className={styles.filesAndTimeWrapper}>
             <div className={styles.filesWrapper}>
-              <PhotoAndFilesCarousel small files={curProposal?.details?.linksToMediaFiles} />
+              <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.details?.linksToMediaFiles} />
             </div>
 
             <div className={styles.timeOnReviewWrapper}>

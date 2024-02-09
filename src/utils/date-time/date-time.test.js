@@ -1,22 +1,16 @@
-/* eslint-disable no-unused-vars */
 import {
   convertDaysToSeconds,
   formatDate,
   formatDateDayMonthYear,
   formatDateDistanceFromNow,
-  formatDateDistanceFromNowStrict,
-  formatDateForShowWithoutParseISO,
   formatDateMonthYear,
   formatDateMonthYearWithoutFormatISO,
-  formatDateTime,
   formatDateTimeHourAndMinutes,
   formatDateWithoutTime,
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
   formatShortDateTime,
-  getDistanceBetweenDatesInSeconds,
   getYearDate,
-  sortObjectsArrayByFiledDate,
 } from './date-time'
 
 describe('Test getYearDate(dateString)', () => {

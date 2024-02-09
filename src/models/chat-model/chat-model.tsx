@@ -573,7 +573,11 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    if (newMessage.type === ChatMessageType.SYSTEM && newMessage?.info?.type !== EChatInfoType.GROUP) {
+    if (
+      newMessage.type === ChatMessageType.SYSTEM &&
+      newMessage?.info?.type !== EChatInfoType.GROUP &&
+      window?.location?.pathname.includes('/messages')
+    ) {
       this.getSimpleChats()
     }
 

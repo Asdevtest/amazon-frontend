@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from 'react'
 
 import {
@@ -12,8 +11,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './buyer-type-task-select.style'
-
 interface BuyerTypeTaskSelectProps {
   curTaskType: string | null
   onClickOperationTypeBtn: (value: string | null) => void
@@ -21,7 +18,6 @@ interface BuyerTypeTaskSelectProps {
 
 export const BuyerTypeTaskSelect: FC<BuyerTypeTaskSelectProps> = props => {
   const { curTaskType, onClickOperationTypeBtn } = props
-  const { classes: styles } = useStyles()
 
   return (
     <CustomSwitcher

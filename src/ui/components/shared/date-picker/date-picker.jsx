@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 import zhLocale from 'date-fns/locale/zh-CN'
 import { useEffect, useState } from 'react'
 
-import {
-  KeyboardDatePicker,
-  KeyboardDateTimePicker, // KeyboardTimePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers'
+import { KeyboardDatePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import EventIcon from '@mui/icons-material/Event'
 import TextField from '@mui/material/TextField'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-// import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
-// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -79,61 +72,6 @@ const darkTheme = createTheme({
         },
       },
     },
-
-    // MuiSvgIcon: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff !important',
-    //     },
-    //   },
-    // },
-
-    // MuiPaper: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: '#2B2B34',
-    //       color: '#fff',
-    //     },
-    //   },
-    // },
-
-    // MuiTypography: {
-    //   defaultProps: {
-    //     sx: {
-    //       '&.Mui-disabled': {
-    //         color: '#a0a0a4',
-    //       },
-    //     },
-    //   },
-
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff !important',
-    //     },
-    //   },
-    // },
-
-    // MuiClockNumber: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#E1E1E1',
-    //     },
-    //   },
-    // },
-
-    // MuiButtonBase: {
-    //   styleOverrides: {
-    //     root: {
-    //       '&:hover': {
-    //         color: '#fff',
-    //       },
-
-    //       '&:focus': {
-    //         color: '#fff',
-    //       },
-    //     },
-    //   },
-    // },
   },
 
   palette: {
@@ -142,7 +80,7 @@ const darkTheme = createTheme({
 })
 
 export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -286,7 +224,7 @@ export const DatePickerTime = ({ value, onChange, ...restProps }) => {
 }
 
 export const DefaultDatePicker = props => {
-  const { value, onChange, variant = 'standard', error = false, ...restProps } = props
+  const { value, onChange, ...restProps } = props
 
   const { classes: styles } = useStyles()
 

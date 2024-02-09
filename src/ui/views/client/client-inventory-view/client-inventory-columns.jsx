@@ -28,8 +28,8 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { complexCells } from '../../cell-types'
-import { getCellType } from '../../helpers/get-cell-type'
+import { complexCells } from './cell-types'
+import { getCellType } from './helpers/get-cell-type'
 
 export const clientInventoryColumns = (
   barCodeHandlers,
@@ -239,7 +239,7 @@ export const clientInventoryColumns = (
       ),
 
       width: 150,
-      disableColumnMenu: true,
+      filterable: false,
     },
 
     {
@@ -305,6 +305,7 @@ export const clientInventoryColumns = (
       renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
       width: 120,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -315,6 +316,7 @@ export const clientInventoryColumns = (
       renderCell: params => <HsCodeCell product={params.row} handlers={hsCodeHandlers} />,
       width: 120,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -384,6 +386,7 @@ export const clientInventoryColumns = (
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       width: 400,
       disableColumnMenu: true,
+      filterable: false,
       sortable: false,
     },
 
@@ -394,13 +397,10 @@ export const clientInventoryColumns = (
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
       sortable: false,
+      filterable: false,
       disableColumnMenu: true,
     },
   ]
-
-  for (const column of defaultColumns) {
-    column.table = DataGridFilterTables.PRODUCTS
-  }
 
   if (additionalFields) {
     for (const table in additionalFields) {
@@ -411,18 +411,20 @@ export const clientInventoryColumns = (
           const formedTableName = formatCamelCaseString(table)
 
           const complexCell = {
-            field: `${formedTableName} product`,
+            field: table,
             headerName: `${formedTableName} product`,
             renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
 
             renderCell: ({ row }) => {
-              const image = row?.[table]?.image
-              const asin = row?.[table]?.asin
-              const skuByClient = row?.[table]?.sku
+              const product = row?.[table]
 
-              return <ProductAsinCell withoutTitle image={image} asin={asin} skuByClient={skuByClient} />
+              return (
+                <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
+              )
             },
             width: 295,
+
+            columnKey: columnnsKeys.client.SHOP_REPORT,
           }
 
           defaultColumns.push(complexCell)
@@ -437,6 +439,10 @@ export const clientInventoryColumns = (
         }
       }
     }
+  }
+
+  for (const column of defaultColumns) {
+    column.table = DataGridFilterTables.PRODUCTS
   }
 
   return defaultColumns

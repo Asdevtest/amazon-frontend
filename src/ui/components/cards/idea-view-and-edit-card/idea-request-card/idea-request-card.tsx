@@ -34,7 +34,6 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
 
   const {
     // proposals,
-
     requestTitle,
     requestId,
     requestStatus,

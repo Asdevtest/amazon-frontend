@@ -409,7 +409,7 @@ export const MyRequestsStatusMenuItem = memo(
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <>
-              {itemsForRender.length ? (
+              {itemsForRender?.length ? (
                 <>
                   <DataGridSelectAllFilters
                     choosenItems={choosenItems}
@@ -506,7 +506,7 @@ export const FreelanceRequestType = memo(
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <>
-              {itemsForRender.length ? (
+              {itemsForRender?.length ? (
                 <>
                   <DataGridSelectAllFilters
                     choosenItems={choosenItems}
@@ -664,7 +664,7 @@ export const CreatedByMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -826,7 +826,7 @@ export const ObJectFieldMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length > 0 ? (
+                  {itemsForRender?.length > 0 ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -980,7 +980,7 @@ export const IdeaShopsFieldMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -1223,7 +1223,7 @@ export const NormalFieldMenuItem = memo(
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -1478,6 +1478,8 @@ export const ProductMenuItem = memo(
         return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
       } else if (field && field.includes('child')) {
         return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else if (field && field.includes('inventory')) {
+        return 'inventory' + option.charAt(0).toUpperCase() + option.slice(1)
       } else {
         return option
       }
@@ -1505,6 +1507,7 @@ export const ProductMenuItem = memo(
     useEffect(() => {
       setChoosenItems(currentFilterData)
     }, [currentFilterData])
+
     useEffect(() => {
       setItemsForRender(
         filterData
@@ -1604,7 +1607,7 @@ export const ProductMenuItem = memo(
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -1754,7 +1757,7 @@ export const OrderOrItemMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -1927,7 +1930,7 @@ export const DestinationMenuItem = memo(
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -2069,7 +2072,7 @@ export const FromToDateMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -2372,7 +2375,7 @@ export const NumberFieldMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -2570,7 +2573,7 @@ export const InStockMenuItem = memo(
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -3135,7 +3138,7 @@ export const SecondsCellMenuItem = memo(
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}

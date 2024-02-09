@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -17,6 +17,7 @@ import { UserModel } from '@models/user-model'
 import { subUsersColumns } from '@components/table/table-columns/sub-users-columns'
 import { subUsersFreelancerColumns } from '@components/table/table-columns/sub-users-freelancer-columns'
 
+import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -26,14 +27,11 @@ export class SubUsersViewModel {
   requestStatus = undefined
 
   nameSearchValue = ''
-
   subUsersData = []
   singlePermissions = []
   groupPermissions = []
   shopsData = []
-  currentData = []
   specs = []
-
   curUserProductPermissions = []
   productPermissionsData = []
 
@@ -43,19 +41,16 @@ export class SubUsersViewModel {
   showPermissionModal = false
   showConfirmModal = false
 
-  rowSelectionModel = undefined
-
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
     onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
-
+  rowSelectionModel = undefined
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = subUsersColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -68,21 +63,23 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.subUsersData.filter(
+        el =>
+          el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.subUsersData
+    }
+  }
+
   constructor({ history }) {
     this.history = history
     this.setColumnsModel()
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.subUsersData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   setColumnsModel() {
@@ -117,6 +114,7 @@ export class SubUsersViewModel {
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -140,7 +138,7 @@ export class SubUsersViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -148,18 +146,6 @@ export class SubUsersViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return this.subUsersData.filter(
-        el =>
-          el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return this.subUsersData
-    }
   }
 
   onChangeNameSearchValue(e) {
@@ -176,22 +162,18 @@ export class SubUsersViewModel {
     this.setDataGridState()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       this.getDataGridState()
 
       this.getUsers()
       this.getGroupPermissions()
       this.getSinglePermissions()
-      this.getSpecs()
 
-      UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
+        this.getShops()
+      }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -221,7 +203,6 @@ export class SubUsersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -296,11 +277,15 @@ export class SubUsersViewModel {
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
+      if (checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
+        this.getSpecs()
+      }
+
       this.onTriggerOpenModal('showPermissionModal')
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -315,7 +300,9 @@ export class SubUsersViewModel {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
-      await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+      if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
+        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+      }
 
       if (currentSpec) {
         await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
@@ -352,7 +339,7 @@ export class SubUsersViewModel {
         currentSpec,
       )
 
-      await this.getUsers()
+      this.getUsers()
     } catch (error) {
       console.log(error)
     }
@@ -403,7 +390,8 @@ export class SubUsersViewModel {
   async onSubmitlinkSubUser(data) {
     try {
       await this.linkSubUser(data)
-      await this.getUsers()
+      this.getUsers()
+
       this.onTriggerOpenModal('showAddSubUserModal')
     } catch (error) {
       console.log(error)
@@ -413,7 +401,8 @@ export class SubUsersViewModel {
   async onSubmitUnlinkSubUser() {
     try {
       await this.unlinkSubUser()
-      await this.getUsers()
+      this.getUsers()
+
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
