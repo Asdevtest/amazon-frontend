@@ -105,7 +105,7 @@ export class ServiceExchangeViewModel {
   }
 
   async loadMoreDataHadler() {
-    if (this.requestStatus === loadingStatuses.IS_LOADING || this.options.offset >= this.rowCount) {
+    if (this.requestStatus === loadingStatuses.IS_LOADING) {
       return
     }
 
@@ -113,6 +113,12 @@ export class ServiceExchangeViewModel {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.options.offset += this.options.limit
+
+      if (this.options.offset >= this.rowCount) {
+        this.setRequestStatus(loadingStatuses.SUCCESS)
+
+        return
+      }
 
       const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
 
