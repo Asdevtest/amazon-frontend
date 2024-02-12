@@ -34,6 +34,15 @@ export const BoxItemCard = ({
   const disableGlueCheckbox = !isNewBox || readOnly
   const disableBarCodeCheckbox = disableGlueCheckbox || !item.barCode
   const disableTransparencyCheckbox = disableGlueCheckbox || !item.transparencyFile
+  const isSuccessAccent =
+    isNewBox &&
+    (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper) &&
+    (item.isTransparencyFileAlreadyAttachedByTheSupplier || item.isTransparencyFileAttachedByTheStorekeeper)
+
+  const isWarningAccent =
+    isNewBox &&
+    ((!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper) ||
+      (!item.isTransparencyFileAlreadyAttachedByTheSupplier && !item.isTransparencyFileAttachedByTheStorekeeper))
 
   return (
     <div className={styles.root}>
@@ -134,13 +143,8 @@ export const BoxItemCard = ({
               <div className={styles.chipWrapper}>
                 <div
                   className={cx(styles.barCodeActionsWrapper, {
-                    [styles.successAccent]:
-                      isNewBox &&
-                      (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
-                    [styles.warningAccent]:
-                      isNewBox &&
-                      !item.isBarCodeAlreadyAttachedByTheSupplier &&
-                      !item.isBarCodeAttachedByTheStorekeeper,
+                    [styles.successAccent]: isSuccessAccent,
+                    [styles.warningAccent]: isWarningAccent,
                   })}
                 >
                   {item.isBarCodeAttachedByTheStorekeeper === false && (
