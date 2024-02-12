@@ -8,7 +8,7 @@ import { VideoPlayer } from '@components/shared/video-player'
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './zoom-modal.style'
 

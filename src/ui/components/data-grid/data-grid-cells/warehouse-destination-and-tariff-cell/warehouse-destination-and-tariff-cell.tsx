@@ -13,7 +13,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestination } from '@typings/destination'
+import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './warehouse-destination-and-tariff-cell.style'
 

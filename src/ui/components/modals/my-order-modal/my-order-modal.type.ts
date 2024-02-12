@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { IOrder } from '@typings/order'
+import { IOrder } from '@typings/models/orders/order'
 
 export interface IOrderWithAdditionalFields extends IOrder {
-  destinationId: string | null
-  storekeeperId: string | null
-  variationTariffId: string | null
-  deadline: string | null
+  destinationId: string
+  storekeeperId: string
   tmpBarCode: string[]
 }
 

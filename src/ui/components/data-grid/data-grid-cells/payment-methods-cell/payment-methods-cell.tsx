@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IPaymentMethod } from '@typings/models/shared/payment-method'
+import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { useStyles } from './payment-methods-cell.style'
 

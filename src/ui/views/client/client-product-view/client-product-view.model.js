@@ -29,7 +29,7 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { ProductVariation } from '@typings/product'
+import { ProductVariation } from '@typings/enums/product-variation'
 
 import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-product-view.constants'
 

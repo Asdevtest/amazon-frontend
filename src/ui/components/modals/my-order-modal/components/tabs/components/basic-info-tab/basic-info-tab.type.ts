@@ -1,4 +1,4 @@
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface IFieldConfig {
   title?: string

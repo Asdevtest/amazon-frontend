@@ -19,9 +19,9 @@ import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
-import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
-import { IProductIdeaNotification } from '@typings/product'
-import { IUser } from '@typings/user'
+import { IProduct } from '@typings/models/products/product'
+import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
+import { IFullUser } from '@typings/shared/full-user'
 
 interface IVariations {
   isArchive: boolean
@@ -65,13 +65,13 @@ export class GeneralNotificationsViewModel {
 
   // * Data for Modals
 
-  currentProduct: IProductIdeaNotification | undefined = undefined
+  currentProduct: IProduct | undefined = undefined
 
   currentIdeaId: string | undefined = undefined
 
   // * Getters
 
-  get userInfo(): IUser | undefined {
+  get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
   get languageTag() {

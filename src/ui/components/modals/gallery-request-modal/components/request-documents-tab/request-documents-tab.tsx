@@ -10,7 +10,7 @@ import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { isString } from '@typings/guards'
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './request-documents-tab.style'
 

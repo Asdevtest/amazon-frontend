@@ -2,11 +2,11 @@ import { IMessage } from './message'
 
 export interface IChat {
   _id: string
-  crmItemId?: string
-  crmItemType?: string
+  crmItemId: string
+  crmItemType: string
   isBlocked: boolean
-  blockedById?: string
-  isActual?: boolean
+  blockedById: string
+  isActual: boolean
   lastUpdatedById: string
   createdAt: string
   updatedAt: string

@@ -1,6 +1,6 @@
-import { IBox } from '../shared/box'
+import { IBox } from './box'
 
 export interface IBoxes {
-  count?: number
-  rows?: IBox[]
+  count: number
+  rows: IBox[]
 }

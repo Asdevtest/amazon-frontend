@@ -19,8 +19,8 @@ import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IPlatformSettings } from '@typings/patform-settings'
-import { UploadFileType } from '@typings/upload-file'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 export const suppliersOrderColumn = (
   order: IOrderWithAdditionalFields,

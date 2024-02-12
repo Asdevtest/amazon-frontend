@@ -10,7 +10,7 @@ export interface IMessage<T extends ChatMessageDataUniversal = ChatMessageDataUn
   images: string[]
   files: string[]
   video: string[]
-  is_draft?: boolean
+  is_draft: boolean
   createdAt: string
   updatedAt: string
   info: {

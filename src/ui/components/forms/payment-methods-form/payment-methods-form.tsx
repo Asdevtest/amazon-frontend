@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { IPayment } from '@typings/models/shared/payment'
+import { IPayment } from '@typings/shared/payment'
 
 import { useStyles } from './payment-methods-form.style'
 

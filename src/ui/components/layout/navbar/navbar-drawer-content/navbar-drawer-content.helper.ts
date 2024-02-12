@@ -1,7 +1,7 @@
-import { NavbarConfigTypes } from '@typings/navbar-config'
-import { IUser } from '@typings/user'
+import { IFullUser } from '@typings/shared/full-user'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
-export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IUser) => {
+export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IFullUser) => {
   if (category.route?.includes('/client/notifications')) {
     return (
       userInfo?.needConfirmPriceChange?.boxes +

@@ -24,8 +24,8 @@ import { Feedback } from '@components/shared/svg-icons'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { NavbarConfigTypes } from '@typings/navbar-config'
-import { IUser } from '@typings/user'
+import { IFullUser } from '@typings/shared/full-user'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
 import { useStyles } from './navbar-drawer-content.style'
 
@@ -112,7 +112,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
                 category={category}
-                badge={getCategoryBadge(category, userInfo as unknown as IUser) || 0}
+                badge={getCategoryBadge(category, userInfo as unknown as IFullUser) || 0}
                 onToggleModal={onToggleModal}
               />
 

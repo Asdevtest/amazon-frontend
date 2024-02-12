@@ -9,16 +9,16 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IService } from '@typings/master-user'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
 
 import { useStyles } from './service-exchange-card.style'
 
 interface ServiceExchangeCardProps {
-  service: IService
+  service: IAnnoucement
   choose?: boolean
   order?: boolean
   pathname?: string
-  onClickButton: (service: IService) => void
+  onClickButton: (service: IAnnoucement) => void
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {

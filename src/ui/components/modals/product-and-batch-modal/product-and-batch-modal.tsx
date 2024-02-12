@@ -18,8 +18,8 @@ import { SeparatorIcon } from '@components/shared/svg-icons'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { IOrderBoxBatch } from '@typings/order-box'
-import { IShop } from '@typings/shop'
+import { IBatch } from '@typings/models/batches/batch'
+import { IShop } from '@typings/models/shops/shop'
 
 import { useStyles } from './product-and-batch-modal.style'
 
@@ -34,10 +34,10 @@ export interface ProductAndBatchModalProps {
   currentSwitch: ProductAndBatchModalSwitcherConditions
   shops: IShop[]
   selectedProduct: IProductWithOrder
-  batches: IOrderBoxBatch[]
+  batches: IBatch[]
   openModal: boolean
   setOpenModal: () => void
-  currentBatch?: IOrderBoxBatch
+  currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void

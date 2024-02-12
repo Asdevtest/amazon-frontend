@@ -10,7 +10,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { isString } from '@typings/guards'
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './media-files-tab.style'
 

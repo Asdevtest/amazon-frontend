@@ -13,7 +13,7 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { IPaginationModel } from '@typings/data-grid'
+import { IPaginationModel } from '@typings/shared/data-grid'
 
 import { useStyles } from './custom-page-switcher.style'
 

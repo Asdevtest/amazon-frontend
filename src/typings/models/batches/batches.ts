@@ -1,6 +1,6 @@
-import { IBatch } from '../shared/batch'
+import { IBatch } from './batch'
 
 export interface IBatchesPag {
-  count?: number
-  rows?: IBatch[]
+  count: number
+  rows: IBatch[]
 }

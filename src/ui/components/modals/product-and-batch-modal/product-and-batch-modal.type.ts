@@ -1,5 +1,5 @@
-import { IOrderBox } from '@typings/order-box'
-import { IProduct } from '@typings/product'
+import { IOrder } from '@typings/models/orders/order'
+import { IProduct } from '@typings/models/products/product'
 
 export enum ProductAndBatchModalSwitcherConditions {
   ORDER_INFORMATION = 'ORDER_INFORMATION',
@@ -7,7 +7,7 @@ export enum ProductAndBatchModalSwitcherConditions {
 }
 
 export interface IProductWithOrder extends IProduct {
-  orders: IOrderBox[]
+  orders: IOrder[]
   sumStock: number
   purchaseQuantity: number
   stockCost: number

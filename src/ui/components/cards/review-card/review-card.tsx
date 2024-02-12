@@ -11,12 +11,12 @@ import { UserLink } from '@components/user/user-link'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { FeedbackType } from '@typings/feedback'
+import { IFeedback } from '@typings/models/feedbacks/feedback'
 
 import { useStyles } from './review-card.style'
 
 interface ReviewCardProps {
-  review: FeedbackType
+  review: IFeedback
 }
 
 export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {

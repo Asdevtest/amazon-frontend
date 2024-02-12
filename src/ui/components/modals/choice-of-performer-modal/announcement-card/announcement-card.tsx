@@ -10,8 +10,9 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
-import { UploadFileType } from '@typings/upload-file'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './announcement-card.style'
 
@@ -21,11 +22,11 @@ interface onClickThumbnailArguments {
 }
 
 interface AnnouncementCardProps {
-  announcementData: IService
-  selectedCard?: IService
+  announcementData: IAnnoucement
+  selectedCard?: IAnnoucement
   onClickThumbnail: (images: onClickThumbnailArguments) => void
-  onClickSelectCard: (value: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickSelectCard: (value: IAnnoucement) => void
+  onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {

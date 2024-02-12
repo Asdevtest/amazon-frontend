@@ -10,8 +10,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IPayment } from '@typings/models/shared/payment'
-import { UploadFileType } from '@typings/upload-file'
+import { IPayment } from '@typings/shared/payment'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './payment-method-card.style'
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { FIRST_SLIDE } from './slideshow-gallery.constants'
 

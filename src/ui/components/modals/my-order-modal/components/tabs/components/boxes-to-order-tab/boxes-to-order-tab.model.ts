@@ -16,10 +16,9 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { IBox } from '@typings/box'
-import { IPlatformSettings } from '@typings/patform-settings'
-import { IHSCode } from '@typings/product'
-import { UploadFileType } from '@typings/upload-file'
+import { IBox } from '@typings/models/boxes/box'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalNames } from './boxes-to-order-tab.type'
 

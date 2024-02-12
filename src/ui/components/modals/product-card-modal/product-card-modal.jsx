@@ -24,7 +24,7 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/product'
+import { ProductVariation } from '@typings/enums/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 

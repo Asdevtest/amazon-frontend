@@ -23,10 +23,10 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
+import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
+import { ILogicTariff } from '@typings/shared/logic-tariff'
 
-import { IDestination, IDestinationVariation } from '../../../../typings/destination'
-import { ILogisticTariff } from '../../../../typings/logistics-tariff'
+import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
 interface FormFields {
   tariffType: number
@@ -54,9 +54,9 @@ interface DestinationVariationsContentProps {
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: ILogisticTariff
+  tariffToEdit: ILogicTariff
   sourceYuanToDollarRate: number
-  logisticsTariffsData: Array<ILogisticTariff>
+  logisticsTariffsData: Array<ILogicTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -136,9 +136,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       ) ||
       !isWeightRangeValid
 
-    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogisticTariff | undefined>(undefined)
+    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogicTariff | undefined>(undefined)
 
-    const onSetDataFromTariff = (tariff: ILogisticTariff) => {
+    const onSetDataFromTariff = (tariff: ILogicTariff) => {
       setSelectedLogisticTariff(tariff)
       // @ts-ignore
       setFormFields(prevState => ({
@@ -367,7 +367,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                   selectedItemName={
                     (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
                   }
-                  onClickSelect={(el: ILogisticTariff) => onSetDataFromTariff(el)}
+                  onClickSelect={(el: ILogicTariff) => onSetDataFromTariff(el)}
                 />
               }
             />
