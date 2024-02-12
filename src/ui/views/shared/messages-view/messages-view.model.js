@@ -124,7 +124,6 @@ export class MessagesViewModel {
 
   async onChangeCurFoundedMessage(index) {
     const curFoundedMessage = this.messagesFound[index]
-    await ChatModel.getChatMessage(this.chatSelectedId, curFoundedMessage?._id)
 
     runInAction(() => {
       this.curFoundedMessage = curFoundedMessage
@@ -264,6 +263,12 @@ export class MessagesViewModel {
   }
 
   onClickChat(chat) {
+    ChatModel.resetChat(this.chatSelectedId)
+
+    if (this.messagesFound?.length) {
+      this.onChangeMesSearchValue('', this.chatSelectedId)
+    }
+
     if (this.chatSelectedId === chat._id) {
       ChatModel.onChangeChatSelectedId(undefined)
     } else {
@@ -280,7 +285,7 @@ export class MessagesViewModel {
       this.mesSearchValue = value
     })
 
-    if (!value) {
+    if (!value || !chatId) {
       runInAction(() => {
         this.messagesFound = []
         this.curFoundedMessage = undefined

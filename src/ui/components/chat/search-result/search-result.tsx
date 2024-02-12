@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC, memo } from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -6,16 +6,25 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+
 import { t } from '@utils/translations'
 
 import { useStyles } from './search-result.style'
 
-export const SearchResult = memo(props => {
+interface SearchResultProps {
+  curFoundedMessageIndex: number
+  messagesFound: ChatMessageContract[]
+  onClose: () => void
+  onChangeCurFoundedMessage: (index: number, messageId: string) => void
+}
+
+export const SearchResult: FC<SearchResultProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const { curFoundedMessageIndex, messagesFound, onClose, onChangeCurFoundedMessage } = props
 
-  const onClickNavigateToMessage = arg => onChangeCurFoundedMessage(arg)
+  const onClickNavigateToMessage = (arg: number) => onChangeCurFoundedMessage(arg, messagesFound[arg]._id)
 
   return (
     <div className={styles.searchResultWrapper}>
@@ -38,7 +47,7 @@ export const SearchResult = memo(props => {
           onClick={() =>
             curFoundedMessageIndex + 1 !== messagesFound.length
               ? onClickNavigateToMessage(curFoundedMessageIndex + 1)
-              : onChangeCurFoundedMessage(0)
+              : onClickNavigateToMessage(0)
           }
         />
       </div>

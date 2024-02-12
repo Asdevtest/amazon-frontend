@@ -227,7 +227,7 @@ class ChatModelStatic {
 
     const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
 
-    if (!chatTypeAndIndex) {
+    if (!chatTypeAndIndex || !chatId) {
       return
     }
 

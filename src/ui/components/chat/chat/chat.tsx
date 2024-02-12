@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -55,6 +57,7 @@ interface ChatProps {
   searchPhrase?: string
   classNamesWrapper?: string
   requestStatus: loadingStatuses
+  headerChatComponent?: (...args: { [key: string]: any }[]) => ReactElement
   onChangeRequestStatus: (status: loadingStatuses) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
@@ -75,6 +78,7 @@ export const Chat: FC<ChatProps> = memo(
     userId,
     currentOpponent,
     chatMessageHandlers,
+    headerChatComponent,
     onSubmitMessage,
     renderAdditionalButtons,
     updateData,
@@ -118,8 +122,6 @@ export const Chat: FC<ChatProps> = memo(
       resetAllInputs,
       changeFilesAndState,
     } = useChatInputControl(messageInitialState)
-
-    console.log('toScrollMesId', toScrollMesId)
 
     const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
     const prevChatId = usePrevious(chat?._id)
@@ -269,6 +271,8 @@ export const Chat: FC<ChatProps> = memo(
 
     return (
       <>
+        {headerChatComponent ? headerChatComponent({ handleLoadMoreMessages }) : null}
+
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
           {requestStatus === loadingStatuses.IS_LOADING && (
             <div className={styles.spinnerContainer}>
