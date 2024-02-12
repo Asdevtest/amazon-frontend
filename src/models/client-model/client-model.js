@@ -229,6 +229,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsDataGuidGet({ guid })
     return response.data
   }
+
+  getProductMediaById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsMediaGuidGet({ guid })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

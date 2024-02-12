@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { withStyles } from 'tss-react/mui'
 
 import { ToggleButton } from '@mui/material'
@@ -6,7 +5,7 @@ import { ToggleButton } from '@mui/material'
 export const ToggleBtn = withStyles(ToggleButton, theme => ({
   selected: {
     color: 'white !important',
-    backgroundColor: `${theme.palette.primary.main} !important`, // '#006CFF',
+    backgroundColor: `${theme.palette.primary.main} !important`,
   },
 
   root: {
@@ -21,14 +20,14 @@ export const ToggleBtn = withStyles(ToggleButton, theme => ({
 
     '&:hover': {
       color: 'white !important',
-      backgroundColor: `${theme.palette.primary.main} !important`, // '#006CFF',
+      backgroundColor: `${theme.palette.primary.main} !important`,
     },
   },
 }))
 
-export const ToggleBtnFreelancer = withStyles(ToggleButton, theme => ({
+export const ToggleBtnFreelancer = withStyles(ToggleButton, () => ({
   disabled: {
-    backgroundColor: `none !important`, // '#006CFF',
+    backgroundColor: `none !important`,
     border: 'none !important',
   },
 

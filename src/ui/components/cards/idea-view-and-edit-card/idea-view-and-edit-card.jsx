@@ -422,7 +422,7 @@ export const IdeaViewAndEditCard = observer(
                       {requestsToRender?.map((request, requestIndex) => (
                         <IdeaRequestCard
                           key={requestIndex}
-                          requestTitle={request?.title}
+                          requestTitle={request?.spec?.title}
                           requestId={request.humanFriendlyId}
                           requestStatus={request.status}
                           executor={request.executor}

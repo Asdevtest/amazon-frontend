@@ -41,8 +41,6 @@ export const HeaderTable = ({ viewModel }) => {
               TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
             )}
             styles={styles.cancelBtn}
-            color="primary"
-            variant="contained"
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Cancel Send'])}
@@ -59,7 +57,6 @@ export const HeaderTable = ({ viewModel }) => {
         <div className={styles.rightSideButtonsWrapper}>
           <Button
             disabled={viewModel.selectedBatches.length !== 1}
-            variant="contained"
             styles={styles.rightSideButton}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
           >
@@ -68,7 +65,6 @@ export const HeaderTable = ({ viewModel }) => {
           <Button
             success
             styles={styles.rightSideButton}
-            variant="contained"
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
             {t(TranslationKey['Create a batch'])}

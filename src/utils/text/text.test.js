@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -16,7 +15,6 @@ import {
   shortAsin,
   shortSku,
   shortenDocumentString,
-  timeToDeadlineInHoursAndMins,
   toFixed,
   toFixedWithCm,
   toFixedWithDollarSign,

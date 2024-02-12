@@ -13,7 +13,7 @@ import { objectToUrlQs } from '@utils/text'
 
 import { Specs } from '@typings/enums/specs'
 
-import { filterFields } from './service-exchange-viewservice-exchange-view.constants'
+import { filterFields, searchFields } from './service-exchange-view.constants'
 
 export class ServiceExchangeViewModel {
   history = undefined
@@ -29,14 +29,14 @@ export class ServiceExchangeViewModel {
 
   bigImagesOptions = {}
   nameSearchValue = ''
-
+  rowCount = 0
   columnMenuSettings = {
     ...dataGridFiltersInitializer(filterFields),
   }
 
   options = {
     offset: 0,
-    limit: 16,
+    limit: 12,
     filters: this.getFilter(),
   }
 
@@ -94,6 +94,7 @@ export class ServiceExchangeViewModel {
 
       runInAction(() => {
         this.announcements = result.rows
+        this.rowCount = result.count
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -112,6 +113,12 @@ export class ServiceExchangeViewModel {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.options.offset += this.options.limit
+
+      if (this.options.offset >= this.rowCount) {
+        this.setRequestStatus(loadingStatuses.SUCCESS)
+
+        return
+      }
 
       const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
 
@@ -132,10 +139,7 @@ export class ServiceExchangeViewModel {
 
   getFilter(exclusion) {
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, [
-        'title',
-        'description',
-      ]),
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, searchFields),
     )
   }
 

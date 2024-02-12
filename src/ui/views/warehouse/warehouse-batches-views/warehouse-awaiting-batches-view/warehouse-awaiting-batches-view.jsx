@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import AddIcon from '@mui/icons-material/Add'
 
@@ -21,13 +20,13 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-awaiting-batches-view.style'
+import { useStyles } from './warehouse-awaiting-batches-view.style'
 
 import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 
-export const WarehouseAwaitingBatchesViewRaw = props => {
+export const WarehouseAwaitingBatchesView = observer(props => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
-  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -58,8 +57,6 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
                   t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
               }
               tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
-              color="primary"
-              variant="contained"
               className={styles.batchBtn}
               onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
             >
@@ -70,8 +67,6 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
               disabled={viewModel.selectedBatches.length !== 1}
               className={styles.editBtn}
               tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
-              color="primary"
-              variant="contained"
               onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
             >
               {t(TranslationKey['Edit batch'])}
@@ -200,6 +195,4 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
       {viewModel.showCircularProgress ? <CircularProgressWithLabel /> : null}
     </>
   )
-}
-
-export const WarehouseAwaitingBatchesView = withStyles(observer(WarehouseAwaitingBatchesViewRaw), styles)
+})

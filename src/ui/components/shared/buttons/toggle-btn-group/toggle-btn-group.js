@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { withStyles } from 'tss-react/mui'
 
 import { ToggleButtonGroup } from '@mui/material'
@@ -27,7 +26,7 @@ export const ToggleBtnGroup = withStyles(ToggleButtonGroup, theme => ({
   },
 }))
 
-export const ToggleBtnGroupFreelance = withStyles(ToggleButtonGroup, theme => ({
+export const ToggleBtnGroupFreelance = withStyles(ToggleButtonGroup, () => ({
   root: {
     display: 'flex',
     alignItems: 'center',

@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     gap: 35,
     width: 485,
-    // minHeight: 345,
   },
 
   сommentsTitleWrapper: {

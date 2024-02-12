@@ -79,7 +79,7 @@ export const EditOrderSuppliersTable = observer(
                   )}
                   onClick={() => setSelectedSupplier(supplier)}
                 >
-                  <TableCell className={cx(styles.alignCenter, styles.alignCenter)}>
+                  <TableCell className={cx(styles.alignCenter, styles.nameCell)}>
                     <div className={styles.StatsWrapper}>
                       {new Date(productBaseData?.createdAt) < new Date(supplier?.createdAt) ? (
                         <div className={styles.imgWrapper}>
@@ -95,7 +95,7 @@ export const EditOrderSuppliersTable = observer(
                         </div>
                       ) : null}
                     </div>
-                    <Typography className={styles.nameCell}>{supplier.name}</Typography>
+                    <Typography className={styles.nameCellText}>{supplier.name}</Typography>
                   </TableCell>
 
                   <TableCell className={styles.alignCenter}>

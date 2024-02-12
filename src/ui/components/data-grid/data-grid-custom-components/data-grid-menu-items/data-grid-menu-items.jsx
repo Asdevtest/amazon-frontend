@@ -164,6 +164,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
       isNeedPurchaseFilterData,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -174,16 +175,6 @@ export const IsNeedPurchaseFilterMenuItem = memo(
       const handleCategory = e => {
         setCurrentOption(e.target.value)
       }
-
-      // useEffect(() => {
-      //   if (currentOption === 'second') {
-      //     if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
-      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
-      //     } else {
-      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
-      //     }
-      //   }
-      // }, [currentOption])
 
       return (
         <div title="" className={styles.shopsDataWrapper}>
@@ -253,6 +244,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
             <NumberFieldMenuItem
               data={data.purchaseQuantity}
               field={'purchaseQuantity'}
+              table={table}
               filterRequestStatus={filterRequestStatus}
               onClickFilterBtn={onClickFilterBtn}
               onClose={onClose}

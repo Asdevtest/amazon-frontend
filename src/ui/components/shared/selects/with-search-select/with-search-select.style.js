@@ -39,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
     transition: '0.3s ease',
-    maxHeight: 36,
+    height: 40,
     overflow: 'hidden',
     position: 'absolute',
   },

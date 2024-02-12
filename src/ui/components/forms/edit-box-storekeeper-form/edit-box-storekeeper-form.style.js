@@ -151,8 +151,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperBtn: {
-    height: '32px',
-    width: '230px',
+    height: '40px',
+    width: '100%',
   },
 
   sizesTitleWrapper: {

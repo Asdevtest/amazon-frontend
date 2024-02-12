@@ -239,11 +239,13 @@ export class SubUsersViewModel {
         this.selectedSubUser = row
       })
 
-      const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
+      if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
+        const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
 
-      runInAction(() => {
-        this.curUserProductPermissions = result
-      })
+        runInAction(() => {
+          this.curUserProductPermissions = result
+        })
+      }
 
       const methodByRole = () => {
         switch (UserRoleCodeMap[this.userInfo.role]) {
