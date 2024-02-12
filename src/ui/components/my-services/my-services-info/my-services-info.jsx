@@ -90,11 +90,7 @@ export const MyServicesInfo = ({
 
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
-          <Button
-            variant={'text'}
-            className={styles.detailsButton}
-            onClick={() => setShowFullDescription(prev => !prev)}
-          >
+          <Button variant="text" className={styles.detailsButton} onClick={() => setShowFullDescription(prev => !prev)}>
             {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
           </Button>
         ) : (
