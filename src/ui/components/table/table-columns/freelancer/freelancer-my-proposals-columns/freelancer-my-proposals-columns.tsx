@@ -17,8 +17,8 @@ import {
   FreelancerMyProposalsActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -90,10 +90,18 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: (params: GridCellParams) => (
-      // @ts-ignore
-      <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
-    ),
+    renderCell: (params: GridCellParams) => {
+      const product = params.row?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skuByClient={product?.skuByClient}
+        />
+      )
+    },
     width: 250,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
