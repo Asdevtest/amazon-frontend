@@ -10,7 +10,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { IPayment } from '@typings/payment'
+import { IPayment } from '@typings/models/shared/payment'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './payment-method-card.style'
@@ -98,7 +98,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
           />
 
           {readOnly && (
-            <PhotoAndFilesSlider smallSlider showPreviews withoutMakeMainImage files={payment.paymentImages} />
+            <PhotoAndFilesSlider smallSlider showPreviews withoutMakeMainImage files={payment?.paymentImages || []} />
           )}
         </div>
       </div>

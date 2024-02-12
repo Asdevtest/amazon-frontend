@@ -1,5 +1,4 @@
-import { IClientsLightBatch } from '../boxes/boxes-for-curr-clients-light'
-
+import { IBatch } from './batch'
 import { IBoxItem } from './box-item'
 import { ICreatedBy } from './created-by'
 import { IDestination } from './destination'
@@ -10,7 +9,7 @@ export interface IBox {
   _id?: string
   humanFriendlyId?: number
   amount?: number
-  status?: string // change to status enum
+  status?: string
   isActual?: boolean
   isDraft?: boolean
   isFormed?: boolean
@@ -38,5 +37,25 @@ export interface IBox {
   client?: ICreatedBy
   destination?: IDestination
   logicsTariff?: IName
-  batch?: IClientsLightBatch
+  batch?: IBatch
+  boxAmount?: number
+  itemAmount?: number
+  deliveryTotalPrice?: number
+  deliveryTotalPriceChanged?: number
+  destinationId?: string
+  logicsTariffId?: string
+  batchId?: string
+  lengthCmSupplier?: number
+  widthCmSupplier?: number
+  heightCmSupplier?: number
+  weighGrossKgSupplier?: number
+  storekeeperId?: string
+  clientId?: string
+  createdById?: string
+  lastModifiedById?: string
+  createdAt?: string
+  lastRateTariff?: number
+  createdBy?: ICreatedBy
+  lastModifiedBy?: ICreatedBy
+  deadline?: string
 }

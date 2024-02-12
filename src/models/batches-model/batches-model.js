@@ -83,6 +83,7 @@ export class BatchesModelStatic {
     const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet(filterNullValues(body))
     return response.data
   }
+
   editUpdateBatches = async body => {
     const response = await restApiService.batchesApi.apiV1BatchesArchivePatch({
       body,

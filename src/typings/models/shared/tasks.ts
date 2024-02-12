@@ -1,4 +1,4 @@
-import { ITask } from '../shared/task'
+import { ITask } from './task'
 
 export interface ITasksPag {
   count?: number

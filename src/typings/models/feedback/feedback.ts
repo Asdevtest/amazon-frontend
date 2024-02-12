@@ -1,6 +1,6 @@
 import { ICreatedBy } from '../shared/created-by'
 
-interface IFeedback {
+export interface IFeedback {
   _id?: string
   createdBy?: ICreatedBy
   role?: number

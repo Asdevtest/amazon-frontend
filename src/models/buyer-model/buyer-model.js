@@ -145,7 +145,7 @@ class BuyerModelStatic {
     return response.data
   }
 
-  PatchBuyersOrdersPaymentByGuid = async (guid, data) => {
+  patchBuyersOrdersPaymentByGuid = async (guid, data) => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentGuidPatch({ guid, body: data })
     return response.data
   }

@@ -9,31 +9,24 @@ export interface IClientDashboard {
 
 export interface IDashboardOrders {
   all?: number
-
   paid?: number
-
   canceled?: number
 }
 
 export interface IDashboardShops {
   all?: number
-
   moderating?: number
-
   booked?: number
 }
 
 export interface IDashboardRequest {
   all?: number
-
   inProcess?: number
-
   noProposals?: number
 }
 
 export interface IDashboardProducts {
   all?: number
-
   paid?: number
 }
 
@@ -43,8 +36,6 @@ export interface IDashboardBatch {
 
 export interface IDashboardBox {
   inStock?: number
-
   requestedSendToBatch?: number
-
   inBatchOnTheWay?: number
 }

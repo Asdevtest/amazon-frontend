@@ -1,4 +1,7 @@
 import { ICreatedBy } from './created-by'
+import { IFullUser } from './full-user'
+import { IOrder } from './order'
+import { IRedFlag } from './red-flag'
 import { ISupplier } from './supplier'
 import { ITag } from './tag'
 
@@ -83,14 +86,14 @@ export interface IProduct {
   subUsers?: ICreatedBy
   redFlags?: IRedFlag[]
   tags?: ITag[]
-}
-
-export interface IRedFlag {
-  _id?: string
-  productCount?: number
-  value?: number
-  title?: string
-  iconImage?: string
+  checkedby?: IFullUser
+  productsInWarehouse?: object[]
+  ideasCounter?: number
+  sumStock?: number
+  purchaseQuantity?: number
+  stockCost?: number
+  productsInWarehouseSchema?: Array<object>
+  orders?: Array<IOrder>
 }
 
 export interface IBoxAmount {

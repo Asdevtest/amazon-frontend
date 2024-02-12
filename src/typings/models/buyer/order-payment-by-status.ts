@@ -1,4 +1,4 @@
-export interface IBuyersOrdersPayment {
+export interface IOrderPayment {
   totalPriceInYuan?: number
   totalPriceInUSD?: number
   partialPaymentAmountRmb?: number

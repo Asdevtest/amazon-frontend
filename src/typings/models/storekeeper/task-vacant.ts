@@ -1,12 +1,12 @@
-import { IBoxesStorekeepersSent } from '../boxes/boxes-storekeepers-sent'
+import { IBox } from '../shared/box'
 import { ICreatedBy } from '../shared/created-by'
 
 export interface ITaskVacant {
   _id?: string
   taskId?: number
   operationType?: ITaskVacantOperationEnum
-  boxesBefore?: Array<IBoxesStorekeepersSent>
-  boxes?: Array<IBoxesStorekeepersSent>
+  boxesBefore?: Array<IBox>
+  boxes?: Array<IBox>
   status?: number
   priority?: number
   storekeeperComment?: string

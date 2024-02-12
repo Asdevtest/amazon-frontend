@@ -15,4 +15,5 @@ export interface IDestination {
   fontColor?: string
   createdAt?: string
   updatedAt?: string
+  storekeeperId?: string
 }

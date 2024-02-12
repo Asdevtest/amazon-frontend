@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { IPayment } from '@typings/payment'
+import { IPayment } from '@typings/models/shared/payment'
 
 import { useStyles } from './payment-methods-form.style'
 
@@ -32,7 +32,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
       const updatedPayments = allPayments
         .map(payment => {
           const foundPayment = orderPayments.find(
-            orderPayment => orderPayment.paymentMethod._id === payment.paymentMethod._id,
+            orderPayment => orderPayment?.paymentMethod?._id === payment?.paymentMethod?._id,
           )
 
           return foundPayment ? { ...foundPayment, isChecked: true } : payment

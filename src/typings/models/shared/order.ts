@@ -1,3 +1,5 @@
+import { IPayment } from '@typings/models/shared/payment'
+
 import { ICreatedBy } from './created-by'
 import { IDestination } from './destination'
 import { ILogicTariff } from './logic-tariff'
@@ -15,7 +17,7 @@ export interface IOrder {
   buyerComment?: string
   status?: number
   images?: string[]
-  priority?: string // change to priority enum
+  priority?: string
   totalPrice?: number
   totalPriceChanged?: number
   paidAt?: string
@@ -45,4 +47,7 @@ export interface IOrder {
   buyer?: ICreatedBy
   orderSupplier?: ISupplier
   createdBy?: ICreatedBy
+  priceInYuan?: number
+  paymentDetailsAttached?: boolean
+  payments?: Array<IPayment>
 }

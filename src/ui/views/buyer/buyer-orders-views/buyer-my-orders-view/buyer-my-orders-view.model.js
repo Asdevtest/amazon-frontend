@@ -723,7 +723,7 @@ export class BuyerMyOrdersViewModel {
           validOrderPayments.push(updatedPayment)
         }
 
-        await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
+        await BuyerModel.patchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
 
         this.loadData()
       } catch (error) {

@@ -1,6 +1,7 @@
-import { IBatchesBoxes } from './batches-by-product'
+import { IBox } from './box'
+import { IName } from './name'
 
-export interface IBatchesByGuid {
+export interface IBatch {
   _id?: string
   humanFriendlyId?: number
   status?: string
@@ -13,19 +14,14 @@ export interface IBatchesByGuid {
   finalWeightAsOneBox?: number
   finalWeightSumEachBoxAmount?: number
   archive?: boolean
-  boxes?: Array<IBatchesBoxes>
+  boxes?: Array<IBox>
   calculationMethod?: number
   volumeWeightDivide?: number
   finalWeight?: number
-  storekeeper?: IBatchesStorekeeper
-  createdBy?: IBatchesStorekeeper
-  lastModifiedBy?: IBatchesStorekeeper
+  storekeeper?: IName
+  createdBy?: IName
+  lastModifiedBy?: IName
   arrivalDate?: string
   createdAt?: string
   updatedAt?: string
-}
-
-export interface IBatchesStorekeeper {
-  _id?: string
-  name: string
 }

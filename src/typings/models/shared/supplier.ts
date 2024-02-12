@@ -21,7 +21,7 @@ export interface ISupplier {
   productionTerm?: number
   createdBy?: ICreatedBy
   paymentMethods?: IPaymentMethod
-  priceVariations?: Array<object> // нет в схеме, добавить по необходимости
+  priceVariations?: Array<object>
   createdAt?: string
   updatedAt?: string
 }
