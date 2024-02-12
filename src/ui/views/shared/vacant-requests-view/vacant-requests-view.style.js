@@ -16,6 +16,8 @@ export const useStyles = makeStyles()(theme => ({
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
     gap: 30,
   },
 
@@ -40,10 +42,6 @@ export const useStyles = makeStyles()(theme => ({
   dataGridWrapper: {
     height: '80vh',
     width: '100%',
-  },
-
-  taskTypeWrapper: {
-    display: 'flex',
   },
 
   emptyTableWrapper: {
