@@ -218,13 +218,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'subUsers',
     headerName: t(TranslationKey['Access to product']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-        text={t(TranslationKey['Access to product'])}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
