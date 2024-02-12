@@ -1,9 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
+import { ClientModel } from '@models/client-model'
 import { RequestModel } from '@models/request-model'
 import { UserModel } from '@models/user-model'
 
@@ -20,32 +22,25 @@ export class CreateOrEditRequestViewModel {
 
   acceptMessage = null
   showAcceptMessage = false
-
   platformSettingsData = null
-
   requestToEdit = undefined
   createRequestForIdeaData = undefined
-
   uploadedFiles = []
   specs = []
   masterUsersData = []
-
   announcementId = undefined
   announcements = []
   choosenAnnouncements = {}
-
+  productMedia = undefined
   bigImagesOptions = {}
-
   showImageModal = false
   showConfirmModal = false
-
+  showGalleryModal = false
   readyImages = []
   progressValue = 0
   showProgress = false
-
   requestId = undefined
   executor = undefined
-
   showCheckRequestByTypeExists = false
 
   confirmModalSettings = {
@@ -57,12 +52,6 @@ export class CreateOrEditRequestViewModel {
   }
 
   columnMenuSettings = {
-    onClickFilterBtn: () => {},
-    onChangeFullFieldMenuItem: () => {},
-    onClickAccept: () => {},
-
-    filterRequestStatus: undefined,
-
     ...dataGridFiltersInitializer(['specType']),
   }
 
@@ -358,5 +347,29 @@ export class CreateOrEditRequestViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, ['specType'], []),
     )
+  }
+
+  async getProductMediaById(id) {
+    try {
+      const response = await ClientModel.getProductMediaById(id)
+
+      runInAction(() => {
+        this.productMedia = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickAddMediaFromProduct(id) {
+    if (id) {
+      await this.getProductMediaById(id)
+    } else {
+      toast.warning(t(TranslationKey['Product not selected!']))
+    }
+
+    if (this.productMedia) {
+      this.onTriggerOpenModal('showGalleryModal')
+    }
   }
 }

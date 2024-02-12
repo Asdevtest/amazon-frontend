@@ -2190,5 +2190,9 @@ export enum TranslationKey {
   'Something went wrong' = 'Something went wrong',
   'Cannot be merged with different clients' = 'Cannot be merged with different clients',
   'Videos' = 'Videos',
+  'Add from product' = 'Add from product',
+  'Product not selected!' = 'Product not selected!',
+  'Current supplier' = 'Current supplier',
+  'Add to request' = 'Add to request',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

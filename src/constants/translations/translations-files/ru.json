@@ -2187,5 +2187,9 @@
   "has been created": "успешно создана",
   "Something went wrong": "Что-то пошло не так",
   "Cannot be merged with different clients": "Невозможно соединить с разными клиентами",
-  "Videos": "Видео"
+  "Videos": "Видео",
+  "Add from product": "Добавить из продукта",
+  "Product not selected!": "Продукт не выбран!",
+  "Current supplier": "Текущий поставщик",
+  "Add to request": "Добавить в заявку"
 }
