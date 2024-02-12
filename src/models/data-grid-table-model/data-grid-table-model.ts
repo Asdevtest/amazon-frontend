@@ -144,12 +144,14 @@ export class DataGridTableModel extends ModalsModel {
       paginationModel: this.paginationModel,
       columnVisibilityModel: this.columnVisibilityModel,
     }
+
     SettingsModel.setDataGridState(requestState, this._tableKey)
   }
 
   getDataGridState() {
     if (!this._tableKey) return
     const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
+
     if (state) {
       // @ts-ignore
       this.sortModel = state?.sortModel

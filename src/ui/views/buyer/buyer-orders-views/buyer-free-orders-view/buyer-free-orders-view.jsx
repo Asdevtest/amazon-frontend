@@ -29,12 +29,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
     <>
       <div>
         <div className={styles.btnsWrapper}>
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={viewModel.selectedRowIds.length === 0}
-            onClick={viewModel.onPickupSomeItems}
-          >
+          <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>

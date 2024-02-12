@@ -228,6 +228,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     })
 
     const additionalPropertiesGetFilters = () => {
+      const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+      const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+      const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
+
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
           barCode: {
@@ -241,6 +245,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           : {
               transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
             }),
+
+        ...(purchaseQuantityAboveZero && {
+          purchaseQuantityAboveZero: { $eq: true },
+        }),
 
         ...(this.isArchive && {
           archive: { $eq: true },
@@ -269,7 +277,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
     )
 
-    this.onChangeSortingModel([{ field: 'sumStock', sort: 'desc' }], undefined, true)
+    this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
 
     defaultHiddenColumns.forEach(el => {
       this.columnVisibilityModel[el] = false
@@ -813,7 +821,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     this.getMainTableData()
 
-    this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
     })

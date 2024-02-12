@@ -46,7 +46,7 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
 
   return (
     <div className={styles.root}>
-      {withAttributeTitle ? <p className={cx(styles.text, styles.title, textStyles)}>{title}</p> : null}
+      {withAttributeTitle ? <p className={cx(styles.title, textStyles)}>{title}</p> : null}
 
       {link ? renderLinkAsinOrSku() : <p className={cx(styles.text, textStyles)}>{t(TranslationKey.Missing)}</p>}
 

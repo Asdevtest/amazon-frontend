@@ -28,8 +28,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(props => {
       <div>
         <div className={styles.btnsWrapper}>
           <Button
-            color="primary"
-            variant="contained"
             disabled={viewModel.selectedRowIds.length === 0}
             tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
             onClick={viewModel.onPickupSomeItems}

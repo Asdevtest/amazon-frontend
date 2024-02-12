@@ -67,10 +67,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   nameCell: {
-    minWidth: '164px',
+    maxWidth: '150px',
     maxHeight: '100px',
     textAlign: 'center',
     overflowY: 'auto',
+  },
+
+  nameCellText: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 
   priceCell: {

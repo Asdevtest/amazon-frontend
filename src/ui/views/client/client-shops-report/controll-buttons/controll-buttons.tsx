@@ -45,11 +45,11 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button disabled={disableButton} variant="contained" onClick={onClickMoveGoodsToInventory}>
+        <Button disabled={disableButton} onClick={onClickMoveGoodsToInventory}>
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button disabled={disableBindButton} variant="contained" onClick={onClickBindStockGoodsToInventory}>
+        <Button disabled={disableBindButton} onClick={onClickBindStockGoodsToInventory}>
           {t(TranslationKey['Bind to an item in the inventory'])}
         </Button>
       </div>
@@ -62,12 +62,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
         onSubmit={onChangeSearchValue}
       />
 
-      <Button
-        danger
-        disabled={noSelectedRows || selectedRows.length > 1}
-        variant="contained"
-        onClick={onClickDeleteBtn}
-      >
+      <Button danger disabled={noSelectedRows || selectedRows.length > 1} onClick={onClickDeleteBtn}>
         {t(TranslationKey.Remove)}
       </Button>
     </div>
