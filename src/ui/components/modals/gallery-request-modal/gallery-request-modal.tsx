@@ -17,16 +17,17 @@ import { useGalleryRequestModal } from './use-gallery-request-modal'
 interface GalleryRequestModalProps {
   data: IData
   isOpenModal: boolean
-  mediaFiles: IMediaFileWithCommentFromRequest[] // correct data type - string[] (solution for creating a request)
-  onChangeMediaFiles: (mediaFiles: IMediaFileWithCommentFromRequest[]) => void // correct data type - string[] (solution for creating a request)
+  mediaFiles: IMediaFileWithCommentFromRequest[]
+  onChangeMediaFiles: (mediaFiles: IMediaFileWithCommentFromRequest[]) => void
   onOpenModal: () => void
+  maxNumber?: number
 }
 
 /**
  * The component copies Header, CustomSwitcher with its settings from GalleryModal, but adds its own functionality, tabs and footer.
  */
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
-  const { data, isOpenModal, mediaFiles, onChangeMediaFiles, onOpenModal } = props
+  const { data, isOpenModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
 
   const { classes: styles } = useStyles()
 
@@ -37,11 +38,13 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
     mediaFilesStates,
     documentsStates,
     allFilesToAdd,
+    filesCounter,
 
     onToggleFile,
     onResetAllFilesToAdd,
     getCheckboxState,
-  } = useGalleryRequestModal(data, mediaFiles)
+    getDisabledCheckbox,
+  } = useGalleryRequestModal(data, mediaFiles, maxNumber)
 
   return (
     <Modal
@@ -52,7 +55,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
       }}
     >
       <div className={styles.wrapper}>
-        <Header />
+        <Header title={filesCounter} />
 
         <CustomSwitcher
           fullWidth
@@ -66,12 +69,18 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
           <ReqestMediaFilesTab
             data={mediaFilesStates}
             getCheckboxState={getCheckboxState}
+            getDisabledCheckbox={getDisabledCheckbox}
             onToggleFile={onToggleFile}
           />
         </TabPanel>
 
         <TabPanel value={tabValue} index={SwitcherConditions.DOCUMENTS}>
-          <RequestDocumentsTab data={documentsStates} getCheckboxState={getCheckboxState} onToggleFile={onToggleFile} />
+          <RequestDocumentsTab
+            data={documentsStates}
+            getCheckboxState={getCheckboxState}
+            getDisabledCheckbox={getDisabledCheckbox}
+            onToggleFile={onToggleFile}
+          />
         </TabPanel>
       </div>
 

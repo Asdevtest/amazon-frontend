@@ -61,7 +61,7 @@ export const useStyles = makeStyles()(theme => ({
   stepWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 30,
+    gap: 20,
 
     [theme.breakpoints.down(480)]: {
       flexDirection: 'column',
@@ -77,6 +77,10 @@ export const useStyles = makeStyles()(theme => ({
   field: {
     height: 40,
     width: '100%',
+  },
+
+  fieldContainer: {
+    marginBottom: 10,
   },
 
   datePicker: {
@@ -114,7 +118,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   defaultMarginTop: {
-    marginTop: 20,
+    marginTop: 10,
   },
 
   fireIcon: {
@@ -312,5 +316,13 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonCancel: {
     color: theme.palette.text.general,
+  },
+
+  editorClassName: {
+    maxHeight: 250,
+  },
+
+  editorWrapper: {
+    marginTop: 10,
   },
 }))

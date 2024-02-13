@@ -21,10 +21,13 @@ import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/h
 interface RequestDocumentsTabProps {
   data: IState | undefined
   getCheckboxState: (file: string) => boolean
+  getDisabledCheckbox: (file: string) => boolean
   onToggleFile: (file: string) => void
 }
 
-export const RequestDocumentsTab: FC<RequestDocumentsTabProps> = memo(({ data, getCheckboxState, onToggleFile }) => {
+export const RequestDocumentsTab: FC<RequestDocumentsTabProps> = memo(props => {
+  const { data, getCheckboxState, getDisabledCheckbox, onToggleFile } = props
+
   const { classes: styles, cx } = useStyles()
 
   const onDownloadFile = (file: UploadFileType) =>
@@ -56,6 +59,7 @@ export const RequestDocumentsTab: FC<RequestDocumentsTabProps> = memo(({ data, g
                       <div className={styles.icons}>
                         <Checkbox
                           checked={getCheckboxState(file)}
+                          disabled={getDisabledCheckbox(file)}
                           className={styles.checkbox}
                           onClick={e => e.stopPropagation()}
                           onChange={() => onToggleFile(file)}

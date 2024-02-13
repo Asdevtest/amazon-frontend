@@ -425,6 +425,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 placeholder={t(TranslationKey['Request title'])}
                 label={t(TranslationKey['Request title']) + '*'}
                 className={styles.field}
+                containerClasses={styles.fieldContainer}
                 labelClasses={styles.label}
                 value={formFields.request.title}
                 onChange={onChangeField('request')('title')}
@@ -434,6 +435,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 <Field
                   label={t(TranslationKey['Difficulty level'])}
                   labelClasses={styles.label}
+                  containerClasses={styles.fieldContainer}
                   tooltipInfoContent={t(TranslationKey['Difficulty level'])}
                   inputComponent={
                     <Select
@@ -459,6 +461,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
                   label={t(TranslationKey.ASIN) + '*'}
                   labelClasses={styles.label}
+                  containerClasses={styles.fieldContainer}
                   inputComponent={
                     <WithSearchSelect
                       grayBorder
@@ -486,6 +489,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 <Field
                   label={t(TranslationKey['Request type']) + '*'}
                   labelClasses={styles.label}
+                  containerClasses={styles.fieldContainer}
                   tooltipInfoContent={t(TranslationKey['Current request type'])}
                   inputComponent={
                     <Select
@@ -515,12 +519,14 @@ export const CreateOrEditRequestContent = memo(props => {
                     inputProps={{ maxLength: 8 }}
                     label={t(TranslationKey['Price on Amazon']) + ', $'}
                     labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
                     value={formFields.request.priceAmazon}
                     onChange={onChangeField('request')('priceAmazon')}
                   />
 
                   <Field
                     className={styles.field}
+                    containerClasses={styles.fieldContainer}
                     inputProps={{ maxLength: 8 }}
                     label={t(TranslationKey['Discounted price']) + ', $'}
                     labelClasses={styles.label}
@@ -537,6 +543,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
                   <Field
                     className={styles.field}
+                    containerClasses={styles.fieldContainer}
                     inputProps={{ maxLength: 8 }}
                     label={t(TranslationKey['CashBack Percentage']) + ', %'}
                     labelClasses={styles.label}
@@ -577,6 +584,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 placeholder={t(TranslationKey['Task description'])}
                 maxLength={MAX_COMMENT_LEGTH}
                 value={formFields.details.conditions}
+                wrapperClassName={styles.editorWrapper}
                 onChange={onChangeField('details')('conditions')}
               />
             </div>
@@ -587,6 +595,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                   label={`${t(TranslationKey['When do you want results?'])}*`}
                   labelClasses={styles.label}
+                  containerClasses={styles.fieldContainer}
                   inputComponent={
                     <div>
                       <NewDatePicker
@@ -608,6 +617,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                   label={`${t(TranslationKey['What time do you want the result?'])}*`}
                   labelClasses={styles.label}
+                  containerClasses={styles.fieldContainer}
                   inputComponent={
                     <div>
                       <DatePickerTime
@@ -632,6 +642,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   label={`${t(TranslationKey['Enter the number of proposals'])} *`}
                   labelClasses={styles.label}
                   className={styles.field}
+                  containerClasses={styles.fieldContainer}
                   value={formFields.request.maxAmountOfProposals}
                   onChange={onChangeField('request')('maxAmountOfProposals')}
                 />
@@ -649,6 +660,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   label={`${t(TranslationKey['Enter the offer price'])}`}
                   labelClasses={styles.label}
                   className={styles.field}
+                  containerClasses={styles.fieldContainer}
                   value={formFields.request.price}
                   onChange={onChangeField('request')('price')}
                 />
@@ -715,6 +727,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   label={t(TranslationKey.Performer)}
                   labelClasses={styles.label}
                   className={styles.field}
+                  containerClasses={styles.fieldContainer}
                   inputComponent={
                     announcement?._id ? (
                       <div className={styles.executorWrapper}>
@@ -774,6 +787,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   label={t(TranslationKey.Announcement)}
                   labelClasses={styles.label}
                   className={styles.field}
+                  containerClasses={styles.fieldContainer}
                   inputComponent={
                     <div className={styles.executorWrapper}>
                       {announcement?.title && <p className={styles.performerDescriptionText}>{announcement?.title}</p>}
@@ -841,6 +855,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       label={t(TranslationKey.Title)}
                       className={styles.field}
                       labelClasses={styles.label}
+                      containerClasses={styles.fieldContainer}
                       inputComponent={<p className={cx(styles.resultText)}>{formFields.request.title}</p>}
                     />
 
@@ -849,6 +864,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         label={t(TranslationKey.ASIN)}
                         className={styles.field}
                         labelClasses={styles.label}
+                        containerClasses={styles.fieldContainer}
                         inputComponent={
                           <AsinOrSkuLink
                             withCopyValue
@@ -864,6 +880,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     label={t(TranslationKey.Files)}
                     labelClasses={styles.label}
                     className={styles.field}
+                    containerClasses={styles.fieldContainer}
                     inputComponent={
                       <PhotoAndFilesSlider
                         smallSlider
@@ -888,6 +905,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             label={t(TranslationKey['Price per product'])}
                             className={styles.field}
                             labelClasses={styles.slabel}
+                            containerClasses={styles.fieldContainer}
                             inputComponent={
                               <div className={styles.pricesWrapper}>
                                 {formFields.request.discountedPrice && formFields.request.cashBackInPercent ? (
@@ -921,6 +939,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             label={t(TranslationKey.CashBack)}
                             className={styles.field}
                             labelClasses={styles.label}
+                            containerClasses={styles.fieldContainer}
                             inputComponent={
                               <p className={styles.resultText}>
                                 {toFixed(formFields.request.cashBackInPercent, 0) + ' %'}
@@ -935,6 +954,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <Field
                         label={t(TranslationKey['Request type'])}
                         className={styles.field}
+                        containerClasses={styles.fieldContainer}
                         labelClasses={styles.label}
                         inputComponent={<p className={styles.resultText}>{currentSpec?.title}</p>}
                       />
@@ -942,6 +962,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <Field
                         label={t(TranslationKey['Number of proposals'])}
                         className={styles.field}
+                        containerClasses={styles.fieldContainer}
                         labelClasses={styles.label}
                         inputComponent={<p className={styles.resultText}>{formFields.request.maxAmountOfProposals}</p>}
                       />
@@ -951,6 +972,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <Field
                         label={t(TranslationKey['Request price']) + ', $'}
                         className={styles.field}
+                        containerClasses={styles.fieldContainer}
                         labelClasses={styles.label}
                         inputComponent={<p className={styles.resultText}>{formFields.request.price + '$'}</p>}
                       />
@@ -959,6 +981,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         label={t(TranslationKey['Deadline for the request'])}
                         className={styles.field}
                         labelClasses={styles.label}
+                        containerClasses={styles.fieldContainer}
                         inputComponent={
                           <p className={styles.resultText}>
                             {formFields.request.timeoutAt &&
@@ -976,6 +999,7 @@ export const CreateOrEditRequestContent = memo(props => {
                           label={t(TranslationKey.Performer)}
                           labelClasses={styles.label}
                           className={styles.field}
+                          containerClasses={styles.fieldContainer}
                           inputComponent={
                             <MasterUserItem
                               id={chosenExecutor?._id}
@@ -992,6 +1016,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         label={t(TranslationKey.Performer)}
                         labelClasses={styles.label}
                         className={styles.field}
+                        containerClasses={styles.fieldContainer}
                         inputComponent={
                           <MasterUserItem
                             id={chosenExecutor?._id}
