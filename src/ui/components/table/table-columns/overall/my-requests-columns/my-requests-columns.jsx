@@ -265,8 +265,8 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={params.row.spec?.title} />,
-    width: 90,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 

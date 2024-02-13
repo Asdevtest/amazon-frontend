@@ -48,26 +48,27 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
     <div className={styles.root}>
       <div className={styles.requestWrapper}>
         <div className={styles.categoresWrapper}>
-          <p className={styles.categoryTitle}>
-            {`${t(TranslationKey['Request type'])}:`} <span className={styles.categoryText}>{requestTitle}</span>
-          </p>
-          <p className={styles.categoryTitle}>
-            {`${t(TranslationKey.ID)}:`}{' '}
-            <button className={cx(styles.categoryText, styles.linkStyles)} onClick={onClickRequestId}>
+          <div className={styles.categoryContainer}>
+            <p className={styles.categoryText}>{`${t(TranslationKey['Request type'])}:`}</p>
+            <p className={styles.categoryTitle}>{requestTitle}</p>
+          </div>
+          <div className={styles.categoryContainer}>
+            <p className={styles.categoryText}>{`${t(TranslationKey.ID)}:`}</p>
+            <button className={cx(styles.categoryTitle, styles.linkStyles)} onClick={onClickRequestId}>
               {requestId}
             </button>
-          </p>
-          <p className={styles.categoryTitle}>
-            {`${t(TranslationKey.Status)}: `}
-            <span
-              className={cx(styles.categoryText, {
+          </div>
+          <div className={styles.categoryContainer}>
+            <p className={styles.categoryText}>{`${t(TranslationKey.Status)}:`}</p>
+            <p
+              className={cx(styles.categoryTitle, {
                 [styles.draftStatus]: requestStatus === RequestStatus.DRAFT,
               })}
               style={{ color: colorByStatus(requestStatus) }}
             >
               {MyRequestStatusTranslate(requestStatus)}
-            </span>
-          </p>
+            </p>
+          </div>
         </div>
 
         <ClearIcon className={styles.clearIcon} onClick={onClickUnbindButton} />
