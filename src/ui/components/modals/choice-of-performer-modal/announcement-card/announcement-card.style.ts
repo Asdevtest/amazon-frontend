@@ -2,13 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    width: 380,
+    padding: 20,
     display: 'flex',
-    width: 'calc(90%/4)',
-    padding: '35px 20px',
     flexDirection: 'column',
-    gap: '15px',
+    gap: 15,
     boxShadow: theme.palette.boxShadow.paper,
-    background: theme.palette.background.general,
+    borderRadius: 20,
+
     [theme.breakpoints.down(1500)]: {
       width: '30%',
     },

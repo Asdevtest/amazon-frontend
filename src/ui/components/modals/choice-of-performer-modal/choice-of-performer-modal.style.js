@@ -3,19 +3,20 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
-    alignItems: 'center',
     flexDirection: 'column',
     gap: '30px',
     width: '100%',
-    height: 770,
+    height: '100%',
+    minHeight: 440,
     padding: 20,
   },
 
   supWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 50,
   },
 
   title: {
@@ -51,13 +52,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardsWrapper: {
+    padding: 5,
     display: 'flex',
-    justifyContent: 'center',
+    flex: 1,
     flexWrap: 'wrap',
     gap: 40,
-    padding: 10,
-    height: '100%',
-    width: '100%',
     overflowY: 'auto',
   },
 
