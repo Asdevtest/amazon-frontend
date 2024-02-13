@@ -172,7 +172,14 @@ export const IsNeedPurchaseFilterMenuItem = memo(
     }) => {
       const [currentOption, setCurrentOption] = useState('first')
 
+      const isSomeFilterActive =
+        !isNeedPurchaseFilterData.isNeedPurchaseFilter || !isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+
       const handleCategory = e => {
+        if (e.target.value === 'second' && isSomeFilterActive) {
+          isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+        }
+
         setCurrentOption(e.target.value)
       }
 
@@ -180,7 +187,6 @@ export const IsNeedPurchaseFilterMenuItem = memo(
         <div title="" className={styles.shopsDataWrapper}>
           <div>
             <FormControl className={styles.formControl}>
-              {/* <FormLabel className={styles.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel> */}
               <RadioGroup row className={styles.radioGroup} value={currentOption} onChange={handleCategory}>
                 <FormControlLabel
                   title={t(TranslationKey.Repurchase)}
