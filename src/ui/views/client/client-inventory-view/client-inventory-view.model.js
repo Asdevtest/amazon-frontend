@@ -230,7 +230,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     const additionalPropertiesGetFilters = () => {
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-      const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
+      const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? false : true
 
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
@@ -247,7 +247,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             }),
 
         ...(purchaseQuantityAboveZero && {
-          purchaseQuantityAboveZero: { $eq: true },
+          purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
         }),
 
         ...(this.isArchive && {
