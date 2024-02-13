@@ -152,6 +152,8 @@ export class DataGridTableModel extends ModalsModel {
     if (!this._tableKey) return
     const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
 
+    console.log('state :>> ', state)
+
     if (state) {
       // @ts-ignore
       this.sortModel = state?.sortModel
