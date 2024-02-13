@@ -309,4 +309,8 @@ export const useStyles = makeStyles()(theme => ({
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
+
+  buttonCancel: {
+    color: theme.palette.text.general,
+  },
 }))

@@ -1046,7 +1046,7 @@ export const CreateOrEditRequestContent = memo(props => {
         {isFirstStep &&
           (requestToEdit ? (
             <div className={styles.buttonsWrapper}>
-              <Button variant="text" className={styles.button} onClick={onClickBackBtn}>
+              <Button variant="text" className={cx(styles.button, styles.buttonCancel)} onClick={onClickBackBtn}>
                 {t(TranslationKey.Cancel)}
               </Button>
 
@@ -1066,7 +1066,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
                 }
                 variant="text"
-                className={styles.button}
+                className={cx(styles.button, styles.buttonCancel)}
                 onClick={onClickBackBtn}
               >
                 {isSecondStep ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
@@ -1100,7 +1100,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
               }
               variant="text"
-              className={styles.button}
+              className={cx(styles.button, styles.buttonCancel)}
               onClick={onClickBackBtn}
             >
               {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
