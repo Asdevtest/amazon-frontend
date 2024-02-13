@@ -313,6 +313,10 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  buttonSelect: {
+    width: 200,
+  },
+
   editorClassName: {
     maxHeight: 250,
   },
