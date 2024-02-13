@@ -11,6 +11,7 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
+import { isString } from '@typings/type-guards'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './announcement-card.style'
@@ -29,14 +30,13 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
+  const { announcementData, selectedCard, onClickSelectCard, onClickSelectButton } = props
+
   const { classes: styles, cx } = useStyles()
 
-  const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
-
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsMediaFileLink(typeof el !== 'string' ? el?.file?.name : el),
+    checkIsMediaFileLink(isString(el) ? el : el?.file?.name),
   )
-
   const radioBottonsSettings = [
     {
       label: () => '',
