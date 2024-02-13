@@ -22,7 +22,7 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
     useCommentsInfo(props)
 
   const showTooltipAttention =
-    parseTextString(props.formFields?.buyerComment || props.formFields?.clientComment).length > 0
+    parseTextString(props.formFields?.buyerComment || props.formFields?.clientComment)?.length > 0
 
   return (
     <>

@@ -60,6 +60,7 @@ export const IdeaViewAndEditCard = observer(
     selectedSupplier,
     currentProduct,
     platformSettings,
+    // onClickSupplierApproximateCalculations,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -332,6 +333,20 @@ export const IdeaViewAndEditCard = observer(
     const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
     const isSupplierCreatedByCurrentUser =
       curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
+
+    // const boxPropertiesIsFull =
+    //   selectedSupplier?.boxProperties?.amountInBox &&
+    //   selectedSupplier?.boxProperties?.boxLengthCm &&
+    //   selectedSupplier?.boxProperties?.boxWidthCm &&
+    //   selectedSupplier?.boxProperties?.boxHeightCm &&
+    //   selectedSupplier?.boxProperties?.boxWeighGrossKg
+
+    // const boxPropertiesIsFullAndMainsValues =
+    //   boxPropertiesIsFull &&
+    //   selectedSupplier.amount &&
+    //   selectedSupplier.minlot &&
+    //   selectedSupplier.priceInYuan &&
+    //   selectedSupplier.price
 
     return (
       <div className={cx(styles.root, isModalView && styles.rootModal)}>
@@ -694,6 +709,16 @@ export const IdeaViewAndEditCard = observer(
               containerClasses={styles.noMarginContainer}
               inputComponent={
                 <div className={styles.supplierActionsWrapper}>
+                  {/* <Button
+                    tooltipAttentionContent={!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])}
+                    disabled={!boxPropertiesIsFullAndMainsValues}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClickSupplierApproximateCalculations}
+                  >
+                    {t(TranslationKey['View an oriented calculation'])}
+                  </Button> */}
+
                   {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
                     <div className={styles.supplierButtonWrapper}>
                       <Button

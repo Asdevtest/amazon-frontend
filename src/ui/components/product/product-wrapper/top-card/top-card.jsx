@@ -14,6 +14,7 @@ import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
+import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -53,6 +54,10 @@ export const TopCard = memo(
     productVariations,
     navigateToProduct,
     unbindProductHandler,
+    showSupplierApproximateCalculationsModal,
+    storekeepersData,
+    volumeWeightCoefficient,
+    onClickSupplierApproximateCalculations,
     shops,
     modal,
     platformSettings,
@@ -104,6 +109,20 @@ export const TopCard = memo(
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
     const isChildProduct = product.parentProductId
+
+    const boxPropertiesIsFull =
+      selectedSupplier?.boxProperties?.amountInBox &&
+      selectedSupplier?.boxProperties?.boxLengthCm &&
+      selectedSupplier?.boxProperties?.boxWidthCm &&
+      selectedSupplier?.boxProperties?.boxHeightCm &&
+      selectedSupplier?.boxProperties?.boxWeighGrossKg
+
+    const boxPropertiesIsFullAndMainsValues =
+      boxPropertiesIsFull &&
+      selectedSupplier.amount &&
+      selectedSupplier.minlot &&
+      selectedSupplier.priceInYuan &&
+      selectedSupplier.price
 
     return (
       <Fragment>
@@ -217,6 +236,22 @@ export const TopCard = memo(
                 ) || checkIsBuyer(curUserRole) ? (
                   <div className={styles.supplierActionsWrapper}>
                     <div className={styles.supplierContainer}>
+                      {checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) || checkIsBuyer(curUserRole) ? (
+                        <div className={styles.calculationBtnWrapper}>
+                          <Button
+                            tooltipAttentionContent={
+                              !boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])
+                            }
+                            disabled={!boxPropertiesIsFullAndMainsValues}
+                            variant="contained"
+                            color="primary"
+                            onClick={onClickSupplierApproximateCalculations}
+                          >
+                            {t(TranslationKey['View an oriented calculation'])}
+                          </Button>
+                        </div>
+                      ) : null}
+
                       <div className={styles.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
@@ -320,10 +355,26 @@ export const TopCard = memo(
                 ) : (
                   <div className={styles.supplierActionsWrapper}>
                     <div className={styles.supplierContainer}>
+                      {checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) || checkIsBuyer(curUserRole) ? (
+                        <div className={styles.calculationBtnWrapper}>
+                          <Button
+                            tooltipAttentionContent={
+                              !boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])
+                            }
+                            disabled={!boxPropertiesIsFullAndMainsValues}
+                            variant="contained"
+                            color="primary"
+                            onClick={onClickSupplierApproximateCalculations}
+                          >
+                            {t(TranslationKey['View an oriented calculation'])}
+                          </Button>
+                        </div>
+                      ) : null}
+
                       {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
                         <div className={styles.supplierButtonWrapper}>
                           <Button
-                            disabled={!selectedSupplier /* || selectedSupplier.name === ACCESS_DENIED*/}
+                            disabled={!selectedSupplier}
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                             className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('view')}
@@ -335,6 +386,7 @@ export const TopCard = memo(
                           </Typography>
                         </div>
                       ) : null}
+
                       {(user?._id === selectedSupplier?.createdBy?._id ||
                         user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
                       checkIsBuyer(curUserRole) ? (
@@ -374,6 +426,19 @@ export const TopCard = memo(
 
           {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
+
+        <Modal
+          openModal={showSupplierApproximateCalculationsModal}
+          setOpenModal={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+        >
+          <SupplierApproximateCalculationsForm
+            product={product}
+            supplier={selectedSupplier}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            storekeepers={storekeepersData}
+            onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+          />
+        </Modal>
 
         {showBindProductModal && (
           <Modal

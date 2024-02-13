@@ -72,6 +72,7 @@ export class ClientProductViewModel {
   showConfirmModal = false
   showAddOrEditSupplierModal = false
   showBindProductModal = false
+  showSupplierApproximateCalculationsModal = false
 
   supplierModalReadOnly = false
 
@@ -685,6 +686,8 @@ export class ClientProductViewModel {
 
       await this.onSaveForceProductData()
 
+      this.loadData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -756,16 +759,34 @@ export class ClientProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        this.getSupplierModalData()
       }
 
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      await this.getSupplierModalData()
+
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getSupplierModalData() {
+    try {
+      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
+
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
     } catch (error) {
       console.log(error)
