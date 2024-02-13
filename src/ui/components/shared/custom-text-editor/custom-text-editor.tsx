@@ -1,4 +1,4 @@
-import { ContentState, EditorState, convertToRaw } from 'draft-js'
+import { ContentState, EditorState, convertFromRaw, convertToRaw } from 'draft-js'
 import MUIRichTextEditor from 'mui-rte'
 import { FC, memo, useState } from 'react'
 
@@ -39,7 +39,10 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const contentState = ContentState.createFromText(value || '')
+  // ContentState.createFromText(value) - this is a just text, so value.startsWith('{"blocks":') - that other requests do not break (leave only convertFromRaw(JSON.parse(value)) - right solution)
+  const contentState = value?.startsWith('{"blocks":')
+    ? convertFromRaw(JSON?.parse(value))
+    : ContentState?.createFromText(value)
   const editorState = EditorState.createWithContent(contentState)
   const rawContentState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
   const [defaultValue] = useState(rawContentState)
@@ -49,7 +52,6 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
 
   return (
     <MUIRichTextEditor
-      inlineToolbar
       // maxLength={maxLength} // works the same as in input, but the value is markup
       defaultValue={defaultValue}
       label={readOnly ? '' : placeholder}
