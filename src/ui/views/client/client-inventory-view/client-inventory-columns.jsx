@@ -13,6 +13,7 @@ import {
   FourMonthesStockCell,
   HsCodeCell,
   InStockCell,
+  ManyUserLinkCell,
   MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -377,6 +378,20 @@ export const clientInventoryColumns = (
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+
+      renderCell: params => <ManyUserLinkCell usersData={params.row?.subUsers} />,
+      width: 187,
+
+      filterable: false,
+      sortable: false,
+
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

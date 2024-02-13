@@ -303,6 +303,8 @@ export class MessagesViewModel {
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       await ChatModel.sendMessage({
         chatId,
         crmItemId: null,
@@ -314,6 +316,8 @@ export class MessagesViewModel {
         },
         ...(replyMessageId && { replyMessageId }),
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
     }
