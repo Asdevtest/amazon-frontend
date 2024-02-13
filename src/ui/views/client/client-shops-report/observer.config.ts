@@ -20,7 +20,7 @@ export const observerConfig = {
   deleteReportHandler: action.bound,
   bindStockGoodsToInventoryHandler: action.bound,
   submitDeleteReportHandler: action.bound,
-
+  getTableData: action.bound,
   getProductsMy: action.bound,
   submitBindStockGoodsHandler: action.bound,
   initUserSettings: action.bound,

@@ -145,7 +145,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
     ),
-    width: 110,
+    width: 115,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -168,11 +168,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.spec?.title} />,
-    type: 'number',
-    width: 85,
+    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 

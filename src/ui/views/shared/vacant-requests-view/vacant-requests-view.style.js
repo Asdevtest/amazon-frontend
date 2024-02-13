@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   searchInput: {
@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: 20,
+    marginBottom: 10,
     gap: 30,
   },
 

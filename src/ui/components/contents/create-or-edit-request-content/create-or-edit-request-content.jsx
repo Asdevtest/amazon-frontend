@@ -739,7 +739,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                         <Button
                           disabled={!formFields.request.specId}
-                          variant={'contained'}
+                          variant="contained"
+                          className={cx(styles.button, styles.buttonSelect)}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -795,7 +796,8 @@ export const CreateOrEditRequestContent = memo(props => {
                       {!announcement?._id && (
                         <Button
                           disabled={!formFields?.request?.specId}
-                          variant={'contained'}
+                          variant="contained"
+                          className={styles.button}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -1055,7 +1057,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 </div>
               </div>
 
-              <div className={styles.editorContainer}>
+              <div>
                 <p className={styles.label}>{t(TranslationKey['Description of your request'])}</p>
 
                 <CustomTextEditor

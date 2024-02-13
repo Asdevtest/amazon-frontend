@@ -83,8 +83,8 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell leftAlign text={params.row.spec?.title} />,
-    width: 140,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 

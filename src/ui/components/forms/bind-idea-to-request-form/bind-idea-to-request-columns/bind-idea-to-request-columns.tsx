@@ -47,9 +47,9 @@ export const bindIdeaToRequestColumns = [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.spec?.title} />,
+    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 110,
   },
 ]

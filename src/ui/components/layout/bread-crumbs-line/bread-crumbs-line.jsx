@@ -87,10 +87,6 @@ export const BreadCrumbsLine = observer(() => {
                 {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
               </Typography>
             ) : (
-              // <LinkRouter key={to} underline="hover" color="primary" to={to} state={{data: 'HELLO'}}>
-              //   {t(getCrumbNameKey(to))}
-              // </LinkRouter>
-
               <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {getCrumbNameKey(to) === 'Order'
                   ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`

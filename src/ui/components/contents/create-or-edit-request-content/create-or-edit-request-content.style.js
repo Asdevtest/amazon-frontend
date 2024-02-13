@@ -130,6 +130,7 @@ export const useStyles = makeStyles()(theme => ({
   executorWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   advices: {
@@ -171,12 +172,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-  },
-
-  editorContainer: {
-    div: {
-      marginTop: 0,
-    },
   },
 
   buttonsWrapper: {
