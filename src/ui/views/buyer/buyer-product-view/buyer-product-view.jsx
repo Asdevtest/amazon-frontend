@@ -39,6 +39,11 @@ export const BuyerProductView = observer(({ history }) => {
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           handleSupplierButtons={viewModel.onClickSupplierButtons}
           handleProductActionButtons={viewModel.handleProductActionButtons}
+          showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
+          storekeepersData={viewModel?.storekeepersData}
+          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSupplier={viewModel.onChangeSelectedSupplier}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}

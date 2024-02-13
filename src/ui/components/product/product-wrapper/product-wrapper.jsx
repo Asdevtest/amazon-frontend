@@ -61,6 +61,10 @@ export const ProductWrapper = memo(
     productBase,
     userRole,
     modal,
+    showSupplierApproximateCalculationsModal,
+    storekeepersData,
+    volumeWeightCoefficient,
+    onClickSupplierApproximateCalculations,
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
@@ -167,6 +171,10 @@ export const ProductWrapper = memo(
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
+                showSupplierApproximateCalculationsModal={showSupplierApproximateCalculationsModal}
+                storekeepersData={storekeepersData}
+                volumeWeightCoefficient={volumeWeightCoefficient}
+                onClickSupplierApproximateCalculations={onClickSupplierApproximateCalculations}
                 onClickSubmitSearch={onClickSubmitSearch}
                 onClickNextButton={onClickNextButton}
                 onTriggerOpenModal={onTriggerOpenModal}
@@ -201,10 +209,6 @@ export const ProductWrapper = memo(
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
               <Integrations userRole={curUserRole} modal={modal} productId={product._id} />
             </TabPanel>
-
-            {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
-        <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
-      </TabPanel> */}
 
             <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
               <Freelance modal={modal} productId={product._id} />

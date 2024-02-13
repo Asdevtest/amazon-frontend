@@ -59,6 +59,7 @@ export class BuyerProductViewModel {
   showWarningModal = false
   showConfirmModal = false
   showSuccessModal = false
+  showSupplierApproximateCalculationsModal = false
 
   setOpenModal = undefined
   productVariations = undefined
@@ -536,6 +537,8 @@ export class BuyerProductViewModel {
 
       this.onSaveForceProductData()
 
+      this.loadData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
@@ -555,18 +558,36 @@ export class BuyerProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        await this.getStorekeepers()
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        this.getSupplierModalData()
       }
 
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      await this.getSupplierModalData()
+
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getSupplierModalData() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      await this.getStorekeepers()
+
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
     } catch (error) {
       console.log(error)

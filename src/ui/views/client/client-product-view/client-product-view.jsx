@@ -56,6 +56,10 @@ export const ClientProductView = observer(({ history }) => {
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
+          showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
+          storekeepersData={viewModel?.storekeepersData}
+          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
           onClickGetProductsToBind={option =>

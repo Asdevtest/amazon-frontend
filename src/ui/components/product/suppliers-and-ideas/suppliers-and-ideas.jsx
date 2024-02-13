@@ -13,6 +13,7 @@ import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
@@ -99,6 +100,9 @@ export const SuppliersAndIdeas = observer(props => {
     showSelectionSupplierModal,
     currentData,
     languageTag,
+    showSupplierApproximateCalculationsModal,
+    storekeepersData,
+    onClickSupplierApproximateCalculations,
     onClickToOrder,
     onClickSaveBarcode,
     onDoubleClickBarcode,
@@ -193,6 +197,7 @@ export const SuppliersAndIdeas = observer(props => {
               idea={curIdea}
               currentProduct={currentProduct}
               selectedSupplier={selectedSupplier}
+              onClickSupplierApproximateCalculations={onClickSupplierApproximateCalculations}
               onCreateProduct={onClickCreateProduct}
               onClickSaveBtn={onClickSaveBtn}
               onClickCancelBtn={onClickCancelBtn}
@@ -401,6 +406,19 @@ export const SuppliersAndIdeas = observer(props => {
           acceptMessage={alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      <Modal
+        openModal={showSupplierApproximateCalculationsModal}
+        setOpenModal={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+      >
+        <SupplierApproximateCalculationsForm
+          product={product}
+          supplier={supplierData || selectedSupplier}
+          volumeWeightCoefficient={volumeWeightCoefficient}
+          storekeepers={storekeepersData}
+          onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
+        />
+      </Modal>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
