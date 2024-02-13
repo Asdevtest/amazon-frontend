@@ -126,6 +126,7 @@ export const useStyles = makeStyles()(theme => ({
   executorWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   advices: {
@@ -312,5 +313,9 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonCancel: {
     color: theme.palette.text.general,
+  },
+
+  buttonSelect: {
+    width: 200,
   },
 }))
