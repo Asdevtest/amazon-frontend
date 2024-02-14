@@ -378,6 +378,8 @@ export class BuyerMyOrdersViewModel {
     try {
       const response = await SupplierModel.getSuppliersPaymentMethods()
 
+      console.log('response', response)
+
       runInAction(() => {
         this.paymentMethods = response.map(paymentMethod => ({
           isChecked: false,

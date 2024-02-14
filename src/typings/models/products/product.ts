@@ -64,7 +64,7 @@ export interface IProduct {
   needCheckBySupervisor: boolean
   amountInOrders: number
   amountInPendingOrders: number
-  boxAmounts: IBoxAmount
+  boxAmounts: IBoxAmount[]
   archive: boolean
   hsCode: string
   niche: string
@@ -100,4 +100,5 @@ export interface IBoxAmount {
   _id: string
   storekeeper: ICreatedBy
   amountInBoxes: number
+  productId?: string
 }

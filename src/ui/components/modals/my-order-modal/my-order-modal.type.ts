@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { IOrder } from '@typings/models/orders/order'
 
 export interface IOrderWithAdditionalFields extends IOrder {
-  destinationId: string
+  destinationId: string | null
   storekeeperId: string
   tmpBarCode: string[]
 }

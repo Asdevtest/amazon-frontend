@@ -59,4 +59,6 @@ export interface IBox {
   createdBy: ICreatedBy
   lastModifiedBy: ICreatedBy
   deadline: string
+  weightFinalAccountingKgWarehouse: number
+  volumeWeightKgWarehouse: number
 }

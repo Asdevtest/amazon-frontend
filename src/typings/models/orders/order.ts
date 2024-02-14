@@ -30,12 +30,12 @@ export interface IOrder {
   transparencyFile: string
   productId: string
   logicsTariffId: string
-  variationTariffId: string
+  variationTariffId: string | null
   buyerId: string
   amount: number
   expressChinaDelivery: boolean
   needsResearch: boolean
-  deadline: string
+  deadline: string | null
   createdById: string
   createdAt: string
   updatedAt: string
@@ -50,4 +50,5 @@ export interface IOrder {
   priceInYuan: number
   paymentDetailsAttached: boolean
   payments: Array<IPayment>
+  paymentDetails: Array<string>
 }

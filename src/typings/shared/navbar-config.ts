@@ -1,7 +1,7 @@
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
-import { UserInfoSchema } from '@services/rest-api-service/codegen'
+import { IInfoCounters } from './info-counters'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace NavbarConfigTypes {
@@ -9,7 +9,7 @@ export namespace NavbarConfigTypes {
     subtitle: () => string
     subRoute: string
     key?: keyof typeof navBarActiveSubCategory
-    checkHideSubBlock?: (user?: UserInfoSchema) => boolean | undefined
+    checkHideSubBlock?: (user?: IInfoCounters) => boolean | undefined
   }
 
   export interface Route {
@@ -18,7 +18,7 @@ export namespace NavbarConfigTypes {
     route: string
     subtitles?: SubRoute[] | null
     key: keyof typeof navBarActiveCategory
-    checkHideBlock: (user?: UserInfoSchema) => boolean | undefined
+    checkHideBlock: (user?: IInfoCounters) => boolean | undefined
   }
 
   export type RootObject = {

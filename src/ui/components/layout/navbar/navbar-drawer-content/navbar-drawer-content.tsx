@@ -10,8 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { UserInfoSchema } from '@services/rest-api-service/codegen'
-
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
@@ -24,7 +22,7 @@ import { Feedback } from '@components/shared/svg-icons'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IFullUser } from '@typings/shared/full-user'
+import { IInfoCounters } from '@typings/shared/info-counters'
 import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
 import { useStyles } from './navbar-drawer-content.style'
@@ -37,7 +35,7 @@ interface NavbarDrawerContentProps {
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: NavbarConfigTypes.RootObject
-  userInfo: UserInfoSchema
+  userInfo: IInfoCounters
   activeCategory: string
   unreadMessages: ChatMessageContract[]
   onClickVersion: NavbarModel['onClickVersion']
@@ -112,7 +110,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
                 category={category}
-                badge={getCategoryBadge(category, userInfo as unknown as IFullUser) || 0}
+                badge={getCategoryBadge(category, userInfo) || 0}
                 onToggleModal={onToggleModal}
               />
 
