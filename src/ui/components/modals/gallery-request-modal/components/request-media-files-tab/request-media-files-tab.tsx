@@ -20,10 +20,13 @@ import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/h
 interface ReqestMediaFilesTabProps {
   data: IState | undefined
   getCheckboxState: (file: string) => boolean
+  getDisabledCheckbox: (file: string) => boolean
   onToggleFile: (file: string) => void
 }
 
-export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(({ data, getCheckboxState, onToggleFile }) => {
+export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(props => {
+  const { data, getCheckboxState, getDisabledCheckbox, onToggleFile } = props
+
   const { classes: styles } = useStyles()
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
@@ -71,6 +74,7 @@ export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(({ data, g
 
                       <Checkbox
                         checked={getCheckboxState(file)}
+                        disabled={getDisabledCheckbox(file)}
                         className={styles.checkbox}
                         onClick={e => e.stopPropagation()}
                         onChange={() => onToggleFile(file)}
