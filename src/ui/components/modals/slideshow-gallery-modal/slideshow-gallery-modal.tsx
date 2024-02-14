@@ -5,43 +5,23 @@ import { ZoomModal } from '@components/modals/zoom-modal'
 import { Modal } from '@components/shared/modal'
 import { Gallery } from '@components/shared/slideshow-gallery/components'
 
-import { UploadFileType } from '@typings/upload-file'
-
 import { useStyles } from './slideshow-gallery-modal.style'
 
 import { ButtonControls, Comment, Title } from './components'
+import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
 import { useSlideshowGalleryModal } from './use-slideshow-gallery-modal'
 
-interface SlideshowGalleryModalProps {
-  files: UploadFileType[]
-  currentFileIndex: number
-  isOpenModal: boolean
-  onCurrentFileIndex: (index: number) => void
-  onOpenModal: () => void
-  withComments?: boolean
-  isEditable?: boolean
-  withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (array: UploadFileType[]) => void
-}
-
 export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props => {
-  const {
-    files,
-    currentFileIndex,
-    onCurrentFileIndex,
-    isOpenModal,
-    onOpenModal,
-    isEditable,
-    withoutMakeMainImage,
-    onChangeImagesForLoad,
-  } = props
+  const { onCurrentFileIndex, isOpenModal, onOpenModal, isEditable, withoutMakeMainImage } = props
 
   const { classes: styles } = useStyles()
 
   const {
     mediaFiles,
-    mediaFileIndex,
-    setMediaFileIndex,
+    comments,
+    commentsByClient,
+    fileIndex,
+    setFileIndex,
 
     isTransitioning,
     setIsTransitioning,
@@ -57,37 +37,37 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
     onEditRotateFile,
     onDownloadFile,
     updateImagesForLoad,
-  } = useSlideshowGalleryModal(files, onChangeImagesForLoad, currentFileIndex)
+  } = useSlideshowGalleryModal(props)
 
   return (
     <Modal
       openModal={isOpenModal}
       setOpenModal={() => {
         onOpenModal()
-        onCurrentFileIndex(mediaFileIndex)
+        onCurrentFileIndex(fileIndex)
         updateImagesForLoad()
       }}
     >
       <div className={styles.wrapper}>
-        <Title />
+        {comments?.[fileIndex] ? <Title text={comments?.[fileIndex]} /> : null}
 
         <Gallery
           isModalSize
           leftPreviews
           mediaFiles={mediaFiles}
-          currentMediaFileIndex={mediaFileIndex}
+          currentMediaFileIndex={fileIndex}
           isTransitioning={isTransitioning}
-          setCurrentMediaFileIndex={setMediaFileIndex}
+          setCurrentMediaFileIndex={setFileIndex}
           setIsTransitioning={setIsTransitioning}
           onOpenImageModal={onOpenImageZoomModal}
         />
 
-        <Comment />
+        {commentsByClient?.[fileIndex] ? <Comment text={commentsByClient?.[fileIndex]} /> : null}
 
         <ButtonControls
           isEditable={isEditable}
-          mediaFile={mediaFiles?.[mediaFileIndex]}
-          mediaFileIndex={mediaFileIndex}
+          mediaFile={mediaFiles?.[fileIndex]}
+          mediaFileIndex={fileIndex}
           withoutMakeMainImage={withoutMakeMainImage}
           onMakeMainFile={onMakeMainFile}
           onImageEditToggle={onOpenImageEditModal}
@@ -101,19 +81,15 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
       {openImageZoomModal && (
         <ZoomModal
           mediaFiles={mediaFiles}
-          currentMediaFileIndex={mediaFileIndex}
+          currentMediaFileIndex={fileIndex}
           isOpenModal={openImageZoomModal}
           setIsOpenModal={onOpenImageZoomModal}
-          setCurrentMediaFileIndex={setMediaFileIndex}
+          setCurrentMediaFileIndex={setFileIndex}
         />
       )}
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
-        <ImageEditForm
-          item={mediaFiles?.[mediaFileIndex]}
-          setOpenModal={onOpenImageEditModal}
-          onSave={onEditRotateFile}
-        />
+        <ImageEditForm item={mediaFiles?.[fileIndex]} setOpenModal={onOpenImageEditModal} onSave={onEditRotateFile} />
       </Modal>
     </Modal>
   )

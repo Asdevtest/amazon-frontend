@@ -6,7 +6,7 @@ export interface IUploadFile {
 }
 
 export interface IMediaRequest {
-  image: string | UploadFileType
+  image: UploadFileType
   comment: string
   commentByClient: string
   _id: string

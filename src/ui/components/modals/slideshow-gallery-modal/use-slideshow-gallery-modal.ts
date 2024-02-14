@@ -4,15 +4,21 @@ import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gall
 
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
+import { isArrayOfMediaRequest, isUploadFileType } from '@typings/type-guards'
 import { UploadFileType } from '@typings/upload-file'
 
-export const useSlideshowGalleryModal = (
-  files: UploadFileType[],
-  onChangeImagesForLoad?: (array: UploadFileType[]) => void,
-  startMediaFileIndex?: number,
-) => {
+import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
+
+export const useSlideshowGalleryModal = ({
+  files,
+  onChangeImagesForLoad,
+  currentFileIndex,
+  onOpenModal,
+}: SlideshowGalleryModalProps) => {
   const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
-  const [mediaFileIndex, setMediaFileIndex] = useState(FIRST_SLIDE)
+  const [comments, setComments] = useState<string[]>([])
+  const [commentsByClient, setCommentsByClient] = useState<string[]>([])
+  const [fileIndex, setFileIndex] = useState(FIRST_SLIDE)
 
   const [isTransitioning, setIsTransitioning] = useState(false) // for animation between slide switches
 
@@ -23,44 +29,59 @@ export const useSlideshowGalleryModal = (
 
   useEffect(() => {
     if (files) {
-      setMediaFiles(files)
+      setMediaFiles(files.map(file => (isUploadFileType(file) ? file : file?.image)))
+
+      if (isArrayOfMediaRequest(files)) {
+        setComments(files.map(file => file?.comment || ''))
+        setCommentsByClient(files.map(file => file?.commentByClient || ''))
+      }
     }
   }, [files])
 
   useEffect(() => {
     // 'undefined' - because 0 === false
-    if (startMediaFileIndex !== undefined) {
-      setMediaFileIndex(startMediaFileIndex)
+    if (currentFileIndex !== undefined) {
+      setFileIndex(currentFileIndex)
     }
-  }, [startMediaFileIndex])
+  }, [currentFileIndex])
 
   const updateImagesForLoad = () => {
     if (onChangeImagesForLoad) {
-      onChangeImagesForLoad(mediaFiles)
+      const updatedFiles = isArrayOfMediaRequest(files)
+        ? files.map((file, index) => ({
+            ...file,
+            image: mediaFiles[index],
+            // only change media files
+          }))
+        : mediaFiles
+
+      onChangeImagesForLoad(updatedFiles)
     }
   }
 
   const onEditRotateFile = (file: string) => {
-    setMediaFiles(prevMediaFiles => prevMediaFiles.map((slide, index) => (index === mediaFileIndex ? file : slide)))
+    setMediaFiles(prevMediaFiles => prevMediaFiles.map((slide, index) => (index === fileIndex ? file : slide)))
   }
 
-  const onRemoveFile = (fileIndex: number) => {
+  const onRemoveFile = (mediaFileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
-      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
+      const filteringMediaFiles = isArrayOfMediaRequest(files)
+        ? prevMediaFiles.map((item, index) => (index === mediaFileIndex ? '' : item))
+        : prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
 
-      if (fileIndex > 0) {
-        setMediaFileIndex(fileIndex - 1) // returns to the previous photo
+      if (mediaFileIndex > 0) {
+        setFileIndex(mediaFileIndex - 1) // returns to the previous photo
       }
 
       if (filteringMediaFiles?.length === 0) {
-        // onOpenImageModal()
+        onOpenModal ? onOpenModal() : undefined
       }
 
       return filteringMediaFiles
     })
   }
 
-  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, fileIndex: number) => {
+  const onUploadFile = async (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => {
     if (!event?.target?.files || event?.target?.files?.length === 0) {
       return
     }
@@ -77,18 +98,18 @@ export const useSlideshowGalleryModal = (
     }))
 
     setMediaFiles(prevMediaFiles =>
-      prevMediaFiles.map((mediaFile, index) => (index === fileIndex ? readyFilesArr[0] : mediaFile)),
+      prevMediaFiles.map((mediaFile, index) => (index === mediaFileIndex ? readyFilesArr[0] : mediaFile)),
     )
   }
 
-  const onMakeMainFile = (file: string | UploadFileType, fileIndex: number) => {
+  const onMakeMainFile = (file: string | UploadFileType, mediaFileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
-      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
+      const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
       const editingMediaFiles = [file, ...filteringMediaFiles]
 
       return editingMediaFiles
     })
-    setMediaFileIndex(0)
+    setFileIndex(0)
   }
 
   const onDownloadFile = (file: string | UploadFileType) =>
@@ -96,8 +117,10 @@ export const useSlideshowGalleryModal = (
 
   return {
     mediaFiles,
-    mediaFileIndex,
-    setMediaFileIndex,
+    comments,
+    commentsByClient,
+    fileIndex,
+    setFileIndex,
 
     isTransitioning,
     setIsTransitioning,

@@ -145,7 +145,6 @@ export const RequestDesignerResultClientForm = memo(props => {
         <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
           request?.request?.humanFriendlyId
         }`}</Typography>
-
         <div className={styles.headerRightSubWrapper}>
           <Field
             labelClasses={styles.fieldLabel}

@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 
-import { UploadFileType } from '@typings/upload-file'
+import { IMediaRequest, UploadFileType } from '@typings/upload-file'
 
 import { Gallery } from './components'
 import { DEFAULT_QUANTITY_SLIDES } from './slideshow-gallery.constants'
@@ -16,7 +16,7 @@ interface SlideshowGalleryProps {
   customGapBetweenSlideAndPreviews?: number
   isEditable?: boolean
   withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (array: UploadFileType[]) => void
+  onChangeImagesForLoad?: (files: IMediaRequest[] | UploadFileType[]) => void
 }
 
 export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {

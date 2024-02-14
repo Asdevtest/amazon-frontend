@@ -9,7 +9,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typogra
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -324,9 +324,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   /* const filteredImagesData = imagesData.filter(el =>
     checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
   ) */
-  const fileLinks = imagesData.map(el => el.image)
+  /* const fileLinks = imagesData.map(el => el.image)
   const photosTitles = imagesData.map(el => el.comment)
-  const photosComments = imagesData.map(el => el.commentByClient)
+  const photosComments = imagesData.map(el => el.commentByClient) */
 
   return (
     <div className={styles.modalMainWrapper}>
@@ -476,16 +476,14 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
       </div>
 
       {showImageModal && (
-        <ImageModal
-          showPreviews
-          isRequestResult
+        <SlideshowGalleryModal
+          isEditable
           isOpenModal={showImageModal}
-          files={fileLinks}
-          photosTitles={photosTitles}
-          photosComments={photosComments}
+          files={imagesData}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowImageModal(!showImageModal)}
           onCurrentFileIndex={index => setCurImageIndex(index)}
+          onChangeImagesForLoad={setImagesData}
         />
       )}
     </div>
