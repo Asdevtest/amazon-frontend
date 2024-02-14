@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px !important',
 
     '.public-DraftStyleDefault-ol': {
-      padding: '10px 30px !important',
+      paddingLeft: '30px !important',
     },
   },
 
