@@ -111,7 +111,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               displayEmpty
               disabled={(onlyRead && isEmpty) || disabled || onlyRead}
               value={value} // @ts-ignore
-              IconComponent={!isEmpty ? EditIconToRender : ''}
+              IconComponent={!isEmpty && !onlyRead ? EditIconToRender : ''}
               classes={{
                 select: cx(styles.select, {
                   [styles.selectIsNotEmpty]: !isEmpty,
