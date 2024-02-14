@@ -78,11 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
 
-  linkSpan: {
-    fontSize: '18px !important',
-    lineHeight: '25px',
-  },
-
   idTitleWrapper: {
     display: 'flex',
     gap: 5,
@@ -90,9 +85,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   idText: {
-    lineHeight: '25px',
     color: theme.palette.text.second,
-    fontSize: 16,
+    fontSize: 14,
   },
 
   idTextDark: {
@@ -101,7 +95,6 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     color: theme.palette.text.general,
     fontWeight: 600,
-    fontSize: 16,
   },
 
   standartText: {
@@ -149,6 +142,7 @@ export const useStyles = makeStyles()(theme => ({
 
   headerWrapper: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

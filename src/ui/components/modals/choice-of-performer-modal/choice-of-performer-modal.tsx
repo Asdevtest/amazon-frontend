@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -87,10 +85,8 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
   return (
     <div className={styles.mainWrapper}>
-      <div className={styles.upWrapper}>
-        <Typography variant="h5" className={styles.title}>
-          {t(TranslationKey['Choice of Performer'])}
-        </Typography>
+      <div className={styles.supWrapper}>
+        <p className={styles.title}>{t(TranslationKey['Choice of Performer'])}</p>
 
         <Field
           label={t(TranslationKey.Performer)}
@@ -105,7 +101,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
               masterUserSelect
               blackSelectedItem
               chosenItemNoHover
-              width={'100%'}
+              width="100%"
               data={masterUsersData}
               searchOnlyFields={['name']}
               customSubMainWrapper={styles.customSubMainWrapper}
@@ -149,6 +145,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           {t(TranslationKey['Reset performer'])}
         </Button>
       </div>
+
       <div className={styles.cardsWrapper}>
         {dataToRender.map((service, serviceKey) => (
           <AnnouncementCard

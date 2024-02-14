@@ -218,13 +218,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'subUsers',
     headerName: t(TranslationKey['Access to product']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-        text={t(TranslationKey['Access to product'])}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
@@ -271,8 +265,8 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={params.row.spec?.title} />,
-    width: 90,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 

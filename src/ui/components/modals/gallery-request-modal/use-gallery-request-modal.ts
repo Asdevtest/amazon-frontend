@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { MAX_DEFAULT_MEDIA_FILES } from '@constants/text'
+
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
@@ -8,12 +10,13 @@ import { IData, IMediaFileWithCommentFromRequest, IState } from './gallery-reque
 
 export const useGalleryRequestModal = (
   data: IData,
-  mediaFiles: IMediaFileWithCommentFromRequest[], // correct data type - string[] (solution for creating a request)
+  mediaFiles: IMediaFileWithCommentFromRequest[],
+  maxNumber?: number,
 ) => {
   const [tabValue, setTabValue] = useState<SwitcherConditions>(SwitcherConditions.MEDIA_FILES)
   const [mediaFilesStates, setMediaFilesStates] = useState<IState | undefined>(undefined)
   const [documentsStates, setDocumentsStates] = useState<IState | undefined>(undefined)
-  const [allFilesToAdd, setAllFilesToAdd] = useState<IMediaFileWithCommentFromRequest[]>([]) // correct data type - string[] (solution for creating a request)
+  const [allFilesToAdd, setAllFilesToAdd] = useState<IMediaFileWithCommentFromRequest[]>([])
 
   useEffect(() => {
     const initialMediaFilesStates: IState = {}
@@ -68,11 +71,16 @@ export const useGalleryRequestModal = (
       ])
     }
   }
-  /* 
-  // correct data type - string[] (solution for creating a request) 
-  const getCheckboxState = (mediaFile: string) => allFilesToAdd?.includes(mediaFile)
-  */
+
   const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.file === mediaFile)
+  const getDisabledCheckbox = (mediaFile: string) => {
+    const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.file === mediaFile)
+    const isMaxReached = allFilesToAdd.length >= (maxNumber || MAX_DEFAULT_MEDIA_FILES)
+
+    return isFileAdded ? false : isMaxReached
+  }
+
+  const filesCounter = `${allFilesToAdd.length} / ${maxNumber || MAX_DEFAULT_MEDIA_FILES}`
 
   return {
     tabValue,
@@ -81,9 +89,11 @@ export const useGalleryRequestModal = (
     mediaFilesStates,
     documentsStates,
     allFilesToAdd,
+    filesCounter,
 
     onToggleFile: handleToggleFile,
     onResetAllFilesToAdd: handleResetAllFilesToAdd,
     getCheckboxState,
+    getDisabledCheckbox,
   }
 }

@@ -382,7 +382,7 @@ export enum TranslationKey {
   'Link to report from the warehouse' = 'Link to report from the warehouse',
   'Link to dashboard by item/day' = 'Link to dashboard by item/day',
   'Move to inventory' = 'Move to inventory',
-  'Bind to an item in the inventory' = 'Bind to an item in the inventory',
+  'Inventory integration' = 'Inventory integration',
   'Ordered' = 'Ordered',
   'Pay more' = 'Pay more',
   'Location' = 'Location',

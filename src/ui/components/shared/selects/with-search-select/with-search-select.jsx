@@ -90,6 +90,7 @@ export const WithSearchSelect = memo(
 
     const handleClose = () => {
       setAnchorEl(null)
+      onClickSubmitSearch ? onClickSubmitSearch('') : undefined
     }
 
     useEffect(() => {

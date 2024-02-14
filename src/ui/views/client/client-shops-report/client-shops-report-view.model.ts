@@ -69,10 +69,12 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   shopsData: any = []
 
   constructor(currentTabsValues: ShopReportsTabsValues) {
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch)
+    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch, tableKey)
+
+    this.getDataGridState()
 
     makeObservable(this, observerConfig)
   }
@@ -80,17 +82,21 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   changeTabHandler = (key: ShopReportsTabsValues) => {
     this.tabKey = key
 
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } = getClassParams(key)
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
+      getClassParams(key)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
+    this._tableKey = tableKey
     this.sortModel = sortModelInitialValue
     this.paginationModel = paginationModelInitialValue
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
+
+    this.getTableData()
   }
 
   initUserSettings() {
@@ -99,15 +105,17 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const currentShopId = url.searchParams.get('shopId')
 
     if (!currentReport || !currentShopId) {
+      this.getTableData()
       return
     }
 
-    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch } =
+    const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentReport)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
+    this._tableKey = tableKey
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.fieldsForSearch = fieldsForSearch
@@ -120,6 +128,8 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.tabKey = currentReport
       this.history.push(this.history.location.pathname)
     }
+
+    this.getTableData()
   }
 
   async moveGoodsToInventoryHandler() {
@@ -295,5 +305,10 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
+  }
+
+  getTableData() {
+    this.getDataGridState()
+    this.getMainTableData()
   }
 }

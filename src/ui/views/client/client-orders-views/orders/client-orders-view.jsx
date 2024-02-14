@@ -33,6 +33,7 @@ export const ClientOrdersView = observer(history => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
   return (
     <>
       <div className={styles.topHeaderBtnsWrapper}>

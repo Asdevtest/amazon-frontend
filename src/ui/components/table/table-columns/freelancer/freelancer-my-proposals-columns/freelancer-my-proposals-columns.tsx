@@ -17,8 +17,8 @@ import {
   FreelancerMyProposalsActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -90,10 +90,18 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: (params: GridCellParams) => (
-      // @ts-ignore
-      <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
-    ),
+    renderCell: (params: GridCellParams) => {
+      const product = params.row?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skuByClient={product?.skuByClient}
+        />
+      )
+    },
     width: 250,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
@@ -137,7 +145,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
     ),
-    width: 110,
+    width: 115,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -160,11 +168,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.spec?.title} />,
-    type: 'number',
-    width: 85,
+    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 

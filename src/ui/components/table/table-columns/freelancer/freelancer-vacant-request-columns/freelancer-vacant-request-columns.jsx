@@ -10,8 +10,8 @@ import {
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
   VacantRequestPriceCell,
@@ -72,7 +72,18 @@ export const FreelancerVacantRequestColumns = handlers => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
+    renderCell: params => {
+      const product = params.row?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skuByClient={product?.skuByClient}
+        />
+      )
+    },
     width: 250,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
@@ -125,12 +136,9 @@ export const FreelancerVacantRequestColumns = handlers => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-
-    renderCell: params => <MultilineTextCell text={params.row.spec?.title} />,
-    type: 'number',
-    width: 95,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -160,7 +168,9 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />,
+    renderCell: params => (
+      <MultilineTextCell threeLines text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+    ),
     width: 110,
 
     columnKey: columnnsKeys.shared.OBJECT,

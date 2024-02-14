@@ -50,7 +50,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
         </Button>
 
         <Button disabled={disableBindButton} onClick={onClickBindStockGoodsToInventory}>
-          {t(TranslationKey['Bind to an item in the inventory'])}
+          {t(TranslationKey['Inventory integration'])}
         </Button>
       </div>
 

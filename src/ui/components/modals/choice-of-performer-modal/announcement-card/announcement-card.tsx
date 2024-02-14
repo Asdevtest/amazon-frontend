@@ -10,6 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { isString } from '@typings/guards'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -30,14 +31,13 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
+  const { announcementData, selectedCard, onClickSelectCard, onClickSelectButton } = props
+
   const { classes: styles, cx } = useStyles()
 
-  const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
-
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsMediaFileLink(typeof el !== 'string' ? el?.file?.name : el),
+    checkIsMediaFileLink(isString(el) ? el : el?.file?.name),
   )
-
   const radioBottonsSettings = [
     {
       label: () => '',

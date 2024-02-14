@@ -57,12 +57,8 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
         <div className={styles.headerWrapper}>
           <p className={styles.cardTitle}>{request?.request.title}</p>
 
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle="asin"
-            link={request?.request.product.asin}
-            textStyles={styles.linkSpan}
-          />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={request?.request.product.asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.request.product.skuByClient} />
 
           <div className={styles.idTitleWrapper}>
             {request?.request?.priority === requestPriority.urgentPriority && (

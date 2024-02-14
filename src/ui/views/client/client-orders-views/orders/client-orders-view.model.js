@@ -741,6 +741,8 @@ export class ClientOrdersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
 
       this.onTriggerOpenModal('showOrderModal')
+
+      this.showMyOrderModal = false
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -836,8 +838,8 @@ export class ClientOrdersViewModel {
       if (this.showProductModal) {
         this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
       }
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error)
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined

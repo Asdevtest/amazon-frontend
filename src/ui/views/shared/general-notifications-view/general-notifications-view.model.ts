@@ -215,7 +215,7 @@ export class GeneralNotificationsViewModel {
           ?.focus()
       }
     } else if (type === 'user') {
-      window.open(`/another-user?${notification?.creator?._id}`)?.focus()
+      window.open(`/another-user?${notification?.sub?._id || notification?.creator?._id}`)?.focus()
     } else if (type === NotificationType.Idea) {
       this.currentProduct = notification.parentProduct
       this.currentIdeaId = notification.ideaId
