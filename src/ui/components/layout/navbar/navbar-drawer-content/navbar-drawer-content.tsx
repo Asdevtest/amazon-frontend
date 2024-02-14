@@ -170,7 +170,6 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
 
       <FeedBackModal
         openModal={showFeedbackModal}
-        setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}
         onSubmit={sendFeedbackAboutPlatform}
         onClose={() => onTriggerOpenModal('showFeedbackModal')}
       />
