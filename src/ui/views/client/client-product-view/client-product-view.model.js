@@ -500,7 +500,7 @@ export class ClientProductViewModel {
         this.uploadedImages = []
       })
 
-      if (this.imagesForLoad.length) {
+      if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
         runInAction(() => {
           this.imagesForLoad = []

@@ -20,6 +20,13 @@ export const useStyles = makeStyles()(theme => {
       color: colorPrimary,
     },
 
+    shopLink1: {
+      display: 'flex',
+      gap: '3px',
+      alignItems: 'center',
+      whiteSpace: 'nowrap',
+    },
+
     success: {
       color: theme.palette.text.green,
     },

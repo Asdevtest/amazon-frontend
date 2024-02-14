@@ -45,20 +45,20 @@ export const ShopNotificationMessageCell: FC<ShopNotificationMessageCellProps> =
 
     return (
       <p className={styles.multilineText}>
-        <span className={cx(styles.shopLink, isSuccess ? styles.success : styles.error)}>
-          {`${statusTranslation}: `}
+        <span className={cx(styles.shopLink1, isSuccess ? styles.success : styles.error)}>
+          {statusTranslation}
+          {moreThenThreeShops && (
+            <Tooltip
+              title={shops?.map((shop, shopIndex) => renderShop(shop, shopIndex + 1 !== shops.length))}
+              classes={{ tooltip: styles.tooltip }}
+            >
+              <div className={styles.tooltipIcon}>
+                <EyeIcon className={styles.tooltipIcon} />
+              </div>
+            </Tooltip>
+          )}
+          {': '}
         </span>
-
-        {moreThenThreeShops && (
-          <Tooltip
-            title={shops?.map((shop, shopIndex) => renderShop(shop, shopIndex + 1 !== shops.length))}
-            classes={{ tooltip: styles.tooltip }}
-          >
-            <div className={styles.tooltipIcon}>
-              <EyeIcon className={styles.tooltipIcon} />
-            </div>
-          </Tooltip>
-        )}
 
         {shopsToRender}
       </p>
