@@ -10,7 +10,7 @@ import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './main-slide.style'
 
-import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../slideshow-gallery.helper'
+import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../helpers/get-custom-dimension'
 import { GetSlideByType } from '../get-slide-by-type'
 
 interface MainSlideProps {
@@ -19,15 +19,18 @@ interface MainSlideProps {
   isTransitioning: boolean
   slidesToShow: number
   onOpenImageModal: () => void
+  isModalSize?: boolean
 }
 
 export const MainSlide: FC<MainSlideProps> = memo(props => {
-  const { mediaFile, currentMediaFileIndex, isTransitioning, slidesToShow, onOpenImageModal } = props
+  const { isModalSize, mediaFile, currentMediaFileIndex, isTransitioning, slidesToShow, onOpenImageModal } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const customDimensionMainSlideSubjectToQuantitySlides =
-    getCustomDimensionMainSlideSubjectToQuantitySlides(slidesToShow)
+  const customDimensionMainSlideSubjectToQuantitySlides = getCustomDimensionMainSlideSubjectToQuantitySlides(
+    slidesToShow,
+    isModalSize,
+  )
   const isDocument = checkIsDocumentLink(isString(mediaFile) ? mediaFile : mediaFile?.file.name)
 
   return (

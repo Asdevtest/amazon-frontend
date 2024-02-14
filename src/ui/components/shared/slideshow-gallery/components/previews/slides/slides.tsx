@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
+import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   NULL_DELAY,
@@ -13,14 +14,13 @@ import { useStyles } from './slides.style'
 
 import { GetSlideByType } from '../../get-slide-by-type'
 
-import { getCustomHeightSubjectToQuantitySlides } from './slides.helper'
-
 interface SlidesProps {
   mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isSlidesFitOnScreenWithoutArrows: boolean
   slidesToShow: number
+  isModalSize?: boolean
 }
 
 export const Slides: FC<SlidesProps> = memo(props => {
@@ -30,6 +30,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     setCurrentMediaFileIndex,
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -37,6 +38,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
   const customHeightSubjectToQuantitySlides = getCustomHeightSubjectToQuantitySlides(
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   )
 
   const activeSlideRef = useRef<HTMLDivElement | null>(null)
@@ -56,6 +58,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
   return (
     <div
       className={cx(styles.previewSlides, {
+        [styles.previewSlidesInModal]: isModalSize,
         [styles.previewSlidesFitOnScreenWithoutArrows]: isSlidesFitOnScreenWithoutArrows,
       })}
       style={{ height: customHeightSubjectToQuantitySlides }}
@@ -64,7 +67,10 @@ export const Slides: FC<SlidesProps> = memo(props => {
         <div
           key={index}
           ref={index === currentMediaFileIndex ? activeSlideRef : null}
-          className={cx(styles.previewSlide, { [styles.previewSlideActive]: index === currentMediaFileIndex })}
+          className={cx(styles.previewSlide, {
+            [styles.previewSlideActive]: index === currentMediaFileIndex,
+            [styles.previewSlideInModal]: isModalSize,
+          })}
           onClick={() => setCurrentMediaFileIndex(index)}
         >
           <GetSlideByType

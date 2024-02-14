@@ -125,6 +125,10 @@ select {
 input::-ms-clear {
   display: none;
 }
+input[type='file'],
+input[type='file']::-webkit-file-upload-button {
+  cursor: pointer;
+}
 
 button,
 input[type='submit'] {

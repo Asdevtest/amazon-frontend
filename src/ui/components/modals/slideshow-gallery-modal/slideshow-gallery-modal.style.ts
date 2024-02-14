@@ -1,13 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  previews: {
+  wrapper: {
+    padding: 10,
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'column',
-    gap: 5,
-  },
-
-  previewsModalSize: {
-    gap: 10,
+    gap: 20,
   },
 }))
