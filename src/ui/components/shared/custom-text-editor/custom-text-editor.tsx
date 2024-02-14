@@ -1,10 +1,11 @@
-import { ContentState, EditorState, convertFromRaw, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import MUIRichTextEditor from 'mui-rte'
-import { FC, memo, useState } from 'react'
+import { FC, memo, useMemo, useState } from 'react'
 
 import { useStyles } from './custom-text-editor.style'
 
 import { getControls, getCustomControls } from './custom-text-editor.config'
+import { parseJSON } from './helpers/parse-json'
 
 interface CustomTextEditorProps {
   value: string
@@ -39,23 +40,24 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  // ContentState.createFromText(value) - this is a just text, so value.startsWith('{"blocks":') - that other requests do not break (leave only convertFromRaw(JSON.parse(value)) - right solution)
-  const contentState = value?.startsWith('{"blocks":')
-    ? convertFromRaw(JSON?.parse(value))
-    : ContentState?.createFromText(value)
-  const editorState = EditorState.createWithContent(contentState)
-  const rawContentState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-  const [defaultValue] = useState(rawContentState)
   const [focus, setFocus] = useState(false)
+  const defaultValue = useMemo(() => {
+    if (!value) {
+      return ''
+    }
 
+    return parseJSON(value)
+  }, [])
   const showErrorBorder = !!maxLength && value.length > maxLength
+  const handleChange = (state: EditorState) =>
+    onChange ? onChange(JSON.stringify(convertToRaw(state.getCurrentContent()))) : undefined
 
   return (
     <MUIRichTextEditor
       // maxLength={maxLength} // works the same as in input, but the value is markup
+      readOnly={readOnly}
       defaultValue={defaultValue}
       label={readOnly ? '' : placeholder}
-      readOnly={readOnly}
       toolbar={!disableToolbar}
       toolbarButtonSize="small"
       draftEditorProps={{
@@ -79,9 +81,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
         toolbar: cx(styles.editorToolbar, editorToolbarClassName),
         placeHolder: styles.placeHolder,
       }}
-      onChange={(state: EditorState) =>
-        onChange ? onChange(JSON.stringify(convertToRaw(state.getCurrentContent()))) : undefined
-      }
+      onChange={handleChange}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
     />
