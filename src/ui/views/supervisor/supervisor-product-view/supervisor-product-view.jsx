@@ -37,6 +37,11 @@ export const SupervisorProductView = observer(({ history }) => {
           handleSupplierButtons={viewModel.onClickSupplierButtons}
           actionStatus={viewModel.requestStatus}
           handleProductActionButtons={viewModel.handleProductActionButtons}
+          showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
+          storekeepersData={viewModel?.storekeepersData}
+          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onClickSupplier={viewModel.onChangeSelectedSupplier}
           onChangeField={viewModel.onChangeProductFields}

@@ -742,7 +742,7 @@ export class ClientOrdersViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
 
-      this.onTriggerOpenModal('showMyOrderModal')
+      this.showMyOrderModal = false
     } catch (error) {
       console.log(error)
       runInAction(() => {

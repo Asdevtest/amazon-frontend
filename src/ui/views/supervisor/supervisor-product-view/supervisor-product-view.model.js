@@ -71,6 +71,7 @@ export class SupervisorProductViewModel {
   selectedSupplier = undefined
   showWarningModal = false
   showConfirmModal = false
+  showSupplierApproximateCalculationsModal = false
 
   formFields = formFieldsDefault
 
@@ -466,18 +467,36 @@ export class SupervisorProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        await this.getStorekeepers()
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        await this.getSupplierModalData()
       }
 
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      await this.getSupplierModalData()
+
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getSupplierModalData() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      await this.getStorekeepers()
+
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
     } catch (error) {
       console.log(error)
