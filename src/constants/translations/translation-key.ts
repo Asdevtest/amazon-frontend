@@ -2194,5 +2194,8 @@ export enum TranslationKey {
   'Product not selected!' = 'Product not selected!',
   'Current supplier' = 'Current supplier',
   'Add to request' = 'Add to request',
+  'Store data will be updated soon' = 'Store data will be updated soon',
+  'Successfully updated' = 'Successfully updated',
+  'Not updated because of a bug' = 'Not updated because of a bug',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -256,9 +256,9 @@ export const lightTheme = createTheme({
       general: '#001029',
       second: '#656565',
       gray: '#C4C4C4',
-      red: '#DD2121',
+      red: '#FF1616',
       negativeMain: '#fff',
-      green: 'green',
+      green: '#00B746',
     },
 
     button: {
@@ -681,9 +681,9 @@ export const darkTheme = createTheme({
       second: '#E1E1E1',
 
       gray: 'gray',
-      red: '#DD2121',
+      red: '#FF1616',
       negativeMain: '#001029',
-      green: '#2FE341',
+      green: '#00B746',
       disabled: '#001029',
 
       primary: '#fff',
