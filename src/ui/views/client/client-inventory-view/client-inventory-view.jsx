@@ -189,7 +189,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <ProductCardModal
           history={history}
           openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
+          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
           updateDataHandler={viewModel.getMainTableData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
