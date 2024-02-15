@@ -1,5 +1,5 @@
+import { IMediaRequest } from '@typings/shared/upload-file'
 import { TypeGuard } from '@typings/type-guard'
-import { IMediaRequest } from '@typings/upload-file'
 
 import { isUploadFileType } from './upload-file'
 

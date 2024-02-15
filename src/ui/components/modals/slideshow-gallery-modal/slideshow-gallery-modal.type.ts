@@ -1,4 +1,4 @@
-import { IMediaRequest, UploadFileType } from '@typings/upload-file'
+import { IMediaRequest, UploadFileType } from '@typings/shared/upload-file'
 
 export interface SlideshowGalleryModalProps {
   files: IMediaRequest[] | UploadFileType[]

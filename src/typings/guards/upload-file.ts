@@ -1,7 +1,7 @@
 import { isString } from 'class-validator'
 
+import { IUploadFile, UploadFileType } from '@typings/shared/upload-file'
 import { TypeGuard } from '@typings/type-guard'
-import { IUploadFile, UploadFileType } from '@typings/upload-file'
 
 export const isUploadFile: TypeGuard<IUploadFile> = (value: unknown): value is IUploadFile => {
   return (

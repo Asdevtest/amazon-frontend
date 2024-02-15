@@ -4,8 +4,8 @@ import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gall
 
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { isArrayOfMediaRequest, isUploadFileType } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isArrayOfMediaRequest, isUploadFileType } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
 

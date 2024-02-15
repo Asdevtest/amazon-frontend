@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './gallery.style'
 

@@ -12,8 +12,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { checkIsVideoLink } from '@utils/checks'
 
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './button-controls.style'
 
