@@ -32,7 +32,7 @@ export const CheckPendingOrderForm = ({
 
       <div className={styles.asinsWrapper}>
         <Typography className={[styles.text, styles.description]}>
-          {t(TranslationKey['Pending orders already exist']) + ':'}
+          {t(TranslationKey['Orders already exist']) + ':'}
         </Typography>
 
         {existingProducts?.map((product, productIndex) => (

@@ -2140,7 +2140,7 @@
   "Final Status. Can't be changed once it's set": "Финальный статус. Нельзя изменить после выставления",
   "Wish to set a destination?": "Желаете установить пункт назначения?",
   "Editing is unavailable due to change of current supplier": "Редактирование недоступно из-за смены текущего поставщика",
-  "Pending orders already exist": "Уже существуют отложенные заказы",
+  "Orders already exist": "Уже существуют заказы",
   "Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.": "Данные успешно сохранены, однако некоторые из введенных ссылок могут быть недействительными и не были загружены.",
   "This rate may have an irrelevant value as the rate may have been changed after shipment.": "Данный рейт может иметь неактуальное значение, поскольку тариф мог быть изменён после отправки.",
   "pc": "шт",

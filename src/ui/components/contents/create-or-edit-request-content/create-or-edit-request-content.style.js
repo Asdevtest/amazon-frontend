@@ -289,13 +289,11 @@ export const useStyles = makeStyles()(theme => ({
   infoTextWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
   },
 
   performerWrapperStepTwo: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
   },
 
   performerDescriptionText: {
@@ -318,10 +316,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorClassName: {
-    maxHeight: 250,
-  },
-
-  editorWrapper: {
-    marginTop: 10,
+    maxHeight: 160,
   },
 }))

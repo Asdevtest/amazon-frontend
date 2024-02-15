@@ -3,10 +3,8 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   root: {
     display: 'grid',
-    width: '100%',
-    height: '100%',
     maxWidth: '390px',
-    maxHeight: '450px',
+    height: '350px',
     gap: '5px',
     gridTemplateColumns: 'repeat(1, 1fr)',
     gridTemplateRows: 'repeat(1, 1fr)',
@@ -105,8 +103,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   image: {
-    width: '200px',
-    height: '200px',
+    width: '100%',
+    height: '100%',
     objectFit: 'cover',
     borderRadius: '4px',
     cursor: 'pointer',
