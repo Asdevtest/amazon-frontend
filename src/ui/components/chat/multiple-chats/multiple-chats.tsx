@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
@@ -165,6 +166,7 @@ export const MultipleChats = observer(
 
                   {messagesFound?.length ? (
                     <SearchResult
+                      // @ts-ignore
                       curFoundedMessageIndex={curFoundedMessageIndex}
                       messagesFound={messagesFound}
                       onClose={onCloseMesSearchValue}
