@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -8,6 +9,7 @@ import { ClientModel } from '@models/client-model'
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
@@ -28,33 +30,37 @@ export const CreateOrEditRequestView = observer(({ history }) => {
   return (
     <>
       <div ref={mainContentRef}>
-        <CreateOrEditRequestContent
-          mainContentRef={mainContentRef}
-          specs={viewModel.specs}
-          executor={viewModel.executor}
-          choosenAnnouncements={viewModel.choosenAnnouncements}
-          permissionsData={useProductsPermissions.permissionsData}
-          masterUsersData={viewModel.masterUsersData}
-          announcements={viewModel.announcements}
-          platformSettingsData={viewModel.platformSettingsData}
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          requestToEdit={viewModel.requestToEdit}
-          showGalleryModal={viewModel.showGalleryModal}
-          productMedia={viewModel.productMedia}
-          checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
-          createRequestForIdeaData={viewModel.createRequestForIdeaData}
-          getMasterUsersData={viewModel.getMasterUsersData}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-          onClickExistingRequest={viewModel.onClickExistingRequest}
-          onCreateSubmit={viewModel.onSubmitCreateRequest}
-          onEditSubmit={viewModel.onSubmitEditRequest}
-          onClickChoosePerformer={viewModel.onClickChoosePerformer}
-          onClickThumbnail={viewModel.onClickThumbnail}
-          onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
-          onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
-        />
+        {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
+          <CircularProgressWithLabel />
+        ) : (
+          <CreateOrEditRequestContent
+            mainContentRef={mainContentRef}
+            specs={viewModel.specs}
+            executor={viewModel.executor}
+            choosenAnnouncements={viewModel.choosenAnnouncements}
+            permissionsData={useProductsPermissions.permissionsData}
+            masterUsersData={viewModel.masterUsersData}
+            announcements={viewModel.announcements}
+            platformSettingsData={viewModel.platformSettingsData}
+            progressValue={viewModel.progressValue}
+            showProgress={viewModel.showProgress}
+            requestToEdit={viewModel.requestToEdit}
+            showGalleryModal={viewModel.showGalleryModal}
+            productMedia={viewModel.productMedia}
+            checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
+            createRequestForIdeaData={viewModel.createRequestForIdeaData}
+            getMasterUsersData={viewModel.getMasterUsersData}
+            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
+            onClickExistingRequest={viewModel.onClickExistingRequest}
+            onCreateSubmit={viewModel.onSubmitCreateRequest}
+            onEditSubmit={viewModel.onSubmitEditRequest}
+            onClickChoosePerformer={viewModel.onClickChoosePerformer}
+            onClickThumbnail={viewModel.onClickThumbnail}
+            onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
+            onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
+          />
+        )}
       </div>
 
       {viewModel.showImageModal ? (

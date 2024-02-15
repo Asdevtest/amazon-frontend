@@ -48,7 +48,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
 
     return parseJSON(value)
   }, [])
-  const showErrorBorder = !!maxLength && value.length > maxLength
+  const showErrorBorder = !!maxLength && value?.length > maxLength
   const handleChange = (state: EditorState) =>
     onChange ? onChange(JSON.stringify(convertToRaw(state.getCurrentContent()))) : undefined
 

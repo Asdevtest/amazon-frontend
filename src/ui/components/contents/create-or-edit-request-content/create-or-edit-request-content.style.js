@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     position: 'relative',
     padding: 30,
-    height: '80vh',
+    height: '81vh',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -230,9 +230,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   stepTitle: {
-    margin: '0',
-    padding: '0',
-    marginTop: 5,
+    margin: 0,
+    padding: 0,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
