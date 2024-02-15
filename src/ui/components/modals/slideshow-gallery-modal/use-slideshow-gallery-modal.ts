@@ -65,7 +65,7 @@ export const useSlideshowGalleryModal = ({
 
   const onRemoveFile = (mediaFileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
-      const filteringMediaFiles = isArrayOfMediaRequest(files)
+      const changingMediaFiles = isArrayOfMediaRequest(files)
         ? prevMediaFiles.map((item, index) => (index === mediaFileIndex ? '' : item))
         : prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
 
@@ -73,11 +73,11 @@ export const useSlideshowGalleryModal = ({
         setFileIndex(mediaFileIndex - 1) // returns to the previous photo
       }
 
-      if (filteringMediaFiles?.length === 0) {
+      if (changingMediaFiles?.length === 0) {
         onOpenModal ? onOpenModal() : undefined
       }
 
-      return filteringMediaFiles
+      return changingMediaFiles
     })
   }
 
@@ -102,7 +102,7 @@ export const useSlideshowGalleryModal = ({
     )
   }
 
-  const onMakeMainFile = (file: string | UploadFileType, mediaFileIndex: number) => {
+  const onMakeMainFile = (file: UploadFileType, mediaFileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
       const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
       const editingMediaFiles = [file, ...filteringMediaFiles]
@@ -112,7 +112,7 @@ export const useSlideshowGalleryModal = ({
     setFileIndex(0)
   }
 
-  const onDownloadFile = (file: string | UploadFileType) =>
+  const onDownloadFile = (file: UploadFileType) =>
     typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {

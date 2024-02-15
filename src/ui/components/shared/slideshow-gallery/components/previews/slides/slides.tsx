@@ -5,6 +5,7 @@ import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slide
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   NULL_DELAY,
+  PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
@@ -40,7 +41,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     slidesToShow,
     isModalSize,
   )
-
+  const finalVideoHeight = isModalSize ? PREVIEWS_SLIDE_HEIGHT_IN_MODAL : DEFAULT_PREVIEWS_SLIDE_HEIGHT
   const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -78,9 +79,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
             mediaFile={mediaFile}
             mediaFileIndex={index}
             ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.previewSlideImg} />}
-            VideoComponent={({ videoSource }) => (
-              <VideoPreloader videoSource={videoSource} height={DEFAULT_PREVIEWS_SLIDE_HEIGHT} />
-            )}
+            VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height={finalVideoHeight} />}
             FileComponent={({ documentLink, fileExtension }) => (
               <a
                 href={documentLink}

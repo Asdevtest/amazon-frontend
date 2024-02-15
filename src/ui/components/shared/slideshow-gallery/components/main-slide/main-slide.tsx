@@ -1,9 +1,10 @@
 import { FC, memo } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
+import { VideoPlayer } from '@components/shared/video-player'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { checkIsDocumentLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -31,7 +32,16 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
     slidesToShow,
     isModalSize,
   )
-  const isDocument = checkIsDocumentLink(isString(mediaFile) ? mediaFile : mediaFile?.file.name)
+
+  const handleClickMainSlide = () => {
+    const file = isString(mediaFile) ? mediaFile : mediaFile.file.name
+    const isImage = checkIsImageLink(file)
+    const isDocument = checkIsDocumentLink(file)
+
+    if ((isModalSize && isImage) || (!isModalSize && !isDocument)) {
+      onOpenImageModal()
+    }
+  }
 
   return (
     <div
@@ -40,19 +50,23 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         height: customDimensionMainSlideSubjectToQuantitySlides,
         width: customDimensionMainSlideSubjectToQuantitySlides,
       }}
-      onClick={isDocument ? undefined : onOpenImageModal}
+      onClick={handleClickMainSlide}
     >
       <GetSlideByType
         mediaFile={mediaFile}
         mediaFileIndex={currentMediaFileIndex}
         ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.mainSlideImg} />}
-        VideoComponent={({ videoSource }) => (
-          <VideoPreloader
-            videoSource={videoSource}
-            height={customDimensionMainSlideSubjectToQuantitySlides}
-            iconPlayClassName={styles.iconPreloader}
-          />
-        )}
+        VideoComponent={({ videoSource }) =>
+          isModalSize ? (
+            <VideoPlayer controls videoSource={videoSource} />
+          ) : (
+            <VideoPreloader
+              videoSource={videoSource}
+              height={customDimensionMainSlideSubjectToQuantitySlides}
+              iconPlayClassName={styles.iconPreloader}
+            />
+          )
+        }
         FileComponent={({ documentLink, fileExtension }) => (
           <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
             <FileIcon fileExtension={fileExtension} className={styles.fileIcon} />

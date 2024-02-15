@@ -89,7 +89,7 @@ export const usePhotoAndFilesSlider = (
     )
   }
 
-  const onMakeMainFile = (file: string | UploadFileType, fileIndex: number) => {
+  const onMakeMainFile = (file: UploadFileType, fileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
       const filteringMediaFiles = prevMediaFiles.filter((_, index) => index !== fileIndex)
       const editingMediaFiles = [file, ...filteringMediaFiles]
@@ -99,7 +99,7 @@ export const usePhotoAndFilesSlider = (
     setMediaFileIndex(0)
   }
 
-  const onDownloadFile = (file: string | UploadFileType) =>
+  const onDownloadFile = (file: UploadFileType) =>
     typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {

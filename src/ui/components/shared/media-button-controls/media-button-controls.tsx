@@ -15,22 +15,22 @@ import { checkIsVideoLink } from '@utils/checks'
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './button-controls.style'
+import { useStyles } from './media-button-controls.style'
 
-interface ButtonControlsProps {
-  mediaFile: string | UploadFileType
+interface MediaButtonControlsProps {
+  mediaFile: UploadFileType
   mediaFileIndex: number
   withoutMakeMainImage?: boolean
   isEditable?: boolean
   onRemoveFile: (mediaFileIndex: number) => void
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => void
-  onMakeMainFile: (mediaFile: string | UploadFileType, mediaFileIndex: number) => void
-  onDownloadFile: (mediaFile: string | UploadFileType) => void
+  onMakeMainFile: (mediaFile: UploadFileType, mediaFileIndex: number) => void
+  onDownloadFile: (mediaFile: UploadFileType) => void
   onOpenImageZoomModal: () => void
   onImageEditToggle?: () => void
 }
 
-export const ButtonControls: FC<ButtonControlsProps> = observer(
+export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(
   ({
     mediaFile,
     mediaFileIndex,

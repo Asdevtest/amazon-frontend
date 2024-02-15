@@ -2,13 +2,15 @@ import { FC, memo } from 'react'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ZoomModal } from '@components/modals/zoom-modal'
+import { MediaButtonControls } from '@components/shared/media-button-controls'
 import { Modal } from '@components/shared/modal'
 import { Gallery } from '@components/shared/slideshow-gallery/components'
 
 import { useStyles } from './slideshow-gallery-modal.style'
 
-import { ButtonControls, Comment, Title } from './components'
+import { Comment } from './comment'
 import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
+import { Title } from './title'
 import { useSlideshowGalleryModal } from './use-slideshow-gallery-modal'
 
 export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props => {
@@ -64,7 +66,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
 
         {commentsByClient?.[fileIndex] ? <Comment text={commentsByClient?.[fileIndex]} /> : null}
 
-        <ButtonControls
+        <MediaButtonControls
           isEditable={isEditable}
           mediaFile={mediaFiles?.[fileIndex]}
           mediaFileIndex={fileIndex}
