@@ -8,6 +8,7 @@ import {
   IdeaNotificationMessageCell,
   OrderNotificationMessageCell,
   RequestNotificationMessageCell,
+  ShopNotificationMessageCell,
 } from '../data-grid-cells'
 
 interface NotificationMessageCellProps {
@@ -32,6 +33,8 @@ export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
       {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
         <RequestNotificationMessageCell notification={notification} />
       )}
+
+      {notificationType === NotificationType.Shop && <ShopNotificationMessageCell notification={notification} />}
     </>
   ),
 )

@@ -113,3 +113,4 @@ export { WarehouseMyTasksBtnsCell } from './warehouse-my-tasks-btns-cell/warehou
 export { WarehouseTariffDatesCell } from './warehouse-tariff-dates-cell/warehouse-tariff-dates-cell'
 export { WarehouseTariffDestinationCell } from './warehouse-tariff-destination-cell/warehouse-tariff-destination-cell'
 export { WarehouseTariffRatesCell } from './warehouse-tariff-rates-cell/warehouse-tariff-rates-cell'
+export { ShopNotificationMessageCell } from './shop-notification-message-cell/shop-notification-message-cell'

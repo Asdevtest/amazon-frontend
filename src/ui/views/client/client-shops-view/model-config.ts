@@ -3,7 +3,6 @@ import { action, computed, observable } from 'mobx'
 export const observerConfig = {
   selectedShop: observable,
   showAddOrEditShopModal: observable,
-  showWarningModal: observable,
   showConfirmModal: observable,
 
   currentData: computed,

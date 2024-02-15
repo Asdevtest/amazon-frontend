@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -85,17 +84,6 @@ export const ClientShopsView = observer(() => {
           onSubmit={viewModel.onSubmitShopForm}
         />
       </Modal>
-
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
 
       <ConfirmationModal
         isWarning

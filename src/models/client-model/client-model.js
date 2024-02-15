@@ -207,8 +207,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  updateShops = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
+  updateShops = async (body, queue) => {
+    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body, queue })
     return response.data
   }
 

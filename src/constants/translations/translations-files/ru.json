@@ -2191,5 +2191,8 @@
   "Add from product": "Добавить из продукта",
   "Product not selected!": "Продукт не выбран!",
   "Current supplier": "Текущий поставщик",
-  "Add to request": "Добавить в заявку"
+  "Add to request": "Добавить в заявку",
+  "Store data will be updated soon": "Данные по магазинам будут обновлены в ближайшее время",
+  "Successfully updated": "Успешно обновлены",
+  "Not updated because of a bug": "Не обновлены из-за ошибки"
 }
