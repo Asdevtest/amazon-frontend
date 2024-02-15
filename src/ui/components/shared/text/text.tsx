@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
+import { CSSProperties, FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -21,10 +21,12 @@ interface TextProps extends PropsWithChildren {
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.BaseLine
   className?: string
   containerClasses?: string
+  color?: CSSProperties['color']
 }
 
 export const Text: FC<TextProps> = memo(props => {
-  const { tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses } = props
+  const { tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, color } =
+    props
 
   const { classes: styles, cx } = useStyles()
 
@@ -42,7 +44,9 @@ export const Text: FC<TextProps> = memo(props => {
         containerClasses,
       )}
     >
-      <Typography className={className}>{children}</Typography>
+      <Typography className={className} style={{ color }}>
+        {children}
+      </Typography>
 
       {tooltipAttentionContent || tooltipInfoContent ? (
         <div
