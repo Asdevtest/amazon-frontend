@@ -2194,5 +2194,5 @@
   "Add to request": "Добавить в заявку",
   "Store data will be updated soon": "Данные по магазинам будут обновлены в ближайшее время",
   "Successfully updated": "Успешно обновлены",
-  "Not updated because of a bug": "Не обновлены из-за ошибки"
+  "Not updating due to an error": "Не обновлены из-за ошибки"
 }

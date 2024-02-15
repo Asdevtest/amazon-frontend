@@ -161,6 +161,29 @@ export const EditTaskModal = memo(
       !isFilledNewBoxesDimensions ||
       (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer)
 
+    console.log('newBoxes :>> ', newBoxes)
+    console.log('task.boxesBefore :>> ', task.boxesBefore)
+
+    const isEditTask = task?.operationType === TaskOperationType.EDIT
+
+    const isTaskWithChangeBarcodeOrTransparency =
+      isEditTask &&
+      task?.boxesBefore.some(box => {
+        const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+
+        console.log('2')
+
+        if (newBox) {
+          return newBox.items?.some((item, itemIndex) => {
+            const currentItem = box?.items?.[itemIndex]
+
+            return currentItem?.barCode !== item?.barCode || currentItem?.transparencyFile !== item?.transparencyFile
+          })
+        }
+      })
+
+    console.log('isTaskWithChangeBarcodeOrTransparency', isTaskWithChangeBarcodeOrTransparency)
+
     return (
       <div className={styles.root}>
         <div className={styles.modalHeader}>
@@ -284,6 +307,11 @@ export const EditTaskModal = memo(
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
+              {/* {
+              newBoxes?.some(box => )
+            } */}
+              <p className={styles.errorText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button
