@@ -1,4 +1,4 @@
-import { IDestinationVariationApproximateCalculations } from '../../typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 export const getGroupDataByDestinationId = (
   destinationVariations: Array<IDestinationVariationApproximateCalculations>,

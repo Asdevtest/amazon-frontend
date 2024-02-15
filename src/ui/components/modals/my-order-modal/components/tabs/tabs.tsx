@@ -3,8 +3,8 @@ import { FC, memo } from 'react'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './tabs.style'
 

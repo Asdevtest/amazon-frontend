@@ -30,7 +30,7 @@ import {
 import { isHaveMasterUser } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { NavbarConfigTypes } from '@typings/navbar-config'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'

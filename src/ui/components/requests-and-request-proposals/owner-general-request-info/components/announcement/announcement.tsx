@@ -6,13 +6,13 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IShortUser } from '@typings/master-user'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './announcement.style'
 
 interface AnnouncementProps {
   title: string
-  createdBy: IShortUser
+  createdBy: ICreatedBy
 }
 
 export const Announcement: FC<AnnouncementProps> = memo(({ title, createdBy }) => {

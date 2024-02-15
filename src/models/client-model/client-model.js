@@ -27,10 +27,7 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    const response =
-      await restApiService.clientApi./* apiV1ClientsProductsMyWithPagGet */ apiV1ClientsProductsMyWithPagV2Get(
-        filterNullValues(data),
-      )
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagV2Get(filterNullValues(data))
     return response.data
   }
 
@@ -210,8 +207,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  updateShops = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
+  updateShops = async (body, queue) => {
+    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body, queue })
     return response.data
   }
 

@@ -16,16 +16,16 @@ import { checkIsFreelancer } from '@utils/checks'
 import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { RowHandlers } from '@typings/data-grid'
-import { IUser } from '@typings/user'
+import { RowHandlers } from '@typings/shared/data-grid'
+import { IFullUser } from '@typings/shared/full-user'
 
-export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IUser | undefined) => {
+export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IFullUser | undefined) => {
   const renderCells = [
     {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.originalData.updatedAt} />,
+      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
       width: 100,
     },
 
@@ -72,7 +72,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
           />
         )
       },
-      minWidth: 400,
+      minWidth: 590,
       filterable: false,
     },
   ]

@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 export const usePhotoAndFilesSlider = (
   files: UploadFileType[],

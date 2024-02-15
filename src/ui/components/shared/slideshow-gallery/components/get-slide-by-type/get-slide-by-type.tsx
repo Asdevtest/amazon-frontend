@@ -3,8 +3,8 @@ import { ComponentType, FC, memo } from 'react'
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 interface GetSlideByTypeProps {
   mediaFile: UploadFileType

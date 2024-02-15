@@ -4,4 +4,5 @@ export const NotificationTypes: Record<string, string> = {
   order: 'order',
   proposal: 'proposal',
   request: 'request',
+  shop: 'shop',
 }

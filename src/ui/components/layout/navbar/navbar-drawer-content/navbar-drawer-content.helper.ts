@@ -1,7 +1,7 @@
-import { NavbarConfigTypes } from '@typings/navbar-config'
-import { IUser } from '@typings/user'
+import { IInfoCounters } from '@typings/shared/info-counters'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
-export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IUser) => {
+export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IInfoCounters) => {
   if (category.route?.includes('/client/notifications')) {
     return (
       userInfo?.needConfirmPriceChange?.boxes +
@@ -26,7 +26,7 @@ export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IU
   } else if (category?.route?.includes('/client/ideas')) {
     return (
       userInfo?.ideas?.addingAsin +
-      userInfo?.ideas?.new +
+      userInfo?.ideas?._new +
       userInfo?.ideas?.onCheck +
       userInfo?.ideas?.productCreating +
       userInfo?.ideas?.supplierSearch

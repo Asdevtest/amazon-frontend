@@ -14,8 +14,8 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { IDestinationStorekeeper } from '@typings/destination'
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './list-suppliers-tab.style'
 

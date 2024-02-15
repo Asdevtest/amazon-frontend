@@ -9,15 +9,15 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { FeedbackType } from '@typings/feedback'
-import { IShortUser } from '@typings/master-user'
+import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './reviews-form.style'
 
 interface ReviewsFormProps {
-  reviews: FeedbackType[]
+  reviews: IFeedback[]
   onClickCloseButton: () => void
-  user?: IShortUser
+  user?: ICreatedBy
 }
 
 export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, reviews, user }) => {

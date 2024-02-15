@@ -9,7 +9,7 @@ import { checkIsImageUrlValid } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 
 export class AdminSettingsPaymentMethodsModel {
   infoModalText = undefined

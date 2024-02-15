@@ -4,8 +4,8 @@ import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
-import { ISupplier } from '@typings/product'
-import { UploadFileType } from '@typings/upload-file'
+import { ISupplier } from '@typings/models/suppliers/supplier'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalNames } from './list-suppliers-tab.type'
 

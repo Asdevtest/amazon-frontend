@@ -8,7 +8,7 @@ import {
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './slides.style'
 

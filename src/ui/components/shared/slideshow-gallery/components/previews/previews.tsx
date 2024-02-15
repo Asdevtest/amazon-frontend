@@ -1,7 +1,8 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { Arrows, ArrowsType } from '@typings/arrow'
-import { UploadFileType } from '@typings/upload-file'
+import { Arrows } from '@typings/enums/arrows'
+import { UploadFileType } from '@typings/shared/upload-file'
+import { ArrowsType } from '@typings/types/arrows'
 
 import { useStyles } from './previews.style'
 

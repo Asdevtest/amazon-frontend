@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { DIFFERENCE_BETWEEN_INDEXES, VISIBLE_FILES_COUNT, VISIBLE_MEDIA_FILES_COUNT } from './gallery-modal.constants'
 import { SwitcherConditions } from './gallery-modal.type'

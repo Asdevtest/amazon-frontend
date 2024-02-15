@@ -7,7 +7,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
-import { ISpec } from '@typings/spec'
+import { ISpec } from '@typings/shared/spec'
 
 import { useStyles } from './bind-idea-to-request-form.style'
 

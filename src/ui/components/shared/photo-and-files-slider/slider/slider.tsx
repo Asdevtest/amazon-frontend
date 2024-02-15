@@ -2,9 +2,10 @@ import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 
-import { Arrows, ArrowsType } from '@typings/arrow'
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { Arrows } from '@typings/enums/arrows'
+import { isString } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
+import { ArrowsType } from '@typings/types/arrows'
 
 import { useStyles } from './slider.style'
 

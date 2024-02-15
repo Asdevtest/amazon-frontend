@@ -3,10 +3,10 @@ import { FC, memo, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
 import { OrderStatus } from '@typings/enums/order-status'
-import { IOrder } from '@typings/order'
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IOrder } from '@typings/models/orders/order'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './my-order-modal.style'
 

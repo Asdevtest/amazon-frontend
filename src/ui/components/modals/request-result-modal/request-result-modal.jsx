@@ -14,7 +14,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
 

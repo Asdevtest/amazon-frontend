@@ -682,7 +682,6 @@ export class SuppliersAndIdeasModel {
 
   async getSupplier() {
     try {
-      console.log('this.selectedSupplier :>> ', this.selectedSupplier)
       if (this.selectedSupplier?._id) {
         const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
 

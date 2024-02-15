@@ -6,7 +6,7 @@ import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './photos-info.style'
 

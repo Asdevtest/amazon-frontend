@@ -8,7 +8,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { IStorekeeper } from '@typings/storekeeper'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 import { useStyles } from './action-buttons.style'
 

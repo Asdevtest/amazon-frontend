@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 
-import { IMediaRequest, UploadFileType } from '@typings/upload-file'
+import { IMediaRequest, UploadFileType } from '@typings/shared/upload-file'
 
 import { Gallery } from './components'
 import { DEFAULT_QUANTITY_SLIDES } from './slideshow-gallery.constants'

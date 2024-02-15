@@ -9,13 +9,13 @@ import { MinusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { IProductVariation } from '@typings/product'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './selected-product.style'
 
 interface SelectedProductProps {
-  product: IProductVariation
-  onClickDeleteButton: (product: IProductVariation) => void
+  product: IProduct
+  onClickDeleteButton: (product: IProduct) => void
 }
 
 export const SelectedProduct: FC<SelectedProductProps> = observer(props => {

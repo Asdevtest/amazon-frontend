@@ -1,6 +1,6 @@
 import { tableSortMode } from '@constants/table/table-view-modes'
 
-import { SortingModelType } from '@typings/sorting-model'
+import { SortingModelType } from '@typings/shared/sorting-model'
 
 /**
  * Get the current sorting direction for columns based on the provided sorting model and array of fields.
