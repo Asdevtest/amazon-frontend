@@ -752,16 +752,14 @@ export class ClientInStockBoxesViewModel {
 
   async getClientDestinations() {
     try {
-      if (this.currentStorekeeperId) {
-        const clientDestinations = await ClientModel.getClientDestinations({
-          status: BoxStatus.IN_STOCK,
-          storekeeperId: this.currentStorekeeperId,
-        })
+      const clientDestinations = await ClientModel.getClientDestinations({
+        status: BoxStatus.IN_STOCK,
+        storekeeperId: this.currentStorekeeperId,
+      })
 
-        runInAction(() => {
-          this.clientDestinations = clientDestinations
-        })
-      }
+      runInAction(() => {
+        this.clientDestinations = clientDestinations
+      })
 
       this.getDataGridState()
     } catch (error) {
