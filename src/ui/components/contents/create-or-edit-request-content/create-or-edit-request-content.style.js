@@ -320,6 +320,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorClassName: {
-    maxHeight: 200, // верное значение в dev
+    maxHeight: 200,
   },
 }))
