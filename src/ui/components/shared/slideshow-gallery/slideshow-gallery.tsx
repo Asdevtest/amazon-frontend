@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './slideshow-gallery.style'
 

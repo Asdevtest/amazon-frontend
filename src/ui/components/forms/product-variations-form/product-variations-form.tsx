@@ -6,13 +6,11 @@ import { InterconnectedProducts } from '@components/shared/interconnected-produc
 
 import { t } from '@utils/translations'
 
-import { IProductVariation } from '@typings/product'
-
 import { useStyles } from './product-variations-form.style'
 
 interface IProduct {
-  childProducts: IProductVariation[]
-  parentProduct: IProductVariation
+  childProducts: IProduct[]
+  parentProduct: IProduct
   _id: string
   asin: string
   skuByClient: string

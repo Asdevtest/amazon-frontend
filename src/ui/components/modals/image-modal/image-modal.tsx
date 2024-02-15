@@ -6,7 +6,7 @@ import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './image-modal.style'
 

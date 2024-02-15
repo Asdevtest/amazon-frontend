@@ -15,7 +15,7 @@ import {
 
 import { t } from '@utils/translations'
 
-import { ISpec } from '@typings/spec'
+import { ISpec } from '@typings/shared/spec'
 
 interface SubUsersFreelancerColumnsProps {
   onClickRemoveBtn: (row: GridRowParams) => void

@@ -13,16 +13,17 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
+import { IPaginationModel } from '@typings/shared/data-grid'
+
 import { useStyles } from './custom-page-switcher.style'
 
-import { PaginationModel } from '../../../../typings/pagination-model'
 import { Field } from '../field'
 
 interface CustomPageSwitcherProps {
-  paginationModel: PaginationModel
+  paginationModel: IPaginationModel
   rowCount: number
   pageSizeOptions: Array<number>
-  onChangePaginationModelChange: (model: PaginationModel) => void
+  onChangePaginationModelChange: (model: IPaginationModel) => void
 }
 
 export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props => {

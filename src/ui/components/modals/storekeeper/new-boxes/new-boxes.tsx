@@ -8,7 +8,7 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 
 import { t } from '@utils/translations'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useStyles } from './new-boxes.style'
 

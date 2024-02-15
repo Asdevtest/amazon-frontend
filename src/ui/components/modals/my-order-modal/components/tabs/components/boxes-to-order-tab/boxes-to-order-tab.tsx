@@ -17,7 +17,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './boxes-to-order-tab.style'
 

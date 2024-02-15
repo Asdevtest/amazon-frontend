@@ -10,19 +10,20 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './announcement-modal.style'
 
 interface AnnouncementModalProps {
   isOpenModal: boolean
-  service: IService
+  service: IAnnoucement
   onOpenModal: () => void
   choose?: boolean
   order?: boolean
   select?: boolean
-  onClickButton?: (service: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickButton?: (service: IAnnoucement) => void
+  onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
 export const AnnouncementModal: FC<AnnouncementModalProps> = props => {

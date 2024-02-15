@@ -8,8 +8,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { IDestination } from '@typings/destination'
-import { IStorekeeper } from '@typings/storekeeper'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './view-header.style'
 

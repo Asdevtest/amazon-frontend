@@ -6,17 +6,17 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { Payment } from '@typings/payments'
+import { IPayment } from '@typings/shared/payment'
 
 import { useStyles } from './payment-methods-form.style'
 
 import { PaymentMethodCard } from './payment-method-card'
 
 interface PaymentMethodsFormProps {
-  orderPayments: Payment[]
-  allPayments: Payment[]
+  orderPayments: IPayment[]
+  allPayments: IPayment[]
   onClickCancelButton: () => void
-  onClickSaveButton?: (payments: Payment[]) => void
+  onClickSaveButton?: (payments: IPayment[]) => void
   readOnly?: boolean
 }
 
@@ -25,14 +25,14 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const [selectedPayments, setSelectedPayments] = useState<Payment[]>(allPayments || [])
+  const [selectedPayments, setSelectedPayments] = useState<IPayment[]>(allPayments || [])
 
   useEffect(() => {
     if (orderPayments?.length) {
       const updatedPayments = allPayments
         .map(payment => {
           const foundPayment = orderPayments.find(
-            orderPayment => orderPayment.paymentMethod._id === payment.paymentMethod._id,
+            orderPayment => orderPayment?.paymentMethod?._id === payment?.paymentMethod?._id,
           )
 
           return foundPayment ? { ...foundPayment, isChecked: true } : payment

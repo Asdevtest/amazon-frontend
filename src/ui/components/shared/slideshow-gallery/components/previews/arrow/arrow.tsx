@@ -2,7 +2,8 @@ import { FC, memo } from 'react'
 
 import { ArrowDownIcon, ArrowUpIcon } from '@components/shared/svg-icons'
 
-import { Arrows, ArrowsType } from '@typings/arrow'
+import { Arrows } from '@typings/enums/arrows'
+import { ArrowsType } from '@typings/types/arrows'
 
 import { useStyles } from './arrow.style'
 

@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './chat-files-input.style'
 

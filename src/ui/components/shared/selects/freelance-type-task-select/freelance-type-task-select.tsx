@@ -7,7 +7,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { ISpec } from '@typings/spec'
+import { ISpec } from '@typings/shared/spec'
 
 interface FreelanceTypeTaskSelectProps {
   selectedSpec: number
