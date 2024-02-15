@@ -109,8 +109,6 @@ const Slot = ({
               }}
             >
               {slot.image ? (
-                // <DisabledByDefaultOutlinedIcon className={styles.removeIcon} />
-
                 <CrossInRectangleIcon className={styles.removeIcon} />
               ) : (
                 <CloseOutlinedIcon className={styles.removeIcon} />
@@ -118,13 +116,6 @@ const Slot = ({
             </div>
             {slot.image ? (
               <div className={styles.imageListItem}>
-                {/* <Tooltip
-                  arrow
-                  title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.name}
-                  placement="right-end"
-                  TransitionComponent={Zoom}
-                  TransitionProps={{timeout: 300}}
-                > */}
                 <Avatar
                   className={styles.image}
                   classes={{ img: styles.image }}
@@ -149,7 +140,6 @@ const Slot = ({
                     }
                   }}
                 />
-                {/* </Tooltip> */}
               </div>
             ) : (
               <div className={styles.imageSubWrapper}>
@@ -321,157 +311,154 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
   const disableSubmit = imagesData.every(el => !el.image)
 
-  /* const filteredImagesData = imagesData.filter(el =>
-    checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
-  ) */
-  /* const fileLinks = imagesData.map(el => el.image)
-  const photosTitles = imagesData.map(el => el.comment)
-  const photosComments = imagesData.map(el => el.commentByClient) */
-
   return (
-    <div className={styles.modalMainWrapper}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.headerLeftSubWrapper}>
-          <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
-            TranslationKey['Request result'],
-          )} / ID ${request.request.humanFriendlyId}`}</Typography>
+    <>
+      <div className={styles.modalMainWrapper}>
+        <div className={styles.headerWrapper}>
+          <div className={styles.headerLeftSubWrapper}>
+            <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
+              TranslationKey['Request result'],
+            )} / ID ${request.request.humanFriendlyId}`}</Typography>
 
-          <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
-            {t(TranslationKey['Your image recommendations'])}
-          </Typography>
+            <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
+              {t(TranslationKey['Your image recommendations'])}
+            </Typography>
 
-          <Typography className={cx(styles.headerSubText, styles.textMargin)}>
-            {t(TranslationKey['Upload your recommendations for product images.'])}
-          </Typography>
+            <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+              {t(TranslationKey['Upload your recommendations for product images.'])}
+            </Typography>
 
-          <Accordion
-            disableGutters
-            classes={{ root: styles.accordionMain }}
-            expanded={showDetails}
-            onChange={onClickToShowDetails}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              classes={{
-                root: styles.accordion,
-                content: styles.accordionContent,
-                expandIconWrapper: styles.expandIconWrapper,
+            <Accordion
+              disableGutters
+              classes={{ root: styles.accordionMain }}
+              expanded={showDetails}
+              onChange={onClickToShowDetails}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                classes={{
+                  root: styles.accordion,
+                  content: styles.accordionContent,
+                  expandIconWrapper: styles.expandIconWrapper,
+                }}
+              >
+                <Typography className={styles.headerLabel}>
+                  {showDetails
+                    ? t(TranslationKey['Hide image guidelines'])
+                    : t(TranslationKey['Show image guidelines'])}
+                </Typography>
+              </AccordionSummary>
+
+              <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
+                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                  {t(TranslationKey['Product images style guideline'])}
+                </Typography>
+
+                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                  {t(
+                    TranslationKey[
+                      'Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.'
+                    ],
+                  )}
+                </Typography>
+
+                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                  {t(
+                    TranslationKey[
+                      'Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.'
+                    ],
+                  )}
+                </Typography>
+
+                <div className={cx(styles.uploadGuidWrapper, styles.labelMargin)}>
+                  <Typography className={cx(styles.headerLabel, styles.spanText)}>
+                    {t(TranslationKey['Upload multiple files'])}
+                  </Typography>
+                  <Typography className={cx(styles.headerLabel)}>
+                    {t(TranslationKey['or drag and drop 1 or more files below']) + '.'}
+                  </Typography>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </div>
+          <div className={styles.headerRightSubWrapper}>
+            <Field
+              labelClasses={styles.fieldLabel}
+              label={t(TranslationKey['Time till deadline'])}
+              containerClasses={styles.containerField}
+              inputComponent={
+                <Typography className={styles.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
+              }
+            />
+
+            <Field
+              multiline
+              className={cx(styles.heightFieldAuto)}
+              labelClasses={styles.fieldLabel}
+              containerClasses={styles.comment}
+              inputProps={{ maxLength: 1000 }}
+              minRows={4}
+              maxRows={4}
+              label={t(TranslationKey["Performer's comment"])}
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className={styles.bodyWrapper}>
+          <DndProvider backend={HTML5Backend}>
+            {imagesData.map((slot, index) => (
+              <Slot
+                key={slot._id}
+                slot={slot}
+                index={index}
+                setCurImageIndex={setCurImageIndex}
+                imagesData={imagesData}
+                setImagesData={setImagesData}
+                setShowImageModal={setShowImageModal}
+                showImageModal={showImageModal}
+                isRework={isRework}
+                onPasteFiles={onPasteFiles}
+                onUploadFile={onUploadFile}
+                onClickRemoveItem={onClickRemoveItem}
+                onChangeImageFileds={onChangeImageFileds}
+              />
+            ))}
+          </DndProvider>
+        </div>
+
+        <div className={styles.footerWrapper}>
+          <div className={styles.bigPlusWrapper}>
+            <BigPlus className={styles.bigPlus} onClick={onClickAddImageObj} />
+          </div>
+
+          <div className={styles.flexContainer}>
+            <Field
+              labelClasses={styles.fieldLabel}
+              inputClasses={styles.linkInput}
+              inputProps={{ maxLength: 500 }}
+              label={t(TranslationKey['Link to sources']) + ':'}
+              containerClasses={styles.containerField}
+              value={sourceLink}
+              onChange={e => setSourceLink(e.target.value)}
+            />
+
+            <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+              {t(TranslationKey.Back)}
+            </Button>
+
+            <Button
+              disabled={disableSubmit}
+              className={cx(styles.button)}
+              onClick={() => {
+                onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.image), sourceLink })
+                setOpenModal()
               }}
             >
-              <Typography className={styles.headerLabel}>
-                {showDetails ? t(TranslationKey['Hide image guidelines']) : t(TranslationKey['Show image guidelines'])}
-              </Typography>
-            </AccordionSummary>
-
-            <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
-              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
-                {t(TranslationKey['Product images style guideline'])}
-              </Typography>
-
-              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
-                {t(
-                  TranslationKey[
-                    'Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.'
-                  ],
-                )}
-              </Typography>
-
-              <Typography className={cx(styles.headerSubText, styles.textMargin)}>
-                {t(
-                  TranslationKey[
-                    'Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.'
-                  ],
-                )}
-              </Typography>
-
-              <div className={cx(styles.uploadGuidWrapper, styles.labelMargin)}>
-                <Typography className={cx(styles.headerLabel, styles.spanText)}>
-                  {t(TranslationKey['Upload multiple files'])}
-                </Typography>
-                <Typography className={cx(styles.headerLabel)}>
-                  {t(TranslationKey['or drag and drop 1 or more files below']) + '.'}
-                </Typography>
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </div>
-        <div className={styles.headerRightSubWrapper}>
-          <Field
-            labelClasses={styles.fieldLabel}
-            label={t(TranslationKey['Time till deadline'])}
-            containerClasses={styles.containerField}
-            inputComponent={
-              <Typography className={styles.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
-            }
-          />
-
-          <Field
-            multiline
-            className={cx(styles.heightFieldAuto)}
-            labelClasses={styles.fieldLabel}
-            containerClasses={styles.comment}
-            inputProps={{ maxLength: 1000 }}
-            minRows={4}
-            maxRows={4}
-            label={t(TranslationKey["Performer's comment"])}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className={styles.bodyWrapper}>
-        <DndProvider backend={HTML5Backend}>
-          {imagesData.map((slot, index) => (
-            <Slot
-              key={slot._id}
-              slot={slot}
-              index={index}
-              setCurImageIndex={setCurImageIndex}
-              imagesData={imagesData}
-              setImagesData={setImagesData}
-              setShowImageModal={setShowImageModal}
-              showImageModal={showImageModal}
-              isRework={isRework}
-              onPasteFiles={onPasteFiles}
-              onUploadFile={onUploadFile}
-              onClickRemoveItem={onClickRemoveItem}
-              onChangeImageFileds={onChangeImageFileds}
-            />
-          ))}
-        </DndProvider>
-      </div>
-
-      <div className={styles.footerWrapper}>
-        <div className={styles.bigPlusWrapper}>
-          <BigPlus className={styles.bigPlus} onClick={onClickAddImageObj} />
-        </div>
-
-        <div className={styles.flexContainer}>
-          <Field
-            labelClasses={styles.fieldLabel}
-            inputClasses={styles.linkInput}
-            inputProps={{ maxLength: 500 }}
-            label={t(TranslationKey['Link to sources']) + ':'}
-            containerClasses={styles.containerField}
-            value={sourceLink}
-            onChange={e => setSourceLink(e.target.value)}
-          />
-
-          <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
-            {t(TranslationKey.Back)}
-          </Button>
-
-          <Button
-            disabled={disableSubmit}
-            className={cx(styles.button)}
-            onClick={() => {
-              onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.image), sourceLink })
-              setOpenModal()
-            }}
-          >
-            {t(TranslationKey.Send)}
-          </Button>
+              {t(TranslationKey.Send)}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -486,6 +473,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           onChangeImagesForLoad={setImagesData}
         />
       )}
-    </div>
+    </>
   )
 }

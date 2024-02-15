@@ -69,7 +69,7 @@ export const useSlideshowGalleryModal = ({
         ? prevMediaFiles.map((item, index) => (index === mediaFileIndex ? '' : item))
         : prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
 
-      if (mediaFileIndex > 0) {
+      if (mediaFileIndex > 0 && !isArrayOfMediaRequest(files)) {
         setFileIndex(mediaFileIndex - 1) // returns to the previous photo
       }
 

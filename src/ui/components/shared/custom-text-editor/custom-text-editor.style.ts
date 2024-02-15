@@ -27,13 +27,12 @@ export const useStyles = makeStyles()(theme => ({
 
   editor: {
     width: '100%',
-    height: '100%',
     minHeight: 150,
-    maxHeight: 1000,
+    maxHeight: 900,
     overflowY: 'auto',
     fontSize: 16,
     lineHeight: '22px',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
 
     '.public-DraftEditor-content': {
       minHeight: 130,

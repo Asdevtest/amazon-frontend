@@ -318,7 +318,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorClassName: {
-    maxHeight: 250,
+    maxHeight: 200,
   },
 
   editorWrapper: {
