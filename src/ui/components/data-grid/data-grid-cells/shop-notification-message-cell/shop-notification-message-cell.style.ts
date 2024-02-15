@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => {
     tooltip: {
       fontSize: '14px',
       color: colorPrimary,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.second,
     },
   }
 })
