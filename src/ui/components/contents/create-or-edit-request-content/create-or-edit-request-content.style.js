@@ -318,4 +318,8 @@ export const useStyles = makeStyles()(theme => ({
   buttonSelect: {
     width: 200,
   },
+
+  editorClassName: {
+    maxHeight: 200,
+  },
 }))
