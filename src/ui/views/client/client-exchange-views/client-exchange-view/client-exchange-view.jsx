@@ -84,6 +84,7 @@ export const ClientExchangeView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           shops={viewModel.shopsData}
