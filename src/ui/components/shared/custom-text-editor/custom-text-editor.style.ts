@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(theme => ({
 
   container: {
     margin: '0 !important',
+    height: '100%',
   },
 
   editorContainer: {
