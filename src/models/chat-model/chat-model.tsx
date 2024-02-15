@@ -456,7 +456,11 @@ class ChatModelStatic {
       const { chatType, index } = chatTypeAndIndex
       runInAction(() => {
         // @ts-ignore
-        this[chatType][index].users = [...this[chatType][index].users, ...addedUsers]
+        this[chatType][index] = {
+          ...this[chatType][index],
+          // @ts-ignore
+          users: [...this[chatType][index].users, ...addedUsers],
+        }
       })
     } catch (error) {
       console.log(error)

@@ -200,6 +200,7 @@ export const Chat: FC<ChatProps> = memo(
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
       setMessageToReply(null)
       resetAllInputs()
+      onClickScrollToBottom()
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {

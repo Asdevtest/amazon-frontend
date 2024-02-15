@@ -165,28 +165,24 @@ export const MessagesView = observer(({ history }) => {
             updateData={viewModel.loadData}
             currentOpponent={currentOpponent}
             requestStatus={viewModel.requestStatus}
-            headerChatComponent={props => {
-              console.log('props', props)
-
-              return (
-                <ChatHeader
-                  currentChat={currentChat}
-                  currentOpponent={currentOpponent}
-                  isChatSelectedAndFound={isChatSelectedAndFound}
-                  searchInputValue={viewModel.mesSearchValue}
-                  isTabletResolution={isTabletResolution}
-                  unreadMessages={viewModel.unreadMessages}
-                  foundMessages={viewModel.messagesFound}
-                  isMuteCurrentChat={isMuteCurrentChat}
-                  curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
-                  onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
-                  onClickBackButton={viewModel.onClickBackButton}
-                  onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
-                  onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
-                  {...props}
-                />
-              )
-            }}
+            headerChatComponent={props => (
+              <ChatHeader
+                currentChat={currentChat}
+                currentOpponent={currentOpponent}
+                isChatSelectedAndFound={isChatSelectedAndFound}
+                searchInputValue={viewModel.mesSearchValue}
+                isTabletResolution={isTabletResolution}
+                unreadMessages={viewModel.unreadMessages}
+                foundMessages={viewModel.messagesFound}
+                isMuteCurrentChat={isMuteCurrentChat}
+                curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
+                onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                onClickBackButton={viewModel.onClickBackButton}
+                onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                {...props}
+              />
+            )}
             onChangeRequestStatus={viewModel.setRequestStatus}
             onSubmitMessage={(message, files, replyMessageId) =>
               viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
