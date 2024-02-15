@@ -679,7 +679,6 @@ export class ClientIdeasViewModel {
 
     this.loadData()
 
-    this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
     })

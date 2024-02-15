@@ -131,7 +131,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             </>
           )}
 
-          {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && status !== RequestStatus.EXPIRED && (
+          {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED /* && status !== RequestStatus.EXPIRED */ && (
             <div className={cx(styles.btnsRow, styles.btnsRowIsLast)}>
               <Button
                 tooltipInfoContent={
