@@ -22,8 +22,6 @@ export const ClientShopsView = observer(() => {
   const [viewModel] = useState(() => new ShopsViewModel())
   viewModel.initHistory()
 
-  console.log('viewModel.filterModel :>> ', viewModel.filterModel)
-
   return (
     <>
       <Header
