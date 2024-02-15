@@ -193,14 +193,15 @@ export const Chat: FC<ChatProps> = memo(
 
         onChangeRequestStatus(loadingStatuses.SUCCESS)
       }
+
       messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
     }
 
-    const onSubmitMessageInternal = () => {
-      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
+    const onSubmitMessageInternal = async () => {
       setMessageToReply(null)
       resetAllInputs()
-      onClickScrollToBottom()
+      await onClickScrollToBottom()
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
