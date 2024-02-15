@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './feedback-modal.style'
 
-export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) => {
+export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
