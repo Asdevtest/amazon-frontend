@@ -90,7 +90,6 @@ export const WithSearchSelect = memo(
 
     const handleClose = () => {
       setAnchorEl(null)
-      onClickSubmitSearch ? onClickSubmitSearch('') : undefined
     }
 
     useEffect(() => {
@@ -166,7 +165,10 @@ export const WithSearchSelect = memo(
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              onClose={handleClose}
+              onClose={() => {
+                handleClose()
+                onClickSubmitSearch ? onClickSubmitSearch('') : undefined
+              }}
             >
               <div
                 className={cx(styles.subMainWrapper, customSubMainWrapper)}
