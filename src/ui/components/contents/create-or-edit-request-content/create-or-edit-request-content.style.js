@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     position: 'relative',
     padding: 30,
-    height: '81vh',
+    height: '80vh',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -230,8 +230,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   stepTitle: {
-    margin: 0,
-    padding: 0,
+    margin: '0',
+    padding: '0',
+    marginTop: 5,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -288,13 +289,11 @@ export const useStyles = makeStyles()(theme => ({
   infoTextWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
   },
 
   performerWrapperStepTwo: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
   },
 
   performerDescriptionText: {
@@ -317,7 +316,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editorClassName: {
-    maxHeight: 200,
+    maxHeight: 160,
   },
 
   editorWrapper: {
