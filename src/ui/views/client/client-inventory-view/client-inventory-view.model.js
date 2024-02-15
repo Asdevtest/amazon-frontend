@@ -1,4 +1,5 @@
 import { makeObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -946,26 +947,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
+        toast.success(t(TranslationKey['The order has been created']))
       }
 
       await this.getMainTableData()
@@ -999,11 +981,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(`${t(TranslationKey["You can't order"])} "${error.body.message}"`)
     }
   }
 

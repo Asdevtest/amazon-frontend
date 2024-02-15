@@ -39,7 +39,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
     request?.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
   const showAcceptingProposalsButton =
     request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
-    request?.status !== RequestStatus.EXPIRED &&
+    // request?.status !== RequestStatus.EXPIRED &&
     request?.status !== RequestStatus.DRAFT
   const showMainActionsButton =
     request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED)
