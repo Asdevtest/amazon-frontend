@@ -2141,7 +2141,7 @@ export enum TranslationKey {
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
   'Wish to set a destination?' = 'Wish to set a destination?',
   'Editing is unavailable due to change of current supplier' = 'Editing is unavailable due to change of current supplier',
-  'Pending orders already exist' = 'Pending orders already exist',
+  'Orders already exist' = 'Orders already exist',
   'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.' = 'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.',
   'This rate may have an irrelevant value as the rate may have been changed after shipment.' = 'This rate may have an irrelevant value as the rate may have been changed after shipment.',
   'pc' = 'pc',
