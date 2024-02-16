@@ -36,7 +36,7 @@ export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
         return (
           <div key={index} className={styles.product}>
             <div key={index} className={styles.photosWrapper}>
-              <p className={cx(styles.bigText, styles.blueColor)}>{index + 1}</p>
+              {/* <p className={cx(styles.bigText, styles.blueColor)}>{index + 1}</p> */}
 
               <PhotoAndFilesSlider withoutFiles showPreviews customSlideHeight={80} files={item.product.images} />
             </div>

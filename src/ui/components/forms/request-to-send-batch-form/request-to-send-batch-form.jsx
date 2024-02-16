@@ -86,6 +86,10 @@ export const RequestToSendBatchForm = observer(
       setSubmitIsClicked(false)
     }
 
+    const isHasTransparencyDoesntHasImages = boxesMy.some(box =>
+      box.items.some(item => item?.product?.transparency && !box?.images?.length),
+    )
+
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
       boxesWithPriceRequest.some(
@@ -110,7 +114,8 @@ export const RequestToSendBatchForm = observer(
                   !item?.isTransparencyFileAttachedByTheStorekeeper)) &&
               item?.product?.transparency,
           ),
-      )
+      ) ||
+      isHasTransparencyDoesntHasImages
 
     return (
       <div className={styles.content}>
@@ -147,6 +152,16 @@ export const RequestToSendBatchForm = observer(
         </div>
 
         <div className={styles.btnsWrapper}>
+          {isHasTransparencyDoesntHasImages ? (
+            <p className={styles.warningText}>
+              {t(
+                TranslationKey[
+                  'Attention, it is necessary to add a photo of the product with glued transparency to the box'
+                ],
+              )}
+            </p>
+          ) : null}
+
           <Button
             disabled={disabledSubmit}
             tooltipAttentionContent={t(
