@@ -2196,6 +2196,7 @@ export enum TranslationKey {
   'Add to request' = 'Add to request',
   'Store data will be updated soon' = 'Store data will be updated soon',
   'Successfully updated' = 'Successfully updated',
-  'Not updated because of a bug' = 'Not updated because of a bug',
+  'Not updating due to an error' = 'Not updating due to an error',
+
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
