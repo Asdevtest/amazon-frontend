@@ -90,4 +90,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+
+  gallery: {
+    margin: '20px 0',
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))

@@ -9,7 +9,7 @@ import { DEFAULT_QUANTITY_SLIDES } from './slideshow-gallery.constants'
 import { useSlideshowGallery } from './use-slideshow-gallery'
 
 interface SlideshowGalleryProps {
-  files: UploadFileType[]
+  files: IMediaRequest[] | UploadFileType[]
   slidesToShow?: number
   hiddenPreviews?: boolean
   leftPreviews?: boolean
@@ -66,7 +66,7 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
         <SlideshowGalleryModal
           isEditable={isEditable}
           withoutMakeMainImage={withoutMakeMainImage}
-          files={mediaFiles}
+          files={files}
           currentFileIndex={currentMediaFileIndex}
           isOpenModal={openImageModal}
           onCurrentFileIndex={setCurrentMediaFileIndex}

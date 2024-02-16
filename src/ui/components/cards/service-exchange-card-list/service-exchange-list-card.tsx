@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -41,72 +41,67 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   }
 
   return (
-    <div className={styles.cardWrapper}>
-      <PhotoAndFilesSlider
-        withoutFiles
-        showPreviews
-        smallPhotos
-        files={service.linksToMediaFiles}
-        mainClasses={!service.linksToMediaFiles.length ? styles.photosWrapper : ''}
-      />
+    <>
+      <div className={styles.cardWrapper}>
+        <SlideshowGallery files={service.linksToMediaFiles} slidesToShow={1} />
 
-      <div className={styles.titleAndDescriptionWrapper}>
-        <p className={styles.cardTitle}>{service.title}</p>
+        <div className={styles.titleAndDescriptionWrapper}>
+          <p className={styles.cardTitle}>{service.title}</p>
 
-        <p className={styles.cardDescription}>{service.description}</p>
+          <p className={styles.cardDescription}>{service.description}</p>
 
-        <button className={styles.detailedDescription} onClick={handleToggleModal}>
-          {t(TranslationKey.Details)}
-        </button>
-      </div>
+          <button className={styles.detailedDescription} onClick={handleToggleModal}>
+            {t(TranslationKey.Details)}
+          </button>
+        </div>
 
-      <div className={styles.detailsAndButtonWrapper}>
-        {isNotMyServices ? (
-          <div className={styles.detailsWrapper}>
-            <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
-                {detailDescription}
-              </p>
+        <div className={styles.detailsAndButtonWrapper}>
+          {isNotMyServices ? (
+            <div className={styles.detailsWrapper}>
+              <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
+                <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+                <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                  {detailDescription}
+                </p>
+              </div>
+
+              <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
+                <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+                <UserLink
+                  blackText
+                  withAvatar
+                  ratingSize="small"
+                  name={service.createdBy.name}
+                  userId={service.createdBy._id}
+                  rating={service.createdBy.rating}
+                  customAvatarStyles={{ width: 30, height: 30 }}
+                  customStyles={{ fontSize: 14, lineHeight: '17px' }}
+                  customRatingClass={{ fontSize: 13, opacity: 1 }}
+                />
+              </div>
             </div>
-
-            <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
-              <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
-              <UserLink
-                blackText
-                withAvatar
-                ratingSize="small"
-                name={service.createdBy.name}
-                userId={service.createdBy._id}
-                rating={service.createdBy.rating}
-                customAvatarStyles={{ width: 30, height: 30 }}
-                customStyles={{ fontSize: 14, lineHeight: '17px' }}
-                customRatingClass={{ fontSize: 13, opacity: 1 }}
-              />
+          ) : (
+            <div className={styles.detailsWrapperAll}>
+              <div className={styles.detailsSubWrapperAll}>
+                <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
+                <p className={styles.detailDescription}>{service.requests.length}</p>
+              </div>
+              <div className={styles.detailsSubWrapperAll}>
+                <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+                <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                  {detailDescription}
+                </p>
+              </div>
             </div>
+          )}
+
+          <div className={styles.buttonWrapper}>
+            <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
+              {buttonContent}
+            </Button>
           </div>
-        ) : (
-          <div className={styles.detailsWrapperAll}>
-            <div className={styles.detailsSubWrapperAll}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
-              <p className={styles.detailDescription}>{service.requests.length}</p>
-            </div>
-            <div className={styles.detailsSubWrapperAll}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
-                {detailDescription}
-              </p>
-            </div>
-          </div>
-        )}
-
-        <div className={styles.buttonWrapper}>
-          <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
-            {buttonContent}
-          </Button>
         </div>
       </div>
-
       {isOpenModal && (
         <AnnouncementModal
           isOpenModal={isOpenModal}
@@ -117,6 +112,6 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
           onClickButton={() => onClickButton(service)}
         />
       )}
-    </div>
+    </>
   )
 })

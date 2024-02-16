@@ -10,10 +10,9 @@ import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -43,11 +42,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
-  const requestMedia = request?.media?.filter(el => checkIsMediaFileLink(el.fileLink))
-  const requestPhotos = requestMedia?.map(el => el.fileLink)
-  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
-  const requestComments = requestMedia?.map(el => el.commentByClient)
-  const requestDocuments = request?.media.map(el => el.fileLink)
+  const requestMedia = request?.media?.map(el => ({
+    image: el.fileLink,
+    comment: el.commentByPerformer,
+    commentByClient: el.commentByClient,
+    _id: el._id,
+  }))
 
   return (
     <Modal openModal={isOpenModal} setOpenModal={handleOpenModal}>
@@ -86,13 +86,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
         <div className={styles.content}>
           <div className={styles.productInfo}>
             <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
-            <PhotoAndFilesSlider
-              withoutFiles
-              isHideCounter
-              showPreviews
-              customSlideHeight={215}
-              files={request?.product?.images}
-            />
+            <SlideshowGallery files={request?.product?.images} slidesToShow={3} />
+
             <div className={styles.category}>
               {request?.product.asin && (
                 <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={request?.product.asin} />
@@ -107,21 +102,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
-              <div className={styles.filesItem}>
-                <Typography>{t(TranslationKey.Photos)}</Typography>
-                <PhotoAndFilesSlider
-                  withoutFiles
-                  showPreviews
-                  customSlideHeight={75}
-                  files={requestPhotos}
-                  photosTitles={requestTitles}
-                  photosComments={requestComments}
-                />
-              </div>
-              <div className={styles.filesList}>
-                <Typography>{t(TranslationKey.Files)}</Typography>
-                <PhotoAndFilesSlider withoutPhotos customSlideHeight={75} files={requestDocuments} />
-              </div>
+
+              <SlideshowGallery files={requestMedia} slidesToShow={2} />
             </div>
           </div>
 

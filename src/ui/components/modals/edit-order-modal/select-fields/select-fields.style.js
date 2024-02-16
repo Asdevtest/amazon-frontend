@@ -378,4 +378,10 @@ export const useStyles = makeStyles()(theme => ({
   supplierPaymentButtonBtnWrapperStyle: {
     width: '100%',
   },
+
+  gallery: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))
