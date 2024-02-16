@@ -35,7 +35,7 @@ export const SelectionSupplierModal = ({
   const [selectedButtonValue, setSelectedButtonValue] = useState(buttonValue || '')
   const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(!!buttonValue || false)
 
-  const [comment, setComment] = useState(parseTextString(product?.originalData?.clientComment) || '')
+  const [comment, setComment] = useState(parseTextString(product?.clientComment) || '')
 
   const { classes: styles, cx } = useStyles()
 
@@ -124,7 +124,7 @@ export const SelectionSupplierModal = ({
           <div className={styles.modalButtonsWrapper}>
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData?.status)}
+              disabled={product && !clientToEditStatuses.includes(product?.status)}
               className={buttonSendRequestClsx}
               onClick={() => onClickSendRequestButton()}
             >
@@ -133,7 +133,7 @@ export const SelectionSupplierModal = ({
 
             <Button
               tooltipAttentionContent={t(TranslationKey['Free service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData?.status)}
+              disabled={product && !clientToEditStatuses.includes(product?.status)}
               className={buttonAddSupplierClsx}
               onClick={() => onClickAddSupplierButton()}
             >
