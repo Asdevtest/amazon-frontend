@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -20,7 +21,7 @@ import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
-  requestStatus = undefined
+  requestStatus = loadingStatuses.IS_LOADING // for first render
 
   acceptMessage = null
   showAcceptMessage = false
@@ -32,7 +33,7 @@ export class CreateOrEditRequestViewModel {
   masterUsersData = []
   announcementId = undefined
   announcements = []
-  choosenAnnouncements = {}
+  choosenAnnouncements = undefined
   productMedia = undefined
   bigImagesOptions = {}
   showImageModal = false
@@ -91,14 +92,20 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  loadData() {
+  async loadData() {
     try {
-      this.getCustomRequestCur()
-      this.getPlatformSettingsData()
+      // status change is required for loading
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      await this.getCustomRequestCur()
       this.getAnnouncementData()
+      this.getPlatformSettingsData()
       this.getSpecs()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -281,18 +288,13 @@ export class CreateOrEditRequestViewModel {
   async getCustomRequestCur() {
     if (this.requestId) {
       try {
-        this.setRequestStatus(loadingStatuses.IS_LOADING)
-
         const result = await RequestModel.getCustomRequestById(this.requestId)
 
         runInAction(() => {
           this.requestToEdit = result
         })
-
-        this.setRequestStatus(loadingStatuses.SUCCESS)
       } catch (error) {
         console.log(error)
-        this.setRequestStatus(loadingStatuses.FAILED)
       }
     }
   }
