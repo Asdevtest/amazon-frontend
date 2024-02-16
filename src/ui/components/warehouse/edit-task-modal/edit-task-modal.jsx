@@ -144,34 +144,24 @@ export const EditTaskModal = memo(
       setIsFileDownloading(false)
     }
 
+    const isEditTask = task?.operationType === TaskOperationType.EDIT
     const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
 
     const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
 
     const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
 
-    const receiveNotFromBuyer = (isManyItemsInSomeBox || noTariffInSomeBox) && isReciveTypeTask
+    const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
 
     const isSomeBoxHasntImageToRecive =
-      newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) && isReciveTypeTask
+      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
 
-    const disableSaveButton =
-      !newBoxes.length ||
-      requestStatus === loadingStatuses.IS_LOADING ||
-      !isFilledNewBoxesDimensions ||
-      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer)
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
 
-    console.log('newBoxes :>> ', newBoxes)
-    console.log('task.boxesBefore :>> ', task.boxesBefore)
-
-    const isEditTask = task?.operationType === TaskOperationType.EDIT
-
-    const isTaskWithChangeBarcodeOrTransparency =
+    const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
       task?.boxesBefore.some(box => {
         const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
-
-        console.log('2')
 
         if (newBox) {
           return newBox.items?.some((item, itemIndex) => {
@@ -182,7 +172,14 @@ export const EditTaskModal = memo(
         }
       })
 
-    console.log('isTaskWithChangeBarcodeOrTransparency', isTaskWithChangeBarcodeOrTransparency)
+    const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
+
+    const disableSaveButton =
+      !newBoxes.length ||
+      requestStatus === loadingStatuses.IS_LOADING ||
+      !isFilledNewBoxesDimensions ||
+      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer) ||
+      isNoChangesBarcodeOrTransparency
 
     return (
       <div className={styles.root}>
@@ -307,10 +304,9 @@ export const EditTaskModal = memo(
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
-              {/* {
-              newBoxes?.some(box => )
-            } */}
-              <p className={styles.errorText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+              {isNoChangesBarcodeOrTransparency ? (
+                <p className={styles.errorText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+              ) : null}
 
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
