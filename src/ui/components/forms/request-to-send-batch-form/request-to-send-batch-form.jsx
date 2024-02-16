@@ -86,8 +86,6 @@ export const RequestToSendBatchForm = observer(
       setSubmitIsClicked(false)
     }
 
-    console.log('boxesMy :>> ', boxesMy)
-
     const isHasTransparencyDoesntHasImages = boxesMy.some(box =>
       box.items.some(item => item?.product?.transparency && !box?.images?.length),
     )
