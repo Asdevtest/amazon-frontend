@@ -89,11 +89,11 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  loadData() {
+  async loadData() {
     try {
-      this.getCustomRequestCur()
-      this.getPlatformSettingsData()
+      await this.getCustomRequestCur()
       this.getAnnouncementData()
+      this.getPlatformSettingsData()
       this.getSpecs()
     } catch (error) {
       console.log(error)
