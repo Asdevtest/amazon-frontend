@@ -313,8 +313,7 @@ export const BatchInfoModal = observer(
               labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  // disabled={!patchActualShippingCostBatch}
-                  isInts
+                  isInteger
                   rowId={currentBatch?._id}
                   text={currentBatch?.actualShippingCost}
                   onClickSubmit={(id, cost) => {

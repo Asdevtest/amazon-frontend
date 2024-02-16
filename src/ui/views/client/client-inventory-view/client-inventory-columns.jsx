@@ -148,7 +148,7 @@ export const clientInventoryColumns = (
       ),
       renderCell: params => (
         <ChangeInputCell
-          isInts
+          isInteger
           rowId={params.row?._id}
           text={params.value}
           onClickSubmit={stockUsHandlers.onClickSaveStockUs}
@@ -234,8 +234,8 @@ export const clientInventoryColumns = (
         <FourMonthesStockCell
           rowId={params.row?._id}
           value={params.value}
-          fourMonthesStock={params.row.fourMonthesStock}
-          onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+          fourMonthesStockValue={params.row.fourMonthesStock}
+          onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
         />
       ),
 

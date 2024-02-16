@@ -1,114 +1,86 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FC, KeyboardEvent, memo, useEffect, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, memo, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
-import { InputAdornment } from '@mui/material'
 
 import { Input } from '@components/shared/input'
 import { SaveIcon } from '@components/shared/svg-icons'
-
-import { checkIsMoreNCharactersAfterDot, checkIsNumberWithDot, checkIsPositiveNum } from '@utils/checks'
 
 import { useStyles } from './change-input-cell.style'
 
 interface ChangeInputCellProps {
   rowId: string
-  text?: string
+  text: string | number
+  onClickSubmit: (rowId: string, value: string | number) => void
   disabled?: boolean
-  isInts?: boolean
+  isInteger?: boolean
   maxLength?: number
-  checkValue: (value: string | undefined | boolean | number) => boolean
-  onClickSubmit: (rowId: string, value: string | undefined) => void
+  isString?: boolean
+  isPepurchase?: boolean
 }
 
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
+  const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
+
   const { classes: styles, cx } = useStyles()
-  const { rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue } = props
 
-  const sourceValue = text !== null ? text : ''
+  const [value, setValue] = useState(text ?? '')
+  const [isShow, setIsShow] = useState(false)
 
-  const [value, setValue] = useState(sourceValue)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value
 
-  useEffect(() => {
-    setValue(sourceValue)
-  }, [text])
+    const isIntegerValid = isInteger ? /^[+]?\d*$/.test(inputValue) : /^[+]?\d*\.?\d{0,2}$/.test(inputValue)
 
-  const [isMyInputFocused, setIsMyInputFocused] = useState(false)
-
-  const [isShow, setShow] = useState(false)
-
-  const valueChecked = checkValue ? checkValue(value) : true
-
-  useEffect(() => {
-    const listener = (event: KeyboardEvent) => {
-      if (valueChecked && isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-        event.preventDefault()
-        setShow(true)
-        setTimeout(() => {
-          setShow(false)
-        }, 2000)
-        onClickSubmit(rowId, value)
-      }
+    if (isIntegerValid) {
+      setValue(inputValue)
     }
-    // @ts-ignore
-    document.addEventListener('keydown', listener)
-    return () => {
-      // @ts-ignore
-      document.removeEventListener('keydown', listener)
+
+    if (isString) {
+      setValue(inputValue)
     }
-  }, [value])
+  }
+
+  const handleSave = () => {
+    setIsShow(true)
+
+    setTimeout(() => {
+      setIsShow(false)
+    }, 2000)
+
+    onClickSubmit(rowId, value)
+  }
+
+  const disabledSave =
+    value !== '' && (!isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50)))
+  const inputError = value === '' || !disabledSave
 
   return (
-    <div>
-      <Input
-        disabled={disabled}
-        className={cx(styles.changeInput, { [styles.errorInputActive]: !valueChecked && value !== '' })}
-        classes={{ input: styles.changeInput }}
-        inputProps={{ maxLength: maxLength ? maxLength : 7 }}
-        value={value}
-        endAdornment={
-          <InputAdornment position="start">
-            {isShow && sourceValue !== value ? (
-              <DoneIcon classes={{ root: styles.doneIcon }} />
-            ) : sourceValue !== value && valueChecked ? (
-              <div className={styles.iconWrapper}>
-                <SaveIcon
-                  className={styles.changeInputIcon}
-                  onClick={() => {
-                    setShow(true)
-                    setTimeout(() => {
-                      setShow(false)
-                    }, 2000)
-                    onClickSubmit(rowId, value)
-                  }}
-                />
-                <ClearIcon classes={{ root: styles.clearIcon }} onClick={() => setValue(sourceValue)} />
-              </div>
-            ) : null}
-          </InputAdornment>
-        }
-        onChange={(e: any) => {
-          if (isInts) {
-            if (
-              checkIsPositiveNum(e.target.value) &&
-              checkIsNumberWithDot(e.target.value) &&
-              !checkIsMoreNCharactersAfterDot(e.target.value, 2)
-            ) {
-              setValue(e.target.value)
-            }
-          } else {
-            setValue(e.target.value)
-          }
-        }}
-        onKeyDown={(e: any) => {
-          e.stopPropagation()
-        }}
-        onBlur={() => setIsMyInputFocused(false)}
-        onFocus={() => setIsMyInputFocused(true)}
-      />
-    </div>
+    <Input
+      disabled={disabled}
+      className={cx({ [styles.error]: inputError })}
+      classes={{ input: styles.input }}
+      inputProps={{ maxLength: maxLength || 7 }}
+      value={value}
+      endAdornment={
+        <>
+          {isShow ? <DoneIcon className={styles.doneIcon} /> : null}
+
+          {text !== Number(value) && !isShow ? (
+            <div className={styles.icons}>
+              <button disabled={!disabledSave} className={styles.button} onClick={handleSave}>
+                <SaveIcon className={styles.saveIcon} />
+              </button>
+
+              <button className={styles.button} onClick={() => setValue(text)}>
+                <ClearIcon className={styles.clearIcon} />
+              </button>
+            </div>
+          ) : null}
+        </>
+      }
+      onChange={handleChange}
+      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => e.stopPropagation()}
+    />
   )
 })
