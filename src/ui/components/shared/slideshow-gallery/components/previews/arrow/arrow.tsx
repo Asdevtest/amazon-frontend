@@ -12,10 +12,11 @@ interface ArrowProps {
   isDisableArrow: boolean
   isSlidesFitOnScreenWithoutArrows: boolean
   onClick: (direction: ArrowsType) => void
+  isModalSize?: boolean
 }
 
 export const Arrow: FC<ArrowProps> = memo(props => {
-  const { direction, isDisableArrow, isSlidesFitOnScreenWithoutArrows, onClick } = props
+  const { isModalSize, direction, isDisableArrow, isSlidesFitOnScreenWithoutArrows, onClick } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -26,13 +27,15 @@ export const Arrow: FC<ArrowProps> = memo(props => {
     <button
       disabled={isDisableArrow}
       className={cx(styles.arrowButton, {
-        [styles.arrowIconDisable]: isDisableArrow,
+        [styles.arrowDisable]: isDisableArrow,
+        [styles.arrowButtonModalSize]: isModalSize,
       })}
       onClick={() => onClick(isDownArrow ? Arrows.DOWN : Arrows.UP)}
     >
       <ArrowIcon
         className={cx(styles.arrowIcon, {
-          [styles.arrowIconDisable]: isDisableArrow,
+          [styles.arrowDisable]: isDisableArrow,
+          [styles.arrowModalSize]: isModalSize,
         })}
       />
     </button>

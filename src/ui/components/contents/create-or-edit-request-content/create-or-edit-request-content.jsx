@@ -378,7 +378,7 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeLimitInMinutes ||
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
-    parseTextString(formFields.details.conditions).length >= 6000 ||
+    parseTextString(formFields.details.conditions).length >= MAX_COMMENT_LEGTH ||
     !parseTextString(formFields.details.conditions).length ||
     !formFields.request.specId ||
     !formFields.request.productId ||

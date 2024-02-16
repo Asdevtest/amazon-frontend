@@ -1,9 +1,11 @@
 import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
+import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   NULL_DELAY,
+  PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
@@ -13,14 +15,13 @@ import { useStyles } from './slides.style'
 
 import { GetSlideByType } from '../../get-slide-by-type'
 
-import { getCustomHeightSubjectToQuantitySlides } from './slides.helper'
-
 interface SlidesProps {
   mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isSlidesFitOnScreenWithoutArrows: boolean
   slidesToShow: number
+  isModalSize?: boolean
 }
 
 export const Slides: FC<SlidesProps> = memo(props => {
@@ -30,6 +31,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     setCurrentMediaFileIndex,
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -37,8 +39,9 @@ export const Slides: FC<SlidesProps> = memo(props => {
   const customHeightSubjectToQuantitySlides = getCustomHeightSubjectToQuantitySlides(
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   )
-
+  const finalVideoHeight = isModalSize ? PREVIEWS_SLIDE_HEIGHT_IN_MODAL : DEFAULT_PREVIEWS_SLIDE_HEIGHT
   const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -56,6 +59,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
   return (
     <div
       className={cx(styles.previewSlides, {
+        [styles.previewSlidesInModal]: isModalSize,
         [styles.previewSlidesFitOnScreenWithoutArrows]: isSlidesFitOnScreenWithoutArrows,
       })}
       style={{ height: customHeightSubjectToQuantitySlides }}
@@ -64,7 +68,10 @@ export const Slides: FC<SlidesProps> = memo(props => {
         <div
           key={index}
           ref={index === currentMediaFileIndex ? activeSlideRef : null}
-          className={cx(styles.previewSlide, { [styles.previewSlideActive]: index === currentMediaFileIndex })}
+          className={cx(styles.previewSlide, {
+            [styles.previewSlideActive]: index === currentMediaFileIndex,
+            [styles.previewSlideInModal]: isModalSize,
+          })}
           onClick={() => setCurrentMediaFileIndex(index)}
         >
           <GetSlideByType
@@ -72,9 +79,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
             mediaFile={mediaFile}
             mediaFileIndex={index}
             ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.previewSlideImg} />}
-            VideoComponent={({ videoSource }) => (
-              <VideoPreloader videoSource={videoSource} height={DEFAULT_PREVIEWS_SLIDE_HEIGHT} />
-            )}
+            VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height={finalVideoHeight} />}
             FileComponent={({ documentLink, fileExtension }) => (
               <a
                 href={documentLink}

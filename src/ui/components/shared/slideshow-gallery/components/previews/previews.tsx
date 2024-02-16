@@ -22,6 +22,7 @@ interface PreviewsProps {
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isTransitioning: boolean
   setIsTransitioning: Dispatch<SetStateAction<boolean>>
+  isModalSize?: boolean
   slidesToShow: number
   hiddenPreviews?: boolean
 }
@@ -33,11 +34,12 @@ export const Previews: FC<PreviewsProps> = memo(props => {
     setCurrentMediaFileIndex,
     isTransitioning,
     setIsTransitioning,
+    isModalSize,
     slidesToShow,
     hiddenPreviews,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const handleArrowClick = (direction: ArrowsType) => {
     setIsTransitioning(true)
@@ -60,15 +62,17 @@ export const Previews: FC<PreviewsProps> = memo(props => {
   const isSlidesFitOnScreenWithoutArrows = mediaFiles.length <= slidesToShow + QUANTITY_SLIDES_INSTEAD_OF_ARROWS
 
   return !hiddenPreviews ? (
-    <div className={styles.previews}>
+    <div className={cx(styles.previews, { [styles.previewsModalSize]: isModalSize })}>
       <Arrow
         direction={Arrows.UP}
+        isModalSize={isModalSize}
         isDisableArrow={isDisableArrowUp || isTransitioning}
         isSlidesFitOnScreenWithoutArrows={isSlidesFitOnScreenWithoutArrows}
         onClick={handleArrowClick}
       />
 
       <Slides
+        isModalSize={isModalSize}
         slidesToShow={slidesToShow}
         mediaFiles={mediaFiles}
         currentMediaFileIndex={currentMediaFileIndex}
@@ -78,6 +82,7 @@ export const Previews: FC<PreviewsProps> = memo(props => {
 
       <Arrow
         direction={Arrows.DOWN}
+        isModalSize={isModalSize}
         isDisableArrow={isDisableArrowDown || isTransitioning}
         isSlidesFitOnScreenWithoutArrows={isSlidesFitOnScreenWithoutArrows}
         onClick={handleArrowClick}

@@ -7,7 +7,7 @@ export interface IAnnoucement {
   _id: string
   spec: ISpec
   requests: Array<IAnnoucementRequest>
-  linksToMediaFiles: Array<string | UploadFileType>
+  linksToMediaFiles: Array<UploadFileType>
   title: string
   description: string
   createdBy: ICreatedBy

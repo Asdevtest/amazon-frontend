@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(() => ({
     width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
+    gap: 20,
   },
 
   leftPreviews: {
