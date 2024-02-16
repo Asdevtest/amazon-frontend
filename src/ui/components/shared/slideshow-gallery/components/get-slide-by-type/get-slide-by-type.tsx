@@ -3,8 +3,8 @@ import { ComponentType, FC, memo } from 'react'
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 interface GetSlideByTypeProps {
   mediaFile: UploadFileType
@@ -19,8 +19,8 @@ export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
   const { mediaFile, mediaFileIndex, ImageComponent, VideoComponent, FileComponent, isPreviews = false } = props
 
   const mediaFileToCheck = isString(mediaFile) ? mediaFile : mediaFile?.file.name
-  const elementExtension = mediaFileToCheck?.split('.')?.slice(-1)?.[0]
   const displayedMediaFile = isString(mediaFile) ? getAmazonImageUrl(mediaFile, !isPreviews) : mediaFile?.data_url
+  const documentExtension = mediaFileToCheck?.split('.')?.slice(-1)?.[0]
   const documentLink = isString(mediaFile) ? getAmazonImageUrl(mediaFile) : '/'
 
   if (checkIsImageLink(mediaFileToCheck)) {
@@ -28,7 +28,7 @@ export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
   } else if (checkIsVideoLink(mediaFileToCheck)) {
     return <VideoComponent videoSource={displayedMediaFile} />
   } else if (checkIsDocumentLink(mediaFileToCheck)) {
-    return <FileComponent documentLink={documentLink} fileExtension={elementExtension} />
+    return <FileComponent documentLink={documentLink} fileExtension={documentExtension} />
   } else {
     return (
       <img

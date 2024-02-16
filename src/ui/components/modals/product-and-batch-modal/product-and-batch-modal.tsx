@@ -18,8 +18,9 @@ import { SeparatorIcon } from '@components/shared/svg-icons'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { IOrderBoxBatch } from '@typings/order-box'
-import { IShop } from '@typings/shop'
+import { IBatch } from '@typings/models/batches/batch'
+import { IProduct } from '@typings/models/products/product'
+import { IShop } from '@typings/models/shops/shop'
 
 import { useStyles } from './product-and-batch-modal.style'
 
@@ -28,16 +29,16 @@ import { BatchInfoModal } from '../batch-info-modal'
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
 import { infoModalConfig, switcherSettings } from './product-and-batch-modal.config'
-import { IProductWithOrder, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
+import { ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export interface ProductAndBatchModalProps {
   currentSwitch: ProductAndBatchModalSwitcherConditions
   shops: IShop[]
-  selectedProduct: IProductWithOrder
-  batches: IOrderBoxBatch[]
+  selectedProduct: IProduct
+  batches: IBatch[]
   openModal: boolean
   setOpenModal: () => void
-  currentBatch?: IOrderBoxBatch
+  currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void

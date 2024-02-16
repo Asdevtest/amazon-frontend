@@ -4,17 +4,20 @@ import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './empty-file.styles'
 
-import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../slideshow-gallery.helper'
+import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../helpers/get-custom-dimension'
 
 interface EmptyFileProps {
-  slidesToShow: number
+  slidesToShow?: number
+  isModalSize?: boolean
 }
 
-export const EmptyFile: FC<EmptyFileProps> = memo(({ slidesToShow }) => {
+export const EmptyFile: FC<EmptyFileProps> = memo(({ slidesToShow, isModalSize }) => {
   const { classes: styles } = useStyles()
 
-  const customDimensionMainSlideSubjectToQuantitySlides =
-    getCustomDimensionMainSlideSubjectToQuantitySlides(slidesToShow)
+  const customDimensionMainSlideSubjectToQuantitySlides = getCustomDimensionMainSlideSubjectToQuantitySlides(
+    slidesToShow,
+    isModalSize,
+  )
 
   return (
     <div

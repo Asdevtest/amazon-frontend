@@ -11,19 +11,20 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './choice-of-performer-modal.style'
 
 import { AnnouncementCard } from './announcement-card'
 
 export interface ChoiceOfPerformerModalProps {
-  announcements: Array<IService>
-  masterUsersData: Array<IShortUser>
-  chosenExecutor: IShortUser
-  chosenAnnouncement: IService
+  announcements: Array<IAnnoucement>
+  masterUsersData: Array<ICreatedBy>
+  chosenExecutor: ICreatedBy
+  chosenAnnouncement: IAnnoucement
   onClickThumbnail: () => void
-  onClickSelectButton: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickSelectButton: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
 }
@@ -44,10 +45,10 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
   const [nameSearchValue, setNameSearchValue] = useState('')
-  const [selectedExecutor, setSelectedExecutor] = useState<IShortUser | undefined>(chosenExecutor)
-  const [selectedService, setSelectedService] = useState<IService | undefined>(chosenAnnouncement)
+  const [selectedExecutor, setSelectedExecutor] = useState<ICreatedBy | undefined>(chosenExecutor)
+  const [selectedService, setSelectedService] = useState<IAnnoucement | undefined>(chosenAnnouncement)
 
-  const selectCardHandler = (value: IService) => {
+  const selectCardHandler = (value: IAnnoucement) => {
     setSelectedService(prev => (prev?._id === value?._id ? undefined : value))
   }
 
@@ -116,7 +117,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
                   t(TranslationKey['Choose an executor'])
                 )
               }
-              onClickSelect={(el: IShortUser) => {
+              onClickSelect={(el: ICreatedBy) => {
                 setSelectedExecutor(el)
                 setSelectedService(undefined)
               }}

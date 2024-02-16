@@ -7,89 +7,76 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  editorContainer: {},
+  container: {
+    margin: '0 !important',
+    height: '100%',
+  },
+
+  editorContainer: {
+    margin: '0 !important',
+    padding: '10px !important',
+
+    '.public-DraftStyleDefault-ol': {
+      paddingLeft: '30px !important',
+    },
+  },
+
+  editorContainerReadOnly: {
+    padding: '0 !important',
+  },
 
   editor: {
     width: '100%',
     minHeight: 150,
-    maxHeight: 1550,
-    padding: 10,
-    border: `1px solid ${theme.palette.input.customBorder}`,
-    borderRadius: 7,
+    maxHeight: 900,
+    overflowY: 'auto',
     fontSize: 16,
     lineHeight: '22px',
-    cursor: 'text',
+    wordBreak: 'break-word',
 
-    '.public-DraftStyleDefault-block': {
-      margin: '0 !important',
-
-      span: {
-        color: `${theme.palette.text.general} !important`,
-        background: 'none !important',
-        fontSize: 'inherit !important',
-      },
+    '.public-DraftEditor-content': {
+      minHeight: 130,
     },
   },
 
-  readOnly: {
-    cursor: 'auto',
-    background: `${theme.palette.input.customBorder} !important`,
+  editorToolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    button: {
+      color: theme.palette.text.general,
+    },
+
+    '.MuiIconButton-colorPrimary': {
+      color: `${theme.palette.primary.main} !important`,
+    },
+  },
+
+  verticalResize: {
+    resize: 'vertical',
+  },
+
+  placeHolder: {
+    height: '100%',
+    fontSize: 16,
+    lineHeight: '22px',
+  },
+
+  editorBorder: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 7,
   },
 
   editorBorderError: {
     border: `1px solid ${theme.palette.text.red}`,
   },
 
-  focus: {
+  editorBorderFocus: {
     border: `1px solid ${theme.palette.primary.main}`,
   },
 
-  toolbar: {
-    position: 'relative',
-    padding: '0 !important',
-    margin: '0 !important',
-    justifyContent: 'flex-end !important',
-    fontSize: '16px !important',
-    background: 'none !important',
-    border: 'none !important',
-    borderRadius: '0 !important',
-    cursor: 'auto !important',
-
-    '.rdw-option-active': {
-      // color: `${theme.palette.primary.main} !important`,
-      background: `${theme.palette.input.customBorder} !important`,
-    },
-  },
-
-  toolbarButtons: {
-    margin: '0 !important',
-    background: 'none !important',
-    cursor: 'auto !important',
-  },
-
-  toolbarButton: {
-    margin: '0 !important',
-    width: '20px !important',
-    minWidth: '20px !important',
-    background: 'none !important',
-    border: 'none !important',
-    borderRadius: '0 !important',
-    boxShadow: 'none !important',
-    cursor: 'pointer !important',
-    opacity: '1 !important',
-
-    '&:hover': {
-      opacity: '0.5 !important',
-    },
-  },
-
   title: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: 30,
-    width: 300,
-    display: 'flex',
-    alignItems: 'center',
+    width: '100%',
   },
 }))

@@ -515,15 +515,12 @@ export class MyRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const response = await RequestModel.getCustomRequestById(id)
 
       runInAction(() => {
         this.currentRequestDetails = response
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

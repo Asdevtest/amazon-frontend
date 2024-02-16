@@ -16,10 +16,10 @@ import { checkIsFreelancer } from '@utils/checks'
 import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { RowHandlers } from '@typings/data-grid'
-import { IUser } from '@typings/user'
+import { RowHandlers } from '@typings/shared/data-grid'
+import { IFullUser } from '@typings/shared/full-user'
 
-export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IUser | undefined) => {
+export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IFullUser | undefined) => {
   const renderCells = [
     {
       field: 'updatedAt',

@@ -144,22 +144,42 @@ export const EditTaskModal = memo(
       setIsFileDownloading(false)
     }
 
+    const isEditTask = task?.operationType === TaskOperationType.EDIT
     const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
 
     const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
 
     const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
 
-    const receiveNotFromBuyer = (isManyItemsInSomeBox || noTariffInSomeBox) && isReciveTypeTask
+    const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
 
     const isSomeBoxHasntImageToRecive =
-      newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length) && isReciveTypeTask
+      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
+
+    const isTaskChangeBarcodeOrTransparency =
+      isEditTask &&
+      task?.boxesBefore.some(box => {
+        const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+
+        if (newBox) {
+          newBox.items?.some((item, itemIndex) => {
+            const currentItem = box?.items?.[itemIndex]
+
+            return currentItem?.barCode !== item?.barCode || currentItem?.transparencyFile !== item?.transparencyFile
+          })
+        }
+      })
+
+    const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
 
     const disableSaveButton =
       !newBoxes.length ||
       requestStatus === loadingStatuses.IS_LOADING ||
       !isFilledNewBoxesDimensions ||
-      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer)
+      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer) ||
+      isNoChangesBarcodeOrTransparency
 
     return (
       <div className={styles.root}>
@@ -284,6 +304,10 @@ export const EditTaskModal = memo(
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
+              {isNoChangesBarcodeOrTransparency ? (
+                <p className={styles.errorText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+              ) : null}
+
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button

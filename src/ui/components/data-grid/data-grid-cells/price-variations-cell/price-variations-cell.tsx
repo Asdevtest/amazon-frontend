@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './price-variations-cell.style'
 

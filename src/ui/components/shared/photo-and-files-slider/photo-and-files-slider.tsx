@@ -6,7 +6,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './photo-and-files-slider.style'
 

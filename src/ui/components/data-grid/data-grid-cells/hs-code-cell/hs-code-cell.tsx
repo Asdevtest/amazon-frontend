@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IProduct } from '@typings/product'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './hs-code-cell.style'
 

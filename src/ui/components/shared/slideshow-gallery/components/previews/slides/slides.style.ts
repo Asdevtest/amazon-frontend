@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   previewSlides: {
-    padding: '5px 15px',
+    padding: 5,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -13,8 +13,12 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  previewSlidesInModal: {
+    gap: 20,
+  },
+
   previewSlidesFitOnScreenWithoutArrows: {
-    padding: '0 15px',
+    padding: '0 5px',
     overflow: 'inherit',
   },
 
@@ -29,6 +33,13 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 6,
     boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.1)',
     cursor: 'pointer',
+  },
+
+  previewSlideInModal: {
+    height: 94,
+    minHeight: 94,
+    width: 136,
+    borderRadius: 8,
   },
 
   previewSlideActive: {

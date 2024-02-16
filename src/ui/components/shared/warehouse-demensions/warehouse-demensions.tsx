@@ -9,12 +9,12 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IOrderBox } from '@typings/order-box'
+import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './warehouse-demensions.style'
 
 interface WarehouseDemensionsProps {
-  orderBox: IOrderBox
+  orderBox: IBox
   volumeWeightCoefficient: number
   setFormField: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
   sizeSetting: string

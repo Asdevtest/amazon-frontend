@@ -37,7 +37,7 @@ export const ResearcherAddProductFormRaw = observer(
   }) => {
     const disabledNoProvatLabel =
       Number(formFields.strategyStatus) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]
-    // const [disableAddButton, setDisabledAddButton] = useState(false)
+
     return (
       SettingsModel.languageTag && (
         <div className={styles.mainWrapper}>
@@ -116,26 +116,6 @@ export const ResearcherAddProductFormRaw = observer(
             </Box>
 
             <Box className={styles.btnsWrapper}>
-              {/* <Button
-                disabled={!formFields.strategyStatus}
-                tooltipInfoContent={t(
-                  TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
-                )}
-                onClick={() => {
-                  onClickCheckBtn()
-                  setDisabledAddButton(false)
-                }}
-              >
-                {t(TranslationKey.Check)}
-              </Button>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
-                disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
-                onClick={onClickAddBtn}
-              >
-                {t(TranslationKey['Add a product card'])}
-              </Button> */}
               <Button
                 success
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}

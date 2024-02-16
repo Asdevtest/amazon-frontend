@@ -1,6 +1,6 @@
 import { tableSortMode } from '@constants/table/table-view-modes'
 
-import { SortingModelType } from '@typings/sorting-model'
+import { SortingModelType } from '@typings/shared/sorting-model'
 
 import { getCurrentSortingDirectionOfColumns } from './get-current-sorting-direction-of-columns'
 

@@ -2195,5 +2195,6 @@
   "Store data will be updated soon": "Данные по магазинам будут обновлены в ближайшее время",
   "Successfully updated": "Успешно обновлены",
   "Not updated because of a bug": "Не обновлены из-за ошибки",
-  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Attention, it is necessary to add a photo of the product with glued transparency to the box"
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Attention, it is necessary to add a photo of the product with glued transparency to the box",
+  "Not updating due to an error": "Не обновлены из-за ошибки"
 }

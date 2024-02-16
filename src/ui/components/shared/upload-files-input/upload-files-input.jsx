@@ -20,7 +20,7 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { isString } from '@typings/type-guards'
+import { isString } from '@typings/guards'
 
 import { useStyles } from './upload-files-input.style'
 
