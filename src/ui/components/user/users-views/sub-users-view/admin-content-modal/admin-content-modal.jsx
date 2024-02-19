@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -69,10 +70,10 @@ export const AdminContentModal = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === Number(formFields.role)),
+      ...singlePermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === Number(formFields.role)),
+      ...groupPermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
 
     const onChangeFormField = fieldName => event => {
@@ -141,8 +142,8 @@ export const AdminContentModal = observer(
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
-      selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+      selectedPermissions.find(per => Number(per.role) !== Number(formFields.role)) ||
+      selectedGroupPermissions.find(perGroup => Number(perGroup.role) !== Number(formFields.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
@@ -150,7 +151,7 @@ export const AdminContentModal = observer(
       formFields.email === '' ||
       formFields.rate === '' ||
       Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+      isEqual(sourceFormFields, formFields)
 
     return (
       <Container disableGutters className={styles.modalContainer}>
@@ -262,7 +263,6 @@ export const AdminContentModal = observer(
           }
         />
 
-        {/* {!editUserFormFields.masterUser ? ( */}
         <Field
           label={t(TranslationKey['Allowed Roles'])}
           inputComponent={
@@ -278,7 +278,7 @@ export const AdminContentModal = observer(
                   value={Number(role)}
                   disabled={
                     [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
-                    role === Number(formFields.role)
+                    Number(role) === Number(formFields.role)
                   }
                 >
                   <Checkbox
@@ -291,7 +291,6 @@ export const AdminContentModal = observer(
             </Select>
           }
         />
-        {/* ) : null} */}
 
         <Field
           label={t(TranslationKey['User status'])}
@@ -368,9 +367,6 @@ export const AdminContentModal = observer(
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             variant="contained"
             color="primary"
-            // onClick={() => {
-            //   onSubmit(formFields, editUserFormFields)
-            // }}
             onClick={onClickSubmit}
           >
             {buttonLabel}
@@ -381,13 +377,12 @@ export const AdminContentModal = observer(
             className={styles.rightBtn}
             variant="contained"
             color="primary"
-            onClick={() => {
-              onCloseModal()
-            }}
+            onClick={() => onCloseModal()}
           >
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <AddOrEditUserPermissionsForm
             isWithoutProductPermissions

@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -182,17 +183,15 @@ export const AdminUserEditContent = observer(
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions?.find(per => per?.role !== Number(formFields?.role)) ||
-      selectedGroupPermissions?.find(perGroup => perGroup?.role !== Number(formFields?.role))
+      selectedPermissions?.find(per => Number(per?.role) !== Number(formFields?.role)) ||
+      selectedGroupPermissions?.find(perGroup => Number(perGroup?.role) !== Number(formFields?.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
-      // formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      (JSON.stringify(changedAllowedRoles) === JSON.stringify(selectedAllowedRoles) &&
-        JSON.stringify(sourceFormFields) === JSON.stringify(formFields))
+      (isEqual(changedAllowedRoles, selectedAllowedRoles) && isEqual(sourceFormFields, formFields))
 
     const [visibilityPass, setVisibilityPass] = useState(false)
     const [visibilityOldPass, setVisibilityOldPass] = useState(false)
@@ -512,7 +511,7 @@ export const AdminUserEditContent = observer(
                           value={Number(role)}
                           disabled={
                             [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
-                            role === formFields.role
+                            Number(role) === Number(formFields.role)
                           }
                         >
                           <Checkbox
@@ -591,7 +590,7 @@ export const AdminUserEditContent = observer(
                     onChange={onChangeFormField('allowedSpec')}
                   >
                     {specs?.map(spec => (
-                      <MenuItem key={spec?._id} value={spec?.type}>
+                      <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
                         <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
                         {spec?.title}
                       </MenuItem>
