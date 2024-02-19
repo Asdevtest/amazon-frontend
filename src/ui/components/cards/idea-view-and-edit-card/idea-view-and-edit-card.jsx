@@ -22,8 +22,8 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { PlusIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -387,16 +387,12 @@ export const IdeaViewAndEditCard = observer(
           <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
             <div className={styles.mediaBlock}>
               {!inCreate && (
-                <div className={styles.photoCarouselWrapper}>
-                  <PhotoAndFilesSlider
-                    showPreviews
-                    withoutFiles
-                    bigSlider
-                    isEditable={inEdit}
-                    files={images}
-                    onChangeImagesForLoad={setImages}
-                  />
-                </div>
+                <SlideshowGallery
+                  slidesToShow={5}
+                  isEditable={inEdit}
+                  files={images}
+                  onChangeImagesForLoad={setImages}
+                />
               )}
 
               {!disableFields && (

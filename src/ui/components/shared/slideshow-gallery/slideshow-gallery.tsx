@@ -1,24 +1,22 @@
 import { FC, memo } from 'react'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 
-import { UploadFileType } from '@typings/shared/upload-file'
+import { IMediaRequest, UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './slideshow-gallery.style'
-
-import { EmptyFile, MainSlide, Previews } from './components'
-import { DEFAULT_QUANTITY_SLIDES, MIN_FILES_IN_ARRAY, NOT_GAP } from './slideshow-gallery.constants'
+import { Gallery } from './components'
+import { DEFAULT_QUANTITY_SLIDES } from './slideshow-gallery.constants'
 import { useSlideshowGallery } from './use-slideshow-gallery'
 
 interface SlideshowGalleryProps {
-  files: UploadFileType[]
+  files: IMediaRequest[] | UploadFileType[]
   slidesToShow?: number
   hiddenPreviews?: boolean
   leftPreviews?: boolean
   customGapBetweenSlideAndPreviews?: number
   isEditable?: boolean
   withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (array: UploadFileType[]) => void
+  onChangeImagesForLoad?: (files: IMediaRequest[] | UploadFileType[]) => void
 }
 
 export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
@@ -27,18 +25,15 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
     slidesToShow = DEFAULT_QUANTITY_SLIDES,
     hiddenPreviews = false,
     leftPreviews = false,
-    customGapBetweenSlideAndPreviews = NOT_GAP,
-
+    customGapBetweenSlideAndPreviews,
     isEditable = false,
     withoutMakeMainImage = false,
     onChangeImagesForLoad,
   } = props
 
-  if (slidesToShow <= 0) {
+  if (slidesToShow && slidesToShow <= 0) {
     throw Error('The specified number of slides to show in the SlideshowGallery component must be a positive integer.')
   }
-
-  const { classes: styles, cx } = useStyles()
 
   const {
     mediaFiles,
@@ -52,49 +47,30 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
     onOpenImageModal,
   } = useSlideshowGallery(files)
 
-  const isOneSlide = slidesToShow === MIN_FILES_IN_ARRAY || mediaFiles.length === MIN_FILES_IN_ARRAY
-  const isMediaFilesVisible = mediaFiles.length !== 0 && slidesToShow > 0
-
   return (
     <>
-      {isMediaFilesVisible ? (
-        <div
-          className={cx(styles.wrapper, { [styles.leftPreviews]: leftPreviews })}
-          style={{ gap: customGapBetweenSlideAndPreviews }}
-        >
-          <MainSlide
-            slidesToShow={slidesToShow}
-            mediaFile={mediaFiles[currentMediaFileIndex]}
-            currentMediaFileIndex={currentMediaFileIndex}
-            isTransitioning={isTransitioning}
-            onOpenImageModal={onOpenImageModal}
-          />
-
-          <Previews
-            hiddenPreviews={hiddenPreviews || isOneSlide}
-            slidesToShow={slidesToShow}
-            mediaFiles={mediaFiles}
-            currentMediaFileIndex={currentMediaFileIndex}
-            setCurrentMediaFileIndex={setCurrentMediaFileIndex}
-            isTransitioning={isTransitioning}
-            setIsTransitioning={setIsTransitioning}
-          />
-        </div>
-      ) : (
-        <EmptyFile slidesToShow={slidesToShow} />
-      )}
+      <Gallery
+        hiddenPreviews={hiddenPreviews}
+        leftPreviews={leftPreviews}
+        customGapBetweenSlideAndPreviews={customGapBetweenSlideAndPreviews}
+        slidesToShow={slidesToShow}
+        mediaFiles={mediaFiles}
+        currentMediaFileIndex={currentMediaFileIndex}
+        isTransitioning={isTransitioning}
+        setCurrentMediaFileIndex={setCurrentMediaFileIndex}
+        setIsTransitioning={setIsTransitioning}
+        onOpenImageModal={onOpenImageModal}
+      />
 
       {openImageModal && (
-        <ImageModal
-          showPreviews
-          isRequestResult
-          files={mediaFiles}
-          currentFileIndex={currentMediaFileIndex}
-          isOpenModal={openImageModal}
+        <SlideshowGalleryModal
           isEditable={isEditable}
           withoutMakeMainImage={withoutMakeMainImage}
-          onOpenModal={onOpenImageModal}
+          files={files}
+          currentFileIndex={currentMediaFileIndex}
+          isOpenModal={openImageModal}
           onCurrentFileIndex={setCurrentMediaFileIndex}
+          onOpenModal={onOpenImageModal}
           onChangeImagesForLoad={onChangeImagesForLoad}
         />
       )}

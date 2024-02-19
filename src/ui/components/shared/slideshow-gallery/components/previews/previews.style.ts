@@ -6,4 +6,8 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     gap: 5,
   },
+
+  previewsModalSize: {
+    gap: 10,
+  },
 }))

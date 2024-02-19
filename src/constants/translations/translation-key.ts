@@ -2198,5 +2198,8 @@ export enum TranslationKey {
   'Successfully updated' = 'Successfully updated',
   'Not updated because of a bug' = 'Not updated because of a bug',
   'Supplier list' = 'Supplier list',
+  'Attention, it is necessary to add a photo of the product with glued transparency to the box' = 'Attention, it is necessary to add a photo of the product with glued transparency to the box',
+  'Not updating due to an error' = 'Not updating due to an error',
+
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

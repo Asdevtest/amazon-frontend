@@ -9,6 +9,11 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
+  arrowButtonModalSize: {
+    height: 42,
+    padding: 5,
+  },
+
   arrowIcon: {
     width: '18px !important',
     height: '18px !important',
@@ -24,13 +29,17 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  arrowIconDisable: {
+  arrowDisable: {
     cursor: 'auto',
     opacity: 0.5,
-    transition: 'opacity 0.3s ease-in-out',
 
     '&:hover': {
       opacity: 0.5,
     },
+  },
+
+  arrowModalSize: {
+    width: '32px !important',
+    height: '32px !important',
   },
 }))

@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
-
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Checkbox, Grid, Typography } from '@mui/material'
 
@@ -8,13 +5,12 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
@@ -33,7 +29,6 @@ import { ButtonVariant } from '@typings/types/button.type'
 import { useStyles } from './select-fields.style'
 
 export const SelectFields = ({
-  userInfo,
   paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
@@ -47,15 +42,12 @@ export const SelectFields = ({
   progressValue,
   setPhotosToLoad,
   deliveredGoodsCount,
-  onClickHsCode,
   hsCode,
   setHsCode,
-  setUsePriceInDollars,
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
   onClickSupplierPaymentButton,
-  onChangeImagesForLoad,
   setPaymentMethodsModal,
   orderPayments,
 }) => {
@@ -68,22 +60,12 @@ export const SelectFields = ({
     setHsCode(newFormFields)
   }
 
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-
-  const countIncomingImage = order.images?.length ?? 0
-
   return (
     <Grid container justifyContent="space-between" className={styles.container}>
       <Grid item>
         <div className={styles.photoAndFieldsWrapper}>
           <div className={styles.photoWrapper}>
-            {!!order.product.images.length && (
-              <div className={styles.carouselWrapper}>
-                <PhotoAndFilesSlider mediumSlider withoutFiles showPreviews files={order.product.images} />
-              </div>
-            )}
+            {!!order.product.images.length && <SlideshowGallery slidesToShow={3} files={order.product.images} />}
           </div>
 
           <div>
@@ -162,10 +144,6 @@ export const SelectFields = ({
                   inputProps={{ maxLength: 10 }}
                   labelClasses={styles.blueLabel}
                   inputClasses={styles.input}
-                  // value={orderFields.priceInYuan}
-                  // Убрать если что
-
-                  // value={toFixed(orderFields.priceInYuan, 2)}
                   value={
                     isPendingOrder
                       ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
@@ -670,42 +648,25 @@ export const SelectFields = ({
         </div>
 
         <div>
-          {
-            /* !disableSubmit &&  */ Number(order.status) !==
-              Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
-              <div className={styles.imageFileInputWrapper}>
-                <UploadFilesInput
-                  fullWidth
-                  images={photosToLoad}
-                  setImages={setPhotosToLoad}
-                  maxNumber={50 - countIncomingImage}
-                />
-              </div>
-            )
-          }
-          <PhotoAndFilesSlider
-            withoutMakeMainImage
-            isEditable
-            showPreviews
-            files={order.images}
-            onChangeImagesForLoad={onChangeImagesForLoad}
-          />
+          {Number(order.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
+            <div className={styles.imageFileInputWrapper}>
+              <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+            </div>
+          )}
+
+          <div className={styles.gallery}>
+            <SlideshowGallery
+              isEditable
+              slidesToShow={1}
+              files={photosToLoad}
+              onChangeImagesForLoad={setPhotosToLoad}
+            />
+          </div>
         </div>
       </Grid>
 
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
-
-      {showImageModal && (
-        <ImageModal
-          showPreviews
-          isOpenModal={showImageModal}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
       )}
     </Grid>
   )

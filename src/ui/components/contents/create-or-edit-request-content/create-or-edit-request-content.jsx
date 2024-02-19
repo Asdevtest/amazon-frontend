@@ -85,7 +85,7 @@ export const CreateOrEditRequestContent = memo(props => {
   const [showScrollDown, setShowScrollDown] = useState(false)
   const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
   const [announcementsData, setAnnouncementsData] = useState([])
-  const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
+  const [announcement, setAnnouncement] = useState(choosenAnnouncements)
   const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
   const [openModal, setOpenModal] = useState(false)
@@ -379,7 +379,7 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeLimitInMinutes ||
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
-    parseTextString(formFields.details.conditions).length >= 6000 ||
+    parseTextString(formFields.details.conditions).length >= MAX_COMMENT_LEGTH ||
     !parseTextString(formFields.details.conditions).length ||
     !formFields.request.specId ||
     !formFields.request.productId ||

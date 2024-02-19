@@ -78,13 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
-  photoCarouselWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 343,
-  },
-
   photoWrapper: {
     width: '200px',
     display: 'flex',

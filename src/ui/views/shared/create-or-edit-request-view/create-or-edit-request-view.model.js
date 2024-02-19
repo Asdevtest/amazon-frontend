@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -19,6 +21,7 @@ import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
+  requestStatus = loadingStatuses.IS_LOADING // for first render
 
   acceptMessage = null
   showAcceptMessage = false
@@ -30,7 +33,7 @@ export class CreateOrEditRequestViewModel {
   masterUsersData = []
   announcementId = undefined
   announcements = []
-  choosenAnnouncements = {}
+  choosenAnnouncements = undefined
   productMedia = undefined
   bigImagesOptions = {}
   showImageModal = false
@@ -89,14 +92,20 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  loadData() {
+  async loadData() {
     try {
-      this.getCustomRequestCur()
-      this.getPlatformSettingsData()
+      // status change is required for loading
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      await this.getCustomRequestCur()
       this.getAnnouncementData()
+      this.getPlatformSettingsData()
       this.getSpecs()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -371,5 +380,9 @@ export class CreateOrEditRequestViewModel {
     if (this.productMedia) {
       this.onTriggerOpenModal('showGalleryModal')
     }
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }
