@@ -121,7 +121,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={selectedRadioValue && !selectedProduct}
           onClick={() => onClickNextButton(selectedProduct)}
         >

@@ -37,7 +37,7 @@ export const DashboardOneLineCardsList = props => {
         </div>
         {isClient ? (
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             className={styles.addButton}
             onClick={() => onClickAddProduct(config.route)}
           >

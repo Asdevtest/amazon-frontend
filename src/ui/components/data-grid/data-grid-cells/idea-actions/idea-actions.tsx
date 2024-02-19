@@ -21,7 +21,7 @@ export const IdeaActionsCell: FC<IdeaActionsProps> = memo(({ onClickReject, onCl
   return (
     <div className={styles.ideaActions}>
       <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
-      <Button type={ButtonType.DANGER} onClick={onClickReject}>
+      <Button styleType={ButtonType.DANGER} onClick={onClickReject}>
         {t(TranslationKey.Reject)}
       </Button>
     </div>

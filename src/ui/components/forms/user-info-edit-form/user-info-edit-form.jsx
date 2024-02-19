@@ -277,7 +277,7 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['Old password'])}
             placeholder={t(TranslationKey['Old password'])}
-            type={!visibilityOldPass ? 'password' : 'text'}
+            styleType={!visibilityOldPass ? 'password' : 'text'}
             value={formFields.oldPassword}
             onChange={onChangeField('oldPassword')}
           />
@@ -295,7 +295,7 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['New password'])}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             onChange={onChangeField('password')}
           />
@@ -337,7 +337,7 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['Re-enter the new password'])}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
             onChange={onChangeField('confirmPassword')}
           />

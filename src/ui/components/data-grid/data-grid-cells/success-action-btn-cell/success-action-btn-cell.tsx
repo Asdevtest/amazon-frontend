@@ -22,7 +22,7 @@ export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = memo(props =>
 
   return (
     <Button
-      type={ButtonType.SUCCESS}
+      styleType={ButtonType.SUCCESS}
       tooltipInfoContent={isFirstRow ? tooltipText : ''}
       className={buttonStyle}
       onClick={onClickOkBtn}

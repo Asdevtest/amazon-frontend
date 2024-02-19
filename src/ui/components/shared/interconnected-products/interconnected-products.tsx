@@ -55,7 +55,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
 
         {showRemoveButton && (
           <Button
-            type={ButtonType.DANGER}
+            styleType={ButtonType.DANGER}
             className={cx(styles.button, styles.removeButton)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >

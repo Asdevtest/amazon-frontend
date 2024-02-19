@@ -134,7 +134,7 @@ export const ProposalsSlider = ({
           <div className={styles.buttons}>
             {onClickDeleteBtn ? (
               <Button
-                type={ButtonType.DANGER}
+                styleType={ButtonType.DANGER}
                 tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}

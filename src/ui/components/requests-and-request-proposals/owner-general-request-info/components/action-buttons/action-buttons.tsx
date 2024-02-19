@@ -56,7 +56,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>
       {isDisplayingMarkAsCompletedButton && (
-        <Button type={ButtonType.SUCCESS} className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
           {t(TranslationKey['Mark as completed'])}
         </Button>
       )}
@@ -64,7 +64,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <div className={styles.btnsWrapper}>
           <div className={styles.btnsRow}>
             <Button
-              type={ButtonType.DANGER}
+              styleType={ButtonType.DANGER}
               tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
               className={styles.deleteBtn}
               onClick={onClickCancelBtn}
@@ -81,7 +81,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             </Button>
           </div>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
             className={styles.publishBtn}
             onClick={onClickPublishBtn}
@@ -97,7 +97,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
               <div className={styles.btnsRow}>
                 {requestIsNotDraftAndPublished && (
                   <Button
-                    type={ButtonType.DANGER}
+                    styleType={ButtonType.DANGER}
                     tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                     className={styles.deleteBtn}
                     onClick={onClickCancelBtn}

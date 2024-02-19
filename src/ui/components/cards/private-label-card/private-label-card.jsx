@@ -61,7 +61,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
 
         <div className={styles.buttonsWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
             onClick={() => setProductToPay(item)}
           >

@@ -104,7 +104,7 @@ export const MyServicesInfo = ({
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button type={ButtonType.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+          <Button styleType={ButtonType.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 

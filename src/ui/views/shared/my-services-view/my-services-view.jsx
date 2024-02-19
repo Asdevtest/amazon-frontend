@@ -51,7 +51,11 @@ export const MyServicesView = observer(({ history }) => {
           onChange={viewModel.onSearchSubmit}
         />
 
-        <Button type={ButtonType.SUCCESS} className={styles.rightAddingBtn} onClick={viewModel.onClickCreateServiceBtn}>
+        <Button
+          styleType={ButtonType.SUCCESS}
+          className={styles.rightAddingBtn}
+          onClick={viewModel.onClickCreateServiceBtn}
+        >
           {t(TranslationKey['Create a service'])}
         </Button>
       </div>

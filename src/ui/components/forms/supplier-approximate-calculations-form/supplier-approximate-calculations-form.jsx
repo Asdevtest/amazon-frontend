@@ -61,7 +61,7 @@ export const SupplierApproximateCalculationsForm = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button type={ButtonType.DANGER} onClick={onClose}>
+        <Button styleType={ButtonType.DANGER} onClick={onClose}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -326,7 +326,7 @@ export const EditTaskModal = memo(
 
               <div className={styles.buttons}>
                 <Button
-                  type={ButtonType.SUCCESS}
+                  styleType={ButtonType.SUCCESS}
                   className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}

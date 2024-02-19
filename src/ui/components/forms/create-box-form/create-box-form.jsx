@@ -322,7 +322,7 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button type={ButtonType.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
+          <Button styleType={ButtonType.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 

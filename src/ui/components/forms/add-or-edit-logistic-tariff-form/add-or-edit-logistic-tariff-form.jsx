@@ -445,7 +445,12 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button type={ButtonType.SUCCESS} disabled={disableSubmitBtn} className={styles.button} onClick={onSubmit}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              disabled={disableSubmitBtn}
+              className={styles.button}
+              onClick={onSubmit}
+            >
               {t(TranslationKey.Save)}
             </Button>
 

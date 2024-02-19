@@ -69,7 +69,7 @@ export const UserSettingsForm = observer(() => {
 
       <div className={styles.placeAddBtnWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
           onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
         >

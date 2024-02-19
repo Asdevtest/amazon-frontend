@@ -88,7 +88,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
 
       <div className={styles.controls}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={
             Number(curPriority) ===
               mapTaskPriorityStatusEnumToKey[

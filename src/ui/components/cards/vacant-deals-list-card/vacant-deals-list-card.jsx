@@ -87,7 +87,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(item._id, item.requestId)}
               >

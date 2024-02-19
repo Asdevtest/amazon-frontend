@@ -188,7 +188,7 @@ export const RegistrationForm = memo(props => {
               inputClasses={styles.input}
               label={t(TranslationKey['Old password'])}
               placeholder={t(TranslationKey.Password)}
-              type={!visibilityOldPass ? 'password' : 'text'}
+              styleType={!visibilityOldPass ? 'password' : 'text'}
               value={formFields.password}
               startAdornment={
                 !isRecoverPassword ? (
@@ -226,7 +226,7 @@ export const RegistrationForm = memo(props => {
             inputClasses={styles.input}
             label={isRecoverPassword ? t(TranslationKey['New password']) : t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             startAdornment={
               !isRecoverPassword ? (
@@ -289,7 +289,7 @@ export const RegistrationForm = memo(props => {
               isRecoverPassword ? t(TranslationKey['Re-enter the new password']) : t(TranslationKey['Re-type Password'])
             }
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
             startAdornment={
               !isRecoverPassword ? (

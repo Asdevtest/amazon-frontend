@@ -60,7 +60,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['To order selected products'])}
               disabled={isNoSelectedRows}
               onClick={onClickOrderBtn}
@@ -69,7 +69,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               disabled={selectedRows.length > 1}
               className={styles.actionButtonWithPlus}
               onClick={onClickProductLaunch}
@@ -128,7 +128,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               )}
               className={styles.actionButtonWithPlus}
               disabled={isNoSelectedRows}
-              type={ButtonType.DANGER}
+              styleType={ButtonType.DANGER}
               variant={ButtonVariant.OUTLINED}
               onClick={onClickTriggerArchOrResetProducts}
             >
@@ -141,7 +141,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         {!isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
@@ -151,7 +151,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
             >

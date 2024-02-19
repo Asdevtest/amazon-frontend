@@ -56,7 +56,7 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button type={ButtonType.SUCCESS} disabled={disabledButton} onClick={handleClick}>
+        <Button styleType={ButtonType.SUCCESS} disabled={disabledButton} onClick={handleClick}>
           {t(TranslationKey.Save)}
         </Button>
 

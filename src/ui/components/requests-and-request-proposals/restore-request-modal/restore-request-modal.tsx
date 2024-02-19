@@ -65,7 +65,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
 
       <div className={styles.controls}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!date || currentRequestsCount > Number(requestCount)}
           className={styles.controlButton}
           onClick={() => {

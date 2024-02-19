@@ -280,7 +280,7 @@ export const EditBoxTasksModal = props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button type={ButtonType.SUCCESS} disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+        <Button styleType={ButtonType.SUCCESS} disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 

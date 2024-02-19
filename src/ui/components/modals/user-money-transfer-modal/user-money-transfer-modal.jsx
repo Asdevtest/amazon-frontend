@@ -30,7 +30,7 @@ export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) 
           <Typography className={styles.link}>{t(TranslationKey['Money transfer link'])}</Typography>
         </Link>
 
-        <Button type={ButtonType.SUCCESS} className={styles.button} onClick={setOpenModal}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
         </Button>
       </div>

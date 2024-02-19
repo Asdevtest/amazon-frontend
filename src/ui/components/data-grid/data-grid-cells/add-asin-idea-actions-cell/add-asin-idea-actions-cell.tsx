@@ -18,7 +18,7 @@ interface AddAsinIdeaActionsCellProps {
 
 export const AddAsinIdeaActionsCell: FC<AddAsinIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
   <Button
-    type={ButtonType.SUCCESS}
+    styleType={ButtonType.SUCCESS}
     disabled={
       row.originalData.variation
         ? !row?.originalData?.childProduct?.barCode

@@ -64,7 +64,11 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
         onSubmit={onChangeSearchValue}
       />
 
-      <Button type={ButtonType.DANGER} disabled={noSelectedRows || selectedRows.length > 1} onClick={onClickDeleteBtn}>
+      <Button
+        styleType={ButtonType.DANGER}
+        disabled={noSelectedRows || selectedRows.length > 1}
+        onClick={onClickDeleteBtn}
+      >
         {t(TranslationKey.Remove)}
       </Button>
     </div>

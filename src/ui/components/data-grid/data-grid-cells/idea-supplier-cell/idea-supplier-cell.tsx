@@ -24,7 +24,7 @@ export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSup
     <div className={styles.ideaSupplier}>
       {!!suppliers.length && <p>{suppliers[0].name}</p>}
       {!suppliers.length && (
-        <Button type={ButtonType.SUCCESS} className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
           <PlusIcon /> {t(TranslationKey.Add)}
         </Button>
       )}

@@ -823,7 +823,7 @@ export const EditOrderModal = memo(
 
                     <div className={styles.supplierButtonWrapper}>
                       <Button
-                        type={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
+                        styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(styles.iconBtn, {

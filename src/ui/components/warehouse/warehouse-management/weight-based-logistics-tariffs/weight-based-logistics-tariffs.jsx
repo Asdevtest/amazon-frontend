@@ -100,7 +100,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
             </Button>
 
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
               className={styles.placeAddBtn}
               onClick={() => onClickAddBtn()}

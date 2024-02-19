@@ -245,7 +245,7 @@ export const NavbarCollapse = ({
         key={subIndex}
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
-        type={ButtonType.TRANSPARENT}
+        styleType={ButtonType.TRANSPARENT}
         tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
         tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
       >

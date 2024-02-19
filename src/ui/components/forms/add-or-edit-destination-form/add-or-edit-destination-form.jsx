@@ -148,7 +148,7 @@ export const AddOrEditDestinationForm = observer(
         </div>
 
         <div className={styles.btnsWrapper}>
-          <Button type={ButtonType.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+          <Button styleType={ButtonType.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
 

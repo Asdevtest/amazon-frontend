@@ -77,7 +77,11 @@ export const ClientIdeasView = observer(({ history }) => {
 
         <div>
           {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-            <Button type={ButtonType.SUCCESS} className={styles.createRequest} onClick={viewModel.onClickProductLaunch}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.createRequest}
+              onClick={viewModel.onClickProductLaunch}
+            >
               <PlusIcon /> {t(TranslationKey['Create idea'])}
             </Button>
           )}

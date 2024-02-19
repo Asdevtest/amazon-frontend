@@ -101,7 +101,10 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 renderAdditionalButtons={() => (
                   <div className={styles.additionalButtonsWrapper}>
                     {showRejectTheDealButton ? (
-                      <Button type={ButtonType.DANGER} onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}>
+                      <Button
+                        styleType={ButtonType.DANGER}
+                        onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+                      >
                         {t(TranslationKey['Reject the deal'])}
                       </Button>
                     ) : (

@@ -674,7 +674,7 @@ export const AddOrEditBatchForm = observer(
               />
             </div>
             <Button
-              type={ButtonType.DANGER}
+              styleType={ButtonType.DANGER}
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
               className={styles.actionBtn}
               onClick={onClickTrash}
@@ -703,7 +703,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               className={styles.actionBtn}
               onClick={onClickSubmit}

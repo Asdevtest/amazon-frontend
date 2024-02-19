@@ -164,7 +164,7 @@ export const DealDetailsCard = ({
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
                 <Button
-                  type={ButtonType.DANGER}
+                  styleType={ButtonType.DANGER}
                   className={styles.actionButton}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
@@ -172,7 +172,7 @@ export const DealDetailsCard = ({
                 </Button>
 
                 <Button
-                  type={ButtonType.SUCCESS}
+                  styleType={ButtonType.SUCCESS}
                   className={styles.actionButton}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
@@ -183,7 +183,7 @@ export const DealDetailsCard = ({
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
               >

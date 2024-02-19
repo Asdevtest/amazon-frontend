@@ -110,7 +110,7 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
 
       <div className={styles.buttonsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={submitDisabled}
           className={styles.saveButton}
           onClick={onClickSubmit}

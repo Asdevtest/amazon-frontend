@@ -24,7 +24,7 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
           <Typography>{humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el.strategy]).toUpperCase()}</Typography>
         </div>
       ))}
-      <Button type={ButtonType.SUCCESS} className={styles.button} onClick={onClickSuccessBtn}>
+      <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
       </Button>
     </div>

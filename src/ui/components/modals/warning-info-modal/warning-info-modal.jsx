@@ -17,7 +17,7 @@ export const WarningInfoModal = ({ openModal, setOpenModal, title, btnText, onCl
           {title}
         </Typography>
 
-        <Button type={ButtonType.SUCCESS} className={styles.button} onClick={onClickBtn}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={onClickBtn}>
           {btnText}
         </Button>
       </div>

@@ -137,7 +137,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         />
 
         <Button
-          type={ButtonType.DANGER}
+          styleType={ButtonType.DANGER}
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
@@ -162,7 +162,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
       <div className={styles.footerWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!selectedService && !selectedExecutor}
           onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >

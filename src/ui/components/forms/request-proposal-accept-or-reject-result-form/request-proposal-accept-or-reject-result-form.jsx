@@ -76,7 +76,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           <div className={styles.btnsWrapper}>
             <Button
               disabled={!formFields.rating}
-              type={isReject ? ButtonType.DANGER : ButtonType.SUCCESS}
+              styleType={isReject ? ButtonType.DANGER : ButtonType.SUCCESS}
               className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
               onClick={() => onSubmit(formFields)}
             >

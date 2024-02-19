@@ -175,7 +175,7 @@ export const BindStockGoodsToInventoryForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}
               disabled={!selectedRow || chosenGoods.length < 1}
               onClick={onClickSubmit}

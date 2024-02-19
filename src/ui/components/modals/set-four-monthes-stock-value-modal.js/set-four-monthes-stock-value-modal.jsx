@@ -38,7 +38,7 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
 
       <Box className={styles.saveBox}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!newValue || newValue > 99999}
           className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}

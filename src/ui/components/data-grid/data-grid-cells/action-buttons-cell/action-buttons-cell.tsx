@@ -44,7 +44,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           <Button
             key={index}
             {...button.style}
-            type={props.resetStyles ? ButtonType.TRANSPARENT : ButtonType.PRIMARY}
+            styleType={props.resetStyles ? ButtonType.TRANSPARENT : ButtonType.PRIMARY}
             tooltipInfoContent={button.tooltipText}
             className={cx({ [styles.button]: !props.resetStyles }, props.buttonClassName)}
             onClick={button.onclick}

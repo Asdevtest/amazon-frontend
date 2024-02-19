@@ -39,7 +39,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <Button
-        type={ButtonType.DEFAULT}
+        styleType={ButtonType.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >

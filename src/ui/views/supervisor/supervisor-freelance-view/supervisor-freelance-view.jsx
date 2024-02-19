@@ -28,14 +28,14 @@ export const SupervisorFreelanceViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} type={ButtonType.SUCCESS} onClick={viewModel.onClickVacantDeals}>
+            <Button className={styles.button} styleType={ButtonType.SUCCESS} onClick={viewModel.onClickVacantDeals}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Vacant deals'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} type={ButtonType.SUCCESS} onClick={viewModel.onClickDealsOnReview}>
+            <Button className={styles.button} styleType={ButtonType.SUCCESS} onClick={viewModel.onClickDealsOnReview}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Deals on review'])}</Typography>
                 <ArrowRightAltIcon color="primary" />

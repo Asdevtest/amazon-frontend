@@ -119,7 +119,7 @@ export const ResearcherAddProductFormRaw = observer(
 
             <Box className={styles.btnsWrapper}>
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={errorMsg || formFields.strategyStatus < 10}
                 onClick={onClickCheckAndAddProductBtn}

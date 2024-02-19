@@ -48,7 +48,7 @@ export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
 
       <div className={styles.saveBox}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!files.length && !tmpFiles?.length}
           className={styles.saveBtn}
           onClick={() => onClickSave(files)}

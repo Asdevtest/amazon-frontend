@@ -153,7 +153,7 @@ export const SelectionSupplierModal = ({
 
         <Grid item>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             tooltipAttentionContent={
               clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
             }

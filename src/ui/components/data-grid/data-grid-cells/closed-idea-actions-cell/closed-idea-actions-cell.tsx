@@ -26,14 +26,14 @@ export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ row
   return (
     <div className={styles.buttonsWrapper}>
       <Button
-        type={ButtonType.SUCCESS}
+        styleType={ButtonType.SUCCESS}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickRestore(row._id)}
       >
         {t(TranslationKey.Restore)}
       </Button>
       <Button
-        type={ButtonType.DANGER}
+        styleType={ButtonType.DANGER}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickClose(row._id)}
       >

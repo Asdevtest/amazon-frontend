@@ -139,7 +139,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                               {t(TranslationKey['Send in for rework'])}
                             </Button>
                             <Button
-                              type={ButtonType.SUCCESS}
+                              styleType={ButtonType.SUCCESS}
                               onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
                             >
                               {t(TranslationKey.Receive)}
@@ -150,14 +150,14 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                         {statusesOrderAndRejectButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button
-                              type={ButtonType.DANGER}
+                              styleType={ButtonType.DANGER}
                               onClick={() => viewModel.onClickRejectProposal(idForCurrentChat)}
                             >
                               {t(TranslationKey.Reject)}
                             </Button>
 
                             <Button
-                              type={ButtonType.SUCCESS}
+                              styleType={ButtonType.SUCCESS}
                               onClick={() => viewModel.onClickOrderProposal(idForCurrentChat, priceForCurrentChat)}
                             >
                               {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(priceForCurrentChat, 2)}`}

@@ -75,7 +75,7 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
       />
 
       <Box className={styles.saveBox}>
-        <Button type={ButtonType.SUCCESS} className={styles.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
           {t(TranslationKey.Save)}
         </Button>
         <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>

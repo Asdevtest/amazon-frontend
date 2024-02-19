@@ -289,7 +289,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.buttonsWrapper}>
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               disabled={disableSubmit}
               className={styles.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}

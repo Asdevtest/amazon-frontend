@@ -96,7 +96,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             {onClickButton && isSuccess ? (
               <div className={styles.buttonWrapper}>
                 <Button
-                  type={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
                   className={styles.button}
                   onClick={() => onClickButton(service)}
                 >
@@ -108,7 +108,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             {onClickSelectButton && select ? (
               <div className={styles.buttonWrapper}>
                 <Button
-                  type={select ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  styleType={select ? ButtonType.SUCCESS : ButtonType.PRIMARY}
                   className={styles.button}
                   onClick={() => onClickSelectButton()}
                 >

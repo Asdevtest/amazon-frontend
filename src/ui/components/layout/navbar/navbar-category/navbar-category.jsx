@@ -68,7 +68,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       tooltipPosition="center"
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
-      type={ButtonType.TRANSPARENT}
+      styleType={ButtonType.TRANSPARENT}
       onClick={onToggleModal}
     >
       <MuiListItem

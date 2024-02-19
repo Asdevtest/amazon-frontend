@@ -149,7 +149,7 @@ export const FieldsAndSuppliers = memo(
                     </Button>
                   ) : (
                     <Button
-                      type={ButtonType.SUCCESS}
+                      styleType={ButtonType.SUCCESS}
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
                       onClick={() => setEdit(!edit)}

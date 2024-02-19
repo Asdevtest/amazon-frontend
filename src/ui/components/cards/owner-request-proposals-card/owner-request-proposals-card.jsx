@@ -147,7 +147,7 @@ export const OwnerRequestProposalsCard = ({
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
-                type={ButtonType.DANGER}
+                styleType={ButtonType.DANGER}
                 tooltipInfoContent={t(
                   TranslationKey[
                     'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
@@ -176,7 +176,7 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 className={styles.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}

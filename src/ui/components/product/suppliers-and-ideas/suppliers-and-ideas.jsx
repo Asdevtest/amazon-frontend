@@ -154,7 +154,7 @@ export const SuppliersAndIdeas = observer(props => {
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             disabled={!!product.parentProductId}
             tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             variant="contained"

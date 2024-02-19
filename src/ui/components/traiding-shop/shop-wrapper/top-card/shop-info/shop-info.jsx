@@ -88,7 +88,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 <Button className={styles.editButton} onClick={onClickEditBtn}>
                   {t(TranslationKey.Edit)}
                 </Button>
-                <Button disabled type={ButtonType.DANGER} className={styles.deleteButton}>
+                <Button disabled styleType={ButtonType.DANGER} className={styles.deleteButton}>
                   {t(TranslationKey['Delete ad'])}
                 </Button>
               </>

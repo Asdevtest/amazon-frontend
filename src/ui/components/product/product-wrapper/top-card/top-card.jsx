@@ -288,7 +288,7 @@ export const TopCard = memo(
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                                 <div className={styles.supplierButtonWrapper}>
                                   <Button
-                                    type={ButtonType.DANGER}
+                                    styleType={ButtonType.DANGER}
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                                     className={cx(styles.iconBtn, styles.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
@@ -321,7 +321,7 @@ export const TopCard = memo(
                           {showActionBtns ? (
                             <div className={styles.supplierButtonWrapper}>
                               <Button
-                                type={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
+                                styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
                                 success={!isSupplierAcceptRevokeActive}
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive

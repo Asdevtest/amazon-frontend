@@ -188,7 +188,7 @@ export const BoxViewForm = memo(props => {
         <div className={styles.buttonsWrapper}>
           {isEdit && (
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               disabled={disableSaveButton}
               onClick={() => onSubmitChangeFields(formFields)}
             >

@@ -33,7 +33,7 @@ export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = mem
         {t(TranslationKey['Open a request'])}
       </Button>
       <Button
-        type={ButtonType.SUCCESS}
+        styleType={ButtonType.SUCCESS}
         disabled={disableOpenResultBtn}
         className={styles.productMyRequestsBtn}
         onClick={() => handlers.onClickOpenResult(data)}

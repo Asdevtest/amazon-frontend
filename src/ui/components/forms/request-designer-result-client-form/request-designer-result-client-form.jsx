@@ -273,7 +273,7 @@ export const RequestDesignerResultClientForm = memo(props => {
                 {t(TranslationKey['Send in for rework'])}
               </Button>
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 className={styles.button}
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)

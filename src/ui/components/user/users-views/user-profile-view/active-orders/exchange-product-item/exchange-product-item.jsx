@@ -50,7 +50,7 @@ export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => 
         <Typography className={(styles.text, styles.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
-        <Button type={ButtonType.SUCCESS} onClick={() => handlerPrivateLabel(index)}>
+        <Button styleType={ButtonType.SUCCESS} onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
         </Button>
       </TableCell>

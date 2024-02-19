@@ -57,7 +57,7 @@ export const SinglePermissions = observer(() => {
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.placeAddBtnWrapper}>
-        <Button type={ButtonType.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>

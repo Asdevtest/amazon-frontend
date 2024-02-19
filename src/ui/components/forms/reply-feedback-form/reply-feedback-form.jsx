@@ -35,7 +35,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button type={ButtonType.SUCCESS} onClick={() => onSubmit(feedback.user._id)}>
+        <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmit(feedback.user._id)}>
           {t(TranslationKey.Reply)}
         </Button>
 

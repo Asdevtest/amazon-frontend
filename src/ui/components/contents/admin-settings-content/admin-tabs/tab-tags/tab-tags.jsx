@@ -33,7 +33,7 @@ export const TabTags = observer(() => {
     <div className={styles.wrapper}>
       <div className={styles.buttons}>
         <Button
-          type={ButtonType.DANGER}
+          styleType={ButtonType.DANGER}
           disabled={!viewModel.rowSelectionModel.length}
           className={styles.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
@@ -46,7 +46,7 @@ export const TabTags = observer(() => {
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button type={ButtonType.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>

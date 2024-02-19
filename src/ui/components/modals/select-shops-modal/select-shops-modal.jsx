@@ -54,7 +54,7 @@ export const SelectShopsModal = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={isDisabled}
           className={styles.button}
           onClick={() => onClickSuccessBtn(selectedItem)}

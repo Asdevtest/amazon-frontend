@@ -194,7 +194,7 @@ export const CreateOrEditTradingShopContent = ({
           </Button>
 
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])

@@ -47,7 +47,7 @@ export const SubUsersView = observer(({ history }) => {
         />
 
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
           className={styles.addUserButton}
           onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}

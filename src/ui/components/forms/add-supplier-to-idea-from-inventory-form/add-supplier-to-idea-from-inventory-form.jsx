@@ -288,7 +288,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
 
         <div className={styles.btnsWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             className={styles.successBtn}
             onClick={() => {
               onCreateSearchSupplierRequest()

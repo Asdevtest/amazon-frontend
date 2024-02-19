@@ -41,7 +41,7 @@ export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = memo(props =>
       </Button>
 
       <Button
-        type={ButtonType.DANGER}
+        styleType={ButtonType.DANGER}
         tooltipInfoContent={isFirstRow ? tooltipSecondButton : ''}
         disabled={disableActionBtn}
         className={styles.rowCancelBtn}

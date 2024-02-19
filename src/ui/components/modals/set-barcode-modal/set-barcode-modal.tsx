@@ -47,7 +47,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!files.length && !tmpCode?.length}
           className={styles.button}
           onClick={() => {

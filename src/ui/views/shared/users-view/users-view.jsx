@@ -27,7 +27,7 @@ export const UsersViewRaw = props => {
         <Typography className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
         <div className={styles.btnsWrapper}>
-          <Button className={styles.button} type={ButtonType.SUCCESS} onClick={viewModel.onClickSubUsers}>
+          <Button className={styles.button} styleType={ButtonType.SUCCESS} onClick={viewModel.onClickSubUsers}>
             <div className={styles.btnTextWrapper}>
               <Typography className={styles.btnText}>{t(TranslationKey['My users'])}</Typography>
               <ArrowRightAltIcon color="primary" />

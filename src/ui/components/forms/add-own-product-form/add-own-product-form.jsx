@@ -177,7 +177,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
       <div className={styles.btnsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={disableSubmitBtn}
           onClick={() => {
             onSubmit(formFields, images, isNoAsin)

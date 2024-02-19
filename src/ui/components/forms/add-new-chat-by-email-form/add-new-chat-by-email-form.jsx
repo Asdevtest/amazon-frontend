@@ -101,7 +101,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
 
       <div className={styles.buttonWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {

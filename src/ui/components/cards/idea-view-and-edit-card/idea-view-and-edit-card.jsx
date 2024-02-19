@@ -820,7 +820,7 @@ export const IdeaViewAndEditCard = observer(
                     />
 
                     <Button
-                      type={ButtonType.SUCCESS}
+                      styleType={ButtonType.SUCCESS}
                       disabled={!supplierFound}
                       className={styles.actionButton}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
@@ -838,7 +838,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <Button
-                    type={ButtonType.SUCCESS}
+                    styleType={ButtonType.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
                     className={[styles.actionButton]}
@@ -850,7 +850,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && showCreateRequestButton && (
                   <Button
-                    type={ButtonType.SUCCESS}
+                    styleType={ButtonType.SUCCESS}
                     className={styles.actionButton}
                     onClick={() => onClickCreateRequestButton(formFields)}
                   >
@@ -861,7 +861,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
-                    type={ButtonType.SUCCESS}
+                    styleType={ButtonType.SUCCESS}
                     disabled={disableAcceptButton}
                     onClick={() => onClickAcceptButton(formFields)}
                   >
@@ -870,7 +870,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button type={ButtonType.SUCCESS} onClick={() => onClickToOrder(formFields)}>
+                  <Button styleType={ButtonType.SUCCESS} onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
@@ -886,13 +886,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button type={ButtonType.DANGER} onClick={() => onClickCloseIdea(formFields._id)}>
+                  <Button styleType={ButtonType.DANGER} onClick={() => onClickCloseIdea(formFields._id)}>
                     {t(TranslationKey['Close idea'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button type={ButtonType.SUCCESS} onClick={() => onClickReoperButton(formFields._id)}>
+                  <Button styleType={ButtonType.SUCCESS} onClick={() => onClickReoperButton(formFields._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
                 )}
@@ -902,7 +902,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button type={ButtonType.DANGER} onClick={() => onClickRejectButton(formFields._id)}>
+                  <Button styleType={ButtonType.DANGER} onClick={() => onClickRejectButton(formFields._id)}>
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}
@@ -923,7 +923,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={styles.addOrEditBtnsWrapper}>
             <Button
               disabled={disabledSubmit}
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}

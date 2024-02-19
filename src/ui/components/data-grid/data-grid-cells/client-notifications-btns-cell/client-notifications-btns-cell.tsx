@@ -33,7 +33,7 @@ export const ClientNotificationsBtnsCell: FC<ClientNotificationsBtnsCellProps> =
         {t(TranslationKey.Confirm)}
       </Button>
       <Button
-        type={ButtonType.DANGER}
+        styleType={ButtonType.DANGER}
         disabled={disabled}
         className={styles.notificationBtn}
         onClick={() => {

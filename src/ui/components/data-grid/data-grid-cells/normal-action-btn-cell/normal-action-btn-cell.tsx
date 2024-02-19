@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, MouseEvent, memo } from 'react'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -48,7 +48,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
   return (
     <div className={styles.wrapper}>
       <Button
-        type={casual ? ButtonType.CASUAL : ButtonType.PRIMARY}
+        styleType={casual ? ButtonType.CASUAL : ButtonType.PRIMARY}
         disabled={disabled}
         tooltipInfoContent={isFirstRow ? tooltipText : ''}
         className={buttonStyle}
@@ -65,12 +65,12 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
 
       {showCancelButton && (
         <Button
-          type={ButtonType.DANGER}
+          styleType={ButtonType.DANGER}
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }
           className={buttonStyle}
-          onClick={(e: MouseEvent) => {
+          onClick={(e: MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation()
 
             if (onClickCancelTask) {

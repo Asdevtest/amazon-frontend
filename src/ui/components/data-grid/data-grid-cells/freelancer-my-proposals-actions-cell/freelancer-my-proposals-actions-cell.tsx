@@ -34,7 +34,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
   return (
     <div className={styles.proposalsActions}>
       <Button
-        type={ButtonType.DANGER}
+        styleType={ButtonType.DANGER}
         disabled={disabledCancelBtnStatuses.includes(status)}
         className={styles.freelancerMyProposalsButton}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickDeleteButton)}
@@ -51,7 +51,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
       </Button>
 
       <Button
-        type={ButtonType.SUCCESS}
+        styleType={ButtonType.SUCCESS}
         disabled={!showResultStatuses.includes(status)}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickResultButton)}
       >

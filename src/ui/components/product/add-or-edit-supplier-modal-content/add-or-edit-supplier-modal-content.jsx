@@ -168,7 +168,7 @@ export const AddOrEditSupplierModalContent = memo(
             </Button>
             <div>
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
                 disabled={diasabledSubmit}
                 className={styles.saveBtnClient}
@@ -185,7 +185,7 @@ export const AddOrEditSupplierModalContent = memo(
                 {t(TranslationKey['Save and bind'])}
               </Button>
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
                 disabled={diasabledSubmit}
                 className={styles.saveBtnClient}

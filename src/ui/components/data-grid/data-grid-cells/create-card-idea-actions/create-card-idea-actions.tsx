@@ -19,7 +19,7 @@ interface CreateCardIdeaActionsProps {
 export const CreateCardIdeaActionsCell: FC<CreateCardIdeaActionsProps> = memo(({ rowHandlers, row }) => {
   return (
     <Button
-      type={ButtonType.SUCCESS}
+      styleType={ButtonType.SUCCESS}
       disabled={!row.childProduct && row.variation}
       onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
     >

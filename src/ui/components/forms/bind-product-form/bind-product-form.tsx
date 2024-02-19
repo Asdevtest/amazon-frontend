@@ -141,7 +141,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={!selectedProducts.length}
           onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
         >

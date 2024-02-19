@@ -99,7 +99,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
 
         <div className={styles.buttonWrapper}>
           <Button
-            type={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+            styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
             className={styles.openBtn}
             onClick={() => onClickButton(service)}
           >

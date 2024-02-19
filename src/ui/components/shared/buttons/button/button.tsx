@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, PropsWithChildren, ReactElement, memo, useContext } from 'react'
+import { ButtonHTMLAttributes, FC, ReactElement, memo, useContext } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -11,25 +10,24 @@ import { ButtonType, ButtonVariant, TooltipPositions } from '@typings/types/butt
 
 import { useStyles } from './button.style'
 
-interface Props extends PropsWithChildren {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: TooltipPositions
 
   disabled?: boolean
-  onClick?: (target?: any) => void
   disableElevation?: boolean
 
   defaultButtonTooltip?: string
   startIcon?: ReactElement
 
-  type?: ButtonType
+  styleType?: ButtonType
   variant?: ButtonVariant
   className?: string
   fullWidth?: boolean
 }
 
-export const Button: FC<Props> = memo(props => {
+export const Button: FC<ButtonProps> = memo(props => {
   const {
     defaultButtonTooltip,
     tooltipAttentionContent,
@@ -39,7 +37,7 @@ export const Button: FC<Props> = memo(props => {
     disabled,
 
     children,
-    type = ButtonType.PRIMARY,
+    styleType = ButtonType.PRIMARY,
     variant = ButtonVariant.CONTAINED,
     className,
     fullWidth = false,
@@ -58,15 +56,15 @@ export const Button: FC<Props> = memo(props => {
       disabled={disabled}
       className={cx(styles.root, className, {
         [styles.fullWidth]: fullWidth,
-        [styles.transparent]: type === ButtonType.TRANSPARENT,
-        [styles.casual]: type === ButtonType.CASUAL,
-        [styles.default]: type === ButtonType.DEFAULT,
-        [styles.primary]: type === ButtonType.PRIMARY && !isOutlined,
-        [styles.danger]: type === ButtonType.DANGER && !isOutlined,
-        [styles.success]: type === ButtonType.SUCCESS && !isOutlined,
-        [styles.outlinedPrimary]: type === ButtonType.PRIMARY && isOutlined,
-        [styles.outlinedSuccess]: type === ButtonType.SUCCESS && isOutlined,
-        [styles.outlinedDanger]: type === ButtonType.DANGER && isOutlined,
+        [styles.transparent]: styleType === ButtonType.TRANSPARENT,
+        [styles.casual]: styleType === ButtonType.CASUAL,
+        [styles.default]: styleType === ButtonType.DEFAULT,
+        [styles.primary]: styleType === ButtonType.PRIMARY && !isOutlined,
+        [styles.danger]: styleType === ButtonType.DANGER && !isOutlined,
+        [styles.success]: styleType === ButtonType.SUCCESS && !isOutlined,
+        [styles.outlinedPrimary]: styleType === ButtonType.PRIMARY && isOutlined,
+        [styles.outlinedSuccess]: styleType === ButtonType.SUCCESS && isOutlined,
+        [styles.outlinedDanger]: styleType === ButtonType.DANGER && isOutlined,
       })}
       {...restProps}
     >

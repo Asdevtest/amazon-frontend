@@ -115,7 +115,7 @@ export const CreateOrEditServiceContent = memo(props => {
         </Button>
 
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={disabledSubmitButton}
           className={styles.successBtn}
           onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}

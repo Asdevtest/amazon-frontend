@@ -82,7 +82,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           />
 
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
             className={styles.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}

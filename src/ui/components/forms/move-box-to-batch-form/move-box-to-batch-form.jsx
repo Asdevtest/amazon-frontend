@@ -63,7 +63,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button type={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
+            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 
@@ -98,7 +98,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsSecondWrapper}>
-            <Button type={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
+            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 

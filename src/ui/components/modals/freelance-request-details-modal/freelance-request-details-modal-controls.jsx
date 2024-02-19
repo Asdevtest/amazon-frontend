@@ -58,7 +58,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             disabled={disableMarkAsCompletedButton}
             className={styles.publishBtn}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
@@ -72,7 +72,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             {showMainActionsButton && (
               <>
                 <Button
-                  type={ButtonType.DANGER}
+                  styleType={ButtonType.DANGER}
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                   className={styles.deleteBtn}
                   onClick={onClickCancelBtn}
@@ -90,7 +90,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 {showPublishButton && (
                   <Button
-                    type={ButtonType.SUCCESS}
+                    styleType={ButtonType.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
                     className={styles.publishBtn}
                     onClick={onClickPublishBtn}

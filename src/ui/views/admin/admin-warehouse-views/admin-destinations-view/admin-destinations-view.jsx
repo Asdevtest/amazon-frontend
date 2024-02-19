@@ -37,7 +37,7 @@ export const AdminDestinationsViewRaw = props => {
   return (
     <>
       <div className={styles.placeAddBtnWrapper}>
-        <Button type={ButtonType.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add a destination'])}
         </Button>
       </div>

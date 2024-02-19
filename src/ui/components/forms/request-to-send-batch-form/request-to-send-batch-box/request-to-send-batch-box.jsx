@@ -358,7 +358,7 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <Button type={ButtonType.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+          <Button styleType={ButtonType.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
             X
           </Button>
         </td>

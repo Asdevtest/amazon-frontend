@@ -59,7 +59,7 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = memo(
 
       {handlers?.onTriggerArchive && (
         <Button
-          type={isArchive ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+          styleType={isArchive ? ButtonType.SUCCESS : ButtonType.PRIMARY}
           tooltipInfoContent={(isFirstRow && tooltipArchiveButton && t(TranslationKey['Move to archive'])) || undefined}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
@@ -71,7 +71,7 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = memo(
 
       {isArchive || isArchive === undefined ? (
         <Button
-          type={ButtonType.DANGER}
+          styleType={ButtonType.DANGER}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
           onClick={() => {

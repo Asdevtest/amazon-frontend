@@ -53,7 +53,7 @@ export const CheckPendingOrderForm = ({
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button type={ButtonType.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
+        <Button styleType={ButtonType.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
         <Button variant={ButtonVariant.OUTLINED} className={styles.CancelBtn} onClick={onClickCancelBtn}>

@@ -104,7 +104,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button type={ButtonType.SUCCESS} className={styles.button} disabled={disableSubmitBtn} onClick={onSubmit}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.button} disabled={disableSubmitBtn} onClick={onSubmit}>
           {t(TranslationKey.Add)}
         </Button>
 

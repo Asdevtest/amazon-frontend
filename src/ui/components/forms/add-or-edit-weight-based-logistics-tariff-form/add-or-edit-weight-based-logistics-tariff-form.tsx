@@ -524,7 +524,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         <div className={styles.btnsWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             disabled={disableSubmitBtn}
             className={styles.button}
             onClick={() => onSubmit()}

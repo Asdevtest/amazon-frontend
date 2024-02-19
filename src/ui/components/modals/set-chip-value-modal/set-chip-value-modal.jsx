@@ -31,7 +31,7 @@ export const SetChipValueModal = ({ title, onSubmit, onCloseModal, sourceValue, 
 
       <Box className={styles.saveBox}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={sourceValue === newValue}
           className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}

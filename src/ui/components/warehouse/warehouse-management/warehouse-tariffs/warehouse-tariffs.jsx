@@ -58,7 +58,7 @@ export const WarehouseTariffs = observer(() => {
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.placeAddBtnWrapper}>
-        <Button type={ButtonType.SUCCESS} className={styles.placeAddBtn} onClick={() => onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.placeAddBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>

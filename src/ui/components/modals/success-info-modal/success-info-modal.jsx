@@ -32,7 +32,12 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
           {title}
         </Typography>
 
-        <Button type={ButtonType.SUCCESS} disabled={!openModal} className={styles.button} onClick={onClickSuccessBtn}>
+        <Button
+          styleType={ButtonType.SUCCESS}
+          disabled={!openModal}
+          className={styles.button}
+          onClick={onClickSuccessBtn}
+        >
           {successBtnText}
         </Button>
       </div>

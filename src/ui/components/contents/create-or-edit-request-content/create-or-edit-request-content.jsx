@@ -1081,7 +1081,7 @@ export const CreateOrEditRequestContent = memo(props => {
               </Button>
 
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 disabled={disableSubmit}
                 className={styles.button}
                 onClick={() => onEditSubmit(formFields, images, announcement)}
@@ -1103,7 +1103,7 @@ export const CreateOrEditRequestContent = memo(props => {
               </Button>
 
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
@@ -1137,7 +1137,7 @@ export const CreateOrEditRequestContent = memo(props => {
             </Button>
 
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
               }
@@ -1157,7 +1157,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
             {isSecondStep && (
               <Button
-                type={ButtonType.SUCCESS}
+                styleType={ButtonType.SUCCESS}
                 disabled={disableSubmit}
                 className={styles.button}
                 onClick={() => onClickCreate({ withPublish: true })}

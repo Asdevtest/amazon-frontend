@@ -22,10 +22,10 @@ export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = memo(
 
     return (
       <div className={styles.ideaActions}>
-        <Button type={ButtonType.SUCCESS} disabled={isAcceptDisabled} onClick={onClickAccept}>
+        <Button styleType={ButtonType.SUCCESS} disabled={isAcceptDisabled} onClick={onClickAccept}>
           {t(TranslationKey.Accept)}
         </Button>
-        <Button type={ButtonType.DANGER} onClick={onClickReject}>
+        <Button styleType={ButtonType.DANGER} onClick={onClickReject}>
           {t(TranslationKey.Reject)}
         </Button>
       </div>

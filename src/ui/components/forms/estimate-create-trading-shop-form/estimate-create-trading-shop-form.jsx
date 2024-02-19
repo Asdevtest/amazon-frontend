@@ -152,7 +152,7 @@ export const EstimateCreateTradingShopForm = ({
 
       <div className={styles.buttonsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           disabled={submitIsClicked}
           className={styles.buttonOk}
           onClick={onClickSubmit}

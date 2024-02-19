@@ -135,11 +135,21 @@ export const ConfirmationModal = props => {
           })}
         >
           {isWarning ? (
-            <Button type={ButtonType.DANGER} className={styles.button} disabled={submitIsClicked} onClick={onSubmit}>
+            <Button
+              styleType={ButtonType.DANGER}
+              className={styles.button}
+              disabled={submitIsClicked}
+              onClick={onSubmit}
+            >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
             </Button>
           ) : (
-            <Button type={ButtonType.SUCCESS} className={styles.button} disabled={submitIsClicked} onClick={onSubmit}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.button}
+              disabled={submitIsClicked}
+              onClick={onSubmit}
+            >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
             </Button>
           )}

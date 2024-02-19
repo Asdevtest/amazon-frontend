@@ -100,7 +100,7 @@ export const AppealDetailsCard = () => {
             <Typography className={styles.timeOnReviewTitle}>
               {'Время на рассмотрение с момента принятия 48 часов'}
             </Typography>
-            <Button type={ButtonType.SUCCESS} className={styles.actionButton}>
+            <Button styleType={ButtonType.SUCCESS} className={styles.actionButton}>
               {'Принять к рассмотрению'}
             </Button>
           </div>

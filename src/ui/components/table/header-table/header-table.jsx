@@ -65,7 +65,7 @@ export const HeaderTable = ({ viewModel }) => {
             {t(TranslationKey['Edit batch'])}
           </Button>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             styles={styles.rightSideButton}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >

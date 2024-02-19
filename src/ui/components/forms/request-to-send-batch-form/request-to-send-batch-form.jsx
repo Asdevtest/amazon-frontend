@@ -174,7 +174,7 @@ export const RequestToSendBatchForm = observer(
             {t(TranslationKey.Send)}
           </Button>
           <Button
-            type={ButtonType.DANGER}
+            styleType={ButtonType.DANGER}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             onClick={closeModal}
           >

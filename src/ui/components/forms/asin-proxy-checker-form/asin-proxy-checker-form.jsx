@@ -186,7 +186,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
         <div className={styles.actionsButtonsContainer}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             disabled={
               !updatedAsinsAndReasonsData.length ||
               updatedAsinsAndReasonsData.some(item => item.asin === '') ||

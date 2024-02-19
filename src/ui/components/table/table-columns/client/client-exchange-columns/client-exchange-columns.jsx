@@ -128,7 +128,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     width: 190,
     renderCell: params => (
       <Button
-        type={ButtonType.SUCCESS}
+        styleType={ButtonType.SUCCESS}
         width="100%"
         sx={{ height: '30px !important' }}
         onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}

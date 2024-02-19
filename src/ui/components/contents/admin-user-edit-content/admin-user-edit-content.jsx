@@ -354,7 +354,7 @@ export const AdminUserEditContent = observer(
                 inputClasses={styles.input}
                 label={t(TranslationKey['Old password'])}
                 placeholder={t(TranslationKey['Old password'])}
-                type={!visibilityOldPass ? 'password' : 'text'}
+                styleType={!visibilityOldPass ? 'password' : 'text'}
                 value={formFields.oldPassword}
                 onChange={onChangeFormField('oldPassword')}
               />
@@ -372,7 +372,7 @@ export const AdminUserEditContent = observer(
                 inputClasses={styles.input}
                 label={t(TranslationKey['New password'])}
                 placeholder={t(TranslationKey.Password)}
-                type={!visibilityPass ? 'password' : 'text'}
+                styleType={!visibilityPass ? 'password' : 'text'}
                 value={formFields.password}
                 onChange={onChangeFormField('password')}
               />
@@ -414,7 +414,7 @@ export const AdminUserEditContent = observer(
                 inputClasses={styles.input}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}
-                type={!visibilityPass ? 'password' : 'text'}
+                styleType={!visibilityPass ? 'password' : 'text'}
                 value={formFields.confirmPassword}
                 onChange={onChangeFormField('confirmPassword')}
               />
@@ -687,7 +687,7 @@ export const AdminUserEditContent = observer(
 
         <div className={styles.buttonWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            styleType={ButtonType.SUCCESS}
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             className={[styles.button, styles.rightBtn]}
             onClick={onClickSubmit}

@@ -64,7 +64,7 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <Button type={ButtonType.SUCCESS} onClick={onClickContinue}>
+        <Button styleType={ButtonType.SUCCESS} onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
         </Button>
         <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickCancel}>

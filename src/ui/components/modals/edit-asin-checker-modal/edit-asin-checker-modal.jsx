@@ -64,7 +64,7 @@ export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy 
 
       <div className={styles.buttonsWrapper}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           className={styles.buttonOk}
           onClick={() => onSubmit(asinsToEdit?._id, formFields, strategy)}
         >

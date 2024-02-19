@@ -47,7 +47,7 @@ export const SupplierPaymentForm = ({
 
       <diiv className={styles.saveBox}>
         <Button
-          type={ButtonType.SUCCESS}
+          styleType={ButtonType.SUCCESS}
           className={styles.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPaymentDetailsPhotos)

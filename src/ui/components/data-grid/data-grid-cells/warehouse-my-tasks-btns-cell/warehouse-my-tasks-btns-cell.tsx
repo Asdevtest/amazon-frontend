@@ -29,7 +29,7 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(
   return (
     <div className={styles.warehouseMyTasksBtnsWrapper}>
       <Button
-        type={ButtonType.SUCCESS}
+        styleType={ButtonType.SUCCESS}
         tooltipInfoContent={isFirstRow ? t(TranslationKey['Open a window to perform a task']) : ''}
         className={styles.button}
         onClick={() => handlers.onClickResolveBtn(rowId)}
@@ -39,7 +39,7 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(
 
       {operationType !== TaskOperationType.RECEIVE && (
         <Button
-          type={ButtonType.DANGER}
+          styleType={ButtonType.DANGER}
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }

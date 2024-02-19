@@ -49,7 +49,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                type={ButtonType.DANGER}
+                styleType={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
@@ -64,7 +64,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                type={ButtonType.DANGER}
+                styleType={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
@@ -82,7 +82,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                type={ButtonType.DANGER}
+                styleType={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => {
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')

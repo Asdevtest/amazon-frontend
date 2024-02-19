@@ -161,7 +161,7 @@ export const RequestResultModal = memo(props => {
         <div className={styles.buttonsWrapper}>
           {onClickSendAsResult && (
             <Button
-              type={ButtonType.SUCCESS}
+              styleType={ButtonType.SUCCESS}
               disabled={disabledSendButton}
               className={styles.button}
               onClick={() => {
