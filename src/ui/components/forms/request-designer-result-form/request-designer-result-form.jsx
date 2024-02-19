@@ -154,7 +154,7 @@ const Slot = ({
             )}
             <input
               multiple
-              styleType={'file'}
+              type="file"
               className={styles.pasteInput}
               defaultValue={''}
               // onPaste={e => {
