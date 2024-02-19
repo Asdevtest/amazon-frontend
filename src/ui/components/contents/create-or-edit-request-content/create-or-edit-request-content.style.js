@@ -77,6 +77,7 @@ export const useStyles = makeStyles()(theme => ({
   field: {
     height: 40,
     width: '100%',
+    maxWidth: 250,
   },
 
   fieldContainer: {
