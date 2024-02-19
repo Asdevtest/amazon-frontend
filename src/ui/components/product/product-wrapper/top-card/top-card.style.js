@@ -61,20 +61,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   carouselWrapper: {
-    padding: '16px',
-    marginBottom: '16px',
-    height: '350px',
-    position: 'relative',
-  },
-
-  carouselImage: {
-    height: '300px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
+    margin: '20px 0',
   },
 
   imageFileInputWrapper: {

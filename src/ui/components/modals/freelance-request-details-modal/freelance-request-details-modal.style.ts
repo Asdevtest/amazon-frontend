@@ -77,10 +77,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  filesItem: {
-    width: 'fit-content',
-  },
-
   requestInfo: {
     width: '100%',
     flexDirection: 'column',
@@ -104,10 +100,6 @@ export const useStyles = makeStyles()(theme => ({
     '& > div': {
       height: 'fit-content',
     },
-  },
-
-  filesList: {
-    width: 'fit-content',
   },
 
   editorWrapper: {

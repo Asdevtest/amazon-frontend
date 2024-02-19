@@ -18,7 +18,7 @@ import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -143,10 +143,8 @@ export const TopCard = memo(
               <div className={styles.card}>
                 {product.images.length ? (
                   <div className={styles.carouselWrapper}>
-                    <PhotoAndFilesSlider
-                      showPreviews
-                      withoutFiles
-                      bigSlider
+                    <SlideshowGallery
+                      slidesToShow={5}
                       isEditable={clientToEdit}
                       files={imagesForLoad}
                       onChangeImagesForLoad={onChangeImagesForLoad}

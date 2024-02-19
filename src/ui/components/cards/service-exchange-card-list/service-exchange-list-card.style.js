@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     height: 165,
     width: '100%',
-    padding: '20px 20px 20px 0',
+    padding: 20,
     display: 'flex',
     justifyContent: 'space-between',
     boxShadow: theme.palette.boxShadow.paper,
@@ -12,12 +12,8 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 7,
   },
 
-  photosWrapper: {
-    padding: '10px 50px',
-  },
-
   titleAndDescriptionWrapper: {
-    width: 275,
+    width: 320,
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
