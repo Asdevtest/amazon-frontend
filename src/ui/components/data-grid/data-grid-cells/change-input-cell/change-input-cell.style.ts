@@ -1,46 +1,56 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  changeInput: {
+  input: {
     width: '100%',
     height: 36,
-    textAlign: 'center',
+    padding: 0,
     fontSize: 14,
     lineHeight: '19px',
-    padding: 0,
+    textAlign: 'center',
   },
 
-  errorInputActive: {
-    border: '1px solid red',
+  error: {
+    border: `1px solid ${theme.palette.text.red} !important`,
+  },
+
+  icons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 3,
+  },
+
+  button: {
+    width: 16,
+    height: 16,
+    opacity: 1,
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+    },
   },
 
   doneIcon: {
+    marginRight: 10,
+    width: '16px !important',
+    height: '16px !important',
     color: theme.palette.text.green,
   },
 
-  iconWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  changeInputIcon: {
+  saveIcon: {
+    width: '16px !important',
+    height: '16px !important',
     color: theme.palette.primary.main,
-    transition: '.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   clearIcon: {
-    width: '20px !important',
-    height: '20px !important',
-    transition: '.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
+    width: '16px !important',
+    height: '16px !important',
     color: theme.palette.text.second,
   },
 }))
