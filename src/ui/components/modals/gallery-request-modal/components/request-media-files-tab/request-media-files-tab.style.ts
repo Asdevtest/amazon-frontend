@@ -49,10 +49,14 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 6,
   },
 
-  checkbox: {
+  checkboxWrapper: {
     position: 'absolute',
     top: -1,
     right: -1,
+    zIndex: 10,
+  },
+
+  checkbox: {
     padding: 0,
     borderRadius: '0 6px 0 6px',
     background: theme.palette.background.general,

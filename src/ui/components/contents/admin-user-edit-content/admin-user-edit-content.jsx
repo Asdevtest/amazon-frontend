@@ -574,14 +574,14 @@ export const AdminUserEditContent = observer(
 
             {(formFields.allowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
               selectedAllowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
-              formFields.role === mapUserRoleEnumToKey[UserRole.FREELANCER]) && (
+              Number(formFields.role) === mapUserRoleEnumToKey[UserRole.FREELANCER]) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
                 containerClasses={styles.allowedStrategiesContainer}
                 inputComponent={
                   <Select
                     multiple
-                    className={cx(styles.standartText, styles.capitalize)}
+                    className={styles.standartText}
                     value={formFields?.allowedSpec}
                     renderValue={selected =>
                       !selected?.length
@@ -591,7 +591,7 @@ export const AdminUserEditContent = observer(
                     onChange={onChangeFormField('allowedSpec')}
                   >
                     {specs?.map(spec => (
-                      <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
+                      <MenuItem key={spec?._id} value={spec?.type}>
                         <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
                         {spec?.title}
                       </MenuItem>
@@ -644,7 +644,7 @@ export const AdminUserEditContent = observer(
               <Checkbox
                 color="primary"
                 disabled={
-                  editUserFormFields?.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+                  editUserFormFields?.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
                 }
                 checked={formFields.fba}
                 onChange={onChangeFormField('fba')}
@@ -657,7 +657,7 @@ export const AdminUserEditContent = observer(
                 color="primary"
                 disabled={
                   editUserFormFields?.masterUser ||
-                  formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+                  Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
                   editUserFormFields?.subUsers?.length
                 }
                 checked={formFields.canByMasterUser}
@@ -669,7 +669,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+                disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
                 checked={formFields.hideSuppliers}
                 onChange={onChangeFormField('hideSuppliers')}
               />
@@ -679,7 +679,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+                disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />

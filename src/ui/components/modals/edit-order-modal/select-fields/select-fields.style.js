@@ -319,19 +319,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  carouselImage: {
-    height: '100% !important',
-    maxHeight: '254px !important',
-    width: '100% !important',
-    objectFit: 'contain',
-
-    transition: '.2s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
   paymentsBlock: {
     marginTop: 25,
   },

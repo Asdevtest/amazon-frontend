@@ -69,10 +69,10 @@ export const AdminContentModal = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === formFields.role),
+      ...singlePermissions.filter(item => item.role === Number(formFields.role)),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === formFields.role),
+      ...groupPermissions.filter(item => item.role === Number(formFields.role)),
     ])
 
     const onChangeFormField = fieldName => event => {
@@ -149,7 +149,7 @@ export const AdminContentModal = observer(
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
-      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
       JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
     return (
@@ -277,7 +277,8 @@ export const AdminContentModal = observer(
                   key={index}
                   value={Number(role)}
                   disabled={
-                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
+                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                    role === Number(formFields.role)
                   }
                 >
                   <Checkbox
@@ -312,7 +313,9 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.fba}
             onChange={onChangeFormField('fba')}
           />
@@ -322,7 +325,9 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
@@ -332,7 +337,7 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.hideSuppliers}
             onChange={onChangeFormField('hideSuppliers')}
           />
@@ -342,7 +347,7 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+            disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
             checked={formFields.isUserPreprocessingCenterUSA}
             onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
           />

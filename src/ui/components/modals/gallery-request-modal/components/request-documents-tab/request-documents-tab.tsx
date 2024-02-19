@@ -61,7 +61,6 @@ export const RequestDocumentsTab: FC<RequestDocumentsTabProps> = memo(props => {
                           checked={getCheckboxState(file)}
                           disabled={getDisabledCheckbox(file)}
                           className={styles.checkbox}
-                          onClick={e => e.stopPropagation()}
                           onChange={() => onToggleFile(file)}
                         />
 

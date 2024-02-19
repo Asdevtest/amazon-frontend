@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DEFAULT_SLIDE_HEIGHT } from '@components/modals/gallery-modal/gallery-modal.constants'
-import { ImageModal } from '@components/modals/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Checkbox } from '@components/shared/checkbox'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
@@ -76,7 +76,7 @@ export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(props => {
                         checked={getCheckboxState(file)}
                         disabled={getDisabledCheckbox(file)}
                         className={styles.checkbox}
-                        onClick={e => e.stopPropagation()}
+                        wrapperClassName={styles.checkboxWrapper}
                         onChange={() => onToggleFile(file)}
                       />
                     </div>
@@ -91,8 +91,7 @@ export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(props => {
       </div>
 
       {showImageModal ? (
-        <ImageModal
-          showPreviews
+        <SlideshowGalleryModal
           files={totalFiles}
           currentFileIndex={currentSlideIndex}
           isOpenModal={showImageModal}
