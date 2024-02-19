@@ -43,7 +43,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   return (
     <>
       <div className={styles.cardWrapper}>
-        <SlideshowGallery files={service.linksToMediaFiles} slidesToShow={1} />
+        <SlideshowGallery hiddenPreviews files={service.linksToMediaFiles} slidesToShow={1} />
 
         <div className={styles.titleAndDescriptionWrapper}>
           <p className={styles.cardTitle}>{service.title}</p>

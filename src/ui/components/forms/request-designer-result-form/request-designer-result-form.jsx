@@ -219,7 +219,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
+    : [{ image: '', comment: '', commentByClient: '', _id: nanoid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -239,7 +239,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { image: null, comment: '', commentByClient: '', _id: nanoid() }])
+    setImagesData(() => [...imagesData, { image: '', comment: '', commentByClient: '', _id: nanoid() }])
   }
 
   const onClickRemoveItem = slot => {
