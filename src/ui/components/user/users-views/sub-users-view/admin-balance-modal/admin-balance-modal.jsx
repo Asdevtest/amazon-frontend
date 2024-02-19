@@ -125,13 +125,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
 
         <div className={styles.buttonWrapper}>
-          <Button
-            disableElevation
-            disabled={disableButtonExecute}
-            color="primary"
-            variant="contained"
-            onClick={onTriggerConfirmModal}
-          >
+          <Button disabled={disableButtonExecute} onClick={onTriggerConfirmModal}>
             {t(TranslationKey.Execute)}
           </Button>
         </div>
@@ -141,9 +135,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
         <div className={styles.confirmModal}>
           <Typography paragraph>{confirmMsg()}</Typography>
           <div className={styles.buttonWrapper}>
-            <Button color="primary" variant="contained" onClick={onConfirm}>
-              {t(TranslationKey.Yes)}
-            </Button>
+            <Button onClick={onConfirm}>{t(TranslationKey.Yes)}</Button>
             <Button onClick={onDecline}>{t(TranslationKey.Cancel)}</Button>
           </div>
         </div>

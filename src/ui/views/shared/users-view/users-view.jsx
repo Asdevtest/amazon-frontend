@@ -11,6 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { styles } from './users-view.style'
 
 import { UsersViewModel } from './users-view.model'
@@ -25,7 +27,7 @@ export const UsersViewRaw = props => {
         <Typography className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
         <div className={styles.btnsWrapper}>
-          <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickSubUsers}>
+          <Button className={styles.button} type={ButtonType.SUCCESS} onClick={viewModel.onClickSubUsers}>
             <div className={styles.btnTextWrapper}>
               <Typography className={styles.btnText}>{t(TranslationKey['My users'])}</Typography>
               <ArrowRightAltIcon color="primary" />

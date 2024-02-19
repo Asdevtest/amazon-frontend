@@ -13,6 +13,7 @@ import { Button } from '@components/shared/buttons/button'
 import { checkIsVideoLink } from '@utils/checks'
 
 import { UploadFileType } from '@typings/shared/upload-file'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './button-controls.style'
 
@@ -94,7 +95,7 @@ export const ButtonControls: FC<ButtonControlsProps> = observer(
         )}
 
         {isEditable && (
-          <Button danger className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
+          <Button type={ButtonType.DANGER} className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
             <DeleteOutlineOutlinedIcon />
           </Button>
         )}

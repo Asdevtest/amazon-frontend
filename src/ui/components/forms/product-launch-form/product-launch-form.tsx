@@ -13,6 +13,8 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './product-launch-form.style'
 
 interface IProductsLaunch {
@@ -119,15 +121,14 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={selectedRadioValue && !selectedProduct}
-          variant="contained"
           onClick={() => onClickNextButton(selectedProduct)}
         >
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={styles.canselButton} onClick={onClickCancelButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

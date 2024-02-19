@@ -10,6 +10,7 @@ import { MinusIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './selected-product.style'
 
@@ -29,7 +30,7 @@ export const SelectedProduct: FC<SelectedProductProps> = observer(props => {
         {t(TranslationKey.ASIN) + ': '}
         <span className={styles.asin}>{product.asin || t(TranslationKey.Missing)}</span>
       </p>
-      <Button danger className={styles.removeButton} onClick={() => onClickDeleteButton(product)}>
+      <Button type={ButtonType.DANGER} className={styles.removeButton} onClick={() => onClickDeleteButton(product)}>
         <MinusIcon className={styles.removeIcon} />
       </Button>
     </div>

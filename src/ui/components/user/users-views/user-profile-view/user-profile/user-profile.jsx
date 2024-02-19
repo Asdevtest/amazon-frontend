@@ -71,24 +71,13 @@ export const UserProfile = observer(
                   </div>
                   <div className={styles.userButtonsWrapper}>
                     {isAnotherUser && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        color="primary"
-                        className={styles.writeBtn}
-                        onClick={() => onClickWriteBtn(user._id)}
-                      >
+                      <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                         {t(TranslationKey.Write)}
                       </Button>
                     )}
 
                     {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        className={styles.changeBtn}
-                        onClick={onClickChangeUserInfo}
-                      >
+                      <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                         {t(TranslationKey.Edit)}
                       </Button>
                     )}
@@ -97,25 +86,13 @@ export const UserProfile = observer(
               </Box>
               <div className={styles.userButtonsMobileWrapper}>
                 {isAnotherUser && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={styles.writeBtn}
-                    onClick={() => onClickWriteBtn(user._id)}
-                  >
+                  <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                     {t(TranslationKey.Write)}
                   </Button>
                 )}
 
                 {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={styles.changeBtn}
-                    onClick={onClickChangeUserInfo}
-                  >
+                  <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                     {t(TranslationKey.Edit)}
                   </Button>
                 )}
@@ -166,7 +143,7 @@ export const UserProfile = observer(
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
                 <div className={styles.leaveReviewBtnWrapper}>
-                  <Button variant="contained" className={styles.leaveReviewBtn} onClick={onClickReview}>
+                  <Button className={styles.leaveReviewBtn} onClick={onClickReview}>
                     {t(TranslationKey['Leave a review'])}
                   </Button>
                 </div>

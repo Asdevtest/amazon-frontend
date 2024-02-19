@@ -28,6 +28,8 @@ import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInS
 import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './select-fields.style'
 
 export const SelectFields = ({
@@ -371,13 +373,7 @@ export const SelectFields = ({
                 </div>
               }
             />
-            <Button
-              disabled={checkIsPlanningPrice}
-              className={styles.button}
-              variant="contained"
-              // color="primary"
-              onClick={onClickUpdateButton}
-            >
+            <Button disabled={checkIsPlanningPrice} className={styles.button} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
             </Button>
           </div>
@@ -457,9 +453,10 @@ export const SelectFields = ({
                 [styles.noPaymentButton]: orderFields?.paymentDetails.length,
               })}
               variant={
-                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
+                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                  ? ButtonVariant.OUTLINED
+                  : ButtonVariant.CONTAINED
               }
-              btnWrapperStyle={styles.supplierPaymentButtonBtnWrapperStyle}
               onClick={onClickSupplierPaymentButton}
             >
               <Typography

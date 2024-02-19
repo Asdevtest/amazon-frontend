@@ -8,6 +8,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './supplier-payment-form.style'
 
 export const SupplierPaymentForm = ({
@@ -45,7 +47,7 @@ export const SupplierPaymentForm = ({
 
       <diiv className={styles.saveBox}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           className={styles.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPaymentDetailsPhotos)
@@ -54,7 +56,11 @@ export const SupplierPaymentForm = ({
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button className={cx(styles.actionButton, styles.cancelButton)} variant={'text'} onClick={onCloseModal}>
+        <Button
+          className={cx(styles.actionButton, styles.cancelButton)}
+          variant={ButtonVariant.OUTLINED}
+          onClick={onCloseModal}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </diiv>

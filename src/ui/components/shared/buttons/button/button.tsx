@@ -1,140 +1,93 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, PropsWithChildren, ReactElement, memo, useContext } from 'react'
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ClassNamesArg } from '@emotion/react'
-import { FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
-
-import { Box } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
+import { Tooltip } from '@mui/material'
 
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
+import { ButtonType, ButtonVariant, TooltipPositions } from '@typings/types/button.type'
+
 import { useStyles } from './button.style'
-
-import { StyledButton } from './styled-button'
-
-enum tooltipPositions {
-  Corner = 'corner',
-  Center = 'center',
-}
 
 interface Props extends PropsWithChildren {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
-  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
-  variant?: string
-  color?: string
-  success?: boolean
-  danger?: boolean
-  outlined?: boolean
-  className?: string
+  tooltipPosition?: TooltipPositions
+
   disabled?: boolean
   onClick?: (target?: any) => void
   disableElevation?: boolean
-  btnWrapperStyle?: string | ClassNamesArg
-  small?: boolean
+
   defaultButtonTooltip?: string
   startIcon?: ReactElement
-  transparent?: boolean
-  casual?: boolean
+
+  type?: ButtonType
+  variant?: ButtonVariant
+  className?: string
+  fullWidth?: boolean
 }
 
-export const Button: FC<Props> = memo(
-  ({
+export const Button: FC<Props> = memo(props => {
+  const {
     defaultButtonTooltip,
     tooltipAttentionContent,
     tooltipInfoContent,
     tooltipPosition,
-    variant,
-    color,
-    children,
-    success,
-    danger,
-    outlined,
-    className,
+
     disabled,
-    btnWrapperStyle,
-    small,
-    transparent,
-    casual,
+
+    children,
+    type = ButtonType.PRIMARY,
+    variant = ButtonVariant.CONTAINED,
+    className,
+    fullWidth = false,
     ...restProps
-  }) => {
-    const { classes: styles, cx } = useStyles()
+  } = props
 
-    const { hints } = useContext(HintsContext)
-    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
+  const { hints } = useContext(HintsContext)
 
-    return (
-      <div className={cx(styles.btnWrapper, btnWrapperStyle)}>
-        {/* @ts-ignore */}
-        <StyledButton
-          disableElevation
-          sx={{ pointerEvents: 'all!important' }}
-          title={defaultButtonTooltip || ''}
-          color={color || 'primary'}
-          disabled={disabled}
-          variant={variant || 'contained'}
-          classes={{
-            root: cx(
-              styles.root,
-              {
-                [styles.success]: success,
-                [styles.danger]: danger,
-                [styles.outlined]: outlined,
-                [styles.defaultButton]: !success && !danger && !variant,
-                [styles.disabled]: disabled,
-                [styles.small]: small,
-                [styles.transparent]: transparent,
-                [styles.casual]: casual,
-              },
-              className,
-            ),
-          }}
-          {...restProps}
+  const { classes: styles, cx } = useStyles()
+
+  const isOutlined = variant === ButtonVariant.OUTLINED
+
+  return (
+    <button
+      title={defaultButtonTooltip || ''}
+      disabled={disabled}
+      className={cx(styles.root, className, {
+        [styles.fullWidth]: fullWidth,
+        [styles.transparent]: type === ButtonType.TRANSPARENT,
+        [styles.casual]: type === ButtonType.CASUAL,
+        [styles.default]: type === ButtonType.DEFAULT,
+        [styles.primary]: type === ButtonType.PRIMARY && !isOutlined,
+        [styles.danger]: type === ButtonType.DANGER && !isOutlined,
+        [styles.success]: type === ButtonType.SUCCESS && !isOutlined,
+        [styles.outlinedPrimary]: type === ButtonType.PRIMARY && isOutlined,
+        [styles.outlinedSuccess]: type === ButtonType.SUCCESS && isOutlined,
+        [styles.outlinedDanger]: type === ButtonType.DANGER && isOutlined,
+      })}
+      {...restProps}
+    >
+      {children}
+      {hints && (tooltipAttentionContent || tooltipInfoContent) ? (
+        <div
+          className={
+            tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
+          }
         >
-          {children}
-          {tooltipAttentionContent || tooltipInfoContent ? (
-            <div className={tooltipPosition === 'center' ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper}>
+          <Tooltip arrow title={tooltipAttentionContent || tooltipInfoContent}>
+            <div>
               {tooltipAttentionContent ? (
-                <Tooltip
-                  arrow
-                  open={openAttentionTooltip}
-                  title={tooltipAttentionContent}
-                  placement="top-end"
-                  onClose={() => setOpenAttentionTooltip(false)}
-                  onOpen={() => setOpenAttentionTooltip(true)}
-                >
-                  <div>
-                    <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
-                  </div>
-                </Tooltip>
-              ) : null}
-
-              {tooltipInfoContent && hints ? (
-                <Tooltip
-                  arrow
-                  open={openInfoTooltip}
-                  title={tooltipInfoContent}
-                  placement="top-end"
-                  onClose={() => setOpenInfoTooltip(false)}
-                  onOpen={() => setOpenInfoTooltip(true)}
-                >
-                  <Box display="flex" alignItems="center">
-                    <TooltipInfoIcon
-                      className={cx(styles.tooltip, styles.tooltipInfo)}
-                      viewBox={'0 0 18 18'}
-                      onClick={() => setOpenInfoTooltip(true)}
-                    />
-                  </Box>
-                </Tooltip>
-              ) : null}
+                <TooltipAttention className={cx(styles.tooltip)} />
+              ) : (
+                <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
+              )}
             </div>
-          ) : null}
-        </StyledButton>
-      </div>
-    )
-  },
-)
+          </Tooltip>
+        </div>
+      ) : null}
+    </button>
+  )
+})

@@ -3,6 +3,8 @@ import { Typography } from '@mui/material'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './two-vertical-choices-modal.style'
 
 export const TwoVerticalChoicesModal = ({
@@ -29,19 +31,12 @@ export const TwoVerticalChoicesModal = ({
         </Typography>
 
         <div className={styles.resultButtonsWrapper}>
-          <Button
-            tooltipInfoContent={tooltipFirstButton}
-            className={styles.button}
-            color="primary"
-            variant="contained"
-            onClick={onClickTopBtn}
-          >
+          <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
             {topBtnText}
           </Button>
           <Button
             tooltipInfoContent={tooltipSecondButton}
-            color="primary"
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={styles.bottomBtnText}
             onClick={onClickBottomBtn}
           >
@@ -50,8 +45,7 @@ export const TwoVerticalChoicesModal = ({
           {onClickThirdBtn && thirdBtnText && (
             <Button
               tooltipInfoContent={tooltipThirdButton}
-              color="primary"
-              variant="text"
+              variant={ButtonVariant.OUTLINED}
               className={styles.bottomBtnText}
               onClick={onClickThirdBtn}
             >

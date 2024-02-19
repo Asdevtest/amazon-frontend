@@ -177,8 +177,6 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
 
         <Button
           tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          variant="contained"
-          color="primary"
           className={styles.actionButton}
           onClick={() => onClickViewMore(item._id)}
         >

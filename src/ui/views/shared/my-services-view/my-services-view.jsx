@@ -15,6 +15,8 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './my-services-view.style'
 
 import { MyServicesViewModel } from './my-services-view.model'
@@ -49,7 +51,7 @@ export const MyServicesView = observer(({ history }) => {
           onChange={viewModel.onSearchSubmit}
         />
 
-        <Button success className={styles.rightAddingBtn} onClick={viewModel.onClickCreateServiceBtn}>
+        <Button type={ButtonType.SUCCESS} className={styles.rightAddingBtn} onClick={viewModel.onClickCreateServiceBtn}>
           {t(TranslationKey['Create a service'])}
         </Button>
       </div>

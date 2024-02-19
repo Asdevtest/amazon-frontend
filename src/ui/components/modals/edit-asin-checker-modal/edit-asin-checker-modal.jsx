@@ -9,6 +9,8 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './edit-asin-checker-modal.style'
 
 export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy }) => {
@@ -62,22 +64,14 @@ export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy 
 
       <div className={styles.buttonsWrapper}>
         <Button
-          success
-          // disabled={submitIsClicked}
-          variant="contained"
+          type={ButtonType.SUCCESS}
           className={styles.buttonOk}
           onClick={() => onSubmit(asinsToEdit?._id, formFields, strategy)}
         >
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          // disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={styles.buttonCancel}
-          onClick={onClose}
-        >
+        <Button className={styles.buttonCancel} onClick={onClose}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

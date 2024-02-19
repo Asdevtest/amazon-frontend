@@ -10,6 +10,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './data-grid-custom-columns-button.style'
 
 export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
@@ -58,7 +60,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
   return (
     <div>
-      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <SettingsOutlinedIcon fontSize="small" />
 

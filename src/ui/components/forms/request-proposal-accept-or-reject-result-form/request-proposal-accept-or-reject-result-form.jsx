@@ -13,6 +13,8 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
 export const RequestProposalAcceptOrRejectResultForm = observer(
@@ -74,16 +76,14 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           <div className={styles.btnsWrapper}>
             <Button
               disabled={!formFields.rating}
-              success={!isReject}
-              danger={isReject}
-              color="primary"
+              type={isReject ? ButtonType.DANGER : ButtonType.SUCCESS}
               className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
               onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>
             <Button
-              variant="text"
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.btnSubmit, styles.cancelSubmit)}
               onClick={() => setIsShowConfirmationModal(true)}
             >

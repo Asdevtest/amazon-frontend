@@ -12,6 +12,8 @@ import { InventoryIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 export const DashboardOneLineCardsList = props => {
   const { config, valuesData, onClickViewMore, onClickAddProduct, isClient } = props
 
@@ -34,7 +36,11 @@ export const DashboardOneLineCardsList = props => {
           <Typography className={styles.cardListSubTitle}>{config.subTitle}</Typography>
         </div>
         {isClient ? (
-          <Button success className={styles.addButton} onClick={() => onClickAddProduct(config.route)}>
+          <Button
+            type={ButtonType.SUCCESS}
+            className={styles.addButton}
+            onClick={() => onClickAddProduct(config.route)}
+          >
             <PlusIcon className={styles.iconBtn} />
             {t(TranslationKey['Add product'])}
           </Button>

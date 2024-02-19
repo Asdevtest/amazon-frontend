@@ -24,6 +24,8 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './owner-request-proposals-card.style'
 
 export const OwnerRequestProposalsCard = ({
@@ -134,8 +136,6 @@ export const OwnerRequestProposalsCard = ({
 
         <Button
           disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
-          variant="contained"
-          color="primary"
           className={cx(styles.actionButton)}
           onClick={onClickOpenResult}
         >
@@ -147,13 +147,12 @@ export const OwnerRequestProposalsCard = ({
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
-                danger
+                type={ButtonType.DANGER}
                 tooltipInfoContent={t(
                   TranslationKey[
                     'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                   ],
                 )}
-                variant="contained"
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
@@ -177,9 +176,8 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
-                success
+                type={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                variant="contained"
                 className={styles.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
@@ -188,8 +186,6 @@ export const OwnerRequestProposalsCard = ({
             )}
           <Button
             tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
-            variant="contained"
-            color="primary"
             className={styles.actionButton}
             onClick={() => onClickContactWithExecutor(item.proposal)}
           >

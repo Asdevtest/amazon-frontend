@@ -6,6 +6,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './exchange-product-item.style'
 
 export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => {
@@ -48,7 +50,7 @@ export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => 
         <Typography className={(styles.text, styles.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
-        <Button success onClick={() => handlerPrivateLabel(index)}>
+        <Button type={ButtonType.SUCCESS} onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
         </Button>
       </TableCell>

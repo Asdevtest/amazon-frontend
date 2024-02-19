@@ -18,6 +18,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-buy-shops-ads.style'
 
 import { ClientBuyShopsAdsModel } from './client-buy-shops-ads.model'
@@ -68,8 +70,7 @@ export const ClientBuyShopsAds = observer(() => {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
@@ -85,8 +86,7 @@ export const ClientBuyShopsAds = observer(() => {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}

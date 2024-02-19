@@ -19,6 +19,8 @@ import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 interface EditTaskPriorityModalProps {
   data: {
     taskId: string
@@ -86,7 +88,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
 
       <div className={styles.controls}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={
             Number(curPriority) ===
               mapTaskPriorityStatusEnumToKey[
@@ -100,7 +102,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.cancel} onClick={handleClose}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancel} onClick={handleClose}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

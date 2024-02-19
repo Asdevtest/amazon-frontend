@@ -11,6 +11,8 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(
@@ -146,11 +148,11 @@ export const AddOrEditDestinationForm = observer(
         </div>
 
         <div className={styles.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
+          <Button type={ButtonType.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button className={styles.button} variant="text" onClick={() => onCloseModal()}>
+          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

@@ -19,6 +19,8 @@ import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './general-notifications-view.style'
 
 import { GeneralNotificationsViewModel } from './general-notifications-view.model'
@@ -92,7 +94,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           <div className={styles.buttonsWrapper}>
             <Button
               className={cx(styles.button, styles.archiveButton)}
-              variant="outlined"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => viewModel.toggleVariationHandler('isArchive')}
             >
               {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
@@ -102,7 +104,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
               <Button
                 disabled={!viewModel.selectedRowIds.length}
                 className={styles.button}
-                color="primary"
                 onClick={() => viewModel.onClickReadButton()}
               >
                 {t(TranslationKey.Read)}

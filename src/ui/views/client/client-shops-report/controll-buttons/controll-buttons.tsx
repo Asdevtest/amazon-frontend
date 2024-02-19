@@ -8,6 +8,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './controll-buttons.style'
 
 interface СontrollButtonsProps {
@@ -62,7 +64,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
         onSubmit={onChangeSearchValue}
       />
 
-      <Button danger disabled={noSelectedRows || selectedRows.length > 1} onClick={onClickDeleteBtn}>
+      <Button type={ButtonType.DANGER} disabled={noSelectedRows || selectedRows.length > 1} onClick={onClickDeleteBtn}>
         {t(TranslationKey.Remove)}
       </Button>
     </div>

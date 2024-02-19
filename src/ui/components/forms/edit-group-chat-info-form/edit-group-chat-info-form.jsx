@@ -15,6 +15,8 @@ import { Field } from '@components/shared/field'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './edit-group-chat-info-form.style'
 
 export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
@@ -128,7 +130,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

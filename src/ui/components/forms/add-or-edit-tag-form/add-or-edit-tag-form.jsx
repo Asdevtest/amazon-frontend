@@ -10,6 +10,8 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-tag-form.style'
 
 export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCreateSubmit, onEditSubmit }) => {
@@ -54,11 +56,11 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button success color="primary" disabled={disabledButton} variant="contained" onClick={handleClick}>
+        <Button type={ButtonType.SUCCESS} disabled={disabledButton} onClick={handleClick}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.button} variant="text" onClick={() => onCloseModal()}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

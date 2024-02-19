@@ -15,6 +15,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './add-own-product-form.style'
 
 export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressValue }) => {
@@ -144,11 +146,8 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                   />
 
                   <Button
-                    disableElevation
                     disabled={skuLine === '' || !!formFields.skuByClient}
                     className={styles.defaultBtn}
-                    variant="contained"
-                    color="primary"
                     onClick={onClickSkuBtn}
                   >
                     {t(TranslationKey.Add)}
@@ -178,11 +177,8 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
       <div className={styles.btnsWrapper}>
         <Button
-          success
-          disableElevation
+          type={ButtonType.SUCCESS}
           disabled={disableSubmitBtn}
-          variant="contained"
-          color="primary"
           onClick={() => {
             onSubmit(formFields, images, isNoAsin)
             setSubmitIsClicked(true)

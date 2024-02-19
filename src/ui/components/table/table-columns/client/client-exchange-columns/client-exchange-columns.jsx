@@ -16,6 +16,8 @@ import { Button } from '@components/shared/buttons/button'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 export const clientExchangeViewColumns = rowHandlers => [
   {
     field: 'image',
@@ -126,7 +128,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     width: 190,
     renderCell: params => (
       <Button
-        success
+        type={ButtonType.SUCCESS}
         width="100%"
         sx={{ height: '30px !important' }}
         onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}

@@ -12,6 +12,8 @@ import { Field } from '@components/shared/field'
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './selection-supplier-modal.style'
 
 const clientToEditStatuses = [
@@ -106,19 +108,6 @@ export const SelectionSupplierModal = ({
         </div>
       ) : (
         <div className={styles.btnsWrapper}>
-          {/* <Typography className={styles.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
-          <div className={styles.searchSupplierForIdeaButtonsWrapper}>
-            <Button
-              tooltipAttentionContent={t(TranslationKey['Paid service'])}
-              className={buttonSearchSupplierForIdeaClsx}
-              onClick={() => onClickSearchSupplierForIdeaButton()}
-            >
-              {t(TranslationKey['Send request for a supplier search for an idea'])}
-            </Button>
-          </div>
-
-          <Divider orientation="horizontal" className={styles.divider} /> */}
-
           <Typography className={styles.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
 
           <div className={styles.modalButtonsWrapper}>
@@ -154,7 +143,6 @@ export const SelectionSupplierModal = ({
         {selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
           <Grid item>
             <Button
-              variant="contained"
               className={styles.modalButtonBack}
               onClick={() => (buttonValue ? onCloseModal() : setClickNextOrPrevButton(false))}
             >
@@ -165,7 +153,7 @@ export const SelectionSupplierModal = ({
 
         <Grid item>
           <Button
-            success
+            type={ButtonType.SUCCESS}
             tooltipAttentionContent={
               clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
             }

@@ -15,6 +15,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { t } from '@utils/translations'
 
 import { isString } from '@typings/guards'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './request-result-modal.style'
 
@@ -100,14 +101,7 @@ export const RequestResultModal = memo(props => {
                   onChange={e => setLink(e.target.value)}
                 />
 
-                <Button
-                  disableElevation
-                  disabled={!link}
-                  className={styles.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickLinkBtn}
-                >
+                <Button disabled={!link} className={styles.button} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
@@ -167,8 +161,7 @@ export const RequestResultModal = memo(props => {
         <div className={styles.buttonsWrapper}>
           {onClickSendAsResult && (
             <Button
-              success
-              disableElevation
+              type={ButtonType.SUCCESS}
               disabled={disabledSendButton}
               className={styles.button}
               onClick={() => {
@@ -186,8 +179,7 @@ export const RequestResultModal = memo(props => {
           )}
 
           <Button
-            disableElevation
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >

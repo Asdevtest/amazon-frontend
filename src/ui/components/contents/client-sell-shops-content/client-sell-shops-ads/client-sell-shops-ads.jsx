@@ -12,6 +12,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-sell-shops-ads.style'
 
 import { ClientSellShopsAdsModel } from './client-sell-shops-ads.model'
@@ -45,13 +47,8 @@ export const ClientSellShopsAds = observer(() => {
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
             })}
-            sx={{
-              '&.Mui-disabled': {
-                backgroundColor: 'none',
-              },
-            }}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
+            type={ButtonType.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
@@ -62,13 +59,8 @@ export const ClientSellShopsAds = observer(() => {
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
             })}
-            sx={{
-              '&.Mui-disabled': {
-                backgroundColor: 'none',
-              },
-            }}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
+            type={ButtonType.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}
@@ -78,20 +70,15 @@ export const ClientSellShopsAds = observer(() => {
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
             })}
-            sx={{
-              '&.Mui-disabled': {
-                backgroundColor: 'none',
-              },
-            }}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
+            type={ButtonType.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
             {t(TranslationKey['Removed Ads'])}
           </Button>
         </div>
 
-        <Button success className={styles.addBtn} onClick={onClickAddBtn}>
+        <Button type={ButtonType.SUCCESS} className={styles.addBtn} onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
         </Button>
       </div>

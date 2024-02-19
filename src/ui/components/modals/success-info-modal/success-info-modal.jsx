@@ -5,6 +5,8 @@ import { Typography } from '@mui/material'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './success-info-modal.style'
 
 export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnText, onClickSuccessBtn }) => {
@@ -30,14 +32,7 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
           {title}
         </Typography>
 
-        <Button
-          success
-          disableElevation
-          disabled={!openModal}
-          variant="contained"
-          className={styles.button}
-          onClick={onClickSuccessBtn}
-        >
+        <Button type={ButtonType.SUCCESS} disabled={!openModal} className={styles.button} onClick={onClickSuccessBtn}>
           {successBtnText}
         </Button>
       </div>

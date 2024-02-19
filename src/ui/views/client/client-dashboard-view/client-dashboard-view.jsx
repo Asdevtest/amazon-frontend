@@ -17,6 +17,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-dashboard-view.style'
 
 import { ClientDashboardViewModel } from './client-dashboard-view.model'
@@ -56,7 +58,7 @@ export const ClientDashboardView = observer(({ history }) => {
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
                   className={cx(styles.button, styles.withdrawBtn)}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={viewModel.onClickAddMoney}
                 >
                   {t(TranslationKey.Withdraw)}

@@ -10,6 +10,8 @@ import { PlusIcon } from '@components/shared/svg-icons'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './idea-requests.style'
 
 interface IdeaRequestsProps {
@@ -68,7 +70,7 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
       })}
       {!withoutControls && (
         <div className={styles.ideaRequestsControls}>
-          <Button success onClick={onClickCreateRequest}>
+          <Button type={ButtonType.SUCCESS} onClick={onClickCreateRequest}>
             <PlusIcon /> {t(TranslationKey['Create a request'])}
           </Button>
           <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>

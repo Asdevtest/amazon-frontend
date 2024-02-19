@@ -33,7 +33,7 @@ export const ServicesDetailCustomView = observer(props => {
     <>
       <div>
         <div className={styles.backBtnWrapper}>
-          <Button variant="contained" color="primary" className={styles.backBtn} onClick={viewModel.onClickBackBtn}>
+          <Button className={styles.backBtn} onClick={viewModel.onClickBackBtn}>
             {t(TranslationKey.Back)}
           </Button>
         </div>

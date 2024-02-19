@@ -20,6 +20,8 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-logistic-tariff-form.style'
 
 export const AddOrEditLogisticTariffForm = observer(
@@ -443,11 +445,15 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button success disabled={disableSubmitBtn} className={styles.button} onClick={onSubmit}>
+            <Button type={ButtonType.SUCCESS} disabled={disableSubmitBtn} className={styles.button} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onCloseModal()}>
+            <Button
+              className={cx(styles.button, styles.cancelBtn)}
+              variant={ButtonVariant.OUTLINED}
+              onClick={() => onCloseModal()}
+            >
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

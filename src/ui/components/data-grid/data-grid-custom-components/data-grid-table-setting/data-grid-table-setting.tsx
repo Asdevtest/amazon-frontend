@@ -14,6 +14,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './data-grid-table-setting.style'
 
 import { AdditionalTableSettings, DefaultTableSettings } from './components'
@@ -37,11 +39,11 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <Button
-        variant="text"
+        type={ButtonType.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
-        <SettingsOutlinedIcon fontSize="small" className={styles.parametersButtonIcon} />
+        <SettingsOutlinedIcon fontSize="small" />
 
         <p className={styles.parametersButtonTitle}>{t(TranslationKey.Parameters)}</p>
       </Button>

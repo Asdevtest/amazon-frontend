@@ -11,6 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './client-tasks-action-btns-cell.style'
 
 interface ClientTasksActionBtnsCellProps {
@@ -33,12 +35,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
   }
 
   const renderTaskInfoBtn = () => (
-    <Button
-      variant="contained"
-      color="primary"
-      className={styles.infoBtn}
-      onClick={() => handlers.onClickTaskInfo(row)}
-    >
+    <Button className={styles.infoBtn} onClick={() => handlers.onClickTaskInfo(row)}>
       {t(TranslationKey.Details)}
     </Button>
   )
@@ -52,7 +49,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                type={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
@@ -67,7 +64,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                type={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
@@ -85,7 +82,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                type={ButtonType.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => {
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')

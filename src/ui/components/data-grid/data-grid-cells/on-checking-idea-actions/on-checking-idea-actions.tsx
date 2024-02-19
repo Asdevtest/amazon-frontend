@@ -6,6 +6,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './on-checking-idea-actions.style'
 
 interface OnCheckingIdeaActionsProps {
@@ -20,10 +22,10 @@ export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = memo(
 
     return (
       <div className={styles.ideaActions}>
-        <Button success disabled={isAcceptDisabled} onClick={onClickAccept}>
+        <Button type={ButtonType.SUCCESS} disabled={isAcceptDisabled} onClick={onClickAccept}>
           {t(TranslationKey.Accept)}
         </Button>
-        <Button danger onClick={onClickReject}>
+        <Button type={ButtonType.DANGER} onClick={onClickReject}>
           {t(TranslationKey.Reject)}
         </Button>
       </div>

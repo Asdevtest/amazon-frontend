@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 interface AddAsinIdeaActionsCellProps {
   row: any
   rowHandlers: {
@@ -16,8 +18,7 @@ interface AddAsinIdeaActionsCellProps {
 
 export const AddAsinIdeaActionsCell: FC<AddAsinIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
   <Button
-    success
-    small
+    type={ButtonType.SUCCESS}
     disabled={
       row.originalData.variation
         ? !row?.originalData?.childProduct?.barCode

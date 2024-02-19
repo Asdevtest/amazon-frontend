@@ -53,7 +53,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
 
           {window.innerWidth < 1282 && (
             <Button
-              variant="contained"
               disabled={!viewModel.selectedTasks.length}
               className={styles.pickupOrdersButton}
               onClick={viewModel.onClickPickupManyTasksBtn}

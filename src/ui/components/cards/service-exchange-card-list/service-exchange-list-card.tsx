@@ -10,6 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './service-exchange-list-card.style'
 
@@ -33,6 +34,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
     : t(TranslationKey.Open)
   const showDetailDescriptionToolip = detailDescription.length > 12
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
+  const isSuccess = choose || order
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -101,7 +103,11 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
         )}
 
         <div className={styles.buttonWrapper}>
-          <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
+          <Button
+            type={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+            className={styles.openBtn}
+            onClick={() => onClickButton(service)}
+          >
             {buttonContent}
           </Button>
         </div>

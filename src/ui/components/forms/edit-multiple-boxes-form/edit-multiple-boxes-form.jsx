@@ -26,6 +26,8 @@ import { checkIsStorekeeper } from '@utils/checks'
 import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './edit-multiple-boxes-form.style'
@@ -683,7 +685,7 @@ export const EditMultipleBoxesForm = observer(
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseModal}

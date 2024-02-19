@@ -9,6 +9,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './check-pending-order-form.style'
 
 export const CheckPendingOrderForm = ({
@@ -51,10 +53,10 @@ export const CheckPendingOrderForm = ({
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button success disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
+        <Button type={ButtonType.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant="text" className={styles.CancelBtn} onClick={onClickCancelBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.CancelBtn} onClick={onClickCancelBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

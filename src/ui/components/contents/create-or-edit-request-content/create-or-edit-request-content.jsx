@@ -37,6 +37,7 @@ import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './create-or-edit-request-content.style'
 
@@ -739,7 +740,6 @@ export const CreateOrEditRequestContent = memo(props => {
 
                         <Button
                           disabled={!formFields.request.specId}
-                          variant="contained"
                           className={cx(styles.button, styles.buttonSelect)}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
@@ -796,7 +796,6 @@ export const CreateOrEditRequestContent = memo(props => {
                       {!announcement?._id && (
                         <Button
                           disabled={!formFields?.request?.specId}
-                          variant="contained"
                           className={styles.button}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
@@ -1073,12 +1072,16 @@ export const CreateOrEditRequestContent = memo(props => {
         {isFirstStep &&
           (requestToEdit ? (
             <div className={styles.buttonsWrapper}>
-              <Button variant="text" className={cx(styles.button, styles.buttonCancel)} onClick={onClickBackBtn}>
+              <Button
+                variant={ButtonVariant.OUTLINED}
+                className={cx(styles.button, styles.buttonCancel)}
+                onClick={onClickBackBtn}
+              >
                 {t(TranslationKey.Cancel)}
               </Button>
 
               <Button
-                success
+                type={ButtonType.SUCCESS}
                 disabled={disableSubmit}
                 className={styles.button}
                 onClick={() => onEditSubmit(formFields, images, announcement)}
@@ -1092,7 +1095,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 tooltipInfoContent={
                   isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
                 }
-                variant="text"
+                variant={ButtonVariant.OUTLINED}
                 className={cx(styles.button, styles.buttonCancel)}
                 onClick={onClickBackBtn}
               >
@@ -1100,7 +1103,7 @@ export const CreateOrEditRequestContent = memo(props => {
               </Button>
 
               <Button
-                success
+                type={ButtonType.SUCCESS}
                 tooltipInfoContent={
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
@@ -1126,7 +1129,7 @@ export const CreateOrEditRequestContent = memo(props => {
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
               }
-              variant="text"
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.button, styles.buttonCancel)}
               onClick={onClickBackBtn}
             >
@@ -1134,7 +1137,7 @@ export const CreateOrEditRequestContent = memo(props => {
             </Button>
 
             <Button
-              success
+              type={ButtonType.SUCCESS}
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
               }
@@ -1154,7 +1157,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
             {isSecondStep && (
               <Button
-                success
+                type={ButtonType.SUCCESS}
                 disabled={disableSubmit}
                 className={styles.button}
                 onClick={() => onClickCreate({ withPublish: true })}

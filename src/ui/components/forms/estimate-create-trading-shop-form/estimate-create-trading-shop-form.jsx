@@ -10,6 +10,8 @@ import { Field } from '@components/shared/field/field'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './estimate-create-trading-shop-form.style'
 
 const reqMultiplier = 20
@@ -91,7 +93,7 @@ export const EstimateCreateTradingShopForm = ({
               <div className={styles.estimateCostWrapper}>
                 <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
 
-                <Button variant="text" className={styles.applyBtn} onClick={applyReqMultiplier}>
+                <Button variant={ButtonVariant.OUTLINED} className={styles.applyBtn} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -150,22 +152,15 @@ export const EstimateCreateTradingShopForm = ({
 
       <div className={styles.buttonsWrapper}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={submitIsClicked}
-          variant="contained"
           className={styles.buttonOk}
           onClick={onClickSubmit}
         >
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button
-          disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={styles.buttonCancel}
-          onClick={setOpenModal}
-        >
+        <Button disabled={submitIsClicked} className={styles.buttonCancel} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

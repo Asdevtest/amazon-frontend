@@ -20,6 +20,8 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './request-designer-result-client-form.style'
 
 import { Slot } from './slot/slot'
@@ -265,7 +267,6 @@ export const RequestDesignerResultClientForm = memo(props => {
         {!noShowActions && (
           <>
             <Button
-              // disabled={disableSubmit}
               className={styles.button}
               onClick={() =>
                 onPressSubmitDesignerResultToCorrect({
@@ -279,7 +280,6 @@ export const RequestDesignerResultClientForm = memo(props => {
             </Button>
             <Button
               success
-              // disabled={disableSubmit}
               className={styles.button}
               onClick={() => {
                 onClickProposalResultAccept(proposal.proposal._id)
@@ -291,7 +291,11 @@ export const RequestDesignerResultClientForm = memo(props => {
           </>
         )}
 
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.cancelButton)}
+          onClick={setOpenModal}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

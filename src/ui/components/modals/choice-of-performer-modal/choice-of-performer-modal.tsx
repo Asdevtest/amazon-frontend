@@ -13,6 +13,7 @@ import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './choice-of-performer-modal.style'
 
@@ -136,7 +137,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         />
 
         <Button
-          danger
+          type={ButtonType.DANGER}
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
@@ -161,13 +162,13 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
       <div className={styles.footerWrapper}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={!selectedService && !selectedExecutor}
           onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >
           {t(TranslationKey.Select)}
         </Button>
-        <Button variant="text" className={styles.cancelButton} onClick={onClickCloseBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelButton} onClick={onClickCloseBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

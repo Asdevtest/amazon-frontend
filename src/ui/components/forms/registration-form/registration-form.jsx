@@ -314,7 +314,7 @@ export const RegistrationForm = memo(props => {
               </Link>
             </div>
           </div>
-          <Button disabled={disabledButton} color="primary" type="submit" variant="contained" className={styles.button}>
+          <Button disabled={disabledButton} className={styles.button}>
             {t(TranslationKey.Registration)}
           </Button>
         </>

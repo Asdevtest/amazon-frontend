@@ -13,6 +13,8 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './navbar-collapse.style'
 
 import { alwaysShowSubCategoryKeys } from '../navbar-drawer-content/navbar-drawer-content'
@@ -243,6 +245,7 @@ export const NavbarCollapse = ({
         key={subIndex}
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
+        type={ButtonType.TRANSPARENT}
         tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
         tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
       >

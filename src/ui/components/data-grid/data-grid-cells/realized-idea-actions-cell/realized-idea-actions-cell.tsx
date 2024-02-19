@@ -8,6 +8,8 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 interface RealizedIdeaActionsCellProps {
   row: any
   rowHandlers: {
@@ -18,7 +20,10 @@ interface RealizedIdeaActionsCellProps {
 export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
   <>
     {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
-      <Button small success onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}>
+      <Button
+        type={ButtonType.SUCCESS}
+        onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
+      >
         {t(TranslationKey['To order'])}
       </Button>
     ) : (

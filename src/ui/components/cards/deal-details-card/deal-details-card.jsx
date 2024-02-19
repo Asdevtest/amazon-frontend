@@ -16,6 +16,8 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './deal-details-card.style'
 
 export const DealDetailsCard = ({
@@ -162,10 +164,7 @@ export const DealDetailsCard = ({
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
                 <Button
-                  danger
-                  // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                  variant="contained"
-                  color="primary"
+                  type={ButtonType.DANGER}
                   className={styles.actionButton}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
@@ -173,10 +172,7 @@ export const DealDetailsCard = ({
                 </Button>
 
                 <Button
-                  success
-                  // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                  variant="contained"
-                  color="primary"
+                  type={ButtonType.SUCCESS}
                   className={styles.actionButton}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
@@ -187,10 +183,7 @@ export const DealDetailsCard = ({
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
               <Button
-                success
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
+                type={ButtonType.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
               >

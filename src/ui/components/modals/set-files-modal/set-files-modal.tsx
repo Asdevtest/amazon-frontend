@@ -9,6 +9,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './set-files-modal.style'
 
 interface SetTransparencyProps {
@@ -46,14 +48,14 @@ export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
 
       <div className={styles.saveBox}>
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={!files.length && !tmpFiles?.length}
           className={styles.saveBtn}
           onClick={() => onClickSave(files)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={() => onCloseModal(false)}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={() => onCloseModal(false)}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

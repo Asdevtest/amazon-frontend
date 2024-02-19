@@ -33,6 +33,7 @@ export const useStyles = makeStyles()(theme => {
       width: '28px',
       height: '28px',
       padding: 0,
+      backgroundColor: 'transparent !important',
     },
 
     primaryButton: {

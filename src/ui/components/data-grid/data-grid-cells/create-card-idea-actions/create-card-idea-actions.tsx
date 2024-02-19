@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 interface CreateCardIdeaActionsProps {
   row: any
   rowHandlers: {
@@ -17,8 +19,7 @@ interface CreateCardIdeaActionsProps {
 export const CreateCardIdeaActionsCell: FC<CreateCardIdeaActionsProps> = memo(({ rowHandlers, row }) => {
   return (
     <Button
-      small
-      success
+      type={ButtonType.SUCCESS}
       disabled={!row.childProduct && row.variation}
       onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
     >

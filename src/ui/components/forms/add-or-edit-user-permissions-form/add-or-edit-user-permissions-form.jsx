@@ -19,6 +19,8 @@ import { deepArrayCompare } from '@utils/array'
 import { checkIsFreelancer, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-user-permissions-form.style'
 
 import { AccessToProductForm } from './access-to-product-form'
@@ -433,11 +435,8 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
         <div className={styles.buttonsSubWrapper}>
           <Button
-            disableElevation
             disabled={submitDisabled}
             className={styles.button}
-            color="primary"
-            variant="contained"
             onClick={() => {
               onSubmit(
                 formFields,
@@ -452,10 +451,8 @@ export const AddOrEditUserPermissionsForm = memo(props => {
           </Button>
 
           <Button
-            disableElevation
             className={cx(styles.button, styles.cancelBtn)}
-            color="primary"
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onCloseModal}
           >
             {t(TranslationKey.Cancel)}

@@ -25,6 +25,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './top-card.style'
 
 import { TableSupplier } from '../../table-supplier'
@@ -243,8 +245,6 @@ export const TopCard = memo(
                               !boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])
                             }
                             disabled={!boxPropertiesIsFullAndMainsValues}
-                            variant="contained"
-                            color="primary"
                             onClick={onClickSupplierApproximateCalculations}
                           >
                             {t(TranslationKey['View an oriented calculation'])}
@@ -290,7 +290,7 @@ export const TopCard = memo(
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                                 <div className={styles.supplierButtonWrapper}>
                                   <Button
-                                    danger
+                                    type={ButtonType.DANGER}
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                                     className={cx(styles.iconBtn, styles.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
@@ -323,7 +323,7 @@ export const TopCard = memo(
                           {showActionBtns ? (
                             <div className={styles.supplierButtonWrapper}>
                               <Button
-                                danger={isSupplierAcceptRevokeActive}
+                                type={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
                                 success={!isSupplierAcceptRevokeActive}
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive
@@ -362,8 +362,6 @@ export const TopCard = memo(
                               !boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])
                             }
                             disabled={!boxPropertiesIsFullAndMainsValues}
-                            variant="contained"
-                            color="primary"
                             onClick={onClickSupplierApproximateCalculations}
                           >
                             {t(TranslationKey['View an oriented calculation'])}

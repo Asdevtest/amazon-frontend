@@ -101,7 +101,7 @@ export const AuthForm = memo(props => {
           <p className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</p>
         </div>
 
-        <Button disabled={disableLoginButton} type="submit" className={styles.loginBtn}>
+        <Button disabled={disableLoginButton} className={styles.loginBtn}>
           {t(TranslationKey.Login)}
         </Button>
       </form>

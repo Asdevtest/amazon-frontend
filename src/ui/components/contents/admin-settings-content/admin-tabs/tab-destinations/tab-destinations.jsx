@@ -13,6 +13,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './tab-destinations.style'
 
 import { AdminSettingsDestinationsModel } from './tab-destinations.model'
@@ -28,7 +30,7 @@ export const TabDestinations = observer(() => {
 
   return (
     <div className={styles.wrapper}>
-      <Button success className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+      <Button type={ButtonType.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
 

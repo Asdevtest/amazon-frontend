@@ -18,6 +18,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-supplier-to-idea-from-inventory-form.style'
 
 export const AddSupplierToIdeaFromInventoryForm = observer(
@@ -171,14 +173,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                   className={styles.input}
                   onChange={e => setLinkLine(e.target.value)}
                 />
-                <Button
-                  disableElevation
-                  disabled={!linkLine}
-                  className={styles.defaultBtn}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickLinkBtn}
-                >
+                <Button disabled={!linkLine} className={styles.defaultBtn} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
@@ -293,11 +288,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
 
         <div className={styles.btnsWrapper}>
           <Button
-            success
-            disableElevation
-            // disabled={disableSubmitBtn}
-            variant="contained"
-            color="primary"
+            type={ButtonType.SUCCESS}
             className={styles.successBtn}
             onClick={() => {
               onCreateSearchSupplierRequest()
@@ -306,7 +297,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             {t(TranslationKey['Create a request'])}
           </Button>
 
-          <Button variant="text" color="primary" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

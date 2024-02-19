@@ -2,6 +2,8 @@ import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './action-buttons-cell.style'
 
 import { getButtonActionsConfig } from './action-buttons-cell.helper'
@@ -42,7 +44,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           <Button
             key={index}
             {...button.style}
-            transparent={props.resetStyles}
+            type={props.resetStyles ? ButtonType.TRANSPARENT : ButtonType.PRIMARY}
             tooltipInfoContent={button.tooltipText}
             className={cx({ [styles.button]: !props.resetStyles }, props.buttonClassName)}
             onClick={button.onclick}

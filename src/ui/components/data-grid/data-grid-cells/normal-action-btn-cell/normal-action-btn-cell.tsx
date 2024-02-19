@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './normal-action-btn-cell.style'
 
 interface NormalActionBtnCellProps {
@@ -35,23 +37,20 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
     operationType,
     rowId,
     boxId,
-    fullWidthButton,
     casual,
     onClickCancelTask,
   } = props
   const { classes: styles, cx } = useStyles()
 
-  const buttonStyle = cx(styles.button, { [styles.fullWidthButton]: fullWidthButton })
+  const buttonStyle = cx(styles.button)
   const showCancelButton = isShowCancelButton && operationType !== TaskOperationType.RECEIVE
 
   return (
     <div className={styles.wrapper}>
       <Button
-        casual={casual}
+        type={casual ? ButtonType.CASUAL : ButtonType.PRIMARY}
         disabled={disabled}
         tooltipInfoContent={isFirstRow ? tooltipText : ''}
-        variant="contained"
-        color="primary"
         className={buttonStyle}
         onClick={(e: MouseEvent) => {
           e.stopPropagation()
@@ -66,7 +65,7 @@ export const NormalActionBtnCell: FC<NormalActionBtnCellProps> = memo(props => {
 
       {showCancelButton && (
         <Button
-          danger
+          type={ButtonType.DANGER}
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }

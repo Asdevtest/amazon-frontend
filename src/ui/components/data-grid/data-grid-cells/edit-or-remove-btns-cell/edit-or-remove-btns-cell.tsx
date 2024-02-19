@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './edit-or-remove-btns-cell.style'
 
 interface EditOrRemoveBtnsCellProps {
@@ -31,8 +33,6 @@ export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = memo(props =>
     <div className={styles.editOrRemoveBtnsCell}>
       <Button
         tooltipInfoContent={isFirstRow ? tooltipFirstButton : ''}
-        variant="contained"
-        color="primary"
         disabled={disableActionBtn}
         className={cx(styles.rowCancelBtn, styles.addPermissionBtn)}
         onClick={() => handlers.onClickEditBtn(row)}
@@ -41,7 +41,7 @@ export const EditOrRemoveBtnsCell: FC<EditOrRemoveBtnsCellProps> = memo(props =>
       </Button>
 
       <Button
-        danger
+        type={ButtonType.DANGER}
         tooltipInfoContent={isFirstRow ? tooltipSecondButton : ''}
         disabled={disableActionBtn}
         className={styles.rowCancelBtn}

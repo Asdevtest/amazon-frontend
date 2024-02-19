@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './failed-asins-modal.style'
 
 export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
@@ -22,7 +24,7 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
           <Typography>{humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el.strategy]).toUpperCase()}</Typography>
         </div>
       ))}
-      <Button success disableElevation variant="contained" className={styles.button} onClick={onClickSuccessBtn}>
+      <Button type={ButtonType.SUCCESS} className={styles.button} onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
       </Button>
     </div>

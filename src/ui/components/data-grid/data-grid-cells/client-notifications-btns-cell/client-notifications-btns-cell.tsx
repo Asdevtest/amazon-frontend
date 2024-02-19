@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './client-notifications-btns-cell.style'
 
 interface ClientNotificationsBtnsCellProps {
@@ -25,15 +27,13 @@ export const ClientNotificationsBtnsCell: FC<ClientNotificationsBtnsCellProps> =
     <div className={styles.notificationBtnsWrapper}>
       <Button
         disabled={disabled}
-        variant="contained"
-        color="primary"
         className={styles.notificationBtn}
         onClick={() => handlers.onTriggerOpenConfirmModal(row)}
       >
         {t(TranslationKey.Confirm)}
       </Button>
       <Button
-        danger
+        type={ButtonType.DANGER}
         disabled={disabled}
         className={styles.notificationBtn}
         onClick={() => {

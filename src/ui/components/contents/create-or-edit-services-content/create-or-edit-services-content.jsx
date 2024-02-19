@@ -11,6 +11,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './create-or-edit-services-content.style'
 
 export const CreateOrEditServiceContent = memo(props => {
@@ -108,12 +110,12 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button variant={'text'} className={styles.cancelBtn} onClick={onClickBackBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickBackBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
 
         <Button
-          success
+          type={ButtonType.SUCCESS}
           disabled={disabledSubmitButton}
           className={styles.successBtn}
           onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
