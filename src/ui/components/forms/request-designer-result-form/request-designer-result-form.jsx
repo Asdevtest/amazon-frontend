@@ -209,13 +209,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   const isRework = !!proposal.proposal.media?.length
 
   const [showDetails, setShowDetails] = useState(false)
-
   const [showImageModal, setShowImageModal] = useState(false)
-
   const [sourceLink, setSourceLink] = useState(proposal.proposal.sourceFiles?.[0]?.sourceFile || '')
-
   const [comment, setComment] = useState(proposal.details.result)
-
   const sourceImagesData = isRework
     ? proposal.proposal.media.map(el => ({
         image: el.fileLink,
@@ -224,7 +220,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         _id: el._id,
       }))
     : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
-
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -464,7 +459,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       {showImageModal && (
         <SlideshowGalleryModal
-          isEditable
+          isEditable={isRework}
           isOpenModal={showImageModal}
           files={imagesData}
           currentFileIndex={curImageIndex}

@@ -49,11 +49,8 @@ export const RequestDesignerResultClientForm = memo(props => {
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
-
   const [curImageIndex, setCurImageIndex] = useState(0)
-
   const [comment, setComment] = useState('')
-
   const [imagesForDownload, setImagesForDownload] = useState([])
 
   const mediaToShow = curResultMedia?.length ? curResultMedia : proposal.proposal.media
@@ -295,7 +292,6 @@ export const RequestDesignerResultClientForm = memo(props => {
 
       {showImageModal && (
         <SlideshowGalleryModal
-          isEditable
           isOpenModal={showImageModal}
           files={imagesData}
           currentFileIndex={curImageIndex}

@@ -53,7 +53,7 @@ export const useSlideshowGalleryModal = ({
             image: mediaFiles[index],
             // only change media files
           }))
-        : mediaFiles
+        : files
 
       onChangeImagesForLoad(updatedFiles)
     }
