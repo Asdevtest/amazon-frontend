@@ -164,7 +164,7 @@ export const EditTaskModal = memo(
         const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
 
         if (newBox) {
-          newBox.items?.some((item, itemIndex) => {
+          return newBox.items?.some((item, itemIndex) => {
             const currentItem = box?.items?.[itemIndex]
 
             return currentItem?.barCode !== item?.barCode || currentItem?.transparencyFile !== item?.transparencyFile
