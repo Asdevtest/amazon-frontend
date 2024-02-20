@@ -33,7 +33,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
       />
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.FILES}>
-        <FilesTab files={proposal?.media} />
+        <FilesTab media={proposal?.media} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.LINKS}>

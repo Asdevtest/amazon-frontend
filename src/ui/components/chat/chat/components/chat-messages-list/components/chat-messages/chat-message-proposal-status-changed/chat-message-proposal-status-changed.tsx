@@ -46,7 +46,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
         return (
           <div className={styles.detailsWrapper}>
             <div className={styles.headerAndTimeWrapper}>
-              <p className={styles.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
+              <p className={styles.titleText}>{t(TranslationKey['Sent for rework'])}</p>
 
               <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
             </div>

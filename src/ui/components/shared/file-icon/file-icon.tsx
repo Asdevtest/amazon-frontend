@@ -12,8 +12,6 @@ interface FileIconProps {
 export const FileIcon: FC<FileIconProps> = memo(({ fileExtension, className }) => {
   const { classes: styles, cx } = useStyles()
 
-  console.log('first', fileExtension)
-
   switch (fileExtension) {
     case 'doc':
     case 'docx':

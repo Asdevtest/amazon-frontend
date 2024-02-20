@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 15,
     color: theme.palette.text.general,
   },
 

@@ -2,11 +2,11 @@ import { IMediaRequest, UploadFileType } from '@typings/shared/upload-file'
 
 export interface SlideshowGalleryModalProps {
   files: IMediaRequest[] | UploadFileType[]
-  currentFileIndex: number
   isOpenModal: boolean
-  onCurrentFileIndex: (index: number) => void
   onOpenModal: () => void
+  currentFileIndex?: number
   isEditable?: boolean
   withoutMakeMainImage?: boolean
+  onCurrentFileIndex?: (index: number) => void
   onChangeImagesForLoad?: (files: IMediaRequest[] | UploadFileType[]) => void
 }

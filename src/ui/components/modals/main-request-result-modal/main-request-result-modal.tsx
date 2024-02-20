@@ -7,7 +7,7 @@ import { ICustomProposal } from '@typings/models/proposals/custom-proposal'
 
 import { useStyles } from './main-request-result-modal.style'
 
-import { Header, Tabs } from './components'
+import { Footer, Header, Tabs } from './components'
 
 interface MainRequestResultModalProps {
   customProposal: ICustomProposal
@@ -43,7 +43,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
 
         <Tabs proposal={customProposal?.proposal} />
 
-        <div>FOOTER</div>
+        <Footer />
       </div>
     </Modal>
   )

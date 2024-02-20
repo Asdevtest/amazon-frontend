@@ -1,42 +1,99 @@
 import { FC, memo } from 'react'
 
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
-import { SlideByType } from '@components/shared/slide-by-type'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CommentsModal } from '@components/modals/comments-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+
+import { t } from '@utils/translations'
 
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
 import { useStyles } from './files-tab.style'
 
+import { Buttons } from './buttons'
+import { File } from './file'
+import { useFilesTab } from './use-files-tab'
+
 interface FilesTabProps {
-  files: IRequestMedia[]
+  media: IRequestMedia[]
 }
 
-export const FilesTab: FC<FilesTabProps> = memo(({ files }) => {
+export const FilesTab: FC<FilesTabProps> = memo(({ media }) => {
   const { classes: styles } = useStyles()
 
-  return (
-    <div className={styles.files}>
-      {files.map((file, index) => {
-        return (
-          <div key={file._id} className={styles.fileContainer}>
-            <div className={styles.file}>
-              <SlideByType
-                isPreviews
-                mediaFile={file.fileLink}
-                mediaFileIndex={index}
-                ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
-                VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} />}
-                FileComponent={({ fileExtension }) => <CustomFileIcon middleSize fileExtension={fileExtension} />}
-              />
-            </div>
+  const {
+    showCommentModal,
+    showSlideshowGalleryModal,
 
-            <div>
-              <p>text</p>
-            </div>
-          </div>
-        )
-      })}
-    </div>
+    files,
+    currentEditableFile,
+    currentFileIndex,
+    filesForDownload,
+    archiveButtonInactiveBeforeDownloading,
+
+    onShowCommentModal,
+    onShowSlideshowGalleryModal,
+    onDownloadArchive,
+    onDownloadAllFiles,
+    onChangeComment,
+    onToggleCommentModal,
+    onToggleImageModal,
+    onCheckAllFiles,
+    onCheckFile,
+  } = useFilesTab(media)
+
+  return (
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.files}>
+          {files.map((file, index) => (
+            <File
+              key={file._id}
+              file={file}
+              fileIndex={index}
+              checked={filesForDownload.some(({ _id }) => _id === file._id)}
+              onCheckFile={onCheckFile}
+              onToggleImageModal={onToggleImageModal}
+              onToggleCommentModal={onToggleCommentModal}
+            />
+          ))}
+        </div>
+
+        <Buttons
+          checked={filesForDownload.length === files.length}
+          disabledFilesButton={!filesForDownload.length}
+          disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
+          onCheckAllFiles={onCheckAllFiles}
+          onDownloadArchive={onDownloadArchive}
+          onDownloadAllFiles={onDownloadAllFiles}
+        />
+      </div>
+
+      {showCommentModal ? (
+        <CommentsModal
+          title={t(TranslationKey['Add comment'])}
+          text={currentEditableFile?.commentByPerformer || ''}
+          isOpenModal={showCommentModal}
+          onOpenModal={onShowCommentModal}
+          onChangeField={onChangeComment}
+        />
+      ) : null}
+
+      {showSlideshowGalleryModal ? (
+        <SlideshowGalleryModal
+          files={files.map(file => ({
+            // TODO: перейти на IRequestMedia
+            _id: file._id,
+            comment: file.commentByClient,
+            image: file.fileLink,
+            commentByClient: file.commentByPerformer,
+          }))}
+          currentFileIndex={currentFileIndex}
+          isOpenModal={showSlideshowGalleryModal}
+          onOpenModal={onShowSlideshowGalleryModal}
+        />
+      ) : null}
+    </>
   )
 })

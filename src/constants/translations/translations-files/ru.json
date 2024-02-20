@@ -2196,5 +2196,7 @@
   "Successfully updated": "Успешно обновлены",
   "Supplier list": "Список поставщиков",
   "Not updating due to an error": "Не обновлены из-за ошибки",
-  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Внимание, необходимо добавить в коробку фото товара с проклеенным transparency"
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Внимание, необходимо добавить в коробку фото товара с проклеенным transparency",
+  "Failed to download archive. Please try again.": "Не удалось скачать архив. Пожалуйста, попробуйте еще раз.",
+  "Send for revision": "Отправить на доработку"
 }

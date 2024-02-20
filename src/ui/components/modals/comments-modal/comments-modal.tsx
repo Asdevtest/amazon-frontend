@@ -12,16 +12,16 @@ import { t } from '@utils/translations'
 import { useStyles } from './comments-modal.style'
 
 interface CommentsModalProps {
-  readOnly: boolean
-  title: string
   text: string
   isOpenModal: boolean
   onOpenModal: () => void
   onChangeField: (text: string) => void
+  readOnly?: boolean
+  title?: string
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
-  const { readOnly = true, title, text, isOpenModal, onOpenModal, onChangeField } = props
+  const { readOnly, title, text, isOpenModal, onOpenModal, onChangeField } = props
 
   const { classes: styles, cx } = useStyles()
 
