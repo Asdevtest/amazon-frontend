@@ -11,6 +11,7 @@ import { t } from '@utils/translations'
 
 import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
+import { ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './reviews-form.style'
 
@@ -39,7 +40,7 @@ export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, rev
       </div>
 
       <div className={styles.footerWrapper}>
-        <Button color="primary" variant="outlined" className={styles.closeButton} onClick={onClickCloseButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeButton} onClick={onClickCloseButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

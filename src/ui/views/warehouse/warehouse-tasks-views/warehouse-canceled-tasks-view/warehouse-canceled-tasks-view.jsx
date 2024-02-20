@@ -40,7 +40,6 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
           />
 
           <Button
-            variant="contained"
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||

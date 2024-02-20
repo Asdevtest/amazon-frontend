@@ -14,6 +14,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { styles } from './admin-destinations-view.style'
 
 import { AdminDestinationsViewModel } from './admin-destinations-view.model'
@@ -35,7 +37,7 @@ export const AdminDestinationsViewRaw = props => {
   return (
     <>
       <div className={styles.placeAddBtnWrapper}>
-        <Button success onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add a destination'])}
         </Button>
       </div>

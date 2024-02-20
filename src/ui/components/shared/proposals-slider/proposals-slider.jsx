@@ -17,6 +17,8 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './proposals-slider.style'
 
 export const ProposalsSlider = ({
@@ -132,7 +134,7 @@ export const ProposalsSlider = ({
           <div className={styles.buttons}>
             {onClickDeleteBtn ? (
               <Button
-                danger
+                styleType={ButtonType.DANGER}
                 tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}

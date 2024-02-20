@@ -11,6 +11,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { styles } from './buyer-ideas-notifications-view.style'
 
 import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-view.model'
@@ -26,7 +28,7 @@ export const BuyerIdeasNotificationsViewRaw = props => {
   return (
     <>
       <div>
-        <Button variant="outlined" className={styles.archiveHandler} onClick={viewModel.handleArchive}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.archiveHandler} onClick={viewModel.handleArchive}>
           {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
         </Button>
 

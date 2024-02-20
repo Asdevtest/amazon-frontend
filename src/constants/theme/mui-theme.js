@@ -274,7 +274,8 @@ export const lightTheme = createTheme({
       casualHoverBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
       casualDisabledText: '#E0E0E0',
 
-      defaultBoxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+      defaultBoxShadow:
+        '0px 2.180180311203003px 4.360360622406006px 0px #6161612E, 0px 1.0900901556015015px 2.180180311203003px 0px #6161612E',
       primaryHoverColor: '#0F5BB6',
       primaryHoverBackground: '#F4F9FF',
       primaryDisabledColor: '#D7E8FF',
@@ -286,6 +287,40 @@ export const lightTheme = createTheme({
       successHoverColor: '#216C24',
       successHoverBackground: '#EFFDF4',
       successDisabledColor: '#B3E7C7',
+    },
+
+    primaryButton: {
+      color: '#FFFFFF',
+      hoverColor: '#FFFFFF',
+      disabledColor: 'rgba(255, 255, 255, 0.89)',
+
+      backgroundColor: '#007bff',
+      hoverBackgroundColor: '#0F5BB6',
+      disabledBackgroundColor: '#CADFFC',
+    },
+
+    succesButton: {
+      color: '#fff',
+      hoverColor: '#fff',
+      disabledColor: '#fff',
+
+      backgroundColor: '#1EB564',
+      hoverBackgroundColor: '#216C24',
+      disabledBackgroundColor: '#B3E7C7',
+    },
+
+    dangerButton: {
+      color: '#912018',
+      hoverColor: '#912018',
+      disabledColor: '#E0BEBB',
+
+      outlinedColor: '#912018',
+      outlinedHoverColor: '#912018',
+      outlinedDisabledColor: '#E0BEBB',
+
+      backgroundColor: '#FEE4E2',
+      hoverBackgroundColor: '#F2B0AB',
+      disabledBackgroundColor: '#FFF3F2E0',
     },
 
     orderStatus: {
@@ -716,6 +751,40 @@ export const darkTheme = createTheme({
       successHoverColor: '#29892D',
       successHoverBackground: '#204833',
       successDisabledColor: '#184831',
+    },
+
+    primaryButton: {
+      color: '#FFFFFF',
+      hoverColor: '#FFFFFF',
+      disabledColor: 'rgba(70, 95, 119, 0.89)',
+
+      backgroundColor: '#4CA1DE',
+      hoverBackgroundColor: '#0F5BB6',
+      disabledBackgroundColor: '#2E4760',
+    },
+
+    succesButton: {
+      color: '#fff',
+      hoverColor: '#fff',
+      disabledColor: '#415548',
+
+      backgroundColor: '#1EB564',
+      hoverBackgroundColor: '#216C24',
+      disabledBackgroundColor: '#184831',
+    },
+
+    dangerButton: {
+      color: '#D72A1E',
+      hoverColor: '#912018',
+      disabledColor: '#45221FC4',
+
+      outlinedColor: '#D72A1E',
+      outlinedHoverColor: '#F2B0AB',
+      outlinedDisabledColor: '#49353CC4',
+
+      backgroundColor: '#F2B0AB',
+      hoverBackgroundColor: '#FEE4E2',
+      disabledBackgroundColor: '#340B08C4',
     },
 
     action: {

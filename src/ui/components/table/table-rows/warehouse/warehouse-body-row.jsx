@@ -99,9 +99,7 @@ const WarehouseBodyRowRaw = ({
                       boxIndex === 0 && t(TranslationKey['Viewing photos of the box taken at the prep center'])
                     }
                     disabled={!box.images?.length}
-                    color="primary"
                     className={styles.button}
-                    variant="contained"
                     onClick={() => {
                       setCurImages(box.images.filter(img => checkIsMediaFileLink(img)))
                       setShowPhotosModal(!showPhotosModal)

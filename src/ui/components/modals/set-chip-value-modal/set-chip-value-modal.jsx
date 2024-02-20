@@ -9,6 +9,8 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './set-chip-value-modal.style'
 
 export const SetChipValueModal = ({ title, onSubmit, onCloseModal, sourceValue, isInts, maxLength }) => {
@@ -29,14 +31,14 @@ export const SetChipValueModal = ({ title, onSubmit, onCloseModal, sourceValue, 
 
       <Box className={styles.saveBox}>
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           disabled={sourceValue === newValue}
           className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

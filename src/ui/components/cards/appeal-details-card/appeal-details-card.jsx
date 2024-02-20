@@ -9,6 +9,8 @@ import { UserLink } from '@components/user/user-link'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './appeal-details-card.style'
 
 export const AppealDetailsCard = () => {
@@ -98,14 +100,7 @@ export const AppealDetailsCard = () => {
             <Typography className={styles.timeOnReviewTitle}>
               {'Время на рассмотрение с момента принятия 48 часов'}
             </Typography>
-            <Button
-              success
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              // onClick={() => onClickViewMore(item.requestId)}
-            >
+            <Button styleType={ButtonType.SUCCESS} className={styles.actionButton}>
               {'Принять к рассмотрению'}
             </Button>
           </div>

@@ -27,6 +27,8 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './create-box-form.style'
 
 import { OrderBox } from './order-box'
@@ -307,11 +309,8 @@ export const CreateBoxForm = observer(
           {!isEdit ? (
             <div className={styles.buttonsWrapper}>
               <Button
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
                 className={styles.button}
-                color="primary"
-                variant="contained"
                 onClick={() => {
                   setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))
                 }}
@@ -323,24 +322,11 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            success
-            disabled={disableSubmit}
-            className={styles.button}
-            color="primary"
-            variant="contained"
-            onClick={onSubmit}
-          >
+          <Button styleType={ButtonType.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
-          <Button
-            disableElevation
-            color="primary"
-            className={styles.button}
-            variant="contained"
-            onClick={() => onTriggerOpenModal()}
-          >
+          <Button className={styles.button} onClick={() => onTriggerOpenModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

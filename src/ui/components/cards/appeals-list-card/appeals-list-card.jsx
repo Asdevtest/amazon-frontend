@@ -78,13 +78,7 @@ export const AppealsListCard = ({ onClickViewMore }) => {
                 </div>
               </div>
             </div>
-            <Button
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              onClick={() => onClickViewMore()}
-            >
+            <Button className={styles.actionButton} onClick={() => onClickViewMore()}>
               {t(TranslationKey['Open an appeal'])}
             </Button>
           </div>

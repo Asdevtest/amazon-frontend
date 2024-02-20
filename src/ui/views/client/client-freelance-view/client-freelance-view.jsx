@@ -10,6 +10,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { styles } from './client-freelance-view.style'
 
 import { ClientFreelanceViewModel } from './client-freelance-view.model'
@@ -24,32 +26,19 @@ export const ClientFreelanceViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickServiceExchange}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
           <div className={styles.btnTextWrapper}>
             <p className={styles.btnText}>{t(TranslationKey['Service exchange'])}</p>
             <ArrowRightAltIcon color="primary" />
           </div>
         </Button>
 
-        <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickMyRequests}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
           <div className={styles.btnTextWrapper}>
             <p className={styles.btnText}>{t(TranslationKey['My requests'])}</p>
             <ArrowRightAltIcon color="primary" />
           </div>
         </Button>
-
-        {/* <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickVacRequests}>
-          <div className={styles.btnTextWrapper}>
-            <p className={styles.btnText}>{t(TranslationKey['Vacant requests'])}</p>
-            <ArrowRightAltIcon color="primary" />
-          </div>
-        </Button> */}
-        {/* <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickMyProposals}>
-          <div className={styles.btnTextWrapper}>
-            <p className={styles.btnText}>{t(TranslationKey['My proposals'])}</p>
-            <ArrowRightAltIcon color="primary" />
-          </div>
-        </Button> */}
       </div>
     </>
   )

@@ -52,6 +52,8 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { clearEverythingExceptNumbers, parseTextString, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './edit-order-modal.style'
 
 import { BoxesToCreateTable } from './boxes-to-create-table'
@@ -813,7 +815,7 @@ export const EditOrderModal = memo(
 
                     <div className={styles.supplierButtonWrapper}>
                       <Button
-                        danger={isSupplierAcceptRevokeActive}
+                        styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(styles.iconBtn, {
@@ -885,7 +887,7 @@ export const EditOrderModal = memo(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={styles.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}

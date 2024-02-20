@@ -16,6 +16,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './warehouse-sent-batches-view.style'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
@@ -32,7 +34,11 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
     <>
       <div>
         <div className={styles.headerWrapper}>
-          <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.openArchiveBtn}
+            onClick={viewModel.onTriggerArchive}
+          >
             {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
           </Button>
 

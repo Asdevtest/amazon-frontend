@@ -11,6 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { styles } from './admin-warehouse-view.style'
 
 import { AdminWarehouseViewModel } from './admin-warehouse-view.model'
@@ -26,31 +28,19 @@ export const AdminWarehouseViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickTasks}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickTasks}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey.Tasks)}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickBoxes}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickBoxes}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey.Boxes)}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
-
-            {/* <Button
-                    className={styles.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickDestinations}
-                  >
-                    <div className={styles.btnTextWrapper}>
-                      <Typography className={styles.btnText}>{t(TranslationKey.Destinations)}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button> */}
           </div>
         </div>
       </div>

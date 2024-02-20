@@ -20,6 +20,8 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './warehouse-awaiting-batches-view.style'
 
 import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
@@ -80,7 +82,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           />
 
           <Button
-            success
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
             className={styles.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}

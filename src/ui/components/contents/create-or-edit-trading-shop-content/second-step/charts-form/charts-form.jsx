@@ -11,6 +11,8 @@ import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './charts-form.style'
 
 const filterSettings = {
@@ -52,8 +54,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             className={cx(styles.selectionBtn, {
               [styles.curSelectionBtn]: isRevenue,
             })}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => setIsRevenue(true)}
           >
             {t(TranslationKey.Revenue)}
@@ -62,8 +63,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             className={cx(styles.selectionBtn, {
               [styles.curSelectionBtn]: !isRevenue,
             })}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => setIsRevenue(false)}
           >
             {t(TranslationKey['Website traffic'])}
@@ -103,7 +103,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
           className={cx(styles.button, {
             [styles.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
           })}
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}
         >
           {`6 ${t(TranslationKey.months)}`}
@@ -112,7 +112,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
           className={cx(styles.button, {
             [styles.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
           })}
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}
         >
           {`12 ${t(TranslationKey.months)}`}
@@ -121,7 +121,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
           className={cx(styles.button, {
             [styles.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
           })}
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}
         >
           {t(TranslationKey['All time'])}

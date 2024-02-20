@@ -11,6 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './storekeeper-redistribute-box-modal.style'
 
 import { Box } from './box/box'
@@ -263,7 +265,7 @@ export const StorekeeperRedistributeBox = observer(
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
             onClick={() => {

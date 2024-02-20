@@ -38,6 +38,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { styles } from './data-grid-menu-items.style'
 
 import { negativeOrPositiveList, wholeIntegersList } from './whole-integers-list'
@@ -439,7 +441,6 @@ export const MyRequestsStatusMenuItem = memo(
 
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -449,7 +450,7 @@ export const MyRequestsStatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -542,7 +543,6 @@ export const FreelanceRequestType = memo(
 
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -552,7 +552,7 @@ export const FreelanceRequestType = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -695,7 +695,6 @@ export const CreatedByMenuItem = memo(
 
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
 
@@ -718,7 +717,7 @@ export const CreatedByMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -862,7 +861,6 @@ export const ObJectFieldMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -872,7 +870,7 @@ export const ObJectFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1016,7 +1014,6 @@ export const IdeaShopsFieldMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
 
@@ -1040,7 +1037,7 @@ export const IdeaShopsFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1106,7 +1103,6 @@ export const BoxestatusMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -1116,7 +1112,7 @@ export const BoxestatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -1258,7 +1254,6 @@ export const NormalFieldMenuItem = memo(
 
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1268,7 +1263,7 @@ export const NormalFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1349,7 +1344,6 @@ export const PriorityMenuItem = memo(
 
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1359,7 +1353,7 @@ export const PriorityMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1433,7 +1427,6 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
 
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1443,7 +1436,7 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1636,10 +1629,8 @@ export const ProductMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button variant="contained" onClick={applyFilters}>
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -1794,7 +1785,6 @@ export const OrderOrItemMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, currentOption)
@@ -1804,7 +1794,7 @@ export const OrderOrItemMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1959,10 +1949,8 @@ export const DestinationMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button variant="contained" onClick={applyFilters}>
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -2108,7 +2096,6 @@ export const FromToDateMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -2118,7 +2105,7 @@ export const FromToDateMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2233,11 +2220,10 @@ export const DateDetailsMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
             <Button
-              variant="contained"
               disabled={disableButton}
               onClick={e => {
                 onClose(e)
@@ -2405,7 +2391,6 @@ export const NumberFieldMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -2414,7 +2399,7 @@ export const NumberFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2611,7 +2596,6 @@ export const InStockMenuItem = memo(
           </div>
           <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, 'boxAmounts')
@@ -2620,7 +2604,7 @@ export const InStockMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2725,7 +2709,6 @@ export const OnListingCellMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
             }}
@@ -2797,7 +2780,6 @@ export const YesNoCellMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               filterData.handleFilters(condition.yes, condition.no)
               onClose(e)
@@ -3163,7 +3145,6 @@ export const SecondsCellMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -3172,7 +3153,7 @@ export const SecondsCellMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

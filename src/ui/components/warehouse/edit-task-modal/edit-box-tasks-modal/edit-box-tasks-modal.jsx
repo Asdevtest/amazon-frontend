@@ -22,6 +22,8 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './edit-box-tasks-modal.style'
 
 const AttributesEditBlock = memo(props => {
@@ -278,11 +280,15 @@ export const EditBoxTasksModal = props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button success disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+        <Button styleType={ButtonType.SUCCESS} disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={() => setEditModal()}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.cancelButton)}
+          onClick={() => setEditModal()}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>

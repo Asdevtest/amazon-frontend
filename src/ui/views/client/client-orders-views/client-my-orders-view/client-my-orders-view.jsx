@@ -10,6 +10,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-my-orders-view.style'
 
 import { ClientMyOrdersViewModel } from './client-my-orders-view.model'
@@ -24,14 +26,14 @@ export const ClientMyOrdersView = observer(({ history }) => {
       <Typography className={styles.title}>{t(TranslationKey['Choose a section in My orders'])}</Typography>
 
       <div className={styles.btnsWrapper}>
-        <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickOrders}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickOrders}>
           <div className={styles.btnTextWrapper}>
             <Typography className={styles.btnText}>{t(TranslationKey.Orders)}</Typography>
             <ArrowRightAltIcon color="primary" />
           </div>
         </Button>
 
-        <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickPendingOrders}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickPendingOrders}>
           <div className={styles.btnTextWrapper}>
             <Typography className={styles.btnText}>{t(TranslationKey['Pending orders'])}</Typography>
             <ArrowRightAltIcon color="primary" />

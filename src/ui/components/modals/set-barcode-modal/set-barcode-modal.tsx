@@ -8,6 +8,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './set-barcode-modal.style'
 
 interface SetBarcodeModalProps {
@@ -45,7 +47,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           disabled={!files.length && !tmpCode?.length}
           className={styles.button}
           onClick={() => {
@@ -56,7 +58,11 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(styles.button, styles.closeButton)} onClick={onCloseModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.closeButton)}
+          onClick={onCloseModal}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -147,10 +147,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
       </div>
 
       <Button
-        disableElevation
         disabled={disableSubmitBtn}
-        color="primary"
-        variant="contained"
         onClick={() =>
           isDeadlineError ? setDeadlineError(!deadlineError) : onSubmit(formFields, requestToEdit?.request?._id)
         }
@@ -158,13 +155,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
         {isEdit ? 'editBtn' : 'createBtn'}
       </Button>
 
-      <Button
-        disableElevation
-        className={styles.button}
-        color="primary"
-        variant="contained"
-        onClick={() => setOpenModal()}
-      >
+      <Button className={styles.button} onClick={() => setOpenModal()}>
         {'cancelBtn'}
       </Button>
     </div>

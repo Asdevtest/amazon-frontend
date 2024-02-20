@@ -106,8 +106,6 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               <Button
                 disabled={buttonDisabled}
                 tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
-                variant="contained"
-                color="primary"
                 className={styles.actionBtn}
                 onClick={onSubmit}
               >

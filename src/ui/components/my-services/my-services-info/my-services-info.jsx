@@ -11,6 +11,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './my-services.style'
 
 export const MyServicesInfo = ({
@@ -53,7 +55,7 @@ export const MyServicesInfo = ({
               />
               <div className={styles.userRatingWrapper}>
                 <Button
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   className={styles.reviewText}
                   onClick={() => onClickReview(announcementData?.createdBy)}
                 >
@@ -90,7 +92,11 @@ export const MyServicesInfo = ({
 
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
-          <Button variant="text" className={styles.detailsButton} onClick={() => setShowFullDescription(prev => !prev)}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.detailsButton}
+            onClick={() => setShowFullDescription(prev => !prev)}
+          >
             {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
           </Button>
         ) : (
@@ -98,7 +104,7 @@ export const MyServicesInfo = ({
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button danger className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+          <Button styleType={ButtonType.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 

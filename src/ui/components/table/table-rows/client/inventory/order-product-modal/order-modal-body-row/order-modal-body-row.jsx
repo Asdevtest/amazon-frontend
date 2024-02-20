@@ -23,6 +23,8 @@ import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
@@ -408,7 +410,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <Button
-            variant={item.storekeeperId && 'text'}
+            variant={item.storekeeperId ? ButtonVariant.OUTLINED : ButtonVariant.CONTAINED}
             className={cx(
               { [styles.storekeeperBtn]: !item.storekeeperId },
               { [styles.standartText]: item.storekeeperId },

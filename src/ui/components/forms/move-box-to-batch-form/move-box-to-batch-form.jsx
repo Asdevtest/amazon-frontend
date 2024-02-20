@@ -11,6 +11,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './move-box-to-batch-form.style'
 
 import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
@@ -61,27 +63,20 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button
-              success
-              disableElevation
-              variant="contained"
-              color="primary"
-              onClick={() => onSubmitCreateBatch(box)}
-            >
+            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 
             <div className={styles.btnsSubWrapper}>
               <Button
                 disabled={!selectedBatch}
-                variant="contained"
                 className={cx(styles.cancelBtn, styles.moveBox)}
                 onClick={() => onSubmit(box, selectedBatch)}
               >
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
               </Button>
 
-              <Button color="primary" variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
+              <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={setOpenModal}>
                 {t(TranslationKey.Cancel)}
               </Button>
             </div>
@@ -103,17 +98,11 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsSecondWrapper}>
-            <Button
-              success
-              disableElevation
-              variant="contained"
-              color="primary"
-              onClick={() => onSubmitCreateBatch(box)}
-            >
+            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 
-            <Button color="primary" variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={setOpenModal}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

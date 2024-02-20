@@ -68,7 +68,7 @@ export const AuthForm = memo(props => {
             labelClasses={styles.labelField}
             inputClasses={styles.input}
             placeholder={t(TranslationKey.Password)}
-            type={visibilityPass ? 'text' : 'password'}
+            styleType={visibilityPass ? 'text' : 'password'}
             value={formFields.password}
             startAdornment={
               <InputAdornment position="end" className={styles.inputAdornment}>
@@ -101,7 +101,7 @@ export const AuthForm = memo(props => {
           <p className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</p>
         </div>
 
-        <Button disabled={disableLoginButton} type="submit" className={styles.loginBtn}>
+        <Button disabled={disableLoginButton} className={styles.loginBtn}>
           {t(TranslationKey.Login)}
         </Button>
       </form>

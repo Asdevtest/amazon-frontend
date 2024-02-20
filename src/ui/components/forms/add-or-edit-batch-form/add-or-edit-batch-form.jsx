@@ -37,6 +37,8 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-batch-form.style'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
@@ -560,8 +562,6 @@ export const AddOrEditBatchForm = observer(
               disabled={
                 !boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)
               }
-              color="primary"
-              variant="contained"
               className={styles.actionBtn}
               onClick={onClickAdd}
             >
@@ -674,7 +674,7 @@ export const AddOrEditBatchForm = observer(
               />
             </div>
             <Button
-              danger
+              styleType={ButtonType.DANGER}
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
               className={styles.actionBtn}
               onClick={onClickTrash}
@@ -703,18 +703,19 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              success
-              disableElevation
+              styleType={ButtonType.SUCCESS}
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
-              variant="contained"
-              color="primary"
               className={styles.actionBtn}
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button color="primary" variant="text" className={cx(styles.actionBtn, styles.cancelBtn)} onClick={onClose}>
+            <Button
+              variant={ButtonVariant.OUTLINED}
+              className={cx(styles.actionBtn, styles.cancelBtn)}
+              onClick={onClose}
+            >
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

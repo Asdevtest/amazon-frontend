@@ -8,6 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './data-grid-custom-filter-button.style'
 
 export const DataGridCustomFilterButton = props => {
@@ -26,7 +28,7 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <FilterAltOutlinedIcon />
 

@@ -11,6 +11,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { styles } from './client-trading-shops-view.style'
 
 import { ClientTradingShopsViewModel } from './client-trading-shops-view.model'
@@ -26,14 +28,14 @@ export const ClientTradingShopsViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Trading Shops'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickBuyShops}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickBuyShops}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Buy store'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickSellShops}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSellShops}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
