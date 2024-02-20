@@ -41,7 +41,7 @@ export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseMod
         </div>
       </Box>
 
-      <Button className={styles.saveButton} onClick={() => onSubmith()}>
+      <Button className={styles.saveButton} onClick={onSubmith}>
         {t(TranslationKey.Save)}
       </Button>
     </div>

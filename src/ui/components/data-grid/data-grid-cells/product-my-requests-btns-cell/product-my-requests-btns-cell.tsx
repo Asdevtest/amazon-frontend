@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './product-my-requests-btns-cell.style'
 
 interface ProductMyRequestsBtnsCellProps {
@@ -27,16 +29,11 @@ export const ProductMyRequestsBtnsCell: FC<ProductMyRequestsBtnsCellProps> = mem
 
   return (
     <div className={styles.productMyRequestsBtnsWrapper}>
-      <Button
-        variant="contained"
-        color="primary"
-        className={styles.productMyRequestsBtn}
-        onClick={() => handlers.onClickOpenRequest(data._id)}
-      >
+      <Button className={styles.productMyRequestsBtn} onClick={() => handlers.onClickOpenRequest(data._id)}>
         {t(TranslationKey['Open a request'])}
       </Button>
       <Button
-        success
+        styleType={ButtonType.SUCCESS}
         disabled={disableOpenResultBtn}
         className={styles.productMyRequestsBtn}
         onClick={() => handlers.onClickOpenResult(data)}

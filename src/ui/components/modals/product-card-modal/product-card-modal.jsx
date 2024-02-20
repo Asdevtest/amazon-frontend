@@ -191,7 +191,6 @@ export const ProductCardModal = observer(props => {
               (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
                 <Button
                   className={styles.buttonDelete}
-                  variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Delete)}
@@ -203,8 +202,6 @@ export const ProductCardModal = observer(props => {
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
                 <Button
                   className={cx(styles.buttonNormal, styles.buttonAccept)}
-                  color="primary"
-                  variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -217,7 +214,6 @@ export const ProductCardModal = observer(props => {
                 <Button
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                   className={styles.buttonNormal}
-                  variant="contained"
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
                     checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -233,7 +229,6 @@ export const ProductCardModal = observer(props => {
                 className={cx(styles.buttonClose, {
                   [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
                 })}
-                variant="contained"
                 onClick={() => viewModel?.handleProductActionButtons('closeModal')}
               >
                 {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -244,8 +239,6 @@ export const ProductCardModal = observer(props => {
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
                   className={styles.restoreBtn}
-                  color="primary"
-                  variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Restore)}
@@ -257,7 +250,6 @@ export const ProductCardModal = observer(props => {
               className={cx(styles.buttonClose, {
                 [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
               })}
-              variant="contained"
               onClick={() => viewModel?.handleProductActionButtons('closeModal')}
             >
               {t(TranslationKey.Close)}

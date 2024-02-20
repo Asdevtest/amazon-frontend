@@ -25,6 +25,7 @@ import { t } from '@utils/translations'
 
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
@@ -522,11 +523,20 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} className={styles.button} onClick={() => onSubmit()}>
+          <Button
+            styleType={ButtonType.SUCCESS}
+            disabled={disableSubmitBtn}
+            className={styles.button}
+            onClick={() => onSubmit()}
+          >
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onClickClose()}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={cx(styles.button, styles.cancelBtn)}
+            onClick={() => onClickClose()}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

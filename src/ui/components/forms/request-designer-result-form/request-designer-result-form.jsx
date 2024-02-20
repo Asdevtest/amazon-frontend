@@ -21,6 +21,8 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime, parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './request-designer-result-form.style'
 
 const reorder = (list, startIndex, endIndex) => {
@@ -152,7 +154,7 @@ const Slot = ({
             )}
             <input
               multiple
-              type={'file'}
+              type="file"
               className={styles.pasteInput}
               defaultValue={''}
               // onPaste={e => {
@@ -219,7 +221,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
+    : [{ image: '', comment: '', commentByClient: '', _id: nanoid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -239,7 +241,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { image: null, comment: '', commentByClient: '', _id: nanoid() }])
+    setImagesData(() => [...imagesData, { image: '', comment: '', commentByClient: '', _id: nanoid() }])
   }
 
   const onClickRemoveItem = slot => {
@@ -439,7 +441,11 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
               onChange={e => setSourceLink(e.target.value)}
             />
 
-            <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+            <Button
+              variant={ButtonVariant.OUTLINED}
+              className={cx(styles.button, styles.cancelButton)}
+              onClick={setOpenModal}
+            >
               {t(TranslationKey.Back)}
             </Button>
 

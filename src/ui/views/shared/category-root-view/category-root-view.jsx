@@ -13,6 +13,8 @@ import { useCategoryRootViewStyles } from '@views/shared/category-root-view/cate
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 export const CategoryRootView = observer(props => {
   const [viewModel] = useState(() => new CategoryRootViewModel({ history: props.history }))
   const { classes: styles } = useCategoryRootViewStyles()
@@ -30,8 +32,7 @@ export const CategoryRootView = observer(props => {
           <Button
             key={index}
             className={styles.button}
-            color="primary"
-            variant="outlined"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => viewModel.onClickCategory(el.subRoute)}
           >
             <div className={styles.btnTextWrapper}>

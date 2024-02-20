@@ -30,6 +30,8 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-warehouse-tasks-view.style'
 
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
@@ -82,7 +84,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'priority',
@@ -121,7 +123,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'status',
@@ -157,7 +159,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'storekeeper',
@@ -194,7 +196,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'type',
@@ -205,15 +207,13 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
                   }}
                 >
                   <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={
-                          Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
-                        }
-                        color="primary"
-                      />
-                      <Typography className={styles.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
-                    </>
+                    <Checkbox
+                      checked={
+                        Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
+                      }
+                      color="primary"
+                    />
+                    <Typography className={styles.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
                   </div>
                 </Button>
               }

@@ -130,7 +130,6 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
 
       <div className={styles.btnWrapper}>
         <Button
-          color="primary"
           className={styles.btnSubmit}
           disabled={!formFields.reason || totalTimeInMinute === '0'}
           onClick={() => onPressSubmitForm(formFields, images)}

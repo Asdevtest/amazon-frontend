@@ -8,6 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './data-grid-reset-filter-button.style'
 
 export const DataGridResetFilterButton = memo(props => {
@@ -18,7 +20,7 @@ export const DataGridResetFilterButton = memo(props => {
   return (
     <div>
       <Button
-        variant="text"
+        variant={ButtonVariant.OUTLINED}
         className={cx(className, styles.mainFilterBtn)}
         onClick={resetFiltersBtnSettings.onClickResetFilters}
         {...restProps}

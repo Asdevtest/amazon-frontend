@@ -1,5 +1,3 @@
-
-
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
@@ -91,8 +89,6 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
           </div>
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-            variant="contained"
-            color="primary"
             className={styles.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >

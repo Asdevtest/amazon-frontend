@@ -10,6 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './service-exchange-card.style'
 
@@ -34,6 +35,8 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   const showDetailDescriptionToolip = detailDescription.length > 25
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
+  const isSuccess = choose || order
+
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleToggleModal = () => {
@@ -52,7 +55,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </button>
 
         <div className={styles.gallery}>
-          <SlideshowGallery files={service?.linksToMediaFiles} slidesToShow={2} />
+          <SlideshowGallery hiddenPreviews files={service?.linksToMediaFiles} slidesToShow={2} />
         </div>
 
         {isNotMyServices ? (
@@ -95,7 +98,11 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         )}
 
         <div className={styles.buttonWrapper}>
-          <Button success={choose || order} className={styles.openBtn} onClick={() => onClickButton(service)}>
+          <Button
+            styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+            className={styles.openBtn}
+            onClick={() => onClickButton(service)}
+          >
             {buttonContent}
           </Button>
         </div>

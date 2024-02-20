@@ -17,6 +17,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './weight-based-logistics-tariffs.style'
 
 import { LogisticsTariffsModel } from './weight-based-logistics-tariffs.model'
@@ -88,17 +90,17 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         </div>
 
         {isArchive ? (
-          <Button variant="outlined" className={styles.openArchiveBtn} onClick={onTriggerArchive}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
           <div className={styles.btnsWrapper}>
-            <Button variant="outlined" className={styles.openArchiveBtn} onClick={onTriggerArchive}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>
 
             <Button
-              success
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
               className={styles.placeAddBtn}
               onClick={() => onClickAddBtn()}

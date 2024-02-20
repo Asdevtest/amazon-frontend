@@ -14,6 +14,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './with-search-select.style'
 
 export const WithSearchSelect = memo(
@@ -202,7 +204,7 @@ export const WithSearchSelect = memo(
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
                         className={styles.button}
-                        variant="text"
+                        variant={ButtonVariant.OUTLINED}
                         onClick={e => {
                           e.stopPropagation()
 
@@ -236,7 +238,7 @@ export const WithSearchSelect = memo(
                         key={index}
                         className={cx(styles.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
-                        variant="text"
+                        variant={ButtonVariant.OUTLINED}
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)

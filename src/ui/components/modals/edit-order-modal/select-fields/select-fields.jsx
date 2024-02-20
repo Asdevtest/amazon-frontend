@@ -24,6 +24,8 @@ import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInS
 import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './select-fields.style'
 
 export const SelectFields = ({
@@ -63,7 +65,7 @@ export const SelectFields = ({
       <Grid item>
         <div className={styles.photoAndFieldsWrapper}>
           <div className={styles.photoWrapper}>
-            {!!order.product.images.length && <SlideshowGallery slidesToShow={3} files={order.product.images} />}
+            <SlideshowGallery slidesToShow={3} files={order.product.images} />
           </div>
 
           <div>
@@ -173,7 +175,6 @@ export const SelectFields = ({
             </div>
             <Box className={styles.noFlexElement}>
               <Field
-                // disabled={!usePriceInDollars || checkIsPlanningPrice}
                 disabled
                 inputProps={{ maxLength: 10 }}
                 inputClasses={styles.input}
@@ -217,27 +218,6 @@ export const SelectFields = ({
                 labelClasses={styles.label}
                 value={yuanToDollarRate}
               />
-
-              {/* <Field
-                oneLine
-                label={t(TranslationKey['Use the price in dollars'])}
-                // labelClasses={styles.checkboxLabel}
-                labelClasses={styles.label}
-                containerClasses={styles.checkboxContainer}
-                inputComponent={
-                  <Checkbox
-                    disabled={checkIsPlanningPrice}
-                    checked={usePriceInDollars}
-                    color="primary"
-                    onChange={() => {
-                      // setPriceYuansForBatch(
-                      //   calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate),
-                      // )
-                      setUsePriceInDollars(!usePriceInDollars)
-                    }}
-                  />
-                }
-              /> */}
             </div>
           </Box>
 
@@ -283,7 +263,6 @@ export const SelectFields = ({
           </Box>
           <Box className={styles.noFlexElement}>
             <Field
-              // disabled={!usePriceInDollars || checkIsPlanningPrice}
               disabled
               inputProps={{ maxLength: 10 }}
               inputClasses={styles.input}
@@ -327,35 +306,17 @@ export const SelectFields = ({
                 <div className={styles.checkboxWithLabelWrapper}>
                   <Checkbox
                     disabled={
-                      ![
-                        OrderStatusByKey[OrderStatus.AT_PROCESS],
-
-                        // OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-                      ].includes(orderFields.status) || !checkIsPlanningPrice
+                      ![OrderStatusByKey[OrderStatus.AT_PROCESS]].includes(orderFields.status) || !checkIsPlanningPrice
                     }
                     checked={checkIsPlanningPrice}
                     color="primary"
                     className={styles.checkbox}
-                    onChange={() => {
-                      setCheckIsPlanningPrice(!checkIsPlanningPrice)
-                      // setOrderField('totalPriceChanged')({
-                      //   target: {value: toFixed(orderFields.totalPrice, 2)},
-                      // })
-                      // setPriceYuansForBatch(
-                      //   calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
-                      // )
-                    }}
+                    onChange={() => setCheckIsPlanningPrice(!checkIsPlanningPrice)}
                   />
                 </div>
               }
             />
-            <Button
-              disabled={checkIsPlanningPrice}
-              className={styles.button}
-              variant="contained"
-              // color="primary"
-              onClick={onClickUpdateButton}
-            >
+            <Button disabled={checkIsPlanningPrice} className={styles.button} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
             </Button>
           </div>
@@ -435,9 +396,10 @@ export const SelectFields = ({
                 [styles.noPaymentButton]: orderFields?.paymentDetails.length,
               })}
               variant={
-                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
+                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                  ? ButtonVariant.OUTLINED
+                  : ButtonVariant.CONTAINED
               }
-              btnWrapperStyle={styles.supplierPaymentButtonBtnWrapperStyle}
               onClick={onClickSupplierPaymentButton}
             >
               <Typography
@@ -480,8 +442,6 @@ export const SelectFields = ({
             </Button>
           </div>
         </Box>
-
-        {/** Hs code fields */}
 
         <Box my={3} className={cx(styles.formItem, styles.noFlex)} alignItems="flex-end">
           <div className={styles.partialPaymentWrapper}>
@@ -527,18 +487,6 @@ export const SelectFields = ({
               />
             </div>
           </div>
-          {/* <Field */}
-          {/*   label={t(TranslationKey['Paid for']) + ', Ұ'} */}
-          {/*   labelClasses={styles.label} */}
-          {/*   inputClasses={styles.input} */}
-          {/*   inputProps={{ maxLength: 10 }} */}
-          {/*   value={orderFields.partialPaymentAmountRmb} */}
-          {/*   onChange={event => { */}
-          {/*     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) { */}
-          {/*       setOrderField('partialPaymentAmountRmb')(event) */}
-          {/*     } */}
-          {/*   }} */}
-          {/* /> */}
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
             <Field

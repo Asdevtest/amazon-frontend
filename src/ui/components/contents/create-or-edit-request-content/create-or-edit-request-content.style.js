@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 15,
     borderRadius: 20,
     overflow: 'hidden',
   },
@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     position: 'relative',
     padding: 30,
-    height: '80vh',
+    height: '81vh',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -77,6 +77,7 @@ export const useStyles = makeStyles()(theme => ({
   field: {
     height: 40,
     width: '100%',
+    maxWidth: 250,
   },
 
   fieldContainer: {
@@ -232,7 +233,6 @@ export const useStyles = makeStyles()(theme => ({
   stepTitle: {
     margin: '0',
     padding: '0',
-    marginTop: 5,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',

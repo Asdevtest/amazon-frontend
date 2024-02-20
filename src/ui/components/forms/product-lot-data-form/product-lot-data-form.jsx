@@ -88,7 +88,6 @@ export const ProductLotDataForm = memo(props => {
 
         {!isTransfer && (
           <Button
-            variant="contained"
             onClick={() => {
               onClickToggleArchiveProductLotData(!isArchive)
               setIsArchive(!isArchive)

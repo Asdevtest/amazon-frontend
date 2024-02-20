@@ -13,6 +13,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
 import { chosenGoodsColumns, sourceColumns } from './bind-stock-goods-to-inventory-columns'
@@ -106,7 +108,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
       <div className={styles.form}>
         <div className={styles.filtersWrapper}>
           <Button
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.chip, {
               [styles.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
             })}
@@ -118,7 +120,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           <Typography className={styles.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
           <Button
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.chip, styles.chipLeftMargin, {
               [styles.chipActive]: chipConfig === chipConfigSettings.NAME,
             })}
@@ -128,7 +130,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           </Button>
 
           <Button
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.chip, styles.chipLeftMargin, {
               [styles.chipActive]: chipConfig === chipConfigSettings.ASIN,
             })}
@@ -138,7 +140,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
           </Button>
 
           <Button
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.chip, styles.chipLeftMargin, {
               [styles.chipActive]: chipConfig === chipConfigSettings.SKU,
             })}

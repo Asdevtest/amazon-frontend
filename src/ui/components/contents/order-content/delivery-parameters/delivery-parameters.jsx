@@ -163,7 +163,6 @@ export const DeliveryParameters = ({
         error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
-            disableElevation
             disabled={!isCanChange}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >

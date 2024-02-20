@@ -49,14 +49,10 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import {
-  clearEverythingExceptNumbers,
-  getShortenStringIfLongerThanCount,
-  parseTextString,
-  timeToDeadlineInHoursAndMins,
-  toFixed,
-} from '@utils/text'
+import { clearEverythingExceptNumbers, parseTextString, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './edit-order-modal.style'
 
@@ -553,9 +549,7 @@ export const EditOrderModal = memo(
             )}
           </div>
 
-          <Typography className={styles.amazonTitle}>
-            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 130)}
-          </Typography>
+          <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
 
           <div className={styles.priorityWrapper}>
             <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
@@ -821,7 +815,7 @@ export const EditOrderModal = memo(
 
                     <div className={styles.supplierButtonWrapper}>
                       <Button
-                        danger={isSupplierAcceptRevokeActive}
+                        styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(styles.iconBtn, {
@@ -893,7 +887,7 @@ export const EditOrderModal = memo(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={styles.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}

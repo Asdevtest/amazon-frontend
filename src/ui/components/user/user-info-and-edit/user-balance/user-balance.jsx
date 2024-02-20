@@ -13,6 +13,8 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './user-balance.style'
 
 import { UserBalanceModel } from './user-balance.model'
@@ -52,20 +54,12 @@ export const UserBalance = observer(({ userId }) => {
       <DashboardBalance user={user} title={t(TranslationKey.Balance) + ', $'} />
 
       <div className={styles.btnsWrapper}>
-        <Button
-          disableElevation
-          className={[styles.button, styles.depositBtn]}
-          color="primary"
-          variant="contained"
-          onClick={onTriggerReplenishModal}
-        >
+        <Button className={[styles.button, styles.depositBtn]} onClick={onTriggerReplenishModal}>
           {t(TranslationKey.Deposit)}
         </Button>
         <Button
-          disableElevation
           className={[styles.button, styles.cancelBtn]}
-          color="primary"
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           onClick={onTriggerWithdrawModal}
         >
           {t(TranslationKey.Withdraw)}

@@ -41,6 +41,8 @@ import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './idea-view-and-edit-card.style'
 
 import { IdeaRequestCard } from './idea-request-card'
@@ -384,14 +386,16 @@ export const IdeaViewAndEditCard = observer(
         <div className={cx(styles.contentWrapper, { [styles.modalContentWrapper]: isModalView })}>
           <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
             <div className={styles.mediaBlock}>
-              {!inCreate && (
-                <SlideshowGallery
-                  slidesToShow={5}
-                  isEditable={inEdit}
-                  files={images}
-                  onChangeImagesForLoad={setImages}
-                />
-              )}
+              <div className={styles.gallery}>
+                {!inCreate && (
+                  <SlideshowGallery
+                    slidesToShow={5}
+                    isEditable={inEdit}
+                    files={images}
+                    onChangeImagesForLoad={setImages}
+                  />
+                )}
+              </div>
 
               {!disableFields && (
                 <UploadFilesInput
@@ -547,11 +551,8 @@ export const IdeaViewAndEditCard = observer(
                                 onChange={e => setLinkLine(e.target.value)}
                               />
                               <Button
-                                disableElevation
                                 disabled={!linkLine || disableFields}
                                 className={styles.defaultBtn}
-                                variant="contained"
-                                color="primary"
                                 onClick={onClickLinkBtn}
                               >
                                 {t(TranslationKey.Add)}
@@ -705,16 +706,6 @@ export const IdeaViewAndEditCard = observer(
               containerClasses={styles.noMarginContainer}
               inputComponent={
                 <div className={styles.supplierActionsWrapper}>
-                  {/* <Button
-                    tooltipAttentionContent={!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])}
-                    disabled={!boxPropertiesIsFullAndMainsValues}
-                    variant="contained"
-                    color="primary"
-                    onClick={onClickSupplierApproximateCalculations}
-                  >
-                    {t(TranslationKey['View an oriented calculation'])}
-                  </Button> */}
-
                   {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
                     <div className={styles.supplierButtonWrapper}>
                       <Button
@@ -831,10 +822,8 @@ export const IdeaViewAndEditCard = observer(
                     />
 
                     <Button
-                      success
+                      styleType={ButtonType.SUCCESS}
                       disabled={!supplierFound}
-                      variant="contained"
-                      color="primary"
                       className={styles.actionButton}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
@@ -851,10 +840,8 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <Button
-                    success
+                    styleType={ButtonType.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                    variant="contained"
-                    color="primary"
                     disabled={idea.childProduct}
                     className={[styles.actionButton]}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
@@ -865,8 +852,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && showCreateRequestButton && (
                   <Button
-                    success
-                    variant="contained"
+                    styleType={ButtonType.SUCCESS}
                     className={styles.actionButton}
                     onClick={() => onClickCreateRequestButton(formFields)}
                   >
@@ -877,10 +863,8 @@ export const IdeaViewAndEditCard = observer(
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
-                    success
+                    styleType={ButtonType.SUCCESS}
                     disabled={disableAcceptButton}
-                    variant="contained"
-                    color="primary"
                     onClick={() => onClickAcceptButton(formFields)}
                   >
                     {t(TranslationKey.Accept)}
@@ -888,14 +872,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button success variant="contained" onClick={() => onClickToOrder(formFields)}>
+                  <Button styleType={ButtonType.SUCCESS} onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isNewIdea && (
                   <Button
-                    variant="contained"
                     onClick={() => {
                       onClickAcceptButton(formFields)
                     }}
@@ -905,32 +888,30 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
+                  <Button styleType={ButtonType.DANGER} onClick={() => onClickCloseIdea(formFields._id)}>
                     {t(TranslationKey['Close idea'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button success variant="contained" onClick={() => onClickReoperButton(formFields._id)}>
+                  <Button styleType={ButtonType.SUCCESS} onClick={() => onClickReoperButton(formFields._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
                 )}
 
                 {checkIsClientOrBuyer && !isClosed && (
-                  <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
-                    {t(TranslationKey.Edit)}
-                  </Button>
+                  <Button onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</Button>
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button danger variant="contained" onClick={() => onClickRejectButton(formFields._id)}>
+                  <Button styleType={ButtonType.DANGER} onClick={() => onClickRejectButton(formFields._id)}>
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}
 
                 {isModalView && (
                   <Button
-                    variant="text"
+                    variant={ButtonVariant.OUTLINED}
                     className={cx(styles.actionButton, styles.cancelBtn)}
                     onClick={() => onClickCancelBtn()}
                   >
@@ -943,17 +924,15 @@ export const IdeaViewAndEditCard = observer(
         ) : (
           <div className={styles.addOrEditBtnsWrapper}>
             <Button
-              success
               disabled={disabledSubmit}
-              variant="contained"
-              color="primary"
+              styleType={ButtonType.SUCCESS}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
             </Button>
 
             <Button
-              variant="text"
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.actionButton, styles.btnLeftMargin, styles.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >

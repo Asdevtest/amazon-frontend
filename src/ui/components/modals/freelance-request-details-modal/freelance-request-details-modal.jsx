@@ -16,6 +16,8 @@ import { UserLink } from '@components/user/user-link'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './freelance-request-details-modal.style'
 
 import { FreelanceRequestDetailsModalControls } from './freelance-request-details-modal-controls'
@@ -129,8 +131,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
               {isRequestOwner && (
                 <Button
-                  border
-                  outlined
+                  variant={ButtonVariant.OUTLINED}
                   className={styles.listingButton}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
                 >

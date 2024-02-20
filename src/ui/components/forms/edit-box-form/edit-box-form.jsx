@@ -33,6 +33,8 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculatio
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './edit-box-form.style'
@@ -553,9 +555,6 @@ export const EditBoxForm = memo(
                       error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={
                         <Button
-                          disableElevation
-                          color="primary"
-                          // disabled={!boxFields.storekeeperId}
                           className={cx({
                             [styles.storekeeperBtn]: !boxFields.storekeeperId,
                           })}
@@ -750,7 +749,7 @@ export const EditBoxForm = memo(
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelBtn)}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Cancel)}

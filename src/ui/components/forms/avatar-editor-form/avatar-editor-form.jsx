@@ -10,6 +10,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
@@ -115,7 +117,7 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
           {t(TranslationKey.Load)}
         </Button>
 
-        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

@@ -12,10 +12,5 @@ export const useStyles = makeStyles()(() => ({
   },
   button: {
     height: 30,
-    width: 'auto',
-    maxWidth: '100%',
-  },
-  fullWidthButton: {
-    width: '100%',
   },
 }))

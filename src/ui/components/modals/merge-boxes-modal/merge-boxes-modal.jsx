@@ -31,6 +31,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './merge-boxes-modal.style'
@@ -529,7 +531,7 @@ export const MergeBoxesModal = ({
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             disabled={requestStatus === loadingStatuses.IS_LOADING}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}
           >

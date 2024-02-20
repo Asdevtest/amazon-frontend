@@ -1,23 +1,29 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
+    // flexWrap: 'wrap',
   },
 
   buttonsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: '12px',
+
+    button: {
+      flex: '1',
+      // minWidth: '105px',
+      // maxWidth: '240px',
+    },
   },
 
   buttonsSubWrapper: {
-    marginRight: 10,
     display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
+    flexWrap: 'wrap',
+    gap: '12px',
   },
 
   searchInput: {
@@ -25,11 +31,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   actionButtonWithPlus: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    minWidth: '180px !important',
+    gap: '5px',
   },
 
   icon: {
@@ -37,31 +39,16 @@ export const useStyles = makeStyles()(theme => ({
     height: '16px !important',
   },
 
-  openArchiveBtn: {
-    width: 230,
-    color: theme.palette.primary.main,
+  controlButtonsWrapper: {
+    display: 'flex',
+    gap: '12px',
   },
 
-  archiveAddBtn: {
-    width: 230,
+  controlButtonsSubWrapper: {
     display: 'flex',
-    gap: 10,
-    border: `1px solid ${theme.palette.other.rejected}`,
-    color: theme.palette.other.rejected,
-    transition: 'all 0.3s ease-in-out',
-
-    '&:hover': {
-      border: `1px solid ${theme.palette.other.rejected}`,
-      opacity: 0.6,
-    },
-
-    '&:disabled': {
-      borderColor: '#FEB9B9',
-      color: '#FEB9B9',
-    },
-
-    '&.Mui-disabled': {
-      background: 'none',
-    },
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    gap: '12px',
+    flexWrap: 'wrap',
   },
 }))

@@ -24,6 +24,8 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './my-requests-view.style'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
@@ -72,7 +74,7 @@ export const MyRequestsView = observer(({ history }) => {
           />
 
           <Button
-            success
+            styleType={ButtonType.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
             onClick={() => viewModel.onClickAddBtn()}
           >

@@ -11,6 +11,8 @@ import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './grouping-boxes-form.style'
 
 import { Box } from './box/box'
@@ -235,7 +237,7 @@ export const GroupingBoxesForm = memo(props => {
         </Button>
 
         <Button
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
           className={cx(styles.button, styles.cancelButton)}
           onClick={onCloseModal}

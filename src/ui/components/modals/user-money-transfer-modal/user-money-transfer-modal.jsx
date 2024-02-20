@@ -8,6 +8,8 @@ import { Modal } from '@components/shared/modal'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './user-money-transfer-modal.style'
 
 export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) => {
@@ -28,7 +30,7 @@ export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) 
           <Typography className={styles.link}>{t(TranslationKey['Money transfer link'])}</Typography>
         </Link>
 
-        <Button success disableElevation variant="contained" className={styles.button} onClick={setOpenModal}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
         </Button>
       </div>

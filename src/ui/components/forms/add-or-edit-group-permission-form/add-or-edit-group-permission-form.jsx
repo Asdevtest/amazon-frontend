@@ -298,8 +298,6 @@ export const AddOrEditGroupPermissionForm = observer(
                       <div className={styles.selectModalBtnsWrapper}>
                         <Button
                           className={styles.button}
-                          color="primary"
-                          variant="contained"
                           onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
                         >
                           {t(TranslationKey.Close)}
@@ -308,8 +306,6 @@ export const AddOrEditGroupPermissionForm = observer(
                         <Button
                           disabled={!curPermissions.length}
                           className={[styles.button, styles.resetBtn]}
-                          color="primary"
-                          variant="default"
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}
@@ -340,8 +336,6 @@ export const AddOrEditGroupPermissionForm = observer(
 
                   <Button
                     disableElevation
-                    color="primary"
-                    variant="contained"
                     onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
                   >
                     {t(TranslationKey['Create New'])}
@@ -354,22 +348,13 @@ export const AddOrEditGroupPermissionForm = observer(
 
         <div className={styles.buttonsWrapper}>
           <Button
-            disableElevation
             disabled={disableSubmitBtn}
-            color="primary"
-            variant="contained"
             onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
           >
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
           </Button>
 
-          <Button
-            disableElevation
-            className={styles.button}
-            color="primary"
-            variant="contained"
-            onClick={() => onCloseModal()}
-          >
+          <Button className={styles.button} onClick={() => onCloseModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

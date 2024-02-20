@@ -33,6 +33,8 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './edit-box-storekeeper-form.style'
@@ -593,12 +595,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className={styles.hsCodeBtn}
-                                onClick={() => onClickHsCode(item.product._id)}
-                              >
+                              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -650,7 +647,6 @@ export const EditBoxStorekeeperForm = memo(
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
                         <Button
-                          disableElevation
                           className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -907,7 +903,7 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelBtn)}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Cancel)}

@@ -4,6 +4,8 @@ import { FC, memo } from 'react'
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './select-product-button.style'
 
 interface SelectProductButtonProps {
@@ -20,7 +22,7 @@ export const SelectProductButton: FC<SelectProductButtonProps> = memo(props => {
   const { data, onClickCustomButton, checkbox, checkboxChecked } = props
 
   return (
-    <Button variant="text" className={styles.button} onClick={onClickCustomButton}>
+    <Button variant={ButtonVariant.OUTLINED} className={styles.button} onClick={onClickCustomButton}>
       <SelectProductAsinCellWithourTitle
         product={data}
         withCheckbox={checkbox}

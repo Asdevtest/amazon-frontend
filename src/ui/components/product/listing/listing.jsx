@@ -169,45 +169,21 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             {userCanEdit ? (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onSaveSubmit}
-                >
+                <Button className={styles.button} onClick={onSaveSubmit}>
                   {t(TranslationKey.Save)}
                 </Button>
 
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onCancel}
-                >
+                <Button className={styles.button} onClick={onCancel}>
                   {t(TranslationKey.Cancel)}
                 </Button>
 
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onClickBack}
-                >
+                <Button className={styles.button} onClick={onClickBack}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onClickBack ? onClickBack : onCancel}
-                >
+                <Button className={styles.button} onClick={onClickBack ? onClickBack : onCancel}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div>
