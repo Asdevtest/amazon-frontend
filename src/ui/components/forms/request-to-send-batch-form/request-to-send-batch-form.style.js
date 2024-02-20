@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: '20px',
   },
   warningText: {
-    color: 'red',
+    color: theme.palette.text.red,
   },
   noWarningText: {
     color: theme.palette.primary.main,

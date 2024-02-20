@@ -3,7 +3,10 @@ import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 
 import { Avatar, Link } from '@mui/material'
 
+import { PaginationDirection } from '@constants/pagination/pagination-direction'
+
 import { ChatModel } from '@models/chat-model'
+import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -17,6 +20,7 @@ import { ChatMessageByType, ChatMessageControlsOverlay } from './components'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages/chat-message-designer-proposal-edited-result'
 
 interface ChatMessagesListProps {
+  chat: ChatContract
   isGroupChat: boolean
   userId: string
   firstItemIndex: number
@@ -24,20 +28,21 @@ interface ChatMessagesListProps {
   handlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-  chatId?: string
+
   isShowChatInfo?: boolean
   isFreelanceOwner?: boolean
   messageToScroll: number | undefined
   setMessageToReply: (mes: ChatMessageContract | null) => void
   messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
   handleScrollToBottomButtonVisibility: (bottomState: boolean) => void
-  handleLoadMoreMessages: (message?: ChatMessageContract) => void
+  handleLoadMoreMessages: (direction?: PaginationDirection | undefined, messageId?: string) => void
 }
 
 export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {
+    chat,
     messages = [],
     userId,
     handlers,
@@ -47,7 +52,6 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     messageToScroll,
     isShowChatInfo,
     messagesWrapperRef,
-    chatId,
     isFreelanceOwner,
     firstItemIndex,
     handleLoadMoreMessages,
@@ -57,6 +61,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
 
   const { isMobileResolution } = useCreateBreakpointResolutions()
 
+  const chatId = chat?._id
   const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
   const onClickReply = (messageItem: ChatMessageContract) => {
@@ -151,7 +156,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
                     className={styles.repleyWrapper}
                     onClick={e => {
                       e.stopPropagation()
-                      handleLoadMoreMessages(messageItem?.replyMessage)
+                      handleLoadMoreMessages(undefined, messageItem?.replyMessage?._id)
                     }}
                   >
                     <div className={styles.repleyDivider} />
@@ -190,12 +195,19 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
       className={styles.list}
       firstItemIndex={firstItemIndex}
       initialTopMostItemIndex={messages?.length - 1}
-      startReached={() => handleLoadMoreMessages()}
+      startReached={() => handleLoadMoreMessages(PaginationDirection.NEXT)}
+      endReached={() => handleLoadMoreMessages(PaginationDirection.PREV)}
       atBottomStateChange={handleScrollToBottomButtonVisibility}
-      atBottomThreshold={350}
+      atBottomThreshold={50}
       data={messages}
       itemContent={(index, message) => renderItem(message, index)}
-      followOutput={isAtBottom => (isAtBottom ? 'smooth' : false)}
+      followOutput={isAtBottom => {
+        if (isAtBottom && chat?.isAllPreviousMessagesLoaded) {
+          return 'smooth'
+        } else {
+          return false
+        }
+      }}
     />
   )
 })
