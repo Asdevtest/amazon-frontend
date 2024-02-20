@@ -114,14 +114,14 @@ export const Field: FC<Props> = observer(
               <InputWithIcon
                 className={cx(inputClasses, { [styles.errorActive]: !!error })}
                 {...restProps}
-                value={parseTextString(restProps.value)}
+                // value={parseTextString(restProps.value)}
               />
             ) : (
               <div className={styles.inputWrapper}>
                 <Input
                   className={cx(inputClasses, { [styles.errorActive]: !!error })}
                   {...restProps}
-                  value={parseTextString(restProps.value)}
+                  // value={parseTextString(restProps.value)}
                 />
 
                 {withCopy && restProps.value && <CopyValue text={parseTextString(restProps.value)} />}
