@@ -13,7 +13,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
@@ -38,7 +38,7 @@ export const OwnerRequestProposalsCard = ({
   const { classes: styles, cx } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
-  const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
+  const [showMainRequestResultModal, setShowMainRequestResultModal] = useState(false)
   const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
@@ -47,7 +47,7 @@ export const OwnerRequestProposalsCard = ({
     } else if (request.request?.spec?.title === freelanceRequestType.BLOGGER) {
       setShowRequestResultModal(!showRequestResultModal)
     } else {
-      setShowRequestStandartResultModal(!showRequestStandartResultModal)
+      setShowMainRequestResultModal(!showMainRequestResultModal)
     }
   }
 
@@ -214,7 +214,7 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <Modal
+      {/* <Modal
         missClickModalOn
         openModal={showRequestStandartResultModal}
         setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
@@ -225,7 +225,15 @@ export const OwnerRequestProposalsCard = ({
           setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
           // onClickSendAsResult={onClickSendAsResult}
         />
-      </Modal>
+      </Modal> */}
+
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          customProposal={item}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+        />
+      ) : null}
 
       {showRequestResultModal && (
         <RequestResultModal

@@ -13,7 +13,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './slides.style'
 
-import { GetSlideByType } from '../../get-slide-by-type'
+import { SlideByType } from '../../../../slide-by-type'
 
 interface SlidesProps {
   mediaFiles: UploadFileType[]
@@ -74,7 +74,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
           })}
           onClick={() => setCurrentMediaFileIndex(index)}
         >
-          <GetSlideByType
+          <SlideByType
             isPreviews
             mediaFile={mediaFile}
             mediaFileIndex={index}

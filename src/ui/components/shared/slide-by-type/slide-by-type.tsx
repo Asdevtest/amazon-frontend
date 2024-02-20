@@ -6,7 +6,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-interface GetSlideByTypeProps {
+interface SlideByTypeProps {
   mediaFile: UploadFileType
   mediaFileIndex: number
   ImageComponent: ComponentType<{ src: string; alt: string }>
@@ -15,7 +15,7 @@ interface GetSlideByTypeProps {
   isPreviews?: boolean
 }
 
-export const GetSlideByType: FC<GetSlideByTypeProps> = memo(props => {
+export const SlideByType: FC<SlideByTypeProps> = memo(props => {
   const { mediaFile, mediaFileIndex, ImageComponent, VideoComponent, FileComponent, isPreviews = false } = props
 
   const mediaFileToCheck = isString(mediaFile) ? mediaFile : mediaFile?.file.name

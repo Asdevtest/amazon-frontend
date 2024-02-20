@@ -11,8 +11,8 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './main-slide.style'
 
+import { SlideByType } from '../../../slide-by-type'
 import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../helpers/get-custom-dimension'
-import { GetSlideByType } from '../get-slide-by-type'
 
 interface MainSlideProps {
   mediaFile: UploadFileType
@@ -52,7 +52,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
       }}
       onClick={handleClickMainSlide}
     >
-      <GetSlideByType
+      <SlideByType
         mediaFile={mediaFile}
         mediaFileIndex={currentMediaFileIndex}
         ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.mainSlideImg} />}

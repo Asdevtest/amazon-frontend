@@ -36,6 +36,14 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   minRows?: number
   maxRows?: number
   withCopy?: boolean
+  classes?: {
+    input?: string
+    focused?: string
+    error?: string
+    disabled?: string
+    root?: string
+    multiline?: string
+  }
 }
 
 export const Field: FC<Props> = observer(

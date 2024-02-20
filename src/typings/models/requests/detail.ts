@@ -7,4 +7,7 @@ export interface IDetail {
   lastModifiedById: string
   createdAt: StringLiteralType
   updatedAt: string
+  amazonOrderId: string
+  result: string
+  publicationLinks: Array<string>
 }
