@@ -343,7 +343,6 @@ export class SubUsersViewModel {
 
   async onSubmitUserPermissionsForm(permissions, subUserId, allowedItems, currentSpec) {
     try {
-      console.log('allowedItems', allowedItems)
       await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedItems, currentSpec)
       this.getUsers()
     } catch (error) {
