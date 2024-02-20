@@ -49,32 +49,35 @@ export const Button: FC<ButtonProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const isOutlined = variant === ButtonVariant.OUTLINED
+  const isNeedTooltip = hints && (tooltipAttentionContent || tooltipInfoContent)
+  const tooltipPositionStyle =
+    isNeedTooltip && tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
 
   return (
     <button
       title={defaultButtonTooltip || ''}
       disabled={disabled}
-      className={cx(styles.root, className, {
-        [styles.fullWidth]: fullWidth,
-        [styles.transparent]: styleType === ButtonType.TRANSPARENT,
-        [styles.casual]: styleType === ButtonType.CASUAL,
-        [styles.default]: styleType === ButtonType.DEFAULT,
-        [styles.primary]: styleType === ButtonType.PRIMARY && !isOutlined,
-        [styles.danger]: styleType === ButtonType.DANGER && !isOutlined,
-        [styles.success]: styleType === ButtonType.SUCCESS && !isOutlined,
-        [styles.outlinedPrimary]: styleType === ButtonType.PRIMARY && isOutlined,
-        [styles.outlinedSuccess]: styleType === ButtonType.SUCCESS && isOutlined,
-        [styles.outlinedDanger]: styleType === ButtonType.DANGER && isOutlined,
-      })}
+      className={cx(
+        styles.root,
+        {
+          [styles.fullWidth]: fullWidth,
+          [styles.transparent]: styleType === ButtonType.TRANSPARENT,
+          [styles.casual]: styleType === ButtonType.CASUAL,
+          [styles.default]: styleType === ButtonType.DEFAULT,
+          [styles.primary]: styleType === ButtonType.PRIMARY && !isOutlined,
+          [styles.danger]: styleType === ButtonType.DANGER && !isOutlined,
+          [styles.success]: styleType === ButtonType.SUCCESS && !isOutlined,
+          [styles.outlinedPrimary]: styleType === ButtonType.PRIMARY && isOutlined,
+          [styles.outlinedSuccess]: styleType === ButtonType.SUCCESS && isOutlined,
+          [styles.outlinedDanger]: styleType === ButtonType.DANGER && isOutlined,
+        },
+        className,
+      )}
       {...restProps}
     >
       {children}
-      {hints && (tooltipAttentionContent || tooltipInfoContent) ? (
-        <div
-          className={
-            tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
-          }
-        >
+      {isNeedTooltip ? (
+        <div className={tooltipPositionStyle}>
           <Tooltip arrow title={tooltipAttentionContent || tooltipInfoContent}>
             <div>
               {tooltipAttentionContent ? (
