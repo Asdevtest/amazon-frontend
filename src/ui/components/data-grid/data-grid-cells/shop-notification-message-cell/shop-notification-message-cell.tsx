@@ -35,7 +35,7 @@ export const ShopNotificationMessageCell: FC<ShopNotificationMessageCellProps> =
     const isSuccess = status === success
     const statusTranslation = isSuccess
       ? t(TranslationKey['Successfully updated'])
-      : t(TranslationKey['Not updated because of a bug'])
+      : t(TranslationKey['Not updating due to an error'])
 
     const moreThenThreeShops = shops?.length > maxShopsLength
 
