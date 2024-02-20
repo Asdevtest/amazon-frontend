@@ -61,7 +61,6 @@ export const RequestDesignerResultClientForm = memo(props => {
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
-    isEditCommentOpen: false,
     _id: el._id ?? nanoid(),
   }))
 
@@ -77,8 +76,6 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const onClickCommentBtn = imageId => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
-
-    findImage.isEditCommentOpen = !findImage.isEditCommentOpen
 
     setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
   }

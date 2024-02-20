@@ -55,7 +55,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </button>
 
         <div className={styles.gallery}>
-          <SlideshowGallery files={service?.linksToMediaFiles} slidesToShow={2} />
+          <SlideshowGallery hiddenPreviews files={service?.linksToMediaFiles} slidesToShow={2} />
         </div>
 
         {isNotMyServices ? (

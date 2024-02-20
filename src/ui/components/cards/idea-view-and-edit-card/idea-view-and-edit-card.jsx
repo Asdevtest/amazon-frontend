@@ -386,14 +386,16 @@ export const IdeaViewAndEditCard = observer(
         <div className={cx(styles.contentWrapper, { [styles.modalContentWrapper]: isModalView })}>
           <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
             <div className={styles.mediaBlock}>
-              {!inCreate && (
-                <SlideshowGallery
-                  slidesToShow={5}
-                  isEditable={inEdit}
-                  files={images}
-                  onChangeImagesForLoad={setImages}
-                />
-              )}
+              <div className={styles.gallery}>
+                {!inCreate && (
+                  <SlideshowGallery
+                    slidesToShow={5}
+                    isEditable={inEdit}
+                    files={images}
+                    onChangeImagesForLoad={setImages}
+                  />
+                )}
+              </div>
 
               {!disableFields && (
                 <UploadFilesInput

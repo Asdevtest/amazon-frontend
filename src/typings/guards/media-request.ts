@@ -12,8 +12,8 @@ export const isMediaRequest: TypeGuard<IMediaRequest> = (value: unknown): value 
 
   return (
     isUploadFileType(image) &&
-    typeof comment === 'string' &&
-    typeof commentByClient === 'string' &&
+    (typeof comment === 'string' || comment === null) &&
+    (typeof commentByClient === 'string' || commentByClient === null) &&
     typeof _id === 'string'
   )
 }

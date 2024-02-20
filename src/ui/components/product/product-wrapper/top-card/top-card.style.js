@@ -62,6 +62,8 @@ export const useStyles = makeStyles()(theme => ({
 
   carouselWrapper: {
     margin: '20px 0',
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   imageFileInputWrapper: {

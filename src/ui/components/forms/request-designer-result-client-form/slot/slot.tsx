@@ -116,7 +116,7 @@ export const Slot: FC<SlotProps> = memo(props => {
       </div>
 
       <div ref={menuAnchor}>
-        {!item.isEditCommentOpen && !noShowActions && (
+        {!noShowActions && (
           <Button className={styles.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
             {t(TranslationKey.Comment)}
 
@@ -128,7 +128,7 @@ export const Slot: FC<SlotProps> = memo(props => {
           </Button>
         )}
 
-        {item.isEditCommentOpen && !noShowActions && (
+        {!noShowActions && (
           <ClickAwayListener
             mouseEvent="onMouseDown"
             onClickAway={() => {
