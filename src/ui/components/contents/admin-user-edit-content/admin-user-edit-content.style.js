@@ -5,7 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
     justifyContent: 'flex-end',
-    // textAlign: 'right',
     marginTop: 30,
   },
   rightBtn: {
@@ -46,7 +45,6 @@ export const useStyles = makeStyles()(theme => ({
     gridTemplateColumns: 'repeat(2, 1fr)',
     columnGap: '56px',
     rowGap: '20px',
-    // overflow: 'auto',
   },
 
   ratingWrapper: {
@@ -63,7 +61,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   rating: {
-    // margin: '0 20px',
     color: theme.palette.text.general,
   },
 
@@ -116,7 +113,6 @@ export const useStyles = makeStyles()(theme => ({
 
   allowedRoleRateContainer: {
     marginBottom: '0 !important',
-    // width: '38px',
     gap: 10,
   },
   roleContainer: {
@@ -147,9 +143,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   allowedRoleWrapper: {
-    // border: '1px solid #C4C4C4',
     border: `1px solid ${theme.palette.input.customDisabled}`,
-
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -163,10 +157,7 @@ export const useStyles = makeStyles()(theme => ({
     border: 0,
     borderBottom: '1px solid #656565',
     height: '19px',
-
-    // margin: 0,
     width: 60,
-    // backgroundColor: 'inherit',
   },
 
   selectedRoleWrapper: {
@@ -181,7 +172,6 @@ export const useStyles = makeStyles()(theme => ({
 
   selectedRole: {
     width: 262,
-
     color: theme.palette.text.general,
   },
 
@@ -202,8 +192,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '22px',
     height: '22px',
     fontSize: '18px',
-    // backgroundColor: '#006CFF',
-    // borderRadius: '4px',
     color: '#00B746',
     cursor: 'pointer',
   },
@@ -296,8 +284,5 @@ export const useStyles = makeStyles()(theme => ({
   },
   visibility: {
     visibility: 'visible',
-  },
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

@@ -49,13 +49,7 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import {
-  clearEverythingExceptNumbers,
-  getShortenStringIfLongerThanCount,
-  parseTextString,
-  timeToDeadlineInHoursAndMins,
-  toFixed,
-} from '@utils/text'
+import { clearEverythingExceptNumbers, parseTextString, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonType, ButtonVariant } from '@typings/types/button.type'
@@ -555,9 +549,7 @@ export const EditOrderModal = memo(
             )}
           </div>
 
-          <Typography className={styles.amazonTitle}>
-            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 130)}
-          </Typography>
+          <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
 
           <div className={styles.priorityWrapper}>
             <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>

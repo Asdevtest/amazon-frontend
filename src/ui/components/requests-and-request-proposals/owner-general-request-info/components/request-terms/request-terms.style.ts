@@ -2,13 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   requestInformationWrapper: {
+    width: 600,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
-  },
-
-  secondBlock: {
-    width: 670,
   },
 
   requestInformationTitleWrapper: {
@@ -44,11 +41,12 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 7,
     padding: 20,
     height: 180,
+    gap: 20,
   },
 
   blockInfoWrapper: {
     display: 'flex',
-    width: 145,
+    width: 200,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -67,11 +65,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   blockInfoCellText: {
-    fontWeight: 600,
+    maxWidth: 200,
     fontSize: 14,
     lineHeight: '19px',
+    fontWeight: 600,
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.main,
+    textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   pricesWrapper: {
@@ -96,9 +97,5 @@ export const useStyles = makeStyles()(theme => ({
 
   blockInfoWrapperLast: {
     width: 'fit-content',
-  },
-
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

@@ -44,7 +44,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
   } = props
 
   return (
-    <div className={cx(styles.requestInformationWrapper, styles.secondBlock)}>
+    <div className={styles.requestInformationWrapper}>
       <div className={styles.requestInformationTitleWrapper}>
         <p className={styles.sectionTitle}>{t(TranslationKey['Request terms'])}</p>
 
@@ -68,7 +68,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</p>
-            <p className={cx(styles.blockInfoCellText, styles.capitalize)}>{spec?.title}</p>
+            <p className={styles.blockInfoCellText}>{spec?.title}</p>
           </div>
 
           <div className={styles.blockInfoCell}>

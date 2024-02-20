@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -64,10 +65,10 @@ export const AdminContentModal = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === formFields.role),
+      ...singlePermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === formFields.role),
+      ...groupPermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
 
     const onChangeFormField = fieldName => event => {
@@ -136,16 +137,16 @@ export const AdminContentModal = observer(
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
-      selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+      selectedPermissions.find(per => Number(per.role) !== Number(formFields.role)) ||
+      selectedGroupPermissions.find(perGroup => Number(perGroup.role) !== Number(formFields.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
-      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+      Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      isEqual(sourceFormFields, formFields)
 
     return (
       <Container disableGutters className={styles.modalContainer}>
@@ -257,7 +258,6 @@ export const AdminContentModal = observer(
           }
         />
 
-        {/* {!editUserFormFields.masterUser ? ( */}
         <Field
           label={t(TranslationKey['Allowed Roles'])}
           inputComponent={
@@ -272,7 +272,8 @@ export const AdminContentModal = observer(
                   key={index}
                   value={Number(role)}
                   disabled={
-                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
+                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                    Number(role) === Number(formFields.role)
                   }
                 >
                   <Checkbox
@@ -285,7 +286,6 @@ export const AdminContentModal = observer(
             </Select>
           }
         />
-        {/* ) : null} */}
 
         <Field
           label={t(TranslationKey['User status'])}
@@ -307,7 +307,9 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.fba}
             onChange={onChangeFormField('fba')}
           />
@@ -317,7 +319,9 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
@@ -327,7 +331,7 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.hideSuppliers}
             onChange={onChangeFormField('hideSuppliers')}
           />
@@ -337,7 +341,7 @@ export const AdminContentModal = observer(
         <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+            disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
             checked={formFields.isUserPreprocessingCenterUSA}
             onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
           />
@@ -370,6 +374,7 @@ export const AdminContentModal = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <AddOrEditUserPermissionsForm
             isWithoutProductPermissions
