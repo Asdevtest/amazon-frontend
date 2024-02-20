@@ -2,6 +2,8 @@ import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './success-action-btn-cell.style'
 
 interface SuccessActionBtnCellProps {
@@ -19,7 +21,12 @@ export const SuccessActionBtnCell: FC<SuccessActionBtnCellProps> = memo(props =>
   const buttonStyle = cx(styles.actionBtn, { [styles.fullWidthButton]: fullWidthButton })
 
   return (
-    <Button success tooltipInfoContent={isFirstRow ? tooltipText : ''} className={buttonStyle} onClick={onClickOkBtn}>
+    <Button
+      styleType={ButtonType.SUCCESS}
+      tooltipInfoContent={isFirstRow ? tooltipText : ''}
+      className={buttonStyle}
+      onClick={onClickOkBtn}
+    >
       {bTnText}
     </Button>
   )

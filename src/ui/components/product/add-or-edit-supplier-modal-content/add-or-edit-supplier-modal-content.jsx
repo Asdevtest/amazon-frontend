@@ -22,6 +22,8 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
 export const AddOrEditSupplierModalContent = memo(
@@ -166,11 +168,10 @@ export const AddOrEditSupplierModalContent = memo(
             </Button>
             <div>
               <Button
-                success
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
                 disabled={diasabledSubmit}
                 className={styles.saveBtnClient}
-                variant="contained"
                 onClick={() => {
                   onClickSaveBtn({
                     supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
@@ -184,7 +185,7 @@ export const AddOrEditSupplierModalContent = memo(
                 {t(TranslationKey['Save and bind'])}
               </Button>
               <Button
-                success
+                styleType={ButtonType.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
                 disabled={diasabledSubmit}
                 className={styles.saveBtnClient}
@@ -207,7 +208,7 @@ export const AddOrEditSupplierModalContent = memo(
       } else if (onlyRead) {
         return (
           <div className={styles.buttonsWrapper}>
-            <Button className={styles.cancelBtn} variant="text" onClick={onTriggerShowModal}>
+            <Button className={styles.cancelBtn} variant={ButtonVariant.OUTLINED} onClick={onTriggerShowModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -219,8 +220,6 @@ export const AddOrEditSupplierModalContent = memo(
               tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
               disabled={diasabledSubmit}
               className={styles.saveBtn}
-              color="primary"
-              variant="contained"
               onClick={() => {
                 onClickSaveBtn({
                   supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
@@ -234,10 +233,9 @@ export const AddOrEditSupplierModalContent = memo(
               {t(TranslationKey.Save)}
             </Button>
             <Button
-              disableElevation
+              variant={ButtonVariant.OUTLINED}
               tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
               className={styles.cancelBtn}
-              variant="text"
               onClick={onTriggerShowModal}
             >
               {t(TranslationKey.Cancel)}
@@ -831,8 +829,6 @@ export const AddOrEditSupplierModalContent = memo(
                 (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
               }
               disabled={!product || !storekeepersData || !boxPropertiesIsFullAndMainsValues}
-              variant="contained"
-              color="primary"
               onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
             >
               {t(TranslationKey['View an oriented calculation'])}

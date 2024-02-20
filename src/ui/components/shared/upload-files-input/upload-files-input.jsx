@@ -213,7 +213,6 @@ export const UploadFilesInput = observer(props => {
                         />
 
                         <Button
-                          disableElevation
                           tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
                           disabled={linkInput === '' || images?.length >= maxNumber}
                           className={styles.loadBtn}

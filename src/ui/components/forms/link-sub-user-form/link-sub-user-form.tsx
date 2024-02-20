@@ -10,6 +10,8 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './link-sub-user-form.style'
 
 interface LinkSubUserFormProps {
@@ -36,16 +38,12 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={styles.labelField}
         value={email}
-        inputProps={{ 'data-testid': 'input' }}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
       />
 
       <div className={styles.buttonWrapper}>
         <Button
-          disableElevation
-          data-testid={'add'}
           disabled={email === ''}
-          variant="contained"
           className={styles.button}
           onClick={() => !!onSubmit && onSubmit({ email: email.toLowerCase() })}
         >
@@ -53,8 +51,7 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
         </Button>
 
         <Button
-          data-testid={'cancel'}
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           className={cx(styles.button, styles.cancelButton)}
           onClick={() => !!closeModal && closeModal()}
         >

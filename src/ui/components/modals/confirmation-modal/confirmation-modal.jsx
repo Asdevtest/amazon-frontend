@@ -6,6 +6,8 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './confirmation-modal.style'
 
 export const ConfirmationModal = props => {
@@ -134,22 +136,18 @@ export const ConfirmationModal = props => {
         >
           {isWarning ? (
             <Button
-              danger
-              disableElevation
+              styleType={ButtonType.DANGER}
               className={styles.button}
               disabled={submitIsClicked}
-              variant="contained"
               onClick={onSubmit}
             >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
             </Button>
           ) : (
             <Button
-              success
-              disableElevation
+              styleType={ButtonType.SUCCESS}
               className={styles.button}
               disabled={submitIsClicked}
-              variant="contained"
               onClick={onSubmit}
             >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
@@ -159,7 +157,7 @@ export const ConfirmationModal = props => {
           <Button
             disabled={submitIsClicked}
             className={styles.cancelButton}
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             onClick={() => handleClose()}
           >
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}

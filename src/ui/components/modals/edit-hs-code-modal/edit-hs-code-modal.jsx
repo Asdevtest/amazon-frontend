@@ -9,6 +9,8 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './edit-hs-code-modal.style'
 
 export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal }) => {
@@ -73,10 +75,10 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
       />
 
       <Box className={styles.saveBox}>
-        <Button success className={styles.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

@@ -493,14 +493,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
       </Typography>
 
       {taskType === TaskOperationType.RECEIVE && (
-        <Button
-          disableElevation
-          className={styles.button}
-          // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-          color="primary"
-          variant="contained"
-          onClick={onClickOpenModal}
-        >
+        <Button className={styles.button} onClick={onClickOpenModal}>
           {t(TranslationKey.Receive)}
         </Button>
       )}

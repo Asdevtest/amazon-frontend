@@ -45,7 +45,6 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
             handleActivePriority={viewModel.onClickTaskPriorityBtn}
           />
           <Button
-            variant="contained"
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||

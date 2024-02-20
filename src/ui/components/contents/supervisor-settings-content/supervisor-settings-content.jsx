@@ -18,6 +18,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './supervisor-settings-content.style'
 
 import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
@@ -91,14 +93,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonType.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -151,14 +157,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonType.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -209,14 +219,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonType.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -267,14 +281,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonType.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>

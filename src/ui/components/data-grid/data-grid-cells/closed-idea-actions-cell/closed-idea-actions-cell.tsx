@@ -8,6 +8,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './closed-idea-actions-cell.style'
 
 interface ClosedIdeaActionsCellProps {
@@ -24,16 +26,14 @@ export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ row
   return (
     <div className={styles.buttonsWrapper}>
       <Button
-        small
-        success
+        styleType={ButtonType.SUCCESS}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickRestore(row._id)}
       >
         {t(TranslationKey.Restore)}
       </Button>
       <Button
-        small
-        danger
+        styleType={ButtonType.DANGER}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickClose(row._id)}
       >

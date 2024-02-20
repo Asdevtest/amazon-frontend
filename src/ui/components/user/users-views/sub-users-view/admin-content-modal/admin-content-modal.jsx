@@ -39,12 +39,7 @@ export const AdminContentModal = observer(
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
     const renderPermissionBtn = (
-      <Button
-        disableElevation
-        variant="contained"
-        color="primary"
-        onClick={() => setShowPermissionModal(!showPermissionModal)}
-      >
+      <Button onClick={() => setShowPermissionModal(!showPermissionModal)}>
         {t(TranslationKey['Manage permissions'])}
       </Button>
     )
@@ -359,23 +354,15 @@ export const AdminContentModal = observer(
 
         <div className={styles.buttonWrapper}>
           <Button
-            disableElevation
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             variant="contained"
-            color="primary"
-            // onClick={() => {
-            //   onSubmit(formFields, editUserFormFields)
-            // }}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
           <Button
-            disableElevation
             className={styles.rightBtn}
-            variant="contained"
-            color="primary"
             onClick={() => {
               onCloseModal()
             }}

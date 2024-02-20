@@ -15,6 +15,7 @@ import { t } from '@utils/translations'
 
 import { ProductVariation } from '@typings/enums/product-variation'
 import { IProduct } from '@typings/models/products/product'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './bind-product-form.style'
 
@@ -140,15 +141,14 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           disabled={!selectedProducts.length}
-          variant="contained"
           onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
         >
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={styles.canselButton} onClick={onClickCancelButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

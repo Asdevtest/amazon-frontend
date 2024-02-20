@@ -20,6 +20,8 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './request-designer-result-client-form.style'
 
 import { Slot } from './slot/slot'
@@ -271,8 +273,7 @@ export const RequestDesignerResultClientForm = memo(props => {
                 {t(TranslationKey['Send in for rework'])}
               </Button>
               <Button
-                success
-                // disabled={disableSubmit}
+                styleType={ButtonType.SUCCESS}
                 className={styles.button}
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)
@@ -284,7 +285,11 @@ export const RequestDesignerResultClientForm = memo(props => {
             </>
           )}
 
-          <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={cx(styles.button, styles.cancelButton)}
+            onClick={setOpenModal}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

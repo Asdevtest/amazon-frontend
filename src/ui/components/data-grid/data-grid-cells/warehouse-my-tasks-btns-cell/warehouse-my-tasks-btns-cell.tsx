@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './warehouse-my-tasks-btns-cell.style'
 
 interface WarehouseMyTasksBtnsCellProps {
@@ -27,7 +29,7 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(
   return (
     <div className={styles.warehouseMyTasksBtnsWrapper}>
       <Button
-        success
+        styleType={ButtonType.SUCCESS}
         tooltipInfoContent={isFirstRow ? t(TranslationKey['Open a window to perform a task']) : ''}
         className={styles.button}
         onClick={() => handlers.onClickResolveBtn(rowId)}
@@ -37,7 +39,7 @@ export const WarehouseMyTasksBtnsCell: FC<WarehouseMyTasksBtnsCellProps> = memo(
 
       {operationType !== TaskOperationType.RECEIVE && (
         <Button
-          danger
+          styleType={ButtonType.DANGER}
           tooltipInfoContent={
             isFirstRow ? t(TranslationKey['The task will be canceled, the box will keep its previous state']) : ''
           }

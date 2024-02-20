@@ -83,7 +83,6 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
         onClickSelect={(el: any) => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
       />
       <Button
-        disableElevation
         disabled={disabled}
         className={styles.storekeeperBtn}
         onClick={(e: any) => {

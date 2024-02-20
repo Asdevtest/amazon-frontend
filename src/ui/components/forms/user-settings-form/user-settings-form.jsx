@@ -13,6 +13,8 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './user-settings-form.style'
 
 import { UserSettingsModel } from './user-settings-form.model'
@@ -67,7 +69,7 @@ export const UserSettingsForm = observer(() => {
 
       <div className={styles.placeAddBtnWrapper}>
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
           onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
         >

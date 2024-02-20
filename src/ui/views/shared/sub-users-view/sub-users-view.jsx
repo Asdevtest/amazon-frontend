@@ -19,6 +19,8 @@ import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './sub-users-view.style'
 
 import { SubUsersViewModel } from './sub-users-view.model'
@@ -45,7 +47,7 @@ export const SubUsersView = observer(({ history }) => {
         />
 
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
           className={styles.addUserButton}
           onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}

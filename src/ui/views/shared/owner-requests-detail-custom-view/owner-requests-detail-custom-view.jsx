@@ -26,6 +26,8 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
@@ -136,7 +138,10 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
                               {t(TranslationKey['Send in for rework'])}
                             </Button>
-                            <Button success onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}>
+                            <Button
+                              styleType={ButtonType.SUCCESS}
+                              onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+                            >
                               {t(TranslationKey.Receive)}
                             </Button>
                           </div>
@@ -144,12 +149,15 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
                         {statusesOrderAndRejectButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
-                            <Button danger onClick={() => viewModel.onClickRejectProposal(idForCurrentChat)}>
+                            <Button
+                              styleType={ButtonType.DANGER}
+                              onClick={() => viewModel.onClickRejectProposal(idForCurrentChat)}
+                            >
                               {t(TranslationKey.Reject)}
                             </Button>
 
                             <Button
-                              success
+                              styleType={ButtonType.SUCCESS}
                               onClick={() => viewModel.onClickOrderProposal(idForCurrentChat, priceForCurrentChat)}
                             >
                               {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(priceForCurrentChat, 2)}`}

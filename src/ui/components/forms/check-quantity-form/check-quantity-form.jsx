@@ -10,6 +10,8 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './check-quantity-form.style'
 
 export const CheckQuantityForm = ({
@@ -91,7 +93,7 @@ export const CheckQuantityForm = ({
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button variant="text" className={cx(styles.closeButton, styles.button)} onClick={onClose}>
+        <Button variant={ButtonVariant.OUTLINED} className={cx(styles.closeButton, styles.button)} onClick={onClose}>
           {t(TranslationKey.No)}
         </Button>
       </div>

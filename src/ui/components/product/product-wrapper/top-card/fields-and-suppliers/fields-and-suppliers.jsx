@@ -30,6 +30,8 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './fields-and-suppliers.style'
 
 const clientToEditStatuses = [
@@ -147,7 +149,7 @@ export const FieldsAndSuppliers = memo(
                     </Button>
                   ) : (
                     <Button
-                      success
+                      styleType={ButtonType.SUCCESS}
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
                       onClick={() => setEdit(!edit)}

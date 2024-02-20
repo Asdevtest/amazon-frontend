@@ -18,6 +18,8 @@ import { ArchiveIcon } from '@components/shared/svg-icons'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './client-sent-batches-view.style'
 
 import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
@@ -34,7 +36,11 @@ export const ClientSentBatchesView = observer(({ history }) => {
     <>
       <div>
         <div className={styles.btnsWrapper}>
-          <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.openArchiveBtn}
+            onClick={viewModel.onTriggerArchive}
+          >
             {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
           </Button>
 
@@ -48,7 +54,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
 
           <Button
             disabled={!viewModel.selectedBatches.length}
-            variant="outlined"
+            variant={ButtonVariant.OUTLINED}
             className={styles.archiveAddBtn}
             onClick={viewModel.onClickTriggerArchOrResetProducts}
           >

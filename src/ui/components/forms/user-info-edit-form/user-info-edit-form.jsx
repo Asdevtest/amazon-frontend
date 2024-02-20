@@ -16,6 +16,8 @@ import { checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 // import {RegistrationForm} from '../registration-form'
 import { useStyles } from './user-info-edit-form.style'
 
@@ -275,7 +277,7 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['Old password'])}
             placeholder={t(TranslationKey['Old password'])}
-            type={!visibilityOldPass ? 'password' : 'text'}
+            styleType={!visibilityOldPass ? 'password' : 'text'}
             value={formFields.oldPassword}
             onChange={onChangeField('oldPassword')}
           />
@@ -293,7 +295,7 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['New password'])}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             onChange={onChangeField('password')}
           />
@@ -335,20 +337,22 @@ export const UserInfoEditForm = observer(
             inputClasses={styles.input}
             label={t(TranslationKey['Re-enter the new password'])}
             placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
+            styleType={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
             onChange={onChangeField('confirmPassword')}
           />
         </div>
 
-        {/* <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} /> */}
-
         <div className={styles.btnsWrapper}>
-          <Button disabled={disabledSubmit} className={styles.actionBtn} /* type="submit"*/ onClick={onClickSubmit}>
+          <Button disabled={disabledSubmit} className={styles.actionBtn} onClick={onClickSubmit}>
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant="text" className={[styles.actionBtn, styles.cancelBtn]} onClick={onCloseModal}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={[styles.actionBtn, styles.cancelBtn]}
+            onClick={onCloseModal}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

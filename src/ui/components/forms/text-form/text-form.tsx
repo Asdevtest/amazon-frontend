@@ -6,6 +6,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './text-form.style'
 
 interface TextFormProps {
@@ -42,7 +44,12 @@ export const TextForm: FC<TextFormProps> = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <Button success disabled={disabledButton} className={styles.button} onClick={handleSubmit}>
+        <Button
+          styleType={ButtonType.SUCCESS}
+          disabled={disabledButton}
+          className={styles.button}
+          onClick={handleSubmit}
+        >
           {t(TranslationKey.Save)}
         </Button>
 

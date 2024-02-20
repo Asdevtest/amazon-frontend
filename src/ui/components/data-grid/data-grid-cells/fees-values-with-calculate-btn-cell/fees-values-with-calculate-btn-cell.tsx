@@ -33,7 +33,6 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
       </p>
       {!noCalculate && (
         <Button
-          disableElevation
           className={styles.cellBtn}
           startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
           onClick={() => onClickCalculate(productId)}

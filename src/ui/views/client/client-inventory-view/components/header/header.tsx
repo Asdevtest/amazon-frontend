@@ -8,6 +8,8 @@ import { ArchiveIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './header.style'
 
 interface HeaderProps {
@@ -58,9 +60,8 @@ export const Header: FC<HeaderProps> = memo(props => {
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
             <Button
-              success
+              styleType={ButtonType.SUCCESS}
               tooltipInfoContent={t(TranslationKey['To order selected products'])}
-              variant="contained"
               disabled={isNoSelectedRows}
               onClick={onClickOrderBtn}
             >
@@ -68,9 +69,8 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button
-              success
+              styleType={ButtonType.SUCCESS}
               disabled={selectedRows.length > 1}
-              variant="contained"
               className={styles.actionButtonWithPlus}
               onClick={onClickProductLaunch}
             >
@@ -111,62 +111,62 @@ export const Header: FC<HeaderProps> = memo(props => {
         )}
       </div>
 
-      <div className={styles.buttonsWrapper}>
+      <div className={styles.controlButtonsWrapper}>
         {!isArchive && (
-          <div className={styles.buttonsSubWrapper}>
+          <div className={styles.controlButtonsSubWrapper}>
             <Button
               tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-              variant="outlined"
-              className={styles.openArchiveBtn}
+              variant={ButtonVariant.OUTLINED}
               onClick={onTriggerArchive}
             >
               {t(TranslationKey['Open archive'])}
             </Button>
 
             <Button
-              success
-              tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-              className={styles.actionButtonWithPlus}
-              onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
-            >
-              <PlusIcon className={styles.icon} />
-              {t(TranslationKey['Add product'])}
-            </Button>
-          </div>
-        )}
-
-        {!isArchive && (
-          <div className={styles.buttonsSubWrapper}>
-            <Button
               tooltipInfoContent={t(
                 TranslationKey['Delete the selected product (the product is moved to the archive)'],
               )}
+              className={styles.actionButtonWithPlus}
               disabled={isNoSelectedRows}
-              variant="outlined"
-              className={styles.archiveAddBtn}
+              styleType={ButtonType.DANGER}
+              variant={ButtonVariant.OUTLINED}
               onClick={onClickTriggerArchOrResetProducts}
             >
               <ArchiveIcon />
               {t(TranslationKey.Archiving)}
             </Button>
+          </div>
+        )}
+
+        {!isArchive && (
+          <div className={styles.controlButtonsSubWrapper}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+              className={styles.actionButtonWithPlus}
+              onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
+            >
+              <PlusIcon className={styles.icon} />
+              {t(TranslationKey.Product)}
+            </Button>
 
             <Button
-              success
+              styleType={ButtonType.SUCCESS}
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
             >
               <PlusIcon className={styles.icon} />
-              {t(TranslationKey['Add a supplier list'])}
+              {t(TranslationKey['Supplier list'])}
             </Button>
           </div>
         )}
 
         {isArchive && (
-          <div className={styles.buttonsSubWrapper}>
+          <div className={styles.controlButtonsSubWrapper}>
             <Button
               tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
               disabled={isNoSelectedRows}
-              variant="contained"
+              variant={ButtonVariant.OUTLINED}
               onClick={onClickTriggerArchOrResetProducts}
             >
               {t(TranslationKey['Return to inventory'])}
@@ -174,8 +174,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
             <Button
               tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
-              variant="outlined"
-              className={styles.openArchiveBtn}
+              variant={ButtonVariant.OUTLINED}
               onClick={onTriggerArchive}
             >
               {t(TranslationKey['Open inventory'])}

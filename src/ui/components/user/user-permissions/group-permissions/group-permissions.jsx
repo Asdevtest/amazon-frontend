@@ -14,6 +14,8 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './group-permissions.style'
 
 import { GroupPermissionsModel } from './group-permissions.model'
@@ -57,7 +59,7 @@ export const GroupPermissions = observer(() => {
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.placeAddBtnWrapper}>
-        <Button success className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+        <Button styleType={ButtonType.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>

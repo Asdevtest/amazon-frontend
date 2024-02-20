@@ -14,6 +14,8 @@ import { TextWithCopy } from '@components/shared/text-with-copy'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './string-list-cell.style'
 
 interface StringListCellProps {
@@ -58,7 +60,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
           ?.map((item, i) => <TextWithCopy key={i} text={getShortenStringIfLongerThanCount(item, maxLettersInItem)} />)}
 
       {items?.length > maxItemsDisplay && (
-        <Button variant="text" onClick={handleClick}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={handleClick}>
           <MoreHorizOutlinedIcon color="primary" />
         </Button>
       )}

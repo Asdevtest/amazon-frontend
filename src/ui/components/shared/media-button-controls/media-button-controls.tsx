@@ -14,6 +14,7 @@ import { checkIsVideoLink } from '@utils/checks'
 
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './media-button-controls.style'
 
@@ -86,7 +87,11 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(
               />
             </Button>
 
-            <Button danger className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
+            <Button
+              styleType={ButtonType.DANGER}
+              className={styles.button}
+              onClick={() => onRemoveFile(mediaFileIndex)}
+            >
               <DeleteOutlineOutlinedIcon className={styles.icon} />
             </Button>
           </>

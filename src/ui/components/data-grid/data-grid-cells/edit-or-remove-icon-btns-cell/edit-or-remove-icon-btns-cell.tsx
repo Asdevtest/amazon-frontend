@@ -10,6 +10,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './edit-or-remove-icon-btns-cell.style'
 
 interface EditOrRemoveIconBtnsCellProps {
@@ -57,7 +59,7 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = memo(
 
       {handlers?.onTriggerArchive && (
         <Button
-          success={isArchive}
+          styleType={isArchive ? ButtonType.SUCCESS : ButtonType.PRIMARY}
           tooltipInfoContent={(isFirstRow && tooltipArchiveButton && t(TranslationKey['Move to archive'])) || undefined}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
@@ -69,7 +71,7 @@ export const EditOrRemoveIconBtnsCell: FC<EditOrRemoveIconBtnsCellProps> = memo(
 
       {isArchive || isArchive === undefined ? (
         <Button
-          danger
+          styleType={ButtonType.DANGER}
           disabled={disableActionBtn}
           className={styles.removeOrEditBtn}
           onClick={() => {

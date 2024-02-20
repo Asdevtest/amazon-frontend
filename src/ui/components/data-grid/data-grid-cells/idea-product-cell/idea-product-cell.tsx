@@ -7,6 +7,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './idea-product-cell.style'
 
 import { ProductAsinCell } from '../data-grid-cells'
@@ -23,8 +25,7 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
     <div className={styles.ideaWrapper}>
       {!rowData.childProduct && rowData.variation && (
         <Button
-          success
-          small
+          styleType={ButtonType.SUCCESS}
           className={styles.ideaProductActionButton}
           onClick={() => onClickCreateCard(rowData.originalData)}
         >

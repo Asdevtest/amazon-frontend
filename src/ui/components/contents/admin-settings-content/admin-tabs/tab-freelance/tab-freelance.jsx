@@ -88,7 +88,6 @@ export const TabFreelance = observer(props => {
         <div className={styles.tableContainer}>
           <p className={styles.tableTitle}>{t(TranslationKey.Specialties)}</p>
 
-          {/* uncomment everything if you need delete specs functionality and remove block "<div style={{ height: 40 }} />" */}
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               // checkboxSelection
@@ -103,30 +102,15 @@ export const TabFreelance = observer(props => {
               getRowHeight={() => 'auto'}
               getRowId={row => row._id}
               columns={viewModel.columnsModel}
-              // rowSelectionModel={viewModel.rowSelectionModel}
               loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               slots={{}}
               sx={{
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
                 '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
               }}
-              // onRowSelectionModelChange={viewModel.onSelectionModel}
             />
 
             <div style={{ height: 40 }} />
-            {/* <div className={styles.buttonWrapper}>
-              <Button
-                danger
-                disabled={!viewModel.rowSelectionModel.length}
-                className={styles.button}
-                onClick={e => {
-                  e.stopPropagation()
-                  viewModel.onRemoveSpecs()
-                }}
-              >
-                {t(TranslationKey['Delete selected'])}
-              </Button>
-            </div> */}
           </div>
         </div>
       </div>

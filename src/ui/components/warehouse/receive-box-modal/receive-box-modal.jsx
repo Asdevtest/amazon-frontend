@@ -14,6 +14,8 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './receive-box-modal.style'
 
 import { CurrentBox, NewBoxes } from './components'
@@ -266,7 +268,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         )}
 
         <Button
-          success
+          styleType={ButtonType.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {
@@ -280,7 +282,11 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.cancelButton)}
+          onClick={setOpenModal}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

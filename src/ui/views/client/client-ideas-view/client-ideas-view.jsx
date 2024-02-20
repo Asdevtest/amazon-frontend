@@ -36,6 +36,8 @@ import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.sty
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 export const ClientIdeasView = observer(({ history }) => {
@@ -75,7 +77,11 @@ export const ClientIdeasView = observer(({ history }) => {
 
         <div>
           {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-            <Button success className={styles.createRequest} onClick={viewModel.onClickProductLaunch}>
+            <Button
+              styleType={ButtonType.SUCCESS}
+              className={styles.createRequest}
+              onClick={viewModel.onClickProductLaunch}
+            >
               <PlusIcon /> {t(TranslationKey['Create idea'])}
             </Button>
           )}

@@ -12,6 +12,7 @@ import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './announcement-modal.style'
 
@@ -36,6 +37,8 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const files = service.linksToMediaFiles as string[]
 
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
+
+  const isSuccess = choose || order
 
   return (
     <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
@@ -90,9 +93,13 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
               </div>
             </div>
 
-            {onClickButton && (choose || order) ? (
+            {onClickButton && isSuccess ? (
               <div className={styles.buttonWrapper}>
-                <Button success={choose || order} className={styles.button} onClick={() => onClickButton(service)}>
+                <Button
+                  styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  className={styles.button}
+                  onClick={() => onClickButton(service)}
+                >
                   {t(translationButtonKey)}
                 </Button>
               </div>
@@ -100,7 +107,11 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
 
             {onClickSelectButton && select ? (
               <div className={styles.buttonWrapper}>
-                <Button success={select} className={styles.button} onClick={() => onClickSelectButton()}>
+                <Button
+                  styleType={select ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  className={styles.button}
+                  onClick={() => onClickSelectButton()}
+                >
                   {t(TranslationKey.Select)}
                 </Button>
               </div>

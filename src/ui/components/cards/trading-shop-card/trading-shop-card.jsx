@@ -1,5 +1,3 @@
-
-
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
@@ -162,8 +160,6 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
             <div className={styles.buttonWrapper}>
               <Button
                 tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
                 className={styles.actionButton}
                 onClick={() => onClickViewMore(item._id)}
               >

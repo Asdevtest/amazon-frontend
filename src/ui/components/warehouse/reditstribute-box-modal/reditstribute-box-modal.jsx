@@ -16,6 +16,8 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './reditstribute-box-modal.style'
 
 import { Box } from './box/box'
@@ -265,7 +267,7 @@ export const RedistributeBox = observer(
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
             onClick={() => {

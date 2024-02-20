@@ -12,6 +12,8 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonType } from '@typings/types/button.type'
+
 import { useStyles } from './vacant-deals-list-card.style'
 
 export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetToWorkModal, item }) => {
@@ -85,10 +87,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
               <Button
-                success
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
+                styleType={ButtonType.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(item._id, item.requestId)}
               >
@@ -96,13 +95,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               </Button>
             )}
 
-            <Button
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              onClick={() => onClickViewMore(item.requestId, item._id)}
-            >
+            <Button className={styles.actionButton} onClick={() => onClickViewMore(item.requestId, item._id)}>
               {t(TranslationKey['Open a deal'])}
             </Button>
           </div>

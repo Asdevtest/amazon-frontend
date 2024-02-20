@@ -13,6 +13,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './select-storkeeper-and-tariff-form.style'
 
 import { warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
@@ -205,9 +207,7 @@ export const SelectStorekeeperAndTariffForm = observer(
           {!inNotifications && (
             <div className={styles.clearBtnWrapper}>
               <Button
-                disableElevation
-                color="primary"
-                variant={'outlined'}
+                variant={ButtonVariant.OUTLINED}
                 className={styles.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)

@@ -15,10 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '1px',
   },
 
-  btnWrapperStyle: {
-    height: '100%',
-  },
-
   inputClass: {
     padding: '9px',
     [theme.breakpoints.down(768)]: {
@@ -50,7 +46,5 @@ export const useStyles = makeStyles()(theme => ({
 
   submit: {
     height: '100%',
-    padding: '9px 20px 8px 20px',
-    borderRadius: '24px',
   },
 }))

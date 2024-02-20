@@ -13,6 +13,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/types/button.type'
+
 import { useStyles } from './feedback-modal.style'
 
 export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
@@ -64,16 +66,14 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
         ) : null}
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={disabledSubmitButton}
-            className={styles.buttonOk}
-            onClick={onClickSendButton}
-          >
+          <Button disabled={disabledSubmitButton} className={styles.buttonOk} onClick={onClickSendButton}>
             {t(TranslationKey.Send)}
           </Button>
-          <Button variant="text" className={styles.buttonCancel} onClick={() => setIsShowConfirmationModal(true)}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.buttonCancel}
+            onClick={() => setIsShowConfirmationModal(true)}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

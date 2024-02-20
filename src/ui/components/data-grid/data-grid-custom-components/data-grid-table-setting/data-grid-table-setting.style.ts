@@ -5,14 +5,12 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
     gap: '10px',
   },
 
   parametersButtonTitle: {
     fontSize: '16px',
     fontWeight: 600,
-    color: theme.palette.primary.main,
   },
 
   parametersButtonIcon: {
