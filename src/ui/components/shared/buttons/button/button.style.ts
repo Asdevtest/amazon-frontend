@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    all: 'unset',
     position: 'relative',
     height: 40,
     fontSize: 14,
@@ -73,7 +72,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedPrimary: {
     color: theme.palette.primaryButton.backgroundColor,
-    outline: `2px solid currentColor`,
+    border: `2px solid currentColor`,
     backgroundColor: 'transparent',
 
     '&:hover': {
@@ -104,7 +103,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedSuccess: {
     color: theme.palette.succesButton.backgroundColor,
-    outline: `2px solid currentColor`,
+    border: `2px solid currentColor`,
     backgroundColor: 'transparent',
 
     '&:hover': {
@@ -135,7 +134,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedDanger: {
     color: theme.palette.dangerButton.outlinedColor,
-    outline: `2px solid ${theme.palette.dangerButton.backgroundColor}`,
+    border: `2px solid ${theme.palette.dangerButton.backgroundColor}`,
     backgroundColor: 'transparent',
 
     '&:hover': {

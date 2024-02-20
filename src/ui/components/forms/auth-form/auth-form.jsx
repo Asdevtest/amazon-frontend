@@ -68,7 +68,7 @@ export const AuthForm = memo(props => {
             labelClasses={styles.labelField}
             inputClasses={styles.input}
             placeholder={t(TranslationKey.Password)}
-            styleType={visibilityPass ? 'text' : 'password'}
+            type={visibilityPass ? 'text' : 'password'}
             value={formFields.password}
             startAdornment={
               <InputAdornment position="end" className={styles.inputAdornment}>
