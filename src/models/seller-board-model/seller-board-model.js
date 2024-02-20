@@ -82,6 +82,11 @@ class SellerBoardModelStatic {
     return response.data
   }
 
+  getIntegrationsReportReturns = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportReturnsGet(options)
+    return response.data
+  }
+
   patchReportInventoryProductsLinkSku = async body => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsReportInventoryProductsLinkSkuPatch({ body })
     return response.data
