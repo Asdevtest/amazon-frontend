@@ -100,8 +100,8 @@ export const clientIntegrationsReportReturnsColumns = () => [
 
   {
     field: 'status',
-    headerName: 'Status',
-    renderHeader: () => <MultilineTextHeaderCell text="Status" />,
+    headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 143,
 
