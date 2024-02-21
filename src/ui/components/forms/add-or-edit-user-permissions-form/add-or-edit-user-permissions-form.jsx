@@ -110,8 +110,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
         const currentShopSourceData = getSourceDataToShop(shop)
 
-        console.log('currentShopSourceData :>> ', currentShopSourceData)
-
         return {
           ...shop,
           tmpSelectedShop: !!curShopProductPermissions,
@@ -125,8 +123,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   )
 
   const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
-
-  console.log('shopDataToRender :>> ', shopDataToRender)
 
   const submitDisabled =
     isEqual(formFields.toSorted(), sourceData?.permissions.toSorted()) &&
