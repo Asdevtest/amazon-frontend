@@ -111,6 +111,7 @@ export const SubUsersView = observer(({ history }) => {
           isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
+          curUserShopsPermissions={viewModel.curUserShopsPermissions}
           permissionsToSelect={viewModel.singlePermissions}
           permissionGroupsToSelect={viewModel.groupPermissions}
           sourceData={viewModel.selectedSubUser}
