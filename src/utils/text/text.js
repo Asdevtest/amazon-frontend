@@ -224,7 +224,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 
@@ -315,7 +315,20 @@ export const getTableByColumn = (column, hint) => {
       return 'requests'
     }
     return 'products'
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
+  } else if (
+    [
+      'status',
+      'updatedAt',
+      'createdAt',
+      'tags',
+      'redFlags',
+      'createdBy',
+      'taskComplexity',
+      'reasonReject',
+      'createdBy',
+      'sub',
+    ].includes(column)
+  ) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {

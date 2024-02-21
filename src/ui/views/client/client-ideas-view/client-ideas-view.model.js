@@ -61,6 +61,7 @@ export class ClientIdeasViewModel {
   showOrderModal = false
   showAddOrEditSupplierModal = false
   showSelectionSupplierModal = false
+  showCommentsModal = false
 
   // * Data
 
@@ -510,10 +511,10 @@ export class ClientIdeasViewModel {
 
   // * Idea handlers
 
-  async statusHandler(method, id, addSupliersToParentProductData) {
+  async statusHandler(method, id, addSupliersToParentProductData, data) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      await method(id)
+      await method(id, data)
 
       if (addSupliersToParentProductData) {
         await ProductModel.addSuppliersToProduct(
@@ -546,16 +547,13 @@ export class ClientIdeasViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToReject(id) {
-    this.confirmModalSettings = {
-      isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to dismiss the idea']),
-      onClickConfirm: () => {
-        this.statusHandler(IdeaModel.setStatusToReject, id)
-        this.onTriggerOpenModal('showConfirmModal')
-      },
-    }
-    this.onTriggerOpenModal('showConfirmModal')
+  handleStatusToReject(ideaId) {
+    this.selectedIdea = ideaId
+    this.onTriggerOpenModal('showCommentsModal')
+  }
+
+  setRejectStatusHandler(reasonReject) {
+    this.statusHandler(IdeaModel.setStatusToReject, this.selectedIdea, undefined, { reasonReject })
   }
 
   handleStatusToSupplierSearch(id) {
