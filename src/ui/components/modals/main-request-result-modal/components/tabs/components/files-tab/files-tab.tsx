@@ -83,7 +83,7 @@ export const FilesTab: FC<FilesTabProps> = memo(({ media }) => {
       {showSlideshowGalleryModal ? (
         <SlideshowGalleryModal
           files={files.map(file => ({
-            // TODO: перейти на IRequestMedia
+            // TODO: перейти на IRequestMedia по всему проекту
             _id: file._id,
             comment: file.commentByClient,
             image: file.fileLink,

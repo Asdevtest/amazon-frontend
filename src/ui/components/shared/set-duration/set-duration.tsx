@@ -87,7 +87,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
 
   return (
     <div className={styles.wrapper}>
-      {title && <p className={titleStyle}>{title ?? t(TranslationKey['Time to complete']) + '*'}</p>}
+      {title && <p className={titleStyle}>{title || t(TranslationKey['Time to complete']) + '*'}</p>}
 
       <div className={styles.inputsWrapper}>
         <div className={styles.inputWrapper}>

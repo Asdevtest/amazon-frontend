@@ -1,7 +1,56 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
-interface RemarksTabProps {}
+import { TranslationKey } from '@constants/translations/translation-key'
 
-export const RemarksTab: FC<RemarksTabProps> = memo(() => {
-  return <div>files</div>
+import { Field } from '@components/shared/field'
+import { SetDuration } from '@components/shared/set-duration'
+import { TooltipAttention } from '@components/shared/svg-icons'
+
+import { getMinutesDifferenceFromNow } from '@utils/date-time'
+import { t } from '@utils/translations'
+
+import { useStyles } from './remarks-tab.style'
+
+interface RemarksTabProps {
+  remark: string
+  timeoutAt: string
+}
+
+export const RemarksTab: FC<RemarksTabProps> = memo(({ remark, timeoutAt }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const [timeForReworkInMinutes, setTimeForReworkInMinutes] = useState(0)
+
+  useEffect(() => {
+    if (timeoutAt) {
+      setTimeForReworkInMinutes(getMinutesDifferenceFromNow(timeoutAt))
+    }
+  }, [timeoutAt])
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <div className={styles.flexContainer}>
+          <TooltipAttention className={styles.icon} />
+          <p className={cx(styles.text, styles.remarkText)}>{t(TranslationKey.Remarks)}</p>
+        </div>
+
+        <div className={styles.flexContainer}>
+          <p className={cx(styles.text, styles.reworkText)}>{t(TranslationKey['Time for rework'])}</p>
+          <SetDuration duration={timeForReworkInMinutes} setTotalTimeInMinute={setTimeForReworkInMinutes} />
+        </div>
+      </div>
+
+      <Field
+        multiline
+        minRows={12}
+        maxRows={12}
+        value={remark}
+        placeholder={`${t(TranslationKey.Remarks)}...`}
+        inputClasses={styles.field}
+        classes={{ input: styles.input }}
+        containerClasses={styles.fieldContainer}
+      />
+    </div>
+  )
 })

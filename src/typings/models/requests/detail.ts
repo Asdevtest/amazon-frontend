@@ -10,4 +10,5 @@ export interface IDetail {
   amazonOrderId: string
   result: string
   publicationLinks: Array<string>
+  reasonToCorrect: string
 }

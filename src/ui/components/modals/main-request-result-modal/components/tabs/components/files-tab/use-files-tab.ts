@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -43,18 +43,18 @@ export const useFilesTab = (media: IRequestMedia[]) => {
     }
   }
 
-  const handleDownloadAllFiles = () => {
+  const handleDownloadAllFiles = useCallback(() => {
     if (filesForDownload.length > 0) {
       filesForDownload.forEach(({ fileLink }) =>
         isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
       )
     }
-  }
+  }, [filesForDownload])
 
-  const handleToggleCommentModal = (file: IRequestMedia) => {
+  const handleToggleCommentModal = useCallback((file: IRequestMedia) => {
     setCurrentEditableFile(file)
     setShowCommentModal(!showCommentModal)
-  }
+  }, [])
 
   const handleChangeComment = (comment: string) => {
     setFiles(prevFiles =>
@@ -62,11 +62,10 @@ export const useFilesTab = (media: IRequestMedia[]) => {
     )
     setCurrentEditableFile(undefined)
   }
-
-  const handleToggleImageModal = (fileIndex: number) => {
+  const handleToggleImageModal = useCallback((fileIndex: number) => {
     setCurrentFileIndex(fileIndex)
     setSlideshowGalleryModal(!showSlideshowGalleryModal)
-  }
+  }, [])
 
   const handleCheckAllFiles = () => {
     if (filesForDownload.length === files.length) {
@@ -76,7 +75,7 @@ export const useFilesTab = (media: IRequestMedia[]) => {
     }
   }
 
-  const handleCheckFile = (file: IRequestMedia) => {
+  const handleCheckFile = useCallback((file: IRequestMedia) => {
     setFilesForDownload(prevFiles => {
       const findFileById = prevFiles.find(({ _id }) => _id === file._id)
 
@@ -86,7 +85,7 @@ export const useFilesTab = (media: IRequestMedia[]) => {
         return [...prevFiles, file]
       }
     })
-  }
+  }, [])
 
   return {
     showCommentModal,

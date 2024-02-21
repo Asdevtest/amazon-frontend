@@ -8,7 +8,7 @@ import { DownloadArchiveIcon, DownloadRoundIcon } from '@components/shared/svg-i
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './buttons.style'
 
@@ -40,11 +40,12 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         <p className={styles.text}>{t(TranslationKey['Select all'])}</p>
       </div>
 
-      <div className={styles.flexlContainer}>
+      <div className={styles.buttons}>
         <Button
           disabled={disabledFilesButton}
           className={styles.button}
-          styleType={ButtonType.CASUAL}
+          styleType={ButtonType.PRIMARY}
+          variant={ButtonVariant.OUTLINED}
           onClick={onDownloadAllFiles}
         >
           <DownloadRoundIcon className={styles.icon} />
@@ -53,7 +54,8 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         <Button
           disabled={disabledArchiveButton}
           className={styles.button}
-          styleType={ButtonType.CASUAL}
+          styleType={ButtonType.PRIMARY}
+          variant={ButtonVariant.OUTLINED}
           onClick={onDownloadArchive}
         >
           <DownloadArchiveIcon className={styles.icon} />

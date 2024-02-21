@@ -41,7 +41,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           containerClasses={styles.fieldContainer}
         />
 
-        <Tabs proposal={customProposal?.proposal} />
+        <Tabs customProposal={customProposal} />
 
         <Footer />
       </div>

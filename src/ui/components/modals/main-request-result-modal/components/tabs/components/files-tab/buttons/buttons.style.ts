@@ -23,23 +23,22 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   button: {
     padding: 5,
     height: '100%',
     overflow: 'hidden',
     opacity: 1,
     transition: '.3s ease-in-out',
-
-    '&:disabled': {
-      svg: {
-        opacity: 0.5,
-      },
-    },
   },
 
   icon: {
     width: '16px !important',
     height: '16px !important',
-    color: theme.palette.primary.main,
   },
 }))

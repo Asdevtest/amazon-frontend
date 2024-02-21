@@ -2201,5 +2201,6 @@ export enum TranslationKey {
   'Not updating due to an error' = 'Not updating due to an error',
   'Failed to download archive. Please try again.' = 'Failed to download archive. Please try again.',
   'Send for revision' = 'Send for revision',
+  'Add link' = 'Add link',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
