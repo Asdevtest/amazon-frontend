@@ -309,7 +309,7 @@ export const ClientIdeasView = observer(({ history }) => {
         <CommentsModal
           readOnly={false}
           maxCommentLength={MAX_DEFAULT_INPUT_VALUE}
-          title={t(TranslationKey['Reason for cancellation'])}
+          title={t(TranslationKey['Reason for rejection'])}
           isOpenModal={viewModel.showCommentsModal}
           onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
           onChangeField={viewModel.setRejectStatusHandler}
