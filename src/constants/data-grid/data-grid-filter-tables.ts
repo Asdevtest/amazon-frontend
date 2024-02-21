@@ -6,6 +6,7 @@ export enum DataGridFilterTables {
   INVENTORY = 'inventory',
   PPC_SALES_WEEKS = 'ppcSalesWeeks',
   INVENTORY_SHIPMENTS = 'inventoryShipments',
+  INVENTORY_RETURNS = 'inventoryReturns',
 
   PRODUCTS = 'products',
 }

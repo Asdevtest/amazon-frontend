@@ -6,6 +6,7 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { clientDailySellerBoardColumns } from '@components/table/table-columns/client/client-daily-seller-board-columns'
 import { clientIntegrationsReportInventoryShipmentsColumns } from '@components/table/table-columns/client/client-integrations-report-inventory-shipments-columns'
+import { clientIntegrationsReportReturnsColumns } from '@components/table/table-columns/client/client-integrations-report-returns-columns'
 import { clientInventoryReportColumns } from '@components/table/table-columns/client/client-inventory-report'
 import { clientLast30DaySellerBoardColumns } from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
 import { clientPPCSalesWeekColumns } from '@components/table/table-columns/client/client-ppc-sales-week-columns'
@@ -59,6 +60,15 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         filtersFields: getFilterFields(clientIntegrationsReportInventoryShipmentsColumns()),
         mainMethodURL: 'integrations/report_inventory_shipments?',
         tableKey: DataGridTablesKeys.SHOPS_REPORT_INVENTORY_SHIPMENTS,
+        fieldsForSearch: ['sku'],
+      }
+    case ShopReportsTabsValues.RETURNS:
+      return {
+        getMainDataMethod: SellerBoardModel.getIntegrationsReportReturns,
+        columnsModel: clientIntegrationsReportReturnsColumns,
+        filtersFields: getFilterFields(clientIntegrationsReportReturnsColumns(), ['sku']),
+        mainMethodURL: 'integrations/report_returns?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_RETURNS,
         fieldsForSearch: ['sku'],
       }
   }

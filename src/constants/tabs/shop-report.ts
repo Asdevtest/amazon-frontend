@@ -4,4 +4,5 @@ export enum ShopReportsTabsValues {
   INVENTORY = 'inventory',
   PPC = 'ppcSalesWeeks',
   INVENTORY_SHIPMENTS = 'inventoryShipments',
+  RETURNS = 'returns',
 }
