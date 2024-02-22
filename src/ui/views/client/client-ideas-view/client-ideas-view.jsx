@@ -308,7 +308,7 @@ export const ClientIdeasView = observer(({ history }) => {
       {viewModel.showCommentsModal ? (
         <CommentsModal
           readOnly={false}
-          maxCommentLength={MAX_DEFAULT_INPUT_VALUE}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
           title={t(TranslationKey['Reason for rejection'])}
           isOpenModal={viewModel.showCommentsModal}
           onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
