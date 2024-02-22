@@ -82,6 +82,23 @@ export const shopsColumns = handlers => [
   },
 
   {
+    field: 'returns',
+    headerName: t(TranslationKey.Returns),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Returns)} />,
+
+    width: 125,
+    renderCell: params => (
+      <NormalActionBtnCell
+        casual
+        fullWidthButton
+        disabled={!params?.row?.reportAccountUrl}
+        bTnText={t(TranslationKey.View)}
+        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.RETURNS, params.row)}
+      />
+    ),
+  },
+
+  {
     field: 'sellerBoardWarehouseReportUrlDaily',
     headerName: t(TranslationKey['Warehouse report']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,

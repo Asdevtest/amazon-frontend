@@ -2203,5 +2203,8 @@ export enum TranslationKey {
   'Add link' = 'Add link',
   'File name' = 'File name',
   'Upload' = 'Upload',
+  'Returns' = 'Returns',
+  'Reason for cancellation' = 'Reason for cancellation',
+  'Reason for rejection' = 'Reason for rejection',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

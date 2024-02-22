@@ -13,6 +13,7 @@ import {
   ShortDateCell,
   SmallRowImageCell,
   TimeFromSecondsCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { checkIsMediaFileLink } from '@utils/checks'
@@ -163,6 +164,37 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'reasonReject',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Reason for rejection'])} />,
+    headerName: t(TranslationKey['Reason for rejection']),
+
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+    width: 250,
+    filterable: false,
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+    renderCell: ({ row }) => (
+      <UserLinkCell
+        blackText
+        name={row.sub?.name || row.createdBy?.name}
+        userId={row.sub?._id || row?.createdBy?._id}
+      />
+    ),
+    width: 130,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -13,6 +14,7 @@ import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-fo
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -302,6 +304,17 @@ export const ClientIdeasView = observer(({ history }) => {
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
+
+      {viewModel.showCommentsModal ? (
+        <CommentsModal
+          readOnly={false}
+          maxCommentLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          isOpenModal={viewModel.showCommentsModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
+          onChangeField={viewModel.setRejectStatusHandler}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

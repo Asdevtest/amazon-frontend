@@ -421,6 +421,10 @@ models/inline-response20070.ts
 models/inline-response20071.ts
 models/inline-response20072.ts
 models/inline-response20073.ts
+models/inline-response20074-request-announcement.ts
+models/inline-response20074-request-product.ts
+models/inline-response20074-request.ts
+models/inline-response20074-rows.ts
 models/inline-response20074.ts
 models/inline-response20075-request-announcement.ts
 models/inline-response20075-request-product.ts
@@ -428,6 +432,11 @@ models/inline-response20075-request.ts
 models/inline-response20075-rows.ts
 models/inline-response20075.ts
 models/inline-response20076.ts
+models/inline-response20077-announcement.ts
+models/inline-response20077-count-proposals-by-statuses.ts
+models/inline-response20077-media.ts
+models/inline-response20077-product.ts
+models/inline-response20077-rows.ts
 models/inline-response20077.ts
 models/inline-response20078-announcement.ts
 models/inline-response20078-count-proposals-by-statuses.ts
@@ -445,8 +454,8 @@ models/inline-response20084.ts
 models/inline-response20085.ts
 models/inline-response20086.ts
 models/inline-response20087.ts
+models/inline-response20088-rows.ts
 models/inline-response20088.ts
-models/inline-response20089-rows.ts
 models/inline-response20089.ts
 models/inline-response2009.ts
 models/inline-response20090.ts

@@ -9,6 +9,7 @@ import {
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { checkIsMediaFileLink } from '@utils/checks'
@@ -111,6 +112,26 @@ export const clientCreateCardIdeasColumns = (rowHandlers, shops) => [
     width: 110,
     sortable: false,
     filterable: false,
+  },
+
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+    renderCell: ({ row }) => (
+      <UserLinkCell
+        blackText
+        name={row.sub?.name || row.createdBy?.name}
+        userId={row.sub?._id || row?.createdBy?._id}
+      />
+    ),
+    width: 130,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {

@@ -2201,5 +2201,8 @@
   "Failed to download archive. Please try again.": "Failed to download archive. Please try again.",
   "Add link": "Add link",
   "File name": "File name",
-  "Upload": "Upload"
+  "Upload": "Upload",
+  "Returns": "Returns",
+  "Reason for cancellation": "Reason for cancellation",
+  "Reason for rejection": "Reason for rejection"
 }

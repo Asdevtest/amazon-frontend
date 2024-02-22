@@ -87,22 +87,44 @@ export const AccessToProductForm = memo(props => {
   }, [searchInputValue])
 
   useEffect(() => {
-    let newDataToRender = [...shops]
+    setShopDataToRender(shops => {
+      const newDataToRender = [...shops]
 
-    if (selectedAccess === accessProductSettings.NEED_SELECT) {
-      newDataToRender = newDataToRender.map(item =>
-        item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item,
-      )
-    } else if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
-      newDataToRender = newDataToRender.map(item =>
-        item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item,
-      )
-      setChooseAllCheck(true)
-    } else {
-      setChooseAllCheck(false)
-    }
+      const tmpSelectedShop =
+        !!chosenGoods?.length &&
+        !!allProductsIds?.length &&
+        chosenGoods?.length === allProductsIds?.length &&
+        shop._id !== 'PRODUCTS_WITHOUT_SHOPS_ID'
 
-    setShopDataToRender(newDataToRender)
+      if (selectedAccess === accessProductSettings.NEED_SELECT) {
+        return newDataToRender.map(item =>
+          item._id === shop._id ? { ...item, tmpSelectedShop, tmpProductsIds: chosenGoods } : item,
+        )
+      } else if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
+        setChooseAllCheck(true)
+
+        return newDataToRender.map(item =>
+          item._id === shop._id
+            ? {
+                ...item,
+                tmpSelectedShop,
+                tmpProductsIds: allProductsIds,
+              }
+            : item,
+        )
+      } else {
+        setChooseAllCheck(false)
+        return newDataToRender.map(item =>
+          item._id === shop._id
+            ? {
+                ...item,
+                tmpSelectedShop,
+                tmpProductsIds: allProductsIds,
+              }
+            : item,
+        )
+      }
+    })
   }, [selectedAccess, chosenGoods])
 
   useEffect(() => {

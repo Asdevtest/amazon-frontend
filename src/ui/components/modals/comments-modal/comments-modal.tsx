@@ -22,7 +22,15 @@ interface CommentsModalProps {
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
-  const { readOnly, title, text, isOpenModal, maxLength, onOpenModal, onChangeField } = props
+  const {
+    readOnly,
+    title,
+    text,
+    isOpenModal,
+    maxLength = MAX_DEFAULT_COMMENT_LEGTH,
+    onOpenModal,
+    onChangeField,
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -30,7 +38,7 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
 
-  const isNotValidCommentLength = comment.length > MAX_DEFAULT_COMMENT_LEGTH
+  const isNotValidCommentLength = comment.length > maxLength
   const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength
 
   const handleSaveComment = () => {
@@ -52,7 +60,7 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
           error={isNotValidCommentLength}
           containerClasses={styles.editorContainer}
           inputClasses={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
-          inputProps={{ maxLength: maxLength || MAX_DEFAULT_COMMENT_LEGTH }}
+          inputProps={{ maxLength }}
           labelClasses={styles.title}
           label={title}
           value={comment}

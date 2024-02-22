@@ -2200,5 +2200,8 @@
   "Failed to download archive. Please try again.": "Не удалось скачать архив. Пожалуйста, попробуйте еще раз.",
   "Add link": "Добавить ссылку",
   "File name": "Название файла",
-  "Upload": "Загрузить"
+  "Upload": "Загрузить",
+  "Returns": "Возвраты",
+  "Reason for cancellation": "Причина отмены",
+  "Reason for rejection": "Причина отклонения"
 }

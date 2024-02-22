@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { memo, useEffect, useMemo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -45,6 +46,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
     isWithoutShopsDepends,
     isWithoutProductPermissions,
     productPermissionsData,
+    curUserShopsPermissions,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -85,21 +87,39 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
   const [rightSide, setRightSide] = useState(groupsToSelect[0])
 
+  const getSourceDataToShop = shop =>
+    productPermissionsData?.filter(el =>
+      shop._id === PRODUCTS_WITHOUT_SHOPS_ID
+        ? isWithoutShopsDepends
+          ? true
+          : !el.originalData.shopId
+        : el.originalData.shopId === shop._id,
+    )
+
   const sourceDataToProductsPermissions = useMemo(
     () => [
       {
         _id: PRODUCTS_WITHOUT_SHOPS_ID,
         name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
+        tmpSelectedShop: false,
         tmpProductsIds:
           curUserProductPermissions
             ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopId))
             ?.map(el => el?.productId) || [],
       },
-      ...shops.map(shop => ({
-        ...shop,
-        tmpProductsIds:
-          curUserProductPermissions?.filter(el => el?.shopId === shop?._id)?.map(el => el?.productId) || [],
-      })),
+      ...shops.map(shop => {
+        const curShopProductPermissions = curUserShopsPermissions?.shopIds?.find(el => el === shop?._id)
+
+        const currentShopSourceData = getSourceDataToShop(shop)
+
+        return {
+          ...shop,
+          tmpSelectedShop: !!curShopProductPermissions,
+          tmpProductsIds: curShopProductPermissions
+            ? currentShopSourceData.map(el => el._id)
+            : curUserProductPermissions?.filter(el => el?.shopId === shop?._id)?.map(el => el?.productId) || [],
+        }
+      }),
     ],
     [curUserProductPermissions],
   )
@@ -107,8 +127,8 @@ export const AddOrEditUserPermissionsForm = memo(props => {
   const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
 
   const submitDisabled =
-    JSON.stringify(formFields.toSorted()) === JSON.stringify(sourceData?.permissions.toSorted()) &&
-    JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender) &&
+    isEqual(formFields.toSorted(), sourceData?.permissions.toSorted()) &&
+    isEqual(sourceDataToProductsPermissions, shopDataToRender) &&
     deepArrayCompare(sourceData?.allowedSpec, currentSpecs)
 
   const onClickToShowDetails = value => {
@@ -147,15 +167,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
     }
   }
 
-  const getSourceDataToShop = shop =>
-    productPermissionsData?.filter(el =>
-      shop._id === PRODUCTS_WITHOUT_SHOPS_ID
-        ? isWithoutShopsDepends
-          ? true
-          : !el.originalData.shopId
-        : el.originalData.shopId === shop._id,
-    )
-
   const isChoosenAll = shopDataToRender.every(shop => shop.tmpProductsIds?.length === getSourceDataToShop(shop)?.length)
 
   const isSomeChoosenAll = shopDataToRender.some(
@@ -164,11 +175,12 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
   const onClickChooseAllProductCheck = () => {
     if (isChoosenAll) {
-      setShopDataToRender(shopDataToRender?.map(item => ({ ...item, tmpProductsIds: [] })))
+      setShopDataToRender(shopDataToRender?.map(item => ({ ...item, tmpSelectedShop: false, tmpProductsIds: [] })))
     } else {
       setShopDataToRender(
         shopDataToRender?.map(item => ({
           ...item,
+          tmpSelectedShop: true,
           tmpProductsIds: getSourceDataToShop(item)?.map(product => product._id),
         })),
       )
@@ -209,8 +221,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
           />
         ) : null}
       </Tabs>
-
-      {/* <Typography variant="h5">{t(TranslationKey['Assign permissions'])}</Typography> */}
 
       <TabPanel value={tabIndex} index={tabsValues.ASSIGN_PERMISSIONS}>
         {window.innerWidth > 768 ? (
@@ -441,7 +451,23 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               onSubmit(
                 formFields,
                 sourceData._id,
-                Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
+
+                shopDataToRender.reduce(
+                  (ac, cur) => {
+                    if (cur?.tmpSelectedShop && cur?._id !== PRODUCTS_WITHOUT_SHOPS_ID) {
+                      ac?.selectedShops?.push(cur?._id)
+                    } else {
+                      ac.selectedProducts = ac?.selectedProducts?.concat(cur.tmpProductsIds)
+                    }
+
+                    return ac
+                  },
+                  {
+                    selectedShops: [],
+                    selectedProducts: [],
+                  },
+                ),
+
                 isFreelancer && currentSpecs,
               )
               onCloseModal()
