@@ -1,13 +1,19 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
+import {
+  IMediaRework,
+  SetFieldsAfterRework,
+  SetFieldsToRework,
+} from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { IRequestMedia } from '@typings/models/requests/request-media'
+import { IMediaRequest } from '@typings/shared/upload-file'
 
 import { useStyles } from './files-tab.style'
 
@@ -16,11 +22,17 @@ import { File } from './file'
 import { useFilesTab } from './use-files-tab'
 
 interface FilesTabProps {
-  media: IRequestMedia[]
+  isClient: boolean
+  media: IMediaRework[]
+  displayedFiles: IMediaRework[]
+  setFieldsToRework: SetFieldsToRework
+  setFieldsAfterRework: SetFieldsAfterRework
 }
 
-export const FilesTab: FC<FilesTabProps> = memo(({ media }) => {
-  const { classes: styles } = useStyles()
+export const FilesTab: FC<FilesTabProps> = memo(props => {
+  const { isClient, media, displayedFiles, setFieldsToRework, setFieldsAfterRework } = props
+
+  const { classes: styles, cx } = useStyles()
 
   const {
     showCommentModal,
@@ -41,39 +53,88 @@ export const FilesTab: FC<FilesTabProps> = memo(({ media }) => {
     onToggleImageModal,
     onCheckAllFiles,
     onCheckFile,
-  } = useFilesTab(media)
+    onAddFile,
+    onDeleteFile,
+    onChangeFileName,
+    onUploadFile,
+  } = useFilesTab(media, isClient)
+
+  useEffect(() => {
+    if (isClient) {
+      setFieldsToRework(prevFieldsToRework => {
+        const fieldsToRework: IMediaRework[] = files.map((file, index) => ({
+          _id: file._id,
+          fileLink: file.fileLink,
+          commentByClient: file.commentByClient,
+          index,
+        }))
+
+        return { ...prevFieldsToRework, media: fieldsToRework }
+      })
+    } else {
+      setFieldsAfterRework(prevFieldsAfterRework => {
+        const fieldsToRework: IMediaRework[] = files.map((file, index) => ({
+          _id: file._id,
+          fileLink: file.fileLink,
+          commentByPerformer: file.commentByPerformer,
+          index,
+        }))
+
+        return { ...prevFieldsAfterRework, media: fieldsToRework }
+      })
+    }
+  }, [files])
+
+  const slides: IMediaRequest[] = displayedFiles.map(file => ({
+    _id: file._id,
+    image: file.fileLink,
+    comment: file?.commentByPerformer || '',
+    commentByClient: file?.commentByClient || '',
+  }))
 
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.files}>
-          {files.map((file, index) => (
+        <div className={cx(styles.files, { [styles.clientFiles]: isClient })}>
+          {displayedFiles.map((file, index) => (
             <File
               key={file._id}
+              isClient={isClient}
               file={file}
               fileIndex={index}
               checked={filesForDownload.some(({ _id }) => _id === file._id)}
               onCheckFile={onCheckFile}
               onToggleImageModal={onToggleImageModal}
               onToggleCommentModal={onToggleCommentModal}
+              onDeleteFile={onDeleteFile}
+              onChangeFileName={onChangeFileName}
+              onUploadFile={onUploadFile}
             />
           ))}
         </div>
 
-        <Buttons
-          checked={filesForDownload.length === files.length}
-          disabledFilesButton={!filesForDownload.length}
-          disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
-          onCheckAllFiles={onCheckAllFiles}
-          onDownloadArchive={onDownloadArchive}
-          onDownloadAllFiles={onDownloadAllFiles}
-        />
+        {isClient ? (
+          <Buttons
+            checked={filesForDownload.length === files.length}
+            disabledFilesButton={!filesForDownload.length}
+            disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
+            onCheckAllFiles={onCheckAllFiles}
+            onDownloadArchive={onDownloadArchive}
+            onDownloadAllFiles={onDownloadAllFiles}
+          />
+        ) : (
+          <button className={styles.button} onClick={onAddFile}>
+            <CustomPlusIcon className={styles.icon} />
+            <span>{t(TranslationKey['Add file'])}</span>
+          </button>
+        )}
       </div>
 
       {showCommentModal ? (
         <CommentsModal
           title={t(TranslationKey['Add comment'])}
-          text={currentEditableFile?.commentByPerformer || ''}
+          text={currentEditableFile?.commentByClient || ''}
+          maxLength={512}
           isOpenModal={showCommentModal}
           onOpenModal={onShowCommentModal}
           onChangeField={onChangeComment}
@@ -82,13 +143,7 @@ export const FilesTab: FC<FilesTabProps> = memo(({ media }) => {
 
       {showSlideshowGalleryModal ? (
         <SlideshowGalleryModal
-          files={files.map(file => ({
-            // TODO: перейти на IRequestMedia по всему проекту
-            _id: file._id,
-            comment: file.commentByClient,
-            image: file.fileLink,
-            commentByClient: file.commentByPerformer,
-          }))}
+          files={slides}
           currentFileIndex={currentFileIndex}
           isOpenModal={showSlideshowGalleryModal}
           onOpenModal={onShowSlideshowGalleryModal}

@@ -61,7 +61,7 @@ export class OwnerRequestDetailCustomViewModel {
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
-  showResultToCorrectFormModal = false
+  showMainRequestResultModal = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -290,53 +290,8 @@ export class OwnerRequestDetailCustomViewModel {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
     } else {
-      this.triggerShowResultToCorrectFormModal()
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
-  }
-
-  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
-    this.triggerShowResultToCorrectFormModal()
-
-    try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (files.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
-      }
-
-      const findProposalByChatId = this.requestProposals.find(
-        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
-      )
-
-      if (!findProposalByChatId) {
-        return
-      }
-
-      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
-        ...formFields,
-        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
-        linksToMediaFiles: this.uploadedFiles,
-      })
-
-      this.loadData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
-      onSubmit: () => {
-        this.onTriggerOpenModal('showConfirmModal')
-        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
-      },
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
@@ -355,7 +310,7 @@ export class OwnerRequestDetailCustomViewModel {
       })
       this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
+      console.log(error)
     }
   }
 
@@ -616,10 +571,6 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  triggerShowResultToCorrectFormModal() {
-    this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
-  }
-
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -658,5 +609,19 @@ export class OwnerRequestDetailCustomViewModel {
     this.getCustomProposalsForRequestCur()
 
     this.setRequestStatus(loadingStatuses.SUCCESS)
+  }
+
+  async onSendInForRework(id, fields) {
+    try {
+      if (fields?.media?.length) {
+        await onSubmitPostImages.call(this, { images: fields?.media, type: 'uploadedFiles' })
+      }
+
+      await RequestProposalModel.requestProposalResultToCorrect(id, fields)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

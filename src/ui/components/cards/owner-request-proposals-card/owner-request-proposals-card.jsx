@@ -36,6 +36,7 @@ export const OwnerRequestProposalsCard = ({
   onClickReview,
   onClickOrderProposal,
   onClickRejectProposal,
+  onSendInForRework,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -210,24 +211,13 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      {/* <Modal
-        missClickModalOn
-        openModal={showRequestStandartResultModal}
-        setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-      >
-        <RequestStandartResultForm
-          request={request}
-          proposal={item}
-          setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-          // onClickSendAsResult={onClickSendAsResult}
-        />
-      </Modal> */}
-
       {showMainRequestResultModal ? (
         <MainRequestResultModal
           customProposal={item}
+          userInfo={userInfo}
           openModal={showMainRequestResultModal}
           onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+          onEditCustomProposal={onSendInForRework}
         />
       ) : null}
 

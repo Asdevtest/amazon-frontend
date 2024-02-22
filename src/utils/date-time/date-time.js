@@ -200,5 +200,5 @@ export const getMinutesDifferenceFromNow = dateString => {
   const diffInMs = targetDate.getTime() - now.getTime()
   const diffInMinutes = diffInMs / 1000 / 60
 
-  return diffInMinutes > 0 ? diffInMinutes : 0
+  return diffInMinutes > 0 ? Math.floor(diffInMinutes) : 0
 }

@@ -2200,7 +2200,8 @@ export enum TranslationKey {
   'Attention, it is necessary to add a photo of the product with glued transparency to the box' = 'Attention, it is necessary to add a photo of the product with glued transparency to the box',
   'Not updating due to an error' = 'Not updating due to an error',
   'Failed to download archive. Please try again.' = 'Failed to download archive. Please try again.',
-  'Send for revision' = 'Send for revision',
   'Add link' = 'Add link',
+  'File name' = 'File name',
+  'Upload' = 'Upload',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

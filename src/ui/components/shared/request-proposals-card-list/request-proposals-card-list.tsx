@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
 import InboxIcon from '@mui/icons-material/Inbox'
@@ -10,16 +9,21 @@ import { OwnerRequestProposalsCard } from '@components/cards/owner-request-propo
 
 import { t } from '@utils/translations'
 
+import { ICustomProposal } from '@typings/models/proposals/custom-proposal'
+import { IRequest } from '@typings/models/requests/request'
+import { IFullUser } from '@typings/shared/full-user'
+
 import { useStyles } from './request-proposals-card-list.style'
 
 interface RequestProposalsCardListProps {
-  requestProposals: any
-  request: any
-  userInfo: any
-  onClickContactWithExecutor?: any
-  onClickOrderProposal?: any
-  onClickRejectProposal: any
-  onClickReview: any
+  requestProposals: ICustomProposal[]
+  request: IRequest
+  userInfo: IFullUser
+  onClickRejectProposal: () => void
+  onClickReview: () => void
+  onSendInForRework: () => void
+  onClickContactWithExecutor?: () => void
+  onClickOrderProposal?: () => void
 }
 
 export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(props => {
@@ -33,6 +37,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
     onClickOrderProposal,
     onClickRejectProposal,
     onClickReview,
+    onSendInForRework,
   } = props
 
   return (
@@ -40,7 +45,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
       {requestProposals?.length ? (
         <div className={styles.proposalsWrapper}>
           <p className={styles.proposalsTitle}>{t(TranslationKey['Proposals for the request'])}</p>
-          {requestProposals.map((item: any) => (
+          {requestProposals.map((item: ICustomProposal) => (
             <div key={item?.proposal?._id} className={styles.proposalAndChatWrapper}>
               <Paper>
                 <OwnerRequestProposalsCard
@@ -51,6 +56,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
                   onClickOrderProposal={onClickOrderProposal}
                   onClickRejectProposal={onClickRejectProposal}
                   onClickReview={onClickReview}
+                  onSendInForRework={onSendInForRework}
                 />
               </Paper>
             </div>

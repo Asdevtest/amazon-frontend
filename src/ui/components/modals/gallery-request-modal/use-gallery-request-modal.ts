@@ -52,14 +52,6 @@ export const useGalleryRequestModal = (
 
   const handleResetAllFilesToAdd = () => setAllFilesToAdd([])
   const handleToggleFile = (mediaFile: string) => {
-    /* 
-    // correct data type - string[] (solution for creating a request)
-    if (allFilesToAdd?.includes(mediaFile)) {
-      setAllFilesToAdd(allFilesToAdd?.filter(file => file !== mediaFile))
-    } else {
-      setAllFilesToAdd([...allFilesToAdd, mediaFile])
-    }
-    */
     const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.file === mediaFile)
 
     if (findMediaFile) {
@@ -67,7 +59,7 @@ export const useGalleryRequestModal = (
     } else {
       setAllFilesToAdd(prevFiles => [
         ...prevFiles,
-        { file: mediaFile, comment: '', commentByPerformer: '', _id: String(Date.now()) },
+        { file: mediaFile, comment: '', commentByClient: '', _id: String(Date.now()) },
       ])
     }
   }

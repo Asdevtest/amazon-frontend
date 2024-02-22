@@ -24,7 +24,7 @@ export class RequestDetailCustomViewModel {
 
   showWarningModal = false
   showConfirmModal = false
-  showRequestResultModal = false
+  showMainRequestResultModal = false
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
 
@@ -146,7 +146,7 @@ export class RequestDetailCustomViewModel {
     if (+this.request.request.spec?.type === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
     } else {
-      this.onTriggerOpenModal('showRequestResultModal')
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 
@@ -246,7 +246,7 @@ export class RequestDetailCustomViewModel {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
     } else {
-      this.onTriggerOpenModal('showRequestResultModal')
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 
@@ -389,5 +389,19 @@ export class RequestDetailCustomViewModel {
 
   resetChats() {
     ChatModel.resetChats()
+  }
+
+  async onSendResultAfterRework(id, fields) {
+    try {
+      if (fields?.media?.length) {
+        await onSubmitPostImages.call(this, { images: fields?.media, type: 'uploadedFiles' })
+      }
+
+      await RequestProposalModel.requestProposalResultEdit(id, fields)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

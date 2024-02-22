@@ -18,10 +18,11 @@ interface CommentsModalProps {
   onChangeField: (text: string) => void
   readOnly?: boolean
   title?: string
+  maxLength?: number
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
-  const { readOnly, title, text, isOpenModal, onOpenModal, onChangeField } = props
+  const { readOnly, title, text, isOpenModal, maxLength, onOpenModal, onChangeField } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -45,13 +46,13 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
       <div className={styles.wrapper}>
         <Field
           multiline
+          minRows={8}
+          maxRows={8}
           disabled={readOnly}
           error={isNotValidCommentLength}
           containerClasses={styles.editorContainer}
           inputClasses={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
-          inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
-          minRows={8}
-          maxRows={8}
+          inputProps={{ maxLength: maxLength || MAX_DEFAULT_COMMENT_LEGTH }}
           labelClasses={styles.title}
           label={title}
           value={comment}

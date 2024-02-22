@@ -44,9 +44,6 @@ export const DocumentsTab: FC<DocumentsTabProps> = memo(({ files, isTransitionin
                 <button className={styles.buttonIcon} onClick={() => onDownloadFile(file)}>
                   <DownloadRoundIcon className={cx(styles.icon, styles.downloadIcon)} />
                 </button>
-                {/* <button className={styles.buttonIcon}>
-                  <BasketIcon className={styles.icon} />
-                </button> */}
               </div>
             </div>
           )

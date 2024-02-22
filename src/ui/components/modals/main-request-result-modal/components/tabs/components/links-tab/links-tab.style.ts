@@ -17,6 +17,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: 25,
   },
 
+  clientLinks: {
+    height: 330,
+  },
+
   linkContainer: {
     display: 'flex',
     alignItems: 'center',

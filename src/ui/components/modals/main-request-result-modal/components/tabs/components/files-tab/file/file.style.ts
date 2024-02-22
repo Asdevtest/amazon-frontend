@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   fileContainer: {
+    width: 109,
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
@@ -22,6 +23,17 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       background: theme.palette.background.general,
+    },
+  },
+
+  button: {
+    width: 20,
+    height: 20,
+    transition: '.3s ease',
+    opacity: 1,
+
+    '&:hover': {
+      opacity: 0.8,
     },
   },
 
@@ -73,5 +85,31 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     color: theme.palette.primary.main,
+  },
+
+  inputRoot: {
+    height: 'max-content',
+    flexShrink: 1,
+  },
+
+  input: {
+    padding: 5,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    '&::placeholder': {
+      fontSize: 11,
+      lineHeight: '15px',
+    },
+  },
+
+  pasteInput: {
+    height: 109,
+    width: 109,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    borderRadius: 6,
   },
 }))

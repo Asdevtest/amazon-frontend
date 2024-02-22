@@ -17,6 +17,6 @@ export interface IData {
 export interface IMediaFileWithCommentFromRequest {
   file: UploadFileType
   comment: string
-  commentByPerformer: string
+  commentByClient: string
   _id: string
 }
