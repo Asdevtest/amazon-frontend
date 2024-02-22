@@ -194,7 +194,9 @@ export const AddOrEditSinglePermissionForm = observer(
                   </div>
                 ))}
 
-                <Button onClick={() => addAllowUrl()}>{'+'}</Button>
+                <Button className={styles.addButton} onClick={addAllowUrl}>
+                  {'+'}
+                </Button>
               </div>
             }
           />

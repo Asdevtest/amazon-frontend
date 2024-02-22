@@ -21,6 +21,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   defaultButtonTooltip?: string
   startIcon?: ReactElement
 
+  isTableButton?: boolean
   styleType?: ButtonType
   variant?: ButtonVariant
   className?: string
@@ -40,6 +41,7 @@ export const Button: FC<ButtonProps> = memo(props => {
     styleType = ButtonType.PRIMARY,
     variant = ButtonVariant.CONTAINED,
     className,
+    isTableButton = false,
     fullWidth = false,
     ...restProps
   } = props
@@ -49,7 +51,7 @@ export const Button: FC<ButtonProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const isOutlined = variant === ButtonVariant.OUTLINED
-  const isNeedTooltip = hints && (tooltipAttentionContent || tooltipInfoContent)
+  const isNeedTooltip = hints && !!(tooltipAttentionContent || tooltipInfoContent)
   const tooltipPositionStyle =
     isNeedTooltip && tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
 
@@ -70,6 +72,7 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.outlinedPrimary]: styleType === ButtonType.PRIMARY && isOutlined,
           [styles.outlinedSuccess]: styleType === ButtonType.SUCCESS && isOutlined,
           [styles.outlinedDanger]: styleType === ButtonType.DANGER && isOutlined,
+          [styles.tableButton]: isTableButton,
         },
         className,
       )}
@@ -81,9 +84,11 @@ export const Button: FC<ButtonProps> = memo(props => {
           <Tooltip arrow title={tooltipAttentionContent || tooltipInfoContent}>
             <div>
               {tooltipAttentionContent ? (
-                <TooltipAttention className={cx(styles.tooltip)} />
+                <TooltipAttention className={cx(styles.tooltip, { [styles.tableTooltip]: isTableButton })} />
               ) : (
-                <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
+                <TooltipInfoIcon
+                  className={cx(styles.tooltip, styles.tooltipInfo, { [styles.tableTooltip]: isTableButton })}
+                />
               )}
             </div>
           </Tooltip>

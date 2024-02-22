@@ -18,6 +18,8 @@ interface AddAsinIdeaActionsCellProps {
 
 export const AddAsinIdeaActionsCell: FC<AddAsinIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
   <Button
+    isTableButton
+    fullWidth
     styleType={ButtonType.SUCCESS}
     disabled={
       row.originalData.variation

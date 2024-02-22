@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperBtn: {
-    height: 'auto',
     width: 160,
     marginTop: 10,
     whiteSpace: 'normal',

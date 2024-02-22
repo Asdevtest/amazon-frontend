@@ -171,7 +171,7 @@ export const clientClosedIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-    width: 280,
+    width: 150,
     filterable: false,
     sortable: false,
   },

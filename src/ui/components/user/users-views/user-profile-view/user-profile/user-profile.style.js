@@ -105,8 +105,7 @@ export const useStyles = makeStyles()(theme => ({
 
   changeBtn: {
     marginTop: '5px',
-    height: '20px',
-    color: '#fff',
+
     [theme.breakpoints.down(768)]: {
       width: '260px',
       height: 40,

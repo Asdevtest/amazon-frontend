@@ -4,12 +4,13 @@ import { flushSync } from 'react-dom'
 import { useReactToPrint } from 'react-to-print'
 
 import PrintIcon from '@mui/icons-material/Print'
-import { Box, Button, IconButton } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 
 import { imageTypes } from '@constants/configs/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { Button } from '@components/shared/buttons/button'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -65,13 +66,14 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
             {el?.fileUrl && (
               <Box display="flex" gap="8px" alignItems="center">
                 <Button
+                  isTableButton
                   className={styles.dapBtn}
                   onClick={e => {
                     e.stopPropagation()
                     handleImagePreview(el)
                   }}
                 >
-                  <span>{el?.fileName}</span>
+                  <p>{el?.fileName}</p>
                 </Button>
 
                 <IconButton

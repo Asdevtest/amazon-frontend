@@ -322,4 +322,8 @@ export const useStyles = makeStyles()(theme => ({
   editorWrapper: {
     marginTop: 10,
   },
+
+  customItemsWrapper: {
+    padding: '0 10px',
+  },
 }))

@@ -9,10 +9,10 @@ export const useStyles = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '7px',
     height: '30px',
     width: '100%',
     cursor: 'pointer',
+    borderRadius: '100px',
   },
 
   barcodeChipOutTable: {

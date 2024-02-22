@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    width: 320,
+    width: 400,
     gap: 5,
   },
 

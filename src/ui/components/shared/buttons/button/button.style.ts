@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
     fontSize: 14,
     fontWeight: 600,
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-line',
 
     display: 'flex',
     alignItems: 'center',
@@ -22,10 +22,13 @@ export const useStyles = makeStyles()(theme => ({
     '&:disabled': {
       cursor: 'default',
     },
+
+    margin: '0 3px 3px 0',
   },
 
   transparent: {
-    padding: 0,
+    padding: '0 5px',
+    margin: '0',
     color: theme.palette.text.general,
     background: 'transparent',
     '&:hover': {
@@ -171,6 +174,11 @@ export const useStyles = makeStyles()(theme => ({
     height: '18px !important',
   },
 
+  tableTooltip: {
+    width: '14px !important',
+    height: '14px !important',
+  },
+
   tooltipInfo: {
     color: theme.palette.primary.main,
   },
@@ -193,5 +201,9 @@ export const useStyles = makeStyles()(theme => ({
       boxShadow: theme.palette.boxShadow.casualBoxShadow,
       border: `1px solid ${theme.palette.button.casualDisabledBorder}`,
     },
+  },
+
+  tableButton: {
+    height: '30px',
   },
 }))

@@ -47,9 +47,7 @@ export const useStyles = makeStyles()(theme => ({
 
   chip: {
     marginBottom: 5,
-    color: theme.palette.text.general,
     fontSize: '16px',
-    // backgroundColor: '#F4F4F4',
     transition: '.15s ease-in-out',
     '&:hover': {
       color: theme.palette.primary.main,

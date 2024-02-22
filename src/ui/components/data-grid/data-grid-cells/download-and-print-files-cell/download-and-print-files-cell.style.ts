@@ -7,20 +7,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dapBtn: {
-    padding: '0px 44px',
-    height: 30,
-    fontSize: '14px',
-    maxWidth: '200px !important',
-    minWidth: '200px !important',
-    lineHeight: 1,
-    borderRadius: 7,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    width: '200px',
 
-    span: {
-      maxWidth: '92px',
+    p: {
+      width: '150px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
-      color: '#FFFFFF',
     },
   },
 

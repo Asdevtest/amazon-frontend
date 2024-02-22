@@ -63,7 +63,6 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonParseAmazon: {
     whiteSpace: 'nowrap',
-    width: '100%',
   },
   productFieldBox: {
     display: 'flex',
@@ -248,7 +247,7 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(1440)]: {
       width: '100%',
       marginBottom: '20px',
-      marginRight: '10px'
+      marginRight: '10px',
     },
   },
 

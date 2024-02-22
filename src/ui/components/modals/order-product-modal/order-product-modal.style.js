@@ -262,8 +262,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: 50,
-    marginTop: 30,
-    marginRight: 15,
+    margin: '30px 15px 5px 0',
   },
   buyNowBtn: {
     color: '#fff',
