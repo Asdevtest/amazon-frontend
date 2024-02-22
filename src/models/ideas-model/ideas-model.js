@@ -93,8 +93,8 @@ class IdeaModelStatic {
     return response.data
   }
 
-  setStatusToReject = async guid => {
-    const response = await restApiService.ideaApi.apiV1IdeasRejectedGuidPatch({ guid })
+  setStatusToReject = async (guid, body) => {
+    const response = await restApiService.ideaApi.apiV1IdeasRejectedGuidPatch({ guid, body })
     return response.data
   }
 

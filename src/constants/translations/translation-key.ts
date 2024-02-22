@@ -2200,5 +2200,7 @@ export enum TranslationKey {
   'Attention, it is necessary to add a photo of the product with glued transparency to the box' = 'Attention, it is necessary to add a photo of the product with glued transparency to the box',
   'Not updating due to an error' = 'Not updating due to an error',
   'Returns' = 'Returns',
+  'Reason for cancellation' = 'Reason for cancellation',
+  'Reason for rejection' = 'Reason for rejection',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
