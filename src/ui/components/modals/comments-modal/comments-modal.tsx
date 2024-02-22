@@ -16,9 +16,9 @@ interface CommentsModalProps {
   title: string
   text: string
   isOpenModal: boolean
-  maxCommentLength?: number
   onOpenModal: () => void
   onChangeField: (text: string) => void
+  maxCommentLength?: number
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
