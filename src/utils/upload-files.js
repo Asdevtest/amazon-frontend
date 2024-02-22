@@ -23,6 +23,10 @@ export const dataURLtoFile = (dataurl, filename) => {
 }
 
 export const onPostImage = async imageData => {
+  if (!imageData) {
+    return ''
+  }
+
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {

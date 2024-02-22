@@ -10,19 +10,15 @@ export const useStyles = makeStyles()(theme => ({
   files: {
     position: 'relative',
     padding: 5,
-    height: 302,
+    height: 175,
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '10px 20px',
+    gap: 20,
     overflow: 'auto',
   },
 
-  clientFiles: {
-    height: 290,
-    gap: 20,
-  },
-
   button: {
+    padding: '6px 0',
     width: 'max-content',
     display: 'flex',
     alignItems: 'center',

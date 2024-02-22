@@ -82,7 +82,24 @@ export const File: FC<FileProps> = memo(props => {
         <button className={styles.file}>
           <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
           <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
-          <input type="file" defaultValue="" className={styles.pasteInput} onChange={e => onUploadFile(fileIndex, e)} />
+          <input
+            type="file"
+            defaultValue=""
+            className={styles.pasteInput}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
+          />
+        </button>
+      )}
+
+      {isClient ? (
+        <p title={file.commentByPerformer} className={styles.fileName}>
+          {file.commentByPerformer}
+        </p>
+      ) : (
+        <button className={styles.commenButton} onClick={() => onToggleCommentModal(file)}>
+          <EyeIcon className={styles.icon} />
+
+          <span className={styles.commentText}>{t(TranslationKey.Comment)}</span>
         </button>
       )}
 

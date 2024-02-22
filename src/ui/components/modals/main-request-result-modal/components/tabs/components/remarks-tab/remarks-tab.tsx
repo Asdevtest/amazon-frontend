@@ -1,41 +1,44 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SetFieldsToRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
+import { IFields, SetFields } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration'
 import { TooltipAttention } from '@components/shared/svg-icons'
 
-import { getMinutesDifferenceFromNow } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { useStyles } from './remarks-tab.style'
 
 interface RemarksTabProps {
   isClient: boolean
-  remark: string
-  timeoutAt: number
-  setFieldsToRework: SetFieldsToRework
+  fields: IFields
+  setFields: SetFields
 }
 
 export const RemarksTab: FC<RemarksTabProps> = memo(props => {
-  const { isClient, remark, timeoutAt, setFieldsToRework } = props
+  const { isClient, fields, setFields } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const [timeLimitInMinutes, setTimeLimitInMinutes] = useState(getMinutesDifferenceFromNow(timeoutAt) || 0)
-  const [reason, setReason] = useState(remark || '')
-
-  useEffect(() => {
+  const handleChangeReason = (reasonValue: string) => {
     if (isClient) {
-      setFieldsToRework(prevFieldsToRework => ({
-        ...prevFieldsToRework,
-        reason,
-        timeLimitInMinutes: Math.floor(timeLimitInMinutes),
+      setFields(prevFields => ({
+        ...prevFields,
+        reason: reasonValue,
       }))
     }
-  }, [reason, timeLimitInMinutes])
+  }
+
+  const handleChangeTime = (timeValue: number) => {
+    if (isClient) {
+      setFields(prevFields => ({
+        ...prevFields,
+        timeLimitInMinutes: Math.floor(timeValue),
+      }))
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -48,7 +51,7 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
         {isClient ? (
           <div className={styles.flexContainer}>
             <p className={cx(styles.text, styles.reworkText)}>{t(TranslationKey['Time for rework'])}</p>
-            <SetDuration duration={timeLimitInMinutes} setTotalTimeInMinute={setTimeLimitInMinutes} />
+            <SetDuration duration={fields?.timeLimitInMinutes || 0} setTotalTimeInMinute={handleChangeTime} />
           </div>
         ) : null}
       </div>
@@ -56,15 +59,15 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
       <Field
         multiline
         readOnly={!isClient}
-        minRows={12}
-        maxRows={12}
-        value={reason}
+        minRows={7}
+        maxRows={7}
+        value={fields?.reason}
         inputProps={{ maxLength: 2048 }}
         placeholder={`${t(TranslationKey.Remarks)}...`}
         inputClasses={styles.field}
         classes={{ input: styles.input }}
         containerClasses={styles.fieldContainer}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setReason(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeReason(e.target.value)}
       />
     </div>
   )

@@ -2,10 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    padding: 15,
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    gap: 16,
+    gap: 6,
     borderRadius: 12,
     boxShadow: theme.palette.boxShadow.paper,
   },

@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
@@ -16,82 +17,80 @@ import { IFullUser } from '@typings/shared/full-user'
 import { useStyles } from './main-request-result-modal.style'
 
 import { Footer, Header, Tabs } from './components'
-import { IFieldsAfterRework, IFieldsToRework } from './main-request-result-modal.type'
+import { getFieldsToRework } from './helper/get-fields-to-rework'
+import { getFieldsAfterRework } from './helper/get-fileds-after-rework'
+import { IFields } from './main-request-result-modal.type'
 
 interface MainRequestResultModalProps {
   customProposal: ICustomProposal
   userInfo: IFullUser
   openModal: boolean
   onOpenModal: () => void
-  onEditCustomProposal: (id: string, fields: IFieldsToRework | IFieldsAfterRework) => void
-  readonly?: boolean
+  onEditCustomProposal: (id: string, fields: IFields, status?: string) => void
+  onReceiveCustomProposal: () => void
+  showActionButtons?: boolean
 }
 
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
-  const { customProposal, userInfo, openModal, onOpenModal, onEditCustomProposal } = props
+  const {
+    customProposal,
+    userInfo,
+    openModal,
+    onOpenModal,
+    onEditCustomProposal,
+    onReceiveCustomProposal,
+    showActionButtons,
+  } = props
 
   const { classes: styles } = useStyles()
 
   const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
 
-  const getInittialFieldsToRework = (): IFieldsToRework => ({
+  const getInittialFields = (): IFields => ({
     reason: '',
     timeLimitInMinutes: 0,
-    media: [],
-  })
-
-  const getInittialFieldsAfterRework = (): IFieldsAfterRework => ({
     result: '',
     publicationLinks: [],
     media: [],
   })
 
-  const [fieldsToRework, setFieldsToRework] = useState<IFieldsToRework>(getInittialFieldsToRework())
-  const [fieldsAfterRework, setFieldsAfterRework] = useState<IFieldsAfterRework>(getInittialFieldsAfterRework())
-  const [resultText, setResultText] = useState(customProposal?.details?.result || '')
-
-  const handleEditCustomProposal = () => {
-    onEditCustomProposal(customProposal?.proposal?._id, isClient ? fieldsToRework : fieldsAfterRework)
-    onOpenModal()
-  }
+  const [fields, setFields] = useState<IFields>(getInittialFields())
 
   useEffect(() => {
     if (customProposal) {
-      if (isClient) {
-        setFieldsToRework(prevFieldsToRework => ({
-          ...prevFieldsToRework,
-          reason: customProposal?.details?.reasonToCorrect,
-          timeLimitInMinutes: getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt),
-          media: customProposal?.proposal?.media?.map((file, index) => ({
+      setFields(prevFields => ({
+        ...prevFields,
+        reason: customProposal?.details?.reasonToCorrect || '',
+        timeLimitInMinutes: getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt) || 0,
+        result: customProposal?.details?.result || '',
+        publicationLinks: customProposal?.details?.publicationLinks || [],
+        media:
+          customProposal?.proposal?.media?.map((file, index) => ({
             _id: file._id,
             fileLink: file.fileLink,
             commentByClient: file.commentByClient,
-            index,
-          })),
-        }))
-      } else {
-        setFieldsAfterRework(prevFieldsAfterRework => ({
-          ...prevFieldsAfterRework,
-          result: customProposal?.details?.result,
-          publicationLinks: customProposal?.details?.publicationLinks,
-          media: customProposal?.proposal?.media?.map((file, index) => ({
-            _id: file._id,
-            fileLink: file.fileLink,
             commentByPerformer: file.commentByPerformer,
             index,
-          })),
-        }))
-      }
+          })) || [],
+      }))
     }
   }, [customProposal])
 
-  useEffect(() => {
+  const handleResultValue = (result: string) => {
     if (!isClient) {
-      setFieldsAfterRework(prevFieldsAfterRework => ({ ...prevFieldsAfterRework, result: resultText }))
+      setFields(prevFields => ({
+        ...prevFields,
+        result,
+      }))
     }
-  }, [resultText])
+  }
 
-  console.log('fieldsAfterRework', fieldsAfterRework)
+  const handleEditCustomProposal = () => {
+    const sentFields = isClient ? getFieldsToRework(fields) : getFieldsAfterRework(fields)
+
+    onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    onOpenModal()
+  }
 
   return (
     <Modal openModal={openModal} setOpenModal={onOpenModal}>
@@ -108,24 +107,24 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           readOnly={isClient}
           minRows={9}
           maxRows={9}
-          value={resultText}
+          value={fields.result}
           placeholder={`${t(TranslationKey['Request result'])}...`}
           inputClasses={styles.field}
+          inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
           classes={{ input: styles.input }}
           containerClasses={styles.fieldContainer}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setResultText(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleResultValue(e.target.value)}
         />
 
-        <Tabs
+        <Tabs isClient={isClient} fields={fields} setFields={setFields} />
+
+        <Footer
+          showActionButtons={showActionButtons}
           isClient={isClient}
-          media={customProposal?.proposal?.media}
-          fieldsToRework={fieldsToRework}
-          fieldsAfterRework={fieldsAfterRework}
-          setFieldsToRework={setFieldsToRework}
-          setFieldsAfterRework={setFieldsAfterRework}
+          onEditCustomProposal={handleEditCustomProposal}
+          onOpenModal={onOpenModal}
+          onReceiveCustomProposal={onReceiveCustomProposal}
         />
-
-        <Footer isClient={isClient} onEditCustomProposal={handleEditCustomProposal} onOpenModal={onOpenModal} />
       </div>
     </Modal>
   )

@@ -13,6 +13,8 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { isString } from '@typings/guards'
+
 export class RequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
@@ -252,9 +254,6 @@ export class RequestDetailCustomViewModel {
 
   async onClickSendAsResult({ message, files, amazonOrderId, publicationLinks, sourceLink }) {
     try {
-      runInAction(() => {
-        this.showProgress = true
-      })
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
@@ -323,15 +322,8 @@ export class RequestDetailCustomViewModel {
       })
 
       this.getRequestProposals()
-
-      runInAction(() => {
-        this.showProgress = false
-      })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.showProgress = false
-      })
     }
   }
 
@@ -393,13 +385,62 @@ export class RequestDetailCustomViewModel {
 
   async onSendResultAfterRework(id, fields) {
     try {
-      if (fields?.media?.length) {
-        await onSubmitPostImages.call(this, { images: fields?.media, type: 'uploadedFiles' })
+      const findRequestProposalByChatSelectedId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+
+      if (!findRequestProposalByChatSelectedId) {
+        return
       }
 
-      await RequestProposalModel.requestProposalResultEdit(id, fields)
+      if (fields?.media?.length) {
+        await onSubmitPostImages.call(this, {
+          images: isString(fields?.media[0]) ? fields?.media : fields?.media?.map(el => el.fileLink),
+          type: 'loadedFiles',
+        })
+      }
 
-      this.loadData()
+      if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
+        await RequestProposalModel.requestProposalResultCorrected(id, {
+          reason: fields?.result,
+          linksToMediaFiles: this.loadedFiles,
+        })
+      } else if (
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.CREATED ||
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+      ) {
+        await RequestProposalModel.requestProposalCorrected(id, {
+          reason: fields?.result,
+          linksToMediaFiles: this.loadedFiles,
+        })
+      } else {
+        if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+          await RequestProposalModel.requestProposalReadyToVerify(id)
+        }
+      }
+
+      const filesIds = fields?.media?.map(el => el._id)
+
+      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+
+      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+
+      if (mediaToRemoveIds.length) {
+        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+      }
+
+      const sentFields = {
+        ...fields,
+        media: fields?.media?.map((file, index) => ({
+          ...file,
+          fileLink: this.loadedFiles[index],
+        })),
+      }
+
+      await RequestProposalModel.requestProposalResultEdit(id, sentFields)
+
+      this.getRequestProposals()
     } catch (error) {
       console.error(error)
     }

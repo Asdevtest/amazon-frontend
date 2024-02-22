@@ -5,13 +5,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { useStyles } from './tabs.style'
 
-import {
-  IFieldsAfterRework,
-  IFieldsToRework,
-  IMediaRework,
-  SetFieldsAfterRework,
-  SetFieldsToRework,
-} from '../../main-request-result-modal.type'
+import { IFields, SetFields } from '../../main-request-result-modal.type'
 
 import { FilesTab, LinksTab, RemarksTab } from './components'
 import { customSwitcherSettings } from './tabs.config'
@@ -19,21 +13,16 @@ import { MainRequestResultModalSwitcherConditions } from './tabs.type'
 
 interface TabsProps {
   isClient: boolean
-  media: IMediaRework[]
-  fieldsToRework: IFieldsToRework
-  fieldsAfterRework: IFieldsAfterRework
-  setFieldsToRework: SetFieldsToRework
-  setFieldsAfterRework: SetFieldsAfterRework
+  fields: IFields
+  setFields: SetFields
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
-  const { isClient, media, fieldsToRework, fieldsAfterRework, setFieldsToRework, setFieldsAfterRework } = props
+  const { isClient, fields, setFields } = props
 
   const { classes: styles } = useStyles()
 
   const [switcherCondition, setSwitcherCondition] = useState(MainRequestResultModalSwitcherConditions.FILES)
-
-  const displayedFiles = isClient ? fieldsToRework.media : fieldsAfterRework.media
 
   return (
     <div className={styles.tabs}>
@@ -46,30 +35,15 @@ export const Tabs: FC<TabsProps> = memo(props => {
       />
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.FILES}>
-        <FilesTab
-          isClient={isClient}
-          media={media}
-          displayedFiles={displayedFiles}
-          setFieldsToRework={setFieldsToRework}
-          setFieldsAfterRework={setFieldsAfterRework}
-        />
+        <FilesTab isClient={isClient} files={fields?.media} setFields={setFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.LINKS}>
-        <LinksTab
-          isClient={isClient}
-          links={fieldsAfterRework.publicationLinks}
-          setFieldsAfterRework={setFieldsAfterRework}
-        />
+        <LinksTab isClient={isClient} fields={fields} setFields={setFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.REMARKS}>
-        <RemarksTab
-          isClient={isClient}
-          remark={fieldsToRework.reason}
-          timeoutAt={fieldsToRework.timeLimitInMinutes}
-          setFieldsToRework={setFieldsToRework}
-        />
+        <RemarksTab isClient={isClient} fields={fields} setFields={setFields} />
       </TabPanel>
     </div>
   )

@@ -1,7 +1,7 @@
-import { nanoid } from 'nanoid'
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -221,7 +221,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ image: '', comment: '', commentByClient: '', _id: nanoid() }]
+    : [{ image: '', comment: '', commentByClient: '', _id: uuid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -241,7 +241,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { image: '', comment: '', commentByClient: '', _id: nanoid() }])
+    setImagesData(() => [...imagesData, { image: '', comment: '', commentByClient: '', _id: uuid() }])
   }
 
   const onClickRemoveItem = slot => {
@@ -267,7 +267,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+      .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: uuid() }))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -295,7 +295,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+        .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: uuid() }))
 
       setImagesData([
         ...imagesData.map(el =>

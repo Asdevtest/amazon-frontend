@@ -41,11 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 109,
     width: 109,
     overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    gap: 5,
     borderRadius: 6,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     cursor: 'pointer',
@@ -64,6 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commenButton: {
+    padding: '2px 0',
     width: 109,
     display: 'flex',
     alignItems: 'center',
@@ -88,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputRoot: {
-    height: 'max-content',
+    height: 30,
     flexShrink: 1,
   },
 
@@ -111,5 +107,15 @@ export const useStyles = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     borderRadius: 6,
+  },
+
+  fileName: {
+    width: 109,
+    fontSize: 14,
+    lineHeight: '19px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    cursor: 'default',
   },
 }))

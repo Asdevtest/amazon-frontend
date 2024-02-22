@@ -1,5 +1,4 @@
-import { nanoid } from 'nanoid'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,8 +11,9 @@ import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload
 
 import { isString } from '@typings/guards'
 
-export const useFilesTab = (media: IMediaRework[], isClient?: boolean) => {
-  const [files, setFiles] = useState<IMediaRework[]>([])
+import { FilesTabProps } from './files-tab.type'
+
+export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [showSlideshowGalleryModal, setSlideshowGalleryModal] = useState(false)
   const [currentEditableFile, setCurrentEditableFile] = useState<IMediaRework | undefined>(undefined)
@@ -21,28 +21,34 @@ export const useFilesTab = (media: IMediaRework[], isClient?: boolean) => {
   const [filesForDownload, setFilesForDownload] = useState<IMediaRework[]>([])
   const [archiveButtonInactiveBeforeDownloading, setArchiveButtonInactiveBeforeDownloading] = useState(false)
 
-  useEffect(() => {
-    if (media?.length > 0) {
-      setFiles(media)
-    }
-  }, [media])
-
   const handleShowCommentModal = () => setShowCommentModal(!showCommentModal)
   const handleShowSlideshowGalleryModal = () => setSlideshowGalleryModal(!showSlideshowGalleryModal)
 
   const handleAddFile = useCallback(() => {
     if (!isClient) {
-      setFiles(prevFiles => [
-        ...prevFiles,
-        { _id: nanoid(), fileLink: '', commentByClient: '', commentByPerformer: '' },
-      ])
+      setFields(prevFields => ({
+        ...prevFields,
+        media: [
+          ...prevFields.media,
+          {
+            _id: null,
+            fileLink: '',
+            commentByClient: '',
+            commentByPerformer: '',
+            index: prevFields.media.length + 1,
+          },
+        ],
+      }))
     }
   }, [files])
 
   const handleDeleteFile = useCallback(
     (fileIndex: number) => {
       if (!isClient) {
-        setFiles(prevFiles => prevFiles.filter((_, index) => index !== fileIndex))
+        setFields(prevFields => ({
+          ...prevFields,
+          media: prevFields.media.filter((_, index) => index !== fileIndex),
+        }))
       }
     },
     [files],
@@ -51,9 +57,12 @@ export const useFilesTab = (media: IMediaRework[], isClient?: boolean) => {
   const handleChangeFileName = useCallback(
     (fileIndex: number, comment: string) => {
       if (!isClient) {
-        setFiles(prevFiles =>
-          prevFiles.map((file, index) => (index === fileIndex ? { ...file, commentByPerformer: comment } : file)),
-        )
+        setFields(prevFields => ({
+          ...prevFields,
+          media: prevFields.media.map((file, index) =>
+            index === fileIndex ? { ...file, commentByPerformer: comment } : file,
+          ),
+        }))
       }
     },
     [files],
@@ -75,9 +84,14 @@ export const useFilesTab = (media: IMediaRework[], isClient?: boolean) => {
       }),
     }))
 
-    setFiles(prevFiles =>
-      prevFiles.map((file, index) => (index === fileIndex ? { ...file, fileLink: readyFilesArr[0] } : file)),
-    )
+    if (!isClient) {
+      setFields(prevFields => ({
+        ...prevFields,
+        media: prevFields.media.map((file, index) =>
+          index === fileIndex ? { ...file, fileLink: readyFilesArr[0] } : file,
+        ),
+      }))
+    }
   }
 
   const handleDownloadArchive = async () => {
@@ -108,17 +122,19 @@ export const useFilesTab = (media: IMediaRework[], isClient?: boolean) => {
   }, [filesForDownload])
 
   const handleToggleCommentModal = useCallback((file: IMediaRework) => {
-    if (isClient) {
-      setCurrentEditableFile(file)
-      setShowCommentModal(!showCommentModal)
-    }
+    setCurrentEditableFile(file)
+    setShowCommentModal(!showCommentModal)
   }, [])
 
   const handleChangeComment = (comment: string) => {
     if (isClient) {
-      setFiles(prevFiles =>
-        prevFiles.map(file => (file._id === currentEditableFile?._id ? { ...file, commentByClient: comment } : file)),
-      )
+      setFields(prevFields => ({
+        ...prevFields,
+        media: prevFields.media.map(file =>
+          file._id === currentEditableFile?._id ? { ...file, commentByClient: comment } : file,
+        ),
+      }))
+
       setCurrentEditableFile(undefined)
     }
   }

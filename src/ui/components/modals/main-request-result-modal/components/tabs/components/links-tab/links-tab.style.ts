@@ -8,17 +8,17 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   links: {
-    height: 250,
+    height: 173,
     overflow: 'auto',
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'repeat(auto-fill), 1fr)',
     alignContent: 'start',
-    gap: 25,
+    gap: 13,
   },
 
   clientLinks: {
-    height: 330,
+    height: 215,
   },
 
   linkContainer: {
@@ -28,19 +28,25 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   addLinkContainer: {
-    width: 255,
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
     gap: 5,
   },
 
-  input: {
-    height: 'max-content',
+  inputRoot: {
+    width: 260,
+    height: 32,
     flexShrink: 1,
   },
 
+  input: {
+    padding: 5,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
   button: {
-    padding: 2,
+    minWidth: 'max-content',
     display: 'flex',
     alignItems: 'center',
     gap: 5,

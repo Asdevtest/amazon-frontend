@@ -37,6 +37,7 @@ export const OwnerRequestProposalsCard = ({
   onClickOrderProposal,
   onClickRejectProposal,
   onSendInForRework,
+  onReceiveCustomProposal,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -67,6 +68,8 @@ export const OwnerRequestProposalsCard = ({
     RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
     RequestProposalStatus.PROPOSAL_EDITED,
   ]
+
+  const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 
   return (
     <div className={styles.cardMainWrapper}>
@@ -213,11 +216,13 @@ export const OwnerRequestProposalsCard = ({
 
       {showMainRequestResultModal ? (
         <MainRequestResultModal
+          showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
           customProposal={item}
           userInfo={userInfo}
           openModal={showMainRequestResultModal}
           onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
           onEditCustomProposal={onSendInForRework}
+          onReceiveCustomProposal={onReceiveCustomProposal}
         />
       ) : null}
 

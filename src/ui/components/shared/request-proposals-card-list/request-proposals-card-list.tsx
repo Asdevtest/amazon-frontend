@@ -24,6 +24,7 @@ interface RequestProposalsCardListProps {
   onSendInForRework: () => void
   onClickContactWithExecutor?: () => void
   onClickOrderProposal?: () => void
+  onReceiveCustomProposal?: () => void
 }
 
 export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(props => {
@@ -38,6 +39,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
     onClickRejectProposal,
     onClickReview,
     onSendInForRework,
+    onReceiveCustomProposal,
   } = props
 
   return (
@@ -57,6 +59,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
                   onClickRejectProposal={onClickRejectProposal}
                   onClickReview={onClickReview}
                   onSendInForRework={onSendInForRework}
+                  onReceiveCustomProposal={onReceiveCustomProposal}
                 />
               </Paper>
             </div>

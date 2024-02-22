@@ -3,25 +3,19 @@ import { Dispatch, SetStateAction } from 'react'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface IMediaRework {
-  _id: string
+  _id: string | null
   fileLink: UploadFileType
   commentByPerformer?: string
   commentByClient?: string
   index?: number
 }
 
-export interface IFieldsToRework {
-  reason: string
-  timeLimitInMinutes: number
+export interface IFields {
+  reason?: string
+  timeLimitInMinutes?: number
+  result?: string
+  publicationLinks?: string[]
   media: IMediaRework[]
 }
 
-export type SetFieldsToRework = Dispatch<SetStateAction<IFieldsToRework>>
-
-export interface IFieldsAfterRework {
-  result: string
-  publicationLinks: string[]
-  media: IMediaRework[]
-}
-
-export type SetFieldsAfterRework = Dispatch<SetStateAction<IFieldsAfterRework>>
+export type SetFields = Dispatch<SetStateAction<IFields>>

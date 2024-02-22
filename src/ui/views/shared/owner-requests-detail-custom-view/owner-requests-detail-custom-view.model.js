@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-import { onSubmitPostImages } from '@utils/upload-files'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -613,10 +612,6 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onSendInForRework(id, fields) {
     try {
-      if (fields?.media?.length) {
-        await onSubmitPostImages.call(this, { images: fields?.media, type: 'uploadedFiles' })
-      }
-
       await RequestProposalModel.requestProposalResultToCorrect(id, fields)
 
       this.loadData()

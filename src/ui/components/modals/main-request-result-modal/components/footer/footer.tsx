@@ -13,11 +13,13 @@ import { useStyles } from './footer.style'
 interface FooterProps {
   isClient: boolean
   onEditCustomProposal: () => void
+  onReceiveCustomProposal: () => void
   onOpenModal: () => void
+  showActionButtons?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
-  const { isClient, onEditCustomProposal, onOpenModal } = props
+  const { isClient, onEditCustomProposal, onReceiveCustomProposal, onOpenModal, showActionButtons } = props
 
   const { classes: styles } = useStyles()
 
@@ -27,14 +29,21 @@ export const Footer: FC<FooterProps> = memo(props => {
         {t(TranslationKey.Cancel)}
       </Button>
 
-      <div className={styles.flexContainer}>
-        {isClient ? (
-          <Button styleType={ButtonType.PRIMARY} onClick={onEditCustomProposal}>
-            {t(TranslationKey['Send in for rework'])}
+      {showActionButtons ? (
+        <div className={styles.flexContainer}>
+          {isClient ? (
+            <Button styleType={ButtonType.PRIMARY} onClick={onEditCustomProposal}>
+              {t(TranslationKey['Send in for rework'])}
+            </Button>
+          ) : null}
+          <Button
+            styleType={ButtonType.SUCCESS}
+            onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
+          >
+            {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
           </Button>
-        ) : null}
-        <Button styleType={ButtonType.SUCCESS}>{isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}</Button>
-      </div>
+        </div>
+      ) : null}
     </div>
   )
 })

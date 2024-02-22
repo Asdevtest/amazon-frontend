@@ -100,11 +100,12 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           requestProposals={viewModel.requestProposals}
           request={viewModel.request}
           userInfo={viewModel.userInfo}
-          onClickContactWithExecutor={viewModel.onClickContactWithExecutor} // нужное
+          onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
           onClickOrderProposal={viewModel.onClickOrderProposal}
           onClickRejectProposal={viewModel.onClickRejectProposal}
           onClickReview={viewModel.onClickReview}
           onSendInForRework={viewModel.onSendInForRework}
+          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
         />
 
         <Accordion expanded={viewModel.showChat}>
@@ -205,11 +206,13 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
       {viewModel.showMainRequestResultModal ? (
         <MainRequestResultModal
+          showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
           customProposal={viewModel.findRequestProposalForCurChat}
           userInfo={viewModel.userInfo}
           openModal={viewModel.showMainRequestResultModal}
           onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
           onEditCustomProposal={viewModel.onSendInForRework}
+          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
         />
       ) : null}
 

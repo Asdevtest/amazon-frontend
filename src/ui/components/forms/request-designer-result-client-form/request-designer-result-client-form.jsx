@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid'
 import { memo, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Checkbox, Link, Typography } from '@mui/material'
@@ -61,7 +61,7 @@ export const RequestDesignerResultClientForm = memo(props => {
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
-    _id: el._id ?? nanoid(),
+    _id: el._id ?? uuid(),
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
