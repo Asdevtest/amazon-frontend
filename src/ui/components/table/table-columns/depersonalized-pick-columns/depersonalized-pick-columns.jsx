@@ -36,7 +36,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
         onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
       />
     ),
-    width: 550,
+    width: 150,
     align: 'center',
   },
 

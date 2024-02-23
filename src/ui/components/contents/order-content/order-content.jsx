@@ -231,7 +231,6 @@ export const OrderContent = ({
                   updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                   t(TranslationKey['Cancel order, refund of frozen funds'])
                 }
-                className={cx(styles.button, styles.cancelBtn)}
                 onClick={onClickCancelOrder}
               >
                 {t(TranslationKey['Cancel order'])}

@@ -5,19 +5,12 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
-    // flexWrap: 'wrap',
   },
 
   buttonsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
-
-    button: {
-      flex: '1',
-      // minWidth: '105px',
-      // maxWidth: '240px',
-    },
   },
 
   buttonsSubWrapper: {

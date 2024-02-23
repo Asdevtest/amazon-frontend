@@ -236,7 +236,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         }
       />
     ),
-    width: 200,
+    width: 240,
     sortable: false,
     filterable: false,
   },

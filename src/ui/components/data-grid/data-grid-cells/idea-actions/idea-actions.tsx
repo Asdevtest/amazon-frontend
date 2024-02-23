@@ -20,8 +20,10 @@ export const IdeaActionsCell: FC<IdeaActionsProps> = memo(({ onClickReject, onCl
 
   return (
     <div className={styles.ideaActions}>
-      <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
-      <Button styleType={ButtonType.DANGER} onClick={onClickReject}>
+      <Button isTableButton fullWidth onClick={onClickToCheck}>
+        {t(TranslationKey['To check'])}
+      </Button>
+      <Button isTableButton fullWidth styleType={ButtonType.DANGER} onClick={onClickReject}>
         {t(TranslationKey.Reject)}
       </Button>
     </div>

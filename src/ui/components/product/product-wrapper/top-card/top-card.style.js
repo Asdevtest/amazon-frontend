@@ -111,9 +111,6 @@ export const useStyles = makeStyles()(theme => ({
   iconBtnAccept: {
     backgroundColor: 'rgba(30, 220, 30, 1) !important',
   },
-  iconBtnAcceptRevoke: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
 
   supplierButtonText: {
     maxWidth: '98px',

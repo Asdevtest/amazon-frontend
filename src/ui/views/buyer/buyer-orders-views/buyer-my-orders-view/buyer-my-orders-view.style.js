@@ -1,12 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   dialogClassName: {
     width: '1200px',
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
     height: 36,
   },
@@ -16,11 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-  },
-
-  headerWrapperCenter: {
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   attentionRow: {

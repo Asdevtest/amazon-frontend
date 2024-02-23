@@ -104,7 +104,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-    height: 'auto !important',
     color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',

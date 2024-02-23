@@ -29,7 +29,7 @@ import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
@@ -50,14 +50,9 @@ export const BuyerMyOrdersView = observer(({ history }) => {
 
   return (
     <>
-      <div
-        className={cx(styles.headerWrapper, {
-          [styles.headerWrapperCenter]:
-            !viewModel.paymentAmount?.totalPriceInYuan &&
-            !viewModel.paymentAmount?.totalPriceInUSD &&
-            !viewModel.paymentAmount?.partialPaymentAmountRmb,
-        })}
-      >
+      <div className={styles.headerWrapper}>
+        <div className={styles.searchInput} />
+
         <SearchInput
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}

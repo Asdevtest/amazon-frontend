@@ -21,6 +21,8 @@ export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({
   <>
     {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
       <Button
+        isTableButton
+        fullWidth
         styleType={ButtonType.SUCCESS}
         onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
       >

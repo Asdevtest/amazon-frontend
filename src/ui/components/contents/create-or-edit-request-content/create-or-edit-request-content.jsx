@@ -760,6 +760,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         disabled={!formFields.request.specId}
                         data={masterUsersData}
                         searchOnlyFields={['name']}
+                        customItemsWrapper={styles.customItemsWrapper}
                         selectedItemName={
                           chosenExecutor ? (
                             <MasterUserItem

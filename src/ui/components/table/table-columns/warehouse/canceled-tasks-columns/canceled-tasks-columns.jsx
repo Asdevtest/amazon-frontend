@@ -24,7 +24,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: window.innerWidth < 1282 ? 118 : 190,
+    width: window.innerWidth < 1282 ? 118 : 130,
     renderCell: params => (
       <NormalActionBtnCell
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}

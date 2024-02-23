@@ -30,7 +30,7 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './client-warehouse-tasks-view.style'
 
@@ -84,7 +84,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant={ButtonVariant.OUTLINED}
+                  styleType={ButtonType.TRANSPARENT}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'priority',
@@ -123,7 +123,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant={ButtonVariant.OUTLINED}
+                  styleType={ButtonType.TRANSPARENT}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'status',
@@ -159,7 +159,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant={ButtonVariant.OUTLINED}
+                  styleType={ButtonType.TRANSPARENT}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'storekeeper',
@@ -196,7 +196,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               firstItems={
                 <Button
                   className={styles.filterBtn}
-                  variant={ButtonVariant.OUTLINED}
+                  styleType={ButtonType.TRANSPARENT}
                   onClick={() => {
                     viewModel.selectFilterForField(
                       'type',
