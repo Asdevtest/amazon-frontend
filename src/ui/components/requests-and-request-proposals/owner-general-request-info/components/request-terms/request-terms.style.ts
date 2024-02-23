@@ -70,7 +70,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     wordBreak: 'break-word',
-    whiteSpace: 'normal',
     color: theme.palette.text.general,
   },
 
