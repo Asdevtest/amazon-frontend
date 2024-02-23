@@ -50,9 +50,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
 
     const parentElement = childElement?.parentElement
 
-    if (!parentElement) {
-      return
-    }
+    if (!parentElement) return
 
     const parentRect = parentElement.getBoundingClientRect()
     const childRect = childElement.getBoundingClientRect()
@@ -74,7 +72,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     >
       {mediaFiles.map((mediaFile, index) => (
         <div
-          key={`${index}_${mediaFile}`}
+          key={index}
           ref={index === currentMediaFileIndex ? activeSlideRef : null}
           className={cx(styles.previewSlide, {
             [styles.previewSlideActive]: index === currentMediaFileIndex,
