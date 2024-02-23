@@ -44,6 +44,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickResultBtn,
   } = props
   const { classes: styles, cx } = useStyles()
+
   const requestMedia = request?.media?.map(el => ({
     fileLink: el.fileLink,
     commentByPerformer: el.commentByPerformer,
@@ -59,9 +60,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <Typography>
               {t(TranslationKey.ID)}: {request?.humanFriendlyId}
             </Typography>
-            <Typography className={styles.textBold}>
-              <span>{getShortenStringIfLongerThanCount(request?.title, 55)}</span>
-            </Typography>
+            <Typography className={styles.textBold}>{getShortenStringIfLongerThanCount(request?.title, 55)}</Typography>
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
@@ -132,12 +131,15 @@ export const FreelanceRequestDetailsModal = memo(props => {
               {isRequestOwner && (
                 <Button
                   variant={ButtonVariant.OUTLINED}
-                  className={styles.listingButton}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
                 >
-                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton}>
-                    <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-                  </Checkbox>
+                  <Checkbox
+                    checked={request?.uploadedToListing}
+                    className={styles.listingButton}
+                    onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
+                  />
+
+                  <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
                 </Button>
               )}
             </div>
