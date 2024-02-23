@@ -585,6 +585,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 placeholder={t(TranslationKey['Task description'])}
                 maxLength={MAX_COMMENT_LEGTH}
                 value={formFields.details.conditions}
+                editorClassName={styles.editor}
                 editorWrapperClassName={styles.editorWrapper}
                 onChange={onChangeField('details')('conditions')}
               />
