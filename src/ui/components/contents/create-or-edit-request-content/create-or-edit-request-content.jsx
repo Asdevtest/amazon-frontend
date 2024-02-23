@@ -496,7 +496,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     <Select
                       displayEmpty
                       value={formFields.request.specId || ''}
-                      className={styles.field}
+                      className={cx(styles.field, styles.requestTypeField)}
                       onChange={onChangeField('request')('specId')}
                     >
                       <MenuItem disabled value="">
@@ -887,8 +887,8 @@ export const CreateOrEditRequestContent = memo(props => {
                       <PhotoAndFilesSlider
                         smallSlider
                         customSlideHeight={98}
-                        files={images.map(el => el.file)}
-                        imagesTitles={images.map(el => el.comment)}
+                        files={images.map(el => el.fileLink)}
+                        imagesTitles={images.map(el => el.commentByClient)}
                       />
                     }
                   />
