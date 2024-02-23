@@ -133,10 +133,10 @@ export const CreateOrEditRequestContent = memo(props => {
   const createImagesArray = () => {
     if (requestToEdit?.request?.media?.length) {
       return requestToEdit?.request?.media?.map(el => ({
-        file: el?.fileLink,
-        comment: el?.commentByClient,
-        commentByPerformer: el?.commentByPerformer,
-        _id: el?._id,
+        fileLink: el.fileLink,
+        commentByPerformer: el.commentByPerformer,
+        commentByClient: el.commentByClient,
+        _id: el._id,
       }))
     } else {
       return []

@@ -13,7 +13,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
@@ -36,11 +36,13 @@ export const OwnerRequestProposalsCard = ({
   onClickReview,
   onClickOrderProposal,
   onClickRejectProposal,
+  onSendInForRework,
+  onReceiveCustomProposal,
 }) => {
   const { classes: styles, cx } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
-  const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
+  const [showMainRequestResultModal, setShowMainRequestResultModal] = useState(false)
   const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
@@ -49,7 +51,7 @@ export const OwnerRequestProposalsCard = ({
     } else if (request.request?.spec?.title === freelanceRequestType.BLOGGER) {
       setShowRequestResultModal(!showRequestResultModal)
     } else {
-      setShowRequestStandartResultModal(!showRequestStandartResultModal)
+      setShowMainRequestResultModal(!showMainRequestResultModal)
     }
   }
 
@@ -66,6 +68,8 @@ export const OwnerRequestProposalsCard = ({
     RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
     RequestProposalStatus.PROPOSAL_EDITED,
   ]
+
+  const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 
   return (
     <div className={styles.cardMainWrapper}>
@@ -210,18 +214,17 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <Modal
-        missClickModalOn
-        openModal={showRequestStandartResultModal}
-        setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-      >
-        <RequestStandartResultForm
-          request={request}
-          proposal={item}
-          setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-          // onClickSendAsResult={onClickSendAsResult}
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+          customProposal={item}
+          userInfo={userInfo}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+          onEditCustomProposal={onSendInForRework}
+          onReceiveCustomProposal={onReceiveCustomProposal}
         />
-      </Modal>
+      ) : null}
 
       {showRequestResultModal && (
         <RequestResultModal

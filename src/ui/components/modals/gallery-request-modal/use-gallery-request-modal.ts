@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 import { MAX_DEFAULT_MEDIA_FILES } from '@constants/text'
 
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 
+import { IRequestMedia } from '@typings/models/requests/request-media'
+
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
-import { IData, IMediaFileWithCommentFromRequest, IState } from './gallery-request-modal.type'
+import { IData, IState } from './gallery-request-modal.type'
 
-export const useGalleryRequestModal = (
-  data: IData,
-  mediaFiles: IMediaFileWithCommentFromRequest[],
-  maxNumber?: number,
-) => {
+export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[], maxNumber?: number) => {
   const [tabValue, setTabValue] = useState<SwitcherConditions>(SwitcherConditions.MEDIA_FILES)
   const [mediaFilesStates, setMediaFilesStates] = useState<IState | undefined>(undefined)
   const [documentsStates, setDocumentsStates] = useState<IState | undefined>(undefined)
-  const [allFilesToAdd, setAllFilesToAdd] = useState<IMediaFileWithCommentFromRequest[]>([])
+  const [allFilesToAdd, setAllFilesToAdd] = useState<IRequestMedia[]>([])
 
   useEffect(() => {
     const initialMediaFilesStates: IState = {}
@@ -52,29 +51,21 @@ export const useGalleryRequestModal = (
 
   const handleResetAllFilesToAdd = () => setAllFilesToAdd([])
   const handleToggleFile = (mediaFile: string) => {
-    /* 
-    // correct data type - string[] (solution for creating a request)
-    if (allFilesToAdd?.includes(mediaFile)) {
-      setAllFilesToAdd(allFilesToAdd?.filter(file => file !== mediaFile))
-    } else {
-      setAllFilesToAdd([...allFilesToAdd, mediaFile])
-    }
-    */
-    const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.file === mediaFile)
+    const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.fileLink === mediaFile)
 
     if (findMediaFile) {
-      setAllFilesToAdd(prevFiles => prevFiles.filter(fileToAdd => fileToAdd.file !== mediaFile))
+      setAllFilesToAdd(prevFiles => prevFiles.filter(fileToAdd => fileToAdd.fileLink !== mediaFile))
     } else {
       setAllFilesToAdd(prevFiles => [
         ...prevFiles,
-        { file: mediaFile, comment: '', commentByPerformer: '', _id: String(Date.now()) },
+        { fileLink: mediaFile, commentByPerformer: '', commentByClient: '', _id: uuid() },
       ])
     }
   }
 
-  const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.file === mediaFile)
+  const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
   const getDisabledCheckbox = (mediaFile: string) => {
-    const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.file === mediaFile)
+    const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
     const isMaxReached = allFilesToAdd.length >= (maxNumber || MAX_DEFAULT_MEDIA_FILES)
 
     return isFileAdded ? false : isMaxReached

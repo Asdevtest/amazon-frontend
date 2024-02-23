@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
@@ -190,8 +189,8 @@ const Slot = ({
             variant="filled"
             className={styles.imageObjInput}
             classes={{ input: styles.inputComment }}
-            value={slot.comment}
-            onChange={e => onChangeImageFileds('comment', slot._id)(e)}
+            value={slot.commentByPerformer}
+            onChange={e => onChangeImageFileds('commentByPerformer', slot._id)(e)}
           />
         </div>
 
@@ -216,12 +215,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   const [comment, setComment] = useState(proposal.details.result)
   const sourceImagesData = isRework
     ? proposal.proposal.media.map(el => ({
-        image: el.fileLink,
-        comment: el.commentByPerformer,
+        fileLink: el.fileLink,
+        commentByPerformer: el.commentByPerformer,
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ image: '', comment: '', commentByClient: '', _id: nanoid() }]
+    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -241,7 +240,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { image: '', comment: '', commentByClient: '', _id: nanoid() }])
+    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }])
   }
 
   const onClickRemoveItem = slot => {
@@ -267,11 +266,13 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
 
     setImagesData([
       ...imagesData.map(el =>
-        el._id === imageId ? { ...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name } : el,
+        el._id === imageId
+          ? { ...el, fileLink: readyFilesArr[0], commentByPerformer: readyFilesArr[0]?.file.name }
+          : el,
       ),
       ...restNewSlots,
     ])
@@ -295,11 +296,13 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map(el => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
+        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
 
       setImagesData([
         ...imagesData.map(el =>
-          el._id === imageId ? { ...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name } : el,
+          el._id === imageId
+            ? { ...el, fileLink: readyFilesArr[0], commentByPerformer: readyFilesArr[0]?.file.name }
+            : el,
         ),
         ...restNewSlots,
       ])
@@ -392,7 +395,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
               multiline
               className={cx(styles.heightFieldAuto)}
               labelClasses={styles.fieldLabel}
-              containerClasses={styles.comment}
+              containerClasses={styles.commentByPerformer}
               inputProps={{ maxLength: 1000 }}
               minRows={4}
               maxRows={4}
@@ -453,7 +456,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
               disabled={disableSubmit}
               className={cx(styles.button)}
               onClick={() => {
-                onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.image), sourceLink })
+                onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.fileLink), sourceLink })
                 setOpenModal()
               }}
             >

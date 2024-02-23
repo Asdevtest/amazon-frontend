@@ -8,7 +8,7 @@ import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { RequestResultModal } from '@components/modals/request-result-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
@@ -161,14 +161,15 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showRequestResultModal && (
-        <RequestResultModal
-          request={viewModel.request}
-          openModal={viewModel.showRequestResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-          onClickSendAsResult={viewModel.onClickSendAsResult}
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          customProposal={findRequestProposalForCurChat}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+          onEditCustomProposal={viewModel.onSendResultAfterRework}
         />
-      )}
+      ) : null}
 
       <Modal
         missClickModalOn

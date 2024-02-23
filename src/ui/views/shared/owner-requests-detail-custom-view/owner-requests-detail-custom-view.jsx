@@ -9,9 +9,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
-import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
@@ -104,6 +104,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           onClickOrderProposal={viewModel.onClickOrderProposal}
           onClickRejectProposal={viewModel.onClickRejectProposal}
           onClickReview={viewModel.onClickReview}
+          onSendInForRework={viewModel.onSendInForRework}
+          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
         />
 
         <Accordion expanded={viewModel.showChat}>
@@ -201,14 +203,18 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           onSubmit={viewModel.onSubmitEditCustomSearchRequest}
         />
       </Modal>
-      <Modal
-        openModal={viewModel.showResultToCorrectFormModal}
-        setOpenModal={viewModel.triggerShowResultToCorrectFormModal}
-      >
-        <RequestProposalResultToCorrectForm
-          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
+
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+          customProposal={viewModel.findRequestProposalForCurChat}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+          onEditCustomProposal={viewModel.onSendInForRework}
+          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
         />
-      </Modal>
+      ) : null}
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm

@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { FC, memo } from 'react'
 
 import { Typography } from '@mui/material'
@@ -26,8 +25,8 @@ export const CommentsForm: FC<CommentsFormProps> = memo(({ comments, onCloseModa
       </div>
       <div className={styles.сommentsTextWrapper}>
         {comments?.length ? (
-          comments.map(comment => (
-            <Typography key={nanoid()} className={styles.сommentsText}>
+          comments.map((comment, index) => (
+            <Typography key={index} className={styles.сommentsText}>
               {comment}
             </Typography>
           ))

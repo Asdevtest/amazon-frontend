@@ -9,6 +9,11 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
+  middleSizeWrapper: {
+    width: 54,
+    height: 60,
+  },
+
   hover: {
     opacity: 1,
     transition: 'opacity 0.3s ease-in-out',
@@ -25,18 +30,28 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.fileIcons.icon,
   },
 
+  middleSizeIcon: {
+    width: '50px !important',
+    height: '60px !important',
+  },
+
   fileExtension: {
     position: 'absolute',
     bottom: '15%',
-
     width: 28,
     padding: '1px 0',
-
-    fontSize: 12,
-    lineHeight: '12px',
+    fontSize: 11,
+    lineHeight: '11px',
     textAlign: 'center',
+    textTransform: 'uppercase',
     color: theme.palette.background.second,
     background: theme.palette.fileIcons.file,
     borderRadius: 2,
+  },
+
+  middleSizeFileExtension: {
+    width: 54,
+    fontSize: 20,
+    lineHeight: '25px',
   },
 }))

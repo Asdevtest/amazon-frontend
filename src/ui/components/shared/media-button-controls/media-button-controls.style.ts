@@ -13,6 +13,8 @@ export const useStyles = makeStyles()(() => ({
     position: 'relative',
     width: 30,
     height: 30,
+    padding: 0,
+    borderRadius: 7,
   },
 
   icon: {

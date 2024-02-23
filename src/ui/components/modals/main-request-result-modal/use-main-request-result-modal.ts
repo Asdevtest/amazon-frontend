@@ -1,0 +1,72 @@
+import { useEffect, useState } from 'react'
+
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+
+import { checkIsClient } from '@utils/checks'
+import { getMinutesDifferenceFromNow } from '@utils/date-time'
+
+import { getFieldsToRework } from './helper/get-fields-to-rework'
+import { getFieldsAfterRework } from './helper/get-fileds-after-rework'
+import { IFields, MainRequestResultModalProps } from './main-request-result-modal.type'
+
+export const useMainRequestResultModal = ({
+  customProposal,
+  userInfo,
+  onEditCustomProposal,
+  onOpenModal,
+}: MainRequestResultModalProps) => {
+  const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
+  const getInittialFields = (): IFields => ({
+    reason: '',
+    timeLimitInMinutes: 0,
+    result: '',
+    publicationLinks: [],
+    media: [],
+  })
+
+  const [fields, setFields] = useState<IFields>(getInittialFields())
+
+  useEffect(() => {
+    if (customProposal) {
+      setFields(prevFields => ({
+        ...prevFields,
+        reason: customProposal?.details?.reasonToCorrect || '',
+        timeLimitInMinutes: getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt) || 0,
+        result: customProposal?.details?.result || '',
+        publicationLinks: customProposal?.details?.publicationLinks || [],
+        media:
+          customProposal?.proposal?.media?.map((file, index) => ({
+            _id: file._id,
+            fileLink: file.fileLink,
+            commentByClient: file.commentByClient,
+            commentByPerformer: file.commentByPerformer,
+            index,
+          })) || [],
+      }))
+    }
+  }, [customProposal])
+
+  const handleResultValue = (result: string) => {
+    if (!isClient) {
+      setFields(prevFields => ({
+        ...prevFields,
+        result,
+      }))
+    }
+  }
+
+  const handleEditCustomProposal = () => {
+    const sentFields = isClient ? getFieldsToRework(fields) : getFieldsAfterRework(fields)
+
+    onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    onOpenModal()
+  }
+
+  return {
+    isClient,
+    fields,
+    setFields,
+    onResultValue: handleResultValue,
+    onEditCustomProposal: handleEditCustomProposal,
+  }
+}

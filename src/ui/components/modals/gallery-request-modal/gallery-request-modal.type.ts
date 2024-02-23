@@ -1,5 +1,3 @@
-import { UploadFileType } from '@typings/shared/upload-file'
-
 export interface ISupplier {
   _id: string
   images: string[]
@@ -12,11 +10,4 @@ export interface IData {
   latestSeoFiles: string[]
   currentSupplierImage: string[]
   supplierImage: ISupplier[]
-}
-
-export interface IMediaFileWithCommentFromRequest {
-  file: UploadFileType
-  comment: string
-  commentByPerformer: string
-  _id: string
 }

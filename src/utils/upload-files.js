@@ -23,6 +23,10 @@ export const dataURLtoFile = (dataurl, filename) => {
 }
 
 export const onPostImage = async imageData => {
+  if (!imageData) {
+    return ''
+  }
+
   const formData = new FormData()
 
   const fileWithoutSpaces = new File([imageData.file], imageData.file?.name.replace(/ /g, ''), {
@@ -201,7 +205,7 @@ export const downloadArchive = async (files, folderName) => {
   const zip = new JSZip()
 
   const validFilesData = files.map(async file => {
-    const res = await fetch(getAmazonImageUrl(file.image.file || file.image, true))
+    const res = await fetch(getAmazonImageUrl(file.image?.file || file.image, true))
     const blob = await res.blob()
 
     return {

@@ -1,12 +1,13 @@
-import { IMediaRequest, UploadFileType } from '@typings/shared/upload-file'
+import { IRequestMedia } from '@typings/models/requests/request-media'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface SlideshowGalleryModalProps {
-  files: IMediaRequest[] | UploadFileType[]
-  currentFileIndex: number
+  files: IRequestMedia[] | UploadFileType[]
   isOpenModal: boolean
-  onCurrentFileIndex: (index: number) => void
   onOpenModal: () => void
+  currentFileIndex?: number
   isEditable?: boolean
   withoutMakeMainImage?: boolean
-  onChangeImagesForLoad?: (files: IMediaRequest[] | UploadFileType[]) => void
+  onCurrentFileIndex?: (index: number) => void
+  onChangeImagesForLoad?: (files: IRequestMedia[] | UploadFileType[]) => void
 }

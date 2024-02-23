@@ -26,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: 5,
     padding: '10px',
-    border: `1px solid #424250`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: '4px',
     cursor: 'pointer',
     maxWidth: 120,

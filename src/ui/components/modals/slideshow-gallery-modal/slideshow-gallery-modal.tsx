@@ -20,7 +20,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
 
   const {
     mediaFiles,
-    comments,
+    commentsByPerformer,
     commentsByClient,
     fileIndex,
     setFileIndex,
@@ -46,12 +46,12 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
       openModal={isOpenModal}
       setOpenModal={() => {
         onOpenModal()
-        onCurrentFileIndex(fileIndex)
+        onCurrentFileIndex ? onCurrentFileIndex(fileIndex) : undefined
         updateImagesForLoad()
       }}
     >
       <div className={styles.wrapper}>
-        {comments?.[fileIndex] ? <Title text={comments?.[fileIndex]} /> : null}
+        {commentsByPerformer?.[fileIndex] ? <Title text={commentsByPerformer?.[fileIndex]} /> : null}
 
         <Gallery
           isModalSize

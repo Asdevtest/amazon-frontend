@@ -51,14 +51,14 @@ export const useStyles = makeStyles()(theme => ({
 
   checkboxWrapper: {
     position: 'absolute',
-    top: -1,
-    right: -1,
+    top: 0,
+    right: 0,
     zIndex: 10,
   },
 
   checkbox: {
     padding: 0,
-    borderRadius: '0 6px 0 6px',
+    borderRadius: '0 5px 0 6px',
     background: theme.palette.background.general,
 
     '&:hover': {
