@@ -80,10 +80,6 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: 250,
   },
 
-  fieldRequestTitle: {
-    height: 40,
-  },
-
   fieldContainer: {
     marginBottom: 10,
   },

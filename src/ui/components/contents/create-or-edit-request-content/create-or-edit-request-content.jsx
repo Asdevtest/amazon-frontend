@@ -425,7 +425,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 inputProps={{ maxLength: 100 }}
                 placeholder={t(TranslationKey['Request title'])}
                 label={t(TranslationKey['Request title']) + '*'}
-                className={styles.fieldRequestTitle}
+                className={styles.field}
                 containerClasses={styles.fieldContainer}
                 labelClasses={styles.label}
                 value={formFields.request.title}
