@@ -46,13 +46,24 @@ export const Slides: FC<SlidesProps> = memo(props => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (activeSlideRef.current) {
-        activeSlideRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        })
+      const childElement = activeSlideRef.current
+
+      if (!childElement) return
+
+      const parentElement = childElement?.parentElement
+
+      if (!parentElement) {
+        return
       }
+
+      const parentRect = parentElement.getBoundingClientRect()
+      const childRect = childElement.getBoundingClientRect()
+
+      const offset = (parentRect.height - childRect.height) / 2
+
+      const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
+
+      parentElement?.scrollTo({ top })
     }, NULL_DELAY)
   }, [currentMediaFileIndex])
 
@@ -66,7 +77,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     >
       {mediaFiles.map((mediaFile, index) => (
         <div
-          key={index}
+          key={`${index}_${mediaFile}`}
           ref={index === currentMediaFileIndex ? activeSlideRef : null}
           className={cx(styles.previewSlide, {
             [styles.previewSlideActive]: index === currentMediaFileIndex,
