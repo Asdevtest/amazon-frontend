@@ -388,6 +388,7 @@ export const AddOrEditSupplierModalContent = memo(
         tmpSupplier.boxProperties?.boxWeighGrossKg) &&
         !boxPropertiesIsFullAndMainsValues)
 
+    const allPaymentMethods = paymentMethods.map(payment => payment?.paymentMethod)
     return (
       <div className={styles.modalContainer}>
         {onlyRead ? (
@@ -681,7 +682,7 @@ export const AddOrEditSupplierModalContent = memo(
           <div className={styles.paymentsBlock}>
             <CustomSelectPaymentDetails
               orderPayments={tmpSupplier?.paymentMethods}
-              allPayments={paymentMethods}
+              allPayments={allPaymentMethods}
               onlyRead={onlyRead}
               onChangePaymentMethod={onChangePaymentMethod}
             />
