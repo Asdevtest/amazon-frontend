@@ -25,7 +25,7 @@ export const PaymentAllSuppliers: FC<PaymentAllSuppliersProps> = memo(
       <>
         {(paymentAmount?.totalPriceInYuan ||
           (isNoPaidedOrders && paymentAmount?.totalPriceInUSD) ||
-          paymentAmount?.partialPaymentAmountRmb) > 0 && (
+          paymentAmount?.partialPaymentAmountRmb) > 0 ? (
           <div className={styles.totalPriceWrapper}>
             <p className={styles.totalPriceText}>
               {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
@@ -44,6 +44,8 @@ export const PaymentAllSuppliers: FC<PaymentAllSuppliersProps> = memo(
               )}`}
             </p>
           </div>
+        ) : (
+          <div className={styles.totalPriceWrapper} />
         )}
       </>
     )

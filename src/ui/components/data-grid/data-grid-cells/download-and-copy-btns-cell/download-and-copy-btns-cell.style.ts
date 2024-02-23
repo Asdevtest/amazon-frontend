@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   shopsReportBtnsWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -9,27 +9,11 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  tooltipWrapperMargin: {
-    marginRight: '-15px',
-  },
-
   downloadLink: {
-    fontSize: 14,
-    color: theme.palette.primary.main,
-    transition: '0.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
+    color: 'currentColor',
   },
 
   copyImgButton: {
-    minWidth: 'unset !important',
-    backgroundColor: 'inherit',
-    padding: 0,
-    margin: 0,
-    '&:hover': {
-      backgroundColor: 'inherit',
-    },
+    padding: 5,
   },
 }))

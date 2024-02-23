@@ -26,7 +26,6 @@ export const useStyles = makeStyles()(theme => ({
 
   removeIcon: {
     width: '11px !important',
-    color: '#FFF',
   },
 
   buttonsWrapper: {
@@ -43,10 +42,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   removeButton: {
+    backgroundColor: theme.palette.text.red,
     padding: '0 !important',
     height: '24px !important',
     width: '24px !important',
-    minWidth: '24px !important',
   },
 
   sourceProductWrapper: {

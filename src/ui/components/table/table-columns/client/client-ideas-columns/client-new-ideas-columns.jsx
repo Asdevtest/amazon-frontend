@@ -108,7 +108,8 @@ export const clientNewIdeasColumns = (rowHandlers, shops) => [
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 270,
+
+    width: 150,
     sortable: false,
     filterable: false,
   },

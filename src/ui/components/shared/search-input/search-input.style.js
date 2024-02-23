@@ -45,6 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   submit: {
+    margin: 0,
     height: '100%',
   },
 }))

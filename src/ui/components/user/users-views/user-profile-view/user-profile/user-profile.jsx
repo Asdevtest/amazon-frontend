@@ -1,13 +1,14 @@
 import { observer } from 'mobx-react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Box, Paper, Rating, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { Button } from '@components/shared/buttons/button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 

@@ -3,12 +3,11 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   ideaActions: {
     display: 'flex',
-    gap: 20,
+    gap: 10,
+    padding: '16px 0',
     justifyContent: 'center',
     alignItems: 'center',
-
-    button: {
-      height: 30,
-    },
+    width: '100%',
+    flexDirection: 'column',
   },
 }))

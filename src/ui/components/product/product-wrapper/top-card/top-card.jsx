@@ -253,7 +253,6 @@ export const TopCard = memo(
                       <div className={styles.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                          className={styles.iconBtn}
                           onClick={() => onClickSupplierBtns('add')}
                         >
                           <AddIcon />
@@ -274,7 +273,6 @@ export const TopCard = memo(
                                 <div className={styles.supplierButtonWrapper}>
                                   <Button
                                     tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                    className={styles.iconBtn}
                                     onClick={() => onClickSupplierBtns('edit')}
                                   >
                                     <EditOutlinedIcon />
@@ -290,7 +288,6 @@ export const TopCard = memo(
                                   <Button
                                     styleType={ButtonType.DANGER}
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                    className={cx(styles.iconBtn, styles.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
                                   >
                                     <DeleteOutlineOutlinedIcon />
@@ -307,7 +304,6 @@ export const TopCard = memo(
                             <div className={styles.supplierButtonWrapper}>
                               <Button
                                 tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                                className={styles.iconBtn}
                                 onClick={() => onClickSupplierBtns('view')}
                               >
                                 <VisibilityOutlinedIcon />
@@ -328,9 +324,6 @@ export const TopCard = memo(
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={cx(styles.iconBtn, {
-                                  [styles.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                                })}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
                                     ? onClickSupplierBtns('acceptRevoke')
@@ -372,7 +365,6 @@ export const TopCard = memo(
                           <Button
                             disabled={!selectedSupplier}
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('view')}
                           >
                             <VisibilityOutlinedIcon />
@@ -390,7 +382,6 @@ export const TopCard = memo(
                           <Button
                             disabled={!selectedSupplier || selectedSupplier.name === ACCESS_DENIED}
                             tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                            className={styles.iconBtn}
                             onClick={() => onClickSupplierBtns('edit')}
                           >
                             <EditOutlinedIcon />
