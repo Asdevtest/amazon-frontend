@@ -307,6 +307,7 @@ export const ClientIdeasView = observer(({ history }) => {
 
       {viewModel.showCommentsModal ? (
         <CommentsModal
+          isTextRequired
           readOnly={false}
           maxLength={MAX_DEFAULT_INPUT_VALUE}
           title={t(TranslationKey['Reason for rejection'])}

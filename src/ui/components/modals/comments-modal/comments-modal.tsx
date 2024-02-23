@@ -16,6 +16,7 @@ interface CommentsModalProps {
   isOpenModal: boolean
   onOpenModal: () => void
   onChangeField: (text: string) => void
+  isTextRequired?: boolean
   readOnly?: boolean
   title?: string
   maxLength?: number
@@ -27,6 +28,7 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
     title,
     text,
     isOpenModal,
+    isTextRequired,
     maxLength = MAX_DEFAULT_COMMENT_LEGTH,
     onOpenModal,
     onChangeField,
@@ -39,7 +41,8 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
 
   const isNotValidCommentLength = comment.length > maxLength
-  const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength
+  const requiredText = isTextRequired && !comment
+  const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength || requiredText
 
   const handleSaveComment = () => {
     if (!hasCommentChanged) {
