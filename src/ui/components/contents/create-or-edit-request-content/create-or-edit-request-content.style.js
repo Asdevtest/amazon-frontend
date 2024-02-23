@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
 
   mainWrapper: {
     position: 'relative',
-    padding: 30,
+    padding: 20,
     height: '81vh',
     overflow: 'auto',
     display: 'flex',
@@ -78,6 +78,10 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
     width: '100%',
     maxWidth: 250,
+  },
+
+  fieldRequestTitle: {
+    height: 40,
   },
 
   fieldContainer: {
@@ -177,16 +181,10 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonsWrapper: {
     position: 'absolute',
-    bottom: 30,
-    right: 30,
+    bottom: 20,
+    right: 20,
     display: 'flex',
     gap: 20,
-  },
-
-  button: {
-    padding: '0 20px',
-    display: 'flex',
-    gap: 10,
   },
 
   arrowIcon: {
@@ -305,10 +303,6 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
-  },
-
-  buttonCancel: {
-    color: theme.palette.text.general,
   },
 
   buttonSelect: {

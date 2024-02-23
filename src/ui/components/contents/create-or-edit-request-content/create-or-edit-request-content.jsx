@@ -425,7 +425,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 inputProps={{ maxLength: 100 }}
                 placeholder={t(TranslationKey['Request title'])}
                 label={t(TranslationKey['Request title']) + '*'}
-                className={styles.field}
+                className={styles.fieldRequestTitle}
                 containerClasses={styles.fieldContainer}
                 labelClasses={styles.label}
                 value={formFields.request.title}
@@ -572,7 +572,7 @@ export const CreateOrEditRequestContent = memo(props => {
               <div className={styles.defaultMarginTop}>
                 <Button
                   disabled={!formFields.request?.productId}
-                  className={styles.button}
+                  styleType={ButtonType.PRIMARY}
                   onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                 >
                   <CustomPlusIcon />
@@ -585,7 +585,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 placeholder={t(TranslationKey['Task description'])}
                 maxLength={MAX_COMMENT_LEGTH}
                 value={formFields.details.conditions}
-                wrapperClassName={styles.editorWrapper}
+                editorWrapperClassName={styles.editorWrapper}
                 onChange={onChangeField('details')('conditions')}
               />
             </div>
@@ -740,7 +740,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                         <Button
                           disabled={!formFields.request.specId}
-                          className={cx(styles.button, styles.buttonSelect)}
+                          className={styles.buttonSelect}
+                          styleType={ButtonType.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -797,7 +798,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       {!announcement?._id && (
                         <Button
                           disabled={!formFields?.request?.specId}
-                          className={styles.button}
+                          styleType={ButtonType.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -1073,18 +1074,13 @@ export const CreateOrEditRequestContent = memo(props => {
         {isFirstStep &&
           (requestToEdit ? (
             <div className={styles.buttonsWrapper}>
-              <Button
-                variant={ButtonVariant.OUTLINED}
-                className={cx(styles.button, styles.buttonCancel)}
-                onClick={onClickBackBtn}
-              >
+              <Button variant={ButtonVariant.OUTLINED} onClick={onClickBackBtn}>
                 {t(TranslationKey.Cancel)}
               </Button>
 
               <Button
                 styleType={ButtonType.SUCCESS}
                 disabled={disableSubmit}
-                className={styles.button}
                 onClick={() => onEditSubmit(formFields, images, announcement)}
               >
                 {t(TranslationKey.Edit)}
@@ -1097,7 +1093,6 @@ export const CreateOrEditRequestContent = memo(props => {
                   isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
                 }
                 variant={ButtonVariant.OUTLINED}
-                className={cx(styles.button, styles.buttonCancel)}
                 onClick={onClickBackBtn}
               >
                 {isSecondStep ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
@@ -1109,7 +1104,6 @@ export const CreateOrEditRequestContent = memo(props => {
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
                 disabled={disableSubmit}
-                className={styles.button}
                 onClick={onSuccessSubmit}
               >
                 {isSecondStep ? (
@@ -1131,7 +1125,6 @@ export const CreateOrEditRequestContent = memo(props => {
                 isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
               }
               variant={ButtonVariant.OUTLINED}
-              className={cx(styles.button, styles.buttonCancel)}
               onClick={onClickBackBtn}
             >
               {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
@@ -1143,7 +1136,6 @@ export const CreateOrEditRequestContent = memo(props => {
                 isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
               }
               disabled={disableSubmit}
-              className={styles.button}
               onClick={() => onClickCreate({ withPublish: false })}
             >
               {isSecondStep ? (
@@ -1160,7 +1152,6 @@ export const CreateOrEditRequestContent = memo(props => {
               <Button
                 styleType={ButtonType.SUCCESS}
                 disabled={disableSubmit}
-                className={styles.button}
                 onClick={() => onClickCreate({ withPublish: true })}
               >
                 {t(TranslationKey['Create and publish a request'])}
