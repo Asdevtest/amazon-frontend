@@ -4,7 +4,6 @@ import { FileIcon } from '@components/shared/file-icon'
 import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
-  NULL_DELAY,
   PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
@@ -45,26 +44,24 @@ export const Slides: FC<SlidesProps> = memo(props => {
   const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      const childElement = activeSlideRef.current
+    const childElement = activeSlideRef.current
 
-      if (!childElement) return
+    if (!childElement) return
 
-      const parentElement = childElement?.parentElement
+    const parentElement = childElement?.parentElement
 
-      if (!parentElement) {
-        return
-      }
+    if (!parentElement) {
+      return
+    }
 
-      const parentRect = parentElement.getBoundingClientRect()
-      const childRect = childElement.getBoundingClientRect()
+    const parentRect = parentElement.getBoundingClientRect()
+    const childRect = childElement.getBoundingClientRect()
 
-      const offset = (parentRect.height - childRect.height) / 2
+    const offset = (parentRect.height - childRect.height) / 2
 
-      const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
+    const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
 
-      parentElement?.scrollTo({ top })
-    }, NULL_DELAY)
+    parentElement?.scrollTo({ top })
   }, [currentMediaFileIndex])
 
   return (
