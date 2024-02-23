@@ -69,9 +69,8 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+    wordBreak: 'break-word',
+    whiteSpace: 'normal',
     color: theme.palette.text.general,
   },
 
