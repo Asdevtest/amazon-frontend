@@ -85,7 +85,6 @@ export const ClientDashboardView = observer(({ history }) => {
           config={getClientDashboardCardConfig()}
           valuesData={viewModel.dashboardData}
           onClickViewMore={viewModel.onClickInfoCardViewMode}
-          onClickAddProduct={viewModel.onClickAddProduct}
         />
       </div>
       <UserMoneyTransferModal

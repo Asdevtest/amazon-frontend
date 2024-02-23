@@ -128,7 +128,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   minimizedDragAndDropBtn: {
-    maxWidth: '185px',
     height: 40,
     display: 'flex',
     alignItems: 'center',

@@ -4,18 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { CircularProgress, Typography } from '@mui/material'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { useStyles } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
-import { Button } from '@components/shared/buttons/button'
-import { InventoryIcon, PlusIcon } from '@components/shared/svg-icons'
-
-import { t } from '@utils/translations'
-
-import { ButtonType } from '@typings/types/button.type'
+import { InventoryIcon } from '@components/shared/svg-icons'
 
 export const DashboardOneLineCardsList = props => {
-  const { config, valuesData, onClickViewMore, onClickAddProduct, isClient } = props
+  const { config, valuesData, onClickViewMore } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -35,16 +28,6 @@ export const DashboardOneLineCardsList = props => {
           <Typography className={styles.cardListTitle}>{config.title}</Typography>
           <Typography className={styles.cardListSubTitle}>{config.subTitle}</Typography>
         </div>
-        {isClient ? (
-          <Button
-            styleType={ButtonType.SUCCESS}
-            className={styles.addButton}
-            onClick={() => onClickAddProduct(config.route)}
-          >
-            <PlusIcon className={styles.iconBtn} />
-            {t(TranslationKey['Add product'])}
-          </Button>
-        ) : null}
       </div>
 
       <div className={styles.cardsWrapper}>

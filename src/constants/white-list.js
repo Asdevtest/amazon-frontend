@@ -17,6 +17,11 @@ export const patchSuppliers = [
   'productionTerm',
   'boxProperties',
   'priceVariations',
+  'heightUnit',
+  'widthUnit',
+  'lengthUnit',
+  'weighUnit',
+  'imageUnit',
 ]
 
 export const creatSupplier = [
@@ -38,6 +43,11 @@ export const creatSupplier = [
   'productionTerm',
   'boxProperties',
   'priceVariations',
+  'heightUnit',
+  'widthUnit',
+  'lengthUnit',
+  'weighUnit',
+  'imageUnit',
 ]
 
 export const IdeaPatch = [

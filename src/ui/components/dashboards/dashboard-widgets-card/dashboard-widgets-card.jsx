@@ -13,18 +13,16 @@ import { DashboardOneLineCardsList } from '../dashboard-one-line-cards-list'
 import { DashboardSingleCard } from '../dashboard-single-card'
 import { DashboardSingleCardWithButton } from '../dashboard-single-card-with-button'
 
-export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewMore, onClickAddProduct }) => {
+export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewMore }) => {
   const { classes: styles } = useStyles()
 
   return (
     <div>
       <DashboardOneLineCardsList
-        isClient
         config={config.inventory}
         configSubTitle={t(TranslationKey['Your product list data'])}
         valuesData={valuesData}
         onClickViewMore={onClickViewMore}
-        onClickAddProduct={onClickAddProduct}
       />
       <div className={styles.bottomWidgetsWrapper}>
         <DashboardListOfAnyCard
@@ -49,13 +47,6 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
                 ))}
               </div>
             </div>
-            {/* <DashboardSingleCardWithButton
-              config={config.stores}
-              valuesData={valuesData}
-              buttonText={t(TranslationKey['Add shop'])}
-              configSubTitle={t(TranslationKey['Store data'])}
-              onClickViewMore={onClickViewMore}
-            /> */}
           </div>
 
           <DashboardSingleCardWithButton
