@@ -685,15 +685,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.imageFileInputWrapper}>
             <div className={styles.uploadFilesWrapper}>
-              <UploadFilesInput
-                images={filesToAdd}
-                setImages={setfilesToAdd}
-                maxNumber={
-                  batchToEdit?.originalData?.attachedDocuments?.length
-                    ? 50 - batchToEdit?.originalData.attachedDocuments.length
-                    : 50
-                }
-              />
+              <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
             </div>
             <div className={styles.imageAndFileInputWrapper}>
               <p>{t(TranslationKey.Files)}</p>
