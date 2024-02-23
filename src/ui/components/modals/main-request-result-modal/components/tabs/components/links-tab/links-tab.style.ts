@@ -39,6 +39,12 @@ export const useStyles = makeStyles()(theme => ({
     flexShrink: 1,
   },
 
+  notFocuced: {
+    '&.Mui-focused': {
+      border: `1px solid ${theme.palette.input.customBorder}`,
+    },
+  },
+
   input: {
     padding: 5,
     fontSize: 14,

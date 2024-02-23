@@ -57,6 +57,12 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.paper,
   },
 
+  notFocuced: {
+    '&.Mui-focused': {
+      border: `1px solid ${theme.palette.input.customBorder}`,
+    },
+  },
+
   input: {
     padding: 15,
   },

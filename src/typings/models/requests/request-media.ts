@@ -1,8 +1,8 @@
 import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface IRequestMedia {
-  _id: string
+  _id: string | null
   fileLink: UploadFileType
-  commentByClient: string
-  commentByPerformer: string
+  commentByClient?: string
+  commentByPerformer?: string
 }

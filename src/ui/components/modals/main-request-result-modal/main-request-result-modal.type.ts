@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 
+import { ICustomProposal } from '@typings/models/proposals/custom-proposal'
+import { IFullUser } from '@typings/shared/full-user'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface IMediaRework {
@@ -19,3 +21,13 @@ export interface IFields {
 }
 
 export type SetFields = Dispatch<SetStateAction<IFields>>
+
+export interface MainRequestResultModalProps {
+  customProposal: ICustomProposal
+  userInfo: IFullUser
+  openModal: boolean
+  onOpenModal: () => void
+  onEditCustomProposal: (id: string, fields: IFields, status?: string) => void
+  onReceiveCustomProposal: () => void
+  showActionButtons?: boolean
+}

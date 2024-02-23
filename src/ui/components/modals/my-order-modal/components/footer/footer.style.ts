@@ -37,42 +37,4 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
   },
-
-  button: {
-    minWidth: 170,
-    padding: '8px 24px',
-    fontWeight: 500,
-    boxShadow: '0 0 5px 3px rgba(0, 0, 0, 0.17)',
-    borderRadius: 24,
-    opacity: 1,
-    transition: '.3s ease-in-out',
-
-    '&:hover': {
-      opacity: 0.8,
-    },
-
-    '&:disabled': {
-      opacity: 0.5,
-      cursor: 'unset',
-    },
-
-    '&:active': {
-      boxShadow: 'none',
-    },
-  },
-
-  buttonCancel: {
-    color: '#912018',
-    background: '#fee4e2',
-  },
-
-  buttonOrder: {
-    color: '#fff',
-    background: theme.palette.primary.main,
-  },
-
-  buttonSave: {
-    color: '#fff',
-    background: '#1EB564',
-  },
 }))

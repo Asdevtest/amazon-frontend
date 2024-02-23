@@ -22,22 +22,21 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const handleChangeReason = (reasonValue: string) => {
+  const handleChangeField = (field: keyof IFields, value: string | number) => {
     if (isClient) {
       setFields(prevFields => ({
         ...prevFields,
-        reason: reasonValue,
+        [field]: value,
       }))
     }
   }
 
+  const handleChangeReason = (reasonValue: string) => {
+    handleChangeField('reason', reasonValue)
+  }
+
   const handleChangeTime = (timeValue: number) => {
-    if (isClient) {
-      setFields(prevFields => ({
-        ...prevFields,
-        timeLimitInMinutes: Math.floor(timeValue),
-      }))
-    }
+    handleChangeField('timeLimitInMinutes', Math.floor(timeValue))
   }
 
   return (
@@ -64,7 +63,7 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
         value={fields?.reason}
         inputProps={{ maxLength: 2048 }}
         placeholder={`${t(TranslationKey.Remarks)}...`}
-        inputClasses={styles.field}
+        inputClasses={cx(styles.field, { [styles.notFocuced]: !isClient })}
         classes={{ input: styles.input }}
         containerClasses={styles.fieldContainer}
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeReason(e.target.value)}

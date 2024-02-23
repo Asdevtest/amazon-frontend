@@ -58,8 +58,8 @@ export const RequestDesignerResultClientForm = memo(props => {
   const mediaToShow = curResultMedia?.length ? curResultMedia : proposal.proposal.media
 
   const sourceImagesData = mediaToShow.map(el => ({
-    image: el.fileLink,
-    comment: el.commentByPerformer,
+    fileLink: el.fileLink,
+    commentByPerformer: el.commentByPerformer,
     commentByClient: el.commentByClient,
     _id: el._id ?? uuid(),
   }))

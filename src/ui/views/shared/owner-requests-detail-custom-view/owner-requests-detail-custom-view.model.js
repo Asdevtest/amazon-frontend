@@ -293,7 +293,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
+  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData }) {
     try {
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,

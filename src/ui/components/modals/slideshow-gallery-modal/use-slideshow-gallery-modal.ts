@@ -4,7 +4,7 @@ import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gall
 
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { isArrayOfMediaRequest, isArrayOfUploadFileType, isUploadFileType } from '@typings/guards'
+import { isArrayOfRequestMedia, isArrayOfUploadFileType, isUploadFileType } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
@@ -16,7 +16,7 @@ export const useSlideshowGalleryModal = ({
   onOpenModal,
 }: SlideshowGalleryModalProps) => {
   const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
-  const [comments, setComments] = useState<string[]>([])
+  const [commentsByPerformer, setCommentsByPerformer] = useState<string[]>([])
   const [commentsByClient, setCommentsByClient] = useState<string[]>([])
   const [fileIndex, setFileIndex] = useState(FIRST_SLIDE)
 
@@ -29,10 +29,10 @@ export const useSlideshowGalleryModal = ({
 
   useEffect(() => {
     if (files) {
-      setMediaFiles(files.map(file => (isUploadFileType(file) ? file : file?.image)))
+      setMediaFiles(files.map(file => (isUploadFileType(file) ? file : file?.fileLink)))
 
-      if (isArrayOfMediaRequest(files)) {
-        setComments(files.map(file => file?.comment || ''))
+      if (isArrayOfRequestMedia(files)) {
+        setCommentsByPerformer(files.map(file => file?.commentByPerformer || ''))
         setCommentsByClient(files.map(file => file?.commentByClient || ''))
       }
     }
@@ -65,11 +65,11 @@ export const useSlideshowGalleryModal = ({
 
   const onRemoveFile = (mediaFileIndex: number) => {
     setMediaFiles(prevMediaFiles => {
-      const changingMediaFiles = isArrayOfMediaRequest(files)
+      const changingMediaFiles = isArrayOfRequestMedia(files)
         ? prevMediaFiles.map((item, index) => (index === mediaFileIndex ? '' : item))
         : prevMediaFiles.filter((_, index) => index !== mediaFileIndex)
 
-      if (mediaFileIndex > 0 && !isArrayOfMediaRequest(files)) {
+      if (mediaFileIndex > 0 && !isArrayOfRequestMedia(files)) {
         setFileIndex(mediaFileIndex - 1) // returns to the previous photo
       }
 
@@ -117,7 +117,7 @@ export const useSlideshowGalleryModal = ({
 
   return {
     mediaFiles,
-    comments,
+    commentsByPerformer,
     commentsByClient,
     fileIndex,
     setFileIndex,

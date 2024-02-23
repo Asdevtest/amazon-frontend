@@ -45,8 +45,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
   } = props
   const { classes: styles, cx } = useStyles()
   const requestMedia = request?.media?.map(el => ({
-    image: el.fileLink,
-    comment: el.commentByPerformer,
+    fileLink: el.fileLink,
+    commentByPerformer: el.commentByPerformer,
     commentByClient: el.commentByClient,
     _id: el._id,
   }))

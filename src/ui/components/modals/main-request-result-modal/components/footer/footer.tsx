@@ -12,14 +12,14 @@ import { useStyles } from './footer.style'
 
 interface FooterProps {
   isClient: boolean
+  onOpenModal: () => void
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
-  onOpenModal: () => void
   showActionButtons?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
-  const { isClient, onEditCustomProposal, onReceiveCustomProposal, onOpenModal, showActionButtons } = props
+  const { isClient, onOpenModal, onEditCustomProposal, onReceiveCustomProposal, showActionButtons } = props
 
   const { classes: styles } = useStyles()
 
@@ -29,7 +29,7 @@ export const Footer: FC<FooterProps> = memo(props => {
         {t(TranslationKey.Cancel)}
       </Button>
 
-      {showActionButtons ? (
+      {showActionButtons || !isClient ? (
         <div className={styles.flexContainer}>
           {isClient ? (
             <Button styleType={ButtonType.PRIMARY} onClick={onEditCustomProposal}>

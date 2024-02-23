@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 
+import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
@@ -7,8 +8,6 @@ import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-moda
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
-
-import { IMediaRequest } from '@typings/shared/upload-file'
 
 import { useStyles } from './files-tab.style'
 
@@ -45,12 +44,8 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUploadFile,
   } = useFilesTab(props)
 
-  const slides: IMediaRequest[] = files.map(file => ({
-    _id: file._id || '',
-    image: file.fileLink,
-    comment: file?.commentByPerformer || '',
-    commentByClient: file?.commentByClient || '',
-  }))
+  const commentModalTitle =
+    (props.isClient ? currentEditableFile?.commentByClient : currentEditableFile?.commentByPerformer) || ''
 
   return (
     <>
@@ -94,8 +89,8 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         <CommentsModal
           readOnly={!props.isClient}
           title={t(TranslationKey['Add comment'])}
-          text={(props.isClient ? currentEditableFile?.commentByClient : currentEditableFile?.commentByPerformer) || ''}
-          maxLength={512}
+          text={commentModalTitle}
+          maxLength={MIDDLE_COMMENT_VALUE}
           isOpenModal={showCommentModal}
           onOpenModal={onShowCommentModal}
           onChangeField={onChangeComment}
@@ -104,7 +99,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
 
       {showSlideshowGalleryModal ? (
         <SlideshowGalleryModal
-          files={slides}
+          files={files}
           currentFileIndex={currentFileIndex}
           isOpenModal={showSlideshowGalleryModal}
           onOpenModal={onShowSlideshowGalleryModal}

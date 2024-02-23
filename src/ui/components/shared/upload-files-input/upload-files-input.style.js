@@ -58,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '40px',
     borderRadius: '7px',
     width: 'calc(100% - 192px)',
-    border: `1px solid #424250`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     [theme.breakpoints.down(480)]: {
       width: '100%',
     },

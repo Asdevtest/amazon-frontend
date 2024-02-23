@@ -154,7 +154,10 @@ export class CreateOrEditRequestViewModel {
             ...data.request,
             executorId: data?.request?.executorId || null,
             announcementId: announcement?._id || null,
-            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
+            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({
+              fileLink: el,
+              commentByClient: files[i].commentByClient,
+            })),
           },
           ['discountedPrice'],
           undefined,
@@ -222,7 +225,7 @@ export class CreateOrEditRequestViewModel {
             executorId: data?.request?.executorId || null,
             announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
-              ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
+              ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].commentByClient })),
             ],
           },
           ['discountedPrice'],

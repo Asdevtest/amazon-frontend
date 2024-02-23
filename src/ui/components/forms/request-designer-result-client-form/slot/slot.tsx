@@ -68,7 +68,7 @@ export const Slot: FC<SlotProps> = memo(props => {
 
         <p className={styles.imageObjIndex}>{index + 1}</p>
 
-        <p className={styles.imageObjTitle}>{getShortenStringIfLongerThanCount(item.comment, 20)}</p>
+        <p className={styles.imageObjTitle}>{getShortenStringIfLongerThanCount(item.commentByPerformer, 20)}</p>
       </div>
       <div
         className={cx(

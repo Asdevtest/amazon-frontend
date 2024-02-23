@@ -51,7 +51,7 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
             <Input
               readOnly={isClient}
               value={link}
-              classes={{ root: styles.inputRoot, input: styles.input }}
+              classes={{ root: cx(styles.inputRoot, { [styles.notFocuced]: isClient }), input: styles.input }}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeLink(index, e.target.value)}
             />
 
