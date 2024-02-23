@@ -56,7 +56,7 @@ export const OrderContent = ({
   onClickHsCode,
   setCurrentOpenedBox,
 }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)

@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo, useRef } from 'react'
+import { FC, MouseEvent, memo, useState } from 'react'
 
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Avatar from '@mui/material/Avatar'
 import Checkbox from '@mui/material/Checkbox'
-import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Menu from '@mui/material/Menu'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
@@ -20,6 +18,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { isString } from '@typings/guards'
 
 import { useStyles } from './slot.style'
 
@@ -51,9 +51,14 @@ export const Slot: FC<SlotProps> = memo(props => {
   } = props
   const { classes: styles, cx } = useStyles()
 
-  const menuAnchor = useRef(null)
-
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+    onClickCommentBtn(item._id)
+  }
   const handleClose = () => {
+    setAnchorEl(null)
     onClickCommentBtn(item._id)
   }
 
@@ -70,10 +75,11 @@ export const Slot: FC<SlotProps> = memo(props => {
 
         <p className={styles.imageObjTitle}>{getShortenStringIfLongerThanCount(item.commentByPerformer, 20)}</p>
       </div>
+
       <div
         className={cx(
           styles.imageWrapper,
-          { [styles.isHaveImage]: !!item.image },
+          { [styles.isHaveImage]: !!item.fileLink },
           { [styles.mainImageWrapper]: index === 0 },
         )}
       >
@@ -82,7 +88,7 @@ export const Slot: FC<SlotProps> = memo(props => {
         <div className={styles.imageListItem}>
           <Tooltip
             arrow
-            title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.fullName}
+            title={getFileNameFromUrl(isString(item.fileLink) ? item.fileLink : item.fileLink?.file.name)?.fullName}
             placement="right-end"
             TransitionComponent={Zoom}
             TransitionProps={{ timeout: 300 }}
@@ -91,12 +97,12 @@ export const Slot: FC<SlotProps> = memo(props => {
               className={styles.image}
               classes={{ img: styles.image }}
               src={
-                typeof item.image === 'string'
-                  ? checkIsMediaFileLink(item.image)
-                    ? getAmazonImageUrl(item.image, false)
+                isString(item.fileLink)
+                  ? checkIsMediaFileLink(item.fileLink)
+                    ? getAmazonImageUrl(item.fileLink, false)
                     : '/assets/icons/file.png'
-                  : item.image?.file.type.includes('image')
-                  ? item.image?.data_url
+                  : item.fileLink?.file.type.includes('image')
+                  ? item.fileLink?.data_url
                   : '/assets/icons/file.png'
               }
               alt={''}
@@ -104,10 +110,10 @@ export const Slot: FC<SlotProps> = memo(props => {
               onClick={() => {
                 setCurImageIndex(index)
 
-                if (checkIsMediaFileLink(item.image?.file?.name || item.image)) {
+                if (checkIsMediaFileLink(item.fileLink?.file?.name || item.fileLink)) {
                   setShowImageModal(!showImageModal)
                 } else {
-                  window.open(item.image?.data_url || getAmazonImageUrl(item.image), '__blank')
+                  window.open(item.fileLink?.data_url || getAmazonImageUrl(item.fileLink), '__blank')
                 }
               }}
             />
@@ -115,9 +121,9 @@ export const Slot: FC<SlotProps> = memo(props => {
         </div>
       </div>
 
-      <div ref={menuAnchor}>
-        {!noShowActions && (
-          <Button className={styles.commentBtn} onClick={() => onClickCommentBtn(item._id)}>
+      {!noShowActions && (
+        <div>
+          <Button className={styles.commentBtn} onClick={handleClick}>
             {t(TranslationKey.Comment)}
 
             {item.commentByClient ? (
@@ -126,50 +132,26 @@ export const Slot: FC<SlotProps> = memo(props => {
               <PlusIcon className={styles.commentIcon} />
             )}
           </Button>
-        )}
 
-        {!noShowActions && (
-          <ClickAwayListener
-            mouseEvent="onMouseDown"
-            onClickAway={() => {
-              handleClose()
-              onClickCommentBtn(item._id)
-            }}
-          >
-            <div className={cx(styles.commentBtnWrapper)}>
-              <div className={cx(styles.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-                <p>{t(TranslationKey.Comment)}</p>
-
-                <ArrowDropUpIcon />
-              </div>
-
-              {Boolean(menuAnchor) && (
-                <Menu
-                  open
-                  anchorEl={menuAnchor.current}
-                  autoFocus={false}
-                  classes={{ list: styles.list }}
-                  onClose={handleClose}
-                >
-                  <Input
-                    autoFocus
-                    multiline
-                    type="text"
-                    inputProps={{ maxLength: 500 }}
-                    minRows={5}
-                    maxRows={10}
-                    variant="filled"
-                    className={styles.imageObjInput}
-                    classes={{ input: styles.subImageObjInput }}
-                    value={item.commentByClient}
-                    onChange={onChangeImageFileds('commentByClient', item._id)}
-                  />
-                </Menu>
-              )}
-            </div>
-          </ClickAwayListener>
-        )}
-      </div>
+          {open && (
+            <Menu open anchorEl={anchorEl} autoFocus={false} classes={{ list: styles.list }} onClose={handleClose}>
+              <Input
+                autoFocus
+                multiline
+                type="text"
+                inputProps={{ maxLength: 500 }}
+                minRows={5}
+                maxRows={10}
+                variant="filled"
+                className={styles.imageObjInput}
+                classes={{ input: styles.subImageObjInput }}
+                value={item.commentByClient}
+                onChange={onChangeImageFileds('commentByClient', item._id)}
+              />
+            </Menu>
+          )}
+        </div>
+      )}
     </div>
   )
 })
