@@ -588,7 +588,6 @@ export const EditOrderModal = memo(
                     Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ||
                     Number(order.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ||
                     !checkIsPlanningPrice
-                    // orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                   }
                   variant="filled"
                   value={orderFields.status}
@@ -648,7 +647,6 @@ export const EditOrderModal = memo(
                             order.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
                         )
                       }),
-                      // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true))
                     ),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
@@ -1156,17 +1154,10 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <Modal
-          openModal={commentModal}
-          setOpenModal={() => {
-            setCommentModalModal(!commentModal)
-          }}
-        >
+        <Modal openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
           <CommentsForm
             comments={orderFields.commentsFromTask}
-            onCloseModal={() => {
-              setCommentModalModal(!commentModal)
-            }}
+            onCloseModal={() => setCommentModalModal(!commentModal)}
           />
         </Modal>
       </div>
