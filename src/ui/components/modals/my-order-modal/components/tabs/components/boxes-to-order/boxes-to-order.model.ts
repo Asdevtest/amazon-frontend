@@ -21,7 +21,7 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { ModalNames } from './boxes-to-order-tab.type'
+import { ModalNames } from './boxes-to-order.type'
 
 interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
   asin: string
@@ -30,7 +30,7 @@ interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
   skuByClient: string
 }
 
-export class BoxesToOrderTabModel {
+export class BoxesToOrderModel {
   requestStatus: loadingStatuses = loadingStatuses.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
 

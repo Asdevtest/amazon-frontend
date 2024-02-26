@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: '100%',
     height: 300,
-    maxWidth: 1085,
+    // maxWidth: 1085,
   },
 
   columnHeaderTitleContainer: {

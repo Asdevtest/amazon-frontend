@@ -14,32 +14,40 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { IProduct } from '@typings/models/products/product'
 import { IDestinationStorekeeper } from '@typings/shared/destinations'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
-import { useStyles } from './list-suppliers-tab.style'
+import { useStyles } from './list-suppliers.style'
 
-import { suppliersOrderColumn } from './list-suppliers-tab.column'
-import { ListSuppliersTabModel } from './list-suppliers-tab.model'
-import { ModalNames } from './list-suppliers-tab.type'
+import { extractProduct } from './helpers/extract-product'
+import { suppliersOrderColumn } from './list-suppliers.column'
+import { ListSuppliersModel } from './list-suppliers.model'
+import { ModalNames } from './list-suppliers.type'
 import { Toolbar } from './toolbar'
 
-interface ListSuppliersTabProps {
-  formFields: IOrderWithAdditionalFields
+interface ListSuppliersProps {
+  formFields: IOrderWithAdditionalFields | IProduct
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
 }
 
-export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
+export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const { formFields, storekeepers, platformSettings } = props
 
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ListSuppliersTabModel(formFields))
+  const [viewModel] = useState(() => new ListSuppliersModel(extractProduct(formFields)))
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === formFields?.product?.currentSupplier?._id && styles.currentSupplierBackground
+    id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
   const showVisibilityButton = viewModel.selectionModel.length > 0
+  const listSuppliersColumns = suppliersOrderColumn({
+    orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
+    orderSupplierId: 'orderSupplier' in formFields ? formFields?.orderSupplier?._id : '',
+    platformSettings,
+    onClickFilesCell: viewModel.onClickFilesCell,
+  })
 
   return (
     <>
@@ -53,7 +61,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}
-          columns={suppliersOrderColumn(formFields, platformSettings, viewModel.onClickFilesCell)}
+          columns={listSuppliersColumns}
           paginationModel={viewModel.paginationModel}
           rowSelectionModel={viewModel.selectionModel}
           sx={{
@@ -93,7 +101,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
             // remove memo from the modal or add types to the modal
             /* @ts-ignore */
             onlyRead
-            product={formFields?.product}
+            product={extractProduct(formFields)}
             supplier={viewModel.currentSupplier}
             storekeepersData={storekeepers}
             sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}

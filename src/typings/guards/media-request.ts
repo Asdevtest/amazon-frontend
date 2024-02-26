@@ -1,5 +1,5 @@
+import { TypeGuard } from '@typings/guards/type-guard'
 import { IRequestMedia } from '@typings/models/requests/request-media'
-import { TypeGuard } from '@typings/type-guard'
 
 import { isUploadFileType } from './upload-file'
 

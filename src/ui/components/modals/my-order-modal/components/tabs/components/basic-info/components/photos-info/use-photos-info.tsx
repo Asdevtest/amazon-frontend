@@ -10,7 +10,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './photos-info.style'
 
-import { IFieldConfig } from '../../basic-info-tab.type'
+import { IFieldConfig } from '../../basic-info.type'
 
 import { PhotosInfoProps } from './photos-info.type'
 

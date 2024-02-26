@@ -4,11 +4,11 @@ import { IOrderWithAdditionalFields, SetFormFieldsType } from '@components/modal
 
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
-import { useStyles } from './basic-info-tab.style'
+import { useStyles } from './basic-info.style'
 
 import { AdditionalInfo, CommentsInfo, PhotosInfo, SupplierInfo } from './components'
 
-interface BasicInfoTabProps {
+interface BasicInfoProps {
   isOrderEditable: boolean
   formFields: IOrderWithAdditionalFields
   destinations: IDestination[]
@@ -20,7 +20,7 @@ interface BasicInfoTabProps {
   isPendingOrdering?: boolean
 }
 
-export const BasicInfoTab: FC<BasicInfoTabProps> = memo(props => {
+export const BasicInfo: FC<BasicInfoProps> = memo(props => {
   const {
     isOrderEditable,
     isClient,

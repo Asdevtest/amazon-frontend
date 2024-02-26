@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GalleryModal } from '@components/modals/gallery-modal'
-import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info-tab/components/card'
+import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info/components/card'
 
 import { t } from '@utils/translations'
 

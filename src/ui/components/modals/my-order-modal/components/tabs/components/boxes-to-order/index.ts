@@ -1,2 +1,1 @@
-export { BasicInfo } from './basic-info'
 export { BoxesToOrder } from './boxes-to-order'

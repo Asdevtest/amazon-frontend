@@ -2,14 +2,13 @@ import { makeAutoObservable, reaction } from 'mobx'
 
 import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
-import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
-
+import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { ModalNames } from './list-suppliers-tab.type'
+import { ModalNames } from './list-suppliers.type'
 
-export class ListSuppliersTabModel {
+export class ListSuppliersModel {
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
   selectionModel: GridRowSelectionModel = []
 
@@ -20,8 +19,8 @@ export class ListSuppliersTabModel {
   showGalleryModal = false
   showAddOrEditSupplierModal = false
 
-  constructor(order: IOrderWithAdditionalFields) {
-    this.onGetSuppliers(order)
+  constructor(product: IProduct) {
+    this.onGetSuppliers(product)
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -39,9 +38,7 @@ export class ListSuppliersTabModel {
     this.selectionModel = model
   }
 
-  onGetSuppliers(order: IOrderWithAdditionalFields) {
-    const product = order?.product
-
+  onGetSuppliers(product: IProduct) {
     if (product?.suppliers?.length > 0) {
       const currentSupplierId: string = product.currentSupplier?._id
 

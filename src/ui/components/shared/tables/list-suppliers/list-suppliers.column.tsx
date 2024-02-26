@@ -12,7 +12,6 @@ import {
   SupplierWithIconsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -22,19 +21,27 @@ import { t } from '@utils/translations'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-export const suppliersOrderColumn = (
-  order: IOrderWithAdditionalFields,
-  platformSettings: IPlatformSettings,
-  onClickFilesCell: (files?: UploadFileType[]) => void,
-) => [
+interface ISuppliersOrderColumn {
+  orderCreatedAt: string
+  orderSupplierId: string
+  platformSettings: IPlatformSettings
+  onClickFilesCell: (files?: UploadFileType[]) => void
+}
+
+export const suppliersOrderColumn = ({
+  orderCreatedAt,
+  orderSupplierId,
+  platformSettings,
+  onClickFilesCell,
+}: ISuppliersOrderColumn) => [
   {
     field: 'supplier',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
     renderCell: ({ row }: GridRowModel) => (
       <SupplierWithIconsCell
         supplierName={row.name}
-        orderCreatedAt={order?.createdAt}
-        orderSupplierId={order?.orderSupplier?._id}
+        orderCreatedAt={orderCreatedAt}
+        orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
         supplierId={row._id}
         supplierMultiplicity={row.multiplicity}

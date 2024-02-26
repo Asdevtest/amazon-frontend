@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info-tab/components/card'
+import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info/components/card'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'

@@ -19,21 +19,21 @@ import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
-import { useStyles } from './boxes-to-order-tab.style'
+import { useStyles } from './boxes-to-order.style'
 
-import { boxesToOrderColumn } from './boxes-to-order-tab.column'
-import { BoxesToOrderTabModel } from './boxes-to-order-tab.model'
-import { ModalNames } from './boxes-to-order-tab.type'
+import { boxesToOrderColumn } from './boxes-to-order.column'
+import { BoxesToOrderModel } from './boxes-to-order.model'
+import { ModalNames } from './boxes-to-order.type'
 
-interface BoxesToOrderTabProps {
+interface BoxesToOrderProps {
   formFields: IOrderWithAdditionalFields
   platformSettings: IPlatformSettings
 }
 
-export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = observer(({ formFields, platformSettings }) => {
+export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platformSettings }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BoxesToOrderTabModel(formFields))
+  const [viewModel] = useState(() => new BoxesToOrderModel(formFields))
 
   return (
     <>

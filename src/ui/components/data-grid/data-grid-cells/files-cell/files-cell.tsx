@@ -2,9 +2,12 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/buttons/button'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './files-cell.style'
 
@@ -19,15 +22,9 @@ export const FilesCell: FC<FilesCellProps> = memo(({ filesLength, onClickCell })
   return (
     <div className={styles.wrapper}>
       {filesLength > 0 ? (
-        <button
-          className={styles.visibilityButton}
-          onClick={e => {
-            e.stopPropagation()
-            onClickCell()
-          }}
-        >
+        <Button styleType={ButtonType.CASUAL} className={styles.visibilityButton} onClick={onClickCell}>
           <EyeIcon className={styles.visibilityIcon} />
-        </button>
+        </Button>
       ) : (
         t(TranslationKey['No data'])
       )}

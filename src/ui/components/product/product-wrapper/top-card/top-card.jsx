@@ -20,6 +20,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
@@ -404,6 +405,8 @@ export const TopCard = memo(
                 selectedSupplier={selectedSupplier}
                 onClickSupplier={onClickSupplier}
               />
+
+              <ListSuppliers formFields={product} platformSettings={platformSettings} storekeepers={storekeepersData} />
             </>
           )}
 

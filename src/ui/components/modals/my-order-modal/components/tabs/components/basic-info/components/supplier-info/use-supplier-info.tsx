@@ -20,7 +20,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './supplier-info.style'
 
-import { IFieldConfig } from '../../basic-info-tab.type'
+import { IFieldConfig } from '../../basic-info.type'
 
 import { SupplierInfoProps } from './supplier-info.type'
 

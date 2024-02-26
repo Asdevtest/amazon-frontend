@@ -1,6 +1,6 @@
+import { TypeGuard } from '@typings/guards/type-guard'
 import { IRequestMedia } from '@typings/models/requests/request-media'
 import { UploadFileType } from '@typings/shared/upload-file'
-import { TypeGuard } from '@typings/type-guard'
 
 import { isRequestMedia } from './media-request'
 import { isUploadFileType } from './upload-file'

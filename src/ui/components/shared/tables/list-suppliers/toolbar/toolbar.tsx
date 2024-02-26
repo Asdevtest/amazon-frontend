@@ -2,9 +2,12 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/buttons/button'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './toolbar.style'
 
@@ -22,9 +25,9 @@ export const Toolbar: FC<ToolbarProps> = memo(({ showVisibilityButton, onAddOrEd
 
       <div className={styles.actionsButtons}>
         {showVisibilityButton && (
-          <button className={styles.visibilityButton} onClick={onAddOrEditSupplierModal}>
+          <Button styleType={ButtonType.CASUAL} className={styles.visibilityButton} onClick={onAddOrEditSupplierModal}>
             <EyeIcon className={styles.visibilityIcon} />
-          </button>
+          </Button>
         )}
       </div>
     </div>

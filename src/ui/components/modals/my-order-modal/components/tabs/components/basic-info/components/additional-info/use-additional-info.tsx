@@ -17,7 +17,7 @@ import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-i
 
 import { useStyles } from './additional-info.style'
 
-import { IFieldConfig } from '../../basic-info-tab.type'
+import { IFieldConfig } from '../../basic-info.type'
 
 import { AdditionalInfoProps, InitialConfirmModalSettingsState } from './additional-info.type'
 

@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info-tab/components/card'
+import { Card } from '@components/modals/my-order-modal/components/tabs/components/basic-info/components/card'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Modal } from '@components/shared/modal'
 
