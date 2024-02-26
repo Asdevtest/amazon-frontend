@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { MultilineTextCell } from '..'
 import { CSSProperties, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,8 +8,6 @@ import { secondsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './time-from-seconds-cell.style'
-
-import { MultilineTextCell } from '../data-grid-cells'
 
 interface TimeFromSecondsCellProps {
   seconds: number

@@ -25,7 +25,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './order-content.style'
 
@@ -226,7 +226,7 @@ export const OrderContent = ({
           {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
             onClickCancelOrder && (
               <Button
-                styleType={ButtonType.DANGER}
+                styleType={ButtonStyle.DANGER}
                 tooltipInfoContent={
                   updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                   t(TranslationKey['Cancel order, refund of frozen funds'])
@@ -239,7 +239,7 @@ export const OrderContent = ({
           {isClient && isOrderEditable ? (
             <div className={styles.btnsSubWrapper}>
               {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-                <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={onClickReorder}>
+                <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickReorder}>
                   {t(TranslationKey['To order'])}
                 </Button>
               )}

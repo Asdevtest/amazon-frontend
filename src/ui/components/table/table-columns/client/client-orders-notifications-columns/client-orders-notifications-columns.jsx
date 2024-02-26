@@ -2,7 +2,7 @@ import { OrderStatusByCode, orderColorByStatus } from '@constants/orders/order-s
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ClientNotificationsBtnsCell,
+  ActionButtonsCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
@@ -10,10 +10,12 @@ import {
   OrderCell,
   PriorityAndChinaDeliverCell,
   ShortDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientOrdersNotificationsViewColumns = handlers => [
   {
@@ -72,7 +74,18 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     headerName: t(TranslationKey.Action),
     width: 305,
-    renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        firstButtonElement={t(TranslationKey.Confirm)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={t(TranslationKey.Reject)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row.originalData)}
+        onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

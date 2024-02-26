@@ -12,7 +12,7 @@ import {
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'

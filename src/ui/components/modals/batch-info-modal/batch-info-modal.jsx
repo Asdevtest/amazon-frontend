@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
-import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'

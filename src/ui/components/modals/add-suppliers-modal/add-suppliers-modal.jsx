@@ -11,7 +11,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-suppliers-modal.style'
 
@@ -42,7 +42,7 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
       <UploadFilesInput images={images} setImages={setImages} maxNumber={1} acceptType={['xlsx']} />
       <div className={styles.buttonsWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!images}
           className={styles.button}
           onClick={() => onSubmit(images[0].file)}

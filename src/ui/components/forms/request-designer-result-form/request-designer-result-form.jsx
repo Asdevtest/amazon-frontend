@@ -20,7 +20,7 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime, parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './request-designer-result-form.style'
 

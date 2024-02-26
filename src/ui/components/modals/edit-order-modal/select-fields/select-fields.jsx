@@ -4,7 +4,7 @@ import { Box, Checkbox, Grid, Typography } from '@mui/material'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
@@ -24,7 +24,7 @@ import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInS
 import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-fields.style'
 

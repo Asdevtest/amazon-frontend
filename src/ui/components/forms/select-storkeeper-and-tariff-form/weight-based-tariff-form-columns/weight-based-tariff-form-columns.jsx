@@ -1,15 +1,17 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const WeightBasedTariffFormColumns = (
   showCheckbox,
@@ -117,9 +119,9 @@ export const WeightBasedTariffFormColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        fullWidthButton
-        disabled={
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={
           showCheckbox &&
           ((currentDestinationId &&
             params.row?.destinationVariations.every(item => item?.destination?._id !== currentDestinationId) &&
@@ -127,8 +129,9 @@ export const WeightBasedTariffFormColumns = (
             !variationTariffId ||
             params.row?.destinationVariations.every(item => item?._id !== variationTariffId))
         }
-        bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => onClickSelectTariff(params.row._id)}
+        firstButtonElement={t(TranslationKey['Select Tariff'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => onClickSelectTariff(params.row._id)}
       />
     ),
     filterable: false,

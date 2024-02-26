@@ -8,7 +8,7 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 interface RealizedIdeaActionsCellProps {
   row: any
@@ -23,7 +23,7 @@ export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({
       <Button
         isTableButton
         fullWidth
-        styleType={ButtonType.SUCCESS}
+        styleType={ButtonStyle.SUCCESS}
         onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
       >
         {t(TranslationKey['To order'])}

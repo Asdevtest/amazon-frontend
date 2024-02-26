@@ -13,7 +13,7 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './product-launch-form.style'
 
@@ -121,7 +121,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={selectedRadioValue && !selectedProduct}
           onClick={() => onClickNextButton(selectedProduct)}
         >

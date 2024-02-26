@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
@@ -136,7 +136,7 @@ export const ConfirmationModal = props => {
         >
           {isWarning ? (
             <Button
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               className={styles.button}
               disabled={submitIsClicked}
               onClick={onSubmit}
@@ -145,7 +145,7 @@ export const ConfirmationModal = props => {
             </Button>
           ) : (
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               className={styles.button}
               disabled={submitIsClicked}
               onClick={onSubmit}

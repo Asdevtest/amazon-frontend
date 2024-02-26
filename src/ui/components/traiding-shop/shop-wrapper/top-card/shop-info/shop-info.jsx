@@ -13,7 +13,7 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './shop-info.style'
 
@@ -88,7 +88,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 <Button className={styles.editButton} onClick={onClickEditBtn}>
                   {t(TranslationKey.Edit)}
                 </Button>
-                <Button disabled styleType={ButtonType.DANGER} className={styles.deleteButton}>
+                <Button disabled styleType={ButtonStyle.DANGER} className={styles.deleteButton}>
                   {t(TranslationKey['Delete ad'])}
                 </Button>
               </>

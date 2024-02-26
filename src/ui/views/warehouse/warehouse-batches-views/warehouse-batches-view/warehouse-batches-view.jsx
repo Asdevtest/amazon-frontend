@@ -11,7 +11,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { styles } from './warehouse-batches-view.style'
 
@@ -28,14 +28,18 @@ export const WarehouseBatchesViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} styleType={ButtonType.SUCCESS} onClick={viewModel.onClickAwaitingBatches}>
+            <Button
+              className={styles.button}
+              styleType={ButtonStyle.SUCCESS}
+              onClick={viewModel.onClickAwaitingBatches}
+            >
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} styleType={ButtonType.SUCCESS} onClick={viewModel.onClickSentBatches}>
+            <Button className={styles.button} styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickSentBatches}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey.Sent)}</Typography>
                 <ArrowRightAltIcon color="primary" />

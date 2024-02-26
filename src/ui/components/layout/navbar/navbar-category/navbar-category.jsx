@@ -11,7 +11,7 @@ import { renderTooltipTitle } from '@utils/renders'
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './navbar-category.style'
 
@@ -68,7 +68,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       tooltipPosition="center"
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
-      styleType={ButtonType.TRANSPARENT}
+      styleType={ButtonStyle.TRANSPARENT}
       onClick={onToggleModal}
     >
       <MuiListItem

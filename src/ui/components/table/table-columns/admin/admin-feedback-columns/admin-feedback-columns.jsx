@@ -1,15 +1,17 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   UserCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const adminFeedbackViewColumns = handlers => [
   {
@@ -59,10 +61,11 @@ export const adminFeedbackViewColumns = handlers => [
     sortable: false,
     width: 180,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        // isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
       />
     ),
   },

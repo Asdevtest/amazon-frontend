@@ -36,8 +36,8 @@ import { formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { Specs } from '@typings/enums/specs'
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './create-or-edit-request-content.style'
 
@@ -572,7 +572,7 @@ export const CreateOrEditRequestContent = memo(props => {
               <div className={styles.defaultMarginTop}>
                 <Button
                   disabled={!formFields.request?.productId}
-                  styleType={ButtonType.PRIMARY}
+                  styleType={ButtonStyle.PRIMARY}
                   onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                 >
                   <CustomPlusIcon />
@@ -742,7 +742,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         <Button
                           disabled={!formFields.request.specId}
                           className={styles.buttonSelect}
-                          styleType={ButtonType.PRIMARY}
+                          styleType={ButtonStyle.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -799,7 +799,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       {!announcement?._id && (
                         <Button
                           disabled={!formFields?.request?.specId}
-                          styleType={ButtonType.PRIMARY}
+                          styleType={ButtonStyle.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -1080,7 +1080,7 @@ export const CreateOrEditRequestContent = memo(props => {
               </Button>
 
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 disabled={disableSubmit}
                 onClick={() => onEditSubmit(formFields, images, announcement)}
               >
@@ -1100,7 +1100,7 @@ export const CreateOrEditRequestContent = memo(props => {
               </Button>
 
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 tooltipInfoContent={
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
@@ -1132,7 +1132,7 @@ export const CreateOrEditRequestContent = memo(props => {
             </Button>
 
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
               }
@@ -1151,7 +1151,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
             {isSecondStep && (
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 disabled={disableSubmit}
                 onClick={() => onClickCreate({ withPublish: true })}
               >

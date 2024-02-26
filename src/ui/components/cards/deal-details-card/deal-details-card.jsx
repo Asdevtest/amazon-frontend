@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -16,7 +16,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './deal-details-card.style'
 
@@ -164,7 +164,7 @@ export const DealDetailsCard = ({
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
                 <Button
-                  styleType={ButtonType.DANGER}
+                  styleType={ButtonStyle.DANGER}
                   className={styles.actionButton}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
@@ -172,7 +172,7 @@ export const DealDetailsCard = ({
                 </Button>
 
                 <Button
-                  styleType={ButtonType.SUCCESS}
+                  styleType={ButtonStyle.SUCCESS}
                   className={styles.actionButton}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
@@ -183,7 +183,7 @@ export const DealDetailsCard = ({
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
               >

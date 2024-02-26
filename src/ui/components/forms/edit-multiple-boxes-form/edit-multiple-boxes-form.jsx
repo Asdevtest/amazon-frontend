@@ -10,7 +10,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -26,7 +26,7 @@ import { checkIsStorekeeper } from '@utils/checks'
 import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 

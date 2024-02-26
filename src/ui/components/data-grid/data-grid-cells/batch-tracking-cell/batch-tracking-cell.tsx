@@ -1,3 +1,4 @@
+import { ChangeInputCommentCell, DatePickerCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,8 +8,6 @@ import { Field } from '@components/shared/field'
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-tracking-cell.style'
-
-import { ChangeInputCommentCell, DatePickerCell } from '../data-grid-cells'
 
 interface BatchTrackingCellProps {
   rowHandlers: {

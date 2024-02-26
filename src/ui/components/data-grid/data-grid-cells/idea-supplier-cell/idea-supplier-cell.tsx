@@ -8,7 +8,7 @@ import { PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-supplier-cell.style'
 
@@ -24,7 +24,7 @@ export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSup
     <div className={styles.ideaSupplier}>
       {!!suppliers.length && <p>{suppliers[0].name}</p>}
       {!suppliers.length && (
-        <Button styleType={ButtonType.SUCCESS} className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.buttonWithIcon} onClick={onClickAddSupplier}>
           <PlusIcon /> {t(TranslationKey.Add)}
         </Button>
       )}

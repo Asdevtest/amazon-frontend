@@ -8,7 +8,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-boxes-btns-cell.style'
 
@@ -48,7 +48,7 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={row.isDraft}
           tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
           className={styles.warehouseBoxesBtn}

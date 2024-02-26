@@ -1,17 +1,22 @@
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   AsinCell,
   ChangeInputCommentCell,
   CopyAndEditLinkCell,
-  EditOrRemoveIconBtnsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const sourceFilesColumns = (rowHandlers, editField) => [
   {
@@ -108,12 +113,19 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 150,
     renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
-        tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
-        handlers={rowHandlers}
-        row={params.row}
-        isSave={params?.row?.originalData?._id === editField?._id}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey['Change store name or links to reports'])}
+        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        disabledFirstButton={params?.row?.originalData?._id === editField?._id}
+        secondButtonTooltipText={t(TranslationKey['Remove a store from your list'])}
+        secondButtonElement={<DeleteOutlineOutlinedIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => rowHandlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => rowHandlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
     filterable: false,

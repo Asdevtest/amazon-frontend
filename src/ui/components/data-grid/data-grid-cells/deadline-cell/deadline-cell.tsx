@@ -1,11 +1,10 @@
+import { MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins } from '@utils/text'
-
-import { MultilineTextCell } from '../data-grid-cells'
 
 interface DeadlineCellProps {
   deadline: string

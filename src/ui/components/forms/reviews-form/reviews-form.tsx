@@ -9,9 +9,9 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
 import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
-import { ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './reviews-form.style'
 

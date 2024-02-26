@@ -1,8 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo } from 'react'
-
-import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
-
 import {
   AddAsinIdeaActionsCell,
   ClosedIdeaActionsCell,
@@ -10,7 +6,10 @@ import {
   IdeaActionsCell,
   OnCheckingIdeaActionsCell,
   RealizedIdeaActionsCell,
-} from '../data-grid-cells'
+} from '..'
+import { FC, memo } from 'react'
+
+import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 
 interface AllIdeasActionsCellProps {
   row: any

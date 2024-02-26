@@ -1,7 +1,10 @@
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveIconBtnsCell,
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -9,9 +12,11 @@ import {
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const logisticsTariffsColumns = (handlers, isArchive) => [
   {
@@ -105,13 +110,23 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     width: 145,
     renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipFirstButton={t(TranslationKey.Edit)}
-        tooltipSecondButton={t(TranslationKey.Remove)}
-        handlers={handlers}
-        row={params.row}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        isThirdButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        isArchive={isArchive}
+        firstButtonTooltipText={t(TranslationKey.Edit)}
+        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(TranslationKey['Move to archive'])}
+        secondButtonElement={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'}
+        secondButtonStyle={isArchive ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
+        thirdButtonTooltipText={t(TranslationKey.Remove)}
+        thirdButtonElement={<DeleteOutlineOutlinedIcon />}
+        thirdButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}
+        onClickThirdButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
     filterable: false,
@@ -125,6 +140,5 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
 ]

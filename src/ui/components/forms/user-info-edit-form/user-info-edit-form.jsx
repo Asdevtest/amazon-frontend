@@ -16,7 +16,7 @@ import { checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 // import {RegistrationForm} from '../registration-form'
 import { useStyles } from './user-info-edit-form.style'

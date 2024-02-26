@@ -11,7 +11,7 @@ import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './grouping-boxes-form.style'
 

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warning-info-modal.style'
 
@@ -17,7 +17,7 @@ export const WarningInfoModal = ({ openModal, setOpenModal, title, btnText, onCl
           {title}
         </Typography>
 
-        <Button styleType={ButtonType.SUCCESS} className={styles.button} onClick={onClickBtn}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickBtn}>
           {btnText}
         </Button>
       </div>

@@ -21,7 +21,7 @@ import { Input } from '@components/shared/input'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { styles } from './reasearcher-add-product-form.style'
 
@@ -119,7 +119,7 @@ export const ResearcherAddProductFormRaw = observer(
 
             <Box className={styles.btnsWrapper}>
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={errorMsg || formFields.strategyStatus < 10}
                 onClick={onClickCheckAndAddProductBtn}

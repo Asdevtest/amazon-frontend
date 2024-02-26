@@ -20,7 +20,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './servant-requests-detail-custom-view.style'
 
@@ -102,7 +102,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
                   <div className={styles.additionalButtonsWrapper}>
                     {showRejectTheDealButton ? (
                       <Button
-                        styleType={ButtonType.DANGER}
+                        styleType={ButtonStyle.DANGER}
                         onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
                       >
                         {t(TranslationKey['Reject the deal'])}

@@ -24,7 +24,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } fro
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -686,7 +686,7 @@ export const AdminUserEditContent = observer(
 
         <div className={styles.buttonWrapper}>
           <Button
-            type={ButtonType.SUCCESS}
+            type={ButtonStyle.SUCCESS}
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             className={[styles.button, styles.rightBtn]}
             onClick={onClickSubmit}

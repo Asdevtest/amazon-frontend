@@ -11,7 +11,7 @@ import {
   PriceVariationsCell,
   SupplierWithIconsCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 

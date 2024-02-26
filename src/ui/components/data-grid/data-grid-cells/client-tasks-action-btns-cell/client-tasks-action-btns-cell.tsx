@@ -11,7 +11,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './client-tasks-action-btns-cell.style'
 
@@ -49,7 +49,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonType.DANGER}
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
@@ -64,7 +64,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonType.DANGER}
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
@@ -82,7 +82,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonType.DANGER}
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => {
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')

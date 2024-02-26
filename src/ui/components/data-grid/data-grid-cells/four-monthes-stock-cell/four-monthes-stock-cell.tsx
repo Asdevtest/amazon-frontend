@@ -1,3 +1,4 @@
+import { ChangeInputCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -5,8 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 import { useStyles } from './four-monthes-stock-cell.style'
-
-import { ChangeInputCell } from '../data-grid-cells'
 
 interface FourMonthesStockCellProps {
   rowId: string

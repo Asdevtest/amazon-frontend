@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './footer.style'
 
@@ -25,19 +25,19 @@ export const Footer: FC<FooterProps> = memo(props => {
 
   return (
     <div className={styles.flexContainer}>
-      <Button styleType={ButtonType.DANGER} onClick={onOpenModal}>
+      <Button styleType={ButtonStyle.DANGER} onClick={onOpenModal}>
         {t(TranslationKey.Cancel)}
       </Button>
 
       {showActionButtons || !isClient ? (
         <div className={styles.flexContainer}>
           {isClient ? (
-            <Button styleType={ButtonType.PRIMARY} onClick={onEditCustomProposal}>
+            <Button styleType={ButtonStyle.PRIMARY} onClick={onEditCustomProposal}>
               {t(TranslationKey['Send in for rework'])}
             </Button>
           ) : null}
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
           >
             {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}

@@ -2,11 +2,7 @@ import { GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { MultilineTextCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 
 import { formatCamelCaseString } from '@utils/text'
 

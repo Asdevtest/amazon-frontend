@@ -10,7 +10,7 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './set-four-monthes-stock-value-modal.style'
 
@@ -38,7 +38,7 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
 
       <Box className={styles.saveBox}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!newValue || newValue > 99999}
           className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}

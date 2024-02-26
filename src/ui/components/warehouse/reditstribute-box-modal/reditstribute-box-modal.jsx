@@ -16,7 +16,7 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './reditstribute-box-modal.style'
 
