@@ -1,1 +1,1 @@
-export { ReqestMediaFilesTab } from './request-media-files-tab'
+export { RequestMediaFilesTab } from './request-media-files-tab'

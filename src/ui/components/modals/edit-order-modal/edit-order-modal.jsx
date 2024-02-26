@@ -160,6 +160,8 @@ export const EditOrderModal = memo(
           0,
         ) || 0
 
+    console.log('order', order)
+
     const initialState = {
       ...order,
       status: order?.status || undefined,
@@ -199,7 +201,7 @@ export const EditOrderModal = memo(
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
-    const [photosToLoad, setPhotosToLoad] = useState([])
+    const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 

@@ -43,6 +43,7 @@ export interface ProductAndBatchModalProps {
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void
   onClickInTransferModal: (id: string) => void
+  onClickHsCode: (id: string) => void
 }
 
 export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
@@ -58,6 +59,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onChangeSwitcher,
     onClickMyOrderModal,
     onClickInTransferModal,
+    onClickHsCode,
   } = props
 
   const { classes: styles } = useStyles()
@@ -160,7 +162,12 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
 
       {showBatchModal && (
         // @ts-ignore
-        <BatchInfoModal batch={currentBatch} openModal={showBatchModal} setOpenModal={handleShowModalBatchModal} />
+        <BatchInfoModal
+          batch={currentBatch}
+          openModal={showBatchModal}
+          setOpenModal={handleShowModalBatchModal}
+          onClickHsCode={onClickHsCode}
+        />
       )}
     </>
   )

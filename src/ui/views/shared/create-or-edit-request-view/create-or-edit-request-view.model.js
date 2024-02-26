@@ -144,7 +144,7 @@ export class CreateOrEditRequestViewModel {
   async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
+        await onSubmitPostImages.call(this, { images: files.map(el => el.fileLink), type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {

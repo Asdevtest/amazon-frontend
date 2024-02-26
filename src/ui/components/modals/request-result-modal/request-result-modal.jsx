@@ -152,7 +152,7 @@ export const RequestResultModal = memo(props => {
               dragAndDropBtnHeight={55}
               images={images}
               setImages={setImages}
-              maxNumber={50 - images.length}
+              maxNumber={50}
               maxHeight={160}
             />
           )}

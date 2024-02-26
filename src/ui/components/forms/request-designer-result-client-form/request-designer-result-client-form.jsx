@@ -1,5 +1,4 @@
 import { memo, useState } from 'react'
-import { v4 as uuid } from 'uuid'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Checkbox, Link, Typography } from '@mui/material'
@@ -20,6 +19,7 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
+import { isString } from '@typings/guards'
 import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './request-designer-result-client-form.style'
@@ -61,7 +61,7 @@ export const RequestDesignerResultClientForm = memo(props => {
     fileLink: el.fileLink,
     commentByPerformer: el.commentByPerformer,
     commentByClient: el.commentByClient,
-    _id: el._id ?? uuid(),
+    _id: el._id || null,
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -98,7 +98,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const onClickAllDownload = () => {
     imagesForDownload.forEach(el =>
-      typeof el.image === 'string' ? downloadFileByLink(el.image) : downloadFile(el.image.file),
+      isString(el.fileLink) ? downloadFileByLink(el.fileLink) : downloadFile(el.fileLink.file),
     )
   }
 
