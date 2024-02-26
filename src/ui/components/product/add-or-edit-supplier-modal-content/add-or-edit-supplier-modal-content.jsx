@@ -509,7 +509,7 @@ export const AddOrEditSupplierModalContent = memo(
 
           <div className={styles.calculationMainWrapper}>
             <div>
-              <Typography className={styles.modalTitle}>{'¥'}</Typography>
+              <Typography className={styles.modalTitle}>¥</Typography>
 
               <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
@@ -590,7 +590,7 @@ export const AddOrEditSupplierModalContent = memo(
             <Divider flexItem orientation="vertical" className={styles.divider} />
 
             <div>
-              <Typography className={styles.modalTitle}>{'$'}</Typography>
+              <Typography className={styles.modalTitle}>$</Typography>
 
               <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
@@ -875,7 +875,7 @@ export const AddOrEditSupplierModalContent = memo(
                 <UploadFilesInput
                   images={photosOfSupplier}
                   setImages={setPhotosOfSupplier}
-                  maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
+                  maxNumber={50}
                   className={styles.imageFileInput}
                 />
               </div>
