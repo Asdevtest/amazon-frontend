@@ -52,7 +52,12 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         className={styles.listingButton}
         onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
       >
-        <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
+        <Checkbox
+          color="primary"
+          checked={uploadedToListing}
+          className={styles.listingCheckbox}
+          onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
+        />
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>
       {isDisplayingMarkAsCompletedButton && (
@@ -124,11 +129,9 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           {(status === RequestStatus.IN_PROCESS ||
             status === RequestStatus.EXPIRED ||
             status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
-            <>
-              <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                {t(TranslationKey['Change request terms'])}
-              </Button>
-            </>
+            <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+              {t(TranslationKey['Change request terms'])}
+            </Button>
           )}
 
           {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED /* && status !== RequestStatus.EXPIRED */ && (
