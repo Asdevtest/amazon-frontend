@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 import { useStyles } from './select-shops-modal.style'
 
 export const SelectShopsModal = memo(props => {
-  const { onClickSuccessBtn, onClickCancelBtn, title, message, shops } = props
+  const { isNotDisabled, onClickSuccessBtn, onClickCancelBtn, title, message, shops } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -20,6 +20,7 @@ export const SelectShopsModal = memo(props => {
   const sortingShops = shops?.sort((a, b) => a?.name?.localeCompare(b?.name))
   const selectedItem = shops?.find(shop => shop?._id === currentShopId)
   const selectedItemName = selectedItem?.name || t(TranslationKey['Select a store'])
+  const isDisabled = !currentShopId && !isNotDisabled
 
   return (
     <div className={styles.wrapper}>
@@ -34,6 +35,8 @@ export const SelectShopsModal = memo(props => {
             blackSelectedItem
             darkIcon
             chosenItemNoHover
+            customItemsWrapper={styles.customItemsWrapper}
+            customSubMainWrapper={styles.customSubMainWrapper}
             width={340}
             disabled={!shops.length}
             data={sortingShops}
@@ -51,9 +54,10 @@ export const SelectShopsModal = memo(props => {
         <Button
           success
           disableElevation
+          disabled={isDisabled}
           className={styles.button}
           variant="contained"
-          onClick={() => onClickSuccessBtn(currentShopId)}
+          onClick={() => onClickSuccessBtn(selectedItem)}
         >
           {t(TranslationKey.Yes)}
         </Button>

@@ -23,6 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tabPanel: {
+    position: 'relative',
     flex: '1 1 auto',
     overflowY: 'auto',
     padding: '0 10px',
@@ -63,6 +64,22 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   videoWrapper: {
+    width: '100%',
+    height: '100px',
+    objectFit: 'cover',
     cursor: 'pointer',
+    overflow: 'hidden',
+  },
+
+  spinnerContainer: {
+    position: 'sticky',
+    width: '30px',
+    height: '30px',
+    top: '10px',
+    left: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
   },
 }))

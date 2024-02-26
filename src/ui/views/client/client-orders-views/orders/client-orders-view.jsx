@@ -33,6 +33,7 @@ export const ClientOrdersView = observer(history => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
   return (
     <>
       <div className={styles.topHeaderBtnsWrapper}>
@@ -118,7 +119,7 @@ export const ClientOrdersView = observer(history => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         >
           <SetBarcodeModal
-            item={viewModel.selectedProduct}
+            barCode={viewModel.selectedProduct?.barCode}
             onClickSaveBarcode={viewModel.onClickSaveBarcode}
             onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
           />

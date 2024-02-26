@@ -54,13 +54,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainText: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+
     color: theme.palette.text.second,
     fontSize: 14,
   },
 
   nameCell: {
     position: 'relative',
-    width: 150,
+    minWidth: 100,
+    maxWidth: 150,
   },
 
   statsWrapper: {

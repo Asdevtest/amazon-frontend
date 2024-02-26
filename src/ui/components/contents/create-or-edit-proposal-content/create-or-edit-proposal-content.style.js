@@ -210,7 +210,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
+    textTransform: 'capitalize',
     color: theme.palette.text.second,
 
     marginBottom: 5,

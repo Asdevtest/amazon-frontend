@@ -6,6 +6,9 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 5,
+
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   title: {
@@ -13,11 +16,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    fontSize: 14,
-    lineHeight: '19px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   link: {
@@ -28,14 +30,6 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       opacity: 0.8,
-    },
-  },
-
-  missingText: {
-    color: theme.palette.text.general,
-
-    '&:hover': {
-      opacity: 1,
     },
   },
 }))

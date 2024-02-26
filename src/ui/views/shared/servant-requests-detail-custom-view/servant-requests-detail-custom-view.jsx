@@ -115,6 +115,8 @@ export const RequestDetailCustomView = observer(({ history }) => {
                   </div>
                 )}
                 updateData={viewModel.loadData}
+                requestStatus={viewModel.requestStatus}
+                onChangeRequestStatus={viewModel.setRequestStatus}
                 onSubmitMessage={viewModel.onSubmitMessage}
                 onClickChat={viewModel.onClickChat}
                 onTypingMessage={viewModel.onTypingMessage}

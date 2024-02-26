@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { parseFieldsAdapterConfig } from '@constants/product/product-data-parser'
 
 export const parseFieldsAdapter = (parsedResult, siteParserKey) =>

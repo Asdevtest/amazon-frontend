@@ -35,17 +35,22 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
 
   const noSelectedRows = !selectedRows?.length
   const isInventoryShipments = currentTabKey === ShopReportsTabsValues.INVENTORY_SHIPMENTS
+
   const disableButton = currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows
+
+  const disableBindButton =
+    currentTabKey !== ShopReportsTabsValues.INVENTORY &&
+    (currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows)
 
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button disabled={disableButton} variant="contained" onClick={onClickMoveGoodsToInventory}>
+        <Button disabled={disableButton} onClick={onClickMoveGoodsToInventory}>
           {t(TranslationKey['Move to inventory'])}
         </Button>
 
-        <Button disabled={disableButton} variant="contained" onClick={onClickBindStockGoodsToInventory}>
-          {t(TranslationKey['Bind to an item in the inventory'])}
+        <Button disabled={disableBindButton} onClick={onClickBindStockGoodsToInventory}>
+          {t(TranslationKey['Inventory integration'])}
         </Button>
       </div>
 
@@ -57,12 +62,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
         onSubmit={onChangeSearchValue}
       />
 
-      <Button
-        danger
-        disabled={noSelectedRows || selectedRows.length > 1}
-        variant="contained"
-        onClick={onClickDeleteBtn}
-      >
+      <Button danger disabled={noSelectedRows || selectedRows.length > 1} onClick={onClickDeleteBtn}>
         {t(TranslationKey.Remove)}
       </Button>
     </div>

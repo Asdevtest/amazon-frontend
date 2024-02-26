@@ -135,6 +135,7 @@ export const useStyles = makeStyles()(theme => ({
 
   announcementTitle: {
     fontSize: 16,
+    textTransform: 'capitalize',
   },
   announcementBlock: {
     display: 'flex',

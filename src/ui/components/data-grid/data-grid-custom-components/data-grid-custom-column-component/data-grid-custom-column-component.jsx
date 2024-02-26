@@ -78,6 +78,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IsNeedPurchaseFilterMenuItem
           isNeedPurchaseFilterData={isNeedPurchaseFilterData}
           data={props}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
@@ -247,6 +248,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <RedFlagsCellMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -502,6 +504,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <InStockMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -514,7 +517,7 @@ export const DataGridCustomColumnMenuComponent = props => {
 
   if ([columnnsKeys.client.FREELANCE_REQUEST_TYPE].includes(currentColumn.columnKey)) {
     // eslint-disable-next-line no-unused-vars
-    const { typeTask, ...rest } = other
+    const { spec, ...rest } = other
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
         <FreelanceRequestType

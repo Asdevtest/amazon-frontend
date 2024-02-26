@@ -45,122 +45,116 @@ export const VacantRequestsView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.tablePanelWrapper}>
-          <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
-          />
+      <div className={styles.tablePanelWrapper}>
+        <FreelanceTypeTaskSelect
+          selectedSpec={viewModel.selectedSpec}
+          specs={viewModel.userInfo?.allowedSpec}
+          onClickSpec={viewModel.onClickSpec}
+        />
 
-          <SearchInput
-            placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
-            inputClasses={styles.searchInput}
-            value={viewModel.nameSearchValue}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <SearchInput
+          placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
+          inputClasses={styles.searchInput}
+          value={viewModel.nameSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          <div className={styles.tablePanelSubWrapper}>
-            {viewModel.viewMode !== tableViewMode.TABLE && (
-              <>
-                <CustomPageSwitcher
-                  rowCount={viewModel.rowCount}
-                  paginationModel={viewModel.paginationModel}
-                  pageSizeOptions={viewModel.pageSizeOptions}
-                  onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
-                />
+        <ViewCardsSelect withTabelView viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      </div>
 
-                <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-                  <p className={styles.tablePanelViewText}>{t(TranslationKey['By date'])}</p>
-
-                  {viewModel.sortMode === tableSortMode.DESK ? (
-                    <ArrowDropDownIcon color="primary" />
-                  ) : (
-                    <ArrowDropUpIcon color="primary" />
-                  )}
-                </div>
-              </>
-            )}
-
-            <ViewCardsSelect
-              withTabelView
-              viewMode={viewModel.viewMode}
-              onChangeViewMode={viewModel.onChangeViewMode}
-            />
-          </div>
-        </div>
-
-        {viewModel.viewMode !== tableViewMode.TABLE ? (
-          <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
-            {viewModel.currentData?.map((item, index) =>
-              viewModel.viewMode === tableViewMode.LIST ? (
-                <VacantRequestListCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item}
-                  onClickViewMore={viewModel.onClickViewMore}
-                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
-                />
-              ) : (
-                <VacantRequestShortCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item}
-                  onClickViewMore={viewModel.onClickViewMore}
-                  onDoubleClick={viewModel.handleOpenRequestDetailModal}
-                />
-              ),
-            )}
-          </div>
-        ) : viewModel.viewMode === tableViewMode.TABLE ? (
-          <div className={styles.dataGridWrapper}>
-            <CustomDataGrid
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
+      <div className={styles.tablePanelSubWrapper}>
+        {viewModel.viewMode !== tableViewMode.TABLE && (
+          <>
+            <CustomPageSwitcher
               rowCount={viewModel.rowCount}
-              sortModel={viewModel.sortModel}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              rows={viewModel.currentData}
-              rowHeight={75}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
-                },
-                columnMenu: viewModel.columnMenuSettings,
-
-                toolbar: {
-                  resetFiltersBtnSettings: {
-                    onClickResetFilters: viewModel.onClickResetFilters,
-                    isSomeFilterOn: viewModel.isSomeFilterOn,
-                  },
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
-                },
-              }}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-              getRowClassName={getRowClassName}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+              pageSizeOptions={viewModel.pageSizeOptions}
+              onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
             />
-          </div>
-        ) : (
-          !viewModel.currentData?.length &&
-          loadingStatuses.SUCCESS && (
-            <div className={styles.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>
+
+            <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+              <p className={styles.tablePanelViewText}>{t(TranslationKey['By date'])}</p>
+
+              {viewModel.sortMode === tableSortMode.DESK ? (
+                <ArrowDropDownIcon color="primary" />
+              ) : (
+                <ArrowDropUpIcon color="primary" />
+              )}
             </div>
-          )
+          </>
         )}
       </div>
+
+      {viewModel.viewMode !== tableViewMode.TABLE ? (
+        <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+          {viewModel.currentData?.map((item, index) =>
+            viewModel.viewMode === tableViewMode.LIST ? (
+              <VacantRequestListCard
+                key={item._id}
+                isFirst={index === 0}
+                item={item}
+                onClickViewMore={viewModel.onClickViewMore}
+                onDoubleClick={viewModel.handleOpenRequestDetailModal}
+              />
+            ) : (
+              <VacantRequestShortCard
+                key={item._id}
+                isFirst={index === 0}
+                item={item}
+                onClickViewMore={viewModel.onClickViewMore}
+                onDoubleClick={viewModel.handleOpenRequestDetailModal}
+              />
+            ),
+          )}
+        </div>
+      ) : viewModel.viewMode === tableViewMode.TABLE ? (
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={75}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            getRowClassName={getRowClassName}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+          />
+        </div>
+      ) : (
+        !viewModel.currentData?.length &&
+        loadingStatuses.SUCCESS && (
+          <div className={styles.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>
+          </div>
+        )
+      )}
 
       <FreelanceRequestDetailsModal
         isOpenModal={viewModel.showRequestDetailModal}

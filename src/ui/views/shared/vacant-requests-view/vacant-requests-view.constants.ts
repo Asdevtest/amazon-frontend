@@ -3,7 +3,7 @@ export const filtersFields = [
   'updatedAt',
   'status',
   'title',
-  'typeTask',
+  'spec',
   'price',
   'timeoutAt',
   'asin',
@@ -17,6 +17,7 @@ export const filtersFields = [
   'shop',
   'announcement',
   'createdBy',
+  'specType',
 ]
 
 export const defaultHiddenColumns = ['cashBackInPercent', 'priceAmazon']

@@ -25,7 +25,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.originalData.updatedAt} />,
+      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
       width: 100,
     },
 
@@ -72,7 +72,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
           />
         )
       },
-      minWidth: 400,
+      minWidth: 590,
       filterable: false,
     },
   ]

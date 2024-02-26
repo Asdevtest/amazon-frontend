@@ -1,6 +1,5 @@
 import { FC, memo, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -26,16 +25,13 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   const { classes: styles, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
-  const detailDescription =
-    service.type === 0
-      ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+  const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
   const buttonContent = choose
     ? t(TranslationKey.Choose)
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-
+  const showDetailDescriptionToolip = detailDescription.length > 12
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -69,7 +65,9 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
           <div className={styles.detailsWrapper}>
             <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
               <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription}>{detailDescription}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
             </div>
 
             <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
@@ -95,7 +93,9 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
             </div>
             <div className={styles.detailsSubWrapperAll}>
               <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription}>{detailDescription}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
             </div>
           </div>
         )}

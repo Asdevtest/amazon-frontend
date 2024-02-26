@@ -28,17 +28,17 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 15,
   },
+
   userInfoSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-
     gap: 5,
   },
+
   userRatingWrapper: {
     display: 'flex',
     alignItems: 'center',
-
     gap: 10,
   },
 
@@ -46,6 +46,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 63,
     height: 63,
   },
+
   reviewText: {
     fontWeight: 400,
     fontSize: 18,
@@ -61,6 +62,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
   },
+
   regularText: {
     fontWeight: 400,
     fontSize: 18,
@@ -70,13 +72,14 @@ export const useStyles = makeStyles()(theme => ({
   userMoreInfoWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
     gap: 15,
   },
+
   titleAndTaksTypeWrapper: {
     display: 'flex',
     gap: 100,
   },
+
   descriptionWrapper: {
     display: 'flex',
     gap: 10,
@@ -87,6 +90,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
+
   statusWrapper: {
     display: 'flex',
     gap: 15,
@@ -96,19 +100,22 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 10,
   },
+
   editButton: {
     padding: '0 52px',
   },
+
   deleteButton: {
     padding: '0 34px',
   },
+
   backButton: {
     padding: '0 26px',
   },
+
   descriptionTextWrapper: {
     width: '100%',
     maxHeight: 76,
-
     overflowY: 'auto',
   },
 

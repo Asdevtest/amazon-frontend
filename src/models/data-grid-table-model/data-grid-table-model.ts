@@ -45,7 +45,7 @@ export class DataGridTableModel extends ModalsModel {
   _columnsModel: GridColDef[]
   _tableData: any[] = []
 
-  _defaultGetDataMethodOptions: any = {}
+  _defaultGetDataMethodOptions: any
 
   get requestStatus() {
     return this._requestStatus
@@ -144,13 +144,14 @@ export class DataGridTableModel extends ModalsModel {
       paginationModel: this.paginationModel,
       columnVisibilityModel: this.columnVisibilityModel,
     }
+
     SettingsModel.setDataGridState(requestState, this._tableKey)
   }
 
   getDataGridState() {
     if (!this._tableKey) return
-
     const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
+
     if (state) {
       // @ts-ignore
       this.sortModel = state?.sortModel
@@ -202,22 +203,24 @@ export class DataGridTableModel extends ModalsModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions)
+      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
 
       runInAction(() => {
         this.tableData = result?.rows || result
         this.rowCount = result?.count || result.length
       })
 
-      this.requestStatus = loadingStatuses.SUCCESS
-
-      return result
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
+  }
+
+  setRequestStatus(requestStatus: loadingStatuses) {
+    this.requestStatus = requestStatus
   }
 
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {

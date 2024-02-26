@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { loggerDefaultConfig } from '@constants/configs/logger-default-config'
 
 import { isNotUndefined } from '@utils/checks'

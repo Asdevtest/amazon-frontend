@@ -205,8 +205,16 @@ export const DeliveryParameters = ({
         <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
       </div>
 
-      <div className={styles.researchWrapper}>
-        <Checkbox disabled className={styles.checkbox} checked={formFields.needsResearch} color="primary" />
+      <div
+        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
+        onClick={() => isCanChange && onChangeField('needsResearch')({ target: { value: !formFields.needsResearch } })}
+      >
+        <Checkbox
+          disabled={!isCanChange}
+          className={styles.checkbox}
+          checked={formFields.needsResearch}
+          color="primary"
+        />
         <p>{t(TranslationKey['Re-search supplier'])}</p>
       </div>
 

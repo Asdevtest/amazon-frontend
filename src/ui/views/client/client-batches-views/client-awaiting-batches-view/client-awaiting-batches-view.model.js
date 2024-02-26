@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
@@ -23,30 +23,11 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const filtersFields = [
-  'asin',
-  'amazonTitle',
-  'title',
-  'destination',
-  'humanFriendlyId',
-  'storekeeper',
-  'logicsTariff',
-  'finalWeight',
-  'deliveryTotalPrice',
-  'totalPrice',
-  'etd',
-  'eta',
-  'cls',
-  'updatedAt',
-  'amount',
-  'trackingNumber',
-  'arrivalDate',
-]
+import { filtersFields } from './client-awaiting-batches-view.constants'
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
   batches = []
@@ -60,8 +41,6 @@ export class ClientAwaitingBatchesViewModel {
 
   storekeepersData = []
 
-  currentData = []
-
   uploadedFiles = []
 
   showBatchInfoModal = false
@@ -69,8 +48,6 @@ export class ClientAwaitingBatchesViewModel {
   showAddOrEditBatchModal = false
 
   showWarningInfoModal = false
-
-  languageTag = undefined
 
   boxesData = []
   volumeWeightCoefficient = undefined
@@ -120,19 +97,14 @@ export class ClientAwaitingBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get currentData() {
+    return this.batches
+  }
 
-    reaction(
-      () => this.batches,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
+  constructor({ history }) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   setDataGridState() {
@@ -149,65 +121,71 @@ export class ClientAwaitingBatchesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
 
     this.getBatchesPagMy()
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
+    try {
+      await ProductModel.editProductsHsCods([
+        {
+          productId: hsCode._id,
+          chinaTitle: hsCode.chinaTitle || null,
+          hsCode: hsCode.hsCode || null,
+          material: hsCode.material || null,
+          productUsage: hsCode.productUsage || null,
+        },
+      ])
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
+      this.onTriggerOpenModal('showEditHSCodeModal')
+      this.loadData()
 
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
+      runInAction(() => {
+        this.selectedProduct = undefined
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async setCurrentOpenedBox(row) {
@@ -221,35 +199,22 @@ export class ClientAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBatches = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.batches)
+    this.selectedBatches = model
   }
 
   async getStorekeepers() {
@@ -269,40 +234,33 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
-    runInAction(() => {
-      this.selectedBatches = []
+    this.selectedBatches = []
 
-      this.currentStorekeeperId = currentStorekeeperId
-    })
+    this.currentStorekeeperId = currentStorekeeperId
 
     this.getBatchesPagMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getStorekeepers()
       this.getDataGridState()
-      await this.getBatchesPagMy()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getBatchesPagMy()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onSubmitChangeBoxFields(data) {
     try {
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
       })
 
@@ -353,9 +311,8 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getBatchesPagMy()
   }
 
@@ -366,9 +323,6 @@ export class ClientAwaitingBatchesViewModel {
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -377,9 +331,6 @@ export class ClientAwaitingBatchesViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -390,9 +341,6 @@ export class ClientAwaitingBatchesViewModel {
       await BatchesModel.removeBoxFromBatch(batch._id, boxesToRemoveIds)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -410,9 +358,6 @@ export class ClientAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -422,8 +367,6 @@ export class ClientAwaitingBatchesViewModel {
         if (setting.isAdding) {
           this.selectedBatches = []
         }
-
-        this.showCircularProgress = true
       })
 
       const [boxes, result] = await Promise.all([
@@ -435,26 +378,24 @@ export class ClientAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.boxesData = boxes
-
-        this.showCircularProgress = false
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.showCircularProgress = false
-      })
     }
   }
 
   async patchActualShippingCostBatch(id, cost) {
-    await BatchesModel.changeBatch(id, {
-      actualShippingCost: cost || '0',
-    })
+    try {
+      await BatchesModel.changeBatch(id, {
+        actualShippingCost: cost || '0',
+      })
 
-    this.setCurrentOpenedBatch(id, true)
+      this.setCurrentOpenedBatch(id, true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
@@ -505,9 +446,6 @@ export class ClientAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -552,40 +490,22 @@ export class ClientAwaitingBatchesViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getBatchesPagMy()
     this.getDataGridState()

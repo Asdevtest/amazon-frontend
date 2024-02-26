@@ -67,6 +67,7 @@ export const useStyles = makeStyles()(theme => ({
   role: {
     marginLeft: '10px',
     color: theme.palette.text.general,
+    textTransform: 'capitalize',
   },
 
   ratingWrapper: {

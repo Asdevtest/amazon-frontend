@@ -19,7 +19,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell operationType={params.value} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.operationType} />,
   },
 
   {

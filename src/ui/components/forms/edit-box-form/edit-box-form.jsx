@@ -802,7 +802,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={curProductToEditBarcode?.tmpBarCode}
-            item={curProductToEditBarcode}
+            barCode={curProductToEditBarcode?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
@@ -814,10 +814,7 @@ export const EditBoxForm = memo(
             LabelTitle={t(TranslationKey['Transparency codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
-            onClickSave={value => {
-              onClickSaveTransparencyFile(value, filesConditions.index)
-              setShowSetFilesModal(false)
-            }}
+            onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}
             onCloseModal={setShowSetFilesModal}
           />
         </Modal>

@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
     color: '#fff',
     height: 40,
-    borderRadius: 7,
+    borderRadius: '7px',
     fontSize: 14,
     fontWeight: 600,
   },
@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   danger: {
     color: '#fff !important',
-    background: '#DD2121',
+    backgroundColor: '#DD2121',
 
     '&:hover': {
       backgroundColor: '#8C0000 !important',
@@ -50,8 +50,9 @@ export const useStyles = makeStyles()(theme => ({
         backgroundColor: '#8C0000 !important',
       },
     },
+
     '&:disabled': {
-      background: theme.palette.button.disabledDangerBackground,
+      backgroundColor: `${theme.palette.button.disabledDangerBackground} !important`,
     },
   },
   outlined: {
@@ -112,6 +113,8 @@ export const useStyles = makeStyles()(theme => ({
 
   transparent: {
     padding: 0,
+    width: 'max-content',
+    height: 'max-content',
     color: theme.palette.text.general,
     background: 'transparent',
 

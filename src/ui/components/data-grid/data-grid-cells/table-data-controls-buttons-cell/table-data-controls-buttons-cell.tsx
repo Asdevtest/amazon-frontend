@@ -1,31 +1,78 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
 import { Button } from '@components/shared/buttons/button'
-import { CrossIcon, EditOutlineIcon } from '@components/shared/svg-icons'
+import { CrossIcon, EditIcon, ReturnArrowIcon, SaveIcon, SendArrowIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './table-data-controls-buttons-cell.style'
 
 interface TableDataControlsButtonsCellProps {
   disableButton?: boolean
-  onClickEditButton: () => void
-  onClickRemoveButton: () => void
+  onClickSaveButton?: () => void
+  onClickEditButton?: () => void
+  onClickCancelButton?: () => void
+  onClickSendButton?: () => void
+  onClickReturnButton?: () => void
 }
 
 export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const {
+    disableButton,
+    onClickSaveButton,
+    onClickEditButton,
+    onClickCancelButton,
+    onClickSendButton,
+    onClickReturnButton,
+  } = props
 
-  const { disableButton, onClickEditButton, onClickRemoveButton } = props
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.buttonsWrapper}>
-      <Button disabled={disableButton} className={cx(styles.button, styles.editButton)} onClick={onClickEditButton}>
-        <EditOutlineIcon />
-      </Button>
+      {onClickSaveButton ? (
+        <Button
+          disabled={disableButton}
+          className={cx(styles.button, styles.successButton)}
+          onClick={onClickSaveButton}
+        >
+          <SaveIcon />
+        </Button>
+      ) : null}
 
-      <Button disabled={disableButton} className={cx(styles.button, styles.removeButton)} onClick={onClickRemoveButton}>
-        <CrossIcon />
-      </Button>
+      {onClickEditButton ? (
+        <Button
+          disabled={disableButton}
+          className={cx(styles.button, styles.primaryButton)}
+          onClick={onClickEditButton}
+        >
+          <EditIcon />
+        </Button>
+      ) : null}
+
+      {onClickCancelButton ? (
+        <Button
+          disabled={disableButton}
+          className={cx(styles.button, styles.errorButton)}
+          onClick={onClickCancelButton}
+        >
+          <CrossIcon />
+        </Button>
+      ) : null}
+
+      {onClickSendButton ? (
+        <Button disabled={disableButton} className={cx(styles.button, styles.errorButton)} onClick={onClickSendButton}>
+          <ReturnArrowIcon />
+        </Button>
+      ) : null}
+
+      {onClickReturnButton ? (
+        <Button
+          disabled={disableButton}
+          className={cx(styles.button, styles.successButton)}
+          onClick={onClickReturnButton}
+        >
+          <SendArrowIcon />
+        </Button>
+      ) : null}
     </div>
   )
 })

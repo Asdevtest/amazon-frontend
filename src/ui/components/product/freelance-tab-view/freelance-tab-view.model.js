@@ -3,11 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType } from '@constants/requests/request-type'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
@@ -22,42 +18,24 @@ import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
+import { Specs } from '@typings/enums/specs'
+
 import { filtersFields } from './freelance-tab-view.constants'
 
 export class FreelanceModel {
-  history = undefined
-  requestStatus = undefined
-
-  rowCount = 0
-  drawerOpen = false
-  showRequestForm = false
-  showConfirmModal = false
-
   nameSearchValue = ''
 
   curRequest = null
   curProposal = null
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
 
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
   showRequestResultModal = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
-
-  selectedIndex = null
-  selectedRequests = []
-  researchIdToRemove = undefined
-
   searchRequests = []
-  openModal = null
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-
-  onHover = null
+  specs = []
 
   get userInfo() {
     return UserModel.userInfo
@@ -65,6 +43,10 @@ export class FreelanceModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get currentData() {
+    return this.searchRequests
   }
 
   columnMenuSettings = {
@@ -91,6 +73,10 @@ export class FreelanceModel {
     onClickOpenResult: item => this.onClickOpenResult(item),
   }
 
+  onHover = null
+  rowCount = 0
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
@@ -101,30 +87,15 @@ export class FreelanceModel {
     () => this.columnMenuSettings,
     () => this.onHover,
   )
-  constructor({ history, productId }) {
-    this.history = history
 
+  constructor(productId) {
     this.productId = productId
-    makeAutoObservable(this, undefined, { autoBind: true })
 
-    if (this.showAcceptMessage) {
-      setTimeout(() => {
-        this.acceptMessage = ''
-        this.showAcceptMessage = false
-      }, 3000)
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
   }
 
   onSearchSubmit(searchValue) {
@@ -133,34 +104,21 @@ export class FreelanceModel {
     this.getCustomRequests()
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.searchRequests).filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          String(el.humanFriendlyId).toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.searchRequests)
-    }
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
-
-      await this.getCustomRequests()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getCustomRequests()
+      this.getSpecs()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
-  onClickTaskType(taskType) {
-    this.selectedTaskType = taskType
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
 
     this.getCustomRequests()
   }
@@ -171,10 +129,6 @@ export class FreelanceModel {
         kind: RequestSubType.MY,
         filters: this.getFilter(),
         productId: this.productId,
-        typeTask:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? undefined
-            : this.selectedTaskType,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
@@ -183,11 +137,11 @@ export class FreelanceModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-
         this.rowCount = result.count
       })
     } catch (error) {
       console.log(error)
+
       runInAction(() => {
         this.searchRequests = []
       })
@@ -225,13 +179,21 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-
       console.log(error)
     }
   }
 
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
   onClickResetFilters() {
-    this.columnMenuSettings = { ...dataGridFiltersInitializer(filtersFields) }
+    this.selectedSpec = Specs.DEFAULT
+
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getCustomRequests()
   }
@@ -252,7 +214,7 @@ export class FreelanceModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -265,13 +227,7 @@ export class FreelanceModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onLeaveColumnField() {
@@ -304,7 +260,7 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      switch (freelanceRequestTypeByCode[item.typeTask]) {
+      switch (item.spec?.title) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break
@@ -326,10 +282,6 @@ export class FreelanceModel {
     }
   }
 
-  onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
-  }
-
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
@@ -346,5 +298,17 @@ export class FreelanceModel {
 
     this.setDataGridState()
     this.getCustomRequests()
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

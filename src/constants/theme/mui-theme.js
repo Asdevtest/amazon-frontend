@@ -256,9 +256,9 @@ export const lightTheme = createTheme({
       general: '#001029',
       second: '#656565',
       gray: '#C4C4C4',
-      red: '#DD2121',
+      red: '#FF1616',
       negativeMain: '#fff',
-      green: 'green',
+      green: '#00B746',
     },
 
     button: {
@@ -274,14 +274,18 @@ export const lightTheme = createTheme({
       casualHoverBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
       casualDisabledText: '#E0E0E0',
 
-      outlineEditBoxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
-      outlineEditHoverColor: '#0F5BB6',
-      outlineEditHoverBackground: '#F4F9FF',
-      outlineEditDisabledColor: '#D7E8FF',
+      defaultBoxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+      primaryHoverColor: '#0F5BB6',
+      primaryHoverBackground: '#F4F9FF',
+      primaryDisabledColor: '#D7E8FF',
 
-      deleteHoverColor: '#912018',
-      deleteHoverBackground: '#FFF0EF',
-      deleteDisabledColor: '#FFF0EE',
+      errorHoverColor: '#912018',
+      errorHoverBackground: '#FFF0EF',
+      errorDisabledColor: '#FFF0EE',
+
+      successHoverColor: '#216C24',
+      successHoverBackground: '#EFFDF4',
+      successDisabledColor: '#B3E7C7',
     },
 
     orderStatus: {
@@ -392,7 +396,7 @@ export const darkTheme = createTheme({
           borderRadius: 20,
         },
         overlay: {
-          backgroundColor: '#1E1E1E !important',
+          backgroundColor: '#2B2B34',
         },
 
         row: {
@@ -677,9 +681,9 @@ export const darkTheme = createTheme({
       second: '#E1E1E1',
 
       gray: 'gray',
-      red: '#DD2121',
+      red: '#FF1616',
       negativeMain: '#001029',
-      green: '#2FE341',
+      green: '#00B746',
       disabled: '#001029',
 
       primary: '#fff',
@@ -699,15 +703,19 @@ export const darkTheme = createTheme({
       casualHoverBorder: '#5A5A67',
       casualDisabledText: 'rgba(255, 255, 255, 0.17)',
 
-      outlineEditBoxShadow:
+      defaultBoxShadow:
         '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-      outlineEditHoverColor: '#4CA1DE',
-      outlineEditHoverBackground: '#375674',
-      outlineEditDisabledColor: '#2E4760',
+      primaryHoverColor: '#4CA1DE',
+      primaryHoverBackground: '#375674',
+      primaryDisabledColor: '#2E4760',
 
-      deleteHoverColor: '#8C0000',
-      deleteHoverBackground: '#451F27',
-      deleteDisabledColor: '#471721',
+      errorHoverColor: '#8C0000',
+      errorHoverBackground: '#451F27',
+      errorDisabledColor: '#471721',
+
+      successHoverColor: '#29892D',
+      successHoverBackground: '#204833',
+      successDisabledColor: '#184831',
     },
 
     action: {

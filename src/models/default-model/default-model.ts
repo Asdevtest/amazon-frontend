@@ -7,6 +7,9 @@ export class DefaultModel {
   get history() {
     return this._history
   }
+  set history(history: any) {
+    this._history = history
+  }
 
   constructor() {
     makeObservable(this, {

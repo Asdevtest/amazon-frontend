@@ -158,8 +158,6 @@ export class IntegrationsModel {
     try {
       const result = await SellerBoardModel.getProductsWithSkuById(this.productId)
 
-      console.log('result', result)
-
       runInAction(() => {
         this.sellerBoardData = stockReportDataConverter(result)
       })

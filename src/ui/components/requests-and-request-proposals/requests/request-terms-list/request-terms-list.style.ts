@@ -40,6 +40,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     color: theme.palette.text.general,
+    textTransform: 'capitalize',
   },
 
   yellowColor: {

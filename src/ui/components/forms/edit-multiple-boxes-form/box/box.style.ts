@@ -25,6 +25,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     marginBottom: '30px',
     width: '100%',
+    gap: '10px',
 
     flexGrow: 1,
   },
@@ -108,8 +109,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: '0 !important',
-    alignItems: 'flex-end',
+    width: '100%',
   },
 
   orderInput: {

@@ -1,6 +1,5 @@
 import { FC, memo, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -26,16 +25,13 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
-  const detailDescription =
-    service.type === 0
-      ? t(TranslationKey.Universal)
-      : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])
+  const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
   const buttonContent = choose
     ? t(TranslationKey.Choose)
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-
+  const showDetailDescriptionToolip = detailDescription.length > 25
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -60,7 +56,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         <div className={styles.detailsWrapper}>
           <div className={styles.detailsSubWrapper}>
             <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={styles.detailDescription}>{detailDescription}</p>
+            <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+              {detailDescription}
+            </p>
           </div>
 
           <div className={styles.detailsSubWrapper}>
@@ -86,7 +84,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
           </div>
           <div className={styles.detailsSubWrapperAll}>
             <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={styles.detailDescription}>{detailDescription}</p>
+            <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+              {detailDescription}
+            </p>
           </div>
         </div>
       )}

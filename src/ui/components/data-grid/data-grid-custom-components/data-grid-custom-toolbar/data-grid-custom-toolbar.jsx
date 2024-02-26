@@ -2,23 +2,25 @@ import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-
 
 import { useStyles } from './data-grid-custom-toolbar.style'
 
-import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
+import { DataGridTableSetting } from '../data-grid-table-setting'
 
-export const DataGridCustomToolbar = ({ resetFiltersBtnSettings, columsBtnSettings, children, ...restProps }) => {
+export const DataGridCustomToolbar = props => {
+  const { resetFiltersBtnSettings, columsBtnSettings, children, presetsSettings, ...restProps } = props
+
   const { classes: styles, cx } = useStyles()
 
   return (
     <GridToolbarContainer className={styles.toolbar} {...restProps}>
-      {columsBtnSettings && (
+      {(!!columsBtnSettings || !!presetsSettings) && (
         <div className={styles.buttons}>
-          <DataGridCustomColumnsButton size={'large'} className={styles.text} columsBtnSettings={columsBtnSettings} />
+          <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-          <GridToolbarExport size={'large'} className={styles.text} />
+          <GridToolbarExport size="large" className={styles.text} />
 
-          {resetFiltersBtnSettings?.isSomeFilterOn && (
+          {!!resetFiltersBtnSettings?.isSomeFilterOn && (
             <DataGridResetFilterButton
-              size={'large'}
+              size="large"
               className={styles.text}
               resetFiltersBtnSettings={resetFiltersBtnSettings}
             />

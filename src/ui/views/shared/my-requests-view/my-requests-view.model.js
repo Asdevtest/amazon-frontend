@@ -4,7 +4,7 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -256,13 +256,7 @@ export class MyRequestsViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
@@ -302,6 +296,7 @@ export class MyRequestsViewModel {
   async getShops() {
     try {
       const response = await ShopModel.getMyShopNames()
+
       runInAction(() => {
         this.shopsData = response
       })
@@ -575,7 +570,7 @@ export class MyRequestsViewModel {
 
   async handleClickResultBtn(request) {
     try {
-      switch (freelanceRequestTypeByCode[request.typeTask]) {
+      switch (request.spec?.title) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break

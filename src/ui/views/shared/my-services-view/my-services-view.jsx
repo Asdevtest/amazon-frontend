@@ -19,9 +19,9 @@ import { useStyles } from './my-services-view.style'
 
 import { MyServicesViewModel } from './my-services-view.model'
 
-export const MyServicesView = observer(({ history, location }) => {
+export const MyServicesView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new MyServicesViewModel({ history, location }))
+  const [viewModel] = useState(() => new MyServicesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -36,8 +36,9 @@ export const MyServicesView = observer(({ history, location }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.userInfo?.allowedSpec}
+            onClickSpec={viewModel.onClickSpec}
           />
         </div>
 

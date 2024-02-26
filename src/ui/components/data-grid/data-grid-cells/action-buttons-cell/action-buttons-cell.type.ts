@@ -2,9 +2,13 @@ import { DefaultButtonStyles } from '@typings/enums/default-button-style'
 
 export interface ActionButtonsCellProps {
   isFirstRow?: boolean
-  firstButtonText?: string
-  secondButtonText?: string
-  thirdButtonText?: string
+  row?: boolean
+  buttonWrapperClassName?: string
+  buttonClassName?: string
+  resetStyles?: boolean
+  firstButtonElement?: string | JSX.Element
+  secondButtonElement?: string | JSX.Element
+  thirdButtonElement?: string | JSX.Element
   firstButtonTooltipText?: string
   secondButtonTooltipText?: string
   thirdButtonTooltipText?: string

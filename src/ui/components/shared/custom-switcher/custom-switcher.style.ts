@@ -67,7 +67,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   headerOptionStyles: {
-    padding: '0 15px',
+    padding: '0 10px',
     borderRadius: '24px',
   },
 
@@ -89,7 +89,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mediumOptionStyles: {
-    padding: '0 15px',
+    padding: '0 10px',
   },
 
   smallOptionStyles: {

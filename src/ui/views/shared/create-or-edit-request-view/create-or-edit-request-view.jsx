@@ -15,15 +15,9 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
-export const CreateOrEditRequestView = observer(props => {
+export const CreateOrEditRequestView = observer(({ history }) => {
   const mainContentRef = useRef()
-  const [viewModel] = useState(
-    () =>
-      new CreateOrEditRequestViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+  const [viewModel] = useState(() => new CreateOrEditRequestViewModel({ history }))
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
@@ -36,6 +30,7 @@ export const CreateOrEditRequestView = observer(props => {
       <div ref={mainContentRef}>
         <CreateOrEditRequestContent
           mainContentRef={mainContentRef}
+          specs={viewModel.specs}
           executor={viewModel.executor}
           choosenAnnouncements={viewModel.choosenAnnouncements}
           permissionsData={useProductsPermissions.permissionsData}
@@ -45,7 +40,8 @@ export const CreateOrEditRequestView = observer(props => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           requestToEdit={viewModel.requestToEdit}
-          history={props.history}
+          showGalleryModal={viewModel.showGalleryModal}
+          productMedia={viewModel.productMedia}
           checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
           createRequestForIdeaData={viewModel.createRequestForIdeaData}
           getMasterUsersData={viewModel.getMasterUsersData}
@@ -56,10 +52,12 @@ export const CreateOrEditRequestView = observer(props => {
           onEditSubmit={viewModel.onSubmitEditRequest}
           onClickChoosePerformer={viewModel.onClickChoosePerformer}
           onClickThumbnail={viewModel.onClickThumbnail}
+          onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
+          onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       </div>
 
-      {viewModel.showImageModal && (
+      {viewModel.showImageModal ? (
         <ImageModal
           showPreviews
           files={viewModel.bigImagesOptions.images}
@@ -73,20 +71,22 @@ export const CreateOrEditRequestView = observer(props => {
             })
           }
         />
-      )}
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        smallMessage={viewModel.confirmModalSettings.smallMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          smallMessage={viewModel.confirmModalSettings.smallMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      ) : null}
     </>
   )
 })

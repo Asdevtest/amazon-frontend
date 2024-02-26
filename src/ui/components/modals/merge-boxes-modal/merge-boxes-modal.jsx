@@ -178,7 +178,6 @@ export const MergeBoxesModal = ({
 
         onClickCancelBtn: () => {
           setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
-          setDestinationId(null)
 
           setShowConfirmModal(false)
           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -187,10 +186,35 @@ export const MergeBoxesModal = ({
 
       setShowConfirmModal(true)
     } else {
-      setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-      setDestinationId(destinationId)
+      if (!boxBody?.destinationId) {
+        setConfirmModalSettings({
+          isWarning: false,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to set a destination?']),
 
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          onClickConfirm: () => {
+            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+            setDestinationId(destinationId)
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+
+          onClickCancelBtn: () => {
+            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+        })
+
+        setShowConfirmModal(true)
+      } else {
+        setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+        setDestinationId(destinationId)
+
+        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      }
     }
   }
 
@@ -419,7 +443,6 @@ export const MergeBoxesModal = ({
               />
             </div>
 
-            {/* Рендерится если это сторкипер */}
             {isStorekeeper && (
               <Field
                 containerClasses={styles.blockOfNewBoxContainer}
@@ -463,7 +486,6 @@ export const MergeBoxesModal = ({
           </div>
         </div>
 
-        {/* Рендерится не у сторкипера  */}
         {!isStorekeeper && (
           <div>
             <PriorityForm

@@ -648,15 +648,10 @@ export const EditBoxStorekeeperForm = memo(
                       containerClasses={styles.field}
                       label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-                      error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={
                         <Button
                           disableElevation
-                          color="primary"
-                          disabled={!boxFields.storekeeperId}
-                          className={cx({
-                            [styles.storekeeperBtn]: !boxFields.storekeeperId,
-                          })}
+                          className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -965,7 +960,7 @@ export const EditBoxStorekeeperForm = memo(
             title={barcodeModalSetting.title}
             maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
-            item={barcodeModalSetting.item}
+            barCode={barcodeModalSetting.item?.barCode}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />

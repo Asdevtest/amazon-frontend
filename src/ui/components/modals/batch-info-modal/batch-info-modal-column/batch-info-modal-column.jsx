@@ -14,7 +14,6 @@ import {
   PricePerUnitCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
 
 import { getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
@@ -74,10 +73,9 @@ export const batchInfoModalColumn = (
       const isTooltip = status === BatchStatus.HAS_DISPATCHED && params.row.lastRateTariff === 0
 
       return (
-        <Button
-          disabled
-          transparent
-          tooltipAttentionContent={
+        <MultilineTextCell
+          threeLines
+          tooltipText={
             isTooltip
               ? t(
                   TranslationKey[
@@ -86,9 +84,9 @@ export const batchInfoModalColumn = (
                 )
               : ''
           }
-        >
-          <MultilineTextCell threeLines maxLength={80} text={getNewTariffTextForBoxOrOrder(params.row)} />
-        </Button>
+          maxLength={80}
+          text={getNewTariffTextForBoxOrOrder(params.row)}
+        />
       )
     },
     width: 200,

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 
 import { SellerBoardModel } from '@models/seller-board-model'
@@ -20,7 +21,8 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         getMainDataMethod: SellerBoardModel.getStockGoods,
         columnsModel: clientDailySellerBoardColumns,
         filtersFields: getFilterFields(clientDailySellerBoardColumns(), ['sku']),
-        mainMethodURL: 'integrations/sellerboard_warehouse_stocks',
+        mainMethodURL: 'integrations/sellerboard_warehouse_stocks?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_STOCK_REPORT,
         fieldsForSearch,
       }
     case ShopReportsTabsValues.GOODS_DAYS_REPORT:
@@ -28,7 +30,8 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         getMainDataMethod: SellerBoardModel.getMyDailyReportsLast30Days,
         columnsModel: clientLast30DaySellerBoardColumns,
         filtersFields: getFilterFields(clientLast30DaySellerBoardColumns(), ['sku']),
-        mainMethodURL: 'integrations/sellerboard_dashboard_products_days_reports_last_30_days',
+        mainMethodURL: 'integrations/sellerboard_dashboard_products_days_reports_last_30_days?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_GOODS_DAYS_REPORT,
         fieldsForSearch,
       }
     case ShopReportsTabsValues.INVENTORY:
@@ -36,7 +39,8 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         getMainDataMethod: SellerBoardModel.getIntegrationsReportInventory,
         columnsModel: clientInventoryReportColumns,
         filtersFields: getFilterFields(clientInventoryReportColumns(), ['sku']),
-        mainMethodURL: 'integrations/report_inventory',
+        mainMethodURL: 'integrations/report_inventory?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_INVENTORY,
         fieldsForSearch,
       }
     case ShopReportsTabsValues.PPC:
@@ -44,7 +48,8 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         getMainDataMethod: SellerBoardModel.getIntegrationsReportPpcSalesWeeks,
         columnsModel: clientPPCSalesWeekColumns,
         filtersFields: getFilterFields(clientPPCSalesWeekColumns(), ['sku']),
-        mainMethodURL: 'integrations/report_ppc_sales_weeks',
+        mainMethodURL: 'integrations/report_ppc_sales_weeks?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_PPC,
         fieldsForSearch,
       }
     case ShopReportsTabsValues.INVENTORY_SHIPMENTS:
@@ -52,7 +57,8 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         getMainDataMethod: SellerBoardModel.getIntegrationsReportInventoryShipments,
         columnsModel: clientIntegrationsReportInventoryShipmentsColumns,
         filtersFields: getFilterFields(clientIntegrationsReportInventoryShipmentsColumns()),
-        mainMethodURL: 'integrations/report_inventory_shipments',
+        mainMethodURL: 'integrations/report_inventory_shipments?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_INVENTORY_SHIPMENTS,
         fieldsForSearch: ['sku'],
       }
   }

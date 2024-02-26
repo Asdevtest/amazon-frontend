@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Type } from 'class-transformer'
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
@@ -50,12 +49,13 @@ export class ChatContract implements TWebsocketChatService.Chat {
   @IsOptional()
   public info?: { image: string; title: string; createdBy?: string }
   @IsNotEmpty()
-  public pagination!: { limit: number; offset: number }
+  public pagination!: { limit: number; offset: number; offsetBottom: number }
   @IsOptional()
   @IsString()
   unread!: string
   @IsBoolean()
-  public isAllMessagesLoaded!: boolean
+  public isAllNextMessagesLoaded!: boolean
+  public isAllPreviousMessagesLoaded!: boolean
   public lastMessage?: ChatMessageContract
   public messagesCount?: number
 }

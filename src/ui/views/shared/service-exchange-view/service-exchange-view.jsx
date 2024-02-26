@@ -19,6 +19,7 @@ import { ServiceExchangeViewModel } from './service-exchange-view.model'
 
 export const ServiceExchangeView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
+
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
 
   useEffect(() => {
@@ -34,8 +35,9 @@ export const ServiceExchangeView = observer(({ history }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedTaskType={viewModel.selectedTaskType}
-            onClickTaskType={viewModel.onClickTaskType}
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.specs}
+            onClickSpec={viewModel.onClickSpec}
           />
         </div>
 
@@ -43,11 +45,23 @@ export const ServiceExchangeView = observer(({ history }) => {
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
           value={viewModel.nameSearchValue}
-          onChange={viewModel.onSearchChange}
+          onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+      <div
+        className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}
+        onScroll={e => {
+          const element = e.target
+          const scrollTop = element?.scrollTop
+          const containerHeight = element?.clientHeight
+          const contentHeight = element?.scrollHeight
+
+          if (contentHeight - (scrollTop + containerHeight) < 200) {
+            viewModel.loadMoreDataHadler()
+          }
+        }}
+      >
         {viewModel.currentData.map(service =>
           isListPosition ? (
             <ServiceExchangeCardList
@@ -69,14 +83,14 @@ export const ServiceExchangeView = observer(({ history }) => {
         )}
       </div>
 
-      {!viewModel.currentData.length && (
+      {!viewModel.currentData.length ? (
         <div className={styles.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />
           <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
-      )}
+      ) : null}
 
-      {viewModel.showImageModal && (
+      {viewModel.showImageModal ? (
         <ImageModal
           files={viewModel.bigImagesOptions.images}
           currentFileIndex={viewModel.bigImagesOptions.imgIndex}
@@ -84,7 +98,7 @@ export const ServiceExchangeView = observer(({ history }) => {
           onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
           onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
         />
-      )}
+      ) : null}
     </>
   )
 })

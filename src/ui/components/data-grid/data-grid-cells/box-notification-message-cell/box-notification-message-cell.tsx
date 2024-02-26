@@ -16,15 +16,17 @@ export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = m
   const { classes: styles } = useStyles()
   const history = useHistory()
 
-  const goToBox = (boxId: string) => {
-    history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
+  const humanFriendlyId = notification?.humanFriendlyId
+
+  const goToBox = () => {
+    history.push(`/client/warehouse/in-stock?storekeeper-id=null&box-id=${humanFriendlyId}`)
   }
 
   return (
     <p>
       {`${t(TranslationKey.Box)} № `}
-      <a className={styles.notificationId} onClick={() => goToBox(notification?.humanFriendlyId)}>
-        {notification?.humanFriendlyId}
+      <a className={styles.notificationId} onClick={goToBox}>
+        {humanFriendlyId}
       </a>{' '}
       {t(TranslationKey['accepted in stock'])}
     </p>

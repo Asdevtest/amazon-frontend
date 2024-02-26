@@ -159,4 +159,8 @@ export const useStyles = makeStyles()(theme => ({
   redColor: {
     color: `#D70D0D`,
   },
+
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

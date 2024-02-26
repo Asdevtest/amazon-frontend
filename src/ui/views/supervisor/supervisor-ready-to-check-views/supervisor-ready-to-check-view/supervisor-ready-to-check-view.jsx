@@ -29,8 +29,6 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
       <div>
         <div className={styles.btnsWrapper}>
           <Button
-            color="primary"
-            variant="contained"
             tooltipInfoContent={t(TranslationKey['Assign several product cards to a Supervisor'])}
             disabled={viewModel.selectedRowIds.length === 0}
             onClick={viewModel.onPickupSomeItems}

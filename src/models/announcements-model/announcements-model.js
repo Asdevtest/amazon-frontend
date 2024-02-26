@@ -1,13 +1,13 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 export class AnnouncementsModelStatic {
-  getMyAnnouncements = async type => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet(type ? { type } : undefined)
+  getMyAnnouncements = async data => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet(data)
     return response.data
   }
 
-  getVacAnnouncements = async type => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet(type ? { type } : undefined)
+  getVacAnnouncements = async data => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet(data)
     return response.data
   }
 
@@ -36,6 +36,11 @@ export class AnnouncementsModelStatic {
       guid,
       body,
     })
+    return response.data
+  }
+
+  getNotYoursAnnouncements = async body => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsPagVacGet(body)
     return response.data
   }
 }

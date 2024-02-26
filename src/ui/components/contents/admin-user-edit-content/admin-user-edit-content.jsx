@@ -8,10 +8,8 @@ import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@m
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-// import {RegistrationForm} from '@components/forms/registration-form'
 import { SettingsModel } from '@models/settings-model'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
@@ -22,7 +20,6 @@ import { Modal } from '@components/shared/modal'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
@@ -38,6 +35,7 @@ export const AdminUserEditContent = observer(
     editUserFormFields,
     buttonLabel,
     onSubmit,
+    specs,
     onClickCancelBtn,
     groupPermissions,
     singlePermissions,
@@ -51,10 +49,9 @@ export const AdminUserEditContent = observer(
 
     const sourceFormFields = {
       active: editUserFormFields?.active || false,
-      allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
-      allowedStrategies:
-        (editUserFormFields?.allowedStrategies === null ? [] : editUserFormFields?.allowedStrategies) || [],
-      allowedSpec: (editUserFormFields?.allowedSpec === null ? [] : editUserFormFields?.allowedSpec) || [],
+      allowedRoles: editUserFormFields?.allowedRoles || [],
+      allowedStrategies: editUserFormFields?.allowedStrategies || [],
+      allowedSpec: editUserFormFields?.allowedSpec?.map(spec => spec.type) || [],
       email: editUserFormFields?.email || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,
@@ -274,19 +271,6 @@ export const AdminUserEditContent = observer(
       SettingsModel.languageTag,
     ])
 
-    // const onSubmitForm = event => {
-    //   event.preventDefault()
-    //   setSubmit(true)
-    //   !errorLowercaseLetter &&
-    //     !errorMinLength &&
-    //     !errorOneNumber &&
-    //     !errorUppercaseLetter &&
-    //     !errorMaxLength &&
-    //     !equalityError &&
-    //     !errorNoEngLetter &&
-    //     onSubmit()
-    // }
-
     const showError =
       (submit && errorLowercaseLetter) ||
       (submit && errorMinLength) ||
@@ -294,7 +278,6 @@ export const AdminUserEditContent = observer(
       (submit && errorUppercaseLetter) ||
       (submit && errorMaxLength)
 
-    //
     return (
       <div className={styles.root}>
         <div className={styles.mainWrapper}>
@@ -360,7 +343,6 @@ export const AdminUserEditContent = observer(
               />
             </div>
 
-            {/* Новое */}
             <div className={styles.field}>
               <Field
                 disabled
@@ -435,7 +417,6 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('confirmPassword')}
               />
             </div>
-            {/* Новое */}
           </div>
 
           <div className={styles.middleWrapper}>
@@ -591,28 +572,30 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {(formFields.allowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
-              selectedAllowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
-              `${formFields.role}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
+            {(formFields.allowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
+              selectedAllowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
+              formFields.role === mapUserRoleEnumToKey[UserRole.FREELANCER]) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
                 containerClasses={styles.allowedStrategiesContainer}
                 inputComponent={
                   <Select
                     multiple
-                    className={styles.standartText}
+                    className={cx(styles.standartText, styles.capitalize)}
                     value={formFields?.allowedSpec}
-                    renderValue={selected => selected.map(el => freelanceRequestTypeByCode[el]).join(', ')}
+                    renderValue={selected =>
+                      !selected?.length
+                        ? t(TranslationKey['Select from the list'])
+                        : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
+                    }
                     onChange={onChangeFormField('allowedSpec')}
                   >
-                    {Object.keys(getObjectFilteredByKeyArrayBlackList(freelanceRequestTypeByCode, ['0'])).map(
-                      (type, index) => (
-                        <MenuItem key={index} className={styles.standartText} value={Number(type)}>
-                          <Checkbox color="primary" checked={formFields?.allowedSpec?.includes(Number(type))} />
-                          <ListItemText primary={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[type])} />
-                        </MenuItem>
-                      ),
-                    )}
+                    {specs?.map(spec => (
+                      <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
+                        <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
+                        {spec?.title}
+                      </MenuItem>
+                    ))}
                   </Select>
                 }
               />
@@ -696,7 +679,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={`${formFields.role}` !== `${mapUserRoleEnumToKey[UserRole.STOREKEEPER]}`}
+                disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />
@@ -725,10 +708,12 @@ export const AdminUserEditContent = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <AddOrEditUserPermissionsForm
             isWithoutProductPermissions
             shops={[]}
+            specs={specs}
             permissionsToSelect={permissionsToSelect}
             permissionGroupsToSelect={permissionGroupsToSelect}
             sourceData={formFields}

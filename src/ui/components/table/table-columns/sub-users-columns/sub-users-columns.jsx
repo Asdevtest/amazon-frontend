@@ -16,30 +16,22 @@ export const subUsersColumns = handlers => [
     field: 'name',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-
+    renderCell: ({ row }) => <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />,
     width: 350,
-    renderCell: params => {
-      const user = params.row
-
-      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
-    },
   },
 
   {
     field: 'roles',
     headerName: t(TranslationKey.Roles),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
-
-    width: 215,
-    renderCell: params => <UserRolesCell user={params.row} />,
+    renderCell: ({ row }) => <UserRolesCell user={row} />,
+    width: 160,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 340,
     renderCell: params => (
       <EditOrRemoveBtnsCell
         isSubUsersTable
@@ -52,6 +44,8 @@ export const subUsersColumns = handlers => [
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
       />
     ),
+    width: 340,
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
   },
@@ -60,8 +54,6 @@ export const subUsersColumns = handlers => [
     field: 'note',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
-    width: 335,
     renderCell: params => (
       <CommentUsersCell
         id={params.row._id}
@@ -69,6 +61,8 @@ export const subUsersColumns = handlers => [
         handler={reason => handlers.onClickSaveComment(params.row._id, reason)}
       />
     ),
+    width: 335,
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
   },

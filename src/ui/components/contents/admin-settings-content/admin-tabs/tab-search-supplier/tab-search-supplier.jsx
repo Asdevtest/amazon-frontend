@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -9,7 +11,9 @@ import { useStyles } from '../../admin-settings.style'
 
 import { fieldNameObject } from '../../admin-settings.constants'
 
-export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
+export const TabSearchSupplier = memo(props => {
+  const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
+
   const { classes: styles } = useStyles()
 
   const disabledSubmit =
@@ -50,4 +54,4 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
       </Button>
     </div>
   )
-}
+})

@@ -52,6 +52,7 @@ export const AdminContentModal = observer(
     const sourceFormFields = {
       active: editUserFormFields?.active || false,
       allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
+      allowedSpec: editUserFormFields?.allowedSpec || [],
       email: editUserFormFields?.email || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,

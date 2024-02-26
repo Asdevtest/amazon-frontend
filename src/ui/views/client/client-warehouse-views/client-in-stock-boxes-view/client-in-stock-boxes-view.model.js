@@ -240,6 +240,13 @@ export class ClientInStockBoxesViewModel {
     const url = new URL(window.location.href)
 
     this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+
+    const boxId = url.searchParams.get('box-id')
+
+    if (boxId) {
+      this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
+    }
+
     this.nameSearchValue = url.searchParams.get('search-text')
 
     if (history.location.state?.dataGridFilter) {
@@ -367,11 +374,14 @@ export class ClientInStockBoxesViewModel {
       runInAction(() => {
         this.storekeepersData = result
 
-        this.currentStorekeeperId = this.currentStorekeeperId
-          ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
-          : result
-              .filter(storekeeper => storekeeper.boxesCount !== 0)
-              .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
+        this.currentStorekeeperId =
+          this.currentStorekeeperId === null
+            ? undefined
+            : this.currentStorekeeperId
+            ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
+            : result
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
       })
 
       this.getDataGridState()
@@ -382,19 +392,14 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      let uploadedFiles = []
-
-      if (data.tmpTrackNumberFile?.length) {
-        uploadedFiles = await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...uploadedFiles],
-
+        trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
       })
 
@@ -747,16 +752,14 @@ export class ClientInStockBoxesViewModel {
 
   async getClientDestinations() {
     try {
-      if (this.currentStorekeeperId) {
-        const clientDestinations = await ClientModel.getClientDestinations({
-          status: BoxStatus.IN_STOCK,
-          storekeeperId: this.currentStorekeeperId,
-        })
+      const clientDestinations = await ClientModel.getClientDestinations({
+        status: BoxStatus.IN_STOCK,
+        storekeeperId: this.currentStorekeeperId,
+      })
 
-        runInAction(() => {
-          this.clientDestinations = clientDestinations
-        })
-      }
+      runInAction(() => {
+        this.clientDestinations = clientDestinations
+      })
 
       this.getDataGridState()
     } catch (error) {

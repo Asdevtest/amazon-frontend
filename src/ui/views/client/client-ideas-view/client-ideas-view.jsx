@@ -178,7 +178,7 @@ export const ClientIdeasView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />
@@ -232,7 +232,7 @@ export const ClientIdeasView = observer(({ history }) => {
         >
           <RequestDesignerResultClientForm
             onlyRead
-            userInfo={viewModel.curUser}
+            userInfo={viewModel.userInfo}
             request={{ request: viewModel.currentRequest }}
             // request={viewModel.currentProposal}
             proposal={viewModel.currentProposal}

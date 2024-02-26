@@ -244,6 +244,31 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: {} })
     return response.data
   }
+
+  async getUsersPresets() {
+    const response = await restApiService.userApi.apiV1UsersPresetsGet()
+    return response.data
+  }
+
+  async postUsersPresets(body) {
+    const response = await restApiService.userApi.apiV1UsersPresetsPost({ body })
+    return response.data
+  }
+
+  async patchUsersPresetsByGuid(guid, body) {
+    const response = await restApiService.userApi.apiV1UsersPresetsGuidPatch({ guid, body })
+    return response.data
+  }
+
+  async deleteUsersPresetsByGuid(guid) {
+    const response = await restApiService.userApi.apiV1UsersPresetsGuidDelete({ guid })
+    return response.data
+  }
+
+  async getSpecs(archive) {
+    const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive, noCache: true }) // archive = undefined - all elements, archive = false - only not archive elements, archive = true - only archive elements
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

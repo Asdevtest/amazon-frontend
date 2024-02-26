@@ -85,7 +85,7 @@
     "react/jsx-curly-spacing": ["error", { "when": "never", "children": true }],
     "react/jsx-equals-spacing": "error",
     "react/jsx-handler-names": "off",
-    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent": "off",
     "react/jsx-key": "error",
     // "react/jsx-no-bind": "error",
     "react/jsx-no-literals": "off",

@@ -222,12 +222,12 @@ export class AnotherProfileViewModel {
     }
   }
 
-  async onClickBuyProductBtn(shopId) {
+  async onClickBuyProductBtn(shop) {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
       runInAction(() => {
-        this.selectedShopId = shopId
+        this.selectedShopId = shop?._id
       })
 
       await this.onSaveProductData()

@@ -9,14 +9,23 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  categoryTitle: {
-    width: 'max-content',
-    fontSize: '14px',
-    fontWeight: 400,
-    color: theme.palette.text.second,
+  categoryContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 5,
   },
 
   categoryText: {
+    width: 'max-content',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  categoryTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
     color: theme.palette.text.general,
   },
 
@@ -33,7 +42,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   resultButton: {
-    width: '100%',
+    padding: '0 20px',
     height: '30px',
     whiteSpace: 'nowrap',
   },

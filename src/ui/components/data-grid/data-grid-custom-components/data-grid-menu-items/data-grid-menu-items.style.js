@@ -59,6 +59,7 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textTransform: 'capitalize',
   },
 
   statusText: {

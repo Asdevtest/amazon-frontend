@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -79,10 +79,13 @@ export class SuppliersAndIdeasModel {
   showRequestDesignerResultModal = false
   showRequestStandartResultModal = false
   showRequestBloggerResultModal = false
+  showSupplierApproximateCalculationsModal = false
   showBindingModal = false
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
+
+  storekeepersData = []
 
   selectedProduct = undefined
   storekeepers = []
@@ -432,9 +435,9 @@ export class SuppliersAndIdeasModel {
         this.currentRequest = request
       })
 
-      if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.DESIGNER) {
+      if (request?.spec?.title === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
-      } else if (freelanceRequestTypeByCode[request?.typeTask] === freelanceRequestType.BLOGGER) {
+      } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
         this.onTriggerOpenModal('showRequestStandartResultModal')
@@ -653,25 +656,64 @@ export class SuppliersAndIdeasModel {
           this.supplierData = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        if (this.selectedSupplier?._id) {
-          const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
-
-          runInAction(() => {
-            this.supplierData = supplier
-          })
-        }
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        await this.getSupplier()
+        await this.getPlatformSettings()
       }
 
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getSupplier() {
+    try {
+      console.log('this.selectedSupplier :>> ', this.selectedSupplier)
+      if (this.selectedSupplier?._id) {
+        const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
+
+        runInAction(() => {
+          this.supplierData = supplier
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepersData = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      await this.getSupplier()
+      await this.getPlatformSettings()
+      await this.getStorekeepers()
+
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
     } catch (error) {
       console.log(error)
     }

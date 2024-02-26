@@ -82,7 +82,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
@@ -271,7 +271,7 @@ export const clientProductsDataConverter = data =>
     id: item._id,
   }))
 
-export const clientInventoryDataConverter = (data, shopsData) =>
+export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
@@ -316,8 +316,6 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     ideasOnCheck: item.ideasOnCheck,
     ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
-
-    shopId: shopsData?.find(el => el._id === item.shopId)?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -752,7 +750,6 @@ export const adminOrdersDataConverter = data =>
 export const adminTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
-
     id: item._id,
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
@@ -910,7 +907,7 @@ export const SourceFilesDataConverter = data =>
     sourceFile: item?.sourceFile,
     comments: item?.comments,
     proposal: item?.proposal,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     productId: item?.productId,
 
     performer: item?.createdBy,
@@ -1079,7 +1076,7 @@ export const myProposalsDataConverter = data =>
     title: item.request.title,
     product: item.request.product,
     priority: item.request.priority,
-    typeTask: item.request.typeTask,
+    spec: item.request.spec,
     timeoutAt: item.request.timeoutAt,
     taskComplexity: item.request.taskComplexity,
     status: item.status,

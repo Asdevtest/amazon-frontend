@@ -2,12 +2,7 @@ import { FC, memo } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
@@ -17,11 +12,13 @@ import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ISpec } from '@typings/spec'
+
 import { useStyles } from './request-terms.style'
 
 interface RequestTermsProps {
   withoutConfirmation: boolean
-  typeTask: number
+  spec: ISpec
   timeoutAt: string
   newProductPrice: number
   priceAmazon: number
@@ -36,7 +33,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
 
   const {
     withoutConfirmation,
-    typeTask,
+    spec,
     timeoutAt,
     newProductPrice,
     priceAmazon,
@@ -70,10 +67,8 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
       <div className={styles.requestInfoWrapper}>
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
-            <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</p>
-            <p className={cx(styles.blockInfoCellText)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[typeTask])}
-            </p>
+            <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</p>
+            <p className={cx(styles.blockInfoCellText, styles.capitalize)}>{spec?.title}</p>
           </div>
 
           <div className={styles.blockInfoCell}>
@@ -84,8 +79,8 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           </div>
         </div>
 
-        {`${typeTask}` ===
-        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey]}` ? (
+        {spec?.type ===
+        freelanceRequestTypeByKey[freelanceRequestType.BLOGGER as keyof typeof freelanceRequestTypeByKey] ? (
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>
               <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</p>

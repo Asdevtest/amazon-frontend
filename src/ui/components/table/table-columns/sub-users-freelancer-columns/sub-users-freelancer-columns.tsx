@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridRowParams } from '@mui/x-data-grid'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -15,6 +14,8 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ISpec } from '@typings/spec'
 
 interface SubUsersFreelancerColumnsProps {
   onClickRemoveBtn: (row: GridRowParams) => void
@@ -43,19 +44,18 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: (params: GridRowParams) => {
-      const stringForRender = params.row.allowedSpec
-        .map((spec: number) => freelanceRequestTypeTranslate(freelanceRequestTypeByCode[spec]))
-        .join('\n')
+      const stringForRender = params.row.allowedSpec?.map((spec: ISpec) => spec?.title).join('\n')
 
       return <MultilineTextCell leftAlign text={stringForRender} />
     },
-    type: 'number',
-    width: 95,
+    width: 110,
     sortable: false,
+    filterable: false,
+    disableColumnMenu: true,
   },
 
   {
@@ -76,6 +76,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         isFirstRow={params?.api?.getSortedRowIds()?.[0] === params.row.id}
       />
     ),
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
   },

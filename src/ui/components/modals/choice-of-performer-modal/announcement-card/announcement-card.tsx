@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
@@ -12,6 +11,7 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { IService, IShortUser } from '@typings/master-user'
+import { isString } from '@typings/type-guards'
 import { UploadFileType } from '@typings/upload-file'
 
 import { useStyles } from './announcement-card.style'
@@ -30,14 +30,13 @@ interface AnnouncementCardProps {
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
+  const { announcementData, selectedCard, onClickSelectCard, onClickSelectButton } = props
+
   const { classes: styles, cx } = useStyles()
 
-  const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
-
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsMediaFileLink(typeof el !== 'string' ? el?.file?.name : el),
+    checkIsMediaFileLink(isString(el) ? el : el?.file?.name),
   )
-
   const radioBottonsSettings = [
     {
       label: () => '',
@@ -85,9 +84,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           <div className={styles.detailsSubWrapper}>
             <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
             <p className={styles.detailDescription}>
-              {announcementData.type === 0
-                ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.type])}
+              {announcementData.spec?.type === 0 ? t(TranslationKey.Universal) : announcementData.spec?.title}
             </p>
           </div>
 

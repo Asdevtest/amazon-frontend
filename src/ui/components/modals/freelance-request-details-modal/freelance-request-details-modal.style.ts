@@ -43,6 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     color: theme.palette.text.second,
+    textTransform: 'capitalize',
   },
 
   textBold: {

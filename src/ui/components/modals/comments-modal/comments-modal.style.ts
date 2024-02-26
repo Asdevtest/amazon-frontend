@@ -23,6 +23,12 @@ export const useStyles = makeStyles()(theme => ({
     width: 600,
     fontSize: 16,
     lineHeight: '19px',
+
+    textarea: {
+      '&:disabled': {
+        '-webkit-text-fill-color': theme.palette.text.general,
+      },
+    },
   },
 
   editorReadOnly: {

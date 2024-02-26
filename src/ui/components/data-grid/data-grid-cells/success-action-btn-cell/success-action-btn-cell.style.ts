@@ -10,4 +10,7 @@ export const useStyles = makeStyles()(theme => ({
       lineHeight: 18,
     },
   },
+  fullWidthButton: {
+    width: '100%',
+  },
 }))

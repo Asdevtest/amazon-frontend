@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -9,7 +11,9 @@ import { useStyles } from '../../admin-settings.style'
 
 import { fieldNameObject } from '../../admin-settings.constants'
 
-export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
+export const TabOrders = memo(props => {
+  const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
+
   const { classes: styles } = useStyles()
 
   const disabledSubmit = !isFormFieldsChanged || Number(formFields.timeToDeadlinePendingOrder) === 0
@@ -31,4 +35,4 @@ export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeF
       </Button>
     </div>
   )
-}
+})

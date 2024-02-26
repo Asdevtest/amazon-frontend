@@ -8,11 +8,10 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/buttons/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
@@ -21,7 +20,6 @@ import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -278,22 +276,12 @@ export const OrderModalBodyRow = ({
         role="checkbox"
         className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
-        <TableCell className={styles.asinCell}>
-          <div className={styles.asinCellContainer}>
-            <div>
-              <img alt="" className={styles.img} src={getAmazonImageUrl(item.images[0])} />
-            </div>
-          </div>
-        </TableCell>
-
         <TableCell className={styles.cell}>
-          <Typography className={styles.amazonTitle}>{item.amazonTitle}</Typography>
-          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item?.asin} textStyles={styles.standartText} />
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle="sku"
-            link={item?.skuByClient}
-            textStyles={styles.standartText}
+          <ProductAsinCell
+            image={item.images[0]}
+            amazonTitle={item.amazonTitle}
+            asin={item.asin}
+            skuByClient={item.sku}
           />
 
           {!item.currentSupplier && (
@@ -447,7 +435,7 @@ export const OrderModalBodyRow = ({
             }
             data={
               // destinations
-              item.logicsTariffId ? destinations.filter(el => el?._id === destinationId) : destinations
+              item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
               // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
 
               /* .filter(el => !el.storekeeperId)*/

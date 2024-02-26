@@ -34,7 +34,7 @@ export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> =
     return (
       <p>
         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
-          {notification?.creator?.name}
+          {notification?.sub?.name || notification?.creator?.name}
         </a>
         {` ${getIdeaMessageTextToRender()} `}
         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>

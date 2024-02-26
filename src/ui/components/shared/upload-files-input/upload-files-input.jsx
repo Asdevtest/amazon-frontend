@@ -20,6 +20,8 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { isString } from '@typings/type-guards'
+
 import { useStyles } from './upload-files-input.style'
 
 import { VideoPlayer } from '../video-player'
@@ -156,7 +158,7 @@ export const UploadFilesInput = observer(props => {
   const [showImages, setShowImages] = useState(true)
 
   const isVideoType = slide => {
-    if (typeof slide === 'string') {
+    if (isString(slide)) {
       return checkIsVideoLink(slide)
     } else {
       return checkIsVideoLink(slide?.file?.name) || checkIsVideoLink(slide?.file?.type)

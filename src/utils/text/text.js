@@ -9,7 +9,7 @@ import { ProductStatusByCode, productStatusTranslateKey } from '@constants/produ
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUTES_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -278,8 +278,8 @@ export const getTableByColumn = (column, hint) => {
       'fbaamount',
       'client',
       'buyer',
-      'childProductShopId',
-      'parentProductShopId',
+      'childProductShop',
+      'parentProductShop',
       'supervisor',
       'margin',
       'checkedBy',
@@ -293,7 +293,7 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
-    } else if (['childProductShopId', 'parentProductShopId'].includes(column) && hint === 'ideas') {
+    } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
       return 'products'
     } else if (
       [
@@ -332,7 +332,7 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'title',
-      'typeTask',
+      'spec',
       'price',
       'timeoutAt',
       // 'createdBy',
@@ -395,7 +395,7 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return MyRequestStatusTranslate(status)
 
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
-      return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+      return freelanceRequestTypeByCode[status]
 
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
@@ -461,6 +461,9 @@ export const getHumanFriendlyNotificationType = type => {
     case NotificationType.Proposal:
       return t(TranslationKey.Proposal)
 
+    case NotificationType.Shop:
+      return t(TranslationKey.Shop)
+
     default:
       break
   }
@@ -481,3 +484,6 @@ export const parseTextString = textValue => {
     return textValue
   }
 }
+
+export const formatCamelCaseString = str =>
+  str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())

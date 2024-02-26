@@ -153,8 +153,8 @@ export const OrderProductModal = memo(props => {
 
           destinationId: null,
 
-          storekeeperId: '',
-          logicsTariffId: '',
+          storekeeperId: null,
+          logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
           buyerId: product.buyer?._id || null,
@@ -254,8 +254,8 @@ export const OrderProductModal = memo(props => {
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
-        order.storekeeperId === '' ||
-        order.logicsTariffId === '' ||
+        !order.storekeeperId ||
+        !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
@@ -279,9 +279,6 @@ export const OrderProductModal = memo(props => {
         <Table className={styles.table}>
           <TableHead>
             <TableRow className={styles.tableRow}>
-              <TableCell className={styles.imgCell}>
-                <p className={styles.cellText}>{t(TranslationKey.Image)}</p>
-              </TableCell>
               <TableCell className={styles.productCell}>
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
@@ -461,10 +458,9 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
           tmpCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex].tmpBarCode}
-          item={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          barCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]?.barCode}
           onClickSaveBarcode={barCode => {
             setOrderStateFiled(tmpOrderIndex)('tmpBarCode')(barCode)
-            triggerBarcodeModal()
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}

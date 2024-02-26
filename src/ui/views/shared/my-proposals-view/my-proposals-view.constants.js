@@ -18,10 +18,11 @@ export const filtersFields = [
   'skuByClient',
   'amazonTitle',
   'taskComplexity',
-  'typeTask',
+  'spec',
   'reworkCounter',
   'shop',
   'announcement',
+  'specType',
 ]
 
 export const switcherConditions = {

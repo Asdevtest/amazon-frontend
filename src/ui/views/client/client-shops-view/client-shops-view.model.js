@@ -1,4 +1,5 @@
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +26,7 @@ export class ShopsViewModel extends DataGridTableModel {
   selectedShop = undefined
 
   showAddOrEditShopModal = false
-  showWarningModal = false
+
   showConfirmModal = false
 
   constructor() {
@@ -45,30 +46,26 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async updateShops() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
-      await ClientModel.updateShops(this.selectedRows)
+      const isMoreThenThree = this.selectedRows?.length > 3
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      await ClientModel.updateShops(this.selectedRows, isMoreThenThree)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey.Updated),
-        }
-      })
+      if (isMoreThenThree) {
+        toast.success(t(TranslationKey['Store data will be updated soon']))
+      } else {
+        toast.success(t(TranslationKey.Updated))
+      }
 
-      this.onTriggerOpenModal('showWarningModal')
+      this.selectedRows = []
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey.Error),
-        }
-      })
-      this.onTriggerOpenModal('showWarningModal')
-      this.requestStatus = loadingStatuses.FAILED
+      toast.error(t(TranslationKey['Something went wrong']))
+
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -79,7 +76,7 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async createShop(data, shopId) {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       if (!data.reportAccountUrl) {
         delete data.reportAccountUrl
@@ -88,51 +85,32 @@ export class ShopsViewModel extends DataGridTableModel {
       if (shopId) {
         await ShopModel.editShop(shopId, data)
 
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Store changed']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningModal')
+        toast.success(t(TranslationKey['Store changed']))
       } else {
         await ShopModel.createShop(data)
 
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Store created']),
-          }
-        })
-        this.onTriggerOpenModal('showWarningModal')
+        toast.success(t(TranslationKey['Store created']))
       }
 
       this.getMainTableData()
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: error.body.message,
-        }
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Something went wrong']))
     }
   }
 
   async removeShopById() {
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await ShopModel.removeShopById(this.selectedShop._id)
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.requestStatus = loadingStatuses.FAILED
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
