@@ -357,6 +357,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
           onClickInTransferModal={viewModel.onClickInTransfer}
+          onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
 
