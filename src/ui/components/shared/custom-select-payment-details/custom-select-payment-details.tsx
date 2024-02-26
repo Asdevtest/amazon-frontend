@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, Input, MenuItem, Select, Typography } from '@mui/material'
+import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -124,7 +124,6 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                 [styles.grayBorder]: (onlyRead && isEmpty) || onlyRead,
                 [styles.cursorPointer]: cursorPointer,
               })}
-              input={<Input /* startAdornment={<InputAdornment position="start" />} */ />}
               MenuProps={{
                 anchorOrigin: {
                   vertical: 'bottom',
