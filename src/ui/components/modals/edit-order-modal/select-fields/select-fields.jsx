@@ -206,9 +206,7 @@ export const SelectFields = ({
                 label={t(TranslationKey['Current order course'])}
                 labelClasses={styles.label}
                 value={orderFields?.yuanToDollarRate || ''}
-                onChange={e => {
-                  setOrderField('yuanToDollarRate')(e)
-                }}
+                onChange={e => setOrderField('yuanToDollarRate')(e)}
               />
 
               <Field
@@ -479,9 +477,7 @@ export const SelectFields = ({
                 value={orderFields.partiallyPaid}
                 onChange={event => {
                   if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) {
-                    {
-                      setOrderField('partiallyPaid')(event)
-                    }
+                    setOrderField('partiallyPaid')(event)
                   }
                 }}
               />
@@ -545,7 +541,7 @@ export const SelectFields = ({
 
         <Box my={3} className={styles.formItem}>
           <Field
-            label={'HS Code'}
+            label="HS Code"
             labelClasses={styles.label}
             inputClasses={styles.input}
             inputProps={{ maxLength: 255 }}
