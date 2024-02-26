@@ -242,7 +242,7 @@ export const OrderProductModal = memo(props => {
   }
 
   const storekeeperEqualsDestination = orderState.some(
-    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
+    order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)

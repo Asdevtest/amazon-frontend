@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     background: theme.palette.background.second,
     border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
-    borderRadius: '7px',
+    borderRadius: '40px',
     transition: '0.3s ease',
     cursor: 'pointer',
 

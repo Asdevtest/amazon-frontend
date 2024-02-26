@@ -6,12 +6,12 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './interconnected-products.style'
 
 import { Button } from '../buttons/button'
-import { MinusIcon, ParentProductIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
+import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {
   isParent?: boolean
@@ -48,17 +48,24 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonType.TRANSPARENT} className={styles.button} onClick={() => navigateToProduct(_id)}>
-          <ShareLinkIcon className={cx(styles.icon, styles.shareLinkIcon)} />
+        <Button
+          isSmallButton
+          variant={ButtonVariant.OUTLINED}
+          className={styles.button}
+          onClick={() => navigateToProduct(_id)}
+        >
+          <ShareIcon />
         </Button>
 
         {showRemoveButton && (
           <Button
-            styleType={ButtonType.TRANSPARENT}
-            className={cx(styles.button, styles.removeButton)}
+            isSmallButton
+            styleType={ButtonType.DANGER}
+            variant={ButtonVariant.OUTLINED}
+            className={cx(styles.button)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >
-            <MinusIcon className={cx(styles.icon, styles.removeIcon)} />
+            <MinusIcon />
           </Button>
         )}
       </div>

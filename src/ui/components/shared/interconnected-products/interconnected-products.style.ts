@@ -7,25 +7,12 @@ export const useStyles = makeStyles()(theme => ({
     gap: '11px',
   },
 
-  icon: {
-    width: '24px !important',
-    height: '24px !important',
-  },
-
   variationIcon: {
     color: theme.palette.text.second,
   },
 
   parentVariationIcon: {
     color: `${theme.palette.primary.main} !important`,
-  },
-
-  shareLinkIcon: {
-    color: theme.palette.primary.main,
-  },
-
-  removeIcon: {
-    width: '11px !important',
   },
 
   buttonsWrapper: {
@@ -38,14 +25,16 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '5px',
-  },
+    padding: '0 5px',
 
-  removeButton: {
-    backgroundColor: theme.palette.text.red,
-    padding: '0 !important',
-    height: '24px !important',
-    width: '24px !important',
+    svg: {
+      width: '12px !important',
+      height: '12px !important',
+
+      path: {
+        stroke: 'currentcolor',
+      },
+    },
   },
 
   sourceProductWrapper: {

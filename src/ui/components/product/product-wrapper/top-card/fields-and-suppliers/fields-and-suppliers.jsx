@@ -24,13 +24,12 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -471,7 +470,12 @@ export const FieldsAndSuppliers = memo(
                 </p>
 
                 {checkIsClient(curUserRole) && !product?.parentProductId && (
-                  <Button className={styles.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                  <Button
+                    isSmallButton
+                    variant={ButtonVariant.OUTLINED}
+                    className={styles.addButton}
+                    onClick={() => onTriggerOpenModal('showBindProductModal')}
+                  >
                     <AddIcon className={styles.plusIcon} />
                   </Button>
                 )}
@@ -511,7 +515,7 @@ export const FieldsAndSuppliers = memo(
             </div>
           ) : checkIsClient(curUserRole) ? (
             <Button className={styles.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-              <PlusIcon className={styles.plusIcon} />
+              <AddIcon className={styles.plusIcon} />
               {t(TranslationKey['Add product linkage'])}
             </Button>
           ) : null}

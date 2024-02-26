@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
@@ -888,9 +889,8 @@ export class ClientProductViewModel {
         })
       }
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Success parse'])
-      })
+      toast.success(t(TranslationKey['Success parse']))
+
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {

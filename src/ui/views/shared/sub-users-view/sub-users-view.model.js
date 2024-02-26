@@ -312,6 +312,9 @@ export class SubUsersViewModel {
 
       if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
         await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedItems?.selectedProducts })
+      }
+
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
         await PermissionsModel.patchPermissionsShops({ userId: id, shopIds: allowedItems?.selectedShops })
       }
 

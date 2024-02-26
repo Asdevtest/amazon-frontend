@@ -357,9 +357,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   plusIcon: {
-    width: '15px !important',
-    height: '15px !important',
-    color: '#FFFFFF',
+    width: '21px !important',
+    height: '21px !important',
   },
 
   plusButton: {
@@ -378,5 +377,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     gap: '9px',
+  },
+
+  addButton: {
+    padding: '0 1px',
   },
 }))

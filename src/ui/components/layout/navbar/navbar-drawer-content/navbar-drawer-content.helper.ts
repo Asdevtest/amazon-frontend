@@ -26,7 +26,7 @@ export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: II
   } else if (category?.route?.includes('/client/ideas')) {
     return (
       userInfo?.ideas?.addingAsin +
-      userInfo?.ideas?._new +
+      userInfo?.ideas?.new +
       userInfo?.ideas?.onCheck +
       userInfo?.ideas?.productCreating +
       userInfo?.ideas?.supplierSearch

@@ -23,8 +23,6 @@ import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
-
 import { useStyles } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
@@ -410,18 +408,14 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <Button
-            variant={item.storekeeperId ? ButtonVariant.OUTLINED : ButtonVariant.CONTAINED}
-            className={cx(
-              { [styles.storekeeperBtn]: !item.storekeeperId },
-              { [styles.standartText]: item.storekeeperId },
-            )}
+            fullWidth
+            className={cx({ [styles.standartText]: item.storekeeperId })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId
-              ? `                
-                ${
+              ? `${
                   item.logicsTariffId
-                    ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                    ? `${tariffName || ''}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
                     : 'none'
                 }`
               : t(TranslationKey.Select)}

@@ -9,7 +9,7 @@ import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './download-and-copy-btns-cell.style'
 
@@ -50,7 +50,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
 
             <Button
               isTableButton
-              variant={ButtonVariant.OUTLINED}
+              styleType={ButtonType.TRANSPARENT}
               tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
               className={styles.copyImgButton}
             >

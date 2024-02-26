@@ -90,7 +90,7 @@ interface IRequest {
 }
 
 interface IIdeas {
-  _new: number
+  new: number
   onCheck: number
   supplierSearch: number
   productCreating: number

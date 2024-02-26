@@ -188,6 +188,18 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
+    field: 'proposalSub',
+    headerName: t(TranslationKey.Performer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
+    width: 145,
+    renderCell: ({ row }) => (
+      <UserMiniCell userName={row.proposals?.[0]?.sub?.name} userId={row.proposals?.[0]?.sub?._id} />
+    ),
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
     field: 'cashBackInPercent',
     headerName: t(TranslationKey.CashBack),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.CashBack)} />,

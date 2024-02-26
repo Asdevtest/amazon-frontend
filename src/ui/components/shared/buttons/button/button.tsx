@@ -22,6 +22,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   startIcon?: ReactElement
 
   isTableButton?: boolean
+  isSmallButton?: boolean
   styleType?: ButtonType
   variant?: ButtonVariant
   className?: string
@@ -41,6 +42,7 @@ export const Button: FC<ButtonProps> = memo(props => {
     styleType = ButtonType.PRIMARY,
     variant = ButtonVariant.CONTAINED,
     className,
+    isSmallButton = false,
     isTableButton = false,
     fullWidth = false,
     ...restProps
@@ -73,6 +75,7 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.outlinedSuccess]: styleType === ButtonType.SUCCESS && isOutlined,
           [styles.outlinedDanger]: styleType === ButtonType.DANGER && isOutlined,
           [styles.tableButton]: isTableButton,
+          [styles.smallButton]: isSmallButton,
         },
         className,
       )}
