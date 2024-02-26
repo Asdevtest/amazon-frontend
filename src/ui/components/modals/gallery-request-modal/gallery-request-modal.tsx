@@ -12,7 +12,7 @@ import { Header } from '../gallery-modal/components'
 import { customSwitcherSettings } from '../gallery-modal/gallery-modal.config'
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
-import { Buttons, ReqestMediaFilesTab, RequestDocumentsTab } from './components'
+import { Buttons, RequestDocumentsTab, RequestMediaFilesTab } from './components'
 import { IData } from './gallery-request-modal.type'
 import { useGalleryRequestModal } from './use-gallery-request-modal'
 
@@ -68,7 +68,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
         />
 
         <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
-          <ReqestMediaFilesTab
+          <RequestMediaFilesTab
             data={mediaFilesStates}
             getCheckboxState={getCheckboxState}
             getDisabledCheckbox={getDisabledCheckbox}

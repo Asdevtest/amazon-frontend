@@ -17,14 +17,14 @@ import { IState } from '../../../gallery-request-modal/gallery-request-modal.typ
 import { getSupplierTitleByObjectkey } from '../../../gallery-request-modal/helpers/get-supplier-title-by-object-key'
 import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/has-non-empty-string-array'
 
-interface ReqestMediaFilesTabProps {
+interface RequestMediaFilesTabProps {
   data: IState | undefined
   getCheckboxState: (file: string) => boolean
   getDisabledCheckbox: (file: string) => boolean
   onToggleFile: (file: string) => void
 }
 
-export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(props => {
+export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props => {
   const { data, getCheckboxState, getDisabledCheckbox, onToggleFile } = props
 
   const { classes: styles } = useStyles()
