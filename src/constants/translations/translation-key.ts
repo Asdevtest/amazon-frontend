@@ -2206,5 +2206,6 @@ export enum TranslationKey {
   'Returns' = 'Returns',
   'Reason for cancellation' = 'Reason for cancellation',
   'Reason for rejection' = 'Reason for rejection',
+  'Attach files (dimensions)' = 'Attach files (dimensions)',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
