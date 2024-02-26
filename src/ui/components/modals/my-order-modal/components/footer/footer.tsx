@@ -1,4 +1,4 @@
-import { isPast } from 'date-fns'
+import dayjs from 'dayjs'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -44,8 +44,9 @@ export const Footer: FC<FooterProps> = memo(props => {
   const showCancelButton = showButtons || formFields?.status === OrderStatus.READY_TO_PROCESS
   const showToOrderButton = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const isPendingOrder = formFields?.status > OrderStatus.READY_FOR_BUYOUT
-  const disabledSaveSubmit =
-    (formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount || stateComparison
+  const minDate = dayjs().startOf('day').add(2, 'day')
+  const isNotValidDate = new Date(formFields.deadline as string) < new Date(minDate.toString()) && !!formFields.deadline
+  const disabledSaveSubmit = isNotValidDate || !formFields?.amount || stateComparison
 
   return (
     <div className={styles.footer}>
