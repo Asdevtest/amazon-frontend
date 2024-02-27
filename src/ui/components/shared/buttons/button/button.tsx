@@ -11,19 +11,26 @@ import { ButtonStyle, ButtonVariant, TooltipPositions } from '@typings/enums/but
 import { useStyles } from './button.style'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  tooltipAttentionContent?: ReactElement | string
-  tooltipInfoContent?: ReactElement | string
+  tooltipAttentionContent?: string
+  tooltipInfoContent?: string
   tooltipPosition?: TooltipPositions
+  defaultButtonTooltip?: string
+
   disabled?: boolean
   disableElevation?: boolean
-  defaultButtonTooltip?: string
   startIcon?: ReactElement
+
   isTableButton?: boolean
   isSmallButton?: boolean
+
   styleType?: ButtonStyle
   variant?: ButtonVariant
   className?: string
+
   fullWidth?: boolean
+  iconButton?: boolean
+  buttonIconSize?: number
+  smallIconButton?: boolean
 }
 
 export const Button: FC<ButtonProps> = memo(props => {
@@ -42,6 +49,8 @@ export const Button: FC<ButtonProps> = memo(props => {
     isSmallButton = false,
     isTableButton = false,
     fullWidth = false,
+    iconButton = false,
+    smallIconButton = false,
     ...restProps
   } = props
 
@@ -62,17 +71,27 @@ export const Button: FC<ButtonProps> = memo(props => {
         styles.root,
         {
           [styles.fullWidth]: fullWidth,
+          [styles.tableButton]: isTableButton,
+          [styles.smallButton]: isSmallButton,
+
+          [styles.iconButton]: iconButton,
+          [styles.smallIconButton]: smallIconButton,
+
+          [styles.primaryIconButton]: iconButton && styleType === ButtonStyle.PRIMARY,
+          [styles.successIconButton]: iconButton && styleType === ButtonStyle.SUCCESS,
+          [styles.dangerIconButton]: iconButton && styleType === ButtonStyle.DANGER,
+
           [styles.transparent]: styleType === ButtonStyle.TRANSPARENT,
           [styles.casual]: styleType === ButtonStyle.CASUAL,
           [styles.default]: styleType === ButtonStyle.DEFAULT,
+
           [styles.primary]: styleType === ButtonStyle.PRIMARY && !isOutlined,
           [styles.danger]: styleType === ButtonStyle.DANGER && !isOutlined,
           [styles.success]: styleType === ButtonStyle.SUCCESS && !isOutlined,
+
           [styles.outlinedPrimary]: styleType === ButtonStyle.PRIMARY && isOutlined,
           [styles.outlinedSuccess]: styleType === ButtonStyle.SUCCESS && isOutlined,
           [styles.outlinedDanger]: styleType === ButtonStyle.DANGER && isOutlined,
-          [styles.tableButton]: isTableButton,
-          [styles.smallButton]: isSmallButton,
         },
         className,
       )}

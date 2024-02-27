@@ -1,6 +1,5 @@
 import { memo, useState } from 'react'
 
-import AddIcon from '@mui/icons-material/Add'
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
 
 import { UserRole } from '@constants/keys/user-roles'
@@ -24,12 +23,13 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -470,13 +470,8 @@ export const FieldsAndSuppliers = memo(
                 </p>
 
                 {checkIsClient(curUserRole) && !product?.parentProductId && (
-                  <Button
-                    isSmallButton
-                    variant={ButtonVariant.OUTLINED}
-                    className={styles.addButton}
-                    onClick={() => onTriggerOpenModal('showBindProductModal')}
-                  >
-                    <AddIcon className={styles.plusIcon} />
+                  <Button iconButton smallIconButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                    <CustomPlusIcon />
                   </Button>
                 )}
               </div>
@@ -515,7 +510,7 @@ export const FieldsAndSuppliers = memo(
             </div>
           ) : checkIsClient(curUserRole) ? (
             <Button className={styles.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-              <AddIcon className={styles.plusIcon} />
+              <CustomPlusIcon />
               {t(TranslationKey['Add product linkage'])}
             </Button>
           ) : null}

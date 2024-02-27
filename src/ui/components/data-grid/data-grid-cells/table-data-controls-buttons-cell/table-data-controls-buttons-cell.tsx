@@ -3,6 +3,8 @@ import { FC, memo } from 'react'
 import { Button } from '@components/shared/buttons/button'
 import { CrossIcon, EditIcon, ReturnArrowIcon, SaveIcon, SendArrowIcon } from '@components/shared/svg-icons'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './table-data-controls-buttons-cell.style'
 
 interface TableDataControlsButtonsCellProps {
@@ -24,52 +26,36 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
     onClickReturnButton,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.buttonsWrapper}>
       {onClickSaveButton ? (
-        <Button
-          disabled={disableButton}
-          className={cx(styles.button, styles.successButton)}
-          onClick={onClickSaveButton}
-        >
+        <Button iconButton styleType={ButtonStyle.SUCCESS} disabled={disableButton} onClick={onClickSaveButton}>
           <SaveIcon />
         </Button>
       ) : null}
 
       {onClickEditButton ? (
-        <Button
-          disabled={disableButton}
-          className={cx(styles.button, styles.primaryButton)}
-          onClick={onClickEditButton}
-        >
+        <Button iconButton disabled={disableButton} className={styles.primaryButton} onClick={onClickEditButton}>
           <EditIcon />
         </Button>
       ) : null}
 
       {onClickCancelButton ? (
-        <Button
-          disabled={disableButton}
-          className={cx(styles.button, styles.errorButton)}
-          onClick={onClickCancelButton}
-        >
+        <Button iconButton styleType={ButtonStyle.DANGER} disabled={disableButton} onClick={onClickCancelButton}>
           <CrossIcon />
         </Button>
       ) : null}
 
       {onClickSendButton ? (
-        <Button disabled={disableButton} className={cx(styles.button, styles.errorButton)} onClick={onClickSendButton}>
+        <Button iconButton styleType={ButtonStyle.DANGER} disabled={disableButton} onClick={onClickSendButton}>
           <ReturnArrowIcon />
         </Button>
       ) : null}
 
       {onClickReturnButton ? (
-        <Button
-          disabled={disableButton}
-          className={cx(styles.button, styles.successButton)}
-          onClick={onClickReturnButton}
-        >
+        <Button iconButton styleType={ButtonStyle.SUCCESS} disabled={disableButton} onClick={onClickReturnButton}>
           <SendArrowIcon />
         </Button>
       ) : null}
