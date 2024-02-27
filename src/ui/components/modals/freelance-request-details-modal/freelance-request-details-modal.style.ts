@@ -145,4 +145,8 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     justifyContent: 'flex-end',
   },
+
+  recoverBtn: {
+    width: '100%',
+  },
 }))
