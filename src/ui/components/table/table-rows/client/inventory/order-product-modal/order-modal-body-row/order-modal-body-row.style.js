@@ -74,7 +74,9 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  standartText: {},
+  standartText: {
+    height: '70px',
+  },
 
   row: {
     width: '100%',

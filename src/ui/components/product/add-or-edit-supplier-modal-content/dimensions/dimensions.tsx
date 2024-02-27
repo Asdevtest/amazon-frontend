@@ -12,6 +12,7 @@ import { useStyles } from './dimensions.style'
 import { switcherSettings } from './switcher-settings'
 
 interface DimensionsProps {
+  title: string
   onlyRead: boolean
   sizeMode: string
   height: string
@@ -31,6 +32,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {
+    title,
     onlyRead,
     sizeMode,
     height,
@@ -50,7 +52,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
     <div className={styles.sizesWrapper}>
       <div className={styles.dimensionsWrapper}>
         <div className={styles.sizesSubWrapper}>
-          <p className={styles.standartText}>{t(TranslationKey.Dimensions)}</p>
+          <p className={styles.standartText}>{title}</p>
 
           <CustomSwitcher
             condition={sizeMode}

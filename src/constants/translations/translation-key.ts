@@ -2207,5 +2207,7 @@ export enum TranslationKey {
   'Reason for cancellation' = 'Reason for cancellation',
   'Reason for rejection' = 'Reason for rejection',
   'Attach files (dimensions)' = 'Attach files (dimensions)',
+  'Package dimensions' = 'Package dimensions',
+  'Add at least 4 photos' = 'Add at least 4 photos',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

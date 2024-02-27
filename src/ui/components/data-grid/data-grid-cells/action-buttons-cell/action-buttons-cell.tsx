@@ -11,7 +11,8 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * Renders a table cell with action buttons.
  *
  * @param {boolean} isFirstRow - Indicates if the cell is in the first row.
- * @param {boolean} row - Arrangement of buttons in a row (flex-direction: 'row).
+ * @param {boolean} fullWidth - Indicates if the cell is in the first row.
+ * @param {boolean} row - The button will take all the space.
  * @param {string} buttonWrapperClassName - Custom styles for the button wrapper.
  * @param {string} buttonClassName - Custom styles for the button.
  * @param {string | JSX.Element} firstButtonElement - The text or element for the first button.
