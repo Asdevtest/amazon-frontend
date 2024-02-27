@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
@@ -128,6 +129,17 @@ export const ClientOrdersView = observer(history => {
         </Modal>
       )}
 
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
+
       {viewModel.showProductModal && (
         <ProductAndBatchModal
           setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
@@ -141,6 +153,7 @@ export const ClientOrdersView = observer(history => {
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
           onClickInTransferModal={viewModel.onClickInTransfer}
+          onClickHsCode={viewModel.onClickHsCode}
         />
       )}
 
@@ -228,9 +241,7 @@ export const ClientOrdersView = observer(history => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
           title={viewModel.warningInfoModalSettings.title}
           btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            viewModel.onTriggerOpenModal('showWarningInfoModal')
-          }}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
 

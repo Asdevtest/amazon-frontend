@@ -119,7 +119,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <EditOrderModal
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
@@ -136,7 +135,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           setPhotosToLoad={viewModel.setPhotosToLoad}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           setUpdateSupplierData={viewModel.setUpdateSupplierData}
-          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}

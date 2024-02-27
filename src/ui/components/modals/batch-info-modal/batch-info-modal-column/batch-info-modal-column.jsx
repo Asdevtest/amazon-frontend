@@ -60,7 +60,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserMiniCell userName={params.row.client.name} userId={params.row.client._id} />,
+    renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
     width: 180,
   },
 
