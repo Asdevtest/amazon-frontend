@@ -29,7 +29,7 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './fields-and-suppliers.style'
 
