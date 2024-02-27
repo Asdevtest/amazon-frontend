@@ -9,7 +9,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { supplierWeightBasedApproximateCalculationsDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './supplier-approximate-calculations-form.style'
 
@@ -61,7 +61,7 @@ export const SupplierApproximateCalculationsForm = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonType.DANGER} onClick={onClose}>
+        <Button styleType={ButtonStyle.DANGER} onClick={onClose}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

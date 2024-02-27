@@ -10,7 +10,7 @@ import { Button } from '@components/shared/buttons/button'
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-form.style'
 
@@ -174,7 +174,7 @@ export const RequestToSendBatchForm = observer(
             {t(TranslationKey.Send)}
           </Button>
           <Button
-            styleType={ButtonType.DANGER}
+            styleType={ButtonStyle.DANGER}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             onClick={closeModal}
           >

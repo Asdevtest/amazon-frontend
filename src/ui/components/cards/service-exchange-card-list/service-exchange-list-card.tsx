@@ -9,8 +9,8 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
-import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './service-exchange-list-card.style'
 
@@ -99,7 +99,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
 
           <div className={styles.buttonWrapper}>
             <Button
-              styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+              styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
               className={styles.openBtn}
               onClick={() => onClickButton(service)}
             >

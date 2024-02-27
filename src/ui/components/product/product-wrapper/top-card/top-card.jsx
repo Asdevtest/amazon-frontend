@@ -6,7 +6,7 @@ import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Paper, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -26,7 +26,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './top-card.style'
 
@@ -49,7 +49,7 @@ export const TopCard = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
+
     curUserRole,
     onChangeField,
     actionStatus,
@@ -171,17 +171,6 @@ export const TopCard = memo(
                     )}
                   </div>
                 ) : undefined}
-                {actionStatus === loadingStatuses.SUCCESS || actionStatus === loadingStatuses.FAILED ? (
-                  <Alert
-                    className={styles.alert}
-                    elevation={0}
-                    severity={actionStatus === loadingStatuses.SUCCESS ? 'success' : 'error'}
-                  >
-                    {actionStatus === loadingStatuses.SUCCESS
-                      ? t(TranslationKey['Request processed'])
-                      : alertFailedText || t(TranslationKey['Fields not filled in'])}
-                  </Alert>
-                ) : undefined}
               </div>
               <FieldsAndSuppliers
                 user={user}
@@ -287,7 +276,7 @@ export const TopCard = memo(
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                                 <div className={styles.supplierButtonWrapper}>
                                   <Button
-                                    styleType={ButtonType.DANGER}
+                                    styleType={ButtonStyle.DANGER}
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                                     onClick={() => onClickSupplierBtns('delete')}
                                   >
@@ -318,7 +307,7 @@ export const TopCard = memo(
                           {showActionBtns ? (
                             <div className={styles.supplierButtonWrapper}>
                               <Button
-                                styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
+                                styleType={isSupplierAcceptRevokeActive ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
                                 success={!isSupplierAcceptRevokeActive}
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive

@@ -14,8 +14,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './request-result-modal.style'
 
@@ -161,7 +161,7 @@ export const RequestResultModal = memo(props => {
         <div className={styles.buttonsWrapper}>
           {onClickSendAsResult && (
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={disabledSendButton}
               className={styles.button}
               onClick={() => {

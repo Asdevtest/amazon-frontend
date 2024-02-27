@@ -11,7 +11,7 @@ import {
   PriceVariationsCell,
   SupplierWithIconsCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 
 import { formatNormDateTime } from '@utils/date-time'

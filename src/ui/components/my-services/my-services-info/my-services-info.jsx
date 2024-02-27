@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services.style'
 
@@ -104,7 +104,7 @@ export const MyServicesInfo = ({
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonType.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+          <Button styleType={ButtonStyle.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 

@@ -1,19 +1,21 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
-  NormalActionBtnCell,
   StringListCell,
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const warehouseVacantTasksViewColumns = handlers => [
   {
@@ -22,17 +24,24 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Action)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
-        fullWidthButton
-        isShowCancelButton
-        tooltipText={t(TranslationKey['Take the task to work'])}
-        bTnText={t(TranslationKey['Get to work'])}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        boxId={params.row.originalData.boxes[0]?._id}
-        rowId={params.row.originalData._id}
-        operationType={params.row.originalData.operationType}
-        onClickCancelTask={handlers.onClickCancelTask}
-        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
+        firstButtonTooltipText={t(TranslationKey['Take the task to work'])}
+        firstButtonElement={t(TranslationKey['Get to work'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
+        secondButtonElement={t(TranslationKey.Cancel)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickPickupBtn(params.row.originalData)}
+        onClickSecondButton={() =>
+          handlers.onClickCancelTask(
+            params.row.originalData.boxes[0]?._id,
+            params.row.originalData._id,
+            params.row.originalData.operationType,
+          )
+        }
       />
     ),
     width: window.innerWidth < 1282 ? 150 : 165,

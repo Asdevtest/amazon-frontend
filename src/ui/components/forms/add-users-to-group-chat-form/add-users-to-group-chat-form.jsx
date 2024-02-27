@@ -13,7 +13,7 @@ import { CustomReactSelect } from '@components/shared/selects/custom-react-selec
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-users-to-group-chat-form.style'
 
@@ -77,7 +77,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
 
       <div className={styles.buttonWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {

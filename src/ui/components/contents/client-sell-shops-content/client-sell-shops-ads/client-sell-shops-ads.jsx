@@ -12,7 +12,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-sell-shops-ads.style'
 
@@ -48,7 +48,7 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonType.PRIMARY}
+            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
@@ -60,7 +60,7 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonType.PRIMARY}
+            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}
@@ -71,14 +71,14 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonType.PRIMARY}
+            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
             {t(TranslationKey['Removed Ads'])}
           </Button>
         </div>
 
-        <Button styleType={ButtonType.SUCCESS} className={styles.addBtn} onClick={onClickAddBtn}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.addBtn} onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
         </Button>
       </div>

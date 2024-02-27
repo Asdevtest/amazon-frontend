@@ -10,13 +10,13 @@ import {
   TagsCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientExchangeViewColumns = rowHandlers => [
   {
@@ -128,7 +128,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     width: 190,
     renderCell: params => (
       <Button
-        styleType={ButtonType.SUCCESS}
+        styleType={ButtonStyle.SUCCESS}
         width="100%"
         sx={{ height: '30px !important' }}
         onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}

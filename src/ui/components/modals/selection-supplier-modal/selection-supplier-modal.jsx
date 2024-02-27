@@ -12,7 +12,7 @@ import { Field } from '@components/shared/field'
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './selection-supplier-modal.style'
 
@@ -153,7 +153,7 @@ export const SelectionSupplierModal = ({
 
         <Grid item>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             tooltipAttentionContent={
               clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
             }

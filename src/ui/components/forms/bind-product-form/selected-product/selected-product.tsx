@@ -9,8 +9,8 @@ import { MinusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IProduct } from '@typings/models/products/product'
-import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './selected-product.style'
 
@@ -31,7 +31,7 @@ export const SelectedProduct: FC<SelectedProductProps> = observer(props => {
         <span className={styles.asin}>{product.asin || t(TranslationKey.Missing)}</span>
       </p>
       <Button
-        styleType={ButtonType.DANGER}
+        styleType={ButtonStyle.DANGER}
         className={styles.removeButton}
         onClick={() => onClickDeleteButton(product)}
       >

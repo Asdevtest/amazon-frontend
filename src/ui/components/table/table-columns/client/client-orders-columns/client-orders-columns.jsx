@@ -16,7 +16,7 @@ import {
   RenderFieldValueCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { formatDate, formatNormDateTime } from '@utils/date-time'
@@ -24,7 +24,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { DefaultButtonStyles } from '@typings/enums/default-button-style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -121,8 +121,9 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         <ActionButtonsCell
           isFirstButton
           isSecondButton
-          firstVariantStyle={firstButtonCondition ? DefaultButtonStyles.SUCCESS : undefined}
-          secondVariantStyle={DefaultButtonStyles.OUTLINED}
+          firstButtonStyle={firstButtonCondition ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
+          secondButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonVariant={ButtonVariant.OUTLINED}
           firstButtonElement={firstButtonText}
           secondButtonElement={t(TranslationKey['Warehouse and orders'])}
           onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, firstButtonCondition)}

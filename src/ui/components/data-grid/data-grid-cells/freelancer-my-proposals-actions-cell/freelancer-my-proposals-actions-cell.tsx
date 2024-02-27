@@ -11,7 +11,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './freelancer-my-proposals-actions-cell.style'
 
@@ -34,7 +34,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
   return (
     <div className={styles.proposalsActions}>
       <Button
-        styleType={ButtonType.DANGER}
+        styleType={ButtonStyle.DANGER}
         disabled={disabledCancelBtnStatuses.includes(status)}
         className={styles.freelancerMyProposalsButton}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickDeleteButton)}
@@ -51,7 +51,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
       </Button>
 
       <Button
-        styleType={ButtonType.SUCCESS}
+        styleType={ButtonStyle.SUCCESS}
         disabled={!showResultStatuses.includes(status)}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickResultButton)}
       >

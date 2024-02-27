@@ -10,7 +10,7 @@ import { Field } from '@components/shared/field/field'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './estimate-create-trading-shop-form.style'
 
@@ -152,7 +152,7 @@ export const EstimateCreateTradingShopForm = ({
 
       <div className={styles.buttonsWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={submitIsClicked}
           className={styles.buttonOk}
           onClick={onClickSubmit}

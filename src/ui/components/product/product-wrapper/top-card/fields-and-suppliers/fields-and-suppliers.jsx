@@ -14,7 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { TagSelector } from '@components/product/product-wrapper/tag-selector'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -24,13 +24,12 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -149,7 +148,7 @@ export const FieldsAndSuppliers = memo(
                     </Button>
                   ) : (
                     <Button
-                      styleType={ButtonType.SUCCESS}
+                      styleType={ButtonStyle.SUCCESS}
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
                       onClick={() => setEdit(!edit)}
@@ -471,7 +470,12 @@ export const FieldsAndSuppliers = memo(
                 </p>
 
                 {checkIsClient(curUserRole) && !product?.parentProductId && (
-                  <Button className={styles.plusButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
+                  <Button
+                    isSmallButton
+                    variant={ButtonVariant.OUTLINED}
+                    className={styles.addButton}
+                    onClick={() => onTriggerOpenModal('showBindProductModal')}
+                  >
                     <AddIcon className={styles.plusIcon} />
                   </Button>
                 )}
@@ -511,7 +515,7 @@ export const FieldsAndSuppliers = memo(
             </div>
           ) : checkIsClient(curUserRole) ? (
             <Button className={styles.bindProductButton} onClick={() => onTriggerOpenModal('showBindProductModal')}>
-              <PlusIcon className={styles.plusIcon} />
+              <AddIcon className={styles.plusIcon} />
               {t(TranslationKey['Add product linkage'])}
             </Button>
           ) : null}

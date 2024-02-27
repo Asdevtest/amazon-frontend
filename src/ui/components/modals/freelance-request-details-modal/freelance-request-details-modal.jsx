@@ -16,7 +16,7 @@ import { UserLink } from '@components/user/user-link'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './freelance-request-details-modal.style'
 

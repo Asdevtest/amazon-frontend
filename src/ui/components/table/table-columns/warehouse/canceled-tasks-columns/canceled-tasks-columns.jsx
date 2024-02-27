@@ -6,17 +6,19 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
-  NormalActionBtnCell,
   StringListCell,
   TaskDescriptionCell,
   TaskTypeCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const warehouseCanceledTasksViewColumns = handlers => [
   {
@@ -26,11 +28,13 @@ export const warehouseCanceledTasksViewColumns = handlers => [
 
     width: window.innerWidth < 1282 ? 118 : 130,
     renderCell: params => (
-      <NormalActionBtnCell
+      <ActionButtonsCell
+        isFirstButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        tooltipText={t(TranslationKey['Open the window with task information'])}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+        firstButtonTooltipText={t(TranslationKey['Open the window with task information'])}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
     filterable: false,

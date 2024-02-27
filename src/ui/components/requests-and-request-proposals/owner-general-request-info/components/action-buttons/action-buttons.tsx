@@ -8,7 +8,7 @@ import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './action-buttons.style'
 
@@ -52,11 +52,16 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         className={styles.listingButton}
         onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
       >
-        <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
+        <Checkbox
+          color="primary"
+          checked={uploadedToListing}
+          className={styles.listingCheckbox}
+          onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
+        />
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>
       {isDisplayingMarkAsCompletedButton && (
-        <Button styleType={ButtonType.SUCCESS} className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
           {t(TranslationKey['Mark as completed'])}
         </Button>
       )}
@@ -64,7 +69,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <div className={styles.btnsWrapper}>
           <div className={styles.btnsRow}>
             <Button
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
               className={styles.deleteBtn}
               onClick={onClickCancelBtn}
@@ -81,7 +86,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             </Button>
           </div>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
             className={styles.publishBtn}
             onClick={onClickPublishBtn}
@@ -97,7 +102,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
               <div className={styles.btnsRow}>
                 {requestIsNotDraftAndPublished && (
                   <Button
-                    styleType={ButtonType.DANGER}
+                    styleType={ButtonStyle.DANGER}
                     tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                     className={styles.deleteBtn}
                     onClick={onClickCancelBtn}
@@ -124,11 +129,9 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           {(status === RequestStatus.IN_PROCESS ||
             status === RequestStatus.EXPIRED ||
             status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
-            <>
-              <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                {t(TranslationKey['Change request terms'])}
-              </Button>
-            </>
+            <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+              {t(TranslationKey['Change request terms'])}
+            </Button>
           )}
 
           {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED /* && status !== RequestStatus.EXPIRED */ && (

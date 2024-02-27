@@ -10,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './restore-request-modal.style'
 
@@ -65,7 +65,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
 
       <div className={styles.controls}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!date || currentRequestsCount > Number(requestCount)}
           className={styles.controlButton}
           onClick={() => {

@@ -1,16 +1,21 @@
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveIconBtnsCell,
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
   {
@@ -109,14 +114,23 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
 
     width: 160,
     renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipArchiveButton
-        tooltipFirstButton={t(TranslationKey.Edit)}
-        tooltipSecondButton={t(TranslationKey.Remove)}
-        handlers={handlers}
-        row={params.row}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        isThirdButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        isArchive={getIsArchive()}
+        firstButtonTooltipText={t(TranslationKey.Edit)}
+        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(TranslationKey['Move to archive'])}
+        secondButtonElement={getIsArchive() ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'}
+        secondButtonStyle={getIsArchive() ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
+        thirdButtonTooltipText={t(TranslationKey.Remove)}
+        thirdButtonElement={<DeleteOutlineOutlinedIcon />}
+        thirdButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}
+        onClickThirdButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
 

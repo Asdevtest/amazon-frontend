@@ -17,7 +17,7 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './weight-based-logistics-tariffs.style'
 
@@ -100,7 +100,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
             </Button>
 
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
               className={styles.placeAddBtn}
               onClick={() => onClickAddBtn()}

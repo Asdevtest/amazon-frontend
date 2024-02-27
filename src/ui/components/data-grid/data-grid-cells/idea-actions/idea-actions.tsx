@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-actions.style'
 
@@ -23,7 +23,7 @@ export const IdeaActionsCell: FC<IdeaActionsProps> = memo(({ onClickReject, onCl
       <Button isTableButton fullWidth onClick={onClickToCheck}>
         {t(TranslationKey['To check'])}
       </Button>
-      <Button isTableButton fullWidth styleType={ButtonType.DANGER} onClick={onClickReject}>
+      <Button isTableButton fullWidth styleType={ButtonStyle.DANGER} onClick={onClickReject}>
         {t(TranslationKey.Reject)}
       </Button>
     </div>

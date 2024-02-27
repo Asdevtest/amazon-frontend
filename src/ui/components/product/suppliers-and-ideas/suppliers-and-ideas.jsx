@@ -7,6 +7,7 @@ import { Typography } from '@mui/material'
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
@@ -14,6 +15,7 @@ import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-fo
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
@@ -28,7 +30,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -104,6 +106,8 @@ export const SuppliersAndIdeas = observer(props => {
     languageTag,
     showSupplierApproximateCalculationsModal,
     storekeepersData,
+    showCommentsModal,
+    setRejectStatusHandler,
     onClickSupplierApproximateCalculations,
     onClickToOrder,
     onClickSaveBarcode,
@@ -154,7 +158,7 @@ export const SuppliersAndIdeas = observer(props => {
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             disabled={!!product.parentProductId}
             tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             variant="contained"
@@ -421,6 +425,18 @@ export const SuppliersAndIdeas = observer(props => {
           onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
         />
       </Modal>
+
+      {showCommentsModal ? (
+        <CommentsModal
+          isTextRequired
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          isOpenModal={showCommentsModal}
+          onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
+          onChangeField={setRejectStatusHandler}
+        />
+      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

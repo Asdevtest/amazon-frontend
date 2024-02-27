@@ -20,7 +20,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-awaiting-batches-view.style'
 
@@ -82,7 +82,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           />
 
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
             className={styles.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
@@ -189,9 +189,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
 
       {viewModel.showCircularProgress ? <CircularProgressWithLabel /> : null}

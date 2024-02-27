@@ -19,8 +19,8 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './request-designer-result-client-form.style'
 
@@ -270,7 +270,7 @@ export const RequestDesignerResultClientForm = memo(props => {
                 {t(TranslationKey['Send in for rework'])}
               </Button>
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 className={styles.button}
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)

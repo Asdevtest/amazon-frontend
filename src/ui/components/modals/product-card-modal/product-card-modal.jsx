@@ -24,8 +24,8 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { ProductVariation } from '@typings/enums/product-variation'
-import { ButtonType } from '@typings/types/button.type'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -191,7 +191,7 @@ export const ProductCardModal = observer(props => {
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
               (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
                 <Button
-                  styleType={ButtonType.DANGER}
+                  styleType={ButtonStyle.DANGER}
                   onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Delete)}
@@ -202,7 +202,7 @@ export const ProductCardModal = observer(props => {
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
                 <Button
-                  styleType={ButtonType.SUCCESS}
+                  styleType={ButtonStyle.SUCCESS}
                   onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -213,7 +213,7 @@ export const ProductCardModal = observer(props => {
 
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) && (
                 <Button
-                  styleType={ButtonType.SUCCESS}
+                  styleType={ButtonStyle.SUCCESS}
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                   className={styles.buttonNormal}
                   onClick={
@@ -228,7 +228,7 @@ export const ProductCardModal = observer(props => {
               )}
 
               <Button
-                styleType={ButtonType.DANGER}
+                styleType={ButtonStyle.DANGER}
                 className={cx({
                   [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
                 })}
@@ -250,7 +250,7 @@ export const ProductCardModal = observer(props => {
             </div>
           ) : (
             <Button
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               className={cx({
                 [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
               })}

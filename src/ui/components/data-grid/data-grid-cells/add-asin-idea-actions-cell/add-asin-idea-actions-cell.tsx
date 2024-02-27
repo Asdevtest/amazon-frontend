@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 interface AddAsinIdeaActionsCellProps {
   row: any
@@ -20,7 +20,7 @@ export const AddAsinIdeaActionsCell: FC<AddAsinIdeaActionsCellProps> = memo(({ r
   <Button
     isTableButton
     fullWidth
-    styleType={ButtonType.SUCCESS}
+    styleType={ButtonStyle.SUCCESS}
     disabled={
       row.originalData.variation
         ? !row?.originalData?.childProduct?.barCode

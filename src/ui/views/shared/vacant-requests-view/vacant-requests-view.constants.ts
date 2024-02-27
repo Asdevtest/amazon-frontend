@@ -18,6 +18,7 @@ export const filtersFields = [
   'announcement',
   'createdBy',
   'specType',
+  'proposalSub',
 ]
 
 export const defaultHiddenColumns = ['cashBackInPercent', 'priceAmazon']

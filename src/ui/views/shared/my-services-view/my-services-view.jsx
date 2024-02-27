@@ -15,7 +15,7 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services-view.style'
 
@@ -52,7 +52,7 @@ export const MyServicesView = observer(({ history }) => {
         />
 
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           className={styles.rightAddingBtn}
           onClick={viewModel.onClickCreateServiceBtn}
         >

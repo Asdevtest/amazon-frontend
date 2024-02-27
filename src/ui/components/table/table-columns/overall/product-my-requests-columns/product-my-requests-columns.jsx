@@ -2,15 +2,17 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  ProductMyRequestsBtnsCell,
   ShortDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -132,7 +134,26 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'actions',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => <ProductMyRequestsBtnsCell data={params.row.originalData} handlers={handlers} />,
+    renderCell: params => {
+      const disableSecondButton =
+        !params.row.originalData.countProposalsByStatuses.acceptedProposals &&
+        !params.row.originalData.countProposalsByStatuses.atWorkProposals &&
+        !params.row.originalData.countProposalsByStatuses.verifyingProposals
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          firstButtonElement={t(TranslationKey['Open a request'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonElement={t(TranslationKey['Open result'])}
+          secondButtonStyle={ButtonStyle.SUCCESS}
+          disabledSecondButton={disableSecondButton}
+          onClickFirstButton={() => handlers.onClickOpenRequest(params.row.originalData._id)}
+          onClickSecondButton={() => handlers.onClickOpenResult(params.row.originalData)}
+        />
+      )
+    },
     disableColumnMenu: true,
     filterable: false,
     sortable: false,
