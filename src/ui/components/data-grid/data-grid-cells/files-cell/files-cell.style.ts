@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     padding: '10px 0',
     display: 'flex',
@@ -9,14 +9,14 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  visibilityButton: {
+  button: {
     height: 32,
-    padding: '0 10px',
-  },
+    width: 32,
+    padding: 0,
 
-  visibilityIcon: {
-    width: '20px !important',
-    height: '20px !important',
-    color: theme.palette.primary.main,
+    svg: {
+      width: '20px !important',
+      height: '20px !important',
+    },
   },
 }))

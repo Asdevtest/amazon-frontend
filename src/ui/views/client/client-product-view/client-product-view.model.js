@@ -61,21 +61,9 @@ export class ClientProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
-  paymentMethods = []
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-  platformSettings = undefined
-
-  selectedSupplier = undefined
-
   showWarningModal = false
   showConfirmModal = false
-  showAddOrEditSupplierModal = false
   showBindProductModal = false
-  showSupplierApproximateCalculationsModal = false
-
-  supplierModalReadOnly = false
 
   showTab = undefined
 
@@ -138,16 +126,23 @@ export class ClientProductViewModel {
       await this.getProductById()
       await this.getShops()
       await this.getProductsVariations()
+      this.getPlatformSettings()
 
+      this.getStorekeepers()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
       const response = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.platformSettings = response
       })
-
-      this.getStorekeepers()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -557,79 +552,6 @@ export class ClientProductViewModel {
     }
   }
 
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
-
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier, photosOfUnit, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -701,8 +623,6 @@ export class ClientProductViewModel {
 
       this.loadData()
 
-      this.onTriggerAddOrEditSupplierModal()
-
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
@@ -710,12 +630,12 @@ export class ClientProductViewModel {
     }
   }
 
-  async onSaveForceProductData() {
+  async onSaveForceProductData(product) {
     try {
       await ClientModel.updateProduct(
         this.productId,
         getObjectFilteredByKeyArrayWhiteList(
-          this.product,
+          product || this.product,
           fieldsOfProductAllowedToUpdate,
           true,
           (key, value) => {
@@ -764,55 +684,6 @@ export class ClientProductViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        this.getSupplierModalData()
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getSupplierModalData()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
   }
 
   async onClickParseProductData(product) {

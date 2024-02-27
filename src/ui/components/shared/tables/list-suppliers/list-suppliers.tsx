@@ -6,6 +6,8 @@ import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
@@ -30,18 +32,25 @@ interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
+  readOnly?: boolean
+  onClickSaveSupplier?: () => void
+  onSaveProduct?: () => void
+  onRemoveSupplier?: () => void
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
-  const { formFields, storekeepers, platformSettings } = props
+  const { formFields, storekeepers, platformSettings, readOnly, onClickSaveSupplier, onSaveProduct, onRemoveSupplier } =
+    props
 
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ListSuppliersModel(extractProduct(formFields)))
+  const [viewModel] = useState(
+    () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
+  )
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
-  const showVisibilityButton = viewModel.selectionModel.length > 0
+  const showViewButtons = viewModel.selectionModel.length > 0
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: 'orderSupplier' in formFields ? formFields?.orderSupplier?._id : '',
@@ -73,8 +82,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
             toolbar: {
               children: (
                 <Toolbar
-                  showVisibilityButton={showVisibilityButton}
-                  onAddOrEditSupplierModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+                  readOnly={readOnly}
+                  showViewButtons={showViewButtons}
+                  supplier={viewModel.currentSupplier}
+                  onSupplierApproximateCalculationsModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+                  onClickTooltipButton={viewModel.onClickTooltipButton}
                 />
               ),
             },
@@ -100,16 +112,49 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           <AddOrEditSupplierModalContent
             // remove memo from the modal or add types to the modal
             /* @ts-ignore */
-            onlyRead
+            onlyRead={viewModel.supplierModalReadOnly}
+            paymentMethods={viewModel.paymentMethods}
             product={extractProduct(formFields)}
-            supplier={viewModel.currentSupplier}
             storekeepersData={storekeepers}
-            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+            requestStatus={viewModel.requestStatus}
             volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+            supplier={viewModel.currentSupplier}
+            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
             title={t(TranslationKey['Adding and editing a supplier'])}
+            onClickSaveBtn={onClickSaveSupplier}
             onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
           />
         </Modal>
+      ) : null}
+
+      {viewModel.showSupplierApproximateCalculationsModal ? (
+        <Modal
+          openModal={viewModel.showSupplierApproximateCalculationsModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+        >
+          <SupplierApproximateCalculationsForm
+            // remove memo from the modal or add types to the modal
+            /* @ts-ignore */
+            product={extractProduct(formFields)}
+            supplier={viewModel.currentSupplier}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+            storekeepers={storekeepers}
+            onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+          />
+        </Modal>
+      ) : null}
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
+          onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+        />
       ) : null}
     </>
   )

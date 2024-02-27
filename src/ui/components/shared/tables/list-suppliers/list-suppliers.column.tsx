@@ -24,8 +24,8 @@ import { UploadFileType } from '@typings/shared/upload-file'
 interface ISuppliersOrderColumn {
   orderCreatedAt: string
   orderSupplierId: string
-  platformSettings: IPlatformSettings
   onClickFilesCell: (files?: UploadFileType[]) => void
+  platformSettings?: IPlatformSettings
 }
 
 export const suppliersOrderColumn = ({
@@ -115,7 +115,7 @@ export const suppliersOrderColumn = ({
     field: 'priceVariations',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price variations'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <PriceVariationsCell variations={row.priceVariations} platformSettings={platformSettings} />
+      <PriceVariationsCell variations={row.priceVariations} yuanToDollarRate={platformSettings?.yuanToDollarRate} />
     ),
     filterable: false,
     sortable: false,

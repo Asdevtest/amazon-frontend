@@ -284,14 +284,14 @@ export class BuyerProductViewModel {
         break
     }
   }
-  async onRemoveSupplier() {
+  async onRemoveSupplier(supplierId) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
+      await ProductModel.removeSuppliersFromProduct(this.product._id, [supplierId])
 
       runInAction(() => {
-        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
+        if (this.product.currentSupplierId && this.product.currentSupplierId === supplierId) {
           this.product.currentSupplierId = null
         }
       })
@@ -299,10 +299,9 @@ export class BuyerProductViewModel {
 
       runInAction(() => {
         this.product.suppliers
-        this.selectedSupplier = undefined
       })
 
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      await SupplierModel.removeSupplier(supplierId)
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)

@@ -7,7 +7,7 @@ import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './files-cell.style'
 
@@ -22,8 +22,13 @@ export const FilesCell: FC<FilesCellProps> = memo(({ filesLength, onClickCell })
   return (
     <div className={styles.wrapper}>
       {filesLength > 0 ? (
-        <Button styleType={ButtonType.CASUAL} className={styles.visibilityButton} onClick={onClickCell}>
-          <EyeIcon className={styles.visibilityIcon} />
+        <Button
+          styleType={ButtonStyle.PRIMARY}
+          variant={ButtonVariant.OUTLINED}
+          className={styles.button}
+          onClick={onClickCell}
+        >
+          <EyeIcon />
         </Button>
       ) : (
         t(TranslationKey['No data'])

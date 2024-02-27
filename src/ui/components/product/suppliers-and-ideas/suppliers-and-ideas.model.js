@@ -856,28 +856,20 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onRemoveSupplier() {
+  async onRemoveSupplier(supplierId) {
     try {
       if (this.forceUpdateCallBack) {
         await this.forceUpdateCallBack()
       }
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
+      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: supplierId })
 
       runInAction(() => {
         this.curIdea = undefined
-        this.selectedSupplier = undefined
       })
-
-      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

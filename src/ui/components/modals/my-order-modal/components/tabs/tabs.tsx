@@ -11,7 +11,8 @@ import { useStyles } from './tabs.style'
 
 import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
 
-import { BasicInfo, BoxesToOrder } from './components'
+import { BasicInfo } from './basic-info'
+import { BoxesToOrder } from './boxes-to-order'
 import { customSwitcherSettings } from './tabs.config'
 import { MyOrderModalSwitcherConditions } from './tabs.type'
 
@@ -73,7 +74,12 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.LIST_O_FSUPPLIERS}>
-        <ListSuppliers formFields={formFields} storekeepers={storekeepers} platformSettings={platformSettings} />
+        <ListSuppliers
+          readOnly
+          formFields={formFields}
+          storekeepers={storekeepers}
+          platformSettings={platformSettings}
+        />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BOXES_TO_ORDER}>
