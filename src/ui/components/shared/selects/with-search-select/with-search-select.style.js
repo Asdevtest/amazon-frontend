@@ -37,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     border: `1px solid ${theme.palette.primary.main}`,
-    borderRadius: 4,
+    borderRadius: '100px',
     transition: '0.3s ease',
     height: 40,
     overflow: 'hidden',

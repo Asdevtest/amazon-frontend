@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ShareLinkIcon } from '@components/shared/svg-icons'
+import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +20,7 @@ export const OpenInNewTab: FC<OpenInNewTabProps> = observer(props => {
 
   return (
     <div className={styles.shareWrapper} onClick={onClickOpenNewTab}>
-      <ShareLinkIcon className={styles.shareLinkIcon} />
+      <ShareIcon className={styles.shareLinkIcon} />
       <p className={styles.shareLinkText}>{t(TranslationKey['Open in a new tab'])}</p>
     </div>
   )

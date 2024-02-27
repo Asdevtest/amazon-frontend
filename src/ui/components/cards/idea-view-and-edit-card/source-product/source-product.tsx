@@ -5,7 +5,7 @@ import Tooltip from '@mui/material/Tooltip'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { ShareLinkIcon } from '@components/shared/svg-icons'
+import { ShareIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -51,7 +51,7 @@ export const SourceProduct: FC<SourceProductProps> = props => {
           placement="top"
           classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
         >
-          <ShareLinkIcon className={styles.shareLinkIcon} onClick={onClickShareIcon} />
+          <ShareIcon className={styles.shareLinkIcon} onClick={onClickShareIcon} />
         </Tooltip>
       )}
     </div>

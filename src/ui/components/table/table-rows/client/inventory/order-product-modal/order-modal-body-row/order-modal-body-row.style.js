@@ -45,11 +45,6 @@ export const useStyles = makeStyles()(theme => ({
     color: 'red',
   },
 
-  storekeeperBtn: {
-    width: '100%',
-    height: '32px',
-  },
-
   datePickerWrapper: {
     width: '100%',
   },
@@ -79,9 +74,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  standartText: {
-    color: `${theme.palette.text.general} !important`,
-  },
+  standartText: {},
 
   row: {
     width: '100%',

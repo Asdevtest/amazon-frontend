@@ -52,7 +52,6 @@ export const ProductWrapper = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
     product,
     productVariations,
     navigateToProduct,
@@ -154,7 +153,6 @@ export const ProductWrapper = memo(
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
                 progressValue={progressValue}
-                alertFailedText={alertFailedText}
                 curUserRole={curUserRole}
                 product={product}
                 productVariations={productVariations}

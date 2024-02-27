@@ -33,6 +33,7 @@ export class SuppliersAndIdeasModel {
   currentIdeaId = undefined
 
   curIdea = undefined
+  ideaForReject = undefined
   ideaIdToCreateSupplier = undefined
   currentProduct = undefined
   productToOrder = undefined
@@ -84,6 +85,7 @@ export class SuppliersAndIdeasModel {
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
+  showCommentsModal = false
 
   storekeepersData = []
 
@@ -615,12 +617,23 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickRejectButton(ideaId) {
-    this.confirmModalSettings = {
-      isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to reject this idea?']),
-      onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId),
+    this.ideaForReject = ideaId
+    this.onTriggerOpenModal('showCommentsModal')
+  }
+
+  async setRejectStatusHandler(reasonReject) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      IdeaModel.setStatusToReject(this.ideaForReject, { reasonReject })
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log('error', error)
     }
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onClickReoperButton(ideaId) {
@@ -871,7 +884,7 @@ export class SuppliersAndIdeasModel {
   async onClickToOrder(idea) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const [, destinations, platformSettings] = await Promise.all([
+      const [destinations, platformSettings] = await Promise.all([
         ClientModel.getDestinations(),
         UserModel.getPlatformSettings(),
       ])

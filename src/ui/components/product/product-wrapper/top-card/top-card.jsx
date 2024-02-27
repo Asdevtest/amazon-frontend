@@ -6,7 +6,7 @@ import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Paper, Typography } from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -48,7 +48,7 @@ export const TopCard = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
+
     curUserRole,
     onChangeField,
     actionStatus,
@@ -169,17 +169,6 @@ export const TopCard = memo(
                       </div>
                     )}
                   </div>
-                ) : undefined}
-                {actionStatus === loadingStatuses.SUCCESS || actionStatus === loadingStatuses.FAILED ? (
-                  <Alert
-                    className={styles.alert}
-                    elevation={0}
-                    severity={actionStatus === loadingStatuses.SUCCESS ? 'success' : 'error'}
-                  >
-                    {actionStatus === loadingStatuses.SUCCESS
-                      ? t(TranslationKey['Request processed'])
-                      : alertFailedText || t(TranslationKey['Fields not filled in'])}
-                  </Alert>
                 ) : undefined}
               </div>
               <FieldsAndSuppliers

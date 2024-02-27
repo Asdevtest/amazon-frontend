@@ -14,14 +14,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: TooltipPositions
-
   disabled?: boolean
   disableElevation?: boolean
-
   defaultButtonTooltip?: string
   startIcon?: ReactElement
-
   isTableButton?: boolean
+  isSmallButton?: boolean
   styleType?: ButtonStyle
   variant?: ButtonVariant
   className?: string
@@ -41,6 +39,7 @@ export const Button: FC<ButtonProps> = memo(props => {
     styleType = ButtonStyle.PRIMARY,
     variant = ButtonVariant.CONTAINED,
     className,
+    isSmallButton = false,
     isTableButton = false,
     fullWidth = false,
     ...restProps
@@ -73,6 +72,7 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.outlinedSuccess]: styleType === ButtonStyle.SUCCESS && isOutlined,
           [styles.outlinedDanger]: styleType === ButtonStyle.DANGER && isOutlined,
           [styles.tableButton]: isTableButton,
+          [styles.smallButton]: isSmallButton,
         },
         className,
       )}

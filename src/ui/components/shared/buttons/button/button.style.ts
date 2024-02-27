@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedPrimary: {
     color: theme.palette.primaryButton.backgroundColor,
-    border: `2px solid currentColor`,
+    border: `1px solid currentColor`,
     backgroundColor: 'transparent',
 
     '&:hover': {
@@ -106,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedSuccess: {
     color: theme.palette.succesButton.backgroundColor,
-    border: `2px solid currentColor`,
+    border: `1px solid currentColor`,
     backgroundColor: 'transparent',
 
     '&:hover': {
@@ -137,7 +137,7 @@ export const useStyles = makeStyles()(theme => ({
 
   outlinedDanger: {
     color: theme.palette.dangerButton.outlinedColor,
-    border: `2px solid ${theme.palette.dangerButton.backgroundColor}`,
+    border: `1px solid ${theme.palette.dangerButton.backgroundColor}`,
     backgroundColor: 'transparent',
 
     '&:hover': {
@@ -205,5 +205,9 @@ export const useStyles = makeStyles()(theme => ({
 
   tableButton: {
     height: '30px',
+  },
+
+  smallButton: {
+    height: '24px',
   },
 }))

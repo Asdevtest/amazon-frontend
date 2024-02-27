@@ -55,6 +55,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={t(TranslationKey['You buy a product card, are you sure?'])}
           message={`${t(TranslationKey['You will be charged'])} (${
             viewModel.productToPay && toFixedWithDollarSign(viewModel.productToPay.priceForClient, 2)
