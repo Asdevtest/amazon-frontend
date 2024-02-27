@@ -17,7 +17,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { NewSupplier, OrderedIcon } from '@components/shared/svg-icons'

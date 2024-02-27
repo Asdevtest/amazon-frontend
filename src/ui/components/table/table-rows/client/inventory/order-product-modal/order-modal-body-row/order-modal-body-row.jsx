@@ -8,7 +8,7 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'

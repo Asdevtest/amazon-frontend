@@ -8,7 +8,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './closed-idea-actions-cell.style'
 
@@ -28,7 +28,7 @@ export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ row
       <Button
         isTableButton
         fullWidth
-        styleType={ButtonType.SUCCESS}
+        styleType={ButtonStyle.SUCCESS}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickRestore(row._id)}
       >
@@ -37,7 +37,7 @@ export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ row
       <Button
         isTableButton
         fullWidth
-        styleType={ButtonType.DANGER}
+        styleType={ButtonStyle.DANGER}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickClose(row._id)}
       >

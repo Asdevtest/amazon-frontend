@@ -6,7 +6,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './text-form.style'
 
@@ -45,7 +45,7 @@ export const TextForm: FC<TextFormProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={disabledButton}
           className={styles.button}
           onClick={handleSubmit}

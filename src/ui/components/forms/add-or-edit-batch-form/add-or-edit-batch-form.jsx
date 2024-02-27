@@ -37,7 +37,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-batch-form.style'
 
@@ -674,7 +674,7 @@ export const AddOrEditBatchForm = observer(
               />
             </div>
             <Button
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
               className={styles.actionBtn}
               onClick={onClickTrash}
@@ -695,7 +695,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               className={styles.actionBtn}
               onClick={onClickSubmit}

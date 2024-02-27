@@ -4,7 +4,7 @@ import { requestPriority } from '@constants/requests/request-priority'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'

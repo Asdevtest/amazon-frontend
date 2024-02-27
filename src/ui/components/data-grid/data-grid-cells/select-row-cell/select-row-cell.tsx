@@ -1,3 +1,4 @@
+import { OpenInNewTabCell } from '..'
 import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
@@ -9,8 +10,6 @@ import { ParentProductIcon, VariationProductIcon } from '@components/shared/svg-
 import { t } from '@utils/translations'
 
 import { useStyles } from './select-row-cell.style'
-
-import { OpenInNewTabCell } from '../data-grid-cells'
 
 interface SelectRowCellProps {
   checkboxComponent: JSX.Element

@@ -23,7 +23,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -326,7 +326,7 @@ export const EditTaskModal = memo(
 
               <div className={styles.buttons}>
                 <Button
-                  styleType={ButtonType.SUCCESS}
+                  styleType={ButtonStyle.SUCCESS}
                   className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}

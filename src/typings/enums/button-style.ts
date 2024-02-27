@@ -3,7 +3,7 @@ export enum ButtonVariant {
   OUTLINED = 'outlined',
 }
 
-export enum ButtonType {
+export enum ButtonStyle {
   SUCCESS = 'success',
   DANGER = 'danger',
   PRIMARY = 'primary',

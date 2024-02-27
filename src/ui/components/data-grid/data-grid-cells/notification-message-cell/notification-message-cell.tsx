@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo } from 'react'
-
-import { NotificationType } from '@constants/keys/notifications'
-
 import {
   BoxNotificationMessageCell,
   IdeaNotificationMessageCell,
   OrderNotificationMessageCell,
   RequestNotificationMessageCell,
   ShopNotificationMessageCell,
-} from '../data-grid-cells'
+} from '..'
+import { FC, memo } from 'react'
+
+import { NotificationType } from '@constants/keys/notifications'
 
 interface NotificationMessageCellProps {
   notificationType: NotificationType

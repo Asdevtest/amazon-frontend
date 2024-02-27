@@ -7,7 +7,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 interface CreateCardIdeaActionsProps {
   row: any
@@ -21,7 +21,7 @@ export const CreateCardIdeaActionsCell: FC<CreateCardIdeaActionsProps> = memo(({
     <Button
       isTableButton
       fullWidth
-      styleType={ButtonType.SUCCESS}
+      styleType={ButtonStyle.SUCCESS}
       disabled={!row.childProduct && row.variation}
       onClick={() => rowHandlers.onClickAcceptOnCreatingProduct(row._id)}
     >

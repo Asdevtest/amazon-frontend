@@ -12,7 +12,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
@@ -175,7 +175,7 @@ export const BindStockGoodsToInventoryForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}
               disabled={!selectedRow || chosenGoods.length < 1}
               onClick={onClickSubmit}

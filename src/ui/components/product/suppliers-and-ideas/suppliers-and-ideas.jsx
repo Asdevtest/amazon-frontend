@@ -30,7 +30,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -158,7 +158,7 @@ export const SuppliersAndIdeas = observer(props => {
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             disabled={!!product.parentProductId}
             tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             variant="contained"

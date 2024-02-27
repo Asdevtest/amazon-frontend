@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataCreateNewDesignerProposalContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-// import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'

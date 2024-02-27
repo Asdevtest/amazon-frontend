@@ -8,7 +8,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'

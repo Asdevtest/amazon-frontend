@@ -13,7 +13,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -194,7 +194,7 @@ export const CreateOrEditTradingShopContent = ({
           </Button>
 
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])

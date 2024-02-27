@@ -4,17 +4,18 @@ import { GridRowParams } from '@mui/x-data-grid'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   CommentUsersCell,
-  EditOrRemoveBtnsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   UserCell,
   UserRolesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { ISpec } from '@typings/shared/spec'
 
 interface SubUsersFreelancerColumnsProps {
@@ -64,16 +65,21 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     width: 340,
     renderCell: (params: GridRowParams) => (
-      <EditOrRemoveBtnsCell
-        isSubUsersTable
-        tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
-        tooltipSecondButton={t(
-          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
-        )}
-        handlers={handlers}
-        row={params.row}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
         // @ts-ignore
         isFirstRow={params?.api?.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey["Editing an employee's permission list"])}
+        firstButtonElement={t(TranslationKey['Assign permissions'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(
+          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+        )}
+        secondButtonElement={t(TranslationKey.Remove)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     disableColumnMenu: true,

@@ -52,7 +52,7 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { clearEverythingExceptNumbers, parseTextString, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-order-modal.style'
 
@@ -815,7 +815,7 @@ export const EditOrderModal = memo(
 
                     <div className={styles.supplierButtonWrapper}>
                       <Button
-                        styleType={isSupplierAcceptRevokeActive ? ButtonType.DANGER : ButtonType.PRIMARY}
+                        styleType={isSupplierAcceptRevokeActive ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
                         success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(styles.iconBtn, {

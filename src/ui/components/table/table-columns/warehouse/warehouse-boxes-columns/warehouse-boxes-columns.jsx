@@ -13,7 +13,7 @@ import {
   ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'

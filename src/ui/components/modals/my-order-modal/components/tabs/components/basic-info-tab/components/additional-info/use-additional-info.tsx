@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserMiniCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserMiniCell } from '@components/data-grid/data-grid-cells'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { DefaultDatePicker } from '@components/shared/date-picker/date-picker'
 import { LabelWithCopy } from '@components/shared/label-with-copy'

@@ -11,9 +11,9 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './choice-of-performer-modal.style'
 
@@ -137,7 +137,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         />
 
         <Button
-          styleType={ButtonType.DANGER}
+          styleType={ButtonStyle.DANGER}
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
@@ -162,7 +162,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
       <div className={styles.footerWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!selectedService && !selectedExecutor}
           onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >

@@ -1,13 +1,15 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const buyerSearchSuppliersViewColumns = handlers => [
   {
@@ -26,11 +28,13 @@ export const buyerSearchSuppliersViewColumns = handlers => [
 
     renderCell: params => {
       return (
-        <NormalActionBtnCell
+        <ActionButtonsCell
+          isFirstButton
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
-          bTnText={t(TranslationKey['Get to work'])}
-          onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
+          firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
+          firstButtonElement={t(TranslationKey['Get to work'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          onClickFirstButton={() => handlers.onPickUp(params.row.originalData)}
         />
       )
     },
@@ -56,6 +60,5 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
-    // type: 'date',
   },
 ]

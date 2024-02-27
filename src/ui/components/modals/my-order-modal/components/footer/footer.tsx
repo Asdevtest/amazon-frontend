@@ -8,8 +8,8 @@ import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { OrderStatus } from '@typings/enums/order-status'
-import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './footer.style'
 
@@ -56,7 +56,7 @@ export const Footer: FC<FooterProps> = memo(props => {
 
       <div className={styles.buttons}>
         {showCancelButton ? (
-          <Button styleType={ButtonType.DANGER} onClick={() => onClickCancelOrder(formFields?._id)}>
+          <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCancelOrder(formFields?._id)}>
             {t(TranslationKey['Cancel order'])}
           </Button>
         ) : null}
@@ -64,13 +64,13 @@ export const Footer: FC<FooterProps> = memo(props => {
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <Button styleType={ButtonType.PRIMARY} onClick={() => onClickReorder(formFields, isPendingOrder)}>
+              <Button styleType={ButtonStyle.PRIMARY} onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
               </Button>
             )}
 
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={disabledSaveSubmit}
               onClick={() => onSubmitSaveOrder(formFields)}
             >

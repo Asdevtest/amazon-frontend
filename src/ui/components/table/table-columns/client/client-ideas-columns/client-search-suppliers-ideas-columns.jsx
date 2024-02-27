@@ -17,7 +17,7 @@ import {
   ShortDateCell,
   SmallRowImageCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 

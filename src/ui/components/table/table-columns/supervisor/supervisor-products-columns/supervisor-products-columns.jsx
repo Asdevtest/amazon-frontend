@@ -15,7 +15,7 @@ import {
   TagsCell,
   ToFixedWithDollarSignCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'

@@ -8,7 +8,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './set-barcode-modal.style'
 
@@ -47,7 +47,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!files.length && !tmpCode?.length}
           className={styles.button}
           onClick={() => {

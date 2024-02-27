@@ -10,9 +10,9 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
-import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './announcement-modal.style'
 
@@ -96,7 +96,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             {onClickButton && isSuccess ? (
               <div className={styles.buttonWrapper}>
                 <Button
-                  styleType={isSuccess ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
                   className={styles.button}
                   onClick={() => onClickButton(service)}
                 >
@@ -108,7 +108,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
             {onClickSelectButton && select ? (
               <div className={styles.buttonWrapper}>
                 <Button
-                  styleType={select ? ButtonType.SUCCESS : ButtonType.PRIMARY}
+                  styleType={select ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
                   className={styles.button}
                   onClick={() => onClickSelectButton()}
                 >

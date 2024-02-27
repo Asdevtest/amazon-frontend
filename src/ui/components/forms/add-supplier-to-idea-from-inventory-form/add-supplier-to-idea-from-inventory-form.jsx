@@ -18,7 +18,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-supplier-to-idea-from-inventory-form.style'
 
@@ -288,7 +288,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
 
         <div className={styles.btnsWrapper}>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             className={styles.successBtn}
             onClick={() => {
               onCreateSearchSupplierRequest()

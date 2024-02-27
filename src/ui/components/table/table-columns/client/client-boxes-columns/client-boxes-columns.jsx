@@ -16,7 +16,7 @@ import {
   OrdersIdsItemsCell,
   ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'

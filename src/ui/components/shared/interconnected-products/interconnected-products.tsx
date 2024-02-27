@@ -6,7 +6,7 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './interconnected-products.style'
 
@@ -60,7 +60,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
         {showRemoveButton && (
           <Button
             isSmallButton
-            styleType={ButtonType.DANGER}
+            styleType={ButtonStyle.DANGER}
             variant={ButtonVariant.OUTLINED}
             className={cx(styles.button)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}

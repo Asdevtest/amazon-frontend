@@ -171,26 +171,4 @@ export const useStyles = makeStyles()(theme => ({
       width: 'auto',
     },
   },
-
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '20px',
-    gap: 40,
-  },
-
-  actionButton: {
-    padding: '0 15px',
-  },
-
-  successBtn: {
-    backgroundColor: '#4CAF50',
-
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
-    },
-  },
 }))

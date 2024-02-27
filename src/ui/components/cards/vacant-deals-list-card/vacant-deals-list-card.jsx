@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 import { UserLink } from '@components/user/user-link'
 
@@ -12,7 +12,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './vacant-deals-list-card.style'
 
@@ -87,7 +87,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
               <Button
-                styleType={ButtonType.SUCCESS}
+                styleType={ButtonStyle.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(item._id, item.requestId)}
               >

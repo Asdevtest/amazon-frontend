@@ -15,7 +15,7 @@ import {
   ShortDateCell,
   UserMiniCell,
   VacantRequestPriceCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -35,9 +35,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     ),
 
     filterable: false,
-    // sortable: false,
-
-    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
@@ -259,25 +256,8 @@ export const FreelancerVacantRequestColumns = handlers => [
       />
     ),
     width: 140,
-    // type: 'date',
-
     columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
-
-  // {
-  //   field: 'actions',
-  //   headerName: t(TranslationKey.Actions),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-  //
-  //   renderCell: params => (
-  //     <NormalActionBtnCell
-  //       // disabled={!params.row.batch}
-  //       bTnText={t(TranslationKey.Details)}
-  //       onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
-  //     />
-  //   ),
-  //   width: 126,
-  // },
 
   {
     field: 'updatedAt',
@@ -285,7 +265,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 105,
-    // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

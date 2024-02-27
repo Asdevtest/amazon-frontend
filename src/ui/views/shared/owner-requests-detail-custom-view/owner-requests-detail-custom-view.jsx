@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
@@ -141,7 +141,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                               {t(TranslationKey['Send in for rework'])}
                             </Button>
                             <Button
-                              styleType={ButtonType.SUCCESS}
+                              styleType={ButtonStyle.SUCCESS}
                               onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
                             >
                               {t(TranslationKey.Receive)}
@@ -152,14 +152,14 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                         {statusesOrderAndRejectButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button
-                              styleType={ButtonType.DANGER}
+                              styleType={ButtonStyle.DANGER}
                               onClick={() => viewModel.onClickRejectProposal(idForCurrentChat)}
                             >
                               {t(TranslationKey.Reject)}
                             </Button>
 
                             <Button
-                              styleType={ButtonType.SUCCESS}
+                              styleType={ButtonStyle.SUCCESS}
                               onClick={() => viewModel.onClickOrderProposal(idForCurrentChat, priceForCurrentChat)}
                             >
                               {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(priceForCurrentChat, 2)}`}
@@ -276,7 +276,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         successBtnText={t(TranslationKey.Ok)}
         cancelBtnText={t(TranslationKey.Cancel)}
         onClickSuccessBtn={viewModel.onSubmitAbortRequest}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
       />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (

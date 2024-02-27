@@ -15,7 +15,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-own-product-form.style'
 
@@ -177,7 +177,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
       <div className={styles.btnsWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmitBtn}
           onClick={() => {
             onSubmit(formFields, images, isNoAsin)

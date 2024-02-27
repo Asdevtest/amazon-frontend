@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { OrderCell, ProductAsinCell } from '..'
 import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
@@ -11,8 +12,6 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './order-many-items-cell.style'
-
-import { OrderCell, ProductAsinCell } from '../data-grid-cells'
 
 interface OrderManyItemsCellProps {
   box: any

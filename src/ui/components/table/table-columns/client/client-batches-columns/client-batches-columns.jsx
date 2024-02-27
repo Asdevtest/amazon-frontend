@@ -10,7 +10,7 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
 import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'

@@ -1,10 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  RenderFieldValueCell,
-  TrashCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { MultilineTextCell, RenderFieldValueCell, TrashCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 

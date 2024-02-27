@@ -2,16 +2,18 @@ import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   BoxesAndQuantityCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   StringListCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
 import { getFullTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const productInTransferColumns = handlers => [
   {
@@ -140,10 +142,12 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
-        disabled={!params.row.batch}
-        bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => handlers.onClickShowBatchBtn(params?.row?.batch?._id)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params.row.batch}
+        firstButtonElement={t(TranslationKey['Watch the batch'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickShowBatchBtn(params?.row?.batch?._id)}
       />
     ),
     width: 190,

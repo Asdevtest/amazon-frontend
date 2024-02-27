@@ -9,7 +9,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/buttons/button'
 

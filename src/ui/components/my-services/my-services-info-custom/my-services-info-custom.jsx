@@ -4,7 +4,7 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
 
 import { calcNumberMinusPercent } from '@utils/calculation'

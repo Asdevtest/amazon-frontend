@@ -13,7 +13,7 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './user-balance.style'
 

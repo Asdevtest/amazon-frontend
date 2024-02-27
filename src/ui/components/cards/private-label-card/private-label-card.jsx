@@ -8,7 +8,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './private-label-card.style'
 
@@ -61,7 +61,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
 
         <div className={styles.buttonsWrapper}>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
             onClick={() => setProductToPay(item)}
           >

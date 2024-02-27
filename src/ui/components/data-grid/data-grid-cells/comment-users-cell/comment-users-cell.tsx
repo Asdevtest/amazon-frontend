@@ -1,8 +1,7 @@
+import { ChangeInputCommentCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './comment-users-cell.style'
-
-import { ChangeInputCommentCell } from '../data-grid-cells'
 
 interface CommentUsersCellProps {
   handler: (id: string, comment?: string) => void
