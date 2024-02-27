@@ -12,9 +12,4 @@ export const useStyles = makeStyles()(() => ({
   wrapperRow: {
     flexDirection: 'row',
   },
-
-  button: {
-    width: '100%',
-    height: 30,
-  },
 }))

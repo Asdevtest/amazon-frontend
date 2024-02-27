@@ -608,7 +608,14 @@ export const CrossInRectangleIcon = props => (
 )
 
 export const EditIcon = props => (
-  <SvgIcon {...props} width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SvgIcon
+    {...props}
+    width="22"
+    height="23"
+    viewBox="0 0 22 23"
+    style={{ fill: 'none', stroke: 'currentColor' }}
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"

@@ -3,6 +3,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 export interface ActionButtonsCellProps {
   fullWidth?: boolean
   isFirstRow?: boolean
+  iconButton?: boolean
   row?: boolean
   buttonWrapperClassName?: string
   buttonClassName?: string

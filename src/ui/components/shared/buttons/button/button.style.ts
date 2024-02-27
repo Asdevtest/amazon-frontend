@@ -236,6 +236,11 @@ export const useStyles = makeStyles()(theme => {
       height: '28px',
       padding: 0,
       backgroundColor: 'transparent !important',
+
+      '> svg': {
+        width: '12px',
+        height: '12px',
+      },
     },
 
     primaryIconButton: {
@@ -245,8 +250,6 @@ export const useStyles = makeStyles()(theme => {
 
       '> svg': {
         color: primaryMain,
-        width: '13px',
-        height: '13px',
       },
 
       '&:hover': {
@@ -275,8 +278,6 @@ export const useStyles = makeStyles()(theme => {
 
       '> svg': {
         color: redMain,
-        width: '11px',
-        height: '11px',
       },
 
       '&:hover': {
@@ -305,8 +306,6 @@ export const useStyles = makeStyles()(theme => {
 
       '> svg': {
         color: successMain,
-        width: '13px',
-        height: '13px',
       },
 
       '&:hover': {

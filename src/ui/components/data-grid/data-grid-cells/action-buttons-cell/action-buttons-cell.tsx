@@ -13,6 +13,7 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * @param {boolean} isFirstRow - Indicates if the cell is in the first row.
  * @param {boolean} fullWidth - Indicates if the cell is in the first row.
  * @param {boolean} row - The button will take all the space.
+ * @param {iconButton} iconButton - The button will icon button.
  * @param {string} buttonWrapperClassName - Custom styles for the button wrapper.
  * @param {string} buttonClassName - Custom styles for the button.
  * @param {string | JSX.Element} firstButtonElement - The text or element for the first button.
@@ -39,7 +40,7 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * @returns {HTMLElement} Return table cell with action buttons.
  */
 export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
-  const { row, buttonWrapperClassName, buttonClassName } = props
+  const { row, buttonWrapperClassName, buttonClassName, iconButton } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -49,11 +50,13 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         button.showButton ? (
           <Button
             key={index}
+            isTableButton
+            iconButton={iconButton}
             disabled={button.disabled}
             variant={button.variant}
             styleType={button.styleType}
             tooltipInfoContent={button.tooltipText}
-            className={cx(styles.button, buttonClassName)}
+            className={buttonClassName}
             onClick={button.onclick}
           >
             {button.buttonElement}
