@@ -27,7 +27,7 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-box-form.style'
 
@@ -322,7 +322,7 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonType.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 

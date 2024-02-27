@@ -1,3 +1,4 @@
+import { OpenInNewTabCell } from '..'
 import { FC, memo } from 'react'
 
 import { OrderPriority } from '@constants/orders/order-priority'
@@ -7,8 +8,6 @@ import { requestPriority } from '@constants/requests/request-priority'
 import { ClockIcon, FireIcon, TruckIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './priority-and-china-deliver-cell.style'
-
-import { OpenInNewTabCell } from '../data-grid-cells'
 
 interface PriorityAndChinaDeliverCellProps {
   priority: number

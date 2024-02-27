@@ -16,7 +16,7 @@ import { formatShortDateTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './box-view-form.style'
 
@@ -188,7 +188,7 @@ export const BoxViewForm = memo(props => {
         <div className={styles.buttonsWrapper}>
           {isEdit && (
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={disableSaveButton}
               onClick={() => onSubmitChangeFields(formFields)}
             >

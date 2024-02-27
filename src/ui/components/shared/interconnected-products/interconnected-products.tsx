@@ -6,7 +6,7 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './interconnected-products.style'
 
@@ -48,13 +48,13 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonType.TRANSPARENT} className={styles.button} onClick={() => navigateToProduct(_id)}>
+        <Button styleType={ButtonStyle.TRANSPARENT} className={styles.button} onClick={() => navigateToProduct(_id)}>
           <ShareLinkIcon className={cx(styles.icon, styles.shareLinkIcon)} />
         </Button>
 
         {showRemoveButton && (
           <Button
-            styleType={ButtonType.TRANSPARENT}
+            styleType={ButtonStyle.TRANSPARENT}
             className={cx(styles.button, styles.removeButton)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >

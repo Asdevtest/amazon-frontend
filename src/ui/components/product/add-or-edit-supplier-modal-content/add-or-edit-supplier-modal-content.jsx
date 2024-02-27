@@ -22,7 +22,7 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
@@ -193,7 +193,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           </Button>
           <div>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               className={styles.saveBtnClient}
@@ -212,7 +212,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               {t(TranslationKey['Save and bind'])}
             </Button>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
               disabled={diasabledSubmit}
               className={styles.saveBtnClient}

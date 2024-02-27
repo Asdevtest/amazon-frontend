@@ -14,7 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { TagSelector } from '@components/product/product-wrapper/tag-selector'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -30,7 +30,7 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -149,7 +149,7 @@ export const FieldsAndSuppliers = memo(
                     </Button>
                   ) : (
                     <Button
-                      styleType={ButtonType.SUCCESS}
+                      styleType={ButtonStyle.SUCCESS}
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
                       onClick={() => setEdit(!edit)}

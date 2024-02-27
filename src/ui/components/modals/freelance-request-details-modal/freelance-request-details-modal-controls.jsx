@@ -11,7 +11,7 @@ import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './freelance-request-details-modal.style'
 
@@ -58,7 +58,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             disabled={disableMarkAsCompletedButton}
             className={styles.publishBtn}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
@@ -72,7 +72,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             {showMainActionsButton && (
               <>
                 <Button
-                  styleType={ButtonType.DANGER}
+                  styleType={ButtonStyle.DANGER}
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                   className={styles.deleteBtn}
                   onClick={onClickCancelBtn}
@@ -90,7 +90,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 {showPublishButton && (
                   <Button
-                    styleType={ButtonType.SUCCESS}
+                    styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
                     className={styles.publishBtn}
                     onClick={onClickPublishBtn}

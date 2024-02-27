@@ -9,7 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './check-pending-order-form.style'
 
@@ -53,7 +53,7 @@ export const CheckPendingOrderForm = ({
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button styleType={ButtonType.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
         <Button variant={ButtonVariant.OUTLINED} className={styles.CancelBtn} onClick={onClickCancelBtn}>

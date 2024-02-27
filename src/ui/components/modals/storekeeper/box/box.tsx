@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'

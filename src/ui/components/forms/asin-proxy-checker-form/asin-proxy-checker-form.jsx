@@ -17,7 +17,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './asin-proxy-checker-form.style'
 
@@ -186,7 +186,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
         <div className={styles.actionsButtonsContainer}>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             disabled={
               !updatedAsinsAndReasonsData.length ||
               updatedAsinsAndReasonsData.some(item => item.asin === '') ||

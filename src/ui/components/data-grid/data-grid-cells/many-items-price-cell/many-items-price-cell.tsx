@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { OrderCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './many-items-price-cell.style'
-
-import { OrderCell } from '../data-grid-cells'
 
 interface ManyItemsPriceCellProps {
   params: any

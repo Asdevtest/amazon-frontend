@@ -8,7 +8,7 @@ import { DownloadArchiveIcon, DownloadRoundIcon } from '@components/shared/svg-i
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './buttons.style'
 
@@ -44,7 +44,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         <Button
           disabled={disabledFilesButton}
           className={styles.button}
-          styleType={ButtonType.PRIMARY}
+          styleType={ButtonStyle.PRIMARY}
           variant={ButtonVariant.OUTLINED}
           onClick={onDownloadAllFiles}
         >
@@ -54,7 +54,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         <Button
           disabled={disabledArchiveButton}
           className={styles.button}
-          styleType={ButtonType.PRIMARY}
+          styleType={ButtonStyle.PRIMARY}
           variant={ButtonVariant.OUTLINED}
           onClick={onDownloadArchive}
         >

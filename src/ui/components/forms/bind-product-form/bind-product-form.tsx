@@ -13,9 +13,9 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { ProductVariation } from '@typings/enums/product-variation'
 import { IProduct } from '@typings/models/products/product'
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
 
 import { useStyles } from './bind-product-form.style'
 
@@ -141,7 +141,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
       <div className={styles.buttonsWrapper}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           disabled={!selectedProducts.length}
           onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
         >

@@ -22,7 +22,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-box-tasks-modal.style'
 
@@ -280,7 +280,7 @@ export const EditBoxTasksModal = props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonType.SUCCESS} disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 

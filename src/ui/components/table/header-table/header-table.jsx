@@ -6,7 +6,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './header-table.style'
 
@@ -65,7 +65,7 @@ export const HeaderTable = ({ viewModel }) => {
             {t(TranslationKey['Edit batch'])}
           </Button>
           <Button
-            styleType={ButtonType.SUCCESS}
+            styleType={ButtonStyle.SUCCESS}
             styles={styles.rightSideButton}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >

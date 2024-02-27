@@ -16,7 +16,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-sent-batches-view.style'
 
@@ -136,9 +136,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
     </>
   )

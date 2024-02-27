@@ -7,7 +7,7 @@ import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -33,7 +33,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { parseTextString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 

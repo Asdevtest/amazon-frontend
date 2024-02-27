@@ -14,7 +14,7 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './single-permissions.style'
 
@@ -57,7 +57,7 @@ export const SinglePermissions = observer(() => {
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.placeAddBtnWrapper}>
-        <Button styleType={ButtonType.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>

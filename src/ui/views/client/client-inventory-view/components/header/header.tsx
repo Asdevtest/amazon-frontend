@@ -8,7 +8,7 @@ import { ArchiveIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './header.style'
 
@@ -60,7 +60,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['To order selected products'])}
               disabled={isNoSelectedRows}
               onClick={onClickOrderBtn}
@@ -69,7 +69,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={selectedRows.length > 1}
               className={styles.actionButtonWithPlus}
               onClick={onClickProductLaunch}
@@ -128,7 +128,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               )}
               className={styles.actionButtonWithPlus}
               disabled={isNoSelectedRows}
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               variant={ButtonVariant.OUTLINED}
               onClick={onClickTriggerArchOrResetProducts}
             >
@@ -141,7 +141,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         {!isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
@@ -151,7 +151,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
             >

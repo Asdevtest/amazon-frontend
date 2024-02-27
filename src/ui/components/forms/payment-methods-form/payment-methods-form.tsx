@@ -6,8 +6,8 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IPayment } from '@typings/shared/payment'
-import { ButtonType } from '@typings/types/button.type'
 
 import { useStyles } from './payment-methods-form.style'
 
@@ -74,7 +74,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button styleType={ButtonType.SUCCESS} className={styles.actionButton} onClick={handleSaveButton}>
+          <Button styleType={ButtonStyle.SUCCESS} className={styles.actionButton} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}

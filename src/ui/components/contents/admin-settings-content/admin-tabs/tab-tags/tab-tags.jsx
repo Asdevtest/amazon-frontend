@@ -14,7 +14,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './tab-tags.style'
 
@@ -33,7 +33,7 @@ export const TabTags = observer(() => {
     <div className={styles.wrapper}>
       <div className={styles.buttons}>
         <Button
-          styleType={ButtonType.DANGER}
+          styleType={ButtonStyle.DANGER}
           disabled={!viewModel.rowSelectionModel.length}
           className={styles.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
@@ -46,7 +46,7 @@ export const TabTags = observer(() => {
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button styleType={ButtonType.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>

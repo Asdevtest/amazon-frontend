@@ -8,7 +8,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './supplier-payment-form.style'
 
@@ -42,7 +42,7 @@ export const SupplierPaymentForm = ({
 
       <diiv className={styles.saveBox}>
         <Button
-          styleType={ButtonType.SUCCESS}
+          styleType={ButtonStyle.SUCCESS}
           className={styles.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPaymentDetailsPhotos)

@@ -21,7 +21,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './client-orders-view.style'
 
@@ -42,7 +42,7 @@ export const ClientOrdersView = observer(history => {
         {viewModel.isPendingOrdering ? (
           <div className={styles.topHeaderBtnsSubWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={!viewModel.selectedRowIds.length}
               className={styles.button}
               onClick={viewModel.onClickManyReorder}
@@ -51,7 +51,7 @@ export const ClientOrdersView = observer(history => {
             </Button>
 
             <Button
-              styleType={ButtonType.DANGER}
+              styleType={ButtonStyle.DANGER}
               disabled={!viewModel.selectedRowIds.length}
               className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}

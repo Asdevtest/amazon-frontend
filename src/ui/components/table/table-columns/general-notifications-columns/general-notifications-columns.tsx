@@ -10,7 +10,7 @@ import {
   NotificationMessageCell,
   ProductAsinCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { checkIsFreelancer } from '@utils/checks'
 import { getHumanFriendlyNotificationType } from '@utils/text'

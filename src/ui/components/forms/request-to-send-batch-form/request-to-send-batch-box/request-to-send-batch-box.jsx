@@ -14,7 +14,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-box.style'
 
@@ -358,7 +358,7 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <Button styleType={ButtonType.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+          <Button styleType={ButtonStyle.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
             X
           </Button>
         </td>

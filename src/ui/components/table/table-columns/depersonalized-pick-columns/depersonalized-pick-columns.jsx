@@ -1,12 +1,8 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  NormalActionBtnCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { t } from '@utils/translations'
 
 export const depersonalizedPickColumns = (handlers, isSupervisor) => [
@@ -25,15 +21,17 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
+      <ActionButtonsCell
+        isFirstButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        tooltipText={
+        firstButtonTooltipText={
           isSupervisor
             ? t(TranslationKey['Assign a product card to a supervisor'])
             : t(TranslationKey['To assign the order to Byer'])
         }
-        bTnText={t(TranslationKey['Get to work'])}
-        onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
+        firstButtonElement={t(TranslationKey['Get to work'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onPickUp(params.row.originalData)}
       />
     ),
     width: 150,

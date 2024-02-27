@@ -12,7 +12,7 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'

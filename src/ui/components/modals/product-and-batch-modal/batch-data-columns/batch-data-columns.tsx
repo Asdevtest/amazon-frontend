@@ -2,14 +2,12 @@ import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormalActionBtnCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
   {
@@ -67,9 +65,11 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => handleOpenBatchModal(row._id)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey['Watch the batch'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handleOpenBatchModal(row._id)}
       />
     ),
     width: 180,

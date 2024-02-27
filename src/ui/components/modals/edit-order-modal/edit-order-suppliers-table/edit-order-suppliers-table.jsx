@@ -6,7 +6,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { NewSupplier } from '@components/shared/svg-icons'

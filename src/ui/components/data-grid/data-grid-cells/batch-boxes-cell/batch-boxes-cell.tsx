@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ProductInfoAbbreviated, ProductInfoExtended } from '..'
 import { FC, Fragment, memo } from 'react'
 
 import { tableProductViewMode } from '@constants/keys/table-product-view'
@@ -10,8 +11,6 @@ import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
 import { useStyles } from './batch-boxes-cell.style'
-
-import { ProductInfoAbbreviated, ProductInfoExtended } from '../data-grid-cells'
 
 interface BatchBoxesCellProps {
   boxes: any[]

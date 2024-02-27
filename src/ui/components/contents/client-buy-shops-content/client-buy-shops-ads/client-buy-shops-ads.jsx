@@ -18,7 +18,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-buy-shops-ads.style'
 

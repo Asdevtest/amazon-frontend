@@ -1,6 +1,8 @@
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
@@ -10,10 +12,11 @@ import {
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
-  WarehouseMyTasksBtnsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const warehouseMyTasksViewColumns = handlers => [
   {
@@ -24,12 +27,25 @@ export const warehouseMyTasksViewColumns = handlers => [
     width: window.innerWidth < 1282 ? 115 : 165,
 
     renderCell: params => (
-      <WarehouseMyTasksBtnsCell
-        handlers={handlers}
-        boxId={params.row.originalData.boxes[0]?._id}
-        rowId={params.row.originalData._id}
-        operationType={params.row.originalData.operationType}
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey['Open a window to perform a task'])}
+        firstButtonElement={t(TranslationKey.Resolve)}
+        firstButtonStyle={ButtonStyle.SUCCESS}
+        secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
+        secondButtonElement={t(TranslationKey.Cancel)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        disabledSecondButton={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
+        onClickFirstButton={() => handlers.onClickResolveBtn(params.row.originalData._id)}
+        onClickSecondButton={() =>
+          handlers.onClickCancelTask(
+            params.row.originalData.boxes[0]?._id,
+            params.row.originalData._id,
+            params.row.originalData.operationType,
+          )
+        }
       />
     ),
     filterable: false,

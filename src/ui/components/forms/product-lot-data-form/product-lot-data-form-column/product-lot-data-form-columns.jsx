@@ -1,15 +1,17 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   BoxesAndQuantityCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   StringListCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const productLotDataFormColumns = handlers => [
   {
@@ -116,9 +118,11 @@ export const productLotDataFormColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => handlers.onClickShowBatchBtn(params.row._id)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey['Watch the batch'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickShowBatchBtn(params.row._id)}
       />
     ),
     width: 165,

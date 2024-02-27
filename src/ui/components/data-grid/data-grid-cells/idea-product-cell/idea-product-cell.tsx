@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ProductAsinCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,11 +8,9 @@ import { Button } from '@components/shared/buttons/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-product-cell.style'
-
-import { ProductAsinCell } from '../data-grid-cells'
 
 interface IdeaProductCellProps {
   rowData: any
@@ -24,7 +23,7 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
   return (
     <div className={styles.ideaWrapper}>
       {!rowData.childProduct && rowData.variation && (
-        <Button styleType={ButtonType.SUCCESS} onClick={() => onClickCreateCard(rowData.originalData)}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateCard(rowData.originalData)}>
           {t(TranslationKey['Create a product card'])}
         </Button>
       )}

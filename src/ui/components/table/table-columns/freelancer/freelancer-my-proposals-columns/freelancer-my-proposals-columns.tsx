@@ -21,7 +21,7 @@ import {
   ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 

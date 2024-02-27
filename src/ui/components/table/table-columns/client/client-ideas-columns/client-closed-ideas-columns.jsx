@@ -14,7 +14,7 @@ import {
   SmallRowImageCell,
   TimeFromSecondsCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'

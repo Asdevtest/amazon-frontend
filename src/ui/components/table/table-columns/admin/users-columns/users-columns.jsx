@@ -2,14 +2,16 @@ import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const adminUsersViewColumns = handlers => [
   {
@@ -98,10 +100,12 @@ export const adminUsersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
-        disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-        bTnText={t(TranslationKey['Edit and balance'])}
-        onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+        firstButtonElement={t(TranslationKey['Edit and balance'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickUser(params.row.originalData)}
       />
     ),
 

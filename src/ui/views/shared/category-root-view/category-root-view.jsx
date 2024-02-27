@@ -13,7 +13,7 @@ import { useCategoryRootViewStyles } from '@views/shared/category-root-view/cate
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 export const CategoryRootView = observer(props => {
   const [viewModel] = useState(() => new CategoryRootViewModel({ history: props.history }))

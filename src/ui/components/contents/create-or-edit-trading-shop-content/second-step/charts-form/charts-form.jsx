@@ -11,7 +11,7 @@ import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/types/button.type'
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './charts-form.style'
 

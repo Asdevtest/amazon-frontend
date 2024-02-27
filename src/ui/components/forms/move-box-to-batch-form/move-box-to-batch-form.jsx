@@ -11,7 +11,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
-import { ButtonType, ButtonVariant } from '@typings/types/button.type'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './move-box-to-batch-form.style'
 
@@ -63,7 +63,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
+            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 
@@ -98,7 +98,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
           </div>
 
           <div className={styles.btnsSecondWrapper}>
-            <Button styleType={ButtonType.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
+            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
               {t(TranslationKey['Create new batch'])}
             </Button>
 

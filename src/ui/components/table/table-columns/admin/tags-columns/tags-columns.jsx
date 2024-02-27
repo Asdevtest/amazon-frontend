@@ -1,12 +1,13 @@
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  EditOrRemoveIconBtnsCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const tagsColumns = handlers => [
   {
@@ -32,7 +33,21 @@ export const tagsColumns = handlers => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => <EditOrRemoveIconBtnsCell isShowButtonText={false} handlers={handlers} row={params.row} />,
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey.Edit)}
+        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(TranslationKey.Remove)}
+        secondButtonElement={<DeleteOutlineOutlinedIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+      />
+    ),
 
     filterable: false,
     sortable: false,

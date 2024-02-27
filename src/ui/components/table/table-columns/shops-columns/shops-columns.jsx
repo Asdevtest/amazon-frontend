@@ -2,14 +2,16 @@ import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   ShortDateCell,
   TableDataControlsButtonsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const shopsColumns = handlers => [
   {
@@ -37,12 +39,12 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        disabled={!params?.row?.reportAccountUrl}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params?.row?.reportAccountUrl}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC, params.row)}
       />
     ),
   },
@@ -54,12 +56,12 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        disabled={!params?.row?.reportAccountUrl}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY_SHIPMENTS, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params?.row?.reportAccountUrl}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY_SHIPMENTS, params.row)}
       />
     ),
   },
@@ -71,12 +73,12 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        disabled={!params?.row?.reportAccountUrl}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params?.row?.reportAccountUrl}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.INVENTORY, params.row)}
       />
     ),
   },
@@ -88,12 +90,12 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        disabled={!params?.row?.reportAccountUrl}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.RETURNS, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params?.row?.reportAccountUrl}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.RETURNS, params.row)}
       />
     ),
   },
@@ -105,11 +107,11 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.STOCK_REPORT, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.STOCK_REPORT, params.row)}
       />
     ),
   },
@@ -121,11 +123,11 @@ export const shopsColumns = handlers => [
 
     width: 125,
     renderCell: params => (
-      <NormalActionBtnCell
-        casual
-        fullWidthButton
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.GOODS_DAYS_REPORT, params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.GOODS_DAYS_REPORT, params.row)}
       />
     ),
   },

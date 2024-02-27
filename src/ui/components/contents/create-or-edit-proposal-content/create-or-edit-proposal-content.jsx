@@ -21,7 +21,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonType } from '@typings/types/button.type'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-proposal-content.style'
 
@@ -289,7 +289,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.buttonsWrapper}>
             <Button
-              styleType={ButtonType.SUCCESS}
+              styleType={ButtonStyle.SUCCESS}
               disabled={disableSubmit}
               className={styles.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
