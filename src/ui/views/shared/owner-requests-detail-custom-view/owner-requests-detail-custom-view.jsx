@@ -276,7 +276,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         successBtnText={t(TranslationKey.Ok)}
         cancelBtnText={t(TranslationKey.Cancel)}
         onClickSuccessBtn={viewModel.onSubmitAbortRequest}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
       />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
