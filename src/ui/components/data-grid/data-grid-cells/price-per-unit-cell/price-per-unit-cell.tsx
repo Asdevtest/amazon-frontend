@@ -16,7 +16,7 @@ export const PricePerUnitCell: FC<PricePerUnitCellProps> = memo(({ item }) => {
     <div className={styles.pricesWrapper}>
       {item.items.map((el: any, index: number) => (
         <p key={index} className={styles.multilineText}>
-          {toFixedWithDollarSign(el.order.totalPrice / el.order.amount, 2)}
+          {toFixedWithDollarSign(el.order?.totalPrice / el.order?.amount, 2)}
         </p>
       ))}
     </div>

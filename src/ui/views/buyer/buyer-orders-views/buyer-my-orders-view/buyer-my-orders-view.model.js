@@ -54,8 +54,6 @@ export class BuyerMyOrdersViewModel {
 
   createBoxesResult = []
 
-  imagesForLoad = []
-
   paymentAmount = undefined
 
   volumeWeightCoefficient = undefined
@@ -393,8 +391,6 @@ export class BuyerMyOrdersViewModel {
 
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
     try {
-      this.clearReadyImages()
-
       if (editPhotosOfSupplier?.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
@@ -408,14 +404,12 @@ export class BuyerMyOrdersViewModel {
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
       if (photosOfSupplier?.length) {
         await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
 
         supplier = {
           ...supplier,
-          images: [...supplier.images, ...this.readyImages],
+          images: this.readyImages,
         }
       }
 
@@ -660,10 +654,6 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
 
-      this.clearImagesForLoad()
-      runInAction(() => {
-        this.imagesForLoad = orderData.images
-      })
       this.getBoxesOfOrder(orderId)
 
       this.getPlatformSettings()
@@ -672,10 +662,6 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
   }
 
   async onSubmitCancelOrder() {
@@ -754,31 +740,18 @@ export class BuyerMyOrdersViewModel {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
-      this.clearReadyImages()
-
-      await onSubmitPostImages.call(this, { images: this.imagesForLoad || [], type: 'readyImages' })
-
-      this.clearImagesForLoad()
-
       orderFields = {
         ...orderFields,
         partiallyPaid: Number(orderFields.partiallyPaid) || 0,
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
+      }
+
+      await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
+
+      orderFields = {
+        ...orderFields,
         images: this.readyImages,
       }
-
-      this.clearReadyImages()
-
-      if (photosToLoad?.length) {
-        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-
-        orderFields = {
-          ...orderFields,
-          images: [...(orderFields.images || []), ...this.readyImages],
-        }
-      }
-
-      this.clearReadyImages()
 
       await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos || [], type: 'readyImages' })
 
@@ -787,18 +760,14 @@ export class BuyerMyOrdersViewModel {
         paymentDetails: this.readyImages,
       }
 
-      this.clearReadyImages()
-
       if (paymentDetailsPhotosToLoad?.length) {
         await onSubmitPostImages.call(this, { images: paymentDetailsPhotosToLoad, type: 'readyImages' })
 
         orderFields = {
           ...orderFields,
-          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+          paymentDetails: this.readyImages,
         }
       }
-
-      this.clearReadyImages()
 
       await this.onSaveOrder(order, orderFields)
 
@@ -997,7 +966,7 @@ export class BuyerMyOrdersViewModel {
       await BuyerModel.postTask({
         taskId: 0,
         boxes: [],
-        boxesBefore: [...this.createBoxesResult],
+        boxesBefore: this.createBoxesResult,
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
@@ -1126,14 +1095,6 @@ export class BuyerMyOrdersViewModel {
 
     this.setDataGridState()
     this.getOrdersMy()
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
-  }
-
-  clearImagesForLoad() {
-    this.imagesForLoad = []
   }
 
   onLeaveColumnField() {

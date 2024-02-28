@@ -430,6 +430,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         !tmpSupplier?.lengthUnit ||
         (photosOfUnit?.length || 0) + (editPhotosOfUnit?.length || 0) < 4))
 
+  const allPaymentMethods = paymentMethods.map(payment => payment?.paymentMethod)
+
   return (
     <div className={styles.modalContainer}>
       {onlyRead ? (
@@ -723,7 +725,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         <div className={styles.paymentsBlock}>
           <CustomSelectPaymentDetails
             orderPayments={tmpSupplier?.paymentMethods}
-            allPayments={paymentMethods}
+            allPayments={allPaymentMethods}
             onlyRead={onlyRead}
             onChangePaymentMethod={onChangePaymentMethod}
           />
