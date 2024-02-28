@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   nativeSelect: {
+    borderRadius: '100px',
     width: 150,
     '& > div': {
       display: 'flex',

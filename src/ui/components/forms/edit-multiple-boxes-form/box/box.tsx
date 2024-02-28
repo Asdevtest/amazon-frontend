@@ -6,7 +6,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { Checkbox, Chip, IconButton } from '@mui/material'
+import { Checkbox, IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -26,7 +26,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
@@ -487,25 +486,12 @@ export const Box: FC<BoxProps> = memo(props => {
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Chip
-                    classes={{
-                      root: styles.barcodeChip,
-                      clickable: styles.barcodeChipHover,
-                      deletable: styles.barcodeChipHover,
-                      deleteIcon: styles.barcodeChipIcon,
-                      label: styles.barcodeChiplabel,
-                    }}
-                    className={cx({ [styles.barcodeChipExists]: box.shippingLabel })}
-                    size="small"
-                    label={
-                      box.tmpShippingLabel?.length
-                        ? t(TranslationKey['File added'])
-                        : box.shippingLabel
-                        ? trimBarcode(box.shippingLabel)
-                        : t(TranslationKey['Set Shipping Label'])
-                    }
-                    onClick={() => onClickShippingLabel()}
-                    onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                  <ChangeChipCell
+                    isChipOutTable
+                    text={!box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
+                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0]}
+                    onClickChip={onClickShippingLabel}
+                    onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />

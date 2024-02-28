@@ -39,7 +39,7 @@ export const OwnerRequestProposalsCard = ({
   onSendInForRework,
   onReceiveCustomProposal,
 }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showMainRequestResultModal, setShowMainRequestResultModal] = useState(false)
@@ -138,11 +138,7 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        <Button
-          disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
-          className={cx(styles.actionButton)}
-          onClick={onClickOpenResult}
-        >
+        <Button disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)} onClick={onClickOpenResult}>
           {t(TranslationKey.Result)}
         </Button>
 

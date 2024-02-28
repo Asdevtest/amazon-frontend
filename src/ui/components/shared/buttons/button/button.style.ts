@@ -32,6 +32,8 @@ export const useStyles = makeStyles()(theme => {
       justifyContent: 'center',
       padding: '0 20px',
 
+      gap: '5px',
+
       transition: 'all 0.5s ease',
       cursor: 'pointer',
       boxShadow: defaultBoxShadow,
