@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -82,9 +82,7 @@ export class OrdersModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   get orderStatusData() {
@@ -130,9 +128,7 @@ export class OrdersModel {
   }
 
   onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.loadData()
   }
@@ -157,10 +153,8 @@ export class OrdersModel {
   getCurrentData() {
     const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
-    let filteredOrders = toJS(this.orders)
-
     if (!this.isCheckedStatusByFilter[ALL]) {
-      filteredOrders = filteredOrders.filter(el => {
+      return this.orders.filter(el => {
         const { status } = el.originalData
 
         return (
@@ -171,33 +165,34 @@ export class OrdersModel {
       })
     }
 
-    return toJS(filteredOrders)
+    return this.orders
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      await this.getOrdersByProductId()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getOrdersByProductId()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async getOrdersByProductId() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ClientModel.getOrdersByProductId(this.productId)
 
       runInAction(() => {
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.orders = []
         this.error = error
       })
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -235,18 +230,21 @@ export class OrdersModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    this.uploadedFiles = []
+    try {
+      if (tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      }
 
-    if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+
+      this.onTriggerOpenModal('showSetBarcodeModal')
+
+      runInAction(() => {
+        this.selectedProduct = undefined
+      })
+    } catch (error) {
+      console.error(error)
     }
-
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
-
-    this.onTriggerOpenModal('showSetBarcodeModal')
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
   }
 
   async updateUserInfo() {
@@ -288,8 +286,6 @@ export class OrdersModel {
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         let product = this.ordersDataStateToSubmit[i]
         let uploadedTransparencyFiles = []
-
-        this.uploadedFiles = []
 
         if (product.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: product.tmpBarCode, type: 'uploadedFiles' })
@@ -353,9 +349,6 @@ export class OrdersModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
-      // this.onTriggerOpenModal('showOrderModal')
-      // const noProductBaseUpdate = true
-      // await this.getProductsMy(noProductBaseUpdate)
 
       this.loadData()
     } catch (error) {
