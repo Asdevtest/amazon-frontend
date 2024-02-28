@@ -55,6 +55,7 @@ export const clientInventoryColumns = (
         />
       ),
       width: 120,
+      disableCustomSort: true,
       hide: true,
     },
 
@@ -82,7 +83,8 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
       width: 90,
-      sortable: false,
+
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
 
@@ -195,7 +197,8 @@ export const clientInventoryColumns = (
           .join(', ')
       },
       width: 145,
-      sortable: false,
+
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
     },
 
@@ -277,7 +280,8 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       renderCell: params => <TagsCell tags={params.row?.tags} />,
       width: 160,
-      sortable: false,
+
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
     },
 
@@ -287,7 +291,8 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
       width: 130,
-      sortable: false,
+
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
 
@@ -318,7 +323,8 @@ export const clientInventoryColumns = (
       width: 120,
       disableColumnMenu: true,
       filterable: false,
-      sortable: false,
+
+      disableCustomSort: true,
     },
 
     {
@@ -389,7 +395,8 @@ export const clientInventoryColumns = (
       width: 187,
 
       filterable: false,
-      sortable: false,
+
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -402,7 +409,8 @@ export const clientInventoryColumns = (
       width: 400,
       disableColumnMenu: true,
       filterable: false,
-      sortable: false,
+
+      disableCustomSort: true,
     },
 
     {
@@ -411,7 +419,8 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
-      sortable: false,
+
+      disableCustomSort: true,
       filterable: false,
       disableColumnMenu: true,
     },
@@ -458,6 +467,7 @@ export const clientInventoryColumns = (
 
   for (const column of defaultColumns) {
     column.table = DataGridFilterTables.PRODUCTS
+    // column.sortable = false
   }
 
   return defaultColumns

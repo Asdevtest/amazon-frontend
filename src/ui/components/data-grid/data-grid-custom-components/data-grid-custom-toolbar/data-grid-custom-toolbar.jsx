@@ -4,9 +4,10 @@ import { useStyles } from './data-grid-custom-toolbar.style'
 
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 import { DataGridTableSetting } from '../data-grid-table-setting'
+import { SortSettings } from '../sort-settings'
 
 export const DataGridCustomToolbar = props => {
-  const { resetFiltersBtnSettings, columsBtnSettings, children, presetsSettings, ...restProps } = props
+  const { resetFiltersBtnSettings, columsBtnSettings, children, presetsSettings, sortSettings, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -25,6 +26,8 @@ export const DataGridCustomToolbar = props => {
               resetFiltersBtnSettings={resetFiltersBtnSettings}
             />
           )}
+
+          <SortSettings {...sortSettings} />
         </div>
       )}
 

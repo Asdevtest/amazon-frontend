@@ -24,6 +24,7 @@ export const observerConfig = {
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
+  customSortFields: observable,
 
   showOrderModal: observable,
   showSuccessModal: observable,

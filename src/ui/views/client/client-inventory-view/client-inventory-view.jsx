@@ -110,14 +110,22 @@ export const ClientInventoryView = observer(({ history }) => {
                 onClickResetPresets: viewModel.resetPresetsHandler,
                 onClickSavePresets: viewModel.savePresetsHandler,
               },
+
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                customSortFields: viewModel.customSortFields,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
