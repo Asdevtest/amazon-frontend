@@ -578,6 +578,8 @@ export const warehouseFinancesDataConverter = data =>
 export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
+    ...item,
+
     id: item._id,
     _id: item._id,
 
@@ -596,20 +598,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
       0,
     ),
 
-    // finalWeight: item.boxes.reduce(
-    //   (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
-    //   0,
-    // ),
-    finalWeight: item.finalWeight,
-
-    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
-    // totalPrice: getTariffRateForBoxOrOrder(item) * item.finalWeight,
-
-    // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
-
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-    arrivalDate: item?.arrivalDate,
-    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>

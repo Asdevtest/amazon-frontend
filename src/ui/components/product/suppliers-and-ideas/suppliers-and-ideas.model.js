@@ -1014,6 +1014,8 @@ export class SuppliersAndIdeasModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

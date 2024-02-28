@@ -213,7 +213,10 @@ export const getTableByColumn = (column, hint) => {
       'proposalSub',
     ].includes(column)
   ) {
-    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+    if (
+      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes'].includes(column) &&
+      hint === 'batches'
+    ) {
       return 'batches'
     }
 
