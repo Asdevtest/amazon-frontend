@@ -85,7 +85,9 @@ const Slot = ({
       <div style={{ opacity }} className={styles.imageObjWrapper}>
         <Tooltip
           arrow
-          title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
+          title={
+            getFileNameFromUrl(typeof slot.fileLink === 'string' ? slot.fileLink : slot.fileLink?.file?.name)?.fullName
+          }
           placement="right-end"
           TransitionComponent={Zoom}
           TransitionProps={{ timeout: 300 }}
@@ -109,35 +111,35 @@ const Slot = ({
                 onClickRemoveItem(slot)
               }}
             >
-              {slot.image ? (
+              {slot.fileLink ? (
                 <CrossInRectangleIcon className={styles.removeIcon} />
               ) : (
                 <CloseOutlinedIcon className={styles.removeIcon} />
               )}
             </div>
-            {slot.image ? (
+            {slot.fileLink ? (
               <div className={styles.imageListItem}>
                 <Avatar
                   className={styles.image}
                   classes={{ img: styles.image }}
                   src={
-                    typeof slot.image === 'string'
-                      ? checkIsMediaFileLink(slot.image)
-                        ? getAmazonImageUrl(slot.image, false)
+                    typeof slot.fileLink === 'string'
+                      ? checkIsMediaFileLink(slot.fileLink)
+                        ? getAmazonImageUrl(slot.fileLink, false)
                         : '/assets/icons/file.png'
-                      : slot.image?.file.type.includes('image')
-                      ? slot.image?.data_url
+                      : slot.fileLink?.file?.type.includes('image')
+                      ? slot.fileLink?.data_url
                       : '/assets/icons/file.png'
                   }
-                  alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
+                  alt={isRework ? '' : slot.fileLink?.file?.name}
                   variant="square"
                   onClick={() => {
                     setCurImageIndex(index)
 
-                    if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
+                    if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
                       setShowImageModal(!showImageModal)
                     } else {
-                      window.open(slot.image?.data_url || getAmazonImageUrl(slot.image), '__blank')
+                      window.open(slot.fileLink?.data_url || getAmazonImageUrl(slot.fileLink), '__blank')
                     }
                   }}
                 />
@@ -163,13 +165,13 @@ const Slot = ({
               onClick={e => {
                 setCurImageIndex(index)
 
-                if (slot.image) {
+                if (slot.fileLink) {
                   e.preventDefault()
 
-                  if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
+                  if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
                     setShowImageModal(!showImageModal)
                   } else {
-                    window.open(slot.image?.data_url || slot.image, '__blank')
+                    window.open(slot.fileLink?.data_url || slot.fileLink, '__blank')
                   }
                 } else {
                   return e
@@ -189,14 +191,14 @@ const Slot = ({
             variant="filled"
             className={styles.imageObjInput}
             classes={{ input: styles.inputComment }}
-            value={slot.commentByPerformer}
-            onChange={e => onChangeImageFileds('commentByPerformer', slot._id)(e)}
+            value={slot?.commentByPerformer}
+            onChange={e => onChangeImageFileds('commentByPerformer', slot?._id)(e)}
           />
         </div>
 
         <div className={styles.imageObjSubWrapper}>
           <Typography className={cx(styles.clientComment)}>
-            {getShortenStringIfLongerThanCount(parseTextString(slot.commentByClient), 30)}
+            {getShortenStringIfLongerThanCount(parseTextString(slot?.commentByClient), 30)}
           </Typography>
         </div>
       </div>
@@ -244,7 +246,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   }
 
   const onClickRemoveItem = slot => {
-    if (slot.image) {
+    if (slot.fileLink) {
       setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
     } else {
       setImagesData(() => imagesData.filter(el => el._id !== slot._id))

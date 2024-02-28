@@ -632,7 +632,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log('error', error)
+      console.log(error)
     }
   }
 

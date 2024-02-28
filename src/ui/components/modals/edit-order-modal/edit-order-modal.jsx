@@ -160,8 +160,6 @@ export const EditOrderModal = memo(
           0,
         ) || 0
 
-    console.log('order', order)
-
     const initialState = {
       ...order,
       status: order?.status || undefined,
