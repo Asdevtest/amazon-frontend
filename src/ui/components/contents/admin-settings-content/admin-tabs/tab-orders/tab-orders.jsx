@@ -30,7 +30,7 @@ export const TabOrders = memo(props => {
         error={formFields.timeToDeadlinePendingOrder === ''}
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
-      <Button disabled={disabledSubmit} className={styles.saveButton} onClick={onSubmit}>
+      <Button disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </Button>
     </div>

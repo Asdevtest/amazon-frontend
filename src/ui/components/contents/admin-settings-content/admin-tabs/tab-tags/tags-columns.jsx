@@ -15,7 +15,6 @@ export const tagsColumns = handlers => [
     headerName: t(TranslationKey['Tag name']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-
     width: 300,
   },
 
@@ -24,7 +23,6 @@ export const tagsColumns = handlers => [
     headerName: t(TranslationKey['Number of uses']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-
     align: 'center',
     width: 150,
   },
@@ -48,7 +46,7 @@ export const tagsColumns = handlers => [
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
-
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
     align: 'center',

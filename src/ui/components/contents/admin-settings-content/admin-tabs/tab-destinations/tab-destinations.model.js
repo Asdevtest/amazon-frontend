@@ -8,7 +8,7 @@ import { AdministratorModel } from '@models/administrator-model'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
+import { destinationsColumns } from '@components/table/table-columns/admin/destinations'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
