@@ -13,6 +13,7 @@ export const useMainRequestResultModal = ({
   customProposal,
   userInfo,
   onEditCustomProposal,
+  onReceiveCustomProposal,
   onOpenModal,
 }: MainRequestResultModalProps) => {
   const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
@@ -58,15 +59,39 @@ export const useMainRequestResultModal = ({
   const handleEditCustomProposal = () => {
     const sentFields = isClient ? getFieldsToRework(fields) : getFieldsAfterRework(fields)
 
-    onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    if (onEditCustomProposal) {
+      onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    }
+
     onOpenModal()
+  }
+
+  const handleReceiveCustomProposal = () => {
+    if (onReceiveCustomProposal) {
+      onReceiveCustomProposal()
+    }
+
+    onOpenModal()
+  }
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const handleToggleShowConfirmModal = () => setShowConfirmModal(prev => !prev)
+
+  const handleClickSuccessConfirm = () => {
+    handleEditCustomProposal()
+    handleToggleShowConfirmModal()
   }
 
   return {
     isClient,
     fields,
     setFields,
+    showConfirmModal,
+    onToggleShowConfirmModal: handleToggleShowConfirmModal,
     onResultValue: handleResultValue,
     onEditCustomProposal: handleEditCustomProposal,
+    onReceiveCustomProposal: handleReceiveCustomProposal,
+    onClickSuccessConfirm: handleClickSuccessConfirm,
   }
 }

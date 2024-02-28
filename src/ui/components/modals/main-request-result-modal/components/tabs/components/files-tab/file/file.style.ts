@@ -40,6 +40,9 @@ export const useStyles = makeStyles()(theme => ({
   file: {
     height: 109,
     width: 109,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     overflow: 'hidden',
     borderRadius: 6,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
@@ -99,6 +102,12 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  notFocuced: {
+    '&.Mui-focused': {
+      border: `1px solid ${theme.palette.input.customBorder}`,
+    },
+  },
+
   pasteInput: {
     height: 109,
     width: 109,
@@ -117,5 +126,10 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     cursor: 'default',
+  },
+
+  notCommentText: {
+    fontSize: '12px',
+    lineHeight: '20px',
   },
 }))

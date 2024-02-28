@@ -44,8 +44,9 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUploadFile,
   } = useFilesTab(props)
 
-  const commentModalTitle =
-    (props.isClient ? currentEditableFile?.commentByClient : currentEditableFile?.commentByPerformer) || ''
+  const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
+  const disabledArchiveButton = !filesForDownload.length || archiveButtonInactiveBeforeDownloading
+  const commentModalTitle = props.isClient ? t(TranslationKey['Add comment']) : t(TranslationKey['View comment'])
 
   return (
     <>
@@ -54,6 +55,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           {files.map((file, index) => (
             <File
               key={file._id}
+              readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}
               fileIndex={index}
@@ -68,11 +70,12 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           ))}
         </div>
 
-        {props.isClient ? (
+        {props.isClient || props.readOnly ? (
           <Buttons
-            checked={filesForDownload.length === files.length}
+            checked={checkedSelectAll}
+            disabledSelectAllCheckbox={!files.length}
             disabledFilesButton={!filesForDownload.length}
-            disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
+            disabledArchiveButton={disabledArchiveButton}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
@@ -88,8 +91,8 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
       {showCommentModal ? (
         <CommentsModal
           readOnly={!props.isClient}
-          title={t(TranslationKey['Add comment'])}
-          text={commentModalTitle}
+          title={commentModalTitle}
+          text={currentEditableFile?.commentByClient || ''}
           maxLength={MIDDLE_COMMENT_VALUE}
           isOpenModal={showCommentModal}
           onOpenModal={onShowCommentModal}

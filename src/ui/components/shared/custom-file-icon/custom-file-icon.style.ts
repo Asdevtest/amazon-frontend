@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
 
   middleSizeFileExtension: {
     width: 54,
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: '25px',
   },
 }))

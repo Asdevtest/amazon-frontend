@@ -10,51 +10,84 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './main-request-result-modal.style'
 
+import { ConfirmationModal } from '../confirmation-modal'
+
 import { Footer, Header, Tabs } from './components'
 import { MainRequestResultModalProps } from './main-request-result-modal.type'
 import { useMainRequestResultModal } from './use-main-request-result-modal'
 
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
-  const { customProposal, openModal, onOpenModal, onReceiveCustomProposal, showActionButtons } = props
+  const { customProposal, openModal, onOpenModal, readOnly, showActionButtons } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const { isClient, fields, setFields, onResultValue, onEditCustomProposal } = useMainRequestResultModal(props)
+  const {
+    isClient,
+    fields,
+    setFields,
+    showConfirmModal,
+    onToggleShowConfirmModal,
+    onResultValue,
+    onEditCustomProposal,
+    onReceiveCustomProposal,
+    onClickSuccessConfirm,
+  } = useMainRequestResultModal(props)
+
+  const disabledSendButton =
+    (fields?.result?.trim().length === 0 ||
+      (fields?.publicationLinks || []).some(link => link.length === 0) ||
+      fields.media.some(file => !file.fileLink)) &&
+    !isClient
 
   return (
-    <Modal openModal={openModal} setOpenModal={onOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
         <Header
           isClient={isClient}
           executionTime={customProposal?.proposal?.execution_time}
           asin={customProposal?.request?.asin}
           humanFriendlyId={customProposal?.request?.humanFriendlyId}
+          timeLimitInMinutes={fields?.timeLimitInMinutes}
         />
 
         <Field
           multiline
-          readOnly={isClient}
+          readOnly={isClient || props.readOnly}
           minRows={9}
           maxRows={9}
-          value={fields.result}
+          value={fields?.result}
+          error={fields?.result?.trim().length === 0}
           placeholder={`${t(TranslationKey['Request result'])}...`}
-          inputClasses={cx(styles.field, { [styles.notFocuced]: isClient })}
+          inputClasses={cx(styles.field, { [styles.notFocuced]: isClient || props.readOnly })}
           inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
           classes={{ input: styles.input }}
           containerClasses={styles.fieldContainer}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onResultValue(e.target.value)}
         />
 
-        <Tabs isClient={isClient} fields={fields} setFields={setFields} />
+        <Tabs readOnly={readOnly} isClient={isClient} fields={fields} setFields={setFields} />
 
-        <Footer
-          showActionButtons={showActionButtons}
-          isClient={isClient}
-          onEditCustomProposal={onEditCustomProposal}
-          onOpenModal={onOpenModal}
-          onReceiveCustomProposal={onReceiveCustomProposal}
-        />
+        {!readOnly ? (
+          <Footer
+            isClient={isClient}
+            showActionButtons={showActionButtons}
+            disabledSendButton={disabledSendButton}
+            onEditCustomProposal={onEditCustomProposal}
+            onReceiveCustomProposal={onReceiveCustomProposal}
+            onToggleShowConfirmModal={onToggleShowConfirmModal}
+          />
+        ) : null}
       </div>
+
+      <ConfirmationModal
+        openModal={showConfirmModal}
+        setOpenModal={onToggleShowConfirmModal}
+        message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={onClickSuccessConfirm}
+        onClickCancelBtn={onToggleShowConfirmModal}
+      />
     </Modal>
   )
 })

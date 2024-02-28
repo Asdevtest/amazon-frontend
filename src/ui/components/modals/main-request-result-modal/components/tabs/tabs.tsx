@@ -15,10 +15,11 @@ interface TabsProps {
   isClient: boolean
   fields: IFields
   setFields: SetFields
+  readOnly?: boolean
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
-  const { isClient, fields, setFields } = props
+  const { isClient, fields, setFields, readOnly } = props
 
   const { classes: styles } = useStyles()
 
@@ -35,15 +36,15 @@ export const Tabs: FC<TabsProps> = memo(props => {
       />
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.FILES}>
-        <FilesTab isClient={isClient} files={fields?.media} setFields={setFields} />
+        <FilesTab readOnly={readOnly} isClient={isClient} files={fields?.media} setFields={setFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.LINKS}>
-        <LinksTab isClient={isClient} fields={fields} setFields={setFields} />
+        <LinksTab readOnly={readOnly} isClient={isClient} fields={fields} setFields={setFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.REMARKS}>
-        <RemarksTab isClient={isClient} fields={fields} setFields={setFields} />
+        <RemarksTab readOnly={readOnly} isClient={isClient} fields={fields} setFields={setFields} />
       </TabPanel>
     </div>
   )

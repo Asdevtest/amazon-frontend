@@ -17,6 +17,7 @@ interface SetDurationProps {
   setTotalTimeInMinute: (totalTimeInMinute: number) => void
   title?: string
   titleStyle?: string
+  readOnly?: boolean
 }
 
 interface FormFields {
@@ -27,7 +28,8 @@ interface FormFields {
 }
 
 export const SetDuration: FC<SetDurationProps> = observer(props => {
-  const { title, titleStyle, duration, setTotalTimeInMinute } = props
+  const { title, titleStyle, duration, readOnly, setTotalTimeInMinute } = props
+
   const { classes: styles } = useStyles()
 
   const [formFields, setFormFields] = useState<FormFields>({
@@ -94,6 +96,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.days}
             containerClasses={styles.inputField}
             inputClasses={styles.input}
@@ -110,6 +113,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.hours}
             containerClasses={styles.inputField}
             inputClasses={styles.input}
@@ -126,6 +130,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.minutes}
             containerClasses={styles.inputField}
             inputClasses={styles.input}

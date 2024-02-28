@@ -8,9 +8,9 @@ import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
@@ -216,25 +216,20 @@ export const MyRequestsView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showRequestStandartResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-      >
-        <RequestStandartResultForm
-          request={viewModel.currentRequestDetails}
-          proposal={viewModel.curProposal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-        />
-      </Modal>
+      <MainRequestResultModal
+        readOnly
+        customProposal={viewModel.curProposal}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+      />
 
-      {viewModel.showRequestResultModal && (
-        <RequestResultModal
-          request={viewModel.currentRequestDetails}
-          proposal={viewModel.curProposal}
-          openModal={viewModel.showRequestResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-        />
-      )}
+      <RequestResultModal
+        request={viewModel.currentRequestDetails}
+        proposal={viewModel.curProposal}
+        openModal={viewModel.showRequestResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+      />
     </>
   )
 })

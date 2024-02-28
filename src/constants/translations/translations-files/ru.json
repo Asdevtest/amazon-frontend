@@ -2204,5 +2204,7 @@
   "Returns": "Возвраты",
   "Reason for cancellation": "Причина отмены",
   "Reason for rejection": "Причина отклонения",
-  "Attach files (dimensions)": "Прикрепить файлы (замеры)"
+  "Attach files (dimensions)": "Прикрепить файлы (замеры)",
+  "No comment": "Нет комментария",
+  "View comment": "Просмотр комментария"
 }

@@ -25,6 +25,7 @@ interface FileProps {
   onDeleteFile: (fileIndex: number) => void
   onChangeFileName: (fileIndex: number, fileName: string) => void
   onUploadFile: (fileIndex: number, file: ChangeEvent<HTMLInputElement>) => void
+  readOnly?: boolean
 }
 
 export const File: FC<FileProps> = memo(props => {
@@ -39,6 +40,7 @@ export const File: FC<FileProps> = memo(props => {
     onDeleteFile,
     onChangeFileName,
     onUploadFile,
+    readOnly,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -58,7 +60,7 @@ export const File: FC<FileProps> = memo(props => {
 
   return (
     <div className={styles.fileContainer}>
-      {isClient ? (
+      {isClient || readOnly ? (
         <Checkbox
           checked={checked}
           className={styles.checkbox}
@@ -74,7 +76,7 @@ export const File: FC<FileProps> = memo(props => {
         </button>
       )}
 
-      {isClient ? (
+      {isClient || readOnly ? (
         commonContent
       ) : file.fileLink ? (
         commonContent
@@ -83,8 +85,8 @@ export const File: FC<FileProps> = memo(props => {
           <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
           <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
           <input
+            multiple
             type="file"
-            defaultValue=""
             className={styles.pasteInput}
             onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
           />
@@ -95,12 +97,14 @@ export const File: FC<FileProps> = memo(props => {
         <p title={file.commentByPerformer} className={styles.fileName}>
           {file.commentByPerformer}
         </p>
-      ) : (
+      ) : file.commentByClient ? (
         <button className={styles.commenButton} onClick={() => onToggleCommentModal(file)}>
           <EyeIcon className={styles.icon} />
 
           <span className={styles.commentText}>{t(TranslationKey.Comment)}</span>
         </button>
+      ) : (
+        <p className={cx(styles.fileName, styles.notCommentText)}>{t(TranslationKey['No comment'])}</p>
       )}
 
       {isClient ? (
@@ -115,9 +119,10 @@ export const File: FC<FileProps> = memo(props => {
         </button>
       ) : (
         <Input
+          readOnly={readOnly}
           value={file.commentByPerformer}
           placeholder={`${t(TranslationKey['File name'])}...`}
-          classes={{ root: styles.inputRoot, input: styles.input }}
+          classes={{ root: cx(styles.inputRoot, { [styles.notFocuced]: readOnly }), input: styles.input }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeFileName(fileIndex, e.target.value)}
         />
       )}

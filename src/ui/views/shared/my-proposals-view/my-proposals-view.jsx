@@ -5,9 +5,9 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -113,51 +113,40 @@ export const MyProposalsView = observer(({ history }) => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.showRequestDesignerResultClientModal && (
-        <Modal
-          openModal={viewModel.showRequestDesignerResultClientModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
-        >
-          <RequestDesignerResultClientForm
-            userInfo={viewModel.userInfo}
-            request={viewModel.currentRequest}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
-          />
-        </Modal>
-      )}
-
-      {viewModel.showRequestStandartResultModal && (
-        <Modal
-          openModal={viewModel.showRequestStandartResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-        >
-          <RequestStandartResultForm
-            request={viewModel.currentRequest}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-          />
-        </Modal>
-      )}
-
-      {viewModel.showRequestResultModal && (
-        <RequestResultModal
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          userInfo={viewModel.userInfo}
           request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
-          openModal={viewModel.showRequestResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
         />
-      )}
+      </Modal>
 
-      {viewModel.showRequestDetailModal && (
-        <FreelanceRequestDetailsModal
-          isOpenModal={viewModel.showRequestDetailModal}
-          request={viewModel.currentRequest?.request}
-          details={viewModel.currentRequest?.details}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
-          onClickOpenNewTab={viewModel.onClickOpenBtn}
-        />
-      )}
+      <MainRequestResultModal
+        readOnly
+        customProposal={viewModel.currentProposal}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+      />
+
+      <RequestResultModal
+        request={viewModel.currentRequest}
+        proposal={viewModel.currentProposal}
+        openModal={viewModel.showRequestResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+      />
+
+      <FreelanceRequestDetailsModal
+        isOpenModal={viewModel.showRequestDetailModal}
+        request={viewModel.currentRequest?.request}
+        details={viewModel.currentRequest?.details}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+        onClickOpenNewTab={viewModel.onClickOpenBtn}
+      />
     </>
   )
 })

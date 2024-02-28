@@ -13,7 +13,7 @@ import { isString } from '@typings/guards'
 
 import { FilesTabProps } from './files-tab.type'
 
-export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
+export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabProps) => {
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [showSlideshowGalleryModal, setSlideshowGalleryModal] = useState(false)
   const [currentEditableFile, setCurrentEditableFile] = useState<IMediaRework | undefined>(undefined)
@@ -85,17 +85,29 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
     }))
 
     if (!isClient) {
+      const multipleFilesLoaded =
+        readyFilesArr.length > 1
+          ? readyFilesArr
+              .slice(1)
+              .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+          : []
+
       setFields(prevFields => ({
         ...prevFields,
-        media: prevFields.media.map((file, index) =>
-          index === fileIndex ? { ...file, fileLink: readyFilesArr[0] } : file,
-        ),
+        media: [
+          ...prevFields.media.map((file, index) =>
+            index === fileIndex
+              ? { ...file, fileLink: readyFilesArr[0], commentByPerformer: readyFilesArr[0]?.file.name }
+              : file,
+          ),
+          ...multipleFilesLoaded,
+        ],
       }))
     }
   }
 
   const handleDownloadArchive = async () => {
-    if (isClient) {
+    if (isClient || readOnly) {
       try {
         setArchiveButtonInactiveBeforeDownloading(true)
 
@@ -112,7 +124,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }
 
   const handleDownloadAllFiles = useCallback(() => {
-    if (isClient) {
+    if (isClient || readOnly) {
       if (filesForDownload.length > 0) {
         filesForDownload.forEach(({ fileLink }) =>
           isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
@@ -145,7 +157,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }, [])
 
   const handleCheckAllFiles = () => {
-    if (isClient) {
+    if (isClient || readOnly) {
       if (filesForDownload.length === files.length) {
         setFilesForDownload([])
       } else {
@@ -155,7 +167,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }
 
   const handleCheckFile = useCallback((file: IMediaRework) => {
-    if (isClient) {
+    if (isClient || readOnly) {
       setFilesForDownload(prevFiles => {
         const findFileById = prevFiles.find(({ _id }) => _id === file._id)
 

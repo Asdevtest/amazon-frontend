@@ -22,6 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   linkContainer: {
+    width: 285,
     display: 'flex',
     alignItems: 'center',
     gap: 10,
@@ -34,9 +35,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputRoot: {
-    width: 260,
     height: 32,
     flexShrink: 1,
+  },
+
+  addInput: {
+    width: 230,
   },
 
   notFocuced: {
@@ -45,10 +49,27 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  error: {
+    border: `1px solid ${theme.palette.text.red}`,
+
+    '&.Mui-focused': {
+      border: `1px solid ${theme.palette.text.red}`,
+    },
+  },
+
   input: {
     padding: 5,
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  link: {
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    color: theme.palette.primary.main,
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
   },
 
   button: {
@@ -69,7 +90,16 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  icon: {
+  iconBasket: {
+    width: '18px !important',
+    height: '18px !important',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  iconPlus: {
     padding: 2,
     width: '16px !important',
     height: '16px !important',
