@@ -770,38 +770,38 @@ export const ObJectFieldMenuItem = memo(
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
+      const filteredDataWithNull = addNullObj
+        ? [{ name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
+        : filterData
+
+      const sortedData = filteredDataWithNull
+        .filter(el => el)
+        .sort((a, b) => {
+          const isBNull = b._id === 'null'
+          const isANull = a._id === 'null'
+
+          return (
+            Number(isBNull) - Number(isANull) ||
+            Number(choosenItems?.some(item => item._id === b._id)) -
+              Number(choosenItems?.some(item => item._id === a._id))
+          )
+        })
+
       useEffect(() => {
-        const filteredDataWithNull = addNullObj
-          ? [{ name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
-          : filterData
-
-        const sortedData = filteredDataWithNull
-          .filter(el => el)
-          .sort((a, b) => {
-            const isBNull = b._id === 'null'
-            const isANull = a._id === 'null'
-
-            return (
-              Number(isBNull) - Number(isANull) ||
-              Number(choosenItems?.some(item => item._id === b._id)) -
-                Number(choosenItems?.some(item => item._id === a._id))
-            )
-          })
-
         setItemsForRender(sortedData)
       }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj => {
-            const title = obj.title || obj.name
+          const filter = sortedData?.filter(obj => {
+            const title = obj?.title || obj?.name || ''
 
             return title.toLowerCase().includes(nameSearchValue.toLowerCase())
           })
 
           setItemsForRender(filter)
         } else {
-          setItemsForRender(filterData)
+          setItemsForRender(sortedData)
         }
       }, [nameSearchValue])
 
