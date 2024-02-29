@@ -706,11 +706,11 @@ export const CreatedByMenuItem = memo(
                 }
 
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  // const choosenCreatedBy = choosenItems.filter(item =>
-                  //   data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
-                  // )
-                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                  onChangeFullFieldMenuItem([], 'sub')
+                  const choosenCreatedBy = choosenItems.filter(item =>
+                    data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
+                  )
+                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'sub')
                 }
                 onClickAccept()
               }}

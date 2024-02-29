@@ -45,6 +45,26 @@ export const globalStyles = theme => ({
   },
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
+
+    '& :first-child': {
+      zIndex: '100 !important',
+
+      '& :first-child': {
+        zIndex: '100 !important',
+
+        '& :first-child': {
+          zIndex: '100 !important',
+
+          '*': {
+            zIndex: '100 !important',
+          },
+        },
+      },
+    },
+
+    '& :last-child': {
+      zIndex: '-100 !important',
+    },
   },
   '.MuiDataGrid-columnSeparator--sideRight': {
     right: '-3px !important',

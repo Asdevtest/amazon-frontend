@@ -109,7 +109,7 @@ export const getBatchParameters = (
       2,
     )
   } else {
-    const boxProperties = item.order.orderSupplier.boxProperties
+    const boxProperties = item.order?.orderSupplier?.boxProperties
 
     batchWeight = toFixed(
       (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) / volumeWeightCoefficient,

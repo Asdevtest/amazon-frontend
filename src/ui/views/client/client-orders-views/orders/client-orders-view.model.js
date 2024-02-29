@@ -11,6 +11,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
+import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -41,7 +42,7 @@ export class ClientOrdersViewModel {
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
-
+  hsCodeData = undefined
   batchesData = []
 
   get currentData() {
@@ -60,6 +61,7 @@ export class ClientOrdersViewModel {
   showMyOrderModal = false
   showWarningInfoModal = false
   showProductLotDataModal = false
+  showEditHSCodeModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
@@ -972,6 +974,31 @@ export class ClientOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+  }
+
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
   }
 
   onTriggerOpenModal(modalState) {

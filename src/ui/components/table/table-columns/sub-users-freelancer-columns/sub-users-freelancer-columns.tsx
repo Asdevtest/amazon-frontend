@@ -63,7 +63,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-    width: 340,
+
     renderCell: (params: GridRowParams) => (
       <ActionButtonsCell
         isFirstButton
@@ -82,6 +82,8 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
+
+    width: 150,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,

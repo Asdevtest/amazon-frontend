@@ -300,10 +300,10 @@ export const RequestToSendBatchBox = memo(
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
-              itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+              itemSupplierBoxWeightGrossKg: item.order?.orderSupplier?.boxProperties?.boxWeighGrossKg,
               deliveryCost: price,
               itemAmount: item.amount,
-              itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+              itemSupplierAmountInBox: item.order?.orderSupplier?.boxProperties?.amountInBox,
               boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
               box,
             })

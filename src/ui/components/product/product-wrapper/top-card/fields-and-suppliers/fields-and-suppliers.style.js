@@ -378,8 +378,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '9px',
   },
-
-  addButton: {
-    padding: '0 1px',
-  },
 }))

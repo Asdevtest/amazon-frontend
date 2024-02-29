@@ -106,7 +106,9 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  actionIcon: { position: 'relative' },
+  actionIcon: {
+    position: 'relative',
+  },
 
   redFlagLabel: {
     maxWidth: 73,
@@ -163,13 +165,5 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-  },
-
-  button: {
-    minWidth: '123px !important',
-  },
-
-  buttonAdd: {
-    minWidth: '112px !important',
   },
 }))
