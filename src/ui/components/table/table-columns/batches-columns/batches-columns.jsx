@@ -12,7 +12,7 @@ import {
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchesViewColumns = (rowHandlers, getStatus) => [
@@ -78,7 +78,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
     width: 250,
     filterable: false,
     sortable: false,

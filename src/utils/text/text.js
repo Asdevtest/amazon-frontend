@@ -1,7 +1,6 @@
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { NotificationType } from '@constants/keys/notifications'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -111,36 +110,14 @@ export const secondsToTime = secs => {
   }
 }
 
-export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
-    return t(TranslationKey['Not available'])
-  }
-
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
-      ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
-      : ''
-  }`
-}
-
 export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
+  if (!box || !box.logicsTariff) {
     return t(TranslationKey['Not available'])
   }
 
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+  const rate = box?.variationTariff?.pricePerKgUsd
 
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)

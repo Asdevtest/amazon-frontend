@@ -24,7 +24,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, parseTextString, toFixed } from './text'
+import { getNewTariffTextForBoxOrOrder, parseTextString, toFixed } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -399,7 +399,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
 
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     status: item.status,
@@ -511,7 +511,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
@@ -581,17 +581,8 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     ...item,
 
     id: item._id,
-    _id: item._id,
 
-    destination: item.boxes[0].destination?.name,
     tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
-    humanFriendlyId: item.humanFriendlyId,
-
-    title: item.title,
-
-    updatedAt: item.updatedAt,
-
-    storekeeper: item.storekeeper?.name,
 
     volumeWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),

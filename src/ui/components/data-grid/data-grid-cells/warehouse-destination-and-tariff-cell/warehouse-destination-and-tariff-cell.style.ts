@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   destinationAndTariffWrapper: {
     padding: '20px 0',
   },
@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 160,
     marginTop: 10,
     whiteSpace: 'normal',
-    color: '#fff',
-    background: theme.palette.primary.main,
+    minHeight: '40px',
+    height: 'unset',
   },
 }))

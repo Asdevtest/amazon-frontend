@@ -1,5 +1,3 @@
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-
 import { toFixed } from '@utils/text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
@@ -72,15 +70,7 @@ export const getTariffRateForBoxOrOrder = box => {
     return 0
   }
 
-  const firstNumOfCode = box?.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const currentRate =
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return currentRate
+  return box?.variationTariff?.pricePerKgUsd
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>
