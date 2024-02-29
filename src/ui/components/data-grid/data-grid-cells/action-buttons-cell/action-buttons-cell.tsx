@@ -12,7 +12,7 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  *
  * @param {boolean} isFirstRow - Indicates if the cell is in the first row.
  * @param {boolean} fullWidth - Indicates if the cell is in the first row.
- * @param {boolean} row - The button will take all the space.
+ * @param {boolean} row - Arrangement of buttons in a row (flex-direction: 'row).
  * @param {iconButton} iconButton - The button will icon button.
  * @param {string} buttonWrapperClassName - Custom styles for the button wrapper.
  * @param {string} buttonClassName - Custom styles for the button.
