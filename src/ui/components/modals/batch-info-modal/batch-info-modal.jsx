@@ -88,8 +88,6 @@ export const BatchInfoModal = observer(
       currentBatch?.volumeWeightDivide,
     )
 
-    console.log('dataToRender', dataToRender)
-
     useEffect(() => {
       if (sourceBoxes && nameSearchValue) {
         setDataToRender(
