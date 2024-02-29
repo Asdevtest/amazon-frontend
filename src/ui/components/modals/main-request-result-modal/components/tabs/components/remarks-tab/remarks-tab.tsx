@@ -15,10 +15,11 @@ interface RemarksTabProps {
   isClient: boolean
   fields: IFields
   setFields: SetFields
+  readOnly?: boolean
 }
 
 export const RemarksTab: FC<RemarksTabProps> = memo(props => {
-  const { isClient, fields, setFields } = props
+  const { isClient, fields, setFields, readOnly } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -50,20 +51,24 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
         {isClient ? (
           <div className={styles.flexContainer}>
             <p className={cx(styles.text, styles.reworkText)}>{t(TranslationKey['Time for rework'])}</p>
-            <SetDuration duration={fields?.timeLimitInMinutes || 0} setTotalTimeInMinute={handleChangeTime} />
+            <SetDuration
+              readOnly={readOnly}
+              duration={fields?.timeLimitInMinutes || 0}
+              setTotalTimeInMinute={handleChangeTime}
+            />
           </div>
         ) : null}
       </div>
 
       <Field
         multiline
-        readOnly={!isClient}
+        readOnly={!isClient || readOnly}
         minRows={7}
         maxRows={7}
         value={fields?.reason}
         inputProps={{ maxLength: 2048 }}
         placeholder={`${t(TranslationKey.Remarks)}...`}
-        inputClasses={cx(styles.field, { [styles.notFocuced]: !isClient })}
+        inputClasses={cx(styles.field, { [styles.notFocuced]: !isClient || readOnly })}
         classes={{ input: styles.input }}
         containerClasses={styles.fieldContainer}
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeReason(e.target.value)}

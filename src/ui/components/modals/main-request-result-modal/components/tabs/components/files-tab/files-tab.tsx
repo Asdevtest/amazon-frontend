@@ -44,8 +44,12 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUploadFile,
   } = useFilesTab(props)
 
-  const commentModalTitle =
-    (props.isClient ? currentEditableFile?.commentByClient : currentEditableFile?.commentByPerformer) || ''
+  const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
+  const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
+  const disabledArchiveButton = !filesForDownload.length || archiveButtonInactiveBeforeDownloading
+  const commentModalTitle = props.isClient
+    ? t(TranslationKey['Add comment'])
+    : t(TranslationKey['View a comment from a client'])
 
   return (
     <>
@@ -54,10 +58,11 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           {files.map((file, index) => (
             <File
               key={file._id}
+              readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}
               fileIndex={index}
-              checked={filesForDownload.some(({ _id }) => _id === file._id)}
+              checked={handleCheckedFile(file._id)}
               onCheckFile={onCheckFile}
               onToggleImageModal={onToggleImageModal}
               onToggleCommentModal={onToggleCommentModal}
@@ -68,11 +73,12 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           ))}
         </div>
 
-        {props.isClient ? (
+        {props.isClient || props.readOnly ? (
           <Buttons
-            checked={filesForDownload.length === files.length}
+            checked={checkedSelectAll}
+            disabledSelectAllCheckbox={!files.length}
             disabledFilesButton={!filesForDownload.length}
-            disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
+            disabledArchiveButton={disabledArchiveButton}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
@@ -85,26 +91,22 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         )}
       </div>
 
-      {showCommentModal ? (
-        <CommentsModal
-          readOnly={!props.isClient}
-          title={t(TranslationKey['Add comment'])}
-          text={commentModalTitle}
-          maxLength={MIDDLE_COMMENT_VALUE}
-          isOpenModal={showCommentModal}
-          onOpenModal={onShowCommentModal}
-          onChangeField={onChangeComment}
-        />
-      ) : null}
+      <CommentsModal
+        readOnly={!props.isClient}
+        title={commentModalTitle}
+        text={currentEditableFile?.commentByClient || ''}
+        maxLength={MIDDLE_COMMENT_VALUE}
+        isOpenModal={showCommentModal}
+        onOpenModal={onShowCommentModal}
+        onChangeField={onChangeComment}
+      />
 
-      {showSlideshowGalleryModal ? (
-        <SlideshowGalleryModal
-          files={files}
-          currentFileIndex={currentFileIndex}
-          isOpenModal={showSlideshowGalleryModal}
-          onOpenModal={onShowSlideshowGalleryModal}
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={files}
+        currentFileIndex={currentFileIndex}
+        isOpenModal={showSlideshowGalleryModal}
+        onOpenModal={onShowSlideshowGalleryModal}
+      />
     </>
   )
 })

@@ -31,7 +31,7 @@ export class FreelanceModel {
   selectedSpec = Specs.DEFAULT
 
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
 
   searchRequests = []
@@ -269,12 +269,8 @@ export class FreelanceModel {
           this.onTriggerOpenModal('showRequestResultModal')
           break
 
-        case freelanceRequestType.SEO:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
-          break
-
         default:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
+          this.onTriggerOpenModal('showMainRequestResultModal')
           break
       }
     } catch (error) {

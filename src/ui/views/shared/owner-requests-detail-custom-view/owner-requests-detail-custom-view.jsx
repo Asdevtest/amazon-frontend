@@ -139,7 +139,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
-                              {t(TranslationKey['Send in for rework'])}
+                              {t(TranslationKey.Result)}
                             </Button>
                             <Button
                               styleType={ButtonStyle.SUCCESS}
@@ -205,17 +205,15 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showMainRequestResultModal ? (
-        <MainRequestResultModal
-          showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
-          customProposal={viewModel.findRequestProposalForCurChat}
-          userInfo={viewModel.userInfo}
-          openModal={viewModel.showMainRequestResultModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-          onEditCustomProposal={viewModel.onSendInForRework}
-          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
-        />
-      ) : null}
+      <MainRequestResultModal
+        showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+        customProposal={viewModel.findRequestProposalForCurChat}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        onEditCustomProposal={viewModel.onSendInForRework}
+        onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+      />
 
       <Modal
         openModal={viewModel.showResultToCorrectFormModal}
@@ -250,18 +248,16 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showConfirmWorkResultFormModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          openModal={viewModel.showConfirmWorkResultFormModal}
-          title={t(TranslationKey['Confirm acceptance of the work result'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey["Review of the performer's work"])}
-          confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Confirm acceptance of the work result'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey["Review of the performer's work"])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Reject)}
+        onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}

@@ -24,6 +24,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttons: {
+    height: 30,
     display: 'flex',
     alignItems: 'center',
     gap: 10,

@@ -57,7 +57,7 @@ export class ClientIdeasViewModel {
   showProductLaunch = false
   showRequestDesignerResultModal = false
   showRequestBloggerResultModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showOrderModal = false
   showAddOrEditSupplierModal = false
   showSelectionSupplierModal = false
@@ -1029,7 +1029,7 @@ export class ClientIdeasViewModel {
       } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
-        this.onTriggerOpenModal('showRequestStandartResultModal')
+        this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
       console.log(error)

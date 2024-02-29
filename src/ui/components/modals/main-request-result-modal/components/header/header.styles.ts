@@ -34,8 +34,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: 15,
+    lineHeight: '24px',
   },
 
   bold: {

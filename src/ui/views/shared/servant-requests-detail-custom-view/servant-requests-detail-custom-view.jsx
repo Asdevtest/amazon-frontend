@@ -142,9 +142,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <Modal
@@ -162,15 +160,13 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showMainRequestResultModal ? (
-        <MainRequestResultModal
-          customProposal={findRequestProposalForCurChat}
-          userInfo={viewModel.userInfo}
-          openModal={viewModel.showMainRequestResultModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-          onEditCustomProposal={viewModel.onSendResultAfterRework}
-        />
-      ) : null}
+      <MainRequestResultModal
+        customProposal={findRequestProposalForCurChat}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        onEditCustomProposal={viewModel.onSendResultAfterRework}
+      />
 
       <RequestResultModal
         request={viewModel.request}

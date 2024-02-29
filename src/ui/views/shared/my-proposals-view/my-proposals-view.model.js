@@ -80,7 +80,7 @@ export class MyProposalsViewModel {
   showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
   selectedProposal = undefined
 
@@ -298,7 +298,7 @@ export class MyProposalsViewModel {
     } else if (this.currentRequest?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
-      this.onTriggerOpenModal('showRequestStandartResultModal')
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 

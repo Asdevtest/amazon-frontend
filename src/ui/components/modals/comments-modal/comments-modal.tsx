@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -36,7 +36,13 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const [comment, setComment] = useState(text || '')
+  const [comment, setComment] = useState('')
+
+  useEffect(() => {
+    if (text.length > 0) {
+      setComment(text)
+    }
+  }, [text])
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
 
@@ -49,11 +55,18 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
       onChangeField(comment)
 
       onOpenModal()
+
+      setComment('')
     }
   }
 
+  const handleCloseModal = () => {
+    onOpenModal()
+    setComment('')
+  }
+
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal openModal={isOpenModal} setOpenModal={handleCloseModal}>
       <div className={styles.wrapper}>
         <Field
           multiline

@@ -49,5 +49,9 @@ export const useStyles = makeStyles()(theme => ({
       width: 30,
       background: theme.palette.text.second,
     },
+
+    '&.Mui-focused': {
+      border: `none`,
+    },
   },
 }))
