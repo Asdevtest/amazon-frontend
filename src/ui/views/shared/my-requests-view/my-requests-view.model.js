@@ -49,7 +49,7 @@ export class MyRequestsViewModel {
   curProposal = undefined
 
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
 
   nameSearchValue = ''
@@ -576,12 +576,8 @@ export class MyRequestsViewModel {
           this.onTriggerOpenModal('showRequestResultModal')
           break
 
-        case freelanceRequestType.SEO:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
-          break
-
         default:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
+          this.onTriggerOpenModal('showMainRequestResultModal')
           break
       }
     } catch (error) {

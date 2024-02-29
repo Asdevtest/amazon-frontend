@@ -7,8 +7,8 @@ import {
   clearEverythingExceptNumbers,
   clearSpecialCharacters,
   getFloatOrZero,
-  getFullTariffTextForBoxOrOrder,
   getModelNameWithotPostfix,
+  getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   minsToTime,
   secondsToTime,
@@ -607,7 +607,7 @@ describe('Test minsToTime(mins)', () => {
   })
 })
 
-describe('Test getFullTariffTextForBoxOrOrder(box)', () => {
+describe('Test getNewTariffTextForBoxOrOrder(box)', () => {
   const validTestValue = [
     {
       enter: {
@@ -668,13 +668,13 @@ describe('Test getFullTariffTextForBoxOrOrder(box)', () => {
 
   validTestValue.forEach(value => {
     test('Valid prosp', () => {
-      expect(getFullTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
+      expect(getNewTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
     })
   })
 
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
-      expect(getFullTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
+      expect(getNewTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
     })
   })
 })

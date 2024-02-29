@@ -29,6 +29,7 @@ export class RequestDetailCustomViewModel {
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
+  showRequestResultModal = false
 
   curResultMedia = []
 
@@ -145,8 +146,10 @@ export class RequestDetailCustomViewModel {
       return
     }
 
-    if (+this.request.request.spec?.type === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+    if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
     }
@@ -247,6 +250,8 @@ export class RequestDetailCustomViewModel {
   onClickReworkProposal() {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
     }

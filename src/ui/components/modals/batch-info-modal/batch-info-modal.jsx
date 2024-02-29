@@ -26,11 +26,7 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
-import {
-  calcPriceForBox,
-  calcVolumeWeightForBox,
-  checkActualBatchWeightGreaterVolumeBatchWeight,
-} from '@utils/calculation'
+import { calcVolumeWeightForBox, checkActualBatchWeightGreaterVolumeBatchWeight } from '@utils/calculation'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
@@ -270,7 +266,7 @@ export const BatchInfoModal = observer(
             />
 
             <div className={styles.closeFieldsWrapper}>
-              <Field
+              {/* <Field
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
@@ -282,7 +278,7 @@ export const BatchInfoModal = observer(
                   2,
                 )}
                 placeholder={'0'}
-              />
+              /> */}
 
               <Field
                 disabled

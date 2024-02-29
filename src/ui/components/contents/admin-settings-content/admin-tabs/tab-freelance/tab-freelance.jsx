@@ -80,7 +80,7 @@ export const TabFreelance = observer(props => {
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
 
-          <Button disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+          <Button disabled={disabledSubmit} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

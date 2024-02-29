@@ -14,6 +14,7 @@ import { useStyles } from './buttons.style'
 
 interface ButtonsProps {
   checked: boolean
+  disabledSelectAllCheckbox: boolean
   disabledFilesButton: boolean
   disabledArchiveButton: boolean
   onDownloadAllFiles: () => void
@@ -24,6 +25,7 @@ interface ButtonsProps {
 export const Buttons: FC<ButtonsProps> = memo(props => {
   const {
     checked,
+    disabledSelectAllCheckbox,
     disabledFilesButton,
     disabledArchiveButton,
     onDownloadAllFiles,
@@ -36,7 +38,12 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.flexlContainer}>
-        <Checkbox checked={checked} className={styles.checkbox} onChange={onCheckAllFiles} />
+        <Checkbox
+          checked={checked}
+          disabled={disabledSelectAllCheckbox}
+          className={styles.checkbox}
+          onChange={onCheckAllFiles}
+        />
         <p className={styles.text}>{t(TranslationKey['Select all'])}</p>
       </div>
 

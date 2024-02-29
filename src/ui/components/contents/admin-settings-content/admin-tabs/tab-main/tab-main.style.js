@@ -46,11 +46,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  buttonAdd: {
-    minWidth: '123px !important',
-    marginBottom: 10,
-  },
-
   proxyList: {
     width: '100%',
     height: 168,
@@ -87,9 +82,5 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-  },
-
-  buttonSave: {
-    minWidth: '123px !important',
   },
 }))

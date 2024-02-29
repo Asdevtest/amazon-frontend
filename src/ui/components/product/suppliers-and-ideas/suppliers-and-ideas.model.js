@@ -78,7 +78,7 @@ export class SuppliersAndIdeasModel {
   supplierModalReadOnly = false
 
   showRequestDesignerResultModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestBloggerResultModal = false
   showSupplierApproximateCalculationsModal = false
   showBindingModal = false
@@ -442,7 +442,7 @@ export class SuppliersAndIdeasModel {
       } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
-        this.onTriggerOpenModal('showRequestStandartResultModal')
+        this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
       console.log(error)
@@ -632,7 +632,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log('error', error)
+      console.log(error)
     }
   }
 
@@ -1006,6 +1006,8 @@ export class SuppliersAndIdeasModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

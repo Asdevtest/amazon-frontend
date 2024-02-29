@@ -5,7 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -93,25 +93,20 @@ export const Freelance = observer(({ productId, modal }) => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showRequestStandartResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-      >
-        <RequestStandartResultForm
-          request={{ request: viewModel.curRequest }}
-          proposal={viewModel.curProposal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-        />
-      </Modal>
+      <MainRequestResultModal
+        readOnly
+        customProposal={viewModel.curProposal}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+      />
 
-      {viewModel.showRequestResultModal && (
-        <RequestResultModal
-          request={viewModel.curRequest}
-          proposal={viewModel.curProposal}
-          openModal={viewModel.showRequestResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-        />
-      )}
+      <RequestResultModal
+        request={viewModel.curRequest}
+        proposal={viewModel.curProposal}
+        openModal={viewModel.showRequestResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+      />
     </>
   )
 })

@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -36,7 +36,12 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const [comment, setComment] = useState(text || '')
+  const [comment, setComment] = useState('')
+
+  useEffect(() => {
+    setComment(text)
+    onOpenModal
+  }, [text])
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
 

@@ -19,7 +19,7 @@ import { Input } from '@components/shared/input'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './box.style'
@@ -204,7 +204,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                 labelClasses={styles.label}
                 inputComponent={
-                  <p className={styles.standartText}>{`${box.storekeeper?.name} / ${getFullTariffTextForBoxOrOrder(
+                  <p className={styles.standartText}>{`${box.storekeeper?.name} / ${getNewTariffTextForBoxOrOrder(
                     box,
                   )}`}</p>
                 }

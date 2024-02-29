@@ -13,6 +13,7 @@ export const useMainRequestResultModal = ({
   customProposal,
   userInfo,
   onEditCustomProposal,
+  onReceiveCustomProposal,
   onOpenModal,
 }: MainRequestResultModalProps) => {
   const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
@@ -31,7 +32,7 @@ export const useMainRequestResultModal = ({
       setFields(prevFields => ({
         ...prevFields,
         reason: customProposal?.details?.reasonToCorrect || '',
-        timeLimitInMinutes: getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt) || 0,
+        timeLimitInMinutes: 0,
         result: customProposal?.details?.result || '',
         publicationLinks: customProposal?.details?.publicationLinks || [],
         media:
@@ -56,17 +57,43 @@ export const useMainRequestResultModal = ({
   }
 
   const handleEditCustomProposal = () => {
-    const sentFields = isClient ? getFieldsToRework(fields) : getFieldsAfterRework(fields)
+    const sentFields = isClient
+      ? getFieldsToRework(fields, getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt))
+      : getFieldsAfterRework(fields)
 
-    onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    if (onEditCustomProposal) {
+      onEditCustomProposal(customProposal?.proposal?._id, sentFields)
+    }
+
     onOpenModal()
+  }
+
+  const handleReceiveCustomProposal = () => {
+    if (onReceiveCustomProposal) {
+      onReceiveCustomProposal()
+    }
+
+    onOpenModal()
+  }
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const handleToggleShowConfirmModal = () => setShowConfirmModal(prev => !prev)
+
+  const handleClickSuccessConfirm = () => {
+    handleEditCustomProposal()
+    handleToggleShowConfirmModal()
   }
 
   return {
     isClient,
     fields,
     setFields,
+    showConfirmModal,
+    onToggleShowConfirmModal: handleToggleShowConfirmModal,
     onResultValue: handleResultValue,
     onEditCustomProposal: handleEditCustomProposal,
+    onReceiveCustomProposal: handleReceiveCustomProposal,
+    onClickSuccessConfirm: handleClickSuccessConfirm,
   }
 }

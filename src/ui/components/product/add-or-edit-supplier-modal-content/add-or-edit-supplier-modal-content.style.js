@@ -233,4 +233,8 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '320px',
   },
+
+  needAddPhotos: {
+    color: theme.palette.text.red,
+  },
 }))

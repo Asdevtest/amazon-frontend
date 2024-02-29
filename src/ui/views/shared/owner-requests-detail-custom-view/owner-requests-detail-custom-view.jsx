@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
@@ -138,7 +139,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
-                              {t(TranslationKey['Send in for rework'])}
+                              {t(TranslationKey.Result)}
                             </Button>
                             <Button
                               styleType={ButtonStyle.SUCCESS}
@@ -204,17 +205,24 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showMainRequestResultModal ? (
-        <MainRequestResultModal
-          showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
-          customProposal={viewModel.findRequestProposalForCurChat}
-          userInfo={viewModel.userInfo}
-          openModal={viewModel.showMainRequestResultModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-          onEditCustomProposal={viewModel.onSendInForRework}
-          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+      <MainRequestResultModal
+        showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+        customProposal={viewModel.findRequestProposalForCurChat}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        onEditCustomProposal={viewModel.onSendInForRework}
+        onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+      />
+
+      <Modal
+        openModal={viewModel.showResultToCorrectFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showResultToCorrectFormModal')}
+      >
+        <RequestProposalResultToCorrectForm
+          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
         />
-      ) : null}
+      </Modal>
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm
@@ -240,18 +248,16 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showConfirmWorkResultFormModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          openModal={viewModel.showConfirmWorkResultFormModal}
-          title={t(TranslationKey['Confirm acceptance of the work result'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey["Review of the performer's work"])}
-          confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Confirm acceptance of the work result'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey["Review of the performer's work"])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Reject)}
+        onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
 
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}
@@ -270,13 +276,13 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         withComment
         asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        setOpenModal={viewModel.onClickAbortBtn}
         title={t(TranslationKey['Suspend the acceptance of proposals?'])}
         commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
         successBtnText={t(TranslationKey.Ok)}
         cancelBtnText={t(TranslationKey.Cancel)}
         onClickSuccessBtn={viewModel.onSubmitAbortRequest}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        onClickCancelBtn={viewModel.onClickAbortBtn}
       />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (

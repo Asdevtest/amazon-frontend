@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     background: theme.palette.background.second,
     border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
-    borderRadius: '40px',
+    borderRadius: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
 
@@ -167,7 +167,6 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonSecondary: {
     background: 'none',
-    color: theme.palette.text.second,
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:hover': {

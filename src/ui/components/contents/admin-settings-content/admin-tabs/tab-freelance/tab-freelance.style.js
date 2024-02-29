@@ -35,14 +35,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  button: {
-    padding: '0 25px',
-
-    '&:disabled': {
-      opacity: 0.5,
-    },
-  },
-
   tableContainer: {
     height: 523,
   },

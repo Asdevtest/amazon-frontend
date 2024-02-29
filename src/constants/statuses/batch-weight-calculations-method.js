@@ -109,7 +109,7 @@ export const getBatchParameters = (
       2,
     )
   } else {
-    const boxProperties = item.order.orderSupplier.boxProperties
+    const boxProperties = item.order?.orderSupplier?.boxProperties
 
     batchWeight = toFixed(
       (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) / volumeWeightCoefficient,
@@ -119,7 +119,7 @@ export const getBatchParameters = (
 
   const shippingCost = (batchWeight / finalWeight) * actualShippingCost
   const itemsQuantity = item.amount * rowMemo.amount
-  const singleProductPrice = item.order.totalPrice / item.order.amount
+  const singleProductPrice = item?.order?.totalPrice || 0 / item?.order?.amount || 0
 
   return {
     shippingCost,

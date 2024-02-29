@@ -49,7 +49,7 @@ export const TabSearchSupplier = memo(props => {
         onChange={e => onChangeField(fieldNameObject.deadlineForFindingSupplier, e)}
       />
 
-      <Button disabled={disabledSubmit} className={styles.saveButton} onClick={onSubmit}>
+      <Button disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </Button>
     </div>

@@ -77,17 +77,6 @@ export const clientIntegrationsReportReturnsColumns = () => [
   },
 
   {
-    field: 'productId',
-    headerName: 'Product id',
-    renderHeader: () => <MultilineTextHeaderCell text="Product id" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
-
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
     field: 'reason',
     headerName: 'Reason',
     renderHeader: () => <MultilineTextHeaderCell text="Reason" />,

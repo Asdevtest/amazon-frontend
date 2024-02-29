@@ -13,6 +13,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './warehouse-destination-and-tariff-cell.style'
@@ -84,6 +85,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
       />
       <Button
         disabled={disabled}
+        styleType={ButtonStyle.DEFAULT}
         className={styles.storekeeperBtn}
         onClick={(e: any) => {
           e.stopPropagation()

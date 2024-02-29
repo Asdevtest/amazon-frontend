@@ -12,38 +12,40 @@ import { useStyles } from './footer.style'
 
 interface FooterProps {
   isClient: boolean
-  onOpenModal: () => void
+  disabledSendResultButton: boolean
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
+  onToggleShowConfirmModal: () => void
   showActionButtons?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
-  const { isClient, onOpenModal, onEditCustomProposal, onReceiveCustomProposal, showActionButtons } = props
+  const {
+    isClient,
+    disabledSendResultButton,
+    onEditCustomProposal,
+    onReceiveCustomProposal,
+    onToggleShowConfirmModal,
+    showActionButtons,
+  } = props
 
   const { classes: styles } = useStyles()
 
-  return (
-    <div className={styles.flexContainer}>
-      <Button styleType={ButtonStyle.DANGER} onClick={onOpenModal}>
-        {t(TranslationKey.Cancel)}
-      </Button>
-
-      {showActionButtons || !isClient ? (
-        <div className={styles.flexContainer}>
-          {isClient ? (
-            <Button styleType={ButtonStyle.PRIMARY} onClick={onEditCustomProposal}>
-              {t(TranslationKey['Send in for rework'])}
-            </Button>
-          ) : null}
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
-          >
-            {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
-          </Button>
-        </div>
+  return showActionButtons || !isClient ? (
+    <div className={styles.wrapper}>
+      {isClient ? (
+        <Button styleType={ButtonStyle.PRIMARY} onClick={onToggleShowConfirmModal}>
+          {t(TranslationKey['Send in for rework'])}
+        </Button>
       ) : null}
+
+      <Button
+        styleType={ButtonStyle.SUCCESS}
+        disabled={disabledSendResultButton}
+        onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
+      >
+        {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
+      </Button>
     </div>
-  )
+  ) : null
 })

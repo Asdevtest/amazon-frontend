@@ -27,7 +27,7 @@ export const BatchBoxesCell: FC<BatchBoxesCellProps> = memo(({ boxes, productVie
     deliveryTotalPrice: box.deliveryTotalPrice,
     deliveryTotalPriceChanged: box.deliveryTotalPriceChanged,
     items: box.items.map((item: any) => ({
-      image: item.product.images[0],
+      image: item.product.images?.[0],
       amazonTitle: item.product.amazonTitle,
       asin: item.product.asin,
       amount: item.amount,

@@ -39,7 +39,7 @@ export const OwnerRequestProposalsCard = ({
   onSendInForRework,
   onReceiveCustomProposal,
 }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showMainRequestResultModal, setShowMainRequestResultModal] = useState(false)
@@ -138,11 +138,7 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        <Button
-          disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
-          className={cx(styles.actionButton)}
-          onClick={onClickOpenResult}
-        >
+        <Button disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)} onClick={onClickOpenResult}>
           {t(TranslationKey.Result)}
         </Button>
 
@@ -214,26 +210,22 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      {showMainRequestResultModal ? (
-        <MainRequestResultModal
-          showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
-          customProposal={item}
-          userInfo={userInfo}
-          openModal={showMainRequestResultModal}
-          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
-          onEditCustomProposal={onSendInForRework}
-          onReceiveCustomProposal={onReceiveCustomProposal}
-        />
-      ) : null}
+      <MainRequestResultModal
+        showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+        customProposal={item}
+        userInfo={userInfo}
+        openModal={showMainRequestResultModal}
+        onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+        onEditCustomProposal={onSendInForRework}
+        onReceiveCustomProposal={onReceiveCustomProposal}
+      />
 
-      {showRequestResultModal && (
-        <RequestResultModal
-          request={request}
-          proposal={item}
-          openModal={showRequestResultModal}
-          setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
-        />
-      )}
+      <RequestResultModal
+        request={request}
+        proposal={item}
+        openModal={showRequestResultModal}
+        setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
+      />
     </div>
   )
 }
