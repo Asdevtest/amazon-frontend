@@ -49,7 +49,7 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { clearEverythingExceptNumbers, parseTextString, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
+import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -163,8 +163,8 @@ export const EditOrderModal = memo(
     const initialState = {
       ...order,
       status: order?.status || undefined,
-      clientComment: parseTextString(order?.clientComment) || '',
-      buyerComment: parseTextString(order?.buyerComment) || '',
+      clientComment: order?.clientComment || '',
+      buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||

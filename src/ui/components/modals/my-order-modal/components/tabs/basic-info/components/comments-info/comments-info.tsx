@@ -7,7 +7,7 @@ import { Card } from '@components/modals/my-order-modal/components'
 import { Field } from '@components/shared/field'
 import { PencilIcon, TooltipAttention } from '@components/shared/svg-icons'
 
-import { parseTextString } from '@utils/text'
+import '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './comments-info.style'
@@ -21,8 +21,7 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
   const { comment, commentsConfig, onChangeComment, onChangeCommentState, showCommentsModal, oToggleCommentsModal } =
     useCommentsInfo(props)
 
-  const showTooltipAttention =
-    parseTextString(props.formFields?.buyerComment || props.formFields?.clientComment)?.length > 0
+  const showTooltipAttention = (props.formFields?.buyerComment || props.formFields?.clientComment)?.length > 0
 
   return (
     <>

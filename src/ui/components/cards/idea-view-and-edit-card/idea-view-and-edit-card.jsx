@@ -38,7 +38,7 @@ import {
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, parseTextString, toFixed } from '@utils/text'
+import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -139,8 +139,8 @@ export const IdeaViewAndEditCard = observer(
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
-      comments: parseTextString(idea?.comments) || '',
-      buyerComment: parseTextString(idea?.buyerComment) || '',
+      comments: idea?.comments || '',
+      buyerComment: idea?.buyerComment || '',
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
       criteria: idea?.criteria || '',
@@ -155,8 +155,8 @@ export const IdeaViewAndEditCard = observer(
       ...curIdea,
       status: curIdea?.status,
       media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
-      comments: parseTextString(curIdea?.comments) || '',
-      buyerComment: parseTextString(curIdea?.buyerComment) || '',
+      comments: curIdea?.comments || '',
+      buyerComment: curIdea?.buyerComment || '',
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',

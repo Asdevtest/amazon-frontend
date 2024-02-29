@@ -9,8 +9,6 @@ import { Input } from '@components/shared/input'
 import { InputWithIcon } from '@components/shared/input/input'
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import { parseTextString } from '@utils/text'
-
 import { HintsContext } from '@contexts/hints-context'
 
 import { useStyles } from './field.style'
@@ -119,20 +117,12 @@ export const Field: FC<Props> = observer(
         <>
           {inputComponent ||
             (withIcon ? (
-              <InputWithIcon
-                className={cx(inputClasses, { [styles.errorActive]: !!error })}
-                {...restProps}
-                // value={parseTextString(restProps.value)}
-              />
+              <InputWithIcon className={cx(inputClasses, { [styles.errorActive]: !!error })} {...restProps} />
             ) : (
               <div className={styles.inputWrapper}>
-                <Input
-                  className={cx(inputClasses, { [styles.errorActive]: !!error })}
-                  {...restProps}
-                  // value={parseTextString(restProps.value)}
-                />
+                <Input className={cx(inputClasses, { [styles.errorActive]: !!error })} {...restProps} />
 
-                {withCopy && restProps.value && <CopyValue text={parseTextString(restProps.value)} />}
+                {withCopy && restProps.value && <CopyValue text={restProps.value as string} />}
               </div>
             ))}
         </>

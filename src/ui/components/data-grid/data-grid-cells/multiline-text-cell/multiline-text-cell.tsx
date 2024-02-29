@@ -6,7 +6,7 @@ import { Tooltip } from '@mui/material'
 import { MAX_LENGTH_TITLE } from '@constants/text'
 
 import { checkIsString } from '@utils/checks'
-import { getShortenStringIfLongerThanCount, parseTextString } from '@utils/text'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 import { useStyles } from './multiline-text-cell.style'
 
@@ -48,7 +48,7 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
     customTextClass,
   } = props
 
-  const parseText = parseTextString(text) // removed after 01.03.2024 (it's was bug with text editor layout)
+  const parseText = text // removed after 01.03.2024 (it's was bug with text editor layout)
   const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
   const isValidTextLength = parseText?.length <= maxTextLength
   const oneLineText =

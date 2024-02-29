@@ -30,7 +30,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { parseTextString } from '@utils/text'
+import '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
@@ -114,7 +114,7 @@ export const EditBoxForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
-      clientComment: parseTextString(formItem?.clientComment) || '',
+      clientComment: formItem?.clientComment || '',
       clientTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
