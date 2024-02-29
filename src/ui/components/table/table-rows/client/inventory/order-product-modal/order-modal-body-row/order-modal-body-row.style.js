@@ -75,7 +75,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    height: '70px',
+    color: theme.palette.text.general,
+  },
+
+  button: {
+    height: 'unset',
   },
 
   row: {

@@ -270,7 +270,7 @@ export const BatchInfoModal = observer(
             />
 
             <div className={styles.closeFieldsWrapper}>
-              <Field
+              {/* <Field
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
@@ -282,7 +282,7 @@ export const BatchInfoModal = observer(
                   2,
                 )}
                 placeholder={'0'}
-              />
+              /> */}
 
               <Field
                 disabled

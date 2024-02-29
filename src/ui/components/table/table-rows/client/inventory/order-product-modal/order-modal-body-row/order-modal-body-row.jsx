@@ -411,8 +411,8 @@ export const OrderModalBodyRow = ({
         <TableCell className={styles.cell}>
           <Button
             fullWidth
-            styleType={ButtonStyle.DEFAULT}
-            className={cx({ [styles.standartText]: item.storekeeperId })}
+            className={styles.button}
+            styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId
