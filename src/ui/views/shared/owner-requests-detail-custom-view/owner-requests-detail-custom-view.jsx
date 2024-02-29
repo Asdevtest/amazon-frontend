@@ -270,13 +270,13 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         withComment
         asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        setOpenModal={viewModel.onClickAbortBtn}
         title={t(TranslationKey['Suspend the acceptance of proposals?'])}
         commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
         successBtnText={t(TranslationKey.Ok)}
         cancelBtnText={t(TranslationKey.Cancel)}
         onClickSuccessBtn={viewModel.onSubmitAbortRequest}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        onClickCancelBtn={viewModel.onClickAbortBtn}
       />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
