@@ -16,6 +16,7 @@ import { UserModel } from '@models/user-model'
 import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -42,6 +43,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWorkResultFormModal = false
   showRequestDesignerResultClientModal = false
   showReviewModal = false
+  showResultToCorrectFormModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -288,6 +290,8 @@ export class OwnerRequestDetailCustomViewModel {
   onClickProposalResultToCorrect() {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showResultToCorrectFormModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
     }
@@ -618,5 +622,46 @@ export class OwnerRequestDetailCustomViewModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
+    this.onTriggerOpenModal('showResultToCorrectFormModal')
+
+    try {
+      if (files.length) {
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      }
+
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+
+      if (!findProposalByChatId) {
+        return
+      }
+
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        ...formFields,
+        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+        linksToMediaFiles: this.uploadedFiles,
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }
