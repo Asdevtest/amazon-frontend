@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultipleChats } from '@components/chat/multiple-chats'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
@@ -215,6 +216,15 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
         />
       ) : null}
+
+      <Modal
+        openModal={viewModel.showResultToCorrectFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showResultToCorrectFormModal')}
+      >
+        <RequestProposalResultToCorrectForm
+          onPressSubmitForm={viewModel.onSubmitSendInForReworkInRequestProposalResultToCorrectForm}
+        />
+      </Modal>
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm

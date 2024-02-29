@@ -26,11 +26,7 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
-import {
-  calcPriceForBox,
-  calcVolumeWeightForBox,
-  checkActualBatchWeightGreaterVolumeBatchWeight,
-} from '@utils/calculation'
+import { calcVolumeWeightForBox, checkActualBatchWeightGreaterVolumeBatchWeight } from '@utils/calculation'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
