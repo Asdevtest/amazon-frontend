@@ -55,21 +55,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  },
-
-  commenButton: {
-    padding: '2px 0',
-    width: 109,
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    overflow: 'hidden',
-  },
-
   icon: {
     width: '16px !important',
     height: '16px !important',
@@ -86,28 +71,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  inputRoot: {
-    height: 30,
-    flexShrink: 1,
-  },
-
-  input: {
-    padding: 5,
-    fontSize: 12,
-    lineHeight: '16px',
-
-    '&::placeholder': {
-      fontSize: 11,
-      lineHeight: '15px',
-    },
-  },
-
-  notFocuced: {
-    '&.Mui-focused': {
-      border: `1px solid ${theme.palette.input.customBorder}`,
-    },
-  },
-
   pasteInput: {
     height: 109,
     width: 109,
@@ -116,20 +79,5 @@ export const useStyles = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     borderRadius: 6,
-  },
-
-  fileName: {
-    width: 109,
-    fontSize: 14,
-    lineHeight: '19px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    cursor: 'default',
-  },
-
-  notCommentText: {
-    fontSize: '12px',
-    lineHeight: '20px',
   },
 }))

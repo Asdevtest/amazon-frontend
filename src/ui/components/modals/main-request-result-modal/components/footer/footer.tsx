@@ -12,7 +12,7 @@ import { useStyles } from './footer.style'
 
 interface FooterProps {
   isClient: boolean
-  disabledSendButton: boolean
+  disabledSendResultButton: boolean
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
   onToggleShowConfirmModal: () => void
@@ -22,7 +22,7 @@ interface FooterProps {
 export const Footer: FC<FooterProps> = memo(props => {
   const {
     isClient,
-    disabledSendButton,
+    disabledSendResultButton,
     onEditCustomProposal,
     onReceiveCustomProposal,
     onToggleShowConfirmModal,
@@ -38,9 +38,10 @@ export const Footer: FC<FooterProps> = memo(props => {
           {t(TranslationKey['Send in for rework'])}
         </Button>
       ) : null}
+
       <Button
         styleType={ButtonStyle.SUCCESS}
-        disabled={disabledSendButton}
+        disabled={disabledSendResultButton}
         onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
       >
         {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}

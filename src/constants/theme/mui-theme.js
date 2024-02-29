@@ -46,13 +46,13 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
 
-    '& :first-child': {
+    '& :first-of-type': {
       zIndex: '100 !important',
 
-      '& :first-child': {
+      '& :first-of-type': {
         zIndex: '100 !important',
 
-        '& :first-child': {
+        '& :first-of-type': {
           zIndex: '100 !important',
 
           '*': {

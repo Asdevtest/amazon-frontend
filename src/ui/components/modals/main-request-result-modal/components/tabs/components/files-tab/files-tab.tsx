@@ -44,9 +44,12 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUploadFile,
   } = useFilesTab(props)
 
+  const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
   const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
   const disabledArchiveButton = !filesForDownload.length || archiveButtonInactiveBeforeDownloading
-  const commentModalTitle = props.isClient ? t(TranslationKey['Add comment']) : t(TranslationKey['View comment'])
+  const commentModalTitle = props.isClient
+    ? t(TranslationKey['Add comment'])
+    : t(TranslationKey['View a comment from a client'])
 
   return (
     <>
@@ -59,7 +62,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
               isClient={props.isClient}
               file={file}
               fileIndex={index}
-              checked={filesForDownload.some(({ _id }) => _id === file._id)}
+              checked={handleCheckedFile(file._id)}
               onCheckFile={onCheckFile}
               onToggleImageModal={onToggleImageModal}
               onToggleCommentModal={onToggleCommentModal}
@@ -88,26 +91,22 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         )}
       </div>
 
-      {showCommentModal ? (
-        <CommentsModal
-          readOnly={!props.isClient}
-          title={commentModalTitle}
-          text={currentEditableFile?.commentByClient || ''}
-          maxLength={MIDDLE_COMMENT_VALUE}
-          isOpenModal={showCommentModal}
-          onOpenModal={onShowCommentModal}
-          onChangeField={onChangeComment}
-        />
-      ) : null}
+      <CommentsModal
+        readOnly={!props.isClient}
+        title={commentModalTitle}
+        text={currentEditableFile?.commentByClient || ''}
+        maxLength={MIDDLE_COMMENT_VALUE}
+        isOpenModal={showCommentModal}
+        onOpenModal={onShowCommentModal}
+        onChangeField={onChangeComment}
+      />
 
-      {showSlideshowGalleryModal ? (
-        <SlideshowGalleryModal
-          files={files}
-          currentFileIndex={currentFileIndex}
-          isOpenModal={showSlideshowGalleryModal}
-          onOpenModal={onShowSlideshowGalleryModal}
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={files}
+        currentFileIndex={currentFileIndex}
+        isOpenModal={showSlideshowGalleryModal}
+        onOpenModal={onShowSlideshowGalleryModal}
+      />
     </>
   )
 })

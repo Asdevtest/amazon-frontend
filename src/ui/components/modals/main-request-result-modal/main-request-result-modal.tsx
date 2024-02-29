@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
+import { getMinutesDifferenceFromNow } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { useStyles } from './main-request-result-modal.style'
@@ -33,7 +34,8 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
     onClickSuccessConfirm,
   } = useMainRequestResultModal(props)
 
-  const disabledSendButton =
+  const isResultFieldEmpty = fields?.result?.trim().length === 0
+  const disabledSendResultButton =
     (fields?.result?.trim().length === 0 ||
       (fields?.publicationLinks || []).some(link => link.length === 0) ||
       fields.media.some(file => !file.fileLink)) &&
@@ -43,11 +45,9 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
     <Modal missClickModalOn openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
         <Header
-          isClient={isClient}
-          executionTime={customProposal?.proposal?.execution_time}
           asin={customProposal?.request?.asin}
+          executionTime={getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt)}
           humanFriendlyId={customProposal?.request?.humanFriendlyId}
-          timeLimitInMinutes={fields?.timeLimitInMinutes}
         />
 
         <Field
@@ -56,7 +56,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           minRows={9}
           maxRows={9}
           value={fields?.result}
-          error={fields?.result?.trim().length === 0}
+          error={isResultFieldEmpty}
           placeholder={`${t(TranslationKey['Request result'])}...`}
           inputClasses={cx(styles.field, { [styles.notFocuced]: isClient || props.readOnly })}
           inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
@@ -71,7 +71,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           <Footer
             isClient={isClient}
             showActionButtons={showActionButtons}
-            disabledSendButton={disabledSendButton}
+            disabledSendResultButton={disabledSendResultButton}
             onEditCustomProposal={onEditCustomProposal}
             onReceiveCustomProposal={onReceiveCustomProposal}
             onToggleShowConfirmModal={onToggleShowConfirmModal}

@@ -11,20 +11,17 @@ import { t } from '@utils/translations'
 import { useStyles } from './header.styles'
 
 interface HeaderProps {
-  isClient: boolean
-  executionTime: number
   asin: string
+  executionTime: number
   humanFriendlyId: number
-  timeLimitInMinutes?: number
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
-  const { isClient, executionTime, asin, humanFriendlyId, timeLimitInMinutes } = props
+  const { asin, executionTime, humanFriendlyId } = props
 
   const { classes: styles, cx } = useStyles()
 
   const title = `${t(TranslationKey['Result of the request'])} / ID ${humanFriendlyId}`
-  const timeValue = isClient ? executionTime : timeLimitInMinutes
 
   return (
     <div className={styles.header}>
@@ -36,7 +33,7 @@ export const Header: FC<HeaderProps> = memo(props => {
       <div className={styles.flexContainer}>
         <p className={styles.text}>
           <span className={styles.textSecond}>{`${t(TranslationKey['Time to complete'])}: `}</span>
-          <span className={styles.bold}>{minsToTime(timeValue)}</span>
+          <span className={styles.bold}>{minsToTime(executionTime)}</span>
         </p>
 
         <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} textStyles={styles.text} />

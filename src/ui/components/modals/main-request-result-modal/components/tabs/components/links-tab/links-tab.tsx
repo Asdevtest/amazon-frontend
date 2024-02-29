@@ -1,16 +1,16 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
 
-import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IFields, SetFields } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
-import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
-import { BasketIcon, CustomPlusIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './links-tab.style'
+
+import { Link } from './link'
 
 interface LinksTabProps {
   isClient: boolean
@@ -60,37 +60,15 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
     <div className={styles.wrapper}>
       <div className={cx(styles.links, { [styles.clientLinks]: isClient })}>
         {fields?.publicationLinks?.map((link, index) => (
-          <div key={index} className={styles.linkContainer}>
-            {!isClient && !readOnly ? (
-              <Input
-                readOnly={isClient}
-                value={link}
-                maxLength={MAX_DEFAULT_INPUT_VALUE}
-                classes={{
-                  root: cx(styles.inputRoot, { [styles.notFocuced]: isClient, [styles.error]: link.length === 0 }),
-                  input: styles.input,
-                }}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeLink(index, e.target.value)}
-              />
-            ) : (
-              <a
-                href={link}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={cx(styles.inputRoot, styles.input, styles.link)}
-              >
-                {link}
-              </a>
-            )}
-
-            <CopyValue text={link} />
-
-            {!isClient && !readOnly ? (
-              <button className={styles.button} onClick={() => handleRemoveLink(index)}>
-                <BasketIcon className={styles.iconBasket} />
-              </button>
-            ) : null}
-          </div>
+          <Link
+            key={index}
+            readOnly={readOnly}
+            isClient={isClient}
+            link={link}
+            linkIndex={index}
+            onChangeLink={handleChangeLink}
+            onRemoveLink={handleRemoveLink}
+          />
         ))}
       </div>
 

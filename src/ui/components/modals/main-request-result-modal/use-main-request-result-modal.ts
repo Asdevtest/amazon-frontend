@@ -32,7 +32,7 @@ export const useMainRequestResultModal = ({
       setFields(prevFields => ({
         ...prevFields,
         reason: customProposal?.details?.reasonToCorrect || '',
-        timeLimitInMinutes: getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt) || 0,
+        timeLimitInMinutes: 0,
         result: customProposal?.details?.result || '',
         publicationLinks: customProposal?.details?.publicationLinks || [],
         media:
@@ -57,7 +57,9 @@ export const useMainRequestResultModal = ({
   }
 
   const handleEditCustomProposal = () => {
-    const sentFields = isClient ? getFieldsToRework(fields) : getFieldsAfterRework(fields)
+    const sentFields = isClient
+      ? getFieldsToRework(fields, getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt))
+      : getFieldsAfterRework(fields)
 
     if (onEditCustomProposal) {
       onEditCustomProposal(customProposal?.proposal?._id, sentFields)
