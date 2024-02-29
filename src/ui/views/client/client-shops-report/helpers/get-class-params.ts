@@ -66,7 +66,7 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
       return {
         getMainDataMethod: SellerBoardModel.getIntegrationsReportReturns,
         columnsModel: clientIntegrationsReportReturnsColumns,
-        filtersFields: getFilterFields(clientIntegrationsReportReturnsColumns(), ['sku']),
+        filtersFields: getFilterFields(clientIntegrationsReportReturnsColumns(), ['asin']),
         mainMethodURL: 'integrations/report_returns?',
         tableKey: DataGridTablesKeys.SHOPS_REPORT_RETURNS,
         fieldsForSearch: ['sku'],
