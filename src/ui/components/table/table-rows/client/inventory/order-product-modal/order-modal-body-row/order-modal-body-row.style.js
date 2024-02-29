@@ -74,7 +74,13 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  button: {
+    height: 'unset',
+  },
 
   row: {
     width: '100%',

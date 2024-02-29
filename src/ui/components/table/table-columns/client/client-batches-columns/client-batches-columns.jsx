@@ -63,17 +63,17 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   },
 
   {
-    field: 'amount',
+    field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => (
-      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac += cur.amount), 0)} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.row.quantityBoxes} />,
     type: 'number',
     width: 70,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -94,7 +94,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+      <UserLinkCell blackText name={params.value} userId={params?.row?.originalData?.storekeeper?._id} />
     ),
     width: 150,
     sortable: false,
@@ -161,19 +161,19 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
-  {
-    field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+  // {
+  //   field: 'totalPrice',
+  //   headerName: t(TranslationKey['Total price']),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+  //   renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
 
-    type: 'number',
-    width: 120,
-    sortable: false,
+  //   type: 'number',
+  //   width: 120,
+  //   sortable: false,
 
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
+  //   columnKey: columnnsKeys.shared.QUANTITY,
+  // },
 
   {
     field: 'cls',

@@ -16,4 +16,5 @@ export const filtersFields: string[] = [
   'amount',
   'trackingNumber',
   'arrivalDate',
+  'quantityBoxes',
 ]

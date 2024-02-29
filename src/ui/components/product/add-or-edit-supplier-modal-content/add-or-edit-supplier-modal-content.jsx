@@ -319,7 +319,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     } else if ('multiplicity' === fieldName) {
       setTmpSupplier({
         ...tmpSupplier,
-        [fieldName]: !tmpSupplier.multiplicity,
+        [fieldName]: event?.target?.checked,
       })
     } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
       setTmpSupplier({ ...tmpSupplier, [fieldName]: parseInt(event.target.value) || '' })
@@ -402,6 +402,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
     tmpSupplier.priceInYuan >= 1000000 ||
     +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
 
+  const isNeedUnitInfo =
+    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit) &&
+    (!tmpSupplier?.heightUnit ||
+      !tmpSupplier?.widthUnit ||
+      !tmpSupplier?.lengthUnit ||
+      (photosOfUnit?.length || 0) + (editPhotosOfUnit?.length || 0) < 4)
+
   const diasabledSubmit =
     itHaveBigInt ||
     '' === !tmpSupplier.name ||
@@ -424,11 +431,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       tmpSupplier.boxProperties?.boxHeightCm ||
       tmpSupplier.boxProperties?.boxWeighGrossKg) &&
       !boxPropertiesIsFullAndMainsValues) ||
-    ((tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit) &&
-      (!tmpSupplier?.heightUnit ||
-        !tmpSupplier?.widthUnit ||
-        !tmpSupplier?.lengthUnit ||
-        (photosOfUnit?.length || 0) + (editPhotosOfUnit?.length || 0) < 4))
+    isNeedUnitInfo
 
   const allPaymentMethods = paymentMethods.map(payment => payment?.paymentMethod)
 
@@ -736,6 +739,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <div className={styles.boxInfoWrapper}>
             <Dimensions
+              title={t(TranslationKey.Dimensions)}
               onlyRead={onlyRead}
               sizeMode={sizeSetting}
               height={tmpSupplier.boxProperties.boxHeightCm}
@@ -756,13 +760,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
                 className={cx(styles.checkboxWrapper, {
                   [styles.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
                 })}
-                onClick={!onlyRead && boxPropertiesIsFull && onChangeField('multiplicity')}
               >
                 <Checkbox
                   disabled={onlyRead || !boxPropertiesIsFull}
                   className={styles.checkbox}
                   checked={tmpSupplier.multiplicity}
                   color="primary"
+                  onChange={onChangeField('multiplicity')}
                 >
                   <p>{t(TranslationKey['Use multiples of items when creating boxes'])}</p>
                 </Checkbox>
@@ -806,6 +810,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <div className={styles.unitDimensionsWrapper}>
             <Dimensions
+              title={t(TranslationKey['Package dimensions'])}
               onlyRead={onlyRead}
               sizeMode={unitSetting}
               height={tmpSupplier.heightUnit}
@@ -825,6 +830,11 @@ export const AddOrEditSupplierModalContent = memo(props => {
               {!onlyRead ? (
                 <div>
                   <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
+                  {isNeedUnitInfo && (
+                    <p className={cx(styles.normalLabel, styles.needAddPhotos)}>
+                      {t(TranslationKey['Add at least 4 photos'])}
+                    </p>
+                  )}
                   <UploadFilesInput
                     withoutLinks
                     fullWidth

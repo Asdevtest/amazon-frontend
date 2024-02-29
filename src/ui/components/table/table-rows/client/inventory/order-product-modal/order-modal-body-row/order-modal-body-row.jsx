@@ -23,6 +23,8 @@ import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
@@ -409,7 +411,8 @@ export const OrderModalBodyRow = ({
         <TableCell className={styles.cell}>
           <Button
             fullWidth
-            className={cx({ [styles.standartText]: item.storekeeperId })}
+            className={styles.button}
+            styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId

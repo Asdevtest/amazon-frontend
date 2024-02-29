@@ -96,9 +96,7 @@ export const TabMain = memo(props => {
         <div className={styles.proxyContent}>
           <div className={styles.proxyAdd}>
             <Typography className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-            <Button className={styles.buttonAdd} onClick={onClickToggleProxyModal}>
-              {t(TranslationKey['Add proxy'])}
-            </Button>
+            <Button onClick={onClickToggleProxyModal}>{t(TranslationKey['Add proxy'])}</Button>
           </div>
 
           <div className={styles.proxyList}>
@@ -119,7 +117,7 @@ export const TabMain = memo(props => {
               : null}
           </div>
 
-          <Button disabled={disabledSubmitFields} className={styles.buttonSave} onClick={() => onSubmit(updatedProxy)}>
+          <Button disabled={disabledSubmitFields} onClick={() => onSubmit(updatedProxy)}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

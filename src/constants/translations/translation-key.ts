@@ -2209,5 +2209,7 @@ export enum TranslationKey {
   'Attach files (dimensions)' = 'Attach files (dimensions)',
   'No comment' = 'No comment',
   'View comment' = 'View comment',
+  'Package dimensions' = 'Package dimensions',
+  'Add at least 4 photos' = 'Add at least 4 photos',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -21,6 +21,7 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './upload-files-input.style'
@@ -257,7 +258,7 @@ export const UploadFilesInput = observer(props => {
                 <div className={styles.actionBtnsWrapper}>
                   <Button
                     disabled={images?.length === 0}
-                    className={styles.buttonSecondary}
+                    variant={ButtonVariant.OUTLINED}
                     onClick={() => setShowImages(!showImages)}
                   >
                     {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
@@ -267,7 +268,12 @@ export const UploadFilesInput = observer(props => {
 
                     {t(TranslationKey.files)}
                   </p>
-                  <Button disabled={images?.length === 0} className={styles.buttonSecondary} onClick={onImageRemoveAll}>
+                  <Button
+                    disabled={images?.length === 0}
+                    styleType={ButtonStyle.DANGER}
+                    variant={ButtonVariant.OUTLINED}
+                    onClick={onImageRemoveAll}
+                  >
                     {t(TranslationKey['Remove all'])}
                   </Button>
                 </div>

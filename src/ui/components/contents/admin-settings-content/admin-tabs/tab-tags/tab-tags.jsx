@@ -35,7 +35,6 @@ export const TabTags = observer(() => {
         <Button
           styleType={ButtonStyle.DANGER}
           disabled={!viewModel.rowSelectionModel.length}
-          className={styles.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
@@ -46,7 +45,7 @@ export const TabTags = observer(() => {
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>
