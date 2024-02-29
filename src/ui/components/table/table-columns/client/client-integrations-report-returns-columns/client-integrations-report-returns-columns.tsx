@@ -51,7 +51,7 @@ export const clientIntegrationsReportReturnsColumns = () => [
     sortable: false,
 
     table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
   {

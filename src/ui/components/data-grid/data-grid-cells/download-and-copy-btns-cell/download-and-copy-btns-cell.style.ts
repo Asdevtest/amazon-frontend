@@ -9,8 +9,19 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
   },
 
+  downloadLinkButton: {
+    padding: '0',
+  },
+
   downloadLink: {
     color: 'currentColor',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '0 20px',
+
+    width: '100%',
+    height: '100%',
   },
 
   copyImgButton: {

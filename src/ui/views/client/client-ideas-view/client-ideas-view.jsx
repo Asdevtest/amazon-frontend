@@ -289,15 +289,17 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <CommentsModal
-        isTextRequired
-        readOnly={false}
-        maxLength={MAX_DEFAULT_INPUT_VALUE}
-        title={t(TranslationKey['Reason for rejection'])}
-        isOpenModal={viewModel.showCommentsModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
-        onChangeField={viewModel.setRejectStatusHandler}
-      />
+      {viewModel.showCommentsModal && (
+        <CommentsModal
+          isTextRequired
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          isOpenModal={viewModel.showCommentsModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
+          onChangeField={viewModel.setRejectStatusHandler}
+        />
+      )}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

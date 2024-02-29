@@ -33,6 +33,7 @@ export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
           <div className={styles.shopsReportBtnsWrapper}>
             <Button
               isTableButton
+              className={styles.downloadLinkButton}
               variant={ButtonVariant.OUTLINED}
               tooltipInfoContent={isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''}
             >

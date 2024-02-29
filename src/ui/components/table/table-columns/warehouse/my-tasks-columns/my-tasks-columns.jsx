@@ -37,7 +37,7 @@ export const warehouseMyTasksViewColumns = handlers => [
         secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
         secondButtonElement={t(TranslationKey.Cancel)}
         secondButtonStyle={ButtonStyle.DANGER}
-        disabledSecondButton={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
+        disabledSecondButton={params.row.originalData.operationType === TaskOperationType.RECEIVE}
         onClickFirstButton={() => handlers.onClickResolveBtn(params.row.originalData._id)}
         onClickSecondButton={() =>
           handlers.onClickCancelTask(
