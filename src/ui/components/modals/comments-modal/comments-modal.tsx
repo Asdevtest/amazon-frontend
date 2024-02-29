@@ -40,7 +40,6 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   useEffect(() => {
     setComment(text)
-    onOpenModal
   }, [text])
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
