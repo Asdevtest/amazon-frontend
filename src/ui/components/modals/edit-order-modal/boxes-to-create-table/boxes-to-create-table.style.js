@@ -59,11 +59,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   buttonCell: {
-    minWidth: 60,
+    width: 40,
     display: 'flex',
-    alignItems: 'center',
-
     flexDirection: 'column',
+    gap: 5,
   },
 
   sizesWrapper: {
@@ -108,38 +107,6 @@ export const useStyles = makeStyles()(theme => ({
 
   labelWrapper: {
     margin: 0,
-  },
-
-  deleteBtnWrapper: {
-    width: '40px',
-    height: '30px',
-    marginLeft: '10px',
-    backgroundColor: 'inherit',
-    margin: 0,
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
-  },
-  editBtnWrapper: {
-    width: '40px',
-    height: '40px',
-    backgroundColor: 'inherit',
-    margin: 0,
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
-    marginLeft: 10,
-  },
-
-  deleteBtn: {
-    color: 'grey',
-  },
-  editBtn: {
-    color: 'grey',
   },
 
   sizesSubWrapper: {

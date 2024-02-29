@@ -34,6 +34,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
     onClickSuccessConfirm,
   } = useMainRequestResultModal(props)
 
+  const clientOrReadOnly = isClient || props.readOnly
   const isResultFieldEmpty = fields?.result?.trim().length === 0
   const disabledSendResultButton =
     (fields?.result?.trim().length === 0 ||
@@ -52,13 +53,13 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
 
         <Field
           multiline
-          readOnly={isClient || props.readOnly}
+          readOnly={clientOrReadOnly}
           minRows={9}
           maxRows={9}
           value={fields?.result}
           error={isResultFieldEmpty}
           placeholder={`${t(TranslationKey['Request result'])}...`}
-          inputClasses={cx(styles.field, { [styles.notFocuced]: isClient || props.readOnly })}
+          inputClasses={cx(styles.field, { [styles.notFocuced]: clientOrReadOnly })}
           inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
           classes={{ input: styles.input }}
           containerClasses={styles.fieldContainer}
