@@ -389,7 +389,14 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({
+    supplier,
+    photosOfSupplier,
+    productId,
+    editPhotosOfSupplier,
+    photosOfUnit,
+    editPhotosOfUnit,
+  }) {
     try {
       if (editPhotosOfSupplier?.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
@@ -410,6 +417,22 @@ export class BuyerMyOrdersViewModel {
         supplier = {
           ...supplier,
           images: this.readyImages,
+        }
+      }
+
+      if (editPhotosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: this.readyImages,
+        }
+      }
+
+      if (photosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: [...supplier.imageUnit, ...this.readyImages],
         }
       }
 

@@ -1015,7 +1015,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
+  async onSubmitSaveSupplier({
+    supplier,
+    photosOfSupplier,
+    addMore,
+    makeMainSupplier,
+    photosOfUnit,
+    editPhotosOfUnit,
+  }) {
     try {
       runInAction(() => {
         this.readyImages = []
@@ -1032,6 +1039,22 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
+      }
+
+      if (editPhotosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: this.readyImages,
+        }
+      }
+
+      if (photosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: [...supplier.imageUnit, ...this.readyImages],
+        }
       }
 
       const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
