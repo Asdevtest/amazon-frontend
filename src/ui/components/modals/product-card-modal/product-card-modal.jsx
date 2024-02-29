@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
 import { Button } from '@components/shared/buttons/button'
@@ -129,26 +128,19 @@ export const ProductCardModal = observer(props => {
             product={viewModel?.currentData}
             shops={viewModel?.shopsData}
             productBase={viewModel?.productBase}
-            selectedSupplier={viewModel?.selectedSupplier}
-            handleSupplierButtons={viewModel?.onClickSupplierButtons}
             handleProductActionButtons={viewModel?.handleProductActionButtons}
             formFieldsValidationErrors={viewModel?.formFieldsValidationErrors}
             setCurrentTab={tab => setCurrentTab(tab)}
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-            actionStatus={viewModel.actionStatus}
             productVariations={viewModel.productVariations}
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
             showBindProductModal={viewModel.showBindProductModal}
             loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
             productsToBind={useProductsPermissions.currentPermissionsData}
-            showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
             storekeepersData={viewModel?.storekeepersData}
-            volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
-            onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
-            onClickSupplier={viewModel?.onChangeSelectedSupplier}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
             onClickParseProductData={viewModel?.onClickParseProductData}
@@ -171,8 +163,10 @@ export const ProductCardModal = observer(props => {
             }
           />
         )}
+
         {viewModel?.requestStatus === loadingStatuses.IS_LOADING && <CircularProgressWithLabel />}
       </div>
+
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={styles.footerWrapper}>
           <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(viewModel.productId)} />
@@ -262,36 +256,12 @@ export const ProductCardModal = observer(props => {
         </div>
       )}
 
-      <Modal
-        missClickModalOn={!viewModel?.supplierModalReadOnly}
-        openModal={viewModel?.showAddOrEditSupplierModal}
-        setOpenModal={viewModel?.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel?.paymentMethods}
-          product={viewModel?.product}
-          onlyRead={viewModel?.supplierModalReadOnly}
-          requestStatus={viewModel?.requestStatus}
-          sourceYuanToDollarRate={viewModel?.yuanToDollarRate}
-          storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel?.selectedSupplier}
-          showProgress={viewModel?.showProgress}
-          progressValue={viewModel?.progressValue}
-          onClickSaveBtn={viewModel?.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel?.onTriggerAddOrEditSupplierModal}
-        />
-      </Modal>
-
       <WarningInfoModal
         openModal={viewModel?.showWarningModal}
         setOpenModal={() => viewModel?.onTriggerOpenModal('showWarningModal')}
         title={viewModel?.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel?.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel?.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

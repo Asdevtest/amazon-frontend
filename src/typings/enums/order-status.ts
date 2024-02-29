@@ -1,5 +1,3 @@
-// OrderStatus.FORMED = 0 - type number
-// OrderStatus[OrderStatus.FORMED] = "FORMED" - type string
 export enum OrderStatus {
   FORMED = 0,
   NEW = 1,

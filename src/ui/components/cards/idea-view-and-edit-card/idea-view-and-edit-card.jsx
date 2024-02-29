@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -15,7 +12,6 @@ import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -25,6 +21,7 @@ import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { PlusIcon } from '@components/shared/svg-icons'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { deepArrayCompare } from '@utils/array'
@@ -34,7 +31,6 @@ import {
   checkIsBuyer,
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
-  checkIsSupervisor,
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
@@ -59,10 +55,8 @@ export const IdeaViewAndEditCard = observer(
     idea,
     curIdea,
     selectedIdea,
-    selectedSupplier,
     currentProduct,
     platformSettings,
-    // onClickSupplierApproximateCalculations,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -332,23 +326,6 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
-    const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
-    const isSupplierCreatedByCurrentUser =
-      curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
-
-    // const boxPropertiesIsFull =
-    //   selectedSupplier?.boxProperties?.amountInBox &&
-    //   selectedSupplier?.boxProperties?.boxLengthCm &&
-    //   selectedSupplier?.boxProperties?.boxWidthCm &&
-    //   selectedSupplier?.boxProperties?.boxHeightCm &&
-    //   selectedSupplier?.boxProperties?.boxWeighGrossKg
-
-    // const boxPropertiesIsFullAndMainsValues =
-    //   boxPropertiesIsFull &&
-    //   selectedSupplier.amount &&
-    //   selectedSupplier.minlot &&
-    //   selectedSupplier.priceInYuan &&
-    //   selectedSupplier.price
 
     return (
       <div className={cx(styles.root, isModalView && styles.rootModal)}>
@@ -700,95 +677,12 @@ export const IdeaViewAndEditCard = observer(
           )}
 
           <div className={styles.fullMiddleBlock}>
-            <Field
-              labelClasses={cx(styles.spanLabel, styles.labelWithMargin)}
-              label={t(TranslationKey.Suppliers)}
-              containerClasses={styles.noMarginContainer}
-              inputComponent={
-                <div className={styles.supplierActionsWrapper}>
-                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
-                    <div className={styles.supplierButtonWrapper}>
-                      <Button
-                        disabled={!selectedSupplier}
-                        tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                        className={styles.iconBtn}
-                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
-                      >
-                        <VisibilityOutlinedIcon />
-                      </Button>
-                      <Typography className={styles.supplierButtonText}>
-                        {t(TranslationKey['Open the parameters supplier'])}
-                      </Typography>
-                    </div>
-                  )}
-
-                  <div className={styles.supplierButtonWrapper}>
-                    <Button
-                      disabled={!formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer}
-                      className={styles.iconBtn}
-                      onClick={() =>
-                        onClickSupplierBtns(
-                          'add',
-                          () => onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                          formFields?._id,
-                        )
-                      }
-                    >
-                      <AddIcon />
-                    </Button>
-                    <Typography className={styles.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
-                  </div>
-                  {selectedSupplier && (
-                    <>
-                      <div className={styles.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          className={styles.iconBtn}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'edit',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
-                        <Typography className={styles.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      </div>
-                      <div className={styles.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                          className={cx(styles.iconBtn, styles.iconBtnRemove)}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'delete',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <DeleteOutlineOutlinedIcon />
-                        </Button>
-                        <Typography className={styles.supplierButtonText}>
-                          {t(TranslationKey['Delete supplier'])}
-                        </Typography>
-                      </div>
-                    </>
-                  )}
-                </div>
-              }
-            />
-
-            <TableSupplier
-              product={formFields}
-              selectedSupplier={selectedSupplier}
+            <ListSuppliers
+              formFields={formFields}
               platformSettings={platformSettings}
-              onClickSupplier={onClickSupplier}
+              storekeepers={formFields.suppliers}
+              onClickSaveSupplier={onClickSupplier}
+              onSaveProduct={onClickSupplierBtns}
             />
           </div>
         </div>

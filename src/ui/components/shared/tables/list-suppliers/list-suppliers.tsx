@@ -50,7 +50,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
-  const showViewButtons = viewModel.selectionModel.length > 0
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: 'orderSupplier' in formFields ? formFields?.orderSupplier?._id : '',
@@ -83,7 +82,9 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
               children: (
                 <Toolbar
                   readOnly={readOnly}
-                  showViewButtons={showViewButtons}
+                  userInfo={viewModel.userInfo}
+                  isSupplerSelected={viewModel.selectionModel.length > 0}
+                  status={extractProduct(formFields)?.status}
                   supplier={viewModel.currentSupplier}
                   onSupplierApproximateCalculationsModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
                   onClickTooltipButton={viewModel.onClickTooltipButton}

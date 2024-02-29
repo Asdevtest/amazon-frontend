@@ -8,11 +8,9 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -51,27 +49,19 @@ export class SupervisorProductViewModel {
   productId = undefined
   productBase = undefined
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   platformSettings = undefined
-
-  supplierModalReadOnly = false
 
   paymentMethods = []
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
-  showAddOrEditSupplierModal = false
-  curUpdateProductData = {}
+  curUpdateProductData = undefined
   confirmMessage = ''
   warningModalTitle = ''
 
-  selectedSupplier = undefined
   showWarningModal = false
   showConfirmModal = false
-  showSupplierApproximateCalculationsModal = false
 
   formFields = formFieldsDefault
 
@@ -79,10 +69,6 @@ export class SupervisorProductViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   get currentData() {
@@ -125,10 +111,8 @@ export class SupervisorProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
 
-      const response = await UserModel.getPlatformSettings()
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getPlatformSettings()
+      this.getStorekeepers()
     } catch (error) {
       console.log(error)
     }
@@ -253,6 +237,18 @@ export class SupervisorProductViewModel {
     }
   }
 
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
@@ -355,10 +351,6 @@ export class SupervisorProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
@@ -421,86 +413,6 @@ export class SupervisorProductViewModel {
         }
       }, 1000)
     }, 3000)
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-
-    switch (actionType) {
-      case 'view':
-        this.supplierModalReadOnly = true
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        this.supplierModalReadOnly = false
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        await this.getSupplierModalData()
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getSupplierModalData()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      await this.getStorekeepers()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   setRequestStatus(requestStatus) {

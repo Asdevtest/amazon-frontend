@@ -9,7 +9,7 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ProductModel } from '@models/product-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -50,17 +50,11 @@ export class ResearcherProductViewModel {
   curUpdateProductData = {}
   imagesForLoad = []
   uploadedImages = []
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
+  storekeepersData = []
   platformSettings = undefined
-
-  supplierModalReadOnly = false
 
   startParse = false
 
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
   showConfirmModal = false
   showWarningModal = false
 
@@ -87,10 +81,6 @@ export class ResearcherProductViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.product
   }
@@ -111,11 +101,8 @@ export class ResearcherProductViewModel {
     try {
       await this.getProductById()
 
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getPlatformSettings()
+      this.getStorekeepers()
 
       if (this.startParse) {
         this.onClickParseProductData(this.product)
@@ -145,11 +132,27 @@ export class ResearcherProductViewModel {
     }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepersData = result
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -202,64 +205,6 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       }
     })
-
-  async onClickSupplierButtons(actionType) {
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
 
   async onRemoveSupplier(supplierId) {
     try {
@@ -412,8 +357,6 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      this.clearReadyImages()
-
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
@@ -426,8 +369,6 @@ export class ResearcherProductViewModel {
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
       }
-
-      this.clearReadyImages()
 
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
@@ -456,7 +397,6 @@ export class ResearcherProductViewModel {
 
       this.onSaveForceProductData()
       this.setRequestStatus(loadingStatuses.SUCCESS)
-      this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -635,37 +575,11 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const result = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-      }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
   }
 }

@@ -43,6 +43,7 @@ import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
 import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
@@ -865,6 +866,14 @@ export const EditOrderModal = memo(
             curSelectedSupplier={selectedSupplier}
             suppliers={orderFields.product.suppliers}
             setSelectedSupplier={setSelectedSupplier}
+          />
+
+          <ListSuppliers
+            formFields={orderFields}
+            platformSettings={platformSettings}
+            storekeepers={orderFields.product.suppliers}
+            onClickSaveSupplier={onClickSaveSupplierBtn}
+            // onSaveProduct={onSaveForceProductData}
           />
         </div>
 

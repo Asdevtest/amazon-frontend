@@ -7,7 +7,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
 
@@ -35,43 +34,15 @@ export const BuyerProductView = observer(({ history }) => {
           productBase={viewModel.productBase}
           productVariations={viewModel.productVariations}
           navigateToProduct={viewModel.navigateToProduct}
-          selectedSupplier={viewModel.selectedSupplier}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-          handleSupplierButtons={viewModel.onClickSupplierButtons}
           handleProductActionButtons={viewModel.handleProductActionButtons}
-          showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
           storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
-          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
-          onClickSupplier={viewModel.onChangeSelectedSupplier}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
       ) : undefined}
-
-      <Modal
-        missClickModalOn={!viewModel.supplierModalReadOnly}
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel.paymentMethods}
-          product={viewModel.product}
-          storekeepersData={viewModel.storekeepersData}
-          onlyRead={viewModel.supplierModalReadOnly}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel.selectedSupplier}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
-        />
-      </Modal>
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
@@ -89,9 +60,7 @@ export const BuyerProductView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

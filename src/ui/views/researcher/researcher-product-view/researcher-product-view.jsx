@@ -5,9 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
-import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -34,45 +32,22 @@ export const ResearcherProductView = observer(({ history }) => {
           product={viewModel.currentData}
           productBase={viewModel.productBase}
           actionStatus={viewModel.requestStatus}
-          selectedSupplier={viewModel.selectedSupplier}
+          storekeepersData={viewModel.storekeepersData}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-          handleSupplierButtons={viewModel.onClickSupplierButtons}
           handleProductActionButtons={viewModel.handleProductActionButtons}
           onChangeField={viewModel.onChangeProductFields}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
-          onClickSupplier={viewModel.onChangeSelectedSupplier}
           onClickParseProductData={viewModel.onClickParseProductData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
         />
       ) : undefined}
-
-      <Modal
-        missClickModalOn={!viewModel.supplierModalReadOnly}
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          onlyRead={viewModel.supplierModalReadOnly}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel.selectedSupplier}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
-        />
-      </Modal>
 
       <WarningInfoModal
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

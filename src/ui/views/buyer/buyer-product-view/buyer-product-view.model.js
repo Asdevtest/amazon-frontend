@@ -7,7 +7,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BuyerModel } from '@models/buyer-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -43,23 +42,13 @@ export class BuyerProductViewModel {
 
   platformSettings = undefined
 
-  paymentMethods = []
-
   showTab = undefined
 
-  supplierModalReadOnly = false
-
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
   showEditHSCodeModal = false
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
 
   showWarningModal = false
   showConfirmModal = false
   showSuccessModal = false
-  showSupplierApproximateCalculationsModal = false
 
   setOpenModal = undefined
   productVariations = undefined
@@ -89,10 +78,6 @@ export class BuyerProductViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.product
   }
@@ -120,14 +105,22 @@ export class BuyerProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
+      this.getPlatformSettings()
+      this.getStorekeepers()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  async getPlatformSettings() {
+    try {
       const response = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.platformSettings = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -204,86 +197,6 @@ export class BuyerProductViewModel {
     this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-
-          this.selectedSupplier = undefined
-        })
-
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
   async onRemoveSupplier(supplierId) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -490,8 +403,6 @@ export class BuyerProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      this.clearReadyImages()
-
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
@@ -505,8 +416,6 @@ export class BuyerProductViewModel {
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
       }
-
-      this.clearReadyImages()
 
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
@@ -539,7 +448,6 @@ export class BuyerProductViewModel {
       this.loadData()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
-      this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -550,59 +458,16 @@ export class BuyerProductViewModel {
     this[modal] = !this[modal]
   }
 
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        this.getSupplierModalData()
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getSupplierModalData()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      await this.getStorekeepers()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
   }
 
   async navigateToProduct(id) {
     const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
     win.focus()
+  }
+
+  onChangeImagesForLoad(value) {
+    this.imagesForLoad = value
   }
 }

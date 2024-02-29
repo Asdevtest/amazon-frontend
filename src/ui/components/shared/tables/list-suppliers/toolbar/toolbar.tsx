@@ -6,31 +6,52 @@ import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { EyeIcon } from '@components/shared/svg-icons'
 
+import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ProductStatus } from '@typings/enums/product-status'
 import { ISupplier } from '@typings/models/suppliers/supplier'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './toolbar.style'
 
 import { ModalModes } from '../list-suppliers.type'
 
+import {
+  allIdeaStatuses,
+  buyerValidProductStatuses,
+  clientValidProductStatuses,
+  ideaValidStatuses,
+} from './toolbar.constants'
+
 interface ToolbarProps {
-  showViewButtons: boolean
+  isSupplerSelected: boolean
+  status: number
   onSupplierApproximateCalculationsModal: () => void
   onClickTooltipButton: (mode: ModalModes) => void
   readOnly?: boolean
+  userInfo?: IFullUser
   supplier?: ISupplier
 }
 
 export const Toolbar: FC<ToolbarProps> = memo(props => {
-  const { showViewButtons, onSupplierApproximateCalculationsModal, onClickTooltipButton, readOnly, supplier } = props
+  const {
+    isSupplerSelected,
+    status,
+    onSupplierApproximateCalculationsModal,
+    onClickTooltipButton,
+    readOnly,
+    userInfo,
+    supplier,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -44,15 +65,50 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.minlot &&
     supplier?.priceInYuan &&
     supplier?.price
+  const showViewCalculationButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) &&
+    !ideaValidStatuses.includes(status)
+  const showVisibleButton = isSupplerSelected
+  const showAddSupplierButton =
+    !readOnly &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+        allIdeaStatuses.includes(status)))
+  const showEditSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+        allIdeaStatuses.includes(status)))
+  const showToggleCurrentSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)))
+  const showRemoveCurrentSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+    status === ProductStatus.BUYER_PICKED_PRODUCT
 
   return (
     <div className={styles.toolbar}>
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
 
       <div className={styles.buttons}>
-        {!readOnly && showViewButtons ? (
+        {showViewCalculationButton ? (
           <Button
-            styleType={ButtonStyle.PRIMARY}
             variant={ButtonVariant.OUTLINED}
             // tooltipAttentionContent={!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])}
             disabled={!boxPropertiesIsFullAndMainsValues}
@@ -63,9 +119,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {!readOnly ? (
+        {showAddSupplierButton ? (
           <Button
-            styleType={ButtonStyle.PRIMARY}
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
@@ -75,9 +130,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {!readOnly ? (
+        {showEditSupplierButton ? (
           <Button
-            styleType={ButtonStyle.PRIMARY}
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
             className={styles.button}
@@ -88,9 +142,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {showViewButtons ? (
+        {showVisibleButton ? (
           <Button
-            styleType={ButtonStyle.PRIMARY}
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
             onClick={() => onClickTooltipButton(ModalModes.VIEW)}
@@ -99,7 +152,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {!readOnly ? (
+        {showToggleCurrentSupplierButton ? (
           <Button
             styleType={ButtonStyle.DANGER}
             variant={ButtonVariant.OUTLINED}
@@ -111,7 +164,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {!readOnly ? (
+        {showToggleCurrentSupplierButton ? (
           <Button
             styleType={ButtonStyle.SUCCESS}
             variant={ButtonVariant.OUTLINED}
@@ -123,7 +176,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {!readOnly ? (
+        {showRemoveCurrentSupplierButton ? (
           <Button
             styleType={ButtonStyle.DANGER}
             variant={ButtonVariant.OUTLINED}

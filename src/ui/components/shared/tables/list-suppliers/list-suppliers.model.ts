@@ -141,7 +141,6 @@ export class ListSuppliersModel {
     switch (mode) {
       case ModalModes.ADD:
         runInAction(() => {
-          this.currentSupplier = undefined
           this.supplierModalReadOnly = false
         })
 
@@ -167,8 +166,6 @@ export class ListSuppliersModel {
             this.product.currentSupplierId = this.currentSupplier?._id
             this.product.currentSupplier = this.currentSupplier
           }
-
-          this.currentSupplier = undefined
         })
 
         updateProductAutoCalculatedFields.call(this.product)
@@ -182,8 +179,6 @@ export class ListSuppliersModel {
             this.product.currentSupplierId = null
             this.product.currentSupplier = undefined
           }
-
-          this.currentSupplier = undefined
         })
 
         updateProductAutoCalculatedFields.call(this.product)

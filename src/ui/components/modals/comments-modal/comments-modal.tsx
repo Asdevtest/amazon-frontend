@@ -40,12 +40,11 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
 
   useEffect(() => {
     setComment(text)
-    onOpenModal
   }, [text])
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
 
-  const isNotValidCommentLength = comment.length > maxLength
+  const isNotValidCommentLength = comment?.length > maxLength
   const requiredText = isTextRequired && !comment
   const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength || requiredText
 

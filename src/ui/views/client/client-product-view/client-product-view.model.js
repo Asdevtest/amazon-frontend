@@ -9,7 +9,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
@@ -58,7 +57,7 @@ export class ClientProductViewModel {
   storekeepersData = []
   shopsData = []
 
-  curUpdateProductData = {}
+  curUpdateProductData = undefined
   warningModalTitle = ''
 
   showWarningModal = false
@@ -95,10 +94,6 @@ export class ClientProductViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   constructor({ history, setOpenModal, updateDataHandler }) {
