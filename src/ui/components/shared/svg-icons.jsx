@@ -989,7 +989,14 @@ export const XlsxFileTypeIcon = props => (
 )
 
 export const MinusIcon = props => (
-  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="10" height="3" viewBox="0 0 10 3" fill="none">
+  <SvgIcon
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="10"
+    height="3"
+    viewBox="0 0 10 3"
+    style={{ fill: 'none', stroke: 'currentColor' }}
+  >
     <path d="M1 1.5H9" fill="none" strokeWidth="1.5" strokeLinecap="round" />
   </SvgIcon>
 )

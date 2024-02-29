@@ -135,10 +135,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
   cancelButton: {
     color: theme.palette.text.general,
     backgroundColor: theme.palette.background.general,

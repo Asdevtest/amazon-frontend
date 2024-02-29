@@ -43,6 +43,7 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
     visibility: 'visible !important',
   },
+
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
 
@@ -54,6 +55,10 @@ export const globalStyles = theme => ({
 
         '& :first-of-type': {
           zIndex: '100 !important',
+
+          input: {
+            zIndex: '101 !important',
+          },
 
           '*': {
             zIndex: '100 !important',

@@ -19,19 +19,4 @@ export const useStyles = makeStyles()(theme => ({
   asin: {
     color: theme.palette.text.general,
   },
-
-  removeButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '0 !important',
-    height: '24px !important',
-    width: '24px !important',
-    minWidth: '24px !important',
-  },
-
-  removeIcon: {
-    width: '11px !important',
-    color: '#FFF',
-  },
 }))
