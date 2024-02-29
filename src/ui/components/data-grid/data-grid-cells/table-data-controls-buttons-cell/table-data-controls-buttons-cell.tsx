@@ -37,7 +37,7 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
       ) : null}
 
       {onClickEditButton ? (
-        <Button iconButton disabled={disableButton} className={styles.primaryButton} onClick={onClickEditButton}>
+        <Button iconButton disabled={disableButton} onClick={onClickEditButton}>
           <EditIcon />
         </Button>
       ) : null}

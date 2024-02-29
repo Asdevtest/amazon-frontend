@@ -6,6 +6,9 @@ import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
+import { Button } from '@components/shared/buttons/button'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
+
 import { useStyles } from './tag-selector.style'
 
 import { Option } from './option'
@@ -103,13 +106,15 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
               setSelectValue(typeof value === 'string' ? ({ title: value } as Tag) : value)
             }}
           />
-          <button
+
+          <Button
+            iconButton
             className={styles.addBtn}
             disabled={!textValue?.length || selectedTags.some(el => el.title === textValue)}
             onClick={handleAddTags}
           >
-            <img src="/assets/icons/addTag.svg" alt="add tag to products tags" />
-          </button>
+            <CustomPlusIcon />
+          </Button>
         </div>
       )}
 

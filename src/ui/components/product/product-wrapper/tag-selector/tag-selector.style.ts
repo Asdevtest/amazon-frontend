@@ -24,25 +24,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   addBtn: {
-    cursor: 'pointer',
     position: 'absolute',
-    right: '10px',
-    margin: 'auto',
-    top: '0',
+    right: '3px',
+    top: '7px',
     bottom: '0',
-    width: '16px',
-    height: '16px',
-    color: '#FFF',
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    '&:disabled': {
-      cursor: 'unset',
-      opacity: '.65',
-    },
   },
 
   tagList: {

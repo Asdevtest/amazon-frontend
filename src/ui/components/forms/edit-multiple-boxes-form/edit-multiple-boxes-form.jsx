@@ -178,7 +178,7 @@ export const EditMultipleBoxesForm = observer(
       }
     }
 
-    const setShippingLabel = () => value => {
+    const setShippingLabel = value => {
       onChangeSharedFields({ target: { value } }, 'tmpShippingLabel')
     }
 
@@ -475,25 +475,12 @@ export const EditMultipleBoxesForm = observer(
                   tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                   labelClasses={styles.label}
                   inputComponent={
-                    <Chip
-                      classes={{
-                        root: styles.barcodeChip,
-                        clickable: styles.barcodeChipHover,
-                        deletable: styles.barcodeChipHover,
-                        deleteIcon: styles.barcodeChipIcon,
-                        label: styles.barcodeChiplabel,
-                      }}
-                      className={cx({ [styles.barcodeChipExists]: sharedFields.shippingLabel })}
-                      size="small"
-                      label={
-                        sharedFields.tmpShippingLabel?.length
-                          ? t(TranslationKey['File added'])
-                          : sharedFields.shippingLabel
-                          ? trimBarcode(sharedFields.shippingLabel)
-                          : t(TranslationKey['Set Shipping Label'])
-                      }
-                      onClick={() => onClickShippingLabel()}
-                      onDelete={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    <ChangeChipCell
+                      isChipOutTable
+                      text={!sharedFields.tmpShippingLabel?.length && t(TranslationKey['Set Shipping Label'])}
+                      value={sharedFields?.tmpShippingLabel?.[0]?.file?.name || sharedFields?.tmpShippingLabel?.[0]}
+                      onClickChip={onClickShippingLabel}
+                      onDeleteChip={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                     />
                   }
                 />
@@ -702,7 +689,7 @@ export const EditMultipleBoxesForm = observer(
             tmpShippingLabel={sharedFields.tmpShippingLabel}
             item={sharedFields}
             onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel()(shippingLabel)
+              setShippingLabel(shippingLabel)
               setShowSetShippingLabelModal(!showSetShippingLabelModal)
             }}
             onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}

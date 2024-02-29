@@ -157,6 +157,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     disableColumnMenu: true,
     filterable: false,
     sortable: false,
-    flex: 1,
+    width: 200,
   },
 ]
