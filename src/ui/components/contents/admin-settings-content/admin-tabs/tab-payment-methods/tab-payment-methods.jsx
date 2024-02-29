@@ -117,7 +117,7 @@ export const TabPaymentMethods = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={styles.button} onClick={viewModel.onSubmitPaymentMethod}>
+          <Button disabled={!isDisableButton} onClick={viewModel.onSubmitPaymentMethod}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

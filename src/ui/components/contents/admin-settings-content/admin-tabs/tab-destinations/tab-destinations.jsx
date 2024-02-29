@@ -30,7 +30,7 @@ export const TabDestinations = observer(() => {
 
   return (
     <div className={styles.wrapper}>
-      <Button styleType={ButtonStyle.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
 

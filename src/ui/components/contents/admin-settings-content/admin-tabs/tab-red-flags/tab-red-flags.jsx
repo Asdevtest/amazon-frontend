@@ -117,7 +117,7 @@ export const TabRedFlags = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={styles.button} onClick={viewModel.onSubmitRedFlag}>
+          <Button disabled={!isDisableButton} onClick={viewModel.onSubmitRedFlag}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
