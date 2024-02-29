@@ -39,9 +39,8 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
   const [comment, setComment] = useState('')
 
   useEffect(() => {
-    if (text.length > 0) {
-      setComment(text)
-    }
+    setComment(text)
+    onOpenModal
   }, [text])
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
@@ -55,18 +54,11 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
       onChangeField(comment)
 
       onOpenModal()
-
-      setComment('')
     }
   }
 
-  const handleCloseModal = () => {
-    onOpenModal()
-    setComment('')
-  }
-
   return (
-    <Modal openModal={isOpenModal} setOpenModal={handleCloseModal}>
+    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
         <Field
           multiline
