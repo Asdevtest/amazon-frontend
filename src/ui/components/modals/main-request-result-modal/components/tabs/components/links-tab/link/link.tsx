@@ -19,11 +19,14 @@ interface LinkProps {
 
 export const Link: FC<LinkProps> = memo(props => {
   const { isClient, link, linkIndex, onChangeLink, onRemoveLink, readOnly } = props
+
   const { classes: styles, cx } = useStyles()
+
+  const notClientOrNotReadOnly = !isClient || !readOnly
 
   return (
     <div className={styles.linkContainer}>
-      {!isClient && !readOnly ? (
+      {notClientOrNotReadOnly ? (
         <Input
           readOnly={isClient}
           value={link}
@@ -47,7 +50,7 @@ export const Link: FC<LinkProps> = memo(props => {
 
       <CopyValue text={link} />
 
-      {!isClient && !readOnly ? (
+      {notClientOrNotReadOnly ? (
         <button className={styles.button} onClick={() => onRemoveLink(linkIndex)}>
           <BasketIcon className={styles.iconBasket} />
         </button>

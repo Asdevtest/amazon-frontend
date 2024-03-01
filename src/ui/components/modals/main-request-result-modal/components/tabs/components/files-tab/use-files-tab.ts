@@ -21,6 +21,8 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
   const [filesForDownload, setFilesForDownload] = useState<IMediaRework[]>([])
   const [archiveButtonInactiveBeforeDownloading, setArchiveButtonInactiveBeforeDownloading] = useState(false)
 
+  const clientOrReadOnly = isClient || readOnly
+
   const handleShowCommentModal = () => setShowCommentModal(!showCommentModal)
   const handleShowSlideshowGalleryModal = () => setSlideshowGalleryModal(!showSlideshowGalleryModal)
 
@@ -107,7 +109,7 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
   }
 
   const handleDownloadArchive = async () => {
-    if (isClient || readOnly) {
+    if (clientOrReadOnly) {
       try {
         setArchiveButtonInactiveBeforeDownloading(true)
 
@@ -124,7 +126,7 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
   }
 
   const handleDownloadAllFiles = useCallback(() => {
-    if (isClient || readOnly) {
+    if (clientOrReadOnly) {
       if (filesForDownload.length > 0) {
         filesForDownload.forEach(({ fileLink }) =>
           isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
@@ -157,7 +159,7 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
   }, [])
 
   const handleCheckAllFiles = () => {
-    if (isClient || readOnly) {
+    if (clientOrReadOnly) {
       if (filesForDownload.length === files.length) {
         setFilesForDownload([])
       } else {
@@ -167,7 +169,7 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
   }
 
   const handleCheckFile = useCallback((file: IMediaRework) => {
-    if (isClient || readOnly) {
+    if (clientOrReadOnly) {
       setFilesForDownload(prevFiles => {
         const findFileById = prevFiles.find(({ _id }) => _id === file._id)
 

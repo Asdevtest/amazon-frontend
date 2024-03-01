@@ -44,6 +44,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUploadFile,
   } = useFilesTab(props)
 
+  const clientOrReadOnly = props.isClient || props.readOnly
   const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
   const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
   const disabledArchiveButton = !filesForDownload.length || archiveButtonInactiveBeforeDownloading
@@ -73,7 +74,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           ))}
         </div>
 
-        {props.isClient || props.readOnly ? (
+        {clientOrReadOnly ? (
           <Buttons
             checked={checkedSelectAll}
             disabledSelectAllCheckbox={!files.length}

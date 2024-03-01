@@ -31,7 +31,9 @@ export const Footer: FC<FooterProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  return showActionButtons || !isClient ? (
+  const showFooter = showActionButtons || !isClient
+
+  return showFooter ? (
     <div className={styles.wrapper}>
       {isClient ? (
         <Button styleType={ButtonStyle.PRIMARY} onClick={onToggleShowConfirmModal}>

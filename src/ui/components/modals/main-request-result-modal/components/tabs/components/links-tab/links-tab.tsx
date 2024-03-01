@@ -55,6 +55,7 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
   }
 
   const disabledAddLinkButton = newLinkValue.trim().length === 0
+  const notClientOrNotReadOnly = !isClient || !readOnly
 
   return (
     <div className={styles.wrapper}>
@@ -72,7 +73,7 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
         ))}
       </div>
 
-      {!isClient && !readOnly ? (
+      {notClientOrNotReadOnly ? (
         <div className={styles.addLinkContainer}>
           <Input
             value={newLinkValue}

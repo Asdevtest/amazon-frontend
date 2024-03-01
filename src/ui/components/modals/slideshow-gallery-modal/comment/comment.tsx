@@ -13,12 +13,11 @@ interface CommentProps {
 export const Comment: FC<CommentProps> = memo(({ text }) => {
   const { classes: styles } = useStyles()
 
+  const commentText = `${t(TranslationKey['Client comment'])}: ${text}`
+
   return (
     <div className={styles.textContainer}>
-      <p className={styles.text}>
-        <span>{`${t(TranslationKey['Client comment'])}: `}</span>
-        <span>{text}</span>
-      </p>
+      <p className={styles.text}>{commentText}</p>
     </div>
   )
 })

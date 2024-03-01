@@ -185,14 +185,14 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
       <TableCell>
         <div className={styles.buttonCell}>
           <Button
+            iconButton
             tooltipInfoContent={t(TranslationKey['Remove box'])}
-            className={styles.deleteBtnWrapper}
             onClick={() => handlers.onRemoveBox(itemIndex)}
           >
-            <DeleteIcon className={styles.deleteBtn} />
+            <DeleteIcon />
           </Button>
-          <Button className={styles.editBtnWrapper} onClick={() => handlers.onEditBox()}>
-            <EditIcon className={styles.editBtn} />
+          <Button iconButton onClick={() => handlers.onEditBox()}>
+            <EditIcon />
           </Button>
         </div>
       </TableCell>

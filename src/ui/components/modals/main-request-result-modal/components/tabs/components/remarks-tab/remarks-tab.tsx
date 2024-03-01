@@ -40,6 +40,8 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
     handleChangeField('timeLimitInMinutes', Math.floor(timeValue))
   }
 
+  const notClientOrReadOnly = !isClient || readOnly
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -62,13 +64,13 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
 
       <Field
         multiline
-        readOnly={!isClient || readOnly}
+        readOnly={notClientOrReadOnly}
         minRows={7}
         maxRows={7}
         value={fields?.reason}
         inputProps={{ maxLength: 2048 }}
         placeholder={`${t(TranslationKey.Remarks)}...`}
-        inputClasses={cx(styles.field, { [styles.notFocuced]: !isClient || readOnly })}
+        inputClasses={cx(styles.field, { [styles.notFocuced]: notClientOrReadOnly })}
         classes={{ input: styles.input }}
         containerClasses={styles.fieldContainer}
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeReason(e.target.value)}
