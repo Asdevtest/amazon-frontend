@@ -41,8 +41,8 @@ export const clientIntegrationsReportReturnsColumns = () => [
 
   {
     field: 'sku',
-    headerName: t(TranslationKey.SKU),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
+    headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
+    renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
     renderCell: (params: GridRenderCellParams) => (
       <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
