@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,14 +9,20 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-import { useSelect } from '@hooks/use-select'
+import { IItem, useSelect } from '@hooks/use-select'
 
 import { useStyles } from './select-sort-settings.style'
 
-export const SelectSortSettings = memo(({ currentSortModel, customSortFields }) => {
+interface SelectSortSettingsProps {
+  sortField?: string
+  customSortFields: IItem[]
+  onClickField: (field?: string) => void
+}
+
+export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField, customSortFields, onClickField }) => {
   const { classes: styles, cx } = useStyles()
 
-  const currentName = customSortFields?.find(field => field?._id === currentSortModel?.field)?.name
+  const currentName = customSortFields?.find(field => field?._id === sortField)?.name
 
   const { selectRef, isOpen, onToggleSelect, selectedItemName, filteredItems, searchValue, setSearchValue } = useSelect(
     customSortFields,
@@ -24,8 +30,8 @@ export const SelectSortSettings = memo(({ currentSortModel, customSortFields }) 
   )
 
   return (
-    <div ref={selectRef} style={{ height: '100%', position: 'relative' }}>
-      <Button styleType={ButtonStyle.DEFAULT} className={styles.root} onClick={onToggleSelect}>
+    <div ref={selectRef} className={styles.root}>
+      <Button styleType={ButtonStyle.DEFAULT} className={styles.mainButton} onClick={onToggleSelect}>
         {selectedItemName}
       </Button>
 
@@ -43,7 +49,10 @@ export const SelectSortSettings = memo(({ currentSortModel, customSortFields }) 
               key={index}
               className={styles.button}
               styleType={ButtonStyle.DEFAULT}
-              onClick={() => console.log(item._id)}
+              onClick={() => {
+                onClickField(item._id)
+                onToggleSelect()
+              }}
             >
               {item.name}
             </Button>

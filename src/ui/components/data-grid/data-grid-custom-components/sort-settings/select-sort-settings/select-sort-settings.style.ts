@@ -25,6 +25,11 @@ const fadeOut = keyframes`
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    height: '100%',
+    position: 'relative',
+  },
+
+  mainButton: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -40,6 +45,8 @@ export const useStyles = makeStyles()(theme => ({
   menuContainer: {
     display: 'none',
     position: 'absolute',
+
+    width: '320px',
 
     zIndex: 20,
     padding: 5,
@@ -61,20 +68,23 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
+    width: '100%',
     height: '30px',
   },
 
   menuItems: {
     height: 204,
     overflowY: 'auto',
-    overflowX: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
   },
 
   button: {
-    overflow: 'unset',
-    height: '30px',
+    padding: '0 10px',
+    minHeight: '30px',
+    justifyContent: 'flex-start',
+    whiteSpace: 'nowrap',
+    boxShadow: 'none',
   },
 }))

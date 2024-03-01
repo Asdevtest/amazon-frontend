@@ -27,7 +27,7 @@ export const DataGridCustomToolbar = props => {
             />
           )}
 
-          <SortSettings {...sortSettings} />
+          {sortSettings ? <SortSettings {...sortSettings} /> : null}
         </div>
       )}
 

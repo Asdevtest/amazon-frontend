@@ -118,13 +118,14 @@ export const ClientInventoryView = observer(({ history }) => {
 
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
+
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
 
               sortSettings: {
                 sortModel: viewModel.sortModel,
-                customSortFields: viewModel.customSortFields,
+                getCustomSortFields: viewModel.getCustomSortFields,
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
