@@ -25,8 +25,6 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: window.innerWidth < 1282 ? 118 : 130,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
@@ -39,48 +37,44 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
+    width: window.innerWidth < 1282 ? 118 : 130,
   },
 
   {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
-
-    width: window.innerWidth < 1282 ? 125 : 165,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
+    width: window.innerWidth < 1282 ? 125 : 165,
   },
 
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
-
-    width: window.innerWidth < 1282 ? 115 : 165,
     renderCell: params => (
       <MultilineTextCell
         color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
         text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
       />
     ),
+    width: window.innerWidth < 1282 ? 115 : 165,
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-
-    // width: window.innerWidth < 1282 ? 338 : 850,
-    width: 290,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
+    width: 290,
   },
 
   {
     field: 'asin',
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
-
     renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
     width: window.innerWidth < 1282 ? 101 : 160,
@@ -90,7 +84,6 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'trackNumber',
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
@@ -102,7 +95,6 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'orderId',
     headerName: t(TranslationKey['Order number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
-
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
     sortable: false,
@@ -114,19 +106,24 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     field: 'item',
     headerName: 'item',
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
-
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     sortable: false,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    width: window.innerWidth < 1282 ? 54 : 150,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
+    width: 105,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    // type: 'date',
+    width: 115,
   },
 ]
