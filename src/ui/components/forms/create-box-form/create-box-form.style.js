@@ -24,9 +24,6 @@ export const useStyles = makeStyles()(theme => ({
     marginRight: 10,
   },
 
-  button: {
-    padding: '0 20px',
-  },
   subTitle: {
     color: theme.palette.text.second,
   },
@@ -74,13 +71,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
   },
   iconBtn: {
-    width: '50px',
-    height: '50px',
-    backgroundColor: 'inherit',
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
+    padding: 0,
+    width: 36,
+    height: 36,
+    minWidth: 36,
   },
 
   checkboxWithLabelWrapper: {
@@ -101,22 +95,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: 0,
     maxWidth: '80px',
     marginRight: '50px',
-  },
-
-  deleteBtn: {
-    color: 'grey',
-  },
-
-  orange: {
-    color: '#F3AF00',
-  },
-
-  red: {
-    color: 'red',
-  },
-
-  green: {
-    color: 'green',
   },
 
   destinationWrapper: {
