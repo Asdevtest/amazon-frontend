@@ -842,7 +842,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                     images={photosOfUnit}
                     setImages={setPhotosOfUnit}
                     dragAndDropBtnHeight={'34px'}
-                    maxNumber={supplier?.imageUnit ? 50 - supplier?.imageUnit?.length : 50}
+                    maxNumber={50}
                   />
                 </div>
               ) : null}
@@ -914,7 +914,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               <UploadFilesInput
                 images={photosOfSupplier}
                 setImages={setPhotosOfSupplier}
-                maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
+                maxNumber={50}
                 className={styles.imageFileInput}
               />
             </div>
