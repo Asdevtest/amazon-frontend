@@ -51,6 +51,7 @@ export const File: FC<FileProps> = memo(props => {
     <div className={styles.fileContainer}>
       {clientOrReadOnly ? (
         <Checkbox
+          stopPropagation
           checked={checked}
           className={styles.checkbox}
           wrapperClassName={styles.checkboxWrapper}

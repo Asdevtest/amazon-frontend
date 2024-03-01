@@ -225,7 +225,7 @@ export const clientBoxesViewColumns = (
     renderCell: params =>
       params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
     type: 'number',
-    width: 90,
+    width: 95,
     sortable: false,
 
     columnKey: columnnsKeys.shared.QUANTITY,
