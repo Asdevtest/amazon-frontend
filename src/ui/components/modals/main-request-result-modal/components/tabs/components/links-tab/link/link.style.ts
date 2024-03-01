@@ -36,6 +36,7 @@ export const useStyles = makeStyles()(theme => ({
   link: {
     width: '100%',
     overflow: 'hidden',
+    whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     color: theme.palette.primary.main,
     border: `1px solid ${theme.palette.input.customBorder}`,

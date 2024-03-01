@@ -28,7 +28,6 @@ export interface MainRequestResultModalProps {
   openModal: boolean
   onOpenModal: () => void
   readOnly?: boolean
-  showActionButtons?: boolean
   onEditCustomProposal?: (id: string, fields: IFields, status?: string) => void
   onReceiveCustomProposal?: () => void
 }

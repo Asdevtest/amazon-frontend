@@ -35,29 +35,31 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
   } = props
 
   const { classes: styles, cx } = useStyles()
-
   const [comment, setComment] = useState('')
 
   useEffect(() => {
     setComment(text)
-  }, [text])
-
-  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
+  }, [text, isOpenModal])
 
   const isNotValidCommentLength = comment?.length > maxLength
   const requiredText = isTextRequired && !comment
   const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength || requiredText
 
+  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event.target.value)
   const handleSaveComment = () => {
     if (!hasCommentChanged) {
       onChangeField(comment)
-
+      setComment('')
       onOpenModal()
     }
   }
+  const handleCloseModal = () => {
+    setComment('')
+    onOpenModal()
+  }
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal openModal={isOpenModal} setOpenModal={handleCloseModal}>
       <div className={styles.wrapper}>
         <Field
           multiline

@@ -23,7 +23,10 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
 
   const clientOrReadOnly = isClient || readOnly
 
-  const handleShowCommentModal = () => setShowCommentModal(!showCommentModal)
+  const handleShowCommentModal = () => {
+    setShowCommentModal(!showCommentModal)
+    setCurrentEditableFile(undefined)
+  }
   const handleShowSlideshowGalleryModal = () => setSlideshowGalleryModal(!showSlideshowGalleryModal)
 
   const handleAddFile = useCallback(() => {
@@ -31,7 +34,6 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
       setFields(prevFields => ({
         ...prevFields,
         media: [
-          ...prevFields.media,
           {
             _id: null,
             fileLink: '',
@@ -39,6 +41,7 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
             commentByPerformer: '',
             index: prevFields.media.length + 1,
           },
+          ...prevFields.media,
         ],
       }))
     }

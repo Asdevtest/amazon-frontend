@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   errorActive: {
-    border: '1px solid red',
+    border: '1px solid red !important',
   },
 
   tooltipsWrapper: {
