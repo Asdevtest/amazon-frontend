@@ -119,7 +119,6 @@ export const useStyles = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
-    marginBottom: 20,
   },
 
   shortContainer: {
@@ -202,10 +201,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   link: {
-    cursor: 'pointer',
+    width: '100%',
+    padding: '4px 0',
+    display: 'inline-block',
     color: theme.palette.primary.main,
-    maxWidth: '100%',
-    overflow: 'auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
   },
 
   photoAndFilesWrapper: {
