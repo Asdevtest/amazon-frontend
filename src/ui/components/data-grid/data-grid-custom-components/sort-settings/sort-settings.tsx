@@ -8,7 +8,7 @@ import { useStyles } from './sort-settings.style'
 
 import { SelectSortSettings } from './select-sort-settings'
 import { SortIndicator } from './sort-indicator'
-import { SortSettingsType } from './sort-settings.type'
+import { SortSettingsMode } from './sort-settings.type'
 
 interface SortSettingsProps {
   sortModel: GridSortModel
@@ -23,18 +23,10 @@ export const SortSettings: FC<SortSettingsProps> = memo(props => {
 
   const currentSortModel = sortModel?.[0]
 
-  const onSortModelChangeHandler = (field?: string, sort?: SortSettingsType) => {
+  const onSortModelChangeHandler = (field?: string, sort?: SortSettingsMode) => {
     const newSortModel = {
       field: field || currentSortModel?.field || 'updatedAt',
-      sort: sort || currentSortModel?.sort || SortSettingsType.DESC,
-    }
-
-    if (field) {
-      newSortModel.field = field
-    }
-
-    if (sort) {
-      newSortModel.sort = sort
+      sort: sort || currentSortModel?.sort || SortSettingsMode.DESC,
     }
 
     onSortModelChange([newSortModel])

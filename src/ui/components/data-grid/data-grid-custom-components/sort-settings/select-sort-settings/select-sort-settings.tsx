@@ -14,9 +14,9 @@ import { IItem, useSelect } from '@hooks/use-select'
 import { useStyles } from './select-sort-settings.style'
 
 interface SelectSortSettingsProps {
-  sortField?: string
   customSortFields: IItem[]
   onClickField: (field?: string) => void
+  sortField?: string
 }
 
 export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField, customSortFields, onClickField }) => {

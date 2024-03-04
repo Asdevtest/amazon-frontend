@@ -6,29 +6,29 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './sort-indicator.style'
 
-import { SortSettingsType } from '../sort-settings.type'
+import { SortSettingsMode } from '../sort-settings.type'
 
 interface SortIndicatorProps {
   sortType: string
-  onClickSort: (field?: string, sort?: SortSettingsType) => void
+  onClickSort: (field?: string, sort?: SortSettingsMode) => void
 }
 
 export const SortIndicator: FC<SortIndicatorProps> = memo(({ sortType, onClickSort }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isAsc = sortType === SortSettingsType.ASC
+  const isAsc = sortType === SortSettingsMode.ASC
 
   return (
     <div className={styles.root}>
       <Button
         styleType={ButtonStyle.DEFAULT}
         className={styles.button}
-        onClick={() => onClickSort(undefined, isAsc ? SortSettingsType.DESC : SortSettingsType.ASC)}
+        onClick={() => onClickSort(undefined, isAsc ? SortSettingsMode.DESC : SortSettingsMode.ASC)}
       >
         <div className={cx(styles.indicatorWrapper, { [styles.ascIndicator]: isAsc, [styles.descIndicator]: !isAsc })}>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div />
+          <div />
+          <div />
         </div>
       </Button>
     </div>
