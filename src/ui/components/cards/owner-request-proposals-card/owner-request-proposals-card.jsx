@@ -211,7 +211,7 @@ export const OwnerRequestProposalsCard = ({
       </Modal>
 
       <MainRequestResultModal
-        showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+        readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
         customProposal={item}
         userInfo={userInfo}
         openModal={showMainRequestResultModal}

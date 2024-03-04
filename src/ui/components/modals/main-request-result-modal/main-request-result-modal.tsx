@@ -18,7 +18,7 @@ import { MainRequestResultModalProps } from './main-request-result-modal.type'
 import { useMainRequestResultModal } from './use-main-request-result-modal'
 
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
-  const { customProposal, openModal, onOpenModal, readOnly, showActionButtons } = props
+  const { customProposal, openModal, onOpenModal, readOnly } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -35,11 +35,11 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
   } = useMainRequestResultModal(props)
 
   const clientOrReadOnly = isClient || props.readOnly
-  const isResultFieldEmpty = fields?.result?.trim().length === 0
+  const isResultFieldEmpty = fields?.result?.trim()?.length === 0
   const disabledSendResultButton =
-    (fields?.result?.trim().length === 0 ||
-      (fields?.publicationLinks || []).some(link => link.length === 0) ||
-      fields.media.some(file => !file.fileLink)) &&
+    (isResultFieldEmpty ||
+      (fields?.publicationLinks || []).some(link => link?.trim()?.length === 0) ||
+      fields?.media?.some(file => !file?.fileLink)) &&
     !isClient
 
   return (
@@ -71,7 +71,6 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
         {!readOnly ? (
           <Footer
             isClient={isClient}
-            showActionButtons={showActionButtons}
             disabledSendResultButton={disabledSendResultButton}
             onEditCustomProposal={onEditCustomProposal}
             onReceiveCustomProposal={onReceiveCustomProposal}

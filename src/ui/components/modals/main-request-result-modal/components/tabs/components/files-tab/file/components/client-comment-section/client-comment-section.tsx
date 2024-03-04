@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, memo } from 'react'
 
+import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
@@ -26,7 +27,7 @@ export const ClientCommentSection: FC<ClientCommentSectionProps> = memo(props =>
 
   return isClient ? (
     <button className={styles.commenButton} onClick={() => onToggleCommentModal(file)}>
-      {file.commentByClient ? (
+      {file.commentByClient || readOnly ? (
         <EyeIcon className={styles.icon} />
       ) : (
         <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
@@ -38,6 +39,9 @@ export const ClientCommentSection: FC<ClientCommentSectionProps> = memo(props =>
     <Input
       readOnly={readOnly}
       value={file.commentByPerformer}
+      inputProps={{
+        maxLength: MAX_DEFAULT_INPUT_VALUE,
+      }}
       placeholder={`${t(TranslationKey['File name'])}...`}
       classes={{ root: cx(styles.inputRoot, { [styles.notFocuced]: readOnly }), input: styles.input }}
       onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeFileName(fileIndex, e.target.value)}

@@ -1,10 +1,12 @@
 import { ChangeEvent, FC, memo } from 'react'
 
-import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
+import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { BasketIcon } from '@components/shared/svg-icons'
+
+import { addHttpsPrefix } from '@utils/text'
 
 import { useStyles } from './link.style'
 
@@ -22,24 +24,27 @@ export const Link: FC<LinkProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const notClientOrNotReadOnly = !isClient || !readOnly
+  const notClientAndNotReadOnly = !isClient && !readOnly
+  const isNotValidLink = link?.trim()?.length === 0 || link?.length > MIDDLE_COMMENT_VALUE
 
   return (
     <div className={styles.linkContainer}>
-      {notClientOrNotReadOnly ? (
+      {notClientAndNotReadOnly ? (
         <Input
           readOnly={isClient}
           value={link}
-          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          inputProps={{
+            maxLength: MIDDLE_COMMENT_VALUE,
+          }}
           classes={{
-            root: cx(styles.inputRoot, { [styles.notFocuced]: isClient, [styles.error]: link.length === 0 }),
+            root: cx(styles.inputRoot, { [styles.notFocuced]: isClient, [styles.error]: isNotValidLink }),
             input: styles.input,
           }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeLink(linkIndex, e.target.value)}
         />
       ) : (
         <a
-          href={link}
+          href={addHttpsPrefix(link)}
           target="_blank"
           rel="noreferrer noopener"
           className={cx(styles.inputRoot, styles.input, styles.link)}
@@ -50,7 +55,7 @@ export const Link: FC<LinkProps> = memo(props => {
 
       <CopyValue text={link} />
 
-      {notClientOrNotReadOnly ? (
+      {notClientAndNotReadOnly ? (
         <button className={styles.button} onClick={() => onRemoveLink(linkIndex)}>
           <BasketIcon className={styles.iconBasket} />
         </button>
