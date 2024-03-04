@@ -14,7 +14,7 @@ import { MainRequestResultModal } from '@components/modals/main-request-result-m
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'

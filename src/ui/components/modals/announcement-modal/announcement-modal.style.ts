@@ -51,12 +51,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 48,
   },
 
-  flexColumnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 14,
-  },
-
   content: {
     width: '100%',
     height: '100%',
@@ -89,9 +83,5 @@ export const useStyles = makeStyles()(() => ({
 
   button: {
     padding: '0 75px',
-  },
-
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

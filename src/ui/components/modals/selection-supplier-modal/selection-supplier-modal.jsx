@@ -6,7 +6,7 @@ import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { parseTextString } from '@utils/text'

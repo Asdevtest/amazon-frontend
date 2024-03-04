@@ -15,7 +15,7 @@ import { CheckRequestByTypeExists } from '@components/forms/check-request-by-typ
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
 import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'

@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -35,9 +35,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]
-
   const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
-
   const isSuccess = choose || order
 
   return (
@@ -48,7 +46,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
 
           <div className={styles.flexRowContainer}>
             <p className={styles.text}>{t(TranslationKey['Service type'])}</p>
-            <p className={cx(textBold, styles.capitalize)}>{serviceType}</p>
+            <p className={textBold}>{serviceType}</p>
           </div>
 
           <div className={styles.flexRowContainer}>
@@ -72,17 +70,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
           <div className={styles.descriptionContainer}>
             <p className={textMediumBold}>{t(TranslationKey.Files)}</p>
 
-            <div>
-              <div className={styles.flexColumnContainer}>
-                <p className={styles.textMedium}>{t(TranslationKey.Photos)}</p>
-                <PhotoAndFilesSlider withoutFiles showPreviews files={files} customSlideHeight={210} />
-              </div>
-
-              <div className={styles.flexColumnContainer}>
-                <p className={styles.textMedium}>{t(TranslationKey.Documents)}</p>
-                <PhotoAndFilesSlider alignLeft withoutPhotos files={files} customSlideHeight={67} />
-              </div>
-            </div>
+            <SlideshowGallery files={files} slidesToShow={3} />
           </div>
 
           <div className={styles.content}>

@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
 
 import { t } from '@utils/translations'

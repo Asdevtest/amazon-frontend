@@ -1,7 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 

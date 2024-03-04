@@ -8,10 +8,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   product: {
-    padding: '12px 0',
+    padding: '10px 0',
     display: 'flex',
     alignItems: 'flex-start',
-    gap: 30,
+    gap: 20,
     borderBottom: `1px solid #E0E0E0`,
   },
 
@@ -22,19 +22,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   descriptionWrapper: {
-    width: 275,
-    padding: '10px 0',
+    width: 250,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
   },
 
   parametersWrapper: {
-    padding: '10px 5px 10px 0',
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: 20,
-    flex: '1 1 auto',
   },
 
   parameters: {
@@ -88,6 +87,13 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
+  },
+
+  amazonTitle: {
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 5,
+    WebkitBoxOrient: 'vertical',
   },
 
   bigText: {

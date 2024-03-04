@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderTooltipTitle } from '@utils/renders'

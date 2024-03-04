@@ -2,7 +2,7 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 

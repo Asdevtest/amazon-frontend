@@ -8,7 +8,7 @@ import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'

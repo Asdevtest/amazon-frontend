@@ -7,7 +7,7 @@ import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@m
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { getSumPropertiesObject } from '@utils/object'

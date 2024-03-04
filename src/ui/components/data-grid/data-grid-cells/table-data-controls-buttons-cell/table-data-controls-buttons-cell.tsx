@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CrossIcon, EditIcon, ReturnArrowIcon, SaveIcon, SendArrowIcon } from '@components/shared/svg-icons'
 
 import { ButtonStyle } from '@typings/enums/button-style'

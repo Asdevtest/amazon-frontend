@@ -26,7 +26,7 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'

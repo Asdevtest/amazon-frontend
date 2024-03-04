@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OrderCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'

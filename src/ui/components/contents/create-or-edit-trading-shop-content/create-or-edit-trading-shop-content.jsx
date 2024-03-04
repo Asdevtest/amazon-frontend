@@ -5,7 +5,7 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 

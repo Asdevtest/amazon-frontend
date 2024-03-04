@@ -13,7 +13,7 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 

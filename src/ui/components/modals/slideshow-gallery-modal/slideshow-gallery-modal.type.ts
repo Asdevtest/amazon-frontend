@@ -5,8 +5,8 @@ export interface SlideshowGalleryModalProps {
   files: IRequestMedia[] | UploadFileType[]
   isOpenModal: boolean
   onOpenModal: () => void
-  currentFileIndex?: number
   isEditable?: boolean
+  currentFileIndex?: number
   withoutMakeMainImage?: boolean
   onCurrentFileIndex?: (index: number) => void
   onChangeImagesForLoad?: (files: IRequestMedia[] | UploadFileType[]) => void

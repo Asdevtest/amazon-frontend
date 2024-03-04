@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { MyServicesInfoCustom } from '@components/my-services/my-services-info-custom'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
