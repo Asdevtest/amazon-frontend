@@ -6,6 +6,9 @@ import {
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
+import { docValidTypes } from '@constants/media/doc-types'
+import { imageValidTypes } from '@constants/media/image-types'
+import { videoValidTypes } from '@constants/media/video-types'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
@@ -70,77 +73,15 @@ export const checkIsExternalVideoLink = url => {
   return youtubeRegex.test(url)
 }
 
-export const checkIsVideoLink = link =>
-  link?.includes('.3g2') ||
-  link?.includes('.3gp') ||
-  link?.includes('.3gp2') ||
-  link?.includes('.3gpp') ||
-  link?.includes('.3gpp2') ||
-  link?.includes('.asf') ||
-  link?.includes('.asx') ||
-  link?.includes('.avi') ||
-  link?.includes('.bin') ||
-  link?.includes('.dat') ||
-  link?.includes('.drv') ||
-  link?.includes('.f4v') ||
-  link?.includes('.flv') ||
-  link?.includes('.gtp') ||
-  link?.includes('.h264') ||
-  link?.includes('.m4v') ||
-  link?.includes('.mkv') ||
-  link?.includes('.mod') ||
-  link?.includes('.moov') ||
-  link?.includes('.mov') ||
-  link?.includes('.mp4') ||
-  link?.includes('.mpeg') ||
-  link?.includes('.mpg') ||
-  link?.includes('.mts') ||
-  link?.includes('.rm') ||
-  link?.includes('.rmvb') ||
-  link?.includes('.spl') ||
-  link?.includes('.srt') ||
-  link?.includes('.stl') ||
-  link?.includes('.swf') ||
-  link?.includes('.ts') ||
-  link?.includes('.vcd') ||
-  link?.includes('.vid') ||
-  link?.includes('.vob') ||
-  link?.includes('.webm') ||
-  link?.includes('.wm') ||
-  link?.includes('.wmv') ||
-  link?.includes('.yuv') ||
-  checkIsExternalVideoLink(link)
+export const checkIsVideoLink = link => videoValidTypes.includes(link) || checkIsExternalVideoLink(link)
 
-export const checkIsImageLink = link =>
-  link?.includes('png') ||
-  link?.includes('PNG') ||
-  link?.includes('jpg') ||
-  link?.includes('ico') ||
-  link?.includes('gif') ||
-  link?.includes('svg') ||
-  link?.includes('webp') ||
-  link?.includes('avif') ||
-  link?.includes('jpeg') ||
-  link?.includes('rotated-image') ||
-  link?.includes('jfif') ||
-  link?.includes('bmp') ||
-  link?.includes('placeimg.com')
+export const checkIsImageLink = link => imageValidTypes.includes(link)
 
 export const checkIsMediaFileLink = link => checkIsVideoLink(link) || checkIsImageLink(link)
 
 export const checkIsDocumentLink = link =>
-  link?.includes('doc') ||
-  link?.includes('docx') ||
-  link?.includes('pdf') ||
-  link?.includes('xlsx') ||
-  link?.includes('xls') ||
-  link?.includes('txt') ||
-  link?.includes('csv') ||
-  link?.includes('djvu') ||
-  (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
-  link?.includes('drive.google.com') ||
-  link?.includes('docs.google.com')
-// https://m.media-amazon.com/images/I/71CznSVO40L._AC_SY450_.jpg
+  docValidTypes.includes(link) || (link?.includes('.com') && !checkIsImageLink('placeimg.com'))
+
 export const validateEmail = email =>
   String(email)
     .toLowerCase()
