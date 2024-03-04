@@ -188,6 +188,7 @@ export const getTableByColumn = (column, hint) => {
       'partialPaymentAmountRmb',
       'batchHumanFriendlyId',
       'proposalSub',
+      'quantityBoxes',
     ].includes(column)
   ) {
     if (

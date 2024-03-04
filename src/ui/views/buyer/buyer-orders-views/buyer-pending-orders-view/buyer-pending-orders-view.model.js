@@ -466,12 +466,35 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({
+    supplier,
+    photosOfSupplier,
+    productId,
+    editPhotosOfSupplier,
+    photosOfUnit,
+    editPhotosOfUnit,
+  }) {
     try {
       this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      }
+
+      if (editPhotosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: this.readyImages,
+        }
+      }
+
+      if (photosOfUnit.length) {
+        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
+        supplier = {
+          ...supplier,
+          imageUnit: [...supplier.imageUnit, ...this.readyImages],
+        }
       }
 
       supplier = {
@@ -480,6 +503,10 @@ export class BuyerMyOrdersViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
         images: this.readyImages,
       }
 

@@ -40,6 +40,7 @@ const filtersFields = [
   'amount',
   'trackingNumber',
   'arrivalDate',
+  'quantityBoxes',
 ]
 
 export class WarehouseAwaitingBatchesViewModel {

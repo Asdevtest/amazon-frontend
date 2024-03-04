@@ -79,6 +79,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
+    minHeight: '40px',
     height: 'unset',
   },
 
