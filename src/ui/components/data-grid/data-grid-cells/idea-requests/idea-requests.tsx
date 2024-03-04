@@ -58,7 +58,6 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
             requestId={request.humanFriendlyId}
             requestStatus={request.status}
             executor={request.executor}
-            proposals={request.proposals}
             disableSeeResultButton={
               !request?.proposals?.some((proposal: any) => checkIsValidProposalStatusToShowResoult(proposal.status))
             }

@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
@@ -13,7 +15,7 @@ import { isString } from '@typings/guards'
 
 import { FilesTabProps } from './files-tab.type'
 
-export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabProps) => {
+export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }: FilesTabProps) => {
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [showSlideshowGalleryModal, setSlideshowGalleryModal] = useState(false)
   const [currentEditableFile, setCurrentEditableFile] = useState<IMediaRework | undefined>(undefined)
@@ -185,6 +187,16 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
     }
   }, [])
 
+  const handleUpdateSeoIFilesInProduct = async () => {
+    try {
+      await ClientModel.updateSeoFilesInProduct(productId, filesForDownload)
+
+      toast.success(t(TranslationKey['Successfully updated']))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     showCommentModal,
     showSlideshowGalleryModal,
@@ -208,5 +220,6 @@ export const useFilesTab = ({ isClient, files, setFields, readOnly }: FilesTabPr
     onDeleteFile: handleDeleteFile,
     onChangeFileName: handleChangeFileName,
     onUploadFile: handleUploadFile,
+    onUpdateSeoIFilesInProduct: handleUpdateSeoIFilesInProduct,
   }
 }
