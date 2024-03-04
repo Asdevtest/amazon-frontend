@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { checkIsClient, checkIsMediaFileLink } from '@utils/checks'

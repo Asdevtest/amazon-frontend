@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './tag-selector.style'

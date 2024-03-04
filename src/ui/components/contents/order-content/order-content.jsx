@@ -12,7 +12,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { TableSupplier } from '@components/product/table-supplier'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { Table } from '@components/shared/table'

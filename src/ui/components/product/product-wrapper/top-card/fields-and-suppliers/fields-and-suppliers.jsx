@@ -15,7 +15,7 @@ import { GeneralModel } from '@models/general-model'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { TagSelector } from '@components/product/product-wrapper/tag-selector'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'

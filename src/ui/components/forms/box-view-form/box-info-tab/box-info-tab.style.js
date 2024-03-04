@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '20px 0',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 40,
+    gap: 20,
     borderTop: `1px solid #E0E0E0`,
     borderBottom: `1px solid #E0E0E0`,
   },
@@ -30,10 +30,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   photos: {
-    width: 246,
-    height: '100%',
+    width: 260,
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
   },
 
@@ -68,13 +66,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-
-  fields: {
-    width: 280,
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
   },
 
   field: {

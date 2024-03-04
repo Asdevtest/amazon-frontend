@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { ButtonStyle } from '@typings/enums/button-style'

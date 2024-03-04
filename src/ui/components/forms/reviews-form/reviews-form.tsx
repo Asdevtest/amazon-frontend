@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewCard } from '@components/cards/review-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { ShortRating } from '@components/shared/short-rating'
 import { UserLink } from '@components/user/user-link'
 

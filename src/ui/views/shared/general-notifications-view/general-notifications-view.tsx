@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { UserModel } from '@models/user-model'
 
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'

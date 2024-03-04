@@ -11,13 +11,14 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -57,7 +58,7 @@ export const BoxInfoTab = memo(props => {
         <div className={styles.infosWrapper}>
           <div className={styles.dimensionsAndPhotosWrapper}>
             <div className={styles.photos}>
-              <PhotoAndFilesSlider withoutFiles files={formFields?.images} />
+              <SlideshowGallery files={formFields?.images} slidesToShow={2} />
             </div>
 
             <div className={styles.dimensions}>
@@ -118,29 +119,27 @@ export const BoxInfoTab = memo(props => {
               lableLinkTitle={t(TranslationKey.View)}
             />
 
-            <div className={styles.fields}>
-              <Field
-                disabled={!isEdit || isBuyer}
-                inputClasses={styles.input}
-                containerClasses={styles.field}
-                labelClasses={cx(styles.text, styles.label)}
-                inputProps={{ maxLength: 250 }}
-                label={t(TranslationKey['Reference id'])}
-                value={formFields?.referenceId || ''}
-                onChange={onChangeField('referenceId')}
-              />
+            <Field
+              disabled={!isEdit || isBuyer}
+              inputClasses={styles.input}
+              containerClasses={styles.field}
+              labelClasses={cx(styles.text, styles.label)}
+              inputProps={{ maxLength: 250 }}
+              label={t(TranslationKey['Reference id'])}
+              value={formFields?.referenceId || ''}
+              onChange={onChangeField('referenceId')}
+            />
 
-              <Field
-                disabled={!isEdit || isBuyer}
-                inputClasses={styles.input}
-                containerClasses={styles.field}
-                labelClasses={cx(styles.text, styles.label)}
-                inputProps={{ maxLength: 250 }}
-                label={'FBA number'}
-                value={formFields?.fbaNumber || ''}
-                onChange={onChangeField('fbaNumber')}
-              />
-            </div>
+            <Field
+              disabled={!isEdit || isBuyer}
+              inputClasses={styles.input}
+              containerClasses={styles.field}
+              labelClasses={cx(styles.text, styles.label)}
+              inputProps={{ maxLength: 250 }}
+              label={'FBA number'}
+              value={formFields?.fbaNumber || ''}
+              onChange={onChangeField('fbaNumber')}
+            />
           </div>
         </div>
 
