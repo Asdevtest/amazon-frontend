@@ -403,9 +403,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
     +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
 
   const isNeedUnitInfo =
-    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit) &&
+    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit || tmpSupplier?.weighUnit) &&
     (!tmpSupplier?.heightUnit ||
       !tmpSupplier?.widthUnit ||
+      !tmpSupplier?.weighUnit ||
       !tmpSupplier?.lengthUnit ||
       (photosOfUnit?.length || 0) + (editPhotosOfUnit?.length || 0) < 4)
 

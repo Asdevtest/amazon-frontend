@@ -648,10 +648,10 @@ export class ClientProductViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || 0,
-        widthUnit: supplier?.widthUnit || 0,
-        lengthUnit: supplier?.lengthUnit || 0,
-        weighUnit: supplier?.weighUnit || 0,
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
         images: this.readyImages,
         boxProperties: supplier?.boxProperties
           ? supplier.boxProperties

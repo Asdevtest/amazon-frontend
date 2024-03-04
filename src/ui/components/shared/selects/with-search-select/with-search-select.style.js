@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 280,
-    height: 36,
+    height: '40px',
     position: 'relative',
 
     display: 'visible !important',
