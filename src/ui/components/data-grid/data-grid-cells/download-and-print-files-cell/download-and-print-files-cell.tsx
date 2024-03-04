@@ -6,7 +6,7 @@ import { useReactToPrint } from 'react-to-print'
 import PrintIcon from '@mui/icons-material/Print'
 import { Box, IconButton } from '@mui/material'
 
-import { imageTypes } from '@constants/configs/image-types'
+import { imageValidTypes } from '@constants/media/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageModal } from '@components/modals/image-modal/image-modal'
@@ -36,7 +36,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
   })
 
   const handleImagePreview = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
@@ -47,7 +47,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
   }
 
   const printFile = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')

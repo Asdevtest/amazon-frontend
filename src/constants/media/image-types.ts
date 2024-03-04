@@ -1,4 +1,4 @@
-export const imageTypes: string[] = [
+export const imageValidTypes: string[] = [
   'bmp',
   'cdr',
   'gif',
@@ -20,4 +20,9 @@ export const imageTypes: string[] = [
   'webp',
   'xbm',
   'xpm',
+  'PNG',
+  'avif',
+  'rotated-image',
+  'jfif',
+  'placeimg.com',
 ]

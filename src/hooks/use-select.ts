@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useDebounce } from '@hooks/use-debounce'
 
-import { IItem } from './select.type'
+export interface IItem {
+  _id: string
+  name: string
+}
 
 export const useSelect = (items: IItem[], currentItemName?: string) => {
   const selectRef = useRef<HTMLDivElement | null>(null)

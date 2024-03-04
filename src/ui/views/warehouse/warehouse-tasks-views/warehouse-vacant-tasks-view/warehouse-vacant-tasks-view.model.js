@@ -113,7 +113,7 @@ export class WarehouseVacantViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }

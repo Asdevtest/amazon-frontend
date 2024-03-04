@@ -268,7 +268,6 @@ export const CreateBoxForm = observer(
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                   })}
                 >
-                  {/* {formItem.status && getOrderStatusOptionByCode(formItem.status).label} */}
                   {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
                 </Typography>
               }
@@ -310,10 +309,7 @@ export const CreateBoxForm = observer(
             <div className={styles.buttonsWrapper}>
               <Button
                 tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
-                className={styles.button}
-                onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))
-                }}
+                onClick={() => setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))}
               >
                 {t(TranslationKey['Add another box'])}
               </Button>
@@ -322,13 +318,11 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} className={styles.button} onClick={onSubmit}>
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
-          <Button className={styles.button} onClick={() => onTriggerOpenModal()}>
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <Button onClick={() => onTriggerOpenModal()}>{t(TranslationKey.Cancel)}</Button>
         </div>
       </div>
     )

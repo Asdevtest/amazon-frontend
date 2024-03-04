@@ -21,7 +21,8 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const title = `${t(TranslationKey['Result of the request'])} / ID ${humanFriendlyId}`
+  const currentRequestId = humanFriendlyId ? ` / ID ${humanFriendlyId}` : ''
+  const title = `${t(TranslationKey['Result of the request'])}${currentRequestId}`
 
   return (
     <div className={styles.header}>

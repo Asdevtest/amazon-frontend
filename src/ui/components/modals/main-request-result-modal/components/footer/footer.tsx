@@ -16,7 +16,6 @@ interface FooterProps {
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
   onToggleShowConfirmModal: () => void
-  showActionButtons?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
@@ -26,14 +25,11 @@ export const Footer: FC<FooterProps> = memo(props => {
     onEditCustomProposal,
     onReceiveCustomProposal,
     onToggleShowConfirmModal,
-    showActionButtons,
   } = props
 
   const { classes: styles } = useStyles()
 
-  const showFooter = showActionButtons || !isClient
-
-  return showFooter ? (
+  return (
     <div className={styles.wrapper}>
       {isClient ? (
         <Button styleType={ButtonStyle.PRIMARY} onClick={onToggleShowConfirmModal}>
@@ -49,5 +45,5 @@ export const Footer: FC<FooterProps> = memo(props => {
         {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
       </Button>
     </div>
-  ) : null
+  )
 })

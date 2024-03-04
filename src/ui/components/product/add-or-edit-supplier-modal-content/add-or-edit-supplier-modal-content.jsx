@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { Divider, Grid, Link, Typography } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -458,7 +458,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
             value={tmpSupplier.name}
             onChange={onChangeField('name')}
           />
-
           <Field
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
@@ -492,11 +491,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
               containerClasses={styles.linkContainer}
               labelClasses={styles.normalLabel}
               inputComponent={
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
-                  <Typography disabled className={styles.link}>
-                    {tmpSupplier.link}
-                  </Typography>
-                </Link>
+                <a
+                  href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.link}
+                >
+                  {tmpSupplier.link}
+                </a>
               }
             />
           ) : (
@@ -842,7 +844,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                     images={photosOfUnit}
                     setImages={setPhotosOfUnit}
                     dragAndDropBtnHeight={'34px'}
-                    maxNumber={supplier?.imageUnit ? 50 - supplier?.imageUnit?.length : 50}
+                    maxNumber={50}
                   />
                 </div>
               ) : null}
@@ -914,7 +916,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               <UploadFilesInput
                 images={photosOfSupplier}
                 setImages={setPhotosOfSupplier}
-                maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
+                maxNumber={50}
                 className={styles.imageFileInput}
               />
             </div>

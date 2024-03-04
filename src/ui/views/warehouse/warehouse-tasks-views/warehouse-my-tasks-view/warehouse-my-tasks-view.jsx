@@ -82,7 +82,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
@@ -146,9 +146,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['Enter dimensions'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
       />
 
       <ConfirmationModal

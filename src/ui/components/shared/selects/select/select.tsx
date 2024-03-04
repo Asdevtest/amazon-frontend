@@ -7,10 +7,9 @@ import { ArrowDownIcon, RatingStarIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './select.style'
+import { IItem, useSelect } from '@hooks/use-select'
 
-import { IItem } from './select.type'
-import { useSelect } from './use-select'
+import { useStyles } from './select.style'
 
 interface SelectProps {
   items: IItem[]

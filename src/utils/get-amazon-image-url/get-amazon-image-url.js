@@ -17,7 +17,7 @@ import {
 import { removeText } from '@utils/text'
 
 export const getAmazonImageUrl = (str, isBig) => {
-  if (!str || str.endsWith('.com')) {
+  if (!str || str?.endsWith('.com')) {
     return '/assets/img/no-photo.jpg'
   }
 
@@ -31,7 +31,7 @@ export const getAmazonImageUrl = (str, isBig) => {
         ? str + amazonImageUrlPostfix
         : str
       : str /* + amazonImageUrlPostfix */ // deleted because of Google drive link or files
-  } else if (str.includes('/uploads/')) {
+  } else if (str?.includes('/uploads/')) {
     return `${BACKEND_API_URL}${str}${
       !checkIsGif(str) /* && !checkIsImageInludesPostfixes(str) */ &&
       !checkIsVideoLink(str) &&
