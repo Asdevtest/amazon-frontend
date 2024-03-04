@@ -7,11 +7,11 @@ export interface IItem {
   name: string
 }
 
-export const useSelect = (items: IItem[], currentItemName?: string) => {
+export const useSelect = <T>(items: T[], currentItemName?: string) => {
   const selectRef = useRef<HTMLDivElement | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItemName, setSelectedItemName] = useState<string | undefined>(undefined)
-  const [filteredItems, setFilteredItems] = useState<IItem[]>([])
+  const [filteredItems, setFilteredItems] = useState<T[]>([])
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue)
 

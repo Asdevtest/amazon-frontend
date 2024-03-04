@@ -14,6 +14,7 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { GeneralModel } from '@models/general-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -58,6 +59,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   batchesData = []
 
   presetsData = []
+  productTags = []
 
   receivedFiles = undefined
 
@@ -512,11 +514,25 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async loadData() {
     try {
       this.getDataGridState()
+      this.getProdutTags()
       this.getPresets()
       this.getMainTableData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
+    }
+  }
+
+  async getProdutTags() {
+    try {
+      const result = await GeneralModel.getTagList()
+
+      runInAction(() => {
+        this.productTags = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.productTags = []
     }
   }
 

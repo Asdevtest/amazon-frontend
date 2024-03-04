@@ -60,7 +60,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 10,
     background: theme.palette.background.chatMyMessage,
-    borderRadius: 5,
+    borderRadius: '100px',
   },
 
   removeTeg: {
