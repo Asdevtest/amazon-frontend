@@ -18,6 +18,12 @@ export const useStyles = makeStyles()(theme => ({
   fieldsDivider: {
     margin: '20px 0 20px',
   },
+
+  saveBtnWrapperClient: {
+    display: 'flex',
+    gap: '10px',
+  },
+
   buttonsWrapperClient: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -36,17 +42,6 @@ export const useStyles = makeStyles()(theme => ({
 
   saveBtnClient: {
     width: '240px',
-    display: 'block',
-    marginBottom: '10px',
-    backgroundColor: '#4caf50',
-    color: 'ffffff',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
   },
 
   saveBtn: {

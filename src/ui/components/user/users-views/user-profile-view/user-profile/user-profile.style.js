@@ -164,11 +164,4 @@ export const useStyles = makeStyles()(theme => ({
     width: 'fit-content',
     marginLeft: 'auto !important',
   },
-
-  leaveReviewBtn: {
-    color: '#fff',
-    height: 40,
-    borderRadius: 7,
-    padding: '10px 20px',
-  },
 }))

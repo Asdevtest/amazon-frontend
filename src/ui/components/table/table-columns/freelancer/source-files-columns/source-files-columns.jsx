@@ -1,6 +1,3 @@
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -13,6 +10,7 @@ import {
   ShortDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -111,23 +109,25 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    width: 150,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
         isSecondButton
+        iconButton
+        row
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey['Change store name or links to reports'])}
-        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         disabledFirstButton={params?.row?.originalData?._id === editField?._id}
         secondButtonTooltipText={t(TranslationKey['Remove a store from your list'])}
-        secondButtonElement={<DeleteOutlineOutlinedIcon />}
+        secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => rowHandlers.onClickEditBtn(params.row.originalData)}
         onClickSecondButton={() => rowHandlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
+    width: 100,
     filterable: false,
     sortable: false,
   },
