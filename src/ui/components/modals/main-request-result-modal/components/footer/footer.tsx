@@ -31,11 +31,7 @@ export const Footer: FC<FooterProps> = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      {isClient ? (
-        <Button styleType={ButtonStyle.PRIMARY} onClick={onToggleShowConfirmModal}>
-          {t(TranslationKey['Send in for rework'])}
-        </Button>
-      ) : null}
+      {isClient ? <Button onClick={onToggleShowConfirmModal}>{t(TranslationKey['Send in for rework'])}</Button> : null}
 
       <Button
         styleType={ButtonStyle.SUCCESS}

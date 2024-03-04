@@ -17,7 +17,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -465,15 +465,13 @@ const Box = memo(props => {
         </div>
       )}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
-      )}
+      <SlideshowGalleryModal
+        isOpenModal={showPhotosModal}
+        files={bigImagesOptions.images}
+        currentFileIndex={bigImagesOptions.imgIndex}
+        onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+      />
     </div>
   )
 })

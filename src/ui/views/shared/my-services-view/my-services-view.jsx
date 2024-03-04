@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
@@ -89,14 +89,11 @@ export const MyServicesView = observer(({ history }) => {
         </div>
       )}
 
-      {viewModel.showImageModal && (
-        <ImageModal
-          showPreviews
-          isOpenModal={viewModel.showImageModal}
-          files={viewModel.service?.linksToMediaFiles}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        />
-      )}
+      <SlideshowGalleryModal
+        isOpenModal={viewModel.showImageModal}
+        files={viewModel.service?.linksToMediaFiles}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+      />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

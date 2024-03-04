@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
@@ -90,15 +90,13 @@ export const ServiceExchangeView = observer(({ history }) => {
         </div>
       ) : null}
 
-      {viewModel.showImageModal ? (
-        <ImageModal
-          files={viewModel.bigImagesOptions.images}
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          isOpenModal={viewModel.showImageModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={viewModel.bigImagesOptions.images}
+        currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+        isOpenModal={viewModel.showImageModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
+      />
     </>
   )
 })

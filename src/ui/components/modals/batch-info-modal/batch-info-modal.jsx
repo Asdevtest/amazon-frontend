@@ -14,7 +14,6 @@ import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { BoxViewForm } from '@components/forms/box-view-form'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -33,6 +32,8 @@ import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFix
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
+
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
@@ -429,15 +430,13 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          {showPhotosModal && (
-            <ImageModal
-              isOpenModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          )}
+          <SlideshowGalleryModal
+            isOpenModal={showPhotosModal}
+            files={currentBatch?.attachedDocuments}
+            currentFileIndex={curImageIndex}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={index => setCurImageIndex(index)}
+          />
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

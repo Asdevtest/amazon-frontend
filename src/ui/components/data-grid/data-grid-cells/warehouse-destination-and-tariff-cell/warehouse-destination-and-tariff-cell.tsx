@@ -12,7 +12,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonVariant } from '@typings/enums/button-style'
 import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './warehouse-destination-and-tariff-cell.style'
@@ -89,7 +89,6 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
 
       <Button
         disabled={disabled}
-        styleType={ButtonStyle.PRIMARY}
         variant={ButtonVariant.OUTLINED}
         className={styles.storekeeperBtn}
         onClick={e => {

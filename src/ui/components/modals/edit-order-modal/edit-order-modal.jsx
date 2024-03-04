@@ -32,7 +32,6 @@ import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -55,6 +54,8 @@ import { t } from '@utils/translations'
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-order-modal.style'
+
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { BoxesToCreateTable } from './boxes-to-create-table'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
@@ -1071,15 +1072,13 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        {showPhotosModal && (
-          <ImageModal
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            isOpenModal={showPhotosModal}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        )}
+        <SlideshowGalleryModal
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          isOpenModal={showPhotosModal}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        />
 
         <Modal
           openModal={showCheckQuantityModal}

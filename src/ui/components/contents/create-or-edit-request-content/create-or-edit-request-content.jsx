@@ -572,7 +572,6 @@ export const CreateOrEditRequestContent = memo(props => {
               <div className={styles.defaultMarginTop}>
                 <Button
                   disabled={!formFields.request?.productId}
-                  styleType={ButtonStyle.PRIMARY}
                   onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                 >
                   <CustomPlusIcon />
@@ -742,7 +741,6 @@ export const CreateOrEditRequestContent = memo(props => {
                         <Button
                           disabled={!formFields.request.specId}
                           className={styles.buttonSelect}
-                          styleType={ButtonStyle.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
@@ -799,7 +797,6 @@ export const CreateOrEditRequestContent = memo(props => {
                       {!announcement?._id && (
                         <Button
                           disabled={!formFields?.request?.specId}
-                          styleType={ButtonStyle.PRIMARY}
                           onClick={async () => {
                             await onClickChoosePerformer(currentSpec?.type)
                             setOpenModal(true)
