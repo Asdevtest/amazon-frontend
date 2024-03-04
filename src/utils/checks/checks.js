@@ -62,8 +62,6 @@ export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
 
 export const isHaveMasterUser = user => !!user.masterUser
 
-// export const noPermissionsUser = user => !user.permissions // Не используется
-
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
@@ -73,14 +71,15 @@ export const checkIsExternalVideoLink = url => {
   return youtubeRegex.test(url)
 }
 
-export const checkIsVideoLink = link => videoValidTypes.includes(link) || checkIsExternalVideoLink(link)
+export const checkIsVideoLink = link =>
+  videoValidTypes.some(type => link?.includes(type)) || checkIsExternalVideoLink(link)
 
-export const checkIsImageLink = link => imageValidTypes.includes(link)
+export const checkIsImageLink = link => imageValidTypes.some(type => link?.includes(type))
 
 export const checkIsMediaFileLink = link => checkIsVideoLink(link) || checkIsImageLink(link)
 
 export const checkIsDocumentLink = link =>
-  docValidTypes.includes(link) || (link?.includes('.com') && !checkIsImageLink('placeimg.com'))
+  docValidTypes.some(type => link?.includes(type)) || (link?.includes('.com') && !checkIsImageLink('placeimg.com'))
 
 export const validateEmail = email =>
   String(email)
