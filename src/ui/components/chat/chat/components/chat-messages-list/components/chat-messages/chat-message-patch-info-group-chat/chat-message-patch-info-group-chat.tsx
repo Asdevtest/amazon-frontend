@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageRemovePatchInfoGroupChatContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { UserLink } from '@components/user/user-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -87,15 +87,13 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
         ) : null}
       </div>
 
-      {showPhotosModal && (
-        <ImageModal
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          isOpenModal={showPhotosModal}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
-        />
-      )}
+      <SlideshowGalleryModal
+        files={bigImagesOptions.images}
+        currentFileIndex={bigImagesOptions.imgIndex}
+        isOpenModal={showPhotosModal}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
+      />
     </div>
   )
 }

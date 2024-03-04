@@ -10,7 +10,7 @@ import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/buttons/button'
 
 import { calcPriceForBox } from '@utils/calculation'
@@ -181,15 +181,13 @@ const WarehouseBodyRowRaw = ({
         </Fragment>
       ))}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          files={curImages}
-          currentFileIndex={curImageIndex}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
-        />
-      )}
+      <SlideshowGalleryModal
+        isOpenModal={showPhotosModal}
+        files={curImages}
+        currentFileIndex={curImageIndex}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        onCurrentFileIndex={index => setCurImageIndex(index)}
+      />
     </>
   )
 }

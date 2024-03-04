@@ -64,7 +64,7 @@ export const Footer: FC<FooterProps> = memo(props => {
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <Button styleType={ButtonStyle.PRIMARY} onClick={() => onClickReorder(formFields, isPendingOrder)}>
+              <Button onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
               </Button>
             )}

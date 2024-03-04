@@ -9,7 +9,7 @@ import { Box, IconButton } from '@mui/material'
 import { imageValidTypes } from '@constants/media/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/buttons/button'
 
 import { checkIsHasHttp } from '@utils/checks'
@@ -100,15 +100,11 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
         <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
-      {isOpenModal && (
-        <ImageModal
-          isOpenModal={isOpenModal}
-          files={[selectedImage?.fileUrl]}
-          currentFileIndex={0}
-          onOpenModal={() => setIsOpenModal(!isOpenModal)}
-          onCurrentFileIndex={() => null}
-        />
-      )}
+      <SlideshowGalleryModal
+        isOpenModal={isOpenModal}
+        files={[selectedImage?.fileUrl]}
+        onOpenModal={() => setIsOpenModal(!isOpenModal)}
+      />
     </>
   )
 })

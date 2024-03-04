@@ -7,7 +7,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/buttons/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -942,15 +942,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          files={tmpSupplier.images}
-          currentFileIndex={curImageIndex}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
-        />
-      )}
+      <SlideshowGalleryModal
+        isOpenModal={showPhotosModal}
+        files={tmpSupplier.images}
+        currentFileIndex={curImageIndex}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        onCurrentFileIndex={index => setCurImageIndex(index)}
+      />
 
       <Modal
         openModal={showSupplierApproximateCalculationsModal}
