@@ -55,9 +55,13 @@ export const useStyles = makeStyles()(theme => ({
 
   detailsWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: '83px',
+    justifyContent: 'space-between',
+  },
+
+  galleryWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   detailsSubWrapper: {
@@ -75,7 +79,6 @@ export const useStyles = makeStyles()(theme => ({
   detailDescription: {
     fontSize: '14px',
     fontWeight: 600,
-    textTransform: 'capitalize',
   },
 
   userLinkCustomClassNames: {

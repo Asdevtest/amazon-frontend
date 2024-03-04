@@ -76,33 +76,29 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
         />
       </div>
 
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          isOpenModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-        />
-      ) : null}
+      <GalleryModal
+        files={viewModel.galleryFiles}
+        isOpenModal={viewModel.showGalleryModal}
+        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+      />
 
-      {viewModel.showAddOrEditSupplierModal ? (
-        <Modal
-          openModal={viewModel.showAddOrEditSupplierModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
-        >
-          <AddOrEditSupplierModalContent
-            // remove memo from the modal or add types to the modal
-            /* @ts-ignore */
-            onlyRead
-            product={formFields?.product}
-            supplier={viewModel.currentSupplier}
-            storekeepersData={storekeepers}
-            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
-          />
-        </Modal>
-      ) : null}
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+      >
+        <AddOrEditSupplierModalContent
+          // remove memo from the modal or add types to the modal
+          /* @ts-ignore */
+          onlyRead
+          product={formFields?.product}
+          supplier={viewModel.currentSupplier}
+          storekeepersData={storekeepers}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+        />
+      </Modal>
     </>
   )
 })

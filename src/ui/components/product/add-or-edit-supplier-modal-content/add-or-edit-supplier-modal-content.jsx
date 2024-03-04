@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
@@ -433,7 +433,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       !boxPropertiesIsFullAndMainsValues) ||
     isNeedUnitInfo
 
-  const allPaymentMethods = paymentMethods.map(payment => payment?.paymentMethod)
+  const allPaymentMethods = paymentMethods?.map(payment => payment?.paymentMethod)
 
   return (
     <div className={styles.modalContainer}>

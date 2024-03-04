@@ -18,7 +18,7 @@ import { DealsOfRequest } from '@components/requests-and-request-proposals/reque
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 

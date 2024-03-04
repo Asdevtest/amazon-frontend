@@ -5,7 +5,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'

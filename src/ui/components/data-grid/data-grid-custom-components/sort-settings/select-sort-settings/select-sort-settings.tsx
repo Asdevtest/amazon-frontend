@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'

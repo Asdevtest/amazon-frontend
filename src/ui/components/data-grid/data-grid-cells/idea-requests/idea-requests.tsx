@@ -4,7 +4,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'

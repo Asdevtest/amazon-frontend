@@ -11,7 +11,7 @@ import {
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'

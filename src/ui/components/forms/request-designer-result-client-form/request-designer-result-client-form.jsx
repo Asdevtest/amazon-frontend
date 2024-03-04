@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'

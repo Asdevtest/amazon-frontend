@@ -7,7 +7,7 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 

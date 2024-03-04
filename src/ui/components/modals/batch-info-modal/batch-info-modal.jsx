@@ -14,7 +14,7 @@ import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { BoxViewForm } from '@components/forms/box-view-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'

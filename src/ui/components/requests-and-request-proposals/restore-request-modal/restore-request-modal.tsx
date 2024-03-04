@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'

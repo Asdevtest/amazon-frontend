@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 

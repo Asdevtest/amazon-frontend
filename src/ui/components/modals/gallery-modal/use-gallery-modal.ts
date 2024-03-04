@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -17,7 +17,7 @@ export const useGalleryModal = (files: UploadFileType[]) => {
   useEffect(() => {
     if (files.length > 0) {
       setDocuments(files.filter(slide => checkIsDocumentLink(slide)))
-      setMediaFiles(files.filter(slide => checkIsImageLink(slide) || checkIsVideoLink(slide)))
+      setMediaFiles(files.filter(slide => checkIsMediaFileLink(slide)))
     }
   }, [files])
 

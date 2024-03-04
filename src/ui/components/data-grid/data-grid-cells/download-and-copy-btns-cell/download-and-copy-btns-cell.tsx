@@ -2,7 +2,7 @@ import { FC, MouseEvent, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 
 import { checkIsHasHttp } from '@utils/checks'

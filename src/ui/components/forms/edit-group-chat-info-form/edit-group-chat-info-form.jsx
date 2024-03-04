@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

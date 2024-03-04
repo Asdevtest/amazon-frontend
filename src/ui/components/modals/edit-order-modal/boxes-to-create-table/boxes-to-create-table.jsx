@@ -12,7 +12,7 @@ import {
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'

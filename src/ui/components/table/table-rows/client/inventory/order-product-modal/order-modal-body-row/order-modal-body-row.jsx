@@ -12,7 +12,7 @@ import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'

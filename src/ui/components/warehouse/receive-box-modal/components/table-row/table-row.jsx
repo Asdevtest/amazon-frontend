@@ -5,7 +5,7 @@ import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { PlusIcon } from '@components/shared/svg-icons'

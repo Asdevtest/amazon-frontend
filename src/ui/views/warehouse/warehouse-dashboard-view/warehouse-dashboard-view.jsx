@@ -11,7 +11,7 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { UserLink } from '@components/user/user-link'
 

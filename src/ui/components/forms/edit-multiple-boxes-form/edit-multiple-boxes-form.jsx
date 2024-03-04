@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
-import { Checkbox, Chip, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -17,13 +17,12 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
-import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'

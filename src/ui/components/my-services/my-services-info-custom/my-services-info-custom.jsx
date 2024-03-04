@@ -5,7 +5,7 @@ import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/stat
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'

@@ -26,7 +26,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'

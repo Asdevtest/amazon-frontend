@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'

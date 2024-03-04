@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
