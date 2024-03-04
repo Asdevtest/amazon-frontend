@@ -122,6 +122,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   progressValue = 0
   showProgress = false
 
+  getCustomSortFields = []
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -266,6 +268,27 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
+    const getCustomSortFields = () => {
+      const column = clientInventoryColumns(
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+      )
+
+      return column?.reduce((acc, el) => {
+        if (!el?.disableCustomSort) {
+          acc.push({
+            name: el.headerName,
+            _id: el.field,
+          })
+        }
+
+        return acc
+      }, [])
+    }
+
     super(
       ClientModel.getProductsMyFilteredByShopIdWithPag,
       columns,
@@ -279,6 +302,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
+
+    this.getCustomSortFields = getCustomSortFields
 
     defaultHiddenColumns.forEach(el => {
       this.columnVisibilityModel[el] = false
