@@ -74,6 +74,10 @@ export class WarehouseMyTasksViewModel {
 
   tmpDataForCancelTask = {}
 
+  get currentData() {
+    return this.tasksMy
+  }
+
   constructor({ history, location }) {
     this.history = history
 
@@ -166,10 +170,6 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  getCurrentData() {
-    return toJS(this.tasksMy)
-  }
-
   onClickOperationTypeBtn(type) {
     this.curTaskType = type
 
@@ -186,10 +186,10 @@ export class WarehouseMyTasksViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
     }
