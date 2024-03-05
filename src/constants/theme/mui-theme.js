@@ -43,7 +43,9 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
     visibility: 'visible !important',
   },
-
+  '.MuiDataGrid-main': {
+    borderRadius: '0 0 20px 20px',
+  },
   '.MuiDataGrid-columnSeparator--sideRight': {
     right: '-3px !important',
   },

@@ -58,7 +58,7 @@ export const ClientProductView = observer(({ history }) => {
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
           showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
           storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
@@ -94,8 +94,8 @@ export const ClientProductView = observer(({ history }) => {
           storekeepersData={viewModel.storekeepersData}
           onlyRead={viewModel.supplierModalReadOnly}
           requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
           showProgress={viewModel.showProgress}

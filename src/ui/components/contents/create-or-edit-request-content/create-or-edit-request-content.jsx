@@ -1175,7 +1175,9 @@ export const CreateOrEditRequestContent = memo(props => {
         </p>
       </div>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && (
+        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+      )}
 
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
         <ChoiceOfPerformerModal

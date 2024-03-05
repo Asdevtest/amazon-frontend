@@ -434,8 +434,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
       !boxPropertiesIsFullAndMainsValues) ||
     isNeedUnitInfo
 
-  const allPaymentMethods = paymentMethods?.map(payment => payment?.paymentMethod)
-
   return (
     <div className={styles.modalContainer}>
       {onlyRead ? (
@@ -731,7 +729,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         <div className={styles.paymentsBlock}>
           <CustomSelectPaymentDetails
             orderPayments={tmpSupplier?.paymentMethods}
-            allPayments={allPaymentMethods}
+            allPayments={paymentMethods}
             onlyRead={onlyRead}
             onChangePaymentMethod={onChangePaymentMethod}
           />

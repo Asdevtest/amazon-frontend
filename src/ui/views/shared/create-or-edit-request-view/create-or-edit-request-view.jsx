@@ -62,6 +62,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           />
         )}
       </div>
+
       <SlideshowGalleryModal
         files={viewModel.bigImagesOptions.images}
         currentFileIndex={viewModel.bigImagesOptions.imgIndex}
@@ -74,7 +75,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           })
         }
       />
-      ]
+
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
