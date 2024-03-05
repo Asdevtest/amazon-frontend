@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -75,11 +74,11 @@ export const AddOrEditBatchForm = observer(
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
     const [batchFields, setBatchFields] = useState({
-      title: batchToEdit?.originalData.title || '',
+      title: batchToEdit?.title || '',
       calculationMethod:
-        batchToEdit?.originalData.calculationMethod ||
+        batchToEdit?.calculationMethod ||
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT],
-      volumeWeightDivide: batchToEdit?.originalData.volumeWeightDivide || 6000,
+      volumeWeightDivide: batchToEdit?.volumeWeightDivide || 6000,
     })
 
     const [boxesToAddData, setBoxesToAddData] = useState(
@@ -106,14 +105,11 @@ export const AddOrEditBatchForm = observer(
 
     const sourceChosenBoxesBase = batchToEdit
       ? addOrEditBatchDataConverter(
-          batchToEdit.originalData?.boxes.map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper })),
+          batchToEdit?.boxes.map(box => ({ ...box, storekeeper: batchToEdit?.storekeeper })),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
-            checkActualBatchWeightGreaterVolumeBatchWeight(
-              batchToEdit.originalData?.boxes,
-              batchFields.volumeWeightDivide,
-            ),
+            checkActualBatchWeightGreaterVolumeBatchWeight(batchToEdit?.boxes, batchFields.volumeWeightDivide),
           ),
           getBatchWeightCalculationMethodForBox,
           batchFields.calculationMethod,
@@ -213,8 +209,8 @@ export const AddOrEditBatchForm = observer(
       } else if (batchToEdit /* && !nameSearchValueChosenBoxes */) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
-          [...batchToEdit.originalData.boxes]
-            .map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper }))
+          [...(batchToEdit?.boxes || [])]
+            .map(box => ({ ...box, storekeeper: batchToEdit?.storekeeper }))
             .filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
@@ -238,8 +234,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.calculationMethod,
             ).filter(
               box =>
-                box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                box.originalData?.destination?._id === batchToEdit?.boxes?.[0]?.destination?._id &&
+                box.originalData?.logicsTariff?._id === batchToEdit?.boxes?.[0].logicsTariff?._id &&
                 !chosenBoxesIds.includes(box._id),
             ),
             ...deletedBoxes,
@@ -282,7 +278,7 @@ export const AddOrEditBatchForm = observer(
       if (batchToEdit && nameSearchValueChosenBoxes) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
-          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          [...(batchToEdit?.boxes || [])].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
@@ -306,7 +302,7 @@ export const AddOrEditBatchForm = observer(
             ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                box.originalData?.logicsTariff?.name === batchToEdit?.boxes[0].logicsTariff?.name &&
                 !chosenBoxesIds.includes(box._id),
             ),
             ...deletedBoxes,
@@ -351,7 +347,7 @@ export const AddOrEditBatchForm = observer(
       const chosenBoxesIds =
         chosenBoxes.length < chosenBoxesBase.length ? chosenBoxesBase.map(el => el.id) : chosenBoxes.map(el => el.id)
 
-      const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
+      const sourceBoxesIds = batchToEdit?.boxes.map(el => el._id) || []
 
       onSubmit({ boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields })
 
@@ -477,7 +473,6 @@ export const AddOrEditBatchForm = observer(
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
                 },
               }}
-              localeText={getLocalizationByLanguageTag()}
               pageSizeOptions={[50, 100]}
               slotProps={{
                 baseTooltip: {
@@ -516,7 +511,7 @@ export const AddOrEditBatchForm = observer(
                 },
               }}
               columnVisibilityModel={viewModel.columnVisibilityModel}
-              rows={toJS(boxesToAddData)}
+              rows={boxesToAddData}
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               rowSelectionModel={boxesToAddIds}
@@ -689,7 +684,7 @@ export const AddOrEditBatchForm = observer(
             </div>
             <div className={styles.imageAndFileInputWrapper}>
               <p>{t(TranslationKey.Files)}</p>
-              <PhotoAndFilesSlider smallSlider showPreviews files={batchToEdit?.originalData.attachedDocuments} />
+              <PhotoAndFilesSlider smallSlider showPreviews files={batchToEdit?.attachedDocuments} />
             </div>
           </div>
 

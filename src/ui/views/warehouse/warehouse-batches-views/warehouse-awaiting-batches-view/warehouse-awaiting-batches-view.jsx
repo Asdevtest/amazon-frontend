@@ -146,7 +146,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          batchToEdit={viewModel.getCurrentData().find(batch => batch.id === viewModel.selectedBatches.slice()[0])}
+          batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
           onSubmit={viewModel.onSubmitAddOrEditBatch}
