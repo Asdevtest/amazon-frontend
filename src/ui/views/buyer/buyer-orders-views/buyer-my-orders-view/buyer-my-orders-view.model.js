@@ -944,6 +944,10 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
     try {
+      runInAction(() => {
+        this.createBoxesResult = []
+      })
+
       if (trackNumber?.files.length) {
         await onSubmitPostImages.call(this, { images: trackNumber.files, type: 'readyImages' })
       }
