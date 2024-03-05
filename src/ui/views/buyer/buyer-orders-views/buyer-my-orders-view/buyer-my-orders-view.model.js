@@ -952,7 +952,6 @@ export class BuyerMyOrdersViewModel {
     try {
       runInAction(() => {
         this.createBoxesResult = []
-        this.readyImages = []
       })
 
       if (trackNumber?.files.length) {
