@@ -115,29 +115,25 @@ export const TabFreelance = observer(props => {
         </div>
       </div>
 
-      {viewModel.showAddOrEditTextModal ? (
-        <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
-          <TextForm
-            title={t(TranslationKey['New specialty'])}
-            onClose={viewModel.onClickToggleAddOrEditTextModal}
-            onSubmit={viewModel.onCreateSpec}
-          />
-        </Modal>
-      ) : null}
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={viewModel.onClickToggleConfirmModal}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+      <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
+        <TextForm
+          title={t(TranslationKey['New specialty'])}
+          onClose={viewModel.onClickToggleAddOrEditTextModal}
+          onSubmit={viewModel.onCreateSpec}
         />
-      ) : null}
+      </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={viewModel.onClickToggleConfirmModal}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+      />
     </>
   )
 })

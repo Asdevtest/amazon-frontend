@@ -38,6 +38,11 @@ import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
+
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
@@ -286,12 +291,10 @@ export const ProductCardModal = observer(props => {
 
       <WarningInfoModal
         openModal={viewModel?.showWarningModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showWarningModal')}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel?.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel?.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

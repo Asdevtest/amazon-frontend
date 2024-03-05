@@ -68,9 +68,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={t(TranslationKey['Taken to Work'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
     </>
   )

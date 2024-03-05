@@ -944,7 +944,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       )}
 
       <SlideshowGalleryModal
-        isOpenModal={showPhotosModal}
+        openModal={showPhotosModal}
         files={tmpSupplier.images}
         currentFileIndex={curImageIndex}
         onOpenModal={() => setShowPhotosModal(!showPhotosModal)}

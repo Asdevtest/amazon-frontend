@@ -178,9 +178,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
         setOpenModal={() => onTriggerOpenModal('showWarningModal')}
         title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

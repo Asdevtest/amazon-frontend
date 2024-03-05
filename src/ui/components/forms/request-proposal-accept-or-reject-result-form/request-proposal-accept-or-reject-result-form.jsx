@@ -31,6 +31,10 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
     openModal,
   }) => {
+    if (!openModal) {
+      return null
+    }
+
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
     const { classes: styles, cx } = useStyles()

@@ -191,7 +191,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <ProductCardModal
-        history={viewModel.history}
+        history={history}
         openModal={viewModel.productCardModal}
         setOpenModal={() => viewModel.onClickProductModal()}
         onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
@@ -289,17 +289,15 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showCommentsModal && (
-        <CommentsModal
-          isTextRequired
-          readOnly={false}
-          maxLength={MAX_DEFAULT_INPUT_VALUE}
-          title={t(TranslationKey['Reason for rejection'])}
-          isOpenModal={viewModel.showCommentsModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
-          onChangeField={viewModel.setRejectStatusHandler}
-        />
-      )}
+      <CommentsModal
+        required
+        readOnly={false}
+        maxLength={MAX_DEFAULT_INPUT_VALUE}
+        title={t(TranslationKey['Reason for rejection'])}
+        openModal={viewModel.showCommentsModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
+        onChangeField={viewModel.setRejectStatusHandler}
+      />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

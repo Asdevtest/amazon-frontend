@@ -288,9 +288,7 @@ export const RedistributeBox = observer(
             ],
           )}
           btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            setShowNewBoxAttention(!showNewBoxAttention)
-          }}
+          onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
         />
       </div>
     )

@@ -62,11 +62,10 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           />
         )}
       </div>
-
       <SlideshowGalleryModal
         files={viewModel.bigImagesOptions.images}
         currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-        isOpenModal={viewModel.showImageModal}
+        openModal={viewModel.showImageModal}
         onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         onCurrentFileIndex={index =>
           viewModel.setBigImagesOptions({
@@ -75,21 +74,19 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           })
         }
       />
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          smallMessage={viewModel.confirmModalSettings.smallMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-        />
-      ) : null}
+      ]
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+      />
     </>
   )
 })

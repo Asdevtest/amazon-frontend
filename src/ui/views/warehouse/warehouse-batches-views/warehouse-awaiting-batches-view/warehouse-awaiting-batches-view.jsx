@@ -152,6 +152,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           onSubmit={viewModel.onSubmitAddOrEditBatch}
         />
       </Modal>
+
       <Modal
         openModal={viewModel.showEditHSCodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
@@ -162,6 +163,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
+
       <ConfirmationModal
         isWarning={viewModel.isWarning}
         openModal={viewModel.showConfirmModal}
@@ -173,6 +175,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
+
       <BatchInfoModal
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
@@ -183,6 +186,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         onClickHsCode={viewModel.onClickHsCode}
       />
+
       <WarningInfoModal
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}

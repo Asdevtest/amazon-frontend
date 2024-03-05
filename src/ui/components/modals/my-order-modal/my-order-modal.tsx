@@ -53,6 +53,10 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     isPendingOrdering,
   } = props
 
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles } = useStyles()
 
   const getInitialOrderState = (): IOrderWithAdditionalFields => ({

@@ -1217,15 +1217,13 @@ export const CreateOrEditRequestContent = memo(props => {
         />
       </Modal>
 
-      {showGalleryModal ? (
-        <GalleryRequestModal
-          data={productMedia}
-          isOpenModal={showGalleryModal}
-          mediaFiles={images}
-          onChangeMediaFiles={setImages}
-          onOpenModal={onTriggerGalleryModal}
-        />
-      ) : null}
+      <GalleryRequestModal
+        data={productMedia}
+        openModal={showGalleryModal}
+        mediaFiles={images}
+        onChangeMediaFiles={setImages}
+        onOpenModal={onTriggerGalleryModal}
+      />
     </div>
   )
 })

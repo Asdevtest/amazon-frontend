@@ -3,7 +3,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface SlideshowGalleryModalProps {
   files: IRequestMedia[] | UploadFileType[]
-  isOpenModal: boolean
+  openModal: boolean
   onOpenModal: () => void
   isEditable?: boolean
   currentFileIndex?: number

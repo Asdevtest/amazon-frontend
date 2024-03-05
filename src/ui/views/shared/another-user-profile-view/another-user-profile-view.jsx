@@ -147,9 +147,7 @@ export const AnotherUserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.showWarningModalText}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <SuccessInfoModal
@@ -157,23 +155,19 @@ export const AnotherUserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Order successfully created!'])}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
-      {viewModel.showConfirmWorkResultFormModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          openModal={viewModel.showConfirmWorkResultFormModal}
-          title={t(TranslationKey['Leave a review'])}
-          rateLabel={t(TranslationKey['Rate the user'])}
-          reviewLabel={t(TranslationKey['Leave a user review'])}
-          confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={viewModel.onAcceptReview}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Leave a review'])}
+        rateLabel={t(TranslationKey['Rate the user'])}
+        reviewLabel={t(TranslationKey['Leave a user review'])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onAcceptReview}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
     </>
   )
 }

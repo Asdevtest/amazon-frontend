@@ -73,9 +73,7 @@ export const SupervisorProductView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal

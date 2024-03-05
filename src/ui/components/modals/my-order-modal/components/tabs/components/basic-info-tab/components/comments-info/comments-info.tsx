@@ -75,16 +75,14 @@ export const CommentsInfo: FC<CommentsInfoProps> = memo(props => {
         </div>
       </div>
 
-      {showCommentsModal ? (
-        <CommentsModal
-          readOnly={!(props.isOrderEditable && comment.isEditable)}
-          title={comment.title}
-          text={comment.text}
-          isOpenModal={showCommentsModal}
-          onOpenModal={oToggleCommentsModal}
-          onChangeField={onChangeComment(comment.field)}
-        />
-      ) : null}
+      <CommentsModal
+        readOnly={!(props.isOrderEditable && comment.isEditable)}
+        title={comment.title}
+        text={comment.text}
+        openModal={showCommentsModal}
+        onOpenModal={oToggleCommentsModal}
+        onChangeField={onChangeComment(comment.field)}
+      />
     </>
   )
 })

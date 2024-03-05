@@ -14,7 +14,11 @@ import { Title } from './title'
 import { useSlideshowGalleryModal } from './use-slideshow-gallery-modal'
 
 export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props => {
-  const { onCurrentFileIndex, isOpenModal, onOpenModal, isEditable, withoutMakeMainImage } = props
+  const { onCurrentFileIndex, openModal, onOpenModal, isEditable, withoutMakeMainImage } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles } = useStyles()
 
@@ -43,7 +47,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
 
   return (
     <Modal
-      openModal={isOpenModal}
+      openModal={openModal}
       setOpenModal={() => {
         onOpenModal()
         onCurrentFileIndex ? onCurrentFileIndex(fileIndex) : undefined
@@ -80,15 +84,13 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
         />
       </div>
 
-      {openImageZoomModal && (
-        <ZoomModal
-          mediaFiles={mediaFiles}
-          currentMediaFileIndex={fileIndex}
-          isOpenModal={openImageZoomModal}
-          setIsOpenModal={onOpenImageZoomModal}
-          setCurrentMediaFileIndex={setFileIndex}
-        />
-      )}
+      <ZoomModal
+        mediaFiles={mediaFiles}
+        currentMediaFileIndex={fileIndex}
+        openModal={openImageZoomModal}
+        setOpenModal={onOpenImageZoomModal}
+        setCurrentMediaFileIndex={setFileIndex}
+      />
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm item={mediaFiles?.[fileIndex]} setOpenModal={onOpenImageEditModal} onSave={onEditRotateFile} />

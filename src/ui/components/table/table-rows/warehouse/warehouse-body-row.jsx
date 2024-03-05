@@ -182,7 +182,7 @@ const WarehouseBodyRowRaw = ({
       ))}
 
       <SlideshowGalleryModal
-        isOpenModal={showPhotosModal}
+        openModal={showPhotosModal}
         files={curImages}
         currentFileIndex={curImageIndex}
         onOpenModal={() => setShowPhotosModal(!showPhotosModal)}

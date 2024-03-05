@@ -110,9 +110,7 @@ export const ClientExchangeView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.showWarningModalText}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <SuccessInfoModal
@@ -120,9 +118,7 @@ export const ClientExchangeView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Order successfully created!'])}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
     </>
   )

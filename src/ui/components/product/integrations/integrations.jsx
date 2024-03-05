@@ -117,9 +117,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successInfoModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
 
       <WarningInfoModal
@@ -127,9 +125,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         setOpenModal={() => onTriggerOpenModal('showInfoModal')}
         title={t(TranslationKey["You can't bind"])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => onTriggerOpenModal('showInfoModal')}
       />
     </div>
   )

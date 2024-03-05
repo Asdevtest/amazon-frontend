@@ -204,22 +204,20 @@ export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
         </div>
       )}
 
-      {openImageModal && (
-        <ImageModal
-          files={withAllFiles ? files : imageModalFiles}
-          currentFileIndex={mediaFileIndex}
-          isOpenModal={openImageModal}
-          photosTitles={photosTitles}
-          photosComments={photosComments}
-          showPreviews={showPreviews}
-          isEditable={isEditable}
-          isRequestResult={withAllFiles}
-          withoutMakeMainImage={withoutMakeMainImage}
-          onChangeImagesForLoad={onChangeImagesForLoad}
-          onOpenModal={onOpenImageModal}
-          onCurrentFileIndex={setMediaFileIndex}
-        />
-      )}
+      <ImageModal
+        files={withAllFiles ? files : imageModalFiles}
+        currentFileIndex={mediaFileIndex}
+        openModal={openImageModal}
+        photosTitles={photosTitles}
+        photosComments={photosComments}
+        showPreviews={showPreviews}
+        isEditable={isEditable}
+        isRequestResult={withAllFiles}
+        withoutMakeMainImage={withoutMakeMainImage}
+        onChangeImagesForLoad={onChangeImagesForLoad}
+        onOpenModal={onOpenImageModal}
+        onCurrentFileIndex={setMediaFileIndex}
+      />
     </>
   )
 })

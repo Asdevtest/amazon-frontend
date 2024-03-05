@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ import { ICreatedBy } from '@typings/shared/created-by'
 import { useStyles } from './announcement-modal.style'
 
 interface AnnouncementModalProps {
-  isOpenModal: boolean
+  openModal: boolean
   service: IAnnoucement
   onOpenModal: () => void
   choose?: boolean
@@ -27,8 +27,13 @@ interface AnnouncementModalProps {
   onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
-export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
-  const { isOpenModal, service, choose, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
+export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
+  const { openModal, service, choose, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
+
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const serviceType = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
@@ -39,7 +44,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
   const isSuccess = choose || order
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.modalWrapper}>
         <div className={styles.header}>
           <p className={styles.mainTitle}>{service.title}</p>
@@ -109,4 +114,4 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = props => {
       </div>
     </Modal>
   )
-}
+})

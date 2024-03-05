@@ -757,7 +757,7 @@ export const EditBoxForm = memo(
         </div>
 
         <SlideshowGalleryModal
-          isOpenModal={showPhotosModal}
+          openModal={showPhotosModal}
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
           onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
