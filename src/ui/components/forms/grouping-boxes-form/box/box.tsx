@@ -184,7 +184,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
               <Field
                 containerClasses={styles.field}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}

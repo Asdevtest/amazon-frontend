@@ -895,7 +895,6 @@ export class ClientProductViewModel {
 
       toast.success(t(TranslationKey['Success parse']))
 
-      this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
