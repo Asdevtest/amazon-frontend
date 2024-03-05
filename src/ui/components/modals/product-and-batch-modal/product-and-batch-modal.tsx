@@ -105,15 +105,15 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           <div className={styles.subHeader}>
             <SlideshowGallery slidesToShow={2} files={selectedProduct?.images} />
 
-            <p className={styles.amazonTitle}>{selectedProduct.amazonTitle}</p>
+            <p className={styles.amazonTitle}>{selectedProduct?.amazonTitle}</p>
 
             <div className={styles.additionInfo}>
               <div className={styles.shopContainer}>
                 <p className={styles.shopName}>{`${t(TranslationKey.Shop)}:`}</p>
                 <p className={styles.shopValue}>{selectedProductShop?.name || t(TranslationKey['Not available'])}</p>
               </div>
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct.skuByClient} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct?.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct?.skuByClient} />
             </div>
           </div>
 

@@ -9,7 +9,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
@@ -63,8 +62,6 @@ export class ClientProductViewModel {
 
   paymentMethods = []
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
 
   selectedSupplier = undefined
@@ -109,10 +106,6 @@ export class ClientProductViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   constructor({ history, setOpenModal, updateDataHandler }) {
     this.history = history
     this.updateDataHandler = updateDataHandler
@@ -139,11 +132,8 @@ export class ClientProductViewModel {
       await this.getShops()
       await this.getProductsVariations()
 
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getStorekeepers()
+      this.getPlatformSettingsData()
     } catch (error) {
       console.log(error)
     }
@@ -497,15 +487,8 @@ export class ClientProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-        runInAction(() => {
-          this.imagesForLoad = []
-        })
       }
 
       await ClientModel.updateProduct(
@@ -635,8 +618,6 @@ export class ClientProductViewModel {
   async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier, photosOfUnit, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
@@ -779,35 +760,10 @@ export class ClientProductViewModel {
         runInAction(() => {
           this.selectedSupplier = undefined
         })
-      } else {
-        this.getSupplierModalData()
       }
 
       runInAction(() => {
         this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getSupplierModalData()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
     } catch (error) {
       console.log(error)
@@ -908,7 +864,15 @@ export class ClientProductViewModel {
     }
   }
 
-  clearReadyImages() {
-    this.readyImages = []
+  async getPlatformSettingsData() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
