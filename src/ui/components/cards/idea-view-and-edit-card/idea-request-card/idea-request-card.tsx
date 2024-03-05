@@ -17,7 +17,6 @@ interface IdeaRequestCardProps {
   requestTitle: string
   requestId: string
   requestStatus: string
-  proposals: Array<{ _id: string }>
   executor: {
     _id: string
     name: string
@@ -33,7 +32,6 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
   const { classes: styles, cx } = useStyles()
 
   const {
-    // proposals,
     requestTitle,
     requestId,
     requestStatus,
