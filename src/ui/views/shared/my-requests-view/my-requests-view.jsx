@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
@@ -57,6 +59,10 @@ export const MyRequestsView = observer(({ history }) => {
       return [styles.deadlineBorder, styles.yellowBorder]
     }
   }
+
+  const isReworkAndReceive = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED].includes(
+    viewModel.curProposal?.proposal?.status,
+  )
 
   return (
     <>
@@ -217,11 +223,13 @@ export const MyRequestsView = observer(({ history }) => {
       </Modal>
 
       <MainRequestResultModal
-        readOnly
+        readOnly={!isReworkAndReceive}
         customProposal={viewModel.curProposal}
         userInfo={viewModel.userInfo}
         openModal={viewModel.showMainRequestResultModal}
         onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        onEditCustomProposal={viewModel.onSendInForRework}
+        onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(viewModel.curProposal?.proposal?._id)}
       />
 
       <RequestResultModal
@@ -229,6 +237,17 @@ export const MyRequestsView = observer(({ history }) => {
         proposal={viewModel.curProposal}
         openModal={viewModel.showRequestResultModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+      />
+
+      <RequestProposalAcceptOrRejectResultForm
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Confirm acceptance of the work result'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey["Review of the performer's work"])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Reject)}
+        onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
       />
     </>
   )

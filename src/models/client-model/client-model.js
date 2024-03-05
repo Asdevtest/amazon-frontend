@@ -231,6 +231,14 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsMediaGuidGet({ guid })
     return response.data
   }
+
+  updateSeoFilesInProduct = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidUpdateSeoFilesPatch({
+      guid,
+      latestSeoFiles: body,
+    })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

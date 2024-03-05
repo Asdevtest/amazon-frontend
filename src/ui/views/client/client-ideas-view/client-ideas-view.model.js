@@ -67,7 +67,6 @@ export class ClientIdeasViewModel {
 
   readyImages = []
   ideaList = []
-  currentData = []
   shopList = []
   currentSettings = undefined
   selectedProduct = undefined
@@ -174,6 +173,10 @@ export class ClientIdeasViewModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.ideaList
+  }
+
   constructor({ history }) {
     this.history = history
     this.currentSettings = settingsByUrl[history.location.pathname]
@@ -184,20 +187,8 @@ export class ClientIdeasViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.ideaList,
-      () => (this.currentData = this.getCurrentData()),
-    )
-    reaction(
       () => this.shopList,
       () => this.handleUpdateColumnModel(),
-    )
-    reaction(
-      () => this.languageTag,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
     )
   }
 
@@ -393,10 +384,6 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatuses.FAILED)
     }
-  }
-
-  getCurrentData() {
-    return toJS(this.ideaList)
   }
 
   async getShopList() {
@@ -1038,12 +1025,14 @@ export class ClientIdeasViewModel {
   async onClickResultButton(request) {
     try {
       const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
+
       runInAction(() => {
         this.currentProposal = proposals.find(proposal =>
           checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
         )
         this.currentRequest = request
       })
+
       if (request?.spec?.title === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
       } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
