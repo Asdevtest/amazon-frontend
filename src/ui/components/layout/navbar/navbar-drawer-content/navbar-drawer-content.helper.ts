@@ -23,6 +23,8 @@ export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: II
     return userInfo?.freeOrders
   } else if (category?.route?.includes('/buyer/pending-orders')) {
     return userInfo?.pendingOrders
+  } else if (category?.route?.includes('/buyer/search-supplier')) {
+    return userInfo?.searchFromClient + userInfo?.searchFromSupervisor
   } else if (category?.route?.includes('/client/ideas')) {
     return (
       userInfo?.ideas?.addingAsin +
