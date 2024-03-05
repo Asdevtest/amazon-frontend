@@ -298,8 +298,6 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
 
-      this.clearImagesForLoad()
-
       runInAction(() => {
         this.imagesForLoad = orderData.images
       })
@@ -342,8 +340,6 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      this.clearReadyImages()
-
       if (photosToLoad.length) {
         await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
       }
@@ -353,20 +349,14 @@ export class BuyerMyOrdersViewModel {
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'readyImages' })
-
-        this.clearImagesForLoad()
       }
 
       const orderFieldsToSaveWithImagesForLoad = {
         ...orderFieldsToSave,
         images: [...orderFieldsToSave.images, ...this.readyImages],
       }
-
-      this.clearReadyImages()
 
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
@@ -402,10 +392,6 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -414,9 +400,6 @@ export class BuyerMyOrdersViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
-
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.selectedOrder._id)
 
@@ -475,8 +458,6 @@ export class BuyerMyOrdersViewModel {
     editPhotosOfUnit,
   }) {
     try {
-      this.clearReadyImages()
-
       if (editPhotosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
@@ -510,8 +491,6 @@ export class BuyerMyOrdersViewModel {
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
         supplier = {
@@ -544,7 +523,6 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     if (status) {
       if (status === 'ALL') {
@@ -560,7 +538,6 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
-  // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
       this.filteredStatus = this.orderStatusDataBase
@@ -628,13 +605,5 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowBarcodeModal() {
     this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
-  }
-
-  clearImagesForLoad() {
-    this.imagesForLoad = []
   }
 }
