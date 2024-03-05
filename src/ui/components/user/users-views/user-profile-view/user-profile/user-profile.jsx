@@ -144,9 +144,7 @@ export const UserProfile = observer(
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
                 <div className={styles.leaveReviewBtnWrapper}>
-                  <Button className={styles.leaveReviewBtn} onClick={onClickReview}>
-                    {t(TranslationKey['Leave a review'])}
-                  </Button>
+                  <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
                 </div>
               )}
 

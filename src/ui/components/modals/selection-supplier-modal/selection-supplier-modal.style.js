@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
-    marginBottom: '30px',
+    marginBottom: '10px',
   },
 
   modalTitleChange: {
@@ -33,37 +33,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalButton: {
-    width: '220px',
-    height: '90px',
-    fontSize: '18px',
-    lineHeight: '22px',
     backgroundColor: '#c4c4c4',
     transition: 'all .5s ease-in-out',
-
-    '&:hover': {
-      transform: 'scale(1.03)',
-      transition: 'all .5s ease-in-out',
-    },
   },
 
   modalButtonActive: {
-    backgroundColor: `${theme.palette.primary.main} !important`,
-    color: '#fff !important',
+    backgroundColor: `${theme.palette.primary.main}`,
   },
 
   modalButtonsWrapper: {
-    marginBottom: '60px',
+    marginBottom: '10px',
     display: 'flex',
-
     justifyContent: 'space-between',
-
-    button: {
-      backgroundColor: theme.palette.background.chatIncomeMessage,
-      color: theme.palette.text.second,
-      '&:hover': {
-        color: '#fff',
-      },
-    },
   },
 
   modalButtonWrapper: {
@@ -90,21 +71,6 @@ export const useStyles = makeStyles()(theme => ({
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
     },
   },
-  modalButtonNext: {
-    display: 'flex',
-    width: '121px',
-    height: '40px',
-
-    backgroundColor: '#4caf50',
-    color: 'ffffff',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
-  },
 
   btnsWrapper: {
     width: '100%',
@@ -122,7 +88,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   subTitle: {
-    fontSize: 18,
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: 20,
