@@ -53,7 +53,7 @@ export class BuyerSearchSupplierForIdeaModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

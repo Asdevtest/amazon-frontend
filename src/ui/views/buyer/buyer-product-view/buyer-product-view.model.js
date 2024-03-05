@@ -7,7 +7,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BuyerModel } from '@models/buyer-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -87,10 +86,6 @@ export class BuyerProductViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   get currentData() {

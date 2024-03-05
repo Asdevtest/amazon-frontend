@@ -60,7 +60,7 @@ export const BuyerIdeasNotificationsViewRaw = props => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />

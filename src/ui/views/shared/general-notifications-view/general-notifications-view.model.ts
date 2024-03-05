@@ -74,9 +74,6 @@ export class GeneralNotificationsViewModel {
   get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
 
   get currentData() {
     return this.notificationsData

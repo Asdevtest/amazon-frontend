@@ -52,7 +52,7 @@ export const WarehouseTariffs = observer(() => {
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = spModel.current
 
   return (
@@ -90,7 +90,7 @@ export const WarehouseTariffs = observer(() => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
       />
       <Modal

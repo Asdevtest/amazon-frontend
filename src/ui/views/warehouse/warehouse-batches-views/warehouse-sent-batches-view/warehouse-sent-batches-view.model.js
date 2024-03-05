@@ -142,7 +142,7 @@ export class WarehouseSentBatchesViewModel {
     // this.getBatchesPagMy()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

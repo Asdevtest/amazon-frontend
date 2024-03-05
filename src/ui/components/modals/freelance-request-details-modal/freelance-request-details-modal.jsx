@@ -27,7 +27,6 @@ export const FreelanceRequestDetailsModal = memo(props => {
     userInfo,
     request,
     details,
-    requestProposals,
     isAcceptedProposals,
     isOpenModal,
     handleOpenModal,
@@ -41,8 +40,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onRecoverRequest,
     onClickAbortBtn,
     onClickMarkAsCompletedBtn,
-    onClickResultBtn,
   } = props
+
   const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({
@@ -124,10 +123,6 @@ export const FreelanceRequestDetailsModal = memo(props => {
             </div>
 
             <div className={styles.buttonsWrapper}>
-              <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
-                {t(TranslationKey.Result)}
-              </Button>
-
               {isRequestOwner && (
                 <Button
                   variant={ButtonVariant.OUTLINED}

@@ -47,15 +47,8 @@ export const BatchInfoModal = observer(
     onClickHsCode,
     patchActualShippingCostBatch,
     history,
-    location,
   }) => {
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
     const { classes: styles, cx } = useStyles()
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)

@@ -146,7 +146,7 @@ export const ClientReadyBoxesViewRaw = props => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
           />
         </div>

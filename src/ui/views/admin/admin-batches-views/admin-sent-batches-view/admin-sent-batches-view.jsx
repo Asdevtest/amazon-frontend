@@ -63,7 +63,7 @@ export const AdminSentBatchesViewRaw = props => {
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
         />

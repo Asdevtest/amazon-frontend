@@ -121,7 +121,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />

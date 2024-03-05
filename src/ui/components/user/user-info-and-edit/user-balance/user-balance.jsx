@@ -91,7 +91,7 @@ export const UserBalance = observer(({ userId }) => {
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={model.current.onChangePaginationModelChange}
+          onPaginationModelChange={model.current.onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>

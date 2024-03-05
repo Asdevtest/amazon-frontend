@@ -65,7 +65,7 @@ export class ResearcherProductsViewModel {
     title: '',
   }
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -73,15 +73,11 @@ export class ResearcherProductsViewModel {
     return this.products
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
-  constructor({ history, location }) {
+  constructor({ history }) {
     this.history = history
 
-    if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
     }
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -91,7 +87,7 @@ export class ResearcherProductsViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.setDataGridState()
   }
@@ -144,15 +140,11 @@ export class ResearcherProductsViewModel {
     this.rowSelectionModel = model
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
-      await this.getPropductsVacant()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.getPropductsVacant()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -265,13 +257,18 @@ export class ResearcherProductsViewModel {
 
   async getPropductsVacant() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ResearcherModel.getProductsVacant()
+
       runInAction(() => {
         this.products = researcherProductsDataConverter(
           result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

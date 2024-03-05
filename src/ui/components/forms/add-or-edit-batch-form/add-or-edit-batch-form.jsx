@@ -43,25 +43,8 @@ import { useStyles } from './add-or-edit-batch-form.style'
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(
-  ({
-    userRole,
-    boxesData,
-    onClose,
-    onSubmit,
-    batchToEdit,
-    sourceBox,
-    showProgress,
-    progressValue,
-    history,
-    location,
-  }) => {
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
+  ({ userRole, boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue, history }) => {
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
     const { classes: styles, cx } = useStyles()
 

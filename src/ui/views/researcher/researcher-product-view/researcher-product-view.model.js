@@ -9,7 +9,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ProductModel } from '@models/product-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -85,10 +84,6 @@ export class ResearcherProductViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   get currentData() {

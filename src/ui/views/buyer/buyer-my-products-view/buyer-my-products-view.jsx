@@ -26,14 +26,9 @@ const attentionStatuses = [
 ]
 
 export const BuyerMyProductsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new BuyerMyProductsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: styles } = props
+  const { classes: styles, history } = props
+
+  const [viewModel] = useState(() => new BuyerMyProductsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -98,7 +93,7 @@ export const BuyerMyProductsViewRaw = props => {
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />

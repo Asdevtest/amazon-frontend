@@ -140,7 +140,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -202,7 +202,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -264,7 +264,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -326,7 +326,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />

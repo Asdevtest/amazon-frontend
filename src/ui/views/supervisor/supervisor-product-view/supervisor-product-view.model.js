@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
@@ -79,10 +78,6 @@ export class SupervisorProductViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   get currentData() {

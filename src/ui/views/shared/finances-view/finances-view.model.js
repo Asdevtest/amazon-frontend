@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
@@ -15,18 +14,15 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class FinancesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   currentFinancesData = []
 
   rowSelectionModel = undefined
-
   sortModel = []
   startFilterModel = undefined
   filterModel = filterModelInitialValue
   densityModel = 'compact'
   columnsModel = financesViewColumns()
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -34,43 +30,39 @@ export class FinancesViewModel {
     return !!this.filterModel?.items?.length
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  get currentData() {
+    return this.currentFinancesData
+  }
 
-      if (location?.state?.dataGridFilter) {
-        this.startFilterModel = location.state.dataGridFilter
-      }
-    })
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -88,25 +80,22 @@ export class FinancesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.SHARED_FINANCES]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getPayments() {
     try {
       const result = await OtherModel.getMyPayments()
+
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
@@ -114,34 +103,21 @@ export class FinancesViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.currentFinancesData = []
-      })
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await this.getPayments()
       this.getDataGridState()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+
+      this.getPayments()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
-  getCurrentData() {
-    return toJS(this.currentFinancesData)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onClickResetFilters() {

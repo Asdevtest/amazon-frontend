@@ -69,7 +69,7 @@ export const VacantRequestsView = observer(({ history }) => {
               rowCount={viewModel.rowCount}
               paginationModel={viewModel.paginationModel}
               pageSizeOptions={viewModel.pageSizeOptions}
-              onChangePaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
             />
 
             <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
@@ -142,7 +142,7 @@ export const VacantRequestsView = observer(({ history }) => {
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
           />
         </div>

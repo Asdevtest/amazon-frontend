@@ -87,7 +87,7 @@ export class AdminFeedbackViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
