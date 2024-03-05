@@ -49,6 +49,10 @@ export const BatchInfoModal = observer(
     history,
     location,
   }) => {
+    if (!openModal) {
+      return null
+    }
+
     const [viewModel] = useState(
       () =>
         new ClientAwaitingBatchesViewModel({

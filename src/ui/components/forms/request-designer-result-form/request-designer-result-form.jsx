@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -222,7 +223,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }]
+    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -242,12 +243,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }])
+    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }])
   }
 
   const onClickRemoveItem = slot => {
     if (slot.fileLink) {
-      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, fileLink: null } : el)))
     } else {
       setImagesData(() => imagesData.filter(el => el._id !== slot._id))
     }
@@ -268,7 +269,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -298,7 +299,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
       setImagesData([
         ...imagesData.map(el =>

@@ -344,22 +344,20 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showProductModal && (
-        <ProductAndBatchModal
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
-          openModal={viewModel.showProductModal}
-          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
-          batches={viewModel.productBatches}
-          getCurrentBatch={viewModel.getCurrBatch}
-          currentBatch={viewModel.currentBatch}
-          shops={viewModel.shopsData}
-          selectedProduct={viewModel.selectedWarehouseOrderProduct}
-          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
-          onClickMyOrderModal={viewModel.onClickMyOrderModal}
-          onClickInTransferModal={viewModel.onClickInTransfer}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      )}
+      <ProductAndBatchModal
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+        openModal={viewModel.showProductModal}
+        currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
+        batches={viewModel.productBatches}
+        getCurrentBatch={viewModel.getCurrBatch}
+        currentBatch={viewModel.currentBatch}
+        shops={viewModel.shopsData}
+        selectedProduct={viewModel.selectedWarehouseOrderProduct}
+        onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+        onClickMyOrderModal={viewModel.onClickMyOrderModal}
+        onClickInTransferModal={viewModel.onClickInTransfer}
+        onClickHsCode={viewModel.onClickHsCode}
+      />
 
       <MyOrderModal
         isClient

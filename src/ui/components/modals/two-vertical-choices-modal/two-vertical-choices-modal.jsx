@@ -21,6 +21,10 @@ export const TwoVerticalChoicesModal = ({
   thirdBtnText,
   onClickThirdBtn,
 }) => {
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles } = useStyles()
 
   return (

@@ -29,7 +29,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     details,
     requestProposals,
     isAcceptedProposals,
-    isOpenModal,
+    openModal,
     handleOpenModal,
     onClickSuggest,
     onClickOpenNewTab,
@@ -43,6 +43,11 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickMarkAsCompletedBtn,
     onClickResultBtn,
   } = props
+
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({
@@ -53,7 +58,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
   }))
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={handleOpenModal}>
+    <Modal openModal={openModal} setOpenModal={handleOpenModal}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>
