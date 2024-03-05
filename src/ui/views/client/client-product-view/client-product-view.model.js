@@ -770,14 +770,6 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSupplierApproximateCalculations() {
-    try {
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   onChangeSelectedSupplier(supplier) {
     if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
       this.selectedSupplier = undefined

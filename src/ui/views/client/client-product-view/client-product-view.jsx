@@ -59,7 +59,9 @@ export const ClientProductView = observer(({ history }) => {
           showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
           storekeepersData={viewModel?.storekeepersData}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
+          onClickSupplierApproximateCalculations={() =>
+            viewModel.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+          }
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
           onClickGetProductsToBind={option =>
