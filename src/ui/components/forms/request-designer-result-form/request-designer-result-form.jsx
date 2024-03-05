@@ -206,7 +206,7 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpenModal, proposal }) => {
+export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, proposal }) => {
   const { classes: styles, cx } = useStyles()
 
   const isRework = !!proposal.proposal.media?.length
@@ -320,7 +320,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <div className={styles.headerLeftSubWrapper}>
             <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
               TranslationKey['Request result'],
-            )} / ID ${request.request.humanFriendlyId}`}</Typography>
+            )} / ID ${proposal?.request?.humanFriendlyId}`}</Typography>
 
             <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}

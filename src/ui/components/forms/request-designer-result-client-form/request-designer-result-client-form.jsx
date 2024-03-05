@@ -133,7 +133,7 @@ export const RequestDesignerResultClientForm = memo(props => {
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
           <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
-            request?.request?.humanFriendlyId
+            proposal?.request?.humanFriendlyId
           }`}</Typography>
           <div className={styles.headerRightSubWrapper}>
             <Field
@@ -173,14 +173,10 @@ export const RequestDesignerResultClientForm = memo(props => {
             />
             <Field
               labelClasses={styles.fieldLabel}
-              label={'ASIN'}
+              label="ASIN"
               containerClasses={styles.containerField}
               inputComponent={
-                <AsinOrSkuLink
-                  withCopyValue
-                  link={request?.request?.product?.asin || proposal?.request?.asin}
-                  textStyles={styles.simpleSpan}
-                />
+                <AsinOrSkuLink withCopyValue link={proposal?.request?.asin} textStyles={styles.simpleSpan} />
               }
             />
           </div>

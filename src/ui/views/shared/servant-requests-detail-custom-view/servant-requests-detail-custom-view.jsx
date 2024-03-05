@@ -181,7 +181,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
       >
         <RequestDesignerResultForm
-          request={viewModel.request}
           proposal={findRequestProposalForCurChat}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           onClickSendAsResult={viewModel.onClickSendAsResult}
