@@ -206,7 +206,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <MainRequestResultModal
-        showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+        readOnly={!statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
         customProposal={viewModel.findRequestProposalForCurChat}
         userInfo={viewModel.userInfo}
         openModal={viewModel.showMainRequestResultModal}

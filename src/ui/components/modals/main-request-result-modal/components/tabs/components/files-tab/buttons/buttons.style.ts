@@ -31,11 +31,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
-    padding: 5,
-    height: '100%',
-    overflow: 'hidden',
-    opacity: 1,
-    transition: '.3s ease-in-out',
+    padding: '0 10px',
+    height: 30,
   },
 
   icon: {

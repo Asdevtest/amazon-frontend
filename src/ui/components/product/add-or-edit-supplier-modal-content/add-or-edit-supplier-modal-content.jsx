@@ -191,7 +191,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Button className={styles.prevBtnClient} onClick={() => onClickPrevButton()}>
             {t(TranslationKey.Back)}
           </Button>
-          <div>
+          <div className={styles.saveBtnWrapperClient}>
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}

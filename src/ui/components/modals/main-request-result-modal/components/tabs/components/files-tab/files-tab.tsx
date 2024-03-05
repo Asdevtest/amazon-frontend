@@ -9,6 +9,8 @@ import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { Specs } from '@typings/enums/specs'
+
 import { useStyles } from './files-tab.style'
 
 import { Buttons } from './buttons'
@@ -42,6 +44,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onDeleteFile,
     onChangeFileName,
     onUploadFile,
+    onUpdateSeoIFilesInProduct,
   } = useFilesTab(props)
 
   const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
@@ -50,6 +53,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
   const commentModalTitle = props.isClient
     ? t(TranslationKey['Add comment'])
     : t(TranslationKey['View a comment from a client'])
+  const showUpdateSeoFilesInProductButton = props.isClient && props.spec.type === Specs.SEO
 
   return (
     <>
@@ -79,9 +83,11 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
             disabledSelectAllCheckbox={!files.length}
             disabledFilesButton={!filesForDownload.length}
             disabledArchiveButton={disabledArchiveButton}
+            showUpdateSeoFilesInProductButton={showUpdateSeoFilesInProductButton}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
+            onUpdateSeoIFilesInProduct={onUpdateSeoIFilesInProduct}
           />
         ) : (
           <button className={styles.button} onClick={onAddFile}>

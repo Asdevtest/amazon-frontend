@@ -283,7 +283,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
     } catch (error) {
-      console.warn('onClickProposalResultAccept error ', error)
+      console.error(error)
     }
   }
 

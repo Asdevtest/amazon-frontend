@@ -17,9 +17,11 @@ interface ButtonsProps {
   disabledSelectAllCheckbox: boolean
   disabledFilesButton: boolean
   disabledArchiveButton: boolean
+  showUpdateSeoFilesInProductButton: boolean
   onDownloadAllFiles: () => void
   onCheckAllFiles: () => void
   onDownloadArchive: () => void
+  onUpdateSeoIFilesInProduct: () => void
 }
 
 export const Buttons: FC<ButtonsProps> = memo(props => {
@@ -28,9 +30,11 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
     disabledSelectAllCheckbox,
     disabledFilesButton,
     disabledArchiveButton,
+    showUpdateSeoFilesInProductButton,
     onDownloadAllFiles,
     onCheckAllFiles,
     onDownloadArchive,
+    onUpdateSeoIFilesInProduct,
   } = props
 
   const { classes: styles } = useStyles()
@@ -48,23 +52,19 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
       </div>
 
       <div className={styles.buttons}>
-        <Button
-          disabled={disabledFilesButton}
-          className={styles.button}
-          variant={ButtonVariant.OUTLINED}
-          onClick={onDownloadAllFiles}
-        >
+        <Button iconButton disabled={disabledFilesButton} onClick={onDownloadAllFiles}>
           <DownloadRoundIcon className={styles.icon} />
         </Button>
 
-        <Button
-          disabled={disabledArchiveButton}
-          className={styles.button}
-          variant={ButtonVariant.OUTLINED}
-          onClick={onDownloadArchive}
-        >
+        <Button iconButton disabled={disabledArchiveButton} onClick={onDownloadArchive}>
           <DownloadArchiveIcon className={styles.icon} />
         </Button>
+
+        {showUpdateSeoFilesInProductButton ? (
+          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={onUpdateSeoIFilesInProduct}>
+            {t(TranslationKey['Update SEO files in the product'])}
+          </Button>
+        ) : null}
       </div>
     </div>
   )

@@ -1,13 +1,11 @@
 import { FC, MouseEvent, memo } from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-
 import { disabledCancelBtnStatuses, noDisabledEditBtnStatuses } from '@constants/requests/request-proposal-status'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -34,23 +32,26 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
   return (
     <div className={styles.proposalsActions}>
       <Button
+        iconButton
+        isTableButton
         styleType={ButtonStyle.DANGER}
         disabled={disabledCancelBtnStatuses.includes(status)}
-        className={styles.freelancerMyProposalsButton}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickDeleteButton)}
       >
-        <CloseIcon />
+        <CrossIcon />
       </Button>
 
       <Button
-        className={styles.freelancerMyProposalsButton}
+        iconButton
+        isTableButton
         disabled={!noDisabledEditBtnStatuses.includes(status)}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickEditButton)}
       >
-        <EditOutlinedIcon />
+        <EditIcon />
       </Button>
 
       <Button
+        isTableButton
         styleType={ButtonStyle.SUCCESS}
         disabled={!showResultStatuses.includes(status)}
         onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickResultButton)}

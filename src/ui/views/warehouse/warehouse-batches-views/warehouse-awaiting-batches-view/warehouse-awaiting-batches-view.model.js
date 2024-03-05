@@ -342,6 +342,14 @@ export class WarehouseAwaitingBatchesViewModel {
         this.showCircularProgress = true
       })
 
+      if (this.selectedBatches?.length) {
+        const batch = await BatchesModel.getBatchesByGuid(this.selectedBatches?.[0])
+
+        runInAction(() => {
+          this.curBatch = batch
+        })
+      }
+
       const [boxes, result] = await Promise.all([
         BoxesModel.getBoxesReadyToBatchStorekeeper(),
         UserModel.getPlatformSettings(),

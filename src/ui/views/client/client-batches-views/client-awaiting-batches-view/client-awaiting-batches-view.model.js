@@ -369,6 +369,14 @@ export class ClientAwaitingBatchesViewModel {
         }
       })
 
+      if (this.selectedBatches?.length) {
+        const batch = await BatchesModel.getBatchesByGuid(this.selectedBatches?.[0])
+
+        runInAction(() => {
+          this.curBatch = batch
+        })
+      }
+
       const [boxes, result] = await Promise.all([
         BoxesModel.getBoxesReadyToBatchClient(),
         UserModel.getPlatformSettings(),

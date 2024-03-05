@@ -70,7 +70,14 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           onChange={(e: ChangeEvent<HTMLInputElement>) => onResultValue(e.target.value)}
         />
 
-        <Tabs readOnly={readOnly} isClient={isClient} fields={fields} setFields={setFields} />
+        <Tabs
+          readOnly={readOnly}
+          isClient={isClient}
+          productId={customProposal?.request?.product?._id}
+          spec={customProposal?.request?.spec}
+          fields={fields}
+          setFields={setFields}
+        />
 
         {!readOnly ? (
           <Footer

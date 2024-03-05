@@ -41,20 +41,12 @@ export const SelectionSupplierModal = ({
 
   const { classes: styles, cx } = useStyles()
 
-  /* const buttonSearchSupplierForIdeaClsx = cx(styles.modalButton, styles.searchSupplierForIdeaBtn, {
-    [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SUPPLIER_TO_IDEAS,
-  }) */
-
   const buttonSendRequestClsx = cx(styles.modalButton, {
     [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST,
   })
   const buttonAddSupplierClsx = cx(styles.modalButton, {
     [styles.modalButtonActive]: selectedButtonValue === SelectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
-
-  /* const onClickSearchSupplierForIdeaButton = () => {
-    setSelectedButtonValue(SelectedButtonValueConfig.SUPPLIER_TO_IDEAS)
-  } */
 
   const onClickSendRequestButton = () => {
     setSelectedButtonValue(SelectedButtonValueConfig.SEND_REQUEST)
@@ -112,18 +104,18 @@ export const SelectionSupplierModal = ({
 
           <div className={styles.modalButtonsWrapper}>
             <Button
+              className={buttonSendRequestClsx}
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
-              className={buttonSendRequestClsx}
               onClick={() => onClickSendRequestButton()}
             >
               {t(TranslationKey['Send request for supplier search'])}
             </Button>
 
             <Button
+              className={buttonAddSupplierClsx}
               tooltipAttentionContent={t(TranslationKey['Free service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
-              className={buttonAddSupplierClsx}
               onClick={() => onClickAddSupplierButton()}
             >
               {t(TranslationKey['Add a new supplier'])}
@@ -133,8 +125,6 @@ export const SelectionSupplierModal = ({
       )}
 
       <Grid
-        container
-        spacing={2}
         className={cx(styles.modalButtonWrapper, {
           [styles.modalButtonNextStepWrapper]:
             selectedButtonValue === SelectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
@@ -151,19 +141,16 @@ export const SelectionSupplierModal = ({
           </Grid>
         ) : null}
 
-        <Grid item>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            tooltipAttentionContent={
-              clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
-            }
-            disabled={!selectedButtonValue}
-            className={styles.modalButtonNext}
-            onClick={() => onClickNextButton()}
-          >
-            {t(TranslationKey.Next)}
-          </Button>
-        </Grid>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          tooltipAttentionContent={
+            clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
+          }
+          disabled={!selectedButtonValue}
+          onClick={() => onClickNextButton()}
+        >
+          {t(TranslationKey.Next)}
+        </Button>
       </Grid>
     </div>
   )
