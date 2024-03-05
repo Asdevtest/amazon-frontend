@@ -54,6 +54,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     ? t(TranslationKey['Add comment'])
     : t(TranslationKey['View a comment from a client'])
   const showUpdateSeoFilesInProductButton = props.isClient && props.spec.type === Specs.SEO
+  const disabledUpdateSeoFilesInProductButton = filesForDownload.length === 0
 
   return (
     <>
@@ -84,6 +85,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
             disabledFilesButton={!filesForDownload.length}
             disabledArchiveButton={disabledArchiveButton}
             showUpdateSeoFilesInProductButton={showUpdateSeoFilesInProductButton}
+            disabledUpdateSeoFilesInProductButton={disabledUpdateSeoFilesInProductButton}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
