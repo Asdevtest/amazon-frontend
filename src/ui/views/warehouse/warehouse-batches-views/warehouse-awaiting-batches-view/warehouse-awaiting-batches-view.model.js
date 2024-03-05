@@ -54,7 +54,7 @@ export class WarehouseAwaitingBatchesViewModel {
   boxesData = []
 
   selectedBatches = []
-  curBatch = {}
+  curBatch = undefined
   showConfirmModal = false
   isWarning = false
   showBatchInfoModal = false

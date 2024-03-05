@@ -75,6 +75,9 @@ export const OrderModalBodyRow = ({
     currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
     currentLogicsTariff?.destinationVariations?.find(el => el._id === item?.variationTariffId)?.pricePerKgUsd
 
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
+
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
@@ -415,13 +418,14 @@ export const OrderModalBodyRow = ({
             styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.storekeeperId
-              ? `${
-                  item.logicsTariffId
-                    ? `${tariffName || ''}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)}
+            {item.storekeeperId ? (
+              <>
+                <p>{currentTariffName}</p>
+                <p>{currentTariffRate}</p>
+              </>
+            ) : (
+              t(TranslationKey.Select)
+            )}
           </Button>
         </TableCell>
 
