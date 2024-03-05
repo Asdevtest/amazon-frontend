@@ -468,17 +468,15 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      {showImageModal && (
-        <SlideshowGalleryModal
-          isEditable={isRework}
-          isOpenModal={showImageModal}
-          files={imagesData}
-          currentFileIndex={curImageIndex}
-          onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
-          onChangeImagesForLoad={setImagesData}
-        />
-      )}
+      <SlideshowGalleryModal
+        isEditable={isRework}
+        openModal={showImageModal}
+        files={imagesData}
+        currentFileIndex={curImageIndex}
+        onOpenModal={() => setShowImageModal(!showImageModal)}
+        onCurrentFileIndex={index => setCurImageIndex(index)}
+        onChangeImagesForLoad={setImagesData}
+      />
     </>
   )
 }

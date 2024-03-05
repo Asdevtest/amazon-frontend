@@ -296,9 +296,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
         title={t(TranslationKey['Enter the dimensions of all the boxes'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
-        }}
+        onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
       />
 
       <Modal

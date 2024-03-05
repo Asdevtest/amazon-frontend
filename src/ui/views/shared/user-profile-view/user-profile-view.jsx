@@ -100,6 +100,7 @@ export const UserProfileViewRaw = props => {
           </>
         ) : null}
       </div>
+
       <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
         <ContentModal
           setOpenModal={viewModel.onTriggerShowTabModal}
@@ -138,23 +139,19 @@ export const UserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={viewModel.warningInfoModalTitle}
         btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
 
-      {viewModel.showConfirmWorkResultFormModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          openModal={viewModel.showConfirmWorkResultFormModal}
-          title={t(TranslationKey['Confirm acceptance of the work result'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey["Review of the performer's work"])}
-          confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.onAcceptReview}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Confirm acceptance of the work result'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey["Review of the performer's work"])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Reject)}
+        onSubmit={viewModel.onAcceptReview}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
     </>
   )
 }

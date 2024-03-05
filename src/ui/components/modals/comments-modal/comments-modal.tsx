@@ -13,13 +13,13 @@ import { useStyles } from './comments-modal.style'
 
 interface CommentsModalProps {
   text: string
-  isOpenModal: boolean
+  openModal: boolean
   onOpenModal: () => void
   onChangeField: (text: string) => void
-  isTextRequired?: boolean
   readOnly?: boolean
   title?: string
   maxLength?: number
+  required?: boolean
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
@@ -27,22 +27,26 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
     readOnly,
     title,
     text,
-    isOpenModal,
-    isTextRequired,
+    openModal,
+    required,
     maxLength = MAX_DEFAULT_COMMENT_LEGTH,
     onOpenModal,
     onChangeField,
   } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles, cx } = useStyles()
   const [comment, setComment] = useState('')
 
   useEffect(() => {
     setComment(text)
-  }, [text, isOpenModal])
+  }, [text, openModal])
 
   const isNotValidCommentLength = comment?.length > maxLength
-  const requiredText = isTextRequired && !comment
+  const requiredText = required && !comment
   const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength || requiredText
 
   const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event.target.value)
@@ -53,13 +57,13 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
       onOpenModal()
     }
   }
-  const handleCloseModal = () => {
+  const handleToggleModal = () => {
     setComment('')
     onOpenModal()
   }
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={handleCloseModal}>
+    <Modal openModal={openModal} setOpenModal={handleToggleModal}>
       <div className={styles.wrapper}>
         <Field
           multiline

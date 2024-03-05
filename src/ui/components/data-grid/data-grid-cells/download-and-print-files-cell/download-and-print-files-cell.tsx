@@ -101,7 +101,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
       </Box>
 
       <SlideshowGalleryModal
-        isOpenModal={isOpenModal}
+        openModal={isOpenModal}
         files={[selectedImage?.fileUrl]}
         onOpenModal={() => setIsOpenModal(!isOpenModal)}
       />

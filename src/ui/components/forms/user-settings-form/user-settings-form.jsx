@@ -82,9 +82,7 @@ export const UserSettingsForm = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data accepted'])}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
     </div>
   )

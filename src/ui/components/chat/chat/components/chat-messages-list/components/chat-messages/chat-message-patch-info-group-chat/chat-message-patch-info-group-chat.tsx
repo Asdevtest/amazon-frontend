@@ -90,7 +90,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
       <SlideshowGalleryModal
         files={bigImagesOptions.images}
         currentFileIndex={bigImagesOptions.imgIndex}
-        isOpenModal={showPhotosModal}
+        openModal={showPhotosModal}
         onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
       />

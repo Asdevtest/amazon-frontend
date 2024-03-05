@@ -414,11 +414,11 @@ export const SuppliersAndIdeas = observer(props => {
       </Modal>
 
       <CommentsModal
-        isTextRequired
+        required
         readOnly={false}
         maxLength={MAX_DEFAULT_INPUT_VALUE}
         title={t(TranslationKey['Reason for rejection'])}
-        isOpenModal={showCommentsModal}
+        openModal={showCommentsModal}
         onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
         onChangeField={setRejectStatusHandler}
       />

@@ -109,7 +109,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
       <AnnouncementModal
         select
-        isOpenModal={isOpenModal}
+        openModal={isOpenModal}
         service={announcementData}
         onOpenModal={handleToggleModal}
         onClickSelectButton={onClickSelectButton}

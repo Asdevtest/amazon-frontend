@@ -81,9 +81,7 @@ export const ResearcherProductsView = observer(props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
     </>
   )

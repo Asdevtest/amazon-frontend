@@ -20,6 +20,10 @@ import { useMainRequestResultModal } from './use-main-request-result-modal'
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
   const { customProposal, openModal, onOpenModal, readOnly } = props
 
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const {

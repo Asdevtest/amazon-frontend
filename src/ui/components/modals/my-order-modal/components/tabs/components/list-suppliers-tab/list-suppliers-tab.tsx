@@ -78,7 +78,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
 
       <GalleryModal
         files={viewModel.galleryFiles}
-        isOpenModal={viewModel.showGalleryModal}
+        openModal={viewModel.showGalleryModal}
         onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
       />
 

@@ -41,9 +41,7 @@ export const PhotosInfo: FC<PhotosInfoProps> = memo(props => {
         </div>
       </div>
 
-      {showGalleryModal ? (
-        <GalleryModal files={galleryFiles} isOpenModal={showGalleryModal} onOpenModal={onToggleGalleryModal} />
-      ) : null}
+      <GalleryModal files={galleryFiles} openModal={showGalleryModal} onOpenModal={onToggleGalleryModal} />
     </>
   )
 })

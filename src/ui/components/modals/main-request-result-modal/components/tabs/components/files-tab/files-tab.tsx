@@ -96,7 +96,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         title={commentModalTitle}
         text={currentEditableFile?.commentByClient || ''}
         maxLength={MIDDLE_COMMENT_VALUE}
-        isOpenModal={showCommentModal}
+        openModal={showCommentModal}
         onOpenModal={onShowCommentModal}
         onChangeField={onChangeComment}
       />
@@ -104,7 +104,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
       <SlideshowGalleryModal
         files={files}
         currentFileIndex={currentFileIndex}
-        isOpenModal={showSlideshowGalleryModal}
+        openModal={showSlideshowGalleryModal}
         onOpenModal={onShowSlideshowGalleryModal}
       />
     </>

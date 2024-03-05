@@ -396,9 +396,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <WarningInfoModal
@@ -406,9 +404,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={viewModel.showInfoModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
 
       <ConfirmationModal

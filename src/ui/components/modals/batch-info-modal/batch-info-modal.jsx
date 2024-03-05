@@ -431,7 +431,7 @@ export const BatchInfoModal = observer(
           </Modal>
 
           <SlideshowGalleryModal
-            isOpenModal={showPhotosModal}
+            openModal={showPhotosModal}
             files={currentBatch?.attachedDocuments}
             currentFileIndex={curImageIndex}
             onOpenModal={() => setShowPhotosModal(!showPhotosModal)}

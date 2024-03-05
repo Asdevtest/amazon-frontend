@@ -19,9 +19,13 @@ interface IdeaCardsModalProps {
 }
 
 export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
-  const { classes: styles } = useStyles()
-
   const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
+
+  if (!openModal) {
+    return null
+  }
+
+  const { classes: styles } = useStyles()
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>

@@ -1075,7 +1075,7 @@ export const EditOrderModal = memo(
         <SlideshowGalleryModal
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
-          isOpenModal={showPhotosModal}
+          openModal={showPhotosModal}
           onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />

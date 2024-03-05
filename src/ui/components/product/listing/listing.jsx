@@ -198,10 +198,8 @@ export const Listing = observer(({ productId, onClickBack }) => {
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data saved successfully'])}
-        successBtnText={'Oк'}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}

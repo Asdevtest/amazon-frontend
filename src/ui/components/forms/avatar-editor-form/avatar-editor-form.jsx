@@ -127,9 +127,7 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowInfoModal(!showInfoModal)
-        }}
+        onClickBtn={() => setShowInfoModal(!showInfoModal)}
       />
     </div>
   )
