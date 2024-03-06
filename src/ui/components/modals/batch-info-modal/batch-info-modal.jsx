@@ -1,6 +1,5 @@
 import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -37,7 +36,7 @@ import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
-export const BatchInfoModal = observer(
+export const BatchInfoModal = memo(
   ({
     openModal,
     setOpenModal,
@@ -48,19 +47,13 @@ export const BatchInfoModal = observer(
     patchActualShippingCostBatch,
     history,
   }) => {
-    const { classes: styles, cx } = useStyles()
-
     if (!openModal) {
       return null
     }
 
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
+    const { classes: styles, cx } = useStyles()
+
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
