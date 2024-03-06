@@ -114,7 +114,7 @@ export class AdminAwaitingBatchesViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

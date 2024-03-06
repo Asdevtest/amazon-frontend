@@ -177,7 +177,7 @@ export class WarehouseAwaitingBatchesViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

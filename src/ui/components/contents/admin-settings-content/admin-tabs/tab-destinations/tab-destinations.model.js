@@ -108,7 +108,7 @@ export class AdminSettingsDestinationsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

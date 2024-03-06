@@ -20,7 +20,7 @@ import {
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerVacantRequestColumns = handlers => [
+export const freelancerVacantRequestColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),

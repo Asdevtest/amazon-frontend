@@ -169,7 +169,7 @@ export class IntegrationsModel {
     }
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

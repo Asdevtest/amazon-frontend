@@ -118,7 +118,7 @@ export class ClientExchangeViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

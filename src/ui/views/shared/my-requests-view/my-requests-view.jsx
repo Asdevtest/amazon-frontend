@@ -137,7 +137,7 @@ export const MyRequestsView = observer(({ history }) => {
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModel}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
           />
@@ -193,7 +193,6 @@ export const MyRequestsView = observer(({ history }) => {
         userInfo={viewModel.userInfo}
         isAcceptedProposals={viewModel.isAcceptedProposals}
         isOpenModal={viewModel.showRequestDetailModal}
-        requestProposals={viewModel.curProposal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
@@ -205,7 +204,6 @@ export const MyRequestsView = observer(({ history }) => {
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
         onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
-        onClickResultBtn={viewModel.handleClickResultBtn}
       />
 
       <Modal

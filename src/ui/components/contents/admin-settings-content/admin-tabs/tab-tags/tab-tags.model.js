@@ -114,7 +114,7 @@ export class AdminSettingsTagsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

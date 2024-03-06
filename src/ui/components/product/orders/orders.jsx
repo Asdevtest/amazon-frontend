@@ -49,7 +49,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     onDoubleClickBarcode,
     setDataGridState,
     isSomeFilterOn,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
     onColumnVisibilityModelChange,
     columnVisibilityModel,
     onClickResetFilters,
@@ -90,7 +90,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
       />

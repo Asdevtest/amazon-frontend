@@ -11,14 +11,8 @@ import { t } from '@utils/translations'
 
 import { AdminProductViewModel } from './admin-product-view.model'
 
-export const AdminProductView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new AdminProductViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const AdminProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new AdminProductViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -26,37 +20,32 @@ export const AdminProductView = observer(props => {
 
   return (
     <>
-      <div>
-        {viewModel.product ? (
-          <ProductWrapper
-            platformSettings={viewModel.platformSettings}
-            userRole={viewModel.userInfo.role}
-            product={viewModel.product}
-            imagesForLoad={viewModel.imagesForLoad}
-            selectedSupplier={viewModel.selectedSupplier}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onChangeField={viewModel.onChangeProductFields}
-          />
-        ) : undefined}
-      </div>
+      <ProductWrapper
+        platformSettings={viewModel.platformSettings}
+        userRole={viewModel.userInfo.role}
+        product={viewModel.product}
+        imagesForLoad={viewModel.product?.images}
+        selectedSupplier={viewModel.selectedSupplier}
+        formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+        handleSupplierButtons={viewModel.onClickSupplierButtons}
+        handleProductActionButtons={viewModel.handleProductActionButtons}
+        onClickSupplier={viewModel.onChangeSelectedSupplier}
+      />
 
       <Modal
-        missClickModalOn={!viewModel.supplierModalReadOnly}
+        missClickModalOn
         openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
       >
         <AddOrEditSupplierModalContent
+          onlyRead
           product={viewModel.product}
-          storekeepersData={viewModel.storekeepersData}
-          onlyRead={viewModel.supplierModalReadOnly}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          storekeepersData={viewModel.storekeepers}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
         />
       </Modal>
     </>

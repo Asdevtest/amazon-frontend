@@ -81,7 +81,7 @@ export const TabTags = observer(() => {
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>

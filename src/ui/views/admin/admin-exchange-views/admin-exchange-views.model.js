@@ -101,7 +101,7 @@ export class AdminExchangeViewModel {
     )
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

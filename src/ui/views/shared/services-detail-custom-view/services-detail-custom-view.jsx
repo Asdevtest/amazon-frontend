@@ -15,14 +15,8 @@ import { useStyles } from './services-detail-custom-view.style'
 
 import { ServicesDetailCustomViewModel } from './services-detail-custom-view.model'
 
-export const ServicesDetailCustomView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new ServicesDetailCustomViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const ServicesDetailCustomView = observer(({ history }) => {
+  const [viewModel] = useState(() => new ServicesDetailCustomViewModel({ history }))
   const { classes: styles } = useStyles()
 
   useEffect(() => {

@@ -137,7 +137,7 @@ export class ClientAwaitingBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

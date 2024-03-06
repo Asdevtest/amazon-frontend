@@ -21,14 +21,9 @@ import { styles } from './admin-destinations-view.style'
 import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 
 export const AdminDestinationsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new AdminDestinationsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: styles } = props
+  const { classes: styles, history } = props
+
+  const [viewModel] = useState(() => new AdminDestinationsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -50,14 +45,14 @@ export const AdminDestinationsViewRaw = props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={120}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
