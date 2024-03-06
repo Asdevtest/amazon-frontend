@@ -63,7 +63,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     onClickAddressBtn,
     onTriggerArchive,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         columnVisibilityModel={columnVisibilityModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
         onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />

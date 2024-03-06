@@ -53,7 +53,7 @@ export const GroupPermissions = observer(() => {
     onChangeSortingModel,
     onChangeFilterModel,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   return (
@@ -91,7 +91,7 @@ export const GroupPermissions = observer(() => {
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={onChangePaginationModelChange}
+          onPaginationModelChange={onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>

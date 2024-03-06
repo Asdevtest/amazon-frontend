@@ -51,7 +51,7 @@ export class BuyerSearchSupplierByClientModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

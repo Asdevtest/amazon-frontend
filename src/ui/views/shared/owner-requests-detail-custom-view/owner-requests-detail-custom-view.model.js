@@ -115,8 +115,8 @@ export class OwnerRequestDetailCustomViewModel {
       }
 
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
+        showAlertShield: history?.location?.state?.showAcceptMessage,
+        alertShieldMessage: history?.location?.state?.acceptMessage,
       }
 
       const state = { ...history.location.state }

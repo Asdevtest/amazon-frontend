@@ -82,7 +82,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
-    paddingBottom: '20px',
   },
 
   requestInfoWrapper: {
@@ -93,13 +92,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   suggestDeal: {
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-
-    '& > div': {
-      height: 'fit-content',
-    },
+    alignItems: 'center',
   },
 
   editorWrapper: {

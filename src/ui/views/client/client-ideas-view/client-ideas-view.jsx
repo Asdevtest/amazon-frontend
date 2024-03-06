@@ -121,7 +121,7 @@ export const ClientIdeasView = observer(({ history }) => {
           getRowClassName={getRowClassName}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
         />

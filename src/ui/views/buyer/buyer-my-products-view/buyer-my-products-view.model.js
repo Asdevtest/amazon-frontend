@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -54,8 +54,6 @@ export class BuyerMyProductsViewModel {
   baseNoConvertedProducts = []
   productsMy = []
 
-  currentData = []
-
   nameSearchValue = ''
 
   rowHandlers = {
@@ -107,26 +105,18 @@ export class BuyerMyProductsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+  get currentData() {
+    return this.productsMy
+  }
 
-    if (location?.state?.dataGridFilter) {
-      runInAction(() => {
-        this.startFilterModel = location.state.dataGridFilter
-      })
+  constructor({ history }) {
+    this.history = history
+
+    if (history?.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
   }
 
   async onClickFeesCalculate(productId) {
@@ -140,19 +130,15 @@ export class BuyerMyProductsViewModel {
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.getProductsMy()
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.getProductsMy()
 
@@ -160,9 +146,8 @@ export class BuyerMyProductsViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.getProductsMy()
 
     this.setDataGridState()
@@ -182,70 +167,47 @@ export class BuyerMyProductsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(
+        this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+            }
+          : state.filterModel,
+      )
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.getProductsMy()
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.productsMy)
+    this.rowSelectionModel = model
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getProductsMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
-      })
-
       this.getDataGridState()
-      await this.getProductsMy()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
-      })
+      this.getProductsMy()
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
-      })
       console.log(error)
     }
   }
@@ -253,12 +215,9 @@ export class BuyerMyProductsViewModel {
   async getProductsMy() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       const result = await BuyerModel.getProductsMyPag({
-        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
+        filters: this.getFilter(),
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -280,11 +239,6 @@ export class BuyerMyProductsViewModel {
         this.baseNoConvertedProducts = []
         this.productsMy = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -306,18 +260,15 @@ export class BuyerMyProductsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
-      //
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
@@ -336,42 +287,35 @@ export class BuyerMyProductsViewModel {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getProductsMy()
     this.getDataGridState()

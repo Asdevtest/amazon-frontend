@@ -137,7 +137,7 @@ export const MyRequestsView = observer(({ history }) => {
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModel}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
           />
@@ -205,7 +205,6 @@ export const MyRequestsView = observer(({ history }) => {
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
         onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
-        onClickResultBtn={viewModel.handleClickResultBtn}
       />
 
       <Modal

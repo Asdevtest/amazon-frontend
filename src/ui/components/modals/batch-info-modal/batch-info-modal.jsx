@@ -47,7 +47,6 @@ export const BatchInfoModal = observer(
     onClickHsCode,
     patchActualShippingCostBatch,
     history,
-    location,
   }) => {
     const { classes: styles, cx } = useStyles()
 

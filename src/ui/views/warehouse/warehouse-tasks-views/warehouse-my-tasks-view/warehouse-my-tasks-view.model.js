@@ -78,11 +78,11 @@ export class WarehouseMyTasksViewModel {
     return this.tasksMy
   }
 
-  constructor({ history, location }) {
+  constructor({ history }) {
     this.history = history
 
-    if (location.state?.task) {
-      this.onClickResolveBtn(location.state?.task)
+    if (history.location.state?.task) {
+      this.onClickResolveBtn(history.location.state?.task)
 
       const state = { ...history.location.state }
       delete state.task

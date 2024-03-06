@@ -169,10 +169,6 @@ export class ClientIdeasViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.ideaList
   }
@@ -231,7 +227,7 @@ export class ClientIdeasViewModel {
     this.getIdeaList()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.setDataGridState()
     this.getIdeaList()

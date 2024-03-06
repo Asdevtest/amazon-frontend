@@ -94,7 +94,7 @@ export const UserProfileViewRaw = props => {
               loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
               onFilterModelChange={viewModel.onChangeFilterModel}
             />
           </>

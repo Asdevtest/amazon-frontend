@@ -11,7 +11,7 @@ import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns'
+import { freelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
@@ -53,10 +53,6 @@ export class VacantRequestsViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
@@ -79,12 +75,7 @@ export class VacantRequestsViewModel {
     onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
   }
 
-  columnsModel = FreelancerVacantRequestColumns(
-    this.handlers,
-    this.languageTag,
-    () => this.columnMenuSettings,
-    () => this.onHover,
-  )
+  columnsModel = freelancerVacantRequestColumns(this.handlers)
 
   constructor({ history }) {
     this.history = history
@@ -297,7 +288,7 @@ export class VacantRequestsViewModel {
     this.setTableModeState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.getRequestsVacant()

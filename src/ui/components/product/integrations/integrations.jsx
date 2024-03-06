@@ -42,7 +42,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     requestStatus,
     columnsModel,
     paginationModel,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
 
     onTriggerOpenModal,
     sellerBoardDailyData,
@@ -96,7 +96,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         rowSelectionModel={selectedRowIds}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}
       />
 

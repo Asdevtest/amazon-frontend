@@ -88,10 +88,6 @@ export class MyRequestsViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
@@ -143,6 +139,10 @@ export class MyRequestsViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
+  get currentData() {
+    return this.searchRequests
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -184,16 +184,12 @@ export class MyRequestsViewModel {
     }
   }
 
-  get currentData() {
-    return this.searchRequests
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.getCustomRequests()
     this.setDataGridState()

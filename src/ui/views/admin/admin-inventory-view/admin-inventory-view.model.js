@@ -113,7 +113,7 @@ export class AdminInventoryViewModel {
     )
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

@@ -20,25 +20,25 @@ export class VacantDealsDetailsViewModel {
 
   requestProposals = []
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      if (location.state) {
-        this.requestId = location.state.requestId
-        this.curProposalId = location.state.curProposalId
-        this.requester = location.state.requester
-      }
-    })
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location.state) {
+      this.requestId = history.location.state.requestId
+      this.curProposalId = history.location.state.curProposalId
+      this.requester = history.location.state.requester
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getDealsVacantCur()
+      this.getDealsVacantCur()
     } catch (error) {
       console.log(error)
     }
@@ -53,23 +53,20 @@ export class VacantDealsDetailsViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async onClickGetToWork(id, requestId) {
     try {
       await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, { action: 'LINK' })
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
         curProposalId: id,
       })
-      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
       console.log(error)
+    } finally {
+      this.onTriggerOpenModal('showWarningModal')
     }
   }
 
@@ -78,14 +75,10 @@ export class VacantDealsDetailsViewModel {
   }
 
   setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.actionStatus = actionStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

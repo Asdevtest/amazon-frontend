@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
@@ -50,8 +50,6 @@ export class SuppliersAndIdeasModel {
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
-
-  currentData = undefined
 
   selectedSupplier = undefined
   supplierData = undefined
@@ -119,6 +117,10 @@ export class SuppliersAndIdeasModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.ideasData?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+  }
+
   constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
@@ -134,20 +136,6 @@ export class SuppliersAndIdeasModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.ideasData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.languageTag,
-      () => (this.currentData = this.getCurrentData()),
-    )
-  }
-
-  getCurrentData() {
-    return this.ideasData?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
   }
 
   async loadData() {

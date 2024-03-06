@@ -25,9 +25,10 @@ import { useStyles } from './warehouse-my-tasks-view.style'
 
 import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 
-export const WarehouseMyTasksView = observer(({ history, location }) => {
+export const WarehouseMyTasksView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()

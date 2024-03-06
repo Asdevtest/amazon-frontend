@@ -86,7 +86,7 @@ export class GroupPermissionsModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

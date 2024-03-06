@@ -96,7 +96,7 @@ export class SubUsersViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
