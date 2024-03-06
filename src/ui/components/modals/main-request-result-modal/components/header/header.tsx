@@ -11,18 +11,20 @@ import { t } from '@utils/translations'
 import { useStyles } from './header.styles'
 
 interface HeaderProps {
+  isClient: boolean
   asin: string
   executionTime: number
   humanFriendlyId: number
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
-  const { asin, executionTime, humanFriendlyId } = props
+  const { isClient, asin, executionTime, humanFriendlyId } = props
 
   const { classes: styles, cx } = useStyles()
 
   const currentRequestId = humanFriendlyId ? ` / ID ${humanFriendlyId}` : ''
   const title = `${t(TranslationKey['Result of the request'])}${currentRequestId}`
+  const timeLabel = isClient ? `${t(TranslationKey['Time to check'])}: ` : `${t(TranslationKey['Time to complete'])}: `
 
   return (
     <div className={styles.header}>
@@ -33,7 +35,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
       <div className={styles.flexContainer}>
         <p className={styles.text}>
-          <span className={styles.textSecond}>{`${t(TranslationKey['Time to complete'])}: `}</span>
+          <span className={styles.textSecond}>{timeLabel}</span>
           <span className={styles.bold}>{minsToTime(executionTime)}</span>
         </p>
 
