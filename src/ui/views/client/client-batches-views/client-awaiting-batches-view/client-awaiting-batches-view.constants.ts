@@ -16,4 +16,5 @@ export const filtersFields = [
   'amount',
   'trackingNumber',
   'arrivalDate',
+  'quantityBoxes',
 ]

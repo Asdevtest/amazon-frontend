@@ -32,7 +32,7 @@ export class ClientAwaitingBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  curBatch = {}
+  curBatch = undefined
 
   hsCodeData = {}
   showEditHSCodeModal = false
