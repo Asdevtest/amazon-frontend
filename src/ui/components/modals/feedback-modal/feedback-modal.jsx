@@ -18,11 +18,11 @@ import { ButtonVariant } from '@typings/enums/button-style'
 import { useStyles } from './feedback-modal.style'
 
 export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
+  const { classes: styles, cx } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])

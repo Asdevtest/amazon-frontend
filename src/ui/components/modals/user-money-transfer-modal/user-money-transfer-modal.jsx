@@ -13,11 +13,11 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './user-money-transfer-modal.style'
 
 export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) => {
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

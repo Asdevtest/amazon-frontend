@@ -18,6 +18,7 @@ interface ButtonsProps {
   disabledFilesButton: boolean
   disabledArchiveButton: boolean
   showUpdateSeoFilesInProductButton: boolean
+  disabledUpdateSeoFilesInProductButton: boolean
   onDownloadAllFiles: () => void
   onCheckAllFiles: () => void
   onDownloadArchive: () => void
@@ -31,6 +32,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
     disabledFilesButton,
     disabledArchiveButton,
     showUpdateSeoFilesInProductButton,
+    disabledUpdateSeoFilesInProductButton,
     onDownloadAllFiles,
     onCheckAllFiles,
     onDownloadArchive,
@@ -61,7 +63,12 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         </Button>
 
         {showUpdateSeoFilesInProductButton ? (
-          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={onUpdateSeoIFilesInProduct}>
+          <Button
+            disabled={disabledUpdateSeoFilesInProductButton}
+            className={styles.button}
+            variant={ButtonVariant.OUTLINED}
+            onClick={onUpdateSeoIFilesInProduct}
+          >
             {t(TranslationKey['Update SEO files in the product'])}
           </Button>
         ) : null}

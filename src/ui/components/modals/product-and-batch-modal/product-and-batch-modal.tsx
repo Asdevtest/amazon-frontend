@@ -62,11 +62,11 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onClickHsCode,
   } = props
 
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   const [showBatchModal, setShowBatchModal] = useState(false)
 

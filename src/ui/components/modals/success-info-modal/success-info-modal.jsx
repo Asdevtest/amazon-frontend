@@ -12,11 +12,11 @@ import { useStyles } from './success-info-modal.style'
 export const SuccessInfoModal = memo(props => {
   const { openModal, setOpenModal, title, successBtnText, onClickSuccessBtn } = props
 
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   useEffect(() => {
     const listener = event => {

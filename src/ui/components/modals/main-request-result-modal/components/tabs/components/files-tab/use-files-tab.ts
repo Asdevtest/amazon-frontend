@@ -189,7 +189,9 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
   const handleUpdateSeoIFilesInProduct = async () => {
     try {
-      await ClientModel.updateSeoFilesInProduct(productId, filesForDownload)
+      const latestSeoFiles = filesForDownload.map(file => file.fileLink)
+
+      await ClientModel.updateSeoFilesInProduct(productId, latestSeoFiles)
 
       toast.success(t(TranslationKey['Successfully updated']))
     } catch (error) {

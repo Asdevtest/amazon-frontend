@@ -143,22 +143,6 @@ export const useStyles = makeStyles()(theme => ({
     color: '#00B746',
   },
 
-  normalPaymentText: {
-    width: 'fit-content',
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-    whiteSpace: 'nowrap',
-  },
-
-  whiteNormalPaymentText: {
-    color: '#fff',
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
   input: {
     width: '231px',
   },
@@ -281,27 +265,7 @@ export const useStyles = makeStyles()(theme => ({
 
   supplierPaymentButtonWrapper: {
     width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'end',
-  },
-
-  supplierPaymentButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    marginBottom: '20px',
-    color: '#fff',
-    gap: 5,
-  },
-
-  noPaymentButton: {
-    gap: 5,
+    marginBottom: 20,
   },
 
   formItem: {
@@ -370,5 +334,9 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 20,
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  documentButton: {
+    width: '100%',
   },
 }))

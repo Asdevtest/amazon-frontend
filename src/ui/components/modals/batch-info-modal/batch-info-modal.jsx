@@ -49,6 +49,8 @@ export const BatchInfoModal = observer(
     history,
     location,
   }) => {
+    const { classes: styles, cx } = useStyles()
+
     if (!openModal) {
       return null
     }
@@ -60,7 +62,7 @@ export const BatchInfoModal = observer(
           location,
         }),
     )
-    const { classes: styles, cx } = useStyles()
+
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 

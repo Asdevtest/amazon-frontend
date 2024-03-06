@@ -22,11 +22,11 @@ interface GalleryModalProps {
 export const GalleryModal: FC<GalleryModalProps> = memo(props => {
   const { files, openModal, onOpenModal } = props
 
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   const {
     tabValue,

@@ -25,11 +25,11 @@ interface ZoomModalProps {
 export const ZoomModal: FC<ZoomModalProps> = memo(props => {
   const { mediaFiles, currentMediaFileIndex, openModal, setOpenModal, setCurrentMediaFileIndex } = props
 
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   const files: string[] = mediaFiles.map(mediaFile =>
     isString(mediaFile) ? getAmazonImageUrl(mediaFile, true) : mediaFile?.data_url,

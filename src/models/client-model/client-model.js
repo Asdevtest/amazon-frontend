@@ -232,10 +232,10 @@ class ClientModelStatic {
     return response.data
   }
 
-  updateSeoFilesInProduct = async (guid, body) => {
+  updateSeoFilesInProduct = async (guid, latestSeoFiles) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidUpdateSeoFilesPatch({
       guid,
-      latestSeoFiles: body,
+      body: { latestSeoFiles },
     })
     return response.data
   }
