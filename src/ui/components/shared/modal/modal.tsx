@@ -32,11 +32,11 @@ export const Modal: FC<ModalProps> = memo(props => {
     children,
   } = props
 
+  const { classes: styles, cx } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles, cx } = useStyles()
 
   const [showMissClickModal, setShowMissClickModal] = useState(false)
   const [mousedownTarget, setMousedownTarget] = useState<EventTarget | null>(null)

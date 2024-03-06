@@ -31,13 +31,14 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
     openModal,
   }) => {
+    const { classes: styles, cx } = useStyles()
+
     if (!openModal) {
       return null
     }
 
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
-    const { classes: styles, cx } = useStyles()
 
     const onChangeField = fieldName => event => {
       setFormFields({

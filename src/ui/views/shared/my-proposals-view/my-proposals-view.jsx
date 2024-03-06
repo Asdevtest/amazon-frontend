@@ -141,7 +141,7 @@ export const MyProposalsView = observer(({ history }) => {
       />
 
       <FreelanceRequestDetailsModal
-        isOpenModal={viewModel.showRequestDetailModal}
+        openModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequest?.request}
         details={viewModel.currentRequest?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}

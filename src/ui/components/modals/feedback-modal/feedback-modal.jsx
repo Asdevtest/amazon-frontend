@@ -20,6 +20,10 @@ import { useStyles } from './feedback-modal.style'
 export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
   const { classes: styles, cx } = useStyles()
 
+  if (!openModal) {
+    return null
+  }
+
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
   const [showFiles, setShowFiles] = useState(false)

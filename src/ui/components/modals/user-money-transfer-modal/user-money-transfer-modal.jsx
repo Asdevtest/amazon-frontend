@@ -15,6 +15,10 @@ import { useStyles } from './user-money-transfer-modal.style'
 export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) => {
   const { classes: styles } = useStyles()
 
+  if (!openModal) {
+    return null
+  }
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.modalMessageWrapper}>

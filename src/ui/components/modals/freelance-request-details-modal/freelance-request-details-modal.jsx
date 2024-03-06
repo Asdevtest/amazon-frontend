@@ -28,7 +28,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     request,
     details,
     isAcceptedProposals,
-    isOpenModal,
+    openModal,
     handleOpenModal,
     onClickSuggest,
     onClickOpenNewTab,
@@ -44,6 +44,10 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  if (!openModal) {
+    return null
+  }
+
   const requestMedia = request?.media?.map(el => ({
     fileLink: el.fileLink,
     commentByPerformer: el.commentByPerformer,
@@ -52,7 +56,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
   }))
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={handleOpenModal}>
+    <Modal openModal={openModal} setOpenModal={handleOpenModal}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>

@@ -31,11 +31,11 @@ export const ConfirmationModal = props => {
     commentCancelBtnText,
   } = props
 
+  const { classes: styles, cx } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
 

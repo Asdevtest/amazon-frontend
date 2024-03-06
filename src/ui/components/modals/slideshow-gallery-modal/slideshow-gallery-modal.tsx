@@ -16,11 +16,11 @@ import { useSlideshowGalleryModal } from './use-slideshow-gallery-modal'
 export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props => {
   const { onCurrentFileIndex, openModal, onOpenModal, isEditable, withoutMakeMainImage } = props
 
+  const { classes: styles } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles } = useStyles()
 
   const {
     mediaFiles,

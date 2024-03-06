@@ -39,11 +39,11 @@ import { WarningInfoModal } from '../warning-info-modal'
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
 
+  const { classes: styles, cx } = useStyles()
+
   if (!openModal) {
     return null
   }
-
-  const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {

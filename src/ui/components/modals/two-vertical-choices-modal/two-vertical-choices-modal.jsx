@@ -23,6 +23,10 @@ export const TwoVerticalChoicesModal = ({
 }) => {
   const { classes: styles } = useStyles()
 
+  if (!openModal) {
+    return null
+  }
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.modalMessageWrapper}>
