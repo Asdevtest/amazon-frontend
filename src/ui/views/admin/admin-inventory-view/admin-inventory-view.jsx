@@ -81,14 +81,15 @@ export const AdminInventoryViewRaw = props => {
         </div>
       </div>
 
-      <ProductCardModal
-        // @ts-ignore
-        history={viewModel.history}
-        openModal={viewModel.productCardModal}
-        setOpenModal={() => viewModel.onClickProductModal()}
-        updateDataHandler={() => viewModel.getProducts()}
-        onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
-      />
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={viewModel.history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          updateDataHandler={() => viewModel.getProducts()}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
     </>
   )
 }

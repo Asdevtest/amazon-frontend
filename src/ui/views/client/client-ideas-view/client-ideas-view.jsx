@@ -191,13 +191,14 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <ProductCardModal
-        // @ts-ignore
-        history={history}
-        openModal={viewModel.productCardModal}
-        setOpenModal={() => viewModel.onClickProductModal()}
-        onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
-      />
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+        />
+      )}
 
       <Modal
         openModal={viewModel.showBindingModal}
