@@ -208,6 +208,7 @@ export const MyRequestsView = observer(({ history }) => {
         onClickCancelBtn={viewModel.onClickCancelBtn}
         onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
         onClickMarkAsCompletedBtn={viewModel.onClickMarkAsCompletedBtn}
+        onClickResultBtn={viewModel.handleClickResultBtn}
       />
 
       <Modal

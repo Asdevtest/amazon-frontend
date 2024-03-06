@@ -27,6 +27,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     userInfo,
     request,
     details,
+    requestProposals,
     isAcceptedProposals,
     openModal,
     handleOpenModal,
@@ -40,6 +41,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onRecoverRequest,
     onClickAbortBtn,
     onClickMarkAsCompletedBtn,
+    onClickResultBtn,
   } = props
 
   if (!openModal) {
@@ -126,8 +128,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
               )}
             </div>
 
-            <div className={styles.buttonsWrapper}>
-              {isRequestOwner && (
+            {isRequestOwner && (
+              <div className={styles.buttonsWrapper}>
+                <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+                  {t(TranslationKey.Result)}
+                </Button>
+
                 <Button
                   variant={ButtonVariant.OUTLINED}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
@@ -140,8 +146,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 
