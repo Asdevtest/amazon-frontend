@@ -32,7 +32,6 @@ export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
@@ -135,8 +134,6 @@ export class BuyerMyOrdersViewModel {
   get userInfo() {
     return UserModel.userInfo
   }
-
-  // НЕ было до создания фильтрации по статусам
 
   get orderStatusData() {
     return {
@@ -346,7 +343,6 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     if (status) {
       if (status === 'ALL') {
@@ -605,10 +601,8 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickPaymentMethodsCell(row) {
-    runInAction(() => {
-      this.currentOrder = row
-    })
+  onClickPaymentMethodsCell(row) {
+    this.currentOrder = row
 
     this.onTriggerOpenModal('showPaymentMethodsModal')
   }
@@ -792,7 +786,7 @@ export class BuyerMyOrdersViewModel {
 
         orderFields = {
           ...orderFields,
-          paymentDetails: this.readyImages,
+          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
         }
       }
 
@@ -952,7 +946,6 @@ export class BuyerMyOrdersViewModel {
     try {
       runInAction(() => {
         this.createBoxesResult = []
-        this.readyImages = []
       })
 
       if (trackNumber?.files.length) {
@@ -1015,7 +1008,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onCreateBox(formFields /* , order*/) {
+  async onCreateBox(formFields) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [
