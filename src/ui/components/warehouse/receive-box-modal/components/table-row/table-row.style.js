@@ -122,4 +122,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '14px !important',
     height: '14px !important',
   },
+
+  photosButton: {
+    whiteSpace: 'nowrap',
+  },
 }))

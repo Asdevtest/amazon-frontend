@@ -31,7 +31,7 @@ export const DataGridCustomToolbar = props => {
         </div>
       )}
 
-      <div className={cx(styles.buttons, { [styles.fullWidth]: !columsBtnSettings })}>
+      <div className={cx(styles.buttons, { [styles.flexEnd]: !columsBtnSettings })}>
         {children}
         <GridPagination />
       </div>
