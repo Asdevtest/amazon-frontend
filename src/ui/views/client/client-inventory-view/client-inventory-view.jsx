@@ -184,6 +184,7 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <IdeaCardsModal
+        // @ts-ignore
         isCreate
         product={viewModel.selectedProductToLaunch}
         productId={viewModel.selectedProductToLaunch?._id}
@@ -192,15 +193,14 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
       />
 
-      {viewModel.productCardModal && (
-        <ProductCardModal
-          history={history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
-          updateDataHandler={viewModel.getMainTableData}
-          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
-        />
-      )}
+      <ProductCardModal
+        // @ts-ignore
+        history={history}
+        openModal={viewModel.productCardModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
+        updateDataHandler={viewModel.getMainTableData}
+        onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+      />
 
       <Modal
         openModal={viewModel.showProductLotDataModal}
@@ -390,6 +390,7 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalText}
@@ -398,6 +399,7 @@ export const ClientInventoryView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={viewModel.showInfoModalTitle}
@@ -406,6 +408,7 @@ export const ClientInventoryView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}

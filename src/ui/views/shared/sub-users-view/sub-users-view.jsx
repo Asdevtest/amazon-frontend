@@ -124,6 +124,7 @@ export const SubUsersView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
@@ -133,6 +134,7 @@ export const SubUsersView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

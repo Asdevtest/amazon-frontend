@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -36,14 +35,14 @@ import { EditHSCodeModal } from '../edit-hs-code-modal'
 import { SuccessInfoModal } from '../success-info-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
-export const ProductCardModal = observer(props => {
+export const ProductCardModal = memo(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
-
-  const { classes: styles, cx } = useStyles()
 
   if (!openModal) {
     return null
   }
+
+  const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
@@ -76,7 +75,7 @@ export const ProductCardModal = observer(props => {
   const [currentTab, setCurrentTab] = useState('MAIN_INFO')
 
   useEffect(() => {
-    viewModel?.loadData()
+    viewModel.loadData()
   }, [])
 
   const clientToEditStatuses = [
@@ -290,6 +289,7 @@ export const ProductCardModal = observer(props => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel?.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel?.warningModalTitle}
@@ -298,6 +298,7 @@ export const ProductCardModal = observer(props => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel?.confirmModalSettings?.isWarning}
         openModal={viewModel?.showConfirmModal}
         setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
@@ -313,6 +314,7 @@ export const ProductCardModal = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalTitle}

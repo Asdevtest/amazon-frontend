@@ -27,6 +27,7 @@ export const CreateOrEditProposalView = observer(({ history }) => {
       />
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         openModal={viewModel.showResultModal}
         setOpenModal={() => {
           viewModel.onTriggerOpenModal('showResultModal')
@@ -42,6 +43,7 @@ export const CreateOrEditProposalView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={viewModel.onClickOkInfoModal}
         title={viewModel.infoModalText}

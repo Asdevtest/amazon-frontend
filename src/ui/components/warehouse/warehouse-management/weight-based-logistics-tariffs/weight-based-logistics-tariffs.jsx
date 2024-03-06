@@ -173,6 +173,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         />
       </Modal>
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

@@ -96,16 +96,15 @@ export const SupervisorProductsView = observer(({ history }) => {
         />
       </div>
 
-      {viewModel.productCardModal && (
-        <ProductCardModal
-          role={viewModel.userInfo.role}
-          history={viewModel.history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.loadData()}
-          onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
-        />
-      )}
+      <ProductCardModal
+        // @ts-ignore
+        role={viewModel.userInfo.role}
+        history={viewModel.history}
+        openModal={viewModel.productCardModal}
+        setOpenModal={() => viewModel.onClickProductModal()}
+        updateDataHandler={() => viewModel.loadData()}
+        onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
+      />
     </>
   )
 })

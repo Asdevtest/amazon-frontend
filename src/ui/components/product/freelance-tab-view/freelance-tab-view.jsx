@@ -102,6 +102,7 @@ export const Freelance = observer(({ productId, modal }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.curRequest}
         proposal={viewModel.curProposal}
         openModal={viewModel.showRequestResultModal}

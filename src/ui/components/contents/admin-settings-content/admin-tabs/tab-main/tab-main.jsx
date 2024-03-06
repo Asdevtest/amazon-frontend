@@ -128,6 +128,7 @@ export const TabMain = memo(props => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={onClickToggleInfoModal}
         title={infoModalText}

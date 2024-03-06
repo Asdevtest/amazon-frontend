@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
 import { Typography } from '@mui/material'
@@ -17,7 +16,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
-export const RequestProposalAcceptOrRejectResultForm = observer(
+export const RequestProposalAcceptOrRejectResultForm = memo(
   ({
     isReject,
     isSupervisor,
@@ -31,11 +30,11 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
     openModal,
   }) => {
-    const { classes: styles, cx } = useStyles()
-
     if (!openModal) {
       return null
     }
+
+    const { classes: styles, cx } = useStyles()
 
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
@@ -97,6 +96,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           </div>
 
           <ConfirmationModal
+            // @ts-ignore
             isWarning
             openModal={isShowConfirmationModal}
             setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}

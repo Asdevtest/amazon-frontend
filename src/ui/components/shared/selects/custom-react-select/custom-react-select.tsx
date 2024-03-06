@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, PropsWithChildren, memo } from 'react'
 import Select from 'react-select'
 

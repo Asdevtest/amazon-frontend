@@ -76,6 +76,7 @@ export const ServiceDetailsView = observer(props => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}

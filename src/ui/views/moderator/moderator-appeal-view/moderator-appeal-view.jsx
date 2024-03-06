@@ -14,6 +14,7 @@ export const ModeratorAppealViewRaw = () => (
     </div>
 
     {/* <ConfirmationModal
+        // @ts-ignore
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}

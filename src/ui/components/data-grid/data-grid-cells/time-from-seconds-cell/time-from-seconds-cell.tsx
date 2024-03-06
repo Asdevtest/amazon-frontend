@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { MultilineTextCell } from '..'
 import { CSSProperties, FC, memo } from 'react'
 

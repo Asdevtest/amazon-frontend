@@ -77,6 +77,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
       </div>
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
         tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
         openModal={viewModel.showTwoVerticalChoicesModal}
@@ -89,6 +90,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningTitle}

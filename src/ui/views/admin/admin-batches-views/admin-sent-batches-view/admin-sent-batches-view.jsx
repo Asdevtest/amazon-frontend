@@ -70,6 +70,7 @@ export const AdminSentBatchesViewRaw = props => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -82,6 +83,7 @@ export const AdminSentBatchesViewRaw = props => {
       />
 
       <BatchInfoModal
+        // @ts-ignore
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}

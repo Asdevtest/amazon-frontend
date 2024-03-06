@@ -97,6 +97,7 @@ export const TabTags = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={viewModel.onClickToggleConfirmModal}

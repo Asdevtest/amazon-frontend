@@ -258,6 +258,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -345,6 +346,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       <ProductAndBatchModal
+        // @ts-ignore
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
         openModal={viewModel.showProductModal}
         currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
@@ -427,6 +429,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       )}
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
         title={viewModel.modalEditSuccessMessage}
@@ -453,6 +456,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

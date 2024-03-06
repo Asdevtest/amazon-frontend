@@ -156,6 +156,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <IdeaCardsModal
+        // @ts-ignore
         isCreate={viewModel.isIdeaCreate}
         openModal={viewModel.showIdeaModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
@@ -191,6 +192,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <ProductCardModal
+        // @ts-ignore
         history={history}
         openModal={viewModel.productCardModal}
         setOpenModal={() => viewModel.onClickProductModal()}
@@ -208,6 +210,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -220,6 +223,7 @@ export const ClientIdeasView = observer(({ history }) => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalTitle}
@@ -249,6 +253,7 @@ export const ClientIdeasView = observer(({ history }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.currentRequest}
         proposal={viewModel.currentProposal}
         openModal={viewModel.showRequestBloggerResultModal}

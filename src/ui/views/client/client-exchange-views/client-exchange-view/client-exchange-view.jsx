@@ -94,6 +94,7 @@ export const ClientExchangeView = observer(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}
@@ -106,6 +107,7 @@ export const ClientExchangeView = observer(props => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.showWarningModalText}
@@ -114,6 +116,7 @@ export const ClientExchangeView = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Order successfully created!'])}

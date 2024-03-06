@@ -27,6 +27,7 @@ export const CreateOrEditTradingShopView = observer(({ history }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={viewModel.infoModalText}

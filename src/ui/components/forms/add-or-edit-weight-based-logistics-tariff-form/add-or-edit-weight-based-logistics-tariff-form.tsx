@@ -1,6 +1,4 @@
 /* eslint-disable no-prototype-builtins */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, memo, useState } from 'react'
 

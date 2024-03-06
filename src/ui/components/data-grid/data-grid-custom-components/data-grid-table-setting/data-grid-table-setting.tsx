@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'

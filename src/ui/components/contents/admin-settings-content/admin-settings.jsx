@@ -118,6 +118,7 @@ export const AdminSettings = observer(() => {
       </TabPanel>
 
       <WarningInfoModal
+        // @ts-ignore
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}
         openModal={viewModel.showInfoModal}
@@ -126,6 +127,7 @@ export const AdminSettings = observer(() => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={viewModel.onClickToggleConfirmModal}
         message={viewModel.confirmModalSettings.message}

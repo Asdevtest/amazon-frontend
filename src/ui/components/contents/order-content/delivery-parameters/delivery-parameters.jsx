@@ -251,6 +251,7 @@ export const DeliveryParameters = ({
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => setShowConfirmModal(false)}

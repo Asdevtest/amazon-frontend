@@ -165,6 +165,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -177,6 +178,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
       />
 
       <BatchInfoModal
+        // @ts-ignore
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
@@ -188,6 +190,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

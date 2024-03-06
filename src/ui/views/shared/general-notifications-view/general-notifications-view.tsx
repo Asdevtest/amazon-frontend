@@ -149,6 +149,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
       </div>
 
       <IdeaCardsModal
+        // @ts-ignore
         openModal={viewModel.showIdeaModal}
         setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
         updateData={() => {

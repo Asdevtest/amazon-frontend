@@ -86,6 +86,7 @@ export const ClientShopsView = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

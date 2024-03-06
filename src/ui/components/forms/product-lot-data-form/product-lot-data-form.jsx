@@ -132,6 +132,7 @@ export const ProductLotDataForm = memo(props => {
       </div>
 
       <BatchInfoModal
+        // @ts-ignore
         userInfo={userInfo}
         openModal={showBatchInfoModal}
         setOpenModal={setOpenBatchInfoModal}

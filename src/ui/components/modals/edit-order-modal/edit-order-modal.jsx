@@ -1032,6 +1032,7 @@ export const EditOrderModal = memo(
         </Modal>
 
         <ConfirmationModal
+          // @ts-ignore
           openModal={showConfirmModal}
           setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
           title={t(TranslationKey['Attention. Are you sure?'])}
@@ -1055,6 +1056,7 @@ export const EditOrderModal = memo(
         />
 
         <WarningInfoModal
+          // @ts-ignore
           openModal={showWarningInfoModal}
           setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
           title={t(TranslationKey['PAY ATTENTION!!!'])}

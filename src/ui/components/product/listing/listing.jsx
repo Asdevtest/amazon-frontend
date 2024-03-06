@@ -195,6 +195,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data saved successfully'])}

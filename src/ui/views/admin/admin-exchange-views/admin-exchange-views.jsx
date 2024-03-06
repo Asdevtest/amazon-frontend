@@ -82,15 +82,14 @@ export const AdminExchangeViewsRaw = props => {
         </div>
       </div>
 
-      {viewModel.productCardModal && (
-        <ProductCardModal
-          history={viewModel.history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.getProductsByStatus()}
-          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
-        />
-      )}
+      <ProductCardModal
+        // @ts-ignore
+        history={viewModel.history}
+        openModal={viewModel.productCardModal}
+        setOpenModal={() => viewModel.onClickProductModal()}
+        updateDataHandler={() => viewModel.getProductsByStatus()}
+        onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+      />
     </>
   )
 }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
 
@@ -362,6 +360,7 @@ export const Box: FC<BoxProps> = memo(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => setShowConfirmModal(false)}

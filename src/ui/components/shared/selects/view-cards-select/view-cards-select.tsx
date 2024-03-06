@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'

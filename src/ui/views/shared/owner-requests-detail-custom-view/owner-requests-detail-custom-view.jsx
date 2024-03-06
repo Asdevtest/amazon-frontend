@@ -249,6 +249,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
         openModal={viewModel.showConfirmWorkResultFormModal}
         title={t(TranslationKey['Confirm acceptance of the work result'])}
         rateLabel={t(TranslationKey['Rate the performer'])}
@@ -260,6 +261,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -273,6 +275,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         withComment
         asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}

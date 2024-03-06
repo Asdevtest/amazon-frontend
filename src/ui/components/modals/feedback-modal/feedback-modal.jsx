@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -17,12 +17,12 @@ import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './feedback-modal.style'
 
-export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
-  const { classes: styles, cx } = useStyles()
-
+export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
   if (!openModal) {
     return null
   }
+
+  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
@@ -83,6 +83,7 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
         </div>
 
         <ConfirmationModal
+          // @ts-ignore
           isWarning
           openModal={isShowConfirmationModal}
           setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
@@ -99,4 +100,4 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
       </div>
     </Modal>
   )
-}
+})

@@ -124,6 +124,7 @@ export const TabRedFlags = observer(() => {
       )}
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={viewModel.onClickToggleInfoModal}
         title={viewModel.infoModalText}
@@ -132,6 +133,7 @@ export const TabRedFlags = observer(() => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={viewModel.onClickToggleConfirmModal}

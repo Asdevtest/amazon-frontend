@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -62,11 +61,11 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onClickHsCode,
   } = props
 
-  const { classes: styles } = useStyles()
-
   if (!openModal) {
     return null
   }
+
+  const { classes: styles } = useStyles()
 
   const [showBatchModal, setShowBatchModal] = useState(false)
 
