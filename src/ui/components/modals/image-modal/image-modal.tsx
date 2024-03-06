@@ -45,11 +45,11 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     onChangeImagesForLoad,
   } = props
 
-  const { classes: styles } = useStyles()
-
   if (!openModal) {
     return null
   }
+
+  const { classes: styles } = useStyles()
 
   const {
     openImageEditModal,
