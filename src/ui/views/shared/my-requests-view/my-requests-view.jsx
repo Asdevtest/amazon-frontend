@@ -155,6 +155,7 @@ export const MyRequestsView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -168,6 +169,7 @@ export const MyRequestsView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         withComment
         asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}
@@ -189,6 +191,7 @@ export const MyRequestsView = observer(({ history }) => {
       )}
 
       <FreelanceRequestDetailsModal
+        // @ts-ignore
         isRequestOwner
         userInfo={viewModel.userInfo}
         isAcceptedProposals={viewModel.isAcceptedProposals}
@@ -232,6 +235,7 @@ export const MyRequestsView = observer(({ history }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.currentRequestDetails}
         proposal={viewModel.curProposal}
         openModal={viewModel.showRequestResultModal}
@@ -239,6 +243,7 @@ export const MyRequestsView = observer(({ history }) => {
       />
 
       <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
         openModal={viewModel.showConfirmWorkResultFormModal}
         title={t(TranslationKey['Confirm acceptance of the work result'])}
         rateLabel={t(TranslationKey['Rate the performer'])}

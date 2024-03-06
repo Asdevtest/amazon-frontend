@@ -42,11 +42,11 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickMarkAsCompletedBtn,
   } = props
 
-  const { classes: styles, cx } = useStyles()
-
   if (!openModal) {
     return null
   }
+
+  const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({
     fileLink: el.fileLink,

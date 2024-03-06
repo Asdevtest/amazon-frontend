@@ -309,6 +309,7 @@ export const SuppliersAndIdeas = observer(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -321,6 +322,7 @@ export const SuppliersAndIdeas = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successModalSettings.modalTitle}
@@ -350,6 +352,7 @@ export const SuppliersAndIdeas = observer(props => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={currentRequest}
         proposal={currentProposal}
         openModal={showRequestBloggerResultModal}

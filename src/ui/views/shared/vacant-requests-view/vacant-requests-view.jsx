@@ -157,6 +157,7 @@ export const VacantRequestsView = observer(({ history }) => {
       )}
 
       <FreelanceRequestDetailsModal
+        // @ts-ignore
         openModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequestDetails?.request}
         details={viewModel.currentRequestDetails?.details}

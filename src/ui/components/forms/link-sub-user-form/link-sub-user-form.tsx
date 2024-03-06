@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'

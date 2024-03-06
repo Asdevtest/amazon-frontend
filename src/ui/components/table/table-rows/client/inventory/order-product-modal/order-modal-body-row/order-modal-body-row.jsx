@@ -607,6 +607,7 @@ export const OrderModalBodyRow = ({
         </Modal>
 
         <ConfirmationModal
+          // @ts-ignore
           isWarning={confirmModalSettings?.isWarning}
           openModal={showConfirmationModal}
           setOpenModal={() => setShowConfirmationModal(prev => !prev)}

@@ -92,6 +92,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       </Modal>
 
       <BatchInfoModal
+        // @ts-ignore
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
@@ -114,6 +115,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -126,6 +128,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

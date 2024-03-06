@@ -32,6 +32,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
       />
 
       <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
         isSupervisor
         openModal={viewModel.showConfirmModal}
         title={t(TranslationKey['Confirm acceptance of the work result'])}
@@ -44,6 +45,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
       />
 
       <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
         isReject
         isSupervisor
         title={t(TranslationKey['Reject the deal'])}
@@ -61,6 +63,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

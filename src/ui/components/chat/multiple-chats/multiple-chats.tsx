@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'

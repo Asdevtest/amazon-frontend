@@ -292,6 +292,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showNoDimensionsErrorModal}
         setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
         title={t(TranslationKey['Enter the dimensions of all the boxes'])}

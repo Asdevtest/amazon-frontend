@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Typography } from '@mui/material'
 
 import { Button } from '@components/shared/button'
@@ -7,57 +9,59 @@ import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './two-vertical-choices-modal.style'
 
-export const TwoVerticalChoicesModal = ({
-  openModal,
-  setOpenModal,
-  title,
-  topBtnText,
-  onClickTopBtn,
-  bottomBtnText,
-  onClickBottomBtn,
-  tooltipFirstButton,
-  tooltipSecondButton,
-  tooltipThirdButton,
-  thirdBtnText,
-  onClickThirdBtn,
-}) => {
-  const { classes: styles } = useStyles()
+export const TwoVerticalChoicesModal = memo(
+  ({
+    openModal,
+    setOpenModal,
+    title,
+    topBtnText,
+    onClickTopBtn,
+    bottomBtnText,
+    onClickBottomBtn,
+    tooltipFirstButton,
+    tooltipSecondButton,
+    tooltipThirdButton,
+    thirdBtnText,
+    onClickThirdBtn,
+  }) => {
+    if (!openModal) {
+      return null
+    }
 
-  if (!openModal) {
-    return null
-  }
+    const { classes: styles } = useStyles()
 
-  return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={styles.modalMessageWrapper}>
-        <Typography variant="h5" className={styles.title}>
-          {title}
-        </Typography>
+    return (
+      <Modal openModal={openModal} setOpenModal={setOpenModal}>
+        <div className={styles.modalMessageWrapper}>
+          <Typography variant="h5" className={styles.title}>
+            {title}
+          </Typography>
 
-        <div className={styles.resultButtonsWrapper}>
-          <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
-            {topBtnText}
-          </Button>
-          <Button
-            tooltipInfoContent={tooltipSecondButton}
-            variant={ButtonVariant.OUTLINED}
-            className={styles.bottomBtnText}
-            onClick={onClickBottomBtn}
-          >
-            {bottomBtnText}
-          </Button>
-          {onClickThirdBtn && thirdBtnText && (
+          <div className={styles.resultButtonsWrapper}>
+            <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
+              {topBtnText}
+            </Button>
             <Button
-              tooltipInfoContent={tooltipThirdButton}
+              tooltipInfoContent={tooltipSecondButton}
               variant={ButtonVariant.OUTLINED}
               className={styles.bottomBtnText}
-              onClick={onClickThirdBtn}
+              onClick={onClickBottomBtn}
             >
-              {thirdBtnText}
+              {bottomBtnText}
             </Button>
-          )}
+            {onClickThirdBtn && thirdBtnText && (
+              <Button
+                tooltipInfoContent={tooltipThirdButton}
+                variant={ButtonVariant.OUTLINED}
+                className={styles.bottomBtnText}
+                onClick={onClickThirdBtn}
+              >
+                {thirdBtnText}
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
-    </Modal>
-  )
-}
+      </Modal>
+    )
+  },
+)

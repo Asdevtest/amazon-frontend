@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CSSProperties, FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'

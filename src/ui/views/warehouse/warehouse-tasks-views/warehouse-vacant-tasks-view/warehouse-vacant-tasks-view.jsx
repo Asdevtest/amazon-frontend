@@ -162,6 +162,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       </Modal>
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         openModal={viewModel.showTwoVerticalChoicesModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
         title={t(TranslationKey['Task picked up'])}
@@ -179,6 +180,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       )}
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         withComment
         commentTitleText={t(TranslationKey['Cancel task'])}

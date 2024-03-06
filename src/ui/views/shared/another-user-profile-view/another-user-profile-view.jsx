@@ -131,6 +131,7 @@ export const AnotherUserProfileViewRaw = props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}
@@ -143,6 +144,7 @@ export const AnotherUserProfileViewRaw = props => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.showWarningModalText}
@@ -151,6 +153,7 @@ export const AnotherUserProfileViewRaw = props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Order successfully created!'])}
@@ -158,18 +161,17 @@ export const AnotherUserProfileViewRaw = props => {
         onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
-      {viewModel.showConfirmWorkResultFormModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          openModal={viewModel.showConfirmWorkResultFormModal}
-          title={t(TranslationKey['Leave a review'])}
-          rateLabel={t(TranslationKey['Rate the user'])}
-          reviewLabel={t(TranslationKey['Leave a user review'])}
-          confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={viewModel.onAcceptReview}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        title={t(TranslationKey['Leave a review'])}
+        rateLabel={t(TranslationKey['Rate the user'])}
+        reviewLabel={t(TranslationKey['Leave a user review'])}
+        confirmButtonText={t(TranslationKey.Confirm)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onAcceptReview}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
     </>
   )
 }

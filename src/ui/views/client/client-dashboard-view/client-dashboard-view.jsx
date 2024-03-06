@@ -87,7 +87,9 @@ export const ClientDashboardView = observer(({ history }) => {
           onClickViewMore={viewModel.onClickInfoCardViewMode}
         />
       </div>
+
       <UserMoneyTransferModal
+        // @ts-ignore
         openModal={viewModel.showTransferModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
         isWithdraw={viewModel.transferModalSettings.isWithdraw}

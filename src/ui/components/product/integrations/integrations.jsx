@@ -113,6 +113,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successInfoModalText}
@@ -121,6 +122,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={() => onTriggerOpenModal('showInfoModal')}
         title={t(TranslationKey["You can't bind"])}

@@ -68,6 +68,7 @@ export const Modal: FC<ModalProps> = memo(props => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={showMissClickModal}
         setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
         title={t(TranslationKey.Attention)}

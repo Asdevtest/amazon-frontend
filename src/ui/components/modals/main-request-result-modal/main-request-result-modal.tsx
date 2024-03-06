@@ -91,6 +91,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmModal}
         setOpenModal={onToggleShowConfirmModal}
         message={t(TranslationKey['Are you sure you want to send the result for rework?'])}

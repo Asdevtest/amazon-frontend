@@ -292,6 +292,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         withComment
         isWarning
         asCommentModalDefault
@@ -306,6 +307,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -318,6 +320,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

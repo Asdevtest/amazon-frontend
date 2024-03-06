@@ -119,6 +119,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successModalText}
@@ -127,6 +128,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         isWarning={confirmModalSettings?.isWarning}

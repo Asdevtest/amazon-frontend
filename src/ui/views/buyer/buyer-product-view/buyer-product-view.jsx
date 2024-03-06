@@ -85,6 +85,7 @@ export const BuyerProductView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
@@ -93,6 +94,7 @@ export const BuyerProductView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -108,6 +110,7 @@ export const BuyerProductView = observer(({ history }) => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalTitle}

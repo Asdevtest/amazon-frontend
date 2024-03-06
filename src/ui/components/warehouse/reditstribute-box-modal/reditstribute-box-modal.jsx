@@ -280,6 +280,7 @@ export const RedistributeBox = observer(
         </div>
 
         <WarningInfoModal
+          // @ts-ignore
           openModal={showNewBoxAttention}
           setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
           title={t(

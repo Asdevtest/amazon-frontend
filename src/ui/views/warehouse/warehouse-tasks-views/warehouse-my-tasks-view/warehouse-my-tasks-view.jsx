@@ -143,6 +143,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showNoDimensionsErrorModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['Enter dimensions'])}
@@ -151,6 +152,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         withComment
         commentTitleText={t(TranslationKey['Cancel task'])}

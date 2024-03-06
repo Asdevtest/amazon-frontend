@@ -66,6 +66,7 @@ export const ResearcherProductView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
@@ -74,6 +75,7 @@ export const ResearcherProductView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

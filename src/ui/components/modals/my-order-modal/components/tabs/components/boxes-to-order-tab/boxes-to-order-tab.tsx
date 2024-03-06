@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -88,6 +87,7 @@ export const BoxesToOrderTab: FC<BoxesToOrderTabProps> = observer(({ formFields,
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}

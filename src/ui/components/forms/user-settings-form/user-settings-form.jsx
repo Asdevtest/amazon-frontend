@@ -78,6 +78,7 @@ export const UserSettingsForm = observer(() => {
       </div>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data accepted'])}

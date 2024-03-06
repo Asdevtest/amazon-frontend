@@ -123,6 +123,7 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}

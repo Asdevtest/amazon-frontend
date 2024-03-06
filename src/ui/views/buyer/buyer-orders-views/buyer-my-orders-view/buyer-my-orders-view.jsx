@@ -147,6 +147,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -159,6 +160,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showNoDimensionsErrorModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['The fields must be filled in to create the box!'])}
@@ -167,6 +169,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningNewBoxesModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
         title={t(TranslationKey['Creating new boxes. Be careful!'])}
@@ -175,6 +178,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
@@ -184,6 +188,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showOrderPriceMismatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
         title={t(
@@ -196,6 +201,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.showSuccessModalText}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'

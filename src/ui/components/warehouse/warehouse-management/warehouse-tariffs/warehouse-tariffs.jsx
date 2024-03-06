@@ -106,6 +106,7 @@ export const WarehouseTariffs = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

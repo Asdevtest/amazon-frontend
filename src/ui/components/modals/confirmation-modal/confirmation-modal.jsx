@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -10,7 +10,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
-export const ConfirmationModal = props => {
+export const ConfirmationModal = memo(props => {
   const {
     openModal,
     setOpenModal,
@@ -31,11 +31,11 @@ export const ConfirmationModal = props => {
     commentCancelBtnText,
   } = props
 
-  const { classes: styles, cx } = useStyles()
-
   if (!openModal) {
     return null
   }
+
+  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
 
@@ -169,4 +169,4 @@ export const ConfirmationModal = props => {
       </div>
     </Modal>
   )
-}
+})

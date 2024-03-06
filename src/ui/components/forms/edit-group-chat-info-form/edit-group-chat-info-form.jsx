@@ -136,6 +136,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}

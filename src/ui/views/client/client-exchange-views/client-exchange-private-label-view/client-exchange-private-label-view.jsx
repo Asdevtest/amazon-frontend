@@ -68,6 +68,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Product paid'])}

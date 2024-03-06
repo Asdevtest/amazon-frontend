@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -62,6 +61,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={onToggleConfirmModal}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, Fragment, memo, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
@@ -167,12 +166,14 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       </div>
 
       <FeedBackModal
+        // @ts-ignore
         openModal={showFeedbackModal}
         onSubmit={sendFeedbackAboutPlatform}
         onClose={() => onTriggerOpenModal('showFeedbackModal')}
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={false}
         openModal={showWarningModal}
         setOpenModal={() => onTriggerOpenModal('showWarningModal')}
@@ -182,6 +183,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         isWarning={confirmModalSettings?.isWarning}

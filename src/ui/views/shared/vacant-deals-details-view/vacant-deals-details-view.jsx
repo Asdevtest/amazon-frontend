@@ -30,6 +30,7 @@ export const VacantDealsDetailsView = observer(({ history }) => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

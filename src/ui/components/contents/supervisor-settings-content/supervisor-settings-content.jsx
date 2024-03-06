@@ -332,6 +332,7 @@ export const SupervisorSettingsContent = observer(() => {
           />
         </div>
       </TabPanel>
+
       <Modal
         openModal={showAsinCheckerModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
@@ -343,6 +344,7 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
+
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
         <EditAsinCheckerModal
           strategy={tabIndex}
@@ -351,7 +353,9 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
+
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmCloseAsinCheckerModal}
         title={t(TranslationKey.Attention)}
         message={t(TranslationKey['Window will be closed'])}
@@ -365,6 +369,7 @@ export const SupervisorSettingsContent = observer(() => {
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
       />
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -375,6 +380,7 @@ export const SupervisorSettingsContent = observer(() => {
         onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
+
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
         <FailedAsinsModal
           failedData={failedData}

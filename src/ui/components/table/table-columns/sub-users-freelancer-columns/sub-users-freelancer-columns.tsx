@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'

@@ -129,6 +129,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
       </div>
 
       <BatchInfoModal
+        // @ts-ignore
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
@@ -151,6 +152,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}
@@ -163,6 +165,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

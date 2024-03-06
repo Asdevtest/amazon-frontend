@@ -64,6 +64,7 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={t(TranslationKey['Taken to Work'])}

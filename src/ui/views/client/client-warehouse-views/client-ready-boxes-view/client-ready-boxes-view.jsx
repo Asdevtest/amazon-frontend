@@ -178,6 +178,7 @@ export const ClientReadyBoxesViewRaw = props => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
@@ -187,6 +188,7 @@ export const ClientReadyBoxesViewRaw = props => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
