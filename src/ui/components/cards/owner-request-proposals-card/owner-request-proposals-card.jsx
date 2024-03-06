@@ -217,7 +217,7 @@ export const OwnerRequestProposalsCard = ({
         openModal={showMainRequestResultModal}
         onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
         onEditCustomProposal={onSendInForRework}
-        onReceiveCustomProposal={onReceiveCustomProposal}
+        onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
       />
 
       <RequestResultModal

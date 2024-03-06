@@ -106,7 +106,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           onClickRejectProposal={viewModel.onClickRejectProposal}
           onClickReview={viewModel.onClickReview}
           onSendInForRework={viewModel.onSendInForRework}
-          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+          onReceiveCustomProposal={viewModel.onClickProposalResultAccept}
         />
 
         <Accordion expanded={viewModel.showChat}>
@@ -117,7 +117,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                 <ChatRequestAndRequestProposalContext.Provider
                   value={{
                     request: viewModel.request,
-                    requestProposal: viewModel.findRequestProposalForCurChat,
+                    requestProposal: findRequestProposalForCurChat,
                   }}
                 >
                   <MultipleChats
@@ -207,7 +207,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
       <MainRequestResultModal
         readOnly={!statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
-        customProposal={viewModel.findRequestProposalForCurChat}
+        customProposal={findRequestProposalForCurChat}
         userInfo={viewModel.userInfo}
         openModal={viewModel.showMainRequestResultModal}
         onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
@@ -240,7 +240,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         <RequestDesignerResultClientForm
           userInfo={viewModel.userInfo}
           request={viewModel.request}
-          proposal={viewModel.findRequestProposalForCurChat}
+          proposal={findRequestProposalForCurChat}
           curResultMedia={viewModel.curResultMedia}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
