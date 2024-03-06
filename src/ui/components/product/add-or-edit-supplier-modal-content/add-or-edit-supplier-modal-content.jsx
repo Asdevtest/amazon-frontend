@@ -62,10 +62,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
         setTmpSupplier(prev => ({
           ...prev,
 
-          heightUnit: toFixed(prev?.heightUnit / multiplier, 2),
-          widthUnit: toFixed(prev?.widthUnit / multiplier, 2),
-          lengthUnit: toFixed(prev?.lengthUnit / multiplier, 2),
-          weighUnit: toFixed(prev?.weighUnit / multiplier, 2),
+          heightUnit: toFixed(prev?.heightUnit / multiplier || '', 2),
+          widthUnit: toFixed(prev?.widthUnit / multiplier || '', 2),
+          lengthUnit: toFixed(prev?.lengthUnit / multiplier || '', 2),
+          weighUnit: toFixed(prev?.weighUnit / multiplier || '', 2),
         }))
 
         setUnitSetting(newAlignment)
@@ -76,9 +76,9 @@ export const AddOrEditSupplierModalContent = memo(props => {
           ...prev,
           boxProperties: {
             ...prev.boxProperties,
-            boxLengthCm: toFixed(prev.boxProperties.boxLengthCm / multiplier, 2),
-            boxWidthCm: toFixed(prev.boxProperties.boxWidthCm / multiplier, 2),
-            boxHeightCm: toFixed(prev.boxProperties.boxHeightCm / multiplier, 2),
+            boxLengthCm: toFixed(prev.boxProperties.boxLengthCm / multiplier || '', 2),
+            boxWidthCm: toFixed(prev.boxProperties.boxWidthCm / multiplier || '', 2),
+            boxHeightCm: toFixed(prev.boxProperties.boxHeightCm / multiplier || '', 2),
           },
         }))
 
@@ -382,7 +382,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const unitVolumeWeight = toFixed(
-    (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) / volumeWeightCoefficient,
+    (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) / volumeWeightCoefficient || '',
     2,
   )
 
@@ -747,7 +747,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               width={tmpSupplier.boxProperties.boxWidthCm}
               length={tmpSupplier.boxProperties.boxLengthCm}
               grossWeigh={tmpSupplier.boxProperties.boxWeighGrossKg}
-              optionalWeight={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient, 2) || ''}
+              optionalWeight={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient || '', 2)}
               optionalWeightTitle={t(TranslationKey['Weight, Lbs'])}
               onChangeSizeMode={handleChange(false)}
               onChangeHeight={onChangeField('boxHeightCm')}
@@ -831,11 +831,11 @@ export const AddOrEditSupplierModalContent = memo(props => {
               {!onlyRead ? (
                 <div>
                   <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
-                  {isNeedUnitInfo && (
+                  {isNeedUnitInfo ? (
                     <p className={cx(styles.normalLabel, styles.needAddPhotos)}>
                       {t(TranslationKey['Add at least 4 photos'])}
                     </p>
-                  )}
+                  ) : null}
                   <UploadFilesInput
                     withoutLinks
                     fullWidth
