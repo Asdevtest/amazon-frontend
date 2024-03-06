@@ -183,16 +183,14 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showIdeaModal && (
-        <IdeaCardsModal
-          isCreate
-          product={viewModel.selectedProductToLaunch}
-          productId={viewModel.selectedProductToLaunch?._id}
-          openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getMainTableData}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
-        />
-      )}
+      <IdeaCardsModal
+        isCreate
+        product={viewModel.selectedProductToLaunch}
+        productId={viewModel.selectedProductToLaunch?._id}
+        openModal={viewModel.showIdeaModal}
+        updateData={viewModel.getMainTableData}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+      />
 
       {viewModel.productCardModal && (
         <ProductCardModal
