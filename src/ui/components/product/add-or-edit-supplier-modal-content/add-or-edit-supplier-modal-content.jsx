@@ -7,7 +7,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -15,7 +14,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -171,18 +170,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const [makeMainSupplier, setMakeMainSupplier] = useState(false)
-
-  const [photosOfSupplier, setPhotosOfSupplier] = useState([])
-  const [photosOfUnit, setPhotosOfUnit] = useState([])
-
   const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
   const [editPhotosOfUnit, setEditPhotosOfUnit] = useState(supplier?.imageUnit || [])
-
-  const onChangeDetailsPhotosToLoad = value => setEditPhotosOfSupplier(value)
-  const onChangePhotosOfUnit = value => setEditPhotosOfUnit(value)
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const [curImageIndex, setCurImageIndex] = useState(0)
 
   const renderFooterModalButtons = () => {
     if (outsideProduct) {
@@ -197,17 +186,15 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               className={styles.saveBtnClient}
-              onClick={() => {
+              onClick={() =>
                 onClickSaveBtn({
                   supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                  photosOfSupplier,
-                  photosOfUnit,
                   addMore: false,
                   makeMainSupplier,
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
                 })
-              }}
+              }
             >
               {t(TranslationKey['Save and bind'])}
             </Button>
@@ -219,8 +206,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
               onClick={() => {
                 onClickSaveBtn({
                   supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                  photosOfSupplier,
-                  photosOfUnit,
                   addMore: false,
                   makeMainSupplier,
                   editPhotosOfSupplier,
@@ -249,18 +234,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
             tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             className={styles.saveBtn}
-            onClick={() => {
+            onClick={() =>
               onClickSaveBtn({
                 supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                photosOfSupplier,
-                photosOfUnit,
                 editPhotosOfSupplier,
                 editPhotosOfUnit,
               })
-
-              setPhotosOfSupplier(() => [])
-              setPhotosOfUnit(() => [])
-            }}
+            }
           >
             {t(TranslationKey.Save)}
           </Button>
@@ -402,13 +382,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     tmpSupplier.priceInYuan >= 1000000 ||
     +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
 
-  const isNeedUnitInfo =
-    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit || tmpSupplier?.weighUnit) &&
-    (!tmpSupplier?.heightUnit ||
-      !tmpSupplier?.widthUnit ||
-      !tmpSupplier?.weighUnit ||
-      !tmpSupplier?.lengthUnit ||
-      (photosOfUnit?.length || 0) + (editPhotosOfUnit?.length || 0) < 4)
+  const isNeedUnitInfo = editPhotosOfUnit?.length < 4
 
   const diasabledSubmit =
     itHaveBigInt ||
@@ -828,7 +802,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
             />
 
             <div className={styles.unitDimensionsSubWrapper}>
-              {!onlyRead ? (
+              {onlyRead ? (
+                <SlideshowGallery
+                  slidesToShow={3}
+                  files={editPhotosOfUnit}
+                  onChangeImagesForLoad={setEditPhotosOfUnit}
+                />
+              ) : (
                 <div>
                   <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
                   {isNeedUnitInfo && (
@@ -840,22 +820,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
                     withoutLinks
                     fullWidth
                     minimized
-                    images={photosOfUnit}
-                    setImages={setPhotosOfUnit}
+                    images={editPhotosOfUnit}
+                    setImages={setEditPhotosOfUnit}
                     dragAndDropBtnHeight={'34px'}
                     maxNumber={50}
                   />
                 </div>
-              ) : null}
-
-              <PhotoAndFilesSlider
-                smallSlider
-                showPreviews
-                withoutMakeMainImage
-                isEditable={!onlyRead}
-                files={editPhotosOfUnit}
-                onChangeImagesForLoad={onChangePhotosOfUnit}
-              />
+              )}
             </div>
           </div>
         </div>
@@ -909,28 +880,23 @@ export const AddOrEditSupplierModalContent = memo(props => {
       )}
 
       <div className={styles.bottomWrapper}>
-        <div>
-          {!onlyRead ? (
-            <div className={styles.imageFileInputWrapper}>
-              <UploadFilesInput
-                images={photosOfSupplier}
-                setImages={setPhotosOfSupplier}
-                maxNumber={50}
-                className={styles.imageFileInput}
-              />
-            </div>
-          ) : null}
-          <div className={styles.photoAndFilesWrapper}>
-            <PhotoAndFilesSlider
-              smallSlider
-              showPreviews
-              withoutMakeMainImage
-              isEditable={!onlyRead}
-              files={tmpSupplier.images}
-              onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
+        {onlyRead ? (
+          <SlideshowGallery
+            slidesToShow={3}
+            files={editPhotosOfSupplier}
+            onChangeImagesForLoad={setEditPhotosOfSupplier}
+          />
+        ) : (
+          <div className={styles.imageFileInputWrapper}>
+            <UploadFilesInput
+              fullWidth
+              images={editPhotosOfSupplier}
+              setImages={setEditPhotosOfSupplier}
+              maxNumber={50}
+              className={styles.imageFileInput}
             />
           </div>
-        </div>
+        )}
       </div>
 
       <Divider className={styles.fieldsDivider} />
@@ -940,14 +906,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
-
-      <SlideshowGalleryModal
-        openModal={showPhotosModal}
-        files={tmpSupplier.images}
-        currentFileIndex={curImageIndex}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        onCurrentFileIndex={index => setCurImageIndex(index)}
-      />
 
       <Modal
         openModal={showSupplierApproximateCalculationsModal}

@@ -1040,23 +1040,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitSaveSupplier({
-    supplier,
-    photosOfSupplier,
-    addMore,
-    makeMainSupplier,
-    photosOfUnit,
-    editPhotosOfUnit,
-  }) {
+  async onSubmitSaveSupplier({ supplier, addMore, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
@@ -1067,27 +1052,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         widthUnit: supplier?.widthUnit || null,
         lengthUnit: supplier?.lengthUnit || null,
         weighUnit: supplier?.weighUnit || null,
-        images: supplier.images.concat(this.readyImages),
       }
 
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
       }
 
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {
@@ -1099,14 +1080,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.successModalText = t(TranslationKey['Supplier added'])
       })
+
       this.onTriggerOpenModal('showSuccessModal')
 
       await this.getMainTableData()
-
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1114,6 +1092,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       this.onTriggerOpenModal('showInfoModal')
+    } finally {
+      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     }
   }
 

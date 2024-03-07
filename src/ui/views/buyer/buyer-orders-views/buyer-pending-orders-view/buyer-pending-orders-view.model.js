@@ -449,35 +449,8 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({
-    supplier,
-    photosOfSupplier,
-    productId,
-    editPhotosOfSupplier,
-    photosOfUnit,
-    editPhotosOfUnit,
-  }) {
+  async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
-      }
-
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
@@ -488,27 +461,39 @@ export class BuyerMyOrdersViewModel {
         widthUnit: supplier?.widthUnit || null,
         lengthUnit: supplier?.lengthUnit || null,
         weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+
       runInAction(() => {
         this.selectedOrder = orderData
       })

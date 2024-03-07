@@ -777,38 +777,13 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, photosOfUnit, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
-      }
-
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
-      }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -816,7 +791,18 @@ export class SuppliersAndIdeasModel {
         widthUnit: supplier?.widthUnit || null,
         lengthUnit: supplier?.lengthUnit || null,
         weighUnit: supplier?.weighUnit || null,
-        images: supplier.images.concat(this.readyImages),
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (this.forceUpdateCallBack && this.inCreate) {
@@ -851,8 +837,9 @@ export class SuppliersAndIdeasModel {
         this.loadData()
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
