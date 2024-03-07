@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 interface IHandlers {
   onClickDeleteButton: (proposalId: string, proposalStatus: string) => void
   onClickEditButton: (requestId: string, proposalId: string) => void
-  onClickResultButton: (requestId: string, proposalId: string) => void
+  onClickResultButton: (proposalId: string) => void
   onClickOpenButton: (request: any) => void
 }
 
@@ -229,9 +229,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         onClickEditButton={() =>
           handlers.onClickEditButton(params.row.originalData?.request?._id, params.row.originalData?._id)
         }
-        onClickResultButton={() =>
-          handlers.onClickResultButton(params.row.originalData.request?._id, params.row.originalData._id)
-        }
+        onClickResultButton={() => handlers.onClickResultButton(params.row.originalData._id)}
       />
     ),
     width: 240,

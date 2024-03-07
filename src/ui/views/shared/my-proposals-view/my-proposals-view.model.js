@@ -42,7 +42,7 @@ export class MyProposalsViewModel {
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
-    onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
+    onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
   }
 
@@ -289,8 +289,7 @@ export class MyProposalsViewModel {
     }
   }
 
-  async onClickResultBtn(requestId, proposalId) {
-    await this.getRequestById(requestId)
+  async onClickResultBtn(proposalId) {
     await this.getProposalById(proposalId)
 
     if (this.currentRequest?.request.spec?.title === freelanceRequestType.DESIGNER) {
