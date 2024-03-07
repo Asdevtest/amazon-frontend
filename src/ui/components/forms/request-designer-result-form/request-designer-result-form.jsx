@@ -98,7 +98,7 @@ const Slot = ({
             className={cx(
               styles.imageWrapper,
 
-              { [styles.isHaveImage]: !!slot?.image },
+              { [styles.isHaveImage]: !!slot?.fileLink },
               { [styles.mainImageWrapper]: index === 0 },
             )}
           >
@@ -312,7 +312,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
     }
   }
 
-  const disableSubmit = imagesData.every(el => !el.image)
+  const disableSubmit = imagesData.every(el => !el.fileLink)
 
   return (
     <>
