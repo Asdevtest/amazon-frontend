@@ -219,16 +219,11 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
   {
     field: 'prepId',
     headerName: 'PREP ID',
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={'PREP ID'}
-        // isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
 
     renderCell: params => (
       <ChangeInputCell
+        isString
         maxLength={25}
         rowId={params.row.originalData._id}
         text={params.value}
