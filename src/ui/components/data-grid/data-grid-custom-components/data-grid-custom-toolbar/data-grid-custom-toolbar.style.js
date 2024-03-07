@@ -14,9 +14,9 @@ export const useStyles = makeStyles()(() => ({
     gap: 30,
   },
 
-  fullWidth: {
+  flexEnd: {
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
 
   text: {
