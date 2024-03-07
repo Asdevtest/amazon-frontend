@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
 
   tableWrapper: {
     marginTop: '5px',
-    height: '30vh',
+    height: '250px',
   },
 
   chosenGoodsTitle: {

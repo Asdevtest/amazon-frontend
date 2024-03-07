@@ -458,10 +458,6 @@ export class BuyerMyOrdersViewModel {
     editPhotosOfUnit,
   }) {
     try {
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
       if (editPhotosOfUnit.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
         supplier = {
@@ -478,6 +474,15 @@ export class BuyerMyOrdersViewModel {
         }
       }
 
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+
+        supplier = {
+          ...supplier,
+          images: this.readyImages,
+        }
+      }
+
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
@@ -488,7 +493,6 @@ export class BuyerMyOrdersViewModel {
         widthUnit: supplier?.widthUnit || null,
         lengthUnit: supplier?.lengthUnit || null,
         weighUnit: supplier?.weighUnit || null,
-        images: this.readyImages,
       }
 
       if (photosOfSupplier.length) {

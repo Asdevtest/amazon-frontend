@@ -793,14 +793,6 @@ export class SuppliersAndIdeasModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
       if (editPhotosOfUnit.length) {
         await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
         supplier = {
@@ -815,6 +807,14 @@ export class SuppliersAndIdeasModel {
           ...supplier,
           imageUnit: [...supplier.imageUnit, ...this.readyImages],
         }
+      }
+
+      runInAction(() => {
+        this.readyImages = []
+      })
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
