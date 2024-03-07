@@ -50,6 +50,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
     <Modal missClickModalOn openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
         <Header
+          isClient={isClient}
           asin={customProposal?.request?.asin}
           executionTime={getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt)}
           humanFriendlyId={customProposal?.request?.humanFriendlyId}
