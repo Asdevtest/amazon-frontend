@@ -33,7 +33,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   showAcceptMessage = undefined
   acceptMessage = undefined
-
+  findRequestProposalForCurChat = undefined
   platformSettings = null
 
   showConfirmModal = false
@@ -91,13 +91,6 @@ export class OwnerRequestDetailCustomViewModel {
 
   get chats() {
     return ChatModel.chats
-  }
-
-  get findRequestProposalForCurChat() {
-    return (
-      this.chatSelectedId &&
-      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
-    )
   }
 
   constructor({ history, scrollToChat }) {
@@ -266,6 +259,10 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickProposalResultAccept(proposalId) {
+    this.findRequestProposalForCurChat = this.requestProposals.find(
+      requestProposal => requestProposal.proposal._id === proposalId,
+    )
+
     this.acceptProposalResultSetting = {
       onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
     }
