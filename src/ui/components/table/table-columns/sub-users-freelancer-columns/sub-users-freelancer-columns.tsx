@@ -82,7 +82,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       />
     ),
 
-    width: 150,
+    width: 230,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,

@@ -99,15 +99,16 @@ export const BuyerMyProductsViewRaw = props => {
           />
         </div>
 
-        <ProductCardModal
-          // @ts-ignore
-          role={viewModel.userInfo.role}
-          history={viewModel.history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.loadData()}
-          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
-        />
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            updateDataHandler={() => viewModel.loadData()}
+            onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+          />
+        )}
       </div>
     </>
   )

@@ -864,4 +864,12 @@ export class ClientProductViewModel {
       console.log(error)
     }
   }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

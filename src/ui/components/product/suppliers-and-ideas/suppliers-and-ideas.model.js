@@ -625,6 +625,18 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickReoperButton(ideaId) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmMessage: `${t(TranslationKey['Are you sure you want to restore the idea'])}`,
+      onClickConfirm: () => {
+        this.reopenIdeaHandler(ideaId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+    }
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async reopenIdeaHandler(ideaId) {
     await IdeaModel.reopenIdea(ideaId)
     this.loadData()
   }

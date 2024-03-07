@@ -398,22 +398,22 @@ export class WarehouseAwaitingBatchesViewModel {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeBatch(batchToEdit.id, {
+        await BatchesModel.changeBatch(batchToEdit._id, {
           title: batchFields.title,
           calculationMethod: batchFields.calculationMethod,
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
         if (newBoxesIds.length) {
-          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+          await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
         if (boxesToRemoveIds.length) {
-          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+          await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
         if (filesToAdd.length) {
           await BatchesModel.editAttachedDocuments(
-            batchToEdit.id,
+            batchToEdit._id,
             batchToEdit.originalData.attachedDocuments
               ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
               : [...this.uploadedFiles],

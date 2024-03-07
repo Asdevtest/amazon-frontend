@@ -33,15 +33,25 @@ export const MyServicesView = observer(({ history }) => {
 
   return (
     <>
-      <div className={styles.tablePanelWrapper}>
-        <div className={styles.toggleBtnAndtaskTypeWrapper}>
-          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.headerWrapper}>
+        <div className={styles.tablePanelWrapper}>
+          <div className={styles.toggleBtnAndtaskTypeWrapper}>
+            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-          <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.selectedSpec}
-            specs={viewModel.userInfo?.allowedSpec}
-            onClickSpec={viewModel.onClickSpec}
-          />
+            <FreelanceTypeTaskSelect
+              selectedSpec={viewModel.selectedSpec}
+              specs={viewModel.userInfo?.allowedSpec}
+              onClickSpec={viewModel.onClickSpec}
+            />
+          </div>
+
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            className={styles.rightAddingBtn}
+            onClick={viewModel.onClickCreateServiceBtn}
+          >
+            {t(TranslationKey['Create a service'])}
+          </Button>
         </div>
 
         <SearchInput
@@ -50,14 +60,6 @@ export const MyServicesView = observer(({ history }) => {
           value={viewModel.nameSearchValue}
           onChange={viewModel.onSearchSubmit}
         />
-
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          className={styles.rightAddingBtn}
-          onClick={viewModel.onClickCreateServiceBtn}
-        >
-          {t(TranslationKey['Create a service'])}
-        </Button>
       </div>
 
       <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>

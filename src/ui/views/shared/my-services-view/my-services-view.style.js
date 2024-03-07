@@ -1,11 +1,19 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  headerWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 20,
+    marginBottom: 20,
+  },
+
   tablePanelWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
   },
 
   toggleBtnAndtaskTypeWrapper: {

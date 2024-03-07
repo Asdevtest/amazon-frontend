@@ -1,4 +1,5 @@
-import { memo, useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -35,12 +36,8 @@ import { EditHSCodeModal } from '../edit-hs-code-modal'
 import { SuccessInfoModal } from '../success-info-modal'
 import { WarningInfoModal } from '../warning-info-modal'
 
-export const ProductCardModal = memo(props => {
+export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
-
-  if (!openModal) {
-    return null
-  }
 
   const { classes: styles, cx } = useStyles()
 

@@ -549,13 +549,6 @@ export class MyRequestsViewModel {
 
       const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
-      if (!proposal) {
-        runInAction(() => {
-          this.curProposal = undefined
-        })
-        return
-      }
-
       runInAction(() => {
         this.curProposal = proposal
       })
