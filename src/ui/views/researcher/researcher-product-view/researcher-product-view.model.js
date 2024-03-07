@@ -50,8 +50,6 @@ export class ResearcherProductViewModel {
   imagesForLoad = []
   uploadedImages = []
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
 
   supplierModalReadOnly = false
@@ -636,23 +634,13 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onTriggerAddOrEditSupplierModal() {
+  onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const result = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        this.selectedSupplier = undefined
       }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
     } catch (error) {
       console.log(error)
     }

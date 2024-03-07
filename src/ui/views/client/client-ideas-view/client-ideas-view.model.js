@@ -99,11 +99,7 @@ export class ClientIdeasViewModel {
   productId = undefined
   currentProposal = undefined
   currentRequest = undefined
-
   paymentMethods = []
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
 
   // * Modal states
 
@@ -348,6 +344,7 @@ export class ClientIdeasViewModel {
       this.getDataGridState()
       this.getIdeaList()
       this.getShopList()
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -473,12 +470,7 @@ export class ClientIdeasViewModel {
           this.currentIdeaId = row._id
         })
 
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        await this.getStorekeepers()
 
         this.setRequestStatus(loadingStatuses.SUCCESS)
       }
@@ -838,16 +830,14 @@ export class ClientIdeasViewModel {
   async onClickToOrder(id) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const [storekeepers, destinations, platformSettings] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
-        this.platformSettings = platformSettings
       })
 
       const result = await ProductModel.getProductById(id)
@@ -1129,5 +1119,17 @@ export class ClientIdeasViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

@@ -52,9 +52,6 @@ export class BuyerProductViewModel {
   showAddOrEditSupplierModal = false
   showEditHSCodeModal = false
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   showWarningModal = false
   showConfirmModal = false
   showSuccessModal = false
@@ -116,11 +113,7 @@ export class BuyerProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
 
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -554,19 +547,15 @@ export class BuyerProductViewModel {
     this[modal] = !this[modal]
   }
 
-  async onTriggerAddOrEditSupplierModal() {
+  onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
+        this.selectedSupplier = undefined
       } else {
-        this.getSupplierModalData()
+        this.getStorekeepers()
       }
 
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
     } catch (error) {
       console.log(error)
     }
@@ -574,24 +563,9 @@ export class BuyerProductViewModel {
 
   async onClickSupplierApproximateCalculations() {
     try {
-      await this.getSupplierModalData()
+      this.getStorekeepers()
 
       this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      await this.getStorekeepers()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
     } catch (error) {
       console.log(error)
     }
@@ -601,12 +575,20 @@ export class BuyerProductViewModel {
     this.requestStatus = requestStatus
   }
 
-  clearReadyImages() {
-    this.readyImages = []
-  }
-
   async navigateToProduct(id) {
     const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
     win.focus()
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

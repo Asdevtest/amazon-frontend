@@ -68,8 +68,6 @@ export const SuppliersAndIdeas = observer(props => {
   const {
     supplierModalReadOnly,
     requestStatus,
-    yuanToDollarRate,
-    volumeWeightCoefficient,
     selectedSupplier,
     curUser,
     curIdea,
@@ -297,8 +295,8 @@ export const SuppliersAndIdeas = observer(props => {
           paymentMethods={paymentMethods}
           onlyRead={supplierModalReadOnly}
           requestStatus={requestStatus}
-          sourceYuanToDollarRate={yuanToDollarRate}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={supplierData || selectedSupplier}
           showProgress={showProgress}
@@ -410,7 +408,7 @@ export const SuppliersAndIdeas = observer(props => {
         <SupplierApproximateCalculationsForm
           product={product}
           supplier={supplierData || selectedSupplier}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           storekeepers={storekeepersData}
           onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
         />

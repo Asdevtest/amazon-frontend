@@ -77,7 +77,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   selectedProduct = undefined
 
   selectedRowId = undefined
-  yuanToDollarRate = undefined
   platformSettings = undefined
 
   showOrderModal = false
@@ -514,6 +513,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.getDataGridState()
       this.getPresets()
       this.getMainTableData()
+      this.getPlatformSettings()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -775,17 +775,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result, dataForOrder] = await Promise.all([
+    const [storekeepers, destinations, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
-      UserModel.getPlatformSettings(),
       ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.platformSettings = result
       this.dataForOrderModal = dataForOrder
     })
 
@@ -793,6 +791,18 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     if (this.showCheckPendingOrderFormModal) {
       this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -833,10 +843,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -1099,12 +1105,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickAddSupplierButton() {
     try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.platformSettings = result
-      })
+      this.getSuppliersPaymentMethods()
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
@@ -1515,8 +1516,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
   }
 }

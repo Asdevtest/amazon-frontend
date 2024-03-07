@@ -56,9 +56,6 @@ export class SuppliersAndIdeasModel {
 
   dataToCreateProduct = undefined
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   successModalTitle = ''
 
   forceUpdateCallBack = undefined
@@ -141,12 +138,6 @@ export class SuppliersAndIdeasModel {
   async loadData() {
     try {
       if (!this.isCreateModal) {
-        const response = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.platformSettings = response
-        })
-
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
           if (this.updateData) {
@@ -156,6 +147,7 @@ export class SuppliersAndIdeasModel {
           await this.getIdeas()
         }
       }
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -670,7 +662,6 @@ export class SuppliersAndIdeasModel {
         })
       } else {
         await this.getSupplier()
-        await this.getPlatformSettings()
       }
 
       runInAction(() => {
@@ -684,9 +675,9 @@ export class SuppliersAndIdeasModel {
   async getPlatformSettings() {
     try {
       const result = await UserModel.getPlatformSettings()
+
       runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
     } catch (error) {
       console.log(error)
@@ -722,7 +713,6 @@ export class SuppliersAndIdeasModel {
   async onClickSupplierApproximateCalculations() {
     try {
       await this.getSupplier()
-      await this.getPlatformSettings()
       await this.getStorekeepers()
 
       this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
@@ -891,10 +881,8 @@ export class SuppliersAndIdeasModel {
   async onClickToOrder(idea) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const [destinations, platformSettings] = await Promise.all([
-        ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
-      ])
+      const destinations = await ClientModel.getDestinations()
+
       this.getStorekeepersData()
 
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
@@ -902,7 +890,6 @@ export class SuppliersAndIdeasModel {
       runInAction(() => {
         this.productToOrder = result
         this.destinations = destinations
-        this.platformSettings = platformSettings
       })
 
       this.onTriggerOpenModal('showOrderModal')

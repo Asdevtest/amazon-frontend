@@ -307,7 +307,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <AddOrEditSupplierModalContent
           outsideProduct
           paymentMethods={viewModel.paymentMethods}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Add a new supplier'])}
           showProgress={viewModel.showProgress}

@@ -21,8 +21,6 @@ export class ClientOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  yuanToDollarRate = undefined
-
   selectedSupplier = undefined
 
   orderId = undefined
@@ -87,7 +85,7 @@ export class ClientOrderViewModel {
 
       await this.getStorekeepers()
       await this.getDestinations()
-      this.getVolumeWeightCoefficient()
+      this.getPlatformSettings()
       await this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
 
@@ -130,23 +128,15 @@ export class ClientOrderViewModel {
     }
   }
 
-  async onTriggerAddOrEditSupplierModal() {
+  onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
+        this.selectedSupplier = undefined
       } else {
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.platformSettings = result
-        })
+        this.getStorekeepers()
       }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
     } catch (error) {
       console.log(error)
     }
@@ -154,10 +144,9 @@ export class ClientOrderViewModel {
 
   async onClickReorder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
@@ -166,8 +155,6 @@ export class ClientOrderViewModel {
         this.storekeepers = storekeepers
 
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -439,7 +426,7 @@ export class ClientOrderViewModel {
     }
   }
 
-  async getVolumeWeightCoefficient() {
+  async getPlatformSettings() {
     try {
       const result = await UserModel.getPlatformSettings()
 

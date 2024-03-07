@@ -285,8 +285,8 @@ export const ClientIdeasView = observer(({ history }) => {
           product={viewModel.currentProduct}
           storekeepersData={viewModel.storekeepers}
           requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}

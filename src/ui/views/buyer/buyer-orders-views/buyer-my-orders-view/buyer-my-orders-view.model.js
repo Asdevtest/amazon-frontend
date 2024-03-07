@@ -38,8 +38,6 @@ export class BuyerMyOrdersViewModel {
 
   paymentMethods = []
 
-  yuanToDollarRate = undefined
-
   ordersMy = []
   baseNoConvertedOrders = []
 
@@ -55,7 +53,6 @@ export class BuyerMyOrdersViewModel {
 
   paymentAmount = undefined
 
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
 
   nameSearchValue = ''
@@ -465,8 +462,6 @@ export class BuyerMyOrdersViewModel {
   async onClickUpdataSupplierData({ supplier, productId, orderFields }) {
     this.updateSupplierData = false
 
-    this.getPlatformSettings()
-
     try {
       supplier = {
         ...supplier,
@@ -639,8 +634,6 @@ export class BuyerMyOrdersViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.platformSettings = result
       })
     } catch (error) {
@@ -659,8 +652,6 @@ export class BuyerMyOrdersViewModel {
       })
 
       this.getBoxesOfOrder(orderId)
-
-      this.getPlatformSettings()
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
