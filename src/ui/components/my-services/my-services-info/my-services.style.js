@@ -47,16 +47,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 63,
   },
 
-  reviewText: {
-    fontWeight: 400,
-    fontSize: 18,
-    lineHeight: '140%',
-    cursor: 'pointer',
-    color: theme.palette.primary.main,
-    padding: 0,
-    height: 'auto !important',
-  },
-
   announcementText: {
     fontWeight: 600,
     fontSize: 18,
