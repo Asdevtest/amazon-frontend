@@ -160,6 +160,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
 
+    button: {
+      whiteSpace: 'nowrap',
+    },
+
     [theme.breakpoints.down(1024)]: {
       gap: 5,
     },

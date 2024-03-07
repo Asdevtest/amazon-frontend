@@ -193,14 +193,15 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
       />
 
-      <ProductCardModal
-        // @ts-ignore
-        history={history}
-        openModal={viewModel.productCardModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
-        updateDataHandler={viewModel.getMainTableData}
-        onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
-      />
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
+          updateDataHandler={viewModel.getMainTableData}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
 
       <Modal
         openModal={viewModel.showProductLotDataModal}
