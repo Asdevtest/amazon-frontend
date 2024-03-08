@@ -50,9 +50,6 @@ export class SupervisorProductViewModel {
   productId = undefined
   productBase = undefined
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   platformSettings = undefined
 
   supplierModalReadOnly = false
@@ -120,10 +117,7 @@ export class SupervisorProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
 
-      const response = await UserModel.getPlatformSettings()
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -462,7 +456,7 @@ export class SupervisorProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        await this.getSupplierModalData()
+        await this.getStorekeepers()
       }
 
       runInAction(() => {
@@ -475,24 +469,9 @@ export class SupervisorProductViewModel {
 
   async onClickSupplierApproximateCalculations() {
     try {
-      await this.getSupplierModalData()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplierModalData() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
       await this.getStorekeepers()
 
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
     } catch (error) {
       console.log(error)
     }
@@ -600,5 +579,17 @@ export class SupervisorProductViewModel {
   async navigateToProduct(id) {
     const win = window.open(`/supervisor/products/product?product-id=${id}`, '_blank')
     win.focus()
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

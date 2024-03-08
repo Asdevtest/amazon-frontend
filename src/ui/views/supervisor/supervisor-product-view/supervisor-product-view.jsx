@@ -39,7 +39,7 @@ export const SupervisorProductView = observer(({ history }) => {
           handleProductActionButtons={viewModel.handleProductActionButtons}
           showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
           storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
@@ -60,8 +60,8 @@ export const SupervisorProductView = observer(({ history }) => {
           product={viewModel.product}
           storekeepersData={viewModel.storekeepersData}
           onlyRead={viewModel.supplierModalReadOnly}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}

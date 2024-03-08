@@ -146,7 +146,7 @@ export const ProductCardModal = observer(props => {
             productsToBind={useProductsPermissions.currentPermissionsData}
             showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
             storekeepersData={viewModel?.storekeepersData}
-            volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+            volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
             onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickSupplier={viewModel?.onChangeSelectedSupplier}
@@ -273,9 +273,9 @@ export const ProductCardModal = observer(props => {
           product={viewModel?.product}
           onlyRead={viewModel?.supplierModalReadOnly}
           requestStatus={viewModel?.requestStatus}
-          sourceYuanToDollarRate={viewModel?.yuanToDollarRate}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
           storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel?.selectedSupplier}
           showProgress={viewModel?.showProgress}

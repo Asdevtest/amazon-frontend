@@ -62,7 +62,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <PaymentAllSuppliers
           paymentAmount={viewModel.paymentAmount}
           isNoPaidedOrders={isNoPaidedOrders}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
+          yuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
         />
       </div>
 
@@ -123,8 +123,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
           pathnameNotPaid={viewModel.pathnameNotPaid}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
           boxes={viewModel.curBoxesOfOrder}
@@ -241,7 +239,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}

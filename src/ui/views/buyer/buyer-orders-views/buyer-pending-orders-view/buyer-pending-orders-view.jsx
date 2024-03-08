@@ -91,9 +91,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           paymentMethods={viewModel.paymentMethods}
           imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
           userInfo={viewModel.userInfo}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
           boxes={viewModel.curBoxesOfOrder}

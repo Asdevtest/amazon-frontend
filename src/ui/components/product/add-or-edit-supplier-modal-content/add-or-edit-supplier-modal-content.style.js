@@ -59,6 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   bottomWrapper: {
     display: 'flex',
+    justifyContent: 'center',
   },
 
   imageFileInputWrapper: {
@@ -204,12 +205,6 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     cursor: 'pointer',
-  },
-
-  photoAndFilesWrapper: {
-    display: 'flex',
-    textAlign: 'center',
-    justifyContent: 'center',
   },
 
   paymentsBlock: {
