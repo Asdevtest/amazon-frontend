@@ -54,11 +54,7 @@ export const MyServicesInfo = ({
                 userId={announcementData?.createdBy?._id}
               />
               <div className={styles.userRatingWrapper}>
-                <Button
-                  variant={ButtonVariant.OUTLINED}
-                  className={styles.reviewText}
-                  onClick={() => onClickReview(announcementData?.createdBy)}
-                >
+                <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickReview(announcementData?.createdBy)}>
                   {t(TranslationKey.Reviews)}
                 </Button>
                 <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />

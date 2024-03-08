@@ -391,24 +391,17 @@ export const clientBoxesViewColumns = (
   {
     field: 'prepId',
     headerName: 'PREP ID',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'PREP ID'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+    renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
+
+    renderCell: params => (
+      <ChangeInputCell
+        isString
+        maxLength={25}
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-
-    renderCell: params => {
-      return (
-        <ChangeInputCell
-          maxLength={25}
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={handlers.onClickSavePrepId}
-        />
-      )
-    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,

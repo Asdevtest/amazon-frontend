@@ -366,6 +366,7 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
+          this.curBatch = undefined
         }
       })
 
