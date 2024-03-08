@@ -205,7 +205,7 @@ export const downloadArchive = async (files, folderName) => {
   const zip = new JSZip()
 
   const validFilesData = files.map(async file => {
-    const res = await fetch(getAmazonImageUrl(file.image?.file || file.fileLink, true))
+    const res = await fetch(getAmazonImageUrl(file.fileLink?.file || file.fileLink, true))
     const blob = await res.blob()
 
     return {
