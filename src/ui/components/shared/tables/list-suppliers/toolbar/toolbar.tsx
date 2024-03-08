@@ -10,7 +10,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'

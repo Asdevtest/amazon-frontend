@@ -97,66 +97,58 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </div>
 
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          isOpenModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+      <GalleryModal
+        files={viewModel.galleryFiles}
+        openModal={viewModel.showGalleryModal}
+        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+      />
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+      >
+        <AddOrEditSupplierModalContent
+          // remove memo from the modal or add types to the modal
+          /* @ts-ignore */
+          onlyRead={viewModel.supplierModalReadOnly}
+          paymentMethods={viewModel.paymentMethods}
+          product={extractProduct(formFields)}
+          storekeepersData={storekeepers}
+          requestStatus={viewModel.requestStatus}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          supplier={viewModel.currentSupplier}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={onClickSaveSupplier}
+          onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
         />
-      ) : null}
+      </Modal>
 
-      {viewModel.showAddOrEditSupplierModal ? (
-        <Modal
-          openModal={viewModel.showAddOrEditSupplierModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
-        >
-          <AddOrEditSupplierModalContent
-            // remove memo from the modal or add types to the modal
-            /* @ts-ignore */
-            onlyRead={viewModel.supplierModalReadOnly}
-            paymentMethods={viewModel.paymentMethods}
-            product={extractProduct(formFields)}
-            storekeepersData={storekeepers}
-            requestStatus={viewModel.requestStatus}
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-            supplier={viewModel.currentSupplier}
-            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            onClickSaveBtn={onClickSaveSupplier}
-            onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
-          />
-        </Modal>
-      ) : null}
-
-      {viewModel.showSupplierApproximateCalculationsModal ? (
-        <Modal
-          openModal={viewModel.showSupplierApproximateCalculationsModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-        >
-          <SupplierApproximateCalculationsForm
-            // remove memo from the modal or add types to the modal
-            /* @ts-ignore */
-            product={extractProduct(formFields)}
-            supplier={viewModel.currentSupplier}
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-            storekeepers={storekeepers}
-            onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-          />
-        </Modal>
-      ) : null}
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
-          message={viewModel.confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
-          onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+      <Modal
+        openModal={viewModel.showSupplierApproximateCalculationsModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+      >
+        <SupplierApproximateCalculationsForm
+          // @ts-ignore
+          product={extractProduct(formFields)}
+          supplier={viewModel.currentSupplier}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          storekeepers={storekeepers}
+          onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
-      ) : null}
+      </Modal>
+
+      <ConfirmationModal
+        // @ts-ignore
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
+        onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+      />
     </>
   )
 })
