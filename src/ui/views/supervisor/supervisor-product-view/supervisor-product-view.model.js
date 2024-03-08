@@ -51,8 +51,6 @@ export class SupervisorProductViewModel {
 
   platformSettings = undefined
 
-  paymentMethods = []
-
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
@@ -98,6 +96,8 @@ export class SupervisorProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -111,7 +111,6 @@ export class SupervisorProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
 
-      this.getPlatformSettings()
       this.getStorekeepers()
     } catch (error) {
       console.log(error)
@@ -353,10 +352,6 @@ export class SupervisorProductViewModel {
 
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
-        runInAction(() => {
-          this.imagesForLoad = []
-        })
       }
 
       const statusesToClearBuyer = [
@@ -377,14 +372,13 @@ export class SupervisorProductViewModel {
       const dataToUpdate = {
         ...this.curUpdateProductData,
         images: this.uploadedImages,
-
         buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
       }
 
       await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
 
-      await this.loadData()
-      this.showSuccesAlert()
+      this.loadData()
+
       updateDataHandler && (await updateDataHandler())
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -392,27 +386,6 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
-  }
-
-  showSuccesAlert() {
-    this.alertShieldSettings = {
-      showAlertShield: true,
-      alertShieldMessage: t(TranslationKey['Data was successfully saved']),
-    }
-
-    setTimeout(() => {
-      this.alertShieldSettings = {
-        ...this.alertShieldSettings,
-        showAlertShield: false,
-      }
-
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          showAlertShield: false,
-          alertShieldMessage: '',
-        }
-      }, 1000)
-    }, 3000)
   }
 
   setRequestStatus(requestStatus) {
@@ -443,22 +416,21 @@ export class SupervisorProductViewModel {
         runInAction(() => {
           if (Object.keys(amazonResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-              this.imagesForLoad = amazonResult.images
-            })
+              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
+
+            this.imagesForLoad = amazonResult.images
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -475,20 +447,19 @@ export class SupervisorProductViewModel {
         runInAction(() => {
           if (Object.keys(sellerCentralResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
-                amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+              amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+              amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
           }
           updateProductAutoCalculatedFields.call(this)
         })

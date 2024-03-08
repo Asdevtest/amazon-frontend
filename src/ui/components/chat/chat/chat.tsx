@@ -395,7 +395,7 @@ export const Chat: FC<ChatProps> = memo(
                         })}
                         onClick={() => setShowFiles(!showFiles)}
                       />
-                      {files.length ? <div className={styles.badge}>{files.length}</div> : undefined}
+                      {files.length ? <div className={styles.badge}>{files.length}</div> : null}
                     </div>
                   </InputAdornment>
                 ),
@@ -429,7 +429,7 @@ export const Chat: FC<ChatProps> = memo(
                 },
                 resetAllInputs,
               )
-            : undefined}
+            : null}
         </div>
       </>
     )

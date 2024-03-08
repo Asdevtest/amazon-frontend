@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -56,6 +55,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     platformSettings,
     onClickFilesCell: viewModel.onClickFilesCell,
   })
+  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
 
   return (
     <>
@@ -84,10 +84,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
                   readOnly={readOnly}
                   userInfo={viewModel.userInfo}
                   isSupplerSelected={viewModel.selectionModel.length > 0}
+                  isCurrentSupplierSelected={isCurrentSupplierSelected}
                   status={extractProduct(formFields)?.status}
                   supplier={viewModel.currentSupplier}
                   onSupplierApproximateCalculationsModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-                  onClickTooltipButton={viewModel.onClickTooltipButton}
+                  onSupplierActions={viewModel.onSupplierActions}
                 />
               ),
             },
@@ -108,8 +109,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
       >
         <AddOrEditSupplierModalContent
-          // remove memo from the modal or add types to the modal
-          /* @ts-ignore */
+          // @ts-ignore
           onlyRead={viewModel.supplierModalReadOnly}
           paymentMethods={viewModel.paymentMethods}
           product={extractProduct(formFields)}

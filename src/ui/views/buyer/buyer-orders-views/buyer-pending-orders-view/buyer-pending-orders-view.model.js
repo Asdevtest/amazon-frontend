@@ -121,6 +121,8 @@ export class BuyerMyOrdersViewModel {
       this.startFilterModel = history.location.state.dataGridFilter
     }
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -216,7 +218,6 @@ export class BuyerMyOrdersViewModel {
       this.getDataGridState()
       await this.getOrdersMy()
       this.getSuppliersPaymentMethods()
-      this.getPlatformSettings()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {

@@ -40,9 +40,6 @@ export class AdminProductViewModel {
   storekeepers = []
   platformSettings = undefined
 
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
-
   formFieldsValidationErrors = getNewObjectWithDefaultValue(formFieldsDefault, undefined)
 
   get userInfo() {
@@ -55,6 +52,8 @@ export class AdminProductViewModel {
     this.history = history
     this.productId = url.searchParams.get('product-id')
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -62,17 +61,8 @@ export class AdminProductViewModel {
     try {
       this.getProductById()
       this.getStorekeepers()
-      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  onClickSupplierButtons(actionType) {
-    switch (actionType) {
-      case 'view':
-        this.onTriggerOpenModal('showAddOrEditSupplierModal')
-        break
     }
   }
 
@@ -94,19 +84,10 @@ export class AdminProductViewModel {
 
       runInAction(() => {
         this.product = response
+        updateProductAutoCalculatedFields.call(this)
       })
-
-      updateProductAutoCalculatedFields.call(this)
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
     }
   }
 

@@ -1,7 +1,6 @@
 import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Container, Divider, Paper, TableCell, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
@@ -11,11 +10,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { Table } from '@components/shared/table'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
 import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
@@ -43,16 +42,12 @@ export const OrderContent = ({
   order,
   boxes,
   onClickCancelOrder,
-  volumeWeightCoefficient,
   userInfo,
   onSubmitChangeBoxFields,
   isClient,
   onSubmitSaveOrder,
   onClickReorder,
   platformSettings,
-  selectedSupplier,
-  onChangeSelectedSupplier,
-  onTriggerAddOrEditSupplierModal,
   onClickHsCode,
   setCurrentOpenedBox,
 }) => {
@@ -267,29 +262,11 @@ export const OrderContent = ({
         </div>
 
         <div className={styles.suppliersWrapper}>
-          <Typography className={styles.supplierTitle}>{t(TranslationKey['List of suppliers'])}</Typography>
-
-          <div className={styles.supplierButtonWrapper}>
-            <Button
-              disabled={!selectedSupplier}
-              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-              className={styles.iconBtn}
-              onClick={onTriggerAddOrEditSupplierModal}
-            >
-              <VisibilityOutlinedIcon />
-            </Button>
-            <Typography className={styles.supplierButtonText}>
-              {t(TranslationKey['Open the parameters supplier'])}
-            </Typography>
-          </div>
-
-          <TableSupplier
-            isClient
+          <ListSuppliers
+            formFields={updatedOrder.product}
             platformSettings={platformSettings}
-            product={updatedOrder.product}
-            productBaseData={updatedOrder}
-            selectedSupplier={selectedSupplier}
-            onClickSupplier={onChangeSelectedSupplier}
+            storekeepers={storekeepers}
+            //  onClickSaveSupplier={onChangeSelectedSupplier}
           />
         </div>
 
@@ -309,7 +286,7 @@ export const OrderContent = ({
               BodyRow={WarehouseBodyRow}
               renderHeadRow={renderHeadRow()}
               mainProductId={updatedOrder.product._id}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               userInfo={userInfo}
               setCurrentOpenedBox={setCurrentOpenedBox}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}

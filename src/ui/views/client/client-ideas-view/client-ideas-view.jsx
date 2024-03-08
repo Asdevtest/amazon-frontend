@@ -24,7 +24,6 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -123,7 +122,7 @@ export const ClientIdeasView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
+          onRowClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
         />
       </div>
 
@@ -276,22 +275,6 @@ export const ClientIdeasView = observer(({ history }) => {
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
-        />
-      </Modal>
-
-      <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel.paymentMethods}
-          product={viewModel.currentProduct}
-          storekeepersData={viewModel.storekeepers}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
       </Modal>
 

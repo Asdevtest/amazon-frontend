@@ -35,7 +35,7 @@ export const DashboardButtons = ({ user, routes }) => {
         >
           <div className={styles.iconWrapper}>
             <MyNotificationsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
-            {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : undefined}
+            {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : null}
           </div>
 
           <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
@@ -48,7 +48,7 @@ export const DashboardButtons = ({ user, routes }) => {
         <div className={styles.iconWrapper}>
           <Message classes={{ root: styles.fontSizeLarge }} fontSize="large" />
 
-          {unreadMessages ? <div className={styles.badge}>{unreadMessages}</div> : undefined}
+          {unreadMessages ? <div className={styles.badge}>{unreadMessages}</div> : null}
         </div>
 
         <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>

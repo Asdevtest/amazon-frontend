@@ -138,6 +138,7 @@ export const TopCard = memo(
                   </div>
                 ) : undefined}
               </div>
+
               <FieldsAndSuppliers
                 user={user}
                 showActionBtns={showActionBtns}
@@ -155,6 +156,7 @@ export const TopCard = memo(
                 onClickParseProductData={onClickParseProductData}
               />
             </div>
+
             <RightSideComments
               modal={modal}
               showActionBtns={showActionBtns}

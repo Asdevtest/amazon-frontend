@@ -59,7 +59,6 @@ export class ClientIdeasViewModel {
   showRequestBloggerResultModal = false
   showMainRequestResultModal = false
   showOrderModal = false
-  showAddOrEditSupplierModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
 
@@ -127,7 +126,6 @@ export class ClientIdeasViewModel {
     onClickResultButton: request => this.onClickResultButton(request),
     onClickUnbindButton: requestId => this.onClickUnbindButton(requestId),
     onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
-    onClickSelectSupplier: ideaData => this.onTriggerAddOrEditSupplierModal(ideaData),
     onClickClose: ideaId => this.onClickCloseIdea(ideaId),
     onClickRestore: id => this.handleRestore(id),
     onClickAcceptOnCheckingStatus: id => this.handleStatusToSupplierSearch(id),
@@ -175,6 +173,8 @@ export class ClientIdeasViewModel {
     this.handleUpdateColumnModel()
 
     this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
+
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -344,7 +344,6 @@ export class ClientIdeasViewModel {
       this.getDataGridState()
       this.getIdeaList()
       this.getShopList()
-      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -453,34 +452,6 @@ export class ClientIdeasViewModel {
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal(row) {
-    try {
-      if (!this.showAddOrEditSupplierModal) {
-        this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-        const product = await ProductModel.getProductById(row?.parentProduct?._id)
-
-        this.getSuppliersPaymentMethods()
-
-        runInAction(() => {
-          this.currentProduct = product
-          this.currentIdeaId = row._id
-        })
-
-        await this.getStorekeepers()
-
-        this.setRequestStatus(loadingStatuses.SUCCESS)
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -804,8 +775,8 @@ export class ClientIdeasViewModel {
         if (supplier._id === this.currentProduct.currentSupplierId) {
           runInAction(() => {
             this.currentProduct.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
           })
-          updateProductAutoCalculatedFields.call(this)
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
@@ -815,8 +786,6 @@ export class ClientIdeasViewModel {
       }
 
       this.loadData()
-
-      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {

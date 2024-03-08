@@ -13,7 +13,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
@@ -33,8 +32,6 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './suppliers-and-ideas.style'
-
-import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
 
@@ -66,9 +63,8 @@ export const SuppliersAndIdeas = observer(props => {
   }, [])
 
   const {
-    supplierModalReadOnly,
     requestStatus,
-    selectedSupplier,
+
     curUser,
     curIdea,
     inEdit,
@@ -78,9 +74,7 @@ export const SuppliersAndIdeas = observer(props => {
     showProgress,
     showConfirmModal,
     showSuccessModal,
-    showAddOrEditSupplierModal,
     confirmModalSettings,
-    paymentMethods,
     currentProduct,
     productToOrder,
     currentProposal,
@@ -97,16 +91,12 @@ export const SuppliersAndIdeas = observer(props => {
     showSetBarcodeModal,
     selectedProduct,
     alertShieldSettings,
-    supplierData,
     currentRequest,
     showSelectionSupplierModal,
     currentData,
     languageTag,
-    showSupplierApproximateCalculationsModal,
-    storekeepersData,
     showCommentsModal,
     setRejectStatusHandler,
-    onClickSupplierApproximateCalculations,
     onClickToOrder,
     onClickSaveBarcode,
     onDoubleClickBarcode,
@@ -127,12 +117,9 @@ export const SuppliersAndIdeas = observer(props => {
     onSetCurIdea,
     onEditIdea,
     onClickCreateProduct,
-    onClickSupplierButtons,
     onClickOpenNewTab,
     onClickOpenProduct,
     onClickRequestId,
-    onChangeSelectedSupplier,
-    onTriggerAddOrEditSupplierModal,
     onClickSaveSupplierBtn,
     onConfirmSubmitOrderProductModal,
     onSubmitCalculateSeekSupplier,
@@ -176,12 +163,10 @@ export const SuppliersAndIdeas = observer(props => {
           curUser={curUser}
           curIdea={curIdea}
           currentProduct={currentProduct}
-          selectedSupplier={selectedSupplier}
+          storekeepers={storekeepers}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
           onSetCurIdea={onSetCurIdea}
-          onClickSupplierBtns={onClickSupplierButtons}
-          onClickSupplier={onChangeSelectedSupplier}
           onClickOpenProduct={onClickOpenProduct}
         />
       )}
@@ -200,8 +185,7 @@ export const SuppliersAndIdeas = observer(props => {
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
-              selectedSupplier={selectedSupplier}
-              onClickSupplierApproximateCalculations={onClickSupplierApproximateCalculations}
+              storekeepers={storekeepers}
               onCreateProduct={onClickCreateProduct}
               onClickSaveBtn={onClickSaveBtn}
               onClickCancelBtn={onClickCancelBtn}
@@ -214,14 +198,13 @@ export const SuppliersAndIdeas = observer(props => {
               onClickResultButton={onClickResultButton}
               onSetCurIdea={onSetCurIdea}
               onEditIdea={onEditIdea}
-              onClickSupplierBtns={onClickSupplierButtons}
-              onClickSupplier={onChangeSelectedSupplier}
               onClickSaveIcon={onClickSaveIcon}
               onClickOpenNewTab={onClickOpenNewTab}
               onClickOpenProduct={onClickOpenProduct}
               onClickToOrder={onClickToOrder}
               onClickRequestId={onClickRequestId}
               onClickUnbindButton={onClickUnbindButton}
+              onClickSaveSupplierBtn={onClickSaveSupplierBtn}
             />
           ) : (
             <div className={styles.emptyTableWrapper}>
@@ -249,8 +232,8 @@ export const SuppliersAndIdeas = observer(props => {
                   idea={idea}
                   languageTag={languageTag}
                   currentProduct={currentProduct}
-                  selectedSupplier={selectedSupplier}
                   selectedIdea={selectedIdeaId}
+                  storekeepers={storekeepers}
                   onCreateProduct={onClickCreateProduct}
                   onClickSaveBtn={onClickSaveBtn}
                   onClickCancelBtn={onClickCancelBtn}
@@ -263,9 +246,7 @@ export const SuppliersAndIdeas = observer(props => {
                   onClickResultButton={onClickResultButton}
                   onSetCurIdea={onSetCurIdea}
                   onEditIdea={onEditIdea}
-                  onClickSupplierBtns={onClickSupplierButtons}
                   onClickOpenProduct={onClickOpenProduct}
-                  onClickSupplier={onChangeSelectedSupplier}
                   onClickSaveIcon={onClickSaveIcon}
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
@@ -283,28 +264,6 @@ export const SuppliersAndIdeas = observer(props => {
           )}
         </>
       )}
-
-      <Modal
-        missClickModalOn={!supplierModalReadOnly}
-        openModal={showAddOrEditSupplierModal}
-        setOpenModal={onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          product={curIdea}
-          storekeepersData={storekeepers}
-          paymentMethods={paymentMethods}
-          onlyRead={supplierModalReadOnly}
-          requestStatus={requestStatus}
-          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={supplierData || selectedSupplier}
-          showProgress={showProgress}
-          progressValue={progressValue}
-          onClickSaveBtn={onClickSaveSupplierBtn}
-          onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-        />
-      </Modal>
 
       <ConfirmationModal
         // @ts-ignore
@@ -400,19 +359,6 @@ export const SuppliersAndIdeas = observer(props => {
           acceptMessage={alertShieldSettings?.alertShieldMessage}
         />
       )}
-
-      <Modal
-        openModal={showSupplierApproximateCalculationsModal}
-        setOpenModal={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
-      >
-        <SupplierApproximateCalculationsForm
-          product={product}
-          supplier={supplierData || selectedSupplier}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          storekeepers={storekeepersData}
-          onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
-        />
-      </Modal>
 
       <CommentsModal
         required

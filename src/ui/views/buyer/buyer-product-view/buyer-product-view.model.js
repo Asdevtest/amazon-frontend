@@ -93,6 +93,8 @@ export class BuyerProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -105,7 +107,7 @@ export class BuyerProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
-      this.getPlatformSettings()
+
       this.getStorekeepers()
     } catch (error) {
       console.log(error)
@@ -429,9 +431,8 @@ export class BuyerProductViewModel {
         if (supplier._id === this.product.currentSupplierId) {
           runInAction(() => {
             this.product.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
           })
-
-          updateProductAutoCalculatedFields.call(this)
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
@@ -446,8 +447,6 @@ export class BuyerProductViewModel {
 
       this.onSaveForceProductData()
 
-      this.onTriggerAddOrEditSupplierModal()
-
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
@@ -457,30 +456,6 @@ export class BuyerProductViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
-      } else {
-        this.getStorekeepers()
-      }
-
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      this.getStorekeepers()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   setRequestStatus(requestStatus) {

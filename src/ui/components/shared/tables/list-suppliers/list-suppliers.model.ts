@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
@@ -104,6 +103,8 @@ export class ListSuppliersModel {
         : this.product?.suppliers
 
       this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id }))
+    } else if (this.product && this.product?.suppliers?.length > 0) {
+      this.suppliers = this.product?.suppliers
     }
   }
 
@@ -137,11 +138,11 @@ export class ListSuppliersModel {
     }
   }
 
-  async onClickTooltipButton(mode: ModalModes) {
+  async onSupplierActions(mode: ModalModes) {
     switch (mode) {
       case ModalModes.ADD:
         runInAction(() => {
-          this.supplierModalReadOnly = false
+          this.supplierModalReadOnly = true
         })
 
         this.onToggleModal(ModalNames.SUPPLIER)
@@ -168,8 +169,6 @@ export class ListSuppliersModel {
           }
         })
 
-        updateProductAutoCalculatedFields.call(this.product)
-
         this.saveProductIfNeeded()
 
         break
@@ -180,8 +179,6 @@ export class ListSuppliersModel {
             this.product.currentSupplier = undefined
           }
         })
-
-        updateProductAutoCalculatedFields.call(this.product)
 
         this.saveProductIfNeeded()
 

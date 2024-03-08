@@ -50,7 +50,7 @@ export const ClientProductView = observer(({ history }) => {
           productBase={viewModel.productBase}
           handleProductActionButtons={viewModel.handleProductActionButtons}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          loadMorePermissionsDataHadler={useProductsPermissions.loadMoreDataHadler}
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
           storekeepersData={viewModel?.storekeepersData}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
@@ -75,7 +75,7 @@ export const ClientProductView = observer(({ history }) => {
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onSaveForceProductData={viewModel.onSaveForceProductData}
         />
-      ) : undefined}
+      ) : null}
 
       <WarningInfoModal
         // @ts-ignore

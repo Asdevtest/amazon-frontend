@@ -47,7 +47,7 @@ export class ResearcherProductViewModel {
   productId = undefined
   product = undefined
   productBase = undefined
-  curUpdateProductData = {}
+  curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
   platformSettings = undefined
@@ -93,6 +93,8 @@ export class ResearcherProductViewModel {
 
     this.productId = history.location.search.slice(1)
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -100,7 +102,6 @@ export class ResearcherProductViewModel {
     try {
       await this.getProductById()
 
-      this.getPlatformSettings()
       this.getStorekeepers()
 
       if (this.startParse) {
@@ -201,7 +202,9 @@ export class ResearcherProductViewModel {
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
-        updateProductAutoCalculatedFields.call(this)
+        runInAction(() => {
+          updateProductAutoCalculatedFields.call(this)
+        })
       }
     })
 
@@ -322,7 +325,7 @@ export class ResearcherProductViewModel {
           isWarning: false,
           message: withoutStatus
             ? confirmMessageWithoutStatus()
-            : confirmMessageByProductStatus()[this.curUpdateProductData.status],
+            : confirmMessageByProductStatus()[this.curUpdateProductData?.status],
           onClickOkBtn: () => this.onSaveProductData(),
         }
       })
@@ -387,8 +390,10 @@ export class ResearcherProductViewModel {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
-          this.product.currentSupplier = supplier
-          updateProductAutoCalculatedFields.call(this)
+          runInAction(() => {
+            this.product.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
+          })
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
@@ -402,8 +407,6 @@ export class ResearcherProductViewModel {
       }
 
       this.onSaveForceProductData()
-
-      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -430,20 +433,19 @@ export class ResearcherProductViewModel {
         runInAction(() => {
           if (Object.keys(amazonResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
 
             this.imagesForLoad = amazonResult.images
           }
@@ -503,13 +505,8 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-        this.imagesForLoad = []
       }
 
       await ResearcherModel.updateProduct(
@@ -581,18 +578,6 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-    }
-  }
-
-  onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
-      }
-
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-    } catch (error) {
-      console.log(error)
     }
   }
 

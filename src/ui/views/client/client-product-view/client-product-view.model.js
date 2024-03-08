@@ -64,8 +64,6 @@ export class ClientProductViewModel {
 
   platformSettings = undefined
 
-  selectedSupplier = undefined
-
   showWarningModal = false
   showConfirmModal = false
   showBindProductModal = false
@@ -114,6 +112,8 @@ export class ClientProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -127,10 +127,8 @@ export class ClientProductViewModel {
       await this.getProductById()
       await this.getShops()
       await this.getProductsVariations()
-      this.getPlatformSettings()
 
       this.getStorekeepers()
-      this.getPlatformSettingsData()
     } catch (error) {
       console.error(error)
     }
@@ -235,9 +233,9 @@ export class ClientProductViewModel {
         this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
-
-        this.setRequestStatus(loadingStatuses.SUCCESS)
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -301,7 +299,9 @@ export class ClientProductViewModel {
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
-        updateProductAutoCalculatedFields.call(this)
+        runInAction(() => {
+          updateProductAutoCalculatedFields.call(this)
+        })
       }
     })
 
@@ -551,67 +551,6 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
-
   async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -663,8 +602,8 @@ export class ClientProductViewModel {
         if (supplier._id === this.product.currentSupplierId) {
           runInAction(() => {
             this.product.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
           })
-          updateProductAutoCalculatedFields.call(this)
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
@@ -675,8 +614,6 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveForceProductData()
-
-      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -739,30 +676,6 @@ export class ClientProductViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
   }
 
   async onClickParseProductData(product) {
@@ -842,21 +755,13 @@ export class ClientProductViewModel {
     }
   }
 
-  async getPlatformSettingsData() {
+  async getPlatformSettings() {
     try {
       const response = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.platformSettings = response
       })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
     } catch (error) {
       console.log(error)
     }

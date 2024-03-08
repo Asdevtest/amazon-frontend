@@ -186,7 +186,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               className={styles.saveBtnClient}
-              onClick={() =>
+              onClick={() => {
                 onClickSaveBtn({
                   supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
                   addMore: false,
@@ -194,7 +194,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
                 })
-              }
+                onTriggerShowModal()
+              }}
             >
               {t(TranslationKey['Save and bind'])}
             </Button>
@@ -234,13 +235,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
             tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             className={styles.saveBtn}
-            onClick={() =>
+            onClick={() => {
               onClickSaveBtn({
                 supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
                 editPhotosOfSupplier,
                 editPhotosOfUnit,
               })
-            }
+              onTriggerShowModal()
+            }}
           >
             {t(TranslationKey.Save)}
           </Button>

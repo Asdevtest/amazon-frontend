@@ -33,10 +33,11 @@ import {
 } from './toolbar.constants'
 
 interface ToolbarProps {
-  isSupplerSelected: boolean
   status: number
+  isSupplerSelected: boolean
+  isCurrentSupplierSelected: boolean
   onSupplierApproximateCalculationsModal: () => void
-  onClickTooltipButton: (mode: ModalModes) => void
+  onSupplierActions: (mode: ModalModes) => void
   readOnly?: boolean
   userInfo?: IFullUser
   supplier?: ISupplier
@@ -44,10 +45,11 @@ interface ToolbarProps {
 
 export const Toolbar: FC<ToolbarProps> = memo(props => {
   const {
-    isSupplerSelected,
     status,
+    isSupplerSelected,
+    isCurrentSupplierSelected,
     onSupplierApproximateCalculationsModal,
-    onClickTooltipButton,
+    onSupplierActions,
     readOnly,
     userInfo,
     supplier,
@@ -124,7 +126,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
-            onClick={() => onClickTooltipButton(ModalModes.ADD)}
+            onClick={() => onSupplierActions(ModalModes.ADD)}
           >
             <AddIcon />
           </Button>
@@ -136,7 +138,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             // tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
             className={styles.button}
             disabled={!supplier || supplier?.name === ACCESS_DENIED}
-            onClick={() => onClickTooltipButton(ModalModes.EDIT)}
+            onClick={() => onSupplierActions(ModalModes.EDIT)}
           >
             <EditOutlinedIcon />
           </Button>
@@ -146,31 +148,31 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           <Button
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
-            onClick={() => onClickTooltipButton(ModalModes.VIEW)}
+            onClick={() => onSupplierActions(ModalModes.VIEW)}
           >
             <EyeIcon />
           </Button>
         ) : null}
 
-        {showToggleCurrentSupplierButton ? (
+        {showToggleCurrentSupplierButton && isCurrentSupplierSelected ? (
           <Button
             styleType={ButtonStyle.DANGER}
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Remove the current supplier'])}
-            onClick={() => onClickTooltipButton(ModalModes.ACCERT_REVOKE)}
+            onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
           >
             <AcceptRevokeIcon />
           </Button>
         ) : null}
 
-        {showToggleCurrentSupplierButton ? (
+        {showToggleCurrentSupplierButton && !isCurrentSupplierSelected ? (
           <Button
             styleType={ButtonStyle.SUCCESS}
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Select a supplier as the current supplier'])}
-            onClick={() => onClickTooltipButton(ModalModes.ACCEPT)}
+            onClick={() => onSupplierActions(ModalModes.ACCEPT)}
           >
             {<AcceptIcon />}
           </Button>
@@ -182,7 +184,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
             className={styles.button}
-            onClick={() => onClickTooltipButton(ModalModes.DELETE)}
+            onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
             <DeleteOutlineOutlinedIcon />
           </Button>

@@ -177,7 +177,7 @@ const WarehouseBodyRowRaw = ({
                 </Table>
               </TableCell>
             </TableRow>
-          ) : undefined}
+          ) : null}
         </Fragment>
       ))}
 

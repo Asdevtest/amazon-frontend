@@ -16,7 +16,8 @@ import { useStyles } from './supplier-approximate-calculations-form.style'
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
 
 export const SupplierApproximateCalculationsForm = memo(props => {
-  const { product, supplier, storekeepers, onClose, volumeWeightCoefficient /* , destinationData */ } = props
+  const { product, supplier, storekeepers, onClose, volumeWeightCoefficient } = props
+
   const { classes: styles } = useStyles()
 
   const [curStorekeeper, setCurStorekeeper] = useState([])
