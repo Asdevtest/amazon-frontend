@@ -11,22 +11,32 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 import { SeparatorIcon } from '../svg-icons'
 
-export const CustomDataGrid = ({ ...restProps }) => (
-  <DataGridPro
-    key={SettingsModel.languageTag}
-    pagination
-    hideFooter
-    disableVirtualization
-    sortingMode="server"
-    paginationMode="server"
-    pageSizeOptions={[15, 25, 50, 100]}
-    localeText={getLocalizationByLanguageTag()}
-    slots={{
-      toolbar: DataGridCustomToolbar,
-      columnMenuIcon: FilterAltOutlinedIcon,
-      columnMenu: DataGridCustomColumnMenuComponent,
-      columnResizeIcon: SeparatorIcon,
-    }}
-    {...restProps}
-  />
-)
+export const CustomDataGrid = ({ ...restProps }) => {
+  const grid = document.querySelector('.MuiDataGrid-main')
+  const childNodesList = grid?.childNodes
+  const alertElement = childNodesList?.[2]
+
+  if (alertElement) {
+    alertElement.style.display = 'none'
+  }
+
+  return (
+    <DataGridPro
+      key={SettingsModel.languageTag}
+      pagination
+      hideFooter
+      disableVirtualization
+      sortingMode="server"
+      paginationMode="server"
+      pageSizeOptions={[15, 25, 50, 100]}
+      localeText={getLocalizationByLanguageTag()}
+      slots={{
+        toolbar: DataGridCustomToolbar,
+        columnMenuIcon: FilterAltOutlinedIcon,
+        columnMenu: DataGridCustomColumnMenuComponent,
+        columnResizeIcon: SeparatorIcon,
+      }}
+      {...restProps}
+    />
+  )
+}
