@@ -20,7 +20,6 @@ export const observerConfig = {
   selectedProductToLaunch: observable,
   existingProducts: observable,
   selectedRowId: observable,
-  yuanToDollarRate: observable,
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
