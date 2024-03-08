@@ -118,9 +118,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
       try {
         setArchiveButtonInactiveBeforeDownloading(true)
 
-        const currentFilesForDownload = filesForDownload.map(file => file.fileLink)
-
-        await downloadArchive(currentFilesForDownload, reversedFormatDateWithoutTime(new Date()))
+        await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
       } catch (error) {
         console.log(error)
         toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
