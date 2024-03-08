@@ -382,7 +382,13 @@ export const AddOrEditSupplierModalContent = memo(props => {
     tmpSupplier.priceInYuan >= 1000000 ||
     +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
 
-  const isNeedUnitInfo = editPhotosOfUnit?.length < 4
+  const isNeedUnitInfo =
+    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit || tmpSupplier?.weighUnit) &&
+    (!tmpSupplier?.heightUnit ||
+      !tmpSupplier?.widthUnit ||
+      !tmpSupplier?.weighUnit ||
+      !tmpSupplier?.lengthUnit ||
+      editPhotosOfUnit?.length < 4)
 
   const diasabledSubmit =
     itHaveBigInt ||
