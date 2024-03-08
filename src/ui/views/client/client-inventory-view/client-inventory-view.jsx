@@ -132,6 +132,7 @@ export const ClientInventoryView = observer(({ history }) => {
               tagSearchSettings: {
                 tagList: viewModel.productsTags,
                 activeTags: viewModel.activeProductsTags,
+                getProductsTags: viewModel.getProdutsTags,
               },
             },
           }}
