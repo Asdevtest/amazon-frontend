@@ -85,6 +85,7 @@ export const OrderProductModal = memo(props => {
               .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
+            variationTariffId: reorderOrder?.variationTariffId,
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
@@ -96,7 +97,7 @@ export const OrderProductModal = memo(props => {
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
-          currentVariationTariffId: product.variationTariff?._id,
+          variationTariffId: product.variationTariff?._id,
         })),
   )
 
@@ -126,7 +127,7 @@ export const OrderProductModal = memo(props => {
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
             storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
-
+            variationTariffId: reorderOrder?.variationTariffId,
             logicsTariffId: storekeepers
               .find(el => el._id === reorderOrder.storekeeper?._id)
               ?.tariffLogistics.map(el => el._id)

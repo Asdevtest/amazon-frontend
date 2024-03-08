@@ -146,8 +146,8 @@ export class SourceFilesViewModel {
 
   async removeSourceData(row) {
     try {
-      if (row.originalData._id) {
-        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row.originalData._id)
+      if (row?._id) {
+        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row?._id)
 
         runInAction(() => {
           this.editField = undefined

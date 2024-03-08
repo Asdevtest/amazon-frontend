@@ -31,7 +31,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '156px',
     display: 'flex',
     justifyContent: 'center',
-    gap: '15px',
     whiteSpace: 'nowrap',
   },
 
