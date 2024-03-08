@@ -29,7 +29,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
 
   return (
     <>
-      <div ref={mainContentRef}>
+      <div ref={mainContentRef} style={{ height: '100%' }}>
         {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
           <CircularProgressWithLabel />
         ) : (

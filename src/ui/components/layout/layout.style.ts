@@ -30,6 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
+    height: 'calc(100% - 44px)',
     padding: 10,
   },
 }))
