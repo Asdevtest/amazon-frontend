@@ -90,7 +90,6 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
               <div className={styles.buttonWrapper}>
                 <Button
                   styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-                  className={styles.button}
                   onClick={() => onClickButton(service)}
                 >
                   {t(translationButtonKey)}
@@ -102,7 +101,6 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
               <div className={styles.buttonWrapper}>
                 <Button
                   styleType={select ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-                  className={styles.button}
                   onClick={() => onClickSelectButton()}
                 >
                   {t(TranslationKey.Select)}
