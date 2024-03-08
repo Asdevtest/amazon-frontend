@@ -10,7 +10,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
-import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -104,7 +104,7 @@ export const productInTransferColumns = handlers => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
     width: 80,
   },
 

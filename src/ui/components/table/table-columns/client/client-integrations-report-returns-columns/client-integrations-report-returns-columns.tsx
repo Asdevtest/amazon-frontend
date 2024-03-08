@@ -41,8 +41,8 @@ export const clientIntegrationsReportReturnsColumns = () => [
 
   {
     field: 'sku',
-    headerName: t(TranslationKey.SKU),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
+    headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
+    renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
     renderCell: (params: GridRenderCellParams) => (
       <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
@@ -51,7 +51,7 @@ export const clientIntegrationsReportReturnsColumns = () => [
     sortable: false,
 
     table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.client.SHOP_REPORT,
   },
 
   {
@@ -69,17 +69,6 @@ export const clientIntegrationsReportReturnsColumns = () => [
     field: 'orderId',
     headerName: 'Order id',
     renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
-
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
-    field: 'productId',
-    headerName: 'Product id',
-    renderHeader: () => <MultilineTextHeaderCell text="Product id" />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 143,
 

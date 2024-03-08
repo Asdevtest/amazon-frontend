@@ -4,14 +4,13 @@ import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
 
-import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './order-info-tab.style'
@@ -36,14 +35,12 @@ export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
         return (
           <div key={index} className={styles.product}>
             <div key={index} className={styles.photosWrapper}>
-              {/* <p className={cx(styles.bigText, styles.blueColor)}>{index + 1}</p> */}
-
-              <PhotoAndFilesSlider withoutFiles showPreviews customSlideHeight={80} files={item.product.images} />
+              <SlideshowGallery files={item.product.images} slidesToShow={2} />
             </div>
 
             <div className={styles.descriptionWrapper}>
-              <p title={item.product.amazonTitle} className={styles.text}>
-                {getShortenStringIfLongerThanCount(item.product.amazonTitle, 110)}
+              <p title={item.product.amazonTitle} className={cx(styles.text, styles.amazonTitle)}>
+                {item.product.amazonTitle}
               </p>
 
               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item?.product?.asin} />

@@ -4,16 +4,16 @@ import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gall
 
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { isArrayOfRequestMedia, isArrayOfUploadFileType, isUploadFileType } from '@typings/guards'
+import { isArrayOfRequestMedia, isArrayOfUploadFileType, isString, isUploadFileType } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
 
 export const useSlideshowGalleryModal = ({
   files,
-  onChangeImagesForLoad,
   currentFileIndex,
   onOpenModal,
+  onChangeImagesForLoad,
 }: SlideshowGalleryModalProps) => {
   const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
   const [commentsByPerformer, setCommentsByPerformer] = useState<string[]>([])
@@ -45,13 +45,13 @@ export const useSlideshowGalleryModal = ({
     }
   }, [currentFileIndex])
 
-  const updateImagesForLoad = () => {
+  const updateImagesForLoad = (media: UploadFileType[]) => {
     if (onChangeImagesForLoad) {
       const updatedFiles = isArrayOfUploadFileType(files)
-        ? mediaFiles
+        ? media
         : files.map((file, index) => ({
             ...file,
-            image: mediaFiles[index],
+            image: media[index],
             // only change media files
           }))
 
@@ -74,7 +74,8 @@ export const useSlideshowGalleryModal = ({
       }
 
       if (changingMediaFiles?.length === 0) {
-        onOpenModal ? onOpenModal() : undefined
+        updateImagesForLoad(changingMediaFiles)
+        onOpenModal()
       }
 
       return changingMediaFiles
@@ -113,7 +114,7 @@ export const useSlideshowGalleryModal = ({
   }
 
   const onDownloadFile = (file: UploadFileType) =>
-    typeof file === 'string' ? downloadFileByLink(file) : downloadFile(file?.file)
+    isString(file) ? downloadFileByLink(file) : downloadFile(file?.file)
 
   return {
     mediaFiles,

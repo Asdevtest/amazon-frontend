@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -22,7 +22,6 @@ export class WarehouseCompletedViewModel {
   completedTasksBase = []
   curOpenedTask = {}
 
-  currentData = []
   selectedTasks = []
 
   curTaskType = null
@@ -46,15 +45,14 @@ export class WarehouseCompletedViewModel {
 
   showTaskInfoModal = false
 
+  get currentData() {
+    return this.completedTasks
+  }
+
   constructor({ history }) {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.completedTasks,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   onChangeFilterModel(model) {
@@ -124,10 +122,6 @@ export class WarehouseCompletedViewModel {
     this.getCompletedTasksPagMy()
   }
 
-  getCurrentData() {
-    return toJS(this.completedTasks)
-  }
-
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
   }
@@ -149,10 +143,10 @@ export class WarehouseCompletedViewModel {
     })
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getCompletedTasksPagMy()
+      this.getCompletedTasksPagMy()
     } catch (error) {
       console.log(error)
     }

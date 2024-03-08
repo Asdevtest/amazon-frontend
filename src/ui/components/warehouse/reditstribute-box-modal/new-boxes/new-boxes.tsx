@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'

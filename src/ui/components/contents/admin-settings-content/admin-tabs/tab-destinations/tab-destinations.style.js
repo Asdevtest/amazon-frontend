@@ -8,10 +8,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 10,
   },
 
-  saveButton: {
-    width: 240,
-  },
-
   datagridWrapper: {
     height: '70vh',
     width: '100%',

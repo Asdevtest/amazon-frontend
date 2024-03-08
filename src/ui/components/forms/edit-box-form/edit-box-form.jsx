@@ -11,12 +11,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
@@ -756,15 +756,13 @@ export const EditBoxForm = memo(
           </Button>
         </div>
 
-        {showPhotosModal && (
-          <ImageModal
-            isOpenModal={showPhotosModal}
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        )}
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        />
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -819,6 +817,7 @@ export const EditBoxForm = memo(
         </Modal>
 
         <ConfirmationModal
+          // @ts-ignore
           isWarning={confirmModalSettings?.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => setShowConfirmModal(false)}

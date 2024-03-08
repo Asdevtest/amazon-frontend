@@ -58,8 +58,10 @@ export const ClientProductView = observer(({ history }) => {
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
           showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
           storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
-          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          onClickSupplierApproximateCalculations={() =>
+            viewModel.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+          }
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
           onClickGetProductsToBind={option =>
@@ -94,8 +96,8 @@ export const ClientProductView = observer(({ history }) => {
           storekeepersData={viewModel.storekeepersData}
           onlyRead={viewModel.supplierModalReadOnly}
           requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
           showProgress={viewModel.showProgress}
@@ -106,16 +108,16 @@ export const ClientProductView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   requestInformationWrapper: {
-    width: 600,
+    width: 560,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,

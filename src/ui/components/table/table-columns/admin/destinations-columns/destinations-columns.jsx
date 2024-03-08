@@ -1,6 +1,3 @@
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -9,6 +6,7 @@ import {
   MultilineTextHeaderCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -93,12 +91,14 @@ export const destinationsColumns = handlers => [
       <ActionButtonsCell
         isFirstButton
         isSecondButton
+        iconButton
+        row
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey.Edit)}
-        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonTooltipText={t(TranslationKey.Remove)}
-        secondButtonElement={<DeleteOutlineOutlinedIcon />}
+        secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}

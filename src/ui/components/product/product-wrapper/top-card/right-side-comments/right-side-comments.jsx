@@ -7,7 +7,7 @@ import { productStatusButtonsConfigs } from '@constants/product/product-status-b
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'

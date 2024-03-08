@@ -8,8 +8,13 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './tag-search.style'
 
-export const TagSearch = memo(() => {
+export const TagSearch = memo(props => {
   const { classes: styles } = useStyles()
+
+  const { tagList, getProductsTags } = props
+
+  console.log('props :>> ', props)
+  console.log('tagList :>> ', tagList)
 
   return (
     <div className={styles.root}>
@@ -17,6 +22,7 @@ export const TagSearch = memo(() => {
         hideButton
         inputClasses={styles.searchInput}
         placeholder={`#${t(TranslationKey['Search by tags'])}`}
+        onFocus={() => getProductsTags()}
         // onSubmit={onSearchSubmit}
       />
 

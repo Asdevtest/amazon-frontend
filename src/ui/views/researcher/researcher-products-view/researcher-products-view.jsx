@@ -14,15 +14,9 @@ import { useStyles } from './researcher-products-view.style'
 
 import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
-export const ResearcherProductsView = observer(props => {
+export const ResearcherProductsView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(
-    () =>
-      new ResearcherProductsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+  const [viewModel] = useState(() => new ResearcherProductsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -32,7 +26,7 @@ export const ResearcherProductsView = observer(props => {
     <>
       <div className={styles.card}>
         <ResearcherAddProductForm
-          user={viewModel.user}
+          user={viewModel.userInfo}
           formFields={viewModel.formFields}
           errorMsg={viewModel.error}
           reasonErrorMsg={viewModel.reasonError}
@@ -42,6 +36,7 @@ export const ResearcherProductsView = observer(props => {
           onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
         />
       </div>
+
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           sortingMode="client"
@@ -69,21 +64,20 @@ export const ResearcherProductsView = observer(props => {
           }}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
     </>
   )

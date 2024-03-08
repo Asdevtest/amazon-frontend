@@ -79,7 +79,7 @@ export class SourceFilesViewModel {
     this.filterModel = model
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
   }
 

@@ -8,6 +8,9 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Paper, Typography } from '@mui/material'
 
+import { docValidTypes } from '@constants/media/doc-types'
+import { imageValidTypes } from '@constants/media/image-types'
+import { videoValidTypes } from '@constants/media/video-types'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ACCESS_DENIED } from '@constants/text'
@@ -15,7 +18,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -165,6 +168,7 @@ export const TopCard = memo(
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
+                          acceptType={[...videoValidTypes, ...docValidTypes, ...imageValidTypes]}
                         />
                       </div>
                     )}

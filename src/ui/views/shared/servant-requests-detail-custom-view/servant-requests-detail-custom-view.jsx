@@ -9,10 +9,11 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
@@ -136,14 +137,13 @@ export const RequestDetailCustomView = observer(({ history }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <Modal
@@ -161,15 +161,21 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showMainRequestResultModal ? (
-        <MainRequestResultModal
-          customProposal={findRequestProposalForCurChat}
-          userInfo={viewModel.userInfo}
-          openModal={viewModel.showMainRequestResultModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-          onEditCustomProposal={viewModel.onSendResultAfterRework}
-        />
-      ) : null}
+      <MainRequestResultModal
+        customProposal={findRequestProposalForCurChat}
+        userInfo={viewModel.userInfo}
+        openModal={viewModel.showMainRequestResultModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        onEditCustomProposal={viewModel.onSendResultAfterRework}
+      />
+
+      <RequestResultModal
+        // @ts-ignore
+        request={viewModel.request}
+        openModal={viewModel.showRequestResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        onClickSendAsResult={viewModel.onClickSendAsResult}
+      />
 
       <Modal
         missClickModalOn
@@ -177,7 +183,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
       >
         <RequestDesignerResultForm
-          request={viewModel.request}
           proposal={findRequestProposalForCurChat}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           onClickSendAsResult={viewModel.onClickSendAsResult}
@@ -185,6 +190,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
@@ -29,7 +29,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
     details,
     requestProposals,
     isAcceptedProposals,
-    isOpenModal,
+    openModal,
     handleOpenModal,
     onClickSuggest,
     onClickOpenNewTab,
@@ -43,6 +43,11 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickMarkAsCompletedBtn,
     onClickResultBtn,
   } = props
+
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({
@@ -53,7 +58,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
   }))
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={handleOpenModal}>
+    <Modal openModal={openModal} setOpenModal={handleOpenModal}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>
@@ -123,12 +128,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
               )}
             </div>
 
-            <div className={styles.buttonsWrapper}>
-              <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
-                {t(TranslationKey.Result)}
-              </Button>
+            {isRequestOwner && (
+              <div className={styles.buttonsWrapper}>
+                <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+                  {t(TranslationKey.Result)}
+                </Button>
 
-              {isRequestOwner && (
                 <Button
                   variant={ButtonVariant.OUTLINED}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
@@ -141,8 +146,8 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 

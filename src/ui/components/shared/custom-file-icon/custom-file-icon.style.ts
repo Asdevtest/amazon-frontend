@@ -40,8 +40,8 @@ export const useStyles = makeStyles()(theme => ({
     bottom: '15%',
     width: 28,
     padding: '1px 0',
-    fontSize: 11,
-    lineHeight: '11px',
+    fontSize: 9,
+    lineHeight: '10px',
     textAlign: 'center',
     textTransform: 'uppercase',
     color: theme.palette.background.second,
@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
 
   middleSizeFileExtension: {
     width: 54,
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: '25px',
   },
 }))

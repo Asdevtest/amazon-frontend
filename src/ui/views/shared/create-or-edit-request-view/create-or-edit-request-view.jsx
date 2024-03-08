@@ -8,7 +8,7 @@ import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
@@ -29,7 +29,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
 
   return (
     <>
-      <div ref={mainContentRef}>
+      <div ref={mainContentRef} style={{ height: '100%' }}>
         {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
           <CircularProgressWithLabel />
         ) : (
@@ -63,36 +63,32 @@ export const CreateOrEditRequestView = observer(({ history }) => {
         )}
       </div>
 
-      {viewModel.showImageModal ? (
-        <ImageModal
-          showPreviews
-          files={viewModel.bigImagesOptions.images}
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          isOpenModal={viewModel.showImageModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          onCurrentFileIndex={index =>
-            viewModel.setBigImagesOptions({
-              ...viewModel.bigImagesOptions,
-              imgIndex: index,
-            })
-          }
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={viewModel.bigImagesOptions.images}
+        currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+        openModal={viewModel.showImageModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        onCurrentFileIndex={index =>
+          viewModel.setBigImagesOptions({
+            ...viewModel.bigImagesOptions,
+            imgIndex: index,
+          })
+        }
+      />
 
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          smallMessage={viewModel.confirmModalSettings.smallMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-        />
-      ) : null}
+      <ConfirmationModal
+        // @ts-ignore
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+      />
     </>
   )
 })

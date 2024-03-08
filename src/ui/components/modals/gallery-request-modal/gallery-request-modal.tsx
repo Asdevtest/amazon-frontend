@@ -18,7 +18,7 @@ import { useGalleryRequestModal } from './use-gallery-request-modal'
 
 interface GalleryRequestModalProps {
   data: IData
-  isOpenModal: boolean
+  openModal: boolean
   mediaFiles: IRequestMedia[]
   onChangeMediaFiles: (mediaFiles: IRequestMedia[]) => void
   onOpenModal: () => void
@@ -29,7 +29,11 @@ interface GalleryRequestModalProps {
  * The component copies Header, CustomSwitcher with its settings from GalleryModal, but adds its own functionality, tabs and footer.
  */
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
-  const { data, isOpenModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
+  const { data, openModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles } = useStyles()
 
@@ -50,7 +54,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
 
   return (
     <Modal
-      openModal={isOpenModal}
+      openModal={openModal}
       setOpenModal={() => {
         onOpenModal()
         onResetAllFilesToAdd()

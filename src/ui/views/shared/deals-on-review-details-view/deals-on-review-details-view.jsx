@@ -13,14 +13,8 @@ import { t } from '@utils/translations'
 
 import { VacantDealsDetailsViewModel } from './deals-on-review-details-view.model'
 
-export const DealsOnReviewDetailsView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new VacantDealsDetailsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const DealsOnReviewDetailsView = observer(({ history }) => {
+  const [viewModel] = useState(() => new VacantDealsDetailsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -28,52 +22,49 @@ export const DealsOnReviewDetailsView = observer(props => {
 
   return (
     <>
-      <div>
-        <DealDetailsCard
-          request={viewModel.request}
-          requestProposals={viewModel.requestProposals}
-          proposalId={viewModel.curProposalId}
-          onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
-          onClickRejectDealModal={viewModel.onClickRejectDealModal}
-          onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
-        />
-      </div>
+      <DealDetailsCard
+        request={viewModel.request}
+        requestProposals={viewModel.requestProposals}
+        proposalId={viewModel.curProposalId}
+        onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
+        onClickRejectDealModal={viewModel.onClickRejectDealModal}
+        onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
+      />
 
-      {viewModel.showConfirmModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          isSupervisor
-          openModal={viewModel.showConfirmModal}
-          title={t(TranslationKey['Confirm acceptance of the work result'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey["Review of the performer's work"])}
-          confirmButtonText={t(TranslationKey['Accept the deal'])}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={viewModel.onClickConfirmDeal}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
+        isSupervisor
+        openModal={viewModel.showConfirmModal}
+        title={t(TranslationKey['Confirm acceptance of the work result'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey["Review of the performer's work"])}
+        confirmButtonText={t(TranslationKey['Accept the deal'])}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onClickConfirmDeal}
+        onClose={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
 
-      {viewModel.showRejectModal && (
-        <RequestProposalAcceptOrRejectResultForm
-          isReject
-          isSupervisor
-          title={t(TranslationKey['Reject the deal'])}
-          rateLabel={t(TranslationKey['Rate the performer'])}
-          reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
-          rejectButtonText={t(TranslationKey['Reject the deal'])}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          openModal={viewModel.showRejectModal}
-          onSubmit={viewModel.onClickRejectDeal}
-          onClose={() => viewModel.onTriggerOpenModal('showRejectModal')}
-        />
-      )}
+      <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
+        isReject
+        isSupervisor
+        title={t(TranslationKey['Reject the deal'])}
+        rateLabel={t(TranslationKey['Rate the performer'])}
+        reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
+        rejectButtonText={t(TranslationKey['Reject the deal'])}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        openModal={viewModel.showRejectModal}
+        onSubmit={viewModel.onClickRejectDeal}
+        onClose={() => viewModel.onTriggerOpenModal('showRejectModal')}
+      />
 
       <Modal openModal={viewModel.showReworkModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReworkModal')}>
         <RequestProposalResultToCorrectForm onPressSubmitForm={viewModel.onClickReworkDeal} />
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
+        // @ts-ignore
+        isWarning={viewModel.confirmModalSettings.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}

@@ -27,7 +27,7 @@ export interface MainRequestResultModalProps {
   userInfo: IFullUser
   openModal: boolean
   onOpenModal: () => void
-  onEditCustomProposal: (id: string, fields: IFields, status?: string) => void
-  onReceiveCustomProposal: () => void
-  showActionButtons?: boolean
+  readOnly?: boolean
+  onEditCustomProposal?: (id: string, fields: IFields, status?: string) => void
+  onReceiveCustomProposal?: () => void
 }

@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -35,7 +35,6 @@ export const TabTags = observer(() => {
         <Button
           styleType={ButtonStyle.DANGER}
           disabled={!viewModel.rowSelectionModel.length}
-          className={styles.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
@@ -46,7 +45,7 @@ export const TabTags = observer(() => {
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>
@@ -82,7 +81,7 @@ export const TabTags = observer(() => {
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -98,6 +97,7 @@ export const TabTags = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={viewModel.onClickToggleConfirmModal}

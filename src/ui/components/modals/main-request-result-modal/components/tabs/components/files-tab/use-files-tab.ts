@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
@@ -13,7 +15,7 @@ import { isString } from '@typings/guards'
 
 import { FilesTabProps } from './files-tab.type'
 
-export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
+export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }: FilesTabProps) => {
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [showSlideshowGalleryModal, setSlideshowGalleryModal] = useState(false)
   const [currentEditableFile, setCurrentEditableFile] = useState<IMediaRework | undefined>(undefined)
@@ -21,7 +23,12 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   const [filesForDownload, setFilesForDownload] = useState<IMediaRework[]>([])
   const [archiveButtonInactiveBeforeDownloading, setArchiveButtonInactiveBeforeDownloading] = useState(false)
 
-  const handleShowCommentModal = () => setShowCommentModal(!showCommentModal)
+  const clientOrReadOnly = isClient || readOnly
+
+  const handleShowCommentModal = () => {
+    setShowCommentModal(!showCommentModal)
+    setCurrentEditableFile(undefined)
+  }
   const handleShowSlideshowGalleryModal = () => setSlideshowGalleryModal(!showSlideshowGalleryModal)
 
   const handleAddFile = useCallback(() => {
@@ -85,23 +92,37 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
     }))
 
     if (!isClient) {
+      const multipleFilesLoaded =
+        readyFilesArr.length > 1
+          ? readyFilesArr.slice(1).map((el, index) => ({
+              fileLink: el,
+              commentByPerformer: el.file.name,
+              commentByClient: '',
+              _id: null,
+              index: index + 2,
+            }))
+          : []
+
       setFields(prevFields => ({
         ...prevFields,
-        media: prevFields.media.map((file, index) =>
-          index === fileIndex ? { ...file, fileLink: readyFilesArr[0] } : file,
-        ),
+        media: [
+          ...prevFields.media.map((file, index) =>
+            index === fileIndex
+              ? { ...file, fileLink: readyFilesArr[0], commentByPerformer: readyFilesArr[0]?.file.name }
+              : file,
+          ),
+          ...multipleFilesLoaded,
+        ],
       }))
     }
   }
 
   const handleDownloadArchive = async () => {
-    if (isClient) {
+    if (clientOrReadOnly) {
       try {
         setArchiveButtonInactiveBeforeDownloading(true)
 
-        const currentFilesForDownload = filesForDownload.map(file => file.fileLink)
-
-        await downloadArchive(currentFilesForDownload, reversedFormatDateWithoutTime(new Date()))
+        await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
       } catch (error) {
         console.log(error)
         toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
@@ -112,7 +133,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }
 
   const handleDownloadAllFiles = useCallback(() => {
-    if (isClient) {
+    if (clientOrReadOnly) {
       if (filesForDownload.length > 0) {
         filesForDownload.forEach(({ fileLink }) =>
           isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
@@ -145,7 +166,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }, [])
 
   const handleCheckAllFiles = () => {
-    if (isClient) {
+    if (clientOrReadOnly) {
       if (filesForDownload.length === files.length) {
         setFilesForDownload([])
       } else {
@@ -155,7 +176,7 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
   }
 
   const handleCheckFile = useCallback((file: IMediaRework) => {
-    if (isClient) {
+    if (clientOrReadOnly) {
       setFilesForDownload(prevFiles => {
         const findFileById = prevFiles.find(({ _id }) => _id === file._id)
 
@@ -167,6 +188,18 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
       })
     }
   }, [])
+
+  const handleUpdateSeoIFilesInProduct = async () => {
+    try {
+      const latestSeoFiles = filesForDownload.map(file => file.fileLink)
+
+      await ClientModel.updateSeoFilesInProduct(productId, latestSeoFiles)
+
+      toast.success(t(TranslationKey['Successfully updated']))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return {
     showCommentModal,
@@ -191,5 +224,6 @@ export const useFilesTab = ({ isClient, files, setFields }: FilesTabProps) => {
     onDeleteFile: handleDeleteFile,
     onChangeFileName: handleChangeFileName,
     onUploadFile: handleUploadFile,
+    onUpdateSeoIFilesInProduct: handleUpdateSeoIFilesInProduct,
   }
 }

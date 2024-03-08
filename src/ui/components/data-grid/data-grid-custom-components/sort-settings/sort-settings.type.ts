@@ -1,4 +1,4 @@
-export enum SortSettingsType {
+export enum SortSettingsMode {
   ASC = 'asc',
   DESC = 'desc',
 }

@@ -290,6 +290,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   controlOptionsButtons: {
+    justifyContent: 'center',
+    alignItems: 'center',
     display: 'flex',
     gap: 10,
   },

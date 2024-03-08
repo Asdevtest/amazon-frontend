@@ -5,7 +5,7 @@ import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { PlusIcon } from '@components/shared/svg-icons'
@@ -19,7 +19,9 @@ import { useStyles } from './table-row.style'
 
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
+
   const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.tmpImages.length || ''}`
+
   return (
     <TableRow className={styles.row}>
       <TableCell className={styles.standartCell}>
@@ -169,7 +171,9 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{buttonTextWithCounter}</Button>
+        <Button className={styles.photosButton} onClick={() => handlers.onAddImages(item._id)}>
+          {buttonTextWithCounter}
+        </Button>
       </TableCell>
 
       <TableCell>

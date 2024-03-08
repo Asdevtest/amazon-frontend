@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
@@ -96,9 +96,7 @@ export const TabMain = memo(props => {
         <div className={styles.proxyContent}>
           <div className={styles.proxyAdd}>
             <Typography className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-            <Button className={styles.buttonAdd} onClick={onClickToggleProxyModal}>
-              {t(TranslationKey['Add proxy'])}
-            </Button>
+            <Button onClick={onClickToggleProxyModal}>{t(TranslationKey['Add proxy'])}</Button>
           </div>
 
           <div className={styles.proxyList}>
@@ -119,7 +117,7 @@ export const TabMain = memo(props => {
               : null}
           </div>
 
-          <Button disabled={disabledSubmitFields} className={styles.buttonSave} onClick={() => onSubmit(updatedProxy)}>
+          <Button disabled={disabledSubmitFields} onClick={() => onSubmit(updatedProxy)}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
@@ -130,6 +128,7 @@ export const TabMain = memo(props => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={onClickToggleInfoModal}
         title={infoModalText}

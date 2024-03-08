@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ClassNamesArg } from '@emotion/react'
 import { FC, useEffect, useState } from 'react'
 
@@ -155,10 +154,10 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <img
                       src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod.title}
+                      alt={paymentMethod?.title}
                       className={styles.paymentMethodIcon}
                     />
-                    <p className={styles.paymentMethodTitle}>{paymentMethod.title}</p>
+                    <p className={styles.paymentMethodTitle}>{paymentMethod?.title}</p>
                   </MenuItem>
                 ))}
 

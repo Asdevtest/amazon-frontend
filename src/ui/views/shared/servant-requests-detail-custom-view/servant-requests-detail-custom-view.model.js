@@ -29,6 +29,7 @@ export class RequestDetailCustomViewModel {
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
+  showRequestResultModal = false
 
   curResultMedia = []
 
@@ -145,8 +146,10 @@ export class RequestDetailCustomViewModel {
       return
     }
 
-    if (+this.request.request.spec?.type === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+    if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
     }
@@ -247,6 +250,8 @@ export class RequestDetailCustomViewModel {
   onClickReworkProposal() {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
     }
@@ -264,7 +269,7 @@ export class RequestDetailCustomViewModel {
 
       if (files.length) {
         await onSubmitPostImages.call(this, {
-          images: typeof files[0] === 'object' && 'image' in files[0] ? files.map(el => el.image) : files,
+          images: typeof files[0] === 'object' && 'fileLink' in files[0] ? files.map(el => el.fileLink) : files,
           type: 'loadedFiles',
         })
       }
@@ -303,7 +308,7 @@ export class RequestDetailCustomViewModel {
         result: message,
         media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
-          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+          commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
           _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
             ? files[i]?._id
             : null,

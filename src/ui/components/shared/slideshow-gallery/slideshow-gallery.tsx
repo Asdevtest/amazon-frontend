@@ -63,18 +63,16 @@ export const SlideshowGallery: FC<SlideshowGalleryProps> = memo(props => {
         onOpenImageModal={onOpenImageModal}
       />
 
-      {openImageModal && (
-        <SlideshowGalleryModal
-          isEditable={isEditable}
-          withoutMakeMainImage={withoutMakeMainImage}
-          files={files}
-          currentFileIndex={currentMediaFileIndex}
-          isOpenModal={openImageModal}
-          onCurrentFileIndex={setCurrentMediaFileIndex}
-          onOpenModal={onOpenImageModal}
-          onChangeImagesForLoad={onChangeImagesForLoad}
-        />
-      )}
+      <SlideshowGalleryModal
+        isEditable={isEditable}
+        withoutMakeMainImage={withoutMakeMainImage}
+        files={files}
+        currentFileIndex={currentMediaFileIndex}
+        openModal={openImageModal}
+        onCurrentFileIndex={setCurrentMediaFileIndex}
+        onOpenModal={onOpenImageModal}
+        onChangeImagesForLoad={onChangeImagesForLoad}
+      />
     </>
   )
 })

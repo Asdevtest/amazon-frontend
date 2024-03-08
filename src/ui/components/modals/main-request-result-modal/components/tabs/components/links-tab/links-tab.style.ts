@@ -21,12 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 215,
   },
 
-  linkContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
-
   addLinkContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -34,15 +28,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputRoot: {
-    width: 260,
     height: 32,
     flexShrink: 1,
   },
 
-  notFocuced: {
-    '&.Mui-focused': {
-      border: `1px solid ${theme.palette.input.customBorder}`,
-    },
+  addInput: {
+    width: 230,
   },
 
   input: {
@@ -69,7 +60,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  icon: {
+  iconPlus: {
     padding: 2,
     width: '16px !important',
     height: '16px !important',

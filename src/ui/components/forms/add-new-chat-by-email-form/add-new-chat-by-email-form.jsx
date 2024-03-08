@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { CustomReactSelect } from '@components/shared/selects/custom-react-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'

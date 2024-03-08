@@ -55,8 +55,8 @@ export const AdminOrderViewRaw = props => {
           onlyRead
           product={viewModel.order?.product}
           storekeepersData={viewModel.storekeepers}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={viewModel.selectedSupplier}
           onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}

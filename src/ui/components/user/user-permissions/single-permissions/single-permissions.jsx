@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -32,7 +32,7 @@ export const SinglePermissions = observer(() => {
   const {
     singlePermissions,
     requestStatus,
-    getCurrentData,
+    currentData,
     sortModel,
     filterModel,
     densityModel,
@@ -51,7 +51,7 @@ export const SinglePermissions = observer(() => {
     onChangeSortingModel,
     onChangeFilterModel,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = spModel.current
 
   return (
@@ -69,7 +69,7 @@ export const SinglePermissions = observer(() => {
           filterModel={filterModel}
           columnVisibilityModel={columnVisibilityModel}
           paginationModel={paginationModel}
-          rows={getCurrentData()}
+          rows={currentData}
           getRowHeight={() => 'auto'}
           sortingMode="client"
           paginationMode="client"
@@ -89,7 +89,7 @@ export const SinglePermissions = observer(() => {
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={onChangePaginationModelChange}
+          onPaginationModelChange={onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>
@@ -108,6 +108,7 @@ export const SinglePermissions = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

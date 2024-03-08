@@ -49,10 +49,11 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     onDoubleClickBarcode,
     setDataGridState,
     isSomeFilterOn,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
     onColumnVisibilityModelChange,
     columnVisibilityModel,
     onClickResetFilters,
+    isPendingOrdering,
   } = model.current
 
   useEffect(() => {
@@ -89,7 +90,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
       />
@@ -105,6 +106,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           isSetDeadline
+          isPendingOrdering={isPendingOrdering}
           statusesForChecking={statusesForChecking}
           reorderOrdersData={[reorderOrder]}
           platformSettings={platformSettings}
@@ -117,16 +119,16 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
         isWarning={confirmModalSettings?.isWarning}

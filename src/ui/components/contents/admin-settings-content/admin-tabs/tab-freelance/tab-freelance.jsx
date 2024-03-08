@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TextForm } from '@components/forms/text-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
@@ -80,7 +80,7 @@ export const TabFreelance = observer(props => {
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
 
-          <Button disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+          <Button disabled={disabledSubmit} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
@@ -115,29 +115,26 @@ export const TabFreelance = observer(props => {
         </div>
       </div>
 
-      {viewModel.showAddOrEditTextModal ? (
-        <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
-          <TextForm
-            title={t(TranslationKey['New specialty'])}
-            onClose={viewModel.onClickToggleAddOrEditTextModal}
-            onSubmit={viewModel.onCreateSpec}
-          />
-        </Modal>
-      ) : null}
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={viewModel.onClickToggleConfirmModal}
-          title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+      <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
+        <TextForm
+          title={t(TranslationKey['New specialty'])}
+          onClose={viewModel.onClickToggleAddOrEditTextModal}
+          onSubmit={viewModel.onCreateSpec}
         />
-      ) : null}
+      </Modal>
+
+      <ConfirmationModal
+        // @ts-ignore
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={viewModel.onClickToggleConfirmModal}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+      />
     </>
   )
 })

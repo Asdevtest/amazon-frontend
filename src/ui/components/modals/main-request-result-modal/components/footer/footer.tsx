@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
@@ -12,38 +12,34 @@ import { useStyles } from './footer.style'
 
 interface FooterProps {
   isClient: boolean
-  onOpenModal: () => void
+  disabledSendResultButton: boolean
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
-  showActionButtons?: boolean
+  onToggleShowConfirmModal: () => void
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
-  const { isClient, onOpenModal, onEditCustomProposal, onReceiveCustomProposal, showActionButtons } = props
+  const {
+    isClient,
+    disabledSendResultButton,
+    onEditCustomProposal,
+    onReceiveCustomProposal,
+    onToggleShowConfirmModal,
+  } = props
 
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.flexContainer}>
-      <Button styleType={ButtonStyle.DANGER} onClick={onOpenModal}>
-        {t(TranslationKey.Cancel)}
-      </Button>
+    <div className={styles.wrapper}>
+      {isClient ? <Button onClick={onToggleShowConfirmModal}>{t(TranslationKey['Send in for rework'])}</Button> : null}
 
-      {showActionButtons || !isClient ? (
-        <div className={styles.flexContainer}>
-          {isClient ? (
-            <Button styleType={ButtonStyle.PRIMARY} onClick={onEditCustomProposal}>
-              {t(TranslationKey['Send in for rework'])}
-            </Button>
-          ) : null}
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
-          >
-            {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
-          </Button>
-        </div>
-      ) : null}
+      <Button
+        styleType={ButtonStyle.SUCCESS}
+        disabled={disabledSendResultButton}
+        onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
+      >
+        {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
+      </Button>
     </div>
   )
 })

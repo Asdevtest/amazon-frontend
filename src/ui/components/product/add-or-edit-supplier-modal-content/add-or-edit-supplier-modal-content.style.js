@@ -18,6 +18,12 @@ export const useStyles = makeStyles()(theme => ({
   fieldsDivider: {
     margin: '20px 0 20px',
   },
+
+  saveBtnWrapperClient: {
+    display: 'flex',
+    gap: '10px',
+  },
+
   buttonsWrapperClient: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -36,17 +42,6 @@ export const useStyles = makeStyles()(theme => ({
 
   saveBtnClient: {
     width: '240px',
-    display: 'block',
-    marginBottom: '10px',
-    backgroundColor: '#4caf50',
-    color: 'ffffff',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
   },
 
   saveBtn: {
@@ -64,6 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   bottomWrapper: {
     display: 'flex',
+    justifyContent: 'center',
   },
 
   imageFileInputWrapper: {
@@ -119,7 +115,6 @@ export const useStyles = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
-    marginBottom: 20,
   },
 
   shortContainer: {
@@ -202,16 +197,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   link: {
-    cursor: 'pointer',
+    width: '100%',
+    padding: '4px 0',
+    display: 'inline-block',
     color: theme.palette.primary.main,
-    maxWidth: '100%',
-    overflow: 'auto',
-  },
-
-  photoAndFilesWrapper: {
-    display: 'flex',
-    textAlign: 'center',
-    justifyContent: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
   },
 
   paymentsBlock: {
@@ -232,5 +225,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '320px',
+  },
+
+  needAddPhotos: {
+    color: theme.palette.text.red,
   },
 }))

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -9,7 +10,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typogra
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
@@ -85,7 +86,9 @@ const Slot = ({
       <div style={{ opacity }} className={styles.imageObjWrapper}>
         <Tooltip
           arrow
-          title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
+          title={
+            getFileNameFromUrl(typeof slot.fileLink === 'string' ? slot.fileLink : slot.fileLink?.file?.name)?.fullName
+          }
           placement="right-end"
           TransitionComponent={Zoom}
           TransitionProps={{ timeout: 300 }}
@@ -95,7 +98,7 @@ const Slot = ({
             className={cx(
               styles.imageWrapper,
 
-              { [styles.isHaveImage]: !!slot?.image },
+              { [styles.isHaveImage]: !!slot?.fileLink },
               { [styles.mainImageWrapper]: index === 0 },
             )}
           >
@@ -109,35 +112,35 @@ const Slot = ({
                 onClickRemoveItem(slot)
               }}
             >
-              {slot.image ? (
+              {slot.fileLink ? (
                 <CrossInRectangleIcon className={styles.removeIcon} />
               ) : (
                 <CloseOutlinedIcon className={styles.removeIcon} />
               )}
             </div>
-            {slot.image ? (
+            {slot.fileLink ? (
               <div className={styles.imageListItem}>
                 <Avatar
                   className={styles.image}
                   classes={{ img: styles.image }}
                   src={
-                    typeof slot.image === 'string'
-                      ? checkIsMediaFileLink(slot.image)
-                        ? getAmazonImageUrl(slot.image, false)
+                    typeof slot.fileLink === 'string'
+                      ? checkIsMediaFileLink(slot.fileLink)
+                        ? getAmazonImageUrl(slot.fileLink, false)
                         : '/assets/icons/file.png'
-                      : slot.image?.file.type.includes('image')
-                      ? slot.image?.data_url
+                      : slot.fileLink?.file?.type.includes('image')
+                      ? slot.fileLink?.data_url
                       : '/assets/icons/file.png'
                   }
-                  alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
+                  alt={isRework ? '' : slot.fileLink?.file?.name}
                   variant="square"
                   onClick={() => {
                     setCurImageIndex(index)
 
-                    if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
+                    if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
                       setShowImageModal(!showImageModal)
                     } else {
-                      window.open(slot.image?.data_url || getAmazonImageUrl(slot.image), '__blank')
+                      window.open(slot.fileLink?.data_url || getAmazonImageUrl(slot.fileLink), '__blank')
                     }
                   }}
                 />
@@ -163,13 +166,13 @@ const Slot = ({
               onClick={e => {
                 setCurImageIndex(index)
 
-                if (slot.image) {
+                if (slot.fileLink) {
                   e.preventDefault()
 
-                  if (checkIsMediaFileLink(slot.image?.file?.name || slot.image)) {
+                  if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
                     setShowImageModal(!showImageModal)
                   } else {
-                    window.open(slot.image?.data_url || slot.image, '__blank')
+                    window.open(slot.fileLink?.data_url || slot.fileLink, '__blank')
                   }
                 } else {
                   return e
@@ -189,14 +192,14 @@ const Slot = ({
             variant="filled"
             className={styles.imageObjInput}
             classes={{ input: styles.inputComment }}
-            value={slot.commentByPerformer}
-            onChange={e => onChangeImageFileds('commentByPerformer', slot._id)(e)}
+            value={slot?.commentByPerformer}
+            onChange={e => onChangeImageFileds('commentByPerformer', slot?._id)(e)}
           />
         </div>
 
         <div className={styles.imageObjSubWrapper}>
           <Typography className={cx(styles.clientComment)}>
-            {getShortenStringIfLongerThanCount(parseTextString(slot.commentByClient), 30)}
+            {getShortenStringIfLongerThanCount(parseTextString(slot?.commentByClient), 30)}
           </Typography>
         </div>
       </div>
@@ -204,7 +207,7 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpenModal, proposal }) => {
+export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, proposal }) => {
   const { classes: styles, cx } = useStyles()
 
   const isRework = !!proposal.proposal.media?.length
@@ -220,7 +223,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }]
+    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -240,12 +243,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }])
+    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }])
   }
 
   const onClickRemoveItem = slot => {
-    if (slot.image) {
-      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
+    if (slot.fileLink) {
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, fileLink: null } : el)))
     } else {
       setImagesData(() => imagesData.filter(el => el._id !== slot._id))
     }
@@ -266,7 +269,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -296,7 +299,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
       setImagesData([
         ...imagesData.map(el =>
@@ -309,7 +312,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
     }
   }
 
-  const disableSubmit = imagesData.every(el => !el.image)
+  const disableSubmit = imagesData.some(el => !el.fileLink)
 
   return (
     <>
@@ -318,7 +321,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <div className={styles.headerLeftSubWrapper}>
             <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
               TranslationKey['Request result'],
-            )} / ID ${request.request.humanFriendlyId}`}</Typography>
+            )} / ID ${proposal?.request?.humanFriendlyId}`}</Typography>
 
             <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}
@@ -466,17 +469,15 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      {showImageModal && (
-        <SlideshowGalleryModal
-          isEditable={isRework}
-          isOpenModal={showImageModal}
-          files={imagesData}
-          currentFileIndex={curImageIndex}
-          onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
-          onChangeImagesForLoad={setImagesData}
-        />
-      )}
+      <SlideshowGalleryModal
+        isEditable={isRework}
+        openModal={showImageModal}
+        files={imagesData}
+        currentFileIndex={curImageIndex}
+        onOpenModal={() => setShowImageModal(!showImageModal)}
+        onCurrentFileIndex={index => setCurImageIndex(index)}
+        onChangeImagesForLoad={setImagesData}
+      />
     </>
   )
 }

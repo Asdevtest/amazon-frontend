@@ -77,7 +77,7 @@ export class AdminOrdersAllViewModel {
     this.getOrdersByStatus()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

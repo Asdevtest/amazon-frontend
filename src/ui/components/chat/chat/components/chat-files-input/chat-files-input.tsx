@@ -16,7 +16,7 @@ export const ChatFilesInput: FC<ChatFilesInputProps> = memo(({ files, setFiles }
 
   return (
     <div className={styles.root}>
-      <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} acceptType={['']} />
+      <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} />
     </div>
   )
 })

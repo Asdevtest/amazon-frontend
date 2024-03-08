@@ -51,7 +51,7 @@ export const subUsersColumns = handlers => [
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
-    width: 340,
+    width: 230,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,

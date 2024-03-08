@@ -42,7 +42,7 @@ export class MyProposalsViewModel {
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
-    onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
+    onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
   }
 
@@ -80,7 +80,7 @@ export class MyProposalsViewModel {
   showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
   selectedProposal = undefined
 
@@ -289,16 +289,15 @@ export class MyProposalsViewModel {
     }
   }
 
-  async onClickResultBtn(requestId, proposalId) {
-    await this.getRequestById(requestId)
+  async onClickResultBtn(proposalId) {
     await this.getProposalById(proposalId)
 
-    if (this.currentRequest?.request.spec?.title === freelanceRequestType.DESIGNER) {
+    if (this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (this.currentRequest?.request.spec?.title === freelanceRequestType.BLOGGER) {
+    } else if (this.currentProposal?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
-      this.onTriggerOpenModal('showRequestStandartResultModal')
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 

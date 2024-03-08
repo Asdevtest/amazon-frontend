@@ -4,21 +4,22 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
 
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
+import
+  {
+    getConversion,
+    getWeightSizesType,
+    inchesCoefficient,
+    poundsWeightCoefficient,
+    unitsOfChangeOptions,
+  } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -465,15 +466,13 @@ const Box = memo(props => {
         </div>
       )}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
-      )}
+      <SlideshowGalleryModal
+        openModal={showPhotosModal}
+        files={bigImagesOptions.images}
+        currentFileIndex={bigImagesOptions.imgIndex}
+        onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+      />
     </div>
   )
 })

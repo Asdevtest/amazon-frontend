@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -77,6 +77,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
       </div>
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
         tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
         openModal={viewModel.showTwoVerticalChoicesModal}
@@ -89,6 +90,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningTitle}

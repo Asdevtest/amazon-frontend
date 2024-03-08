@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -6,11 +5,11 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './interconnected-products.style'
 
-import { Button } from '../buttons/button'
+import { Button } from '../button'
 import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {
@@ -48,20 +47,15 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button
-          isSmallButton
-          variant={ButtonVariant.OUTLINED}
-          className={styles.button}
-          onClick={() => navigateToProduct(_id)}
-        >
+        <Button iconButton smallIconButton className={styles.button} onClick={() => navigateToProduct(_id)}>
           <ShareIcon />
         </Button>
 
         {showRemoveButton && (
           <Button
-            isSmallButton
+            iconButton
+            smallIconButton
             styleType={ButtonStyle.DANGER}
-            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >

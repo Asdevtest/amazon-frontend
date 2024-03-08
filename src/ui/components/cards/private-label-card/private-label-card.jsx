@@ -2,7 +2,7 @@ import { Divider, InputBase, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'

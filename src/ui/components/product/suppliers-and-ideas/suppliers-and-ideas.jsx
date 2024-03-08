@@ -13,17 +13,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
@@ -68,8 +68,6 @@ export const SuppliersAndIdeas = observer(props => {
   const {
     supplierModalReadOnly,
     requestStatus,
-    yuanToDollarRate,
-    volumeWeightCoefficient,
     selectedSupplier,
     curUser,
     curIdea,
@@ -87,7 +85,7 @@ export const SuppliersAndIdeas = observer(props => {
     productToOrder,
     currentProposal,
     showRequestDesignerResultModal,
-    showRequestStandartResultModal,
+    showMainRequestResultModal,
     showRequestBloggerResultModal,
     showBindingModal,
     requestsForProduct,
@@ -286,31 +284,30 @@ export const SuppliersAndIdeas = observer(props => {
         </>
       )}
 
-      {showAddOrEditSupplierModal && (
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            product={curIdea}
-            storekeepersData={storekeepers}
-            paymentMethods={paymentMethods}
-            onlyRead={supplierModalReadOnly}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={supplierData || selectedSupplier}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onClickSaveBtn={onClickSaveSupplierBtn}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-          />
-        </Modal>
-      )}
+      <Modal
+        missClickModalOn={!supplierModalReadOnly}
+        openModal={showAddOrEditSupplierModal}
+        setOpenModal={onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          product={curIdea}
+          storekeepersData={storekeepers}
+          paymentMethods={paymentMethods}
+          onlyRead={supplierModalReadOnly}
+          requestStatus={requestStatus}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={supplierData || selectedSupplier}
+          showProgress={showProgress}
+          progressValue={progressValue}
+          onClickSaveBtn={onClickSaveSupplierBtn}
+          onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -323,6 +320,7 @@ export const SuppliersAndIdeas = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successModalSettings.modalTitle}
@@ -330,48 +328,38 @@ export const SuppliersAndIdeas = observer(props => {
         onClickSuccessBtn={successModalSettings.onClickSuccessBtn}
       />
 
-      {showRequestDesignerResultModal && (
-        <Modal
-          openModal={showRequestDesignerResultModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
-        >
-          <RequestDesignerResultClientForm
-            onlyRead
-            userInfo={curUser}
-            request={{ request: currentRequest }}
-            proposal={currentProposal}
-            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
-          />
-        </Modal>
-      )}
-
-      {showRequestStandartResultModal && (
-        <Modal
-          openModal={showRequestStandartResultModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
-        >
-          <RequestStandartResultForm
-            request={{ request: currentRequest }}
-            proposal={currentProposal}
-            setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
-          />
-        </Modal>
-      )}
-
-      {showRequestBloggerResultModal && (
-        <RequestResultModal
-          request={currentRequest}
+      <Modal
+        openModal={showRequestDesignerResultModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={curUser}
+          request={{ request: currentRequest }}
           proposal={currentProposal}
-          openModal={showRequestBloggerResultModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
         />
-      )}
+      </Modal>
 
-      {showBindingModal && (
-        <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
-          <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
-        </Modal>
-      )}
+      <MainRequestResultModal
+        readOnly
+        customProposal={currentProposal}
+        userInfo={curUser}
+        openModal={showMainRequestResultModal}
+        onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
+      />
+
+      <RequestResultModal
+        // @ts-ignore
+        request={currentRequest}
+        proposal={currentProposal}
+        openModal={showRequestBloggerResultModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
+      />
+
+      <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
+        <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
+      </Modal>
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
@@ -420,23 +408,21 @@ export const SuppliersAndIdeas = observer(props => {
         <SupplierApproximateCalculationsForm
           product={product}
           supplier={supplierData || selectedSupplier}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           storekeepers={storekeepersData}
           onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
         />
       </Modal>
 
-      {showCommentsModal ? (
-        <CommentsModal
-          isTextRequired
-          readOnly={false}
-          maxLength={MAX_DEFAULT_INPUT_VALUE}
-          title={t(TranslationKey['Reason for rejection'])}
-          isOpenModal={showCommentsModal}
-          onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
-          onChangeField={setRejectStatusHandler}
-        />
-      ) : null}
+      <CommentsModal
+        required
+        readOnly={false}
+        maxLength={MAX_DEFAULT_INPUT_VALUE}
+        title={t(TranslationKey['Reason for rejection'])}
+        openModal={showCommentsModal}
+        onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
+        onChangeField={setRejectStatusHandler}
+      />
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

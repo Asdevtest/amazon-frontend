@@ -5,7 +5,7 @@ import { Checkbox, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
@@ -300,10 +300,10 @@ export const RequestToSendBatchBox = memo(
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
-              itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+              itemSupplierBoxWeightGrossKg: item.order?.orderSupplier?.boxProperties?.boxWeighGrossKg,
               deliveryCost: price,
               itemAmount: item.amount,
-              itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+              itemSupplierAmountInBox: item.order?.orderSupplier?.boxProperties?.amountInBox,
               boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
               box,
             })

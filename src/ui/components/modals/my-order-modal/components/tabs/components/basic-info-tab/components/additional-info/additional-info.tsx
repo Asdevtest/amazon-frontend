@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -44,38 +43,35 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
         </Card>
       </div>
 
-      {showSelectionStorekeeperAndTariffModal ? (
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={onToggleSelectionStorekeeperAndTariffModal}
-        >
-          {/* @ts-ignore */}
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            RemoveDestinationRestriction
-            storekeepers={props.storekeepers}
-            curStorekeeperId={props.formFields?.storekeeperId}
-            currentDestinationId={props.formFields?.destinationId}
-            curTariffId={props.formFields?.logicsTariffId}
-            currentVariationTariffId={props.formFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
-          />
-        </Modal>
-      ) : null}
-
-      {showConfirmModal ? (
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={onToggleConfirmModal}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+      <Modal
+        openModal={showSelectionStorekeeperAndTariffModal}
+        setOpenModal={onToggleSelectionStorekeeperAndTariffModal}
+      >
+        {/* @ts-ignore */}
+        <SelectStorekeeperAndTariffForm
+          showCheckbox
+          RemoveDestinationRestriction
+          storekeepers={props.storekeepers}
+          curStorekeeperId={props.formFields?.storekeeperId}
+          currentDestinationId={props.formFields?.destinationId}
+          curTariffId={props.formFields?.logicsTariffId}
+          currentVariationTariffId={props.formFields?.variationTariffId}
+          onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      ) : null}
+      </Modal>
+
+      <ConfirmationModal
+        // @ts-ignore
+        isWarning={confirmModalSettings?.isWarning}
+        openModal={showConfirmModal}
+        setOpenModal={onToggleConfirmModal}
+        title={t(TranslationKey.Attention)}
+        message={confirmModalSettings?.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+      />
     </>
   )
 })

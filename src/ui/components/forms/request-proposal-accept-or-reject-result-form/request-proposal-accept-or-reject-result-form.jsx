@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
 import { Typography } from '@mui/material'
@@ -7,7 +6,7 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
@@ -17,7 +16,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
-export const RequestProposalAcceptOrRejectResultForm = observer(
+export const RequestProposalAcceptOrRejectResultForm = memo(
   ({
     isReject,
     isSupervisor,
@@ -31,9 +30,14 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
     openModal,
   }) => {
+    if (!openModal) {
+      return null
+    }
+
+    const { classes: styles, cx } = useStyles()
+
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
-    const { classes: styles, cx } = useStyles()
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -92,6 +96,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           </div>
 
           <ConfirmationModal
+            // @ts-ignore
             isWarning
             openModal={isShowConfirmationModal}
             setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}

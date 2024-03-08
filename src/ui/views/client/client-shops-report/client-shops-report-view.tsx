@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -122,6 +121,7 @@ export const ClientShopsReportView = observer(() => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         openModal={viewModel.showWarningInfoModal}
         isWarning={viewModel.warningInfoModalSettings.isWarning}
@@ -131,6 +131,7 @@ export const ClientShopsReportView = observer(() => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

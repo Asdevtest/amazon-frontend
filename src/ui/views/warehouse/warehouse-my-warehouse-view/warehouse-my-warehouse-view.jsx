@@ -229,6 +229,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
         title={viewModel.modalEditSuccessMessage}
@@ -308,6 +309,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}

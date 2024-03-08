@@ -1,6 +1,5 @@
 import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -14,8 +13,7 @@ import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { BoxViewForm } from '@components/forms/box-view-form'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
@@ -26,11 +24,7 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
-import {
-  calcPriceForBox,
-  calcVolumeWeightForBox,
-  checkActualBatchWeightGreaterVolumeBatchWeight,
-} from '@utils/calculation'
+import { calcVolumeWeightForBox, checkActualBatchWeightGreaterVolumeBatchWeight } from '@utils/calculation'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
@@ -38,9 +32,11 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
 
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
+
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
-export const BatchInfoModal = observer(
+export const BatchInfoModal = memo(
   ({
     openModal,
     setOpenModal,
@@ -50,16 +46,15 @@ export const BatchInfoModal = observer(
     onClickHsCode,
     patchActualShippingCostBatch,
     history,
-    location,
   }) => {
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
+    if (!openModal) {
+      return null
+    }
+
     const { classes: styles, cx } = useStyles()
+
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
@@ -270,7 +265,7 @@ export const BatchInfoModal = observer(
             />
 
             <div className={styles.closeFieldsWrapper}>
-              <Field
+              {/* <Field
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
@@ -282,7 +277,7 @@ export const BatchInfoModal = observer(
                   2,
                 )}
                 placeholder={'0'}
-              />
+              /> */}
 
               <Field
                 disabled
@@ -433,15 +428,13 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          {showPhotosModal && (
-            <ImageModal
-              isOpenModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          )}
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
+            files={currentBatch?.attachedDocuments}
+            currentFileIndex={curImageIndex}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={index => setCurImageIndex(index)}
+          />
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

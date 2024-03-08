@@ -32,11 +32,10 @@ import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -55,6 +54,8 @@ import { t } from '@utils/translations'
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-order-modal.style'
+
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { BoxesToCreateTable } from './boxes-to-create-table'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
@@ -97,7 +98,6 @@ export const EditOrderModal = memo(
     platformSettings,
     paymentMethods,
     imagesForLoad,
-    yuanToDollarRate,
     isPendingOrder,
     userInfo,
     requestStatus,
@@ -109,7 +109,6 @@ export const EditOrderModal = memo(
     showProgress,
     hsCodeData,
     progressValue,
-    volumeWeightCoefficient,
     setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
@@ -160,8 +159,6 @@ export const EditOrderModal = memo(
           0,
         ) || 0
 
-    console.log('order', order)
-
     const initialState = {
       ...order,
       status: order?.status || undefined,
@@ -183,7 +180,7 @@ export const EditOrderModal = memo(
       trackingNumberChina: order?.trackingNumberChina || '',
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
-      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
+      yuanToDollarRate: order?.yuanToDollarRate || platformSettings?.yuanToDollarRate,
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
@@ -706,7 +703,7 @@ export const EditOrderModal = memo(
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
-            yuanToDollarRate={yuanToDollarRate}
+            yuanToDollarRate={platformSettings?.yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
@@ -925,7 +922,7 @@ export const EditOrderModal = memo(
           <>
             <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
                 userInfo._id !== order.orderSupplier.createdBy?._id &&
@@ -1006,7 +1003,7 @@ export const EditOrderModal = memo(
               mainProductId={order.product._id}
               userInfo={userInfo}
               setCurrentOpenedBox={setCurrentOpenedBox}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
@@ -1024,7 +1021,7 @@ export const EditOrderModal = memo(
             isEdit={isEdit}
             order={order}
             currentSupplier={order.orderSupplier}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}
             setBoxesForCreation={setBoxesForCreation}
@@ -1033,6 +1030,7 @@ export const EditOrderModal = memo(
         </Modal>
 
         <ConfirmationModal
+          // @ts-ignore
           openModal={showConfirmModal}
           setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
           title={t(TranslationKey['Attention. Are you sure?'])}
@@ -1056,6 +1054,7 @@ export const EditOrderModal = memo(
         />
 
         <WarningInfoModal
+          // @ts-ignore
           openModal={showWarningInfoModal}
           setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
           title={t(TranslationKey['PAY ATTENTION!!!'])}
@@ -1073,15 +1072,13 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        {showPhotosModal && (
-          <ImageModal
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            isOpenModal={showPhotosModal}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        )}
+        <SlideshowGalleryModal
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          openModal={showPhotosModal}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        />
 
         <Modal
           openModal={showCheckQuantityModal}
@@ -1143,8 +1140,8 @@ export const EditOrderModal = memo(
           <AddOrEditSupplierModalContent
             paymentMethods={paymentMethods}
             requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
             onlyRead={isOnlyRead || forceReadOnly}

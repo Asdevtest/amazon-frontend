@@ -74,7 +74,22 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  button: {
+    height: '30px',
+    width: '130px',
+
+    p: {
+      color: 'currentcolor',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
+  },
 
   row: {
     width: '100%',

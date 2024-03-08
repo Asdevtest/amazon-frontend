@@ -9,6 +9,8 @@ import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { Specs } from '@typings/enums/specs'
+
 import { useStyles } from './files-tab.style'
 
 import { Buttons } from './buttons'
@@ -42,10 +44,17 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onDeleteFile,
     onChangeFileName,
     onUploadFile,
+    onUpdateSeoIFilesInProduct,
   } = useFilesTab(props)
 
-  const commentModalTitle =
-    (props.isClient ? currentEditableFile?.commentByClient : currentEditableFile?.commentByPerformer) || ''
+  const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
+  const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
+  const disabledArchiveButton = !filesForDownload.length || archiveButtonInactiveBeforeDownloading
+  const commentModalTitle = props.isClient
+    ? t(TranslationKey['Add comment'])
+    : t(TranslationKey['View a comment from a client'])
+  const showUpdateSeoFilesInProductButton = props.isClient && props.spec.type === Specs.SEO
+  const disabledUpdateSeoFilesInProductButton = filesForDownload.length === 0
 
   return (
     <>
@@ -54,10 +63,11 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           {files.map((file, index) => (
             <File
               key={file._id}
+              readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}
               fileIndex={index}
-              checked={filesForDownload.some(({ _id }) => _id === file._id)}
+              checked={handleCheckedFile(file._id)}
               onCheckFile={onCheckFile}
               onToggleImageModal={onToggleImageModal}
               onToggleCommentModal={onToggleCommentModal}
@@ -68,14 +78,18 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           ))}
         </div>
 
-        {props.isClient ? (
+        {props.isClient || props.readOnly ? (
           <Buttons
-            checked={filesForDownload.length === files.length}
+            checked={checkedSelectAll}
+            disabledSelectAllCheckbox={!files.length}
             disabledFilesButton={!filesForDownload.length}
-            disabledArchiveButton={!filesForDownload.length || archiveButtonInactiveBeforeDownloading}
+            disabledArchiveButton={disabledArchiveButton}
+            showUpdateSeoFilesInProductButton={showUpdateSeoFilesInProductButton}
+            disabledUpdateSeoFilesInProductButton={disabledUpdateSeoFilesInProductButton}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
+            onUpdateSeoIFilesInProduct={onUpdateSeoIFilesInProduct}
           />
         ) : (
           <button className={styles.button} onClick={onAddFile}>
@@ -85,26 +99,22 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         )}
       </div>
 
-      {showCommentModal ? (
-        <CommentsModal
-          readOnly={!props.isClient}
-          title={t(TranslationKey['Add comment'])}
-          text={commentModalTitle}
-          maxLength={MIDDLE_COMMENT_VALUE}
-          isOpenModal={showCommentModal}
-          onOpenModal={onShowCommentModal}
-          onChangeField={onChangeComment}
-        />
-      ) : null}
+      <CommentsModal
+        readOnly={!props.isClient || props.readOnly}
+        title={commentModalTitle}
+        text={currentEditableFile?.commentByClient || ''}
+        maxLength={MIDDLE_COMMENT_VALUE}
+        openModal={showCommentModal}
+        onOpenModal={onShowCommentModal}
+        onChangeField={onChangeComment}
+      />
 
-      {showSlideshowGalleryModal ? (
-        <SlideshowGalleryModal
-          files={files}
-          currentFileIndex={currentFileIndex}
-          isOpenModal={showSlideshowGalleryModal}
-          onOpenModal={onShowSlideshowGalleryModal}
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={files}
+        currentFileIndex={currentFileIndex}
+        openModal={showSlideshowGalleryModal}
+        onOpenModal={onShowSlideshowGalleryModal}
+      />
     </>
   )
 })

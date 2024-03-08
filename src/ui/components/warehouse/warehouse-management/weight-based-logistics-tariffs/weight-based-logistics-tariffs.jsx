@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -63,7 +63,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     onClickAddressBtn,
     onTriggerArchive,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         columnVisibilityModel={columnVisibilityModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
         onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />
@@ -173,6 +173,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         />
       </Modal>
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

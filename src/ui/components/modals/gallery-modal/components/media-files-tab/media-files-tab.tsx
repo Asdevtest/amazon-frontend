@@ -2,7 +2,7 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
@@ -54,16 +54,13 @@ export const MediaFilesTab: FC<MediaFilesTabProps> = memo(({ slides, isTransitio
         )}
       </div>
 
-      {showImageModal ? (
-        <ImageModal
-          showPreviews
-          files={slides}
-          currentFileIndex={currentSlideIndex}
-          isOpenModal={showImageModal}
-          onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={setCurrentSlideIndex}
-        />
-      ) : null}
+      <SlideshowGalleryModal
+        files={slides}
+        currentFileIndex={currentSlideIndex}
+        openModal={showImageModal}
+        onOpenModal={() => setShowImageModal(!showImageModal)}
+        onCurrentFileIndex={setCurrentSlideIndex}
+      />
     </>
   )
 })

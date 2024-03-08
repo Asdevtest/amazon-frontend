@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -63,7 +62,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-    width: 340,
+
     renderCell: (params: GridRowParams) => (
       <ActionButtonsCell
         isFirstButton
@@ -82,6 +81,8 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
+
+    width: 230,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,

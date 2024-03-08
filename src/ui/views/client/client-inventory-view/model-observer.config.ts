@@ -20,11 +20,9 @@ export const observerConfig = {
   selectedProductToLaunch: observable,
   existingProducts: observable,
   selectedRowId: observable,
-  yuanToDollarRate: observable,
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
-  getCustomSortFields: action.bound,
 
   showOrderModal: observable,
   showSuccessModal: observable,
@@ -50,6 +48,7 @@ export const observerConfig = {
   showProductLaunch: observable,
   showIdeaModal: observable,
   showProductVariationsForm: observable,
+  productsTags: observable,
 
   readyImages: observable,
   progressValue: observable,
@@ -119,4 +118,8 @@ export const observerConfig = {
   onClickShowProduct: action.bound,
   setDestinationsFavouritesItem: action.bound,
   loadData: action.bound,
+  getCustomSortFields: action.bound,
+  getProdutsTags: action.bound,
+  addActiveProductsTag: action.bound,
+  removeActiveProductsTag: action.bound,
 }

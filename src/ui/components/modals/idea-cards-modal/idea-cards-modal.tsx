@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { SuppliersAndIdeas } from '@components/product/suppliers-and-ideas'
 import { Modal } from '@components/shared/modal'
@@ -18,10 +17,14 @@ interface IdeaCardsModalProps {
   isCreate?: boolean
 }
 
-export const IdeaCardsModal: FC<IdeaCardsModalProps> = observer(props => {
-  const { classes: styles } = useStyles()
-
+export const IdeaCardsModal: FC<IdeaCardsModalProps> = memo(props => {
   const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
+
+  if (!openModal) {
+    return null
+  }
+
+  const { classes: styles } = useStyles()
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>

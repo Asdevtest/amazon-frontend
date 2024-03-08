@@ -12,7 +12,7 @@ import {
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchesViewColumns = (rowHandlers, getStatus) => [
@@ -41,7 +41,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
     width: 130,
     filterable: false,
     sortable: false,
@@ -50,17 +50,17 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
   },
 
   {
-    field: 'amount',
+    field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => (
-      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac += cur.amount), 0)} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -78,7 +78,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
     width: 250,
     filterable: false,
     sortable: false,
@@ -120,18 +120,6 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Delivery cost']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
-    width: 150,
-    filterable: false,
-    sortable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 150,

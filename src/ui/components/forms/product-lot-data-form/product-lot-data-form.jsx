@@ -8,7 +8,7 @@ import { BatchesModel } from '@models/batches-model'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -132,6 +132,7 @@ export const ProductLotDataForm = memo(props => {
       </div>
 
       <BatchInfoModal
+        // @ts-ignore
         userInfo={userInfo}
         openModal={showBatchInfoModal}
         setOpenModal={setOpenBatchInfoModal}

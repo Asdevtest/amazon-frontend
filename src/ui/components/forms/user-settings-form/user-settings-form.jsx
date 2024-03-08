@@ -8,7 +8,7 @@ import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
@@ -78,13 +78,12 @@ export const UserSettingsForm = observer(() => {
       </div>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data accepted'])}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
     </div>
   )

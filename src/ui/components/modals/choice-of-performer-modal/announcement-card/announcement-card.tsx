@@ -3,8 +3,8 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsMediaFileLink } from '@utils/checks'
@@ -79,7 +79,9 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           </button>
         </div>
 
-        <PhotoAndFilesSlider showPreviews isHideCounter withoutFiles mediumSlider files={imagesForRender} />
+        <div className={styles.galleryWrapper}>
+          <SlideshowGallery hiddenPreviews files={imagesForRender} />
+        </div>
 
         <div className={styles.detailsWrapper}>
           <div className={styles.detailsSubWrapper}>
@@ -107,7 +109,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
       <AnnouncementModal
         select
-        isOpenModal={isOpenModal}
+        openModal={isOpenModal}
         service={announcementData}
         onOpenModal={handleToggleModal}
         onClickSelectButton={onClickSelectButton}

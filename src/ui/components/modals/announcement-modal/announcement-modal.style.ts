@@ -3,18 +3,20 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   modalWrapper: {
     padding: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   header: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 30,
-    marginBottom: 30,
+    gap: 20,
   },
 
   mainTitle: {
-    width: 528,
+    width: 400,
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
@@ -24,12 +26,14 @@ export const useStyles = makeStyles()(() => ({
   },
 
   flexRowContainer: {
+    maxWidth: 215,
     display: 'flex',
     alignItems: 'center',
     gap: 10,
   },
 
   text: {
+    width: '100%',
     fontSize: 14,
     lineHeight: '19px',
   },
@@ -40,7 +44,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   bold: {
-    width: 80,
     fontWeight: 600,
   },
 
@@ -48,22 +51,14 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 48,
-  },
-
-  flexColumnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 14,
+    gap: 20,
   },
 
   content: {
-    width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    gap: 30,
+    gap: 20,
   },
 
   descriptionContainer: {
@@ -73,8 +68,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   description: {
-    width: 580,
-    height: 377,
+    width: 600,
+    height: 300,
     overflow: 'auto',
   },
 
@@ -85,13 +80,5 @@ export const useStyles = makeStyles()(() => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  button: {
-    padding: '0 75px',
-  },
-
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

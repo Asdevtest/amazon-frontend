@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
@@ -144,9 +144,7 @@ export const UserProfile = observer(
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
                 <div className={styles.leaveReviewBtnWrapper}>
-                  <Button className={styles.leaveReviewBtn} onClick={onClickReview}>
-                    {t(TranslationKey['Leave a review'])}
-                  </Button>
+                  <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
                 </div>
               )}
 

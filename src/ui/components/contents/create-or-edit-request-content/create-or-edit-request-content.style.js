@@ -1,21 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 15,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-
   mainWrapper: {
-    position: 'relative',
     padding: 20,
-    height: '81vh',
+    height: '100%',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     background: theme.palette.background.general,
     borderRadius: 20,
   },
@@ -179,10 +171,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
     display: 'flex',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  buttons: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
     gap: 20,
   },
 

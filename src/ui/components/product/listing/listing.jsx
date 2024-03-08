@@ -8,7 +8,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -195,13 +195,12 @@ export const Listing = observer(({ productId, onClickBack }) => {
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={t(TranslationKey['Data saved successfully'])}
-        successBtnText={'Oк'}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
       />
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}

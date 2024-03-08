@@ -8,7 +8,15 @@ import { SortSettings } from '../sort-settings'
 import { TagSearch } from '../tag-search'
 
 export const DataGridCustomToolbar = props => {
-  const { resetFiltersBtnSettings, columsBtnSettings, children, presetsSettings, sortSettings, ...restProps } = props
+  const {
+    resetFiltersBtnSettings,
+    columsBtnSettings,
+    children,
+    presetsSettings,
+    sortSettings,
+    tagSearchSettings,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -31,15 +39,16 @@ export const DataGridCustomToolbar = props => {
 
             {sortSettings ? <SortSettings {...sortSettings} /> : null}
 
-            <TagSearch />
+            {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
           </div>
         )}
 
-        <div className={cx(styles.buttons, { [styles.fullWidth]: !columsBtnSettings })}>
+        <div className={cx(styles.buttons, { [styles.flexEnd]: !columsBtnSettings })}>
           {children}
           <GridPagination />
         </div>
       </div>
+
       {'2222'}
     </GridToolbarContainer>
   )

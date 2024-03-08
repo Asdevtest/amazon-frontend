@@ -58,9 +58,4 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     color: theme.palette.text.second,
   },
-
-  saveButton: {
-    width: 123,
-    height: 40,
-  },
 }))

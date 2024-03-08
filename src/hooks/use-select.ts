@@ -24,7 +24,7 @@ export const useSelect = <T>(items: T[], currentItemName?: string) => {
   }, [currentItemName, items])
 
   useEffect(() => {
-    const filtered = items.filter(item => item.name.toLowerCase().includes(debouncedSearchValue.toLowerCase()))
+    const filtered = items.filter(item => item?.name?.toLowerCase().includes(debouncedSearchValue.toLowerCase()))
 
     setFilteredItems(filtered)
   }, [debouncedSearchValue, items])

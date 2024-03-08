@@ -51,7 +51,7 @@ export class BuyerSearchSupplierBySupervisorModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

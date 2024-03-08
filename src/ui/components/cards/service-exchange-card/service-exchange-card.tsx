@@ -3,7 +3,7 @@ import { FC, memo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
@@ -108,16 +108,14 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </div>
       </div>
 
-      {isOpenModal && (
-        <AnnouncementModal
-          isOpenModal={isOpenModal}
-          service={service}
-          choose={choose}
-          order={order}
-          onOpenModal={handleToggleModal}
-          onClickButton={() => onClickButton(service)}
-        />
-      )}
+      <AnnouncementModal
+        openModal={isOpenModal}
+        service={service}
+        choose={choose}
+        order={order}
+        onOpenModal={handleToggleModal}
+        onClickButton={() => onClickButton(service)}
+      />
     </>
   )
 })
