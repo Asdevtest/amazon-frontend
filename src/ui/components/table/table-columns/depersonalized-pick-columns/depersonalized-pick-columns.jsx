@@ -1,9 +1,15 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import {
+  ActionButtonsCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+} from '@components/data-grid/data-grid-cells'
+
+import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { t } from '@utils/translations'
 
 export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
@@ -34,7 +40,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
         onClickFirstButton={() => handlers.onPickUp(params.row.originalData)}
       />
     ),
-    width: 150,
+    width: 180,
     align: 'center',
   },
 
