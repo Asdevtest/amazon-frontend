@@ -37,7 +37,10 @@ export const BarcodeCell: FC<BarcodeCellProps> = memo(props => {
       className={cx({ [styles.barcodeChipNoExists]: !product?.barCode })}
       size="small"
       label={product?.barCode ? trimBarcode(product?.barCode) : t(TranslationKey.BarCode)}
-      onClick={() => handlers.onClickBarcode(product)}
+      onClick={e => {
+        e.stopPropagation()
+        handlers.onClickBarcode(product)
+      }}
       onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
       onDelete={!product?.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
     />

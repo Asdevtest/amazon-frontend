@@ -882,10 +882,19 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickHsCode(item) {
-    this.setSelectedProduct(item)
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+    try {
+      this.setSelectedProduct(item)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
@@ -1535,8 +1544,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
   }
 }
