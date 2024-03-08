@@ -68,8 +68,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   description: {
-    width: 580,
-    height: 377,
+    width: 600,
+    height: 300,
     overflow: 'auto',
   },
 
