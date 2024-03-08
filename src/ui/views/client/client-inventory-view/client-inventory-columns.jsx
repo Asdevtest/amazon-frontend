@@ -83,7 +83,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
       width: 90,
-
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
@@ -197,7 +196,6 @@ export const clientInventoryColumns = (
           .join(', ')
       },
       width: 145,
-
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
     },
@@ -208,9 +206,7 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 120,
-
       type: 'number',
-
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -280,7 +276,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       renderCell: params => <TagsCell tags={params.row?.tags} />,
       width: 160,
-
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
     },
@@ -291,7 +286,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
       width: 130,
-
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
@@ -308,10 +302,9 @@ export const clientInventoryColumns = (
     {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
-      renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
       width: 120,
-
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -323,7 +316,6 @@ export const clientInventoryColumns = (
       width: 120,
       disableColumnMenu: true,
       filterable: false,
-
       disableCustomSort: true,
     },
 
@@ -390,14 +382,10 @@ export const clientInventoryColumns = (
       field: 'subUsers',
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
-
       renderCell: params => <ManyUserLinkCell usersData={params.row?.subUsers} />,
       width: 187,
-
       filterable: false,
-
       disableCustomSort: true,
-
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -409,7 +397,6 @@ export const clientInventoryColumns = (
       width: 400,
       disableColumnMenu: true,
       filterable: false,
-
       disableCustomSort: true,
     },
 
@@ -419,7 +406,6 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 400,
-
       disableCustomSort: true,
       filterable: false,
       disableColumnMenu: true,
