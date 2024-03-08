@@ -615,13 +615,9 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier, photosOfUnit, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
@@ -633,7 +629,6 @@ export class ClientProductViewModel {
         widthUnit: supplier?.widthUnit || null,
         lengthUnit: supplier?.lengthUnit || null,
         weighUnit: supplier?.weighUnit || null,
-        images: this.readyImages,
         boxProperties: supplier?.boxProperties
           ? supplier.boxProperties
           : {
@@ -645,32 +640,27 @@ export class ClientProductViewModel {
             },
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
       }
 
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
-      }
-
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -682,16 +672,16 @@ export class ClientProductViewModel {
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         await this.getProductById()
       }
 
       await this.onSaveForceProductData()
 
-      this.loadData()
+      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
-      this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)

@@ -343,8 +343,6 @@ export class ClientExchangeViewModel {
         this.destinations = destinations
 
         this.platformSettings = result
-
-        // this.selectedProduct = { product };
       })
 
       this.onTriggerOpenModal('showOrderModal')

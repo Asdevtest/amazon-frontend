@@ -47,10 +47,7 @@ export class BuyerMyOrdersViewModel {
 
   createBoxesResult = []
 
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
-
-  yuanToDollarRate = undefined
 
   nameSearchValue = ''
 
@@ -215,9 +212,12 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       this.getDataGridState()
       await this.getOrdersMy()
       this.getSuppliersPaymentMethods()
+      this.getPlatformSettings()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -303,14 +303,6 @@ export class BuyerMyOrdersViewModel {
       })
 
       this.getBoxesOfOrder(orderId)
-
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.platformSettings = result
-      })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -449,40 +441,8 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({
-    supplier,
-    photosOfSupplier,
-    productId,
-    editPhotosOfSupplier,
-    photosOfUnit,
-    editPhotosOfUnit,
-  }) {
+  async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
-      }
-
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
-      }
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-
-        supplier = {
-          ...supplier,
-          images: this.readyImages,
-        }
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
@@ -495,24 +455,37 @@ export class BuyerMyOrdersViewModel {
         weighUnit: supplier?.weighUnit || null,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+
       runInAction(() => {
         this.selectedOrder = orderData
       })
@@ -609,5 +582,17 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowBarcodeModal() {
     this.showBarcodeModal = !this.showBarcodeModal
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

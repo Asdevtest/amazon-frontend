@@ -98,7 +98,6 @@ export const EditOrderModal = memo(
     platformSettings,
     paymentMethods,
     imagesForLoad,
-    yuanToDollarRate,
     isPendingOrder,
     userInfo,
     requestStatus,
@@ -110,7 +109,6 @@ export const EditOrderModal = memo(
     showProgress,
     hsCodeData,
     progressValue,
-    volumeWeightCoefficient,
     setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
@@ -182,7 +180,7 @@ export const EditOrderModal = memo(
       trackingNumberChina: order?.trackingNumberChina || '',
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
-      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
+      yuanToDollarRate: order?.yuanToDollarRate || platformSettings?.yuanToDollarRate,
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
@@ -705,7 +703,7 @@ export const EditOrderModal = memo(
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
-            yuanToDollarRate={yuanToDollarRate}
+            yuanToDollarRate={platformSettings?.yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
@@ -924,7 +922,7 @@ export const EditOrderModal = memo(
           <>
             <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
                 userInfo._id !== order.orderSupplier.createdBy?._id &&
@@ -1005,7 +1003,7 @@ export const EditOrderModal = memo(
               mainProductId={order.product._id}
               userInfo={userInfo}
               setCurrentOpenedBox={setCurrentOpenedBox}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
@@ -1023,7 +1021,7 @@ export const EditOrderModal = memo(
             isEdit={isEdit}
             order={order}
             currentSupplier={order.orderSupplier}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}
             setBoxesForCreation={setBoxesForCreation}
@@ -1142,8 +1140,8 @@ export const EditOrderModal = memo(
           <AddOrEditSupplierModalContent
             paymentMethods={paymentMethods}
             requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
             onlyRead={isOnlyRead || forceReadOnly}

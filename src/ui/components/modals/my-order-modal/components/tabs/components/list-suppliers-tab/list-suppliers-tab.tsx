@@ -86,8 +86,7 @@ export const ListSuppliersTab: FC<ListSuppliersTabProps> = observer(props => {
         setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
       >
         <AddOrEditSupplierModalContent
-          // remove memo from the modal or add types to the modal
-          /* @ts-ignore */
+          // @ts-ignore
           onlyRead
           product={formFields?.product}
           supplier={viewModel.currentSupplier}
