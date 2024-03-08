@@ -292,9 +292,9 @@ export class MyProposalsViewModel {
   async onClickResultBtn(proposalId) {
     await this.getProposalById(proposalId)
 
-    if (this.currentRequest?.request.spec?.title === freelanceRequestType.DESIGNER) {
+    if (this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (this.currentRequest?.request.spec?.title === freelanceRequestType.BLOGGER) {
+    } else if (this.currentProposal?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
