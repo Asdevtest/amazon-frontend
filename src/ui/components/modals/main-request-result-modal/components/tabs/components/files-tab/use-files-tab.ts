@@ -36,6 +36,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
       setFields(prevFields => ({
         ...prevFields,
         media: [
+          ...prevFields.media,
           {
             _id: null,
             fileLink: '',
@@ -43,7 +44,6 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
             commentByPerformer: '',
             index: prevFields.media.length + 1,
           },
-          ...prevFields.media,
         ],
       }))
     }
@@ -94,9 +94,13 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     if (!isClient) {
       const multipleFilesLoaded =
         readyFilesArr.length > 1
-          ? readyFilesArr
-              .slice(1)
-              .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+          ? readyFilesArr.slice(1).map((el, index) => ({
+              fileLink: el,
+              commentByPerformer: el.file.name,
+              commentByClient: '',
+              _id: null,
+              index: index + 2,
+            }))
           : []
 
       setFields(prevFields => ({
