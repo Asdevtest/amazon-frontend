@@ -4,7 +4,7 @@ import Rating from '@mui/material/Rating'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'

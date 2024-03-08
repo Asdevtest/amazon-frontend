@@ -8,7 +8,7 @@ import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -140,7 +140,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -202,7 +202,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -264,7 +264,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -326,12 +326,13 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
+
       <Modal
         openModal={showAsinCheckerModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
@@ -343,6 +344,7 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
+
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
         <EditAsinCheckerModal
           strategy={tabIndex}
@@ -351,7 +353,9 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
+
       <ConfirmationModal
+        // @ts-ignore
         openModal={showConfirmCloseAsinCheckerModal}
         title={t(TranslationKey.Attention)}
         message={t(TranslationKey['Window will be closed'])}
@@ -365,6 +369,7 @@ export const SupervisorSettingsContent = observer(() => {
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
       />
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -375,6 +380,7 @@ export const SupervisorSettingsContent = observer(() => {
         onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
+
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
         <FailedAsinsModal
           failedData={failedData}

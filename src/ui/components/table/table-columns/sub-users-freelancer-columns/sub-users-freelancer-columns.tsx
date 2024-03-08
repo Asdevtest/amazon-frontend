@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -83,7 +82,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       />
     ),
 
-    width: 150,
+    width: 230,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,

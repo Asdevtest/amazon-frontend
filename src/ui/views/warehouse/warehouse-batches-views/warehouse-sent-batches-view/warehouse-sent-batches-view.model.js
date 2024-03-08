@@ -142,7 +142,7 @@ export class WarehouseSentBatchesViewModel {
     // this.getBatchesPagMy()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
@@ -374,7 +374,7 @@ export class WarehouseSentBatchesViewModel {
         getTableByColumn(column, 'batches'),
         column,
 
-        `batches/with_filters?filters=${this.getFilter(column)}&status=${BatchStatus.IS_BEING_COLLECTED}`,
+        `batches/with_filters?filters=${this.getFilter(column)}&status=${BatchStatus.HAS_DISPATCHED}`,
       )
 
       if (this.columnMenuSettings[column]) {

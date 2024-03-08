@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { UserModel } from '@models/user-model'
 
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher, ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
@@ -67,102 +67,99 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
     : [{ label: () => t(TranslationKey.All), value: undefined }]
 
   return (
-    viewModel.languageTag && (
-      <div className={styles.root}>
-        <div className={styles.actionPanelWrapper}>
-          {!isCurrentUserFreelancer ? (
-            <CustomSwitcher
-              switchMode={'medium'}
-              condition={viewModel.curNotificationType}
-              switcherSettings={currentSwitcherSettings}
-              changeConditionHandler={viewModel.onClickToChangeNotificationType}
-            />
-          ) : (
-            <div />
-          )}
-
-          <SearchInput
-            inputClasses={cx(styles.searchInput, {
-              [styles.searchInputClient]: isCurrentUserClient,
-              [styles.searchInputFreelancer]: isCurrentUserFreelancer,
-            })}
-            value={viewModel.searchValue}
-            placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
-            onSubmit={viewModel.onSearchSubmit}
+    <div className={styles.root}>
+      <div className={styles.actionPanelWrapper}>
+        {!isCurrentUserFreelancer ? (
+          <CustomSwitcher
+            switchMode={'medium'}
+            condition={viewModel.curNotificationType}
+            switcherSettings={currentSwitcherSettings}
+            changeConditionHandler={viewModel.onClickToChangeNotificationType}
           />
-
-          <div className={styles.buttonsWrapper}>
-            <Button
-              className={cx(styles.button, styles.archiveButton)}
-              variant={ButtonVariant.OUTLINED}
-              onClick={() => viewModel.toggleVariationHandler('isArchive')}
-            >
-              {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
-            </Button>
-
-            {!viewModel.isArchive && (
-              <Button
-                disabled={!viewModel.selectedRowIds.length}
-                className={styles.button}
-                onClick={() => viewModel.onClickReadButton()}
-              >
-                {t(TranslationKey.Read)}
-              </Button>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.datagridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            useResizeContainer
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            rowSelectionModel={viewModel.selectedRowIds}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.notificationsData}
-            columns={viewModel.columnsModel}
-            getRowHeight={() => 'auto'}
-            density="compact"
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-          />
-        </div>
-
-        {viewModel.showIdeaModal && (
-          <IdeaCardsModal
-            openModal={viewModel.showIdeaModal}
-            setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
-            updateData={() => {
-              viewModel.getUserNotifications()
-              UserModel.getUserInfo()
-            }}
-            product={viewModel.currentProduct}
-            productId={viewModel.currentProduct?._id}
-            currentIdeaId={viewModel.currentIdeaId}
-          />
+        ) : (
+          <div />
         )}
+
+        <SearchInput
+          inputClasses={cx(styles.searchInput, {
+            [styles.searchInputClient]: isCurrentUserClient,
+            [styles.searchInputFreelancer]: isCurrentUserFreelancer,
+          })}
+          value={viewModel.searchValue}
+          placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+
+        <div className={styles.buttonsWrapper}>
+          <Button
+            className={cx(styles.button, styles.archiveButton)}
+            variant={ButtonVariant.OUTLINED}
+            onClick={() => viewModel.toggleVariationHandler('isArchive')}
+          >
+            {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
+          </Button>
+
+          {!viewModel.isArchive && (
+            <Button
+              disabled={!viewModel.selectedRowIds.length}
+              className={styles.button}
+              onClick={() => viewModel.onClickReadButton()}
+            >
+              {t(TranslationKey.Read)}
+            </Button>
+          )}
+        </div>
       </div>
-    )
+
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          useResizeContainer
+          disableRowSelectionOnClick
+          localeText={getLocalizationByLanguageTag()}
+          rowSelectionModel={viewModel.selectedRowIds}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.notificationsData}
+          columns={viewModel.columnsModel}
+          getRowHeight={() => 'auto'}
+          density="compact"
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+        />
+      </div>
+
+      <IdeaCardsModal
+        // @ts-ignore
+        openModal={viewModel.showIdeaModal}
+        setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
+        updateData={() => {
+          viewModel.getUserNotifications()
+          UserModel.getUserInfo()
+        }}
+        product={viewModel.currentProduct}
+        productId={viewModel.currentProduct?._id}
+        currentIdeaId={viewModel.currentIdeaId}
+      />
+    </div>
   )
 })

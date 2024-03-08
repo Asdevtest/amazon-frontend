@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-group-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -53,7 +53,7 @@ export const GroupPermissions = observer(() => {
     onChangeSortingModel,
     onChangeFilterModel,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   return (
@@ -91,7 +91,7 @@ export const GroupPermissions = observer(() => {
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={onChangePaginationModelChange}
+          onPaginationModelChange={onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>
@@ -111,6 +111,7 @@ export const GroupPermissions = observer(() => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

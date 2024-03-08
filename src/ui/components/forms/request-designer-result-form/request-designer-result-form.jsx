@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -9,7 +10,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typogra
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
@@ -97,7 +98,7 @@ const Slot = ({
             className={cx(
               styles.imageWrapper,
 
-              { [styles.isHaveImage]: !!slot?.image },
+              { [styles.isHaveImage]: !!slot?.fileLink },
               { [styles.mainImageWrapper]: index === 0 },
             )}
           >
@@ -206,7 +207,7 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpenModal, proposal }) => {
+export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, proposal }) => {
   const { classes: styles, cx } = useStyles()
 
   const isRework = !!proposal.proposal.media?.length
@@ -222,7 +223,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }]
+    : [{ fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }]
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -242,12 +243,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: null }])
+    setImagesData(() => [...imagesData, { fileLink: '', commentByPerformer: '', commentByClient: '', _id: uuid() }])
   }
 
   const onClickRemoveItem = slot => {
     if (slot.fileLink) {
-      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, fileLink: null } : el)))
     } else {
       setImagesData(() => imagesData.filter(el => el._id !== slot._id))
     }
@@ -268,7 +269,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+      .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -298,7 +299,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: null }))
+        .map(el => ({ fileLink: el, commentByPerformer: el.file.name, commentByClient: '', _id: uuid() }))
 
       setImagesData([
         ...imagesData.map(el =>
@@ -311,7 +312,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
     }
   }
 
-  const disableSubmit = imagesData.every(el => !el.image)
+  const disableSubmit = imagesData.some(el => !el.fileLink)
 
   return (
     <>
@@ -320,7 +321,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           <div className={styles.headerLeftSubWrapper}>
             <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
               TranslationKey['Request result'],
-            )} / ID ${request.request.humanFriendlyId}`}</Typography>
+            )} / ID ${proposal?.request?.humanFriendlyId}`}</Typography>
 
             <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}
@@ -468,17 +469,15 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
         </div>
       </div>
 
-      {showImageModal && (
-        <SlideshowGalleryModal
-          isEditable={isRework}
-          isOpenModal={showImageModal}
-          files={imagesData}
-          currentFileIndex={curImageIndex}
-          onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
-          onChangeImagesForLoad={setImagesData}
-        />
-      )}
+      <SlideshowGalleryModal
+        isEditable={isRework}
+        openModal={showImageModal}
+        files={imagesData}
+        currentFileIndex={curImageIndex}
+        onOpenModal={() => setShowImageModal(!showImageModal)}
+        onCurrentFileIndex={index => setCurImageIndex(index)}
+        onChangeImagesForLoad={setImagesData}
+      />
     </>
   )
 }

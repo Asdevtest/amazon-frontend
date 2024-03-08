@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
@@ -128,6 +128,7 @@ export const TabMain = memo(props => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={onClickToggleInfoModal}
         title={infoModalText}

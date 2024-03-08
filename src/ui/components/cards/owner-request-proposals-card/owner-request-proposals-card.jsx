@@ -15,7 +15,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -211,16 +211,17 @@ export const OwnerRequestProposalsCard = ({
       </Modal>
 
       <MainRequestResultModal
-        showActionButtons={statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+        readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
         customProposal={item}
         userInfo={userInfo}
         openModal={showMainRequestResultModal}
         onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
         onEditCustomProposal={onSendInForRework}
-        onReceiveCustomProposal={onReceiveCustomProposal}
+        onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={request}
         proposal={item}
         openModal={showRequestResultModal}

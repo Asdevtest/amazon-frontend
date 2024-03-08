@@ -13,7 +13,7 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
@@ -137,6 +137,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
@@ -169,6 +170,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.request}
         openModal={viewModel.showRequestResultModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
@@ -181,7 +183,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
       >
         <RequestDesignerResultForm
-          request={viewModel.request}
           proposal={findRequestProposalForCurChat}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
           onClickSendAsResult={viewModel.onClickSendAsResult}
@@ -189,6 +190,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

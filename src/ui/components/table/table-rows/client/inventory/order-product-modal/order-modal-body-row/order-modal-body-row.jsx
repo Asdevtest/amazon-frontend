@@ -12,7 +12,7 @@ import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -74,6 +74,9 @@ export const OrderModalBodyRow = ({
   const tariffRate =
     currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
     currentLogicsTariff?.destinationVariations?.find(el => el._id === item?.variationTariffId)?.pricePerKgUsd
+
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
@@ -415,13 +418,14 @@ export const OrderModalBodyRow = ({
             styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.storekeeperId
-              ? `${
-                  item.logicsTariffId
-                    ? `${tariffName || ''}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)}
+            {item.storekeeperId ? (
+              <>
+                <p>{currentTariffName}</p>
+                <p>{currentTariffRate}</p>
+              </>
+            ) : (
+              t(TranslationKey.Select)
+            )}
           </Button>
         </TableCell>
 
@@ -603,6 +607,7 @@ export const OrderModalBodyRow = ({
         </Modal>
 
         <ConfirmationModal
+          // @ts-ignore
           isWarning={confirmModalSettings?.isWarning}
           openModal={showConfirmationModal}
           setOpenModal={() => setShowConfirmationModal(prev => !prev)}

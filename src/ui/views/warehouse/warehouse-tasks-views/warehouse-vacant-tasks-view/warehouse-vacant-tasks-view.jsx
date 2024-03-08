@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -162,6 +162,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       </Modal>
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         openModal={viewModel.showTwoVerticalChoicesModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
         title={t(TranslationKey['Task picked up'])}
@@ -179,6 +180,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       )}
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         withComment
         commentTitleText={t(TranslationKey['Cancel task'])}

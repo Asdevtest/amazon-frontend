@@ -89,6 +89,7 @@ export const AdminUsersViewRaw = ({ classes: styles, history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

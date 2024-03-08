@@ -2,7 +2,7 @@
 import { FC, memo } from 'react'
 
 import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 

@@ -6,7 +6,7 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { SearchInput } from '@components/shared/search-input'
 import { TextWithCopy } from '@components/shared/text-with-copy'

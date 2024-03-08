@@ -513,10 +513,9 @@ export class ClientOrdersViewModel {
 
   async onClickContinueBtn(item) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
@@ -524,8 +523,6 @@ export class ClientOrdersViewModel {
         this.storekeepers = storekeepers
 
         this.destinations = destinations
-
-        this.platformSettings = result
 
         this.reorderOrdersData = [order]
       })

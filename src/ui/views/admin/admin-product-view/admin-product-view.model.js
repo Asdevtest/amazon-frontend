@@ -35,13 +35,13 @@ export class AdminProductViewModel {
   history = undefined
   requestStatus = undefined
 
-  imagesForLoad = []
   productId = undefined
   product = undefined
-
-  storekeepersData = []
-
+  storekeepers = []
   platformSettings = undefined
+
+  selectedSupplier = undefined
+  showAddOrEditSupplierModal = false
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(formFieldsDefault, undefined)
 
@@ -50,20 +50,29 @@ export class AdminProductViewModel {
   }
 
   constructor({ history }) {
-    this.history = history
     const url = new URL(window.location.href)
+
+    this.history = history
     this.productId = url.searchParams.get('product-id')
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getProductById()
-      this.getPlatformSettings()
+      this.getProductById()
       this.getStorekeepers()
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  onClickSupplierButtons(actionType) {
+    switch (actionType) {
+      case 'view':
+        this.onTriggerOpenModal('showAddOrEditSupplierModal')
+        break
     }
   }
 
@@ -72,37 +81,32 @@ export class AdminProductViewModel {
       const response = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
-        this.storekeepersData = response
+        this.storekeepers = response
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.error(error)
     }
   }
 
   async getProductById() {
     try {
-      const result = await ProductModel.getProductById(this.productId)
+      const response = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        this.product = result
-        this.imagesForLoad = result.images
-
-        updateProductAutoCalculatedFields.call(this)
+        this.product = response
       })
+
+      updateProductAutoCalculatedFields.call(this)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
     }
   }
 
@@ -115,7 +119,23 @@ export class AdminProductViewModel {
     }
   }
 
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
   }
 }

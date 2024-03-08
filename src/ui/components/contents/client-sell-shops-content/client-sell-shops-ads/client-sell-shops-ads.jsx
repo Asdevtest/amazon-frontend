@@ -7,7 +7,7 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -48,7 +48,6 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
@@ -60,7 +59,6 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}
@@ -71,7 +69,6 @@ export const ClientSellShopsAds = observer(() => {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
             })}
             variant={ButtonVariant.OUTLINED}
-            styleType={ButtonStyle.PRIMARY}
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
             {t(TranslationKey['Removed Ads'])}

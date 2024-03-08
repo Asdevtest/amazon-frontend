@@ -79,7 +79,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
-    height: 'unset',
+    height: '30px',
+    width: '130px',
+
+    p: {
+      color: 'currentcolor',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
 
   row: {

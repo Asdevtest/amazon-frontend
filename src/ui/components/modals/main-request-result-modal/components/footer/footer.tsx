@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
@@ -16,7 +16,6 @@ interface FooterProps {
   onEditCustomProposal: () => void
   onReceiveCustomProposal: () => void
   onToggleShowConfirmModal: () => void
-  showActionButtons?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
@@ -26,18 +25,13 @@ export const Footer: FC<FooterProps> = memo(props => {
     onEditCustomProposal,
     onReceiveCustomProposal,
     onToggleShowConfirmModal,
-    showActionButtons,
   } = props
 
   const { classes: styles } = useStyles()
 
-  return showActionButtons || !isClient ? (
+  return (
     <div className={styles.wrapper}>
-      {isClient ? (
-        <Button styleType={ButtonStyle.PRIMARY} onClick={onToggleShowConfirmModal}>
-          {t(TranslationKey['Send in for rework'])}
-        </Button>
-      ) : null}
+      {isClient ? <Button onClick={onToggleShowConfirmModal}>{t(TranslationKey['Send in for rework'])}</Button> : null}
 
       <Button
         styleType={ButtonStyle.SUCCESS}
@@ -47,5 +41,5 @@ export const Footer: FC<FooterProps> = memo(props => {
         {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
       </Button>
     </div>
-  ) : null
+  )
 })

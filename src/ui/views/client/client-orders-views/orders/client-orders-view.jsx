@@ -14,7 +14,7 @@ import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -116,18 +116,16 @@ export const ClientOrdersView = observer(history => {
         />
       </div>
 
-      {viewModel.showSetBarcodeModal && (
-        <Modal
-          openModal={viewModel.showSetBarcodeModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
-        >
-          <SetBarcodeModal
-            barCode={viewModel.selectedProduct?.barCode}
-            onClickSaveBarcode={viewModel.onClickSaveBarcode}
-            onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
-          />
-        </Modal>
-      )}
+      <Modal
+        openModal={viewModel.showSetBarcodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+      >
+        <SetBarcodeModal
+          barCode={viewModel.selectedProduct?.barCode}
+          onClickSaveBarcode={viewModel.onClickSaveBarcode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+        />
+      </Modal>
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
@@ -140,71 +138,65 @@ export const ClientOrdersView = observer(history => {
         />
       </Modal>
 
-      {viewModel.showProductModal && (
-        <ProductAndBatchModal
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
-          openModal={viewModel.showProductModal}
-          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
-          batches={viewModel.productBatches}
-          getCurrentBatch={viewModel.getCurrBatch}
-          currentBatch={viewModel.currentBatch}
-          shops={viewModel.shopsData}
-          selectedProduct={viewModel.selectedWarehouseOrderProduct}
-          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
-          onClickMyOrderModal={viewModel.onClickMyOrderModal}
-          onClickInTransferModal={viewModel.onClickInTransfer}
-          onClickHsCode={viewModel.onClickHsCode}
+      <ProductAndBatchModal
+        // @ts-ignore
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+        openModal={viewModel.showProductModal}
+        currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
+        batches={viewModel.productBatches}
+        getCurrentBatch={viewModel.getCurrBatch}
+        currentBatch={viewModel.currentBatch}
+        shops={viewModel.shopsData}
+        selectedProduct={viewModel.selectedWarehouseOrderProduct}
+        onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+        onClickMyOrderModal={viewModel.onClickMyOrderModal}
+        onClickInTransferModal={viewModel.onClickInTransfer}
+        onClickHsCode={viewModel.onClickHsCode}
+      />
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+      >
+        <OrderProductModal
+          isPendingOrdering={viewModel.isPendingOrdering}
+          reorderOrdersData={viewModel.reorderOrdersData}
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
         />
-      )}
+      </Modal>
 
-      {viewModel.showOrderModal && (
-        <Modal
-          missClickModalOn
-          openModal={viewModel.showOrderModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
-        >
-          <OrderProductModal
-            isPendingOrdering={viewModel.isPendingOrdering}
-            reorderOrdersData={viewModel.reorderOrdersData}
-            platformSettings={viewModel.platformSettings}
-            destinations={viewModel.destinations}
-            storekeepers={viewModel.storekeepers}
-            destinationsFavourites={viewModel.destinationsFavourites}
-            setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-            onTriggerOpenModal={viewModel.onTriggerOpenModal}
-            onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
-            onSubmit={viewModel.onConfirmSubmitOrderProductModal}
-          />
-        </Modal>
-      )}
-
-      {viewModel.showCheckPendingOrderFormModal && (
-        <Modal
-          openModal={viewModel.showCheckPendingOrderFormModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-        >
-          <CheckPendingOrderForm
-            existingProducts={viewModel.existingProducts}
-            onClickPandingOrder={viewModel.onClickPandingOrder}
-            onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
-            onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-          />
-        </Modal>
-      )}
-
-      {viewModel.showConfirmModal && (
-        <ConfirmationModal
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      <Modal
+        openModal={viewModel.showCheckPendingOrderFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+      >
+        <CheckPendingOrderForm
+          existingProducts={viewModel.existingProducts}
+          onClickPandingOrder={viewModel.onClickPandingOrder}
+          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
         />
-      )}
+      </Modal>
+
+      <ConfirmationModal
+        // @ts-ignore
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings?.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
@@ -213,51 +205,46 @@ export const ClientOrdersView = observer(history => {
         />
       )}
 
-      {viewModel.showMyOrderModal ? (
-        <MyOrderModal
-          isClient
-          isPendingOrdering={viewModel.isPendingOrdering}
-          order={viewModel.order}
-          destinations={viewModel.destinations}
-          storekeepers={viewModel.storekeepers}
-          platformSettings={viewModel.platformSettings}
-          switcherCondition={viewModel.myOrderModalSwitcherCondition}
-          destinationsFavourites={viewModel.destinationsFavourites}
-          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          openModal={viewModel.showMyOrderModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
-          onClickOpenNewTab={viewModel.onClickOpenNewTab}
-          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
-          onClickCancelOrder={viewModel.onClickCancelOrder}
-          onClickReorder={viewModel.onClickReorder}
-          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
-        />
-      ) : null}
+      <MyOrderModal
+        isClient
+        isPendingOrdering={viewModel.isPendingOrdering}
+        order={viewModel.order}
+        destinations={viewModel.destinations}
+        storekeepers={viewModel.storekeepers}
+        platformSettings={viewModel.platformSettings}
+        switcherCondition={viewModel.myOrderModalSwitcherCondition}
+        destinationsFavourites={viewModel.destinationsFavourites}
+        setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+        openModal={viewModel.showMyOrderModal}
+        onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+        onClickOpenNewTab={viewModel.onClickOpenNewTab}
+        onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
+        onClickCancelOrder={viewModel.onClickCancelOrder}
+        onClickReorder={viewModel.onClickReorder}
+        onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+      />
 
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
+      <WarningInfoModal
+        // @ts-ignore
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+      />
 
-      {viewModel.showProductLotDataModal ? (
-        <Modal
-          openModal={viewModel.showProductLotDataModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
-        >
-          <ProductLotDataForm
-            isTransfer
-            userInfo={viewModel.userInfo}
-            product={[viewModel.selectedWarehouseOrderProduct]}
-            batchesData={viewModel.batchesData}
-          />
-        </Modal>
-      ) : null}
+      <Modal
+        openModal={viewModel.showProductLotDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+      >
+        <ProductLotDataForm
+          isTransfer
+          userInfo={viewModel.userInfo}
+          product={[viewModel.selectedWarehouseOrderProduct]}
+          batchesData={viewModel.batchesData}
+        />
+      </Modal>
     </>
   )
 })

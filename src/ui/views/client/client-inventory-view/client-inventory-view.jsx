@@ -110,14 +110,23 @@ export const ClientInventoryView = observer(({ history }) => {
                 onClickResetPresets: viewModel.resetPresetsHandler,
                 onClickSavePresets: viewModel.savePresetsHandler,
               },
+
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
+
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                getCustomSortFields: viewModel.getCustomSortFields,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
@@ -174,16 +183,15 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.showIdeaModal && (
-        <IdeaCardsModal
-          isCreate
-          product={viewModel.selectedProductToLaunch}
-          productId={viewModel.selectedProductToLaunch?._id}
-          openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getMainTableData}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
-        />
-      )}
+      <IdeaCardsModal
+        // @ts-ignore
+        isCreate
+        product={viewModel.selectedProductToLaunch}
+        productId={viewModel.selectedProductToLaunch?._id}
+        openModal={viewModel.showIdeaModal}
+        updateData={viewModel.getMainTableData}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+      />
 
       {viewModel.productCardModal && (
         <ProductCardModal
@@ -299,7 +307,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <AddOrEditSupplierModalContent
           outsideProduct
           paymentMethods={viewModel.paymentMethods}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Add a new supplier'])}
           showProgress={viewModel.showProgress}
@@ -383,26 +391,25 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalText}
         successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
+        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
         title={viewModel.showInfoModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
       />
 
       <ConfirmationModal
+        // @ts-ignore
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         isWarning={viewModel.confirmModalSettings?.isWarning}

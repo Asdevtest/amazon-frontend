@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,11 +11,11 @@ import { t } from '@utils/translations'
 
 import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
-export const CreateOrEditProposalView = observer(({ history, location }) => {
-  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history, location }))
+export const CreateOrEditProposalView = observer(({ history }) => {
+  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history }))
 
   return (
-    <Fragment>
+    <>
       <CreateOrEditProposalContent
         progressValue={viewModel.progressValue}
         showProgress={viewModel.showProgress}
@@ -27,6 +27,7 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
       />
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         openModal={viewModel.showResultModal}
         setOpenModal={() => {
           viewModel.onTriggerOpenModal('showResultModal')
@@ -42,12 +43,13 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showInfoModal}
         setOpenModal={viewModel.onClickOkInfoModal}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Ok)}
         onClickBtn={viewModel.onClickOkInfoModal}
       />
-    </Fragment>
+    </>
   )
 })

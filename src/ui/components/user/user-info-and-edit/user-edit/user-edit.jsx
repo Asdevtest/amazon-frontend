@@ -59,6 +59,7 @@ export const UserEdit = observer(({ user }) => {
       ) : null}
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -71,6 +72,7 @@ export const UserEdit = observer(({ user }) => {
       />
 
       <TwoVerticalChoicesModal
+        // @ts-ignore
         openModal={showTwoVerticalChoicesModal}
         setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
         title={t(TranslationKey['Data saved successfully'])}

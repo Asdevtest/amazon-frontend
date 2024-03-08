@@ -48,6 +48,7 @@ export const wholeIntegersList = [
   'batchHumanFriendlyId',
   'organicUnits',
   'inTransfer',
+  'quantityBoxes',
 ]
 
 export const negativeOrPositiveList = ['roi']

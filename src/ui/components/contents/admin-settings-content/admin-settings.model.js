@@ -103,7 +103,10 @@ export class AdminSettingsModel {
       return
     }
 
-    this.formFields[fieldName] = event.target.value
+    this.formFields = {
+      ...this.formFields,
+      [fieldName]: event.target.value,
+    }
 
     this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
   }

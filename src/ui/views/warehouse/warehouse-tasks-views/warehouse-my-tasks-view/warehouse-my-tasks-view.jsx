@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -25,9 +25,10 @@ import { useStyles } from './warehouse-my-tasks-view.style'
 
 import { WarehouseMyTasksViewModel } from './warehouse-my-tasks-view.model'
 
-export const WarehouseMyTasksView = observer(({ history, location }) => {
+export const WarehouseMyTasksView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new WarehouseMyTasksViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -82,7 +83,7 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            rows={viewModel.getCurrentData()}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
@@ -142,16 +143,16 @@ export const WarehouseMyTasksView = observer(({ history, location }) => {
       </Modal>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showNoDimensionsErrorModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
         title={t(TranslationKey['Enter dimensions'])}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         withComment
         commentTitleText={t(TranslationKey['Cancel task'])}

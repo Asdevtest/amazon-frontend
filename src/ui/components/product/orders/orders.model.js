@@ -127,7 +127,7 @@ export class OrdersModel {
     }
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.loadData()

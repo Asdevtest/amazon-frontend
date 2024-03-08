@@ -18,7 +18,7 @@ interface ImageModalProps {
   files: UploadFileType[]
   currentFileIndex: number
   onCurrentFileIndex: (index: number) => void
-  isOpenModal: boolean
+  openModal: boolean
   onOpenModal: () => void
   photosTitles?: string[]
   photosComments?: string[]
@@ -34,7 +34,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     files,
     currentFileIndex,
     onCurrentFileIndex,
-    isOpenModal,
+    openModal,
     onOpenModal,
     photosTitles,
     photosComments,
@@ -45,7 +45,12 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     onChangeImagesForLoad,
   } = props
 
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles } = useStyles()
+
   const {
     openImageEditModal,
     onOpenImageEditModal,
@@ -69,7 +74,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
 
   return (
     <Modal
-      openModal={isOpenModal}
+      openModal={openModal}
       setOpenModal={() => {
         onOpenModal()
         onCurrentFileIndex(mediaFileIndex)
@@ -118,15 +123,13 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         </div>
       </div>
 
-      {openImageZoomModal && (
-        <ZoomModal
-          mediaFiles={mediaFiles}
-          currentMediaFileIndex={mediaFileIndex}
-          isOpenModal={openImageZoomModal}
-          setIsOpenModal={onOpenImageZoomModal}
-          setCurrentMediaFileIndex={setMediaFileIndex}
-        />
-      )}
+      <ZoomModal
+        mediaFiles={mediaFiles}
+        currentMediaFileIndex={mediaFileIndex}
+        openModal={openImageZoomModal}
+        setOpenModal={onOpenImageZoomModal}
+        setCurrentMediaFileIndex={setMediaFileIndex}
+      />
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm

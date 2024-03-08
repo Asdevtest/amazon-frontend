@@ -112,18 +112,6 @@ export class BuyerProductViewModel {
     }
   }
 
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async getProductsVariations() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
@@ -399,45 +387,58 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+
         if (supplier._id === this.product.currentSupplierId) {
           runInAction(() => {
             this.product.currentSupplier = supplier
           })
+
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
+
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
         })
@@ -445,7 +446,7 @@ export class BuyerProductViewModel {
 
       this.onSaveForceProductData()
 
-      this.loadData()
+      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -458,6 +459,30 @@ export class BuyerProductViewModel {
     this[modal] = !this[modal]
   }
 
+  onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        this.getStorekeepers()
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      this.getStorekeepers()
+
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
@@ -467,7 +492,15 @@ export class BuyerProductViewModel {
     win.focus()
   }
 
-  onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

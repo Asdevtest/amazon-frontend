@@ -51,7 +51,7 @@ export const Freelance = observer(({ productId, modal }) => {
           rowCount={viewModel.rowCount}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
-          rowHeight={100}
+          getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -102,6 +102,7 @@ export const Freelance = observer(({ productId, modal }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.curRequest}
         proposal={viewModel.curProposal}
         openModal={viewModel.showRequestResultModal}

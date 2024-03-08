@@ -5,7 +5,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -34,6 +36,8 @@ export const SupervisorProductView = observer(({ history }) => {
           actionStatus={viewModel.requestStatus}
           handleProductActionButtons={viewModel.handleProductActionButtons}
           storekeepersData={viewModel?.storekeepersData}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}
@@ -42,7 +46,26 @@ export const SupervisorProductView = observer(({ history }) => {
         />
       ) : null}
 
+      <Modal
+        missClickModalOn={!viewModel.supplierModalReadOnly}
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          paymentMethods={viewModel.paymentMethods}
+          product={viewModel.product}
+          storekeepersData={viewModel.storekeepersData}
+          onlyRead={viewModel.supplierModalReadOnly}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showWarningModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel.warningModalTitle}
@@ -51,6 +74,7 @@ export const SupervisorProductView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

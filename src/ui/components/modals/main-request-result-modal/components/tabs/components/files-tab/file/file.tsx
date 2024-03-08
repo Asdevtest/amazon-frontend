@@ -44,12 +44,14 @@ export const File: FC<FileProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const clientOrReadOnly = isClient || readOnly
   const commonContent = <CommonContent file={file} fileIndex={fileIndex} onToggleImageModal={onToggleImageModal} />
 
   return (
     <div className={styles.fileContainer}>
-      {isClient || readOnly ? (
+      {clientOrReadOnly ? (
         <Checkbox
+          stopPropagation
           checked={checked}
           className={styles.checkbox}
           wrapperClassName={styles.checkboxWrapper}
@@ -64,7 +66,7 @@ export const File: FC<FileProps> = memo(props => {
         </button>
       )}
 
-      {isClient || readOnly ? (
+      {clientOrReadOnly ? (
         commonContent
       ) : file.fileLink ? (
         commonContent

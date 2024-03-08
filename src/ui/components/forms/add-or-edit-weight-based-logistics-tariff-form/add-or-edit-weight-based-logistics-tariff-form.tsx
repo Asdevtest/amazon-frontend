@@ -1,6 +1,4 @@
 /* eslint-disable no-prototype-builtins */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, memo, useState } from 'react'
 
@@ -12,7 +10,7 @@ import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/key
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'

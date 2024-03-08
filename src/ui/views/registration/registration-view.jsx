@@ -58,6 +58,7 @@ export const RegistrationView = observer(({ history }) => {
       </AuthFormWrapper>
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessRegistrationModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
         title={t(TranslationKey['Successful registration'])}
@@ -66,6 +67,7 @@ export const RegistrationView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel.showErrorRegistrationModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
         title={t(TranslationKey['Registration error'])}

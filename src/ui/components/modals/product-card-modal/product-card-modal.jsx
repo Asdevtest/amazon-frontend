@@ -9,9 +9,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
@@ -37,6 +38,7 @@ import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
+
   const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
@@ -70,7 +72,7 @@ export const ProductCardModal = observer(props => {
   const [currentTab, setCurrentTab] = useState('MAIN_INFO')
 
   useEffect(() => {
-    viewModel?.loadData()
+    viewModel.loadData()
   }, [])
 
   const clientToEditStatuses = [
@@ -140,6 +142,8 @@ export const ProductCardModal = observer(props => {
             loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
             productsToBind={useProductsPermissions.currentPermissionsData}
             storekeepersData={viewModel?.storekeepersData}
+            volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+            onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
@@ -256,15 +260,39 @@ export const ProductCardModal = observer(props => {
         </div>
       )}
 
+      <Modal
+        missClickModalOn={!viewModel?.supplierModalReadOnly}
+        openModal={viewModel?.showAddOrEditSupplierModal}
+        setOpenModal={viewModel?.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          paymentMethods={viewModel?.paymentMethods}
+          product={viewModel?.product}
+          onlyRead={viewModel?.supplierModalReadOnly}
+          requestStatus={viewModel?.requestStatus}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          storekeepersData={viewModel?.storekeepersData}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel?.selectedSupplier}
+          showProgress={viewModel?.showProgress}
+          progressValue={viewModel?.progressValue}
+          onClickSaveBtn={viewModel?.onClickSaveSupplierBtn}
+          onTriggerShowModal={viewModel?.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+
       <WarningInfoModal
+        // @ts-ignore
         openModal={viewModel?.showWarningModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showWarningModal')}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
         title={viewModel?.warningModalTitle}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel?.onTriggerOpenModal('showWarningModal')}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel?.confirmModalSettings?.isWarning}
         openModal={viewModel?.showConfirmModal}
         setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
@@ -280,6 +308,7 @@ export const ProductCardModal = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalTitle}

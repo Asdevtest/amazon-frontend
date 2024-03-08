@@ -6,7 +6,7 @@ import { Avatar as AvatarMui, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
@@ -123,13 +123,12 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
       </div>
 
       <WarningInfoModal
+        // @ts-ignore
         openModal={showInfoModal}
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowInfoModal(!showInfoModal)
-        }}
+        onClickBtn={() => setShowInfoModal(!showInfoModal)}
       />
     </div>
   )

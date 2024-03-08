@@ -32,7 +32,7 @@ export class ClientAwaitingBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  curBatch = {}
+  curBatch = undefined
 
   hsCodeData = {}
   showEditHSCodeModal = false
@@ -137,7 +137,7 @@ export class ClientAwaitingBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
@@ -366,8 +366,17 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
+          this.curBatch = undefined
         }
       })
+
+      if (this.selectedBatches?.length) {
+        const batch = await BatchesModel.getBatchesByGuid(this.selectedBatches?.[0])
+
+        runInAction(() => {
+          this.curBatch = batch
+        })
+      }
 
       const [boxes, result] = await Promise.all([
         BoxesModel.getBoxesReadyToBatchClient(),
@@ -419,22 +428,22 @@ export class ClientAwaitingBatchesViewModel {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeBatch(batchToEdit.id, {
+        await BatchesModel.changeBatch(batchToEdit._id, {
           title: batchFields.title,
           calculationMethod: batchFields.calculationMethod,
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
         if (newBoxesIds.length) {
-          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+          await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
         if (boxesToRemoveIds.length) {
-          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+          await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
         if (filesToAdd.length) {
           await BatchesModel.editAttachedDocuments(
-            batchToEdit.id,
+            batchToEdit._id,
             batchToEdit.originalData.attachedDocuments
               ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
               : [...this.uploadedFiles],

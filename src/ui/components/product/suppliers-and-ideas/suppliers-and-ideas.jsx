@@ -23,7 +23,7 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
@@ -68,8 +68,6 @@ export const SuppliersAndIdeas = observer(props => {
   const {
     supplierModalReadOnly,
     requestStatus,
-    yuanToDollarRate,
-    volumeWeightCoefficient,
     selectedSupplier,
     curUser,
     curIdea,
@@ -297,8 +295,8 @@ export const SuppliersAndIdeas = observer(props => {
           paymentMethods={paymentMethods}
           onlyRead={supplierModalReadOnly}
           requestStatus={requestStatus}
-          sourceYuanToDollarRate={yuanToDollarRate}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           supplier={supplierData || selectedSupplier}
           showProgress={showProgress}
@@ -309,6 +307,7 @@ export const SuppliersAndIdeas = observer(props => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={confirmModalSettings?.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -321,6 +320,7 @@ export const SuppliersAndIdeas = observer(props => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
         title={successModalSettings.modalTitle}
@@ -350,6 +350,7 @@ export const SuppliersAndIdeas = observer(props => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={currentRequest}
         proposal={currentProposal}
         openModal={showRequestBloggerResultModal}
@@ -407,18 +408,18 @@ export const SuppliersAndIdeas = observer(props => {
         <SupplierApproximateCalculationsForm
           product={product}
           supplier={supplierData || selectedSupplier}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           storekeepers={storekeepersData}
           onClose={() => onTriggerOpenModal('showSupplierApproximateCalculationsModal')}
         />
       </Modal>
 
       <CommentsModal
-        isTextRequired
+        required
         readOnly={false}
         maxLength={MAX_DEFAULT_INPUT_VALUE}
         title={t(TranslationKey['Reason for rejection'])}
-        isOpenModal={showCommentsModal}
+        openModal={showCommentsModal}
         onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
         onChangeField={setRejectStatusHandler}
       />

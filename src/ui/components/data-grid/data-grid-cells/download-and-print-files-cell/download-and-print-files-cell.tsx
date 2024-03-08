@@ -6,11 +6,11 @@ import { useReactToPrint } from 'react-to-print'
 import PrintIcon from '@mui/icons-material/Print'
 import { Box, IconButton } from '@mui/material'
 
-import { imageTypes } from '@constants/configs/image-types'
+import { imageValidTypes } from '@constants/media/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -36,7 +36,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
   })
 
   const handleImagePreview = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
@@ -47,7 +47,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
   }
 
   const printFile = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
@@ -100,15 +100,11 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
         <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
-      {isOpenModal && (
-        <ImageModal
-          isOpenModal={isOpenModal}
-          files={[selectedImage?.fileUrl]}
-          currentFileIndex={0}
-          onOpenModal={() => setIsOpenModal(!isOpenModal)}
-          onCurrentFileIndex={() => null}
-        />
-      )}
+      <SlideshowGalleryModal
+        openModal={isOpenModal}
+        files={[selectedImage?.fileUrl]}
+        onOpenModal={() => setIsOpenModal(!isOpenModal)}
+      />
     </>
   )
 })

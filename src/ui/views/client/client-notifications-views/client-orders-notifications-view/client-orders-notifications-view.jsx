@@ -62,6 +62,7 @@ export const ClientOrdersNotificationsView = observer(({ history }) => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}

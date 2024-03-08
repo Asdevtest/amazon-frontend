@@ -29,7 +29,7 @@ export class CreateOrEditProposalViewModel {
   progressValue = 0
   showProgress = false
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -81,10 +81,6 @@ export class CreateOrEditProposalViewModel {
 
   async onSubmitCreateProposal(data, files) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
@@ -115,9 +111,9 @@ export class CreateOrEditProposalViewModel {
 
   onClickResultModal(setting) {
     if (setting.goBack) {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests`)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/vacant-requests`)
     } else {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals`)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-proposals`)
     }
 
     this.onTriggerOpenModal('showResultModal')

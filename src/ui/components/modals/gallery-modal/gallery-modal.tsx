@@ -15,12 +15,16 @@ import { useGalleryModal } from './use-gallery-modal'
 
 interface GalleryModalProps {
   files: UploadFileType[]
-  isOpenModal: boolean
+  openModal: boolean
   onOpenModal: () => void
 }
 
 export const GalleryModal: FC<GalleryModalProps> = memo(props => {
-  const { files, isOpenModal, onOpenModal } = props
+  const { files, openModal, onOpenModal } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles } = useStyles()
 
@@ -40,7 +44,7 @@ export const GalleryModal: FC<GalleryModalProps> = memo(props => {
   } = useGalleryModal(files)
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal openModal={openModal} setOpenModal={onOpenModal}>
       <div className={styles.wrapper}>
         <Header />
 

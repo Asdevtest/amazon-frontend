@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -10,7 +9,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './interconnected-products.style'
 
-import { Button } from '../buttons/button'
+import { Button } from '../button'
 import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {

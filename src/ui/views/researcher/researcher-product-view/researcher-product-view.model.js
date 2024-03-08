@@ -50,7 +50,6 @@ export class ResearcherProductViewModel {
   curUpdateProductData = {}
   imagesForLoad = []
   uploadedImages = []
-  storekeepersData = []
   platformSettings = undefined
 
   startParse = false
@@ -353,13 +352,9 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
@@ -367,19 +362,28 @@ export class ResearcherProductViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -389,13 +393,18 @@ export class ResearcherProductViewModel {
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
+
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
         })
       }
 
       this.onSaveForceProductData()
+
+      this.onTriggerAddOrEditSupplierModal()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
@@ -572,6 +581,18 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
+    }
+  }
+
+  onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
     }
   }
 

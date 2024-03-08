@@ -64,10 +64,6 @@ export class MessagesViewModel {
     return SettingsModel.mutedChats
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get unreadMessages() {
     return ChatModel.unreadMessages
   }

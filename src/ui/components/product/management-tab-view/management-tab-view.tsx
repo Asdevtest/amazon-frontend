@@ -77,6 +77,7 @@ export const ManagementTabView: FC = observer(() => {
       )}
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={false}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}

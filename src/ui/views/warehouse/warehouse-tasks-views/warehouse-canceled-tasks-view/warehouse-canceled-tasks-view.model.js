@@ -44,6 +44,10 @@ export class WarehouseCanceledTasksViewModel {
 
   showTaskInfoModal = false
 
+  get currentData() {
+    return this.tasksMy
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -121,10 +125,6 @@ export class WarehouseCanceledTasksViewModel {
     this.getTasksMy()
   }
 
-  getCurrentData() {
-    return toJS(this.tasksMy)
-  }
-
   onSelectionModel(model) {
     this.selectedTasks = model
   }
@@ -146,10 +146,10 @@ export class WarehouseCanceledTasksViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
     }

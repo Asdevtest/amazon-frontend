@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'

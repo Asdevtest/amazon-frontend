@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ClassNamesArg } from '@emotion/react'
 import { FC, useEffect, useState } from 'react'
 

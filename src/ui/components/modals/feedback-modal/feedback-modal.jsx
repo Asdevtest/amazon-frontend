@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { FileIcon } from '@components/shared/svg-icons'
@@ -17,7 +17,11 @@ import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './feedback-modal.style'
 
-export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
+export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
@@ -79,6 +83,7 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
         </div>
 
         <ConfirmationModal
+          // @ts-ignore
           isWarning
           openModal={isShowConfirmationModal}
           setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
@@ -95,4 +100,4 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal }) => {
       </div>
     </Modal>
   )
-}
+})

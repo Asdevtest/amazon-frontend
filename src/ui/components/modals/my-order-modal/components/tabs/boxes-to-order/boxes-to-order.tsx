@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -68,52 +67,45 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
         />
       </div>
 
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          isOpenModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+      <GalleryModal
+        files={viewModel.galleryFiles}
+        openModal={viewModel.showGalleryModal}
+        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+      />
+
+      <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
+        <BoxViewForm
+          // remove memo from the modal or add types to the modal
+          /* @ts-ignore */
+          userInfo={viewModel.userInfo}
+          box={viewModel.currentBox}
+          volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
         />
-      ) : null}
+      </Modal>
 
-      {viewModel.showBoxModal ? (
-        <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
-          <BoxViewForm
-            // remove memo from the modal or add types to the modal
-            /* @ts-ignore */
-            userInfo={viewModel.userInfo}
-            box={viewModel.currentBox}
-            volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
-            setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}
-            onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-            onClickHsCode={viewModel.onClickHsCode}
-          />
-        </Modal>
-      ) : null}
+      <WarningInfoModal
+        // @ts-ignore
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
+      />
 
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
         />
-      ) : null}
-
-      {viewModel.showEditHSCodeModal ? (
-        <Modal
-          openModal={viewModel.showEditHSCodeModal}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
-        >
-          <EditHSCodeModal
-            hsCodeData={viewModel.hsCodeData}
-            onClickSaveHsCode={viewModel.onClickSaveHsCode}
-            onCloseModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
-          />
-        </Modal>
-      ) : null}
+      </Modal>
     </>
   )
 })

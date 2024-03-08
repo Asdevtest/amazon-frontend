@@ -67,7 +67,6 @@ export class ClientIdeasViewModel {
 
   readyImages = []
   ideaList = []
-  currentData = []
   shopList = []
   currentSettings = undefined
   selectedProduct = undefined
@@ -100,11 +99,7 @@ export class ClientIdeasViewModel {
   productId = undefined
   currentProposal = undefined
   currentRequest = undefined
-
   paymentMethods = []
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
 
   // * Modal states
 
@@ -170,8 +165,8 @@ export class ClientIdeasViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
+  get currentData() {
+    return this.ideaList
   }
 
   constructor({ history }) {
@@ -184,20 +179,8 @@ export class ClientIdeasViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.ideaList,
-      () => (this.currentData = this.getCurrentData()),
-    )
-    reaction(
       () => this.shopList,
       () => this.handleUpdateColumnModel(),
-    )
-    reaction(
-      () => this.languageTag,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
     )
   }
 
@@ -240,7 +223,7 @@ export class ClientIdeasViewModel {
     this.getIdeaList()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.setDataGridState()
     this.getIdeaList()
@@ -361,6 +344,7 @@ export class ClientIdeasViewModel {
       this.getDataGridState()
       this.getIdeaList()
       this.getShopList()
+      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -393,10 +377,6 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatuses.FAILED)
     }
-  }
-
-  getCurrentData() {
-    return toJS(this.ideaList)
   }
 
   async getShopList() {
@@ -490,12 +470,7 @@ export class ClientIdeasViewModel {
           this.currentIdeaId = row._id
         })
 
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
+        await this.getStorekeepers()
 
         this.setRequestStatus(loadingStatuses.SUCCESS)
       }
@@ -788,13 +763,9 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
@@ -802,19 +773,32 @@ export class ClientIdeasViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.currentProduct.currentSupplierId) {
@@ -828,18 +812,13 @@ export class ClientIdeasViewModel {
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
         await IdeaModel.addSuppliersToIdea(this.currentIdeaId, { suppliersIds: [createSupplierResult.guid] })
-
-        // await ProductModel.addSuppliersToProduct(this.currentProduct._id, [createSupplierResult.guid])
-
-        // await ClientModel.updateProduct(this.currentProduct._id, {
-        //   currentSupplierId: createSupplierResult.guid,
-        // })
       }
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerAddOrEditSupplierModal()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -851,16 +830,14 @@ export class ClientIdeasViewModel {
   async onClickToOrder(id) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const [storekeepers, destinations, platformSettings] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
-        this.platformSettings = platformSettings
       })
 
       const result = await ProductModel.getProductById(id)
@@ -1018,12 +995,14 @@ export class ClientIdeasViewModel {
   async onClickResultButton(request) {
     try {
       const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
+
       runInAction(() => {
         this.currentProposal = proposals.find(proposal =>
           checkIsValidProposalStatusToShowResoult(proposal.proposal.status),
         )
         this.currentRequest = request
       })
+
       if (request?.spec?.title === freelanceRequestType.DESIGNER) {
         this.onTriggerOpenModal('showRequestDesignerResultModal')
       } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
@@ -1140,5 +1119,17 @@ export class ClientIdeasViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

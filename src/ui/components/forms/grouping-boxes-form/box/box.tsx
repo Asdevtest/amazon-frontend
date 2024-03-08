@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -184,7 +182,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
               <Field
                 containerClasses={styles.field}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}

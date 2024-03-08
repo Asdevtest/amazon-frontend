@@ -55,10 +55,11 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
   }
 
   const disabledAddLinkButton = newLinkValue.trim().length === 0
+  const notClientAndNotReadOnly = !isClient && !readOnly
 
   return (
     <div className={styles.wrapper}>
-      <div className={cx(styles.links, { [styles.clientLinks]: isClient })}>
+      <div className={cx(styles.links, { [styles.clientLinks]: isClient || readOnly })}>
         {fields?.publicationLinks?.map((link, index) => (
           <Link
             key={index}
@@ -72,7 +73,7 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
         ))}
       </div>
 
-      {!isClient && !readOnly ? (
+      {notClientAndNotReadOnly ? (
         <div className={styles.addLinkContainer}>
           <Input
             value={newLinkValue}

@@ -18,7 +18,7 @@ import { DealsOfRequest } from '@components/requests-and-request-proposals/reque
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 
@@ -106,7 +106,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           onClickRejectProposal={viewModel.onClickRejectProposal}
           onClickReview={viewModel.onClickReview}
           onSendInForRework={viewModel.onSendInForRework}
-          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+          onReceiveCustomProposal={viewModel.onClickProposalResultAccept}
         />
 
         <Accordion expanded={viewModel.showChat}>
@@ -117,7 +117,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                 <ChatRequestAndRequestProposalContext.Provider
                   value={{
                     request: viewModel.request,
-                    requestProposal: viewModel.findRequestProposalForCurChat,
+                    requestProposal: findRequestProposalForCurChat,
                   }}
                 >
                   <MultipleChats
@@ -206,8 +206,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <MainRequestResultModal
-        showActionButtons={statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
-        customProposal={viewModel.findRequestProposalForCurChat}
+        readOnly={!statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+        customProposal={findRequestProposalForCurChat}
         userInfo={viewModel.userInfo}
         openModal={viewModel.showMainRequestResultModal}
         onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
@@ -240,7 +240,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         <RequestDesignerResultClientForm
           userInfo={viewModel.userInfo}
           request={viewModel.request}
-          proposal={viewModel.findRequestProposalForCurChat}
+          proposal={findRequestProposalForCurChat}
           curResultMedia={viewModel.curResultMedia}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
@@ -249,6 +249,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       </Modal>
 
       <RequestProposalAcceptOrRejectResultForm
+        // @ts-ignore
         openModal={viewModel.showConfirmWorkResultFormModal}
         title={t(TranslationKey['Confirm acceptance of the work result'])}
         rateLabel={t(TranslationKey['Rate the performer'])}
@@ -260,6 +261,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -273,6 +275,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       />
 
       <ConfirmationModal
+        // @ts-ignore
         withComment
         asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}

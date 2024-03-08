@@ -26,7 +26,7 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -121,7 +121,7 @@ export const ClientIdeasView = observer(({ history }) => {
           getRowClassName={getRowClassName}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
         />
@@ -156,6 +156,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <IdeaCardsModal
+        // @ts-ignore
         isCreate={viewModel.isIdeaCreate}
         openModal={viewModel.showIdeaModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
@@ -190,12 +191,14 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <ProductCardModal
-        history={viewModel.history}
-        openModal={viewModel.productCardModal}
-        setOpenModal={() => viewModel.onClickProductModal()}
-        onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
-      />
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onClickProductModal()}
+          onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
+        />
+      )}
 
       <Modal
         openModal={viewModel.showBindingModal}
@@ -208,6 +211,7 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -220,6 +224,7 @@ export const ClientIdeasView = observer(({ history }) => {
       />
 
       <SuccessInfoModal
+        // @ts-ignore
         openModal={viewModel.showSuccessModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         title={viewModel.successModalTitle}
@@ -249,6 +254,7 @@ export const ClientIdeasView = observer(({ history }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.currentRequest}
         proposal={viewModel.currentProposal}
         openModal={viewModel.showRequestBloggerResultModal}
@@ -279,8 +285,8 @@ export const ClientIdeasView = observer(({ history }) => {
           product={viewModel.currentProduct}
           storekeepersData={viewModel.storekeepers}
           requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           title={t(TranslationKey['Adding and editing a supplier'])}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
@@ -290,11 +296,11 @@ export const ClientIdeasView = observer(({ history }) => {
       </Modal>
 
       <CommentsModal
-        isTextRequired
+        required
         readOnly={false}
         maxLength={MAX_DEFAULT_INPUT_VALUE}
         title={t(TranslationKey['Reason for rejection'])}
-        isOpenModal={viewModel.showCommentsModal}
+        openModal={viewModel.showCommentsModal}
         onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
         onChangeField={viewModel.setRejectStatusHandler}
       />

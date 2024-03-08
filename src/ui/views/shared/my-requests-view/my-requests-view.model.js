@@ -8,6 +8,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FeedbackModel } from '@models/feedback-model'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -49,6 +50,7 @@ export class MyRequestsViewModel {
   curProposal = undefined
 
   showRequestDesignerResultClientModal = false
+  showConfirmWorkResultFormModal = false
   showMainRequestResultModal = false
   showRequestResultModal = false
 
@@ -86,10 +88,6 @@ export class MyRequestsViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
@@ -115,6 +113,10 @@ export class MyRequestsViewModel {
     () => this.onHover,
   )
 
+  acceptProposalResultSetting = {
+    onSubmit: () => {},
+  }
+
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -135,6 +137,10 @@ export class MyRequestsViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get currentData() {
+    return this.searchRequests
   }
 
   constructor({ history }) {
@@ -178,16 +184,12 @@ export class MyRequestsViewModel {
     }
   }
 
-  get currentData() {
-    return this.searchRequests
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.getCustomRequests()
     this.setDataGridState()
@@ -547,13 +549,6 @@ export class MyRequestsViewModel {
 
       const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
-      if (!proposal) {
-        runInAction(() => {
-          this.curProposal = undefined
-        })
-        return
-      }
-
       runInAction(() => {
         this.curProposal = proposal
       })
@@ -712,5 +707,43 @@ export class MyRequestsViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSendInForRework(id, fields) {
+    try {
+      await RequestProposalModel.requestProposalResultToCorrect(id, fields)
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onClickProposalResultAccept(proposalId) {
+    this.acceptProposalResultSetting = {
+      onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
+    }
+
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+  }
+
+  async onClickProposalResultAcceptForm(proposalId, data) {
+    try {
+      await RequestProposalModel.requestProposalResultAccept(proposalId, data)
+      await FeedbackModel.sendFeedback(this.curProposal?.proposal?.createdBy?._id, {
+        rating: data.rating,
+        comment: data.review,
+      })
+
+      this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

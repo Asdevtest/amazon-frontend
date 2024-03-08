@@ -102,6 +102,7 @@ export const MyProposalsView = observer(({ history }) => {
       </div>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -134,6 +135,7 @@ export const MyProposalsView = observer(({ history }) => {
       />
 
       <RequestResultModal
+        // @ts-ignore
         request={viewModel.currentRequest}
         proposal={viewModel.currentProposal}
         openModal={viewModel.showRequestResultModal}
@@ -141,7 +143,8 @@ export const MyProposalsView = observer(({ history }) => {
       />
 
       <FreelanceRequestDetailsModal
-        isOpenModal={viewModel.showRequestDetailModal}
+        // @ts-ignore
+        openModal={viewModel.showRequestDetailModal}
         request={viewModel.currentRequest?.request}
         details={viewModel.currentRequest?.details}
         handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}

@@ -768,7 +768,7 @@ export const navbarConfig = {
     {
       icon: SearchIcon,
       title: () => t(TranslationKey['Supplier search']),
-      // route: '/buyer/search-supplier-by-supervisor',
+      route: '/buyer/search-supplier',
       subtitles: [
         {
           subtitle: () => t(TranslationKey['From the Supervisor']),

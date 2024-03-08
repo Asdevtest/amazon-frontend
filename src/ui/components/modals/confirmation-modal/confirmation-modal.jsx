@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
@@ -10,7 +10,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
-export const ConfirmationModal = props => {
+export const ConfirmationModal = memo(props => {
   const {
     openModal,
     setOpenModal,
@@ -30,6 +30,10 @@ export const ConfirmationModal = props => {
     commentSuccessBtnText,
     commentCancelBtnText,
   } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles, cx } = useStyles()
 
@@ -165,4 +169,4 @@ export const ConfirmationModal = props => {
       </div>
     </Modal>
   )
-}
+})

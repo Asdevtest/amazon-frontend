@@ -5,7 +5,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
@@ -390,9 +390,7 @@ export const SelectFields = ({
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
-              className={cx(styles.supplierPaymentButton, {
-                [styles.noPaymentButton]: orderFields?.paymentDetails.length,
-              })}
+              className={styles.documentButton}
               variant={
                 !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
                   ? ButtonVariant.OUTLINED
@@ -400,43 +398,20 @@ export const SelectFields = ({
               }
               onClick={onClickSupplierPaymentButton}
             >
-              <Typography
-                className={cx(styles.normalPaymentText, {
-                  [styles.whiteNormalPaymentText]:
-                    orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
-                })}
-              >
-                {t(
-                  TranslationKey[
-                    `${
-                      !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
-                        ? 'Add payment document'
-                        : 'Document added'
-                    }`
-                  ],
-                )}
-              </Typography>
-
+              {t(
+                TranslationKey[
+                  `${
+                    !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                      ? 'Add payment document'
+                      : 'Document added'
+                  }`
+                ],
+              )}
               {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
                 <AddIcon className={styles.addIcon} />
               )}
-
-              {!!orderFields?.paymentDetails.length && (
-                <Typography
-                  className={cx(styles.normalPaymentText, {
-                    [styles.whiteNormalPaymentText]:
-                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
-                  })}
-                >{`(${orderFields?.paymentDetails.length})`}</Typography>
-              )}
-              {!!paymentDetailsPhotosToLoad.length && (
-                <Typography
-                  className={cx(styles.normalPaymentText, {
-                    [styles.whiteNormalPaymentText]:
-                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
-                  })}
-                >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
-              )}
+              {!!orderFields?.paymentDetails.length && `(${orderFields?.paymentDetails.length})`}
+              {!!paymentDetailsPhotosToLoad.length && ` + ${paymentDetailsPhotosToLoad.length}`}
             </Button>
           </div>
         </Box>

@@ -1,21 +1,20 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class WarehouseManagementViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   order = undefined
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      if (location.state) {
-        this.order = location.state.order
-      }
-    })
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location.state) {
+      this.order = history.location.state.order
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -30,8 +29,6 @@ export class WarehouseManagementViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 }

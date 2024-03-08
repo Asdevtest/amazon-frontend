@@ -33,7 +33,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   showAcceptMessage = undefined
   acceptMessage = undefined
-
+  findRequestProposalForCurChat = undefined
   platformSettings = null
 
   showConfirmModal = false
@@ -93,13 +93,6 @@ export class OwnerRequestDetailCustomViewModel {
     return ChatModel.chats
   }
 
-  get findRequestProposalForCurChat() {
-    return (
-      this.chatSelectedId &&
-      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
-    )
-  }
-
   constructor({ history, scrollToChat }) {
     this.history = history
 
@@ -115,8 +108,8 @@ export class OwnerRequestDetailCustomViewModel {
       }
 
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
+        showAlertShield: history?.location?.state?.showAcceptMessage,
+        alertShieldMessage: history?.location?.state?.acceptMessage,
       }
 
       const state = { ...history.location.state }
@@ -266,6 +259,10 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickProposalResultAccept(proposalId) {
+    this.findRequestProposalForCurChat = this.requestProposals.find(
+      requestProposal => requestProposal.proposal._id === proposalId,
+    )
+
     this.acceptProposalResultSetting = {
       onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
     }
@@ -283,7 +280,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
     } catch (error) {
-      console.warn('onClickProposalResultAccept error ', error)
+      console.error(error)
     }
   }
 

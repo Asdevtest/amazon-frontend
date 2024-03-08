@@ -1,8 +1,10 @@
+import { memo } from 'react'
+
 import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -12,7 +14,11 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './user-money-transfer-modal.style'
 
-export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) => {
+export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdraw }) => {
+  if (!openModal) {
+    return null
+  }
+
   const { classes: styles } = useStyles()
 
   return (
@@ -36,4 +42,4 @@ export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) 
       </div>
     </Modal>
   )
-}
+})

@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -64,7 +64,7 @@ export const Footer: FC<FooterProps> = memo(props => {
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <Button styleType={ButtonStyle.PRIMARY} onClick={() => onClickReorder(formFields, isPendingOrder)}>
+              <Button onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
               </Button>
             )}

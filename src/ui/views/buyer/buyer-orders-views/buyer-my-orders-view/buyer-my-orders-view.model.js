@@ -32,14 +32,11 @@ export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
 
   paymentMethods = []
-
-  yuanToDollarRate = undefined
 
   ordersMy = []
   baseNoConvertedOrders = []
@@ -56,7 +53,6 @@ export class BuyerMyOrdersViewModel {
 
   paymentAmount = undefined
 
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
 
   nameSearchValue = ''
@@ -135,8 +131,6 @@ export class BuyerMyOrdersViewModel {
   get userInfo() {
     return UserModel.userInfo
   }
-
-  // НЕ было до создания фильтрации по статусам
 
   get orderStatusData() {
     return {
@@ -346,7 +340,6 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     if (status) {
       if (status === 'ALL') {
@@ -389,36 +382,46 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (editPhotosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-
-        supplier = {
-          ...supplier,
-          images: this.readyImages,
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
@@ -458,8 +461,6 @@ export class BuyerMyOrdersViewModel {
 
   async onClickUpdataSupplierData({ supplier, productId, orderFields }) {
     this.updateSupplierData = false
-
-    this.getPlatformSettings()
 
     try {
       supplier = {
@@ -578,10 +579,8 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickPaymentMethodsCell(row) {
-    runInAction(() => {
-      this.currentOrder = row
-    })
+  onClickPaymentMethodsCell(row) {
+    this.currentOrder = row
 
     this.onTriggerOpenModal('showPaymentMethodsModal')
   }
@@ -635,8 +634,6 @@ export class BuyerMyOrdersViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.platformSettings = result
       })
     } catch (error) {
@@ -655,8 +652,6 @@ export class BuyerMyOrdersViewModel {
       })
 
       this.getBoxesOfOrder(orderId)
-
-      this.getPlatformSettings()
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -765,7 +760,7 @@ export class BuyerMyOrdersViewModel {
 
         orderFields = {
           ...orderFields,
-          paymentDetails: this.readyImages,
+          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
         }
       }
 
@@ -925,7 +920,6 @@ export class BuyerMyOrdersViewModel {
     try {
       runInAction(() => {
         this.createBoxesResult = []
-        this.readyImages = []
       })
 
       if (trackNumber?.files.length) {
@@ -988,7 +982,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onCreateBox(formFields /* , order*/) {
+  async onCreateBox(formFields) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [

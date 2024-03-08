@@ -76,7 +76,7 @@ export const AdminOrdersViews = observer(({ history }) => {
           onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection[0])}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />

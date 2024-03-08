@@ -35,7 +35,10 @@ export const HsCodeCell: FC<IHsCodeCellProps> = memo(props => {
       className={cx({ [styles.barcodeChipNoExists]: !product.hsCode })}
       size="small"
       label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
-      onClick={() => handlers.onClickHsCode(product)}
+      onClick={e => {
+        e.stopPropagation()
+        handlers.onClickHsCode(product)
+      }}
       onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
       onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
     />

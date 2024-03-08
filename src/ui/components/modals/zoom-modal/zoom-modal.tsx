@@ -17,13 +17,17 @@ import { ImageErrorContent } from './image-error-content'
 interface ZoomModalProps {
   mediaFiles: UploadFileType[]
   currentMediaFileIndex: number
-  isOpenModal: boolean
-  setIsOpenModal: Dispatch<SetStateAction<boolean>>
+  openModal: boolean
+  setOpenModal: Dispatch<SetStateAction<boolean>>
   setCurrentMediaFileIndex: (index: number) => void
 }
 
 export const ZoomModal: FC<ZoomModalProps> = memo(props => {
-  const { mediaFiles, currentMediaFileIndex, isOpenModal, setIsOpenModal, setCurrentMediaFileIndex } = props
+  const { mediaFiles, currentMediaFileIndex, openModal, setOpenModal, setCurrentMediaFileIndex } = props
+
+  if (!openModal) {
+    return null
+  }
 
   const { classes: styles } = useStyles()
 
@@ -38,7 +42,7 @@ export const ZoomModal: FC<ZoomModalProps> = memo(props => {
   const enableZoom =
     !checkIsVideoLink(files?.[currentMediaFileIndex]) || !checkIsDocumentLink(files?.[currentMediaFileIndex])
 
-  return isOpenModal ? (
+  return openModal ? (
     <Lightbox
       enableZoom={enableZoom}
       mainSrc={files?.[currentMediaFileIndex]}
@@ -46,7 +50,7 @@ export const ZoomModal: FC<ZoomModalProps> = memo(props => {
       prevSrc={!isDisableArrowLeft ? files?.[prevImageIndex] : undefined}
       wrapperClassName={styles.wrapper}
       imageLoadErrorMessage={<ImageErrorContent files={files} fileIndex={currentMediaFileIndex} />}
-      onCloseRequest={() => setIsOpenModal(!isOpenModal)}
+      onCloseRequest={() => setOpenModal(!openModal)}
       onMovePrevRequest={() => setCurrentMediaFileIndex(prevImageIndex)}
       onMoveNextRequest={() => setCurrentMediaFileIndex(nextImageIndex)}
     />

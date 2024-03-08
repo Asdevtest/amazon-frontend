@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductInfoAbbreviated, ProductInfoExtended } from '..'
 import { FC, Fragment, memo } from 'react'

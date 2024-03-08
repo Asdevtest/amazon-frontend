@@ -1,5 +1,8 @@
 import { memo } from 'react'
 
+import { docValidTypes } from '@constants/media/doc-types'
+import { imageValidTypes } from '@constants/media/image-types'
+import { videoValidTypes } from '@constants/media/video-types'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -128,6 +131,7 @@ export const TopCard = memo(
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
+                          acceptType={[...videoValidTypes, ...docValidTypes, ...imageValidTypes]}
                         />
                       </div>
                     )}

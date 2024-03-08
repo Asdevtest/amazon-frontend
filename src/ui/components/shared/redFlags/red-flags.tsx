@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'

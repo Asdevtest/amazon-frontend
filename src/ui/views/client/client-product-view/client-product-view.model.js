@@ -60,6 +60,12 @@ export class ClientProductViewModel {
   curUpdateProductData = undefined
   warningModalTitle = ''
 
+  paymentMethods = []
+
+  platformSettings = undefined
+
+  selectedSupplier = undefined
+
   showWarningModal = false
   showConfirmModal = false
   showBindProductModal = false
@@ -124,18 +130,7 @@ export class ClientProductViewModel {
       this.getPlatformSettings()
 
       this.getStorekeepers()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
+      this.getPlatformSettingsData()
     } catch (error) {
       console.error(error)
     }
@@ -491,9 +486,6 @@ export class ClientProductViewModel {
 
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-        runInAction(() => {
-          this.imagesForLoad = []
-        })
       }
 
       await ClientModel.updateProduct(
@@ -547,13 +539,82 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier, photosOfUnit, editPhotosOfUnit }) {
+  async getSuppliersPaymentMethods() {
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
+
+    switch (actionType) {
+      case 'add':
+        runInAction(() => {
+          this.selectedSupplier = undefined
+          this.supplierModalReadOnly = false
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'view':
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'accept':
+        runInAction(() => {
+          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
+          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
+          this.selectedSupplier = undefined
+        })
+        updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
+        break
+      case 'acceptRevoke':
+        runInAction(() => {
+          this.product = { ...this.product, currentSupplierId: null }
+          this.product = { ...this.product, currentSupplier: undefined }
+          this.selectedSupplier = undefined
+        })
+        updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
+        break
+      case 'delete':
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+            successBtnText: t(TranslationKey.Yes),
+            cancelBtnText: t(TranslationKey.Cancel),
+            onClickOkBtn: () => this.onRemoveSupplier(),
+          }
+        })
+        this.onTriggerOpenModal('showConfirmModal')
+        break
+    }
+  }
+
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
@@ -561,11 +622,10 @@ export class ClientProductViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || 0,
-        widthUnit: supplier?.widthUnit || 0,
-        lengthUnit: supplier?.lengthUnit || 0,
-        weighUnit: supplier?.weighUnit || 0,
-        images: this.readyImages,
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
         boxProperties: supplier?.boxProperties
           ? supplier.boxProperties
           : {
@@ -577,32 +637,27 @@ export class ClientProductViewModel {
             },
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
       }
 
-      if (editPhotosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: this.readyImages,
-        }
-      }
-
-      if (photosOfUnit.length) {
-        await onSubmitPostImages.call(this, { images: photosOfUnit, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          imageUnit: [...supplier.imageUnit, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -614,13 +669,14 @@ export class ClientProductViewModel {
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         await this.getProductById()
       }
 
       await this.onSaveForceProductData()
 
-      this.loadData()
+      this.onTriggerAddOrEditSupplierModal()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -683,6 +739,30 @@ export class ClientProductViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
+      }
+
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
   }
 
   async onClickParseProductData(product) {
@@ -750,7 +830,6 @@ export class ClientProductViewModel {
 
       toast.success(t(TranslationKey['Success parse']))
 
-      this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
@@ -760,6 +839,26 @@ export class ClientProductViewModel {
         this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       })
       this.onTriggerOpenModal('showWarningModal')
+    }
+  }
+
+  async getPlatformSettingsData() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSupplierApproximateCalculations() {
+    try {
+      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -4,7 +4,7 @@ import { Avatar, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
@@ -54,11 +54,7 @@ export const MyServicesInfo = ({
                 userId={announcementData?.createdBy?._id}
               />
               <div className={styles.userRatingWrapper}>
-                <Button
-                  variant={ButtonVariant.OUTLINED}
-                  className={styles.reviewText}
-                  onClick={() => onClickReview(announcementData?.createdBy)}
-                >
+                <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickReview(announcementData?.createdBy)}>
                   {t(TranslationKey.Reviews)}
                 </Button>
                 <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />

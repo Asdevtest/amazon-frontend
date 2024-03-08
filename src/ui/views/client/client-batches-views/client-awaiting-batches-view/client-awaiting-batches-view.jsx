@@ -69,7 +69,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
         />
@@ -84,7 +84,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          batchToEdit={viewModel.currentData.find(batch => batch.id === viewModel.selectedBatches.slice()[0])}
+          batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
           onSubmit={viewModel.onSubmitAddOrEditBatch}
@@ -92,6 +92,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       </Modal>
 
       <BatchInfoModal
+        // @ts-ignore
         volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
@@ -114,6 +115,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       </Modal>
 
       <ConfirmationModal
+        // @ts-ignore
         isWarning
         openModal={viewModel.showConfirmModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
@@ -126,14 +128,13 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       />
 
       <WarningInfoModal
+        // @ts-ignore
         isWarning={viewModel.warningInfoModalSettings.isWarning}
         openModal={viewModel.showWarningInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         title={viewModel.warningInfoModalSettings.title}
         btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
+        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
       />
     </>
   )

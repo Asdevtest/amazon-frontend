@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { useStyles } from './trash-cell.style'
 
