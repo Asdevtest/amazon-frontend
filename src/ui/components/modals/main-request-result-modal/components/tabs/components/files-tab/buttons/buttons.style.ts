@@ -23,6 +23,10 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  error: {
+    color: theme.palette.text.red,
+  },
+
   buttons: {
     height: 30,
     display: 'flex',
@@ -31,6 +35,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
+    width: 270,
     padding: '0 10px',
     height: 30,
   },

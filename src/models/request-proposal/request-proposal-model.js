@@ -143,6 +143,11 @@ class RequestProposalModelStatic {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(filterNullValues(opts))
     return response.data
   }
+
+  deleteFreelanceSourceFilesByGuid = async guid => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete({ guid })
+    return response.data
+  }
 }
 
 export const RequestProposalModel = new RequestProposalModelStatic()
