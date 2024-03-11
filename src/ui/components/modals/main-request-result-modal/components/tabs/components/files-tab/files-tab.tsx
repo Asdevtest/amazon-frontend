@@ -15,6 +15,7 @@ import { useStyles } from './files-tab.style'
 
 import { Buttons } from './buttons'
 import { File } from './file'
+import { ONLY_ONE_SEO_FILE } from './files-tab.constats'
 import { FilesTabProps } from './files-tab.type'
 import { useFilesTab } from './use-files-tab'
 
@@ -54,7 +55,8 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     ? t(TranslationKey['Add comment'])
     : t(TranslationKey['View a comment from a client'])
   const showUpdateSeoFilesInProductButton = props.isClient && props.spec.type === Specs.SEO
-  const disabledUpdateSeoFilesInProductButton = filesForDownload.length === 0
+  const disabledUpdateSeoFilesInProductButton = filesForDownload.length !== ONLY_ONE_SEO_FILE
+  const errorUpdateSeoFilesInProduct = filesForDownload.length > ONLY_ONE_SEO_FILE
 
   return (
     <>
@@ -86,6 +88,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
             disabledArchiveButton={disabledArchiveButton}
             showUpdateSeoFilesInProductButton={showUpdateSeoFilesInProductButton}
             disabledUpdateSeoFilesInProductButton={disabledUpdateSeoFilesInProductButton}
+            errorUpdateSeoFilesInProduct={errorUpdateSeoFilesInProduct}
             onCheckAllFiles={onCheckAllFiles}
             onDownloadArchive={onDownloadArchive}
             onDownloadAllFiles={onDownloadAllFiles}
