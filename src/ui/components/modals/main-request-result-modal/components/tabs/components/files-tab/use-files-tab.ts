@@ -133,12 +133,10 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
   }
 
   const handleDownloadAllFiles = useCallback(() => {
-    if (clientOrReadOnly) {
-      if (filesForDownload.length > 0) {
-        filesForDownload.forEach(({ fileLink }) =>
-          isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
-        )
-      }
+    if (clientOrReadOnly && filesForDownload.length > 0) {
+      filesForDownload.forEach(({ fileLink }) =>
+        isString(fileLink) ? downloadFileByLink(fileLink) : downloadFile(fileLink),
+      )
     }
   }, [filesForDownload])
 

@@ -51,7 +51,6 @@ export const TopCard = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-
     curUserRole,
     onChangeField,
     actionStatus,
@@ -175,6 +174,7 @@ export const TopCard = memo(
                   </div>
                 ) : undefined}
               </div>
+
               <FieldsAndSuppliers
                 user={user}
                 showActionBtns={showActionBtns}
