@@ -14,7 +14,6 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { GeneralModel } from '@models/general-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -37,6 +36,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
+  TAGS,
   additionalFilterFields,
   defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
@@ -225,6 +225,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -523,35 +524,25 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async getProdutsTags() {
-    try {
-      const result = await GeneralModel.getTagList()
-
-      runInAction(() => {
-        this.productsTags = result
-      })
-    } catch (error) {
-      console.log(error)
-      this.productsTags = []
-    }
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
+    this.columnMenuSettings?.onClickAccept()
   }
 
-  addActiveProductsTag(tag) {
-    if (!tag) {
-      return
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
     }
 
-    this.activeProductsTags.push(tag)
-    this.productsTags = this.productsTags.filter(prodTag => prodTag?.id !== tag?._id)
-  }
-
-  removeActiveProductsTag(tag) {
-    if (!tag) {
-      return
-    }
-
-    this.productsTags.push(tag)
-    this.activeProductsTags = this.activeProductsTags.filter(prodTag => prodTag?._id !== tag?._id)
+    this.setActiveProductsTag(newTags)
   }
 
   async getPresets() {

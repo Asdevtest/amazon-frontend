@@ -4,6 +4,7 @@ import { useStyles } from './data-grid-custom-toolbar.style'
 
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 import { DataGridTableSetting } from '../data-grid-table-setting'
+import { SelectedTags } from '../selected-tags'
 import { SortSettings } from '../sort-settings'
 import { TagSearch } from '../tag-search'
 
@@ -29,6 +30,10 @@ export const DataGridCustomToolbar = props => {
 
             <GridToolbarExport size="large" className={styles.text} />
 
+            {sortSettings ? <SortSettings {...sortSettings} /> : null}
+
+            {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
+
             {!!resetFiltersBtnSettings?.isSomeFilterOn && (
               <DataGridResetFilterButton
                 size="large"
@@ -36,10 +41,6 @@ export const DataGridCustomToolbar = props => {
                 resetFiltersBtnSettings={resetFiltersBtnSettings}
               />
             )}
-
-            {sortSettings ? <SortSettings {...sortSettings} /> : null}
-
-            {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
           </div>
         )}
 
@@ -49,7 +50,12 @@ export const DataGridCustomToolbar = props => {
         </div>
       </div>
 
-      {'2222'}
+      {tagSearchSettings?.activeTags ? (
+        <SelectedTags
+          activeTags={tagSearchSettings?.activeTags}
+          setActiveProductsTag={tagSearchSettings?.setActiveProductsTag}
+        />
+      ) : null}
     </GridToolbarContainer>
   )
 }

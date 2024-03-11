@@ -1,3 +1,5 @@
+export const TAGS = 'tags'
+
 export const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
   'researcherFine',
@@ -86,7 +88,7 @@ export const filtersFields = [
   'transparency',
 ]
 
-export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 

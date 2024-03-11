@@ -23,6 +23,8 @@ export const observerConfig = {
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
+  productsTags: observable,
+  activeProductsTags: observable,
 
   showOrderModal: observable,
   showSuccessModal: observable,
@@ -48,7 +50,6 @@ export const observerConfig = {
   showProductLaunch: observable,
   showIdeaModal: observable,
   showProductVariationsForm: observable,
-  productsTags: observable,
 
   readyImages: observable,
   progressValue: observable,
@@ -119,7 +120,5 @@ export const observerConfig = {
   setDestinationsFavouritesItem: action.bound,
   loadData: action.bound,
   getCustomSortFields: action.bound,
-  getProdutsTags: action.bound,
-  addActiveProductsTag: action.bound,
-  removeActiveProductsTag: action.bound,
+  setActiveProductsTag: action.bound,
 }

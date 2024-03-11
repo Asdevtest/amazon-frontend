@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { SelectedButtonValueConfig } from '@constants/configs/buttons'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -40,7 +41,12 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useStyles } from './client-inventory-view.style'
 
-import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
+import {
+  TAGS,
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { Header } from './components'
 
@@ -66,6 +72,8 @@ export const ClientInventoryView = observer(({ history }) => {
   const getRowClassName = params =>
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
     (!!params.row.ideasOnCheck && styles.ideaRowYellow)
+
+  console.log('viewModel.columnMenuSettings?.tags :>> ', viewModel.columnMenuSettings)
 
   return (
     <>
@@ -130,9 +138,11 @@ export const ClientInventoryView = observer(({ history }) => {
               },
 
               tagSearchSettings: {
-                tagList: viewModel.productsTags,
-                activeTags: viewModel.activeProductsTags,
-                getProductsTags: viewModel.getProdutsTags,
+                tagList: viewModel.columnMenuSettings?.tags?.filterData,
+                activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatuses.IS_LOADING,
+                getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
+                setActiveProductsTag: viewModel.setActiveProductsTag,
               },
             },
           }}
