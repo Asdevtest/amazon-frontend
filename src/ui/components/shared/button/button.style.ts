@@ -240,8 +240,8 @@ export const useStyles = makeStyles()(theme => {
       backgroundColor: 'transparent !important',
 
       '> svg': {
-        width: '12px',
-        height: '12px',
+        width: '16px',
+        height: '16px',
       },
     },
 
