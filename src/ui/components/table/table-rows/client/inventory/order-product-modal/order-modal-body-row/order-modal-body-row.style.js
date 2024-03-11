@@ -79,10 +79,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
-    height: '30px',
+    height: '40px',
     width: '130px',
+    flexDirection: 'column',
+    margin: '0px',
 
     p: {
+      fontSize: 12,
       color: 'currentcolor',
       width: '100%',
       overflow: 'hidden',
