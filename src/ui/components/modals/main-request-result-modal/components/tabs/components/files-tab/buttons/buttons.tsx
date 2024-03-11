@@ -43,6 +43,10 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const seoButtonText = errorUpdateSeoFilesInProduct
+    ? t(TranslationKey['Select only one SEO file'])
+    : t(TranslationKey['Update SEO files in the product'])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.flexlContainer}>
@@ -72,9 +76,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
             styleType={errorUpdateSeoFilesInProduct ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
             onClick={onUpdateSeoIFilesInProduct}
           >
-            {errorUpdateSeoFilesInProduct
-              ? t(TranslationKey['Select only one SEO file'])
-              : t(TranslationKey['Update SEO files in the product'])}
+            {seoButtonText}
           </Button>
         ) : null}
       </div>
