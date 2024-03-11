@@ -373,9 +373,31 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '5px',
   },
 
-  bindProductButton: {
+  flexColumnBlock: {
     display: 'flex',
-    justifyContent: 'center',
-    gap: '9px',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  seoContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  seoField: {
+    margin: 0,
+  },
+
+  downloadButtonContainer: {
+    width: 40,
+    height: 40,
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  downloadButtonIcon: {
+    color: theme.palette.primary.main,
   },
 }))

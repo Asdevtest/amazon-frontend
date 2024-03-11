@@ -16,7 +16,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltipPosition?: TooltipPositions
   defaultButtonTooltip?: string
 
-  disabled?: boolean
   disableElevation?: boolean
   startIcon?: ReactElement
 
@@ -39,9 +38,6 @@ export const Button: FC<ButtonProps> = memo(props => {
     tooltipAttentionContent,
     tooltipInfoContent,
     tooltipPosition,
-
-    disabled,
-
     children,
     styleType = ButtonStyle.PRIMARY,
     variant = ButtonVariant.CONTAINED,
@@ -66,7 +62,6 @@ export const Button: FC<ButtonProps> = memo(props => {
   return (
     <button
       title={defaultButtonTooltip || ''}
-      disabled={disabled}
       className={cx(
         styles.root,
         {
