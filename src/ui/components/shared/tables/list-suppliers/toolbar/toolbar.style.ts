@@ -25,11 +25,11 @@ export const useStyles = makeStyles()(() => ({
     width: 32,
     padding: 0,
     borderRadius: '50%',
+  },
 
-    svg: {
-      width: '20px !important',
-      height: '20px !important',
-    },
+  icon: {
+    width: '20px !important',
+    height: '20px !important',
   },
 
   buttonWithText: {

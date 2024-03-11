@@ -178,8 +178,8 @@ export const useStyles = makeStyles()(theme => {
 
     tooltipsWrapper: {
       position: 'absolute',
-      top: '-10px',
-      right: '-10px',
+      top: '-9px',
+      right: '-9px',
       zIndex: '10',
     },
 

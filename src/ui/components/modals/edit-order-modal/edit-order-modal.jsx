@@ -707,6 +707,7 @@ export const EditOrderModal = memo(
           <ListSuppliers
             formFields={orderFields}
             platformSettings={platformSettings}
+            checkIsPlanningPrice={checkIsPlanningPrice}
             storekeepers={orderFields.product.suppliers}
             onClickSaveSupplier={onClickSaveSupplierBtn}
             // onSaveProduct={onSaveForceProductData}

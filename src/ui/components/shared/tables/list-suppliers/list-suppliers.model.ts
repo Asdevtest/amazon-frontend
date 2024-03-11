@@ -69,6 +69,15 @@ export class ListSuppliersModel {
       () => this.selectionModel,
       () => this.onGetCurrentSupplier(),
     )
+
+    reaction(
+      () => this.showAddOrEditSupplierModal,
+      () => {
+        if (!this.showAddOrEditSupplierModal) {
+          this.onGetCurrentSupplier()
+        }
+      },
+    )
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
@@ -77,6 +86,12 @@ export class ListSuppliersModel {
 
   onRowSelectionModelChange(model: GridRowSelectionModel) {
     this.selectionModel = model
+  }
+
+  updateSuppliers(product: IProduct) {
+    this.product = product
+
+    this.onGetSuppliers()
   }
 
   onGetSuppliers() {
@@ -142,7 +157,8 @@ export class ListSuppliersModel {
     switch (mode) {
       case ModalModes.ADD:
         runInAction(() => {
-          this.supplierModalReadOnly = true
+          this.supplierModalReadOnly = false
+          this.currentSupplier = undefined
         })
 
         this.onToggleModal(ModalNames.SUPPLIER)

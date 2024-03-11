@@ -188,11 +188,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
               className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
-                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
+                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier?._id },
                   addMore: false,
                   makeMainSupplier,
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
+                  productId: product?._id,
                 })
                 onTriggerShowModal()
               }}
@@ -206,11 +207,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
               className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
-                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
+                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier?._id },
                   addMore: false,
                   makeMainSupplier,
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
+                  productId: product?._id,
                 })
                 onTriggerShowModal()
               }}
@@ -237,9 +239,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
             className={styles.saveBtn}
             onClick={() => {
               onClickSaveBtn({
-                supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
+                supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier?._id },
                 editPhotosOfSupplier,
                 editPhotosOfUnit,
+                productId: product?._id,
               })
               onTriggerShowModal()
             }}

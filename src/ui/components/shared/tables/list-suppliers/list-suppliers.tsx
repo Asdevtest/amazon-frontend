@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
 
@@ -32,20 +32,39 @@ interface ListSuppliersProps {
   storekeepers: IDestinationStorekeeper[]
   platformSettings: IPlatformSettings
   readOnly?: boolean
+  checkIsPlanningPrice?: boolean
   onClickSaveSupplier?: () => void
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
-  const { formFields, storekeepers, platformSettings, readOnly, onClickSaveSupplier, onSaveProduct, onRemoveSupplier } =
-    props
+  const {
+    formFields,
+    storekeepers,
+    platformSettings,
+    readOnly,
+    checkIsPlanningPrice,
+    onClickSaveSupplier,
+    onSaveProduct,
+    onRemoveSupplier,
+  } = props
 
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(
     () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
-  )
+  ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
+
+  const [orderStatus, setOrderStatus] = useState(0) // needed for additional conditions in the buyer's order view(everywhere we work directly with the product)
+
+  useEffect(() => {
+    viewModel.updateSuppliers(extractProduct(formFields))
+
+    if ('product' in formFields) {
+      setOrderStatus(formFields?.status)
+    }
+  }, [formFields])
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
@@ -86,7 +105,9 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
                   isSupplerSelected={viewModel.selectionModel.length > 0}
                   isCurrentSupplierSelected={isCurrentSupplierSelected}
                   status={extractProduct(formFields)?.status}
+                  orderStatus={orderStatus}
                   supplier={viewModel.currentSupplier}
+                  checkIsPlanningPrice={checkIsPlanningPrice}
                   onSupplierApproximateCalculationsModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
                   onSupplierActions={viewModel.onSupplierActions}
                 />

@@ -443,6 +443,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
+    console.log('supplier, productId,', supplier, productId)
     try {
       supplier = {
         ...supplier,

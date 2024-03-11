@@ -17,6 +17,7 @@ import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { OrderStatus } from '@typings/enums/order-status'
 import { ProductStatus } from '@typings/enums/product-status'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IFullUser } from '@typings/shared/full-user'
@@ -34,6 +35,7 @@ import {
 
 interface ToolbarProps {
   status: number
+  orderStatus: number
   isSupplerSelected: boolean
   isCurrentSupplierSelected: boolean
   onSupplierApproximateCalculationsModal: () => void
@@ -41,11 +43,13 @@ interface ToolbarProps {
   readOnly?: boolean
   userInfo?: IFullUser
   supplier?: ISupplier
+  checkIsPlanningPrice?: boolean
 }
 
 export const Toolbar: FC<ToolbarProps> = memo(props => {
   const {
     status,
+    orderStatus,
     isSupplerSelected,
     isCurrentSupplierSelected,
     onSupplierApproximateCalculationsModal,
@@ -53,6 +57,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     readOnly,
     userInfo,
     supplier,
+    checkIsPlanningPrice,
   } = props
 
   const { classes: styles } = useStyles()
@@ -67,6 +72,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.minlot &&
     supplier?.priceInYuan &&
     supplier?.price
+
   const showViewCalculationButton =
     !readOnly &&
     isSupplerSelected &&
@@ -80,7 +86,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !readOnly &&
     !!userInfo &&
     ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        ([OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus) || !orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         allIdeaStatuses.includes(status)))
   const showEditSupplierButton =
@@ -88,7 +95,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     isSupplerSelected &&
     !!userInfo &&
     ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        ([OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus) || !orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         allIdeaStatuses.includes(status)))
   const showToggleCurrentSupplierButton =
@@ -96,13 +104,31 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     isSupplerSelected &&
     !!userInfo &&
     ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)))
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)))
   const showRemoveCurrentSupplierButton =
     !readOnly &&
     isSupplerSelected &&
     !!userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
     status === ProductStatus.BUYER_PICKED_PRODUCT
+
+  const isPendingOrderAndNotCurrentSupplierSelected =
+    userInfo &&
+    checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+    !isCurrentSupplierSelected &&
+    orderStatus === OrderStatus.PENDING
+  const isAtProcessOrder =
+    userInfo &&
+    checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+    orderStatus === OrderStatus.AT_PROCESS &&
+    checkIsPlanningPrice
+  const disabledEditSupplierButton =
+    !supplier || supplier?.name === ACCESS_DENIED || isPendingOrderAndNotCurrentSupplierSelected || isAtProcessOrder
+  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotCurrentSupplierSelected
+    ? t(TranslationKey['Editing is unavailable due to change of current supplier'])
+    : ''
 
   return (
     <div className={styles.toolbar}>
@@ -126,21 +152,24 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
+            disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
-            <AddIcon />
+            <AddIcon className={styles.icon} />
           </Button>
         ) : null}
 
         {showEditSupplierButton ? (
           <Button
+            isTableButton
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+            tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
             className={styles.button}
-            disabled={!supplier || supplier?.name === ACCESS_DENIED}
+            disabled={disabledEditSupplierButton}
             onClick={() => onSupplierActions(ModalModes.EDIT)}
           >
-            <EditOutlinedIcon />
+            <EditOutlinedIcon className={styles.icon} />
           </Button>
         ) : null}
 
@@ -150,7 +179,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.VIEW)}
           >
-            <EyeIcon />
+            <EyeIcon className={styles.icon} />
           </Button>
         ) : null}
 
@@ -160,9 +189,10 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Remove the current supplier'])}
+            disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
           >
-            <AcceptRevokeIcon />
+            <AcceptRevokeIcon className={styles.icon} />
           </Button>
         ) : null}
 
@@ -172,9 +202,10 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Select a supplier as the current supplier'])}
+            disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCEPT)}
           >
-            {<AcceptIcon />}
+            <AcceptIcon className={styles.icon} />
           </Button>
         ) : null}
 
@@ -186,7 +217,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
-            <DeleteOutlineOutlinedIcon />
+            <DeleteOutlineOutlinedIcon className={styles.icon} />
           </Button>
         ) : null}
       </div>
