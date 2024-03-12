@@ -235,14 +235,21 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       <Modal
         missClickModalOn
         openModal={viewModel.showRequestDesignerResultClientModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')
+          viewModel.onReadOnlyRequestDesignerResultClientForm()
+        }}
       >
         <RequestDesignerResultClientForm
+          onlyRead={viewModel.readOnlyRequestDesignerResultClientForm}
           userInfo={viewModel.userInfo}
           request={viewModel.request}
           proposal={findRequestProposalForCurChat}
           curResultMedia={viewModel.curResultMedia}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')
+            viewModel.onReadOnlyRequestDesignerResultClientForm()
+          }}
           onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
           onPressSubmitDesignerResultToCorrect={viewModel.onSubmitSendInForReworkInProposalResultAccept}
         />
