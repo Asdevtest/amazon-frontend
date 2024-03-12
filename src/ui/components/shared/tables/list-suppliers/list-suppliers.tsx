@@ -16,8 +16,6 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
-import { IDestinationStorekeeper } from '@typings/shared/destinations'
-import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './list-suppliers.style'
 
@@ -29,8 +27,6 @@ import { Toolbar } from './toolbar'
 
 interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
-  storekeepers: IDestinationStorekeeper[]
-  platformSettings: IPlatformSettings
   readOnly?: boolean
   checkIsPlanningPrice?: boolean
   onClickSaveSupplier?: () => void
@@ -39,16 +35,7 @@ interface ListSuppliersProps {
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
-  const {
-    formFields,
-    storekeepers,
-    platformSettings,
-    readOnly,
-    checkIsPlanningPrice,
-    onClickSaveSupplier,
-    onSaveProduct,
-    onRemoveSupplier,
-  } = props
+  const { formFields, readOnly, checkIsPlanningPrice, onClickSaveSupplier, onSaveProduct, onRemoveSupplier } = props
 
   const { classes: styles } = useStyles()
 
@@ -68,10 +55,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
     id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
+
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: 'orderSupplier' in formFields ? formFields?.orderSupplier?._id : '',
-    platformSettings,
+    platformSettings: viewModel.platformSettings,
     onClickFilesCell: viewModel.onClickFilesCell,
   })
   const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
@@ -95,6 +83,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-row': styles.row,
+            '& .MuiDataGrid-row.Mui-selected': styles.selectedSupplierBackground,
           }}
           slotProps={{
             toolbar: {
@@ -134,11 +123,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           onlyRead={viewModel.supplierModalReadOnly}
           paymentMethods={viewModel.paymentMethods}
           product={extractProduct(formFields)}
-          storekeepersData={storekeepers}
+          storekeepersData={viewModel.storekeepers}
           requestStatus={viewModel.requestStatus}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           supplier={viewModel.currentSupplier}
-          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
+          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
           title={t(TranslationKey['Adding and editing a supplier'])}
           onClickSaveBtn={onClickSaveSupplier}
           onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
@@ -153,8 +142,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           // @ts-ignore
           product={extractProduct(formFields)}
           supplier={viewModel.currentSupplier}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          storekeepers={storekeepers}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          storekeepers={viewModel.storekeepers}
           onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
       </Modal>

@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ProductModel } from '@models/product-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -37,8 +36,6 @@ export class AdminProductViewModel {
 
   productId = undefined
   product = undefined
-  storekeepers = []
-  platformSettings = undefined
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(formFieldsDefault, undefined)
 
@@ -52,27 +49,12 @@ export class AdminProductViewModel {
     this.history = history
     this.productId = url.searchParams.get('product-id')
 
-    this.getPlatformSettings()
-
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
     try {
       this.getProductById()
-      this.getStorekeepers()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const response = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepers = response
-      })
     } catch (error) {
       console.log(error)
     }
@@ -97,18 +79,6 @@ export class AdminProductViewModel {
         this.history.goBack()
 
         break
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 

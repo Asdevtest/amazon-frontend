@@ -7,7 +7,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BuyerModel } from '@models/buyer-model'
 import { ProductModel } from '@models/product-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -37,10 +36,7 @@ export class BuyerProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
-  storekeepersData = []
   hsCodeData = {}
-
-  platformSettings = undefined
 
   showTab = undefined
 
@@ -54,11 +50,6 @@ export class BuyerProductViewModel {
   productVariations = undefined
 
   imagesForLoad = []
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   confirmModalSettings = {
     isWarning: false,
@@ -93,8 +84,6 @@ export class BuyerProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
-    this.getPlatformSettings()
-
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -107,8 +96,6 @@ export class BuyerProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
-
-      this.getStorekeepers()
     } catch (error) {
       console.log(error)
     }
@@ -162,18 +149,6 @@ export class BuyerProductViewModel {
     }
   }
 
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   onChangeProductFields = fieldsName =>
     action(e => {
       this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldsName]: '' }
@@ -198,13 +173,11 @@ export class BuyerProductViewModel {
           this.product.currentSupplierId = null
         }
       })
-      this.onSaveForceProductData()
-
-      runInAction(() => {
-        this.product.suppliers
-      })
 
       await SupplierModel.removeSupplier(supplierId)
+
+      await this.onSaveForceProductData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
@@ -333,7 +306,7 @@ export class BuyerProductViewModel {
 
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
-      this.showSuccesAlert()
+
       updateDataHandler && (await updateDataHandler())
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -341,27 +314,6 @@ export class BuyerProductViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
-  }
-
-  showSuccesAlert() {
-    this.alertShieldSettings = {
-      showAlertShield: true,
-      alertShieldMessage: t(TranslationKey['Data was successfully saved']),
-    }
-
-    setTimeout(() => {
-      this.alertShieldSettings = {
-        ...this.alertShieldSettings,
-        showAlertShield: false,
-      }
-
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          showAlertShield: false,
-          alertShieldMessage: '',
-        }
-      }, 1000)
-    }, 3000)
   }
 
   async onSaveForceProductData() {
@@ -465,17 +417,5 @@ export class BuyerProductViewModel {
   async navigateToProduct(id) {
     const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
     win.focus()
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

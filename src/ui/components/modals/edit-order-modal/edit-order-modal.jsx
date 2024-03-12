@@ -109,7 +109,6 @@ export const EditOrderModal = memo(
     onClickSaveSupplierBtn,
     onClickHsCode,
     updateSupplierData,
-    // setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
@@ -210,6 +209,10 @@ export const EditOrderModal = memo(
     useEffect(() => {
       setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
     }, [order])
+
+    const handleSaveProduct = product => {
+      setOrderFields(prev => ({ ...prev, product, orderSupplier: product.currentSupplier }))
+    }
 
     useEffect(() => {
       if (isPendingOrder) {
@@ -706,11 +709,9 @@ export const EditOrderModal = memo(
 
           <ListSuppliers
             formFields={orderFields}
-            platformSettings={platformSettings}
             checkIsPlanningPrice={checkIsPlanningPrice}
-            storekeepers={orderFields.product.suppliers}
             onClickSaveSupplier={onClickSaveSupplierBtn}
-            // onSaveProduct={onSaveForceProductData}
+            onSaveProduct={handleSaveProduct}
           />
         </div>
 

@@ -9,7 +9,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ProductModel } from '@models/product-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -50,7 +49,6 @@ export class ResearcherProductViewModel {
   curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
-  platformSettings = undefined
 
   startParse = false
 
@@ -93,16 +91,12 @@ export class ResearcherProductViewModel {
 
     this.productId = history.location.search.slice(1)
 
-    this.getPlatformSettings()
-
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
       await this.getProductById()
-
-      this.getStorekeepers()
 
       if (this.startParse) {
         this.onClickParseProductData(this.product)
@@ -126,30 +120,6 @@ export class ResearcherProductViewModel {
         this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
       })
     } catch (error) {
       console.log(error)
@@ -207,33 +177,6 @@ export class ResearcherProductViewModel {
         })
       }
     })
-
-  async onRemoveSupplier(supplierId) {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await ProductModel.removeSuppliersFromProduct(this.product._id, [supplierId])
-
-      if (this.product.currentSupplierId && this.product.currentSupplierId === supplierId) {
-        runInAction(() => {
-          this.product.currentSupplierId = null
-        })
-      }
-
-      this.onSaveForceProductData()
-
-      runInAction(() => {
-        this.product.suppliers
-      })
-
-      await SupplierModel.removeSupplier(supplierId)
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-    }
-  }
 
   async handleProductActionButtons(actionType, withoutStatus) {
     switch (actionType) {

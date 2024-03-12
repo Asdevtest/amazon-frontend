@@ -14,7 +14,6 @@ export const AdminProductView = observer(({ history }) => {
 
   return (
     <ProductWrapper
-      platformSettings={viewModel.platformSettings}
       userRole={viewModel.userInfo.role}
       product={viewModel.product}
       imagesForLoad={viewModel.product?.images}

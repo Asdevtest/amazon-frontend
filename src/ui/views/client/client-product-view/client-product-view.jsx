@@ -31,7 +31,6 @@ export const ClientProductView = observer(({ history }) => {
       {viewModel.product ? (
         <ProductWrapper
           showTab={viewModel.showTab}
-          platformSettings={viewModel.platformSettings}
           user={viewModel.userInfo}
           userRole={viewModel.userInfo.role}
           imagesForLoad={viewModel.imagesForLoad}
@@ -52,7 +51,6 @@ export const ClientProductView = observer(({ history }) => {
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           loadMorePermissionsDataHadler={useProductsPermissions.loadMoreDataHadler}
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
-          storekeepersData={viewModel?.storekeepersData}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
           onClickGetProductsToBind={option =>

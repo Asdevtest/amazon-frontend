@@ -159,11 +159,9 @@ export const SuppliersAndIdeas = observer(props => {
           inCreate
           languageTag={languageTag}
           isModalView={isModalView}
-          platformSettings={platformSettings}
           curUser={curUser}
           curIdea={curIdea}
           currentProduct={currentProduct}
-          storekeepers={storekeepers}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
           onSetCurIdea={onSetCurIdea}
@@ -179,13 +177,11 @@ export const SuppliersAndIdeas = observer(props => {
             <IdeaViewAndEditCard
               isModalView
               languageTag={languageTag}
-              platformSettings={platformSettings}
               curUser={curUser}
               curIdea={curIdea}
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
-              storekeepers={storekeepers}
               onCreateProduct={onClickCreateProduct}
               onClickSaveBtn={onClickSaveBtn}
               onClickCancelBtn={onClickCancelBtn}
@@ -228,12 +224,10 @@ export const SuppliersAndIdeas = observer(props => {
                   curUser={curUser}
                   curIdea={curIdea}
                   inEdit={inEdit}
-                  platformSettings={platformSettings}
                   idea={idea}
                   languageTag={languageTag}
                   currentProduct={currentProduct}
                   selectedIdea={selectedIdeaId}
-                  storekeepers={storekeepers}
                   onCreateProduct={onClickCreateProduct}
                   onClickSaveBtn={onClickSaveBtn}
                   onClickCancelBtn={onClickCancelBtn}

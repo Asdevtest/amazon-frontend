@@ -125,7 +125,14 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     orderStatus === OrderStatus.AT_PROCESS &&
     checkIsPlanningPrice
   const disabledEditSupplierButton =
-    !supplier || supplier?.name === ACCESS_DENIED || isPendingOrderAndNotCurrentSupplierSelected || isAtProcessOrder
+    !supplier ||
+    supplier?.name === ACCESS_DENIED ||
+    isPendingOrderAndNotCurrentSupplierSelected ||
+    isAtProcessOrder ||
+    (userInfo &&
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+      userInfo?._id !== supplier?.createdBy?._id &&
+      userInfo?.masterUser?._id !== supplier?.createdBy?._id)
   const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotCurrentSupplierSelected
     ? t(TranslationKey['Editing is unavailable due to change of current supplier'])
     : ''

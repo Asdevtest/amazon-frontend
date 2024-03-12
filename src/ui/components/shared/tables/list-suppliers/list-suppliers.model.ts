@@ -6,6 +6,7 @@ import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -13,6 +14,8 @@ import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
+import { IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -29,6 +32,8 @@ export class ListSuppliersModel {
   currentSupplier: ISupplier | undefined = undefined
   galleryFiles: UploadFileType[] = []
   paymentMethods: IPaymentMethod[] = []
+  storekeepers: IDestinationStorekeeper[] = []
+  platformSettings: IPlatformSettings | undefined = undefined
 
   supplierModalReadOnly = false
   showGalleryModal = false
@@ -62,6 +67,8 @@ export class ListSuppliersModel {
 
     this.onGetSuppliers()
     this.getPaymentMethods()
+    this.getStorekeepers()
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -85,18 +92,16 @@ export class ListSuppliersModel {
   }
 
   onRowSelectionModelChange(model: GridRowSelectionModel) {
-    this.selectionModel = model
-  }
-
-  updateSuppliers(product: IProduct) {
-    this.product = product
-
-    this.onGetSuppliers()
+    if (this.selectionModel[0] === model[0]) {
+      this.selectionModel = []
+    } else {
+      this.selectionModel = model
+    }
   }
 
   onGetSuppliers() {
-    if (this.product && this.product?.suppliers?.length > 0 && this.product?.currentSupplier) {
-      const currentSupplierId: string = this.product?.currentSupplier?._id
+    if (this.product) {
+      const currentSupplierId: string | undefined = this.product?.currentSupplier?._id
 
       if (currentSupplierId) {
         this.selectionModel = [currentSupplierId, ...this.selectionModel]
@@ -105,11 +110,6 @@ export class ListSuppliersModel {
       const foundCurrentSupplier = this.product?.suppliers?.find(
         (supplier: ISupplier) => supplier._id === currentSupplierId,
       )
-
-      if (foundCurrentSupplier) {
-        this.currentSupplier = foundCurrentSupplier
-      }
-
       const filteringSuppliers = this.product?.suppliers?.filter(
         (supplier: ISupplier) => supplier._id !== currentSupplierId,
       )
@@ -118,8 +118,6 @@ export class ListSuppliersModel {
         : this.product?.suppliers
 
       this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id }))
-    } else if (this.product && this.product?.suppliers?.length > 0) {
-      this.suppliers = this.product?.suppliers
     }
   }
 
@@ -150,6 +148,30 @@ export class ListSuppliersModel {
       })
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const response = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepers = response as IDestinationStorekeeper[]
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response as IPlatformSettings
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -185,7 +207,8 @@ export class ListSuppliersModel {
           }
         })
 
-        this.saveProductIfNeeded()
+        this.saveProduct()
+        this.onGetSuppliers()
 
         break
       case ModalModes.ACCERT_REVOKE:
@@ -196,7 +219,7 @@ export class ListSuppliersModel {
           }
         })
 
-        this.saveProductIfNeeded()
+        this.saveProduct()
 
         break
       case ModalModes.DELETE:
@@ -218,9 +241,11 @@ export class ListSuppliersModel {
     }
   }
 
-  saveProductIfNeeded() {
+  saveProduct() {
     if (this.onSaveProduct && this.product) {
       this.onSaveProduct(this.product)
+
+      this.onGetSuppliers()
     }
   }
 
@@ -228,6 +253,12 @@ export class ListSuppliersModel {
     if (this.onRemoveSupplier && this.currentSupplier) {
       this.onRemoveSupplier(this.currentSupplier?._id)
     }
+  }
+
+  updateSuppliers(product: IProduct) {
+    this.product = product
+
+    this.onGetSuppliers()
   }
 
   setRequestStatus(requestStatus: loadingStatuses) {

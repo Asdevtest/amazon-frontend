@@ -54,7 +54,6 @@ export class BuyerMyOrdersViewModel {
   paymentAmount = undefined
 
   platformSettings = undefined
-
   nameSearchValue = ''
 
   showBarcodeModal = false

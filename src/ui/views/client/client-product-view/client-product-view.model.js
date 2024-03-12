@@ -10,7 +10,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
 import { ShopModel } from '@models/shop-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -54,15 +53,12 @@ export class ClientProductViewModel {
   productVariations = undefined
   productsToBind = undefined
 
-  storekeepersData = []
   shopsData = []
 
   curUpdateProductData = undefined
   warningModalTitle = ''
 
   paymentMethods = []
-
-  platformSettings = undefined
 
   showWarningModal = false
   showConfirmModal = false
@@ -112,8 +108,6 @@ export class ClientProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
-    this.getPlatformSettings()
-
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -127,8 +121,6 @@ export class ClientProductViewModel {
       await this.getProductById()
       await this.getShops()
       await this.getProductsVariations()
-
-      this.getStorekeepers()
     } catch (error) {
       console.error(error)
     }
@@ -311,18 +303,6 @@ export class ClientProductViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   async getShops() {
@@ -752,18 +732,6 @@ export class ClientProductViewModel {
         this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       })
       this.onTriggerOpenModal('showWarningModal')
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 }

@@ -23,7 +23,6 @@ export const SupervisorProductView = observer(({ history }) => {
       {viewModel.product ? (
         <ProductWrapper
           imagesForLoad={viewModel.imagesForLoad}
-          platformSettings={viewModel.platformSettings}
           user={viewModel.userInfo}
           userRole={viewModel.userInfo.role}
           product={viewModel.currentData}
@@ -33,7 +32,6 @@ export const SupervisorProductView = observer(({ history }) => {
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           actionStatus={viewModel.requestStatus}
           handleProductActionButtons={viewModel.handleProductActionButtons}
-          storekeepersData={viewModel?.storekeepersData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}

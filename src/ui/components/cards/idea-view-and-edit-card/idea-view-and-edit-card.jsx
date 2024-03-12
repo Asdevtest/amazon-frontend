@@ -56,8 +56,6 @@ export const IdeaViewAndEditCard = observer(
     curIdea,
     selectedIdea,
     currentProduct,
-    platformSettings,
-    storekeepers,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
@@ -684,8 +682,6 @@ export const IdeaViewAndEditCard = observer(
             {formFields ? (
               <ListSuppliers
                 formFields={formFields}
-                platformSettings={platformSettings}
-                storekeepers={storekeepers}
                 onClickSaveSupplier={onClickSaveSupplierBtn}
                 // onSaveProduct={onClickSupplierBtns}
               />

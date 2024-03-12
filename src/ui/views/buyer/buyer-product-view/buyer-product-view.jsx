@@ -25,7 +25,6 @@ export const BuyerProductView = observer(({ history }) => {
     <>
       {viewModel.product ? (
         <ProductWrapper
-          platformSettings={viewModel.platformSettings}
           showTab={viewModel.showTab}
           user={viewModel.userInfo}
           userRole={viewModel.userInfo.role}
@@ -36,11 +35,12 @@ export const BuyerProductView = observer(({ history }) => {
           navigateToProduct={viewModel.navigateToProduct}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           handleProductActionButtons={viewModel.handleProductActionButtons}
-          storekeepersData={viewModel?.storekeepersData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}
           onClickHsCode={viewModel.onClickHsCode}
+          onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+          onRemoveSupplier={viewModel.onRemoveSupplier}
         />
       ) : null}
 

@@ -44,10 +44,8 @@ export const TopCard = memo(
     productVariations,
     navigateToProduct,
     unbindProductHandler,
-    storekeepersData,
     shops,
     modal,
-    platformSettings,
     productBase,
     formFieldsValidationErrors,
     onClickParseProductData,
@@ -66,6 +64,7 @@ export const TopCard = memo(
     onClickSubmitSearch,
     onClickSaveSupplierBtn,
     onSaveForceProductData,
+    onRemoveSupplier,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -175,10 +174,9 @@ export const TopCard = memo(
           {!checkIsResearcher(curUserRole) && (
             <ListSuppliers
               formFields={product}
-              platformSettings={platformSettings}
-              storekeepers={storekeepersData}
               onClickSaveSupplier={onClickSaveSupplierBtn}
               onSaveProduct={onSaveForceProductData}
+              onRemoveSupplier={onRemoveSupplier}
             />
           )}
 

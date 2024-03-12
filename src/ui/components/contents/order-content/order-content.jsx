@@ -264,8 +264,6 @@ export const OrderContent = ({
         <div className={styles.suppliersWrapper}>
           <ListSuppliers
             formFields={updatedOrder.product}
-            platformSettings={platformSettings}
-            storekeepers={storekeepers}
             //  onClickSaveSupplier={onChangeSelectedSupplier}
           />
         </div>

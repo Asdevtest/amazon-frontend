@@ -28,11 +28,9 @@ export const ResearcherProductView = observer(({ history }) => {
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
           alertFailedText={viewModel.alertFailedText}
-          platformSettings={viewModel.platformSettings}
           product={viewModel.currentData}
           productBase={viewModel.productBase}
           actionStatus={viewModel.requestStatus}
-          storekeepersData={viewModel.storekeepersData}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           handleProductActionButtons={viewModel.handleProductActionButtons}
           onChangeField={viewModel.onChangeProductFields}

@@ -119,7 +119,6 @@ export const ProductCardModal = observer(props => {
         {viewModel?.product && (
           <ProductWrapper
             modal
-            platformSettings={viewModel?.platformSettings}
             showTab={viewModel?.showTab}
             user={viewModel?.userInfo}
             userRole={viewModel?.userInfo.role}
@@ -140,7 +139,6 @@ export const ProductCardModal = observer(props => {
             showBindProductModal={viewModel.showBindProductModal}
             loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
             productsToBind={useProductsPermissions.currentPermissionsData}
-            storekeepersData={viewModel?.storekeepersData}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
@@ -163,6 +161,7 @@ export const ProductCardModal = observer(props => {
               )
             }
             onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
+            onRemoveSupplier={viewModel?.onRemoveSupplier}
           />
         )}
 

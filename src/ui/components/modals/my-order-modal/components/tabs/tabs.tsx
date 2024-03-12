@@ -74,12 +74,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.LIST_O_FSUPPLIERS}>
-        <ListSuppliers
-          readOnly
-          formFields={formFields}
-          storekeepers={storekeepers}
-          platformSettings={platformSettings}
-        />
+        <ListSuppliers readOnly formFields={formFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BOXES_TO_ORDER}>

@@ -60,10 +60,8 @@ export const ProductWrapper = memo(
     productBase,
     userRole,
     modal,
-    storekeepersData,
     handleSupplierButtons,
     formFieldsValidationErrors,
-    platformSettings,
     onClickSetProductStatusBtn,
     onChangeField,
     actionStatus,
@@ -83,6 +81,7 @@ export const ProductWrapper = memo(
     onClickSubmitSearch,
     onClickSaveSupplierBtn,
     onSaveForceProductData,
+    onRemoveSupplier,
   }) => {
     const { classes: styles } = useStyles()
 
@@ -144,7 +143,6 @@ export const ProductWrapper = memo(
             <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
                 languageTag={SettingsModel.languageTag}
-                platformSettings={platformSettings}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
@@ -165,7 +163,6 @@ export const ProductWrapper = memo(
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
-                storekeepersData={storekeepersData}
                 onClickSubmitSearch={onClickSubmitSearch}
                 onClickNextButton={onClickNextButton}
                 onTriggerOpenModal={onTriggerOpenModal}
@@ -178,6 +175,7 @@ export const ProductWrapper = memo(
                 onClickHsCode={onClickHsCode}
                 onClickSaveSupplierBtn={onClickSaveSupplierBtn}
                 onSaveForceProductData={onSaveForceProductData}
+                onRemoveSupplier={onRemoveSupplier}
               />
               {!checkIsResearcher(curUserRole) && (
                 <BottomCard

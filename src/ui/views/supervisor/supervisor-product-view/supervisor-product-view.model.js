@@ -8,7 +8,6 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
 import { UserModel } from '@models/user-model'
@@ -43,13 +42,9 @@ export class SupervisorProductViewModel {
   imagesForLoad = []
   uploadedImages = []
 
-  storekeepersData = []
-
   product = undefined
   productId = undefined
   productBase = undefined
-
-  platformSettings = undefined
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
@@ -96,8 +91,6 @@ export class SupervisorProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
-    this.getPlatformSettings()
-
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -110,8 +103,6 @@ export class SupervisorProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
-
-      this.getStorekeepers()
     } catch (error) {
       console.log(error)
     }
@@ -221,30 +212,6 @@ export class SupervisorProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
     } else {
       this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.error(error)
     }
   }
 

@@ -16,6 +16,10 @@ export const useStyles = makeStyles()(() => ({
   },
 
   currentSupplierBackground: {
-    background: 'rgba(245, 0, 87, 0.08)',
+    background: 'rgba(0, 64, 0, 0.2)',
+  },
+
+  selectedSupplierBackground: {
+    background: 'rgba(245, 0, 87, 0.1)',
   },
 }))
