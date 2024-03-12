@@ -7,11 +7,10 @@ import { mapProductStrategyStatusEnum } from '@constants/product/product-strateg
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  BarcodeCell,
+  ChangeChipCell,
   ChangeInputCell,
   CommentOfSbCell,
   FourMonthesStockCell,
-  HsCodeCell,
   InStockCell,
   ManyUserLinkCell,
   MultilineStatusCell,
@@ -303,8 +302,17 @@ export const clientInventoryColumns = (
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      renderCell: params => <BarcodeCell product={params.row} handlers={barCodeHandlers} />,
-      width: 120,
+      renderCell: ({ row }) => (
+        <ChangeChipCell
+          text={t(TranslationKey.BarCode)}
+          value={row?.barCode}
+          onClickChip={() => barCodeHandlers.onClickBarcode(row)}
+          onDoubleClickChip={() => barCodeHandlers.onDoubleClickBarcode(row)}
+          onDeleteChip={!row?.barCode ? undefined : () => barCodeHandlers.onDeleteBarcode(row)}
+        />
+      ),
+
+      width: 150,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -312,8 +320,17 @@ export const clientInventoryColumns = (
       field: 'hsCode',
       headerName: 'HS code',
       renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
-      renderCell: params => <HsCodeCell product={params.row} handlers={hsCodeHandlers} />,
-      width: 120,
+      renderCell: ({ row }) => (
+        <ChangeChipCell
+          text={t(TranslationKey['HS code'])}
+          value={row?.hsCode}
+          onClickChip={() => hsCodeHandlers.onClickHsCode(row)}
+          onDoubleClickChip={() => hsCodeHandlers.onDoubleClickHsCode(row)}
+          onDeleteChip={!row?.hsCode ? undefined : () => hsCodeHandlers.onDeleteHsCode(row)}
+        />
+      ),
+
+      width: 150,
       disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,

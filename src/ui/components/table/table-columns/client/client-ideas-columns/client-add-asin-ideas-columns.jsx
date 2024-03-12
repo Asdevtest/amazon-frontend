@@ -3,7 +3,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   AddAsinIdeaActionsCell,
-  BarcodeCell,
+  ChangeChipCell,
   IdeaRequestsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -90,19 +90,22 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => {
+      const product = params.row.originalData.variation
+        ? params.row?.originalData?.childProduct
+        : params.row?.originalData?.parentProduct
+
       return (
-        <BarcodeCell
+        <ChangeChipCell
           disabled={params.row.originalData.variation && !params.row.originalData.childProduct}
-          product={
-            params.row.originalData.variation
-              ? params.row?.originalData?.childProduct
-              : params.row?.originalData?.parentProduct
-          }
-          handlers={rowHandlers.barCodeHandlers}
+          text={t(TranslationKey.BarCode)}
+          value={product?.barCode}
+          onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
+          onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
+          onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
         />
       )
     },
-    width: 113,
+    width: 150,
     sortable: false,
     filterable: false,
   },

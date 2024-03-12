@@ -70,7 +70,7 @@ export const getTariffRateForBoxOrOrder = box => {
     return 0
   }
 
-  return box?.variationTariff?.pricePerKgUsd
+  return box?.variationTariff?.pricePerKgUsd || 0
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>
