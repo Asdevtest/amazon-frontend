@@ -187,6 +187,7 @@ export class CreateOrEditRequestViewModel {
             },
 
             onCancel: () => {
+              this.onTriggerOpenModal('showConfirmModal')
               this.pushSuccess()
             },
           }

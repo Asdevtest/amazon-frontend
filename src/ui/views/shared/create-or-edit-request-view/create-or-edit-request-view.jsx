@@ -80,7 +80,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
         // @ts-ignore
         isWarning={viewModel.confirmModalSettings?.isWarning}
         openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        setOpenModal={viewModel.confirmModalSettings.onCancel}
         title={t(TranslationKey.Attention)}
         message={viewModel.confirmModalSettings.message}
         smallMessage={viewModel.confirmModalSettings.smallMessage}
