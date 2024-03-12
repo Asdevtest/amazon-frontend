@@ -189,10 +189,13 @@ export const getTableByColumn = (column, hint) => {
       'batchHumanFriendlyId',
       'proposalSub',
       'quantityBoxes',
+      'updatedAt',
     ].includes(column)
   ) {
     if (
-      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes'].includes(column) &&
+      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
+        column,
+      ) &&
       hint === 'batches'
     ) {
       return 'batches'
