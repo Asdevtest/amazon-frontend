@@ -15,7 +15,7 @@ interface TagsCellProps {
 }
 
 export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.tags}>
@@ -26,7 +26,7 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag }) => {
         return (
           <button key={el._id} onClick={() => onClickTag?.(el)}>
             <Tooltip title={!isValidTextLength ? createTagText : ''}>
-              <p className={styles.tagItem}>
+              <p className={cx(styles.tagItem, { [styles.activeButton]: !!onClickTag })}>
                 {createTagText}
                 {index !== tags.length - 1 && ', '}
               </p>

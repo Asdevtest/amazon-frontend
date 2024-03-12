@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   tags: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,5 +16,12 @@ export const useStyles = makeStyles()(() => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  },
+
+  activeButton: {
+    color: theme.palette.primary.main,
+    ':hover': {
+      transform: 'scale(1.05)',
+    },
   },
 }))

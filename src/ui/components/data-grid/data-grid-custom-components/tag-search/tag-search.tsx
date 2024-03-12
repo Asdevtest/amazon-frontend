@@ -39,7 +39,7 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
   }
 
   useEffect(() => {
-    setTagsWithoutActiveTags(tagList.filter(item => !activeTags.some(el => el?._id === item?._id)))
+    setTagsWithoutActiveTags(filteredItems.filter(item => !activeTags.some(el => el?._id === item?._id)))
   }, [filteredItems, activeTags])
 
   return (
