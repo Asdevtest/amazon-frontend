@@ -26,7 +26,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { CustomPlusIcon, DownloadRoundIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadFileByLink } from '@utils/upload-files'
@@ -82,7 +82,7 @@ export const FieldsAndSuppliers = memo(props => {
       !product.archive)
   )
   const seoFileValue = product?.latestSeoFiles[0]
-    ? getAmazonImageUrl(product?.latestSeoFiles[0])
+    ? getFileNameFromUrl(product?.latestSeoFiles[0]).name
     : t(TranslationKey['Not available'])
 
   return (

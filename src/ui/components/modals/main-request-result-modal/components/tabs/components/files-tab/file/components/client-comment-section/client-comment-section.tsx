@@ -26,7 +26,11 @@ export const ClientCommentSection: FC<ClientCommentSectionProps> = memo(props =>
   const { classes: styles, cx } = useStyles()
 
   return isClient ? (
-    <button className={styles.commenButton} onClick={() => onToggleCommentModal(file)}>
+    <button
+      disabled={!file.commentByClient && readOnly}
+      className={styles.commentButton}
+      onClick={() => onToggleCommentModal(file)}
+    >
       {file.commentByClient || readOnly ? (
         <EyeIcon className={styles.icon} />
       ) : (

@@ -1,13 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  commenButton: {
+  commentButton: {
     padding: '2px 0',
     width: 109,
     display: 'flex',
     alignItems: 'center',
     gap: 5,
     overflow: 'hidden',
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'auto',
+    },
   },
 
   icon: {

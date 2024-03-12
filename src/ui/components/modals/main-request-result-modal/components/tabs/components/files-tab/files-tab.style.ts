@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
 
   files: {
     position: 'relative',
-    padding: 5,
+    padding: 3,
     height: 175,
     display: 'flex',
     flexWrap: 'wrap',

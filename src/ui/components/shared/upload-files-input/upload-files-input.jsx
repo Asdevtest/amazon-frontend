@@ -27,6 +27,7 @@ import { isString } from '@typings/guards'
 import { useStyles } from './upload-files-input.style'
 
 import { VideoPlayer } from '../video-player'
+import { VideoPreloader } from '../video-player/video-preloader'
 
 import { maxSizeInBytes, regExpUriChecking } from './upload-files-input.constants'
 
@@ -299,12 +300,11 @@ export const UploadFilesInput = observer(props => {
                         classes={{ popper: styles.imgTooltip }}
                       >
                         {isCurrentFileVideoType ? (
-                          <div className={styles.preloaderContainer}>
-                            <VideoPlayer videoSource={currentImage} height={55} />
-                            <div className={styles.preloader}>
-                              <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
-                            </div>
-                          </div>
+                          <VideoPreloader
+                            videoSource={currentImage}
+                            height={55}
+                            wrapperClassName={styles.preloaderWrapper}
+                          />
                         ) : (
                           <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
                         )}
