@@ -141,6 +141,10 @@ export class CreateOrEditRequestViewModel {
     })
   }
 
+  goBack() {
+    this.history.push('/client/freelance/my-requests')
+  }
+
   async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
       if (files.length) {
@@ -187,7 +191,6 @@ export class CreateOrEditRequestViewModel {
             },
 
             onCancel: () => {
-              this.onTriggerOpenModal('showConfirmModal')
               this.pushSuccess()
             },
           }
