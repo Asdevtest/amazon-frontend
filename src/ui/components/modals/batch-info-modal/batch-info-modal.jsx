@@ -24,7 +24,12 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
-import { calcVolumeWeightForBox, checkActualBatchWeightGreaterVolumeBatchWeight } from '@utils/calculation'
+import {
+  calcActualBatchWeight,
+  calcPriceForBox,
+  calcVolumeWeightForBox,
+  checkActualBatchWeightGreaterVolumeBatchWeight,
+} from '@utils/calculation'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
@@ -197,16 +202,16 @@ export const BatchInfoModal = memo(
               placeholder={'0'}
             />
 
-            {/* <Field
+            <Field
               disabled
-              classes={{disabled: styles.disabled}}
+              classes={{ disabled: styles.disabled }}
               containerClasses={cx(styles.sumField, styles.volumeWeightField)}
               inputClasses={cx(styles.infoField, styles.volumeWeightField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Gross weight'])}
               value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
               placeholder={'0'}
-            /> */}
+            />
 
             <Field
               disabled
@@ -265,7 +270,7 @@ export const BatchInfoModal = memo(
             />
 
             <div className={styles.closeFieldsWrapper}>
-              {/* <Field
+              <Field
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
@@ -277,7 +282,7 @@ export const BatchInfoModal = memo(
                   2,
                 )}
                 placeholder={'0'}
-              /> */}
+              />
 
               <Field
                 disabled
