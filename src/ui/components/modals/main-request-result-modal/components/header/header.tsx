@@ -24,7 +24,6 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const currentRequestId = humanFriendlyId ? ` / ID ${humanFriendlyId}` : ''
   const title = `${t(TranslationKey['Result of the request'])}${currentRequestId}`
-  const timeLabel = isClient ? `${t(TranslationKey['Time to check'])}: ` : `${t(TranslationKey['Time to complete'])}: `
 
   return (
     <div className={styles.header}>
@@ -34,10 +33,12 @@ export const Header: FC<HeaderProps> = memo(props => {
       </div>
 
       <div className={styles.flexContainer}>
-        <p className={styles.text}>
-          <span className={styles.textSecond}>{timeLabel}</span>
-          <span className={styles.bold}>{minsToTime(executionTime)}</span>
-        </p>
+        {!isClient ? (
+          <p className={styles.text}>
+            <span className={styles.textSecond}>{`${t(TranslationKey['Time to complete'])}: `}</span>
+            <span className={styles.bold}>{minsToTime(executionTime)}</span>
+          </p>
+        ) : null}
 
         <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} textStyles={styles.text} />
       </div>
