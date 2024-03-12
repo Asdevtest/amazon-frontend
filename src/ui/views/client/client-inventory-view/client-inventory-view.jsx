@@ -67,6 +67,8 @@ export const ClientInventoryView = observer(({ history }) => {
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
     (!!params.row.ideasOnCheck && styles.ideaRowYellow)
 
+  console.log('columnsModel :>> ', viewModel.columnsModel)
+
   return (
     <>
       <Header
@@ -125,7 +127,7 @@ export const ClientInventoryView = observer(({ history }) => {
 
               sortSettings: {
                 sortModel: viewModel.sortModel,
-                getCustomSortFields: viewModel.getCustomSortFields,
+                columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
             },

@@ -23,7 +23,6 @@ export const observerConfig = {
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
-  getCustomSortFields: action.bound,
 
   showOrderModal: observable,
   showSuccessModal: observable,
