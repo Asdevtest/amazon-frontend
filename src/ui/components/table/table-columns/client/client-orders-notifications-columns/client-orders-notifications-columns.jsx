@@ -154,7 +154,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 120,
+    width: 160,
     renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
   },
 
