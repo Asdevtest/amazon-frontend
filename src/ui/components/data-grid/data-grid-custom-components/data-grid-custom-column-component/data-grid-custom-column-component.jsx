@@ -201,6 +201,8 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.shared.TAGS,
     ].includes(currentColumn.columnKey)
   ) {
+    const isTagsColumn = currentColumn.columnKey === columnnsKeys.shared.TAGS
+
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem
@@ -209,7 +211,8 @@ export const DataGridCustomColumnMenuComponent = props => {
             columnnsKeys.client.INVENTORY_SHOPS,
             columnnsKeys.shared.TAGS,
           ].includes(currentColumn.columnKey)}
-          nullObjName={[columnnsKeys.shared.TAGS].includes(currentColumn.columnKey) && t(TranslationKey.Empty)}
+          nullObjName={isTagsColumn ? t(TranslationKey.Empty) : undefined}
+          nullObjKey={isTagsColumn ? 'title' : 'name'}
           data={props[currentColumn.field]}
           field={currentColumn.field}
           table={currentColumn.table}
