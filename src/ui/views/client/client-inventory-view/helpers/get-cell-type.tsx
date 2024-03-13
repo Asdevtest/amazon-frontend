@@ -20,7 +20,7 @@ export const getCellType = (column: string, table: string) => {
   if (numberCells.includes(column)) {
     return {
       field: validFieldName,
-      headerName: () => headerName,
+      headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
       renderCell: (params: GridRenderCellParams) => {
@@ -33,7 +33,7 @@ export const getCellType = (column: string, table: string) => {
   } else if (textCells.includes(column)) {
     return {
       field: validFieldName,
-      headerName: () => headerName,
+      headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
 
       renderCell: (params: GridRenderCellParams) => {
@@ -46,7 +46,7 @@ export const getCellType = (column: string, table: string) => {
   } else if (dateCells.includes(column)) {
     return {
       field: validFieldName,
-      headerName: () => headerName,
+      headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
       renderCell: (params: GridRenderCellParams) => (
         <NormDateCell dateWithoutTime value={params.row?.[table]?.[column]} />

@@ -6,8 +6,6 @@ import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
 
-import { isFunction } from '@typings/guards'
-
 import { useStyles } from './default-table-settings.style'
 
 import { IColumsBtnSettings } from '../../type'
@@ -24,11 +22,9 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
 
   const isSomeItemChecked = columnVisibilityModel && Object.values(columnVisibilityModel).some(el => el === false)
 
-  const itemsForRender = columnsModel.filter(item => {
-    const compareValue = isFunction(item?.headerName) ? item?.headerName() : item?.headerName
-
-    return compareValue?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
-  })
+  const itemsForRender = columnsModel.filter(item =>
+    item?.headerName?.toLowerCase()?.includes(nameSearchValue?.toLowerCase()),
+  )
 
   const onClickAllItemBtn = () =>
     onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur?.field]: isSomeItemChecked }), {}))
@@ -47,19 +43,15 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
         </p>
       </Checkbox>
 
-      {itemsForRender.map((el, index) => {
-        const title = isFunction(el?.headerName) ? el?.headerName() : el?.headerName
-
-        return (
-          <Checkbox
-            key={index}
-            checked={columnVisibilityModel?.[el?.field] !== false}
-            onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
-          >
-            {title}
-          </Checkbox>
-        )
-      })}
+      {itemsForRender.map((el, index) => (
+        <Checkbox
+          key={index}
+          checked={columnVisibilityModel?.[el?.field] !== false}
+          onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
+        >
+          {el?.headerName}
+        </Checkbox>
+      ))}
     </div>
   )
 })

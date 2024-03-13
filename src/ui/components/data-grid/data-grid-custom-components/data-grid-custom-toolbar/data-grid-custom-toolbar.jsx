@@ -17,7 +17,7 @@ export const DataGridCustomToolbar = props => {
         <div className={styles.buttons}>
           <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-          <GridToolbarExport size="large" className={styles.text} />
+          <GridToolbarExport size="large" className={styles.text} excelOptions={{ disableToolbarButton: true }} />
 
           {!!resetFiltersBtnSettings?.isSomeFilterOn && (
             <DataGridResetFilterButton
