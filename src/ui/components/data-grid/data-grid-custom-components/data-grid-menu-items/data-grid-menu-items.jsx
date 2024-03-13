@@ -739,6 +739,7 @@ export const ObJectFieldMenuItem = memo(
       filterRequestStatus,
       addNullObj,
       nullObjName,
+      nullObjKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -770,7 +771,7 @@ export const ObJectFieldMenuItem = memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       const filteredDataWithNull = addNullObj
-        ? [{ name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
+        ? [{ [nullObjKey]: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
         : filterData
 
       const sortedData = filteredDataWithNull

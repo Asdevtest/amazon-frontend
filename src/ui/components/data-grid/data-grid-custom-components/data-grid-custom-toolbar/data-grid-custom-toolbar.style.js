@@ -1,8 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
+  wrapperToolbar: {
+    width: '100%',
+    padding: '5px',
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+
   toolbar: {
-    padding: '5px 5px 0',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

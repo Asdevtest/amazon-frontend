@@ -36,6 +36,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
+  TAGS,
   additionalFilterFields,
   defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
@@ -58,6 +59,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   batchesData = []
 
   presetsData = []
+  productsTags = []
+  activeProductsTags = []
 
   receivedFiles = undefined
 
@@ -221,6 +224,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -497,6 +501,27 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
+  }
+
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
+    this.columnMenuSettings?.onClickAccept()
+  }
+
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
+    }
+
+    this.setActiveProductsTag(newTags)
   }
 
   async getPresets() {

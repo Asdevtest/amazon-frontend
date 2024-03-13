@@ -2,16 +2,23 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useDebounce } from '@hooks/use-debounce'
 
-export interface IItem {
+export interface IBaseItem {
   _id: string
+}
+
+export interface IItem extends IBaseItem {
   name: string
 }
 
-export const useSelect = (items: IItem[], currentItemName?: string) => {
+export interface IItemWithTitle extends IBaseItem {
+  title: string
+}
+
+export const useSelect = <T extends IItem | IItemWithTitle>(items: T[], currentItemName?: string) => {
   const selectRef = useRef<HTMLDivElement | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItemName, setSelectedItemName] = useState<string | undefined>(undefined)
-  const [filteredItems, setFilteredItems] = useState<IItem[]>([])
+  const [filteredItems, setFilteredItems] = useState<T[]>([])
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue)
 
@@ -24,7 +31,11 @@ export const useSelect = (items: IItem[], currentItemName?: string) => {
   }, [currentItemName, items])
 
   useEffect(() => {
-    const filtered = items.filter(item => item.name.toLowerCase().includes(debouncedSearchValue.toLowerCase()))
+    const filtered = items.filter(item => {
+      const currentItem = 'name' in item ? item?.name : item?.title
+
+      return currentItem?.toLowerCase().includes(debouncedSearchValue.toLowerCase())
+    })
 
     setFilteredItems(filtered)
   }, [debouncedSearchValue, items])
