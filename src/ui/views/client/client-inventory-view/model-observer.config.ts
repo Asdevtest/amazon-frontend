@@ -23,8 +23,6 @@ export const observerConfig = {
   platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
-  productsTags: observable,
-  activeProductsTags: observable,
 
   showOrderModal: observable,
   showSuccessModal: observable,
@@ -119,6 +117,5 @@ export const observerConfig = {
   onClickShowProduct: action.bound,
   setDestinationsFavouritesItem: action.bound,
   loadData: action.bound,
-  getCustomSortFields: action.bound,
   setActiveProductsTag: action.bound,
 }

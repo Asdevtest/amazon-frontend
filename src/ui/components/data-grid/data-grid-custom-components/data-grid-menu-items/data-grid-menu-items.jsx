@@ -739,6 +739,7 @@ export const ObJectFieldMenuItem = memo(
       filterRequestStatus,
       addNullObj,
       nullObjName,
+      nullObjKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -769,38 +770,38 @@ export const ObJectFieldMenuItem = memo(
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
+      const filteredDataWithNull = addNullObj
+        ? [{ [nullObjKey]: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
+        : filterData
+
+      const sortedData = filteredDataWithNull
+        .filter(el => el)
+        .sort((a, b) => {
+          const isBNull = b._id === 'null'
+          const isANull = a._id === 'null'
+
+          return (
+            Number(isBNull) - Number(isANull) ||
+            Number(choosenItems?.some(item => item._id === b._id)) -
+              Number(choosenItems?.some(item => item._id === a._id))
+          )
+        })
+
       useEffect(() => {
-        const filteredDataWithNull = addNullObj
-          ? [{ name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
-          : filterData
-
-        const sortedData = filteredDataWithNull
-          .filter(el => el)
-          .sort((a, b) => {
-            const isBNull = b._id === 'null'
-            const isANull = a._id === 'null'
-
-            return (
-              Number(isBNull) - Number(isANull) ||
-              Number(choosenItems?.some(item => item._id === b._id)) -
-                Number(choosenItems?.some(item => item._id === a._id))
-            )
-          })
-
         setItemsForRender(sortedData)
       }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj => {
-            const title = obj.title || obj.name
+          const filter = sortedData?.filter(obj => {
+            const title = obj?.title || obj?.name || ''
 
-            return title.toLowerCase().includes(nameSearchValue.toLowerCase())
+            return title?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
           })
 
           setItemsForRender(filter)
         } else {
-          setItemsForRender(filterData)
+          setItemsForRender(sortedData)
         }
       }, [nameSearchValue])
 
@@ -2886,33 +2887,27 @@ export const BatchTrackingCellMenuItem = memo(
     } = props
     const [currentTab, setCurrentTab] = useState(field)
 
-    useEffect(() => {
-      onClickFilterBtn(currentTab)
-    }, [currentTab])
-
     return (
-      <div title="" className={styles.shopsDataWrapper}>
-        <div>
-          <FormControl className={styles.formControl}>
-            <RadioGroup
-              row
-              className={cx(styles.radioGroupTwoItems)}
-              value={currentTab}
-              onChange={event => setCurrentTab(event.target.value)}
-            >
-              {batchTrackingTabs.map((el, index) => (
-                <FormControlLabel
-                  key={index}
-                  title={el.label}
-                  className={styles.radioOption}
-                  value={el.value}
-                  control={<Radio className={styles.radioControl} />}
-                  label={el.label}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-        </div>
+      <div>
+        <FormControl className={cx(styles.formControl, styles.batchTrackingFormWrapper)}>
+          <RadioGroup
+            row
+            className={cx(styles.radioGroupTwoItems)}
+            value={currentTab}
+            onChange={event => setCurrentTab(event.target.value)}
+          >
+            {batchTrackingTabs.map((el, index) => (
+              <FormControlLabel
+                key={index}
+                title={el.label}
+                className={styles.radioOption}
+                value={el.value}
+                control={<Radio className={styles.radioControl} />}
+                label={el.label}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
 
         {currentTab === batchTrackingTabs[0].value && (
           <NormalFieldMenuItem

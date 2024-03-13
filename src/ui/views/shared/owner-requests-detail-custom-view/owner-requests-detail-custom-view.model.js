@@ -44,6 +44,7 @@ export class OwnerRequestDetailCustomViewModel {
   showRequestDesignerResultClientModal = false
   showReviewModal = false
   showResultToCorrectFormModal = false
+  readOnlyRequestDesignerResultClientForm = true
 
   confirmModalSettings = {
     isWarning: false,
@@ -268,6 +269,12 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
+  }
+
+  onReadOnlyRequestDesignerResultClientForm() {
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async onClickProposalResultAcceptForm(proposalId, data) {
@@ -287,6 +294,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickProposalResultToCorrect() {
     if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      this.readOnlyRequestDesignerResultClientForm = false
     } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
       this.onTriggerOpenModal('showResultToCorrectFormModal')
     } else {
@@ -330,6 +338,8 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async getCustomProposalsForRequestCur() {

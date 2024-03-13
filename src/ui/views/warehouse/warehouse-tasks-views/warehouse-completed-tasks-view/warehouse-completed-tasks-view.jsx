@@ -43,7 +43,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
-              viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
+              viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
                 .operationType !== TaskOperationType.RECEIVE
             }
             onClick={viewModel.onClickReportBtn}

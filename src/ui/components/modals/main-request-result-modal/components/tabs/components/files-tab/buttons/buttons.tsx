@@ -8,7 +8,7 @@ import { DownloadArchiveIcon, DownloadRoundIcon } from '@components/shared/svg-i
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './buttons.style'
 
@@ -19,6 +19,7 @@ interface ButtonsProps {
   disabledArchiveButton: boolean
   showUpdateSeoFilesInProductButton: boolean
   disabledUpdateSeoFilesInProductButton: boolean
+  errorUpdateSeoFilesInProduct: boolean
   onDownloadAllFiles: () => void
   onCheckAllFiles: () => void
   onDownloadArchive: () => void
@@ -33,6 +34,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
     disabledArchiveButton,
     showUpdateSeoFilesInProductButton,
     disabledUpdateSeoFilesInProductButton,
+    errorUpdateSeoFilesInProduct,
     onDownloadAllFiles,
     onCheckAllFiles,
     onDownloadArchive,
@@ -40,6 +42,10 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
   } = props
 
   const { classes: styles } = useStyles()
+
+  const seoButtonText = errorUpdateSeoFilesInProduct
+    ? t(TranslationKey['Select only one SEO file'])
+    : t(TranslationKey['Update SEO files in the product'])
 
   return (
     <div className={styles.wrapper}>
@@ -67,9 +73,10 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
             disabled={disabledUpdateSeoFilesInProductButton}
             className={styles.button}
             variant={ButtonVariant.OUTLINED}
+            styleType={errorUpdateSeoFilesInProduct ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
             onClick={onUpdateSeoIFilesInProduct}
           >
-            {t(TranslationKey['Update SEO files in the product'])}
+            {seoButtonText}
           </Button>
         ) : null}
       </div>

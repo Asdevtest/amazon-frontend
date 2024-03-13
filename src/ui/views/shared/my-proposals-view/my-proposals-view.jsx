@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
@@ -115,14 +115,13 @@ export const MyProposalsView = observer(({ history }) => {
       />
 
       <Modal
-        openModal={viewModel.showRequestDesignerResultClientModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        openModal={viewModel.showRequestDesignerResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
       >
-        <RequestDesignerResultClientForm
-          userInfo={viewModel.userInfo}
-          request={viewModel.currentRequest}
+        <RequestDesignerResultForm
           proposal={viewModel.currentProposal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+          onClickSendAsResult={viewModel.onClickSendAsResult}
         />
       </Modal>
 

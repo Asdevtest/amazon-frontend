@@ -133,7 +133,7 @@ export const ClientInventoryView = observer(({ history }) => {
 
               sortSettings: {
                 sortModel: viewModel.sortModel,
-                getCustomSortFields: viewModel.getCustomSortFields,
+                columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
 

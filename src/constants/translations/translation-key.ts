@@ -2212,5 +2212,7 @@ export enum TranslationKey {
   'Package dimensions' = 'Package dimensions',
   'Add at least 4 photos' = 'Add at least 4 photos',
   'Update SEO files in the product' = 'Update SEO files in the product',
+  'Select only one SEO file' = 'Select only one SEO file',
+  'SEO file' = 'SEO file',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
