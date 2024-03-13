@@ -1,3 +1,4 @@
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -25,7 +26,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
-        isSecondButton
+        isSecondButton={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey['Take the task to work'])}
         firstButtonElement={t(TranslationKey['Get to work'])}

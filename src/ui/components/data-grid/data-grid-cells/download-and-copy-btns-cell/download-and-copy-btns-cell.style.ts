@@ -5,7 +5,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 15,
     width: '100%',
   },
 

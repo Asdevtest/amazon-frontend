@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    margin: '24px 0 4px',
+    margin: '10px 0 5px',
 
     color: theme.palette.text.general,
   },
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
   filtersWrapper: {
     display: 'flex',
     alignItems: 'center',
-    margin: '20px 0 13px',
+    margin: '10px 0 10px',
   },
 
   betweenChipsText: {

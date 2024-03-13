@@ -1,25 +1,24 @@
 import { FC, memo } from 'react'
 
-import { GridSortModel } from '@mui/x-data-grid-pro'
-
-import { IItem } from '@hooks/use-select'
+import { GridColDef, GridSortModel } from '@mui/x-data-grid-pro'
 
 import { useStyles } from './sort-settings.style'
 
+import { getSelectData } from './helpers/get-select-data'
 import { SelectSortSettings } from './select-sort-settings'
 import { SortIndicator } from './sort-indicator'
 import { SortSettingsMode } from './sort-settings.type'
 
 interface SortSettingsProps {
   sortModel: GridSortModel
-  getCustomSortFields: () => IItem[]
+  columnsModel: GridColDef[]
   onSortModelChange: (sortModel: GridSortModel) => void
 }
 
 export const SortSettings: FC<SortSettingsProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { sortModel, getCustomSortFields, onSortModelChange } = props
+  const { sortModel, columnsModel, onSortModelChange } = props
 
   const currentSortModel = sortModel?.[0]
 
@@ -38,7 +37,7 @@ export const SortSettings: FC<SortSettingsProps> = memo(props => {
 
       <SelectSortSettings
         sortField={currentSortModel?.field}
-        customSortFields={getCustomSortFields()}
+        customSortFields={getSelectData(columnsModel)}
         onClickField={onSortModelChangeHandler}
       />
     </div>
