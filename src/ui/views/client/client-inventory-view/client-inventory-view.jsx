@@ -28,7 +28,6 @@ import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-st
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
 import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -296,25 +295,6 @@ export const ClientInventoryView = observer(({ history }) => {
           selectedProduct={viewModel.selectedProduct}
           onSubmit={viewModel.onClickSaveFourMonthesStockValue}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetFourMonthsStockValueModal')}
-        />
-      </Modal>
-
-      <Modal
-        missClickModalOn
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          outsideProduct
-          paymentMethods={viewModel.paymentMethods}
-          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Add a new supplier'])}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-          onClickPrevButton={viewModel.onClickPrevButton}
-          onClickSaveBtn={viewModel.onSubmitSaveSupplier}
         />
       </Modal>
 

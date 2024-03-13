@@ -75,7 +75,7 @@ export const PrivateRoutes = observer(() => {
           ) : (
             <Redirect to={'/auth'} />
           )
-        ) : undefined}
+        ) : null}
       </>
     )
   }

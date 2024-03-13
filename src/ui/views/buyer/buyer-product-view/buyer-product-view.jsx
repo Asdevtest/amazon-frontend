@@ -7,7 +7,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
 
@@ -26,7 +25,6 @@ export const BuyerProductView = observer(({ history }) => {
     <>
       {viewModel.product ? (
         <ProductWrapper
-          platformSettings={viewModel.platformSettings}
           showTab={viewModel.showTab}
           user={viewModel.userInfo}
           userRole={viewModel.userInfo.role}
@@ -35,43 +33,16 @@ export const BuyerProductView = observer(({ history }) => {
           productBase={viewModel.productBase}
           productVariations={viewModel.productVariations}
           navigateToProduct={viewModel.navigateToProduct}
-          selectedSupplier={viewModel.selectedSupplier}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-          handleSupplierButtons={viewModel.onClickSupplierButtons}
           handleProductActionButtons={viewModel.handleProductActionButtons}
-          showSupplierApproximateCalculationsModal={viewModel.showSupplierApproximateCalculationsModal}
-          storekeepersData={viewModel?.storekeepersData}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          onClickSupplierApproximateCalculations={viewModel.onClickSupplierApproximateCalculations}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
-          onClickSupplier={viewModel.onChangeSelectedSupplier}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}
           onClickHsCode={viewModel.onClickHsCode}
+          onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+          onRemoveSupplier={viewModel.onRemoveSupplier}
         />
-      ) : undefined}
-
-      <Modal
-        missClickModalOn={!viewModel.supplierModalReadOnly}
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel.paymentMethods}
-          product={viewModel.product}
-          storekeepersData={viewModel.storekeepersData}
-          onlyRead={viewModel.supplierModalReadOnly}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel.selectedSupplier}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
-        />
-      </Modal>
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}

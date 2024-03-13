@@ -21,8 +21,6 @@ export class ClientOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  selectedSupplier = undefined
-
   orderId = undefined
   orderBoxes = []
 
@@ -45,8 +43,6 @@ export class ClientOrderViewModel {
   showOrderModal = false
 
   ordersDataStateToSubmit = undefined
-
-  showAddOrEditSupplierModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -76,6 +72,8 @@ export class ClientOrderViewModel {
     const url = new URL(window.location.href)
     this.orderId = url.searchParams.get('orderId')
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -85,7 +83,6 @@ export class ClientOrderViewModel {
 
       await this.getStorekeepers()
       await this.getDestinations()
-      this.getPlatformSettings()
       await this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
 
@@ -116,28 +113,6 @@ export class ClientOrderViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
-      } else {
-        this.getStorekeepers()
-      }
-
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-    } catch (error) {
       console.log(error)
     }
   }
@@ -226,10 +201,9 @@ export class ClientOrderViewModel {
     })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
+
     runInAction(() => {
-      runInAction(() => {
-        this.selectedProduct = undefined
-      })
+      this.selectedProduct = undefined
     })
   }
 

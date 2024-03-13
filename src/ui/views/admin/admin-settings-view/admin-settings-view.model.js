@@ -1,19 +1,10 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 export class AdminSettingsViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
-
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
-  showNoSuplierErrorModal = false
-  showConfirmModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }

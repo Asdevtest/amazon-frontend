@@ -141,7 +141,7 @@ export const RightSideComments = memo(
                     >
                       {t(TranslationKey.Delete)}
                     </Button>
-                  ) : undefined}
+                  ) : null}
 
                   {product?.status ===
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&

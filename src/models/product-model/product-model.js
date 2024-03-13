@@ -2,7 +2,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ProductModelStatic {
   getProductById = async guid => {
-    const response = await restApiService.product.apiV1ProductsGuidGet({ guid })
+    const response = await restApiService.product.apiV1ProductsGuidGet({ guid, noCache: true })
     return response.data
   }
 

@@ -84,7 +84,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-  showAddOrEditSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
   showAddSupplierToIdeaFromInventoryModal = false
@@ -288,6 +287,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
 
+    this.getPlatformSettings()
+
     makeObservable(this, observerConfig)
 
     reaction(
@@ -490,7 +491,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.getDataGridState()
       this.getPresets()
       this.getMainTableData()
-      this.getPlatformSettings()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -784,7 +784,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   onClickPrevButton = () => {
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
     this.onTriggerOpenModal('showSelectionSupplierModal')
   }
 
@@ -1032,7 +1031,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitSaveSupplier({ supplier, addMore, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       supplier = {
         ...supplier,
@@ -1084,16 +1083,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       this.onTriggerOpenModal('showInfoModal')
-    } finally {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     }
   }
 
   async onClickAddSupplierButton() {
     try {
       this.getSuppliersPaymentMethods()
-
-      this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
       console.log(error)
     }
