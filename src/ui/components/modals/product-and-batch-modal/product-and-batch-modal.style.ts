@@ -175,9 +175,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    marginTop: 15,
+    marginTop: 10,
     width: '100%',
-    height: 380,
+    height: 360,
   },
 
   button: {

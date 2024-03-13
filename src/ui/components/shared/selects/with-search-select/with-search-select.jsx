@@ -309,7 +309,7 @@ export const WithSearchSelect = memo(
                                 e.stopPropagation()
                               }}
                             />
-                          ) : undefined}
+                          ) : null}
                         </div>
                       </Button>
                     ),

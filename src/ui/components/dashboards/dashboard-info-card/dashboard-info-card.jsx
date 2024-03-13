@@ -37,7 +37,7 @@ export const DashboardInfoCard = observer(
                 {t(TranslationKey['View more'])}
               </Button>
             </div>
-          ) : undefined}
+          ) : null}
         </Paper>
       )
     )

@@ -28,7 +28,7 @@ export const DataGridCustomToolbar = props => {
           <div className={styles.buttons}>
             <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-            <GridToolbarExport size="large" className={styles.text} />
+            <GridToolbarExport size="large" className={styles.text} excelOptions={{ disableToolbarButton: true }} />
 
             {sortSettings ? <SortSettings {...sortSettings} /> : null}
 
@@ -44,7 +44,12 @@ export const DataGridCustomToolbar = props => {
           </div>
         )}
 
-        <div className={cx(styles.buttons, { [styles.flexEnd]: !columsBtnSettings })}>
+        <div
+          className={cx(styles.buttons, {
+            [styles.fullWidth]: !columsBtnSettings,
+            [styles.flexEnd]: !children,
+          })}
+        >
           {children}
           <GridPagination />
         </div>

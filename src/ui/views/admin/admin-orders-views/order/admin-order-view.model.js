@@ -13,11 +13,7 @@ export class AdminOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  selectedSupplier = undefined
-
   platformSettings = undefined
-
-  showAddOrEditSupplierModal = false
 
   orderBoxes = []
   orderId = undefined
@@ -30,10 +26,11 @@ export class AdminOrderViewModel {
   constructor({ history }) {
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.history = history
-      this.orderId = url.searchParams.get('orderId')
-    })
+    this.history = history
+    this.orderId = url.searchParams.get('orderId')
+
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -43,7 +40,6 @@ export class AdminOrderViewModel {
 
       this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
-      this.getPlatformSettings()
 
       const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
@@ -75,37 +71,12 @@ export class AdminOrderViewModel {
     }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
         this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        this.getStorekeepers()
-      }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
       })
     } catch (error) {
       console.log(error)

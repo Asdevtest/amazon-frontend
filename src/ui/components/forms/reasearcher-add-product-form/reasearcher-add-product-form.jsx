@@ -73,12 +73,12 @@ export const ResearcherAddProductFormRaw = observer(
                   </>
                 ) : null}
               </Alert>
-            ) : undefined}
+            ) : null}
             {!errorMsg && actionStatus === loadingStatuses.SUCCESS ? (
               <Alert className={styles.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>
-            ) : undefined}
+            ) : null}
 
             <Box mt={3} className={styles.strategyWrapper}>
               <Field

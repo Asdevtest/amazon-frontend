@@ -11,7 +11,6 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { isFunction } from '@typings/guards'
 
 import { useStyles } from './data-grid-custom-columns-button.style'
 
@@ -55,11 +54,9 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
     )
   }
 
-  const itemsForRender = filteredColumnsModel.filter(item => {
-    const compareValue = isFunction(item?.headerName) ? item?.headerName() : item?.headerName
-
-    return compareValue?.toLowerCase().includes(nameSearchValue.toLowerCase())
-  })
+  const itemsForRender = filteredColumnsModel.filter(item =>
+    item?.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+  )
 
   return (
     <div>
@@ -103,7 +100,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
                 </div>
               </div>
               {itemsForRender.map((el, index) => {
-                const title = isFunction(el?.headerName) ? el?.headerName() : el?.headerName
+                const title = el?.headerName
 
                 return (
                   <div key={index} className={styles.shop}>

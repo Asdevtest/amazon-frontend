@@ -29,7 +29,6 @@ export const observerConfig = {
   showCheckPendingOrderFormModal: observable,
   showSetBarcodeModal: observable,
   showSelectionSupplierModal: observable,
-  showAddOrEditSupplierModal: observable,
   showSendOwnProductModal: observable,
   showBindInventoryGoodsToStockModal: observable,
   showAddSupplierToIdeaFromInventoryModal: observable,

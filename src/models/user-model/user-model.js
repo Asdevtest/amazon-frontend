@@ -8,7 +8,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken']
+const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken', 'platformSettings']
 
 const stateModelName = 'UserModel'
 
@@ -19,6 +19,7 @@ class UserModelStatic {
   userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
   masterUserId = undefined
   isHydrated = false
+  platformSettings = undefined
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -41,6 +42,7 @@ class UserModelStatic {
       this.userInfo = undefined
       this.userId = undefined
       this.masterUserId = undefined
+      this.platformSettings = undefined
     })
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
@@ -114,11 +116,13 @@ class UserModelStatic {
         },
       )
       const response = responseData.data
+      const platformSettings = await this.getPlatformSettings()
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response }
         this.userId = response._id
         this.masterUserId = response.masterUser?._id
+        this.platformSettings = platformSettings
       })
       return response
     } catch (error) {
@@ -144,6 +148,7 @@ class UserModelStatic {
       this.userInfo = undefined
       this.userId = undefined
       this.masterUserId = undefined
+
       ChatModel.disconnect()
 
       SettingsModel.setBreadcrumbsForProfile(null)

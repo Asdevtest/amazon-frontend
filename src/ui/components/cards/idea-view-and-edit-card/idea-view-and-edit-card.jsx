@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -15,7 +12,6 @@ import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -25,6 +21,7 @@ import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { PlusIcon } from '@components/shared/svg-icons'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { deepArrayCompare } from '@utils/array'
@@ -34,11 +31,10 @@ import {
   checkIsBuyer,
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
-  checkIsSupervisor,
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, parseTextString, toFixed } from '@utils/text'
+import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -59,17 +55,13 @@ export const IdeaViewAndEditCard = observer(
     idea,
     curIdea,
     selectedIdea,
-    selectedSupplier,
     currentProduct,
-    platformSettings,
-    // onClickSupplierApproximateCalculations,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
     onEditIdea,
     onCreateProduct,
-    onClickSupplierBtns,
-    onClickSupplier,
+    onClickSaveSupplierBtn,
     onClickCloseIdea,
     onClickAcceptButton,
     onClickRejectButton,
@@ -82,6 +74,7 @@ export const IdeaViewAndEditCard = observer(
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
+    onRemoveSupplier,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -90,7 +83,7 @@ export const IdeaViewAndEditCard = observer(
     const [linkLine, setLinkLine] = useState('')
     const [showFullCard, setShowFullCard] = useState(false)
 
-    const [formFields, setFormFields] = useState({})
+    const [formFields, setFormFields] = useState(undefined)
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
@@ -122,25 +115,25 @@ export const IdeaViewAndEditCard = observer(
 
     useEffect(() => {
       if (showRequestType === RequestSwitherType.REQUESTS_ON_CHECK) {
-        setRequestsToRender(formFields.requestsOnCheck)
+        setRequestsToRender(formFields?.requestsOnCheck)
       } else {
-        setRequestsToRender(formFields.requestsOnFinished)
+        setRequestsToRender(formFields?.requestsOnFinished)
       }
-    }, [showRequestType, formFields.requestsOnCheck, formFields.requestsOnFinished])
+    }, [showRequestType, formFields?.requestsOnCheck, formFields?.requestsOnFinished])
 
     useEffect(() => {
       if (formFields?.productLinks?.length > 2 && linkListRef?.current) {
         linkListRef.current.scrollTo(0, linkListRef.current.scrollHeight)
       }
-    }, [formFields.productLinks])
+    }, [formFields?.productLinks])
 
     const getShortIdea = () => ({
       ...idea,
       _id: idea?._id,
       status: idea?.status,
       media: idea?.linksToMediaFiles?.length ? [...idea.linksToMediaFiles] : [],
-      comments: parseTextString(idea?.comments) || '',
-      buyerComment: parseTextString(idea?.buyerComment) || '',
+      comments: idea?.comments || '',
+      buyerComment: idea?.buyerComment || '',
       childProduct: idea?.childProduct || undefined,
       productLinks: idea?.productLinks || [],
       criteria: idea?.criteria || '',
@@ -155,8 +148,8 @@ export const IdeaViewAndEditCard = observer(
       ...curIdea,
       status: curIdea?.status,
       media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
-      comments: parseTextString(curIdea?.comments) || '',
-      buyerComment: parseTextString(curIdea?.buyerComment) || '',
+      comments: curIdea?.comments || '',
+      buyerComment: curIdea?.buyerComment || '',
       productName: curIdea?.productName || '',
       productLinks: curIdea?.productLinks || [],
       criteria: curIdea?.criteria || '',
@@ -201,7 +194,11 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const onClickLinkBtn = () => {
-      onChangeField('productLinks')({ target: { value: [...formFields.productLinks, linkLine] } })
+      onChangeField('productLinks')({
+        target: {
+          value: [...(formFields?.productLinks ?? []), linkLine],
+        },
+      })
       setLinkLine('')
     }
 
@@ -240,9 +237,9 @@ export const IdeaViewAndEditCard = observer(
 
         setFormFields({
           ...formFields,
-          width: toFixed(formFields.width / multiplier, 2) || 0,
-          height: toFixed(formFields.height / multiplier, 2) || 0,
-          length: toFixed(formFields.length / multiplier, 2) || 0,
+          width: toFixed(formFields?.width / multiplier, 2) || 0,
+          height: toFixed(formFields?.height / multiplier, 2) || 0,
+          length: toFixed(formFields?.length / multiplier, 2) || 0,
         })
 
         setSizeSetting(newAlignment)
@@ -257,16 +254,16 @@ export const IdeaViewAndEditCard = observer(
         fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.width * inchesCoefficient)
-            : formFields.width) || 0,
+            ? roundSafely(formFields?.width * inchesCoefficient)
+            : formFields?.width) || 0,
         height:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.height * inchesCoefficient)
-            : formFields.height) || 0,
+            ? roundSafely(formFields?.height * inchesCoefficient)
+            : formFields?.height) || 0,
         length:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.length * inchesCoefficient)
-            : formFields.length) || 0,
+            ? roundSafely(formFields?.length * inchesCoefficient)
+            : formFields?.length) || 0,
       }
 
       return res
@@ -280,16 +277,16 @@ export const IdeaViewAndEditCard = observer(
         fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.width / inchesCoefficient)
-            : formFields.width) || 0,
+            ? roundSafely(formFields?.width / inchesCoefficient)
+            : formFields?.width) || 0,
         height:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.height / inchesCoefficient)
-            : formFields.height) || 0,
+            ? roundSafely(formFields?.height / inchesCoefficient)
+            : formFields?.height) || 0,
         length:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.length / inchesCoefficient)
-            : formFields.length) || 0,
+            ? roundSafely(formFields?.length / inchesCoefficient)
+            : formFields?.length) || 0,
       }
 
       return res
@@ -297,7 +294,7 @@ export const IdeaViewAndEditCard = observer(
 
     const disabledSubmit =
       (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
-      !formFields.productName
+      !formFields?.productName
 
     const userRole = UserRoleCodeMap[curUser.role]
     const currentUserIsClient = checkIsClient(userRole)
@@ -323,7 +320,7 @@ export const IdeaViewAndEditCard = observer(
       !isVerified &&
       !isClosed &&
       !isRejected &&
-      !(isCardCreating && !formFields.childProduct && formFields.variation) &&
+      !(isCardCreating && !formFields?.childProduct && formFields?.variation) &&
       !(isAddingAsin && (formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode))
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
@@ -332,23 +329,6 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
-    const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
-    const isSupplierCreatedByCurrentUser =
-      curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
-
-    // const boxPropertiesIsFull =
-    //   selectedSupplier?.boxProperties?.amountInBox &&
-    //   selectedSupplier?.boxProperties?.boxLengthCm &&
-    //   selectedSupplier?.boxProperties?.boxWidthCm &&
-    //   selectedSupplier?.boxProperties?.boxHeightCm &&
-    //   selectedSupplier?.boxProperties?.boxWeighGrossKg
-
-    // const boxPropertiesIsFullAndMainsValues =
-    //   boxPropertiesIsFull &&
-    //   selectedSupplier.amount &&
-    //   selectedSupplier.minlot &&
-    //   selectedSupplier.priceInYuan &&
-    //   selectedSupplier.price
 
     return (
       <div className={cx(styles.root, isModalView && styles.rootModal)}>
@@ -360,24 +340,24 @@ export const IdeaViewAndEditCard = observer(
           />
 
           <div className={styles.sourcesProductWraper}>
-            {formFields.childProduct && (
+            {formFields?.childProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Child product'])}
-                img={formFields.childProduct?.images?.[0]}
-                asin={formFields.childProduct?.asin}
-                sku={formFields.childProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields.childProduct?._id)}
+                img={formFields?.childProduct?.images?.[0]}
+                asin={formFields?.childProduct?.asin}
+                sku={formFields?.childProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields.parentProduct) && (
+            {(currentProduct || formFields?.parentProduct) && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields.parentProduct?._id || currentProduct?._id)}
+                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
+                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
+                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
               />
             )}
           </div>
@@ -432,7 +412,7 @@ export const IdeaViewAndEditCard = observer(
                     </div>
                   </div>
 
-                  {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
+                  {(!!formFields?.requestsOnCheck?.length || !!formFields?.requestsOnFinished?.length) && (
                     <div className={styles.requestsWrapper}>
                       {requestsToRender?.map((request, requestIndex) => (
                         <IdeaRequestCard
@@ -467,7 +447,7 @@ export const IdeaViewAndEditCard = observer(
                 labelClasses={styles.spanLabel}
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client comments'])}
-                value={formFields.comments}
+                value={formFields?.comments}
                 sx={{
                   '& .MuiInputBase-inputMultiline': {
                     height: '100% !important',
@@ -485,7 +465,7 @@ export const IdeaViewAndEditCard = observer(
                 className={styles.buyerComment}
                 containerClasses={styles.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
-                value={formFields.buyerComment}
+                value={formFields?.buyerComment}
                 sx={{
                   '& .MuiInputBase-inputMultiline': {
                     height: '100% !important',
@@ -510,7 +490,7 @@ export const IdeaViewAndEditCard = observer(
                       disabled={disableFields}
                       label={`${t(TranslationKey['Product name'])}*`}
                       inputProps={{ maxLength: 130 }}
-                      value={formFields.productName}
+                      value={formFields?.productName}
                       labelClasses={styles.spanLabel}
                       containerClasses={styles.noMarginContainer}
                       className={styles.oneLineField}
@@ -527,7 +507,7 @@ export const IdeaViewAndEditCard = observer(
                       containerClasses={styles.noMarginContainer}
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
-                      value={formFields.criteria}
+                      value={formFields?.criteria}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
@@ -597,7 +577,7 @@ export const IdeaViewAndEditCard = observer(
                         className={styles.oneLineField}
                         containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey.Quantity)}
-                        value={formFields.quantity}
+                        value={formFields?.quantity}
                         onChange={onChangeField('quantity')}
                       />
                       <Field
@@ -607,7 +587,7 @@ export const IdeaViewAndEditCard = observer(
                         inputClasses={styles.shortInput}
                         containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey['Desired purchase price']) + ', $'}
-                        value={formFields.price}
+                        value={formFields?.price}
                         className={styles.oneLineField}
                         onChange={onChangeField('price')}
                       />
@@ -639,7 +619,7 @@ export const IdeaViewAndEditCard = observer(
                             className={styles.oneLineField}
                             containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Width)}
-                            value={formFields.width}
+                            value={formFields?.width}
                             onChange={onChangeField('width')}
                           />
                           <Field
@@ -650,7 +630,7 @@ export const IdeaViewAndEditCard = observer(
                             className={styles.oneLineField}
                             containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Height)}
-                            value={formFields.height}
+                            value={formFields?.height}
                             onChange={onChangeField('height')}
                           />
                           <Field
@@ -661,7 +641,7 @@ export const IdeaViewAndEditCard = observer(
                             className={styles.oneLineField}
                             containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Length)}
-                            value={formFields.length}
+                            value={formFields?.length}
                             onChange={onChangeField('length')}
                           />
                         </div>
@@ -676,7 +656,7 @@ export const IdeaViewAndEditCard = observer(
                           inputClasses={styles.approximateCalculationInput}
                           className={styles.oneLineField}
                           containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
-                          value={formFields.fbaFee}
+                          value={formFields?.fbaFee}
                           onChange={onChangeField('fbaFee')}
                         />
 
@@ -688,7 +668,7 @@ export const IdeaViewAndEditCard = observer(
                           inputClasses={styles.approximateCalculationInput}
                           className={styles.oneLineField}
                           containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
-                          value={formFields.approximatePrice}
+                          value={formFields?.approximatePrice}
                           onChange={onChangeField('approximatePrice')}
                         />
                       </div>
@@ -700,96 +680,14 @@ export const IdeaViewAndEditCard = observer(
           )}
 
           <div className={styles.fullMiddleBlock}>
-            <Field
-              labelClasses={cx(styles.spanLabel, styles.labelWithMargin)}
-              label={t(TranslationKey.Suppliers)}
-              containerClasses={styles.noMarginContainer}
-              inputComponent={
-                <div className={styles.supplierActionsWrapper}>
-                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
-                    <div className={styles.supplierButtonWrapper}>
-                      <Button
-                        disabled={!selectedSupplier}
-                        tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                        className={styles.iconBtn}
-                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
-                      >
-                        <VisibilityOutlinedIcon />
-                      </Button>
-                      <Typography className={styles.supplierButtonText}>
-                        {t(TranslationKey['Open the parameters supplier'])}
-                      </Typography>
-                    </div>
-                  )}
-
-                  <div className={styles.supplierButtonWrapper}>
-                    <Button
-                      disabled={!formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer}
-                      className={styles.iconBtn}
-                      onClick={() =>
-                        onClickSupplierBtns(
-                          'add',
-                          () => onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                          formFields?._id,
-                        )
-                      }
-                    >
-                      <AddIcon />
-                    </Button>
-                    <Typography className={styles.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
-                  </div>
-                  {selectedSupplier && (
-                    <>
-                      <div className={styles.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          className={styles.iconBtn}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'edit',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
-                        <Typography className={styles.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      </div>
-                      <div className={styles.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                          className={cx(styles.iconBtn, styles.iconBtnRemove)}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'delete',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <DeleteOutlineOutlinedIcon />
-                        </Button>
-                        <Typography className={styles.supplierButtonText}>
-                          {t(TranslationKey['Delete supplier'])}
-                        </Typography>
-                      </div>
-                    </>
-                  )}
-                </div>
-              }
-            />
-
-            <TableSupplier
-              product={formFields}
-              selectedSupplier={selectedSupplier}
-              platformSettings={platformSettings}
-              onClickSupplier={onClickSupplier}
-            />
+            {formFields ? (
+              <ListSuppliers
+                formFields={formFields}
+                onClickSaveSupplier={onClickSaveSupplierBtn}
+                onRemoveSupplier={onRemoveSupplier}
+                // onSaveProduct={onClickSupplierBtns}
+              />
+            ) : null}
           </div>
         </div>
 
@@ -888,13 +786,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields._id)}>
+                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
                     {t(TranslationKey['Close idea'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickReoperButton(formFields._id)}>
+                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickReoperButton(formFields?._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
                 )}
@@ -904,7 +802,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields._id)}>
+                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}

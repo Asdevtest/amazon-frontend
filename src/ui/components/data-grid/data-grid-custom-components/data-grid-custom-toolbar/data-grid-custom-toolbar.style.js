@@ -23,8 +23,12 @@ export const useStyles = makeStyles()(() => ({
     gap: 30,
   },
 
-  flexEnd: {
+  fullWidth: {
     width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  flexEnd: {
     justifyContent: 'flex-end',
   },
 

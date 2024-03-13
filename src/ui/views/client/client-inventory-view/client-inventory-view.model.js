@@ -87,7 +87,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-  showAddOrEditSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
   showAddSupplierToIdeaFromInventoryModal = false
@@ -292,38 +291,42 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
 
+    this.getPlatformSettings()
+
     makeObservable(this, observerConfig)
+
+    const getValidColumns = () => {
+      const activeFields = this.presetsData.reduce((acc, el) => {
+        if (el?._id) {
+          acc[el.table] = []
+          for (const field of el.fields) {
+            if (field?.checked) {
+              acc[el.table].push(field?.field)
+            }
+          }
+        }
+
+        return acc
+      }, {})
+
+      const newColumns = clientInventoryColumns(
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+        activeFields,
+      )
+      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+
+      this.columnsModel = newColumns
+      this.filtersFields = newFiltersFields
+      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+    }
 
     reaction(
       () => this.presetsData,
-      () => {
-        const activeFields = this.presetsData.reduce((acc, el) => {
-          if (el?._id) {
-            acc[el.table] = []
-            for (const field of el.fields) {
-              if (field?.checked) {
-                acc[el.table].push(field?.field)
-              }
-            }
-          }
-
-          return acc
-        }, {})
-
-        const newColumns = clientInventoryColumns(
-          barCodeHandlers,
-          hsCodeHandlers,
-          fourMonthesStockHandlers,
-          stockUsHandlers,
-          otherHandlers,
-          activeFields,
-        )
-        const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
-
-        this.columnsModel = newColumns
-        this.filtersFields = newFiltersFields
-        this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
-      },
+      () => getValidColumns(),
     )
   }
 
@@ -494,7 +497,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.getDataGridState()
       this.getPresets()
       this.getMainTableData()
-      this.getPlatformSettings()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -809,7 +811,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   onClickPrevButton = () => {
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
     this.onTriggerOpenModal('showSelectionSupplierModal')
   }
 
@@ -1057,7 +1058,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitSaveSupplier({ supplier, addMore, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       supplier = {
         ...supplier,
@@ -1109,16 +1110,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       this.onTriggerOpenModal('showInfoModal')
-    } finally {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     }
   }
 
   async onClickAddSupplierButton() {
     try {
       this.getSuppliersPaymentMethods()
-
-      this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
       console.log(error)
     }
