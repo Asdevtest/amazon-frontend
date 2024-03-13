@@ -57,7 +57,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
         items
           ?.slice(0, maxItemsDisplay)
           ?.filter(el => el)
-          ?.map((item, i) => <TextWithCopy key={i} text={getShortenStringIfLongerThanCount(item, maxLettersInItem)} />)}
+          ?.map((item, i) => <TextWithCopy key={i} text={item} />)}
 
       {items?.length > maxItemsDisplay && (
         <Button styleType={ButtonStyle.TRANSPARENT} onClick={handleClick}>

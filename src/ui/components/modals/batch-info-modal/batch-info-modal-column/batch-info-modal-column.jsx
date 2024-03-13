@@ -3,11 +3,15 @@ import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActualCostWithDelivery,
+  ActualCostWithDeliveryPerUnit,
+  FinalPricePerUnitCell,
   ManyItemsPriceCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrdersIdsItemsCell,
+  PricePerUnitCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -124,67 +128,67 @@ export const batchInfoModalColumn = (
     width: 100,
   },
 
-  // {
-  //   field: 'pricePerUnit',
-  //   headerName: t(TranslationKey['Price per unit']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
-  //   renderCell: params => <PricePerUnitCell item={params.row} />,
-  //   type: 'number',
-  //   width: 90,
-  // },
+  {
+    field: 'pricePerUnit',
+    headerName: t(TranslationKey['Price per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
+    renderCell: params => <PricePerUnitCell item={params.row} />,
+    type: 'number',
+    width: 90,
+  },
 
-  // {
-  //   field: 'finalPrice',
-  //   headerName: t(TranslationKey['Calculated price']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
-  //   renderCell: params => (
-  //     <FinalPricePerUnitCell
-  //       box={params.row}
-  //       boxFinalWeight={getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-  //         params.row,
-  //         volumeWeightCoefficient,
-  //       )}
-  //     />
-  //   ),
-  //   type: 'number',
-  //   width: 110,
-  // },
+  {
+    field: 'finalPrice',
+    headerName: t(TranslationKey['Calculated price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
+    renderCell: params => (
+      <FinalPricePerUnitCell
+        box={params.row}
+        boxFinalWeight={getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+          params.row,
+          volumeWeightCoefficient,
+        )}
+      />
+    ),
+    type: 'number',
+    width: 110,
+  },
 
-  // {
-  //   field: 'actualCostWithDeliveryPerUnit',
-  //   headerName: t(TranslationKey['Actual cost with delivery per unit']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
-  //   renderCell: params => (
-  //     <ActualCostWithDeliveryPerUnit
-  //       actualShippingCost={actualShippingCost}
-  //       rowMemo={params.row}
-  //       finalWeight={finalWeight}
-  //       calculationMethod={calculationMethod}
-  //       isActualGreaterTheVolume={isActualGreaterTheVolume}
-  //       volumeWeightCoefficient={volumeWeightCoefficient}
-  //     />
-  //   ),
-  //   type: 'number',
-  //   width: 160,
-  // },
+  {
+    field: 'actualCostWithDeliveryPerUnit',
+    headerName: t(TranslationKey['Actual cost with delivery per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
+    renderCell: params => (
+      <ActualCostWithDeliveryPerUnit
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
+    type: 'number',
+    width: 160,
+  },
 
-  // {
-  //   field: 'actualCostWithDelivery',
-  //   headerName: t(TranslationKey['The actual cost of the box with delivery']),
-  //   renderHeader: () => (
-  //     <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />
-  //   ),
-  //   renderCell: params => (
-  //     <ActualCostWithDelivery
-  //       actualShippingCost={actualShippingCost}
-  //       rowMemo={params.row}
-  //       finalWeight={finalWeight}
-  //       calculationMethod={calculationMethod}
-  //       isActualGreaterTheVolume={isActualGreaterTheVolume}
-  //       volumeWeightCoefficient={volumeWeightCoefficient}
-  //     />
-  //   ),
-  //   type: 'number',
-  //   width: 170,
-  // },
+  {
+    field: 'actualCostWithDelivery',
+    headerName: t(TranslationKey['The actual cost of the box with delivery']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />
+    ),
+    renderCell: params => (
+      <ActualCostWithDelivery
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
+    type: 'number',
+    width: 170,
+  },
 ]
