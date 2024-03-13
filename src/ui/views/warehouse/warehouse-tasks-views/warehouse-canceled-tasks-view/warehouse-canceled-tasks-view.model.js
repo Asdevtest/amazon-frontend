@@ -21,8 +21,6 @@ export class WarehouseCanceledTasksViewModel {
   tasksMy = []
   curOpenedTask = {}
 
-  volumeWeightCoefficient = undefined
-
   nameSearchValue = ''
 
   curTaskType = null
@@ -46,6 +44,10 @@ export class WarehouseCanceledTasksViewModel {
 
   get currentData() {
     return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -157,16 +159,12 @@ export class WarehouseCanceledTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)

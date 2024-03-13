@@ -69,6 +69,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
@@ -222,8 +226,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onClickConfirmTarrifChangeBtn(storekeeperId, tariffId, variationTariffId) {
     try {
-      const platformSettings = await UserModel.getPlatformSettings()
-      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings?.volumeWeightCoefficient)
+      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, this.platformSettings?.volumeWeightCoefficient)
       const finalSum = curBoxFinalWeight * this.curBox.variationTariff.pricePerKgUsd
 
       runInAction(() => {
@@ -301,20 +304,16 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async getBoxes() {
     try {
-      const [result, platformSettings] = await Promise.all([
-        BoxesModel.getBoxesForCurClient({ status: BoxStatus.NEED_TO_UPDATE_THE_TARIFF }),
-        UserModel.getPlatformSettings(),
-      ])
+      const result = await BoxesModel.getBoxesForCurClient({ status: BoxStatus.NEED_TO_UPDATE_THE_TARIFF })
 
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result, platformSettings?.volumeWeightCoefficient).sort(
+        this.boxes = clientWarehouseDataConverter(result, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.boxes = []
       })
     }
@@ -323,19 +322,14 @@ export class ClientBoxesTariffsNotificationsViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

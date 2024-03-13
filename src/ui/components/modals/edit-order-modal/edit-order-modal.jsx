@@ -91,7 +91,6 @@ export const EditOrderModal = memo(
   ({
     platformSettings,
     paymentMethods,
-    imagesForLoad,
     isPendingOrder,
     userInfo,
     requestStatus,
@@ -111,7 +110,6 @@ export const EditOrderModal = memo(
     updateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
-    onChangeImagesForLoad,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -667,7 +665,6 @@ export const EditOrderModal = memo(
         <div className={styles.paper}>
           <SelectFields
             orderPayments={orderPayments}
-            imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
@@ -689,7 +686,6 @@ export const EditOrderModal = memo(
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
             setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
-            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}

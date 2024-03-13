@@ -49,7 +49,7 @@ export const AnotherUserProfileViewRaw = props => {
             isAnotherUser
             reviews={viewModel.reviews}
             user={viewModel.user}
-            curUser={viewModel.curUser}
+            curUser={viewModel.userInfo}
             headerInfoData={viewModel.headerInfoData}
             tabReview={viewModel.tabReview}
             tabHistory={viewModel.tabHistory}
@@ -76,7 +76,7 @@ export const AnotherUserProfileViewRaw = props => {
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              rows={viewModel.getCurrentData()}
+              rows={viewModel.currentData}
               rowHeight={100}
               slotProps={{
                 baseTooltip: {
@@ -104,7 +104,6 @@ export const AnotherUserProfileViewRaw = props => {
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          // volumeWeightCoefficient={volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}

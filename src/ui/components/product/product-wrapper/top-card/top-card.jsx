@@ -135,7 +135,7 @@ export const TopCard = memo(
                       </div>
                     )}
                   </div>
-                ) : undefined}
+                ) : null}
               </div>
 
               <FieldsAndSuppliers

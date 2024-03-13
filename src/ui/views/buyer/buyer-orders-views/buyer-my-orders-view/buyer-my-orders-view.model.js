@@ -53,7 +53,6 @@ export class BuyerMyOrdersViewModel {
 
   paymentAmount = undefined
 
-  platformSettings = undefined
   nameSearchValue = ''
 
   showBarcodeModal = false
@@ -143,6 +142,10 @@ export class BuyerMyOrdersViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -170,8 +173,6 @@ export class BuyerMyOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -627,18 +628,6 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.curBoxesOfOrder = []
       })
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = result
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 

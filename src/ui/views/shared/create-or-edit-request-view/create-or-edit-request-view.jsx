@@ -41,7 +41,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             permissionsData={useProductsPermissions.permissionsData}
             masterUsersData={viewModel.masterUsersData}
             announcements={viewModel.announcements}
-            platformSettingsData={viewModel.platformSettingsData}
+            platformSettingsData={viewModel.platformSettings}
             progressValue={viewModel.progressValue}
             showProgress={viewModel.showProgress}
             requestToEdit={viewModel.requestToEdit}

@@ -43,8 +43,6 @@ export class WarehouseVacantViewModel {
     alertShieldMessage: '',
   }
 
-  volumeWeightCoefficient = undefined
-
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
   showEditPriorityData = false
@@ -69,6 +67,10 @@ export class WarehouseVacantViewModel {
   columnVisibilityModel = {}
   densityModel = 'compact'
   columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
   constructor({ history }) {
     this.history = history
@@ -231,16 +233,12 @@ export class WarehouseVacantViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)

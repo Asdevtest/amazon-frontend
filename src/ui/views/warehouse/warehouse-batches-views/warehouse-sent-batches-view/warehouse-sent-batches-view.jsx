@@ -122,7 +122,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
 
       <BatchInfoModal
         // @ts-ignore
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+        volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
         openModal={viewModel.showBatchInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         batch={viewModel.curBatch}

@@ -27,8 +27,6 @@ export class WarehouseCompletedViewModel {
   curTaskType = null
   curTaskPriority = null
 
-  volumeWeightCoefficient = undefined
-
   nameSearchValue = ''
 
   rowHandlers = {
@@ -47,6 +45,10 @@ export class WarehouseCompletedViewModel {
 
   get currentData() {
     return this.completedTasks
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -214,16 +216,12 @@ export class WarehouseCompletedViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)

@@ -25,7 +25,6 @@ export class CreateOrEditRequestViewModel {
 
   acceptMessage = null
   showAcceptMessage = false
-  platformSettingsData = null
   requestToEdit = undefined
   createRequestForIdeaData = undefined
   uploadedFiles = []
@@ -58,6 +57,10 @@ export class CreateOrEditRequestViewModel {
     ...dataGridFiltersInitializer(['specType']),
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     const url = new URL(window.location.href)
 
@@ -80,18 +83,6 @@ export class CreateOrEditRequestViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async getPlatformSettingsData() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettingsData = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async loadData() {
     try {
       // status change is required for loading
@@ -99,7 +90,6 @@ export class CreateOrEditRequestViewModel {
 
       await this.getCustomRequestCur()
       this.getAnnouncementData()
-      this.getPlatformSettingsData()
       this.getSpecs()
 
       this.setRequestStatus(loadingStatuses.SUCCESS)

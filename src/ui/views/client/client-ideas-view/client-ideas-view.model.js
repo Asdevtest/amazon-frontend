@@ -73,8 +73,6 @@ export class ClientIdeasViewModel {
   currentHscode = undefined
   storekeepers = undefined
   destinations = undefined
-  platformSettings = undefined
-
   ordersDataStateToSubmit = undefined
 
   // * Filtration
@@ -167,14 +165,16 @@ export class ClientIdeasViewModel {
     return this.ideaList
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
     this.currentSettings = settingsByUrl[history.location.pathname]
     this.handleUpdateColumnModel()
 
     this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -1088,17 +1088,5 @@ export class ClientIdeasViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

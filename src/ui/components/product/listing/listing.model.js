@@ -24,7 +24,6 @@ const fieldsOfProductAllowedToUpdate = [
 export class ListingModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   listingProduct = {}
   payments = []
@@ -67,7 +66,7 @@ export class ListingModel {
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      this.error = error
+      console.log(error)
     }
   }
 

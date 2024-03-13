@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -48,7 +48,6 @@ export class WarehouseAwaitingBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
-  volumeWeightCoefficient = undefined
   nameSearchValue = ''
   batches = []
   boxesData = []
@@ -59,7 +58,6 @@ export class WarehouseAwaitingBatchesViewModel {
   isWarning = false
   showBatchInfoModal = false
 
-  currentData = []
   rowCount = 0
 
   showAddOrEditBatchModal = false
@@ -130,20 +128,18 @@ export class WarehouseAwaitingBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
-    reaction(
-      () => this.batches,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
+  get currentData() {
+    return this.batches
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   setDataGridState() {
@@ -160,63 +156,47 @@ export class WarehouseAwaitingBatchesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBatches = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.batches)
+    this.selectedBatches = model
   }
 
   async loadData() {
@@ -260,17 +240,14 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.curPage = e
 
     this.getBatchesPagMy()
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getBatchesPagMy()
   }
 
@@ -311,12 +288,8 @@ export class WarehouseAwaitingBatchesViewModel {
         // storekeeperId: null,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
       })
@@ -325,7 +298,6 @@ export class WarehouseAwaitingBatchesViewModel {
       console.log(error)
 
       runInAction(() => {
-        this.error = error
         this.batches = []
       })
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -350,24 +322,17 @@ export class WarehouseAwaitingBatchesViewModel {
         })
       }
 
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchStorekeeper(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.boxesData = boxes
-
-        this.showCircularProgress = false
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
+    } finally {
       runInAction(() => {
-        this.error = error
         this.showCircularProgress = false
       })
     }
@@ -434,14 +399,9 @@ export class WarehouseAwaitingBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
@@ -449,9 +409,6 @@ export class WarehouseAwaitingBatchesViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

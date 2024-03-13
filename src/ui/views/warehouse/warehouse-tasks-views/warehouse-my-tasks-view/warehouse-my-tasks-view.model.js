@@ -31,8 +31,6 @@ export class WarehouseMyTasksViewModel {
   imagesOfTask = []
   imagesOfBox = []
 
-  volumeWeightCoefficient = undefined
-
   selectedTasks = []
 
   nameSearchValue = ''
@@ -76,6 +74,10 @@ export class WarehouseMyTasksViewModel {
 
   get currentData() {
     return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -544,16 +546,9 @@ export class WarehouseMyTasksViewModel {
 
   async onClickResolveBtn(itemId) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(itemId),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(itemId)
 
-      runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-      })
-
-      this.onSelectTask(task)
+      this.onSelectTask(response)
       this.onTriggerEditTaskModal()
     } catch (error) {
       console.log(error)

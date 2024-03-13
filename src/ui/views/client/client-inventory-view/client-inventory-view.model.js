@@ -80,8 +80,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   selectedProduct = undefined
 
   selectedRowId = undefined
-  platformSettings = undefined
-
   showOrderModal = false
   showSuccessModal = false
   showCheckPendingOrderFormModal = false
@@ -141,6 +139,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor() {
@@ -290,8 +292,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
-
-    this.getPlatformSettings()
 
     makeObservable(this, observerConfig)
 
@@ -795,18 +795,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     if (this.showCheckPendingOrderFormModal) {
       this.onTriggerOpenModal('showCheckPendingOrderFormModal')
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 

@@ -34,7 +34,6 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   baseNoConvertedOrders = []
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = [OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
   chosenStatus = []
   filteredStatus = []
@@ -47,7 +46,6 @@ export class BuyerMyOrdersViewModel {
 
   createBoxesResult = []
 
-  platformSettings = undefined
   nameSearchValue = ''
 
   hsCodeData = {}
@@ -66,8 +64,6 @@ export class BuyerMyOrdersViewModel {
   showWarningInfoModal = false
 
   paymentMethods = []
-
-  imagesForLoad = []
 
   showSuccessModalText = ''
 
@@ -96,13 +92,16 @@ export class BuyerMyOrdersViewModel {
     return UserModel.userInfo
   }
 
-  // НЕ было до создания фильтрации по статусам
   get orderStatusData() {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
       chosenStatus: this.chosenStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -119,8 +118,6 @@ export class BuyerMyOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -298,20 +295,12 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
 
-      runInAction(() => {
-        this.imagesForLoad = orderData.images
-      })
-
       this.getBoxesOfOrder(orderId)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
   }
 
   async onSubmitCancelOrder() {
@@ -341,19 +330,10 @@ export class BuyerMyOrdersViewModel {
         images: this.readyImages,
       }
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'readyImages' })
-      }
-
-      const orderFieldsToSaveWithImagesForLoad = {
-        ...orderFieldsToSave,
-        images: [...orderFieldsToSave.images, ...this.readyImages],
-      }
-
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
       } else {
-        await this.onSaveOrder(order, orderFieldsToSaveWithImagesForLoad)
+        await this.onSaveOrder(order, orderFieldsToSave)
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
@@ -372,10 +352,11 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerOpenModal('showOrderModal')
 
       this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -582,17 +563,5 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowBarcodeModal() {
     this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

@@ -70,7 +70,6 @@ export class ClientInStockBoxesViewModel {
   batchesData = undefined
   existingProducts = undefined
   reorderOrdersData = undefined
-  platformSettings = undefined
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
@@ -233,6 +232,10 @@ export class ClientInStockBoxesViewModel {
     return this.boxesMy
       .filter(el => this.selectedBoxes.includes(el._id))
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -942,11 +945,10 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
+      const response = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.destinations = destinations
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.destinations = response
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
@@ -984,12 +986,6 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (this.selectedBoxes.length === 1) {
-        const result = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-
         this.onTriggerOpenModal('showEditBoxModal')
       } else {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
@@ -1523,11 +1519,9 @@ export class ClientInStockBoxesViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
@@ -1740,16 +1734,16 @@ export class ClientInStockBoxesViewModel {
         hasBatch: false,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.baseBoxesMy = result.rows
 
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
         this.rowCount = result.count
 
-        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient, this.shopsData)
+        this.boxesMy = clientWarehouseDataConverter(
+          result.rows,
+          this.platformSettings?.volumeWeightCoefficient,
+          this.shopsData,
+        )
       })
     } catch (error) {
       console.log(error)
@@ -1806,15 +1800,10 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
       })
 
-      const [boxesDeliveryCosts, result] = await Promise.all([
-        BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes)),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
       runInAction(() => {
-        this.boxesDeliveryCosts = boxesDeliveryCosts
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.boxesDeliveryCosts = response
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
@@ -2095,20 +2084,15 @@ export class ClientInStockBoxesViewModel {
 
   async onClickContinueBtn(item) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepersData = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrdersData = [order]
       })
 

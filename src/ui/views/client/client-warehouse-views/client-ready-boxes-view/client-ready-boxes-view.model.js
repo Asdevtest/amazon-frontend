@@ -47,8 +47,6 @@ export class ClientReadyBoxesViewModel {
 
   uploadedFiles = []
 
-  currentData = []
-
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -66,55 +64,42 @@ export class ClientReadyBoxesViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.currentStorekeeper,
       () => this.getClientDestinations(),
     )
-
-    reaction(
-      () => this.boxesMy,
-      () => {
-        runInAction(() => {
-          this.currentData = [...this.getCurrentData()].slice()
-        })
-      },
-    )
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-      this.selectedBoxes = []
-    })
+    this.filterModel = model
+    this.selectedBoxes = []
 
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   setDataGridState() {
@@ -131,53 +116,39 @@ export class ClientReadyBoxesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onSelectionModel(model) {
     if (model.length === this.boxesMy.length) {
-      runInAction(() => {
-        this.selectedBoxes = model.slice(
-          this.curPage * this.rowsPerPage,
-          this.curPage * this.rowsPerPage + this.rowsPerPage,
-        )
-      })
+      this.selectedBoxes = model.slice(
+        this.curPage * this.rowsPerPage,
+        this.curPage * this.rowsPerPage + this.rowsPerPage,
+      )
     } else {
-      runInAction(() => {
-        this.selectedBoxes = model
-      })
+      this.selectedBoxes = model
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-      this.selectedBoxes = []
-    })
+    this.sortModel = sortModel
+    this.selectedBoxes = []
 
     this.setDataGridState()
   }
 
-  // getCurrentData() {
-  //   return toJS(this.boxesMy)
-  // }
-
-  getCurrentData() {
+  get currentData() {
     if (this.nameSearchValue) {
-      return toJS(this.boxesMy).filter(
+      return this.boxesMy.filter(
         el =>
           el.originalData.items.some(item =>
             item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
@@ -190,15 +161,13 @@ export class ClientReadyBoxesViewModel {
           ),
       )
     } else {
-      return toJS(this.boxesMy)
+      return this.boxesMy
     }
   }
 
   onClickStorekeeperBtn(storekeeper) {
-    runInAction(() => {
-      this.selectedBoxes = []
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
-    })
+    this.selectedBoxes = []
+    this.currentStorekeeper = storekeeper ? storekeeper : undefined
 
     this.getBoxesMy()
   }
@@ -215,8 +184,6 @@ export class ClientReadyBoxesViewModel {
         this.currentStorekeeper = this.storekeepersData[0]
         this.selectedBoxes = []
       })
-
-      // this.onClickStorekeeperBtn(this.storekeepersData[0])
     } catch (error) {
       console.log(error)
     }
@@ -317,26 +284,19 @@ export class ClientReadyBoxesViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   async returnBoxesToStock() {
@@ -376,20 +336,16 @@ export class ClientReadyBoxesViewModel {
         hasBatch: false,
       })
 
-      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.baseBoxesMy = result
 
-        this.boxesMy = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+        this.boxesMy = clientWarehouseDataConverter(result, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
-
         this.boxesMy = []
       })
     }

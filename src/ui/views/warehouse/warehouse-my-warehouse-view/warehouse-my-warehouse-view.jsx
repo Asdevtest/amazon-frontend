@@ -121,7 +121,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
@@ -135,7 +135,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <MoveBoxToBatchForm
           box={viewModel.curBoxToMove}
           batches={viewModel.batches}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
           onSubmit={viewModel.onSubmitMoveBoxToBatch}
           onSubmitCreateBatch={viewModel.onSubmitCreateBatch}
@@ -149,7 +149,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <AddOrEditBatchForm
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           sourceBox={viewModel.sourceBoxForBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
@@ -166,7 +166,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           formItem={viewModel.curBox}
           destinationsFavourites={viewModel.destinationsFavourites}
@@ -221,7 +221,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
         <EditBoxTasksModal
           isInStorekeeperWarehouse
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setEditModal={viewModel.onTriggerShowEditBoxModal}
           box={viewModel.curBox}
           storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
@@ -245,7 +245,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <MergeBoxesModal
           showCheckbox
           userInfo={viewModel.userInfo}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={
@@ -271,7 +271,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       >
         <StorekeeperRedistributeBox
           showCheckbox
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
@@ -297,7 +297,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy

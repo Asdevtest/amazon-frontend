@@ -27,7 +27,6 @@ export class ClientOrderViewModel {
   curBox = undefined
   showBoxViewModal = false
 
-  platformSettings = undefined
   storekeepers = []
   destinations = []
   selectedProduct = undefined
@@ -66,13 +65,15 @@ export class ClientOrderViewModel {
     return SettingsModel.destinationsFavourites
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
     const url = new URL(window.location.href)
     this.orderId = url.searchParams.get('orderId')
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -395,18 +396,6 @@ export class ClientOrderViewModel {
       })
 
       this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = result
-      })
     } catch (error) {
       console.log(error)
     }

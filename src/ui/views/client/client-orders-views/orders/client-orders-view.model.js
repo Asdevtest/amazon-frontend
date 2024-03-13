@@ -86,7 +86,6 @@ export class ClientOrdersViewModel {
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
 
   onHover = null
 
@@ -110,7 +109,6 @@ export class ClientOrdersViewModel {
   activeProductGuid = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
-  amountLimit = 1000
   columnsModel = clientOrdersViewColumns(
     this.rowHandlers,
     () => this.columnMenuSettings,
@@ -133,6 +131,10 @@ export class ClientOrdersViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   columnMenuSettings = {
@@ -161,7 +163,6 @@ export class ClientOrdersViewModel {
     this.setDefaultStatuses()
     this.getDestinations()
     this.getStorekeepers()
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -192,9 +193,6 @@ export class ClientOrdersViewModel {
       }
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -334,9 +332,6 @@ export class ClientOrdersViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -398,10 +393,9 @@ export class ClientOrdersViewModel {
         this.reorderOrdersData = []
       })
 
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       for (let i = 0; i < this.selectedRowIds.length; i++) {
@@ -417,7 +411,6 @@ export class ClientOrdersViewModel {
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
-        this.amountLimit = this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -583,12 +576,6 @@ export class ClientOrdersViewModel {
         this.baseNoConvertedOrders = []
         this.orders = []
       })
-
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -641,9 +628,6 @@ export class ClientOrdersViewModel {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       })
       this.onTriggerOpenModal('showInfoModal')
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -653,10 +637,6 @@ export class ClientOrdersViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
-
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
@@ -715,28 +695,6 @@ export class ClientOrdersViewModel {
       this.loadData()
       this.updateUserInfo()
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
 
       this.onTriggerOpenModal('showOrderModal')
@@ -744,9 +702,6 @@ export class ClientOrdersViewModel {
       this.showMyOrderModal = false
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -868,18 +823,6 @@ export class ClientOrdersViewModel {
 
       runInAction(() => {
         this.storekeepers = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
       })
     } catch (error) {
       console.log(error)

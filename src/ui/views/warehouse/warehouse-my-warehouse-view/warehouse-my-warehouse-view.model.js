@@ -31,7 +31,6 @@ import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
 
-  volumeWeightCoefficient = undefined
   nameSearchValue = ''
   boxesMy = []
   tasksMy = []
@@ -134,6 +133,10 @@ export class WarehouseMyWarehouseViewModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor() {
@@ -577,12 +580,6 @@ export class WarehouseMyWarehouseViewModel {
         this.storekeepersData = storekeepersData
       })
 
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-
       this.onTriggerOpenModal('showEditBoxModal')
     } catch (error) {
       console.log(error)
@@ -591,13 +588,9 @@ export class WarehouseMyWarehouseViewModel {
 
   async getDataToMoveBatch() {
     try {
-      const [batches, result] = await Promise.all([
-        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
-        UserModel.getPlatformSettings(),
-      ])
+      const [batches, result] = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
     } catch (error) {
@@ -635,12 +628,10 @@ export class WarehouseMyWarehouseViewModel {
     try {
       const destinations = await ClientModel.getDestinations()
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepersData = storekeepersData
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (this.selectedBoxes.length === 1) {
@@ -977,12 +968,10 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
+      const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
         this.destinations = destinations
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
@@ -1090,11 +1079,9 @@ export class WarehouseMyWarehouseViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
@@ -1105,14 +1092,11 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitCreateBatch(box) {
     try {
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchStorekeeper(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
-        this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.boxesData = boxes
+
         this.sourceBoxForBatch = box
       })
 
@@ -1144,13 +1128,10 @@ export class WarehouseMyWarehouseViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = boxes.count
         this.baseBoxesMy = boxes.rows
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
+        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, this.platformSettings?.volumeWeightCoefficient)
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {

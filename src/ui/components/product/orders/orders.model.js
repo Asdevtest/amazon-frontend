@@ -47,7 +47,6 @@ export class OrdersModel {
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
 
   paginationModel = { page: 0, pageSize: 15 }
 
@@ -66,6 +65,10 @@ export class OrdersModel {
   columnVisibilityModel = {}
 
   isCheckedStatusByFilter = {}
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
   constructor({ history, productId, showAtProcessOrders }) {
     this.history = history
@@ -188,32 +191,22 @@ export class OrdersModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.orders = []
-        this.error = error
-      })
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async onClickReorder(item, isPendingOrder) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrder = order
-
         this.isPendingOrdering = !!isPendingOrder
       })
 

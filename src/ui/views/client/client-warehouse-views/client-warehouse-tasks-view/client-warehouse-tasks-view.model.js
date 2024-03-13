@@ -31,7 +31,6 @@ export class ClientWarehouseTasksViewModel {
 
   nameSearchValue = ''
 
-  currentData = []
   selectedBoxes = []
 
   showConfirmModal = false
@@ -235,8 +234,12 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
+  get currentData() {
+    return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   async loadData() {
@@ -257,11 +260,7 @@ export class ClientWarehouseTasksViewModel {
     try {
       const task = await StorekeeperModel.getTaskById(item._id)
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.curOpenedTask = task
       })
 

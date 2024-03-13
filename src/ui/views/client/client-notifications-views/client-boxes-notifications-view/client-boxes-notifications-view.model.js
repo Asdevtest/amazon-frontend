@@ -195,8 +195,12 @@ export class ClientBoxesNotificationsViewModel {
     })
   }
 
-  getCurrentData() {
-    return toJS(this.boxes)
+  get currentData() {
+    return this.boxes
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   async loadData() {
@@ -209,11 +213,6 @@ export class ClientBoxesNotificationsViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -252,10 +251,8 @@ export class ClientBoxesNotificationsViewModel {
         status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       })
 
-      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
-
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+        this.boxes = clientWarehouseDataConverter(result, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
@@ -271,19 +268,14 @@ export class ClientBoxesNotificationsViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

@@ -30,8 +30,6 @@ export class ClientExchangeViewModel {
   storekeepers = []
   shopsData = []
 
-  platformSettings = undefined
-
   destinations = []
 
   ordersDataStateToSubmit = undefined
@@ -72,6 +70,10 @@ export class ClientExchangeViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -327,29 +329,20 @@ export class ClientExchangeViewModel {
 
   async openCreateOrder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         this.getProductById(this.selectedProduct._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

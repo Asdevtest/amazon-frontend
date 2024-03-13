@@ -14,7 +14,6 @@ import { t } from '@utils/translations'
 export class IntegrationsModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
   product = undefined
@@ -65,9 +64,6 @@ export class IntegrationsModel {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
     }
   }
 
@@ -115,9 +111,6 @@ export class IntegrationsModel {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       }
     }
   }
@@ -163,16 +156,15 @@ export class IntegrationsModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
 
-      this.sellerBoardData = []
+      runInAction(() => {
+        this.sellerBoardData = []
+      })
     }
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.loadData()
   }
