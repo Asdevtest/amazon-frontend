@@ -207,9 +207,6 @@ export class ClientExchangeViewModel {
       runInAction(() => {
         this.product = result
         this.selectedProduct = result
-
-        // this.productBase = result
-        // updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
       console.log(error)

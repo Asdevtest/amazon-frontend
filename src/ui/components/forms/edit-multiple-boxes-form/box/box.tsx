@@ -408,7 +408,7 @@ export const Box: FC<BoxProps> = memo(props => {
               </div>
               {isMasterBox ? (
                 <p className={styles.subTitle}>{`${t(TranslationKey['Units in a box'])} ${box.items[0].amount}`}</p>
-              ) : undefined}
+              ) : null}
             </div>
           ))}
           {showFullCard ? (

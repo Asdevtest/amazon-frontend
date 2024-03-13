@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material'
 
-import { parseTextString, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 
 import { useStyles } from './niche-request-details.style'
 
@@ -146,7 +146,7 @@ export const NicheSearchRequestDetails = ({ request }) => {
                 <Typography>{'tableNotesField'}</Typography>
               </div>
               <div className={cx(styles.rightColumn, styles.clientComment)}>
-                <Typography>{parseTextString(request.clientComment)}</Typography>
+                <Typography>{request.clientComment}</Typography>
               </div>
             </div>
 

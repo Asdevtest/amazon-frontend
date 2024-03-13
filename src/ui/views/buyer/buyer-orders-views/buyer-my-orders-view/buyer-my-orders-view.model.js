@@ -54,7 +54,6 @@ export class BuyerMyOrdersViewModel {
   paymentAmount = undefined
 
   platformSettings = undefined
-
   nameSearchValue = ''
 
   showBarcodeModal = false
@@ -171,6 +170,8 @@ export class BuyerMyOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
+
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -382,7 +383,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       supplier = {
         ...supplier,
@@ -422,7 +423,7 @@ export class BuyerMyOrdersViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
@@ -590,7 +591,7 @@ export class BuyerMyOrdersViewModel {
       await this.setColumnsModel()
       this.getDataGridState()
       await this.getOrdersMy()
-      this.getPlatformSettings()
+
       this.getBuyersOrdersPaymentByStatus()
       this.getSuppliersPaymentMethods()
     } catch (error) {

@@ -1,10 +1,12 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { Divider, Grid, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SupplierModel } from '@models/supplier-model'
 
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
@@ -35,11 +37,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
     product,
     storekeepersData,
     onlyRead,
-    sourceYuanToDollarRate,
-    volumeWeightCoefficient,
+    platformSettings,
     title,
     onTriggerShowModal,
-    supplier,
+    supplierId,
     onClickSaveBtn,
     showProgress,
     progressValue,
@@ -47,6 +48,67 @@ export const AddOrEditSupplierModalContent = memo(props => {
     outsideProduct,
     onClickPrevButton,
   } = props
+
+  const [supplier, setSupplier] = useState(undefined)
+
+  const getFullSupplier = async id => {
+    try {
+      const response = await SupplierModel.getSupplier(id)
+
+      if (response) {
+        setSupplier(response)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (supplierId) {
+      getFullSupplier(supplierId)
+    }
+  }, [supplierId])
+
+  const getInitialState = () => ({
+    amount: supplier?.amount || '',
+    comment: supplier?.comment || '',
+    link: supplier?.link || '',
+    minlot: supplier?.minlot || '',
+    name: supplier?.name || '',
+    price: supplier?.price || '',
+    images: supplier?.images || [],
+    multiplicity: supplier?.multiplicity || false,
+    productionTerm: supplier?.productionTerm || '',
+    paymentMethods: supplier?.paymentMethods || [],
+    yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
+    priceInYuan: supplier?.priceInYuan || '',
+    batchDeliveryCostInDollar:
+      supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || platformSettings?.yuanToDollarRate) || 0,
+    batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
+    batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
+    batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
+    boxProperties: {
+      amountInBox: supplier?.boxProperties?.amountInBox || '',
+      boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
+      boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
+      boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
+      boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
+    },
+    heightUnit: supplier?.heightUnit || '',
+    widthUnit: supplier?.widthUnit || '',
+    lengthUnit: supplier?.lengthUnit || '',
+    weighUnit: supplier?.weighUnit || '',
+    imageUnit: supplier?.imageUnit || [],
+    priceVariations: supplier?.priceVariations || [],
+  })
+
+  const [tmpSupplier, setTmpSupplier] = useState(getInitialState())
+
+  useEffect(() => {
+    if (supplier) {
+      setTmpSupplier(getInitialState())
+    }
+  }, [supplier])
 
   const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
@@ -86,46 +148,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
     }
   }
 
-  const [tmpSupplier, setTmpSupplier] = useState({
-    amount: supplier?.amount || '',
-    comment: supplier?.comment || '',
-    link: supplier?.link || '',
-    // lotcost: supplier?.lotcost || '',
-    minlot: supplier?.minlot || '',
-    name: supplier?.name || '',
-    price: supplier?.price || '',
-    images: supplier?.images || [],
-    multiplicity: supplier?.multiplicity || false,
-
-    productionTerm: supplier?.productionTerm || '',
-    paymentMethods: supplier?.paymentMethods || [],
-
-    yuanRate: supplier?.yuanRate || sourceYuanToDollarRate,
-
-    priceInYuan: supplier?.priceInYuan || '',
-
-    batchDeliveryCostInDollar: supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || sourceYuanToDollarRate) || 0,
-    batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
-    batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
-    batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
-
-    boxProperties: {
-      amountInBox: supplier?.boxProperties?.amountInBox || '',
-      boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
-      boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
-      boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
-      boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
-    },
-
-    heightUnit: supplier?.heightUnit || '',
-    widthUnit: supplier?.widthUnit || '',
-    lengthUnit: supplier?.lengthUnit || '',
-    weighUnit: supplier?.weighUnit || '',
-    imageUnit: supplier?.imageUnit || [],
-
-    priceVariations: supplier?.priceVariations || [],
-  })
-
   const calculateFieldsToSubmit = () => {
     let res = {
       ...tmpSupplier,
@@ -154,6 +176,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
       },
 
       productionTerm: tmpSupplier?.productionTerm ? tmpSupplier?.productionTerm : 0,
+
+      _id: supplier?._id,
     }
 
     if (
@@ -186,15 +210,15 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               className={styles.saveBtnClient}
-              onClick={() =>
+              onClick={() => {
                 onClickSaveBtn({
-                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                  addMore: false,
-                  makeMainSupplier,
+                  supplier: calculateFieldsToSubmit(),
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
+                  itemId: product?._id,
                 })
-              }
+                onTriggerShowModal()
+              }}
             >
               {t(TranslationKey['Save and bind'])}
             </Button>
@@ -205,11 +229,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
               className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
-                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                  addMore: false,
-                  makeMainSupplier,
+                  supplier: calculateFieldsToSubmit(),
                   editPhotosOfSupplier,
                   editPhotosOfUnit,
+                  itemId: product?._id,
                 })
                 onTriggerShowModal()
               }}
@@ -234,13 +257,15 @@ export const AddOrEditSupplierModalContent = memo(props => {
             tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             className={styles.saveBtn}
-            onClick={() =>
+            onClick={() => {
               onClickSaveBtn({
-                supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
+                supplier: calculateFieldsToSubmit(),
                 editPhotosOfSupplier,
                 editPhotosOfUnit,
+                itemId: product?._id,
               })
-            }
+              onTriggerShowModal()
+            }}
           >
             {t(TranslationKey.Save)}
           </Button>
@@ -362,7 +387,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const unitVolumeWeight = toFixed(
-    (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) / volumeWeightCoefficient || '',
+    (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) /
+      platformSettings?.volumeWeightCoefficient || '',
     2,
   )
 
@@ -516,12 +542,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
             containerClasses={styles.rateContainer}
             labelClasses={cx(styles.rateLabel)}
             inputClasses={styles.courseInput}
-            value={sourceYuanToDollarRate}
+            value={platformSettings?.yuanToDollarRate}
           />
 
           <Field
             oneLine
-            error={`${sourceYuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
+            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
             label={t(TranslationKey['Current supplier course'])}
@@ -693,7 +719,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           </div>
         </div>
 
-        {(!onlyRead || !!tmpSupplier.priceVariations.length) && (
+        {(!onlyRead || !!tmpSupplier.priceVariations?.length) && (
           <SupplierPriceVariationSelector
             isEditMode={!onlyRead}
             currentVariations={tmpSupplier.priceVariations}
@@ -781,7 +807,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                         inchesCoefficient
                       : tmpSupplier.boxProperties.boxHeightCm *
                         tmpSupplier.boxProperties.boxWidthCm *
-                        tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
+                        tmpSupplier.boxProperties.boxLengthCm) / platformSettings?.volumeWeightCoefficient,
                     2,
                   )}
                 />
@@ -838,7 +864,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         </div>
       </div>
 
-      {product && storekeepersData.length ? (
+      {product && storekeepersData?.length ? (
         <div className={styles.calculationBtnWrapper}>
           <Button
             tooltipAttentionContent={
@@ -918,7 +944,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
       >
         <SupplierApproximateCalculationsForm
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
           product={product}
           supplier={tmpSupplier}
           storekeepers={storekeepersData}

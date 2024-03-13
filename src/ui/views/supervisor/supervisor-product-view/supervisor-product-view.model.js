@@ -8,10 +8,8 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -44,30 +42,19 @@ export class SupervisorProductViewModel {
   imagesForLoad = []
   uploadedImages = []
 
-  storekeepersData = []
-
   product = undefined
   productId = undefined
   productBase = undefined
 
-  platformSettings = undefined
-
-  supplierModalReadOnly = false
-
-  paymentMethods = []
-
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
-  showAddOrEditSupplierModal = false
-  curUpdateProductData = {}
+  curUpdateProductData = undefined
   confirmMessage = ''
   warningModalTitle = ''
 
-  selectedSupplier = undefined
   showWarningModal = false
   showConfirmModal = false
-  showSupplierApproximateCalculationsModal = false
 
   formFields = formFieldsDefault
 
@@ -116,8 +103,6 @@ export class SupervisorProductViewModel {
     try {
       await this.getProductById()
       await this.getProductsVariations()
-
-      this.getPlatformSettings()
     } catch (error) {
       console.log(error)
     }
@@ -230,18 +215,6 @@ export class SupervisorProductViewModel {
     }
   }
 
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
@@ -344,16 +317,8 @@ export class SupervisorProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
-        runInAction(() => {
-          this.imagesForLoad = []
-        })
       }
 
       const statusesToClearBuyer = [
@@ -374,105 +339,18 @@ export class SupervisorProductViewModel {
       const dataToUpdate = {
         ...this.curUpdateProductData,
         images: this.uploadedImages,
-
         buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
       }
 
       await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
 
-      await this.loadData()
-      this.showSuccesAlert()
+      this.loadData()
+
       updateDataHandler && (await updateDataHandler())
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  showSuccesAlert() {
-    this.alertShieldSettings = {
-      showAlertShield: true,
-      alertShieldMessage: t(TranslationKey['Data was successfully saved']),
-    }
-
-    setTimeout(() => {
-      this.alertShieldSettings = {
-        ...this.alertShieldSettings,
-        showAlertShield: false,
-      }
-
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          showAlertShield: false,
-          alertShieldMessage: '',
-        }
-      }, 1000)
-    }, 3000)
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-
-    switch (actionType) {
-      case 'view':
-        this.supplierModalReadOnly = true
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        this.supplierModalReadOnly = false
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        await this.getStorekeepers()
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getStorekeepers()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
       console.log(error)
     }
   }
@@ -505,22 +383,21 @@ export class SupervisorProductViewModel {
         runInAction(() => {
           if (Object.keys(amazonResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-              this.imagesForLoad = amazonResult.images
-            })
+              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
+
+            this.imagesForLoad = amazonResult.images
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -537,20 +414,19 @@ export class SupervisorProductViewModel {
         runInAction(() => {
           if (Object.keys(sellerCentralResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
-                amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+              amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+              amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -579,17 +455,5 @@ export class SupervisorProductViewModel {
   async navigateToProduct(id) {
     const win = window.open(`/supervisor/products/product?product-id=${id}`, '_blank')
     win.focus()
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

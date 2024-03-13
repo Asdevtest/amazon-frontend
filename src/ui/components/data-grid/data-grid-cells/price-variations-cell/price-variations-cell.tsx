@@ -5,8 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IPlatformSettings } from '@typings/shared/patform-settings'
-
 import { useStyles } from './price-variations-cell.style'
 
 interface IPriceVariation {
@@ -16,10 +14,10 @@ interface IPriceVariation {
 
 interface PriceVariationsCellProps {
   variations: IPriceVariation[]
-  platformSettings: IPlatformSettings
+  yuanToDollarRate?: number
 }
 
-export const PriceVariationsCell: FC<PriceVariationsCellProps> = memo(({ variations, platformSettings }) => {
+export const PriceVariationsCell: FC<PriceVariationsCellProps> = memo(({ variations, yuanToDollarRate }) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -27,7 +25,7 @@ export const PriceVariationsCell: FC<PriceVariationsCellProps> = memo(({ variati
       {variations?.length > 0
         ? variations.map((variation, index) => {
             const variationValue = `${variation.quantity} ${t(TranslationKey['pcs.'])} / ${toFixedWithDollarSign(
-              variation.price / (platformSettings?.yuanToDollarRate || 0),
+              variation.price / (yuanToDollarRate || 0),
               2,
             )} ${t(TranslationKey.Per).toLowerCase()} ${t(TranslationKey['pcs.'])}`
 

@@ -65,7 +65,7 @@ export const BatchInfoModal = memo(
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
-    const [currentBatch, setCurrentBatch] = useState([])
+    const [currentBatch, setCurrentBatch] = useState(undefined)
 
     useEffect(() => {
       setCurrentBatch(batch)
@@ -170,7 +170,7 @@ export const BatchInfoModal = memo(
               inputClasses={cx(styles.infoField, styles.batchTitleField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={getNewTariffTextForBoxOrOrder(batch?.boxes?.[0])}
+              value={getNewTariffTextForBoxOrOrder(currentBatch?.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -209,7 +209,7 @@ export const BatchInfoModal = memo(
               inputClasses={cx(styles.infoField, styles.volumeWeightField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Gross weight'])}
-              value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
+              value={toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)}
               placeholder={'0'}
             />
 

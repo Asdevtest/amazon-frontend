@@ -18,7 +18,7 @@ export interface IFullUser {
   overdraft: number
   permissions: Array<IPermission>
   permissionGroups: Array<IPermissionGroup>
-  masterUser: string
+  masterUser: IMasterUser
   allowedStrategies: Array<number>
   allowedRoles: Array<number>
   canByMasterUser: boolean
