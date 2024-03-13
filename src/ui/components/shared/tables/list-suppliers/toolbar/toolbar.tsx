@@ -26,12 +26,7 @@ import { useStyles } from './toolbar.style'
 
 import { ModalModes } from '../list-suppliers.type'
 
-import {
-  allIdeaStatuses,
-  buyerValidProductStatuses,
-  clientValidProductStatuses,
-  ideaValidStatuses,
-} from './toolbar.constants'
+import { buyerValidProductStatuses, clientValidProductStatuses, ideaValidStatuses } from './toolbar.constants'
 
 interface ToolbarProps {
   status: number
@@ -72,7 +67,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.minlot &&
     supplier?.priceInYuan &&
     supplier?.price
-
   const showViewCalculationButton =
     !readOnly &&
     isSupplerSelected &&
@@ -87,18 +81,20 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !!userInfo &&
     ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        ([OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus) || !orderStatus)) ||
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-        allIdeaStatuses.includes(status)))
+        ideaValidStatuses.includes(status) &&
+        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
   const showEditSupplierButton =
     !readOnly &&
     isSupplerSelected &&
     !!userInfo &&
     ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        ([OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus) || !orderStatus)) ||
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-        allIdeaStatuses.includes(status)))
+        ideaValidStatuses.includes(status) &&
+        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
   const showToggleCurrentSupplierButton =
     !readOnly &&
     isSupplerSelected &&
@@ -112,7 +108,9 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     isSupplerSelected &&
     !!userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-    status === ProductStatus.BUYER_PICKED_PRODUCT
+    (status === ProductStatus.BUYER_PICKED_PRODUCT ||
+      (ideaValidStatuses.includes(status) &&
+        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
 
   const isPendingOrderAndNotCurrentSupplierSelected =
     userInfo &&

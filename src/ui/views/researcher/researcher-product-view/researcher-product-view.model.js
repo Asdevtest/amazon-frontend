@@ -298,7 +298,7 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -342,11 +342,7 @@ export class ResearcherProductViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-
-        runInAction(() => {
-          this.product.suppliers.push(createSupplierResult.guid)
-        })
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       this.onSaveForceProductData()

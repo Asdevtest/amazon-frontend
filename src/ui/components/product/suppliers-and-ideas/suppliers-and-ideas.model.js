@@ -80,7 +80,6 @@ export class SuppliersAndIdeasModel {
   selectedProduct = undefined
   storekeepers = []
   destinations = []
-  platformSettings = undefined
   ordersDataStateToSubmit = undefined
 
   alertShieldSettings = {
@@ -111,6 +110,10 @@ export class SuppliersAndIdeasModel {
     return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
@@ -124,8 +127,6 @@ export class SuppliersAndIdeasModel {
     if (isCreate) {
       this.onCreateIdea()
     }
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -630,18 +631,6 @@ export class SuppliersAndIdeasModel {
     this[modal] = !this[modal]
   }
 
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
@@ -654,7 +643,7 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -703,13 +692,13 @@ export class SuppliersAndIdeasModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea?._id || this.ideaIdToCreateSupplier, {
+        await IdeaModel.addSuppliersToIdea(itemId || this.ideaIdToCreateSupplier, {
           suppliersIds: [createSupplierResult?.guid],
         })
       }
 
-      if (this.curIdea?._id) {
-        this.getIdea(this.curIdea?._id)
+      if (itemId) {
+        this.getIdea(itemId)
       } else {
         this.loadData()
       }
@@ -718,24 +707,16 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
-  async onRemoveSupplier(supplierId) {
+  async onRemoveSupplier(supplierId, itemId) {
     try {
       if (this.forceUpdateCallBack) {
         await this.forceUpdateCallBack()
       }
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: supplierId })
 
-      runInAction(() => {
-        this.curIdea = undefined
-      })
+      await IdeaModel.removeSupplierFromIdea(itemId, { suppliersId: supplierId })
 
       this.loadData()
     } catch (error) {

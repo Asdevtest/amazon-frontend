@@ -74,6 +74,7 @@ export const IdeaViewAndEditCard = observer(
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
+    onRemoveSupplier,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -683,6 +684,7 @@ export const IdeaViewAndEditCard = observer(
               <ListSuppliers
                 formFields={formFields}
                 onClickSaveSupplier={onClickSaveSupplierBtn}
+                onRemoveSupplier={onRemoveSupplier}
                 // onSaveProduct={onClickSupplierBtns}
               />
             ) : null}

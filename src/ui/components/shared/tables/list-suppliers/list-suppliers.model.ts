@@ -15,6 +15,7 @@ import { t } from '@utils/translations'
 import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IFullUser } from '@typings/shared/full-user'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -30,10 +31,10 @@ export class ListSuppliersModel {
   product: IProduct | undefined = undefined
   suppliers: ISupplier[] = []
   currentSupplier: ISupplier | undefined = undefined
+  orderSupplier: ISupplier | undefined = undefined
   galleryFiles: UploadFileType[] = []
   paymentMethods: IPaymentMethod[] = []
   storekeepers: IDestinationStorekeeper[] = []
-  platformSettings: IPlatformSettings | undefined = undefined
 
   supplierModalReadOnly = false
   showGalleryModal = false
@@ -50,25 +51,28 @@ export class ListSuppliersModel {
   }
 
   onSaveProduct?: (product: IProduct) => void
-  onRemoveSupplier?: (supplierId: string) => void
+  onRemoveSupplier?: (supplierId: string, itemId?: string) => void
 
-  get userInfo() {
+  get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
+  }
+
+  get platformSettings(): IPlatformSettings | undefined {
+    return UserModel.platformSettings
   }
 
   constructor(
     product: IProduct,
+    orderSupplier?: ISupplier,
     onSaveProduct?: (product: IProduct) => void,
-    onRemoveSupplier?: (supplierId: string) => void,
+    onRemoveSupplier?: (supplierId: string, itemId?: string) => void,
   ) {
     this.product = product
+    this.orderSupplier = orderSupplier
     this.onSaveProduct = onSaveProduct
     this.onRemoveSupplier = onRemoveSupplier
 
     this.onGetSuppliers()
-    this.getPaymentMethods()
-    this.getStorekeepers()
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -80,8 +84,20 @@ export class ListSuppliersModel {
     reaction(
       () => this.showAddOrEditSupplierModal,
       () => {
-        if (!this.showAddOrEditSupplierModal) {
+        if (this.showAddOrEditSupplierModal) {
+          this.getPaymentMethods()
+          this.getStorekeepers()
+        } else {
           this.onGetCurrentSupplier()
+        }
+      },
+    )
+
+    reaction(
+      () => this.showSupplierApproximateCalculationsModal,
+      () => {
+        if (this.showSupplierApproximateCalculationsModal) {
+          this.getStorekeepers()
         }
       },
     )
@@ -101,11 +117,7 @@ export class ListSuppliersModel {
 
   onGetSuppliers() {
     if (this.product) {
-      const currentSupplierId: string | undefined = this.product?.currentSupplier?._id
-
-      if (currentSupplierId) {
-        this.selectionModel = [currentSupplierId, ...this.selectionModel]
-      }
+      const currentSupplierId: string | undefined = this.orderSupplier?._id || this.product?.currentSupplier?._id
 
       const foundCurrentSupplier = this.product?.suppliers?.find(
         (supplier: ISupplier) => supplier._id === currentSupplierId,
@@ -122,10 +134,14 @@ export class ListSuppliersModel {
   }
 
   onGetCurrentSupplier() {
-    const foundCurrentSupplier = this.suppliers.find((supplier: ISupplier) => supplier._id === this.selectionModel[0])
+    if (this.orderSupplier) {
+      this.currentSupplier = this.orderSupplier
+    } else {
+      const foundCurrentSupplier = this.suppliers.find((supplier: ISupplier) => supplier._id === this.selectionModel[0])
 
-    if (foundCurrentSupplier) {
-      this.currentSupplier = foundCurrentSupplier
+      if (foundCurrentSupplier) {
+        this.currentSupplier = foundCurrentSupplier
+      }
     }
   }
 
@@ -157,18 +173,6 @@ export class ListSuppliersModel {
 
       runInAction(() => {
         this.storekeepers = response as IDestinationStorekeeper[]
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response as IPlatformSettings
       })
     } catch (error) {
       console.log(error)
@@ -251,7 +255,7 @@ export class ListSuppliersModel {
 
   removeSupplier() {
     if (this.onRemoveSupplier && this.currentSupplier) {
-      this.onRemoveSupplier(this.currentSupplier?._id)
+      this.onRemoveSupplier(this.currentSupplier?._id, this.product?._id)
     }
   }
 

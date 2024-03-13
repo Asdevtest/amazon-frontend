@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
     height: 300,
@@ -16,10 +16,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   currentSupplierBackground: {
-    background: 'rgba(0, 64, 0, 0.2)',
-  },
-
-  selectedSupplierBackground: {
-    background: 'rgba(245, 0, 87, 0.1)',
+    background: theme.palette.background.tableCurRow,
   },
 }))

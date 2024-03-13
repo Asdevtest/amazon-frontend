@@ -60,7 +60,6 @@ export const ProductWrapper = memo(
     productBase,
     userRole,
     modal,
-    handleSupplierButtons,
     formFieldsValidationErrors,
     onClickSetProductStatusBtn,
     onChangeField,
@@ -169,7 +168,6 @@ export const ProductWrapper = memo(
                 onClickGetProductsToBind={onClickGetProductsToBind}
                 onChangeField={onChangeField}
                 onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                onClickSupplierBtns={handleSupplierButtons}
                 onClickParseProductData={onClickParseProductData}
                 onChangeImagesForLoad={onChangeImagesForLoad}
                 onClickHsCode={onClickHsCode}

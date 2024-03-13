@@ -531,7 +531,7 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -589,7 +589,7 @@ export class ClientProductViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
         await this.getProductById()
       }
 

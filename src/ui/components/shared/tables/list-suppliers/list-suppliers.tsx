@@ -29,9 +29,9 @@ interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
   readOnly?: boolean
   checkIsPlanningPrice?: boolean
-  onClickSaveSupplier?: () => void
+  onClickSaveSupplier?: () => void // can be transferred inside the table model
   onSaveProduct?: () => void
-  onRemoveSupplier?: () => void
+  onRemoveSupplier?: () => void // can be transferred inside the table model
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
@@ -39,10 +39,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(
-    () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
-  ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
+  const orderSupplier = 'orderSupplier' in formFields ? formFields?.orderSupplier : undefined
 
+  const [viewModel] = useState(
+    () => new ListSuppliersModel(extractProduct(formFields), orderSupplier, onSaveProduct, onRemoveSupplier),
+  ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
   const [orderStatus, setOrderStatus] = useState(0) // needed for additional conditions in the buyer's order view(everywhere we work directly with the product)
 
   useEffect(() => {
@@ -54,15 +55,15 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   }, [formFields])
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === extractProduct(formFields)?.currentSupplier?._id && styles.currentSupplierBackground
-
+    id === (orderSupplier?._id || extractProduct(formFields).currentSupplierId) && styles.currentSupplierBackground
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
-    orderSupplierId: 'orderSupplier' in formFields ? formFields?.orderSupplier?._id : '',
+    orderSupplierId: orderSupplier?._id || '',
     platformSettings: viewModel.platformSettings,
     onClickFilesCell: viewModel.onClickFilesCell,
   })
-  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
+  const isCurrentSupplierSelected =
+    (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
 
   return (
     <>
@@ -83,7 +84,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-row': styles.row,
-            '& .MuiDataGrid-row.Mui-selected': styles.selectedSupplierBackground,
           }}
           slotProps={{
             toolbar: {
@@ -125,9 +125,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           product={extractProduct(formFields)}
           storekeepersData={viewModel.storekeepers}
           requestStatus={viewModel.requestStatus}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          supplier={viewModel.currentSupplier}
-          sourceYuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+          supplierId={viewModel.currentSupplier?._id}
+          platformSettings={viewModel.platformSettings}
           title={t(TranslationKey['Adding and editing a supplier'])}
           onClickSaveBtn={onClickSaveSupplier}
           onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}

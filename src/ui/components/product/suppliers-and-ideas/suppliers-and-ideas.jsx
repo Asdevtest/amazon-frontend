@@ -64,7 +64,6 @@ export const SuppliersAndIdeas = observer(props => {
 
   const {
     requestStatus,
-
     curUser,
     curIdea,
     inEdit,
@@ -123,6 +122,7 @@ export const SuppliersAndIdeas = observer(props => {
     onClickSaveSupplierBtn,
     onConfirmSubmitOrderProductModal,
     onSubmitCalculateSeekSupplier,
+    onRemoveSupplier,
   } = model.current
 
   useEffect(() => {
@@ -166,6 +166,8 @@ export const SuppliersAndIdeas = observer(props => {
           onClickCancelBtn={onClickCancelBtn}
           onSetCurIdea={onSetCurIdea}
           onClickOpenProduct={onClickOpenProduct}
+          onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+          onRemoveSupplier={onRemoveSupplier}
         />
       )}
 
@@ -201,6 +203,7 @@ export const SuppliersAndIdeas = observer(props => {
               onClickRequestId={onClickRequestId}
               onClickUnbindButton={onClickUnbindButton}
               onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+              onRemoveSupplier={onRemoveSupplier}
             />
           ) : (
             <div className={styles.emptyTableWrapper}>
@@ -245,6 +248,8 @@ export const SuppliersAndIdeas = observer(props => {
                   onClickToOrder={onClickToOrder}
                   onClickRequestId={onClickRequestId}
                   onClickUnbindButton={onClickUnbindButton}
+                  onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+                  onRemoveSupplier={onRemoveSupplier}
                 />
               </div>
             ))

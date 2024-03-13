@@ -441,7 +441,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, productId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       supplier = {
         ...supplier,
@@ -481,7 +481,7 @@ export class BuyerMyOrdersViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)

@@ -734,7 +734,7 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -782,7 +782,7 @@ export class ClientIdeasViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.currentIdeaId, { suppliersIds: [createSupplierResult.guid] })
+        await IdeaModel.addSuppliersToIdea(itemId, { suppliersIds: [createSupplierResult.guid] })
       }
 
       this.loadData()
