@@ -264,27 +264,31 @@ export const SuppliersAndIdeas = observer(props => {
         </>
       )}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successModalSettings.modalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={successModalSettings.onClickSuccessBtn}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalSettings.modalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={successModalSettings.onClickSuccessBtn}
+        />
+      ) : null}
 
       <Modal
         openModal={showRequestDesignerResultModal}
@@ -299,21 +303,25 @@ export const SuppliersAndIdeas = observer(props => {
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly
-        customProposal={currentProposal}
-        userInfo={curUser}
-        openModal={showMainRequestResultModal}
-        onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
-      />
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={currentProposal}
+          userInfo={curUser}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={currentRequest}
-        proposal={currentProposal}
-        openModal={showRequestBloggerResultModal}
-        setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
-      />
+      {showRequestBloggerResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={currentRequest}
+          proposal={currentProposal}
+          openModal={showRequestBloggerResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
+        />
+      ) : null}
 
       <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
         <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
@@ -359,15 +367,17 @@ export const SuppliersAndIdeas = observer(props => {
         />
       )}
 
-      <CommentsModal
-        required
-        readOnly={false}
-        maxLength={MAX_DEFAULT_INPUT_VALUE}
-        title={t(TranslationKey['Reason for rejection'])}
-        openModal={showCommentsModal}
-        onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
-        onChangeField={setRejectStatusHandler}
-      />
+      {showCommentsModal ? (
+        <CommentsModal
+          required
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          openModal={showCommentsModal}
+          onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
+          onChangeField={setRejectStatusHandler}
+        />
+      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

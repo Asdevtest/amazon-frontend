@@ -4,14 +4,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
 
-import
-  {
-    getConversion,
-    getWeightSizesType,
-    inchesCoefficient,
-    poundsWeightCoefficient,
-    unitsOfChangeOptions,
-  } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -466,13 +465,15 @@ const Box = memo(props => {
         </div>
       )}
 
-      <SlideshowGalleryModal
-        openModal={showPhotosModal}
-        files={bigImagesOptions.images}
-        currentFileIndex={bigImagesOptions.imgIndex}
-        onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-      />
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        />
+      ) : null}
     </div>
   )
 })

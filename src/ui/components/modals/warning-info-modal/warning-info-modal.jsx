@@ -10,10 +10,6 @@ import { useStyles } from './warning-info-modal.style'
 export const WarningInfoModal = props => {
   const { openModal, setOpenModal, title, btnText, onClickBtn, isWarning } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   return (

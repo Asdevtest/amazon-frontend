@@ -354,32 +354,37 @@ export const SupervisorSettingsContent = observer(() => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showConfirmCloseAsinCheckerModal}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Window will be closed'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
-          onTriggerOpenModal('showAsinCheckerModal')
-        }}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-      />
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmCloseAsinCheckerModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmCloseAsinCheckerModal}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Window will be closed'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
+            onTriggerOpenModal('showAsinCheckerModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+        />
+      ) : null}
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
         <FailedAsinsModal

@@ -52,10 +52,6 @@ export const BatchInfoModal = memo(
     patchActualShippingCostBatch,
     history,
   }) => {
-    if (!openModal) {
-      return null
-    }
-
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
@@ -433,13 +429,15 @@ export const BatchInfoModal = memo(
             />
           </Modal>
 
-          <SlideshowGalleryModal
-            openModal={showPhotosModal}
-            files={currentBatch?.attachedDocuments}
-            currentFileIndex={curImageIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={index => setCurImageIndex(index)}
-          />
+          {showPhotosModal ? (
+            <SlideshowGalleryModal
+              openModal={showPhotosModal}
+              files={currentBatch?.attachedDocuments}
+              currentFileIndex={curImageIndex}
+              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+              onCurrentFileIndex={index => setCurImageIndex(index)}
+            />
+          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

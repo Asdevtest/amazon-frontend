@@ -130,13 +130,15 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         )}
       </div>
 
-      <SlideshowGalleryModal
-        openModal={isImageModalOpen}
-        files={files || []}
-        currentFileIndex={currentImageIndex}
-        onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
-        onCurrentFileIndex={index => setCurrentImageIndex(index)}
-      />
+      {isImageModalOpen ? (
+        <SlideshowGalleryModal
+          openModal={isImageModalOpen}
+          files={files || []}
+          currentFileIndex={currentImageIndex}
+          onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
+          onCurrentFileIndex={index => setCurrentImageIndex(index)}
+        />
+      ) : null}
     </div>
   )
 })

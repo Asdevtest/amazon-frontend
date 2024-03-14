@@ -22,10 +22,6 @@ import { useStyles } from './request-result-modal.style'
 export const RequestResultModal = memo(props => {
   const { openModal, setOpenModal, onClickSendAsResult, request, proposal, missClickModalOn } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const getInitialFormFields = () => ({

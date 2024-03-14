@@ -181,13 +181,15 @@ const WarehouseBodyRowRaw = ({
         </Fragment>
       ))}
 
-      <SlideshowGalleryModal
-        openModal={showPhotosModal}
-        files={curImages}
-        currentFileIndex={curImageIndex}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        onCurrentFileIndex={index => setCurImageIndex(index)}
-      />
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
+          files={curImages}
+          currentFileIndex={curImageIndex}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
+        />
+      ) : null}
     </>
   )
 }

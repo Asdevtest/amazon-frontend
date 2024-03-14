@@ -100,11 +100,13 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
         <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
-      <SlideshowGalleryModal
-        openModal={isOpenModal}
-        files={[selectedImage?.fileUrl]}
-        onOpenModal={() => setIsOpenModal(!isOpenModal)}
-      />
+      {isOpenModal ? (
+        <SlideshowGalleryModal
+          openModal={isOpenModal}
+          files={[selectedImage?.fileUrl]}
+          onOpenModal={() => setIsOpenModal(!isOpenModal)}
+        />
+      ) : null}
     </>
   )
 })

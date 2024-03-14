@@ -31,10 +31,6 @@ export const ConfirmationModal = memo(props => {
     commentCancelBtnText,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')

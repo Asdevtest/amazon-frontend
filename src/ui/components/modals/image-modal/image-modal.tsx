@@ -45,10 +45,6 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
     onChangeImagesForLoad,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const {
@@ -123,13 +119,15 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         </div>
       </div>
 
-      <ZoomModal
-        mediaFiles={mediaFiles}
-        currentMediaFileIndex={mediaFileIndex}
-        openModal={openImageZoomModal}
-        setOpenModal={onOpenImageZoomModal}
-        setCurrentMediaFileIndex={setMediaFileIndex}
-      />
+      {openImageZoomModal ? (
+        <ZoomModal
+          mediaFiles={mediaFiles}
+          currentMediaFileIndex={mediaFileIndex}
+          openModal={openImageZoomModal}
+          setOpenModal={onOpenImageZoomModal}
+          setCurrentMediaFileIndex={setMediaFileIndex}
+        />
+      ) : null}
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm

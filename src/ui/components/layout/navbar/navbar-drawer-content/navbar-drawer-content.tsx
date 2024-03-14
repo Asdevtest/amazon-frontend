@@ -165,35 +165,41 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
         </Typography>
       </div>
 
-      <FeedBackModal
-        // @ts-ignore
-        openModal={showFeedbackModal}
-        onSubmit={sendFeedbackAboutPlatform}
-        onClose={() => onTriggerOpenModal('showFeedbackModal')}
-      />
+      {showFeedbackModal ? (
+        <FeedBackModal
+          // @ts-ignore
+          openModal={showFeedbackModal}
+          onSubmit={sendFeedbackAboutPlatform}
+          onClose={() => onTriggerOpenModal('showFeedbackModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={false}
-        openModal={showWarningModal}
-        setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-        title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => onTriggerOpenModal('showWarningModal')}
-      />
+      {showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={false}
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings.confirmTitle}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       {alertShieldSettings.alertShieldMessage && (
         <AlertShield

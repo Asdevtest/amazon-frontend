@@ -67,11 +67,13 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
         />
       </div>
 
-      <GalleryModal
-        files={viewModel.galleryFiles}
-        openModal={viewModel.showGalleryModal}
-        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-      />
+      {viewModel.showGalleryModal ? (
+        <GalleryModal
+          files={viewModel.galleryFiles}
+          openModal={viewModel.showGalleryModal}
+          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+        />
+      ) : null}
 
       <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
         <BoxViewForm
@@ -86,15 +88,17 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onToggleModal(ModalNames.WARNING_INFO)}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}

@@ -257,39 +257,45 @@ export const ProductCardModal = observer(props => {
         </div>
       )}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel?.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel?.warningModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-      />
+      {viewModel?.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel?.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel?.warningModalTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel?.confirmModalSettings?.isWarning}
-        openModal={viewModel?.showConfirmModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
-        title={viewModel?.confirmModalSettings?.title}
-        message={viewModel?.confirmModalSettings?.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={() => {
-          viewModel?.confirmModalSettings?.onClickOkBtn()
-          viewModel?.onTriggerOpenModal('showConfirmModal')
-        }}
-        onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel?.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel?.confirmModalSettings?.isWarning}
+          openModal={viewModel?.showConfirmModal}
+          setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel?.confirmModalSettings?.title}
+          message={viewModel?.confirmModalSettings?.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={() => {
+            viewModel?.confirmModalSettings?.onClickOkBtn()
+            viewModel?.onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}

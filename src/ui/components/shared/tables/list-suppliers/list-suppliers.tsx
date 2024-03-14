@@ -108,11 +108,13 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </div>
 
-      <GalleryModal
-        files={viewModel.galleryFiles}
-        openModal={viewModel.showGalleryModal}
-        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-      />
+      {viewModel.showGalleryModal ? (
+        <GalleryModal
+          files={viewModel.galleryFiles}
+          openModal={viewModel.showGalleryModal}
+          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showAddOrEditSupplierModal}
@@ -147,17 +149,19 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
-        onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
+          onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+        />
+      ) : null}
     </>
   )
 })

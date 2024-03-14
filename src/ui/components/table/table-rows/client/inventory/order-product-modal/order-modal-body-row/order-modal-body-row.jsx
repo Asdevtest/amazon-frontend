@@ -606,18 +606,20 @@ export const OrderModalBodyRow = ({
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmationModal}
-          setOpenModal={() => setShowConfirmationModal(prev => !prev)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmationModal}
+            setOpenModal={() => setShowConfirmationModal(prev => !prev)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </TableRow>
     </>
   )

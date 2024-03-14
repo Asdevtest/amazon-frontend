@@ -156,15 +156,17 @@ export const VacantRequestsView = observer(({ history }) => {
         )
       )}
 
-      <FreelanceRequestDetailsModal
-        // @ts-ignore
-        openModal={viewModel.showRequestDetailModal}
-        request={viewModel.currentRequestDetails?.request}
-        details={viewModel.currentRequestDetails?.details}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
-        onClickSuggest={viewModel.onClickSuggest}
-        onClickOpenNewTab={viewModel.onClickOpenInNewTab}
-      />
+      {viewModel.showRequestDetailModal ? (
+        <FreelanceRequestDetailsModal
+          // @ts-ignore
+          openModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequestDetails?.request}
+          details={viewModel.currentRequestDetails?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickSuggest={viewModel.onClickSuggest}
+          onClickOpenNewTab={viewModel.onClickOpenInNewTab}
+        />
+      ) : null}
     </>
   )
 })

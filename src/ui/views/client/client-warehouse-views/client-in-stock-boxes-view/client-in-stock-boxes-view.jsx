@@ -257,19 +257,20 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
-      />
-
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
+        />
+      ) : null}
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
@@ -345,39 +346,42 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      <ProductAndBatchModal
-        // @ts-ignore
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
-        openModal={viewModel.showProductModal}
-        currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
-        batches={viewModel.productBatches}
-        getCurrentBatch={viewModel.getCurrBatch}
-        currentBatch={viewModel.currentBatch}
-        shops={viewModel.shopsData}
-        selectedProduct={viewModel.selectedWarehouseOrderProduct}
-        onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
-        onClickMyOrderModal={viewModel.onClickMyOrderModal}
-        onClickInTransferModal={viewModel.onClickInTransfer}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
-
-      <MyOrderModal
-        isClient
-        order={viewModel.order}
-        destinations={viewModel.destinations}
-        storekeepers={viewModel.storekeepersData}
-        platformSettings={viewModel.platformSettings}
-        switcherCondition={viewModel.myOrderModalSwitcherCondition}
-        destinationsFavourites={viewModel.destinationsFavourites}
-        setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-        openModal={viewModel.showMyOrderModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
-        onClickOpenNewTab={viewModel.onClickOpenNewTab}
-        onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
-        onClickCancelOrder={viewModel.onClickCancelOrder}
-        onClickReorder={viewModel.onClickReorder}
-        onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
-      />
+      {viewModel.showProductModal ? (
+        <ProductAndBatchModal
+          // @ts-ignore
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+          openModal={viewModel.showProductModal}
+          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
+          batches={viewModel.productBatches}
+          getCurrentBatch={viewModel.getCurrBatch}
+          currentBatch={viewModel.currentBatch}
+          shops={viewModel.shopsData}
+          selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+          onClickMyOrderModal={viewModel.onClickMyOrderModal}
+          onClickInTransferModal={viewModel.onClickInTransfer}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : null}
+      {viewModel.showMyOrderModal ? (
+        <MyOrderModal
+          isClient
+          order={viewModel.order}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          platformSettings={viewModel.platformSettings}
+          switcherCondition={viewModel.myOrderModalSwitcherCondition}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          openModal={viewModel.showMyOrderModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          onClickOpenNewTab={viewModel.onClickOpenNewTab}
+          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showProductLotDataModal}
@@ -428,14 +432,16 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       )}
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        title={viewModel.modalEditSuccessMessage}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-      />
+      {viewModel.showSuccessInfoModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
+          title={viewModel.modalEditSuccessMessage}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showSetChipValueModal}
@@ -455,15 +461,17 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditPriorityData}

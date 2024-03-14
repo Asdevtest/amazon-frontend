@@ -88,12 +88,14 @@ export const ClientDashboardView = observer(({ history }) => {
         />
       </div>
 
-      <UserMoneyTransferModal
-        // @ts-ignore
-        openModal={viewModel.showTransferModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
-        isWithdraw={viewModel.transferModalSettings.isWithdraw}
-      />
+      {viewModel.showTransferModal ? (
+        <UserMoneyTransferModal
+          // @ts-ignore
+          openModal={viewModel.showTransferModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
+          isWithdraw={viewModel.transferModalSettings.isWithdraw}
+        />
+      ) : null}
     </>
   )
 })
