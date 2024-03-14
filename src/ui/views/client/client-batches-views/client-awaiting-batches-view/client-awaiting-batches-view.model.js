@@ -189,6 +189,7 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   async setCurrentOpenedBox(row) {
+    console.log('row :>> ', row)
     try {
       const box = await BoxesModel.getBoxById(row._id)
 

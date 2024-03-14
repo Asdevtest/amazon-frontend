@@ -16,7 +16,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltipPosition?: TooltipPositions
   defaultButtonTooltip?: string
 
-  disableElevation?: boolean
   startIcon?: ReactElement
 
   isTableButton?: boolean

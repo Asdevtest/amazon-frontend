@@ -163,13 +163,15 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
         </div>
       </Modal>
 
-      <BatchInfoModal
+      {showBatchModal && (
         // @ts-ignore
-        batch={currentBatch}
-        openModal={showBatchModal}
-        setOpenModal={handleShowModalBatchModal}
-        onClickHsCode={onClickHsCode}
-      />
+        <BatchInfoModal
+          batch={currentBatch}
+          openModal={showBatchModal}
+          setOpenModal={handleShowModalBatchModal}
+          onClickHsCode={onClickHsCode}
+        />
+      )}
     </>
   )
 })

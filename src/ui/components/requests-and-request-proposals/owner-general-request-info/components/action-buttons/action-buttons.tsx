@@ -18,6 +18,7 @@ interface ActionButtonsProps {
   isDisplayingMarkAsCompletedButton: boolean
   status: string
   requestIsNotDraftAndPublished: boolean
+  disableMarkAsCompletedButton: boolean
   onToggleUploadedToListing: (id: string, uploadedToListing: boolean) => void
   onClickMarkAsCompletedBtn: () => void
   onClickCancelBtn: () => void
@@ -34,6 +35,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     id,
     uploadedToListing,
     isDisplayingMarkAsCompletedButton,
+    disableMarkAsCompletedButton,
     status,
     requestIsNotDraftAndPublished,
     onToggleUploadedToListing,
@@ -61,7 +63,12 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>
       {isDisplayingMarkAsCompletedButton && (
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
+        <Button
+          disabled={disableMarkAsCompletedButton}
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.publishBtn}
+          onClick={onClickMarkAsCompletedBtn}
+        >
           {t(TranslationKey['Mark as completed'])}
         </Button>
       )}
