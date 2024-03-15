@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -148,7 +147,6 @@ export const ClientIdeasView = observer(({ history }) => {
         <SelectionSupplierModal
           product={viewModel.currentProduct}
           title={t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
         />
