@@ -363,6 +363,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
+
       {viewModel.showMyOrderModal ? (
         <MyOrderModal
           isClient
