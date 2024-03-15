@@ -17,7 +17,6 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -85,6 +84,12 @@ export const AddOrEditBatchForm = observer(
     }
 
     const [filesToAdd, setfilesToAdd] = useState([])
+
+    useEffect(() => {
+      if (batchToEdit) {
+        setfilesToAdd(batchToEdit?.attachedDocuments)
+      }
+    }, [batchToEdit])
 
     const sourceChosenBoxesBase = batchToEdit
       ? addOrEditBatchDataConverter(
@@ -661,15 +666,7 @@ export const AddOrEditBatchForm = observer(
             </Button>
           </div>
 
-          <div className={styles.imageFileInputWrapper}>
-            <div className={styles.uploadFilesWrapper}>
-              <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
-            </div>
-            <div className={styles.imageAndFileInputWrapper}>
-              <p>{t(TranslationKey.Files)}</p>
-              <PhotoAndFilesSlider smallSlider showPreviews files={batchToEdit?.attachedDocuments} />
-            </div>
-          </div>
+          <UploadFilesInput oneLine images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
 
           <div className={styles.btnsWrapper}>
             <Button

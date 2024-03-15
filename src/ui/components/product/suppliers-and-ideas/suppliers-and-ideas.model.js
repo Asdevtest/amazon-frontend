@@ -34,7 +34,6 @@ export class SuppliersAndIdeasModel {
 
   curIdea = undefined
   ideaForReject = undefined
-  ideaIdToCreateSupplier = undefined
   currentProduct = undefined
   productToOrder = undefined
   currentProposal = undefined
@@ -692,7 +691,7 @@ export class SuppliersAndIdeasModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(itemId || this.ideaIdToCreateSupplier, {
+        await IdeaModel.addSuppliersToIdea(itemId, {
           suppliersIds: [createSupplierResult?.guid],
         })
       }

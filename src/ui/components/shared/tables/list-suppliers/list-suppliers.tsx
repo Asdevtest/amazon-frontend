@@ -49,6 +49,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   useEffect(() => {
     viewModel.updateSuppliers(extractProduct(formFields))
 
+    // if an order arrives
     if ('product' in formFields) {
       setOrderStatus(formFields?.status)
     }

@@ -28,6 +28,8 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
+    field: 'link',
+    renderHeader: () => null,
     renderCell: params => <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenNewTab(params.row.id)} />,
     width: 50,
     filterable: false,

@@ -4,7 +4,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 import { MultilineTextCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 
-import { formatCamelCaseString } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 
 import { dateCells, numberCells, textCells } from '../cell-types'
 
@@ -22,7 +22,7 @@ export const getCellType = (column: string, table: string) => {
       field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
-
+      valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.[table]?.[column], 2),
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
@@ -35,7 +35,7 @@ export const getCellType = (column: string, table: string) => {
       field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
-
+      valueGetter: (params: GridRenderCellParams) => params.row?.[table]?.[column],
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
@@ -48,6 +48,7 @@ export const getCellType = (column: string, table: string) => {
       field: validFieldName,
       headerName,
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
+      valueGetter: (params: GridRenderCellParams) => params.row?.[table]?.[column],
       renderCell: (params: GridRenderCellParams) => (
         <NormDateCell dateWithoutTime value={params.row?.[table]?.[column]} />
       ),
