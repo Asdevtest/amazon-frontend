@@ -109,14 +109,16 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
         </div>
       </div>
 
-      <AnnouncementModal
-        openModal={isOpenModal}
-        service={service}
-        choose={choose}
-        order={order}
-        onOpenModal={handleToggleModal}
-        onClickButton={() => onClickButton(service)}
-      />
+      {isOpenModal ? (
+        <AnnouncementModal
+          openModal={isOpenModal}
+          service={service}
+          choose={choose}
+          order={order}
+          onOpenModal={handleToggleModal}
+          onClickButton={() => onClickButton(service)}
+        />
+      ) : null}
     </>
   )
 })

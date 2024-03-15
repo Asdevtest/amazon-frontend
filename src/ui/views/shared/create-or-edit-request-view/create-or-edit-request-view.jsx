@@ -63,35 +63,39 @@ export const CreateOrEditRequestView = observer(({ history }) => {
         )}
       </div>
 
-      <SlideshowGalleryModal
-        files={viewModel.bigImagesOptions.images}
-        currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-        openModal={viewModel.showImageModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        onCurrentFileIndex={index =>
-          viewModel.setBigImagesOptions({
-            ...viewModel.bigImagesOptions,
-            imgIndex: index,
-          })
-        }
-      />
+      {viewModel.showImageModal ? (
+        <SlideshowGalleryModal
+          files={viewModel.bigImagesOptions.images}
+          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+          openModal={viewModel.showImageModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={index =>
+            viewModel.setBigImagesOptions({
+              ...viewModel.bigImagesOptions,
+              imgIndex: index,
+            })
+          }
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => {
-          viewModel.onTriggerOpenModal('showConfirmModal')
-          viewModel.goBack()
-        }}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        smallMessage={viewModel.confirmModalSettings.smallMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showConfirmModal')
+            viewModel.goBack()
+          }}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          smallMessage={viewModel.confirmModalSettings.smallMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      ) : null}
     </>
   )
 })

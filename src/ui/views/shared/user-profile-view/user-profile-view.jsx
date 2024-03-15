@@ -134,26 +134,30 @@ export const UserProfileViewRaw = props => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.warningInfoModalTitle}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={viewModel.warningInfoModalTitle}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
 
-      <RequestProposalAcceptOrRejectResultForm
-        // @ts-ignore
-        openModal={viewModel.showConfirmWorkResultFormModal}
-        title={t(TranslationKey['Confirm acceptance of the work result'])}
-        rateLabel={t(TranslationKey['Rate the performer'])}
-        reviewLabel={t(TranslationKey["Review of the performer's work"])}
-        confirmButtonText={t(TranslationKey.Confirm)}
-        cancelBtnText={t(TranslationKey.Reject)}
-        onSubmit={viewModel.onAcceptReview}
-        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-      />
+      {viewModel.showConfirmWorkResultFormModal ? (
+        <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      ) : null}
     </>
   )
 }

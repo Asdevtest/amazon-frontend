@@ -210,23 +210,27 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
-        customProposal={item}
-        userInfo={userInfo}
-        openModal={showMainRequestResultModal}
-        onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
-        onEditCustomProposal={onSendInForRework}
-        onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
-      />
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+          customProposal={item}
+          userInfo={userInfo}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+          onEditCustomProposal={onSendInForRework}
+          onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={request}
-        proposal={item}
-        openModal={showRequestResultModal}
-        setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
-      />
+      {showRequestResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={request}
+          proposal={item}
+          openModal={showRequestResultModal}
+          setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
+        />
+      ) : null}
     </div>
   )
 }

@@ -279,18 +279,20 @@ export const RedistributeBox = observer(
           </Button>
         </div>
 
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showNewBoxAttention}
-          setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-          title={t(
-            TranslationKey[
-              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
-        />
+        {showNewBoxAttention ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showNewBoxAttention}
+            setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
+            title={t(
+              TranslationKey[
+                'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+              ],
+            )}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
+          />
+        ) : null}
       </div>
     )
   },

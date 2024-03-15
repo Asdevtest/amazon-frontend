@@ -77,14 +77,16 @@ export const UserSettingsForm = observer(() => {
         </Button>
       </div>
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Data accepted'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Data accepted'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
     </div>
   )
 })

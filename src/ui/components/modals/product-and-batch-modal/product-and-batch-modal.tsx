@@ -61,10 +61,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onClickHsCode,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const [showBatchModal, setShowBatchModal] = useState(false)
@@ -163,7 +159,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
         </div>
       </Modal>
 
-      {showBatchModal && (
+      {showBatchModal ? (
         // @ts-ignore
         <BatchInfoModal
           batch={currentBatch}
@@ -171,7 +167,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           setOpenModal={handleShowModalBatchModal}
           onClickHsCode={onClickHsCode}
         />
-      )}
+      ) : null}
     </>
   )
 })

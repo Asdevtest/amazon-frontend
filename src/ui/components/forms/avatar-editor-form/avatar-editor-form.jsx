@@ -122,14 +122,16 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
         </Button>
       </div>
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={showInfoModal}
-        setOpenModal={() => setShowInfoModal(!showInfoModal)}
-        title={showInfoModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => setShowInfoModal(!showInfoModal)}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={() => setShowInfoModal(!showInfoModal)}
+          title={showInfoModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => setShowInfoModal(!showInfoModal)}
+        />
+      ) : null}
     </div>
   )
 }

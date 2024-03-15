@@ -877,38 +877,42 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
-          title={t(TranslationKey['Attention. Are you sure?'])}
-          message={confirmModalMessageByMode(confirmModalMode)}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            confirmModalActionByMode(confirmModalMode)
-            setShowConfirmModal(!showConfirmModal)
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
+            title={t(TranslationKey['Attention. Are you sure?'])}
+            message={confirmModalMessageByMode(confirmModalMode)}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={() => {
+              confirmModalActionByMode(confirmModalMode)
+              setShowConfirmModal(!showConfirmModal)
 
-            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
-              setPaymentMethodsModal(!paymentMethodsModal)
-            }
-          }}
-          onClickCancelBtn={() => {
-            if (confirmModalMode === confirmModalModes.STATUS) {
-              setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
-            }
-            setShowConfirmModal(!showConfirmModal)
-          }}
-        />
+              if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+                setPaymentMethodsModal(!paymentMethodsModal)
+              }
+            }}
+            onClickCancelBtn={() => {
+              if (confirmModalMode === confirmModalModes.STATUS) {
+                setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
+              }
+              setShowConfirmModal(!showConfirmModal)
+            }}
+          />
+        ) : null}
 
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showWarningInfoModal}
-          setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-          title={t(TranslationKey['PAY ATTENTION!!!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
-        />
+        {showWarningInfoModal ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showWarningInfoModal}
+            setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
+            title={t(TranslationKey['PAY ATTENTION!!!'])}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
+          />
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
@@ -920,13 +924,15 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <SlideshowGalleryModal
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          openModal={showPhotosModal}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            openModal={showPhotosModal}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        ) : null}
 
         <Modal
           openModal={showCheckQuantityModal}

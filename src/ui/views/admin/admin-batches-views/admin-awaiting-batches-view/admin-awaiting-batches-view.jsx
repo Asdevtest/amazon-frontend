@@ -68,7 +68,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
         />
       </div>
 
-      {viewModel.showBatchInfoModal && (
+      {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
           batch={viewModel.curBatch}
@@ -76,7 +76,7 @@ export const AdminAwaitingBatchesViewRaw = props => {
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         />
-      )}
+      ) : null}
     </>
   )
 }

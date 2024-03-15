@@ -194,14 +194,16 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Data saved successfully'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Data saved successfully'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>

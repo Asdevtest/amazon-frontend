@@ -91,13 +91,15 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
         )}
       </div>
 
-      <SlideshowGalleryModal
-        files={totalFiles}
-        currentFileIndex={currentSlideIndex}
-        openModal={showImageModal}
-        onOpenModal={() => setShowImageModal(!showImageModal)}
-        onCurrentFileIndex={setCurrentSlideIndex}
-      />
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          files={totalFiles}
+          currentFileIndex={currentSlideIndex}
+          openModal={showImageModal}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={setCurrentSlideIndex}
+        />
+      ) : null}
     </>
   )
 })

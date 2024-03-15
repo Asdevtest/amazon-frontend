@@ -45,13 +45,15 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
         )}
       </div>
 
-      <SlideshowGalleryModal
-        openModal={isShowImagePreview}
-        files={images}
-        currentFileIndex={selectedImage}
-        onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
-        onCurrentFileIndex={setSelectedImage}
-      />
+      {isShowImagePreview ? (
+        <SlideshowGalleryModal
+          openModal={isShowImagePreview}
+          files={images}
+          currentFileIndex={selectedImage}
+          onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
+          onCurrentFileIndex={setSelectedImage}
+        />
+      ) : null}
     </>
   )
 }

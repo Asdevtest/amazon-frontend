@@ -26,30 +26,34 @@ export const CreateOrEditProposalView = observer(({ history }) => {
         onEditSubmit={viewModel.onSubmitEditProposal}
       />
 
-      <TwoVerticalChoicesModal
-        // @ts-ignore
-        openModal={viewModel.showResultModal}
-        setOpenModal={() => {
-          viewModel.onTriggerOpenModal('showResultModal')
-          viewModel.onClickResultModal({ goBack: true })
-        }}
-        title={viewModel.infoModalText}
-        topBtnText={t(TranslationKey['Go to request'])}
-        bottomBtnText={t(TranslationKey['To vacant requests'])}
-        thirdBtnText={t(TranslationKey['To the list of proposals'])}
-        onClickTopBtn={() => viewModel.goToMyRequest()}
-        onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
-        onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
-      />
+      {viewModel.showResultModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={viewModel.showResultModal}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showResultModal')
+            viewModel.onClickResultModal({ goBack: true })
+          }}
+          title={viewModel.infoModalText}
+          topBtnText={t(TranslationKey['Go to request'])}
+          bottomBtnText={t(TranslationKey['To vacant requests'])}
+          thirdBtnText={t(TranslationKey['To the list of proposals'])}
+          onClickTopBtn={() => viewModel.goToMyRequest()}
+          onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
+          onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickOkInfoModal}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={viewModel.onClickOkInfoModal}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickOkInfoModal}
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={viewModel.onClickOkInfoModal}
+        />
+      ) : null}
     </>
   )
 })

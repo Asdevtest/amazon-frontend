@@ -1,4 +1,4 @@
-import { FC, MouseEvent, PropsWithChildren, memo, useEffect, useRef, useState } from 'react'
+import { FC, MouseEvent, PropsWithChildren, memo, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
@@ -37,14 +37,12 @@ export const Modal: FC<ModalProps> = memo(props => {
   }
 
   const { classes: styles, cx } = useStyles()
-  const modalRef = useRef<HTMLDivElement>(null)
   const [showMissClickModal, setShowMissClickModal] = useState(false)
   const [mousedownTarget, setMousedownTarget] = useState<EventTarget | null>(null)
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     setMousedownTarget(e.target)
   }
-
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (mousedownTarget === e.target && e.target === e.currentTarget) {
       missClickModalOn ? setShowMissClickModal(!showMissClickModal) : setOpenModal(false)
@@ -52,40 +50,38 @@ export const Modal: FC<ModalProps> = memo(props => {
 
     setMousedownTarget(null)
   }
-
-  useEffect(() => {
-    if (openModal && modalRef.current) {
-      modalRef.current.focus()
-    }
-  }, [openModal])
+  const handleCloseModal = () => {
+    setOpenModal(false)
+    setShowMissClickModal(false)
+  }
 
   return (
     <ModalPortal>
       <div
-        ref={modalRef}
-        tabIndex={0}
         className={cx(styles.dialogWrapper, { [styles.openModal]: openModal }, dialogClassName)}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
         <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
-          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
+          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={handleCloseModal} />
 
           <div className={cx(styles.content, contentClassName)}>{children}</div>
         </div>
       </div>
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showMissClickModal}
-        setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Window will be closed'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => setOpenModal(false)}
-        onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
-      />
+      {showMissClickModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showMissClickModal}
+          setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Window will be closed'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => setOpenModal(false)}
+          onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
+        />
+      ) : null}
     </ModalPortal>
   )
 })

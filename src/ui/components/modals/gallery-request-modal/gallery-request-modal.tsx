@@ -31,10 +31,6 @@ interface GalleryRequestModalProps {
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
   const { data, openModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const {

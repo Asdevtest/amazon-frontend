@@ -120,28 +120,32 @@ export const ClientShopsReportView = observer(() => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        openModal={viewModel.showWarningInfoModal}
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={viewModel.warningInfoModalSettings.buttonText}
-        onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          openModal={viewModel.showWarningInfoModal}
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={viewModel.warningInfoModalSettings.buttonText}
+          onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings?.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings?.onSubmit}
-        onClickCancelBtn={viewModel.confirmModalSettings?.onCancel}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings?.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings?.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings?.onCancel}
+        />
+      ) : null}
     </div>
   )
 })
