@@ -41,6 +41,12 @@ export const useSelect = <T extends IItem | IItemWithTitle>(items: T[], currentI
   }, [debouncedSearchValue, items])
 
   useEffect(() => {
+    if (!isOpen) {
+      setSearchValue('')
+    }
+  }, [isOpen])
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
         setIsOpen(false)

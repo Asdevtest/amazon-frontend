@@ -1,4 +1,4 @@
-import { FC, MouseEvent, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { disabledCancelBtnStatuses, noDisabledEditBtnStatuses } from '@constants/requests/request-proposal-status'
 import { showResultStatuses } from '@constants/requests/request-status'
@@ -24,11 +24,6 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
   const { classes: styles } = useStyles()
   const { status, onClickDeleteButton, onClickEditButton, onClickResultButton } = props
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>, callback: () => void) => {
-    e.stopPropagation()
-    callback()
-  }
-
   return (
     <div className={styles.proposalsActions}>
       <Button
@@ -36,7 +31,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
         isTableButton
         styleType={ButtonStyle.DANGER}
         disabled={disabledCancelBtnStatuses.includes(status)}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickDeleteButton)}
+        onClick={onClickDeleteButton}
       >
         <CrossIcon />
       </Button>
@@ -45,7 +40,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
         iconButton
         isTableButton
         disabled={!noDisabledEditBtnStatuses.includes(status)}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickEditButton)}
+        onClick={onClickEditButton}
       >
         <EditIcon />
       </Button>
@@ -54,7 +49,7 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
         isTableButton
         styleType={ButtonStyle.SUCCESS}
         disabled={!showResultStatuses.includes(status)}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => handleClick(e, onClickResultButton)}
+        onClick={onClickResultButton}
       >
         {t(TranslationKey.Result)}
       </Button>

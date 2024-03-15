@@ -140,10 +140,10 @@ export class ResearcherProductsViewModel {
     this.rowSelectionModel = model
   }
 
-  loadData() {
+  async loadData() {
     try {
       this.getDataGridState()
-      this.getPropductsVacant()
+      await this.getPropductsVacant()
     } catch (error) {
       console.log(error)
     }

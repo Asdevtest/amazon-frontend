@@ -2214,5 +2214,6 @@ export enum TranslationKey {
   'Update SEO files in the product' = 'Update SEO files in the product',
   'Select only one SEO file' = 'Select only one SEO file',
   'SEO file' = 'SEO file',
+  'Access is restricted' = 'Access is restricted',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
