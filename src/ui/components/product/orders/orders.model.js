@@ -190,6 +190,9 @@ export class OrdersModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      runInAction(() => {
+        this.orders = []
+      })
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
