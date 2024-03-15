@@ -11,7 +11,7 @@ export const getSupplierTitleByObjectkey = (key: string): string => {
     return t(TranslationKey['Current supplier'])
   }
 
-  if (key === 'currentSupplierImage') {
+  if (key === 'latestSeoFiles') {
     return t(TranslationKey.SEO)
   }
 

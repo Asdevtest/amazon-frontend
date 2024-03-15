@@ -64,7 +64,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         <div className={styles.files}>
           {files.map((file, index) => (
             <File
-              key={file._id}
+              key={index}
               readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}

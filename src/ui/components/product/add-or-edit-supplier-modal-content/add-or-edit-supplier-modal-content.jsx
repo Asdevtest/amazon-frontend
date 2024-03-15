@@ -194,8 +194,17 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const [makeMainSupplier, setMakeMainSupplier] = useState(false)
-  const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
-  const [editPhotosOfUnit, setEditPhotosOfUnit] = useState(supplier?.imageUnit || [])
+  const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState([])
+  const [editPhotosOfUnit, setEditPhotosOfUnit] = useState([])
+
+  useEffect(() => {
+    if (supplier?.images.length > 0) {
+      setEditPhotosOfSupplier(supplier?.images)
+    }
+    if (supplier?.imageUnit.length > 0) {
+      setEditPhotosOfUnit(supplier?.imageUnit)
+    }
+  }, [supplier])
 
   const renderFooterModalButtons = () => {
     if (outsideProduct) {
@@ -913,11 +922,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       <div className={styles.bottomWrapper}>
         {onlyRead ? (
-          <SlideshowGallery
-            slidesToShow={3}
-            files={editPhotosOfSupplier}
-            onChangeImagesForLoad={setEditPhotosOfSupplier}
-          />
+          <SlideshowGallery files={editPhotosOfSupplier} onChangeImagesForLoad={setEditPhotosOfSupplier} />
         ) : (
           <div className={styles.imageFileInputWrapper}>
             <UploadFilesInput

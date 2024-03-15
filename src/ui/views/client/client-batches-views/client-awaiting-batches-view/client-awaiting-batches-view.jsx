@@ -91,17 +91,19 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
         />
       </Modal>
 
-      <BatchInfoModal
-        // @ts-ignore
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-        userInfo={viewModel.userInfo}
-        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
-        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
+      {viewModel.showBatchInfoModal && (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+          userInfo={viewModel.userInfo}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      )}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
