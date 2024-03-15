@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 export class GroupPermissionsModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   groupPermissions = []
   singlePermissions = []
@@ -172,7 +171,6 @@ export class GroupPermissionsModel {
       this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid]
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -185,7 +183,6 @@ export class GroupPermissionsModel {
       }
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -203,7 +200,6 @@ export class GroupPermissionsModel {
       this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -212,7 +208,6 @@ export class GroupPermissionsModel {
       await PermissionsModel.createGroupPermission(data)
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -223,7 +218,6 @@ export class GroupPermissionsModel {
       await PermissionsModel.updateGroupPermission(permissionId, allowData)
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -241,7 +235,6 @@ export class GroupPermissionsModel {
       this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -301,7 +294,6 @@ export class GroupPermissionsModel {
       this.getGroupPermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 

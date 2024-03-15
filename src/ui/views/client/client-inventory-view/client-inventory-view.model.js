@@ -45,7 +45,6 @@ import {
 import { observerConfig } from './model-observer.config'
 
 export class ClientInventoryViewModel extends DataGridFilterTableModel {
-  error = undefined
   product = undefined
   ordersDataStateToSubmit = undefined
 
@@ -715,9 +714,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -865,11 +861,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -945,7 +936,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
-        this.error = undefined
         this.showProgress = true
       })
 
@@ -977,9 +967,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showProgress = false
       })
 
-      if (!this.error) {
-        toast.success(t(TranslationKey['The order has been created']))
-      }
+      toast.success(t(TranslationKey['The order has been created']))
 
       await this.getMainTableData()
 
@@ -987,9 +975,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1093,7 +1078,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.showInfoModalTitle = t(TranslationKey.Error)
       })
 
@@ -1423,9 +1407,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showCircularProgressModal = false
       })
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -1481,11 +1462,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          runInAction(() => {
-            this.error = error.body.message
-          })
-        }
       }
     }
   }

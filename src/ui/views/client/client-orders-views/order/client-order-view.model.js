@@ -19,7 +19,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class ClientOrderViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   orderId = undefined
   orderBoxes = []
@@ -225,9 +224,6 @@ export class ClientOrderViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -275,24 +271,13 @@ export class ClientOrderViewModel {
         ])
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['The order has been created']),
-          }
-        })
+      await this.getOrderById()
 
-        await this.getOrderById()
+      this.onTriggerOpenModal('showWarningInfoModal')
 
-        this.onTriggerOpenModal('showWarningInfoModal')
-      }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

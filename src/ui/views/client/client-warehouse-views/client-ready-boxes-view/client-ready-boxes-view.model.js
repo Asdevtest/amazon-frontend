@@ -22,7 +22,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class ClientReadyBoxesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
   boxesMy = []
@@ -310,9 +309,6 @@ export class ClientReadyBoxesViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
 
       this.onTriggerOpenModal('showConfirmModal')
 

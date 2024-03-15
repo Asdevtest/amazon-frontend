@@ -28,7 +28,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class SuppliersAndIdeasModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   currentIdeaId = undefined
 
@@ -789,17 +788,11 @@ export class SuppliersAndIdeasModel {
   async onSubmitOrderProductModal() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
+
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -812,36 +805,12 @@ export class SuppliersAndIdeasModel {
         await this.createOrder(orderObject)
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -866,7 +835,6 @@ export class SuppliersAndIdeasModel {
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
       })
       this.onTriggerOpenModal('showInfoModal')
     }

@@ -11,7 +11,6 @@ import { UserModel } from '@models/user-model'
 export class WarehouseDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   showAddOrEditDestinationModal = false
 
@@ -106,9 +105,6 @@ export class WarehouseDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

@@ -11,7 +11,6 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class ServicesDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   requestId = undefined
   announcementId = undefined
@@ -60,9 +59,6 @@ export class ServicesDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -73,7 +69,6 @@ export class ServicesDetailCustomViewModel {
         this.announcementData = result
       })
     } catch (error) {
-      this.error = error
       console.log(error)
     }
   }
@@ -109,9 +104,6 @@ export class ServicesDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

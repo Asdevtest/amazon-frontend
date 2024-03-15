@@ -101,6 +101,10 @@ export class ClientSentBatchesViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -331,14 +335,9 @@ export class ClientSentBatchesViewModel {
         storekeeperId: this.currentStorekeeperId,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
       runInAction(() => {
@@ -357,11 +356,9 @@ export class ClientSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {

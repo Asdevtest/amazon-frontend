@@ -11,7 +11,6 @@ import { UserModel } from '@models/user-model'
 export class ModeratorDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   // balance = UserModel.userInfo?.balance
   // productsVacant = []
@@ -56,7 +55,6 @@ export class ModeratorDashboardViewModel {
   //     })
   //   } catch (error) {
   //     console.log(error)
-  //     this.error = error
   //   }
   // }
 

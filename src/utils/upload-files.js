@@ -41,7 +41,7 @@ export const onPostImage = async imageData => {
 
     return '/uploads/' + fileName
   } catch (error) {
-    this.error = error
+    console.log(error)
   }
 }
 

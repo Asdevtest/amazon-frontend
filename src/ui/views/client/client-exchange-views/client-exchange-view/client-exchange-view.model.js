@@ -23,7 +23,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   dataToPay = {}
@@ -194,11 +193,6 @@ export class ClientExchangeViewModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -239,9 +233,6 @@ export class ClientExchangeViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -290,10 +281,6 @@ export class ClientExchangeViewModel {
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-      throw new Error('Failed to create order')
     }
   }
 
@@ -319,11 +306,6 @@ export class ClientExchangeViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -368,11 +350,6 @@ export class ClientExchangeViewModel {
       this.onTriggerOpenModal('showWarningModal')
 
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

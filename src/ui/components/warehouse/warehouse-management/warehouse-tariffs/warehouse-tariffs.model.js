@@ -15,7 +15,6 @@ import { t } from '@utils/translations'
 export class WarehouseTariffModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   warehouseTariffs = []
   tariffToEdit = undefined
@@ -157,7 +156,6 @@ export class WarehouseTariffModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -169,7 +167,6 @@ export class WarehouseTariffModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -215,7 +212,6 @@ export class WarehouseTariffModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 

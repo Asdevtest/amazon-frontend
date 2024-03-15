@@ -79,9 +79,6 @@ export class BuyerSearchSupplierForIdeaModel {
   async getSupplierSearchRequestsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       const result = await IdeaModel.getSupplierSearchRequests()
       runInAction(() => {
@@ -97,11 +94,6 @@ export class BuyerSearchSupplierForIdeaModel {
         this.supplierSearchRequestsVacant = []
       })
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -120,11 +112,6 @@ export class BuyerSearchSupplierForIdeaModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -140,11 +127,6 @@ export class BuyerSearchSupplierForIdeaModel {
       }
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

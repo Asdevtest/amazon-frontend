@@ -46,7 +46,6 @@ const filtersFields = [
 export class WarehouseAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
   batches = []
@@ -291,7 +290,7 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         this.rowCount = result.count
 
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -390,9 +389,6 @@ export class WarehouseAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -499,9 +495,6 @@ export class WarehouseAwaitingBatchesViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

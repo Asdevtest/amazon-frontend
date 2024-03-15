@@ -9,7 +9,6 @@ import { UserModel } from '@models/user-model'
 export class ClientDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
@@ -121,9 +120,6 @@ export class ClientDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

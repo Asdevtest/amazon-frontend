@@ -14,7 +14,6 @@ import { t } from '@utils/translations'
 
 export class ServiceDetailsViewModel {
   history = undefined
-  error = undefined
   uploadedFiles = []
 
   requestStatus = undefined
@@ -97,7 +96,6 @@ export class ServiceDetailsViewModel {
         })
       })
     } catch (error) {
-      this.error = error
       console.log(error)
     }
   }
@@ -112,7 +110,6 @@ export class ServiceDetailsViewModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.error = error
       console.log(error)
     }
   }
@@ -122,7 +119,6 @@ export class ServiceDetailsViewModel {
       await AnnouncementsModel.deleteAnnouncementsByGuid(this.announcementId)
       this.history.push(`/freelancer/freelance/my-services`)
     } catch (error) {
-      this.error = error
       console.log(error)
     }
   }
@@ -192,9 +188,6 @@ export class ServiceDetailsViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

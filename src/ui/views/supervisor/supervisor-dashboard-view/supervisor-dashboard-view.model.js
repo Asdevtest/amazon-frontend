@@ -10,7 +10,6 @@ import { UserModel } from '@models/user-model'
 export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   producatsMy = []
@@ -87,9 +86,6 @@ export class SupervisorDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -109,9 +105,6 @@ export class SupervisorDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 }

@@ -99,8 +99,6 @@ export class ClientInStockBoxesViewModel {
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
 
-  volumeWeightCoefficient = undefined
-
   hsCodeData = {}
 
   showEditHSCodeModal = false
@@ -2127,10 +2125,6 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
-
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
@@ -2186,28 +2180,6 @@ export class ClientInStockBoxesViewModel {
         }
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
 
       this.onTriggerOpenModal('showOrderModal')
@@ -2215,9 +2187,6 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -2241,10 +2210,6 @@ export class ClientInStockBoxesViewModel {
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

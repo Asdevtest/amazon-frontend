@@ -77,9 +77,6 @@ export class BuyerSearchSupplierBySupervisorModel {
 
   async getProductsVacant() {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
@@ -92,11 +89,6 @@ export class BuyerSearchSupplierBySupervisorModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -115,11 +107,6 @@ export class BuyerSearchSupplierBySupervisorModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -135,11 +122,6 @@ export class BuyerSearchSupplierBySupervisorModel {
       }
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
   setRequestStatus(requestStatus) {

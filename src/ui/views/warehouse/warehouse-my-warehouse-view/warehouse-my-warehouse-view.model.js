@@ -591,7 +591,7 @@ export class WarehouseMyWarehouseViewModel {
       const [batches, result] = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(batches, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)

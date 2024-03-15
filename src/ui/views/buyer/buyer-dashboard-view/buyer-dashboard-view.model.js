@@ -9,7 +9,6 @@ import { UserModel } from '@models/user-model'
 export class BuyerDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
   balance = UserModel.userInfo?.balance
 
   currentData = undefined
@@ -101,9 +100,6 @@ export class BuyerDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 }

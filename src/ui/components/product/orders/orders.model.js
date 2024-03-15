@@ -24,7 +24,6 @@ import { canceledStatus, completedStatus, selectedStatus } from './orders.consta
 export class OrdersModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
 
@@ -267,13 +266,11 @@ export class OrdersModel {
 
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
-      this.error = error
     }
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -335,18 +332,19 @@ export class OrdersModel {
         }
       }
 
-      if (!this.error) {
+      runInAction(() => {
         this.successModalText = this.isPendingOrdering
           ? t(TranslationKey['The order has been updated'])
           : t(TranslationKey['The order has been created'])
-        this.onTriggerOpenModal('showSuccessModal')
-      }
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
+
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 

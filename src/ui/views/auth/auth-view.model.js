@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
@@ -14,7 +14,6 @@ import { setI18nConfig, t } from '@utils/translations'
 export class AuthViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   showConfirmModal = false
 
@@ -77,10 +76,6 @@ export class AuthViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.error = undefined
-      })
-
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
       await UserModel.getUsersInfoCounters()
@@ -91,18 +86,10 @@ export class AuthViewModel {
         )
 
         this.history.push(allowedRoutes[0].routePath)
-      } else {
-        runInAction(() => {
-          this.error = new Error('The user is waiting for confirmation by the Administrator')
-        })
       }
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
-
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }

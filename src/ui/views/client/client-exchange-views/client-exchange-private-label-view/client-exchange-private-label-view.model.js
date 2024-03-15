@@ -14,7 +14,6 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   selectedProduct = {}
@@ -61,11 +60,6 @@ export class ClientExchangePrivateLabelViewModel {
         this.productsVacant = []
       })
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -84,11 +78,6 @@ export class ClientExchangePrivateLabelViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -100,9 +89,6 @@ export class ClientExchangePrivateLabelViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -146,11 +132,6 @@ export class ClientExchangePrivateLabelViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

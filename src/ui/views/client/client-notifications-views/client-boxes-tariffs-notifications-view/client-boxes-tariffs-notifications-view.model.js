@@ -25,7 +25,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  error = undefined
   loadingStatus = undefined
 
   tariffIdToChange = undefined
@@ -294,11 +293,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

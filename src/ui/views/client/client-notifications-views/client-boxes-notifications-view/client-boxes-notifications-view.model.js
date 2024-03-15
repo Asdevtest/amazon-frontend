@@ -23,7 +23,6 @@ export class ClientBoxesNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  error = undefined
   loadingStatus = undefined
 
   curBox = undefined
@@ -259,7 +258,6 @@ export class ClientBoxesNotificationsViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.boxes = []
       })
     }

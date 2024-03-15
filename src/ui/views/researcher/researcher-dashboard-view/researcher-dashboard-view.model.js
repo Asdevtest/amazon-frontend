@@ -9,7 +9,6 @@ import { UserModel } from '@models/user-model'
 export class ResearcherDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   paymentsMy = []
@@ -73,9 +72,6 @@ export class ResearcherDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

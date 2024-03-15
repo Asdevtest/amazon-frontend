@@ -80,7 +80,7 @@ export const AdminWarehouseBoxesView = observer(() => {
       >
         <BoxViewForm
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
         />
       </Modal>

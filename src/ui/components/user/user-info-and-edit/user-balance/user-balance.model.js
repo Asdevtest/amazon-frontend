@@ -15,7 +15,6 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class UserBalanceModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   userId = undefined
   user = {}
@@ -151,7 +150,6 @@ export class UserBalanceModel {
   async makePayment(data) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      this.error = undefined
 
       await AdministratorModel.makePayment(data)
 
@@ -163,7 +161,6 @@ export class UserBalanceModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-      this.error = error?.body?.message || error
     }
   }
 }

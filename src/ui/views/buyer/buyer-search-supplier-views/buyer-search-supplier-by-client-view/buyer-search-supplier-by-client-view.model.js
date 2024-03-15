@@ -77,9 +77,6 @@ export class BuyerSearchSupplierByClientModel {
   async getProductsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       const isCreatedByClient = true
 
@@ -97,11 +94,6 @@ export class BuyerSearchSupplierByClientModel {
         this.productsVacant = []
       })
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -120,11 +112,6 @@ export class BuyerSearchSupplierByClientModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -140,11 +127,6 @@ export class BuyerSearchSupplierByClientModel {
       }
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 

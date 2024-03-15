@@ -22,7 +22,6 @@ import { dataURLtoFile } from '@utils/upload-files'
 export class ProfileViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   get user() {
     return UserModel.userInfo
@@ -171,9 +170,6 @@ export class ProfileViewModel {
       console.log(error)
       runInAction(() => {
         this.productsVacant = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       })
     }
   }
@@ -203,9 +199,6 @@ export class ProfileViewModel {
   //       this.onTriggerOpenModal('showUserInfoModal')
   //     }
   //   } catch (error) {
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
   //   }
   // }
 
@@ -233,9 +226,7 @@ export class ProfileViewModel {
         return
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -247,8 +238,6 @@ export class ProfileViewModel {
 
   async changeUserPassword(data) {
     try {
-      this.error = undefined
-
       await UserModel.changeUserPassword({
         oldPassword: data.oldPassword,
         newPassword: data.password,
@@ -257,11 +246,8 @@ export class ProfileViewModel {
       await UserModel.getUserInfo()
     } catch (error) {
       runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-        if (this.error === 'Wrong password') {
-          this.wrongPassword = this.error
+        if (error.body.message === 'Wrong password') {
+          this.wrongPassword = error.body.message
         }
       })
     }
@@ -291,9 +277,7 @@ export class ProfileViewModel {
         })
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -314,9 +298,7 @@ export class ProfileViewModel {
 
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -370,9 +352,6 @@ export class ProfileViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 

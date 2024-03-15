@@ -17,7 +17,6 @@ export class ClientIdeasNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  error = undefined
   loadingStatus = undefined
 
   ideas = []
@@ -141,11 +140,6 @@ export class ClientIdeasNotificationsViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -159,7 +153,6 @@ export class ClientIdeasNotificationsViewModel {
     } catch (error) {
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.ideas = []
       })
     }

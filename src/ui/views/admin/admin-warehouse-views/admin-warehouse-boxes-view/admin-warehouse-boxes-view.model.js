@@ -22,7 +22,6 @@ export class AdminWarehouseBoxesViewModel {
 
   nameSearchValue = ''
   curBox = undefined
-  volumeWeightCoefficient = undefined
   boxes = []
   selectedBoxes = []
 
@@ -51,6 +50,10 @@ export class AdminWarehouseBoxesViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor() {
@@ -159,11 +162,9 @@ export class AdminWarehouseBoxesViewModel {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')

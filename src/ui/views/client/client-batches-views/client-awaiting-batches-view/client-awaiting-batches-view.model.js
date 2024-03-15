@@ -50,7 +50,6 @@ export class ClientAwaitingBatchesViewModel {
   showWarningInfoModal = false
 
   boxesData = []
-  volumeWeightCoefficient = undefined
 
   curBox = undefined
   showBoxViewModal = false
@@ -99,6 +98,10 @@ export class ClientAwaitingBatchesViewModel {
 
   get currentData() {
     return this.batches
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -293,14 +296,9 @@ export class ClientAwaitingBatchesViewModel {
         storekeeperId: this.currentStorekeeperId,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
       runInAction(() => {
@@ -319,11 +317,9 @@ export class ClientAwaitingBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
@@ -378,14 +374,9 @@ export class ClientAwaitingBatchesViewModel {
         })
       }
 
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchClient(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.boxesData = boxes
       })
 

@@ -468,7 +468,7 @@ export class BuyerMyOrdersViewModel {
       supplier = {
         ...supplier,
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        yuanRate: this.yuanToDollarRate,
+        yuanRate: this.platformSettings?.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
         priceInYuan: orderFields.priceInYuan,
