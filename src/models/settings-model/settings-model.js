@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { compareVersions } from 'compare-versions'
-import isEqual from 'lodash.isequal'
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
@@ -173,13 +172,14 @@ class SettingsModelStatic {
   }
 
   setDestinationsFavouritesItem(item) {
-    const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(destinationsFavouritesItem =>
-      isEqual(destinationsFavouritesItem, item),
+    const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(
+      destinationsFavouritesItem => destinationsFavouritesItem[0] === item[0],
     )
+
     if (findDestinationsFavouritesItemIndex !== -1) {
-      this.destinationsFavourites.splice(findDestinationsFavouritesItemIndex, 1)
+      this.destinationsFavourites = this.destinationsFavourites.filter(destination => destination[0] !== item[0])
     } else {
-      this.destinationsFavourites.push(item)
+      this.destinationsFavourites = [...this.destinationsFavourites, item]
     }
   }
 
