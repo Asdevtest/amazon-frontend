@@ -41,7 +41,7 @@ export const useMainRequestResultModal = ({
             fileLink: file.fileLink,
             commentByClient: file.commentByClient,
             commentByPerformer: file.commentByPerformer,
-            index,
+            index: index + 1,
           })) || [],
       }))
     }
