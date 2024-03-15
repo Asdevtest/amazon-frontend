@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
@@ -115,6 +116,19 @@ export const MyProposalsView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
+
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
 
       <Modal
         openModal={viewModel.showRequestDesignerResultModal}
