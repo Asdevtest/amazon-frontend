@@ -362,6 +362,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
+    console.log('currentStorekeeperId :>> ', currentStorekeeperId)
     this.selectedBoxes = []
     this.currentStorekeeperId = currentStorekeeperId
     this.getBoxesMy()
@@ -1183,7 +1184,8 @@ export class ClientInStockBoxesViewModel {
 
     !notShowConfirmModal && this.onTriggerOpenModal('showConfirmModal')
     await this.getBoxesMy()
-    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    this.openModalAndClear()
 
     this.setRequestStatus(loadingStatuses.SUCCESS)
   }
