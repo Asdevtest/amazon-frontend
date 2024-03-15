@@ -230,11 +230,8 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <IdeaShopsFieldMenuItem
-          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
-            currentColumn.columnKey,
-          )}
           data={props}
-          field={currentColumn.field}
+          field={['parentProductShop', 'childProductShop']}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}

@@ -82,13 +82,15 @@ export const AdminSentBatchesViewRaw = props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      <BatchInfoModal
-        // @ts-ignore
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-      />
+      {viewModel.showBatchInfoModal && (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+        />
+      )}
     </>
   )
 }

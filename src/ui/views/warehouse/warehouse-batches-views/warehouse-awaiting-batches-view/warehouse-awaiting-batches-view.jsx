@@ -177,17 +177,19 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      <BatchInfoModal
-        // @ts-ignore
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-        userInfo={viewModel.userInfo}
-        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
-        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
+      {viewModel.showBatchInfoModal && (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+          userInfo={viewModel.userInfo}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      )}
 
       <WarningInfoModal
         // @ts-ignore
