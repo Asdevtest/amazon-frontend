@@ -135,7 +135,7 @@ export class ListSuppliersModel {
         ? [foundCurrentSupplier, ...filteringSuppliers]
         : this.product?.suppliers
 
-      this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id }))
+      this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id })) || []
     }
   }
 
