@@ -59,6 +59,9 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const isSelectedOwner =
+    userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id
+
   const showViewCalculationButton =
     isSupplerSelected &&
     !!userInfo &&
@@ -87,9 +90,8 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         ideaValidStatuses.includes(status) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
+        isSelectedOwner) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && isSelectedOwner))
 
   const showToggleCurrentSupplierButton =
     !readOnly &&
@@ -105,9 +107,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     isSupplerSelected &&
     !!userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-    (status === ProductStatus.BUYER_PICKED_PRODUCT ||
-      (ideaValidStatuses.includes(status) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
+    (status === ProductStatus.BUYER_PICKED_PRODUCT || (ideaValidStatuses.includes(status) && isSelectedOwner))
 
   const boxPropertiesIsFullAndMainsValues =
     supplier?.boxProperties?.amountInBox &&
