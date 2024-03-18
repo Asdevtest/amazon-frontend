@@ -60,7 +60,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const showViewCalculationButton =
-    !readOnly &&
     isSupplerSelected &&
     !!userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
