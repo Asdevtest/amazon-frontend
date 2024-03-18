@@ -75,7 +75,6 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
     ),
 
-    width: 250,
     renderCell: params => (
       <DownloadAndPrintFilesCell
         files={[
@@ -106,6 +105,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     ),
     filterable: false,
     sortable: false,
+    width: 280,
 
     // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },

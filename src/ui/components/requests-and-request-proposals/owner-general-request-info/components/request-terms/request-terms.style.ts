@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.background.general,
     borderRadius: 7,
     padding: 20,
-    height: 180,
+    flex: 1,
     gap: 20,
   },
 

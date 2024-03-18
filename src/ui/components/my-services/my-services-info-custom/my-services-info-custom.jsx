@@ -108,7 +108,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               </div>
 
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</Typography>
                 <Typography className={cx(styles.blockInfoCellText, styles.announcementTitle)}>
                   {request?.request?.spec?.title}
                 </Typography>
