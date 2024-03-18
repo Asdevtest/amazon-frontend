@@ -69,7 +69,13 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           </div>
         </div>
 
-        <ClearIcon className={styles.clearIcon} onClick={onClickUnbindButton} />
+        <ClearIcon
+          className={styles.clearIcon}
+          onClick={e => {
+            e.stopPropagation()
+            onClickUnbindButton()
+          }}
+        />
       </div>
 
       <div className={styles.resultWrapper}>
