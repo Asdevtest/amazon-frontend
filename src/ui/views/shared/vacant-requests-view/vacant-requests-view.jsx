@@ -53,7 +53,7 @@ export const VacantRequestsView = observer(({ history }) => {
         />
 
         <SearchInput
-          placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
+          placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
           inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           onSubmit={viewModel.onSearchSubmit}
