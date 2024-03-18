@@ -18,6 +18,7 @@ import {
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
   ProductAsinCell,
+  ProductVariationsCell,
   RedFlagsCell,
   SelectRowCell,
   ShortDateCell,
@@ -45,17 +46,27 @@ export const clientInventoryColumns = (
       renderCell: params => (
         <SelectRowCell
           checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          showVariationButton={params.row?.parentProductId || params.row?.hasChildren}
-          isParentProduct={!params.row?.parentProductId && params.row?.hasChildren}
           onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-          onClickVariationButton={() =>
-            otherHandlers.onClickVariationButton(params.row?.parentProductId || params.row?._id)
-          }
         />
       ),
-      width: 120,
+      width: 80,
       disableCustomSort: true,
       hide: true,
+    },
+
+    {
+      field: 'children',
+      headerName: 'Children',
+      renderHeader: () => <MultilineTextHeaderCell text="Children" />,
+      renderCell: ({ row }) => (
+        <ProductVariationsCell
+          showVariationButton={row?.parentProductId || row?.hasChildren}
+          isParentProduct={!row?.parentProductId && row?.hasChildren}
+          onClickVariationButton={() => otherHandlers.onClickVariationButton(row?.parentProductId || row?._id)}
+        />
+      ),
+      width: 80,
+      columnKey: columnnsKeys.shared.YES_NO,
     },
 
     {
