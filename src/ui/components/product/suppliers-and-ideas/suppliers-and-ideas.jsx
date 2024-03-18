@@ -4,7 +4,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -354,7 +353,6 @@ export const SuppliersAndIdeas = observer(props => {
         <SelectionSupplierModal
           product={currentProduct}
           title={t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
           onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
           onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         />
