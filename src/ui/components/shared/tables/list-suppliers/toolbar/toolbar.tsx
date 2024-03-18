@@ -76,7 +76,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         ideaValidStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)) ||
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) && !status))
 
   const showEditSupplierButton =
@@ -90,7 +90,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         ideaValidStatuses.includes(status) &&
         (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        buyerValidProductStatuses.includes(status) &&
         (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
 
   const showToggleCurrentSupplierButton =
