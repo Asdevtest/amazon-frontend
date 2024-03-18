@@ -89,7 +89,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           isPendingOrder
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           photosToLoad={viewModel.photosToLoad}
@@ -106,7 +105,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onClickHsCode={viewModel.onClickHsCode}
-          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
         />
       </Modal>
 
