@@ -29,13 +29,22 @@ interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
   readOnly?: boolean
   checkIsPlanningPrice?: boolean
-  onClickSaveSupplier?: () => void // can be transferred inside the table model
+  isNotProductNameForIdea?: boolean
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
+  onClickSaveSupplier?: () => void // can be transferred inside the table model
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
-  const { formFields, readOnly, checkIsPlanningPrice, onClickSaveSupplier, onSaveProduct, onRemoveSupplier } = props
+  const {
+    formFields,
+    readOnly,
+    checkIsPlanningPrice,
+    isNotProductNameForIdea,
+    onClickSaveSupplier,
+    onSaveProduct,
+    onRemoveSupplier,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -92,6 +101,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
                 <Toolbar
                   readOnly={readOnly}
                   userInfo={viewModel.userInfo}
+                  isNotProductNameForIdea={isNotProductNameForIdea}
                   isSupplerSelected={viewModel.selectionModel.length > 0}
                   isCurrentSupplierSelected={isCurrentSupplierSelected}
                   status={extractProduct(formFields)?.status}

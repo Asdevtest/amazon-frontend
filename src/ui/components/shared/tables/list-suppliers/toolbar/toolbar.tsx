@@ -35,11 +35,11 @@ interface ToolbarProps {
   isCurrentSupplierSelected: boolean
   onSupplierActions: (mode: ModalModes) => void
   onSupplierApproximateCalculationsModal: () => void
-
   readOnly?: boolean
   userInfo?: IFullUser
   supplier?: ISupplier
   checkIsPlanningPrice?: boolean
+  isNotProductNameForIdea?: boolean
 }
 
 export const Toolbar: FC<ToolbarProps> = memo(props => {
@@ -54,6 +54,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     userInfo,
     supplier,
     checkIsPlanningPrice,
+    isNotProductNameForIdea,
   } = props
 
   const { classes: styles } = useStyles()
@@ -76,7 +77,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         ideaValidStatuses.includes(status)) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)) ||
-      (checkIsClient(UserRoleCodeMap[userInfo?.role]) && !status))
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) && !status))
 
   const showEditSupplierButton =
     !readOnly &&
@@ -130,10 +131,13 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
     orderStatus === OrderStatus.AT_PROCESS &&
     checkIsPlanningPrice
+  const disabledAddSupplierButtonWhenCreateIdea =
+    userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+    isNotProductNameForIdea
   const disabledEditSupplierButton =
     !supplier ||
     supplier?.name === ACCESS_DENIED ||
-    isPendingOrderAndNotCurrentSupplierSelected ||
     isAtProcessOrder ||
     (userInfo &&
       checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
@@ -165,7 +169,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
-            disabled={isAtProcessOrder}
+            disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
             <AddIcon className={styles.icon} />
