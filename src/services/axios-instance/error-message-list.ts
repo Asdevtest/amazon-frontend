@@ -7,3 +7,5 @@ export const errorMessageList = [
   'Your ACCESS token is no longer valid. Use your REFRESH token to get a new one',
   'Forbidden',
 ]
+
+export const accessDeniedErrorMessageList = ["Access denied. This subuser doesn't have access to this endpoint"]

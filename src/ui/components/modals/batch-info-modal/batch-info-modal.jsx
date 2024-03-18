@@ -1,5 +1,6 @@
 import { toJS } from 'mobx'
-import { memo, useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -41,7 +42,7 @@ import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
-export const BatchInfoModal = memo(
+export const BatchInfoModal = observer(
   ({
     openModal,
     setOpenModal,
@@ -52,10 +53,6 @@ export const BatchInfoModal = memo(
     patchActualShippingCostBatch,
     history,
   }) => {
-    if (!openModal) {
-      return null
-    }
-
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
@@ -433,13 +430,15 @@ export const BatchInfoModal = memo(
             />
           </Modal>
 
-          <SlideshowGalleryModal
-            openModal={showPhotosModal}
-            files={currentBatch?.attachedDocuments}
-            currentFileIndex={curImageIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={index => setCurImageIndex(index)}
-          />
+          {showPhotosModal ? (
+            <SlideshowGalleryModal
+              openModal={showPhotosModal}
+              files={currentBatch?.attachedDocuments}
+              currentFileIndex={curImageIndex}
+              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+              onCurrentFileIndex={index => setCurImageIndex(index)}
+            />
+          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

@@ -89,7 +89,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           isPendingOrder
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           photosToLoad={viewModel.photosToLoad}
@@ -106,72 +105,83 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onClickHsCode={viewModel.onClickHsCode}
-          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey['Attention. Are you sure?'])}
-        message={t(TranslationKey['Are you sure you want to cancel the order?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onSubmitCancelOrder}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey['Attention. Are you sure?'])}
+          message={t(TranslationKey['Are you sure you want to cancel the order?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onSubmitCancelOrder}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showNoDimensionsErrorModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-        title={t(TranslationKey['The fields must be filled in to create the box!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-      />
+      {viewModel.showNoDimensionsErrorModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showNoDimensionsErrorModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+          title={t(TranslationKey['The fields must be filled in to create the box!'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showWarningNewBoxesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-        title={t(TranslationKey['Creating new boxes. Be careful!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-      />
+      {viewModel.showWarningNewBoxesModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showWarningNewBoxesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
+          title={t(TranslationKey['Creating new boxes. Be careful!'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showOrderPriceMismatchModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-        title={t(
-          TranslationKey[
-            'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-          ],
-        )}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-      />
+      {viewModel.showOrderPriceMismatchModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showOrderPriceMismatchModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
+          title={t(
+            TranslationKey[
+              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+            ],
+          )}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.showSuccessModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.showSuccessModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}

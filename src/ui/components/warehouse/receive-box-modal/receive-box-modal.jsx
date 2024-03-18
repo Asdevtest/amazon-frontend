@@ -291,14 +291,16 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         </Button>
       </div>
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={showNoDimensionsErrorModal}
-        setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-        title={t(TranslationKey['Enter the dimensions of all the boxes'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-      />
+      {showNoDimensionsErrorModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showNoDimensionsErrorModal}
+          setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
+          title={t(TranslationKey['Enter the dimensions of all the boxes'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
+        />
+      ) : null}
 
       <Modal
         openModal={showAddImagesModal}

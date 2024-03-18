@@ -25,10 +25,6 @@ interface ZoomModalProps {
 export const ZoomModal: FC<ZoomModalProps> = memo(props => {
   const { mediaFiles, currentMediaFileIndex, openModal, setOpenModal, setCurrentMediaFileIndex } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const files: string[] = mediaFiles.map(mediaFile =>

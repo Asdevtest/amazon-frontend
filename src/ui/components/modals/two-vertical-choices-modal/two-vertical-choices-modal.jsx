@@ -24,10 +24,6 @@ export const TwoVerticalChoicesModal = memo(
     thirdBtnText,
     onClickThirdBtn,
   }) => {
-    if (!openModal) {
-      return null
-    }
-
     const { classes: styles } = useStyles()
 
     return (

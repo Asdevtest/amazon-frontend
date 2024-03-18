@@ -47,6 +47,7 @@ export const observerConfig = {
   showProductLaunch: observable,
   showIdeaModal: observable,
   showProductVariationsForm: observable,
+  showAddOrEditSupplierModal: observable,
 
   readyImages: observable,
   progressValue: observable,
@@ -117,4 +118,5 @@ export const observerConfig = {
   setDestinationsFavouritesItem: action.bound,
   loadData: action.bound,
   setActiveProductsTag: action.bound,
+  onClickSaveSupplierBtn: action.bound,
 }

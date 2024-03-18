@@ -68,14 +68,16 @@ export const BuyerSearchSupplierBySupervisorView = observer(props => {
         </div>
       </div>
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey['Taken to Work'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={t(TranslationKey['Taken to Work'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
     </>
   )
 })

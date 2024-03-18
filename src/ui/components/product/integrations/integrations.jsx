@@ -112,23 +112,27 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successInfoModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successInfoModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={showInfoModal}
-        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey["You can't bind"])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => onTriggerOpenModal('showInfoModal')}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={t(TranslationKey["You can't bind"])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
     </div>
   )
 })

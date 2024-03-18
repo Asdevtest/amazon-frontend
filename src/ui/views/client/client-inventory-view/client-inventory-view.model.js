@@ -105,6 +105,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
+  showAddOrEditSupplierModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -1116,6 +1117,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickAddSupplierButton() {
     try {
       this.getSuppliersPaymentMethods()
+
+      this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
       console.log(error)
     }
@@ -1289,11 +1292,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       await this.getMainTableData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
+    } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
     }
@@ -1525,5 +1526,47 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   setSelectedProduct(item) {
     this.selectedProduct = item
+  }
+
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
+      await ProductModel.addSuppliersToProduct(this.selectedRows[0], [createSupplierResult.guid])
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
   }
 }

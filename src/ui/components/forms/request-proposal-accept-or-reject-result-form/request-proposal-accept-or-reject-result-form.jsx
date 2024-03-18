@@ -30,10 +30,6 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
     rejectButtonText,
     openModal,
   }) => {
-    if (!openModal) {
-      return null
-    }
-
     const { classes: styles, cx } = useStyles()
 
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
@@ -95,21 +91,23 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
             </Button>
           </div>
 
-          <ConfirmationModal
-            // @ts-ignore
-            isWarning
-            openModal={isShowConfirmationModal}
-            setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Are you sure you want to close this window?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onClickSuccessBtn={() => {
-              setIsShowConfirmationModal(false)
-              onClose()
-            }}
-            onClickCancelBtn={() => setIsShowConfirmationModal(false)}
-          />
+          {isShowConfirmationModal ? (
+            <ConfirmationModal
+              // @ts-ignore
+              isWarning
+              openModal={isShowConfirmationModal}
+              setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
+              title={t(TranslationKey.Attention)}
+              message={t(TranslationKey['Are you sure you want to close this window?'])}
+              successBtnText={t(TranslationKey.Yes)}
+              cancelBtnText={t(TranslationKey.Cancel)}
+              onClickSuccessBtn={() => {
+                setIsShowConfirmationModal(false)
+                onClose()
+              }}
+              onClickCancelBtn={() => setIsShowConfirmationModal(false)}
+            />
+          ) : null}
         </div>
       </Modal>
     )

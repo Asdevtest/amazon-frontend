@@ -39,7 +39,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShop', 'childProductShop'],
+    field: 'parentProductShop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 

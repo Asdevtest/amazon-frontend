@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -21,10 +21,19 @@ interface SupplierPriceVariationSelectorProps {
   isEditMode: boolean
 }
 
-export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = props => {
+export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = ({
+  isEditMode,
+  currentVariations,
+  updateVariationList,
+}) => {
   const { classes: styles, cx } = useStyles()
 
-  const [variationList, setVariationList] = useState<VariationType[]>(props.currentVariations || [])
+  const [variationList, setVariationList] = useState<VariationType[]>([])
+
+  useEffect(() => {
+    setVariationList(currentVariations)
+  }, [currentVariations])
+
   const [quantity, setQuantity] = useState<string>('')
   const [price, setPrice] = useState<string>('')
 
@@ -33,20 +42,20 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
     setVariationList(newList)
     setQuantity('')
     setPrice('')
-    props.updateVariationList(newList)
+    updateVariationList(newList)
   }
 
   const handleRemoveVariation = (id: number) => {
     const newList = variationList.filter((el, index) => index !== id)
     setVariationList(newList)
-    props.updateVariationList(newList)
+    updateVariationList(newList)
   }
 
   return (
     <div className={styles.body}>
       <Typography className={styles.title}>{t(TranslationKey['Price variations'])}:</Typography>
       <div className={styles.content}>
-        {props.isEditMode && (
+        {isEditMode && (
           <div className={styles.creationBlock}>
             <Field
               containerClasses={styles.field}
@@ -113,7 +122,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
                     label={`${t(TranslationKey.Cost)},¥`}
                     value={el.price}
                   />
-                  {props.isEditMode && (
+                  {isEditMode && (
                     <button
                       className={cx(styles.removeBtn, styles.controlButton)}
                       onClick={() => handleRemoveVariation(index)}

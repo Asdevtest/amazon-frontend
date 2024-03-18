@@ -18,10 +18,6 @@ import { ButtonVariant } from '@typings/enums/button-style'
 import { useStyles } from './feedback-modal.style'
 
 export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
@@ -82,21 +78,23 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
           </Button>
         </div>
 
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning
-          openModal={isShowConfirmationModal}
-          setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
-          title={t(TranslationKey.Attention)}
-          successBtnText={t(TranslationKey.Yes)}
-          message={t(TranslationKey['Are you sure you want to close this window?'])}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            onClickCloseButton()
-            setIsShowConfirmationModal(false)
-          }}
-          onClickCancelBtn={() => setIsShowConfirmationModal(false)}
-        />
+        {isShowConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning
+            openModal={isShowConfirmationModal}
+            setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
+            title={t(TranslationKey.Attention)}
+            successBtnText={t(TranslationKey.Yes)}
+            message={t(TranslationKey['Are you sure you want to close this window?'])}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={() => {
+              onClickCloseButton()
+              setIsShowConfirmationModal(false)
+            }}
+            onClickCancelBtn={() => setIsShowConfirmationModal(false)}
+          />
+        ) : null}
       </div>
     </Modal>
   )

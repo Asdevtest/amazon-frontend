@@ -569,22 +569,11 @@ export const SelectFields = ({
           ) : null}
         </div>
 
-        <div>
-          {Number(order.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
-            <div className={styles.imageFileInputWrapper}>
-              <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
-            </div>
-          )}
-
-          <div className={styles.gallery}>
-            <SlideshowGallery
-              isEditable
-              slidesToShow={1}
-              files={photosToLoad}
-              onChangeImagesForLoad={setPhotosToLoad}
-            />
+        {order.status !== OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+          <div className={styles.imageFileInputWrapper}>
+            <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>
-        </div>
+        ) : null}
       </Grid>
 
       {showProgress && (

@@ -130,22 +130,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  uploadFilesWrapper: {
-    width: '690px',
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-    },
-  },
-  imageFileInputWrapper: {
-    display: 'flex',
-    gap: '60px',
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      flexDirection: 'column',
-      gap: '40px',
-    },
-  },
-
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '380px',
@@ -187,13 +171,5 @@ export const useStyles = makeStyles()(theme => ({
   volumeWeightDivider: {
     margin: '0 40px',
     color: theme.palette.text.second,
-  },
-
-  imageAndFileInputWrapper: {
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
   },
 }))

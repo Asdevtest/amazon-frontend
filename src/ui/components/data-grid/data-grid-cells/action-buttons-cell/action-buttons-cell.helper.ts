@@ -1,18 +1,12 @@
-import { MouseEvent } from 'react'
-
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { ActionButtonsCellProps } from './action-buttons-cell.type'
 
-export const handleClickButton =
-  (onClick?: () => void) =>
-  (e: MouseEvent<HTMLButtonElement>): void => {
-    e.stopPropagation()
-
-    if (onClick) {
-      onClick()
-    }
+export const handleClickButton = (onClick?: () => void) => (): void => {
+  if (onClick) {
+    onClick()
   }
+}
 
 export const getButtonStyle = (style?: ButtonStyle): ButtonStyle => {
   switch (style) {

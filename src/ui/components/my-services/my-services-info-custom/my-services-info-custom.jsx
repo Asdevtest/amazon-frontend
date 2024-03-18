@@ -35,12 +35,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               <div className={styles.titleWrapper}>
                 <Typography className={styles.title}>{request?.request.createdBy.name}</Typography>
 
-                <Rating
-                  readOnly
-                  value={5}
-                  size="small"
-                  // onChange={onChangeField('rating')}
-                />
+                <Rating readOnly value={5} size="small" />
               </div>
             </div>
 

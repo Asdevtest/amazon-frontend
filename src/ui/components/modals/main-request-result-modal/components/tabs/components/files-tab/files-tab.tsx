@@ -64,7 +64,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         <div className={styles.files}>
           {files.map((file, index) => (
             <File
-              key={file._id}
+              key={index}
               readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}
@@ -102,22 +102,26 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
         )}
       </div>
 
-      <CommentsModal
-        readOnly={!props.isClient || props.readOnly}
-        title={commentModalTitle}
-        text={currentEditableFile?.commentByClient || ''}
-        maxLength={MIDDLE_COMMENT_VALUE}
-        openModal={showCommentModal}
-        onOpenModal={onShowCommentModal}
-        onChangeField={onChangeComment}
-      />
+      {showCommentModal ? (
+        <CommentsModal
+          readOnly={!props.isClient || props.readOnly}
+          title={commentModalTitle}
+          text={currentEditableFile?.commentByClient || ''}
+          maxLength={MIDDLE_COMMENT_VALUE}
+          openModal={showCommentModal}
+          onOpenModal={onShowCommentModal}
+          onChangeField={onChangeComment}
+        />
+      ) : null}
 
-      <SlideshowGalleryModal
-        files={files}
-        currentFileIndex={currentFileIndex}
-        openModal={showSlideshowGalleryModal}
-        onOpenModal={onShowSlideshowGalleryModal}
-      />
+      {showSlideshowGalleryModal ? (
+        <SlideshowGalleryModal
+          files={files}
+          currentFileIndex={currentFileIndex}
+          openModal={showSlideshowGalleryModal}
+          onOpenModal={onShowSlideshowGalleryModal}
+        />
+      ) : null}
     </>
   )
 })

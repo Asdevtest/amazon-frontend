@@ -13,9 +13,9 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './request-media-files-tab.style'
 
-import { IState } from '../../../gallery-request-modal/gallery-request-modal.type'
-import { getSupplierTitleByObjectkey } from '../../../gallery-request-modal/helpers/get-supplier-title-by-object-key'
-import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/has-non-empty-string-array'
+import { IState } from '../../gallery-request-modal.type'
+import { getSupplierTitleByObjectkey } from '../../helpers/get-supplier-title-by-object-key'
+import { hasNonEmptyStringArray } from '../../helpers/has-non-empty-string-array'
 
 interface RequestMediaFilesTabProps {
   data: IState | undefined
@@ -91,13 +91,15 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
         )}
       </div>
 
-      <SlideshowGalleryModal
-        files={totalFiles}
-        currentFileIndex={currentSlideIndex}
-        openModal={showImageModal}
-        onOpenModal={() => setShowImageModal(!showImageModal)}
-        onCurrentFileIndex={setCurrentSlideIndex}
-      />
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          files={totalFiles}
+          currentFileIndex={currentSlideIndex}
+          openModal={showImageModal}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={setCurrentSlideIndex}
+        />
+      ) : null}
     </>
   )
 })

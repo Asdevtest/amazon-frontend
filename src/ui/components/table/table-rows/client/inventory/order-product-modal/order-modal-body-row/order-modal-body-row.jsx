@@ -437,12 +437,8 @@ export const OrderModalBodyRow = ({
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              // destinations
               item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
-              // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
-
-              /* .filter(el => !el.storekeeperId)*/
-            } // убираем дестинейшены, которые одновременно и склады
+            }
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
@@ -606,18 +602,20 @@ export const OrderModalBodyRow = ({
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmationModal}
-          setOpenModal={() => setShowConfirmationModal(prev => !prev)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmationModal}
+            setOpenModal={() => setShowConfirmationModal(prev => !prev)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </TableRow>
     </>
   )

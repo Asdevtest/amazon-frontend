@@ -30,10 +30,6 @@ interface AnnouncementModalProps {
 export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
   const { openModal, service, choose, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const serviceType = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title

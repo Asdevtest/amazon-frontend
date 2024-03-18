@@ -20,10 +20,6 @@ interface IdeaCardsModalProps {
 export const IdeaCardsModal: FC<IdeaCardsModalProps> = memo(props => {
   const { openModal, product, productId, setOpenModal, isCreate, currentIdeaId, updateData } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   return (

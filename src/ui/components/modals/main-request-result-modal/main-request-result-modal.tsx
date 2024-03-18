@@ -20,10 +20,6 @@ import { useMainRequestResultModal } from './use-main-request-result-modal'
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
   const { customProposal, openModal, onOpenModal, readOnly } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const {
@@ -91,16 +87,18 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
         ) : null}
       </div>
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showConfirmModal}
-        setOpenModal={onToggleShowConfirmModal}
-        message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={onClickSuccessConfirm}
-        onClickCancelBtn={onToggleShowConfirmModal}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={onToggleShowConfirmModal}
+          message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={onClickSuccessConfirm}
+          onClickCancelBtn={onToggleShowConfirmModal}
+        />
+      ) : null}
     </Modal>
   )
 })

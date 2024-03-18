@@ -22,10 +22,6 @@ interface GalleryModalProps {
 export const GalleryModal: FC<GalleryModalProps> = memo(props => {
   const { files, openModal, onOpenModal } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const {

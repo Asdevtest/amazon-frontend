@@ -44,10 +44,6 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickResultBtn,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({

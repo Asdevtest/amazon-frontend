@@ -1094,73 +1094,43 @@ export const CreateOrEditRequestContent = memo(props => {
           </div>
 
           <div className={styles.buttons}>
-            {isFirstStep && requestToEdit ? (
+            <Button
+              tooltipInfoContent={
+                isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
+              }
+              variant={ButtonVariant.OUTLINED}
+              onClick={onClickBackBtn}
+            >
+              {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
+            </Button>
+
+            {requestToEdit ? (
+              <Button
+                styleType={ButtonStyle.SUCCESS}
+                tooltipInfoContent={
+                  isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
+                }
+                disabled={disableSubmit}
+                onClick={() => (isSecondStep ? onEditSubmit(formFields, images, announcement) : onSuccessSubmit())}
+              >
+                {isSecondStep ? (
+                  t(TranslationKey.Edit)
+                ) : (
+                  <>
+                    {t(TranslationKey.Next)}
+                    <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
+                  </>
+                )}
+              </Button>
+            ) : (
               <>
-                <Button variant={ButtonVariant.OUTLINED} onClick={onClickBackBtn}>
-                  {t(TranslationKey.Cancel)}
-                </Button>
-
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
-                  disabled={disableSubmit}
-                  onClick={() => onEditSubmit(formFields, images, announcement)}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-              </>
-            ) : null}
-
-            {isFirstStep ? (
-              <>
-                <Button
-                  tooltipInfoContent={
-                    isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
-                  }
-                  variant={ButtonVariant.OUTLINED}
-                  onClick={onClickBackBtn}
-                >
-                  {isSecondStep ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
-                </Button>
-
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
-                  tooltipInfoContent={
-                    isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
-                  }
-                  disabled={disableSubmit}
-                  onClick={onSuccessSubmit}
-                >
-                  {isSecondStep ? (
-                    t(TranslationKey['Create a request'])
-                  ) : (
-                    <>
-                      {t(TranslationKey.Next)}
-                      <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
-                    </>
-                  )}
-                </Button>
-              </>
-            ) : null}
-
-            {isSecondStep ? (
-              <>
-                <Button
-                  tooltipInfoContent={
-                    isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
-                  }
-                  variant={ButtonVariant.OUTLINED}
-                  onClick={onClickBackBtn}
-                >
-                  {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
-                </Button>
-
                 <Button
                   styleType={ButtonStyle.SUCCESS}
                   tooltipInfoContent={
                     isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                   }
                   disabled={disableSubmit}
-                  onClick={() => onClickCreate({ withPublish: false })}
+                  onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
                   {isSecondStep ? (
                     t(TranslationKey['Create a request'])
@@ -1172,15 +1142,17 @@ export const CreateOrEditRequestContent = memo(props => {
                   )}
                 </Button>
 
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
-                  disabled={disableSubmit}
-                  onClick={() => onClickCreate({ withPublish: true })}
-                >
-                  {t(TranslationKey['Create and publish a request'])}
-                </Button>
+                {isSecondStep ? (
+                  <Button
+                    styleType={ButtonStyle.SUCCESS}
+                    disabled={disableSubmit}
+                    onClick={() => onClickCreate({ withPublish: true })}
+                  >
+                    {t(TranslationKey['Create and publish a request'])}
+                  </Button>
+                ) : null}
               </>
-            ) : null}
+            )}
           </div>
         </div>
       </div>
@@ -1229,13 +1201,15 @@ export const CreateOrEditRequestContent = memo(props => {
         />
       </Modal>
 
-      <GalleryRequestModal
-        data={productMedia}
-        openModal={showGalleryModal}
-        mediaFiles={images}
-        onChangeMediaFiles={setImages}
-        onOpenModal={onTriggerGalleryModal}
-      />
+      {showGalleryModal ? (
+        <GalleryRequestModal
+          data={productMedia}
+          openModal={showGalleryModal}
+          mediaFiles={images}
+          onChangeMediaFiles={setImages}
+          onOpenModal={onTriggerGalleryModal}
+        />
+      ) : null}
     </>
   )
 })
