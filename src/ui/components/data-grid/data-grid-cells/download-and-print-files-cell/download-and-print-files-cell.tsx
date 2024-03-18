@@ -65,14 +65,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
             <p className={styles.dapTitle}>{el.title}</p>
             {el?.fileUrl && (
               <Box display="flex" gap="8px" alignItems="center">
-                <Button
-                  isTableButton
-                  className={styles.dapBtn}
-                  onClick={e => {
-                    e.stopPropagation()
-                    handleImagePreview(el)
-                  }}
-                >
+                <Button isTableButton className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
                   <p>{el?.fileName}</p>
                 </Button>
 

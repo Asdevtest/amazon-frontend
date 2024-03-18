@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, ReactElement, memo, useContext } from 'react'
+import { ButtonHTMLAttributes, FC, MouseEvent, ReactElement, memo, useContext } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -29,6 +29,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconButton?: boolean
   buttonIconSize?: number
   smallIconButton?: boolean
+  onClick?: (e: MouseEvent<HTMLElement>) => void
 }
 
 export const Button: FC<ButtonProps> = memo(props => {
@@ -46,6 +47,7 @@ export const Button: FC<ButtonProps> = memo(props => {
     fullWidth = false,
     iconButton = false,
     smallIconButton = false,
+    onClick,
     ...restProps
   } = props
 
@@ -89,6 +91,10 @@ export const Button: FC<ButtonProps> = memo(props => {
         },
         className,
       )}
+      onClick={e => {
+        e.stopPropagation()
+        onClick?.(e)
+      }}
       {...restProps}
     >
       {children}

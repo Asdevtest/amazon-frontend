@@ -135,6 +135,9 @@ export const useStyles = makeStyles()(theme => ({
 
   announcementTitle: {
     fontSize: 16,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     textTransform: 'capitalize',
   },
   announcementBlock: {
