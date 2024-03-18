@@ -1191,7 +1191,7 @@ export class WarehouseMyWarehouseViewModel {
         // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
         // Удалить currentColumn и поставить на его место аргумент функции, column
         // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, 'boxes'),
+        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
         currentColumn,
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )

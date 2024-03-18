@@ -362,7 +362,6 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickStorekeeperBtn(currentStorekeeperId) {
-    console.log('currentStorekeeperId :>> ', currentStorekeeperId)
     this.selectedBoxes = []
     this.currentStorekeeperId = currentStorekeeperId
     this.getBoxesMy()
@@ -1666,7 +1665,7 @@ export class ClientInStockBoxesViewModel {
         // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
         // Удалить currentColumn и поставить на его место аргумент функции, column
         // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, 'boxes'),
+        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
         currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${

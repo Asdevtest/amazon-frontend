@@ -10,6 +10,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  RedFlagsCell,
   ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
@@ -238,5 +239,15 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
+    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+    width: 130,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 ]
