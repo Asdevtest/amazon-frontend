@@ -33,7 +33,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { replaceCommaByDot, toFixed } from '@utils/text'
+import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -380,12 +380,11 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
     formFields.details.conditions.length >= MAX_COMMENT_LEGTH ||
-    !formFields.details.conditions.length ||
+    !parseTextString(formFields.details.conditions).length ||
     !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
-
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
   const isSecondStep = curStep === stepVariant.STEP_TWO
