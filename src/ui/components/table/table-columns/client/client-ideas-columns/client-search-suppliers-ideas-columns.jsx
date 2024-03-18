@@ -114,7 +114,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaSupplierCell
         suppliers={params.value}
-        onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)}
+        onClickAddSupplier={() => rowHandlers.onClickAddSupplierButton(params.row._id)}
       />
     ),
     width: 176,
