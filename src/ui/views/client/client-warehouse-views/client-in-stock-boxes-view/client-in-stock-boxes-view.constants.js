@@ -48,6 +48,7 @@ export const filtersFields = [
   'status',
   'storekeeper',
   'sub',
+  'redFlags',
 ]
 
 export const disableSelectionCells = ['prepId']
