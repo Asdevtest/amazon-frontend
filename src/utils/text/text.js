@@ -485,10 +485,3 @@ export const parseTextString = textValue => {
 
 export const formatCamelCaseString = str =>
   str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())
-
-export const addHttpsPrefix = url => {
-  if (!url.startsWith('https://')) {
-    url = 'https://' + url
-  }
-  return url
-}

@@ -6,7 +6,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { BasketIcon } from '@components/shared/svg-icons'
 
-import { addHttpsPrefix } from '@utils/text'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 
 import { useStyles } from './link.style'
 
@@ -44,7 +44,7 @@ export const Link: FC<LinkProps> = memo(props => {
         />
       ) : (
         <a
-          href={addHttpsPrefix(link)}
+          href={checkAndMakeAbsoluteUrl(link)}
           target="_blank"
           rel="noreferrer noopener"
           className={cx(styles.inputRoot, styles.input, styles.link)}
