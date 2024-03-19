@@ -32,7 +32,7 @@ const tabsValues = {
   MANAGEMENT: 'MANAGEMENT',
 }
 
-const getTab = tabKey => {
+export const getTab = tabKey => {
   switch (tabKey) {
     case 'orders':
       return tabsValues.ORDERS
