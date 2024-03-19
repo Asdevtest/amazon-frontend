@@ -90,7 +90,6 @@ export const MergeBoxesModal = ({
     widthCmWarehouse: 0,
     heightCmWarehouse: 0,
     weighGrossKgWarehouse: 0,
-    images: [],
   })
 
   const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
@@ -126,9 +125,10 @@ export const MergeBoxesModal = ({
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
         weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+        tmpShippingLabel: imagesOfBox,
       }
     } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null }
+      return { ...boxBody, destinationId: boxBody.destinationId || null, tmpShippingLabel: imagesOfBox }
     }
   }
 
@@ -478,9 +478,7 @@ export const MergeBoxesModal = ({
                       setFormField={setFormField}
                     />
 
-                    <div className={styles.imageFileInputWrapper}>
-                      <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
-                    </div>
+                    <UploadFilesInput fullWidth images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                   </div>
                 }
               />

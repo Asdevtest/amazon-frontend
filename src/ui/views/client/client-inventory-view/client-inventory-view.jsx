@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ClientModel } from '@models/client-model'
 
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
-import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
@@ -243,20 +242,6 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showAddSupplierToIdeaFromInventoryModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-      >
-        <AddSupplierToIdeaFromInventoryForm
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          product={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
-          ideas={viewModel.ideasData}
-          onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-          onSubmit={viewModel.createSupplierSearchRequest}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showSetBarcodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
@@ -325,7 +310,6 @@ export const ClientInventoryView = observer(({ history }) => {
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
-          onClickSeekSupplierToIdea={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
         />
       </Modal>
 
