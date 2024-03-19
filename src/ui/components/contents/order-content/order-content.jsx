@@ -262,10 +262,7 @@ export const OrderContent = ({
         </div>
 
         <div className={styles.suppliersWrapper}>
-          <ListSuppliers
-            formFields={updatedOrder.product}
-            //  onClickSaveSupplier={onChangeSelectedSupplier}
-          />
+          <ListSuppliers readOnly formFields={updatedOrder.product} />
         </div>
 
         <div className={styles.tableWrapper}>

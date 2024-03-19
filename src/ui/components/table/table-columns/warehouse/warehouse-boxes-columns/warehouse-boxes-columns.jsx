@@ -10,6 +10,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  RedFlagsCell,
   ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
@@ -75,7 +76,6 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
     ),
 
-    width: 250,
     renderCell: params => (
       <DownloadAndPrintFilesCell
         files={[
@@ -106,6 +106,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     ),
     filterable: false,
     sortable: false,
+    width: 280,
 
     // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
@@ -238,5 +239,15 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
+    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+    width: 130,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 ]

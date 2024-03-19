@@ -44,7 +44,6 @@ export const OrderBox = memo(props => {
       <div className={styles.numberInputFieldsBlocksSubWrapper}>
         <div className={styles.numberInputFieldsWrapper}>
           <Field
-            type="number"
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Box length'])}
             error={isNormalLength}
@@ -53,7 +52,6 @@ export const OrderBox = memo(props => {
           />
 
           <Field
-            type="number"
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Box width'])}
             error={isNormalWidth}
@@ -64,7 +62,6 @@ export const OrderBox = memo(props => {
 
         <div className={styles.numberInputFieldsWrapper}>
           <Field
-            type="number"
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Box height'])}
             error={isNormalHeight}
@@ -73,7 +70,6 @@ export const OrderBox = memo(props => {
           />
 
           <Field
-            type="number"
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Real weight'])}
             error={Number(orderBox.weighGrossKgSupplier) === 0}

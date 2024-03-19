@@ -23,6 +23,7 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -304,6 +305,21 @@ export const ClientIdeasView = observer(({ history }) => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
     </>
   )
 })

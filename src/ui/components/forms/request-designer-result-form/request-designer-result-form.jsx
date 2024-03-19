@@ -312,7 +312,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
     }
   }
 
-  const disableSubmit = imagesData.some(el => !el.fileLink)
+  const disableSubmit = imagesData.some(el => !el.fileLink) || imagesData.length === 0
 
   return (
     <>

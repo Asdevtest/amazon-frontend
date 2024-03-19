@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { OrderCell, ProductAsinCell } from '..'
 import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
@@ -13,6 +12,8 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-many-items-cell.style'
 
+import { ProductAsinCell } from '../product-asin-cell/product-asin-cell'
+
 interface OrderManyItemsCellProps {
   box: any
   error?: string
@@ -23,8 +24,6 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
   const { box, error, withoutSku } = props
 
   const { classes: styles, cx } = useStyles()
-
-  const isEqualsItems = box.items.every((el: any) => el?.product?._id === box?.items?.[0]?.product?._id)
 
   const renderTooltip = () => (
     <div className={styles.tooltipWrapper}>
@@ -81,10 +80,6 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
           {box.items.length > 6 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
         </div>
         {error && <span className={styles.error}>{error}</span>}
-
-        {isEqualsItems ? (
-          <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
-        ) : null}
       </div>
     </Tooltip>
   )

@@ -26,7 +26,6 @@ export const SelectionSupplierModal = ({
   onCloseModal,
   onClickFinalAddSupplierButton,
   onSubmitSeekSupplier,
-  onClickSeekSupplierToIdea,
 }) => {
   const [comment, setComment] = useState(product?.clientComment || '')
 
@@ -75,18 +74,6 @@ export const SelectionSupplierModal = ({
               }}
             >
               {t(TranslationKey['Add a new supplier'])}
-            </Button>
-          ) : null}
-
-          {onClickSeekSupplierToIdea ? (
-            <Button
-              tooltipAttentionContent={t(TranslationKey['Click next to calculate the cost of your supplier search'])}
-              onClick={() => {
-                onCloseModal()
-                onClickSeekSupplierToIdea()
-              }}
-            >
-              {t(TranslationKey['Supplier search options'])}
             </Button>
           ) : null}
         </div>
