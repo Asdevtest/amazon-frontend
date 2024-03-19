@@ -21,7 +21,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './my-proposals-view.style'
 
-import { customSwitcherSettings, searchInputPlaceholder } from './my-proposals-view.constants'
+import { customSwitcherSettings } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsView = observer(({ history }) => {
@@ -45,13 +45,10 @@ export const MyProposalsView = observer(({ history }) => {
 
           <SearchInput
             inputClasses={styles.searchInput}
-            placeholder={searchInputPlaceholder}
+            placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
             value={viewModel.currentSearchValue}
             onSubmit={viewModel.onChangeSearchValue}
           />
-
-          <div />
-          <div />
         </div>
 
         <CustomSwitcher

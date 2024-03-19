@@ -1875,7 +1875,7 @@ export enum TranslationKey {
   'Requests in progress' = 'Requests in progress',
   'Completed requests' = 'Completed requests',
   'EXECUTED_IN_PLURAL_KEY' = 'EXECUTED_IN_PLURAL_KEY',
-  'Search by Title, ASIN, ID' = 'Search by Title, ASIN, ID',
+  'Search by Title, ASIN, SKU, ID' = 'Search by Title, ASIN, SKU, ID',
   'Request result' = 'Request result',
   'Your image recommendations' = 'Your image recommendations',
   'Upload your recommendations for product images.' = 'Upload your recommendations for product images.',

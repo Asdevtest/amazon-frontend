@@ -322,6 +322,7 @@ export class MyProposalsViewModel {
         'asin',
         'title',
         'humanFriendlyId',
+        'skuByClient',
       ]),
     )
   }

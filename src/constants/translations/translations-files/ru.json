@@ -1873,7 +1873,7 @@
   "Requests in progress": "Заявки в работе",
   "Completed requests": "Исполненные заявки",
   "EXECUTED_IN_PLURAL_KEY": "Исполненные",
-  "Search by Title, ASIN, ID": "Поиск по Названию, ASIN, ID",
+  "Search by Title, ASIN, SKU, ID": "Поиск по Названию, ASIN, ID",
   "Request result": "Результат заявки",
   "Your image recommendations": "Рекомендации по вашим изображениям",
   "Upload your recommendations for product images.": "Загрузите свои рекомендации по изображениям товаров.",

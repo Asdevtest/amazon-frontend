@@ -35,10 +35,6 @@ export const customSwitcherSettings = [
   { label: () => t(TranslationKey.Executed), value: switcherConditions.executed },
 ]
 
-export const searchInputPlaceholder = `${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
-  TranslationKey.Title,
-)}, ${t(TranslationKey.ID)}`
-
 export const inTheWorkStatuses = [
   RequestStatus.READY_TO_VERIFY,
   RequestStatus.OFFER_CONDITIONS_ACCEPTED,
