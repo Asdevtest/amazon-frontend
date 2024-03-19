@@ -218,10 +218,11 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     useEffect(() => {
-      if (!isCurrentIdea) {
+      if (!isCurrentIdea && !inCreate) {
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
+        setShowFullCard(true)
       }
     }, [curIdea, idea, languageTag])
 
@@ -683,7 +684,10 @@ export const IdeaViewAndEditCard = observer(
             {formFields ? (
               <ListSuppliers
                 formFields={formFields}
-                onClickSaveSupplier={onClickSaveSupplierBtn}
+                isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
+                onClickSaveSupplier={({ ...rest }) =>
+                  onClickSaveSupplierBtn({ ...rest, ideaFormFields: calculateFieldsToSubmit() })
+                }
                 onRemoveSupplier={onRemoveSupplier}
                 // onSaveProduct={onClickSupplierBtns}
               />
