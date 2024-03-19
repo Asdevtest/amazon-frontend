@@ -187,7 +187,6 @@ export const EditOrderModal = memo(
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
     const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
-    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 
     const renderHeadRow = () => (
@@ -294,7 +293,6 @@ export const EditOrderModal = memo(
       hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
-      paymentDetailsPhotosToLoad,
       editPaymentDetailsPhotos,
       orderPayments,
     })
@@ -443,11 +441,6 @@ export const EditOrderModal = memo(
         case 'SUBMIT':
           return onSubmitSaveOrder(getDataForSaveOrder())
       }
-    }
-
-    const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
-      setPaymentDetailsPhotosToLoad(loadedFiles)
-      setEditPaymentDetailsPhotos(editedFiles)
     }
 
     const disableSubmit =
@@ -666,7 +659,7 @@ export const EditOrderModal = memo(
           <SelectFields
             orderPayments={orderPayments}
             userInfo={userInfo}
-            paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
+            editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             hsCode={hsCode}
             setHsCode={setHsCode}
             yuanToDollarRate={platformSettings?.yuanToDollarRate}
@@ -958,10 +951,8 @@ export const EditOrderModal = memo(
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
           <SupplierPaymentForm
-            uploadedFiles={paymentDetailsPhotosToLoad}
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             setEditPaymentDetailsPhotos={setEditPaymentDetailsPhotos}
-            onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
         </Modal>

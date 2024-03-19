@@ -723,7 +723,6 @@ export class BuyerMyOrdersViewModel {
     hsCode,
     trackNumber,
     commentToWarehouse,
-    paymentDetailsPhotosToLoad,
     editPaymentDetailsPhotos,
     orderPayments,
   }) {
@@ -749,20 +748,11 @@ export class BuyerMyOrdersViewModel {
         images: this.readyImages,
       }
 
-      await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos || [], type: 'readyImages' })
+      await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos, type: 'readyImages' })
 
       orderFields = {
         ...orderFields,
         paymentDetails: this.readyImages,
-      }
-
-      if (paymentDetailsPhotosToLoad?.length) {
-        await onSubmitPostImages.call(this, { images: paymentDetailsPhotosToLoad, type: 'readyImages' })
-
-        orderFields = {
-          ...orderFields,
-          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
-        }
       }
 
       await this.onSaveOrder(order, orderFields)
