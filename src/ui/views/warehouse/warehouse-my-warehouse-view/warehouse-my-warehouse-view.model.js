@@ -811,7 +811,7 @@ export class WarehouseMyWarehouseViewModel {
       await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       boxBody = {
         ...boxBody,
-        shippingLabel: this.uploadedFiles,
+        shippingLabel: this.uploadedFiles[0],
       }
 
       await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedImages' })
