@@ -48,6 +48,8 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
     getDisabledCheckbox,
   } = useGalleryRequestModal(data, mediaFiles, maxNumber)
 
+  console.log('mediaFilesStates', mediaFilesStates)
+
   return (
     <Modal
       openModal={openModal}
