@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
@@ -86,7 +87,7 @@ export const CreateOrEditProposalContent = memo(props => {
     !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    (JSON.stringify(getSourceFormFields()) === JSON.stringify(formFields) && !images.length)
+    (isEqual(getSourceFormFields(), formFields) && proposalToEdit?.linksToMediaFiles?.length === images.length)
 
   return (
     <div className={styles.mainWrapper}>
