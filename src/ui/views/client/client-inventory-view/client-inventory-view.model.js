@@ -132,7 +132,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       !(
         this.columnMenuSettings?.transparencyYesNoFilterData?.yes &&
         this.columnMenuSettings?.transparencyYesNoFilterData?.no
-      )
+      ) ||
+      !(this.columnMenuSettings?.childrenYesNoFilterData?.yes && this.columnMenuSettings?.childrenYesNoFilterData?.no)
     )
   }
 
@@ -151,6 +152,24 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               ...this.columnMenuSettings,
               transparencyYesNoFilterData: {
                 ...this.columnMenuSettings.transparencyYesNoFilterData,
+                yes,
+                no,
+              },
+            }
+            this.getMainTableData()
+          })
+        },
+      },
+
+      childrenYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          runInAction(() => {
+            this.columnMenuSettings = {
+              ...this.columnMenuSettings,
+              childrenYesNoFilterData: {
+                ...this.columnMenuSettings.childrenYesNoFilterData,
                 yes,
                 no,
               },
@@ -246,6 +265,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           ? {}
           : {
               transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
+            }),
+
+        ...(this.columnMenuSettings.childrenYesNoFilterData.yes && this.columnMenuSettings.childrenYesNoFilterData.no
+          ? {}
+          : {
+              isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
             }),
 
         ...(purchaseQuantityAboveZero && {
