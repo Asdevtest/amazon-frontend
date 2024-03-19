@@ -33,6 +33,8 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
 
   const [switchOptionsToRender, setSwitchOptionsToRender] = useState<ISwitcherSettings[]>(switcherSettings)
 
+  console.log('switcherSettings :>> ', switcherSettings)
+
   useEffect(() => {
     setSwitchOptionsToRender(switcherSettings)
   }, [switcherSettings])
