@@ -56,8 +56,8 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
     setValue(text)
   }, [text])
 
-  const disabledSave =
-    value !== '' && (!isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50)))
+  const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
+
   const inputError = !!text && !value
 
   return (

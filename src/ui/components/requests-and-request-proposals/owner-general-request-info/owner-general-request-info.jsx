@@ -47,7 +47,10 @@ export const OwnerGeneralRequestInfo = props => {
       request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS) &&
     requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
-  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id
+  const disableMarkAsCompletedButton =
+    request?.request?.createdBy?._id !== userInfo?._id && request?.request?.sub?._id !== userInfo?._id
+
+  console.log('request :>> ', request)
 
   return (
     <div className={styles.root}>

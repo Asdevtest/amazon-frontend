@@ -108,7 +108,9 @@ export const getAxiosInstance = () => {
         error.response?.data?.statusCode === 403 &&
         accessDeniedErrorMessageList.includes(error?.response?.data?.message)
       ) {
-        toast.error(t(TranslationKey['Access is restricted']))
+        toast.error(t(TranslationKey['Access is denied']), {
+          toastId: 'accessDenied',
+        })
         return Promise.reject(error)
       } else {
         return Promise.reject(error)
