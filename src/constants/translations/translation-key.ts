@@ -2216,5 +2216,6 @@ export enum TranslationKey {
   'SEO file' = 'SEO file',
   'Access is denied' = 'Access is denied',
   'Parent' = 'Parent',
+  'China' = 'China',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
