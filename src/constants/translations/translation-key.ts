@@ -2215,5 +2215,6 @@ export enum TranslationKey {
   'Select only one SEO file' = 'Select only one SEO file',
   'SEO file' = 'SEO file',
   'Access is denied' = 'Access is denied',
+  'Parent' = 'Parent',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

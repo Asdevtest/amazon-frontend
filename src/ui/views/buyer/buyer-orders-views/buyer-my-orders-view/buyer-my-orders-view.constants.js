@@ -54,3 +54,13 @@ export const attentionStatuses = [
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
+
+export const paymentMethodsReadOnlyStatuses = [
+  OrderStatusByKey[OrderStatus.PARTIALLY_PAID],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+  OrderStatusByKey[OrderStatus.IN_STOCK],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+]

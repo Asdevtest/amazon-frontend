@@ -2723,7 +2723,7 @@ export const OnListingCellMenuItem = memo(
 )
 
 export const YesNoCellMenuItem = memo(
-  withStyles(({ classes: styles, data, onClose, field }) => {
+  withStyles(({ classes: styles, data, onClose, field, yesCustomText, noCustomText }) => {
     const filterData = data[`${field}YesNoFilterData`]
     const [condition, setCondition] = useState({
       yes: filterData.yes,
@@ -2753,7 +2753,7 @@ export const YesNoCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
+              <Typography title={yesCustomText}>{yesCustomText}</Typography>
             </div>
 
             <div className={styles.shop}>
@@ -2775,7 +2775,7 @@ export const YesNoCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.No)}>{t(TranslationKey.No)}</Typography>
+              <Typography title={noCustomText}>{noCustomText}</Typography>
             </div>
           </div>
         </div>

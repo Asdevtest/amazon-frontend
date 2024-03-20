@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './get-files-form.style'
@@ -15,7 +16,7 @@ export const GetFilesForm = ({ receivedFiles, onClose }) => {
     <div className={styles.root}>
       <Typography className={styles.modalText}>{t(TranslationKey['Received files'])}</Typography>
 
-      <Link href={receivedFiles} download="file.xlsx" target="_blank">
+      <Link href={checkAndMakeAbsoluteUrl(receivedFiles)} download="file.xlsx" target="_blank">
         {t(TranslationKey.download)}
       </Link>
 

@@ -199,11 +199,9 @@ const Slot = ({
           />
         </div>
 
-        <div className={styles.imageObjSubWrapper}>
-          <Typography className={cx(styles.clientComment)}>
-            {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
-          </Typography>
-        </div>
+        <Typography title={slot?.commentByClient || ''} className={styles.clientComment}>
+          {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
+        </Typography>
       </div>
     </div>
   )

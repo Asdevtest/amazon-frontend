@@ -10,6 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ClientModel } from '@models/client-model'
 
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { getTab } from '@components/product/product-wrapper/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -68,7 +69,7 @@ export const ProductCardModal = observer(props => {
   const [viewModel] = useState(setCurrentModel())
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
-  const [currentTab, setCurrentTab] = useState('MAIN_INFO')
+  const [currentTab, setCurrentTab] = useState(getTab(viewModel.showTab))
 
   useEffect(() => {
     viewModel.loadData()
