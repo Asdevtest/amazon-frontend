@@ -28,6 +28,7 @@ import { Toolbar } from './toolbar'
 interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
   readOnly?: boolean
+  defaultSupplierId?: string
   checkIsPlanningPrice?: boolean
   isNotProductNameForIdea?: boolean
   onSaveProduct?: () => void
@@ -39,6 +40,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const {
     formFields,
     readOnly,
+    defaultSupplierId,
     checkIsPlanningPrice,
     isNotProductNameForIdea,
     onClickSaveSupplier,
@@ -74,6 +76,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   })
   const isCurrentSupplierSelected =
     (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
+  const isDefaultSupplier =
+    !!orderStatus && defaultSupplierId === (orderSupplier?._id || extractProduct(formFields).currentSupplierId)
 
   return (
     <>
@@ -102,6 +106,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
                   readOnly={readOnly}
                   userInfo={viewModel.userInfo}
                   isNotProductNameForIdea={isNotProductNameForIdea}
+                  isDefaultSupplier={isDefaultSupplier}
                   isSupplerSelected={viewModel.selectionModel.length > 0}
                   isCurrentSupplierSelected={isCurrentSupplierSelected}
                   status={extractProduct(formFields)?.status}
