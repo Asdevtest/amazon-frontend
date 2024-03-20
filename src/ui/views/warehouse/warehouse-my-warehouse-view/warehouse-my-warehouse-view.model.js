@@ -814,7 +814,7 @@ export class WarehouseMyWarehouseViewModel {
         shippingLabel: this.uploadedFiles[0],
       }
 
-      await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedImages' })
+      await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedFiles' })
       boxBody = {
         ...boxBody,
         images: this.uploadedFiles,
@@ -855,8 +855,6 @@ export class WarehouseMyWarehouseViewModel {
         this.selectedBoxes = []
         this.tmpClientComment = ''
       })
-
-      await this.getBoxesMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
