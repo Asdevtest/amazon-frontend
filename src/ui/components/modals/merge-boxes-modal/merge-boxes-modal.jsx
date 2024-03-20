@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Chip, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
@@ -422,25 +423,12 @@ export const MergeBoxesModal = ({
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Chip
-                    classes={{
-                      root: styles.barcodeChip,
-                      clickable: styles.barcodeChipHover,
-                      deletable: styles.barcodeChipHover,
-                      deleteIcon: styles.barcodeChipIcon,
-                      label: styles.barcodeChiplabel,
-                    }}
-                    className={cx({ [styles.barcodeChipExists]: boxBody.shippingLabel })}
-                    size="small"
-                    label={
-                      boxBody.tmpShippingLabel?.length
-                        ? t(TranslationKey['File added'])
-                        : boxBody.shippingLabel
-                        ? boxBody.shippingLabel
-                        : t(TranslationKey['Set Shipping Label'])
-                    }
-                    onClick={() => onClickShippingLabel()}
-                    onDelete={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                  <ChangeChipCell
+                    isChipOutTable
+                    text={!boxBody.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
+                    value={boxBody?.tmpShippingLabel?.[0]?.file?.name || boxBody?.tmpShippingLabel?.[0]}
+                    onClickChip={onClickShippingLabel}
+                    onDeleteChip={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />
