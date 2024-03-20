@@ -45,7 +45,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isS
               <p className={styles.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
             }
           />
-          S
         </div>
       </div>
     </div>
