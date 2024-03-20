@@ -322,9 +322,7 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-      }
+      await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
 
       const orderFieldsToSave = {
         ...orderFields,
