@@ -87,7 +87,7 @@ export const CreateOrEditProposalContent = memo(props => {
     !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    (isEqual(getSourceFormFields(), formFields) && proposalToEdit?.linksToMediaFiles?.length === images.length)
+    (isEqual(getSourceFormFields(), formFields) && isEqual(proposalToEdit?.linksToMediaFiles, images))
 
   return (
     <div className={styles.mainWrapper}>
