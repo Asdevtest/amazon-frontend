@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef } from 'react'
+import { FC, memo } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
@@ -8,6 +8,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
+
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
 import { useStyles } from './show-previews.style'
 
@@ -25,19 +27,7 @@ export const ShowPreviews: FC<ShowPreviewsProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const activeSlideRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (activeSlideRef.current) {
-        activeSlideRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        })
-      }
-    }, 0)
-  }, [currentIndex])
+  const activeSlideRef = useScrollToFile(currentIndex)
 
   return showPreviews ? (
     <div className={styles.slides}>

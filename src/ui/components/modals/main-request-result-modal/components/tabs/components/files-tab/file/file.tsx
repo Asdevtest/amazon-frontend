@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, RefAttributes, forwardRef, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,72 +27,74 @@ interface FileProps {
   readOnly?: boolean
 }
 
-export const File: FC<FileProps> = memo(props => {
-  const {
-    isClient,
-    file,
-    fileIndex,
-    checked,
-    onCheckFile,
-    onToggleImageModal,
-    onToggleCommentModal,
-    onDeleteFile,
-    onChangeFileName,
-    onUploadFile,
-    readOnly,
-  } = props
+export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
+  forwardRef((props, ref) => {
+    const {
+      isClient,
+      file,
+      fileIndex,
+      checked,
+      onCheckFile,
+      onToggleImageModal,
+      onToggleCommentModal,
+      onDeleteFile,
+      onChangeFileName,
+      onUploadFile,
+      readOnly,
+    } = props
 
-  const { classes: styles, cx } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
-  const clientOrReadOnly = isClient || readOnly
-  const commonContent = <CommonContent file={file} fileIndex={fileIndex} onToggleImageModal={onToggleImageModal} />
+    const clientOrReadOnly = isClient || readOnly
+    const commonContent = <CommonContent file={file} fileIndex={fileIndex} onToggleImageModal={onToggleImageModal} />
 
-  return (
-    <div className={styles.fileContainer}>
-      {clientOrReadOnly ? (
-        <Checkbox
-          stopPropagation
-          checked={checked}
-          className={styles.checkbox}
-          wrapperClassName={styles.checkboxWrapper}
-          onChange={() => onCheckFile(file)}
-        />
-      ) : (
-        <button
-          className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
-          onClick={() => onDeleteFile(fileIndex)}
-        >
-          ✕
-        </button>
-      )}
-
-      {clientOrReadOnly ? (
-        commonContent
-      ) : file.fileLink ? (
-        commonContent
-      ) : (
-        <button className={styles.file}>
-          <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
-          <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
-          <input
-            multiple
-            type="file"
-            className={styles.pasteInput}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
+    return (
+      <div ref={ref} className={styles.fileContainer}>
+        {clientOrReadOnly ? (
+          <Checkbox
+            stopPropagation
+            checked={checked}
+            className={styles.checkbox}
+            wrapperClassName={styles.checkboxWrapper}
+            onChange={() => onCheckFile(file)}
           />
-        </button>
-      )}
+        ) : (
+          <button
+            className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
+            onClick={() => onDeleteFile(fileIndex)}
+          >
+            ✕
+          </button>
+        )}
 
-      <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
+        {clientOrReadOnly ? (
+          commonContent
+        ) : file.fileLink ? (
+          commonContent
+        ) : (
+          <button className={styles.file}>
+            <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
+            <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
+            <input
+              multiple
+              type="file"
+              className={styles.pasteInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
+            />
+          </button>
+        )}
 
-      <ClientCommentSection
-        readOnly={readOnly}
-        isClient={isClient}
-        file={file}
-        fileIndex={fileIndex}
-        onToggleCommentModal={onToggleCommentModal}
-        onChangeFileName={onChangeFileName}
-      />
-    </div>
-  )
-})
+        <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
+
+        <ClientCommentSection
+          readOnly={readOnly}
+          isClient={isClient}
+          file={file}
+          fileIndex={fileIndex}
+          onToggleCommentModal={onToggleCommentModal}
+          onChangeFileName={onChangeFileName}
+        />
+      </div>
+    )
+  }),
+)
