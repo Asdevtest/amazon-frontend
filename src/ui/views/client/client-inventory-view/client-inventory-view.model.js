@@ -404,7 +404,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickVariationButton(id) {
     try {
-      const result = await ProductModel.getProductsVariationsByGuid(id)
+      const result = await ProductModel.getProductsVariationsByGuid(id, true, true)
 
       runInAction(() => {
         this.productVariations = result

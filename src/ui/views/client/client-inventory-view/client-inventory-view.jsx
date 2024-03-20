@@ -90,8 +90,10 @@ export const ClientInventoryView = observer(({ history }) => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
+          treeData
           checkboxSelection
           disableRowSelectionOnClick
+          getTreeDataPath={row => [row?.amazonTitle]}
           getCellClassName={getCellClassName}
           getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}

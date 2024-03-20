@@ -200,9 +200,9 @@ export const clientInventoryColumns = (
       ),
       valueGetter: params => {
         return params.row?.boxAmounts
-          .sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          .map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          .join(', ')
+          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
+          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
+          ?.join(', ')
       },
       width: 145,
       disableCustomSort: true,

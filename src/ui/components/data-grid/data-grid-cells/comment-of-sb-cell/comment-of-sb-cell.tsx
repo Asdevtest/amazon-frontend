@@ -32,7 +32,7 @@ export const CommentOfSbCell: FC<CommentOfSbCellProps> = memo(({ productsInWareh
         </Tooltip>
       ) : (
         <div className={styles.commentOfSbSubWrapper}>
-          {productsInWarehouse.some((el: any) => el.comment) && (
+          {productsInWarehouse?.some((el: any) => el.comment) && (
             <p className={styles.commentOfSbSubMultiText}>{t(TranslationKey.Comments) + ':'}</p>
           )}
           {productsInWarehouse?.map((item: any, index: number) => (

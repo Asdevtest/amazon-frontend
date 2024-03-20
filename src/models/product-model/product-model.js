@@ -52,8 +52,8 @@ class ProductModelStatic {
     return response.data
   }
 
-  getProductsVariationsByGuid = async guid => {
-    const response = await restApiService.product.apiV1ProductsVariationsGuidGet({ guid })
+  getProductsVariationsByGuid = async (guid, dataFromInventory, preset) => {
+    const response = await restApiService.product.apiV1ProductsVariationsGuidGet({ guid, dataFromInventory, preset })
     return response.data
   }
 
