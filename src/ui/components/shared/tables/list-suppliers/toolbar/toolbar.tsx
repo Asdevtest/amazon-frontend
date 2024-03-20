@@ -38,6 +38,7 @@ interface ToolbarProps {
   readOnly?: boolean
   userInfo?: IFullUser
   supplier?: ISupplier
+  isDefaultSupplier?: boolean
   checkIsPlanningPrice?: boolean
   isNotProductNameForIdea?: boolean
 }
@@ -53,6 +54,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     readOnly,
     userInfo,
     supplier,
+    isDefaultSupplier,
     checkIsPlanningPrice,
     isNotProductNameForIdea,
   } = props
@@ -78,7 +80,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         ideaValidStatuses.includes(status)) ||
-      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && !orderStatus) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) && !status))
 
   const showEditSupplierButton =
@@ -91,7 +93,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
         ideaValidStatuses.includes(status) &&
         isSelectedOwner) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && isSelectedOwner))
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && isSelectedOwner && !orderStatus))
 
   const showToggleCurrentSupplierButton =
     !readOnly &&
@@ -119,10 +121,10 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.minlot &&
     supplier?.priceInYuan &&
     supplier?.price
-  const isPendingOrderAndNotCurrentSupplierSelected =
+  const isPendingOrderAndNotDefaultSupplier =
     userInfo &&
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-    !isCurrentSupplierSelected &&
+    !isDefaultSupplier &&
     orderStatus === OrderStatus.PENDING
   const isAtProcessOrder =
     userInfo &&
@@ -137,11 +139,12 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !supplier ||
     supplier?.name === ACCESS_DENIED ||
     isAtProcessOrder ||
+    isPendingOrderAndNotDefaultSupplier ||
     (userInfo &&
       checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
       userInfo?._id !== supplier?.createdBy?._id &&
       userInfo?.masterUser?._id !== supplier?.createdBy?._id)
-  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotCurrentSupplierSelected
+  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotDefaultSupplier
     ? t(TranslationKey['Editing is unavailable due to change of current supplier'])
     : ''
 

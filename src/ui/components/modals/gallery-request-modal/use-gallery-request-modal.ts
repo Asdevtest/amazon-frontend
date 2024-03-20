@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid'
 import { MAX_DEFAULT_MEDIA_FILES } from '@constants/text'
 
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
@@ -22,7 +23,7 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
     const initialDocumentsStates: IState = {}
 
     const filterAndAssign = (files: string[], personKey: string) => {
-      initialMediaFilesStates[personKey] = files?.filter(file => checkIsMediaFileLink(file)) || []
+      initialMediaFilesStates[personKey] = files?.filter(file => checkIsMediaFileLink(getAmazonImageUrl(file))) || []
       initialDocumentsStates[personKey] = files?.filter(file => checkIsDocumentLink(file)) || []
     }
 

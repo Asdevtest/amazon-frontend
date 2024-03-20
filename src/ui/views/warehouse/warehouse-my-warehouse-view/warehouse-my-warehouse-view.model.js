@@ -808,19 +808,23 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      boxBody = {
+        ...boxBody,
+        shippingLabel: this.uploadedFiles[0],
       }
 
-      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...boxBody,
-          shippingLabel: this.uploadedFiles.length
-            ? this.uploadedFiles[0]
-            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
-        },
-        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
-      )
+      await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedImages' })
+      boxBody = {
+        ...boxBody,
+        images: this.uploadedFiles,
+      }
+
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, [
+        'tmpShippingLabel',
+        'storekeeperId',
+        'humanFriendlyId',
+      ])
 
       const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 

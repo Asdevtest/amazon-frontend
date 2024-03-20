@@ -56,8 +56,8 @@ export const clientInventoryColumns = (
 
     {
       field: 'children',
-      headerName: 'Children',
-      renderHeader: () => <MultilineTextHeaderCell text="Children" />,
+      headerName: t(TranslationKey.Variation),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Variation)} />,
       renderCell: ({ row }) => (
         <ProductVariationsCell
           showVariationButton={row?.parentProductId || row?.hasChildren}
@@ -65,7 +65,7 @@ export const clientInventoryColumns = (
           onClickVariationButton={() => otherHandlers.onClickVariationButton(row?.parentProductId || row?._id)}
         />
       ),
-      width: 80,
+      width: 90,
       columnKey: columnnsKeys.shared.YES_NO,
     },
 
