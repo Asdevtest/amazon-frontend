@@ -255,11 +255,11 @@ export const useStyles = makeStyles()(theme => {
       },
 
       '&:hover': {
-        border: `1px solid ${primaryHoverColor}`,
-        backgroundColor: primaryHoverBackground,
+        border: `1px solid ${primaryHoverColor} !important`,
+        backgroundColor: `${primaryHoverBackground} !important`,
 
         '> svg': {
-          color: primaryHoverColor,
+          color: `${primaryHoverColor} !important`,
         },
       },
 
