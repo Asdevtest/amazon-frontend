@@ -1415,9 +1415,9 @@ export class ClientInStockBoxesViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxBody,
-          shippingLabel: this.uploadedFiles.length
-            ? this.uploadedFiles[0]
-            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles?.[0]
+            : boxBody?.tmpShippingLabel?.[0] || boxBody?.shippingLabel,
         },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
         undefined,
