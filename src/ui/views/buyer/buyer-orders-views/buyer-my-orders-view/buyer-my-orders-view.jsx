@@ -24,7 +24,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
-import { attentionStatuses } from './buyer-my-orders-view.constants'
+import { attentionStatuses, paymentMethodsReadOnlyStatuses } from './buyer-my-orders-view.constants'
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
@@ -236,7 +236,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
       >
         <PaymentMethodsForm
-          readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
+          readOnly={paymentMethodsReadOnlyStatuses.includes(viewModel.currentOrder?.status)}
           orderPayments={viewModel.currentOrder?.payments}
           allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
