@@ -12,7 +12,6 @@ import { adminBoxesViewColumns } from '@components/table/table-columns/admin/box
 
 import { adminBoxesDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
 import { filtersFields } from './admin-warehouse-boxes-view.constants'
@@ -138,7 +137,7 @@ export class AdminWarehouseBoxesViewModel {
       })
 
       runInAction(() => {
-        this.boxes = adminBoxesDataConverter(rows).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxes = adminBoxesDataConverter(rows)
         this.rowCount = count
       })
 
