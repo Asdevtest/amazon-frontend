@@ -11,6 +11,8 @@ import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
 
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
+
 import { useStyles } from './files-tab.style'
 
 import { Buttons } from './buttons'
@@ -58,6 +60,8 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
   const disabledUpdateSeoFilesInProductButton = filesForDownload.length !== ONLY_ONE_SEO_FILE
   const errorUpdateSeoFilesInProduct = filesForDownload.length > ONLY_ONE_SEO_FILE
 
+  const lastFileRef = useScrollToFile(files)
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -65,6 +69,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           {files.map((file, index) => (
             <File
               key={index}
+              ref={index === files.length - 1 ? lastFileRef : null}
               readOnly={props.readOnly}
               isClient={props.isClient}
               file={file}

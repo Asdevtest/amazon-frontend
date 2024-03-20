@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
@@ -9,6 +9,8 @@ import {
 import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { UploadFileType } from '@typings/shared/upload-file'
+
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
 import { useStyles } from './slides.style'
 
@@ -41,26 +43,8 @@ export const Slides: FC<SlidesProps> = memo(props => {
     isModalSize,
   )
   const finalVideoHeight = isModalSize ? PREVIEWS_SLIDE_HEIGHT_IN_MODAL : DEFAULT_PREVIEWS_SLIDE_HEIGHT
-  const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    const childElement = activeSlideRef.current
-
-    if (!childElement) return
-
-    const parentElement = childElement?.parentElement
-
-    if (!parentElement) return
-
-    const parentRect = parentElement.getBoundingClientRect()
-    const childRect = childElement.getBoundingClientRect()
-
-    const offset = (parentRect.height - childRect.height) / 2
-
-    const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
-
-    parentElement?.scrollTo({ top })
-  }, [currentMediaFileIndex])
+  const activeSlideRef = useScrollToFile(currentMediaFileIndex)
 
   return (
     <div
